@@ -41,6 +41,12 @@ void action_exec(keyevent_t event)
         dprint("EVENT: "); debug_event(event); dprintln();
     }
 
+#ifdef ONEHAND_ENABLE
+    if (!IS_NOEVENT(event)) {
+        process_hand_swap(&event);
+    }
+#endif
+
     keyrecord_t record = { .event = event };
 
 #ifndef NO_ACTION_TAPPING
@@ -52,6 +58,26 @@ void action_exec(keyevent_t event)
     }
 #endif
 }
+
+#ifdef ONEHAND_ENABLE
+bool swap_hands = false;
+
+void process_hand_swap(keyevent_t *event) {
+    static swap_state_row_t swap_state[MATRIX_ROWS];
+
+    keypos_t pos = event->key;
+    swap_state_row_t col_bit = (swap_state_row_t)1<<pos.col;
+    bool do_swap = event->pressed ? swap_hands :
+                                    swap_state[pos.row] & (col_bit);
+
+    if (do_swap) {
+        event->key = hand_swap_config[pos.row][pos.col];
+        swap_state[pos.row] |= col_bit;
+    } else {
+        swap_state[pos.row] &= ~(col_bit);
+    }
+}
+#endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 bool disable_action_cache = false;
@@ -440,6 +466,54 @@ void process_action(keyrecord_t *record, action_t action)
 #endif
         case ACT_COMMAND:
             break;
+#ifdef ONEHAND_ENABLE
+        case ACT_SWAP_HANDS:
+            switch (action.swap.code) {
+                case OP_SH_TOGGLE:
+                    if (event.pressed) {
+                        swap_hands = !swap_hands;
+                    }
+                    break;
+                case OP_SH_ON_OFF:
+                    swap_hands = event.pressed;
+                    break;
+                case OP_SH_OFF_ON:
+                    swap_hands = !event.pressed;
+                    break;
+                case OP_SH_ON:
+                    if (!event.pressed) {
+                        swap_hands = true;
+                    }
+                    break;
+                case OP_SH_OFF:
+                    if (!event.pressed) {
+                        swap_hands = false;
+                    }
+                    break;
+    #ifndef NO_ACTION_TAPPING
+                case OP_SH_TAP_TOGGLE:
+                    /* tap toggle */
+                    if (tap_count > 0) {
+                        if (!event.pressed) {
+                            swap_hands = !swap_hands;
+                        }
+                    } else {
+                        swap_hands = event.pressed;
+                    }
+                    break;
+                default:
+                    if (tap_count > 0) {
+                        if (event.pressed) {
+                            register_code(action.swap.code);
+                        } else {
+                            unregister_code(action.swap.code);
+                        }
+                    } else {
+                        swap_hands = event.pressed;
+                    }
+    #endif
+            }
+#endif
 #ifndef NO_ACTION_FUNCTION
         case ACT_FUNCTION:
             action_function(record, action.func.id, action.func.opt);
@@ -652,6 +726,13 @@ bool is_tap_key(keypos_t key)
                     return true;
             }
             return false;
+        case ACT_SWAP_HANDS:
+            switch (action.swap.code) {
+                case 0x00 ... 0xdf:
+                case OP_SH_TAP_TOGGLE:
+                    return true;
+            }
+            return false;
         case ACT_MACRO:
         case ACT_FUNCTION:
             if (action.func.opt & FUNC_TAP) { return true; }
@@ -692,6 +773,7 @@ void debug_action(action_t action)
         case ACT_MACRO:             dprint("ACT_MACRO");             break;
         case ACT_COMMAND:           dprint("ACT_COMMAND");           break;
         case ACT_FUNCTION:          dprint("ACT_FUNCTION");          break;
+        case ACT_SWAP_HANDS:        dprint("ACT_SWAP_HANDS");        break;
         default:                    dprint("UNKNOWN");               break;
     }
     dprintf("[%X:%02X]", action.kind.param>>8, action.kind.param&0xff);

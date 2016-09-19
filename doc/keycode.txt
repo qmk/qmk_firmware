@@ -2,7 +2,7 @@ Keycode Symbol Table
 ====================
 Keycodes are defined in `common/keycode.h`.
 Range of 00-A4 and E0-E7 are identical with HID Usage:
-<http://www.usb.org/developers/devclass_docs/Hut1_11.pdf>
+<http://www.usb.org/developers/hidpage/Hut1_12v2.pdf>
 Virtual keycodes are defined out of above range to support special actions.
 
 

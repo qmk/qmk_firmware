@@ -23,7 +23,7 @@ These features can be used in your keyboard.
 * Mouse key           - Mouse control with keyboard
 * System Control Key  - Power Down, Sleep, Wake Up and USB Remote Wake up
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
-* USB NKRO            - 120 keys(+ 8 modifiers) simultaneously
+* USB NKRO            - 248 keys(+ 8 modifiers) simultaneously
 * PS/2 mouse support  - PS/2 mouse(TrackPoint) as composite device
 * Keyboard protocols  - PS/2, ADB, M0110, Sun and other old keyboard protocols
 * User Function       - Customizable function of key with writing code

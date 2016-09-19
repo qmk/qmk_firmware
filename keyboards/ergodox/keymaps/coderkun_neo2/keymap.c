@@ -1,5 +1,4 @@
 #include "ergodox.h"
-#include "debug.h"
 #include "action_layer.h"
 #include "led.h"
 #include "keymap_extras/keymap_neo2.h"
@@ -138,11 +137,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ┌───────┬─────┬─────┬─────┬─────┬─────┬─────┐     ┌─────┬─────┬─────┬─────┬─────┬─────┬───────┐
  * │       │     │     │     │     │     │     │     │     │     │     │     │     │     │       │
  * ├───────┼─────┼─────┼─────┼─────┼─────┼─────┤     ├─────┼─────┼─────┼─────┼─────┼─────┼───────┤
- * │       │     │     │     │  ✕  │     │     │     │     │     │ F9  │ F10 │ F11 │ F12 │       │
+ * │       │  ┌  │  ┬  │  ┐  │  ─  │  │  │     │     │     │     │ F9  │ F10 │ F11 │ F12 │       │
  * ├───────┼─────┼─────┼─────╆─────╅─────┤     │     │     ├─────╆─────╅─────┼─────┼─────┼───────┤
- * │       │     │     │     │  ✓  │     ├─────┤     ├─────┤     │ F5  │ F6  │ F7  │ F8  │       │
+ * │       │  ├  │  ┼  │  ┤  │  ✓  │  ✕  ├─────┤     ├─────┤     │ F5  │ F6  │ F7  │ F8  │       │
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
- * │       │     │     │     │     │     │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
+ * │       │  └  │  ┴  │  ┘  │     │     │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
  *   │     │     │(MO1)│     │(MO4)│                             │(MO4)│     │(MO1)│     │     │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
@@ -156,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [FMU] = KEYMAP(
         // left hand
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,UC(0x2713),KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,UC(0x2715),KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    UC(0x250C),UC(0x252C),UC(0x2510),UC(0x2500),UC(0x2502),KC_TRNS,
+        KC_TRNS,    UC(0x251C),UC(0x253C),UC(0x2524),UC(0x2713),UC(0x2715),
+        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                                     KC_MS_L,    KC_MS_U,
                                                                 KC_BTN1,
@@ -245,6 +244,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    set_unicode_input_mode(UC_LNX);
 };
 
 
@@ -278,4 +278,15 @@ void matrix_scan_user(void)
         break;
     }
 
+};
+
+
+// Override Unicode start method to use NEO_U instead of KC_U
+void unicode_input_start (void) {
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    register_code(NEO_U);
+    unregister_code(NEO_U);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
 };
