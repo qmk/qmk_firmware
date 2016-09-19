@@ -2,48 +2,59 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "led.h"
+#include "mousekey.h"
 
 #ifdef AUDIO_ENABLE
     #include "audio.h"
     #include "song_list.h"
 #endif
 
-#define LAYER_QWERTY                     0
-#define LAYER_COLEMAK                    1
-#define LAYER_DVORAK                     2
-#define LAYER_UPPER                      3
-#define LAYER_LOWER                      4
-#define LAYER_FUNCTION                   5
-#define LAYER_MOUSE                      6
-#define LAYER_ADJUST                     7
-
-#define MACRO_QWERTY                     0
-#define MACRO_COLEMAK                    1
-#define MACRO_DVORAK                     2
-#define MACRO_UPPER                      3
-#define MACRO_LOWER                      4
-#define MACRO_FUNCTION                   5
-#define MACRO_MOUSE                      6
-#define MACRO_TIMBRE_1                   7
-#define MACRO_TIMBRE_2                   8
-#define MACRO_TIMBRE_3                   9
-#define MACRO_TIMBRE_4                  10
-#define MACRO_TEMPO_U                   11
-#define MACRO_TEMPO_D                   12
-#define MACRO_TONE_DEFAULT              13
-#define MACRO_MUSIC_TOGGLE              14
-#define MACRO_AUDIO_TOGGLE              16
-#define MACRO_INC_VOICE                 18
-#define MACRO_DEC_VOICE                 19
-#define MACRO_BACKLIGHT                 20
-#define MACRO_BREATH_TOGGLE             21
-#define MACRO_BREATH_SPEED_INC          23
-#define MACRO_BREATH_SPEED_DEC          24
-#define MACRO_BREATH_DEFAULT            25
+enum keyboard_layers {
+  LAYER_QWERTY = 0,
+  LAYER_UPPER,
+  LAYER_LOWER,
+  LAYER_FUNCTION,
+  LAYER_MOUSE,
+  LAYER_ADJUST,
+};
+enum keyboard_macros {
+  MACRO_QWERTY = 0,
+  MACRO_UPPER,
+  MACRO_LOWER,
+  MACRO_FUNCTION,
+  MACRO_MOUSE,
+  MACRO_TIMBRE_1,
+  MACRO_TIMBRE_2,
+  MACRO_TIMBRE_3,
+  MACRO_TIMBRE_4,
+  MACRO_TEMPO_U,
+  MACRO_TEMPO_D,
+  MACRO_TONE_DEFAULT,
+  MACRO_MUSIC_TOGGLE,
+  MACRO_AUDIO_TOGGLE,
+  MACRO_INC_VOICE,
+  MACRO_DEC_VOICE,
+  MACRO_BACKLIGHT,
+  MACRO_BREATH_TOGGLE,
+  MACRO_BREATH_SPEED_INC,
+  MACRO_BREATH_SPEED_DEC,
+  MACRO_BREATH_DEFAULT,
+  MACRO_MOUSE_MOVE_UL,
+  MACRO_MOUSE_MOVE_UR,
+  MACRO_MOUSE_MOVE_DL,
+  MACRO_MOUSE_MOVE_DR,
+  MACRO_HELP_1,
+  MACRO_HELP_2,
+  MACRO_HELP_3,
+  MACRO_HELP_4,
+  MACRO_HELP_5,
+  MACRO_HELP_6,
+  MACRO_HELP_7,
+  MACRO_HELP_8,
+  MACRO_HELP_9,
+};
 
 #define M_QWRTY             M(MACRO_QWERTY)
-#define M_COLMK             M(MACRO_COLEMAK)
-#define M_DVORK             M(MACRO_DVORAK)
 #define M_UPPER             M(MACRO_UPPER)
 #define M_LOWER             M(MACRO_LOWER)
 #define M_FUNCT             M(MACRO_FUNCTION)
@@ -60,6 +71,19 @@
 #define M_BSPDU             M(MACRO_BREATH_SPEED_INC)
 #define M_BSPDD             M(MACRO_BREATH_SPEED_DEC)
 #define M_BDFLT             M(MACRO_BREATH_DEFAULT)
+#define M_MS_UL             M(MACRO_MOUSE_MOVE_UL)
+#define M_MS_UR             M(MACRO_MOUSE_MOVE_UR)
+#define M_MS_DL             M(MACRO_MOUSE_MOVE_DL)
+#define M_MS_DR             M(MACRO_MOUSE_MOVE_DR)
+#define M_HELP1             M(MACRO_HELP_1)
+#define M_HELP2             M(MACRO_HELP_2)
+#define M_HELP3             M(MACRO_HELP_3)
+#define M_HELP4             M(MACRO_HELP_4)
+#define M_HELP5             M(MACRO_HELP_5)
+#define M_HELP6             M(MACRO_HELP_6)
+#define M_HELP7             M(MACRO_HELP_7)
+#define M_HELP8             M(MACRO_HELP_8)
+#define M_HELP9             M(MACRO_HELP_9)
 
 
 #define VC_UP               M(MACRO_INC_VOICE)
@@ -77,6 +101,7 @@
 #define SC_ACLS             LALT(KC_F4)
 #define SC_CCLS             LCTL(KC_F4)
 
+#define TG_NKRO             MAGIC_TOGGLE_NKRO
 #define OS_SHFT             KC_FN0
 
 #define _______             KC_TRNS
@@ -86,169 +111,126 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* QWERTY
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | XXXXXX . BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | TAB    | Q      | W      | E      | R      | T      | Y      | U      | I      | O      | P      | [      | ]      | \      | DEL    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAPS   | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      | XXXXXX . ENTER  | PG UP  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | XXXXXX . RSHIFT | UP     | PG DN  |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LWIN   | FN     | LALT   | UPPER  | XXXXXX . SPACE  | LOWER  | SHIFT  | RALT   | APP    | RCTRL  | LEFT   | DOWN   | RIGHT  |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_QWERTY]       = { // QWERTY
-  { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
-  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
-  { KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
-  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC,  KC_SPC,  M_LOWER, OS_SHFT, KC_RALT, KC_APP,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
- },
-
- /* COLEMAK
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | XXXXXX . BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | TAB    | Q      | W      | F      | P      | G      | J      | L      | U      | Y      | ;      | [      | ]      | \      | DEL    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | BACKSP | A      | R      | S      | T      | D      | H      | N      | E      | I      | O      | '      | XXXXXX . ENTER  | PG UP  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | LSHIFT | Z      | X      | C      | V      | B      | K      | M      | ,      | .      | /      | XXXXXX . RSHIFT | UP     | PG DN  |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LWIN   | FN     | LALT   | UPPER  | XXXXXX . SPACE  | LOWER  | SHIFT  | RALT   | APP    | RCTRL  | LEFT   | DOWN   | RIGHT  |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_COLEMAK]      = { // COLEMAK
-  { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
-  { KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
-  { KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
-  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC,  KC_SPC,  M_LOWER, OS_SHFT, KC_RALT, KC_APP,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
-},
-
-/* DVORAK
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | [      | ]      | XXXXXX . BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | TAB    | '      | ,      | .      | P      | Y      | F      | G      | C      | R      | L      | /      | =      | \      | DEL    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAPS   | A      | O      | E      | U      | I      | D      | H      | T      | N      | S      | -      | XXXXXX . ENTER  | PG UP  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | LSHIFT | ;      | Q      | J      | K      | X      | B      | M      | W      | V      | Z      | XXXXXX . RSHIFT | UP     | PG DN  |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LWIN   | FN     | LALT   | UPPER  | XXXXXX . SPACE  | LOWER  | SHIFT  | RALT   | APP    | RCTRL  | LEFT   | DOWN   | RIGHT  |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_DVORAK]       = { // DVORAK
-  { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC, KC_BSPC  },
-  { KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS, KC_DEL   },
-  { KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_ENT,  KC_ENT,  KC_PGUP  },
-  { KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC,  KC_SPC,  M_LOWER, OS_SHFT, KC_RALT, KC_APP,  KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT  },
- },
-
-/* UPPER
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | PRINT  | BR TOG | BR SP+ | BR SP- | BR RST | XXXXXX | XXXXXX | NUM LK | /      | *      |        | NUM LK | SCR LK | XXXXXX . PAUSE  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * |        | F1     | F2     | F3     | F4     |        |        | 7      | 8      | 9      | -      |        |        |        | INS    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | F5     | F6     | F7     | F8     |        |        | 4      | 5      | 6      | +      |        | XXXXXX .        | HOME   |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * |        | F9     | F10    | F11    | F12    |        |        | 1      | 2      | 3      | ENTER  | XXXXXX .        |        | END    |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        | 0               |        | RALT   | .      | ENTER  |        |        |        |        |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_UPPER]        = { // UPPER
-  { KC_PSCR, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, KC_NLCK, KC_PSLS, KC_PAST, XXXXXXX, XXXXXXX, KC_SLCK, KC_PAUS, KC_PAUS  },
-  { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, _______, _______, _______, KC_INS   },
-  { KC_CAPS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, ________________, KC_HOME  },
-  { _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, ________________, _______, KC_END   },
-  { _______, _______, _______, _______, _______, KC_KP_0, KC_KP_0, _______, KC_RALT, KC_PDOT, KC_PENT, _______, _______, _______, _______  },
- },
-
-/* LOWER
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | XXXXXX . BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * |        | $      | {      | [      | (      | %      | #      | )      | ]      | }      | @      |        |        |        | INS    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * |        | ^      | *      | +      | -      | /      | \      | _      | '      | "      | `      |        | XXXXXX .        | HOME   |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * |        | |      | &      | !      | ~      | ;      | :      | =      | <      | >      | ?      | XXXXXX .        |        | END    |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        |                 |        |        |        |        |        |        |        |        |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_LOWER]        = { // LOWER
-  { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ________________  },
-  { _______, KC_DLR,  KC_LCBR, KC_LBRC, KC_LPRN, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, KC_RCBR, KC_AT,   _______, _______, _______, KC_INS   },
-  { _______, KC_CIRC, KC_ASTR, KC_PPLS, KC_PMNS, KC_SLSH, KC_BSLS, KC_UNDS, KC_QUOT, KC_DQT,  KC_GRV,  _______, ________________, KC_HOME  },
-  { _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SCLN, KC_COLN, KC_EQL,  KC_LT,   KC_GT,   KC_QUES, ________________, _______, KC_END   },
-  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
-
-/* FUNCTION
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | NUM LK |        |        |        |        |        |        |        |        |        |        |        |        | XXXXXX .        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | SCR LK | F13    | F14    | F15    | F16    |        |        |        |        |        |        |        |        |        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | CAP LK | F17    | F18    | F19    | F20    |        |        |        |        |        |        |        | XXXXXX .        |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * |        | F21    | F22    | F23    | F24    |        |        |        |        |        |        | XXXXXX .        | VOL UP | MUTE   |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        |        | PLAY/PAUSE      |        |        |        |        |        | PTRACK | VOL DN | NTRACK |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-
- [LAYER_FUNCTION]     = { // FUNCTION
-  { KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX  },
-  { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { KC_CAPS, KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX, XXXXXXX  },
-  { _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________, KC_VOLU, KC_MUTE  },
-  { _______, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT  },
- },
-
-#ifdef MOUSEKEY_ENABLE
-
- [LAYER_MOUSE]        = { // MOUSE
-  { _______, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXXXXXXXXXXX, KC_WH_U  },
-  { _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ________________, KC_MS_U, KC_WH_D  },
-  { _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
- },
-
-#endif
-
- [LAYER_ADJUST]       = { // ADJUST
-  { _______, TIMBR_1, TIMBR_2, TIMBR_3, TIMBR_4, TMPO_UP, TMPO_DN, TMPO_DF, _______, _______, _______, MU_TOG,  AU_TOG,  ________________  },
-  { _______, M_QWRTY, M_COLMK, M_DVORK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______  },
-  { _______, _______, _______, _______, M_BACKL, RESET,   _______, M_MOUSE, _______, _______, _______, ________________, MUV_IN,  _______  },
-  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, MUV_DE,  _______  },
- },
-
-
-/*
- [LAYER_EMPTY]        = { // LAYER
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________________, _______, _______  },
-  { _______, _______, _______, _______, _______, ________________, _______, _______, _______, _______, _______, _______, _______, _______  },
- },
+/* LAYER = LAYER_QWERTY
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | BACKSP . BACKSP |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | TAB    | Q      | W      | E      | R      | T      | Y      | U      | I      | O      | P      | [      | ]      | \      | DEL    |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | CAP LK | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      | ENTER  . ENTER  | PG UP  |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | LSHIFT | Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | RSHIFT . RSHIFT | UP     | PG DN  |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | LCTRL  | LWIN   | FN     | LALT   | UPPER  | SPACE  . SPACE  | LOWER  | OSHIFT | RALT   | APP    | RCTRL  | LEFT   | DOWN   | RIGHT  |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
 */
-
+[LAYER_QWERTY] = {
+  { KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSPC, KC_BSPC },
+  { KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL  },
+  { KC_CAPS, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT, KC_ENT , KC_ENT , KC_PGUP },
+  { KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT, KC_RSFT, KC_UP  , KC_PGDN },
+  { KC_LCTL, KC_LGUI, M_FUNCT, KC_LALT, M_UPPER, KC_SPC , KC_SPC , M_LOWER, OS_SHFT, KC_RALT, KC_APP , KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT }
+},
+/* LAYER = LAYER_UPPER
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | PRINT  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | NUM LK | KP /   | KP *   | KP -   | XXXXXX | XXXXXX | ______ . ______ |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | PAUSE  | F1     | F2     | F3     | F4     | NUM LK | KP /   | KP 7   | KP 8   | KP 9   | KP -   | ______ | ______ | ______ | INS    |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | F5     | F6     | F7     | F8     | CAP LK | KP *   | KP 4   | KP 5   | KP 6   | KP +   | ______ | ______ . ______ | HOME   |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | F9     | F10    | F11    | F12    | SCR LK | KP 0   | KP 1   | KP 2   | KP 3   | KP ENT | ______ . ______ | ______ | END    |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | ______ | ______ | ______ | UPPER  | KP 0   . KP 0   | ______ | RALT   | KP .   | KP ENT | ______ | ______ | ______ | ______ |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
+*/
+[LAYER_UPPER] = {
+  { KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX, XXXXXXX, _______, _______ },
+  { KC_PAUS, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_NLCK, KC_PSLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, _______, _______, _______, KC_INS  },
+  { _______, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_CAPS, KC_PAST, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, _______, _______, _______, KC_HOME },
+  { _______, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_SLCK, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_PENT, _______, _______, _______, KC_END  },
+  { _______, _______, _______, _______, M_UPPER, KC_KP_0, KC_KP_0, _______, KC_RALT, KC_PDOT, KC_PENT, _______, _______, _______, _______ }
+},
+/* LAYER = LAYER_LOWER
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | PRINT  | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | F11    | F12    | ______ . ______ |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | $      | {      | [      | (      | %      | #      | )      | ]      | }      | @      | ______ | ______ | ______ | INS    |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | ^      | *      | +      | -      | /      | \      | _      | '      | "      | `      | ______ | ______ . ______ | HOME   |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | |      | &      | !      | ~      | ;      | :      | =      | <      | >      | ?      | ______ . ______ | ______ | END    |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | ______ | ______ | ______ | ______ | ______ . ______ | LOWER  | ______ | ______ | ______ | ______ | ______ | ______ | ______ |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
+*/
+[LAYER_LOWER] = {
+  { KC_PSCR, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , _______, _______ },
+  { _______, KC_DLR , KC_LCBR, KC_LBRC, KC_LPRN, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, KC_RCBR, KC_AT  , _______, _______, _______, KC_INS  },
+  { _______, KC_CIRC, KC_ASTR, KC_PLUS, KC_MINS, KC_SLSH, KC_BSLS, KC_UNDS, KC_QUOT, KC_DQT , KC_GRV , _______, _______, _______, KC_HOME },
+  { _______, KC_PIPE, KC_AMPR, KC_EXLM, KC_TILD, KC_SCLN, KC_COLN, KC_EQL , KC_LT  , KC_GT  , KC_QUES, _______, _______, _______, KC_END  },
+  { _______, _______, _______, _______, _______, _______, _______, M_LOWER, _______, _______, _______, _______, _______, _______, _______ }
+},
+/* LAYER = LAYER_FUNCTION
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX . XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | F13    | F14    | F15    | F16    | NUM LK | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | F17    | F18    | F19    | F20    | SCR LK | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX . XXXXXX | XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | F21    | F22    | F23    | F24    | CAP LK | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | ______ . ______ | VOL UP | MUTE   |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | ______ | FN     | ______ | ______ | PLAY   . PLAY   | ______ | ______ | ______ | ______ | ______ | PREV   | VOL DN | NEXT   |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
+*/
+[LAYER_FUNCTION] = {
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { XXXXXXX, KC_F13 , KC_F14 , KC_F15 , KC_F16 , KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { XXXXXXX, KC_F17 , KC_F18 , KC_F19 , KC_F20 , KC_SLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { _______, KC_F21 , KC_F22 , KC_F23 , KC_F24 , KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, KC_VOLU, KC_MUTE },
+  { _______, _______, M_FUNCT, _______, _______, KC_MPLY, KC_MPLY, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT }
+},
+/* LAYER = LAYER_MOUSE
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | ESC    | MS AC0 | MS AC1 | MS AC2 | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX . XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | MS UL  | MS U   | MS UR  | XXXXXX | XXXXXX | XXXXXX | MS WHL | MS WHR |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | MS BT5 | MS BT4 | MS BT3 | MS BT2 | XXXXXX | XXXXXX | MS L   | XXXXXX | MS R   | XXXXXX | XXXXXX | XXXXXX . XXXXXX | MS WHU |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | MS DL  | MS D   | MS DR  | XXXXXX | ______ . ______ | MS U   | MS WHD |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | ______ | ______ | ______ | ______ | ______ | MS BT1 . MS BT1 | ______ | ______ | ______ | ______ | ______ | MS L   | MS D   | MS R   |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
+*/
+[LAYER_MOUSE] = {
+  { KC_ESC , KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_UL, KC_MS_U, M_MS_UR, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_R },
+  { XXXXXXX, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, KC_MS_L, XXXXXXX, KC_MS_R, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_U },
+  { _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_MS_DL, KC_MS_D, M_MS_DR, XXXXXXX, _______, _______, KC_MS_U, KC_WH_D },
+  { _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R }
+},
+/* LAYER = LAYER_ADJUST
+  .--------------------------------------------------------------------------------------------------------------------------------------.
+  | XXXXXX | HELP 1 | HELP 2 | HELP 3 | HELP 4 | HELP 5 | HELP 6 | HELP 7 | HELP 8 | HELP 9 | XXXXXX | MUSIC  | AUDIO  | XXXXXX . XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | BRTOG  | BRSPD+ | BRSPD- | BRDFLT | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX | XXXXXX . XXXXXX | XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | QWERTY | XXXXXX | XXXXXX | BACKLT | RESET  | XXXXXX | MOUSE  | XXXXXX | XXXXXX | XXXXXX | XXXXXX . XXXXXX | VOICE+ | XXXXXX |
+  |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | UPPER  | XXXXXX . XXXXXX | LOWER  | XXXXXX | XXXXXX | XXXXXX | XXXXXX | TEMPO- | VOICE- | TEMPO+ |
+  '--------------------------------------------------------------------------------------------------------------------------------------'
+*/
+[LAYER_ADJUST] = {
+  { XXXXXXX, M_HELP1, M_HELP2, M_HELP3, M_HELP4, M_HELP5, M_HELP6, M_HELP7, M_HELP8, M_HELP9, XXXXXXX, MU_TOG , AU_TOG , XXXXXXX, XXXXXXX },
+  { XXXXXXX, M_BRTOG, M_BSPDU, M_BSPDD, M_BDFLT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+  { XXXXXXX, M_QWRTY, XXXXXXX, XXXXXXX, M_BACKL, RESET  , XXXXXXX, M_MOUSE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MUV_IN , XXXXXXX },
+  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UPPER, XXXXXXX, XXXXXXX, M_LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TMPO_DN, MUV_DE , TMPO_UP }
+},
 };
 
 #ifdef AUDIO_ENABLE
@@ -290,6 +272,69 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     switch(id)
     {
 
+        case MACRO_HELP_1:
+            if (record->event.pressed)
+            {
+        uprintf("1");
+            }
+            break;
+
+        case MACRO_HELP_2:
+            if (record->event.pressed)
+            {
+        uprintf("2");
+            }
+            break;
+
+        case MACRO_HELP_3:
+            if (record->event.pressed)
+            {
+        uprintf("3");
+            }
+            break;
+
+        case MACRO_HELP_4:
+            if (record->event.pressed)
+            {
+        uprintf("4");
+            }
+            break;
+
+        case MACRO_HELP_5:
+            if (record->event.pressed)
+            {
+        uprintf("5");
+            }
+            break;
+
+        case MACRO_HELP_6:
+            if (record->event.pressed)
+            {
+        uprintf("6");
+            }
+            break;
+
+        case MACRO_HELP_7:
+            if (record->event.pressed)
+            {
+        uprintf("7");
+            }
+            break;
+
+        case MACRO_HELP_8:
+            if (record->event.pressed)
+            {
+        uprintf("8");
+            }
+            break;
+
+        case MACRO_HELP_9:
+            if (record->event.pressed)
+            {
+        uprintf("9");
+            }
+            break;
+
         case MACRO_BREATH_TOGGLE:
             if (record->event.pressed)
             {
@@ -322,29 +367,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed)
             {
                 persistant_default_layer_set(1UL<<LAYER_QWERTY);
-                #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_qwerty, false, STACCATO);
-                #endif /* AUDIO_ENABLE */
-            }
-            break;
-
-        case MACRO_COLEMAK:
-            if (record->event.pressed)
-            {
-                persistant_default_layer_set(1UL<<LAYER_COLEMAK);
-                #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_colemak, false, STACCATO);
-                #endif /* AUDIO_ENABLE */
-            }
-            break;
-
-        case MACRO_DVORAK:
-            if (record->event.pressed)
-            {
-                persistant_default_layer_set(1UL<<LAYER_DVORAK);
-                #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_dvorak, false, STACCATO);
-                #endif /* AUDIO_ENABLE */
             }
             break;
 
