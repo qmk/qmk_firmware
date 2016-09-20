@@ -97,17 +97,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * |  Ctrl |   ~   |   [   |  PgUp |   ]   |       |       |   -   |   Up  |   =   |       |  F12  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * | Shift |  Tab  |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |   [   |   ]   |
+ * | Shift |  Tab  |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |       |       |
  * |-------+-------+-------+-------+-------+-------|-------+-------+-------+-------+-------+-------|
  * |Alt/Tab|       |       |       |       | Fn/Spc|       |       |       |       |  Menu |Adj/Ent|
  * `-----------------------------------------------------------------------------------------------'
  */
 
 [_QW_FN] = {
-  {KC_LGUI, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,      KC_F11},
-  {_______, KC_GRAVE, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, KC_UP,   KC_MINUS, KC_EQUAL,    KC_F12},
-  {_______, XXXXXXX,  KC_HOME, KC_PGDN, KC_END,  KC_DELETE, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, KC_LBRACKET, KC_RBRACKET},
-  {_______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,   XXXXXXX, _______, _______, _______,  KC_MENU,     _______}
+  {KC_LGUI, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11},
+  {_______, KC_GRAVE, KC_LBRC, KC_PGUP, KC_RBRC, XXXXXXX,   XXXXXXX, KC_MINS, KC_UP,   KC_EQUAL, XXXXXXX, KC_F12},
+  {_______, KC_TAB,   KC_HOME, KC_PGDN, KC_END,  KC_DELETE, XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX},
+  {_______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,   XXXXXXX, _______, _______, _______,  KC_MENU, _______}
 },
 
 /* Plover layer (http://opensteno.org)
