@@ -8,6 +8,8 @@ The Impossible Layout places the middle column of the alphas onto where the punc
 
 ### Alpha-numeric layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |   Q   |   D   |   R   |   W   |   B   |   F   |   U   |   P   |   J   |   7   |   8   |   9   |
 |   A   |   S   |   H   |   T   |   G   |   N   |   E   |   O   |   I   |   4   |   5   |   6   |
 |   Z   |   X   |   M   |   C   |   V   |   L   |   Y   |   K   |   Up  |   1   |   2   |   3   |
@@ -15,6 +17,8 @@ The Impossible Layout places the middle column of the alphas onto where the punc
 
 ### Function layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  F12  |   F7  |   F8  |   F9  |
 |  Tab  |   [   |   ]   |   -   |  Del  |   '   |   (   |   )   |  F11  |   F4  |   F5  |   F6  |
 |  Menu |       |       |   =   |   \   |   /   |       |       |  PgUp |   F1  |   F2  |   F3  |
@@ -26,6 +30,8 @@ The Qwerty layer, mostly intended for gaming use, makes use of the doubled chord
 
 ### Qwerty layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |Gui/Esc|   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   | Bksp  |
 | Ctrl  |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   |   /   |
 | Shift |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   "   |
@@ -33,6 +39,8 @@ The Qwerty layer, mostly intended for gaming use, makes use of the doubled chord
 
 ### Qwerty Fn Layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |  Gui  |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |   F7  |   F8  |   F9  |  F10  |  F11  |
 |  Ctrl |   ~   |   [   |  PgUp |   ]   |       |       |   -   |   Up  |   =   |       |  F12  |
 | Shift |  Tab  |  Home |  PgDn |  End  |  Del  |       |  Left |  Down | Right |       |       |
@@ -44,6 +52,8 @@ The Steno/Plover layer moves the number row below the regular keys, providing a 
 
 ### Steno Layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |   S   |   T   |   P   |   H   |   *   |   F   |   P   |   L   |   T   |   D   |       |       |
 |   S   |   K   |   W   |   R   |   *   |   R   |   B   |   G   |   S   |   Z   |       |       |
 |   #   |   #   |   #   |   #   |       |   #   |   #   |   #   |   #   |   #   |       |       |
@@ -55,6 +65,8 @@ In order to switch between layouts and change other keyboard settings, an adjust
 
 ### Adjustment Layer
 
+|       |       |       |       |       |       |       |       |       |       |       |       |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |       |       |       |       |       |       |       |       | Insert| PrtSc | Pause | RESET |
 |       |       |       |       |       |       |       | CapLk |Voice +| Audio |MIDIoff|       |
 |       |       |       |       |       |       |       | ScrLk |Voice -| Music |MIDI on|       |
