@@ -70,6 +70,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+      process_tap_dance_action_on_each_tap (action);
 
       if (last_td && last_td != keycode) {
         qk_tap_dance_action_t *paction = &tap_dance_actions[last_td - QK_TAP_DANCE];
