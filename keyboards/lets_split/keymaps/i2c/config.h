@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CATERINA_BOOTLOADER
 
-// #define USE_I2C
+#define USE_I2C
 
 // Use serial if not using I2C
 #ifndef USE_I2C
