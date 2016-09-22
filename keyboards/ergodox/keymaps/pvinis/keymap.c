@@ -33,6 +33,7 @@ enum {
 // this is sending ctrl-alt-gui-<key>, and this is picked up by hammerspoon
 #define AP_SLCK ALLM(KC_S)
 #define AP_XCOD ALLM(KC_X)
+#define AP_MSGR ALLM(KC_M)
 
 // keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |CARPAL|       |Slack |        |      |
  *                                 |Backsp|LShift|------|       |------| Enter  |Space |
- *                                 |      |      |SYSCTL|       |Xcode |        |      |
+ *                                 |      |      |SYSCTL|       |Msngr |        |      |
  *                                 `--------------------'       `----------------------'
  */
 [BASE] = KEYMAP(
@@ -77,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    ,TG(SYSCTL)  ,KC_NO
    ,AP_SLCK
-   ,AP_XCOD     ,KC_ENT  ,KC_SPC
+   ,AP_MSGR     ,KC_ENT  ,KC_SPC
 ),
 
 /* BEGIN
