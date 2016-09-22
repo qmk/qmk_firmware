@@ -331,12 +331,12 @@ void matrix_init_user() {
   ergodox_led_all_on();
   for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
     ergodox_led_all_set(i);
-    _delay_ms(5);
+    wait_ms(5);
   }
-  _delay_ms(1000);
+  wait_ms(1000);
   for (int i = LED_BRIGHTNESS_LO; i > 0; i--) {
     ergodox_led_all_set(i);
-    _delay_ms(10);
+    wait_ms(10);
   }
   ergodox_led_all_off();
 }
@@ -402,9 +402,9 @@ void flash_each_tap(qk_tap_dance_state_t *state, void *user_data) {
     break;
   case 4:
     ergodox_right_led_3_off();
-    _delay_ms(50);
+    wait_ms(50);
     ergodox_right_led_2_off();
-    _delay_ms(50);
+    wait_ms(50);
     ergodox_right_led_1_off();
     break;
   }
@@ -419,9 +419,9 @@ void flash_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 void flash_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_1_off();
-  _delay_ms(50);
+  wait_ms(50);
   ergodox_right_led_2_off();
-  _delay_ms(50);
+  wait_ms(50);
   ergodox_right_led_3_off();
 }
 
