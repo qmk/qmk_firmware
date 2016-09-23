@@ -1,12 +1,15 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import json
 import os
 import sys
 import re
 import argparse
+import time
 
 from math import floor
 from os.path import dirname
+from subprocess import Popen, PIPE, STDOUT
+from blessings import Terminal
 
 class Heatmap(object):
     coords = [
@@ -33,7 +36,7 @@ class Heatmap(object):
         [
             # Row 4
             [20,  0], [20,  2], [19,  0], [18,  0], [19,  2], [], [], [], [],
-            [19,  4], [18,  2], [19,  6], [20,  4], [20,  6],
+            [19,  4], [18,  2], [19,  6], [20,  4], [20,  6], [], [], [], []
         ],
         [
             # Row 5
@@ -56,11 +59,13 @@ class Heatmap(object):
     def set_attr(orig, new):
         return new
 
-    def set_bg(self, (block, n), color):
+    def set_bg(self, coords, color):
+        (block, n) = coords
         self.set_attr_at(block, n, "c", self.set_attr, color)
         #self.set_attr_at(block, n, "g", self.set_attr, False)
 
-    def set_tap_info(self, (block, n), count, cap):
+    def set_tap_info(self, coords, count, cap):
+        (block, n) = coords
         def _set_tap_info(o, _count, _cap):
             ns = 4 - o.count ("\n")
             return o + "\n" * ns + "%.02f%%" % (float(_count) / float(_cap) * 100)
@@ -87,8 +92,8 @@ class Heatmap(object):
         g = (colors[idx2][1] - colors[idx1][1]) * fb + colors[idx1][1]
         b = (colors[idx2][2] - colors[idx1][2]) * fb + colors[idx1][2]
 
-        r, g, b = [x * 255 for x in r, g, b]
-        return "#%02x%02x%02x" % (r, g, b)
+        r, g, b = [x * 255 for x in (r, g, b)]
+        return "#%02x%02x%02x" % (int(r), int(g), int(b))
 
     def __init__(self, layout):
         self.log = {}
@@ -96,7 +101,8 @@ class Heatmap(object):
         self.max_cnt = 0
         self.layout = layout
 
-    def update_log(self, (c, r)):
+    def update_log(self, coords):
+        (c, r) = coords
         if not (c, r) in self.log:
             self.log[(c, r)] = 0
         self.log[(c, r)] = self.log[(c, r)] + 1
@@ -132,18 +138,17 @@ class Heatmap(object):
             # right hand
             [0, 0, 0, 0, 0]
         ]
-        finger_map = [0, 0, 1, 2, 3, 4, 4]
+        finger_map = [0, 0, 1, 2, 3, 3, 3, 1, 1, 1, 2, 3, 4, 4]
         for (c, r) in self.log:
             if r == 5: # thumb cluster
                 if c <= 6: # left side
                     usage[0][4] = usage[0][4] + self.log[(c, r)]
                 else:
-                    usage[1][4] = usage[1][4] + self.log[(c, r)]
+                    usage[1][0] = usage[1][0] + self.log[(c, r)]
             else:
                 fc = c
                 hand = 0
                 if fc >= 7:
-                    fc = fc - 7
                     hand = 1
                 fm = finger_map[fc]
                 usage[hand][fm] = usage[hand][fm] + self.log[(c, r)]
@@ -157,79 +162,158 @@ class Heatmap(object):
         if total == 0:
             total = 1
         stats = {
+            "total-keys": total,
             "hands": {
                 "left": {
-                    "usage": float(hand_usage[0]) / total * 100,
+                    "usage": round(float(hand_usage[0]) / total * 100, 2),
                     "fingers": {
-                        "0 - pinky": 0,
-                        "1 - ring": 0,
-                        "2 - middle": 0,
-                        "3 - index": 0,
-                        "4 - thumb": 0,
+                        "pinky": 0,
+                        "ring": 0,
+                        "middle": 0,
+                        "index": 0,
+                        "thumb": 0,
                     }
                 },
                 "right": {
-                    "usage": float(hand_usage[1]) / total * 100,
+                    "usage": round(float(hand_usage[1]) / total * 100, 2),
                     "fingers": {
-                        "0 - thumb": 0,
-                        "1 - index": 0,
-                        "2 - middle": 0,
-                        "3 - ring": 0,
-                        "4 - pinky": 0,
+                        "thumb": 0,
+                        "index": 0,
+                        "middle": 0,
+                        "ring": 0,
+                        "pinky": 0,
                     }
                 },
             }
         }
 
         hmap = ['left', 'right']
-        fmap = ['0 - pinky', '1 - ring', '2 - middle', '3 - index', '4 - thumb',
-                '0 - thumb', '1 - index', '2 - middle', '3 - ring', '4 - pinky']
+        fmap = ['pinky', 'ring', 'middle', 'index', 'thumb',
+                'thumb', 'index', 'middle', 'ring', 'pinky']
         for hand_idx in range(len(usage)):
             hand = usage[hand_idx]
             for finger_idx in range(len(hand)):
-                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = float(hand[finger_idx]) / total * 100
+                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = round(float(hand[finger_idx]) / total * 100, 2)
         return stats
 
 def dump_all(out_dir, heatmaps):
-    for layer in heatmaps.keys():
+    stats = {}
+    t = Terminal()
+    t.clear()
+    sys.stdout.write("\x1b[2J\x1b[H")
+
+    print ('{t.underline}{outdir}{t.normal}\n'.format(t=t, outdir=out_dir))
+
+    keys = list(heatmaps.keys())
+    keys.sort()
+
+    for layer in keys:
         if len(heatmaps[layer].log) == 0:
             continue
 
         with open ("%s/%s.json" % (out_dir, layer), "w") as f:
             json.dump(heatmaps[layer].get_heatmap(), f)
-        print >>sys.stderr, "%s stats:" % (layer)
-        json.dump (heatmaps[layer].get_stats(), sys.stderr,
-                   indent = 4, sort_keys = True)
-        print >>sys.stderr, ""
-        print >>sys.stderr, ""
+        stats[layer] = heatmaps[layer].get_stats()
+
+        left = stats[layer]['hands']['left']
+        right = stats[layer]['hands']['right']
+
+        print ('{t.bold}{layer}{t.normal} ({total:,} taps):'.format(t=t, layer=layer,
+                                                                    total=int(stats[layer]['total-keys'] / 2)))
+        print (('{t.underline}        | ' + \
+                'left ({l[usage]:6.2f}%)  | ' + \
+                'right ({r[usage]:6.2f}%) |{t.normal}').format(t=t, l=left, r=right))
+        print ((' {t.bright_magenta}pinky{t.white}  |     {left[pinky]:6.2f}%     |     {right[pinky]:6.2f}%     |\n' + \
+                ' {t.bright_cyan}ring{t.white}   |     {left[ring]:6.2f}%     |     {right[ring]:6.2f}%     |\n' + \
+                ' {t.bright_blue}middle{t.white} |     {left[middle]:6.2f}%     |     {right[middle]:6.2f}%     |\n' + \
+                ' {t.bright_green}index{t.white}  |     {left[index]:6.2f}%     |     {right[index]:6.2f}%     |\n' + \
+                ' {t.bright_red}thumb{t.white}  |     {left[thumb]:6.2f}%     |     {right[thumb]:6.2f}%     |\n' + \
+                '').format(left=left['fingers'], right=right['fingers'], t=t))
+
+def process_line(line, heatmaps, opts, stamped_log = None):
+    m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
+    if not m:
+        return False
+    if stamped_log is not None:
+        if line.startswith("KL:"):
+            print ("%10.10f %s" % (time.time(), line),
+                   file = stamped_log, end = '')
+        else:
+            print (line,
+                   file = stamped_log, end = '')
+        stamped_log.flush()
+
+    (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
+    if (c, r) not in opts.allowed_keys:
+        return False
+
+    heatmaps[l].update_log ((c, r))
+
+    return True
+
+def setup_allowed_keys(opts):
+    if len(opts.only_key):
+        incmap={}
+        for v in opts.only_key:
+            m = re.search ('(\d+),(\d+)', v)
+            if not m:
+                continue
+            (c, r) = (int(m.group(1)), int(m.group(2)))
+            incmap[(c, r)] = True
+    else:
+        incmap={}
+        for r in range(0, 6):
+            for c in range(0, 14):
+                incmap[(c, r)] = True
+
+        for v in opts.ignore_key:
+            m = re.search ('(\d+),(\d+)', v)
+            if not m:
+                continue
+            (c, r) = (int(m.group(1)), int(m.group(2)))
+            del(incmap[(c, r)])
+
+    return incmap
 
 def main(opts):
-
     heatmaps = {"Dvorak": Heatmap("Dvorak"),
                 "ADORE": Heatmap("ADORE")
     }
     cnt = 0
-    restrict_row = opts.restrict_row
     out_dir = opts.outdir
+
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    opts.allowed_keys = setup_allowed_keys(opts)
+
+    if not opts.one_shot:
+
+        try:
+            with open("%s/stamped-log" % out_dir, "r") as f:
+                while True:
+                    line = f.readline()
+                    if not line:
+                        break
+                    if not process_line(line, heatmaps, opts):
+                        continue
+        except:
+            pass
+
+        stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
+    else:
+        stamped_log = None
 
     while True:
         line = sys.stdin.readline()
         if not line:
             break
-        m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
-        if not m:
+        if not process_line(line, heatmaps, opts, stamped_log):
             continue
 
         cnt = cnt + 1
-        (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
-        if restrict_row != -1 and r != restrict_row:
-            continue
-        if c in opts.ignore_columns:
-            continue
 
-        heatmaps[l].update_log ((c, r))
-
-        if opts.dump_interval != -1 and cnt >= opts.dump_interval:
+        if opts.dump_interval != -1 and cnt >= opts.dump_interval and not opts.one_shot:
             cnt = 0
             dump_all(out_dir, heatmaps)
 
@@ -239,11 +323,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser (description = "keylog to heatmap processor")
     parser.add_argument ('outdir', action = 'store',
                          help = 'Output directory')
-    parser.add_argument ('--row', dest = 'restrict_row', action = 'store', type = int,
-                         default = -1, help = 'Restrict processing to this row only')
     parser.add_argument ('--dump-interval', dest = 'dump_interval', action = 'store', type = int,
                          default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
-    parser.add_argument ('--ignore-column', dest = 'ignore_columns', action = 'append', type = int,
-                         default = [], help = 'Ignore the specified columns')
+    parser.add_argument ('--ignore-key', dest = 'ignore_key', action = 'append', type = str,
+                         default = [], help = 'Ignore the key at position (x, y)')
+    parser.add_argument ('--only-key', dest = 'only_key', action = 'append', type = str,
+                         default = [], help = 'Only include key at position (x, y)')
+    parser.add_argument ('--one-shot', dest = 'one_shot', action = 'store_true',
+                         help = 'Do not load previous data, and do not update it, either.')
     args = parser.parse_args()
+    if len(args.ignore_key) and len(args.only_key):
+        print ("--ignore-key and --only-key are mutually exclusive, please only use one of them!",
+               file = sys.stderr)
+        sys.exit(1)
     main(args)
