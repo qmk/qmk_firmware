@@ -1,0 +1,12 @@
+#!/bin/sh
+HL="${HID_LISTEN:-$HOME/src/ext/hid_listen/hid_listen}"
+
+sudo "${HL}" | grep --line-buffered LAYER: | \
+(while read line; do
+     case $line in
+         LAYER:*)
+             layer="$(echo $(echo $line | cut -d: -f2-))"
+             notify-send -i mark-location-symbolic "Switched to layer: $layer"
+             ;;
+     esac
+ done)
