@@ -28,14 +28,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "i2c.h"
-#include "serial.h"
 #include "split_util.h"
 #include "pro_micro.h"
 #include "config.h"
 
+#ifdef USE_I2C
+#  include "i2c.h"
+#else // USE_SERIAL
+#  include "serial.h"
+#endif
+
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#  define DEBOUNCE	5
 #endif
 
 #define ERROR_DISCONNECT_COUNT 5
@@ -145,6 +149,8 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
+#ifdef USE_I2C
+
 // Get rows from other half over i2c
 int i2c_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
@@ -176,7 +182,8 @@ i2c_error: // the cable is disconnceted, or something else went wrong
     return 0;
 }
 
-#ifndef USE_I2C
+#else // USE_SERIAL
+
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
@@ -199,7 +206,7 @@ uint8_t matrix_scan(void)
 
 #ifdef USE_I2C
     if( i2c_transaction() ) {
-#else
+#else // USE_SERIAL
     if( serial_transaction() ) {
 #endif
         // turn on the indicator led when halves are disconnected
@@ -235,7 +242,7 @@ void matrix_slave_scan(void) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
         i2c_slave_buffer[i] = matrix[offset+i];
     }
-#else
+#else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
@@ -290,7 +297,7 @@ static void  init_cols(void)
 static matrix_row_t read_cols(void)
 {
     matrix_row_t result = 0;
-    for(int x = 0; x < MATRIX_COLS; x++) {     
+    for(int x = 0; x < MATRIX_COLS; x++) {
         result |= (_SFR_IO8(col_pins[x] >> 4) & _BV(col_pins[x] & 0xF)) ? 0 : (1 << x);
     }
     return result;
@@ -298,7 +305,7 @@ static matrix_row_t read_cols(void)
 
 static void unselect_rows(void)
 {
-    for(int x = 0; x < ROWS_PER_HAND; x++) { 
+    for(int x = 0; x < ROWS_PER_HAND; x++) {
         _SFR_IO8((row_pins[x] >> 4) + 1) &=  ~_BV(row_pins[x] & 0xF);
         _SFR_IO8((row_pins[x] >> 4) + 2) |= _BV(row_pins[x] & 0xF);
     }

@@ -10,8 +10,9 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdbool.h>
-
 #include "serial.h"
+
+#ifdef USE_SERIAL
 
 // Serial pulse period in microseconds. Its probably a bad idea to lower this
 // value.
@@ -223,3 +224,5 @@ int serial_update_buffers(void) {
   sei();
   return 0;
 }
+
+#endif
