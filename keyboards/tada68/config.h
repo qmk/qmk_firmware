@@ -22,43 +22,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0003
+#define MANUFACTURER    TADA
+#define PRODUCT         TADA68
+#define DESCRIPTION     QMK keyboard firmware for TADA68 with WS2812 support
 
 /* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
-// wiring of each half
-#define MATRIX_ROW_PINS { B5, B4, E6, D7 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
+// ROWS: Top to bottom, COLS: Left to right
 
-#define CATERINA_BOOTLOADER
+#define MATRIX_ROW_PINS {D0,D1,F6,F7,D5}
+#define MATRIX_COL_PINS {F0,F1,E6,C7,C6,B7,D4,B1,B0,B5,B4,D7,D6,B3,F4}
+#define UNUSED_PINS
 
-// #define USE_I2C
-
-// Use serial if not using I2C
-#ifndef USE_I2C
-#  define USE_SERIAL
-#endif
-
-// #define EE_HANDS
-
-#define I2C_MASTER_LEFT
-// #define I2C_MASTER_RIGHT
+#define BACKLIGHT_PIN B6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -73,13 +59,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D4
+/* Backlight configuration
+ */
+#define BACKLIGHT_LEVELS 4
+
+/* Underlight configuration
+ */
+
+/*#define RGB_DI_PIN E2
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 8     // Number of LEDs
+#define RGBLED_NUM 2     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+#define RGBLIGHT_VAL_STEP 17*/
+//Disabled while I figure out a suitable pin for RGB support.
+//I've tried F5, D2, D3, and E2 but it's possible the end of my
+//strand is bad. New LEDs on order.
 
 /*
  * Feature disable options
@@ -87,10 +82,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-// #define NO_DEBUG
+//#define NO_DEBUG
 
 /* disable print */
-// #define NO_PRINT
+//#define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
