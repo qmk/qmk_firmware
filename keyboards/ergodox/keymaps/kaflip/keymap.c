@@ -1,6 +1,5 @@
-/* Idea is to mimic a Kinesis Advantage, set up for Mac, 
- * with the ability to swap the QWERT/YUIOP for one-handed 
- * operation. */
+/* Idea is to mimic a Kinesis Advantage, set up for Mac, with the ability
+ * to mirror the entire keyboard for one-handed operation. */
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
