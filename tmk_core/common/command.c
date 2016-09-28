@@ -261,7 +261,10 @@ static void print_status(void)
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
-#ifndef NO_PRINT
+
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
+
     print("default_layer: "); print_dec(eeconfig_read_default_layer()); print("\n");
 
     debug_config_t dc;
@@ -571,7 +574,8 @@ static uint8_t mousekey_param = 0;
 
 static void mousekey_param_print(void)
 {
-#ifndef NO_PRINT
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
     print("\n\t- Values -\n");
     print("1: delay(*10ms): "); pdec(mk_delay); print("\n");
     print("2: interval(ms): "); pdec(mk_interval); print("\n");
