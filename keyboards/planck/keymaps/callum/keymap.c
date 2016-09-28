@@ -14,12 +14,19 @@ extern keymap_config_t keymap_config;
 #define _BASE 0
 #define _MOVE 1
 #define _SYMB 2
-#define _FUNC 3
+#define _MOUSE 3
+#define _FUNC 4
 
 enum planck_keycodes {
-  MOVE,
+  MOVE = SAFE_RANGE,
   SYMB,
-  FUNC
+  FUNC,
+  CMDLEFT,
+  CMDRGHT,
+  BELOW,
+  ABOVE,
+  VOLUP,
+  VOLDN
 };
 
 // Fillers to make layering more clear
@@ -36,14 +43,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Func | Ctrl |  Alt |  Cmd | Symb | Enter| Space| Move |  Cmd |  Alt | Ctrl | Caps |
+ * | Func | Ctrl |  Alt |  Cmd | Symb | Enter| Space| Move |  Cmd |  Alt | Ctrl | Func |
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS},
   {KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {FUNC,    KC_LCTL, KC_LALT, KC_LGUI, SYMB,    KC_ENT,  KC_SPC,  MOVE,    KC_RGUI, KC_RALT, KC_RCTL, KC_CAPS}
+  {FUNC,    KC_LCTL, KC_LALT, KC_LGUI, SYMB,    KC_ENT,  KC_SPC,  MOVE,    KC_RGUI, KC_RALT, KC_RCTL, FUNC   }
 },
 
 /* MOVE
@@ -52,16 +59,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del |      | Left | Down | Right|      |      | Left | Down | Right|      |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn|      |      | Pg Dn| Pg Up|      |      |      |
+ * |      |      |      | Pg Up| Pg Dn| Above|      | Pg Dn| Pg Up|      | Caps |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      | Below|      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, KC_HOME,   KC_UP,  KC_END, XXXXXXX, XXXXXXX, KC_HOME,   KC_UP,  KC_END, XXXXXXX,  KC_ESC},
-  {KC_DEL,  XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,  KC_DEL},
-  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {KC_ESC,  XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, KC_ESC },
+  {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
+  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN,   ABOVE, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
+  {_______, _______, _______, _______, _______,   BELOW, _______, _______, _______, _______, _______, _______}
 },
 
 /* SYMB
@@ -82,22 +89,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
+/* MOUSE
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_MOUSE] = {
+  {XXXXXXX, XXXXXXX, KC_ACL2, KC_ACL1, KC_ACL0, XXXXXXX, XXXXXXX, KC_WH_L, KC_MS_U, KC_WH_R, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN2, KC_BTN1, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX},
+  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX, XXXXXXX, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
 /* FUNC
  * ,-----------------------------------------------------------------------------------.
- * |  F12 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
+ * | Reset|  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | Vol+ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Play | Prev | Next |  BL+ |      |      |      |      |      |      |      |
+ * |      |  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Mute | Vol- | Vol+ |  BL- |      |      |      |      |      |      |      |
+ * |      |  F21 |  F22 |  F23 |  F24 |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      | Reset|
+ * |      |      |      |      | Prev | Mute | Play | Next |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = {
-  {KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
-  {XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, KC_F15,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {_______, KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET  }
+  {RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  VOLUP  },
+  {XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  VOLDN  },
+  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+  {_______, _______, _______, _______, KC_MPRV, KC_MUTE, KC_MPLY, KC_MNXT, _______, _______, _______, _______}
 }
 
 };
@@ -107,20 +132,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MOVE:
       if (record->event.pressed) {
         layer_on(_MOVE);
-        update_tri_layer(_MOVE, _SYMB, _FUNC);
+        update_tri_layer(_MOVE, _SYMB, _MOUSE);
       } else {
         layer_off(_MOVE);
-        update_tri_layer(_MOVE, _SYMB, _FUNC);
+        update_tri_layer(_MOVE, _SYMB, _MOUSE);
       }
       return false;
       break;
     case SYMB:
       if (record->event.pressed) {
         layer_on(_SYMB);
-        update_tri_layer(_MOVE, _SYMB, _FUNC);
+        update_tri_layer(_MOVE, _SYMB, _MOUSE);
       } else {
         layer_off(_SYMB);
-        update_tri_layer(_MOVE, _SYMB, _FUNC);
+        update_tri_layer(_MOVE, _SYMB, _MOUSE);
       }
       return false;
       break;
@@ -129,6 +154,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_FUNC);
       } else {
         layer_off(_FUNC);
+      }
+      return false;
+      break;
+    case CMDLEFT:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+      } else {
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LGUI);
+      }
+      return false;
+      break;
+    case CMDRGHT:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_RGHT);
+      } else {
+        unregister_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+      }
+      return false;
+      break;
+    case BELOW:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_RGHT);
+        unregister_code(KC_RGHT);
+        unregister_code(KC_LGUI);
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+      }
+      return false;
+      break;
+    case ABOVE:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LGUI);
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+        register_code(KC_UP);
+        unregister_code(KC_UP);
+      }
+      return false;
+      break;
+    case VOLUP:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_VOLU);
+      } else {
+        unregister_code(KC_VOLU);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
+      }
+      return false;
+      break;
+    case VOLDN:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        register_code(KC_VOLD);
+      } else {
+        unregister_code(KC_VOLD);
+        unregister_code(KC_LSFT);
+        unregister_code(KC_LALT);
       }
       return false;
       break;
