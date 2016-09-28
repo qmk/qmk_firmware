@@ -24,6 +24,7 @@
   *   - Fixed low level RNDIS demo incorrectly setting the RNDIS state when a null packet filter was requested
   *   - Fixed missing entries in several project's Atmel Studio integration files, such as driver INF files
   *   - Fixed invalid endpoint indexes causing memory corruption in device Clear/Set Feature standard requests (thanks to Peter Popovec)
+  *   - Fixed incorrect serialization in USB_SetHIDReportItemInfo() function (thanks to e-chip)
   *
   *  <b>Changed:</b>
   *   - Added signed alternative libUSB driver for the AVRISP-MKII clone project, to support Atmel Studio 7 (thanks to Atmel)
