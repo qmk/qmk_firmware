@@ -25,6 +25,8 @@ enum planck_keycodes {
   CMDRGHT,
   BELOW,
   ABOVE,
+  DASH,
+  GBP,
   VOLUP,
   VOLDN
 };
@@ -55,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
+ * |  Esc |      | Cmd-L|  Up  | Cmd-R|      |      | Cmd-L|  Up  | Cmd-R|      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del |      | Left | Down | Right|      |      | Left | Down | Right|      |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -73,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* SYMB
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  Esc |
+ * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   –  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  Del |
+ * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   £  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   ~  |   `  |   +  |   =  |   |  |   \  |   [  |   ]  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -83,19 +85,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMB] = {
-  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_ESC },
-  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
+  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    DASH   },
+  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, GBP    },
   {_______, KC_TILD, KC_GRV,  KC_PLUS, KC_EQL,  KC_PIPE, KC_BSLS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* MOUSE
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      | ACC-2| ACC-1| ACC-0|      |      | SW-L |  M-U | SW-R |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      | MB-3 | MB-2 | MB-1 |      |      |  M-L |  M-D |  M-R |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      | SW-D | SW-U |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -198,6 +200,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_ENT);
         register_code(KC_UP);
         unregister_code(KC_UP);
+      }
+      return false;
+      break;
+    case DASH:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        register_code(KC_MINS);
+      } else {
+        unregister_code(KC_MINS);
+        unregister_code(KC_LALT);
+      }
+      return false;
+      break;
+    case GBP:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        register_code(KC_3);
+      } else {
+        unregister_code(KC_3);
+        unregister_code(KC_LALT);
       }
       return false;
       break;
