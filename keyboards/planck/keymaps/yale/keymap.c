@@ -15,10 +15,11 @@
 #define _QW 0
 #define _NM 1
 #define _FN 2
+#define _SU 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
+/* QW
  * ,-----------------------------------------------------------------------------------.
  * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LSFT,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
   {KC_LCTL,       KC_LALT, KC_LGUI, KC_LGUI, MO(_NM), KC_SPC,  KC_SPC,  MO(_FN), KC_RGUI, KC_RALT, KC_RCTL, KC_ENT}
 },
-/* Number
+/* NM
  * ,-----------------------------------------------------------------------------------.
  * |  ___ |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -50,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS},
   {KC_LCTL, KC_GRV,  KC_LBRC, KC_LCBR, KC_LPRN, KC_SLSH, KC_BSLS, KC_RPRN, KC_RCBR, KC_RBRC, KC_MINS, KC_EQL},
   {KC_TRNS, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_PLUS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_SU),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
-/* Function
+/* FN
  * ,-----------------------------------------------------------------------------------.
  * | ____ |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | ____ |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -67,8 +68,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS},
   {KC_TRNS, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DEL,  KC_TRNS},
   {KC_TRNS, M(0),    KC_TRNS, KC_VOLD, KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT, KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
-}
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_SU), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+},
+
+[_SU] = {
+  {KC_MS_ACCEL2, KC_FN1,     KC_FN2,     KC_FN3,     KC_FN4,     KC_NO, KC_NO,      KC_WH_D,    KC_WH_U,  KC_NO,       KC_NO, KC_NO},
+  {KC_MS_ACCEL1, KC_MS_BTN4, KC_MS_BTN3, KC_MS_BTN2, KC_MS_BTN1, KC_NO, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_NO, KC_NO},
+  {KC_MS_ACCEL0, KC_FN9,     KC_FN10,    KC_FN11,    KC_FN12,    KC_NO, KC_NO,      KC_NO,      KC_NO,    KC_NO,       KC_NO, KC_NO},
+  {KC_NO,        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO, KC_NO,      KC_NO,      KC_NO,    KC_NO,       KC_NO, KC_NO}
+},
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
