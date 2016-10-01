@@ -26,10 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -124,10 +123,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-//#define NO_DEBUG
+// #ifndef NO_DEBUG
+// #  define NO_DEBUG
+// #endif
 
 /* disable print */
-//#define NO_PRINT
+// #ifndef NO_PRINT
+// #  define NO_PRINT
+// #endif
+
+/* Only print user print statements */
+// #define USER_PRINT
+
 
 /* disable action features */
 //#define NO_ACTION_LAYER

@@ -384,9 +384,6 @@ static bool command_common(uint8_t code)
                 debug_mouse    = true;
             } else {
                 print("\ndebug: off\n");
-                debug_matrix   = false;
-                debug_keyboard = false;
-                debug_mouse    = false;
             }
             break;
 
