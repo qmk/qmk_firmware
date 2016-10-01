@@ -26,3 +26,4 @@ SLEEP_LED_ENABLE ?= yes # Breathing sleep LED during USB suspend
 NKRO_ENABLE      ?= yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 MIDI_ENABLE      ?= no  # MIDI controls
 UNICODE_ENABLE   ?= yes # Unicode
+ONEHAND_ENABLE   ?= yes # Allow swapping hands of keyboard
