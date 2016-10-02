@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╆─────╅─────┤     │     │     ├─────╆─────╅─────┼─────┼─────┼───────┤
  * │       │  ├  │  ┼  │  ┤  │  ✓  │  ✕  ├─────┤     ├─────┤     │ F5  │ F6  │ F7  │ F8  │       │
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
- * │       │  └  │  ┴  │  ┘  │     │     │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
+ * │       │  └  │  ┴  │  ┘  │  ↔  │  ⇔  │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
  *   │     │     │(MO1)│     │(MO4)│                             │(MO4)│     │(MO1)│     │     │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,    UC(0x250C),UC(0x252C),UC(0x2510),UC(0x2500),UC(0x2502),KC_TRNS,
         KC_TRNS,    UC(0x251C),UC(0x253C),UC(0x2524),UC(0x2713),UC(0x2715),
-        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),UC(0x2194),UC(0x21D4),KC_TRNS,
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                                     KC_MS_L,    KC_MS_U,
                                                                 KC_BTN1,
