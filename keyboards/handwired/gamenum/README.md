@@ -14,7 +14,7 @@ The README.MD for this board is reasonably extensive and in-depth because the bu
 Since the GameNum is handwired and uses 2 of its pins to toggle indicator lights there are some things to keep in mind.
 Firmware was build for use with a Pro Micro based on a ATMEGA32u4 at 16mHz. 
 The indicator LED's are normally assigned to `pin C6` and `pin D4`, C6 goes high when the first layer is used, D4 goes high when layer 2 is used. Both LED's are off when the default layer is enabled.
-+ of the LED goes to the respective pins and can be joined together on the - into a resistor that runs to the ground pin of the pro micro. With a standard LED a resistor value of 100 ohm is fine, keep in mind that you cannot use high powered LEDS on these pins without ruining your pro micro.
+'+' of the LED goes to the respective pins and can be joined together on the '-' into a resistor that runs to the ground pin of the pro micro. With a standard LED a resistor value of 100 ohm is fine, keep in mind that you cannot use high powered LEDS on these pins without ruining your pro micro.
 
 Schematic of the build is coming soon.
 
