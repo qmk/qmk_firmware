@@ -50,7 +50,11 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
 
 rgblight_config_t rgblight_config;
 rgblight_config_t inmem_config;
-struct cRGB led[RGBLED_NUM];
+#ifdef RGBW
+  struct cRGBW led[RGBLED_NUM];
+#else
+  struct cRGB led[RGBLED_NUM];
+#endif
 uint8_t rgblight_inited = 0;
 
 
@@ -334,14 +338,22 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 
 void rgblight_set(void) {
   if (rgblight_config.enable) {
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
     }
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   }
 }
 

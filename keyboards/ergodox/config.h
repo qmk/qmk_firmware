@@ -1,6 +1,8 @@
 #ifndef KEYBOARDS_ERGODOX_CONFIG_H_
 #define KEYBOARDS_ERGODOX_CONFIG_H_
 
+#include "config_common.h"
+
 #define MOUSEKEY_DELAY          100
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_MAX_SPEED      3

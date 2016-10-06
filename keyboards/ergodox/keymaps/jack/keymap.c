@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              KC_NO,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_ENT,
                                   MO(1), KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,  
-             KC_NO,        KC_NO,
+             RGB_TOG,        RGB_HUI,
              KC_PGUP,
              KC_PGDN, KC_SPC,KC_SPC
     ),
@@ -90,7 +90,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+  
 };
 
 // Runs constantly in the background, in a loop.
