@@ -1,6 +1,7 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
+#define RGBW 1
 
 #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
 	#define RGBLIGHT_MODES 23
