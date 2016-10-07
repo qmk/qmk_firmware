@@ -160,11 +160,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |        `~ |   X  |   W  |   G  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  Y   | \         |
+ * |         \ |   X  |   W  |   C  |   H  |   F  |   (  |           |  )   |   M  |   G  |   L  |   P  |  /   | `~        |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
- * |           |   Z  |   Q  |   '  |   ,  |   .  |      |           | pane |   B  |   K  |   V  |   J  |  /   |           |
+ * |           |   Z  |   Q  |   '  |   ,  |   .  |      |           | pane |   B  |   K  |   V  |   Y  |  J   |           |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ADORE] = KEYMAP(
 // left hand
  KC_MPLY            ,M(A_9)      ,M(A_7)      ,M(A_5)  ,M(A_3)  ,M(A_1) ,KC_F11
-,KC_GRV             ,KC_X        ,KC_W        ,KC_G    ,KC_L    ,KC_M   ,TD(CT_LBP)
+,KC_BSLS            ,KC_X        ,KC_W        ,KC_C    ,KC_H    ,KC_F   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
@@ -190,9 +190,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_F12    ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
-                                                               ,TD(CT_RBP),KC_F     ,KC_H    ,KC_C    ,KC_P    ,KC_Y    ,KC_BSLS
+                                                               ,TD(CT_RBP),KC_M     ,KC_G    ,KC_L    ,KC_P    ,KC_SLSH ,KC_GRV
                                                                           ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
-                                                               ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH ,KC_NO
+                                                               ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_Y    ,KC_J    ,KC_NO
                                                                                     ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -386,7 +386,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 6: Steno for Plover
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      | BASE |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |  BASE  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   #  |   #  |   #  |   #  |   #  |   #  |           |  #   |  #   |  #   |   #  |   #  |  #   |   #    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -407,7 +407,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [PLVR] = KEYMAP(
 // left hand
-KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   M(A_PLVR),
+KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   KC_NO,
 KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  PV_NUM,
 KC_NO,  PV_LS,  PV_LT,  PV_LP,   PV_LH,  PV_STAR,
 KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, PV_STAR,
@@ -417,7 +417,7 @@ KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
                                            PV_A,  PV_O,  KC_NO,
 
                                                  // right hand
-                                                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   M(A_PLVR),
                                                  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
                                                           PV_STAR, PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,
                                                  PV_STAR, PV_STAR, PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
@@ -617,6 +617,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           register_code (KC_LGUI);
           if (record->tap.count && !record->tap.interrupted) {
             if (record->tap.count >= 2) {
+              uprintf("CMD:appsel_start\n");
               layer_on (APPSEL);
               set_oneshot_layer (APPSEL, ONESHOT_START);
             }
@@ -695,15 +696,15 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
-static void ang_tap (uint8_t code, ...) {
-  uint8_t kc = code;
+static void ang_tap (uint16_t code, ...) {
+  uint16_t kc = code;
   va_list ap;
 
   va_start(ap, code);
 
   do {
-    register_code(kc);
-    unregister_code(kc);
+    register_code16(kc);
+    unregister_code16(kc);
     wait_ms(50);
     kc = va_arg(ap, int);
   } while (kc != 0);
@@ -866,6 +867,17 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end ();
 
+    SEQ_ONE_KEY (KC_C) {
+      ang_tap (LSFT(KC_C), KC_S, KC_I, KC_L, KC_L, KC_RALT, KC_QUOT, KC_A, KC_M, KC_A, KC_S,
+               KC_S, KC_Z, KC_O, KC_N, KC_Y, KC_K, KC_RALT, KC_QUOT, KC_A, KC_M, 0);
+    }
+
+    SEQ_ONE_KEY (KC_G) {
+      ang_tap (LSFT(KC_G), KC_E, KC_J, KC_G, KC_RALT, KC_EQL, KC_O,
+               KC_RALT, KC_EQL, KC_O,
+               KC_RALT, KC_EQL, KC_O, 0);
+    }
+
 #if KEYLOGGER_ENABLE
     SEQ_ONE_KEY (KC_D) {
       ergodox_led_all_on();
@@ -874,11 +886,6 @@ void matrix_scan_user(void) {
       log_enable = !log_enable;
     }
 #endif
-
-    SEQ_ONE_KEY (KC_Q) {
-      register_code16 (LCTL(KC_1));
-      unregister_code16 (LCTL(KC_1));
-    }
 
     SEQ_ONE_KEY (KC_T) {
       time_travel = !time_travel;
