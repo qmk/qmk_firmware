@@ -140,6 +140,9 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 
 docker run -e keymap=gwen -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
+# On windows docker seems to have issue with VOLUME tag in Dockerfile, and $('pwd') won't print a windows compliant path, use full path instead like this
+docker run -e keymap=default -e keyboard=ergobop --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+
 ```
 
 This will compile the targetted keyboard/keymap and leave it in your QMK directory for you to flash.
