@@ -1,0 +1,7 @@
+#ifndef KEYBOARDS_ERGODOX_ERGODOX_H_
+#define KEYBOARDS_ERGODOX_ERGODOX_H_
+#ifdef SUBPROJECT_v1
+    #include "v1.h"
+#endif
+
+#endif /* KEYBOARDS_ERGODOX_ERGODOX_H_ */
