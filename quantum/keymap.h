@@ -111,6 +111,7 @@ enum quantum_keycodes {
     MAGIC_UNSWAP_BACKSLASH_BACKSPACE,
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
+    MAGIC_TOGGLE_NKRO,
 
     // Leader key
 #ifndef DISABLE_LEADER

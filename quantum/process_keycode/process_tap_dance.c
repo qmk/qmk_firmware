@@ -8,9 +8,9 @@ void qk_tap_dance_pair_finished (qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
   if (state->count == 1) {
-    register_code (pair->kc1);
+    register_code16 (pair->kc1);
   } else if (state->count == 2) {
-    register_code (pair->kc2);
+    register_code16 (pair->kc2);
   }
 }
 
@@ -18,9 +18,9 @@ void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
 
   if (state->count == 1) {
-    unregister_code (pair->kc1);
+    unregister_code16 (pair->kc1);
   } else if (state->count == 2) {
-    unregister_code (pair->kc2);
+    unregister_code16 (pair->kc2);
   }
 }
 
@@ -65,11 +65,12 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       highest_td = idx;
     action = &tap_dance_actions[idx];
 
-    action->state.keycode = keycode;
     action->state.pressed = record->event.pressed;
     if (record->event.pressed) {
+      action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+      process_tap_dance_action_on_each_tap (action);
 
       if (last_td && last_td != keycode) {
         qk_tap_dance_action_t *paction = &tap_dance_actions[last_td - QK_TAP_DANCE];
@@ -77,8 +78,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
         process_tap_dance_action_on_dance_finished (paction);
         reset_tap_dance (&paction->state);
       }
+
+      last_td = keycode;
     }
-    last_td = keycode;
 
     break;
 

@@ -83,6 +83,9 @@ void reset_keyboard(void);
 void startup_user(void);
 void shutdown_user(void);
 
+void register_code16 (uint16_t code);
+void unregister_code16 (uint16_t code);
+
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
 

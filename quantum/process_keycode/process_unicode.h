@@ -13,6 +13,7 @@
 #endif
 
 void set_unicode_input_mode(uint8_t os_target);
+uint8_t get_unicode_input_mode(void);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
@@ -29,11 +30,13 @@ typedef struct {
   char *code;
 } qk_ucis_symbol_t;
 
-struct {
+typedef struct {
   uint8_t count;
   uint16_t codes[UCIS_MAX_SYMBOL_LENGTH];
   bool in_progress:1;
-} qk_ucis_state;
+} qk_ucis_state_t;
+
+extern qk_ucis_state_t qk_ucis_state;
 
 #define UCIS_TABLE(...) {__VA_ARGS__, {NULL, NULL}}
 #define UCIS_SYM(name, code) {name, #code}
