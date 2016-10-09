@@ -10,6 +10,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {255, 170, 85};
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {255, 170, 85};
+
 void matrix_init_user(void) {
 }
 
