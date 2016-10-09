@@ -8,8 +8,13 @@
 /* May be overridden with a custom value. Be aware that the effective
  * macro length is half of this value: each keypress is recorded twice
  * because of the down-event and up-event. This is not a bug, it's the
- * intended behavior. */
-#define DYNAMIC_MACRO_SIZE 256
+ * intended behavior.
+ *
+ * Usually it should be fine to set the macro size to at least 256 but
+ * there have been reports of it being too much in some users' cases,
+ * so 128 is considered a safe default.
+ */
+#define DYNAMIC_MACRO_SIZE 128
 #endif
 
 /* DYNAMIC_MACRO_RANGE must be set as the last element of user's
