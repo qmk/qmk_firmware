@@ -55,12 +55,7 @@ uint8_t rgblight_inited = 0;
 
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
-  // Convert hue, saturation, and value (HSV/HSB) to RGB. DIM_CURVE is used only
-  // on value and saturation (inverted). This looks the most natural.
   uint8_t r = 0, g = 0, b = 0, base, color;
-
-  val = pgm_read_byte(&DIM_CURVE[val]);
-  sat = 255 - pgm_read_byte(&DIM_CURVE[255 - sat]);
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -103,6 +98,9 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
         break;
     }
   }
+  r = pgm_read_byte(&DIM_CURVE[r]);
+  g = pgm_read_byte(&DIM_CURVE[g]);
+  b = pgm_read_byte(&DIM_CURVE[b]);
 
   setrgb(r, g, b, led1);
 }
