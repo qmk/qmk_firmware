@@ -84,6 +84,10 @@ enum quantum_keycodes {
     QK_MOD_TAP_MAX        = 0x6FFF,
     QK_TAP_DANCE          = 0x7100,
     QK_TAP_DANCE_MAX      = 0x71FF,
+#ifdef UNICODEMAP_ENABLE
+    QK_UNICODE_MAP        = 0x7800,
+    QK_UNICODE_MAP_MAX    = 0x7FFF,
+#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
@@ -335,5 +339,8 @@ enum quantum_keycodes {
     #define UC(n) UNICODE(n)
 #endif
 
+#ifdef UNICODEMAP_ENABLE
+    #define X(n) (n | QK_UNICODE_MAP)
+#endif
 
 #endif
