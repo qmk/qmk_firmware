@@ -42,10 +42,16 @@ const uint8_t RGBLED_BREATHING_TABLE[] PROGMEM = {
   37, 35, 33, 31, 29, 27, 25, 23, 21, 20, 18, 17, 15, 14, 12, 11,
   10, 9, 7, 6, 5, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0
 };
+
+__attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+__attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+__attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
 
 rgblight_config_t rgblight_config;
