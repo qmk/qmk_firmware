@@ -5,8 +5,8 @@
 #   include <avr/pgmspace.h>
 #elif defined(__arm__)
 #   define PROGMEM
-#   define pgm_read_byte(p)     *(p)
-#   define pgm_read_word(p)     *(p)
+#   define pgm_read_byte(p)     *((unsigned char*)p)
+#   define pgm_read_word(p)     *((uint16_t*)p)
 #endif
 
 #endif

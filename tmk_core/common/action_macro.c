@@ -41,7 +41,7 @@ void action_macro_play(const macro_t *macro_p)
                 MACRO_READ();
                 dprintf("KEY_DOWN(%02X)\n", macro);
                 if (IS_MOD(macro)) {
-                    add_weak_mods(MOD_BIT(macro));
+                    add_macro_mods(MOD_BIT(macro));
                     send_keyboard_report();
                 } else {
                     register_code(macro);
@@ -51,7 +51,7 @@ void action_macro_play(const macro_t *macro_p)
                 MACRO_READ();
                 dprintf("KEY_UP(%02X)\n", macro);
                 if (IS_MOD(macro)) {
-                    del_weak_mods(MOD_BIT(macro));
+                    del_macro_mods(MOD_BIT(macro));
                     send_keyboard_report();
                 } else {
                     unregister_code(macro);
