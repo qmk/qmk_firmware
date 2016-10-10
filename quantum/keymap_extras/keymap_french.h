@@ -1,10 +1,10 @@
 #ifndef KEYMAP_FRENCH_H
 #define KEYMAP_FRENCH_H
 
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
-#define ALGR(kc) kc | 0x1400
+#define ALGR(kc) RALT(kc)
 #define NO_ALGR KC_RALT
 
 // Normal characters
@@ -75,7 +75,7 @@
 #define FR_CIRC	ALGR(KC_9)
 #define FR_AT 	ALGR(KC_0)
 #define FR_RBRC	ALGR(FR_RPRN)
-#define FR_LCBR ALGR(FR_EQL)
+#define FR_RCBR ALGR(FR_EQL)
 
 #define FR_EURO	ALGR(KC_E)
 #define FR_BULT	ALGR(FR_DLR)

@@ -28,7 +28,7 @@ Scroll down to the bottom to see the most recent changes.
   - Added (free) default Vendor- and Product-IDs bought from voti.nl.
   - Added USBID-License.txt file which defines the rules for using the free
     shared VID/PID pair.
-  - Added Readme.txt to the usbdrv directory which clarifies administrative
+  - Added readme.txt to the usbdrv directory which clarifies administrative
     issues.
 
 2006-01-25:
