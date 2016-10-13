@@ -191,6 +191,7 @@ enum quantum_keycodes {
 #define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
 #define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
 #define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
+#define ALTG(kc) (kc | QK_RCTL | QK_RALT)
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -295,7 +296,10 @@ enum quantum_keycodes {
 // ON_PRESS    = 1
 // ON_RELEASE  = 2
 // Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
-#define TO(layer, when) (layer | QK_TO | (when << 0x4))
+// In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
+// keycode modeled after the old version, kept below for this.
+/* #define TO(layer, when) (layer | QK_TO | (when << 0x4)) */
+#define TO(layer) (layer | QK_TO | (ON_PRESS << 0x4))
 
 // Momentary switch layer - 256 layer max
 #define MO(layer) (layer | QK_MOMENTARY)
