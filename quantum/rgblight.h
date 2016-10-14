@@ -40,6 +40,12 @@
 #include "eeconfig.h"
 #include "light_ws2812.h"
 
+extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
+extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
+
 typedef union {
   uint32_t raw;
   struct {

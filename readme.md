@@ -140,6 +140,9 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 
 docker run -e keymap=gwen -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
+# On windows docker seems to have issue with VOLUME tag in Dockerfile, and $('pwd') won't print a windows compliant path, use full path instead like this
+docker run -e keymap=default -e keyboard=ergobop --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+
 ```
 
 This will compile the targetted keyboard/keymap and leave it in your QMK directory for you to flash.
@@ -375,6 +378,8 @@ Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - 
 `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped. Like `MO()`, this only works upwards in the layer stack (`layer` must be higher than the current layer).
 
 `TG(layer)` - toggles a layer on or off. As with `MO()`, you should set this key as `KC_TRNS` in the destination layer so that tapping it again actually toggles back to the original layer. Only works upwards in the layer stack.
+
+`TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
 
 
 ### Fun with modifier keys
@@ -823,7 +828,7 @@ And then, to assign this macro to a key on your keyboard layout, you just use `M
 
 ## Dynamic macros: record and replay macros in runtime
 
-In addition to the static macros described above, you may enable the dynamic macros which you may record while writing. They are forgotten as soon as the keyboard is unplugged. Only two such macros may be stored at the same time, with the total length of 128 keypresses.
+In addition to the static macros described above, you may enable the dynamic macros which you may record while writing. They are forgotten as soon as the keyboard is unplugged. Only two such macros may be stored at the same time, with the total length of 64 keypresses (by default).
 
 To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMIC_MACRO_RANGE`:
 
@@ -864,7 +869,7 @@ Add the following code to the very beginning of your `process_record_user()` fun
 
 To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `_DYN` layer button. The handler awaits specifically for the `MO(_DYN)` keycode as the "stop signal" so please don't use any fancy ways to access this layer, use the regular `MO()` modifier. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
 
-If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 256; please read the comments for it in the header).
+If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
 
 For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.
 
