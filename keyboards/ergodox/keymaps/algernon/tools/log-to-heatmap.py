@@ -145,6 +145,11 @@ class Heatmap(object):
                     usage[0][4] = usage[0][4] + self.log[(c, r)]
                 else:
                     usage[1][0] = usage[1][0] + self.log[(c, r)]
+            elif r == 4 and (c == 4 or c == 9): # bottom row thumb keys
+                if c <= 6: # left side
+                    usage[0][4] = usage[0][4] + self.log[(c, r)]
+                else:
+                    usage[1][0] = usage[1][0] + self.log[(c, r)]
             else:
                 fc = c
                 hand = 0
