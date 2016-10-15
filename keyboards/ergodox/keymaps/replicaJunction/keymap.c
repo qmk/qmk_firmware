@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ,--------------------------------------------------.           ,--------------------------------------------------.
       * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
       * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-      * |  Tab   |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
+      * |  LCtrl |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
       * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-      * |  LCtl  |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
+      * |  Tab   |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
       * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
       * | LShft  |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   ,  |   /  | RShft  |
       * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CO] = KEYMAP(
         // left hand
         KC_GRV, KC_1,   KC_2,      KC_3,            KC_4,   KC_5,   KC_ESC,
-        KC_TAB, KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
-        KC_LCTL,KC_A,   KC_R,      KC_S,            KC_T,   KC_G,
+        KC_LCTL,KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
+        KC_TAB, KC_A,   KC_R,      KC_S,            KC_T,   KC_G,
         KC_LSFT,KC_Z,   KC_X,      KC_C,            KC_D,   KC_V,   ALL_T(KC_NO),
         KC_LGUI,KC_LBRC,KC_RBRC,   LCTL(KC_LSFT),   KC_LALT,
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | LShift |   Q  |   W  |   E  |   R  |   T  | Home |           | BkSp |   Y  |   U  |   I  |   O  |   P  |   -    |
+     * | LCtrl  |   Q  |   W  |   E  |   R  |   T  | Home |           | BkSp |   Y  |   U  |   I  |   O  |   P  |   -    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * | Tab    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
      * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
@@ -111,8 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QW] = KEYMAP(  // Layer1: QWERTY
         // left hand
         KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
-        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
-        KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LCTL,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
+        KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         KC_LCTL,KC_GRV, KC_SLSH,LCTL(KC_LSFT),  MO(_NU),
 
