@@ -68,9 +68,8 @@ elif [[ -n "$(type -P yum)" ]]; then
     avr-libc \
     dfu-programmer \
     dfu-util \
-    gcc-arm-none-eabi \
-    binutils-arm-none-eabi \
-    libnewlib-arm-none-eabi \
+    arm-none-eabi-gcc-cs \
+    arm-none-eabi-newlib \
     git \
     diffutils
   # The listed eabi pacackes do unfortunately not exist for CentOS,

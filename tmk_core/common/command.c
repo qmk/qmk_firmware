@@ -238,7 +238,7 @@ static void print_status(void)
     print_val_hex8(keyboard_protocol);
     print_val_hex8(keyboard_idle);
 #ifdef NKRO_ENABLE
-    print_val_hex8(keyboard_nkro);
+    print_val_hex8(keymap_config.nkro);
 #endif
     print_val_hex32(timer_read32());
 
@@ -261,7 +261,10 @@ static void print_status(void)
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
-#ifndef NO_PRINT
+
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
+
     print("default_layer: "); print_dec(eeconfig_read_default_layer()); print("\n");
 
     debug_config_t dc;
@@ -381,9 +384,6 @@ static bool command_common(uint8_t code)
                 debug_mouse    = true;
             } else {
                 print("\ndebug: off\n");
-                debug_matrix   = false;
-                debug_keyboard = false;
-                debug_mouse    = false;
             }
             break;
 
@@ -435,8 +435,8 @@ static bool command_common(uint8_t code)
 		// NKRO toggle
         case MAGIC_KC(MAGIC_KEY_NKRO):
             clear_keyboard(); // clear to prevent stuck keys
-            keyboard_nkro = !keyboard_nkro;
-            if (keyboard_nkro) {
+            keymap_config.nkro = !keymap_config.nkro;
+            if (keymap_config.nkro) {
                 print("NKRO: on\n");
             } else {
                 print("NKRO: off\n");
@@ -571,7 +571,8 @@ static uint8_t mousekey_param = 0;
 
 static void mousekey_param_print(void)
 {
-#ifndef NO_PRINT
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
     print("\n\t- Values -\n");
     print("1: delay(*10ms): "); pdec(mk_delay); print("\n");
     print("2: interval(ms): "); pdec(mk_interval); print("\n");
