@@ -1,7 +1,7 @@
 /*
  * Keyboard: Ergodox
  * Keymap:   replicaJunction
- * Version:  1.1
+ * Version:  1.2
  *
  * This keymap is designed to complement my Atreus keyboard layout, found in keyboards/atreus.
  * The Atreus keyboard is a 40% board whose design was heavily influenced by the Ergodox, and I now
@@ -17,14 +17,22 @@
 #include "action_layer.h"
 
 #define _CO 0 // Colemak
-#define _DV 1 // Dvorak
-#define _QW 2 // QWERTY
-#define _ME 3 // media keys
-#define _NU 4 // numpad
-#define _EX 5 // extend
-#define _GA 6 // mouse overlay for gaming
+#define _QW 1 // QWERTY
+#define _ME 2 // media keys
+#define _NU 3 // numpad
+#define _EX 4 // extend
+#define _GA 5 // mouse overlay for gaming
 
-#define _______ KC_TRNS // Simple alias that just makes the keymaps a bit easier to look at
+// Some quick aliases, just to make it look pretty
+#define _______ KC_TRNS
+#define KCX_CGR LCTL(KC_GRV)
+#define KCX_LST LSFT(KC_TAB)
+#define KX_COPY LCTL(KC_C)
+#define KX_CUT  LCTL(KC_X)
+#define KX_PAST LCTL(KC_V)
+#define KX_UNDO LCTL(KC_Z)
+
+; // This doesn't do anything. It's just for VSCode because its syntax highlighting is weird for the above #define statements.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -33,16 +41,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ,--------------------------------------------------.           ,--------------------------------------------------.
       * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
       * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-      * |   \    |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
+      * |  Tab   |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
       * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-      * | Tab    |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
+      * |  LCtl  |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
       * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
       * | LShft  |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   ,  |   /  | RShft  |
       * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
       *   | LGui |   [  |   ]  |CtlShf| LAlt |                                       | _EX  |   -  |   '  | Right|   \  |
       *   `----------------------------------'                                       `----------------------------------'
       *                                        ,-------------.       ,-------------.
-      *                                        | LCtrl| LAlt |       | Left | Right|
+      *                                        | LCtrl|  ~GA |       | Left | Right|
       *                                 ,------|------|------|       |------+------+------.
       *                                 |LCtrl/| LAlt/| Home |       |  Up  |  Alt/| _NU/ |
       *                                 | BkSp |  Del |------|       |------| Enter| Space|
@@ -53,12 +61,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CO] = KEYMAP(
         // left hand
         KC_GRV, KC_1,   KC_2,      KC_3,            KC_4,   KC_5,   KC_ESC,
-        KC_BSLS,KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
-        KC_TAB, KC_A,   KC_R,      KC_S,            KC_T,   KC_G,
+        KC_TAB, KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
+        KC_LCTL,KC_A,   KC_R,      KC_S,            KC_T,   KC_G,
         KC_LSFT,KC_Z,   KC_X,      KC_C,            KC_D,   KC_V,   ALL_T(KC_NO),
         KC_LGUI,KC_LBRC,KC_RBRC,   LCTL(KC_LSFT),   KC_LALT,
 
-                                                                KC_LCTL,        KC_LALT,
+                                                                KC_LCTL,        TG(_GA),
                                                                                 KC_HOME,
                                                 CTL_T(KC_BSPC), ALT_T(KC_DEL),  MO(_NU),
         // right hand
@@ -74,56 +82,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-      * Keymap: Dvorak layout
-      *
-      * The right index backspace is a nod to my TypeMatrix keyboard, which has
-      * Backspace in the center.
-      *
-      * ,--------------------------------------------------.           ,--------------------------------------------------.
-      * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   /    |
-      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-      * |   \    |   '  |   ,  |   .  |   P  |   Y  | Home |           | BkSp |   F  |   G  |   C  |   R  |   L  |   =    |
-      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-      * | Tab    |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |   -    |
-      * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
-      * | LShft  |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | RShft  |
-      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-      *   | LGui |   [  |   ]  |CtlShf| _NU |                                       | Left |  Up  | Down | Right|   \  |
-      *   `----------------------------------'                                       `----------------------------------'
-      *                                        ,-------------.       ,-------------.
-      *                                        | LCtrl| LAlt |       | _ME | RAlt |
-      *                                 ,------|------|------|       |------+------+------.
-      *                                 | Ctl/ | Alt/ | Home |       | PgUp |      | _NU/ |
-      *                                 | BkSp |  Del |------|       |------| Enter| Space|
-      *                                 |      |      | _NU |       | PgDn |      |      |
-      *                                 `--------------------'       `--------------------'
-      */
-
-// _DV
-[_DV] = KEYMAP(
-        // left hand
-        KC_GRV, KC_1,   KC_2,      KC_3,            KC_4,   KC_5,   KC_ESC,
-        KC_BSLS,KC_QUOT,KC_COMM,   KC_DOT,          KC_P,   KC_Y,   KC_HOME,
-        KC_TAB, KC_A,   KC_O,      KC_E,            KC_U,   KC_I,
-        KC_LSFT,KC_SCLN,KC_Q,      KC_J,            KC_K,   KC_X,   ALL_T(KC_NO),
-        KC_LGUI,KC_LBRC,KC_RBRC,   LCTL(KC_LSFT),   MO(_NU),
-
-                                                                KC_LCTL,        KC_LALT,
-                                                                                KC_HOME,
-                                                CTL_T(KC_BSPC), ALT_T(KC_DEL),  MO(_NU),
-        // right hand
-             KC_ESC,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_SLSH,
-             KC_BSPC,  KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_EQL,
-                       KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_MINS,
-             KC_BSLS,  KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   KC_RSFT,
-                               KC_LEFT,KC_UP,  KC_DOWN,KC_RGHT,KC_BSLS,
-
-        MO(_ME), KC_RALT,
-        KC_PGUP,
-        KC_PGDN,  KC_ENT, LT(_NU,KC_SPC)
-    ),
-
-    /*
      * Keymap: QWERTY layout.
      *
      * This is optimized for gaming, not typing, so there aren't as many macros
@@ -132,45 +90,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * and repositioning the arrow keys at the bottom right corner.
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   -    |
+     * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * | LShift |   Q  |   W  |   E  |   R  |   T  | +L1  |           | BkSp |   Y  |   U  |   I  |   O  |   P  |   ]    |
+     * | LShift |   Q  |   W  |   E  |   R  |   T  | Home |           | BkSp |   Y  |   U  |   I  |   O  |   P  |   -    |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * | Tab    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
-     * |--------+------+------+------+------+------| FN2  |           | ~L1  |------+------+------+------+------+--------|
-     * | LShft  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  Up  | RShft  |
+     * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
+     * | LShft  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShft  |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | LCtrl|   `  |  \   |CtlShf| _NU  |                                       | ~_GA |  /  | Left  | Down | Right|
+     *   | LGui |   `  |  \   |CtlShf| _NU  |                                       |  _EX |   -  |  '   |   [  |   ]   |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        | LCtrl| LAlt |       | _ME | ~_GA  |
+     *                                        | LCtrl| ~GA  |       | Left | Right|
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      | Home |       | PgUp |      | _NU/ |
-     *                                 | Space| LAlt |------|       |------| Enter| Space|
-     *                                 |      |      | End  |       | PgDn |      |      |
+     *                                 |LCtrl/| LAlt/| Home |       |  Up  |  Alt/| _NU/ |
+     *                                 | BkSp |  Del |------|       |------| Enter| Space|
+     *                                 |      |      | _NU  |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      */
 [_QW] = KEYMAP(  // Layer1: QWERTY
         // left hand
         KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
-        KC_LSFT,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
-        KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,
+        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
+        KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         KC_LCTL,KC_GRV, KC_SLSH,LCTL(KC_LSFT),  MO(_NU),
 
-                                        KC_LCTL,KC_LALT,
-                                                KC_HOME,
-                                        KC_SPC, KC_LALT, KC_END,
+                                                                KC_LCTL,TG(_GA),
+                                                                        KC_HOME,
+                                        CTL_T(KC_BSPC), ALT_T(KC_DEL),  MO(_NU)
         // right hand
-        KC_ESC,  KC_6,  KC_7,   KC_8,   KC_9,   KC_0,   KC_RBRC,
-        KC_BSPC, KC_Y,  KC_U,   KC_I,   KC_O,   KC_P,   KC_EQL,
-                 KC_H,  KC_J,   KC_K,   KC_L,   KC_SCLN,KC_MINS,
-        KC_END,  KC_N,  KC_M,   KC_COMM,KC_DOT, KC_UP  ,KC_RSFT,
-                        TG(_GA),KC_UP,  KC_LEFT,KC_DOWN,KC_RGHT,
+        KC_ESC,  KC_6,  KC_7,   KC_8,   KC_9,   KC_0,   KC_EQL,
+        KC_BSPC, KC_Y,  KC_U,   KC_I,   KC_O,   KC_P,   KC_MINS,
+                 KC_H,  KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
+        KC_BSLS, KC_N,  KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+                        MO(_EX),KC_MINS,KC_QUOT,KC_RGHT,KC_BSLS,
 
-        MO(_ME),TG(_GA),
-        KC_PGUP,
-        KC_PGDN,KC_ENT,LT(_NU,KC_SPC)
+        KC_LEFT, KC_RGHT,
+        KC_UP,
+        KC_DOWN, ALT_T(KC_ENT), LT(_NU,KC_SPC)
     ),
 
 /*
@@ -190,10 +148,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   \  |   1  |   2  |   3  |   +  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   | RESET|QWERTY|Dvorak|Colemk|      |                                       |   0  |   .  |   =  |      |      |
+     *   |      |QWERTY|Colemk|      |      |                                       |   0  |   .  |   =  |      |      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |NumLck|      |       |      |      |
+     *                                        |NumLck| RESET|       |      |      |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      |      |       |      |      |      |
      *                                 |      |      |------|       |------|      |      |
@@ -206,9 +164,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR, _______,
         _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,
         _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______,
-        RESET,   DF(_QW), DF(_DV), DF(_CO), _______,
+        _______, DF(_QW), DF(_CO), _______, _______,
 
-                                                KC_NLCK,_______,
+                                                KC_NLCK,RESET,
                                                         _______,
                                         _______,_______,_______,
         // right hand
@@ -227,13 +185,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Keymap: Extend
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
-     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+     * |        |  F11 |  F12 |  F13 |  F14 |  F15 | Mute |           |      |  F16 |  F17 |  F18 |  F19 |  F20 |        |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
-     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+     * |        |      |      |      |      | Ctrl`|  Vol |           |      | PgUp | Home |  Up  |  End |  Del |        |
+     * |--------+------+------+------+------+------|  Up  |           |      |------+------+------+------+------+--------|
+     * |        |      |  Gui |  Alt | Ctrl |      |------|           |------| PgDn | Left | Down | Right| BkSp | PrntScr|
+     * |--------+------+------+------+------+------|  Vol |           |      |------+------+------+------+------+--------|
+     * |        | Undo |  Cut | Copy |      | Paste| Down |           |      |      | ^Tab |  Tab |      |Insert|        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
      *   `----------------------------------'                                       `----------------------------------'
@@ -244,23 +202,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 |      |      |------|       |------|      |      |
      *                                 |      |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
+     *
+     * Ctrl+` is a keyboard shortcut for the program ConEmu, which provides a Quake-style drop-down command prompt.
+     *
      */
 [_EX] = KEYMAP(
         // left hand
-        _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_MUTE,
+        _______, _______, _______, _______, _______, KCX_CGR, KC_VOLU,
+        _______, _______, KC_LGUI, KC_LALT, KC_LCTL, _______,
+        _______, KX_UNDO, KX_CUT,  KX_COPY, _______, KX_PAST, KC_VOLD,
         _______, _______, _______, _______, _______,
 
                                                 _______,_______,
                                                         _______,
                                         _______,_______,_______,
         // right hand
-        _______,  _______, _______, _______, _______, _______, _______,
-        _______,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______,
-                  KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-        _______,  _______, _______, _______, _______, _______, _______,
+        _______,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
+        _______,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  _______,
+                  KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, KC_PSCR,
+        _______,  KCX_LST, KC_TAB,  _______, _______, KC_INS,  _______,
                            _______, _______, _______, _______, _______,
         _______, _______,
         _______,
@@ -270,7 +231,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * Keymap: Gaming
      *
-     * This is mostly a mouse overlay for the right hand while the left hand uses the QWERTY layout.
+     * Provides a mouse overlay for the right hand, and also moves some "gamer friendly" keys to the left, such as space.
+     * This layer also removes a lot of dual-role keys, as when gaming, it's nicer not to need to keep track of those.
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -281,13 +243,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |      |      |      |      |      |                                       |MClick|      |      |      |      |
+     *   | LCtrl|      |      |      |      |                                       |      |      |      |      |      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |      |      |       |      | ~_GA|
+     *                                        |      | ~_GA |       |      |MClick|
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      |      |       |      |      |      |
-     *                                 |      |      |------|       |------|RClick|LClick|
+     *                                 | Space|      |------|       |------|RClick|LClick|
      *                                 |      |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      */
@@ -297,19 +259,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
+        KC_LCTL, _______, _______, _______, _______,
 
                                         _______,_______,
                                                 _______,
-                                        _______,_______,_______,
+                                        KC_SPC, _______,_______,
 
         // right hand
         _______,  _______, _______, _______, _______, _______, _______,
         _______,  _______, KC_WH_U, KC_MS_U, KC_WH_D, _______, _______,
                   _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
         _______,  _______, _______, _______, _______, _______, _______,
-                           KC_BTN3, _______, _______, _______, _______,
-        _______, _______,
+                           _______, _______, _______, _______, _______,
+        _______, KC_BTN3,
         _______,
         _______, KC_BTN2, KC_BTN1
     ),
