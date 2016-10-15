@@ -26,7 +26,7 @@
 // Some quick aliases, just to make it look pretty
 #define _______ KC_TRNS
 #define KCX_CGR LCTL(KC_GRV)
-#define KCX_LST LSFT(KC_TAB)
+#define KX_STAB LSFT(KC_TAB)
 #define KX_COPY LCTL(KC_C)
 #define KX_CUT  LCTL(KC_X)
 #define KX_PAST LCTL(KC_V)
@@ -221,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
         _______,  KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  _______,
                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, KC_MENU,
-        _______,  KCX_LST, KC_TAB,  _______, _______, KC_INS,  KC_PSCR,
+        _______,  _______, KX_STAB, KC_TAB,  _______, KC_INS,  KC_PSCR,
                            _______, _______, _______, _______, _______,
         _______, _______,
         _______,
