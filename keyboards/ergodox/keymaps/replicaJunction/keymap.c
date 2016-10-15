@@ -8,6 +8,10 @@
  * have both keyboards, so I've designed these layouts in an effort to make switching between the
  * two as easy as possible.
  *
+ * I've also tried to make use of the extra keys on the Ergodox in as logical of a manner as possible,
+ * adding to the layers in the Atreus config without disturbing what's there already. This allows for
+ * things like F11-F20, the Application (Menu) key, and better media key placement.
+ *
  * The default key layout in this keymap is Colemak-ModDH. Information on that layout can be found
  * here: https://colemakmods.github.io/mod-dh/
  */
@@ -35,29 +39,28 @@
 ; // This doesn't do anything. It's just for VSCode because its syntax highlighting is weird for the above #define statements.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
-      * Keymap: Colemak-ModDH
-      *
-      * ,--------------------------------------------------.           ,--------------------------------------------------.
-      * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
-      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-      * |  LCtrl |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
-      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-      * |  Tab   |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
-      * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
-      * | LShft  |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   ,  |   /  | RShft  |
-      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-      *   | LGui |   [  |   ]  |CtlShf| LAlt |                                       | _EX  |   -  |   '  |   =  |   \  |
-      *   `----------------------------------'                                       `----------------------------------'
-      *                                        ,-------------.       ,-------------.
-      *                                        | LCtrl|  ~GA |       | Left | Right|
-      *                                 ,------|------|------|       |------+------+------.
-      *                                 |LCtrl/| LAlt/| Home |       |  Up  |  Alt/| _NU/ |
-      *                                 | BkSp |  Del |------|       |------| Enter| Space|
-      *                                 |      |      | _NU  |       | Down |      |      |
-      *                                 `--------------------'       `--------------------'
-      */
-
+    /*
+     * Keymap: Colemak-ModDH
+     *
+     * ,--------------------------------------------------.           ,--------------------------------------------------.
+     * |   `    |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |   =    |
+     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+     * |  LCtrl |   Q  |   W  |   F  |   P  |   B  | Home |           | BkSp |   J  |   L  |   U  |   Y  |   ;  |   -    |
+     * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+     * |  Tab   |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |   '    |
+     * |--------+------+------+------+------+------| Hyper|           |  \   |------+------+------+------+------+--------|
+     * | LShft  |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   ,  |   /  | RShft  |
+     * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+     *   | LGui |   [  |   ]  |CtlShf| LAlt |                                       | _EX  |   -  |   '  |   =  |   \  |
+     *   `----------------------------------'                                       `----------------------------------'
+     *                                        ,-------------.       ,-------------.
+     *                                        | LCtrl|  ~GA |       | Left | Right|
+     *                                 ,------|------|------|       |------+------+------.
+     *                                 |LCtrl/| LAlt/| Home |       |  Up  |  Alt/| _NU/ |
+     *                                 | BkSp |  Del |------|       |------| Enter| Space|
+     *                                 |      |      | _NU  |       | Down |      |      |
+     *                                 `--------------------'       `--------------------'
+     */
 [_CO] = KEYMAP(
         // left hand
         KC_GRV, KC_1,   KC_2,      KC_3,            KC_4,   KC_5,   KC_ESC,
@@ -131,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DOWN, ALT_T(KC_ENT), LT(_NU,KC_SPC)
     ),
 
-/*
+    /*
      * Keymap: Numbers and symbols
      *
      * Note that the number keys here are actually numpad keystrokes. This often doesn't matter, but it may be relevant in a few cases.
