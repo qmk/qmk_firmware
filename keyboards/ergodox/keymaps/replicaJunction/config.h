@@ -28,11 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-#define TAPPING_TERM    200
+#define TAPPING_TERM    150
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-
-// Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers
-#define PREVENT_STUCK_MODIFIERS
 
 // I don't have any locking keys, so I don't need these features
 
@@ -44,6 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_RESYNC_ENABLE
 
 /* Prevent modifiers from sticking when switching layers */
+/* Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers */
 #define PREVENT_STUCK_MODIFIERS
 
 /* key combination for command */
