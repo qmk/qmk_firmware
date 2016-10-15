@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_EX] = KEYMAP( /* Extend */
-  KC_CAPS, _______, _______, _______, _______,                   KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
+  KC_CAPS, _______, _______, _______, LCTL(KC_GRV),              KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
   _______, KC_LGUI, KC_LALT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
   _______, KX_CUT,  KX_COPY, _______, KX_PAST,                   _______, KC_TAB,  KCX_LST, _______, KC_INSERT,
   _______, _______, _______, _______, _______, _______, _______, KC_SPC,  _______, _______, _______, KC_PSCR
