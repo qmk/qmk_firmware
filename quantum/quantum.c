@@ -129,6 +129,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef UCIS_ENABLE
     process_ucis(keycode, record) &&
   #endif
+  #ifdef PRINTING_ENABLE
+    process_printer(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
