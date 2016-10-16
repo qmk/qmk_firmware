@@ -153,6 +153,11 @@ ifeq ($(strip $(UCIS_ENABLE)), yes)
 	UNICODE_ENABLE = yes
 endif
 
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+	OPT_DEFS += -DUNICODEMAP_ENABLE
+	UNICODE_ENABLE = yes
+endif
+
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
