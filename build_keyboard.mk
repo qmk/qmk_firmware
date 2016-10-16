@@ -169,6 +169,12 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
 endif
 
+ifeq ($(strip $(PRINTING_ENABLE)), yes)
+	OPT_DEFS += -DPRINTING_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
+	SRC += $(TMK_DIR)/protocol/serial_uart.c
+endif
+
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
 	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
 	OPT_DEFS += $(SERIAL_DEFS)
