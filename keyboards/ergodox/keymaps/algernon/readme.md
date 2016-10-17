@@ -43,6 +43,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
 * The **Media** and **Hun** layer keys are one-shot, the **STENO** key is a toggle.
+* The **Fx** key is one-shot, and activates the **Media** layer, along with a one-shot `Alt`.
 * When holding the `Tab`/**Arrow** key, the arrow layer activates while the key is held. Tapping the key produces the normal, `Tab` key. Double-tapping it toggles the **Arrow** layer on until a third tap.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * Tapping the `[{(`/`)}]` keys once yields `[` (or `{` when shifted), tapping them twice yields `(`.
@@ -93,12 +94,7 @@ Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers
 
 Once in the Unicode Symbol Input mode, one is able to type in symbol names, press `Enter` or `Space`, and get the Unicode symbol itself back. When in the mode, a capital `U` is printed first. Once the sequence is finished, all of it is erased by sending enough `Backspace` taps, and the firmware starts the OS-specific unicode input sequence. Then, it looks up the symbol name, and enters the associated code. If it is not found, it will just replay the pressed keycodes.
 
-The currently supported symbols are:
-
-- `snowman`: ☃
-- `kiss`: 😙
-- `rofl`: 🤣
-- `poop`: 💩
+For the list of supported symbols, please see the source.
 
 This is an experimental feature, and may or may not work reliably.
 
