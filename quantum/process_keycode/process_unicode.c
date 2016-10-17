@@ -78,6 +78,32 @@ bool process_unicode(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#ifdef UNICODEMAP_ENABLE
+__attribute__((weak))
+const uint32_t PROGMEM unicode_map[] = {
+};
+
+// 5 digit max because of linux limitation
+void register_hex32(uint32_t hex) {
+  for(int i = 4; i >= 0; i--) {
+    uint8_t digit = ((hex >> (i*4)) & 0xF);
+    register_code(hex_to_keycode(digit));
+    unregister_code(hex_to_keycode(digit));
+  }
+}
+
+bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
+  if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
+    const uint32_t* map = unicode_map;
+    uint16_t index = keycode & 0x7FF;
+    unicode_input_start();
+    register_hex32(pgm_read_dword_far(&map[index]));
+    unicode_input_finish();
+  }
+  return true;
+}
+#endif
+
 #ifdef UCIS_ENABLE
 qk_ucis_state_t qk_ucis_state;
 
