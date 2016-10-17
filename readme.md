@@ -323,6 +323,12 @@ This enables MIDI sending and receiving with your keyboard. To enter MIDI send m
 
 This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only codes up to 0x7FFF are currently supported.
 
+`UNICODEMAP_ENABLE`
+
+This allows sending unicode symbols using `X(<unicode>)` in your keymap. Codes
+up to 0xFFFFF are supported, including emojis. But you need to maintain a
+separate mapping table in your keymap file.
+
 `BLUETOOTH_ENABLE`
 
 This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.
@@ -378,6 +384,8 @@ Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - 
 `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped. Like `MO()`, this only works upwards in the layer stack (`layer` must be higher than the current layer).
 
 `TG(layer)` - toggles a layer on or off. As with `MO()`, you should set this key as `KC_TRNS` in the destination layer so that tapping it again actually toggles back to the original layer. Only works upwards in the layer stack.
+
+`TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
 
 
 ### Fun with modifier keys

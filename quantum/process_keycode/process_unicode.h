@@ -20,6 +20,10 @@ void register_hex(uint16_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
 
+#ifdef UNICODEMAP_ENABLE
+bool process_unicode_map(uint16_t keycode, keyrecord_t *record);
+#endif
+
 #ifdef UCIS_ENABLE
 #ifndef UCIS_MAX_SYMBOL_LENGTH
 #define UCIS_MAX_SYMBOL_LENGTH 32
