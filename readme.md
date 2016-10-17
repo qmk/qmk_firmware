@@ -323,6 +323,12 @@ This enables MIDI sending and receiving with your keyboard. To enter MIDI send m
 
 This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only codes up to 0x7FFF are currently supported.
 
+`UNICODEMAP_ENABLE`
+
+This allows sending unicode symbols using `X(<unicode>)` in your keymap. Codes
+up to 0xFFFFF are supported, including emojis. But you need to maintain a
+separate mapping table in your keymap file.
+
 `BLUETOOTH_ENABLE`
 
 This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.

@@ -129,6 +129,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef UCIS_ENABLE
     process_ucis(keycode, record) &&
   #endif
+  #ifdef UNICODEMAP_ENABLE
+    process_unicode_map(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
