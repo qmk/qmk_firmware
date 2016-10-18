@@ -82,7 +82,6 @@ out:
     return mcp23018_status;
 }
 
-
 #ifdef ONEHAND_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
