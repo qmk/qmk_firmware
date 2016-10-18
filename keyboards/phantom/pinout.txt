@@ -1,0 +1,1 @@
+For WS2812B LED strip support, connect DIN from strip to PE2 on Teensy (see reference image pinout.jpg)

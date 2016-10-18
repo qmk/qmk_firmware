@@ -10,7 +10,7 @@ Use the form at http://www.obdev.at/vusb/feedback.html for your submission.
 (2) Adhere to minimum publication standards. Please include AT LEAST:
     - a circuit diagram in PDF, PNG or GIF format
     - full source code for the host software
-    - a Readme.txt file in ASCII format which describes the purpose of the
+    - a readme.txt file in ASCII format which describes the purpose of the
       project and what can be found in which directories and which files
     - a reference to http://www.obdev.at/vusb/
 

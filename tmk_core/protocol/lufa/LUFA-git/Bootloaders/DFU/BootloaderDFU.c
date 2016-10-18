@@ -370,7 +370,7 @@ void EVENT_USB_Device_ControlRequest(void)
 							}
 
 							/* Read the byte from the USB interface and write to to the EEPROM */
-							eeprom_write_byte((uint8_t*)StartAddr, Endpoint_Read_8());
+							eeprom_update_byte((uint8_t*)StartAddr, Endpoint_Read_8());
 
 							/* Adjust counters */
 							StartAddr++;

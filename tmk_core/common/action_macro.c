@@ -19,11 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "wait.h"
 
-//#ifdef DEBUG_ACTION
+#ifdef DEBUG_ACTION
 #include "debug.h"
-//#else
-//#include "nodebug.h"
-//#endif
+#else
+#include "nodebug.h"
+#endif
 
 
 #ifndef NO_ACTION_MACRO

@@ -1,10 +1,7 @@
 #ifndef KEYMAP_GERMAN_OSX
 #define KEYMAP_GERMAN_OSX
 
-#ifdef KEYMAP_GERMAN
-	#warning redefining german keys
-#endif
-#include "keymap_common.h"
+#include "keymap.h"
 
 // Alt gr
 
@@ -85,8 +82,8 @@
 #define DE_OSX_UNDS LSFT(DE_OSX_MINS) // _
 
 // Alt-ed characters
-#define DE_OSX_SQ2 LALT(KC_2) // ²
-#define DE_OSX_SQ3 LALT(KC_3) // ³
+//#define DE_OSX_SQ2 LALT(KC_2) // ²
+//#define DE_OSX_SQ3 LALT(KC_3) // ³
 #define DE_OSX_LCBR LALT(KC_8) // {
 #define DE_OSX_LBRC LALT(KC_5) // [
 #define DE_OSX_RBRC LALT(KC_6) // ]

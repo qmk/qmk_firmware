@@ -1,9 +1,11 @@
-keyboard/planck/dfu-programmer.exe
 .dep
 *.o
 *.eep
 *.elf
 *.hex
+!util/bootloader.hex
+!quantum/tools/eeprom_reset.hex
+*.log
 *.lss
 *.lst
 *.map
@@ -12,12 +14,20 @@ keyboard/planck/dfu-programmer.exe
 tags
 *~
 build/
+.build/
 *.bak
 .vagrant/
+quantum/version.h
+.idea/
+CMakeLists.txt
 .DS_STORE
 
-# Eclipse Settings
+# Eclipse/PyCharm/Other IDE Settings
 .cproject
 .project
 .settings/
-
+.idea
+.browse.VC.db*
+*.stackdump
+util/Win_Check_Output.txt
+.vscode
