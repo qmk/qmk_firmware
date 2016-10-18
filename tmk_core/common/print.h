@@ -29,37 +29,147 @@
 #include <stdbool.h>
 #include "util.h"
 
-
+#if defined(PROTOCOL_CHIBIOS)
+#define PSTR(x) x
+#endif
 
 
 #ifndef NO_PRINT
 
+#if defined(__AVR__) /* __AVR__ */
 
-#if defined(__AVR__)
+#  include "avr/xprintf.h"
 
-#include "avr/xprintf.h"
-#define print(s)    xputs(PSTR(s))
-#define println(s)  xputs(PSTR(s "\r\n"))
+#  ifdef USER_PRINT /* USER_PRINT */
 
-#ifdef __cplusplus
+// Remove normal print defines
+#    define print(s)
+#    define println(s)
+#    undef xprintf
+#    define xprintf(fmt, ...)
+
+// Create user print defines
+#    define uprint(s)          xputs(PSTR(s))
+#    define uprintln(s)        xputs(PSTR(s "\r\n"))
+#    define uprintf(fmt, ...)  __xprintf(PSTR(fmt), ##__VA_ARGS__)
+
+#  else /* NORMAL PRINT */
+
+// Create user & normal print defines
+#    define print(s)           xputs(PSTR(s))
+#    define println(s)         xputs(PSTR(s "\r\n"))
+#    define uprint(s)          print(s)
+#    define uprintln(s)        println(s)
+#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+
+#  endif /* USER_PRINT / NORMAL PRINT */
+
+#  ifdef __cplusplus
 extern "C"
-#endif
+#  endif
+
 /* function pointer of sendchar to be used by print utility */
 void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
-#elif defined(__arm__)
+#elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
-#include "mbed/xprintf.h"
+#  include "chibios/printf.h"
 
-#define print(s)    xprintf(s)
-#define println(s)  xprintf(s "\r\n")
+#  ifdef USER_PRINT /* USER_PRINT */
+
+// Remove normal print defines
+#    define print(s)
+#    define println(s)
+#    define xprintf(fmt, ...)
+
+// Create user print defines
+#    define uprint(s)    printf(s)
+#    define uprintln(s)  printf(s "\r\n")
+#    define uprintf      printf
+
+#  else /* NORMAL PRINT */
+
+// Create user & normal print defines
+#    define print(s)     printf(s)
+#    define println(s)   printf(s "\r\n")
+#    define xprintf      printf
+#    define uprint(s)    printf(s)
+#    define uprintln(s)  printf(s "\r\n")
+#    define uprintf      printf
+
+#  endif /* USER_PRINT / NORMAL PRINT */
+
+#elif defined(__arm__) /* __arm__ */
+
+#  include "mbed/xprintf.h"
+
+#  ifdef USER_PRINT /* USER_PRINT */
+
+// Remove normal print defines
+#    define print(s)
+#    define println(s)
+#    define xprintf(fmt, ...)
+
+// Create user print defines
+#    define uprintf(fmt, ...)  __xprintf(fmt, ...)
+#    define uprint(s)          xprintf(s)
+#    define uprintln(s)        xprintf(s "\r\n")
+
+#  else /* NORMAL PRINT */
+
+// Create user & normal print defines
+#    define xprintf(fmt, ...)  __xprintf(fmt, ...)
+#    define print(s)           xprintf(s)
+#    define println(s)         xprintf(s "\r\n")
+#    define uprint(s)          print(s)
+#    define uprintln(s)        println(s)
+#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+
+#  endif /* USER_PRINT / NORMAL PRINT */
 
 /* TODO: to select output destinations: UART/USBSerial */
-#define print_set_sendchar(func)
+#  define print_set_sendchar(func)
 
-#endif /* __AVR__ */
+#endif /* __AVR__ / PROTOCOL_CHIBIOS / __arm__ */
 
+// User print disables the normal print messages in the body of QMK/TMK code and
+// is meant as a lightweight alternative to NOPRINT. Use it when you only want to do
+// a spot of debugging but lack flash resources for allowing all of the codebase to
+// print (and store their wasteful strings).
+//
+// !!! DO NOT USE USER PRINT CALLS IN THE BODY OF QMK/TMK !!!
+//
+#ifdef USER_PRINT
 
+// Disable normal print
+#define print_dec(data)
+#define print_decs(data)
+#define print_hex4(data)
+#define print_hex8(data)
+#define print_hex16(data)
+#define print_hex32(data)
+#define print_bin4(data)
+#define print_bin8(data)
+#define print_bin16(data)
+#define print_bin32(data)
+#define print_bin_reverse8(data)
+#define print_bin_reverse16(data)
+#define print_bin_reverse32(data)
+#define print_val_dec(v)
+#define print_val_decs(v)
+#define print_val_hex8(v)
+#define print_val_hex16(v)
+#define print_val_hex32(v)
+#define print_val_bin8(v)
+#define print_val_bin16(v)
+#define print_val_bin32(v)
+#define print_val_bin_reverse8(v)
+#define print_val_bin_reverse16(v)
+#define print_val_bin_reverse32(v)
+
+#else /* NORMAL_PRINT */
+
+//Enable normal print
 /* decimal */
 #define print_dec(i)                xprintf("%u", i)
 #define print_decs(i)               xprintf("%d", i)
@@ -88,6 +198,39 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 #define print_val_bin_reverse8(v)   xprintf(#v ": %08b\n", bitrev(v))
 #define print_val_bin_reverse16(v)  xprintf(#v ": %016b\n", bitrev16(v))
 #define print_val_bin_reverse32(v)  xprintf(#v ": %032lb\n", bitrev32(v))
+
+#endif /* USER_PRINT / NORMAL_PRINT */
+
+// User Print
+
+/* decimal */
+#define uprint_dec(i)               uprintf("%u", i)
+#define uprint_decs(i)              uprintf("%d", i)
+/* hex */
+#define uprint_hex4(i)              uprintf("%X", i)
+#define uprint_hex8(i)              uprintf("%02X", i)
+#define uprint_hex16(i)             uprintf("%04X", i)
+#define uprint_hex32(i)             uprintf("%08lX", i)
+/* binary */
+#define uprint_bin4(i)              uprintf("%04b", i)
+#define uprint_bin8(i)              uprintf("%08b", i)
+#define uprint_bin16(i)             uprintf("%016b", i)
+#define uprint_bin32(i)             uprintf("%032lb", i)
+#define uprint_bin_reverse8(i)      uprintf("%08b", bitrev(i))
+#define uprint_bin_reverse16(i)     uprintf("%016b", bitrev16(i))
+#define uprint_bin_reverse32(i)     uprintf("%032lb", bitrev32(i))
+/* print value utility */
+#define uprint_val_dec(v)           uprintf(#v ": %u\n", v)
+#define uprint_val_decs(v)          uprintf(#v ": %d\n", v)
+#define uprint_val_hex8(v)          uprintf(#v ": %X\n", v)
+#define uprint_val_hex16(v)         uprintf(#v ": %02X\n", v)
+#define uprint_val_hex32(v)         uprintf(#v ": %04lX\n", v)
+#define uprint_val_bin8(v)          uprintf(#v ": %08b\n", v)
+#define uprint_val_bin16(v)         uprintf(#v ": %016b\n", v)
+#define uprint_val_bin32(v)         uprintf(#v ": %032lb\n", v)
+#define uprint_val_bin_reverse8(v)  uprintf(#v ": %08b\n", bitrev(v))
+#define uprint_val_bin_reverse16(v) uprintf(#v ": %016b\n", bitrev16(v))
+#define uprint_val_bin_reverse32(v) uprintf(#v ": %032lb\n", bitrev32(v))
 
 #else   /* NO_PRINT */
 
@@ -132,6 +275,5 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 #define pbin16(data)            print_bin16(data)
 #define pbin_reverse(data)      print_bin_reverse8(data)
 #define pbin_reverse16(data)    print_bin_reverse16(data)
-
 
 #endif

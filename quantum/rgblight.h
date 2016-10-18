@@ -1,8 +1,11 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#ifndef RGBLIGHT_MODES
-#define RGBLIGHT_MODES 23
+
+#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+	#define RGBLIGHT_MODES 23
+#else
+	#define RGBLIGHT_MODES 1
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
@@ -37,6 +40,12 @@
 #include "eeconfig.h"
 #include "light_ws2812.h"
 
+extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
+extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
+extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
+
 typedef union {
   uint32_t raw;
   struct {
@@ -64,10 +73,9 @@ void rgblight_decrease_val(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 
-#define EECONFIG_RGBLIGHT (uint8_t *)7
 uint32_t eeconfig_read_rgblight(void);
-void eeconfig_write_rgblight(uint32_t val);
-void eeconfig_write_rgblight_default(void);
+void eeconfig_update_rgblight(uint32_t val);
+void eeconfig_update_rgblight_default(void);
 void eeconfig_debug_rgblight(void);
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1);

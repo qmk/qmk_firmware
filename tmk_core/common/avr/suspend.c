@@ -79,7 +79,8 @@ static void power_down(uint8_t wdto)
 	led_set(0);
 
 	#ifdef AUDIO_ENABLE
-		stop_all_notes();
+        // This sometimes disables the start-up noise, so it's been disabled
+		// stop_all_notes();
 	#endif /* AUDIO_ENABLE */
 
     // TODO: more power saving
@@ -116,7 +117,7 @@ bool suspend_wakeup_condition(void)
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
         if (matrix_get_row(r)) return true;
     }
-    return false;
+     return false;
 }
 
 // run immediately after wakeup
@@ -145,4 +146,3 @@ ISR(WDT_vect)
     }
 }
 #endif
-
