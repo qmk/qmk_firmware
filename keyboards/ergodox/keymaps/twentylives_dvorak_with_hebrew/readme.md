@@ -6,4 +6,5 @@
 
 * these are only good when using a public computer or one you can't change settings on, because you need to change both keyboard layout and os layout each time you change language. A better solution is to use [hebrew-hw-dvorak](https://github.com/20lives/hebrew-hw-dvorak) as os layout.
 
-![layout image](https://github.com/20lives/qmk_firmware/blob/master/keyboards/ergodox/keymaps/dvorak-hebrew/twentylives.png?raw=true)
+![layout image](https://github.com/20lives/qmk_firmware/blob/master/keyboards/ergodox/keymaps/dvorak-hebrew/keymap.png)
+![layout image](https://github.com/20lives/qmk_firmware/blob/master/keyboards/ergodox/keymaps/dvorak-hebrew/keymap2.png)
