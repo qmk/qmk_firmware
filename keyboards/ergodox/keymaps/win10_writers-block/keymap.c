@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
+#include "wait.h"
 
 #define BASE 0 // default layer  -  helpful for writing in Office-style word processors. 
 #define SYMB 1 // symbol layer   -  NumPad, etc. - same as Ergodox EZ default but no EEPROM or Version key 
@@ -276,21 +277,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 // Tests LED function when the keyboard initializes.
 void matrix_init_user(void) {
 
-  _delay_ms(500);
+  wait_ms(500);
   ergodox_board_led_on();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_1_on();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_2_on();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_3_on();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_board_led_off();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_1_off();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_2_off();
-  _delay_ms(200);
+  wait_ms(200);
   ergodox_right_led_3_off();
 
 };

@@ -6,7 +6,9 @@ Win10 Writer's Block ErgoDox - v1.0
 
 This is a QWERTY layout for QMK. It's designed to work well in MS Office-like environments. It's tested on Windows 7 and 10.
 
-I earn a living as a copywriter. I use my ErgoDox as a daily driver at my office.
+Professional writers may find this layout useful -- copywriters, technical writers, novelists, etc.  
+
+I use my ErgoDox with this keymap as a daily driver at my office.
 
 A gaming layer is unobtrusively built into this layout. I use that layer to play RimWorld. 
 
