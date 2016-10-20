@@ -39,11 +39,6 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case TEENSY:
-      clear_keyboard();
-      print("\n\nJump to bootloader... ");
-      _delay_ms(250);
-      bootloader_jump(); // should not return
-      print("not supported.\n");
       break;
   }
   return MACRO_NONE;
