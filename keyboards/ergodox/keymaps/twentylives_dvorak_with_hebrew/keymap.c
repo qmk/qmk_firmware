@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [0] = KEYMAP(
-	TG(1),     KC_1,      KC_2,     KC_3,     KC_4,  KC_5, LALT(KC_LSHIFT),
-	KC_TAB,    KC_QUOTE,  KC_COMMA, KC_DOT,   KC_P,  KC_Y, TG(3),
-	KC_ESCAPE, KC_A,      KC_O,     KC_E,     KC_U,  KC_I,
-	KC_LSHIFT, KC_SCOLON, KC_Q,     KC_J,     KC_K,  KC_X, TG(2),
-	MO(3),     KC_COPY,   KC_CUT,   KC_PASTE, MO(2),
+	TG(1),     KC_1,       KC_2,       KC_3,       KC_4,  KC_5, LALT(KC_LSHIFT),
+	KC_TAB,    KC_QUOTE,   KC_COMMA,   KC_DOT,     KC_P,  KC_Y, TG(3),
+	KC_ESCAPE, KC_A,       KC_O,       KC_E,       KC_U,  KC_I,
+	KC_LSHIFT, KC_SCOLON,  KC_Q,       KC_J,       KC_K,  KC_X, TG(2),
+	MO(3),     LCTL(KC_C), LCTL(KC_X), LCTL(KC_V), MO(2),
 	                                          KC_DELETE, KC_TRNS,
 	                                                     KC_LGUI,
 	                              KC_BSPACE,CTL_T(KC_NO),KC_LALT,
