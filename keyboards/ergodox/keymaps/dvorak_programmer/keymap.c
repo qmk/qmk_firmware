@@ -42,6 +42,19 @@ const uint16_t PROGMEM fn_actions[] = {
   [5] = ACTION_MODS_ONESHOT(MOD_LALT),   // FN5 - alt modifier / oneshot
 };
 
+//Tap Dance Declarations
+enum {
+  TD_SHIFT_CAPSLOCK = 0
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_SHIFT_CAPSLOCK]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK)
+// Other declarations would go here, separated by commas, if you have them
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // base layer
 [BASE] = KEYMAP(  // layer 0 : default
@@ -59,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
              KC_PGUP,     KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
                           KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
-             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         KC_FN3,
+             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         TD(TD_SHIFT_CAPSLOCK),
                                   // lower keys - browser tab control
                                   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), RCTL(KC_K), RCTL(KC_W),
              // thumb cluster
