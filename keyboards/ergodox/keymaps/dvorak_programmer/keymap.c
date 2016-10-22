@@ -11,8 +11,7 @@
 #define KEY_SEL 4 // key selection layer
 #define NUMBER  5  // number layer
 #define SYMBOL  6
-#define BRACKETS 7
-#define SHORTCUTS 8
+#define SHORTCUTS 7
 
 // macros
 #define MC_COPY_LINE  0
@@ -32,6 +31,7 @@
 #define OPEN_CLOSE_DOUBLE_QUOTE 14
 #define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 15
 #define SEMICOLON_NEWLINE 16
+#define END_NEWLINE 17
 
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_FN3,                    KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
                                               // thumb cluster
-                                                       MO(BRACKETS), RCTL(KC_S),
-                                                                     RCTL(KC_DEL),
+                                                       RCTL(KC_F), RCTL(KC_S),
+                                                                   RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
              KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   // lower keys - browser tab control
                                   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), RCTL(KC_K), RCTL(KC_W),
              // thumb cluster
-             LALT(KC_LEFT),  LALT(KC_RIGHT),
-             KC_END,
-             KC_CAPSLOCK,KC_ENT, KC_SPC
+             M(SEMICOLON_NEWLINE), M(END_NEWLINE),
+             KC_TRNS,
+             KC_TRNS,KC_ENT, KC_SPC
     ),
      
 
@@ -205,28 +205,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-[BRACKETS] = KEYMAP(
-       // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-	   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       KC_TRNS, KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS,KC_TRNS,
-       KC_TRNS, M(OPEN_CLOSE_PAREN),   KC_LPRN, KC_RPRN, KC_TRNS,                    KC_TRNS, KC_TRNS,
-                M(OPEN_CLOSE_BRACKET), KC_LBRC, KC_RBRC, M(OPEN_CLOSE_DOUBLE_QUOTE), KC_TRNS, KC_TRNS,
-       KC_TRNS, M(OPEN_CLOSE_CURLY),   KC_LCBR, KC_RCBR, M(OPEN_CLOSE_SINGLE_QUOTE), KC_TRNS, KC_TRNS,
-                         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-
 [SHORTCUTS] = KEYMAP(
        // left hand
        KC_NO,  HYPR(KC_F1),    HYPR(KC_F2), HYPR(KC_F3),  HYPR(KC_F4), HYPR(KC_F5), HYPR(KC_F6),
@@ -242,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, HYPR(KC_A), HYPR(KC_B),    HYPR(KC_C),    HYPR(KC_D),    HYPR(KC_E), HYPR(KC_F),
                 HYPR(KC_G), HYPR(KC_H),    HYPR(KC_I),    HYPR(KC_J),    HYPR(KC_K), HYPR(KC_L),
        KC_TRNS, HYPR(KC_M), HYPR(KC_N),    HYPR(KC_O),    HYPR(KC_P),    HYPR(KC_Q), HYPR(KC_R),
-                            RCTL(KC_LBRC), RCTL(KC_RBRC),KC_TRNS, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RIGHT)),
+                             LALT(KC_LEFT),LALT(KC_RIGHT),KC_F5, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_RIGHT)),
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -342,6 +320,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( T(END), T(SCLN), T(ENTER), END);
             }		
 		break;
+		case END_NEWLINE:
+            if (record->event.pressed) {
+                return MACRO( T(END), T(ENTER), END);
+            }		
+		break;		
         
       }
     return MACRO_NONE;
