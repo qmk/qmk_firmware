@@ -6,4 +6,4 @@ Version 1.1:
 
 Added PgUp and PgDn keys.
 
-Also added "Mac mode". Unsure if it even works. Might however be able to test soon.
+Also added "Mac mode". Unsure if it works. Will test asap.
