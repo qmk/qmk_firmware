@@ -44,15 +44,11 @@ const uint16_t PROGMEM fn_actions[] = {
 
 //Tap Dance Declarations
 enum {
-  TD_SHIFT_CAPSLOCK = 0
+  TD_SHIFT_CAPSLOCK = 0,
+  TD_BRK_LEFT = 1,
+  TD_BRK_RIGHT = 2
 };
 
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TD_SHIFT_CAPSLOCK]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK)
-// Other declarations would go here, separated by commas, if you have them
-};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -203,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_PLUS, KC_AMPR, KC_ASTR, KC_GRAVE,KC_TILD, KC_TRNS,
                 KC_MINS, KC_DLR,  KC_PERC, KC_CIRC, KC_PIPE, KC_TRNS,
        KC_TRNS, KC_EQUAL,KC_EXLM, KC_AT,   KC_HASH, KC_TRNS, KC_TRNS,
-                         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                         KC_LBRC, KC_RBRC, TD(TD_BRK_LEFT), TD(TD_BRK_RIGHT), KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -364,6 +360,14 @@ void led_set_user(uint8_t usb_led) {
         ergodox_right_led_1_off();
     }
 }
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_SHIFT_CAPSLOCK]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
+  [TD_BRK_LEFT]  = ACTION_TAP_DANCE_DOUBLE (KC_LPRN, KC_LCBR),
+  [TD_BRK_RIGHT] = ACTION_TAP_DANCE_DOUBLE (KC_RPRN, KC_RCBR)
+
+};
+
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
