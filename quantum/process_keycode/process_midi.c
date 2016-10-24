@@ -7,7 +7,9 @@ int midi_offset = 7;
 bool process_midi(uint16_t keycode, keyrecord_t *record) {
     if (keycode == MI_ON && record->event.pressed) {
       midi_activated = true;
+#ifdef AUDIO_ENABLE
       music_scale_user();
+#endif
       return false;
     }
 
