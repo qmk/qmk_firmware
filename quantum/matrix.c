@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 
+#ifdef MATRIX_MASKED
+extern const matrix_row_t matrix_mask[];
+#endif
+
 /* Set 0 if debouncing isn't needed */
 
 #ifndef DEBOUNCING_DELAY
@@ -218,15 +222,34 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
+    // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
+    // switch blocker installed and the switch is always pressed.
+#ifdef MATRIX_MASKED
+    return matrix[row] & matrix_mask[row];
+#else
     return matrix[row];
+#endif
 }
 
 void matrix_print(void)
 {
+#if (MATRIX_COLS <= 8)
+    print("\nr/c 01234567\n");
+#elif (MATRIX_COLS <= 16)
     print("\nr/c 0123456789ABCDEF\n");
+#elif (MATRIX_COLS <= 32)
+    print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n");
+#endif
+
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
-        pbin_reverse16(matrix_get_row(row));
+#if (MATRIX_COLS <= 8)
+        print_bin_reverse8(matrix_get_row(row));
+#elif (MATRIX_COLS <= 16)
+        print_bin_reverse16(matrix_get_row(row));
+#elif (MATRIX_COLS <= 32)
+        print_bin_reverse32(matrix_get_row(row));
+#endif
         print("\n");
     }
 }
@@ -235,7 +258,13 @@ uint8_t matrix_key_count(void)
 {
     uint8_t count = 0;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+#if (MATRIX_COLS <= 8)
+        count += bitpop(matrix[i]);
+#elif (MATRIX_COLS <= 16)
         count += bitpop16(matrix[i]);
+#elif (MATRIX_COLS <= 32)
+        count += bitpop32(matrix[i]);
+#endif
     }
     return count;
 }
@@ -259,7 +288,7 @@ static matrix_row_t read_cols(void)
     matrix_row_t result = 0;
 
 #if DIODE_DIRECTION == COL2ROW
-    for(int x = 0; x < MATRIX_COLS; x++) {     
+    for(int x = 0; x < MATRIX_COLS; x++) {
         int pin = col_pins[x];
 #else
     for(int x = 0; x < MATRIX_ROWS; x++) {
@@ -273,10 +302,10 @@ static matrix_row_t read_cols(void)
 static void unselect_rows(void)
 {
 #if DIODE_DIRECTION == COL2ROW
-    for(int x = 0; x < MATRIX_ROWS; x++) { 
+    for(int x = 0; x < MATRIX_ROWS; x++) {
         int pin = row_pins[x];
 #else
-    for(int x = 0; x < MATRIX_COLS; x++) { 
+    for(int x = 0; x < MATRIX_COLS; x++) {
         int pin = col_pins[x];
 #endif
         _SFR_IO8((pin >> 4) + 1) &=  ~_BV(pin & 0xF);
