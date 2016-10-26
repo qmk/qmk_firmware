@@ -11,7 +11,8 @@
 #define KEY_SEL 4 // key selection layer
 #define NUMBER  5  // number layer
 #define SYMBOL  6
-#define SHORTCUTS 7
+#define BRACKETS  7
+#define SHORTCUTS 8
 
 // macros
 #define MC_COPY_LINE  0
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
-        KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
+        LT(BRACKETS,KC_TAB),                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         MO(SHELL_NAV),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         KC_FN3,                    KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
@@ -200,6 +201,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_MINS, KC_DLR,  KC_PERC, KC_CIRC, KC_PIPE, KC_TRNS,
        KC_TRNS, KC_EQUAL,KC_EXLM, KC_AT,   KC_HASH, KC_TRNS, KC_TRNS,
                          KC_LBRC, KC_RBRC, TD(TD_BRK_LEFT), TD(TD_BRK_RIGHT), KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[BRACKETS] = KEYMAP(
+       // left hand
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS, KC_TRNS, M(OPEN_CLOSE_BRACKET),M(OPEN_CLOSE_PAREN),M(OPEN_CLOSE_CURLY),KC_TRNS,KC_TRNS,
+                KC_TRNS, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_LCBR, KC_RCBR, KC_TRNS, KC_TRNS, KC_TRNS, 
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
