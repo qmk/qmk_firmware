@@ -326,8 +326,14 @@ This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only
 `UNICODEMAP_ENABLE`
 
 This allows sending unicode symbols using `X(<unicode>)` in your keymap. Codes
-up to 0xFFFFF are supported, including emojis. But you need to maintain a
-separate mapping table in your keymap file.
+up to 0xFFFFFFFF are supported, including emojis. You will need to maintain
+a separate mapping table in your keymap file.
+
+Known limitations:
+- Under Mac OS, only codes up to 0xFFFF are supported.
+- Under Linux ibus, only codes up to 0xFFFFF are supported (but anything important is still under this limit for now).
+
+Characters out of range supported by the OS will be ignored.
 
 `BLUETOOTH_ENABLE`
 
