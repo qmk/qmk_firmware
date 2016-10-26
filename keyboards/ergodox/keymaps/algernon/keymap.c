@@ -64,6 +64,9 @@ enum {
   A_8,
   A_9,
   A_0,
+
+  // Fx
+  Fx,
 };
 
 /* Fn keys */
@@ -86,6 +89,7 @@ enum {
   CT_RBP,
   CT_TMUX,
   CT_TPS,
+  CT_SR,
 };
 
 /* States & timers */
@@ -103,6 +107,7 @@ bool log_enable = false;
 #endif
 
 bool time_travel = false;
+bool skip_leds = false;
 
 static uint8_t is_adore = 0;
 
@@ -113,13 +118,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
+ * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         ~ |   '  |   ,  |   .  |   P  |   Y  |   (  |           |  )   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/ARROW |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | = / Arrow |
  * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
- * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           | Pane |   B  |   M  |   W  |   V  |  Z   |      Stop |
+ * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           | Pane |   B  |   M  |   W  |   V  |  Z   | Stop/Reset|
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -144,10 +149,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,M(A_PLVR)
+                                                               ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,M(A_PLVR)
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
+                                                               ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,TD(CT_SR)
                                                                                    ,KC_MINS   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -158,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
+ * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         \ |   X  |   W  |   C  |   H  |   F  |   (  |           |  )   |   M  |   G  |   L  |   P  |  /   | `~        |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -189,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
+                                                               ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
                                                                ,TD(CT_RBP),KC_M     ,KC_G    ,KC_L    ,KC_P    ,KC_SLSH ,KC_GRV
                                                                           ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
                                                                ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_Y    ,KC_J    ,KC_NO
@@ -342,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 5: Navigation & Media layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |           |  F9  |  F7  |  F5  |  F3  |  F1  |      |           |ScrLCK| F10  |  F2  |  F4  |  F6  |  F8  |           |
+ * |           |  F9  |  F7  |  F5  |  F3  |  F1  |ScrLCK|           |      | F10  |  F2  |  F4  |  F6  |  F8  |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
@@ -362,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [NMDIA] = KEYMAP(
 // left hand
- KC_NO      ,KC_F9       ,KC_F7      ,KC_F5   ,KC_F3   ,KC_F1   ,KC_NO
+ KC_NO      ,KC_F9       ,KC_F7      ,KC_F5   ,KC_F3   ,KC_F1   ,LGUI(KC_L)
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
@@ -372,7 +377,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  ,KC_NO ,KC_NO   ,KC_TRNS
 
                                                                      // right hand
-                                                                     ,LGUI(KC_L),KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
+                                                                     ,KC_TRNS   ,KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
                                                                                 ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
@@ -611,6 +616,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         toggle_steno(record->event.pressed);
         break;
 
+        /* Fx */
+      case Fx:
+        if (record->event.pressed) {
+          set_oneshot_mods (MOD_LALT);
+          layer_on (NMDIA);
+          set_oneshot_layer (NMDIA, ONESHOT_START);
+        } else {
+          clear_oneshot_layer_state (ONESHOT_PRESSED);
+        }
+        break;
+
         /* GUI & AppSel */
       case A_GUI:
         if (record->event.pressed) {
@@ -780,6 +796,56 @@ static void ang_tap_dance_tmux_pane_select (qk_tap_dance_state_t *state, void *u
   unregister_code(kc);
 }
 
+static void
+_td_sr_each (qk_tap_dance_state_t *state, void *user_data) {
+  skip_leds = true;
+
+  switch (state->count) {
+  case 1:
+    ergodox_right_led_3_on ();
+    break;
+  case 2:
+    ergodox_right_led_2_on ();
+    break;
+  case 3:
+    ergodox_right_led_1_on ();
+    break;
+  case 4:
+    ergodox_right_led_3_off ();
+    wait_ms (50);
+    ergodox_right_led_2_off ();
+    wait_ms (50);
+    ergodox_right_led_1_off ();
+    break;
+  }
+}
+
+static void
+_td_sr_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_MSTP);
+  }
+  if (state->count >= 4) {
+    uprintf("CMD:reflash\n");
+    wait_ms (1000);
+    reset_keyboard ();
+    reset_tap_dance (state);
+  }
+}
+
+static void
+_td_sr_reset (qk_tap_dance_state_t *state, void *user_data) {
+  ergodox_right_led_1_off ();
+  wait_ms (50);
+  ergodox_right_led_2_off ();
+  wait_ms (50);
+  ergodox_right_led_3_off ();
+
+  if (state->count == 1) {
+    unregister_code (KC_MSTP);
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
@@ -790,77 +856,75 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
   ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
   ,[CT_TPS] = ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_pane_select)
+  ,[CT_SR]  = ACTION_TAP_DANCE_FN_ADVANCED (_td_sr_each, _td_sr_finished, _td_sr_reset)
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-  static uint32_t prev_layer_state;
   uint8_t layer = biton32(layer_state);
   bool is_arrow = false;
-  static char *layer_lookup[] = {"Dvorak", "ADORE", "Arrows", "AppSel", "Hungarian", "Nav/Media", "Plover"};
-
-  if (layer_state != prev_layer_state) {
-    prev_layer_state = layer_state;
-    if (layer_lookup[layer])
-      uprintf("LAYER: %s\n", layer_lookup[layer]);
-  }
-
 
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
 
-  if (layer == HUN) {
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-  } else if (layer == NMDIA) {
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-  } else if (layer == PLVR) {
-    ergodox_right_led_1_on ();
-    ergodox_right_led_2_on ();
-    ergodox_right_led_3_on ();
-  } else if (layer == ADORE) {
-    ergodox_right_led_1_on ();
-    ergodox_right_led_2_on ();
-    ergodox_right_led_3_on ();
+  if (!skip_leds) {
+    if (layer == HUN) {
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+    } else if (layer == NMDIA) {
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+    } else if (layer == PLVR) {
+      ergodox_right_led_1_on ();
+      ergodox_right_led_2_on ();
+      ergodox_right_led_3_on ();
+    } else if (layer == ADORE) {
+      ergodox_right_led_1_on ();
+      ergodox_right_led_2_on ();
+      ergodox_right_led_3_on ();
 
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+    }
   }
 
   if (layer_state & (1UL << ARRW)) {
-    ergodox_right_led_1_on ();
-    ergodox_right_led_3_on ();
+    if (!skip_leds) {
+      ergodox_right_led_1_on ();
+      ergodox_right_led_3_on ();
+    }
     is_arrow = true;
   }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_1_on ();
-  } else {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != NMDIA && layer != PLVR && layer != ADORE && !is_arrow)
-      ergodox_right_led_1_off ();
-  }
+  if (!skip_leds) {
+    if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_1_on ();
+    } else {
+      ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+      if (layer != NMDIA && layer != PLVR && layer != ADORE && !is_arrow)
+        ergodox_right_led_1_off ();
+    }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_2_on ();
-  } else {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != HUN && layer != NMDIA && layer != PLVR && layer != ADORE)
-      ergodox_right_led_2_off ();
-  }
+    if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_2_on ();
+    } else {
+      ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+      if (layer != HUN && layer != NMDIA && layer != PLVR && layer != ADORE)
+        ergodox_right_led_2_off ();
+    }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_3_on ();
-  } else {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != HUN && layer != PLVR && layer != ADORE && !is_arrow)
-      ergodox_right_led_3_off ();
+    if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_3_on ();
+    } else {
+      ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+      if (layer != HUN && layer != PLVR && layer != ADORE && !is_arrow)
+        ergodox_right_led_3_off ();
+    }
   }
 
   LEADER_DICTIONARY() {
@@ -974,7 +1038,9 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
  UCIS_SYM("snowman", 0x2603),
  UCIS_SYM("coffee", 0x2615),
  UCIS_SYM("heart", 0x2764),
- UCIS_SYM("bolt", 0x26a1)
+ UCIS_SYM("bolt", 0x26a1),
+ UCIS_SYM("pi", 0x03c0),
+ UCIS_SYM("mouse", 0x1f401)
 );
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
