@@ -42,6 +42,11 @@ void unicode_input_start (void) {
     register_code(KC_PPLS);
     unregister_code(KC_PPLS);
     break;
+  case UC_WINC:
+    register_code(KC_RALT);
+    unregister_code(KC_RALT);
+    register_code(KC_U);
+    unregister_code(KC_U);
   }
   wait_ms(UNICODE_TYPE_DELAY);
 }
