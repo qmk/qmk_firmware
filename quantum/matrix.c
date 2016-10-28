@@ -26,6 +26,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 
+#if (MATRIX_COLS <= 8)
+#    define print_matrix_header()  print("\nr/c 01234567\n")
+#    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop(matrix[i])
+#    define ROW_SHIFTER ((uint8_t)1)
+#elif (MATRIX_COLS <= 16)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop16(matrix[i])
+#    define ROW_SHIFTER ((uint16_t)1)
+#elif (MATRIX_COLS <= 32)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop32(matrix[i])
+#    define ROW_SHIFTER  ((uint32_t)1)
+#endif
+
+#if (MATRIX_ROWS <= 8)
+#    define COL_SHIFTER ((uint8_t)1)
+#elif (MATRIX_ROWS <= 16)
+#    define COL_SHIFTER ((uint16_t)1)
+#elif (MATRIX_ROWS <= 32)
+#    define COL_SHIFTER  ((uint32_t)1)
+#endif
+
+
+
 #ifdef MATRIX_MASKED
 extern const matrix_row_t matrix_mask[];
 #endif
@@ -42,23 +69,27 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-#if DIODE_DIRECTION == ROW2COL
-    static matrix_row_t matrix_reversed[MATRIX_COLS];
-    static matrix_row_t matrix_reversed_debouncing[MATRIX_COLS];
+#if DIODE_DIRECTION == COL2ROW
+    static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+#else // ROW2COL
+    static matrix_col_t matrix_transposed[MATRIX_COLS];
+    static matrix_col_t matrix_transposed_debouncing[MATRIX_COLS];
 #endif
 
-#if MATRIX_COLS > 16
-    #define SHIFTER 1UL
-#else
-    #define SHIFTER 1
+#if (DIODE_DIRECTION == COL2ROW)
+    static void init_cols(void);
+    static matrix_row_t read_cols(void);
+    static void unselect_rows(void);
+    static void select_row(uint8_t row);
+    static void unselect_row(uint8_t row);
+#else // ROW2COL
+    static void init_rows(void);
+    static matrix_col_t read_rows(void);
+    static void unselect_cols(void);
+    static void unselect_col(uint8_t col);
+    static void select_col(uint8_t col);
 #endif
-
-static matrix_row_t read_cols(void);
-static void init_cols(void);
-static void unselect_rows(void);
-static void select_row(uint8_t row);
 
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
@@ -99,7 +130,7 @@ uint8_t matrix_cols(void) {
 }
 
 // void matrix_power_up(void) {
-// #if DIODE_DIRECTION == COL2ROW
+// #if (DIODE_DIRECTION == COL2ROW)
 //     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
 //         /* DDRxn */
 //         _SFR_IO8((row_pins[r] >> 4) + 1) |= _BV(row_pins[r] & 0xF);
@@ -123,13 +154,15 @@ uint8_t matrix_cols(void) {
 // }
 
 void matrix_init(void) {
+
     // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-    #ifdef __AVR_ATmega32U4__
+    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
         MCUCR |= _BV(JTD);
         MCUCR |= _BV(JTD);
     #endif
 
     // initialize row and col
+#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
 
@@ -139,25 +172,43 @@ void matrix_init(void) {
         matrix_debouncing[i] = 0;
     }
 
+#else // ROW2COL
+    unselect_cols();
+    init_rows();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+    }
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_COLS; i++) {
+        matrix_transposed_debouncing[i] = 0;
+    }
+#endif
+
     matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
 {
 
-#if DIODE_DIRECTION == COL2ROW
+#if (DIODE_DIRECTION == COL2ROW)
+
+    // Set row, read cols
+
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
         wait_us(30);  // without this wait read unstable value.
-        matrix_row_t cols = read_cols();
-        if (matrix_debouncing[i] != cols) {
-            matrix_debouncing[i] = cols;
+        matrix_row_t current_row = read_cols();
+        if (matrix_debouncing[i] != current_row) {
+            matrix_debouncing[i] = current_row;
             if (debouncing) {
                 debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
             debouncing = DEBOUNCING_DELAY;
         }
-        unselect_rows();
+        unselect_row(i);
     }
 
     if (debouncing) {
@@ -169,19 +220,23 @@ uint8_t matrix_scan(void)
             }
         }
     }
-#else
+
+#else // ROW2COL
+
+    // Set col, read rows
+
     for (uint8_t i = 0; i < MATRIX_COLS; i++) {
-        select_row(i);
+        select_col(i);
         wait_us(30);  // without this wait read unstable value.
-        matrix_row_t rows = read_cols();
-        if (matrix_reversed_debouncing[i] != rows) {
-            matrix_reversed_debouncing[i] = rows;
+        matrix_col_t current_col = read_rows();
+        if (matrix_transposed_debouncing[i] != current_col) {
+            matrix_transposed_debouncing[i] = current_col;
             if (debouncing) {
                 debug("bounce!: "); debug_hex(debouncing); debug("\n");
             }
             debouncing = DEBOUNCING_DELAY;
         }
-        unselect_rows();
+        unselect_col(i);
     }
 
     if (debouncing) {
@@ -189,17 +244,20 @@ uint8_t matrix_scan(void)
             wait_ms(1);
         } else {
             for (uint8_t i = 0; i < MATRIX_COLS; i++) {
-                matrix_reversed[i] = matrix_reversed_debouncing[i];
+                matrix_transposed[i] = matrix_transposed_debouncing[i];
             }
         }
     }
+
+    // Untranspose matrix
     for (uint8_t y = 0; y < MATRIX_ROWS; y++) {
         matrix_row_t row = 0;
         for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-            row |= ((matrix_reversed[x] & (1<<y)) >> y) << x;
+            row |= ((matrix_transposed[x] & (1<<y)) >> y) << x;
         }
         matrix[y] = row;
     }
+
 #endif
 
     matrix_scan_quantum();
@@ -233,23 +291,11 @@ matrix_row_t matrix_get_row(uint8_t row)
 
 void matrix_print(void)
 {
-#if (MATRIX_COLS <= 8)
-    print("\nr/c 01234567\n");
-#elif (MATRIX_COLS <= 16)
-    print("\nr/c 0123456789ABCDEF\n");
-#elif (MATRIX_COLS <= 32)
-    print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n");
-#endif
+    print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         phex(row); print(": ");
-#if (MATRIX_COLS <= 8)
-        print_bin_reverse8(matrix_get_row(row));
-#elif (MATRIX_COLS <= 16)
-        print_bin_reverse16(matrix_get_row(row));
-#elif (MATRIX_COLS <= 32)
-        print_bin_reverse32(matrix_get_row(row));
-#endif
+        print_matrix_row(row);
         print("\n");
     }
 }
@@ -258,28 +304,21 @@ uint8_t matrix_key_count(void)
 {
     uint8_t count = 0;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-#if (MATRIX_COLS <= 8)
-        count += bitpop(matrix[i]);
-#elif (MATRIX_COLS <= 16)
-        count += bitpop16(matrix[i]);
-#elif (MATRIX_COLS <= 32)
-        count += bitpop32(matrix[i]);
-#endif
+        count += matrix_bitpop(i);
     }
     return count;
 }
 
+
+
+#if (DIODE_DIRECTION == COL2ROW)
+
 static void init_cols(void)
 {
-#if DIODE_DIRECTION == COL2ROW
-    for(int x = 0; x < MATRIX_COLS; x++) {
-        int pin = col_pins[x];
-#else
-    for(int x = 0; x < MATRIX_ROWS; x++) {
-        int pin = row_pins[x];
-#endif
-        _SFR_IO8((pin >> 4) + 1) &=  ~_BV(pin & 0xF);
-        _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF);
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        uint8_t pin = col_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
     }
 }
 
@@ -287,40 +326,81 @@ static matrix_row_t read_cols(void)
 {
     matrix_row_t result = 0;
 
-#if DIODE_DIRECTION == COL2ROW
-    for(int x = 0; x < MATRIX_COLS; x++) {
-        int pin = col_pins[x];
-#else
-    for(int x = 0; x < MATRIX_ROWS; x++) {
-        int pin = row_pins[x];
-#endif
-        result |= (_SFR_IO8(pin >> 4) & _BV(pin & 0xF)) ? 0 : (SHIFTER << x);
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        uint8_t pin = col_pins[x];
+        result |= (_SFR_IO8(pin >> 4) & _BV(pin & 0xF)) ? 0 : (ROW_SHIFTER << x);
     }
-    return result;
-}
 
-static void unselect_rows(void)
-{
-#if DIODE_DIRECTION == COL2ROW
-    for(int x = 0; x < MATRIX_ROWS; x++) {
-        int pin = row_pins[x];
-#else
-    for(int x = 0; x < MATRIX_COLS; x++) {
-        int pin = col_pins[x];
-#endif
-        _SFR_IO8((pin >> 4) + 1) &=  ~_BV(pin & 0xF);
-        _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF);
-    }
+    return result;
 }
 
 static void select_row(uint8_t row)
 {
-
-#if DIODE_DIRECTION == COL2ROW
-    int pin = row_pins[row];
-#else
-    int pin = col_pins[row];
-#endif
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF);
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF);
+    uint8_t pin = row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
+    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
 }
+
+static void unselect_row(uint8_t row)
+{
+    uint8_t pin = row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+}
+
+static void unselect_rows(void)
+{
+    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        uint8_t pin = row_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
+}
+
+#else // ROW2COL
+
+static void init_rows(void)
+{
+    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        uint8_t pin = row_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
+}
+
+static matrix_col_t read_rows(void)
+{
+    matrix_col_t result = 0;
+
+    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        uint8_t pin = row_pins[x];
+        result |= (_SFR_IO8(pin >> 4) & _BV(pin & 0xF)) ? 0 : (COL_SHIFTER << x);
+    }
+
+    return result;
+}
+
+static void select_col(uint8_t col)
+{
+    uint8_t pin = col_pins[col];
+    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
+    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+}
+
+static void unselect_col(uint8_t col)
+{
+    uint8_t pin = col_pins[col];
+    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+}
+
+static void unselect_cols(void)
+{
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        uint8_t pin = col_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
+}
+
+#endif
