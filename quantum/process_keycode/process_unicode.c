@@ -42,6 +42,11 @@ void unicode_input_start (void) {
     register_code(KC_PPLS);
     unregister_code(KC_PPLS);
     break;
+  case UC_WINC:
+    register_code(KC_RALT);
+    unregister_code(KC_RALT);
+    register_code(KC_U);
+    unregister_code(KC_U);
   }
   wait_ms(UNICODE_TYPE_DELAY);
 }
@@ -83,22 +88,42 @@ __attribute__((weak))
 const uint32_t PROGMEM unicode_map[] = {
 };
 
-// 5 digit max because of linux limitation
 void register_hex32(uint32_t hex) {
-  for(int i = 4; i >= 0; i--) {
+  uint8_t onzerostart = 1;
+  for(int i = 7; i >= 0; i--) {
+    if (i <= 3) {
+      onzerostart = 0;
+    }
     uint8_t digit = ((hex >> (i*4)) & 0xF);
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
+    if (digit == 0) {
+      if (onzerostart == 0) {
+        register_code(hex_to_keycode(digit));
+        unregister_code(hex_to_keycode(digit));
+      }
+    } else {
+      register_code(hex_to_keycode(digit));
+      unregister_code(hex_to_keycode(digit));
+      onzerostart = 0;
+    }
   }
 }
+
+__attribute__((weak))
+void unicode_map_input_error() {}
 
 bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
     uint16_t index = keycode & 0x7FF;
-    unicode_input_start();
-    register_hex32(pgm_read_dword_far(&map[index]));
-    unicode_input_finish();
+    uint32_t code = pgm_read_dword_far(&map[index]);
+    if ((code > 0xFFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
+      // when character is out of range supported by the OS
+      unicode_map_input_error();
+    } else {
+      unicode_input_start();
+      register_hex32(code);
+      unicode_input_finish();
+    }
   }
   return true;
 }
