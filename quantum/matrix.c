@@ -61,24 +61,18 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static matrix_row_t matrix[MATRIX_ROWS];
 
 static matrix_row_t matrix_raw[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-
-#if DIODE_DIRECTION == COL2ROW
-    static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-#else // ROW2COL
-    static matrix_col_t matrix_transposed[MATRIX_COLS];
-    static matrix_col_t matrix_transposed_debouncing[MATRIX_COLS];
-#endif
 
 #if (DIODE_DIRECTION == COL2ROW)
     static void init_cols(void);
-    static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
+    static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
     static void unselect_rows(void);
     static void select_row(uint8_t row);
     static void unselect_row(uint8_t row);
 #else // ROW2COL
     static void init_rows(void);
-    static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
+    static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
     static void unselect_cols(void);
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
@@ -158,6 +152,10 @@ void matrix_init(void) {
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
+#else // ROW2COL
+    unselect_cols();
+    init_rows();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -165,22 +163,6 @@ void matrix_init(void) {
         matrix_raw[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
-#else // ROW2COL
-    unselect_cols();
-    init_rows();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix_raw[i] = 0;
-        matrix[i] = 0;
-    }
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_COLS; i++) {
-        matrix_transposed_debouncing[i] = 0;
-    }
-#endif
 
     matrix_init_quantum();
 }
@@ -262,7 +244,7 @@ uint8_t matrix_scan(void)
 #endif
 
     matrix_scan_quantum();
-
+// matrix_print();
     return 1;
 }
 
@@ -342,6 +324,9 @@ static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
     }
+
+    // Unselect row
+    unselect_row(current_row);
 }
 
 static void select_row(uint8_t row)
@@ -388,13 +373,21 @@ static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // For each row...
     for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
 
-        // Select the row pin to read (active low)
-        uint8_t pin = row_pins[row_index];
-        uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
-
-        // Populate the matrix row with the state of the col pin
-        current_matrix[row_index] &= pin_state ? ~(ROW_SHIFTER << current_col) : 0;
+        // Check row pin state
+        if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
+        {
+            // Pin LO, set col bit
+            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+        }
+        else
+        {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+        }
     }
+
+    // Unselect col
+    unselect_col(current_col);
 }
 
 static void select_col(uint8_t col)
