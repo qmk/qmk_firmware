@@ -25,6 +25,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
+#include "timer.h"
+
+
+/* Set 0 if debouncing isn't needed */
+
+#ifndef DEBOUNCING_DELAY
+#   define DEBOUNCING_DELAY 5
+#endif
+
+#if (DEBOUNCING_DELAY > 0)
+    static uint16_t debouncing_time;
+    static bool debouncing = false;
+#endif
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -44,15 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef MATRIX_MASKED
-extern const matrix_row_t matrix_mask[];
+    extern const matrix_row_t matrix_mask[];
 #endif
-
-/* Set 0 if debouncing isn't needed */
-
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
-#endif
-static uint8_t debouncing = DEBOUNCING_DELAY;
 
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -66,13 +72,13 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #if (DIODE_DIRECTION == COL2ROW)
     static void init_cols(void);
-    static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
     static void unselect_rows(void);
     static void select_row(uint8_t row);
     static void unselect_row(uint8_t row);
 #else // ROW2COL
     static void init_rows(void);
-    static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
+    static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
     static void unselect_cols(void);
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
@@ -174,83 +180,56 @@ uint8_t matrix_scan(void)
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        read_cols_on_row(matrix, current_row);
+#       if (DEBOUNCING_DELAY > 0)
+            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
+
+            if (matrix_changed) {
+                debouncing = true;
+                debouncing_time = timer_read();
+            }
+
+#       else
+            read_cols_on_row(matrix, current_row);
+#       endif
+
     }
-
-    //     select_row(i);
-    //     wait_us(30);  // without this wait read unstable value.
-    //     matrix_row_t current_row = read_cols();
-    //     if (matrix_debouncing[i] != current_row) {
-    //         matrix_debouncing[i] = current_row;
-    //         if (debouncing) {
-    //             debug("bounce!: "); debug_hex(debouncing); debug("\n");
-    //         }
-    //         debouncing = DEBOUNCING_DELAY;
-    //     }
-    //     unselect_row(i);
-    // }
-
-    // if (debouncing) {
-    //     if (--debouncing) {
-    //         wait_ms(1);
-    //     } else {
-    //         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    //             matrix[i] = matrix_debouncing[i];
-    //         }
-    //     }
-    // }
 
 #else // ROW2COL
 
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        read_rows_on_col(matrix, current_col);
+#       if (DEBOUNCING_DELAY > 0)
+            bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
+            if (matrix_changed) {
+                debouncing = true;
+                debouncing_time = timer_read();
+            }
+#       else
+             read_rows_on_col(matrix, current_col);
+#       endif
+
     }
-
-
-    // for (uint8_t i = 0; i < MATRIX_COLS; i++) {
-    //     select_col(i);
-    //     wait_us(30);  // without this wait read unstable value.
-    //     matrix_col_t current_col = read_rows();
-    //     if (matrix_transposed_debouncing[i] != current_col) {
-    //         matrix_transposed_debouncing[i] = current_col;
-    //         if (debouncing) {
-    //             debug("bounce!: "); debug_hex(debouncing); debug("\n");
-    //         }
-    //         debouncing = DEBOUNCING_DELAY;
-    //     }
-    //     unselect_col(i);
-    // }
-
-    // if (debouncing) {
-    //     if (--debouncing) {
-    //         wait_ms(1);
-    //     } else {
-    //         for (uint8_t i = 0; i < MATRIX_COLS; i++) {
-    //             matrix_transposed[i] = matrix_transposed_debouncing[i];
-    //         }
-    //     }
-    // }
-
-    // // Untranspose matrix
-    // for (uint8_t y = 0; y < MATRIX_ROWS; y++) {
-    //     matrix_row_t row = 0;
-    //     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    //         row |= ((matrix_transposed[x] & (1<<y)) >> y) << x;
-    //     }
-    //     matrix[y] = row;
-    // }
 
 #endif
 
+#   if (DEBOUNCING_DELAY > 0)
+        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+                matrix[i] = matrix_debouncing[i];
+            }
+            debouncing = false;
+        }
+#   endif
+
     matrix_scan_quantum();
-// matrix_print();
     return 1;
 }
 
 bool matrix_is_modified(void)
 {
+#if (DEBOUNCING_DELAY > 0)
     if (debouncing) return false;
+#endif
     return true;
 }
 
@@ -305,8 +284,11 @@ static void init_cols(void)
     }
 }
 
-static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
     // Clear data in matrix row
     current_matrix[current_row] = 0;
 
@@ -327,6 +309,8 @@ static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
+
+    return (last_row_value == current_matrix[current_row]);
 }
 
 static void select_row(uint8_t row)
@@ -363,15 +347,20 @@ static void init_rows(void)
     }
 }
 
-static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
+    bool matrix_changed = false;
 
     // Select col and wait for col selecton to stabilize
     select_col(current_col);
     wait_us(30);
 
     // For each row...
-    for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+    for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++)
+    {
+
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
         if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
@@ -384,10 +373,18 @@ static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
         }
+
+        // Determine if the matrix changed state
+        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed))
+        {
+            matrix_changed = true;
+        }
     }
 
     // Unselect col
     unselect_col(current_col);
+
+    return matrix_changed;
 }
 
 static void select_col(uint8_t col)
