@@ -379,9 +379,6 @@ static bool command_common(uint8_t code)
             debug_enable = !debug_enable;
             if (debug_enable) {
                 print("\ndebug: on\n");
-                debug_matrix   = true;
-                debug_keyboard = true;
-                debug_mouse    = true;
             } else {
                 print("\ndebug: off\n");
                 debug_matrix   = false;
