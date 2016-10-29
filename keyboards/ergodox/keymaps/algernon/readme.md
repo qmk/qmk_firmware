@@ -27,7 +27,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
     - [Unicode Symbol Input](#unicode-symbol-input)
 * [Building](#building)
     - [Using on Windows](#using-on-windows)
-* [Changelog](#changelog)
+* [Changelog](https://github.com/algernon/ergodox-layout/blob/master/NEWS.md#readme)
 * [License](#license)
 
 # Layouts
@@ -43,6 +43,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
 * The **Media** and **Hun** layer keys are one-shot, the **STENO** key is a toggle.
+* The **Fx** key is one-shot, and activates the **Media** layer, along with a one-shot `Alt`.
 * When holding the `Tab`/**Arrow** key, the arrow layer activates while the key is held. Tapping the key produces the normal, `Tab` key. Double-tapping it toggles the **Arrow** layer on until a third tap.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * Tapping the `[{(`/`)}]` keys once yields `[` (or `{` when shifted), tapping them twice yields `(`.
@@ -93,12 +94,7 @@ Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers
 
 Once in the Unicode Symbol Input mode, one is able to type in symbol names, press `Enter` or `Space`, and get the Unicode symbol itself back. When in the mode, a capital `U` is printed first. Once the sequence is finished, all of it is erased by sending enough `Backspace` taps, and the firmware starts the OS-specific unicode input sequence. Then, it looks up the symbol name, and enters the associated code. If it is not found, it will just replay the pressed keycodes.
 
-The currently supported symbols are:
-
-- `snowman`: ☃
-- `kiss`: 😙
-- `rofl`: 🤣
-- `poop`: 💩
+For the list of supported symbols, please see the source.
 
 This is an experimental feature, and may or may not work reliably.
 
@@ -144,137 +140,6 @@ $ make keyboard=ergodox keymap=algernon
 ## Using on Windows
 
 The keymap default to forcing NKRO, which seems to upset Windows, and except the modifiers, none of them work. If you experience this problem, recompile the firmware with `FORCE_NKRO=no` added to the `make` command line.
-
-# Changelog
-
-## v1.7
-
-*2016-09-18*
-
-### Overall changes
-
-* The number row has been completely rearranged on both the [Base](#base-layer) and the [ADORE](#adore-layer) layers.
-* The number/function key behavior was changed: function keys are now on the **Media**.
-* The `:`/`;` and `-`/`_` keys were put back to their thumb position on the bottom row, on both the [Base](#base-layer) and [ADORE](#adore-layer) layers.
-* The bottom large keys on the inner side of each half now function as [tmux](http://tmux.github.io/) keys: the left to send the prefix, the right to send the `display-panes` key. The left also doubles as a GNU screen prefix key, and sends `C-a` when double tapped.
-* A number of functions, such as the **AppSel** layer, now require the `hid-commands` tool to be running, with the output of `hid_listen` being piped to it.
-
-### ADORE
-
-* `Y` and `X` have been swapped again.
-
-### Media/Navigation layer
-
-* The function keys are now on this layer.
-* Mouse keys have been removed.
-* Media start/stop/prev/next have been removed.
-* `Print screen` has been removed.
-* There is only one screen lock key now.
-
-### Heatmap
-
-* Fixed a few issues in the finger-stats calculation.
-* The tool now also timestamps and saves all input lines to a logfile, which it loads on start, allowing one to continue the collection after upgrading the tool.
-* The heatmap tool will now colorize the stats by default.
-* The periodic stats are now printed in a more compact format.
-
-### Tools
-
-* Added a new tool, `tools/layer-notify` that listens to layer change events on the HID console, and pops up a notification on layer changes.
-* Another new tool, `tools/text-to-log.py` has been added that converts arbitrary text to a keylogger output, which can be fed to the heatmap generator.
-* A number of features have been moved to the `tools/hid-commands` utility. These generally are OS dependent, and are easier to implement on the software side.
-
-## v1.6
-
-*2016-08-24*
-
-### Base layer changes
-
-* The parentheses & bracket keys have been merged: tapping them results in `[` or `{` (if it was shifted), double tapping leads to `(`.
-* The `:;` and `-_` keys are now available on the base layer, on their [ADORE](#adore-layer) location, too, just below `[{(`/`]})`.
-* The `Apps` key has been replaced by `F12`.
-* The `-`/`_` is no longer a tap-dance key.
-
-### ADORE layer changes
-
-* Adjustments were made to the [ADORE](#adore-layer) layer, to separate some inconvenient combinations.
-
-### Miscellaneous changes
-
-* `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
-* The mouse acceleration keys on the **Navigation/Media** layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
-* When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
-
-### Heatmap
-
-* The built-in keylogger has been greatly enhanced, it now outputs the pressed state, and the layer (Dvorak or ADORE). As such, the `ADORE_AUTOLOG` option has been removed, instead there is `AUTOLOG_ENABLE` now, which when enabled, makes the keylogger start when the keyboard boots. It defaults to off.
-* The heatmap generator received a lot of updates.
-
-## v1.5
-
-*2016-08-12*
-
-* The **1HAND** layer has been removed.
-* A `Delete` key is now available on the right thumb cluster.
-* The [ADORE](#adore-layer) layer received a major update, see the layout image above.
-* It is now possible to enable automatic logging for the [ADORE](#adore-layer) layer, by setting the `ADORE_AUTOLOG` makefile variable to `yes` when compiling the keymap. It is off by default.
-* The `~` key and the `Media Next/Prev` key have been swapped on the [base layer](#base-layer).
-* On the **ARROW** layer, `Backspace` has been replaced by `Enter`.
-* There is some experimental support for entering Unicode symbols.
-
-## v1.4
-
-*2016-07-29*
-
-* When toggling the key logging on or off, the LEDs will do a little dance.
-* The keylogger is now optional, but enabled by default. Use `KEYLOGGER_ENABLE=no` on the `make` command line to disable it.
-* The `TAB`/`ARRW` key was turned into a tap-dance key, allowing one to toggle the **ARROW** layer on by double-tapping, and as such, avoid the need to hold the key.
-* The `-`/`_` key was turned into a tap-dance key too.
-* There is now a way to travel time with the keyboard, toggle the feature on by hitting `LEAD t`.
-
-## v1.3
-
-*2016-07-06*
-
-* Added support for logging keys, by pressing `LEAD d`. Also included is a tool to generate a [heatmap](#heatmap) out of the logs.
-* The arrow and navigation keys were rearranged again, and now require an additional key being held to activate. See the [base layer](#base-layer) for an image that shows where arrows are.
-* The **experimental** layer has been redone, and is now called [ADORE](#adore-layer), and as such, can be enabled by `LEAD a` now.
-* Switching between Dvorak and ADORE is now persisted into EEPROM, and survives a reboot.
-
-## v1.2
-
-*2016-06-22*
-
-* The forced NKRO mode can be easily toggled off at compile-time, to make the firmware compatible with [certain operating systems](#using-on-windows).
-* The `:;` key has changed behaviour: to access the `;` symbol, the key needs to be double-tapped, instead of shifted.
-* The `=` and `\` keys were swapped, `=` moved to the home row, on both the [base](#base-layer) and the **experimental** layers.
-* The arrow and navigation keys were redone, they are now more accessible, but the navigation keys require an extra tap to access.
-* The **Emacs** layer is gone, replaced by a simplified **navigation and media** layer.
-* `LEAD v` types the firmware version, and the keymap version.
-* On the **experimental** layer, the `L` and `Q`, and the `K` and `G` keys were swapped.
-* The [Steno](#steno-layer) layer gained a few more `#` and `*` keys, to make it easier on my fingers.
-
-## v1.1
-
-*2016-06-14*
-
-* The keyboard starts in NKRO mode, bootmagic and other things are disabled.
-* A [Steno](#steno-layer) layer was added, to be used with Plover.
-* An **experimental** layer was added, something halfway between Dvorak and Capewell-Dvorak. A work in progress.
-* `LEAD y` types `\o/`.
-* Some keys on the [Base](#base-layer) layer have been moved around:
-    - `?` moved to the left pinky, left of `Q`.
-    - `=` shifted one row down, but `F11` stayed where it was.
-    - `-` on the left half was replaced by `Tab`.
-    - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
-    - `:` now inputs `;` when shifted.
-* `ESC` cancels the **Hungarian** layer too, not just modifiers.
-
-## v1.0
-
-*2016-05-26*
-
-Initial version.
 
 # License
 

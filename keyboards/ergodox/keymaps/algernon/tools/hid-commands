@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+LAST_APPSEL_START=0
+
 cmd_wm () {
     WIN="$(xdotool getactivewindow)"
     wmctrl -i -r ${WIN} -b remove,maximized_vert,maximized_horz
@@ -14,7 +16,7 @@ _cmd_appsel () {
 }
 
 cmd_appsel_music () {
-    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || true
+    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || wmctrl -x -a kodi || true
     xdotool key Escape
 }
 
@@ -23,7 +25,7 @@ cmd_appsel_slack () {
 }
 
 cmd_appsel_emacs () {
-    _cmd_appsel emacs24
+    _cmd_appsel emacs
 }
 
 cmd_appsel_term () {
@@ -32,6 +34,24 @@ cmd_appsel_term () {
 
 cmd_appsel_chrome () {
     _cmd_appsel chromium
+}
+
+cmd_appsel_start () {
+    if [ ! -z "${DISABLE_APPSEL_START}" ]; then
+        return
+    fi
+
+    APPSEL_START=$(date +%s)
+    if [ $APPSEL_START -lt $(expr $LAST_APPSEL_START + 10) ]; then
+        return
+    fi
+    LAST_APPSEL_START=$APPSEL_START
+    notify-send -t 1000 "Please select an application!" -c device -u low \
+                -i /usr/share/icons/Adwaita/24x24/devices/video-display.png
+}
+
+cmd_reflash () {
+    teensy_loader_cli -v -w ~/src/ext/qmk_firmware/algernon.hex --mcu atmega32u4 || true
 }
 
 cmd_help () {
@@ -57,5 +77,3 @@ while read l; do
         cmd_${cmd}
     fi
 done
-
-
