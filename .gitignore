@@ -31,3 +31,4 @@ CMakeLists.txt
 *.stackdump
 util/Win_Check_Output.txt
 .vscode
+.stfolder
