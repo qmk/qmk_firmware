@@ -13,3 +13,12 @@ Layers
 * NUMBER: keypad layer.
 * SYMBOL: all the symbols as well as brackets at the bottom.
 * SHORTCUTS: sends Hyper keys for Autohotkey to interpret. I use this to switch between specific apps.
+* MOUSE: use mouse keys
+
+Updates
+-------
+
+2016/11/05:
+* removed brackets anywhere but in brackets layer
+* added mouse layer back in
+* replaced all HYPR with MEH
