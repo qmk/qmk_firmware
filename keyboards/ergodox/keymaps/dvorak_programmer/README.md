@@ -21,5 +21,5 @@ Updates
 2016/11/05:
 * removed brackets anywhere but in brackets layer
 * added mouse layer back in
-* replaced all HYPR with MEH
 * put semicolon-newline and end-newline on symbol layer
+* replaced all HYPR with MEH, added more shortcut keys
