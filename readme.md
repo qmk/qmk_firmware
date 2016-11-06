@@ -326,8 +326,14 @@ This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only
 `UNICODEMAP_ENABLE`
 
 This allows sending unicode symbols using `X(<unicode>)` in your keymap. Codes
-up to 0xFFFFF are supported, including emojis. But you need to maintain a
-separate mapping table in your keymap file.
+up to 0xFFFFFFFF are supported, including emojis. You will need to maintain
+a separate mapping table in your keymap file.
+
+Known limitations:
+- Under Mac OS, only codes up to 0xFFFF are supported.
+- Under Linux ibus, only codes up to 0xFFFFF are supported (but anything important is still under this limit for now).
+
+Characters out of range supported by the OS will be ignored.
 
 `BLUETOOTH_ENABLE`
 
@@ -900,7 +906,7 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 ## Unicode support
 
-You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
+You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout, see [this article](http://www.poynton.com/notes/misc/mac-unicode-hex-input.html) to learn more) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
 
 ## Backlight Breathing
 
