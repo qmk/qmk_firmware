@@ -12,7 +12,9 @@
 
 
 #define NUM_TRACED_VARIABLES 1
-#define MAX_TRACE_SIZE 4
+#ifndef MAX_VARIABLE_TRACE_SIZE
+    #define MAX_VARIABLE_TRACE_SIZE 4
+#endif
 
 typedef struct {
     const char* name;
@@ -20,7 +22,7 @@ typedef struct {
     unsigned size;
     const char* func;
     int line;
-    uint8_t last_value[MAX_TRACE_SIZE];
+    uint8_t last_value[MAX_VARIABLE_TRACE_SIZE];
 
 } traced_variable_t;
 
@@ -28,13 +30,13 @@ static traced_variable_t traced_variables[NUM_TRACED_VARIABLES];
 
 void add_traced_variable(const char* name, void* addr, unsigned size, const char* func, int line) {
     verify_traced_variables(func, line);
-    if (size > MAX_TRACE_SIZE) {
+    if (size > MAX_VARIABLE_TRACE_SIZE) {
 #if defined(__AVR__)
        xprintf("Traced variable \"%S\" exceeds the maximum size %d\n", name, size);
 #else
        xprintf("Traced variable \"%s\" exceeds the maximum size %d\n", name, size);
 #endif
-       size = MAX_TRACE_SIZE;
+       size = MAX_VARIABLE_TRACE_SIZE;
     }
     int index = -1;
     for (int i = 0; i < NUM_TRACED_VARIABLES; i++) {
