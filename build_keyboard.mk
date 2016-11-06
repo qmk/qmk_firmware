@@ -180,6 +180,8 @@ ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
 	VAPTH += $(SERIAL_PATH)
 endif
 
+SRC += $(QUANTUM_DIR)/variable_trace.c
+
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
 
