@@ -343,6 +343,10 @@ This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#driving-a-speaker---audio-support) for more information.
 
+`VARIABLE_TRACE`
+
+Use this to debug changes to variable values, see the [tracing variables](#tracing-variables) section for more information.
+
 ### Customizing Makefile options on a per-keymap basis
 
 If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options for your particular keyboard.
@@ -1283,3 +1287,22 @@ If there are problems with the tests, you can find the executable in the `./buil
 It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing.
 
 In that model you would emulate the input, and expect a certain output from the emulated keyboard.
+
+# Tracing variables 
+
+Sometimes you might wonder why a variable gets changed and where, and this can be quite tricky to track down without having a debugger. It's of course possible to manually add print statements to track it, but you can also enable the variable trace feature. This works for both for variables that are changed by the code, and when the variable is changed by some memory corruption.
+
+To take the feature into use add `VARIABLE_TRACE=x` to the end of you make command. `x` represents the number of variables you want to trace, which is usually 1. 
+
+Then at a suitable place in the code, call `ADD_TRACED_VARIABLE`, to begin the tracing. For example to trace all the layer changes, you can do this
+```c
+void matrix_init_user(void) {
+  ADD_TRACED_VARIABLE("layer", &layer_state, sizeof(layer_state));
+}
+```
+
+This will add a traced variable named "layer" (the name is just for your information), which tracks the memory location of `layer_state`. It tracks 4 bytes (the size of `layer_state`), so any modification to the variable will be reported. By default you can not specify a size bigger than 4, but you can change it by adding `MAX_VARIABLE_TRACE_SIZE=x` to the end of the make command line.
+
+In order to actually detect changes to the variables you should call `VERIFY_TRACED_VARIABLES` around the code that you think that modifies the variable. If a variable is modified it will tell you between which two `VERIFY_TRACED_VARIABLES` calls the modification happened. You can then add more calls to track it down further. I don't recommend spamming the codebase with calls. It's better to start with a few, and then keep adding them in a binary search fashion. You can also delete the ones you don't need, as each call need to store the file name and line number in the ROM, so you can run out of memory if you add too many calls.
+
+Also remember to delete all the tracing code ones you have found the bug, as you wouldn't want to create a pull request with tracing code.
