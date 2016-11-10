@@ -45,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_UNICODES] = { /* UNICODES - Extra layer for unicode stuff */
-  {_______, XXXXXXX, XXXXXXX, FINGER,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, TFLIP,   XXXXXXX, XXXXXXX, IBANG,   roman7,  XXXXXXX, XXXXXXX, ROMAN7,  XXXXXXX, XXXXXXX, _______},
   {KC_DEL,  TPUT,    FACE,    DISFACE, SHRUG,   roman4,  roman5,  roman6,  ROMAN4,  ROMAN5,  ROMAN6,  _______},
-  {XXXXXXX, PENIS,   BOOBS,   LAROW,   RAROW,   roman1,  roman2,  roman3,  ROMAN1,  ROMAN2,  ROMAN3,  XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, LAROW,   RAROW,   roman1,  roman2,  roman3,  ROMAN1,  ROMAN2,  ROMAN3,  XXXXXXX},
   {_______, _______, _______, _______, _______, KC_SPC,  KC_SPC,  _______, _______, _______, _______, _______}
 }
 };
