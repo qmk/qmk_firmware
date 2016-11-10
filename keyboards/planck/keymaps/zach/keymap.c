@@ -33,16 +33,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_ADJUST] = { /* ADJUST - Macros, Layer Switching, Function Keys */
-  {UNIWIN,  Sil_Usr, Sil_Pas, PENGY,   DUCK,    KC_INS,  KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX},
-  {UNILIN,  UltiU,   UltiP,   RANDIG,  RANDIG,  SWCOLE,  COLEMAK, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX},
+  {UNIWIN,  XXXXXXX, XXXXXXX, PENGY,   DUCK,    KC_INS,  KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX},
+  {UNILIN,  XXXXXXX, XXXXXXX, RANDIG,  RANDIG,  SWCOLE,  COLEMAK, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX},
   {_______, CADKEY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX},
   {_______, _______, _______, _______, _______, RESET,   RESET,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 },
 
 [_UNICODES] = { /* UNICODES - Extra layer for unicode stuff */
-  {_______, TFLIP,   XXXXXXX, FINGER,  IBANG,   roman7,  XXXXXXX, XXXXXXX, ROMAN7,  TappyL,  TappyR,  _______},
+  {_______, TFLIP,   XXXXXXX, XXXXXXX, IBANG,   roman7,  XXXXXXX, XXXXXXX, ROMAN7,  XXXXXXX, XXXXXXX, _______},
   {KC_DEL,  TPUT,    FACE,    DISFACE, SHRUG,   roman4,  roman5,  roman6,  ROMAN4,  ROMAN5,  ROMAN6,  _______},
-  {XXXXXXX, PENIS,   BOOBS,   LAROW,   RAROW,   roman1,  roman2,  roman3,  ROMAN1,  ROMAN2,  ROMAN3,  XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, LAROW,   RAROW,   roman1,  roman2,  roman3,  ROMAN1,  ROMAN2,  ROMAN3,  XXXXXXX},
   {_______, _______, _______, _______, _______, KC_SPC,  KC_SPC,  _______, _______, _______, _______, _______}
 }
 };
