@@ -70,29 +70,6 @@ float unilin[][2]               = SONG(UNICODE_LINUX);
 #ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 200
 
-uint8_t Lstate = 0, Rstate = 0;
-uint32_t Ltimer = 0, Rtimer = 0;
-uint32_t Ltimes[3], Rtimes[4];   // Ratio of tap times should be about 1.335 (L/R)
-void rhythm_parse(void){
-    int L = Ltimes[0] + Ltimes[1] + Ltimes[2];  // Start to end time
-    int R = Rtimes[0] + Rtimes[1] + Rtimes[2] + Rtimes[3];
-    if(abs(R-L) > 10){
-        tap(KC_N); tap(KC_O);
-        return;
-    } else {
-        L = (L / 3)*100;                    // Average time per tap * 100
-        R = (R / 4);
-        if(abs(abs(L/R)-133) > 1){
-            tap(KC_N); tap(KC_O);
-            tap(KC_P); tap(KC_E);
-            return;
-        } else {
-            tap(KC_O); tap(KC_K);
-            return;
-        }
-    }
-};
-
 void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
   switch(state->count){      // Only turn the layer on once
     case 1:
