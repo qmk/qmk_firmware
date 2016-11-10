@@ -3,6 +3,10 @@
 #ifndef SONG_LIST_H
 #define SONG_LIST_H
 
+#define COIN_SOUND \
+    E__NOTE(_A5  ),\
+    HD_NOTE(_E6  ),
+
 #define ODE_TO_JOY                                          \
     Q__NOTE(_E4), Q__NOTE(_E4), Q__NOTE(_F4), Q__NOTE(_G4), \
     Q__NOTE(_G4), Q__NOTE(_F4), Q__NOTE(_E4), Q__NOTE(_D4), \
@@ -121,5 +125,13 @@
 #define NUM_LOCK_OFF_SOUND \
     E__NOTE(_E5),          \
     E__NOTE(_D5),
+
+#define UNICODE_WINDOWS \
+    E__NOTE(_B5),       \
+    S__NOTE(_E6),
+
+#define UNICODE_LINUX \
+    E__NOTE(_E6),     \
+    S__NOTE(_B5),
 
 #endif

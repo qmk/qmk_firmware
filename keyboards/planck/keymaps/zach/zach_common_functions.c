@@ -3,7 +3,6 @@
 #include "eeconfig.h"
 #include "action_layer.h"
 #include "keymap_colemak.h"
-#include "extra_functions.c"
 extern keymap_config_t keymap_config;
 
 // Fillers to make layering more clear
@@ -249,7 +248,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    #ifndef TAP_DANCE_ENABLE   
     case RAISE:
         if(record->event.pressed){
             layer_on(_RAISE);
@@ -270,7 +268,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    #endif
     case SHFT_CAP: 
         if(record->event.pressed){
             key_timer = timer_read();               // if the key is being pressed, we start the timer.
@@ -441,62 +438,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    #ifdef TAP_DANCE_ENABLE
-    case TappyR:
-        if(record->event.pressed){
-            if(timer_elapsed32(Rtimer) > 1052){
-                Rstate = 0;
-            }
-          switch(Rstate){
-            case 0:
-                Rtimer = timer_read32();
-                Rstate++;
-                break;
-            case 1:
-                Rtimes[0] = timer_elapsed32(Rtimer);
-                Rtimer = timer_read32();
-                Rstate++;
-                break;
-            case 2:
-                Rtimes[1] = timer_elapsed32(Rtimer);
-                Rtimer = timer_read32();
-                Rstate++;
-                break;
-            case 3:
-                Rtimes[2] = timer_elapsed32(Rtimer);
-                Rstate = 0;
-                break;
-            }
-            if(Rstate == 0 && Lstate == 0) rhythm_parse();
-        }
-        return false;
-        break;
-    case TappyL:
-        if(record->event.pressed){
-            if(timer_elapsed32(Ltimer) > 1052){
-                Lstate = 0;
-            }
-          switch(Lstate){
-            case 0:
-                Ltimer = timer_read32();
-                Lstate++;
-                break;
-            case 1:
-                Ltimes[0] = timer_elapsed32(Ltimer);
-                Ltimer = timer_read32();
-                Lstate++;
-                break;
-            case 2:
-                Ltimes[1] = timer_elapsed32(Ltimer);
-                Lstate = 0;
-                break;
-            }
-            if(Rstate == 0 && Lstate == 0) rhythm_parse();
-        }
-        return false;
-        break;
-    #endif
-    #endif
     case RANDIG:
         if (record->event.pressed) {
             tap_random_base64();
@@ -507,7 +448,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-#ifdef AUDIO_ENABLE
 void matrix_init_user(void){        // Run once at startup
     #ifdef AUDIO_ENABLE
         _delay_ms(50); // gets rid of tick
@@ -515,6 +455,7 @@ void matrix_init_user(void){        // Run once at startup
     #endif
 }
 
+#ifdef AUDIO_ENABLE
 void play_goodbye_tone(void){
   PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
   _delay_ms(150);
