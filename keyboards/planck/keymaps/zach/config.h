@@ -53,8 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
+#undef LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
+#undef LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -70,6 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_DEBUG
 /* disable print */
 //#define NO_PRINT
+#undef NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
