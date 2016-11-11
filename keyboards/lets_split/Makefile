@@ -72,7 +72,7 @@ USE_I2C ?= yes
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
-
+SUBPROJECT_DEFAULT = rev2
 ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
