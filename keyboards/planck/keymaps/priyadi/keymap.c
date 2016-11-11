@@ -5,24 +5,24 @@
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
+  #include "musical_notes.h"
 #endif
 #include "eeconfig.h"
 #include "process_unicode.h"
+#include "quantum.h"
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _WORKMAN 2
-#define _PUNC 9
-#define _NUM 10
-#define _FUNC 11
-#define _EMOJI 12
-#define _ADJUST 16
+enum layers {
+  _QWERTY,
+  _COLEMAK,
+  _WORKMAN,
+  _PUNC,
+  _NUM,
+  _FUNC,
+  _EMOJI,
+  _GUI,
+};
 
 enum planck_keycodes {
   // layouts
@@ -35,6 +35,7 @@ enum planck_keycodes {
   NUM,
   FUNC,
   EMOJI,
+  GUI,
 
   // os switchers
   LINUX,
@@ -43,10 +44,12 @@ enum planck_keycodes {
 };
 
 // Fillers to make layering clearer
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 // unicode map
+
 enum unicode_name {
   GRIN, // grinning face 😊
   TJOY, // tears of joy 😂
@@ -147,6 +150,18 @@ const uint32_t PROGMEM unicode_map[] = {
   [SKULL] = 0x1F480,
 };
 
+
+// hybrid shift - =
+// #undef KC_LSFT
+// #define KC_LSFT MT(MOD_LSFT, KC_MINS)
+// #undef KC_RSFT
+// #define KC_RSFT MT(MOD_LSFT, KC_EQL)
+
+
+// hybrid right-gui & scroll lock (mapped to Compose in OS)
+#undef KC_RCTL
+#define KC_RCTL MT(MOD_LCTL, KC_SLCK)
+
 // keymaps
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -189,11 +204,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Workman
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * | Tab  |   Q  |   D  |   R  |   W  |   B  |   J  |   F  |   U  |   P  |   ;  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |Enter |
+ * | Esc  |   A  |   S  |   H  |   T  |   G  |   Y  |   N  |   E  |   O  |   I  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Shift |
+ * | Shift|   Z  |   X  |   M  |   C  |   V  |   K  |   K  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | GUI  | Alt  | Punc | Num  |    Space    | Func |Emoji |AltGr | GUI  | Ctrl |
  * `-----------------------------------------------------------------------------------'
@@ -207,56 +222,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Punc
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   `  |      |      |      |      |      |   |  |   _  |   +  |   {  |   }  |  "   |
+ * |      |      |   \  |   -  |   =  |   <  |   >  |   (  |   )  |   '  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |   \  |   -  |   =  |   [  |   ]  |  '   |
+ * |      |      |   |  |   _  |   +  |   {  |   }  |   [  |   ]  |   "  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |   <  |   >  |      |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-  {KC_GRV,  _______, _______, _______, _______, _______, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_DQUO},
-  {_______, _______, _______, _______, _______, _______, KC_BSLS, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_QUOT},
-  {_______, _______, _______, _______, _______,  KC_SPC,  KC_SPC, _______, _______, KC_LABK, KC_RABK, _______}
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV },
+  {XXXXXXX, XXXXXXX, KC_BSLS, KC_MINS,  KC_EQL, KC_LABK, KC_RABK, KC_LPRN, KC_RPRN, KC_QUOT, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_DQUO, XXXXXXX, XXXXXXX},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Num
  * ,-----------------------------------------------------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |  ^   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |  @   |  A   |  B   |  C   |  [   |  ]   |   4  |   5  |   6  |   :  |Enter |
+ * | Esc  |  @   |  A   |  B   |  C   |  (   |  )   |   4  |   5  |   6  |   :  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |  D   |  E   |  F   |  &   |  #   |   1  |   2  |   3  |      |      |
+ * |  &   |  #   |  D   |  E   |  F   |  [   |  ]   |   1  |   2  |   3  |   /  |  *   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |  x   |      |      |             |   0  |   ,  |   .  |      |      |
+ * |      |      |      |  x   |      |             |   0  |   ,  |   .  |   +  |  -   |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = {
-  {_______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC},
-  { KC_ESC,   KC_AT, S(KC_A), S(KC_B), S(KC_C), KC_LBRC, KC_RBRC,    KC_4,    KC_5,    KC_6, KC_COLN, KC_BSLS},
-  {_______, _______, S(KC_D), S(KC_E), S(KC_F), KC_AMPR, KC_HASH,    KC_1,    KC_2,    KC_3, _______, _______},
-  {_______, _______,    KC_X, _______, _______,  KC_SPC,  KC_SPC,    KC_0, KC_COMM,KC_KP_DOT,_______, _______}
+  {KC_CIRC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC},
+  { KC_ESC,   KC_AT, S(KC_A), S(KC_B), S(KC_C), KC_LPRN, KC_RPRN,    KC_4,    KC_5,    KC_6, KC_COLN,  KC_ENT},
+  {KC_AMPR, KC_HASH, S(KC_D), S(KC_E), S(KC_F), KC_LBRC, KC_RBRC,    KC_1,    KC_2,    KC_3, KC_SLSH, KC_ASTR},
+  {_______, _______, _______,    KC_X, _______,  KC_SPC,  KC_SPC,    KC_0, KC_COMM,  KC_DOT, KC_PLUS, KC_MINS}
 },
 
 /* Func
  * ,-----------------------------------------------------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  |      |      | PgUp |  Up  | PgDn | PgUp | Bksp |
+ * |      |  F1  |  F2  |  F3  |  F4  |      |      | PgUp |  Up  | PgDn | PgUp | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |      | Left | Down | Right| PgDn |      |
+ * |      |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn | Ins  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F9  |  F10 |  F11 |  F12 |      |      |      | Home |  End |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |Print |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = {
-  {_______,   KC_F1,   KC_F2,   KC_F3,   KC_F4, _______, _______, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP, KC_BSPC},
-  {_______,   KC_F5,   KC_F6,   KC_F7,   KC_F8, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______},
-  {_______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______, _______, _______, KC_HOME,  KC_END, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,_______,KC_PSCREEN}
+  {XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4, XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL},
+  {XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,KC_PSCREEN,XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS},
+  {_______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Emoji
@@ -274,27 +289,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {X(HART2), X(CRY2),X(WEARY),X(EYERT),X(SMIRK), X(TJOY),X(RECYC),X(UNAMU),X(MUSIC),X(OKHND),X(PENSV), X(PHEW)},
   {X(THMUP), X(PRAY),X(SMILE),X(SMIL2),X(FLUSH), X(GRIN),X(HEART),  X(BYE), X(KISS),X(CELEB), X(COOL),X(NOEVS)},
   {X(THMDN),X(SLEEP), X(CLAP),  X(CRY),  X(VIC),X(BHART),  X(SUN),X(SMEYE), X(WINK), X(MOON),X(CONFU),X(NOEVH)},
-  {  X(POO), X(EYES),X(HUNRD),X(TONGU),X(SKULL),X(HORNS), X(HALO), X(FEAR), _______,X(YUMMY),X(DISAP),X(NOEVK)}
+  {  X(POO), X(EYES),X(HUNRD), _______,X(SKULL),X(HORNS), X(HALO), X(FEAR), _______,X(YUMMY),X(DISAP),X(NOEVK)}
 },
 
-/* Adjust
+/* GUI
  * ,-----------------------------------------------------------------------------------.
- * |      |      |Linux | Win  | OSX  |      |      |Qwerty|Colemk|Workmm|      |      |
+ * |      |  D1  |  D2  |  D3  |  D4  |  D5  |  D6  |  D7  |  D8  |  D9  |  D10 |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |Linux |      | Vol- | Mute | Vol+ |      |      |  D-  |      |  D+  |      |Qwerty|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * | Win  |      | Prev | Play | Next |      |      |      |      |      |      |Colmak|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | OSX  |      |      |      |      |  BL- |  BL+ |      |      |      |      |Workmn|
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = {
-  {_______, _______,   LINUX,     WIN,     OSX, _______, _______, QWERTY,  COLEMAK, WORKMAN, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-}
-
+[_GUI] = {
+  {_______, LGUI(KC_1),LGUI(KC_2),LGUI(KC_3),LGUI(KC_4),LGUI(KC_5),LGUI(KC_6),LGUI(KC_7),LGUI(KC_8),LGUI(KC_9),LGUI(KC_0), _______},
+  {  LINUX, _______, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,_______, QWERTY},
+  {    WIN, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, COLEMAK},
+  {    OSX, _______, _______, _______, _______,  BL_DEC,  BL_INC, _______, _______, _______, _______, WORKMAN}
+},
 
 };
 
@@ -304,6 +318,10 @@ float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_workman[][2]    = SONG(DVORAK_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+float tone_linux[][2] = SONG(CAPS_LOCK_ON_SOUND);
+float tone_windows[][2] = SONG(SCROLL_LOCK_ON_SOUND);
+float tone_osx[][2] = SONG(NUM_LOCK_ON_SOUND);
+float tone_click[][2] = SONG(MUSICAL_NOTE(_F3, 2));
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -312,6 +330,9 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // faux clicky
+  if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -343,20 +364,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
-        update_tri_layer(_PUNC, _EMOJI, _ADJUST);
+        update_tri_layer(_PUNC, _EMOJI, _GUI);
       } else {
         layer_off(_PUNC);
-        update_tri_layer(_PUNC, _EMOJI, _ADJUST);
+        update_tri_layer(_PUNC, _EMOJI, _GUI);
       }
       return false;
       break;
     case EMOJI:
       if (record->event.pressed) {
         layer_on(_EMOJI);
-        update_tri_layer(_PUNC, _EMOJI, _ADJUST);
+        update_tri_layer(_PUNC, _EMOJI, _GUI);
       } else {
         layer_off(_EMOJI);
-        update_tri_layer(_PUNC, _EMOJI, _ADJUST);
+        update_tri_layer(_PUNC, _EMOJI, _GUI);
       }
       return false;
       break;
@@ -378,14 +399,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LINUX:
       set_unicode_input_mode(UC_LNX);
+      #ifdef AUDIO_ENABLE
+        PLAY_NOTE_ARRAY(tone_linux, false, 0);
+      #endif
       return false;
       break;
     case WIN:
-      set_unicode_input_mode(UC_WIN);
+      set_unicode_input_mode(UC_WINC);
+      #ifdef AUDIO_ENABLE
+        PLAY_NOTE_ARRAY(tone_windows, false, 0);
+      #endif
       return false;
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
+      #ifdef AUDIO_ENABLE
+        PLAY_NOTE_ARRAY(tone_osx, false, 0);
+      #endif
       return false;
       break;
   }
