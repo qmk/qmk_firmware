@@ -84,7 +84,7 @@ KC_PAUSE            KC_PAUS         48 Keyboard Pause1
 KC_INSERT           KC_INS          49 Keyboard Insert1
 KC_HOME                             4A Keyboard Home1
 KC_PGUP                             4B Keyboard PageUp1
-KC_DELETE           KC_DELETE       4C Keyboard Delete Forward
+KC_DELETE           KC_DEL          4C Keyboard Delete Forward
 KC_END                              4D Keyboard End1
 KC_PGDOWN           KC_PGDN         4E Keyboard PageDown1
 KC_RIGHT            KC_RGHT         4F Keyboard RightArrow1
