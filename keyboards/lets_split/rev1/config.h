@@ -25,8 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split v2
+#define PRODUCT         Lets Split v1
 #define DESCRIPTION     A split keyboard for the cheap makers
+
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
+
+// wiring of each half
+#define MATRIX_ROW_PINS { B5, B4, E6, D7 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 
 #define CATERINA_BOOTLOADER
 
@@ -85,10 +94,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
+
 #endif
