@@ -32,7 +32,9 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
-TEST_DIR := $(ROOT_DIR)/.build/test
+BUILD_DIR := $(ROOT_DIR)/.build
+TEST_DIR := $(BUILD_DIR)/test
+ERROR_FILE := $(BUILD_DIR)/error_occured
 
 MAKEFILE_INCLUDED=yes
 
@@ -460,8 +462,21 @@ endef
 
 include $(ROOT_DIR)/message.mk
 
-RUN_COMMAND = \
-$(COMMAND_$(SILENT_MODE)_$(COMMAND))
+# The empty line is important here, as it will force a new shell to be created for each command
+# Otherwise the command line will become too long with a lot of keyboards and keymaps
+define RUN_COMMAND
++error_occured=0;\
+$(COMMAND_$(SILENT_MODE)_$(COMMAND))\
+if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+
+
+endef
+define RUN_TEST
++error_occured=0;\
+$($(TEST)_COMMAND))\
+if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+
+endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
 SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
@@ -481,17 +496,17 @@ $(SUBPROJECTS): %: %-allkm
 			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
 		esac \
 	done
+	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))
 	$(eval $(call SET_SILENT_MODE))
 	# Run all the commands in the same shell, notice the + at the first line
 	# it has to be there to allow parallel execution of the submake
 	# This always tries to compile everything, even if error occurs in the middle
 	# But we return the error code at the end, to trigger travis failures
-	+error_occured=0; \
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
-	$(foreach TEST,$(TESTS),$($(TEST)_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+	$(foreach TEST,$(TESTS),$(RUN_TEST)) 
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
 # All should compile everything
 .PHONY: all
