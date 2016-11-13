@@ -131,6 +131,8 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
+  #ifdef UNICODEMAP_ENABLE
+    process_unicode_map(keycode, record) &&
   #endif
       true)) {
     return false;

@@ -19,9 +19,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_SPC,KC_END,
         // right hand
-             KC_NO,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_NO,
-             KC_NO,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSPC,
-                        KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
+             KC_NO,     M(1),   KC_7,   KC_8,   KC_9,   KC_0,             KC_NO,
+             KC_NO,     RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_HUD,   KC_P,             KC_BSPC,
+                        RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   KC_SCLN,          KC_QUOT,
              KC_NO,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_ENT,
                                   MO(1), KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,  
              RGB_TOG,        RGB_HUI,
@@ -82,6 +82,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           register_code(KC_RSFT);
         } else {
           unregister_code(KC_RSFT);
+        }
+        break;
+        case 1:
+        if (record->event.pressed) { // For resetting EEPROM
+          eeconfig_init();
         }
         break;
       }

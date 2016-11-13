@@ -152,11 +152,6 @@ void inline ws2812_setleds_pin(struct cRGB *ledarray, uint16_t leds, uint8_t pin
 // Setleds for SK6812RGBW
 void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
 {
-  // ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
-  // new universal format (DDR)
-  _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
-
-  ws2812_sendarray_mask((uint8_t*)ledarray,leds<<2,_BV(RGB_DI_PIN & 0xF));
 
   #ifdef RGBW_BB_TWI
     cli();
@@ -169,14 +164,23 @@ void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
     uint8_t * data = (uint8_t*)ledarray;
     while (datlen--) {
       curbyte=*data++;
-      I2C_Write(curbyte % 0x10);
+      I2C_Write(curbyte);
     }
     I2C_Stop();
     sei();
+  #else
+    _delay_us(80);
   #endif
 
 
-  _delay_us(80);
+  // ws2812_DDRREG |= _BV(ws2812_pin); // Enable DDR
+  // new universal format (DDR)
+  _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= _BV(RGB_DI_PIN & 0xF);
+
+  ws2812_sendarray_mask((uint8_t*)ledarray,leds<<2,_BV(RGB_DI_PIN & 0xF));
+
+
+
 }
 
 void ws2812_sendarray(uint8_t *data,uint16_t datlen)
@@ -258,7 +262,7 @@ void inline ws2812_sendarray_mask(uint8_t *data,uint16_t datlen,uint8_t maskhi)
   cli();
 
   while (datlen--) {
-    curbyte=(*data++) % 0x10;
+    curbyte=(*data++);
 
     asm volatile(
     "       ldi   %0,8  \n\t"
