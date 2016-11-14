@@ -1,8 +1,6 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#define RGBW 1
-
 #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
 	#define RGBLIGHT_MODES 23
 #else
@@ -35,6 +33,7 @@
 #endif
 
 #define RGBLED_TIMER_TOP F_CPU/(256*64)
+// #define RGBLED_TIMER_TOP 0xFF10
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -79,9 +78,12 @@ void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);
 void eeconfig_debug_rgblight(void);
 
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1);
-void setrgb(uint8_t r, uint8_t g, uint8_t b, struct cRGB *led1);
+void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
+void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+
+
+void rgblight_task(void);
 
 void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
