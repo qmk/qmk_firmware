@@ -133,13 +133,13 @@ unsigned char I2C_Write(unsigned char c)
 #endif
 
 // Setleds for standard RGB
-void inline ws2812_setleds(struct cRGB *ledarray, uint16_t leds)
+void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds)
 {
    // ws2812_setleds_pin(ledarray,leds, _BV(ws2812_pin));
    ws2812_setleds_pin(ledarray,leds, _BV(RGB_DI_PIN & 0xF));
 }
 
-void inline ws2812_setleds_pin(struct cRGB *ledarray, uint16_t leds, uint8_t pinmask)
+void inline ws2812_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask)
 {
   // ws2812_DDRREG |= pinmask; // Enable DDR
   // new universal format (DDR)
@@ -150,12 +150,15 @@ void inline ws2812_setleds_pin(struct cRGB *ledarray, uint16_t leds, uint8_t pin
 }
 
 // Setleds for SK6812RGBW
-void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
+void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds)
 {
 
   #ifdef RGBW_BB_TWI
+    uint8_t sreg_prev, twcr_prev;
+    sreg_prev=SREG;
+    twcr_prev=TWCR;
     cli();
-    TWCR = 0;
+    TWCR &= ~(1<<TWEN);
     I2C_Init();
     I2C_Start();
     I2C_Write(0x84);
@@ -167,9 +170,9 @@ void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
       I2C_Write(curbyte);
     }
     I2C_Stop();
-    sei();
-  #else
-    _delay_us(80);
+    SREG=sreg_prev;
+    // TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+    TWCR=twcr_prev;
   #endif
 
 
@@ -180,7 +183,9 @@ void inline ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t leds)
   ws2812_sendarray_mask((uint8_t*)ledarray,leds<<2,_BV(RGB_DI_PIN & 0xF));
 
 
-
+  #ifndef RGBW_BB_TWI
+    _delay_us(80);
+  #endif
 }
 
 void ws2812_sendarray(uint8_t *data,uint16_t datlen)

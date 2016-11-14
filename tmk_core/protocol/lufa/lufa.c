@@ -71,6 +71,10 @@
     #include "virtser.h"
 #endif
 
+#ifdef RGB_MIDI
+    #include "rgblight.h"        
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
@@ -1045,6 +1049,10 @@ int main(void)
 #endif
         keyboard_task();
 
+#ifdef RGBLIGHT_ENABLE
+        rgblight_task();
+#endif
+
 #ifdef VIRTSER_ENABLE
         virtser_task();
         CDC_Device_USBTask(&cdc_device);
@@ -1077,15 +1085,34 @@ void fallthrough_callback(MidiDevice * device,
 #endif
 }
 
+#ifdef RGB_MIDI
+    rgblight_config_t rgblight_config;
+#endif
+
 void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val) {
   //sending it back on the next channel
-  midi_send_cc(device, (chan + 1) % 16, num, val);
+  // midi_send_cc(device, (chan + 1) % 16, num, val);
+    #ifdef RGB_MIDI
+        rgblight_config.raw = eeconfig_read_rgblight();
+        switch (num) {
+            case 14:
+                rgblight_config.hue = val * 360 / 127;
+            break;
+            case 15:
+                rgblight_config.sat = val << 1;
+            break;
+            case 16:
+                rgblight_config.val = val << 1;
+            break;
+        }
+        rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+    #endif
 }
 
 void sysex_callback(MidiDevice * device,
     uint16_t start, uint8_t length, uint8_t * data) {
-  for (int i = 0; i < length; i++)
-    midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
+  // for (int i = 0; i < length; i++)
+  //   midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
 }
 #endif
