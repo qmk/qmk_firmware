@@ -45,19 +45,19 @@ Before you are able to compile, you'll need to install an environment for AVR de
 
 ### Windows 10
 
-It's still recommended to use the method for Vista and later below. The reason for this is that the Windows 10 Subsystem for Linux lacks [USB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it's not possible to flash the firmware to the keyboard. Please add your vote to the link!
+Due to some issues with the "Windows (Vista and later)" instructions below, we now recommend following these instructions if you use Windows, which will allow you to use the Windows Subsystem for Linux to compile the firmware. If you are not using Windows 10 with the Anniversary Update installed (which came out in July 2016), you will need to use one of the other methods, such as Docker, Vagrant, or the instructions for Vista and later. 
 
-That said, it's still possible to use it for compilation. And recommended, if you need to compile much, since it's much faster than at least Cygwin (which is also supported, but currently lacking documentation). I haven't tried the method below, so I'm unable to tell.
+If you use this method, you will need to use a standalone tool to flash the firmware to the keyboard after you compile it. We recommend the official [QMK Firmware Flasher](https://github.com/jackhumbert/qmk_firmware_flasher/releases). This is because the Windows 10 Subsystem for Linux lacks [libUSB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it can't access the keyboard's microcontroller. Please add your vote for Microsoft to fix this issue using the link!
 
 Here are the steps
 
 1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
-2. If you have previously cloned the repository using the normal Git bash, you will need to clean up the line endings. If you have cloned it after 20th of August 2016, you are likely fine. To clean up the line endings do the following
-   1. Make sure that you have no changes you haven't committed by running `git status`, if you do commit them first
-   2. From within the Git bash run `git rm --cached -r .`
-   3. Followed by `git reset --hard`
-3. Start the "Bash On Ubuntu On Windows" from the start menu
-4. With the bash open, navigate to your Git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
+2. If you have  cloned the repository using git before August 20, 2016, clean up the line endings from wherever you currently access git:
+   1. Make sure that you have no changes you haven't committed by running `git status`. ANY UNCOMMITTED CHANGES WILL BE PERMANENTLY LOST.
+   2. Run `git rm --cached -r .`
+   3. Run `git reset --hard`
+3. Open "Bash On Ubuntu On Windows" from the start menu
+4. With the bash window open, navigate to your copy of the [qmk_firmware repository](https://github.com/jackhumbert/qmk_firmware) using the `cd` command. The harddisks can be accessed from `/mnt/<driveletter>`. For example, your main hard drive (C:) can be accessed by executiing the command `cd /mnt/c`. If your username is John and the qmk_firmware folder is in your Downloads folder, you can move to it with the command `cd /mnt/c/Users/John/Downloads/qmk_firmware`. You can use the Tab key as you go to help you autocomplete the folder names.
 5. Run `sudo util/install_dependencies.sh`.
 6. After a while the installation will finish, and you are good to go
 
