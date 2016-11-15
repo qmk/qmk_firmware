@@ -105,7 +105,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "rev2/config.h"
 #endif
 #endif
-=======
 
-#endif
->>>>>>> 79f82d3d80a24483d14b078d325bb0f45af58e3d
+
+
