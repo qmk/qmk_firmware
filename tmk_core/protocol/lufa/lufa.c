@@ -1043,12 +1043,13 @@ int main(void)
         }
         #endif
 
+        keyboard_task();
+
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
         // MIDI_Task();
 #endif
-        keyboard_task();
-
+        
 #ifdef RGBLIGHT_ENABLE
         rgblight_task();
 #endif
