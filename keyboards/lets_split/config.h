@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Lets Split
 #define DESCRIPTION     A split keyboard for the cheap makers
 
-<<<<<<< HEAD
-=======
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 8
@@ -39,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B5, B4, E6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 
->>>>>>> 79f82d3d80a24483d14b078d325bb0f45af58e3d
 #define CATERINA_BOOTLOADER
 
 // #define USE_I2C
