@@ -171,7 +171,6 @@ void inline ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t leds)
     }
     I2C_Stop();
     SREG=sreg_prev;
-    // TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
     TWCR=twcr_prev;
   #endif
 
