@@ -241,6 +241,7 @@ You can also add extra options at the end of the make command line, after the ta
 * `make COLOR=false` - turns off color output
 * `make SILENT=true` - turns off output besides errors/warnings
 * `make VERBOSE=true` - outputs all of the gcc stuff (not interesting, unless you need to debug)
+* `make EXTRAFLAGS=-E` - Preprocess the code without doing any compiling (useful if you are trying to debug #define commands)
 
 The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
 
