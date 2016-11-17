@@ -1,15 +1,12 @@
 #ifndef REV1_H
 #define REV1_H
 
-<<<<<<< HEAD
 #include "../lets_split.h"
 
 //void promicro_bootloader_jmp(bool program);
-=======
 #include "quantum.h"
 
-void promicro_bootloader_jmp(bool program);
->>>>>>> bce6e52391da7c5f620c96a91857940f0dee19df
+//void promicro_bootloader_jmp(bool program);
 
 #define KEYMAP( \
 	k00, k01, k02, k03, k04, k05, k40, k41, k42, k43, k44, k45, \

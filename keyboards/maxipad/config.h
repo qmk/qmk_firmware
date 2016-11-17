@@ -24,15 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-<<<<<<< HEAD
-#define MANUFACTURER    You
-#define PRODUCT         maxipad
-#define DESCRIPTION     A custom keyboard
-=======
 #define MANUFACTURER    Wootpatoot
 #define PRODUCT         maxipad
-#define DESCRIPTION     g8ming keeb
->>>>>>> bce6e52391da7c5f620c96a91857940f0dee19df
+#define DESCRIPTION     A custom keyboard
+
 
 /* key matrix size */
 #define MATRIX_ROWS 5
