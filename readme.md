@@ -1135,12 +1135,12 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
     RGBLIGHT_ENABLE = yes
 
-In order to use the underglow timer functions, you need to have `#define RGBLIGHT_TIMER` in your `config.h`, and have audio disabled (`AUDIO_ENABLE = no` in your Makefile).
+In order to use the underglow animation functions, you need to have `#define RGBLIGHT_ANIMATIONS` in your `config.h`.
 
 Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the `F4` pin by default:
 
     #define RGB_DI_PIN F4     // The pin your RGB strip is wired to
-    #define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
+    #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 14     // Number of LEDs
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17

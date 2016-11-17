@@ -51,6 +51,7 @@
 
 #include "descriptor.h"
 #include "lufa.h"
+#include "quantum.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -1111,9 +1112,104 @@ void cc_callback(MidiDevice * device,
     #endif
 }
 
+void send_dword(uint32_t number) {
+    uint16_t word = (number >> 16);
+    send_word(word);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    uint8_t byte = number >> 8;
+    send_byte(byte);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    uint8_t nibble = number >> 4;
+    send_nibble(nibble);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number) {
+        case 0:
+            register_code(KC_0);
+            unregister_code(KC_0);
+            break;
+        case 1 ... 9:
+            register_code(KC_1 + (number - 1));
+            unregister_code(KC_1 + (number - 1));
+            break;
+        case 0xA ... 0xF:
+            register_code(KC_A + (number - 0xA));
+            unregister_code(KC_A + (number - 0xA));
+            break;
+    }
+}
+
+uint8_t midi_buffer[16] = {0};
+
 void sysex_callback(MidiDevice * device,
     uint16_t start, uint8_t length, uint8_t * data) {
   // for (int i = 0; i < length; i++)
   //   midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
+    // if (start == 0x27) {
+        // SEND_STRING("\n");
+        // send_word(start);
+        // SEND_STRING(": ");
+        for (uint8_t place = 0; place < length; place++) {
+            // send_byte(*data);
+            midi_buffer[start + place] = *data;
+            if (*data == 0xF7)
+                sysex_buffer_callback(start + place, &midi_buffer);
+            // SEND_STRING(" ");
+            data++;
+        }
+    // }
+
 }
+
+void sysex_buffer_callback(uint8_t length, uint8_t * data) {
+    uint8_t * pointer_copy = data;
+
+    if (*data++ != 0xF0)
+        return
+    data++;
+    data++;
+    data++;
+    data++;
+
+    switch (*data++) {
+        case 0x27: ; // RGB LED functions
+            switch (*data++)
+                case 0x00: ; // Update HSV
+                    uint32_t part1 = *data++;
+                    uint32_t part2 = *data++;
+                    uint32_t part3 = *data++;
+                    uint32_t part4 = *data++;
+                    uint32_t part5 = *data++;
+                    uint32_t chunk = ((part1 & 0x1FUL) << 28) | (part2 << 21) | (part3 << 14) | (part4 << 7) | part5;
+                    // SEND_STRING("\nCHUNK: ");
+                    // send_dword(chunk);
+                    rgblight_sethsv(((chunk >> 16) & 0xFFFF) % 360, (chunk >> 8) & 0xFF, chunk & 0xFF);
+                    // SEND_STRING("\nHUE: ");
+                    // send_word(((chunk >> 16) & 0xFFFF) % 360);
+                    // SEND_STRING("\nSAT: ");
+                    // send_word((chunk >> 8) & 0xFF);
+                    // SEND_STRING("\nVAL: ");
+                    // send_word(chunk & 0xFF);
+                    break;
+                case 0x01: ; // Update RGB
+                    break;
+            break;
+    }
+
+    // SEND_STRING("\nDATA:\n");
+    // while (*pointer_copy != 0xF7) {
+    //     send_byte(*pointer_copy++);
+    //     SEND_STRING(" ");
+    // }
+
+}
+
 #endif
