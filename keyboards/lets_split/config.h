@@ -61,6 +61,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bce6e52391da7c5f620c96a91857940f0dee19df
 #ifdef SUBPROJECT_rev1
     #include "rev1/config.h"
 #endif
@@ -68,3 +72,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "rev2/config.h"
 #endif
 #endif
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> bce6e52391da7c5f620c96a91857940f0dee19df
