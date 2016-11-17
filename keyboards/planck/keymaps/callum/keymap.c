@@ -21,14 +21,8 @@ enum planck_keycodes {
   MOVE = SAFE_RANGE,
   SYMB,
   FUNC,
-  CMDLEFT,
-  CMDRGHT,
   BELOW,
-  ABOVE,
-  DASH,
-  GBP,
-  VOLUP,
-  VOLDN
+  ABOVE
 };
 
 // Fillers to make layering more clear
@@ -59,15 +53,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  Esc |      | Cmd-L|  Up  | Cmd-R|      |      | Cmd-L|  Up  | Cmd-R|      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del |      | Left | Down | Right|      |      | Left | Down | Right|      |  Del |
+ * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn| Above|      | Pg Dn| Pg Up|      | Caps |      |
+ * |      |      |      | Pg Up| Pg Dn| Above|      | Pg Dn| Pg Up|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      | Below|      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, KC_ESC },
+  {KC_ESC,  XXXXXXX, LGUI(KC_LEFT), KC_UP, LGUI(KC_RGHT), XXXXXXX, XXXXXXX, LGUI(KC_LEFT), KC_UP, LGUI(KC_RGHT), XXXXXXX, KC_ESC },
   {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
   {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN,   ABOVE, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, _______,   BELOW, _______, _______, _______, _______, _______, _______}
@@ -85,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMB] = {
-  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    DASH   },
-  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, GBP    },
+  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    LALT(KC_MINS)},
+  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, LALT(KC_3)},
   {_______, KC_TILD, KC_GRV,  KC_PLUS, KC_EQL,  KC_PIPE, KC_BSLS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -115,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F21 |  F22 |  F23 |  F24 |      |      |      |      |      |      |      |
+ * |      |  F21 |  F22 |  F23 |  F24 |      |      | Power|      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      | Prev | Mute | Play | Next |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = {
-  {RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  VOLUP  },
-  {XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  VOLDN  },
-  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+  {RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_VOLU},
+  {XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD},
+  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, KC_POWER, XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, KC_MPRV, KC_MUTE, KC_MPLY, KC_MNXT, _______, _______, _______, _______}
 }
 
@@ -159,26 +153,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case CMDLEFT:
-      if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-      } else {
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LGUI);
-      }
-      return false;
-      break;
-    case CMDRGHT:
-      if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_RGHT);
-      } else {
-        unregister_code(KC_RGHT);
-        unregister_code(KC_LGUI);
-      }
-      return false;
-      break;
     case BELOW:
       if (record->event.pressed) {
         register_code(KC_LGUI);
@@ -200,50 +174,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_ENT);
         register_code(KC_UP);
         unregister_code(KC_UP);
-      }
-      return false;
-      break;
-    case DASH:
-      if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_MINS);
-      } else {
-        unregister_code(KC_MINS);
-        unregister_code(KC_LALT);
-      }
-      return false;
-      break;
-    case GBP:
-      if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_3);
-      } else {
-        unregister_code(KC_3);
-        unregister_code(KC_LALT);
-      }
-      return false;
-      break;
-    case VOLUP:
-      if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_VOLU);
-      } else {
-        unregister_code(KC_VOLU);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
-      }
-      return false;
-      break;
-    case VOLDN:
-      if (record->event.pressed) {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        register_code(KC_VOLD);
-      } else {
-        unregister_code(KC_VOLD);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LALT);
       }
       return false;
       break;

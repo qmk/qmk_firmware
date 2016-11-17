@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╆─────╅─────┤     │     │     ├─────╆─────╅─────┼─────┼─────┼───────┤
  * │       │  ├  │  ┼  │  ┤  │  ✓  │  ✕  ├─────┤     ├─────┤     │ F5  │ F6  │ F7  │ F8  │       │
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
- * │       │  └  │  ┴  │  ┘  │     │     │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
+ * │       │  └  │  ┴  │  ┘  │  ↔  │  ⇔  │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
  *   │     │     │(MO1)│     │(MO4)│                             │(MO4)│     │(MO1)│     │     │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,    UC(0x250C),UC(0x252C),UC(0x2510),UC(0x2500),UC(0x2502),KC_TRNS,
         KC_TRNS,    UC(0x251C),UC(0x253C),UC(0x2524),UC(0x2713),UC(0x2715),
-        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),UC(0x2194),UC(0x21D4),KC_TRNS,
         KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                                     KC_MS_L,    KC_MS_U,
                                                                 KC_BTN1,
@@ -290,3 +290,28 @@ void unicode_input_start (void) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
 };
+
+// Override method to use NEO_A instead of KC_A
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    switch(hex) {
+      case 0xA:
+        return NEO_A;
+      case 0xB:
+        return NEO_B;
+      case 0xC:
+        return NEO_C;
+      case 0xD:
+        return NEO_D;
+      case 0xE:
+        return NEO_E;
+      case 0xF:
+        return NEO_F;
+    }
+  }
+}

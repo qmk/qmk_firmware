@@ -32,11 +32,13 @@ ABS_ROOT_MAKEFILE := $(abspath $(ROOT_MAKEFILE))
 ABS_STARTING_DIR := $(dir $(ABS_STARTING_MAKEFILE))
 ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
-TEST_DIR := $(ROOT_DIR)/.build/test
+BUILD_DIR := $(ROOT_DIR)/.build
+TEST_DIR := $(BUILD_DIR)/test
+ERROR_FILE := $(BUILD_DIR)/error_occured
 
 MAKEFILE_INCLUDED=yes
 
-# Helper function to process the newt element of a space separated path 
+# Helper function to process the newt element of a space separated path
 # It works a bit like the traditional functional head tail
 # so the CURRENT_PATH_ELEMENT will beome the new head
 # and the PATH_ELEMENTS are the rest that are still unprocessed
@@ -45,16 +47,16 @@ define NEXT_PATH_ELEMENT
     $$(eval PATH_ELEMENTS := $$(wordlist  2,9999,$$(PATH_ELEMENTS)))
 endef
 
-# We change the / to spaces so that we more easily can work with the elements 
+# We change the / to spaces so that we more easily can work with the elements
 # separately
 PATH_ELEMENTS := $(subst /, ,$(STARTING_DIR))
 # Initialize the path elements list for further processing
 $(eval $(call NEXT_PATH_ELEMENT))
 
-# This function sets the KEYBOARD; KEYMAP and SUBPROJECT to the correct 
+# This function sets the KEYBOARD; KEYMAP and SUBPROJECT to the correct
 # variables depending on which directory you stand in.
-# It's really a very simple if else chain, if you squint enough, 
-# but the makefile syntax makes it very verbose. 
+# It's really a very simple if else chain, if you squint enough,
+# but the makefile syntax makes it very verbose.
 # If we are in a subfolder of keyboards
 ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
     $(eval $(call NEXT_PATH_ELEMENT))
@@ -109,7 +111,7 @@ endif
 .DEFAULT_GOAL := all
 ifneq ($(KEYMAP),)
     ifeq ($(SUBPROJECT),)
-         # Inside a keymap folder, just build the keymap, with the 
+         # Inside a keymap folder, just build the keymap, with the
          # default subproject
         .DEFAULT_GOAL := $(KEYBOARD)-$(KEYMAP)
     else
@@ -161,7 +163,7 @@ define TRY_TO_MATCH_RULE_FROM_LIST_HELPER3
     ifneq ($1,)
         ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,$$(firstword $1)),true)
             MATCHED_ITEM := $$(firstword $1)
-        else 
+        else
             $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$$(wordlist 2,9999,$1)))
         endif
     endif
@@ -169,10 +171,10 @@ endef
 
 # A recursive helper function for finding the longest match
 # $1 The list to be checed
-# It works by always removing the currently matched item from the list 
+# It works by always removing the currently matched item from the list
 # and call itself recursively, until a match is found
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
-    # Stop the recursion when the list is empty 
+    # Stop the recursion when the list is empty
     ifneq ($1,)
         RULE_BEFORE := $$(RULE)
         $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$1))
@@ -268,7 +270,7 @@ define PARSE_KEYBOARD
         $$(eval $$(call PARSE_SUBPROJECT,$$(SUBPROJECT)))
 	# If there's no matching subproject, we assume it's the default
 	# This will allow you to leave the subproject part of the target out
-    else 
+    else
         $$(eval $$(call PARSE_SUBPROJECT,))
     endif
 endef
@@ -283,7 +285,7 @@ endef
 # When entering this, the keyboard and subproject are known, so now we need
 # to determine which keymaps are going to get compiled
 define PARSE_SUBPROJECT
-    # If we want to compile the default subproject, then we need to 
+    # If we want to compile the default subproject, then we need to
     # include the correct makefile to determine the actual name of it
     CURRENT_SP := $1
     ifeq ($$(CURRENT_SP),)
@@ -302,7 +304,7 @@ define PARSE_SUBPROJECT
          endif
     endif
     # The special allsp is handled later
-    ifneq ($$(CURRENT_SP),allsp) 
+    ifneq ($$(CURRENT_SP),allsp)
         # get a list of all keymaps
         KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
         ifneq ($$(CURRENT_SP),)
@@ -341,7 +343,7 @@ define PARSE_SUBPROJECT
     endif
 endef
 
-# If we want to parse all subprojects, but the keyboard doesn't have any, 
+# If we want to parse all subprojects, but the keyboard doesn't have any,
 # then use defaultsp instead
 define PARSE_ALL_SUBPROJECTS
     ifeq ($$(SUBPROJECTS),)
@@ -446,7 +448,7 @@ endef
 
 
 # Set the silent mode depending on if we are trying to compile multiple keyboards or not
-# By default it's on in that case, but it can be overriden by specifying silent=false 
+# By default it's on in that case, but it can be overriden by specifying silent=false
 # from the command line
 define SET_SILENT_MODE
     ifdef SUB_IS_SILENT
@@ -460,17 +462,31 @@ endef
 
 include $(ROOT_DIR)/message.mk
 
-RUN_COMMAND = \
-$(COMMAND_$(SILENT_MODE)_$(COMMAND))
+# The empty line is important here, as it will force a new shell to be created for each command
+# Otherwise the command line will become too long with a lot of keyboards and keymaps
+define RUN_COMMAND
++error_occured=0;\
+$(COMMAND_$(SILENT_MODE)_$(COMMAND))\
+if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+
+
+endef
+define RUN_TEST
++error_occured=0;\
+$($(TEST)_COMMAND))\
+if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+
+endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
 SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
 .PHONY: $(SUBPROJECTS)
-$(SUBPROJECTS): %: %-allkm 
+$(SUBPROJECTS): %: %-allkm
 
 # Let's match everything, we handle all the rule parsing ourselves
 .PHONY: %
-%: 
+ifndef SKIP_GIT
+%:
 	# Check if we have the CMP tool installed
 	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
@@ -481,17 +497,33 @@ $(SUBPROJECTS): %: %-allkm
 			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
 		esac \
 	done
+	rm -f $(ERROR_FILE) > /dev/null 2>&1
 	$(eval $(call PARSE_RULE,$@))
 	$(eval $(call SET_SILENT_MODE))
 	# Run all the commands in the same shell, notice the + at the first line
 	# it has to be there to allow parallel execution of the submake
 	# This always tries to compile everything, even if error occurs in the middle
 	# But we return the error code at the end, to trigger travis failures
-	+error_occured=0; \
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
-	$(foreach TEST,$(TESTS),$($(TEST)_COMMAND)) \
-	if [ $$error_occured -gt 0 ]; then printf "$(MSG_ERRORS)" & exit $$error_occured; fi;\
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+	$(foreach TEST,$(TESTS),$(RUN_TEST))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+else
+%:
+	# Check if we have the CMP tool installed
+	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+	rm -f $(ERROR_FILE) > /dev/null 2>&1
+	$(eval $(call PARSE_RULE,$@))
+	$(eval $(call SET_SILENT_MODE))
+	# Run all the commands in the same shell, notice the + at the first line
+	# it has to be there to allow parallel execution of the submake
+	# This always tries to compile everything, even if error occurs in the middle
+	# But we return the error code at the end, to trigger travis failures
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+	$(foreach TEST,$(TESTS),$(RUN_TEST))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+endif
 
 # All should compile everything
 .PHONY: all
@@ -511,7 +543,11 @@ test: test-all
 test-clean: test-all-clean
 
 # Generate the version.h file
-GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+ifndef SKIP_GIT
+    GIT_VERSION := $(shell git describe --abbrev=6 --dirty --always --tags 2>/dev/null || date +"%Y-%m-%d-%H:%M:%S")
+else
+    GIT_VERSION := NA
+endif
 BUILD_DATE := $(shell date +"%Y-%m-%d-%H:%M:%S")
 $(shell echo '#define QMK_VERSION "$(GIT_VERSION)"' > $(ROOT_DIR)/quantum/version.h)
 $(shell echo '#define QMK_BUILDDATE "$(BUILD_DATE)"' >> $(ROOT_DIR)/quantum/version.h)
