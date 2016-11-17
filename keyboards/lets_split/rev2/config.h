@@ -25,8 +25,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split
+#define PRODUCT         Lets Split v2
 #define DESCRIPTION     A split keyboard for the cheap makers
+
+/* key matrix size */
+// Rows are doubled-up
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
+
+// wiring of each half
+#define MATRIX_ROW_PINS { D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+
+#define CATERINA_BOOTLOADER
+
+// #define USE_I2C
+
+// Use serial if not using I2C
+#ifndef USE_I2C
+#  define USE_SERIAL
+#endif
+
+// #define EE_HANDS
+
+#define I2C_MASTER_LEFT
+// #define I2C_MASTER_RIGHT
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -49,11 +72,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D3
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
+
 /* disable debug print */
-//#define NO_DEBUG
+// #define NO_DEBUG
 
 /* disable print */
-//#define NO_PRINT
+// #define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -61,10 +98,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
+
 #endif
