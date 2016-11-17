@@ -147,6 +147,12 @@ docker run -e keymap=default -e keyboard=ergobop --rm -v D:/Users/Sacapuces/Docu
 
 This will compile the targetted keyboard/keymap and leave it in your QMK directory for you to flash.
 
+If you use docker-compose you can also run the build inside docker with the following command:
+
+```bash
+docker-compose run -e keyboard=planck make
+```
+
 ### Vagrant
 If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](doc/VAGRANT_GUIDE.md).
 
