@@ -174,7 +174,7 @@ void rgblight_init(void) {
   }
   eeconfig_debug_rgblight(); // display current eeprom values
 
-  #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+  #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_init(); // setup the timer
   #endif
 
@@ -221,7 +221,7 @@ void rgblight_mode(uint8_t mode) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight mode: %u\n", rgblight_config.mode);
   if (rgblight_config.mode == 1) {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
   } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 23) {
@@ -231,7 +231,7 @@ void rgblight_mode(uint8_t mode) {
     // MODE 15-20, snake
     // MODE 21-23, knight
 
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
     #endif
   }
@@ -245,7 +245,7 @@ void rgblight_toggle(void) {
   if (rgblight_config.enable) {
     rgblight_mode(rgblight_config.mode);
   } else {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
     _delay_ms(50);
@@ -371,7 +371,7 @@ void rgblight_set(void) {
   }
 }
 
-#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+#ifdef RGBLIGHT_ANIMATIONS
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {

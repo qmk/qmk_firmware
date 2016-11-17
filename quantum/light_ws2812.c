@@ -16,8 +16,6 @@
 #include <util/delay.h>
 #include "debug.h"
 
-#define RGBW_BB_TWI 1
-
 #ifdef RGBW_BB_TWI
 
 // Port for the I2C
