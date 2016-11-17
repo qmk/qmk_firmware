@@ -24,15 +24,9 @@ void matrix_init_kb(void) {
 };
 
 void shutdown_user(void) {
-<<<<<<< HEAD
     #ifdef AUDIO_ENABLE
         PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
 	_delay_ms(150);
 	stop_all_notes();
     #endif
-=======
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-    _delay_ms(150);
-    stop_all_notes();
->>>>>>> bce6e52391da7c5f620c96a91857940f0dee19df
 }
