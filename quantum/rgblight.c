@@ -253,6 +253,13 @@ void rgblight_toggle(void) {
   }
 }
 
+void rgblight_enable(void) {
+  rgblight_config.enable = 1;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight enable: rgblight_config.enable = %u\n", rgblight_config.enable);
+  rgblight_mode(rgblight_config.mode);
+}
+
 
 void rgblight_increase_hue(void) {
   uint16_t hue;
