@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
+ *                                 |VAI   |VAD   |HUI   |       |SAI   |TOG   |MOD   |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |HUD   |       |SAD   |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_6,   KC_7,   KC_8,          KC_9,         KC_0,    KC_TRNS,
        KC_TRNS, KC_TRNS,KC_TRNS,LCTL(KC_PGUP), LCTL(KC_PGDN),
                                                                               KC_TRNS,KC_TRNS,
-                                                                                      KC_TRNS,
-                                                                      KC_TRNS,KC_TRNS,KC_TRNS,
+                                                                                      RGB_HUI,
+                                                                      RGB_VAI,RGB_VAD,RGB_HUD,
                // right hand
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F12,
@@ -90,8 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_PIPE, KC_AT,   KC_EQL,  KC_PERC,   KC_TRNS, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       RGB_SAI,
+       RGB_SAD, RGB_TOG, RGB_MOD
 ),
 /* Keymap 2: Media and mouse keys
  *
