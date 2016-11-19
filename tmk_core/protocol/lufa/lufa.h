@@ -70,6 +70,7 @@ typedef struct {
 #ifdef MIDI_ENABLE
 void MIDI_Task(void);
 MidiDevice midi_device;
+void send_unicode_midi(uint32_t unicode);
 #endif
 
 // #if LUFA_VERSION_INTEGER < 0x120730
