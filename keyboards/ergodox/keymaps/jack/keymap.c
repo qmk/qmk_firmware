@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   MO(1), KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,  
              RGB_TOG,        RGB_HUI,
              RGB_MOD,
-             KC_PGDN, KC_SPC,KC_SPC
+             M(2), KC_SPC,KC_SPC
     ),
 [SYMB] = KEYMAP(
        // left hand
@@ -87,6 +87,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
         if (record->event.pressed) { // For resetting EEPROM
           eeconfig_init();
+        }
+        break;
+        case 2:
+        if (record->event.pressed) { // For resetting EEPROM
+          send_unicode_midi(0x0CA0);
         }
         break;
       }

@@ -1161,7 +1161,7 @@ void sysex_callback(MidiDevice * device,
             // send_byte(*data);
             midi_buffer[start + place] = *data;
             if (*data == 0xF7)
-                sysex_buffer_callback(start + place, &midi_buffer);
+                sysex_buffer_callback(device, start + place, &midi_buffer);
             // SEND_STRING(" ");
             data++;
         }
@@ -1169,7 +1169,24 @@ void sysex_callback(MidiDevice * device,
 
 }
 
-void sysex_buffer_callback(uint8_t length, uint8_t * data) {
+uint32_t decode_4byte_chunk(uint8_t * data) {
+    uint32_t part1 = *data++;
+    uint32_t part2 = *data++;
+    uint32_t part3 = *data++;
+    uint32_t part4 = *data++;
+    uint32_t part5 = *data++;
+    return ((part1 & 0x1FUL) << 28) | (part2 << 21) | (part3 << 14) | (part4 << 7) | part5;
+}
+
+void encode_4byte_chunk(uint32_t data, uint8_t * pointer) {
+    *pointer++ = (data >> 28) & 0x7F;
+    *pointer++ = (data >> 21) & 0x7F;
+    *pointer++ = (data >> 14) & 0x7F;
+    *pointer++ = (data >> 7) & 0x7F;
+    *pointer++ = (data) & 0x7F;
+}
+
+void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) {
     uint8_t * pointer_copy = data;
 
     if (*data++ != 0xF0)
@@ -1180,28 +1197,31 @@ void sysex_buffer_callback(uint8_t length, uint8_t * data) {
     data++;
 
     switch (*data++) {
+        case 0x13: ; // Get info from keyboard
+            switch (*data++) {
+                case 0x00: ; // Get layer state
+                    // send_dword(layer_state);
+                    uint8_t chunk[5];
+                    encode_4byte_chunk(layer_state | default_layer_state, &chunk);
+
+                    uint8_t array[] = {0xF0, 0x00, 0x00, 0x00, 0x00, chunk[0], chunk[1], chunk[2], chunk[3], chunk[4], 0xF7};
+                    midi_send_array(&midi_device, 11, &array);
+                    // midi_send_data(device, 3, 0x00, layer_state >> 24 & 0x7f, layer_state >> 16 & 0x7f);
+                    // midi_send_data(device, 6, layer_state >> 8 & 0x7f, layer_state & 0x7f, 0xF7);
+                    break;
+            }
+        #ifdef RGBLIGHT_ENABLE
         case 0x27: ; // RGB LED functions
-            switch (*data++)
+            switch (*data++) {
                 case 0x00: ; // Update HSV
-                    uint32_t part1 = *data++;
-                    uint32_t part2 = *data++;
-                    uint32_t part3 = *data++;
-                    uint32_t part4 = *data++;
-                    uint32_t part5 = *data++;
-                    uint32_t chunk = ((part1 & 0x1FUL) << 28) | (part2 << 21) | (part3 << 14) | (part4 << 7) | part5;
-                    // SEND_STRING("\nCHUNK: ");
-                    // send_dword(chunk);
+                    uint32_t chunk = decode_4byte_chunk(data);
                     rgblight_sethsv(((chunk >> 16) & 0xFFFF) % 360, (chunk >> 8) & 0xFF, chunk & 0xFF);
-                    // SEND_STRING("\nHUE: ");
-                    // send_word(((chunk >> 16) & 0xFFFF) % 360);
-                    // SEND_STRING("\nSAT: ");
-                    // send_word((chunk >> 8) & 0xFF);
-                    // SEND_STRING("\nVAL: ");
-                    // send_word(chunk & 0xFF);
                     break;
                 case 0x01: ; // Update RGB
                     break;
+            }
             break;
+        #endif
     }
 
     // SEND_STRING("\nDATA:\n");
@@ -1210,6 +1230,14 @@ void sysex_buffer_callback(uint8_t length, uint8_t * data) {
     //     SEND_STRING(" ");
     // }
 
+}
+
+void send_unicode_midi(uint32_t unicode) {
+    uint8_t chunk[5];
+    encode_4byte_chunk(unicode, &chunk);
+
+    uint8_t array[] = {0xF0, 0x00, 0x00, 0x00, 0x05, chunk[0], chunk[1], chunk[2], chunk[3], chunk[4], 0xF7};
+    midi_send_array(&midi_device, 11, &array);
 }
 
 #endif
