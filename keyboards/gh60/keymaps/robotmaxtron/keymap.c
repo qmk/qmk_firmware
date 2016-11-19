@@ -8,7 +8,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /*
-   *  Base layer, pretty standard ANSI layout. 
+   *  Base layer, pretty standard ANSI layout.
    * ,-----------------------------------------------------------.
    * |FN12| 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
    * |-----------------------------------------------------------|
@@ -21,14 +21,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Ctrl|Gui |Alt |      Space             |Alt |Fn  |Menu|Ctrl|
    * `-----------------------------------------------------------'
    */
-	[_BL] = KEYMAP(
+	[_BL] = KC_KEYMAP(
         FN12,1,2,3,4,5,6,7,8,9,0,MINS,EQL,BSPC, \
 	TAB,Q,W,E,R,T,Y,U,I,O,P,LBRC,RBRC,BSLS, \
         FN2,A,S,D,F,G,H,J,K,L,SCLN,QUOT,NO,ENT,  \
         LSFT,NO,Z,X,C,V,B,N,M,COMM,DOT,SLSH,NO,RSFT, \
         LCTL,LGUI,LALT,        SPC,      NO,RALT,FN0,APP, RCTL),
-   
-   /*  
+
+   /*
    * Locking arrow keys to WASD for when you need dedicated arrow keys
    * ,-----------------------------------------------------------.
    * |    |  |   |   |   |   |   |   |   |   |   |   |   |       |
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |    |                        |    |    |    |    |
    * `-----------------------------------------------------------'
    */
-	[_AL] = KEYMAP(
+	[_AL] = KC_KEYMAP(
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,UP,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TRNS,TRNS,TRNS,          TRNS,               TRNS,TRNS,TRNS,TRNS,TRNS),
 
 
-   /* 
+   /*
    * Primary function layer, mostly the same as the traditional Pok3r layout.
    * ,-------------------------------------------------------------.
    * |`~ | F1| F2| F3| F4| F5| F6| F7| F8| F9| F10| F11| F12|DEL   |
@@ -64,16 +64,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |    |                          |    |    |    |    |
    * `-------------------------------------------------------------'
    */
-	[_FL] = KEYMAP(
+	[_FL] = KC_KEYMAP(
         GRAVE,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12, DELETE, \
         TRNS,FN1,TRNS,TRNS,TRNS,TRNS,CALC,PGUP,UP,PGDN,PSCR,SLCK,PAUS,TRNS, \
         TRNS,MUTE,_VOLDOWN,_VOLUP,TRNS,TRNS,HOME,LEFT,DOWN,RGHT,INS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,FN3,TRNS,TRNS,TRNS,TRNS,END,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,TRNS,          TRNS,               TRNS,TRNS,TRNS,TRNS,TRNS),
-   
-   /* 
+
+   /*
    * Locking layer for controlling the underglow.
-   * 
+   *
    * ,-----------------------------------------------------------.
    * |    |  |   |   |   |   |   |   |   |   |   |   |   |       |
    * |-----------------------------------------------------------|
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |    |                        |    |    |    |    |
    * `-----------------------------------------------------------'
    */
-	[_UL] = KEYMAP(
+	[_UL] = KC_KEYMAP(
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
         TRNS,FN4,FN5,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
@@ -124,7 +124,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-  // MACRODOWN only works in this function 
+  // MACRODOWN only works in this function
       switch(id) {
         case 0:
           if (record->event.pressed) {
