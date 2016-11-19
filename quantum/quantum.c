@@ -1,5 +1,9 @@
 #include "quantum.h"
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
