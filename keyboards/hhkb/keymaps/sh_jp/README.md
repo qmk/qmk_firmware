@@ -8,7 +8,7 @@
   - for example: `Symb+a` is `!`.
 5. `Spc+key` equals to `Shft+key` while using `Spc` alone will yield a space as usual.
 6. There's an extra `Tab` in the last line.
-
+    
 ```
 Layer QWER:
 ,-----------------------------------------------------------.
