@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  LGUI(KC_Q), LGUI(KC_W), LGUI(KC_E), LGUI(KC_R),  LGUI(KC_T), LGUI(KC_Y), LGUI(KC_U),  LGUI(KC_I), LGUI(KC_O),  LGUI(KC_P), LGUI(KC_LBRC), LGUI(KC_RBRC),
     _______,  LGUI(KC_A), LGUI(KC_S), LGUI(KC_D), LGUI(KC_F),  LGUI(KC_G), LGUI(KC_H), LGUI(KC_J),  LGUI(KC_K), LGUI(KC_L), _______, _______, _______, _______,
     LGUI(KC_LSFT),  LGUI(KC_Z), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_B),  LGUI(KC_N), LGUI(KC_M), LGUI(KC_COMM),  LGUI(KC_DOT),  LGUI(KC_SLSH),  _______, _______, _______,
-    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, LGUI(KC_LEFT), LGUI(KC_DOWN), LGUI(KC_RGHT)
+    _______, _______, _______, _______, _______,     LGUI(KC_SPC), _______, _______, _______, _______, LGUI(KC_LEFT), LGUI(KC_DOWN), LGUI(KC_RGHT)
   ),
 
   [SYMB] = KEYMAP_JP(
