@@ -4,7 +4,8 @@
 2. Use `Tog` to toggle between Dvorak and QWER
 3. Holding `NewCmd`, the original `LftCmd`,  will activate the `NewCmd` layer which means `NewCmd+key` is the same as `Cmd+key` in normal QWER layout.<sup>[1](#cmdTab)</sup>
   - For example, no matter you are in Dvorak layout or QWER layout, you can use `Cmd+s` to save a currently editing file.
-4. `Symb` makes type symbols easier: for example: `Symb+a` is `!`.
+4. `Symb` makes type symbols easier
+  - for example: `Symb+a` is `!`.
 5. `Spc+key` equals to `Shft+key` while using `Spc` alone will yield a space as usual.
 6. There's an extra `Tab` in the last line.
 
