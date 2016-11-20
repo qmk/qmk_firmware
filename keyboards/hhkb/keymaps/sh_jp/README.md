@@ -1,4 +1,5 @@
-Keymaps for both Dvorak layout and QWER layout for HHKB JP.  
+###Keymaps with both Dvorak layout and QWER layout for HHKB JP.  
+
 1. The default layout is Dvorak.
 2. Use `Tog` to toggle between Dvorak and QWER
 3. Holding `NewCmd`, the original `LftCmd`,  will activate the `NewCmd` layer which means `NewCmd+key` is the same as `Cmd+key` in normal QWER layout.<sup>[1](#cmdTab)</sup>
