@@ -68,9 +68,18 @@ typedef struct {
 } __attribute__ ((packed)) report_extra_t;
 
 #ifdef MIDI_ENABLE
-void MIDI_Task(void);
-MidiDevice midi_device;
-void send_unicode_midi(uint32_t unicode);
+  #define MIDI_SYSEX_BUFFER 16 
+  void MIDI_Task(void);
+  MidiDevice midi_device;
+
+  void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data);
+  uint32_t decode_uint32_chunk(uint8_t * data);
+  uint32_t decode_uint8_chunk(uint8_t * data);
+  void encode_uint32_chunk(uint32_t data, uint8_t * pointer);
+  void encode_uint8_chunk(uint8_t data, uint8_t * pointer);
+  void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data);
+  void send_unicode_midi(uint32_t unicode);
+  void send_bytes_sysex(uint8_t type, uint8_t * bytes, uint8_t length);
 #endif
 
 // #if LUFA_VERSION_INTEGER < 0x120730
