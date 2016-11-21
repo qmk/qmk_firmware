@@ -1207,6 +1207,12 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
     data++;
 
     switch (*data++) {
+        case 0x07: ; // Quantum action
+            break;
+        case 0x08: ; // Keyboard acion
+            break;
+        case 0x09: ; // User action
+            break;
         case 0x12: ; // Set info on keyboard
             switch (*data++) {
                 case 0x02: ; // set default layer
