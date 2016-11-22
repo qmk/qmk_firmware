@@ -20,20 +20,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// Due to the configurability of this keyboard, matrix sizes are determined in the keymap's config.h
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Wootpatoot
+#define PRODUCT         maxipad
+#define DESCRIPTION     A custom keyboard
 
+
+/* key matrix size */
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 6
+
+/*
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: AVR pins used for columns, left to right
+ * ROWS: AVR pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+*/
+#define MATRIX_ROW_PINS { B6, F7, B2, B3, B1 }
+#define MATRIX_COL_PINS { F6, C6, D7, F5, B4, B5 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
+ 
+// #define BACKLIGHT_PIN B7
+// #define BACKLIGHT_BREATHING
+// #define BACKLIGHT_LEVELS 3
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 0
-
-#define MATRIX_MASKED
+#define DEBOUNCING_DELAY 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
@@ -125,18 +148,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-// #ifndef NO_DEBUG
-// #  define NO_DEBUG
-// #endif
+//#define NO_DEBUG
 
 /* disable print */
-// #ifndef NO_PRINT
-// #  define NO_PRINT
-// #endif
-
-/* Only print user print statements */
-// #define USER_PRINT
-
+//#define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
