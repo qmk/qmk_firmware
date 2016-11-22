@@ -110,6 +110,11 @@ void breathing_speed_dec(uint8_t value);
 #endif
 
 #endif
+void send_dword(uint32_t number);
+void send_word(uint16_t number);
+void send_byte(uint8_t number);
+void send_nibble(uint8_t number);
+
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);

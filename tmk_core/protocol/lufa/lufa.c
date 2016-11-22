@@ -84,9 +84,9 @@ static uint8_t keyboard_led_stats = 0;
 static report_keyboard_t keyboard_report_sent;
 
 #ifdef MIDI_ENABLE
-void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
-void usb_get_midi(MidiDevice * device);
-void midi_usb_init(MidiDevice * device);
+static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
+static void usb_get_midi(MidiDevice * device);
+static void midi_usb_init(MidiDevice * device);
 #endif
 
 /* Host driver */
@@ -714,7 +714,7 @@ int8_t sendchar(uint8_t c)
  ******************************************************************************/
 
 #ifdef MIDI_ENABLE
-void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
+static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
   MIDI_EventPacket_t event;
   event.Data1 = byte0;
   event.Data2 = byte1;
@@ -774,7 +774,7 @@ void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byt
   USB_USBTask();
 }
 
-void usb_get_midi(MidiDevice * device) {
+static void usb_get_midi(MidiDevice * device) {
   MIDI_EventPacket_t event;
   while (MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, &event)) {
 
@@ -804,12 +804,12 @@ void usb_get_midi(MidiDevice * device) {
   USB_USBTask();
 }
 
-void midi_usb_init(MidiDevice * device){
+static void midi_usb_init(MidiDevice * device){
   midi_device_init(device);
   midi_device_set_send_func(device, usb_send_func);
   midi_device_set_pre_input_process_func(device, usb_get_midi);
 
-  SetupHardware();
+  // SetupHardware();
   sei();
 }
 
@@ -1112,41 +1112,6 @@ void cc_callback(MidiDevice * device,
     #endif
 }
 
-void send_dword(uint32_t number) {
-    uint16_t word = (number >> 16);
-    send_word(word);
-    send_word(number & 0xFFFFUL);
-}
-
-void send_word(uint16_t number) {
-    uint8_t byte = number >> 8;
-    send_byte(byte);
-    send_byte(number & 0xFF);
-}
-
-void send_byte(uint8_t number) {
-    uint8_t nibble = number >> 4;
-    send_nibble(nibble);
-    send_nibble(number & 0xF);
-}
-
-void send_nibble(uint8_t number) {
-    switch (number) {
-        case 0:
-            register_code(KC_0);
-            unregister_code(KC_0);
-            break;
-        case 1 ... 9:
-            register_code(KC_1 + (number - 1));
-            unregister_code(KC_1 + (number - 1));
-            break;
-        case 0xA ... 0xF:
-            register_code(KC_A + (number - 0xA));
-            unregister_code(KC_A + (number - 0xA));
-            break;
-    }
-}
-
 uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
 
 void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
@@ -1159,8 +1124,8 @@ void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t
         for (uint8_t place = 0; place < length; place++) {
             // send_byte(*data);
             midi_buffer[start + place] = *data;
-            if (*data == 0xF7)
-                sysex_buffer_callback(device, start + place, &midi_buffer);
+            if (*data == 0xF7 && midi_buffer[0] == 0xF0)
+                sysex_buffer_callback(device, start + place, midi_buffer);
             // SEND_STRING(" ");
             data++;
         }
@@ -1197,10 +1162,9 @@ void encode_uint8_chunk(uint8_t data, uint8_t * pointer) {
 }
 
 void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) {
-    uint8_t * pointer_copy = data;
+    // uint8_t * pointer_copy = data; // use for debugging
 
-    if (*data++ != 0xF0)
-        return
+    //data++; // i'm 98% sure there's a better way to do this
     data++;
     data++;
     data++;
@@ -1233,41 +1197,41 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
                     break;
                 case 0x01: ; // Get debug state
                     uint8_t debug[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEBUG), &debug);
-                    send_bytes_sysex(0x01, &debug, 2);
+                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEBUG), debug);
+                    send_bytes_sysex(0x01, debug, 2);
                     break;
                 case 0x02: ; // Get default layer
                     uint8_t default_layer[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEFAULT_LAYER), &default_layer);
-                    send_bytes_sysex(0x02, &default_layer, 2);
+                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEFAULT_LAYER), default_layer);
+                    send_bytes_sysex(0x02, default_layer, 2);
                     break;
                 #ifdef AUDIO_ENABLE
                 case 0x03: ; // Get backlight state
                     uint8_t audio[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_AUDIO), &audio);
-                    send_bytes_sysex(0x03, &audio, 2);
+                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_AUDIO), audio);
+                    send_bytes_sysex(0x03, audio, 2);
                 #endif
                 case 0x04: ; // Get layer state
                     uint8_t layers[5];
-                    encode_uint32_chunk(layer_state, &layers);
-                    send_bytes_sysex(0x04, &layers, 5);
+                    encode_uint32_chunk(layer_state, layers);
+                    send_bytes_sysex(0x04, layers, 5);
                     break;
                 #ifdef BACKLIGHT_ENABLE
                 case 0x06: ; // Get backlight state
                     uint8_t backlight[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_BACKLIGHT), &backlight);
-                    send_bytes_sysex(0x06, &backlight, 2);
+                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_BACKLIGHT), backlight);
+                    send_bytes_sysex(0x06, backlight, 2);
                 #endif
                 #ifdef RGBLIGHT_ENABLE
                 case 0x07: ; // Get rgblight state
                     uint8_t rgblight[2];
-                    encode_uint32_chunk(eeprom_read_dword(EECONFIG_RGBLIGHT), &rgblight);
-                    send_bytes_sysex(0x07, &rgblight, 5);
+                    encode_uint32_chunk(eeprom_read_dword(EECONFIG_RGBLIGHT), rgblight);
+                    send_bytes_sysex(0x07, rgblight, 5);
                 #endif
                 case 0x08: ; // Keymap options
                     uint8_t keymap_options[2];
-                    encode_uint8_chunk(eeconfig_read_keymap(), &keymap_options);
-                    send_bytes_sysex(0x08, &keymap_options, 2);
+                    encode_uint8_chunk(eeconfig_read_keymap(), keymap_options);
+                    send_bytes_sysex(0x08, keymap_options, 2);
                     break;
             }
             break;
@@ -1299,8 +1263,8 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
 
 void send_unicode_midi(uint32_t unicode) {
     uint8_t chunk[5];
-    encode_uint32_chunk(unicode, &chunk);
-    send_bytes_sysex(0x05, &chunk, 5);
+    encode_uint32_chunk(unicode, chunk);
+    send_bytes_sysex(0x05, chunk, 5);
 }
 
 void send_bytes_sysex(uint8_t type, uint8_t * bytes, uint8_t length) {
