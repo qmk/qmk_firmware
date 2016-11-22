@@ -16,7 +16,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 //#include "ws2812_config.h"
-#include "i2cmaster.h"
+//#include "i2cmaster.h"
 
 #define LIGHT_I2C 1
 #define LIGHT_I2C_ADDR        0x84
