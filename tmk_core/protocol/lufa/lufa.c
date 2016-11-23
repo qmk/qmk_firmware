@@ -76,6 +76,10 @@
     #include "rgblight.h"        
 #endif
 
+#ifdef MIDI_ENABLE
+  #include "sysex_tools.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
@@ -1124,8 +1128,16 @@ void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t
         for (uint8_t place = 0; place < length; place++) {
             // send_byte(*data);
             midi_buffer[start + place] = *data;
-            if (*data == 0xF7 && midi_buffer[0] == 0xF0)
-                sysex_buffer_callback(device, start + place, midi_buffer);
+            if (*data == 0xF7) {
+                // SEND_STRING("\nRD: ");
+                // for (uint8_t i = 0; i < start + place + 1; i++){
+                //     send_byte(midi_buffer[i]);
+                // SEND_STRING(" ");
+                // }
+                uint8_t * decoded = malloc(sizeof(uint8_t) * (sysex_decoded_length(start + place - 4)));
+                uint16_t decode_length = sysex_decode(decoded, midi_buffer + 4, start + place - 4);
+                sysex_buffer_callback(device, decode_length, decoded);
+            }
             // SEND_STRING(" ");
             data++;
         }
@@ -1161,32 +1173,35 @@ void encode_uint8_chunk(uint8_t data, uint8_t * pointer) {
     *pointer++ = (data) & 0x7F;
 }
 
-void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) {
-    // uint8_t * pointer_copy = data; // use for debugging
+void dword_to_bytes(uint8_t * bytes, uint32_t dword) {
+    bytes[0] = (dword >> 24) & 0xFF;
+    bytes[1] = (dword >> 16) & 0xFF; 
+    bytes[2] = (dword >> 8) & 0xFF; 
+    bytes[3] = (dword >> 0) & 0xFF; 
+}
 
-    //data++; // i'm 98% sure there's a better way to do this
-    data++;
-    data++;
-    data++;
-    data++;
+void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) {
+    // SEND_STRING("\nRX: ");
+    // for (uint8_t i = 0; i < length; i++) {
+    //     send_byte(data[i]);
+    //     SEND_STRING(" ");
+    // }
 
     switch (*data++) {
         case 0x07: ; // Quantum action
             break;
-        case 0x08: ; // Keyboard acion
+        case 0x08: ; // Keyboard action
             break;
         case 0x09: ; // User action
             break;
         case 0x12: ; // Set info on keyboard
             switch (*data++) {
                 case 0x02: ; // set default layer
-                    uint8_t default_layer = decode_uint8_chunk(data);
-                    eeconfig_update_default_layer(default_layer);
-                    default_layer_set((uint32_t)default_layer);
+                    eeconfig_update_default_layer(data[0] << 8 | data[1]);
+                    default_layer_set((uint32_t)(data[0] << 8 | data[1]));
                     break;
                 case 0x08: ; // set keymap options
-                    uint8_t keymap_options = decode_uint8_chunk(data);
-                    eeconfig_update_keymap(keymap_options);
+                    eeconfig_update_keymap(data[0]);
                     break;
             }
             break;
@@ -1196,42 +1211,37 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
                     send_bytes_sysex(0x00, NULL, 0);
                     break;
                 case 0x01: ; // Get debug state
-                    uint8_t debug[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEBUG), debug);
-                    send_bytes_sysex(0x01, debug, 2);
+                    uint8_t debug_bytes[1] = { eeprom_read_byte(EECONFIG_DEBUG) };
+                    send_bytes_sysex(0x01, debug_bytes, 1);
                     break;
                 case 0x02: ; // Get default layer
-                    uint8_t default_layer[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_DEFAULT_LAYER), default_layer);
-                    send_bytes_sysex(0x02, default_layer, 2);
+                    uint8_t default_bytes[1] = { eeprom_read_byte(EECONFIG_DEFAULT_LAYER) };
+                    send_bytes_sysex(0x02, default_bytes, 1);
                     break;
                 #ifdef AUDIO_ENABLE
                 case 0x03: ; // Get backlight state
-                    uint8_t audio[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_AUDIO), audio);
-                    send_bytes_sysex(0x03, audio, 2);
+                    uint8_t audio_bytes[1] = { eeprom_read_byte(EECONFIG_AUDIO) };
+                    send_bytes_sysex(0x03, audio_bytes, 1);
                 #endif
                 case 0x04: ; // Get layer state
-                    uint8_t layers[5];
-                    encode_uint32_chunk(layer_state, layers);
-                    send_bytes_sysex(0x04, layers, 5);
+                    uint8_t layer_state_bytes[4];
+                    dword_to_bytes(layer_state_bytes, layer_state);
+                    send_bytes_sysex(0x04, layer_state_bytes, 4);
                     break;
                 #ifdef BACKLIGHT_ENABLE
                 case 0x06: ; // Get backlight state
-                    uint8_t backlight[2];
-                    encode_uint8_chunk(eeprom_read_byte(EECONFIG_BACKLIGHT), backlight);
-                    send_bytes_sysex(0x06, backlight, 2);
+                    uint8_t backlight_bytes[1] = { eeprom_read_byte(EECONFIG_BACKLIGHT) };
+                    send_bytes_sysex(0x06, backlight_bytes, 1);
                 #endif
                 #ifdef RGBLIGHT_ENABLE
                 case 0x07: ; // Get rgblight state
-                    uint8_t rgblight[2];
-                    encode_uint32_chunk(eeprom_read_dword(EECONFIG_RGBLIGHT), rgblight);
-                    send_bytes_sysex(0x07, rgblight, 5);
+                    uint8_t rgblight_bytes[4];
+                    dword_to_bytes(rgblight_bytes, eeprom_read_dword(EECONFIG_RGBLIGHT));
+                    send_bytes_sysex(0x07, rgblight_bytes, 4);
                 #endif
                 case 0x08: ; // Keymap options
-                    uint8_t keymap_options[2];
-                    encode_uint8_chunk(eeconfig_read_keymap(), keymap_options);
-                    send_bytes_sysex(0x08, keymap_options, 2);
+                    uint8_t keymap_bytes[1] = { eeconfig_read_keymap() };
+                    send_bytes_sysex(0x08, keymap_bytes, 1);
                     break;
             }
             break;
@@ -1239,25 +1249,17 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
         case 0x27: ; // RGB LED functions
             switch (*data++) {
                 case 0x00: ; // Update HSV
-                    uint32_t hsv = decode_uint32_chunk(data);
-                    rgblight_sethsv(((hsv >> 16) & 0xFFFF) % 360, (hsv >> 8) & 0xFF, hsv & 0xFF);
+                    rgblight_sethsv((data[0] << 8 | data[1]) % 360, data[2], data[3]);
                     break;
                 case 0x01: ; // Update RGB
                     break;
                 case 0x02: ; // Update mode
-                    uint8_t rgb_mode = decode_uint8_chunk(data);
-                    rgblight_mode(rgb_mode);
+                    rgblight_mode(data[0]);
                     break;
             }
             break;
         #endif
     }
-
-    // SEND_STRING("\nDATA:\n");
-    // while (*pointer_copy != 0xF7) {
-    //     send_byte(*pointer_copy++);
-    //     SEND_STRING(" ");
-    // }
 
 }
 
@@ -1268,15 +1270,30 @@ void send_unicode_midi(uint32_t unicode) {
 }
 
 void send_bytes_sysex(uint8_t type, uint8_t * bytes, uint8_t length) {
-    uint8_t * array = malloc(sizeof(uint8_t) * (length + 6));
+    // SEND_STRING("\nTX: ");
+    // for (uint8_t i = 0; i < length; i++) {
+    //     send_byte(bytes[i]);
+    //     SEND_STRING(" ");
+    // }
+    uint8_t * precode = malloc(sizeof(uint8_t) * (length + 1));
+    precode[0] = type;
+    memcpy(precode + 1, bytes, length);
+    uint8_t * encoded = malloc(sizeof(uint8_t) * (sysex_encoded_length(length + 1)));
+    uint16_t encoded_length = sysex_encode(encoded, precode, length + 1);
+    uint8_t * array = malloc(sizeof(uint8_t) * (encoded_length + 5));
     array[0] = 0xF0;
     array[1] = 0x00;
     array[2] = 0x00;
     array[3] = 0x00;
-    array[4] = type;
-    array[length + 5] = 0xF7;
-    memcpy(array + 5, bytes, length);
-    midi_send_array(&midi_device, length + 6, array);
+    array[encoded_length + 4] = 0xF7;
+    memcpy(array + 4, encoded, encoded_length);
+    midi_send_array(&midi_device, encoded_length + 5, array);
+
+    // SEND_STRING("\nTD: ");
+    // for (uint8_t i = 0; i < encoded_length + 5; i++) {
+    //     send_byte(array[i]);
+    //     SEND_STRING(" ");
+    // }
 }
 
 #endif
