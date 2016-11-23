@@ -1,5 +1,9 @@
 #include "quantum.h"
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
@@ -75,6 +79,7 @@ void reset_keyboard(void) {
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
+static uint16_t scs_timer = 0;
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -283,6 +288,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
@@ -292,7 +298,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[0]) {
+        if (!shift_interrupted[0] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
@@ -305,6 +311,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
@@ -314,7 +321,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[1]) {
+        if (!shift_interrupted[1] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
