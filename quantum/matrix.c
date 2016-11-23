@@ -310,7 +310,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Unselect row
     unselect_row(current_row);
 
-    return (last_row_value == current_matrix[current_row]);
+    return (last_row_value != current_matrix[current_row]);
 }
 
 static void select_row(uint8_t row)
