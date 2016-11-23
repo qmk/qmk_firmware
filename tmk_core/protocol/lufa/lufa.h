@@ -73,13 +73,19 @@ typedef struct {
   MidiDevice midi_device;
 
   void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data);
-  uint32_t decode_uint32_chunk(uint8_t * data);
-  uint32_t decode_uint8_chunk(uint8_t * data);
-  void encode_uint32_chunk(uint32_t data, uint8_t * pointer);
-  void encode_uint8_chunk(uint8_t data, uint8_t * pointer);
   void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data);
   void send_unicode_midi(uint32_t unicode);
-  void send_bytes_sysex(uint8_t type, uint8_t * bytes, uint8_t length);
+  void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, uint8_t length);
+
+  __attribute__ ((weak))
+  bool sysex_process_quantum(uint8_t length, uint8_t * data);
+
+  __attribute__ ((weak))
+  bool sysex_process_keyboard(uint8_t length, uint8_t * data);
+
+  __attribute__ ((weak))
+  bool sysex_process_user(uint8_t length, uint8_t * data);
+
 #endif
 
 // #if LUFA_VERSION_INTEGER < 0x120730
