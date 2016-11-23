@@ -113,11 +113,6 @@ __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
 {
-#ifdef BACKLIGHT_ENABLE
-#ifndef NO_SUSPEND_POWER_DOWN
-    backlight_set(0);
-#endif
-#endif
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -135,7 +130,7 @@ void suspend_wakeup_init(void)
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
-led_set(host_keyboard_leds());
+	led_set(host_keyboard_leds());
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
