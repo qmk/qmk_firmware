@@ -164,9 +164,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // dynamically generate these.
     case RGB_FF00BB:
       if (record->event.pressed) {
-        rgblight_enable();
-        rgblight_mode(1);
-        rgblight_setrgb(0xff,0x00,0xbb);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_enable();
+          rgblight_mode(1);
+          rgblight_setrgb(0xff,0x00,0xbb);
+        #endif
       }
       return false;
       break;

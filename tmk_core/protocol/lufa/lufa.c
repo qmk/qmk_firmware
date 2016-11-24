@@ -1055,7 +1055,7 @@ int main(void)
         // MIDI_Task();
 #endif
         
-#ifdef RGBLIGHT_ANIMATIONS
+#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();
 #endif
 
