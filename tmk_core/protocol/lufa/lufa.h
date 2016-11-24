@@ -74,8 +74,9 @@ typedef struct {
 
   void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data);
   void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data);
-  void send_unicode_midi(uint32_t unicode);
   void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, uint8_t length);
+  void dword_to_bytes(uint32_t dword, uint8_t * bytes);
+  uint32_t bytes_to_dword(uint8_t * bytes, uint8_t index);
 
   __attribute__ ((weak))
   bool sysex_process_quantum(uint8_t length, uint8_t * data);
@@ -85,6 +86,45 @@ typedef struct {
 
   __attribute__ ((weak))
   bool sysex_process_user(uint8_t length, uint8_t * data);
+
+  enum MESSAGE_TYPE {
+      MT_GET_DATA =      0x10, // Get data from keyboard
+      MT_GET_DATA_ACK =  0x11, // returned data to process (ACK)
+      MT_SET_DATA =      0x20, // Set data on keyboard
+      MT_SET_DATA_ACK =  0x21, // returned data to confirm (ACK)
+      MT_SEND_DATA =     0x30, // Sending data/action from keyboard
+      MT_SEND_DATA_ACK = 0x31, // returned data/action confirmation (ACK)
+      MT_EXE_ACTION =    0x40, // executing actions on keyboard
+      MT_EXE_ACTION_ACK =0x41, // return confirmation/value (ACK)
+      MT_TYPE_ERROR =    0x80 // type not recofgnised (ACK)
+  };
+
+  enum DATA_TYPE {
+      DT_NONE = 0x00,
+      DT_HANDSHAKE,
+      DT_DEFAULT_LAYER,
+      DT_CURRENT_LAYER,
+      DT_KEYMAP_OPTIONS,
+      DT_BACKLIGHT,
+      DT_RGBLIGHT,
+      DT_UNICODE,
+      DT_DEBUG,
+      DT_AUDIO,
+      DT_QUANTUM_ACTION,
+      DT_KEYBOARD_ACTION,
+      DT_USER_ACTION,
+
+  };
+
+
+  #define MT_GET_DATA(data_type, data, length) send_bytes_sysex(MT_GET_DATA, data_type, data, length)
+  #define MT_GET_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_GET_DATA_ACK, data_type, data, length)
+  #define MT_SET_DATA(data_type, data, length) send_bytes_sysex(MT_SET_DATA, data_type, data, length)
+  #define MT_SET_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_SET_DATA_ACK, data_type, data, length)
+  #define MT_SEND_DATA(data_type, data, length) send_bytes_sysex(MT_SEND_DATA, data_type, data, length)
+  #define MT_SEND_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_SEND_DATA_ACK, data_type, data, length)
+  #define MT_EXE_ACTION(data_type, data, length) send_bytes_sysex(MT_EXE_ACTION, data_type, data, length)
+  #define MT_EXE_ACTION_ACK(data_type, data, length) send_bytes_sysex(MT_EXE_ACTION_ACK, data_type, data, length)
 
 #endif
 
