@@ -847,8 +847,13 @@ void send_nibble(uint8_t number) {
     }
 }
 
-
-
+void send_unicode_midi(uint32_t unicode) {
+  #ifdef MIDI_ENABLE
+    uint8_t chunk[4];
+    dword_to_bytes(unicode, chunk);
+    MT_SEND_DATA(DT_UNICODE, chunk, 5);
+  #endif
+}
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {

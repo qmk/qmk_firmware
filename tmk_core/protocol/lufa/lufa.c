@@ -72,7 +72,7 @@
     #include "virtser.h"
 #endif
 
-#ifdef RGB_MIDI
+#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
     #include "rgblight.h"        
 #endif
 
@@ -1156,35 +1156,6 @@ uint32_t bytes_to_dword(uint8_t * bytes, uint8_t index) {
     return ((uint32_t)bytes[index + 0] << 24) | ((uint32_t)bytes[index + 1] << 16) | ((uint32_t)bytes[index + 2] << 8) | (uint32_t)bytes[index + 3];
 }
 
-enum MESSAGE_TYPE {
-    MT_GET_DATA =      0x10, // Get data from keyboard
-    MT_GET_DATA_ACK =  0x11, // returned data to process (ACK)
-    MT_SET_DATA =      0x20, // Set data on keyboard
-    MT_SET_DATA_ACK =  0x21, // returned data to confirm (ACK)
-    MT_SEND_DATA =     0x30, // Sending data/action from keyboard
-    MT_SEND_DATA_ACK = 0x31, // returned data/action confirmation (ACK)
-    MT_EXE_ACTION =    0x40, // executing actions on keyboard
-    MT_EXE_ACTION_ACK =0x41, // return confirmation/value (ACK)
-    MT_TYPE_ERROR =    0x80 // type not recofgnised (ACK)
-};
-
-enum DATA_TYPE {
-    DT_NONE = 0x00,
-    DT_HANDSHAKE,
-    DT_DEFAULT_LAYER,
-    DT_CURRENT_LAYER,
-    DT_KEYMAP_OPTIONS,
-    DT_BACKLIGHT,
-    DT_RGBLIGHT,
-    DT_UNICODE,
-    DT_DEBUG,
-    DT_AUDIO,
-    DT_QUANTUM_ACTION,
-    DT_KEYBOARD_ACTION,
-    DT_USER_ACTION,
-
-};
-
 void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, uint8_t length) {
     // SEND_STRING("\nTX: ");
     // for (uint8_t i = 0; i < length; i++) {
@@ -1212,15 +1183,6 @@ void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, 
     //     SEND_STRING(" ");
     // }
 }
-
-#define MT_GET_DATA(data_type, data, length) send_bytes_sysex(MT_GET_DATA, data_type, data, length)
-#define MT_GET_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_GET_DATA_ACK, data_type, data, length)
-#define MT_SET_DATA(data_type, data, length) send_bytes_sysex(MT_SET_DATA, data_type, data, length)
-#define MT_SET_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_SET_DATA_ACK, data_type, data, length)
-#define MT_SEND_DATA(data_type, data, length) send_bytes_sysex(MT_SEND_DATA, data_type, data, length)
-#define MT_SEND_DATA_ACK(data_type, data, length) send_bytes_sysex(MT_SEND_DATA_ACK, data_type, data, length)
-#define MT_EXE_ACTION(data_type, data, length) send_bytes_sysex(MT_EXE_ACTION, data_type, data, length)
-#define MT_EXE_ACTION_ACK(data_type, data, length) send_bytes_sysex(MT_EXE_ACTION_ACK, data_type, data, length)
 
 __attribute__ ((weak))
 bool sysex_process_quantum(uint8_t length, uint8_t * data) {
@@ -1312,7 +1274,7 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
                         dword_to_bytes(eeconfig_read_rgblight(), rgblight_bytes);
                         MT_GET_DATA_ACK(DT_RGBLIGHT, rgblight_bytes, 4);
                     #else
-                        MT_GET_DATA_ACK(DT_RGBLIGHT, NULL, 0)
+                        MT_GET_DATA_ACK(DT_RGBLIGHT, NULL, 0);
                     #endif
                     break;
                 }
@@ -1359,12 +1321,5 @@ void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) 
     }
 
 }
-
-void send_unicode_midi(uint32_t unicode) {
-    uint8_t chunk[4];
-    dword_to_bytes(unicode, chunk);
-    MT_SEND_DATA(DT_UNICODE, chunk, 5);
-}
-
 
 #endif
