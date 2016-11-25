@@ -199,6 +199,7 @@ endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(COMMON_VPATH)
 
+include $(TMK_PATH)/protocol.mk
 
 include $(TMK_PATH)/common.mk
 SRC += $(TMK_COMMON_SRC)
