@@ -47,6 +47,7 @@ void suspend_idle(uint8_t time)
     sleep_disable();
 }
 
+#ifndef NO_SUSPEND_POWER_DOWN
 /* Power down MCU with watchdog timer
  * wdto: watchdog timer timeout defined in <avr/wdt.h>
  *          WDTO_15MS
@@ -61,6 +62,7 @@ void suspend_idle(uint8_t time)
  *          WDTO_8S
  */
 static uint8_t wdt_timeout = 0;
+
 static void power_down(uint8_t wdto)
 {
 #ifdef PROTOCOL_LUFA
@@ -98,19 +100,19 @@ static void power_down(uint8_t wdto)
     // Disable watchdog after sleep
     wdt_disable();
 }
+#endif
 
 void suspend_power_down(void)
 {
+#ifndef NO_SUSPEND_POWER_DOWN
     power_down(WDTO_15MS);
+#endif
 }
 
 __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
 {
-#ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
-#endif
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -126,10 +128,9 @@ void suspend_wakeup_init(void)
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
     backlight_init();
 #endif
-led_set(host_keyboard_leds());
+	led_set(host_keyboard_leds());
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
