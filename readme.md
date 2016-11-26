@@ -911,7 +911,33 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 ## Unicode support
 
-You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout, see [this article](http://www.poynton.com/notes/misc/mac-unicode-hex-input.html) to learn more) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
+There are three Unicode keymap definition method available in QMK:
+
+### UNICODE_ENABLE
+
+Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in
+keymap file, where *n* is a 4 digit hexadecimal.
+
+### UNICODEMAP_ENABLE
+
+Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping
+table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file.
+The keycode function is `X(n)` where *n* is the array index of the mapping
+table.
+
+### UCIS_ENABLE
+
+TBD
+
+Unicode input in QMK works by inputing a sequence of characters to the OS,
+sort of like macro. Unfortunately, each OS has different ideas on how Unicode is inputted.
+
+This is the current list of Unicode input method in QMK:
+
+* UC_OSX: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
 ## Backlight Breathing
 
