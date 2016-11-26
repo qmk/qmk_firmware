@@ -76,9 +76,8 @@
         } while(0)
 #   else
 #       error "USART configuration is needed."
+#   endif
 #endif
-
-// I'm fairly sure these aren't needed, but oh well - Jack
 
 /*
  * PS/2 Interrupt configuration
@@ -125,4 +124,3 @@
 
 #endif
 
-#endif
