@@ -1091,37 +1091,17 @@ void fallthrough_callback(MidiDevice * device,
 #endif
 }
 
-#ifdef RGB_MIDI
-    rgblight_config_t rgblight_config;
-#endif
 
 void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val) {
   //sending it back on the next channel
   // midi_send_cc(device, (chan + 1) % 16, num, val);
-    #ifdef RGB_MIDI
-        rgblight_config.raw = eeconfig_read_rgblight();
-        switch (num) {
-            case 14:
-                rgblight_config.hue = val * 360 / 127;
-            break;
-            case 15:
-                rgblight_config.sat = val << 1;
-            break;
-            case 16:
-                rgblight_config.val = val << 1;
-            break;
-        }
-        rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
-    #endif
 }
 
 uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
 
 void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
-  // for (int i = 0; i < length; i++)
-  //   midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
-    // if (start == 0x27) {
+    #ifdef API_SYSEX_ENABLE
         // SEND_STRING("\n");
         // send_word(start);
         // SEND_STRING(": ");
@@ -1136,190 +1116,13 @@ void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t
                 // }
                 uint8_t * decoded = malloc(sizeof(uint8_t) * (sysex_decoded_length(start + place - 4)));
                 uint16_t decode_length = sysex_decode(decoded, midi_buffer + 4, start + place - 4);
-                sysex_buffer_callback(device, decode_length, decoded);
+                process_api(decode_length, decoded);
             }
             // SEND_STRING(" ");
             data++;
         }
-    // }
-
+    #endif
 }
 
-void dword_to_bytes(uint32_t dword, uint8_t * bytes) {
-    bytes[0] = (dword >> 24) & 0xFF;
-    bytes[1] = (dword >> 16) & 0xFF; 
-    bytes[2] = (dword >> 8) & 0xFF; 
-    bytes[3] = (dword >> 0) & 0xFF; 
-}
-
-uint32_t bytes_to_dword(uint8_t * bytes, uint8_t index) {
-    return ((uint32_t)bytes[index + 0] << 24) | ((uint32_t)bytes[index + 1] << 16) | ((uint32_t)bytes[index + 2] << 8) | (uint32_t)bytes[index + 3];
-}
-
-void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, uint8_t length) {
-    // SEND_STRING("\nTX: ");
-    // for (uint8_t i = 0; i < length; i++) {
-    //     send_byte(bytes[i]);
-    //     SEND_STRING(" ");
-    // }
-    uint8_t * precode = malloc(sizeof(uint8_t) * (length + 2));
-    precode[0] = message_type;
-    precode[1] = data_type;
-    memcpy(precode + 2, bytes, length);
-    uint8_t * encoded = malloc(sizeof(uint8_t) * (sysex_encoded_length(length + 2)));
-    uint16_t encoded_length = sysex_encode(encoded, precode, length + 2);
-    uint8_t * array = malloc(sizeof(uint8_t) * (encoded_length + 5));
-    array[0] = 0xF0;
-    array[1] = 0x00;
-    array[2] = 0x00;
-    array[3] = 0x00;
-    array[encoded_length + 4] = 0xF7;
-    memcpy(array + 4, encoded, encoded_length);
-    midi_send_array(&midi_device, encoded_length + 5, array);
-
-    // SEND_STRING("\nTD: ");
-    // for (uint8_t i = 0; i < encoded_length + 5; i++) {
-    //     send_byte(array[i]);
-    //     SEND_STRING(" ");
-    // }
-}
-
-__attribute__ ((weak))
-bool sysex_process_quantum(uint8_t length, uint8_t * data) {
-    return sysex_process_keyboard(length, data);
-}
-
-__attribute__ ((weak))
-bool sysex_process_keyboard(uint8_t length, uint8_t * data) {
-    return sysex_process_user(length, data);
-}
-
-__attribute__ ((weak))
-bool sysex_process_user(uint8_t length, uint8_t * data) {
-    return true;
-}
-
-void sysex_buffer_callback(MidiDevice * device, uint8_t length, uint8_t * data) {
-    // SEND_STRING("\nRX: ");
-    // for (uint8_t i = 0; i < length; i++) {
-    //     send_byte(data[i]);
-    //     SEND_STRING(" ");
-    // }
-    if (!sysex_process_quantum(length, data))
-        return;
-
-    switch (data[0]) {
-        case MT_SET_DATA:
-            switch (data[1]) {
-                case DT_DEFAULT_LAYER: {
-                    eeconfig_update_default_layer(data[2]);
-                    default_layer_set((uint32_t)(data[2]));
-                    break;
-                }
-                case DT_KEYMAP_OPTIONS: {
-                    eeconfig_update_keymap(data[2]);
-                    break;
-                }
-                case DT_RGBLIGHT: {
-                    #ifdef RGBLIGHT_ENABLE
-                        uint32_t rgblight = bytes_to_dword(data, 2);
-                        rgblight_update_dword(rgblight);
-                    #endif
-                    break;
-                }
-            }
-        case MT_GET_DATA:
-            switch (data[1]) {
-                case DT_HANDSHAKE: {
-                    MT_GET_DATA_ACK(DT_HANDSHAKE, NULL, 0);
-                    break;
-                }
-                case DT_DEBUG: {
-                    uint8_t debug_bytes[1] = { eeprom_read_byte(EECONFIG_DEBUG) };
-                    MT_GET_DATA_ACK(DT_DEBUG, debug_bytes, 1);
-                    break;
-                }
-                case DT_DEFAULT_LAYER: {
-                    uint8_t default_bytes[1] = { eeprom_read_byte(EECONFIG_DEFAULT_LAYER) };
-                    MT_GET_DATA_ACK(DT_DEFAULT_LAYER, default_bytes, 1);
-                    break;
-                }
-                case DT_CURRENT_LAYER: {
-                    uint8_t layer_state_bytes[4];
-                    dword_to_bytes(layer_state, layer_state_bytes);
-                    MT_GET_DATA_ACK(DT_CURRENT_LAYER, layer_state_bytes, 4);
-                    break;
-                }
-                case DT_AUDIO: {
-                    #ifdef AUDIO_ENABLE
-                        uint8_t audio_bytes[1] = { eeprom_read_byte(EECONFIG_AUDIO) };
-                        MT_GET_DATA_ACK(DT_AUDIO, audio_bytes, 1);
-                    #else
-                        MT_GET_DATA_ACK(DT_AUDIO, NULL, 0);
-                    #endif
-                    break;
-                }
-                case DT_BACKLIGHT: {
-                    #ifdef BACKLIGHT_ENABLE
-                        uint8_t backlight_bytes[1] = { eeprom_read_byte(EECONFIG_BACKLIGHT) };
-                        MT_GET_DATA_ACK(DT_BACKLIGHT, backlight_bytes, 1);
-                    #else
-                        MT_GET_DATA_ACK(DT_BACKLIGHT, NULL, 0);
-                    #endif
-                    break;
-                }
-                case DT_RGBLIGHT: {
-                    #ifdef RGBLIGHT_ENABLE
-                        uint8_t rgblight_bytes[4];
-                        dword_to_bytes(eeconfig_read_rgblight(), rgblight_bytes);
-                        MT_GET_DATA_ACK(DT_RGBLIGHT, rgblight_bytes, 4);
-                    #else
-                        MT_GET_DATA_ACK(DT_RGBLIGHT, NULL, 0);
-                    #endif
-                    break;
-                }
-                case DT_KEYMAP_OPTIONS: {
-                    uint8_t keymap_bytes[1] = { eeconfig_read_keymap() };
-                    MT_GET_DATA_ACK(DT_KEYMAP_OPTIONS, keymap_bytes, 1);
-                    break;
-                }
-                default:
-                    break;
-            }
-            break;
-        case MT_SET_DATA_ACK:
-        case MT_GET_DATA_ACK:
-            break;
-        case MT_SEND_DATA:
-            break;
-        case MT_SEND_DATA_ACK:
-            break;
-        case MT_EXE_ACTION:
-            break;
-        case MT_EXE_ACTION_ACK:
-            break;
-        case MT_TYPE_ERROR:
-            break;
-        default: ; // command not recognised
-            send_bytes_sysex(MT_TYPE_ERROR, DT_NONE, data, length);
-            break;
-
-        // #ifdef RGBLIGHT_ENABLE
-        // case 0x27: ; // RGB LED functions
-        //     switch (*data++) {
-        //         case 0x00: ; // Update HSV
-        //             rgblight_sethsv((data[0] << 8 | data[1]) % 360, data[2], data[3]);
-        //             break;
-        //         case 0x01: ; // Update RGB
-        //             break;
-        //         case 0x02: ; // Update mode
-        //             rgblight_mode(data[0]);
-        //             break;
-        //     }
-        //     break;
-        // #endif
-    }
-
-}
 
 #endif

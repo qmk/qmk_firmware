@@ -91,7 +91,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case 2:
         if (record->event.pressed) { // For resetting EEPROM
-          send_unicode_midi(0x0CA0);
+          api_send_unicode(0x0CA0);
         }
         break;
       }

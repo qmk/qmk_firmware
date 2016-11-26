@@ -119,6 +119,6 @@ void send_nibble(uint8_t number);
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
 
-void send_unicode_midi(uint32_t unicode);
+void api_send_unicode(uint32_t unicode);
 
 #endif
