@@ -116,7 +116,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* PS/2 mouse USART version */
 #ifdef PS2_USE_USART
-#if defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)
 /* XCK for clock line and RXD for data line */
 #define PS2_CLOCK_PORT  PORTD
 #define PS2_CLOCK_PIN   PIND
@@ -157,7 +156,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_USART_RX_DATA       UDR1
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
-#endif
 #endif
 
 
