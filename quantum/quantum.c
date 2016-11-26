@@ -847,12 +847,12 @@ void send_nibble(uint8_t number) {
     }
 }
 
-void send_unicode_midi(uint32_t unicode) {
-  #ifdef MIDI_ENABLE
+void api_send_unicode(uint32_t unicode) {
+#ifdef API_ENABLE
     uint8_t chunk[4];
     dword_to_bytes(unicode, chunk);
     MT_SEND_DATA(DT_UNICODE, chunk, 5);
-  #endif
+#endif
 }
 
 __attribute__ ((weak))
