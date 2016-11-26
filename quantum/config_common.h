@@ -78,3 +78,5 @@
 #       error "USART configuration is needed."
 #   endif
 #endif
+
+#endif
