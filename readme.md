@@ -241,6 +241,7 @@ You can also add extra options at the end of the make command line, after the ta
 * `make COLOR=false` - turns off color output
 * `make SILENT=true` - turns off output besides errors/warnings
 * `make VERBOSE=true` - outputs all of the gcc stuff (not interesting, unless you need to debug)
+* `make EXTRAFLAGS=-E` - Preprocess the code without doing any compiling (useful if you are trying to debug #define commands)
 
 The make command itself also has some additional options, type `make --help` for more information. The most useful is probably `-jx`, which specifies that you want to compile using more than one CPU, the `x` represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.
 
@@ -1155,6 +1156,45 @@ The firmware supports 5 different light effects, and the color (hue, saturation,
 ![WS2812 Wiring](https://raw.githubusercontent.com/jackhumbert/qmk_firmware/master/keyboards/planck/keymaps/yang/WS2812-wiring.jpg)
 
 Please note the USB port can only supply a limited amount of power to the keyboard (500mA by standard, however, modern computer and most usb hubs can provide 700+mA.). According to the data of NeoPixel from Adafruit, 30 WS2812 LEDs require a 5V 1A power supply, LEDs used in this mod should not more than 20.
+
+## PS/2 Mouse Support
+
+Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
+In order to do this you must first enable the option in your Makefile.
+
+    PS2_MOUSE_ENABLE = yes
+
+Then, decide whether to use interrupts (better if your microcontroller supports them) or busywait, and enable the relevant option.
+
+    PS2_USE_INT = yes
+    // PS2_USE_BUSYWAIT = yes
+
+If you're using a teensy and have hooked up the clock on your PS/2 device to D1 and the data to D0, you're all set.
+Otherwise, you will need to update the following defines in your `config.h`:
+    
+    #define PS2_CLOCK_PORT  PORTD
+    #define PS2_CLOCK_PIN   PIND
+    #define PS2_CLOCK_DDR   DDRD
+    #define PS2_CLOCK_BIT   1
+
+    #define PS2_DATA_PORT   PORTD
+    #define PS2_DATA_PIN    PIND
+    #define PS2_DATA_DDR    DDRD
+    #define PS2_DATA_BIT    0
+
+And with `PS2_USE_INT` also define these macros:
+
+    #define PS2_INT_INIT()  do {    \
+        EICRA |= ((1<<ISC11) |      \
+                  (0<<ISC10));      \
+    } while (0)
+    #define PS2_INT_ON()  do {      \
+        EIMSK |= (1<<INT1);         \
+    } while (0)
+    #define PS2_INT_OFF() do {      \
+        EIMSK &= ~(1<<INT1);        \
+    } while (0)
+    #define PS2_INT_VECT    INT1_vect
 
 ## Safety Considerations
 
