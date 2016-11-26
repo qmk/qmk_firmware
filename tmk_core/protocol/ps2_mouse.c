@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 
+#ifndef PS2_INIT_DELAY
+#define PS2_INIT_DELAY 1000
+#endif
 
 static report_mouse_t mouse_report = {};
 
@@ -39,7 +42,7 @@ uint8_t ps2_mouse_init(void) {
 
     ps2_host_init();
 
-    _delay_ms(1000);    // wait for powering up
+    _delay_ms(PS2_INIT_DELAY);    // wait for powering up
 
     // send Reset
     rcv = ps2_host_send(0xFF);
