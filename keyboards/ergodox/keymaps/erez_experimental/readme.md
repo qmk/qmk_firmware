@@ -4,6 +4,10 @@ This is my personal layout which I use to test out ideas which may or may not ma
 
 Changelog:
 
+## Nov 1, 2016:
+
+* Adds dedicated text zooming keys in inner corners
+
 ## May 24, 2016:
 
 * Implements Leader key example

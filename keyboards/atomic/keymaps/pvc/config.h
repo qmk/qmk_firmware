@@ -150,10 +150,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-//#define NO_DEBUG
+#ifndef NO_DEBUG
+#  define NO_DEBUG
+#endif
 
 /* disable print */
-//#define NO_PRINT
+// #ifndef NO_PRINT
+// #  define NO_PRINT
+// #endif
+
+/* Only print user print statements */
+#define USER_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
