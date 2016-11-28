@@ -1,5 +1,8 @@
 #include "planck.h"
 
+#include "raw_hid.h"
+#include "keymap.h"
+
 #ifdef ONEHAND_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
@@ -17,3 +20,14 @@ void matrix_init_kb(void) {
 
 	matrix_init_user();
 }
+
+#ifdef RAW_ENABLE
+
+void raw_hid_receive( uint8_t *data, uint8_t length )
+{
+	// Basic test of Raw HID
+	// Echo back data received
+	raw_hid_send( data, length );
+}
+
+#endif
