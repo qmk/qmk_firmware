@@ -1,19 +1,19 @@
 #include "ergodox.h"
-#include "debug.h"
-#include "action_layer.h"
 #include "keymap_bepo.h"
 
-#define BASE 0 // default layer
-#define QWER 1 // qwerty compat layer
-#define SQWER 2 // shifted qwerty compat layer
-#define AQWER 3 // alted qwerty compat layer
-#define FNAV 4 // function / navigation keys
-#define NUM 5 // numeric keypad keys
+// keymaps
+#define BASE 0	// default layer, for bepo compatible systems
+#define QWER 1	// bepo to qwerty base compat layer, for qwerty systems
+#define SQWER 2	// bepo with shift key to qwerty compat layer
+#define AQWER 3	// bepo with altgr key to qwerty compat layer
+#define FNAV 4	// function / navigation / mouse layer
+#define NUM 5	// numeric keypad layer
 
-#define KP_00 0
+// macros
+#define KP_00 0	// keypad "double 0"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Base layer
+/* Keymap 0: default layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |   $    |   "  |   <  |   >  |   (  |   )  |Delete|                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
@@ -50,7 +50,7 @@ KC_ESC,		KC_INS,		KC_LGUI,	KC_LCTL,	KC_LALT,
 DF(QWER),	DF(BASE),
 MO(NUM),
 MO(FNAV),	KC_RSHIFT,	KC_ENTER),
-/* Keymap 1: QWERTY system compatibility layer
+/* Keymap 1: bepo to qwerty base compat layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |   $    |   "  |   <  |   >  |   (  |   )  |Delete|                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
@@ -87,7 +87,7 @@ KC_ESC,		KC_INS,		KC_LGUI,	KC_LCTL,	KC_LALT,
 DF(QWER),	DF(BASE),
 MO(NUM),
 MO(FNAV),	MO(SQWER),	KC_ENTER),
-/* Keymap 2: QWERTY shifted system compatibility layer
+/* Keymap 2: bepo with shift key to qwerty compat layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |   #    |   1  |   2  |   3  |   4  |   5  |Delete|                                  |ScroLo|   6  |   7  |   8  |   9  |   0  |   =    |
@@ -124,7 +124,7 @@ S(KC_ESC),	S(KC_INS),	S(KC_LGUI),	S(KC_LCTL),	S(KC_LALT),
 KC_TRNS,	KC_TRNS,
 KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_TRNS),
-/* Keymap 3: QWERTY alted system compatibility layer
+/* Keymap 3: bepo with altgr key to qwerty compat layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |   $    |   "  |   <  |   >  |   [  |   ]  |Delete|                                  |ScroLo|   @  |   +  |   -  |   /  |   *  |   =    |
@@ -161,7 +161,7 @@ KC_ESC,		KC_INS,		KC_LGUI,	KC_LCTL,	KC_LALT,
 KC_TRNS,	KC_TRNS,
 MO(NUM),
 MO(FNAV),	MO(SQWER),	KC_ENTER),
-/* Keymap 4: function / navigation layer
+/* Keymap 4: function / navigation / mouse layer
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |VolMut|                                  |      |  F6  |  F7  |  F8  |  F9  |  F10 |        |
@@ -198,7 +198,7 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 KC_TRNS,	KC_TRNS,
 KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_NO),
-/* Keymap 5: numeric layer, sends keypad codes
+/* Keymap 5: numeric keypad layer, sends keypad codes
  *
  * ,--------------------------------------------------.                                  ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |                                  |      |      | NumLo|   /  |   *  |   -  |        |
@@ -237,12 +237,10 @@ KC_TRNS,
 KC_TRNS,	KC_TRNS,	KC_TRNS)
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   switch(id) {
+    // keypad "double 0"
     case KP_00:
       if (record->event.pressed) {
         return MACRO( T(KP_0), D(KP_0), END );
@@ -252,12 +250,4 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       break;
   }
   return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
 };
