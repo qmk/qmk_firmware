@@ -80,6 +80,10 @@
   #include "sysex_tools.h"
 #endif
 
+#ifdef RAW_ENABLE
+	#include "raw_hid.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t keyboard_protocol = 1;
@@ -175,6 +179,80 @@ USB_ClassInfo_CDC_Device_t cdc_device =
 };
 #endif
 
+#ifdef RAW_ENABLE
+
+void raw_hid_send( uint8_t *data, uint8_t length )
+{
+	// TODO: implement variable size packet
+	if ( length != RAW_EPSIZE )
+	{
+		return;
+	}
+
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	{
+		return;
+	}
+
+	// TODO: decide if we allow calls to raw_hid_send() in the middle
+	// of other endpoint usage.
+	uint8_t ep = Endpoint_GetCurrentEndpoint();
+
+	Endpoint_SelectEndpoint(RAW_IN_EPNUM);
+
+	// Check to see if the host is ready to accept another packet
+	if (Endpoint_IsINReady())
+	{
+		// Write data
+		Endpoint_Write_Stream_LE(data, RAW_EPSIZE, NULL);
+		// Finalize the stream transfer to send the last packet
+		Endpoint_ClearIN();
+	}
+
+	Endpoint_SelectEndpoint(ep);
+}
+
+__attribute__ ((weak))
+void raw_hid_receive( uint8_t *data, uint8_t length )
+{
+	// Users should #include "raw_hid.h" in their own code
+	// and implement this function there. Leave this as weak linkage
+	// so users can opt to not handle data coming in.
+}
+
+static void raw_hid_task(void)
+{
+	// Create a temporary buffer to hold the read in data from the host
+	uint8_t data[RAW_EPSIZE];
+	bool data_read = false;
+
+	// Device must be connected and configured for the task to run
+	if (USB_DeviceState != DEVICE_STATE_Configured)
+	return;
+
+	Endpoint_SelectEndpoint(RAW_OUT_EPNUM);
+
+	// Check to see if a packet has been sent from the host
+	if (Endpoint_IsOUTReceived())
+	{
+		// Check to see if the packet contains data
+		if (Endpoint_IsReadWriteAllowed())
+		{
+			/* Read data */
+			Endpoint_Read_Stream_LE(data, sizeof(data), NULL);
+			data_read = true;
+		}
+
+		// Finalize the stream transfer to receive the last packet
+		Endpoint_ClearOUT();
+
+		if ( data_read )
+		{
+			raw_hid_receive( data, sizeof(data) );
+		}
+	}
+}
+#endif
 
 /*******************************************************************************
  * Console
@@ -294,6 +372,8 @@ void EVENT_USB_Device_WakeUp()
 #endif
 }
 
+
+
 #ifdef CONSOLE_ENABLE
 static bool console_flush = false;
 #define CONSOLE_FLUSH_SET(b)   do { \
@@ -311,6 +391,7 @@ void EVENT_USB_Device_StartOfFrame(void)
     Console_Task();
     console_flush = false;
 }
+
 #endif
 
 /** Event handler for the USB_ConfigurationChanged event.
@@ -337,6 +418,14 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     /* Setup Extra HID Report Endpoint */
     ConfigSuccess &= ENDPOINT_CONFIG(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
+
+#ifdef RAW_ENABLE
+    /* Setup Raw HID Report Endpoints */
+    ConfigSuccess &= ENDPOINT_CONFIG(RAW_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+									 RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
+    ConfigSuccess &= ENDPOINT_CONFIG(RAW_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
+									 RAW_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -1064,9 +1153,14 @@ int main(void)
         CDC_Device_USBTask(&cdc_device);
 #endif
 
+#ifdef RAW_ENABLE
+        raw_hid_task();
+#endif
+
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
         USB_USBTask();
 #endif
+
     }
 }
 
