@@ -27,8 +27,8 @@ Touche de fonction permettant de saisir les touches F1 à F12, les touches F1 à
 
 Touche de fonction permettant l'accès au pavé numérique comme sur la TypeMatrix 2030, mais sans avoir à déplacer la main droite : avec les doigts sur la rangée de repos, possibilité de saisir les chiffres "4", "5" et "6" comme sur un pavé numérique classique. Le double "0" de la TypeMatrix a été conservé, et gagne une possibilité de répétition en simples "0".
 
-Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier QWERTY. Cette compatibilité n'est pas parfaite (pas encore de gestion des accents mais ça devrait être faisable avec une disposition en qwerty international, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle.
+Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier QWERTY. Cette compatibilité n'est pas parfaite (pas encore de gestion des accents mais ça devrait être faisable avec une disposition en qwerty international, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle et pour des accès BIOS ou console en QWERTY.
 
-TODO : couche de compatibilité pour utiliser la disposition BÉPO sur un système configuré pour un clavier AZERTY.
+Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier AZERTY. Cette compatibilité n'est pas parfaite (pas de gestion des caractères non présents sur le clavier AZERTY, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle et pour faire du bureau à distance vers un système Windows sans BEPO.
 
 > Olivier Smedts <olivier@gid0.org>
