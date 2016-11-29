@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |NxtTab|PrvTab|                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      |      |       |TOG   |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |VAI   |VAD   |HUI   |       |SAI   |TOG   |MOD   |
  *                                 |      |      |------|       |------|      |      |
@@ -95,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_AMPR, KC_UNDS, KC_MINS, CM_SCLN, KC_PLUS, KC_TRNS,
        KC_TRNS, KC_PIPE, KC_AT,   KC_EQL,  KC_PERC,   KC_TRNS, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       RGB_TOG, KC_TRNS,
        RGB_SAI,
-       RGB_SAD, RGB_TOG, RGB_MOD
+       RGB_SAD, KC_TRNS, RGB_MOD
 ),
 /* Keymap 2: Media and mouse keys
  *
