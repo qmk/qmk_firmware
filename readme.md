@@ -911,7 +911,33 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 ## Unicode support
 
-You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout, see [this article](http://www.poynton.com/notes/misc/mac-unicode-hex-input.html) to learn more) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
+There are three Unicode keymap definition method available in QMK:
+
+### UNICODE_ENABLE
+
+Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in
+keymap file, where *n* is a 4 digit hexadecimal.
+
+### UNICODEMAP_ENABLE
+
+Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping
+table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file.
+The keycode function is `X(n)` where *n* is the array index of the mapping
+table.
+
+### UCIS_ENABLE
+
+TBD
+
+Unicode input in QMK works by inputing a sequence of characters to the OS,
+sort of like macro. Unfortunately, each OS has different ideas on how Unicode is inputted.
+
+This is the current list of Unicode input method in QMK:
+
+* UC_OSX: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
 ## Backlight Breathing
 
@@ -1156,6 +1182,135 @@ The firmware supports 5 different light effects, and the color (hue, saturation,
 ![WS2812 Wiring](https://raw.githubusercontent.com/jackhumbert/qmk_firmware/master/keyboards/planck/keymaps/yang/WS2812-wiring.jpg)
 
 Please note the USB port can only supply a limited amount of power to the keyboard (500mA by standard, however, modern computer and most usb hubs can provide 700+mA.). According to the data of NeoPixel from Adafruit, 30 WS2812 LEDs require a 5V 1A power supply, LEDs used in this mod should not more than 20.
+
+## PS/2 Mouse Support
+
+Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
+
+Then, decide whether to use USART (best), interrupts (better) or busywait (not recommended), and enable the relevant option.
+
+### Busywait version
+
+Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
+
+In rules.mk:
+
+```
+PS2_MOUSE_ENABLE = yes
+PS2_USE_BUSYWAIT = yes
+```
+
+In your keyboard config.h:
+
+```
+#ifdef PS2_USE_BUSYWAIT
+#   define PS2_CLOCK_PORT  PORTD
+#   define PS2_CLOCK_PIN   PIND
+#   define PS2_CLOCK_DDR   DDRD
+#   define PS2_CLOCK_BIT   1
+#   define PS2_DATA_PORT   PORTD
+#   define PS2_DATA_PIN    PIND
+#   define PS2_DATA_DDR    DDRD
+#   define PS2_DATA_BIT    2
+#endif
+```
+
+### Interrupt version
+
+The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
+
+In rules.mk:
+
+```
+PS2_MOUSE_ENABLE = yes
+PS2_USE_INT = yes
+```
+
+In your keyboard config.h:
+
+```
+#ifdef PS2_USE_INT
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   2
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    5
+
+#define PS2_INT_INIT()  do {    \
+    EICRA |= ((1<<ISC21) |      \
+              (0<<ISC20));      \
+} while (0)
+#define PS2_INT_ON()  do {      \
+    EIMSK |= (1<<INT2);         \
+} while (0)
+#define PS2_INT_OFF() do {      \
+    EIMSK &= ~(1<<INT2);        \
+} while (0)
+#define PS2_INT_VECT   INT2_vect
+#endif
+```
+
+### USART version
+
+To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
+
+In rules.mk:
+
+```
+PS2_MOUSE_ENABLE = yes
+PS2_USE_USART = yes
+```
+
+In your keyboard config.h:
+
+```
+#ifdef PS2_USE_USART
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   5
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    2
+
+/* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
+/* set DDR of CLOCK as input to be slave */
+#define PS2_USART_INIT() do {   \
+    PS2_CLOCK_DDR &= ~(1<<PS2_CLOCK_BIT);   \
+    PS2_DATA_DDR &= ~(1<<PS2_DATA_BIT);     \
+    UCSR1C = ((1 << UMSEL10) |  \
+              (3 << UPM10)   |  \
+              (0 << USBS1)   |  \
+              (3 << UCSZ10)  |  \
+              (0 << UCPOL1));   \
+    UCSR1A = 0;                 \
+    UBRR1H = 0;                 \
+    UBRR1L = 0;                 \
+} while (0)
+#define PS2_USART_RX_INT_ON() do {  \
+    UCSR1B = ((1 << RXCIE1) |       \
+              (1 << RXEN1));        \
+} while (0)
+#define PS2_USART_RX_POLL_ON() do { \
+    UCSR1B = (1 << RXEN1);          \
+} while (0)
+#define PS2_USART_OFF() do {    \
+    UCSR1C = 0;                 \
+    UCSR1B &= ~((1 << RXEN1) |  \
+                (1 << TXEN1));  \
+} while (0)
+#define PS2_USART_RX_READY      (UCSR1A & (1<<RXC1))
+#define PS2_USART_RX_DATA       UDR1
+#define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
+#define PS2_USART_RX_VECT       USART1_RX_vect
+#endif
+#endif
+#endif
+```
 
 ## Safety Considerations
 
