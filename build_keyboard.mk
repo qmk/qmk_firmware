@@ -131,6 +131,14 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
+ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
+	OPT_DEFS += -DAPI_SYSEX_ENABLE
+	SRC += $(QUANTUM_DIR)/api/api_sysex.c
+	OPT_DEFS += -DAPI_ENABLE
+	SRC += $(QUANTUM_DIR)/api.c
+    MIDI_ENABLE=yes
+endif
+
 ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
@@ -172,6 +180,12 @@ endif
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	OPT_DEFS += -DTAP_DANCE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(PRINTING_ENABLE)), yes)
+	OPT_DEFS += -DPRINTING_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
+	SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
