@@ -178,6 +178,10 @@ enum quantum_keycodes {
     // Right shift, close paren
     KC_RSPC,
 
+    // Printing
+    PRINT_ON,
+    PRINT_OFF,
+
     // always leave at the end
     SAFE_RANGE
 };
