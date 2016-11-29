@@ -425,6 +425,12 @@ void rgblight_timer_toggle(void) {
   dprintf("TIMER3 toggled.\n");
 }
 
+void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_setrgb(r, g, b);
+}
+
 void rgblight_task(void) {
   if (rgblight_timer_enabled) {
     // mode = 1, static light, do nothing here
