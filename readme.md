@@ -1318,14 +1318,27 @@ You probably don't want to "brick" your keyboard, making it impossible
 to rewrite firmware onto it.  Here are some of the parameters to show
 what things are (and likely aren't) too risky.
 
-- If a keyboard map does not include RESET, then, to get into DFU
+- If your keyboard map does not include RESET, then, to get into DFU
   mode, you will need to press the reset button on the PCB, which
-  requires unscrewing some bits.
+  requires unscrewing the bottom.
 - Messing with tmk_core / common files might make the keyboard
   inoperable
 - Too large a .hex file is trouble; `make dfu` will erase the block,
   test the size (oops, wrong order!), which errors out, failing to
-  flash the keyboard
+  flash the keyboard, leaving it in DFU mode.
+  - To this end, note that the maximum .hex file size on Planck is
+    7000h (28672 decimal)
+```Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
+Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
+
+Size after:
+   text    data     bss     dec     hex filename
+      0   22396       0   22396    577c planck_rev4_cbbrowne.hex
+```
+  - The above file is of size 22396/577ch, which is less than
+    28672/7000h
+  - As long as you have a suitable alternative .hex file around, you
+    can retry, loading that one
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in extra fruitsalad of options), so there is little risk
   there.
