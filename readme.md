@@ -348,6 +348,10 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio s
 
 Use this to debug changes to variable values, see the [tracing variables](#tracing-variables) section for more information.
 
+`API_SYSEX_ENABLE`
+
+This enables using the Quantum SYSEX API to send strings (somewhere?)
+
 ### Customizing Makefile options on a per-keymap basis
 
 If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options for your particular keyboard.
@@ -1339,6 +1343,9 @@ Size after:
     28672/7000h
   - As long as you have a suitable alternative .hex file around, you
     can retry, loading that one
+  - Some of the options you might specify in your keyboard's Makefile
+    consume extra memory; watch out for BOOTMAGIC_ENABLE,
+    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in extra fruitsalad of options), so there is little risk
   there.
