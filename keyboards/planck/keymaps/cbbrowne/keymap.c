@@ -62,6 +62,7 @@
    - How about Alt-F1 thru Alt-F8?
    - What's the keystroke to get from X to console these days?
    - A layer for doing console switching would not be a bad idea
+   - I haven't got page-up/page-down, let's have that...
 */
 
 enum layers {
@@ -117,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  QWERTY,  KEYPAD,  KEYPAD, ALTSLASH,   _______},
-  {_______, KEYPAD, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, KEYPAD, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_VOLD, KC_VOLU, KC_PGUP}
     },
 [_KEYPAD] = { /* Key Pad */
   {KC_ESC,  USERNAME,    MVERSION,   KC_F10,   KC_F11,  KC_F12,   KC_PGUP, KC_KP_ENTER, KC_7, KC_8, KC_9, KC_BSPC},
