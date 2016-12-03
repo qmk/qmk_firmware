@@ -32,20 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 6
 
-<<<<<<< HEAD
-// Planck PCB default pin-out
-// Change this to how you wired your keyboard
-// COLS: Left to right, ROWS: Top to bottom
-#ifdef USE_PRO_MICRO
-	#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7 }
-	#define MATRIX_COL_PINS { F4, C6, D7, F5, B4, B5 }
-	#define UNUSED_PINS
- #else
- 	#define MATRIX_ROW_PINS { B6, F7, B2, B3, B1 }
-	#define MATRIX_COL_PINS { F6, C6, D7, F5, B4, B5 }
-	#define UNUSED_PINS
- #endif
-=======
 /*
  * Keyboard Matrix Assignments
  *
@@ -65,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	//#define MATRIX_COL_PINS { F6, C6, D7, F5, B4, B5 }
 	//#define UNUSED_PINS
 
->>>>>>> 102a830bbdb302eb0951ec7910ab7c9feae272d1
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
