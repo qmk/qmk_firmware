@@ -1442,13 +1442,16 @@ what things are (and likely aren't) too risky.
   flash the keyboard, leaving it in DFU mode.
   - To this end, note that the maximum .hex file size on Planck is
     7000h (28672 decimal)
-```Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
+
+```
+Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
 Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
 
 Size after:
    text    data     bss     dec     hex filename
       0   22396       0   22396    577c planck_rev4_cbbrowne.hex
 ```
+
   - The above file is of size 22396/577ch, which is less than
     28672/7000h
   - As long as you have a suitable alternative .hex file around, you
