@@ -52,6 +52,7 @@
 #include "descriptor.h"
 #include "lufa.h"
 #include "quantum.h"
+#include <util/atomic.h>
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -67,13 +68,16 @@
 #ifdef BLUETOOTH_ENABLE
     #include "bluetooth.h"
 #endif
+#ifdef ADAFRUIT_BLE_ENABLE
+    #include "adafruit_ble.h"
+#endif
 
 #ifdef VIRTSER_ENABLE
     #include "virtser.h"
 #endif
 
 #if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
-    #include "rgblight.h"        
+    #include "rgblight.h"
 #endif
 
 #ifdef MIDI_ENABLE
@@ -297,7 +301,9 @@ void EVENT_USB_Device_WakeUp()
 #ifdef CONSOLE_ENABLE
 static bool console_flush = false;
 #define CONSOLE_FLUSH_SET(b)   do { \
-    uint8_t sreg = SREG; cli(); console_flush = b; SREG = sreg; \
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {\
+    console_flush = b; \
+  } \
 } while (0)
 
 // called every 1ms
@@ -501,9 +507,35 @@ static uint8_t keyboard_leds(void)
     return keyboard_led_stats;
 }
 
+#define SendToUSB 1
+#define SendToBT  2
+#define SendToBLE 4
+
+static inline uint8_t where_to_send(void) {
+#ifdef ADAFRUIT_BLE_ENABLE
+#if 0
+  if (adafruit_ble_is_connected()) {
+    // For testing, send to BLE as a priority
+    return SendToBLE;
+  }
+#endif
+
+  // This is the real policy
+  if (USB_DeviceState != DEVICE_STATE_Configured) {
+    if (adafruit_ble_is_connected()) {
+      return SendToBLE;
+    }
+  }
+#endif
+  return ((USB_DeviceState == DEVICE_STATE_Configured) ? SendToUSB : 0)
+#ifdef BLUETOOTH_ENABLE
+    || SendToBT
+#endif
+    ;
+}
+
 static void send_keyboard(report_keyboard_t *report)
 {
-
 #ifdef BLUETOOTH_ENABLE
     bluefruit_serial_send(0xFD);
     for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
@@ -512,9 +544,17 @@ static void send_keyboard(report_keyboard_t *report)
 #endif
 
     uint8_t timeout = 255;
+    uint8_t where = where_to_send();
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
+    }
+#endif
+
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
@@ -567,8 +607,17 @@ static void send_mouse(report_mouse_t *report)
 
     uint8_t timeout = 255;
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+    uint8_t where = where_to_send();
+
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      // FIXME: mouse buttons
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
+    }
+#endif
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -626,9 +675,16 @@ static void send_consumer(uint16_t data)
 #endif
 
     uint8_t timeout = 255;
+    uint8_t where = where_to_send();
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      adafruit_ble_send_consumer_key(data, 0);
+    }
+#endif
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     report_extra_t r = {
         .report_id = REPORT_ID_CONSUMER,
@@ -1038,7 +1094,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #ifndef BLUETOOTH_ENABLE
+        #if !defined(BLUETOOTH_ENABLE) && !defined(ADAFRUIT_BLE_ENABLE)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
@@ -1054,9 +1110,13 @@ int main(void)
         midi_device_process(&midi_device);
         // MIDI_Task();
 #endif
-        
+
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();
+#endif
+
+#ifdef ADAFRUIT_BLE_ENABLE
+        adafruit_ble_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
