@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 Maxipad keyboard firmware
-======================
 
 ## Quantum MK Firmware
 
