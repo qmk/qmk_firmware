@@ -66,6 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PS2_MOUSE_SCROLL_MASK       
 #define PS2_MOUSE_SCROLL_MASK           0xFF 
 #endif
+#ifndef PS2_MOUSE_INIT_DELAY
+#define PS2_MOUSE_INIT_DELAY            1000
+#endif
 
 enum ps2_mouse_command_e {
     PS2_MOUSE_RESET = 0xFF,
