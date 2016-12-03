@@ -88,7 +88,7 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 void ps2_mouse_init(void) {
     ps2_host_init();
 
-    _delay_ms(1000);    // wait for powering up
+    _delay_ms(PS2_MOUSE_INIT_DELAY);    // wait for powering up
 
     PS2_MOUSE_SEND(PS2_MOUSE_RESET, "ps2_mouse_init: sending reset");
 
