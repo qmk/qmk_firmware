@@ -19,6 +19,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define  PS2_MOUSE_H
 
 #include <stdbool.h>
+#include "debug.h"
+
+#define PS2_MOUSE_SEND(command, message) \
+do { \
+   uint8_t rcv = ps2_host_send(command); \
+   if (debug_mouse) { \
+        print((message)); \
+        xprintf(" command: %X, result: %X, error: %X \n", command, rcv, ps2_error); \
+    } \
+} while(0)
+
+#define PS2_MOUSE_SEND_SAFE(command, message) \
+do { \
+    if (PS2_MOUSE_STREAM_MODE == ps2_mouse_mode) { \
+        ps2_mouse_disable_data_reporting(); \
+    } \
+    PS2_MOUSE_SEND(command, message); \
+    if (PS2_MOUSE_STREAM_MODE == ps2_mouse_mode) { \
+        ps2_mouse_enable_data_reporting(); \
+    } \
+} while(0)
+
+#define PS2_MOUSE_SET_SAFE(command, value, message) \
+do { \
+    if (PS2_MOUSE_STREAM_MODE == ps2_mouse_mode) { \
+        ps2_mouse_disable_data_reporting(); \
+    } \
+    PS2_MOUSE_SEND(command, message); \
+    PS2_MOUSE_SEND(value, "Sending value"); \
+    if (PS2_MOUSE_STREAM_MODE == ps2_mouse_mode) { \
+        ps2_mouse_enable_data_reporting(); \
+    } \
+} while(0)
+
+#define PS2_MOUSE_RECEIVE(message) \
+do { \
+   uint8_t rcv = ps2_host_recv_response(); \
+   if (debug_mouse) { \
+        print((message)); \
+        xprintf(" result: %X, error: %X \n", rcv, ps2_error); \
+    } \
+} while(0)
+
+static enum ps2_mouse_mode_e {
+    PS2_MOUSE_STREAM_MODE,
+    PS2_MOUSE_REMOTE_MODE,
+} ps2_mouse_mode = PS2_MOUSE_STREAM_MODE;
 
 /*
  * Data format:
@@ -106,6 +153,8 @@ typedef enum ps2_mouse_sample_rate_e {
 } ps2_mouse_sample_rate_t;
 
 void ps2_mouse_init(void);
+
+void ps2_mouse_init_user(void);
 
 void ps2_mouse_task(void);
 
