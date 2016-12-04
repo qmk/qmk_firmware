@@ -9,7 +9,7 @@
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B1
-#define RGBLIGHT_TIMER
+#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
