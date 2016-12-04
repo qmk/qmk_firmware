@@ -45,19 +45,19 @@ Before you are able to compile, you'll need to install an environment for AVR de
 
 ### Windows 10
 
-It's still recommended to use the method for Vista and later below. The reason for this is that the Windows 10 Subsystem for Linux lacks [USB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it's not possible to flash the firmware to the keyboard. Please add your vote to the link!
+Due to some issues with the "Windows (Vista and later)" instructions below, we now recommend following these instructions if you use Windows, which will allow you to use the Windows Subsystem for Linux to compile the firmware. If you are not using Windows 10 with the Anniversary Update installed (which came out in July 2016), you will need to use one of the other methods, such as Docker, Vagrant, or the instructions for Vista and later. 
 
-That said, it's still possible to use it for compilation. And recommended, if you need to compile much, since it's much faster than at least Cygwin (which is also supported, but currently lacking documentation). I haven't tried the method below, so I'm unable to tell.
+If you use this method, you will need to use a standalone tool to flash the firmware to the keyboard after you compile it. We recommend the official [QMK Firmware Flasher](https://github.com/jackhumbert/qmk_firmware_flasher/releases). This is because the Windows 10 Subsystem for Linux lacks [libUSB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it can't access the keyboard's microcontroller. Please add your vote for Microsoft to fix this issue using the link!
 
 Here are the steps
 
 1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
-2. If you have previously cloned the repository using the normal Git bash, you will need to clean up the line endings. If you have cloned it after 20th of August 2016, you are likely fine. To clean up the line endings do the following
-   1. Make sure that you have no changes you haven't committed by running `git status`, if you do commit them first
-   2. From within the Git bash run `git rm --cached -r .`
-   3. Followed by `git reset --hard`
-3. Start the "Bash On Ubuntu On Windows" from the start menu
-4. With the bash open, navigate to your Git checkout. The harddisk can be accessed from `/mnt` for example `/mnt/c` for the `c:\` drive.
+2. If you have  cloned the repository using git before August 20, 2016, clean up the line endings from wherever you currently access git:
+   1. Make sure that you have no changes you haven't committed by running `git status`. ANY UNCOMMITTED CHANGES WILL BE PERMANENTLY LOST.
+   2. Run `git rm --cached -r .`
+   3. Run `git reset --hard`
+3. Open "Bash On Ubuntu On Windows" from the start menu
+4. With the bash window open, navigate to your copy of the [qmk_firmware repository](https://github.com/jackhumbert/qmk_firmware) using the `cd` command. The harddisks can be accessed from `/mnt/<driveletter>`. For example, your main hard drive (C:) can be accessed by executiing the command `cd /mnt/c`. If your username is John and the qmk_firmware folder is in your Downloads folder, you can move to it with the command `cd /mnt/c/Users/John/Downloads/qmk_firmware`. You can use the Tab key as you go to help you autocomplete the folder names.
 5. Run `sudo util/install_dependencies.sh`.
 6. After a while the installation will finish, and you are good to go
 
@@ -347,6 +347,10 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio s
 `VARIABLE_TRACE`
 
 Use this to debug changes to variable values, see the [tracing variables](#tracing-variables) section for more information.
+
+`API_SYSEX_ENABLE`
+
+This enables using the Quantum SYSEX API to send strings (somewhere?)
 
 ### Customizing Makefile options on a per-keymap basis
 
@@ -911,7 +915,33 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 ## Unicode support
 
-You can currently send 4 hex digits with your OS-specific modifier key (RALT for OSX with the "Unicode Hex Input" layout, see [this article](http://www.poynton.com/notes/misc/mac-unicode-hex-input.html) to learn more) - this is currently limited to supporting one OS at a time, and requires a recompile for switching. 8 digit hex codes are being worked on. The keycode function is `UC(n)`, where *n* is a 4 digit hexidecimal. Enable from the Makefile.
+There are three Unicode keymap definition method available in QMK:
+
+### UNICODE_ENABLE
+
+Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in
+keymap file, where *n* is a 4 digit hexadecimal.
+
+### UNICODEMAP_ENABLE
+
+Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping
+table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file.
+The keycode function is `X(n)` where *n* is the array index of the mapping
+table.
+
+### UCIS_ENABLE
+
+TBD
+
+Unicode input in QMK works by inputing a sequence of characters to the OS,
+sort of like macro. Unfortunately, each OS has different ideas on how Unicode is inputted.
+
+This is the current list of Unicode input method in QMK:
+
+* UC_OSX: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
 ## Backlight Breathing
 
@@ -1136,12 +1166,12 @@ For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring 
 
     RGBLIGHT_ENABLE = yes
 
-In order to use the underglow timer functions, you need to have `#define RGBLIGHT_TIMER` in your `config.h`, and have audio disabled (`AUDIO_ENABLE = no` in your Makefile).
+In order to use the underglow animation functions, you need to have `#define RGBLIGHT_ANIMATIONS` in your `config.h`.
 
 Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the `F4` pin by default:
 
     #define RGB_DI_PIN F4     // The pin your RGB strip is wired to
-    #define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
+    #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 14     // Number of LEDs
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
@@ -1161,7 +1191,7 @@ Please note the USB port can only supply a limited amount of power to the keyboa
 
 Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
 
-Then, decide whether to use USART (best), interrupts (better) or busywait (not recommended), and enable the relevant option.
+There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
 ### Busywait version
 
@@ -1286,20 +1316,149 @@ In your keyboard config.h:
 #endif
 ```
 
+### Additional Settings
+
+#### PS/2 mouse features
+
+These enable settings supported by the PS/2 mouse protocol: http://www.computer-engineering.org/ps2mouse/
+
+```
+/* Use remote mode instead of the default stream mode (see link) */
+#define PS2_MOUSE_USE_REMOTE_MODE  
+
+/* Enable the scrollwheel or scroll gesture on your mouse or touchpad */
+#define PS2_MOUSE_ENABLE_SCROLLING
+
+/* Some mice will need a scroll mask to be configured. The default is 0xFF. */
+#define PS2_MOUSE_SCROLL_MASK 0x0F
+
+/* Applies a transformation to the movement before sending to the host (see link) */
+#define PS2_MOUSE_USE_2_1_SCALING
+
+/* The time to wait after initializing the ps2 host */
+#define PS2_MOUSE_INIT_DELAY 1000 /* Default */
+```
+
+You can also call the following functions from ps2_mouse.h
+
+```
+void ps2_mouse_disable_data_reporting(void);
+
+void ps2_mouse_enable_data_reporting(void);
+
+void ps2_mouse_set_remote_mode(void);
+
+void ps2_mouse_set_stream_mode(void);
+
+void ps2_mouse_set_scaling_2_1(void);
+
+void ps2_mouse_set_scaling_1_1(void);
+
+void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
+
+void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
+```
+
+#### Fine control
+
+Use the following defines to change the sensitivity and speed of the mouse.
+Note: you can also use `ps2_mouse_set_resolution` for the same effect (not supported on most touchpads).
+
+```
+#define PS2_MOUSE_X_MULTIPLIER 3
+#define PS2_MOUSE_Y_MULTIPLIER 3
+#define PS2_MOUSE_V_MULTIPLIER 1
+```
+
+#### Scroll button
+
+If you're using a trackpoint, you will likely want to be able to use it for scrolling.
+Its possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
+To enable the feature, you must set a scroll button mask as follows:
+
+```
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+```
+
+To disable the scroll button feature:
+
+```
+#define PS2_MOUSE_SCROLL_BTN_MASK 0
+```
+
+The available buttons are:
+
+```
+#define PS2_MOUSE_BTN_LEFT      0
+#define PS2_MOUSE_BTN_RIGHT     1
+#define PS2_MOUSE_BTN_MIDDLE    2
+```
+
+You can also combine buttons in the mask by `|`ing them together.
+
+Once you've configured your scroll button mask, you must configure the scroll button send interval.
+This is the interval before which if the scroll buttons were released they would be sent to the host.
+After this interval, they will cause the mouse to scroll and will not be sent.
+
+```
+#define PS2_MOUSE_SCROLL_BTN_SEND 300 /* Default */
+```
+
+To disable sending the scroll buttons:
+```
+#define PS2_MOUSE_SCROLL_BTN_SEND 0
+```
+
+Fine control over the scrolling is supported with the following defines:
+
+```
+#define PS2_MOUSE_SCROLL_DIVISOR_H 2
+#define PS2_MOUSE_SCROLL_DIVISOR_V 2
+```
+
+#### Debug settings
+
+To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
+
+```
+/* To debug the mouse reports */
+#define PS2_MOUSE_DEBUG_HID
+#define PS2_MOUSE_DEBUG_RAW
+```
+
 ## Safety Considerations
 
 You probably don't want to "brick" your keyboard, making it impossible
 to rewrite firmware onto it.  Here are some of the parameters to show
 what things are (and likely aren't) too risky.
 
-- If a keyboard map does not include RESET, then, to get into DFU
+- If your keyboard map does not include RESET, then, to get into DFU
   mode, you will need to press the reset button on the PCB, which
-  requires unscrewing some bits.
+  requires unscrewing the bottom.
 - Messing with tmk_core / common files might make the keyboard
   inoperable
 - Too large a .hex file is trouble; `make dfu` will erase the block,
   test the size (oops, wrong order!), which errors out, failing to
-  flash the keyboard
+  flash the keyboard, leaving it in DFU mode.
+  - To this end, note that the maximum .hex file size on Planck is
+    7000h (28672 decimal)
+
+```
+Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
+Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
+
+Size after:
+   text    data     bss     dec     hex filename
+      0   22396       0   22396    577c planck_rev4_cbbrowne.hex
+```
+
+  - The above file is of size 22396/577ch, which is less than
+    28672/7000h
+  - As long as you have a suitable alternative .hex file around, you
+    can retry, loading that one
+  - Some of the options you might specify in your keyboard's Makefile
+    consume extra memory; watch out for BOOTMAGIC_ENABLE,
+    MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
   you throw in extra fruitsalad of options), so there is little risk
   there.

@@ -51,6 +51,8 @@
 
 #include "descriptor.h"
 #include "lufa.h"
+#include "quantum.h"
+#include <util/atomic.h>
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -66,9 +68,20 @@
 #ifdef BLUETOOTH_ENABLE
     #include "bluetooth.h"
 #endif
+#ifdef ADAFRUIT_BLE_ENABLE
+    #include "adafruit_ble.h"
+#endif
 
 #ifdef VIRTSER_ENABLE
     #include "virtser.h"
+#endif
+
+#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+    #include "rgblight.h"
+#endif
+
+#ifdef MIDI_ENABLE
+  #include "sysex_tools.h"
 #endif
 
 uint8_t keyboard_idle = 0;
@@ -79,9 +92,9 @@ static uint8_t keyboard_led_stats = 0;
 static report_keyboard_t keyboard_report_sent;
 
 #ifdef MIDI_ENABLE
-void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
-void usb_get_midi(MidiDevice * device);
-void midi_usb_init(MidiDevice * device);
+static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
+static void usb_get_midi(MidiDevice * device);
+static void midi_usb_init(MidiDevice * device);
 #endif
 
 /* Host driver */
@@ -288,7 +301,9 @@ void EVENT_USB_Device_WakeUp()
 #ifdef CONSOLE_ENABLE
 static bool console_flush = false;
 #define CONSOLE_FLUSH_SET(b)   do { \
-    uint8_t sreg = SREG; cli(); console_flush = b; SREG = sreg; \
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {\
+    console_flush = b; \
+  } \
 } while (0)
 
 // called every 1ms
@@ -492,9 +507,35 @@ static uint8_t keyboard_leds(void)
     return keyboard_led_stats;
 }
 
+#define SendToUSB 1
+#define SendToBT  2
+#define SendToBLE 4
+
+static inline uint8_t where_to_send(void) {
+#ifdef ADAFRUIT_BLE_ENABLE
+#if 0
+  if (adafruit_ble_is_connected()) {
+    // For testing, send to BLE as a priority
+    return SendToBLE;
+  }
+#endif
+
+  // This is the real policy
+  if (USB_DeviceState != DEVICE_STATE_Configured) {
+    if (adafruit_ble_is_connected()) {
+      return SendToBLE;
+    }
+  }
+#endif
+  return ((USB_DeviceState == DEVICE_STATE_Configured) ? SendToUSB : 0)
+#ifdef BLUETOOTH_ENABLE
+    || SendToBT
+#endif
+    ;
+}
+
 static void send_keyboard(report_keyboard_t *report)
 {
-
 #ifdef BLUETOOTH_ENABLE
     bluefruit_serial_send(0xFD);
     for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
@@ -503,9 +544,17 @@ static void send_keyboard(report_keyboard_t *report)
 #endif
 
     uint8_t timeout = 255;
+    uint8_t where = where_to_send();
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
+    }
+#endif
+
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     /* Select the Keyboard Report Endpoint */
 #ifdef NKRO_ENABLE
@@ -558,8 +607,17 @@ static void send_mouse(report_mouse_t *report)
 
     uint8_t timeout = 255;
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+    uint8_t where = where_to_send();
+
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      // FIXME: mouse buttons
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
+    }
+#endif
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     /* Select the Mouse Report Endpoint */
     Endpoint_SelectEndpoint(MOUSE_IN_EPNUM);
@@ -617,9 +675,16 @@ static void send_consumer(uint16_t data)
 #endif
 
     uint8_t timeout = 255;
+    uint8_t where = where_to_send();
 
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-        return;
+#ifdef ADAFRUIT_BLE_ENABLE
+    if (where & SendToBLE) {
+      adafruit_ble_send_consumer_key(data, 0);
+    }
+#endif
+    if (!(where & SendToUSB)) {
+      return;
+    }
 
     report_extra_t r = {
         .report_id = REPORT_ID_CONSUMER,
@@ -709,7 +774,7 @@ int8_t sendchar(uint8_t c)
  ******************************************************************************/
 
 #ifdef MIDI_ENABLE
-void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
+static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
   MIDI_EventPacket_t event;
   event.Data1 = byte0;
   event.Data2 = byte1;
@@ -769,7 +834,7 @@ void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byt
   USB_USBTask();
 }
 
-void usb_get_midi(MidiDevice * device) {
+static void usb_get_midi(MidiDevice * device) {
   MIDI_EventPacket_t event;
   while (MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, &event)) {
 
@@ -799,12 +864,12 @@ void usb_get_midi(MidiDevice * device) {
   USB_USBTask();
 }
 
-void midi_usb_init(MidiDevice * device){
+static void midi_usb_init(MidiDevice * device){
   midi_device_init(device);
   midi_device_set_send_func(device, usb_send_func);
   midi_device_set_pre_input_process_func(device, usb_get_midi);
 
-  SetupHardware();
+  // SetupHardware();
   sei();
 }
 
@@ -1029,7 +1094,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #ifndef BLUETOOTH_ENABLE
+        #if !defined(BLUETOOTH_ENABLE) && !defined(ADAFRUIT_BLE_ENABLE)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
@@ -1039,11 +1104,20 @@ int main(void)
         }
         #endif
 
+        keyboard_task();
+
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
         // MIDI_Task();
 #endif
-        keyboard_task();
+
+#if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+        rgblight_task();
+#endif
+
+#ifdef ADAFRUIT_BLE_ENABLE
+        adafruit_ble_task();
+#endif
 
 #ifdef VIRTSER_ENABLE
         virtser_task();
@@ -1077,15 +1151,38 @@ void fallthrough_callback(MidiDevice * device,
 #endif
 }
 
+
 void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val) {
   //sending it back on the next channel
-  midi_send_cc(device, (chan + 1) % 16, num, val);
+  // midi_send_cc(device, (chan + 1) % 16, num, val);
 }
 
-void sysex_callback(MidiDevice * device,
-    uint16_t start, uint8_t length, uint8_t * data) {
-  for (int i = 0; i < length; i++)
-    midi_send_cc(device, 15, 0x7F & data[i], 0x7F & (start + i));
+uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
+
+void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
+    #ifdef API_SYSEX_ENABLE
+        // SEND_STRING("\n");
+        // send_word(start);
+        // SEND_STRING(": ");
+        for (uint8_t place = 0; place < length; place++) {
+            // send_byte(*data);
+            midi_buffer[start + place] = *data;
+            if (*data == 0xF7) {
+                // SEND_STRING("\nRD: ");
+                // for (uint8_t i = 0; i < start + place + 1; i++){
+                //     send_byte(midi_buffer[i]);
+                // SEND_STRING(" ");
+                // }
+                uint8_t * decoded = malloc(sizeof(uint8_t) * (sysex_decoded_length(start + place - 4)));
+                uint16_t decode_length = sysex_decode(decoded, midi_buffer + 4, start + place - 4);
+                process_api(decode_length, decoded);
+            }
+            // SEND_STRING(" ");
+            data++;
+        }
+    #endif
 }
+
+
 #endif
