@@ -11,6 +11,8 @@
 #include "process_unicode.h"
 #include "quantum.h"
 #include "rgbsps.h"
+#include "ps2_mouse.h"
+#include "ps2.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
 // #define RGBLED_NUM 5
@@ -282,25 +284,25 @@ void led_layer_func(void) {
   rgbsps_set(LED_K, 15, 0, 15);
   rgbsps_set(LED_L, 15, 0, 15);
 
-  rgbsps_set(LED_U, 15, 0, 10);
-  rgbsps_set(LED_O, 15, 0, 10);
-  rgbsps_set(LED_COMM, 15, 0, 10);
-  rgbsps_set(LED_DOT, 15, 0, 10);
-  rgbsps_set(LED_SCLN, 15, 0, 10);
-  rgbsps_set(LED_P, 15, 0, 10);
+  rgbsps_set(LED_U, 15, 0, 0);
+  rgbsps_set(LED_O, 15, 0, 0);
+  rgbsps_set(LED_COMM, 15, 0, 0);
+  rgbsps_set(LED_DOT, 15, 0, 0);
+  rgbsps_set(LED_SCLN, 15, 0, 0);
+  rgbsps_set(LED_P, 15, 0, 0);
 
-  rgbsps_set(LED_Q, 10, 0, 15);
-  rgbsps_set(LED_W, 10, 0, 15);
-  rgbsps_set(LED_E, 10, 0, 15);
-  rgbsps_set(LED_R, 10, 0, 15);
-  rgbsps_set(LED_A, 10, 0, 15);
-  rgbsps_set(LED_S, 10, 0, 15);
-  rgbsps_set(LED_D, 10, 0, 15);
-  rgbsps_set(LED_F, 10, 0, 15);
-  rgbsps_set(LED_Z, 10, 0, 15);
-  rgbsps_set(LED_X, 10, 0, 15);
-  rgbsps_set(LED_C, 10, 0, 15);
-  rgbsps_set(LED_V, 10, 0, 15);
+  rgbsps_set(LED_Q, 0, 15, 0);
+  rgbsps_set(LED_W, 0, 15, 0);
+  rgbsps_set(LED_E, 0, 15, 0);
+  rgbsps_set(LED_R, 0, 15, 0);
+  rgbsps_set(LED_A, 0, 15, 0);
+  rgbsps_set(LED_S, 0, 15, 0);
+  rgbsps_set(LED_D, 0, 15, 0);
+  rgbsps_set(LED_F, 0, 15, 0);
+  rgbsps_set(LED_Z, 0, 15, 0);
+  rgbsps_set(LED_X, 0, 15, 0);
+  rgbsps_set(LED_C, 0, 15, 0);
+  rgbsps_set(LED_V, 0, 15, 0);
 
   rgbsps_send();
 }
@@ -361,7 +363,15 @@ void led_layer_num(void) {
 }
 
 void led_layer_emoji(void) {
-  rgbsps_setall(15, 15, 0);
+  for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
+    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 15, 0);
+  }
+  for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
+    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 15, 0);
+  }
+  for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
+    rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 0);
+  }
 
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
   rgbsps_set(LED_IND_NUM, 0, 0, 0);
@@ -723,3 +733,109 @@ void shutdown_user()
 }
 
 #endif
+
+
+void ps2_mouse_init_user() {
+    // set TrackPoint sensitivity
+    PS2_MOUSE_SEND(0xE2, "set trackpoint sensitivity: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set trackpoint sensitivity: 0x81");
+    PS2_MOUSE_SEND(0x4A, "set trackpoint sensitivity: 0x4A");
+    PS2_MOUSE_SEND(0x60, "set trackpoint sensitivity: 0x60");
+
+    // set TrackPoint speed
+    // (transfer function upper plateau speed)
+    PS2_MOUSE_SEND(0xE2, "set trackpoint speed: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set trackpoint speed: 0x81");
+    PS2_MOUSE_SEND(0x60, "set trackpoint speed: 0x60");
+    PS2_MOUSE_SEND(0x90, "set trackpoint speed: 0x90");
+
+    // set TrackPoint Negative Inertia factor
+    PS2_MOUSE_SEND(0xE2, "set negative inertia factor: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set negative inertia factor: 0x81");
+    PS2_MOUSE_SEND(0x4D, "set negative inertia factor: 0x4D");
+    PS2_MOUSE_SEND(0x03, "set negative inertia factor: 0x03");
+
+    // disable up threshold (click)
+    PS2_MOUSE_SEND(0xE2, "set disable up threshold: 0xE2");
+    PS2_MOUSE_SEND(0x47, "set disable up threshold: 0x47");
+    PS2_MOUSE_SEND(0x2C, "set disable up threshold: 0x2C");
+    PS2_MOUSE_SEND(0x01, "set disable up threshold: 0x01");
+
+    // enable TrackPoint Press to Select (PtS)
+    // print("ps2_mouse_init: send 0xE2: ");
+    // rcv = ps2_host_send(0xE2);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x47: ");
+    // rcv = ps2_host_send(0x47);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x2C: ");
+    // rcv = ps2_host_send(0x2C);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x00: ");
+    // rcv = ps2_host_send(0x00);
+    // phex(rcv); phex(ps2_error); print("\n");
+
+    // set TrackPoint Press to Select threshold
+    // print("ps2_mouse_init: send 0xE2: ");
+    // rcv = ps2_host_send(0xE2);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x81: ");
+    // rcv = ps2_host_send(0x81);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x5C: ");
+    // rcv = ps2_host_send(0x5C);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // // default PtS threshold is 0x08
+    // print("ps2_mouse_init: send 0x04: ");
+    // rcv = ps2_host_send(0x04);
+    // phex(rcv); phex(ps2_error); print("\n");
+
+    // set TrackPoint Press to Select time constant (zTc)
+    // print("ps2_mouse_init: send 0xE2: ");
+    // rcv = ps2_host_send(0xE2);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x81: ");
+    // rcv = ps2_host_send(0x81);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // print("ps2_mouse_init: send 0x5E: ");
+    // rcv = ps2_host_send(0x5E);
+    // phex(rcv); phex(ps2_error); print("\n");
+    // // default zTc is 0x26
+    // print("ps2_mouse_init: send 0x45: ");
+    // rcv = ps2_host_send(0x45);
+    // phex(rcv); phex(ps2_error); print("\n");
+
+    /*
+    // set TrackPoint Press to Select Jenks Curvature (jkcur)
+    print("ps2_mouse_init: send 0xE2: ");
+    rcv = ps2_host_send(0xE2);
+    phex(rcv); phex(ps2_error); print("\n");
+    print("ps2_mouse_init: send 0x81: ");
+    rcv = ps2_host_send(0x81);
+    phex(rcv); phex(ps2_error); print("\n");
+    print("ps2_mouse_init: send 0x5D: ");
+    rcv = ps2_host_send(0x5D);
+    phex(rcv); phex(ps2_error); print("\n");
+    // default jkcur is 0x87
+    print("ps2_mouse_init: send 0x87: ");
+    rcv = ps2_host_send(0x87);
+    phex(rcv); phex(ps2_error); print("\n");
+    */
+
+    /*
+    // set TrackPoint Minimum Drag (mindrag)
+    print("ps2_mouse_init: send 0xE2: ");
+    rcv = ps2_host_send(0xE2);
+    phex(rcv); phex(ps2_error); print("\n");
+    print("ps2_mouse_init: send 0x81: ");
+    rcv = ps2_host_send(0x81);
+    phex(rcv); phex(ps2_error); print("\n");
+    print("ps2_mouse_init: send 0x59: ");
+    rcv = ps2_host_send(0x59);
+    phex(rcv); phex(ps2_error); print("\n");
+    // default PtS mindrag is 0x14
+    print("ps2_mouse_init: send 0x14: ");
+    rcv = ps2_host_send(0x14);
+    phex(rcv); phex(ps2_error); print("\n");
+    */
+}
