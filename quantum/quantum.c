@@ -134,6 +134,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef UCIS_ENABLE
     process_ucis(keycode, record) &&
   #endif
+  #ifdef PRINTING_ENABLE
+    process_printer(keycode, record) &&
+  #endif
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
   #endif
@@ -806,6 +809,51 @@ void backlight_set(uint8_t level)
 #endif // backlight
 
 
+// Functions for spitting out values
+//
+
+void send_dword(uint32_t number) { // this might not actually work
+    uint16_t word = (number >> 16);
+    send_word(word);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    uint8_t byte = number >> 8;
+    send_byte(byte);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    uint8_t nibble = number >> 4;
+    send_nibble(nibble);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number) {
+        case 0:
+            register_code(KC_0);
+            unregister_code(KC_0);
+            break;
+        case 1 ... 9:
+            register_code(KC_1 + (number - 1));
+            unregister_code(KC_1 + (number - 1));
+            break;
+        case 0xA ... 0xF:
+            register_code(KC_A + (number - 0xA));
+            unregister_code(KC_A + (number - 0xA));
+            break;
+    }
+}
+
+void api_send_unicode(uint32_t unicode) {
+#ifdef API_ENABLE
+    uint8_t chunk[4];
+    dword_to_bytes(unicode, chunk);
+    MT_SEND_DATA(DT_UNICODE, chunk, 5);
+#endif
+}
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {

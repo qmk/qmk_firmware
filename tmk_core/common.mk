@@ -50,6 +50,10 @@ ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
 endif
 
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRAW_ENABLE
+endif
+
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     TMK_COMMON_DEFS += -DCONSOLE_ENABLE
 else
@@ -79,6 +83,10 @@ endif
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/backlight.c
     TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
+endif
+
+ifeq ($(strip $(ADAFRUIT_BLE_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DADAFRUIT_BLE_ENABLE
 endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
