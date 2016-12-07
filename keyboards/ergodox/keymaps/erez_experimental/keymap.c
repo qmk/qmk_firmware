@@ -7,6 +7,12 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+enum custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+  RGB_FF00BB // always start with RGB_
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -65,33 +71,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |NxtTab|PrvTab|                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      |      |       |TOG   |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
+ *                                 |VAI   |VAD   |HUI   |       |SAI   |      |MOD   |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |HUD   |       |SAD   |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = KEYMAP(
        // left hand
-       KC_TRNS, KC_F1,  KC_F2,  KC_F3,         KC_F4,        KC_F5,   KC_TRNS,
+       RGB_FF00BB, KC_F1,  KC_F2,  KC_F3,      KC_F4,        KC_F5,   KC_TRNS,
        KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
        KC_TRNS, KC_1,   KC_2,   KC_3,          KC_4,         KC_5,
        KC_TRNS, KC_6,   KC_7,   KC_8,          KC_9,         KC_0,    KC_TRNS,
        KC_TRNS, KC_TRNS,KC_TRNS,LCTL(KC_PGUP), LCTL(KC_PGDN),
                                                                               KC_TRNS,KC_TRNS,
-                                                                                      KC_TRNS,
-                                                                      KC_TRNS,KC_TRNS,KC_TRNS,
+                                                                                      RGB_HUI,
+                                                                      RGB_VAI,RGB_VAD,RGB_HUD,
                // right hand
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F12,
                 KC_AMPR, KC_UNDS, KC_MINS, CM_SCLN, KC_PLUS, KC_TRNS,
        KC_TRNS, KC_PIPE, KC_AT,   KC_EQL,  KC_PERC,   KC_TRNS, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       RGB_TOG, KC_TRNS,
+       RGB_SAI,
+       RGB_SAD, KC_TRNS, RGB_MOD
 ),
 /* Keymap 2: Media and mouse keys
  *
@@ -151,6 +157,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
 
 };
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // dynamically generate these.
+    case RGB_FF00BB:
+      if (record->event.pressed) {
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_enable();
+          rgblight_mode(1);
+          rgblight_setrgb(0xff,0x00,0xbb);
+        #endif
+      }
+      return false;
+      break;
+  }
+  return true;
+}
 
 LEADER_EXTERNS();
 
