@@ -22,6 +22,7 @@ enum {
 
   // tap dance
   TD_FLSH, // flash keyboard
+  TD_LAYR, // SYSCTL and MOUSE layer switch
 };
 
 // application selection
@@ -61,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
 
-                                                          ,TG(BEGIN)  ,TG(QWERTY)
-                                                                      ,TG(CARPALX)
-                                                  ,KC_BSPC  ,KC_LSFT  ,TG(SYSCTL)
+                                                          ,TG(BEGIN)  ,TD(TD_LAYR)
+                                                                      ,TG(MOUSE)
+                                                  ,KC_BSPC  ,KC_LSFT  ,TD(TD_LAYR)
 
                 ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
                 ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
@@ -444,6 +445,31 @@ void flash_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_3_off();
 }
 
+// SYSCTL on first tap, MOUSE ON second tap
+void layers_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(state->count) {
+  case 1:
+    switch(layer) {
+    case SYSCTL:
+      layer_off(SYSCTL);
+      break;
+    case MOUSE:
+      layer_off(MOUSE);
+      break;
+    default:
+      layer_on(SYSCTL);
+      break;
+    }
+    break;
+  case 2:
+    layer_on(MOUSE);
+    break;
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED( flash_each_tap, flash_dance_finished, flash_dance_reset ),
+  [TD_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, layers_dance_finished, NULL ),
 };
