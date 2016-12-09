@@ -379,6 +379,25 @@ void matrix_init_user() {
   ergodox_led_all_off();
 }
 
+// light up leds based on the layer
+void matrix_scan_user(void) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(layer) {
+  case SYSCTL:
+    ergodox_right_led_3_on();
+    break;
+  case MOUSE:
+    ergodox_right_led_2_on();
+    break;
+  default:
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
+  }
+}
+
 // extra keys
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
