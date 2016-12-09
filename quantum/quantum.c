@@ -113,6 +113,9 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
+  #endif
   #ifdef MIDI_ENABLE
     process_midi(keycode, record) &&
   #endif
