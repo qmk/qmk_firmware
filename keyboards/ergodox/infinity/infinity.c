@@ -38,7 +38,6 @@ void init_serial_link_hal(void) {
 // Using a higher pre-scalar without flicker is possible but FTM0_MOD will need to be reduced
 // Which will reduce the brightness range
 #define PRESCALAR_DEFINE 0
-#ifdef VISUALIZER_ENABLE
 void lcd_backlight_hal_init(void) {
 	// Setup Backlight
     SIM->SCGC6 |= SIM_SCGC6_FTM0;
@@ -76,7 +75,6 @@ void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b) {
 	CHANNEL_GREEN.CnV = g;
 	CHANNEL_BLUE.CnV = b;
 }
-#endif
 
 __attribute__ ((weak))
 void matrix_init_user(void) {
@@ -92,6 +90,10 @@ void matrix_init_kb(void) {
 	// runs once when the firmware starts up
 
 	matrix_init_user();
+	// The backlight always has to be initialized, otherwise it will stay lit
+#ifndef VISUALIZER_ENABLE
+	lcd_backlight_hal_init();
+#endif
 }
 
 void matrix_scan_kb(void) {
