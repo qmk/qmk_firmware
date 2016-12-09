@@ -13,17 +13,12 @@ enum {
   QWERTY,
   CARPALX,
   SYSCTL,
+  MOUSE,
 };
 
 // extra keys
 enum {
   NONE = 0,
-
-  // mouse
-  MS_UL, // up   left
-  MS_UR, // up   right
-  MS_DL, // down left
-  MS_DR, // down right
 
   // tap dance
   TD_FLSH, // flash keyboard
@@ -213,27 +208,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ,KC_TRNS  ,KC_TRNS  ,KC_TRNS
 ),
 
-
 /* SYSCTL
  * a keymap to control my system.
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      | Mute |MsUpL | MsUp |MsUpR |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|VolUp |MsLeft| MsDn |MsRght|      | Lock   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |VolDn |MsDnL | MsDn |      |      | Sleep  |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      | Power|
- *   `----------------------------------'                                       `----------------------------------'
+ * ,--------------------------------------------------.           ,------------------------------------------------------.
+ * |   ^    |      |      |      |      |      |      |           |      |      |      |          |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      | Mute | Home |    Up    | End  |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|VolUp | Left |   Down   |Right |      | Lock   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |VolDn | Prev |Play/Pause| Next |      | Sleep  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+----------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |          |      |      | Power|
+ *   `----------------------------------'                                       `--------------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |MidClk|
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |Left  |Right |
- *                                 |      |      |------|       |------| Click| Click|
  *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |  ^   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [SYSCTL] = KEYMAP(
@@ -247,11 +241,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               ,KC_NO
                                               ,KC_NO  ,KC_NO  ,KC_TRNS
 
- /*,KC_POP ///  */,KC_NO    ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
- /* /// ,KC_PTRN*/,KC_NO    ,KC_MUTE  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
-                            ,KC_VOLU  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,LCTL(LSFT(KC_PWR))
-                  ,KC_NO    ,KC_VOLD  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_SLEP
-                                      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_PWR
+ /*,KC_POP ///  */,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+ /* /// ,KC_PTRN*/,KC_NO    ,KC_MUTE  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_NO    ,KC_NO
+                            ,KC_VOLU  ,KC_LEFT  ,KC_DOWN  ,KC_RGHT  ,KC_NO    ,LCTL(LSFT(KC_PWR))
+                  ,KC_NO    ,KC_VOLD  ,KC_MPRV  ,KC_MPLY  ,KC_MNXT  ,KC_NO    ,KC_SLEP
+                                      ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_PWR
+
+          ,KC_NO  ,KC_NO
+          ,KC_NO
+          ,KC_NO  ,KC_NO  ,KC_NO
+),
+
+/* MOUSE
+ * a keymap to control my system.
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   ^    |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      | MsUp |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|      |MsLeft| MsDn |MsRght|      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |MidClk|
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |Left  |Right |
+ *                                 |      |      |------|       |------| Click| Click|
+ *                                 |      |      |  ^   |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[MOUSE] = KEYMAP(
+ KC_TRNS    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
+
+                                                      ,KC_NO  ,KC_NO
+                                                              ,KC_NO
+                                              ,KC_NO  ,KC_NO  ,KC_TRNS
+
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_MS_U  ,KC_NO    ,KC_NO    ,KC_NO
+                            ,KC_NO  ,KC_MS_L  ,KC_MS_D  ,KC_MS_R  ,KC_NO    ,KC_NO
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+                                    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
 
           ,KC_NO  ,KC_NO
           ,KC_NO
@@ -344,44 +382,6 @@ void matrix_init_user() {
 // extra keys
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
-
-    // mouse
-  case MS_UL:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_UP);
-      mousekey_on(KC_MS_LEFT);
-    } else {
-      mousekey_off(KC_MS_UP);
-      mousekey_off(KC_MS_LEFT);
-    }
-    break;
-  case MS_UR:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_UP);
-      mousekey_on(KC_MS_RIGHT);
-    } else {
-      mousekey_off(KC_MS_UP);
-      mousekey_off(KC_MS_RIGHT);
-    }
-    break;
-  case MS_DL:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_DOWN);
-      mousekey_on(KC_MS_LEFT);
-    } else {
-      mousekey_off(KC_MS_DOWN);
-      mousekey_off(KC_MS_LEFT);
-    }
-    break;
-  case MS_DR:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_DOWN);
-      mousekey_on(KC_MS_RIGHT);
-    } else {
-      mousekey_off(KC_MS_DOWN);
-      mousekey_off(KC_MS_RIGHT);
-    }
-    break;
   }
   return MACRO_NONE;
 }
