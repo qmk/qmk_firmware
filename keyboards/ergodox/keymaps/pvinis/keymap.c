@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |BEGIN |QWERTY|       |SYSCTL|      |
+ *                                        |BEGIN |QWERTY|       |      |      |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |CARPAL|       |Slack |        |      |
  *                                 |Backsp|LShift|------|       |------| Enter  |Space |
@@ -218,13 +218,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * a keymap to control my system.
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      | Mute |VolDn |VolUp |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |MsUpL | MsUp |MsUpR |      |        |
+ * |        |      |      |      |      |      |      |           |      | Mute |MsUpL | MsUp |MsUpR |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |MsLeft| MsDn |MsRght|      | Lock   |
+ * |        |      |      |      |      |      |------|           |------|VolUp |MsLeft| MsDn |MsRght|      | Lock   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |MsDnL | MsDn |      |      | Sleep  |
+ * |        |      |      |      |      |      |      |           |      |VolDn |MsDnL | MsDn |      |      | Sleep  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      | Power|
  *   `----------------------------------'                                       `----------------------------------'
@@ -245,13 +245,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                       ,KC_NO  ,KC_NO
                                                               ,KC_NO
-                                              ,KC_NO  ,KC_NO  ,KC_NO
+                                              ,KC_NO  ,KC_NO  ,KC_TRNS
 
-       /*,KC_POP*/,KC_NO    ,KC_NO  ,KC_NO  ,KC_MUTE  ,KC_VOLD  ,KC_VOLU    ,KC_NO
-      /*,KC_PTRN*/,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_NO
-                            ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,LCTL(LSFT(KC_PWR))
-                  ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_SLEP
-                                    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_PWR
+ /*,KC_POP ///  */,KC_NO    ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+ /* /// ,KC_PTRN*/,KC_NO    ,KC_MUTE  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                            ,KC_VOLU  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,LCTL(LSFT(KC_PWR))
+                  ,KC_NO    ,KC_VOLD  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_SLEP
+                                      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_PWR
 
           ,KC_NO  ,KC_NO
           ,KC_NO
