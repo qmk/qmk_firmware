@@ -164,6 +164,28 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtrakeyReport[] =
 };
 #endif
 
+#ifdef RAW_ENABLE
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] =
+{
+    HID_RI_USAGE_PAGE(16, 0xFF60), /* Vendor Page 0xFF60 */
+    HID_RI_USAGE(8, 0x61), /* Vendor Usage 0x61 */
+    HID_RI_COLLECTION(8, 0x01), /* Application */
+        HID_RI_USAGE(8, 0x62), /* Vendor Usage 0x62 */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+        HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_USAGE(8, 0x63), /* Vendor Usage 0x63 */
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+        HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
+        HID_RI_REPORT_SIZE(8, 0x08),
+        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+    HID_RI_END_COLLECTION(0),
+};
+#endif
+
 #ifdef CONSOLE_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
 {
@@ -398,6 +420,58 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
             .PollingIntervalMS      = 0x0A
         },
 #endif
+
+		/*
+	     * Raw
+	     */
+	#ifdef RAW_ENABLE
+	    .Raw_Interface =
+	        {
+	            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+
+	            .InterfaceNumber        = RAW_INTERFACE,
+	            .AlternateSetting       = 0x00,
+
+	            .TotalEndpoints         = 2,
+
+	            .Class                  = HID_CSCP_HIDClass,
+	            .SubClass               = HID_CSCP_NonBootSubclass,
+	            .Protocol               = HID_CSCP_NonBootProtocol,
+
+	            .InterfaceStrIndex      = NO_DESCRIPTOR
+	        },
+
+	    .Raw_HID =
+	        {
+	            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+
+	            .HIDSpec                = VERSION_BCD(1,1,1),
+	            .CountryCode            = 0x00,
+	            .TotalReportDescriptors = 1,
+	            .HIDReportType          = HID_DTYPE_Report,
+	            .HIDReportLength        = sizeof(RawReport)
+	        },
+
+	    .Raw_INEndpoint =
+	        {
+	            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+	            .EndpointAddress        = (ENDPOINT_DIR_IN | RAW_IN_EPNUM),
+	            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+	            .EndpointSize           = RAW_EPSIZE,
+	            .PollingIntervalMS      = 0x01
+	        },
+
+	    .Raw_OUTEndpoint =
+	        {
+	            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+	            .EndpointAddress        = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM),
+	            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+	            .EndpointSize           = RAW_EPSIZE,
+	            .PollingIntervalMS      = 0x01
+	        },
+	#endif
 
     /*
      * Console
@@ -754,7 +828,6 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
                     .PollingIntervalMS      = 0x05
             },
 #endif
-
 };
 
 
@@ -846,6 +919,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 Size    = sizeof(USB_HID_Descriptor_HID_t);
                 break;
 #endif
+#ifdef RAW_ENABLE
+            case RAW_INTERFACE:
+                Address = &ConfigurationDescriptor.Raw_HID;
+                Size    = sizeof(USB_HID_Descriptor_HID_t);
+                break;
+#endif
 #ifdef CONSOLE_ENABLE
             case CONSOLE_INTERFACE:
                 Address = &ConfigurationDescriptor.Console_HID;
@@ -876,6 +955,12 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
             case EXTRAKEY_INTERFACE:
                 Address = &ExtrakeyReport;
                 Size    = sizeof(ExtrakeyReport);
+                break;
+#endif
+#ifdef RAW_ENABLE
+            case RAW_INTERFACE:
+                Address = &RawReport;
+                Size    = sizeof(RawReport);
                 break;
 #endif
 #ifdef CONSOLE_ENABLE
