@@ -71,6 +71,14 @@ typedef struct
     USB_Descriptor_Endpoint_t             Extrakey_INEndpoint;
 #endif
 
+#ifdef RAW_ENABLE
+    // Raw HID Interface
+    USB_Descriptor_Interface_t            Raw_Interface;
+    USB_HID_Descriptor_HID_t              Raw_HID;
+    USB_Descriptor_Endpoint_t             Raw_INEndpoint;
+    USB_Descriptor_Endpoint_t             Raw_OUTEndpoint;
+#endif
+
 #ifdef CONSOLE_ENABLE
     // Console HID Interface
     USB_Descriptor_Interface_t            Console_Interface;
@@ -137,10 +145,16 @@ typedef struct
 #   define EXTRAKEY_INTERFACE       MOUSE_INTERFACE
 #endif
 
-#ifdef CONSOLE_ENABLE
-#   define CONSOLE_INTERFACE        (EXTRAKEY_INTERFACE + 1)
+#ifdef RAW_ENABLE
+#   define RAW_INTERFACE        	(EXTRAKEY_INTERFACE + 1)
 #else
-#   define CONSOLE_INTERFACE        EXTRAKEY_INTERFACE
+#   define RAW_INTERFACE        	EXTRAKEY_INTERFACE
+#endif
+
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_INTERFACE        (RAW_INTERFACE + 1)
+#else
+#   define CONSOLE_INTERFACE        RAW_INTERFACE
 #endif
 
 #ifdef NKRO_ENABLE
@@ -182,12 +196,19 @@ typedef struct
 #   define EXTRAKEY_IN_EPNUM        MOUSE_IN_EPNUM
 #endif
 
-#ifdef CONSOLE_ENABLE
-#   define CONSOLE_IN_EPNUM         (EXTRAKEY_IN_EPNUM + 1)
-#   define CONSOLE_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 1)
-//#   define CONSOLE_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 2)
+#ifdef RAW_ENABLE
+#   define RAW_IN_EPNUM         (EXTRAKEY_IN_EPNUM + 1)
+#   define RAW_OUT_EPNUM        (EXTRAKEY_IN_EPNUM + 2)
 #else
-#   define CONSOLE_OUT_EPNUM        EXTRAKEY_IN_EPNUM
+#   define RAW_OUT_EPNUM        EXTRAKEY_IN_EPNUM
+#endif
+
+#ifdef CONSOLE_ENABLE
+#   define CONSOLE_IN_EPNUM         (RAW_OUT_EPNUM + 1)
+//#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
+#else
+#   define CONSOLE_OUT_EPNUM        RAW_OUT_EPNUM
 #endif
 
 #ifdef NKRO_ENABLE
@@ -217,7 +238,6 @@ typedef struct
 #   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
-
 #if defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4
 # error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
 #endif
@@ -225,6 +245,7 @@ typedef struct
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
+#define RAW_EPSIZE              	32
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
