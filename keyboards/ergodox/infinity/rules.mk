@@ -63,6 +63,8 @@ VISUALIZER_ENABLE ?= no #temporarily disabled to make everything compile
 LCD_ENABLE ?= yes
 LED_ENABLE ?= yes
 LCD_BACKLIGHT_ENABLE ?= yes
+MIDI_ENABLE = no
+RGBLIGHT_ENABLE = no
 
 ifndef QUANTUM_DIR
 	include ../../../Makefile

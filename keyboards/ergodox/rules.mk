@@ -24,6 +24,5 @@ COMMAND_ENABLE   ?= yes # Commands for debug and configuration
 CUSTOM_MATRIX    ?= yes # Custom matrix file for the ErgoDox EZ
 SLEEP_LED_ENABLE ?= yes # Breathing sleep LED during USB suspend
 NKRO_ENABLE      ?= yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-MIDI_ENABLE      ?= no  # MIDI controls
 UNICODE_ENABLE   ?= yes # Unicode
 ONEHAND_ENABLE   ?= yes # Allow swapping hands of keyboard
