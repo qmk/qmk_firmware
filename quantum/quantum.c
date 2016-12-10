@@ -509,6 +509,11 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
   matrix_scan_kb();
 }
 
