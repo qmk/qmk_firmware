@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
              KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         TD(TD_SHIFT_CAPSLOCK),
                                   // lower keys - browser tab control
-                                  RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), RCTL(KC_K), RCTL(KC_W),
+                                  RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
              // thumb cluster
-             LALT(KC_LEFT),LALT(KC_RIGHT),
+             KC_HOME,KC_END,
              KC_UP,
              KC_DOWN,KC_ENT, KC_SPC
     ),
