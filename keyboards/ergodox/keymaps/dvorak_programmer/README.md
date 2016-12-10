@@ -12,6 +12,7 @@ Layers
 * KEY_SEL: same as above, but every movement shift-selects.
 * NUMBER: keypad layer.
 * SYMBOL: all the symbols as well as brackets at the bottom.
+* BRACKET: special brackets-only layer for programming
 * SHORTCUTS: sends Hyper keys for Autohotkey to interpret. I use this to switch between specific apps.
 * MOUSE: use mouse keys
 
