@@ -86,7 +86,7 @@ struct queue_item {
 
     uint16_t consumer;
     struct __attribute__((packed)) {
-      uint8_t x, y, scroll, pan;
+      int8_t x, y, scroll, pan;
     } mousemove;
   };
 };
