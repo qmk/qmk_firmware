@@ -1,5 +1,9 @@
 #include "quantum.h"
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
@@ -75,6 +79,7 @@ void reset_keyboard(void) {
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
+static uint16_t scs_timer = 0;
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -128,6 +133,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef UCIS_ENABLE
     process_ucis(keycode, record) &&
+  #endif
+  #ifdef PRINTING_ENABLE
+    process_printer(keycode, record) &&
   #endif
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
@@ -283,6 +291,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
@@ -292,7 +301,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[0]) {
+        if (!shift_interrupted[0] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
@@ -305,6 +314,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
@@ -314,7 +324,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[1]) {
+        if (!shift_interrupted[1] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
@@ -799,6 +809,51 @@ void backlight_set(uint8_t level)
 #endif // backlight
 
 
+// Functions for spitting out values
+//
+
+void send_dword(uint32_t number) { // this might not actually work
+    uint16_t word = (number >> 16);
+    send_word(word);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    uint8_t byte = number >> 8;
+    send_byte(byte);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    uint8_t nibble = number >> 4;
+    send_nibble(nibble);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number) {
+        case 0:
+            register_code(KC_0);
+            unregister_code(KC_0);
+            break;
+        case 1 ... 9:
+            register_code(KC_1 + (number - 1));
+            unregister_code(KC_1 + (number - 1));
+            break;
+        case 0xA ... 0xF:
+            register_code(KC_A + (number - 0xA));
+            unregister_code(KC_A + (number - 0xA));
+            break;
+    }
+}
+
+void api_send_unicode(uint32_t unicode) {
+#ifdef API_ENABLE
+    uint8_t chunk[4];
+    dword_to_bytes(unicode, chunk);
+    MT_SEND_DATA(DT_UNICODE, chunk, 5);
+#endif
+}
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
