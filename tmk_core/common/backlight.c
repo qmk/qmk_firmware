@@ -36,9 +36,9 @@ void backlight_increase(void)
     if(backlight_config.level < BACKLIGHT_LEVELS)
     {
         backlight_config.level++;
-        backlight_config.enable = 1;
-        eeconfig_update_backlight(backlight_config.raw);
     }
+    backlight_config.enable = 1;
+    eeconfig_update_backlight(backlight_config.raw);
     dprintf("backlight increase: %u\n", backlight_config.level);
     backlight_set(backlight_config.level);
 }
