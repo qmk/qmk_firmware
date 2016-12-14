@@ -23,72 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "ibm_terminal.h"
 
-
-// Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
-const uint8_t PROGMEM fn_layer[] = {
-    0,              // Fn0
-    0,              // Fn1
-    0,              // Fn2
-    0,              // Fn3
-    0,              // Fn4
-    0,              // Fn5
-    0,              // Fn6
-    0               // Fn7
-};
-
-// Assign Fn key(0-7) to a keycode sent when release Fn key without use of the layer.
-// See layer.c for details.
-const uint8_t PROGMEM fn_keycode[] = {
-    KC_NO,          // Fn0
-    KC_NO,          // Fn1
-    KC_NO,          // Fn2
-    KC_NO,          // Fn3
-    KC_NO,          // Fn4
-    KC_NO,          // Fn5
-    KC_NO,          // Fn6
-    KC_NO           // Fn7
-};
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: default
-     * ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
-     * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
-     * `---'   `---------------' `---------------' `---------------' `-----------'
-     * ,-----------------------------------------------------------. ,-----------. ,---------------.
-     * |  `|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|BS | |Ins|Hom|PgU| |NmL|  /|  *|  -|
-     * |-----------------------------------------------------------| |-----------| |---------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD| |  7|  8|  9|   |
-     * |-----------------------------------------------------------| `-----------' |-----------|  +|
-     * |CapsLo|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|  #|Retu|               |  4|  5|  6|   |
-     * |-----------------------------------------------------------|     ,---.     |---------------|
-     * |Shif|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  ,|  /|Shift     |     |Up |     |  1|  2|  3|   |
-     * |-----------------------------------------------------------| ,-----------. |-----------|Ent|
-     * |Ctrl|    |Alt |          Space              |Alt |    |Ctrl| |Lef|Dow|Rig| |      0|  .|   |
-     * `----'    `---------------------------------------'    `----' `-----------' `---------------'
-     */
-/*
-    KEYMAP(
-                     F13, F14, F15, F16, F17, F18, F19, F20, F21, F22, F23, F24,
-                     F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,
+    // Layer 0
 
-    PSCR,ESC,   GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, JYEN,BSPC,  INS, HOME,PGUP,  NLCK,PSLS,PAST,PMNS,
-    SLCK,INT4,  TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     BSLS,  DEL, END, PGDN,  P7,  P8,  P9,  PPLS,
-    PAUS,INT5,  CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     NUHS,ENT,        UP,         P4,  P5,  P6,  PCMM,
-    APP, INT6,  LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     RO,  RSFT,  LEFT,INT2,RGHT,  P1,  P2,  P3,  PENT,
-    RGUI,LGUI,  LCTL,     LALT,               SPC,                          RALT,     RCTL,       DOWN,       NO,  P0,  PDOT,NO
-    ),
-*/
-    // pseudo ANSI
     KEYMAP(
-                     F13, F14, F15, F16, F17, F18, F19, F20, F21, F22, F23, F24,
-                     F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12,
+                        KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,
+                        KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
 
-    PSCR,ESC,   ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NO,  BSPC,  INS, HOME,PGUP,  NLCK,PSLS,PAST,PMNS,
-    SLCK,INT4,  TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     NO,    DEL, END, PGDN,  P7,  P8,  P9,  PPLS,
-    PAUS,INT5,  LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,     BSLS,ENT,        UP,         P4,  P5,  P6,  PCMM,
-    APP, INT6,  LSFT,LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,     NO,  RSFT,  LEFT,INT2,RGHT,  P1,  P2,  P3,  PENT,
-    RGUI,LGUI,  LCTL,     LALT,               SPC,                          LGUI,     GRV,        DOWN,       NO,  P0,  PDOT,NO
+    KC_PSCR,KC_ESC,     KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_NO,  KC_BSPC,    KC_INS, KC_HOME,KC_PGUP,    KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,
+    KC_SLCK,KC_INT4,    KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,        KC_NO,      KC_DEL, KC_END, KC_PGDN,    KC_P7,  KC_P8,  KC_P9,  KC_PPLS,
+    KC_PAUS,KC_INT5,    KC_LCTL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_BSLS,KC_ENT,             KC_UP,              KC_P4,  KC_P5,  KC_P6,  KC_PCMM,
+    KC_APP, KC_INT6,    KC_LSFT,KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,        KC_NO,  KC_RSFT,    KC_LEFT,KC_INT2,KC_RGHT,    KC_P1,  KC_P2,  KC_P3,  KC_PENT,
+    KC_RGUI,KC_LGUI,    KC_LCTL,        KC_LALT,                        KC_SPC,                                         KC_LGUI,        KC_GRV,             KC_DOWN,            KC_NO,  KC_P0,  KC_PDOT,KC_NO
     ),
 
 /* 101-key keymaps
@@ -111,13 +57,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 /*
     KEYMAP_101(
-     ESC,       F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10, F11, F12,     PSCR,SLCK, BRK,
+     KC_ESC,       KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,        KC_PSCR,KC_SLCK, KC_BRK,
 
-     GRV,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0,MINS, EQL,BSPC,      INS,HOME,PGUP,     NLCK,PSLS,PAST,PMNS,
-     TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,LBRC,RBRC,BSLS,      DEL, END,PGDN,       P7,  P8,  P9,
-    CAPS,   A,   S,   D,   F,   G,   H,   J,   K,   L,SCLN,QUOT,      ENT,                           P4,  P5,  P6,PPLS,
-    LSFT,        Z,   X,   C,   V,   B,   N,   M,COMM, DOT,SLSH,     RSFT,            UP,            P1,  P2,  P3,
-    LCTL,     LALT,                SPC,                    RALT,     RCTL,     LEFT,DOWN,RGHT,       P0,     PDOT,PENT
+     KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,      KC_INS,KC_HOME,KC_PGUP,     KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,
+     KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,      KC_DEL, KC_END,KC_PGDN,       KC_P7,  KC_P8,  KC_P9,
+    KC_CAPS,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,         KC_ENT,                                    KC_P4,  KC_P5,  KC_P6,KC_PPLS,
+    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,KC_SLSH,        KC_RSFT,               KC_UP,               KC_P1,  KC_P2,  KC_P3,
+    KC_LCTL,     KC_LALT,                         KC_SPC,                                   KC_RALT,        KC_RCTL,     KC_LEFT,KC_DOWN,KC_RGHT,       KC_P0,        KC_PDOT,KC_PENT
     ),
 */
 };
