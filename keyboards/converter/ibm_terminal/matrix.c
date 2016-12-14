@@ -52,6 +52,10 @@ static uint8_t matrix[MATRIX_ROWS];
 #define COL(code)      (code&0x07)
 
 
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
 void matrix_init(void)
 {
     debug_enable = true;
@@ -64,6 +68,7 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
+    matrix_init_user();
     return;
 }
 
