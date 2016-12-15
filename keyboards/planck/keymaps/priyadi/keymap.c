@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT },
+  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT },
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
   {KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL}
 },
@@ -196,10 +196,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT },
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL}
+  {_______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, _______},
+  {_______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______},
+  {_______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Workman
@@ -214,10 +214,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_WORKMAN] = {
-  {KC_TAB,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC},
-  {KC_ESC,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_ENT },
-  {KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL}
+  {_______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______},
+  {_______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______},
+  {_______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Punc
@@ -322,6 +322,7 @@ float tone_linux[][2] = SONG(CAPS_LOCK_ON_SOUND);
 float tone_windows[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_osx[][2] = SONG(NUM_LOCK_ON_SOUND);
 float tone_click[][2] = SONG(MUSICAL_NOTE(_F3, 2));
+float tone_release[][2] = SONG(MUSICAL_NOTE(_A3, 2));
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -331,9 +332,49 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // faux clicky
-  if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
+  // if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
+  #ifdef AUDIO_ENABLE
+  if (record->event.pressed) {
+    PLAY_NOTE_ARRAY(tone_click, false, 0);
+  } else {
+    PLAY_NOTE_ARRAY(tone_release, false, 0);
+  }
+  #endif
 
   switch (keycode) {
+    // QWERTZ style comma and dot: semicolon and colon when shifted
+    case KC_COMM:
+      if (record->event.pressed) {
+        bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
+        bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
+        if (lshifted || rshifted) {
+          if (lshifted) unregister_code(KC_LSFT);
+          if (rshifted) unregister_code(KC_RSFT);
+          register_code(KC_SCLN);
+          unregister_code(KC_SCLN);
+          if (lshifted) register_code(KC_LSFT);
+          if (rshifted) register_code(KC_RSFT);
+        } else {
+          register_code(KC_COMM);
+          unregister_code(KC_COMM);
+        }
+      }
+      return false;
+      break;
+    case KC_DOT:
+      if (record->event.pressed) {
+        if ((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) {
+          register_code(KC_SCLN);
+          unregister_code(KC_SCLN);
+        } else {
+          register_code(KC_DOT);
+          unregister_code(KC_DOT);
+        }
+      }
+      return false;
+      break;
+
+    // layout switcher
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -361,6 +402,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+    // layer switchers
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
@@ -397,6 +440,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+    // OS switchers
     case LINUX:
       set_unicode_input_mode(UC_LNX);
       #ifdef AUDIO_ENABLE
