@@ -26,7 +26,7 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
 CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions
+CPPFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS +=-Wl,--gc-sections
 

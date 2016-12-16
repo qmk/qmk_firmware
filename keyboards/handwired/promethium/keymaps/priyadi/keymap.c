@@ -11,6 +11,8 @@
 #include "process_unicode.h"
 #include "quantum.h"
 #include "rgbsps.h"
+#include "ps2_mouse.h"
+#include "ps2.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
 // #define RGBLED_NUM 5
@@ -282,25 +284,25 @@ void led_layer_func(void) {
   rgbsps_set(LED_K, 15, 0, 15);
   rgbsps_set(LED_L, 15, 0, 15);
 
-  rgbsps_set(LED_U, 15, 0, 10);
-  rgbsps_set(LED_O, 15, 0, 10);
-  rgbsps_set(LED_COMM, 15, 0, 10);
-  rgbsps_set(LED_DOT, 15, 0, 10);
-  rgbsps_set(LED_SCLN, 15, 0, 10);
-  rgbsps_set(LED_P, 15, 0, 10);
+  rgbsps_set(LED_U, 15, 0, 0);
+  rgbsps_set(LED_O, 15, 0, 0);
+  rgbsps_set(LED_COMM, 15, 0, 0);
+  rgbsps_set(LED_DOT, 15, 0, 0);
+  rgbsps_set(LED_SCLN, 15, 0, 0);
+  rgbsps_set(LED_P, 15, 0, 0);
 
-  rgbsps_set(LED_Q, 10, 0, 15);
-  rgbsps_set(LED_W, 10, 0, 15);
-  rgbsps_set(LED_E, 10, 0, 15);
-  rgbsps_set(LED_R, 10, 0, 15);
-  rgbsps_set(LED_A, 10, 0, 15);
-  rgbsps_set(LED_S, 10, 0, 15);
-  rgbsps_set(LED_D, 10, 0, 15);
-  rgbsps_set(LED_F, 10, 0, 15);
-  rgbsps_set(LED_Z, 10, 0, 15);
-  rgbsps_set(LED_X, 10, 0, 15);
-  rgbsps_set(LED_C, 10, 0, 15);
-  rgbsps_set(LED_V, 10, 0, 15);
+  rgbsps_set(LED_Q, 0, 15, 0);
+  rgbsps_set(LED_W, 0, 15, 0);
+  rgbsps_set(LED_E, 0, 15, 0);
+  rgbsps_set(LED_R, 0, 15, 0);
+  rgbsps_set(LED_A, 0, 15, 0);
+  rgbsps_set(LED_S, 0, 15, 0);
+  rgbsps_set(LED_D, 0, 15, 0);
+  rgbsps_set(LED_F, 0, 15, 0);
+  rgbsps_set(LED_Z, 0, 15, 0);
+  rgbsps_set(LED_X, 0, 15, 0);
+  rgbsps_set(LED_C, 0, 15, 0);
+  rgbsps_set(LED_V, 0, 15, 0);
 
   rgbsps_send();
 }
@@ -361,7 +363,15 @@ void led_layer_num(void) {
 }
 
 void led_layer_emoji(void) {
-  rgbsps_setall(15, 15, 0);
+  for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
+    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 15, 0);
+  }
+  for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
+    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 15, 0);
+  }
+  for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
+    rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 0);
+  }
 
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
   rgbsps_set(LED_IND_NUM, 0, 0, 0);
@@ -415,7 +425,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = KEYMAP(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT ,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL
 ),
@@ -432,10 +442,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = KEYMAP(
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
-  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT ,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL
+  _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, _______,
+  _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______,
+  _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Workman
@@ -450,10 +460,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_WORKMAN] = KEYMAP(
-  KC_TAB,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
-  KC_ESC,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_ENT ,
-  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL
+  _______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______,
+  _______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______,
+  _______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Punc
@@ -541,7 +551,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GUI] = KEYMAP(
   _______, LGUI(KC_1),LGUI(KC_2),LGUI(KC_3),LGUI(KC_4),LGUI(KC_5),LGUI(KC_6),LGUI(KC_7),LGUI(KC_8),LGUI(KC_9),LGUI(KC_0), _______,
-    LINUX, _______, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,_______, QWERTY,
+    LINUX, _______, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,KC_PAUS, QWERTY,
       WIN, _______, KC_MPRV, KC_MPLY, KC_MNXT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, COLEMAK,
       OSX, _______, _______, _______, _______,  BL_DEC,  BL_INC, _______, _______, RGB_VAI, RGB_VAD, WORKMAN
 ),
@@ -572,6 +582,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #endif
 
   switch (keycode) {
+    // QWERTZ style comma and dot: semicolon and colon when shifted
+    case KC_COMM:
+      if (record->event.pressed) {
+        bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
+        bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
+        if (lshifted || rshifted) {
+          if (lshifted) unregister_code(KC_LSFT);
+          if (rshifted) unregister_code(KC_RSFT);
+          register_code(KC_SCLN);
+          unregister_code(KC_SCLN);
+          if (lshifted) register_code(KC_LSFT);
+          if (rshifted) register_code(KC_RSFT);
+        } else {
+          register_code(KC_COMM);
+          unregister_code(KC_COMM);
+        }
+      }
+      return false;
+      break;
+    case KC_DOT:
+      if (record->event.pressed) {
+        if ((keyboard_report->mods & MOD_BIT(KC_LSFT)) || (keyboard_report->mods & MOD_BIT(KC_RSFT))) {
+          register_code(KC_SCLN);
+          unregister_code(KC_SCLN);
+        } else {
+          register_code(KC_DOT);
+          unregister_code(KC_DOT);
+        }
+      }
+      return false;
+      break;
+
+    // layout switchers
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -600,8 +643,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-
-
+    // layer switcher
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
@@ -663,7 +705,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-
+    // OS switchers
     case LINUX:
       set_unicode_input_mode(UC_LNX);
       #ifdef AUDIO_ENABLE
@@ -723,3 +765,39 @@ void shutdown_user()
 }
 
 #endif
+
+
+void ps2_mouse_init_user() {
+    uint8_t rcv;
+
+    // set TrackPoint sensitivity
+    PS2_MOUSE_SEND(0xE2, "set trackpoint sensitivity: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set trackpoint sensitivity: 0x81");
+    PS2_MOUSE_SEND(0x4A, "set trackpoint sensitivity: 0x4A");
+    PS2_MOUSE_SEND(0x49, "set trackpoint sensitivity: 0x59");
+
+    // set TrackPoint Negative Inertia factor
+    PS2_MOUSE_SEND(0xE2, "set negative inertia factor: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set negative inertia factor: 0x81");
+    PS2_MOUSE_SEND(0x4D, "set negative inertia factor: 0x4D");
+    PS2_MOUSE_SEND(0x06, "set negative inertia factor: 0x06");
+
+    // set TrackPoint speed
+    // (transfer function upper plateau speed)
+    PS2_MOUSE_SEND(0xE2, "set trackpoint speed: 0xE2");
+    PS2_MOUSE_SEND(0x81, "set trackpoint speed: 0x81");
+    PS2_MOUSE_SEND(0x60, "set trackpoint speed: 0x60");
+    PS2_MOUSE_SEND(0x61, "set trackpoint speed: 0x61");
+
+    // inquire pts status
+    rcv = ps2_host_send(0xE2);
+    rcv = ps2_host_send(0x2C);
+    rcv = ps2_host_recv_response();
+    if ((rcv & 1) == 1) {
+      // if on, disable pts
+      rcv = ps2_host_send(0xE2);
+      rcv = ps2_host_send(0x47);
+      rcv = ps2_host_send(0x2C);
+      rcv = ps2_host_send(0x01);
+    }
+}
