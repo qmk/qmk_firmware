@@ -113,9 +113,6 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
-  #ifdef COMBO_ENABLE
-    process_combo(keycode, record) &&
-  #endif
   #ifdef MIDI_ENABLE
     process_midi(keycode, record) &&
   #endif
@@ -130,6 +127,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
+  #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
   #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
