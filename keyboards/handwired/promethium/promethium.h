@@ -23,77 +23,77 @@
 }
 
 enum led_sequence {
-  LED_IND_EMOJI,
-  LED_IND_NUM,
-  LED_IND_FUNC,
-
-  LED_IND_BATTERY,
-  LED_IND_USB,
   LED_IND_BLUETOOTH,
+  LED_IND_USB,
+  LED_IND_BATTERY,
 
-  LED_TAB,
-  LED_ESC,
-  LED_LSFT,
-  LED_LCTL,
+  LED_IND_FUNC,
+  LED_IND_NUM,
+  LED_IND_EMOJI,
 
-  LED_LGUI,
-  LED_Z,
-  LED_A,
-  LED_Q,
-
-  LED_W,
-  LED_S,
-  LED_X,
-  LED_LALT,
-
-  LED_PUNC,
-  LED_C,
-  LED_D,
-  LED_E,
-
-  LED_R,
-  LED_F,
-  LED_V,
-  LED_NUM,
-
-  LED_LSPC,
-  LED_B,
-  LED_G,
-  LED_T,
-
-  LED_TRACKPOINT1,
-  LED_TRACKPOINT2,
-  LED_TRACKPOINT3,
-
-  LED_RSPC,
-  LED_N,
-  LED_HH,
-  LED_Y,
-
-  LED_U,
-  LED_J,
-  LED_M,
-  LED_FUNC,
-
-  LED_EMOJI,
-  LED_COMM,
-  LED_K,
-  LED_I,
-
-  LED_O,
-  LED_L,
-  LED_DOT,
-  LED_RALT,
+  LED_BKSP,
+  LED_ENT,
+  LED_RSFT,
+  LED_RCTL,
 
   LED_RGUI,
   LED_SLSH,
   LED_SCLN,
   LED_P,
 
-  LED_BKSP,
-  LED_ENT,
-  LED_RSFT,
-  LED_RCTL
+  LED_O,
+  LED_L,
+  LED_DOT,
+  LED_RALT,
+
+  LED_EMOJI,
+  LED_COMM,
+  LED_K,
+  LED_I,
+
+  LED_U,
+  LED_J,
+  LED_M,
+  LED_FUNC,
+
+  LED_RSPC,
+  LED_N,
+  LED_HH,
+  LED_Y,
+
+  LED_TRACKPOINT3,
+  LED_TRACKPOINT2,
+  LED_TRACKPOINT1,
+
+  LED_LSPC,
+  LED_B,
+  LED_G,
+  LED_T,
+
+  LED_R,
+  LED_F,
+  LED_V,
+  LED_NUM,
+
+  LED_PUNC,
+  LED_C,
+  LED_D,
+  LED_E,
+
+  LED_W,
+  LED_S,
+  LED_X,
+  LED_LALT,
+
+  LED_LGUI,
+  LED_Z,
+  LED_A,
+  LED_Q,
+
+  LED_TAB,
+  LED_ESC,
+  LED_LSFT,
+  LED_LCTL,
 };
 
 #endif
