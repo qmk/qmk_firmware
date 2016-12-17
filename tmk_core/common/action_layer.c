@@ -111,7 +111,7 @@ void layer_debug(void)
 #endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {0};
+uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {{0}};
 
 void update_source_layers_cache(keypos_t key, uint8_t layer)
 {

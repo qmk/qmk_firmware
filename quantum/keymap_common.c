@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef MIDI_ENABLE
-	#include "keymap_midi.h"
+	#include "process_midi.h"
 #endif
 
 extern keymap_config_t keymap_config;

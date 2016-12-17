@@ -91,7 +91,7 @@ Vagrant.configure(2) do |config|
 
   Or you can copy and paste the example line below.
 
-  cd /vagrant; cd keyboards; cd ergodox_ez; make clean; make
+  cd /vagrant; cd keyboards; cd ergodox; make clean; make
 
 
   EOT

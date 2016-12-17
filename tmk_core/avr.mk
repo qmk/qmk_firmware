@@ -26,7 +26,7 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
 CPPFLAGS += $(COMPILEFLAGS)
-CPPFLAGS += -fno-exceptions
+CPPFLAGS += -fno-exceptions -std=c++11
 
 LDFLAGS +=-Wl,--gc-sections
 
@@ -107,6 +107,10 @@ flip: $(BUILD_DIR)/$(TARGET).hex
 	batchisp -hardware usb -device $(MCU) -operation start reset 0
 
 dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	until dfu-programmer $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
 	dfu-programmer $(MCU) erase --force
 else
@@ -134,6 +138,11 @@ else
 endif
 	dfu-programmer $(MCU) reset
 
+# Convert hex to bin.
+flashbin: $(BUILD_DIR)/$(TARGET).hex
+	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set
