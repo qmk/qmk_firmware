@@ -25,6 +25,7 @@
 #include "led.h"
 #include "action_util.h"
 #include <stdlib.h>
+#include "print.h"
 
 
 extern uint32_t default_layer_state;
@@ -58,6 +59,10 @@ extern uint32_t default_layer_state;
 
 #include "process_tap_dance.h"
 
+#ifdef PRINTING_ENABLE
+	#include "process_printer.h"
+#endif
+
 #define SEND_STRING(str) send_string(PSTR(str))
 void send_string(const char *str);
 
@@ -82,6 +87,9 @@ void reset_keyboard(void);
 void startup_user(void);
 void shutdown_user(void);
 
+void register_code16 (uint16_t code);
+void unregister_code16 (uint16_t code);
+
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
 
@@ -102,8 +110,15 @@ void breathing_speed_dec(uint8_t value);
 #endif
 
 #endif
+void send_dword(uint32_t number);
+void send_word(uint16_t number);
+void send_byte(uint8_t number);
+void send_nibble(uint8_t number);
+
 
 void led_set_user(uint8_t usb_led);
 void led_set_kb(uint8_t usb_led);
+
+void api_send_unicode(uint32_t unicode);
 
 #endif

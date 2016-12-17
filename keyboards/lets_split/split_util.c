@@ -6,10 +6,14 @@
 #include <avr/eeprom.h>
 #include "split_util.h"
 #include "matrix.h"
-#include "i2c.h"
-#include "serial.h"
 #include "keyboard.h"
 #include "config.h"
+
+#ifdef USE_I2C
+#  include "i2c.h"
+#else
+#  include "serial.h"
+#endif
 
 volatile bool isLeftHand = true;
 

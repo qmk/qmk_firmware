@@ -34,7 +34,7 @@ You can find some keyboard specific projects under `converter` and `keyboard` di
 * [atomic](keyboards/atomic/)                - [Atomic] Ortholinear 60% keyboard
 
 ### Ergodox EZ
-* [ergodox_ez](keyboards/ergodox_ez)         - [Ergodox_EZ] Assembled split keyboard
+* [ergodox_ez](keyboards/ergodox/ez)         - [Ergodox_EZ] Assembled split keyboard
 
 ## Other projects
 
@@ -113,7 +113,7 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](tmk_core/doc/build.md), or the readme in the particular keyboards/* folder.
+See [build environment setup](/readme.md#build-environment-setup), or the readme in the particular keyboards/* folder.
 
 
 

@@ -57,6 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   include "visualizer/visualizer.h"
 #endif
 
+
+
 #ifdef MATRIX_HAS_GHOST
 static bool has_ghost_in_row(uint8_t row)
 {
@@ -106,7 +108,7 @@ void keyboard_init(void) {
     rgblight_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
-	keyboard_nkro = true;
+    keymap_config.nkro = 1;
 #endif
 }
 
