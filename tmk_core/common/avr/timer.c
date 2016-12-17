@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/atomic.h>
 #include <stdint.h>
 #include "timer_avr.h"
 #include "timer.h"
@@ -24,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // counter resolution 1ms
 // NOTE: union { uint32_t timer32; struct { uint16_t dummy; uint16_t timer16; }}
-volatile uint32_t timer_count = 0;
+volatile uint32_t timer_count;
 
 void timer_init(void)
 {
@@ -52,10 +53,9 @@ void timer_init(void)
 inline
 void timer_clear(void)
 {
-    uint8_t sreg = SREG;
-    cli();
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
     timer_count = 0;
-    SREG = sreg;
+  }
 }
 
 inline
@@ -63,10 +63,9 @@ uint16_t timer_read(void)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
-    cli();
-    t = timer_count;
-    SREG = sreg;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+      t = timer_count;
+    }
 
     return (t & 0xFFFF);
 }
@@ -76,10 +75,9 @@ uint32_t timer_read32(void)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
-    cli();
-    t = timer_count;
-    SREG = sreg;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+      t = timer_count;
+    }
 
     return t;
 }
@@ -89,10 +87,9 @@ uint16_t timer_elapsed(uint16_t last)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
-    cli();
-    t = timer_count;
-    SREG = sreg;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+      t = timer_count;
+    }
 
     return TIMER_DIFF_16((t & 0xFFFF), last);
 }
@@ -102,10 +99,9 @@ uint32_t timer_elapsed32(uint32_t last)
 {
     uint32_t t;
 
-    uint8_t sreg = SREG;
-    cli();
-    t = timer_count;
-    SREG = sreg;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+      t = timer_count;
+    }
 
     return TIMER_DIFF_32(t, last);
 }
