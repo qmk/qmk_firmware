@@ -68,8 +68,17 @@ typedef struct {
 } __attribute__ ((packed)) report_extra_t;
 
 #ifdef MIDI_ENABLE
-void MIDI_Task(void);
-MidiDevice midi_device;
+  void MIDI_Task(void);
+  MidiDevice midi_device;
+  #define MIDI_SYSEX_BUFFER 32 
+#endif
+
+#ifdef API_ENABLE
+  #include "api.h"
+#endif
+
+#ifdef API_SYSEX_ENABLE
+  #include "api_sysex.h"
 #endif
 
 // #if LUFA_VERSION_INTEGER < 0x120730

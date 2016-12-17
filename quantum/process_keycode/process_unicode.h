@@ -3,14 +3,59 @@
 
 #include "quantum.h"
 
-#define UC_OSX 0
-#define UC_LNX 1
-#define UC_WIN 2
-#define UC_BSD 3
+#define UC_OSX 0  // Mac OS X
+#define UC_LNX 1  // Linux
+#define UC_WIN 2  // Windows 'HexNumpad'
+#define UC_BSD 3  // BSD (not implemented)
+#define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
+
+#ifndef UNICODE_TYPE_DELAY
+#define UNICODE_TYPE_DELAY 10
+#endif
 
 void set_unicode_input_mode(uint8_t os_target);
+uint8_t get_unicode_input_mode(void);
+void unicode_input_start(void);
+void unicode_input_finish(void);
+void register_hex(uint16_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
+
+#ifdef UNICODEMAP_ENABLE
+void unicode_map_input_error(void);
+bool process_unicode_map(uint16_t keycode, keyrecord_t *record);
+#endif
+
+#ifdef UCIS_ENABLE
+#ifndef UCIS_MAX_SYMBOL_LENGTH
+#define UCIS_MAX_SYMBOL_LENGTH 32
+#endif
+
+typedef struct {
+  char *symbol;
+  char *code;
+} qk_ucis_symbol_t;
+
+typedef struct {
+  uint8_t count;
+  uint16_t codes[UCIS_MAX_SYMBOL_LENGTH];
+  bool in_progress:1;
+} qk_ucis_state_t;
+
+extern qk_ucis_state_t qk_ucis_state;
+
+#define UCIS_TABLE(...) {__VA_ARGS__, {NULL, NULL}}
+#define UCIS_SYM(name, code) {name, #code}
+
+extern const qk_ucis_symbol_t ucis_symbol_table[];
+
+void qk_ucis_start(void);
+void qk_ucis_start_user(void);
+void qk_ucis_symbol_fallback (void);
+void register_ucis(const char *hex);
+bool process_ucis (uint16_t keycode, keyrecord_t *record);
+
+#endif
 
 #define UC_BSPC	UC(0x0008)
 
