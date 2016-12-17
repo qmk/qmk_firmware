@@ -69,11 +69,12 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
 
 rgblight_config_t rgblight_config;
 rgblight_config_t inmem_config;
-struct cRGB led[RGBLED_NUM];
+
+LED_TYPE led[RGBLED_NUM];
 uint8_t rgblight_inited = 0;
+bool rgblight_timer_enabled = false;
 
-
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
+void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
@@ -124,7 +125,7 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
   setrgb(r, g, b, led1);
 }
 
-void setrgb(uint8_t r, uint8_t g, uint8_t b, struct cRGB *led1) {
+void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
   (*led1).r = r;
   (*led1).g = g;
   (*led1).b = b;
@@ -141,9 +142,9 @@ void eeconfig_update_rgblight_default(void) {
   dprintf("eeconfig_update_rgblight_default\n");
   rgblight_config.enable = 1;
   rgblight_config.mode = 1;
-  rgblight_config.hue = 200;
-  rgblight_config.sat = 204;
-  rgblight_config.val = 204;
+  rgblight_config.hue = 0;
+  rgblight_config.sat = 255;
+  rgblight_config.val = 255;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
@@ -173,12 +174,25 @@ void rgblight_init(void) {
   }
   eeconfig_debug_rgblight(); // display current eeprom values
 
-  #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+  #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_init(); // setup the timer
   #endif
 
   if (rgblight_config.enable) {
     rgblight_mode(rgblight_config.mode);
+  }
+}
+
+void rgblight_update_dword(uint32_t dword) {
+  rgblight_config.raw = dword;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  if (rgblight_config.enable)
+    rgblight_mode(rgblight_config.mode);
+  else {
+    #ifdef RGBLIGHT_ANIMATIONS
+      rgblight_timer_disable();
+    #endif
+      rgblight_set();
   }
 }
 
@@ -220,7 +234,7 @@ void rgblight_mode(uint8_t mode) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight mode: %u\n", rgblight_config.mode);
   if (rgblight_config.mode == 1) {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
   } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 23) {
@@ -230,7 +244,7 @@ void rgblight_mode(uint8_t mode) {
     // MODE 15-20, snake
     // MODE 21-23, knight
 
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
     #endif
   }
@@ -244,12 +258,19 @@ void rgblight_toggle(void) {
   if (rgblight_config.enable) {
     rgblight_mode(rgblight_config.mode);
   } else {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
     _delay_ms(50);
     rgblight_set();
   }
+}
+
+void rgblight_enable(void) {
+  rgblight_config.enable = 1;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight enable: rgblight_config.enable = %u\n", rgblight_config.enable);
+  rgblight_mode(rgblight_config.mode);
 }
 
 
@@ -307,7 +328,7 @@ void rgblight_decrease_val(void) {
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
   inmem_config.raw = rgblight_config.raw;
   if (rgblight_config.enable) {
-    struct cRGB tmp_led;
+    LED_TYPE tmp_led;
     sethsv(hue, sat, val, &tmp_led);
     inmem_config.hue = hue;
     inmem_config.sat = sat;
@@ -351,66 +372,84 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 
 void rgblight_set(void) {
   if (rgblight_config.enable) {
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
     }
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   }
 }
 
-#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+#ifdef RGBLIGHT_ANIMATIONS
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {
-  static uint8_t rgblight_timer_is_init = 0;
-  if (rgblight_timer_is_init) {
-    return;
-  }
-  rgblight_timer_is_init = 1;
-  /* Timer 3 setup */
-  TCCR3B = _BV(WGM32) //CTC mode OCR3A as TOP
-        | _BV(CS30); //Clock selelct: clk/1
-  /* Set TOP value */
-  uint8_t sreg = SREG;
-  cli();
-  OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
-  OCR3AL = RGBLED_TIMER_TOP & 0xff;
-  SREG = sreg;
+  // static uint8_t rgblight_timer_is_init = 0;
+  // if (rgblight_timer_is_init) {
+  //   return;
+  // }
+  // rgblight_timer_is_init = 1;
+  // /* Timer 3 setup */
+  // TCCR3B = _BV(WGM32) // CTC mode OCR3A as TOP
+  //       | _BV(CS30); // Clock selelct: clk/1
+  // /* Set TOP value */
+  // uint8_t sreg = SREG;
+  // cli();
+  // OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
+  // OCR3AL = RGBLED_TIMER_TOP & 0xff;
+  // SREG = sreg;
+
+  rgblight_timer_enabled = true;
 }
 void rgblight_timer_enable(void) {
-  TIMSK3 |= _BV(OCIE3A);
+  rgblight_timer_enabled = true;
   dprintf("TIMER3 enabled.\n");
 }
 void rgblight_timer_disable(void) {
-  TIMSK3 &= ~_BV(OCIE3A);
+  rgblight_timer_enabled = false;
   dprintf("TIMER3 disabled.\n");
 }
 void rgblight_timer_toggle(void) {
-  TIMSK3 ^= _BV(OCIE3A);
+  rgblight_timer_enabled ^= rgblight_timer_enabled;
   dprintf("TIMER3 toggled.\n");
 }
 
-ISR(TIMER3_COMPA_vect) {
-  // mode = 1, static light, do nothing here
-  if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
-    // mode = 2 to 5, breathing mode
-    rgblight_effect_breathing(rgblight_config.mode - 2);
-  } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
-    // mode = 6 to 8, rainbow mood mod
-    rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
-  } else if (rgblight_config.mode >= 9 && rgblight_config.mode <= 14) {
-    // mode = 9 to 14, rainbow swirl mode
-    rgblight_effect_rainbow_swirl(rgblight_config.mode - 9);
-  } else if (rgblight_config.mode >= 15 && rgblight_config.mode <= 20) {
-    // mode = 15 to 20, snake mode
-    rgblight_effect_snake(rgblight_config.mode - 15);
-  } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
-    // mode = 21 to 23, knight mode
-    rgblight_effect_knight(rgblight_config.mode - 21);
+void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_setrgb(r, g, b);
+}
+
+void rgblight_task(void) {
+  if (rgblight_timer_enabled) {
+    // mode = 1, static light, do nothing here
+    if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
+      // mode = 2 to 5, breathing mode
+      rgblight_effect_breathing(rgblight_config.mode - 2);
+    } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
+      // mode = 6 to 8, rainbow mood mod
+      rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
+    } else if (rgblight_config.mode >= 9 && rgblight_config.mode <= 14) {
+      // mode = 9 to 14, rainbow swirl mode
+      rgblight_effect_rainbow_swirl(rgblight_config.mode - 9);
+    } else if (rgblight_config.mode >= 15 && rgblight_config.mode <= 20) {
+      // mode = 15 to 20, snake mode
+      rgblight_effect_snake(rgblight_config.mode - 15);
+    } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
+      // mode = 21 to 23, knight mode
+      rgblight_effect_knight(rgblight_config.mode - 21);
+    }
   }
 }
 
@@ -449,7 +488,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
     hue = (360 / RGBLED_NUM * i + current_hue) % 360;
-    sethsv(hue, rgblight_config.sat, rgblight_config.val, &led[i]);
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
 
@@ -486,7 +525,7 @@ void rgblight_effect_snake(uint8_t interval) {
         k = k + RGBLED_NUM;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), &led[i]);
+        sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), (LED_TYPE *)&led[i]);
       }
     }
   }
@@ -506,7 +545,7 @@ void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint8_t i, j, cur;
   int8_t k;
-  struct cRGB preled[RGBLED_NUM];
+  LED_TYPE preled[RGBLED_NUM];
   static int8_t increment = -1;
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
@@ -525,7 +564,7 @@ void rgblight_effect_knight(uint8_t interval) {
         k = RGBLED_NUM - 1;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, &preled[i]);
+        sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&preled[i]);
       }
     }
   }
