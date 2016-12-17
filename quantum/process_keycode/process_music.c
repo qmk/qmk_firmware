@@ -1,8 +1,8 @@
 #include "process_music.h"
 
 bool music_activated = false;
-uint8_t starting_note = 0x0C;
-int offset = 7;
+uint8_t music_starting_note = 0x0C;
+int music_offset = 7;
 
 // music sequencer
 static bool music_sequence_recording = false;
@@ -115,7 +115,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
 
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + SCALE[record->event.key.col + music_offset])/12.0+(MATRIX_ROWS - record->event.key.row));
       if (record->event.pressed) {
         play_note(freq, 0xF);
         if (music_sequence_recording) {
