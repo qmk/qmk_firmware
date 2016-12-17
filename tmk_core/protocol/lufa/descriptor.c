@@ -40,6 +40,9 @@
 #include "report.h"
 #include "descriptor.h"
 
+#ifndef USB_MAX_POWER_CONSUMPTION
+#define USB_MAX_POWER_CONSUMPTION 500
+#endif
 
 /*******************************************************************************
  * HID Report Descriptors
@@ -294,7 +297,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
             .ConfigAttributes       = (USB_CONFIG_ATTR_RESERVED | USB_CONFIG_ATTR_REMOTEWAKEUP),
 
-            .MaxPowerConsumption    = USB_CONFIG_POWER_MA(500)
+            .MaxPowerConsumption    = USB_CONFIG_POWER_MA(USB_MAX_POWER_CONSUMPTION)
         },
 
     /*
