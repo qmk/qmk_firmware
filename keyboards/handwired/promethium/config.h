@@ -20,13 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define USB_VENDOR_ID_LENOVO            0x17ef
+#define USB_DEVICE_ID_LENOVO_TPKBD      0x6009
+#define USB_DEVICE_ID_LENOVO_CUSBKBD    0x6047
+#define USB_DEVICE_ID_LENOVO_CBTKBD     0x6048
+#define USB_DEVICE_ID_LENOVO_TPPRODOCK  0x6067
+
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6660
+#define VENDOR_ID       USB_VENDOR_ID_LENOVO
+#define PRODUCT_ID      USB_DEVICE_ID_LENOVO_CBTKBD
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Priyadi
 #define PRODUCT         Promethium Keyboard
-#define DESCRIPTION     Promethium Keyboard
+#define DESCRIPTION
 
 /* key matrix size */
 #define MATRIX_ROWS 8

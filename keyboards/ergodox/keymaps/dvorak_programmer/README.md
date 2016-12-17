@@ -11,5 +11,19 @@ Layers
 * KEY_NAV: arrow key movement with backward/forward word support, and copy/paste.
 * KEY_SEL: same as above, but every movement shift-selects.
 * NUMBER: keypad layer.
-* SYMBOL: all the symbols as well as brackets at the bottom.
+* SYMBOL: all the symbols.
+* BRACKET: special brackets-only layer for programming
 * SHORTCUTS: sends Hyper keys for Autohotkey to interpret. I use this to switch between specific apps.
+* MOUSE: use mouse keys
+
+Updates
+-------
+
+2016/12/10:
+* toggle for brackets layer is now on left thumb cluster.
+
+2016/11/05:
+* removed brackets anywhere but in brackets layer
+* added mouse layer back in
+* put semicolon-newline and end-newline on symbol layer
+* replaced all HYPR with MEH, added more shortcut keys
