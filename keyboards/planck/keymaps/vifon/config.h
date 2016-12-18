@@ -81,6 +81,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* prevent the modifiers from being stuck, sacrificing some memory */
 #define PREVENT_STUCK_MODIFIERS
 
+/* A larger buffer for the dynamic macros as this keymap is not taking
+ * up that much memory.
+ */
+#define DYNAMIC_MACRO_SIZE 256
+
 #ifdef SUBPROJECT_rev3
     #include "rev3/config.h"
 #endif
