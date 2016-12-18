@@ -18,7 +18,7 @@ void voice_iterate() {
 }
 
 void voice_deiterate() {
-    voice = (voice - 1) % number_of_voices;
+    voice = (voice - 1 + number_of_voices) % number_of_voices;
 }
 
 float voice_envelope(float frequency) {
@@ -30,6 +30,27 @@ float voice_envelope(float frequency) {
             note_timbre = TIMBRE_50;
             polyphony_rate = 0;
 	        break;
+
+        case something:
+            polyphony_rate = 0;
+            switch (compensated_index) {
+                case 0 ... 9:
+                    note_timbre = TIMBRE_12;
+                    break;
+
+                case 10 ... 19:
+                    note_timbre = TIMBRE_25;
+                    break;
+
+                case 20 ... 200:
+                    note_timbre = .25 + .125 + pow(((float)compensated_index - 20) / (200 - 20), 2)*.125;
+                    break;
+
+                default:
+                    note_timbre = .25;
+                    break;
+            }
+            break;
 
         case butts_fader:
             polyphony_rate = 0;

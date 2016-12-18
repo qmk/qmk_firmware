@@ -84,6 +84,10 @@ enum quantum_keycodes {
     QK_MOD_TAP_MAX        = 0x6FFF,
     QK_TAP_DANCE          = 0x7100,
     QK_TAP_DANCE_MAX      = 0x71FF,
+#ifdef UNICODEMAP_ENABLE
+    QK_UNICODE_MAP        = 0x7800,
+    QK_UNICODE_MAP_MAX    = 0x7FFF,
+#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
@@ -174,6 +178,10 @@ enum quantum_keycodes {
     // Right shift, close paren
     KC_RSPC,
 
+    // Printing
+    PRINT_ON,
+    PRINT_OFF,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -191,6 +199,7 @@ enum quantum_keycodes {
 #define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
 #define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
 #define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
+#define ALTG(kc) (kc | QK_RCTL | QK_RALT)
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -295,7 +304,10 @@ enum quantum_keycodes {
 // ON_PRESS    = 1
 // ON_RELEASE  = 2
 // Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
-#define TO(layer, when) (layer | QK_TO | (when << 0x4))
+// In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
+// keycode modeled after the old version, kept below for this.
+/* #define TO(layer, when) (layer | QK_TO | (when << 0x4)) */
+#define TO(layer) (layer | QK_TO | (ON_PRESS << 0x4))
 
 // Momentary switch layer - 256 layer max
 #define MO(layer) (layer | QK_MOMENTARY)
@@ -335,5 +347,8 @@ enum quantum_keycodes {
     #define UC(n) UNICODE(n)
 #endif
 
+#ifdef UNICODEMAP_ENABLE
+    #define X(n) (n | QK_UNICODE_MAP)
+#endif
 
 #endif

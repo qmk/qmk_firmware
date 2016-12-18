@@ -1,6 +1,9 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+#define NO_DEBUG
+#define NO_PRINT
+
 #include "../../config.h"
 
 #define LEADER_TIMEOUT 300

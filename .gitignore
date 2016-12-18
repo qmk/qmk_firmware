@@ -30,3 +30,5 @@ CMakeLists.txt
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt
+.vscode
+.stfolder
