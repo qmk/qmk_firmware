@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -13,7 +12,7 @@ MCU = atmega32u4
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 8000000
+F_CPU = 16000000
 
 #
 # LUFA specific
@@ -51,7 +50,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE ?= no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no        # Mouse keys(+4700)
+MOUSEKEY_ENABLE ?= yes        # Mouse keys(+4700)
 EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
 CONSOLE_ENABLE ?= no         # Console for debug(+400)
 COMMAND_ENABLE ?= no         # Commands for debug and configuration
@@ -63,13 +62,11 @@ UNICODE_ENABLE ?= no         # Unicode
 UNICODEMAP_ENABLE ?= yes
 BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-PS2_MOUSE_ENABLE ?= yes
-PS2_USE_INT ?= yes
-ADAFRUIT_BLE_ENABLE ?= yes
-API_SYSEX_ENABLE ?= no
+PS2_USE_USART ?= yes
+API_SYSEX_ENABLE ?= n
+CUSTOM_MATRIX = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
-SRC += $(QUANTUM_DIR)/light_ws2812.c
-SRC += rgbsps.c
+SRC = matrix.c led.c
