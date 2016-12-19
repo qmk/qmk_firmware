@@ -9,6 +9,6 @@ bool eeprom_is_valid(void)
 
 void eeprom_set_valid(bool valid)
 {
-	eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0x0000);
-	eeprom_update_byte(EEPROM_VERSION_ADDR, valid ? EEPROM_VERSION : 0x00);
+	eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0xFFFF);
+	eeprom_update_byte(EEPROM_VERSION_ADDR, valid ? EEPROM_VERSION : 0xFF);
 }

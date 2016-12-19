@@ -14,6 +14,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 	uint8_t command = data[0];
 	switch ( command )
 	{
+#if USE_KEYMAPS_IN_EEPROM
 		case id_keymap_keycode_load:
 		{
 			uint16_t keycode = keymap_keycode_load(data[1], data[2], data[3]);
@@ -33,6 +34,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			keymap_default_save();
 			break;
 		}
+#endif // USE_KEYMAPS_IN_EEPROM
 		case id_backlight_config_set_flags:
 		{
 			backlight_config_set_flags(data[1]);
@@ -67,9 +69,37 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 
 #endif
 
+void bootmagic_lite(void)
+{
+	// The lite version of TMK's bootmagic.
+	// 100% less potential for accidentally making the
+	// keyboard do stupid things.
+
+	// We need multiple scans because debouncing can't be turned off.
+	matrix_scan();
+	wait_ms(DEBOUNCING_DELAY);
+	matrix_scan();
+
+	// If the Esc and space bar are held down on power up,
+	// reset the EEPROM valid state and jump to bootloader.
+    // Assumes Esc is at [0,0] and spacebar is at [4,7].
+    // This isn't very generalized, but we need something that doesn't
+    // rely on user's keymaps in firmware or EEPROM.
+    if ( ( matrix_get_row(0) & (1<<0) ) &&
+    	 ( matrix_get_row(4) & (1<<7) ) )
+	{
+    	// Set the Zeal60 specific EEPROM state as invalid.
+		eeprom_set_valid(false);
+    	// Set the TMK/QMK EEPROM state as invalid.
+		eeconfig_disable();
+    	// Jump to bootloader.
+		bootloader_jump();
+	}
+}
 
 void matrix_init_kb(void)
 {
+	bootmagic_lite();
 
 #ifndef ZEAL60_TEST
 	// If the EEPROM has the magic, the data is good.
@@ -86,6 +116,19 @@ void matrix_init_kb(void)
 		// save the default values to the EEPROM. Default values
 		// come from construction of the zeal_backlight_config instance.
 		backlight_config_save();
+
+		// Clear the LED colors stored in EEPROM
+		for ( int row=0; row < MATRIX_ROWS; row++ )
+		{
+			HSV hsv;
+			for ( int col=0; col < MATRIX_COLS; col++ )
+			{
+				hsv.h = rand() & 0xFF;
+				hsv.s = rand() & 0xFF;
+				hsv.v = 255;
+				backlight_set_key_color( row, col, hsv );
+			}
+		}
 
 		// This saves "empty" keymaps so it falls back to the keymaps
 		// in the firmware (aka. progmem/flash)
@@ -113,9 +156,13 @@ void matrix_scan_kb(void)
 	matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
+bool process_record_kb(uint16_t keycode, keyrecord_t *record)
+{
+	// Record keypresses for backlight effects
+	if ( record->event.pressed )
+	{
+		backlight_set_key_hit( record->event.key.row, record->event.key.col );
+	}
 
 	switch(keycode)
 	{
@@ -205,6 +252,32 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
+		case FN_MO13:
+			if (record->event.pressed)
+			{
+				layer_on(1);
+				update_tri_layer(1, 2, 3);
+			}
+			else
+			{
+				layer_off(1);
+				update_tri_layer(1, 2, 3);
+			}
+			return false;
+			break;
+		case FN_MO23:
+			if (record->event.pressed)
+			{
+				layer_on(2);
+				update_tri_layer(1, 2, 3);
+			}
+			else
+			{
+				layer_off(2);
+				update_tri_layer(1, 2, 3);
+			}
+			return false;
+			break;
 	}
 	
 	return process_record_user(keycode, record);
@@ -232,6 +305,8 @@ uint16_t keymap_function_id_to_action( uint16_t function_id )
 		}
 	}
 
+#if USE_KEYMAPS_IN_EEPROM
+
 #if 0
 	// This is how to implement actions stored in EEPROM.
 	// Not yet implemented. Not sure if it's worth the trouble
@@ -249,6 +324,8 @@ uint16_t keymap_function_id_to_action( uint16_t function_id )
 		}
 	}
 #endif
+
+#endif // USE_KEYMAPS_IN_EEPROM
 
 	return pgm_read_word(&fn_actions[function_id]);
 }

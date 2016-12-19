@@ -23,7 +23,7 @@ zeal_backlight_config g_config = {
 						ALPHAS_MODS_ROW_2,
 						ALPHAS_MODS_ROW_3,
 						ALPHAS_MODS_ROW_4 },
-	.brightness = 127,
+	.brightness = 255,
 	.effect = 0,
 	.color_1 = { .h = 0, .s = 255, .v = 0 },
 	.color_2 = { .h = 127, .s = 255, .v = 0 }
@@ -31,6 +31,9 @@ zeal_backlight_config g_config = {
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
+
+// Ticks since this key was last hit.
+uint8_t g_key_hit[72];
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -125,12 +128,12 @@ const uint8_t g_map_row_col_to_led[5][14] PROGMEM = {
 };
 
 
-void map_row_col_to_led( uint8_t row, uint8_t col, uint8_t *index )
+void map_row_col_to_led( uint8_t row, uint8_t col, uint8_t *led )
 {
-	*index = 255;
+	*led = 255;
 	if ( row < MATRIX_ROWS && col < MATRIX_COLS )
 	{
-		*index = pgm_read_byte(&g_map_row_col_to_led[row][col]);
+		*led = pgm_read_byte(&g_map_row_col_to_led[row][col]);
 	}
 }
 
@@ -147,6 +150,13 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 {
 	IS31FL3731_set_color_all( red, green, blue );
+}
+
+void backlight_set_key_hit(uint8_t row, uint8_t col)
+{
+	uint8_t led;
+	map_row_col_to_led(row,col,&led);
+	g_key_hit[led] = 0;
 }
 
 // This is (F_CPU/1024) / 20 Hz
@@ -189,7 +199,7 @@ void backlight_effect_test(void)
 {
 	uint8_t offset = (g_tick<<3) & 0xFF;
 	// Relies on hue being 8-bit and wrapping
-	HSV hsv = { offset, 255, 127 };
+	HSV hsv = { .h = offset, .s = 255, .v = 127 };
 	RGB rgb = hsv_to_rgb( hsv );
 
 	backlight_set_color_all( rgb.r, rgb.g, rgb.b );
@@ -204,7 +214,7 @@ void backlight_effect_all_off(void)
 // Solid color
 void backlight_effect_solid_color(void)
 {
-	HSV hsv = { g_config.color_1.h, g_config.color_1.s, g_config.brightness };
+	HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
 	RGB rgb = hsv_to_rgb( hsv );
 	backlight_set_color_all( rgb.r, rgb.g, rgb.b );
 }
@@ -254,7 +264,7 @@ void backlight_effect_gradient_up_down(void)
 	// Divide delta by 4, this gives the delta per row
 	delta /= 4;
 
-	HSV hsv = { 0, 255, g_config.brightness };
+	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
 	for ( int i=0; i<72; i++ )
@@ -272,16 +282,22 @@ void backlight_effect_gradient_up_down(void)
 void backlight_effect_cycle_all(void)
 {
 	uint8_t offset = g_tick & 0xFF;
+
 	// Relies on hue being 8-bit and wrapping
-	HSV hsv = { offset, 255, g_config.brightness };
-	RGB rgb = hsv_to_rgb( hsv );
-	backlight_set_color_all( rgb.r, rgb.g, rgb.b );
+	for ( int i=0; i<72; i++ )
+	{
+		uint16_t offset2 = g_key_hit[i]<<2;
+		offset2 = (offset2<=63) ? (63-offset2) : 0;
+		HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
+		RGB rgb = hsv_to_rgb( hsv );
+		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+	}
 }
 
  void backlight_effect_cycle_left_right(void)
  {
 	uint8_t offset = g_tick & 0xFF;
-	HSV hsv = { 0, 255, g_config.brightness };
+	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
 	for ( int i=0; i<72; i++ )
@@ -297,7 +313,7 @@ void backlight_effect_cycle_all(void)
 void backlight_effect_cycle_up_down(void)
 {
 	uint8_t offset = g_tick & 0xFF;
-	HSV hsv = { 0, 255, g_config.brightness };
+	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
 	for ( int i=0; i<72; i++ )
@@ -332,6 +348,14 @@ ISR(TIMER3_COMPA_vect)
 	if ( g_tick < 20 )
 	{
 		return;
+	}
+
+	for ( int led=0; led<72; led++ )
+	{
+		if ( g_key_hit[led] < 255 )
+		{
+			g_key_hit[led]++;
+		}
 	}
 
 	// Store backlight config to EEPROM every 6.4 seconds
@@ -563,6 +587,12 @@ void backlight_init_drivers(void)
 	IS31FL3731_write_register(ISSI_ADDR_2, 0x11, 0b11101111 | (enable_led_LD13<<4));
 
 	// TODO: put the 1 second startup delay here?
+
+	// clear the key hits
+	for ( int led=0; led<72; led++ )
+	{
+		g_key_hit[led] = 255;
+	}
 }
 
 
@@ -581,77 +611,79 @@ uint8_t decrement( uint8_t value, uint8_t step, uint8_t min )
 	return ( new_value >= min ) ? new_value : min;
 }
 
-void backlight_set_effect(uint8_t effect)
-{
-	g_config.effect = effect;
-}
-
 void backlight_effect_increase(void)
 {
 	g_config.effect = increment( g_config.effect, 1, BACKLIGHT_EFFECT_MAX );
+	backlight_config_save();
 }
 
 void backlight_effect_decrease(void)
 {
 	g_config.effect = decrement( g_config.effect, 1, 0 );
-}
-
-void backlight_set_brightness(uint8_t brightness)
-{
-	g_config.brightness = brightness;
+	backlight_config_save();
 }
 
 void backlight_brightness_increase(void)
 {
 	g_config.brightness = increment( g_config.brightness, 8, 255 );
+	backlight_config_save();
 }
 
 void backlight_brightness_decrease(void)
 {
 	g_config.brightness = decrement( g_config.brightness, 8, 0 );
+	backlight_config_save();
 }
 
 void backlight_color_1_hue_increase(void)
 {
 	g_config.color_1.h = increment( g_config.color_1.h, 8, 255 );
+	backlight_config_save();
 }
 
 void backlight_color_1_hue_decrease(void)
 {
 	g_config.color_1.h = decrement( g_config.color_1.h, 8, 0 );
+	backlight_config_save();
 }
 
 void backlight_color_1_sat_increase(void)
 {
 	g_config.color_1.s = increment( g_config.color_1.s, 8, 255 );
+	backlight_config_save();
 }
 
 void backlight_color_1_sat_decrease(void)
 {
 	g_config.color_1.s = decrement( g_config.color_1.s, 8, 0 );
+	backlight_config_save();
 }
 
 void backlight_color_2_hue_increase(void)
 {
 	g_config.color_2.h = increment( g_config.color_2.h, 8, 255 );
+	backlight_config_save();
 }
 
 void backlight_color_2_hue_decrease(void)
 {
 	g_config.color_2.h = decrement( g_config.color_2.h, 8, 0 );
+	backlight_config_save();
 }
 
 void backlight_color_2_sat_increase(void)
 {
 	g_config.color_2.s = increment( g_config.color_2.s, 8, 255 );
+	backlight_config_save();
 }
 
 void backlight_color_2_sat_decrease(void)
 {
 	g_config.color_2.s = decrement( g_config.color_2.s, 8, 0 );
+	backlight_config_save();
 }
 
-void *backlight_get_custom_key_color_eeprom_address(uint8_t led)
+void *backlight_get_custom_key_color_eeprom_address( uint8_t led )
 {
 	// 3 bytes per color
 	return EEPROM_BACKLIGHT_KEY_COLOR_ADDR + ( led * 3 );
@@ -659,7 +691,6 @@ void *backlight_get_custom_key_color_eeprom_address(uint8_t led)
 
 void backlight_get_key_color( uint8_t led, HSV *hsv )
 {
-	// Pretend 2D array is 1D ;-)
 	void *address = backlight_get_custom_key_color_eeprom_address( led );
 	hsv->h = eeprom_read_byte(address);
 	hsv->s = eeprom_read_byte(address+1);

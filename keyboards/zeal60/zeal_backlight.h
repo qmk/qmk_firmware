@@ -38,11 +38,11 @@ void backlight_timer_disable(void);
 // If the buffer is dirty, it will update the driver with the buffer.
 void backlight_update_pwm_buffers(void);
 
-void backlight_set_effect(uint8_t effect);
+void backlight_set_key_hit(uint8_t row, uint8_t col);
+
 void backlight_effect_increase(void);
 void backlight_effect_decrease(void);
 
-void backlight_set_brightness(uint8_t brightness);
 void backlight_brightness_increase(void);
 void backlight_brightness_decrease(void);
 

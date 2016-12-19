@@ -4,6 +4,7 @@
 #include "keymap.h" // to get keymaps[][][]
 
 
+#if USE_KEYMAPS_IN_EEPROM
 
 void *keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t col)
 {
@@ -44,6 +45,7 @@ void keymap_default_save(void)
 	}
 }
 
+
 // This overrides the one in quantum/keymap_common.c
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
@@ -64,5 +66,5 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 
     return pgm_read_word(&keymaps[layer][key.row][key.col]);
 }
-
+#endif // USE_KEYMAPS_IN_EEPROM
 

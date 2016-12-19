@@ -17,7 +17,9 @@ enum zeal60_keycodes {
 	H2_INC,
 	H2_DEC,
 	S2_INC,
-	S2_DEC
+	S2_DEC,
+	FN_MO13,
+	FN_MO23
 };
 
 // Zeal60 specific "action functions"
@@ -34,5 +36,6 @@ enum zeal60_action_functions {
 #define FN_TT13 F((0x0F00|TRIPLE_TAP_1_3))
 #define FN_TT23 F((0x0F00|TRIPLE_TAP_2_3))
 
+#define TG_NKRO             MAGIC_TOGGLE_NKRO
 
 #endif // ZEAL_KEYCODE_H

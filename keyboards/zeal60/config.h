@@ -89,6 +89,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define ALPHAS_MODS_ROW_3 0b0010000000000011
 #define ALPHAS_MODS_ROW_4 0b0011100000001111
 
-
+#define USE_KEYMAPS_IN_EEPROM 1
 
 #endif
