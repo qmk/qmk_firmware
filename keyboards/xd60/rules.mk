@@ -1,25 +1,7 @@
-#----------------------------------------------------------------------------
-# On command line:
-#
-# make = Make software.
-#
-# make clean = Clean out built project files.
-#
-# That's pretty much all you need. To compile, always go make clean, 
-# followed by make.
-#
-# For advanced users only:
-# make teensy = Download the hex file to the device, using teensy_loader_cli.
-#               (must have teensy_loader_cli installed).
-#
-#----------------------------------------------------------------------------
-
-# # project specific files
-SRC = twimaster.c \
-	  matrix.c
-
 # MCU name
+# MCU = at90usb1287
 MCU = atmega32u4
+
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -35,11 +17,10 @@ MCU = atmega32u4
 F_CPU = 16000000
 
 
-#
 # LUFA specific
-#
 # Target architecture (see library "Board Types" documentation).
 ARCH = AVR8
+
 
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
@@ -54,6 +35,7 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
@@ -64,17 +46,20 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-#   comment out to disable the options.
-#
-
-SLEEP_LED_ENABLE = no
-API_SYSEX_ENABLE ?= no
-RGBLIGHT_ENABLE ?= yes
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
+BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = no         # Console for debug(+400)
+COMMAND_ENABLE = no         # Commands for debug and configuration
+NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
