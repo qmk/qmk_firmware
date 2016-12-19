@@ -6,6 +6,7 @@
 extern uint16_t envelope_index;
 extern float note_timbre;
 extern float polyphony_rate;
+extern bool glissando;
 
 voice_type voice = default_voice;
 
@@ -27,11 +28,13 @@ float voice_envelope(float frequency) {
 
     switch (voice) {
         case default_voice:
+            glissando = true;
             note_timbre = TIMBRE_50;
             polyphony_rate = 0;
 	        break;
 
         case something:
+            glissando = false;
             polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
@@ -43,16 +46,51 @@ float voice_envelope(float frequency) {
                     break;
 
                 case 20 ... 200:
-                    note_timbre = .25 + .125 + pow(((float)compensated_index - 20) / (200 - 20), 2)*.125;
+                    note_timbre = .125 + .125;
                     break;
 
                 default:
-                    note_timbre = .25;
+                    note_timbre = .125;
                     break;
             }
             break;
 
+        case drums:
+            glissando = false;
+            polyphony_rate = 0;
+                note_timbre = 0;
+                switch (envelope_index) {
+                    case 0 ... 20:
+                        note_timbre = 0.5;
+                    default:
+                        frequency = (rand() % (int)(frequency * 1.2 - frequency)) + (frequency * 0.8);
+                        break;
+                }
+            // if (frequency < 80.0) {
+            //     switch (envelope_index % 4) {
+            //         case 0:
+            //             frequency = 348.0;
+            //         case 1:
+            //             frequency = 53.0;
+            //         case 2:
+            //             frequency = 128.0;
+            //         case 3:
+            //             frequency = 934.0;
+            //         default:
+            //             break;
+            //     }
+            // } else if (frequency < 160.0) {
+
+            // } else if (frequency < 320.0) {
+
+            // } else if (frequency < 640.0) {
+
+            // } else if (frequency < 1280.0) {
+
+            // }
+            break;
         case butts_fader:
+            glissando = true;
             polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
@@ -100,6 +138,7 @@ float voice_envelope(float frequency) {
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
+            glissando = true;
             polyphony_rate = 0;
             switch (compensated_index) {
                 default:
@@ -114,6 +153,7 @@ float voice_envelope(float frequency) {
 	        break;
 
         case duty_octave_down:
+            glissando = true;
             polyphony_rate = 0;
             note_timbre = (envelope_index % 2) * .125 + .375 * 2;
             if ((envelope_index % 4) == 0)
@@ -122,6 +162,7 @@ float voice_envelope(float frequency) {
                 note_timbre = 0;
             break;
         case delayed_vibrato:
+            glissando = true;
             polyphony_rate = 0;
             note_timbre = TIMBRE_50;
             #define VOICE_VIBRATO_DELAY 150
