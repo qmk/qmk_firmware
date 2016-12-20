@@ -12,3 +12,10 @@ Currently the only way to solve this is to [reprogram the chip via ISP](https://
 An example command to flash the board once things are hooked up is:
 
     avrdude -c usbtiny -p m32u4 -U flash:w:planck_default_rev4.hex
+
+Research is still being done on why this happens, but here are some cases:
+
+* [`make -f Makefile.rn42 dfu` and not the dfu-programmer commands worked for @tybenz](https://github.com/tmk/tmk_keyboard/issues/316) - also see [the hhkb keyboard on tmk](https://github.com/tmk/tmk_keyboard/tree/master/keyboard/hhkb)
+* [Doing a force erase works here](https://geekhack.org/index.php?topic=12047.msg1520147#msg1520147)
+* [`dfu-programmer atmega32u4 erase --force` works here as well](https://forum.fhem.de/index.php?topic=29777.0) [DE]
+* [Unresolved, but some data dumps](https://github.com/dfu-programmer/dfu-programmer/issues/29)
