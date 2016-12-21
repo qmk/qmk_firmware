@@ -278,5 +278,3 @@ float voice_envelope(float frequency) {
 
     return frequency;
 }
-
-
