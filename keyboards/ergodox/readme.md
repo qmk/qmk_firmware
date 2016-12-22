@@ -65,7 +65,7 @@ files.  Check them out with:
 
 # Flashing Firmware
 
-## ErgoDox Ez
+## ErgoDox EZ
 
 The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
