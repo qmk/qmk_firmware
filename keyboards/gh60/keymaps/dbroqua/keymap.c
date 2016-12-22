@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,  ______,  ______,                   KC_FN1,                   KC_MSTP, ______,  ______,  ______ \
       ),
 
-/* FN Layer
+/* WASD Layer
  * ,-----------------------------------------------------------------------------------------.
  * |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
  * |-----------------------------------------------------------------------------------------+
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       |       |                                 |       |       |
  *         `-----------------------------------------------------------------'
  */
-  [_WASD] = KEYMAP_HHKB( /* Layer 1 */
+  [_WASD] = KEYMAP_HHKB( /* Layer 2 */
       ______,   ______,  ______,  ______,  ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______,  ______, \
       ______,   ______,  KC_UP,   ______,  ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
       ______,   KC_LEFT, KC_DOWN, KC_RGHT, ______,  ______, ______, ______, ______, ______, ______, ______, ______,   \
@@ -89,23 +89,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
     [1] = ACTION_LAYER_TOGGLE(2),     // toggle wasd overlay
 };
-
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//    switch (keycode) {
-//        case ESC_LED:
-//            if (record->event.pressed) {
-//                if (esc_led_on == true ){
-//                    gh60_esc_led_off();
-//                }else{
-//                    gh60_esc_led_on();
-//                }
-//                esc_led_on = !esc_led_on;
-//            }
-//            return false;
-//        break;
-//    }
-//    return true;
-//}
 
 void matrix_scan_user(void) {
     uint32_t layer = layer_state;
