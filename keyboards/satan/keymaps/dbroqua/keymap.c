@@ -1,4 +1,5 @@
 #include "satan.h"
+#include "action_layer.h"
 #include "rgblight.h"
 
 #define _DEFAULT 0
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS,  ______, ______, ______, ______, ______, ______, ______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,   ______, ______,  \
       ______,   KC_VOLD,KC_VOLU,KC_MUTE,______, ______, KC_PAST,KC_PSLS,KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, ______,   \
       ______,   KC_MPRV,KC_MPLY,KC_MNXT,______, ______, KC_PPLS,KC_PMNS,KC_END,  KC_PGDN, KC_DOWN, ______,  ______,  \
-      ______,   ______, ______,                 TO(_SFX),               KC_MSTP, ______,  ______,  ______ \
+      ______,   ______, ______,                 TG(_SFX),                 KC_MSTP, ______,  ______,  ______ \
       ),
 
 /* SFX Layer
@@ -68,13 +69,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |       |       |                                 |       |       |
  *         `-----------------------------------------------------------------'
  */
-  [_SFX] = KEYMAP_HHKB( /* Layer 2 */
-      ______,   ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______, ______, ______, ______,  ______, \
-      ______,   BL_DEC, BL_INC, BL_TOGG, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
-      ______,   F(0), F(1), ______, ______, ______, ______, ______,______, ______, ______, ______, ______,   \
-      ______,   F(2), F(3), F(4),F(5),F(6),F(7),______,______, ______, ______, ______,______,  \
-      ______,   ______, ______,                TO(_DEFAULT),                 ______, ______,    ______,    ______ \
+  [_SFX] = KEYMAP_HHKB(
+      ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, \
+      ______,   BL_DEC, BL_INC, BL_TOGG,______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,   F(2),   F(3),   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,   \
+      ______,   F(4),   F(5),   F(6),   F(7),   F(8),   F(9),   ______, ______, ______, ______, ______, ______,  \
+      ______,   ______, ______,                 ______,                 ______, ______, ______, ______ \
       )
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  // MACRODOWN only works in this function
+  return MACRO_NONE;
 };
 
 enum function_id {
@@ -89,14 +96,16 @@ enum function_id {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(RGBLED_TOGGLE),
-  [1]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
-  [2]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-  [3]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-  [4]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-  [5]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-  [6]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-  [7]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL)
+  [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
+  [1] = ACTION_LAYER_TOGGLE(2),     // toggle wasd overlay
+  [2]  = ACTION_FUNCTION(RGBLED_TOGGLE),
+  [3]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
+  [4]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
+  [5]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
+  [6]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
+  [7]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
+  [8]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
+  [9]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL)
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -142,9 +151,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
   }
-}
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
 }
