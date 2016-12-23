@@ -732,7 +732,7 @@ static void send_system(uint16_t data)
 
     report_extra_t r = {
         .report_id = REPORT_ID_SYSTEM,
-        .usage = data
+        .usage = data - SYSTEM_POWER_DOWN + 1
     };
     Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
 

@@ -1,5 +1,7 @@
 # The Easy Way
 
+If you have an ErgoDox EZ, the absolute easiest way for you to customize your firmware is using the [graphical configurator](http://configure.ergodox-ez.com), which uses QMK under the hood. 
+
 If you can find firmware someone else has made that does what you want, that
 is the easiest way to customize your ErgoDox.  It requires no programming
 experience or the setup of a build environment.
@@ -63,7 +65,7 @@ files.  Check them out with:
 
 # Flashing Firmware
 
-## ErgoDox Ez
+## ErgoDox EZ
 
 The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
@@ -153,13 +155,10 @@ If you want to send a plain vanilla key, you can look up its code under `doc/key
 There are external tools for customizing the layout, but those do not use
 the featurs of this qmk firmware.  These sites include:
 
-  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for Ez
+  - The official [ErgoDox EZ configurator](http://configure.ergodox-ez.com)
+  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for EZ, works but not officially supported
   - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
 
 You can also find an existing firmware that you like, for example from:
 
   - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
-
-This qmk firmware also provides the ability to customize keymaps, but requires
-a toolchain to build the firmware.  See below for instructions on building
-firmware and customizing keymaps.
