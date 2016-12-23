@@ -21,6 +21,8 @@ static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   if (code & QK_LGUI)
     f(KC_LGUI);
 
+  if (code < QK_RMODS_MIN) return;
+
   if (code & QK_RCTL)
     f(KC_RCTL);
   if (code & QK_RSFT)
