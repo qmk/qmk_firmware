@@ -2,7 +2,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 23
+	#define RGBLIGHT_MODES 24
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -98,5 +98,6 @@ void rgblight_effect_rainbow_mood(uint8_t interval);
 void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
+void rgblight_effect_christmas(void);
 
 #endif
