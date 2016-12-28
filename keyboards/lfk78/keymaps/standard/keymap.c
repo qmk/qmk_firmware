@@ -11,6 +11,14 @@ enum keymap_layout {
     SETTINGS,
 };
 
+const uint32_t layer_count = 4;
+const Layer_Info layer_info[] = {
+  {0x0000, {0x0000, 0x0FFF, 0x0000}}, // base layer - green
+  {0x0002, {0x0FFF, 0x0000, 0x0FFF}}, // function layer - blue
+  {0x0004, {0x0000, 0x0000, 0x0FFF}}, // settings layer - magenta
+  {0xFFFF, {0x0FFF, 0x0FFF, 0x0FFF}}, // unknown layer - white
+};
+
   /* Keymap BASE: (Base Layer) Default Layer
    * ,---------.  ,------------------------------------------------------------.  ,---------.
    * | F1 | F2 |  |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa|  | Ins|PgUp|

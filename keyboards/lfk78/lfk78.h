@@ -1,5 +1,5 @@
-#ifndef LFK78_REVC_H
-#define LFK78_REVC_H
+#ifndef LFK78_H
+#define LFK78_H
 
 #include "keymap.h"
 #include "quantum.h"
@@ -13,6 +13,21 @@
 #ifndef sbi
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
+
+
+typedef struct RGB_Color {
+    uint16_t red;
+    uint16_t green;
+    uint16_t blue;
+} RGB_Color;
+
+typedef struct Layer_Info {
+    uint32_t layer;
+    RGB_Color color;
+} Layer_Info;
+
+extern const uint32_t layer_count;
+extern const Layer_Info layer_info[];
 
 enum action_functions {
     LFK_CLEAR = 0,          // Resets all layers

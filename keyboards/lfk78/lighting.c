@@ -92,6 +92,21 @@ void set_underglow(uint8_t red, uint8_t green, uint8_t blue){
     }
 }
 
+void set_backlight_by_keymap(uint8_t col, uint8_t row){
+    xprintf("event: %d %d\n", col, row);
+    uint8_t lookup_value = switch_leds[row][col];
+    uint8_t matrix = 0;
+    if(lookup_value & 0x80){
+        matrix = 1;
+        issi_devices[0]->led_dirty = 1;
+    }else{
+        issi_devices[0]->led_dirty = 1;
+    }
+    uint8_t led_col = (lookup_value & 0x70) >> 4;
+    uint8_t led_row = lookup_value & 0x0F;
+    xprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, led_col, led_row);
+    activateLED(matrix, led_col, led_row, 255);
+}
 
 void force_issi_refresh(){
     issi_devices[0]->led_dirty = true;

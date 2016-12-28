@@ -42,7 +42,6 @@ void matrix_init_kb(void)
 
 #ifdef AUDIO_ENABLE
     audio_init();
-    // PLAY_NOTE_ARRAY(test_sound, false, 0);
 #else
     // If we're not using the audio pin, drive it low
     sbi(DDRC, 6);
@@ -77,27 +76,17 @@ void matrix_scan_kb(void)
     // but can't find QMK equiv
     static uint32_t layer_indicator = -1;
     if(layer_indicator != layer_state){
-        layer_indicator = layer_state;
-        if(layer_state==0){
-            OCR1A = 0x0000; // B5 - Red
-            OCR1B = 0x0FFF; // B6 - Green
-            OCR1C = 0x0000; // B7 - Blue
-        }else if(layer_state & 0x04){
-            OCR1A = 0x0FFF; // B5 - Red
-            OCR1B = 0x0000; // B6 - Green
-            OCR1C = 0x07FF; // B7 - Blue
-        }else if(layer_state & 0x02){
-            OCR1A = 0x0000; // B5 - Red
-            OCR1B = 0x0000; // B6 - Green
-            OCR1C = 0x0FFF; // B7 - Blue
-        }else{
-            xprintf("unknown layer: %02X\n", layer_state);
-            OCR1A = 0x0FFF; // B5 - Red
-            OCR1B = 0x0FFF; // B6 - Green
-            OCR1C = 0x0FFF; // B7 - Blue
+        for(uint32_t i=0;; i++){
+            // the layer_info list should end with layer 0xFFFF
+            // it will break this out of the loop and define the unknown layer color
+            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFF)){
+                OCR1A = layer_info[i].color.red;
+                OCR1B = layer_info[i].color.green;
+                OCR1C = layer_info[i].color.blue;
+                break;
+            }
         }
     }
-
     matrix_scan_user();
 }
 
@@ -116,20 +105,8 @@ void click(uint16_t freq, uint16_t duration){
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
     // Test code that turns on the switch led for the key that is pressed
-    //
     // xprintf("event: %d %d\n", record->event.key.col, record->event.key.row);
-    // uint8_t lookup_value = switch_leds[record->event.key.row][record->event.key.col];
-    // uint8_t matrix = 0;
-    // if(lookup_value & 0x08){
-    //     matrix = 6;
-    //     issi_devices[3]->led_dirty = 1;
-    // }else{
-    //     issi_devices[0]->led_dirty = 1;
-    // }
-    // uint8_t col = (lookup_value & 0xF0) >> 4;
-    // uint8_t row = lookup_value & 0x07;
-    // xprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, col, row);
-    // activateLED(matrix, col, row, 255);
+    // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
 
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
@@ -143,7 +120,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
+#if defined(ISSI_ENABLE) || defined(AUDIO_ENABLE)
     int8_t sign = 1;
+#endif
     xprintf("action_function: %d, opt: %02X\n", id, opt);
     if(id == LFK_ESC_TILDE){
         // Send ~ on shift-esc
