@@ -4,22 +4,19 @@
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
+#include "debug.h"
+
+#define BACKLIGHT_BREATHING
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
 float test_sound[][2] = SONG(ODE_TO_JOY);
 #include <audio/audio.h>
 #endif
 
-
-uint8_t under_red = 255;
-uint8_t under_green = 255;
-uint8_t under_blue = 255;
-uint8_t backlight = 255;
-uint8_t led_toggle = 1;
-
-uint16_t click_hz = 500;
-uint16_t click_time = 2;
-uint8_t click_toggle = 0;
+uint16_t click_hz = CLICK_HZ;
+uint16_t click_time = CLICK_MS;
+uint8_t click_toggle = CLICK_ENABLED;
 
 
 void matrix_init_kb(void)
@@ -50,8 +47,6 @@ void matrix_init_kb(void)
 
 #ifdef ISSI_ENABLE
     issi_init();
-    set_underglow(under_red, under_green, under_blue);
-    set_backlight(backlight);
 #endif
 }
 
@@ -60,7 +55,16 @@ void matrix_scan_kb(void)
 #ifdef ISSI_ENABLE
     // switch/underglow lighting update
     static uint32_t issi_device = 0;
+    static uint32_t twi_last_ready = 0;
+    if(twi_last_ready > 1000){
+        // Its been way too long since the last ISSI update, reset the I2C bus and start again
+        dprintf("TWI failed to recover, TWI re-init\n");
+        twi_last_ready = 0;
+        TWIInit();
+        force_issi_refresh();
+    }
     if(isTWIReady()){
+        twi_last_ready = 0;
         // If the i2c bus is available, kick off the issi update, alternate between devices
         update_issi(issi_device, 0);
         if(issi_device){
@@ -68,6 +72,8 @@ void matrix_scan_kb(void)
         }else{
             issi_device = 3;
         }
+    }else{
+        twi_last_ready++;
     }
 #endif
     // Update layer indicator LED
@@ -76,13 +82,16 @@ void matrix_scan_kb(void)
     // but can't find QMK equiv
     static uint32_t layer_indicator = -1;
     if(layer_indicator != layer_state){
+        debug_enable = true;
+        dprintf("%08lX(%u)\n", layer_state, biton32(layer_state));
         for(uint32_t i=0;; i++){
             // the layer_info list should end with layer 0xFFFF
             // it will break this out of the loop and define the unknown layer color
-            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFF)){
+            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFFFFFF)){
                 OCR1A = layer_info[i].color.red;
                 OCR1B = layer_info[i].color.green;
                 OCR1C = layer_info[i].color.blue;
+                layer_indicator = layer_state;
                 break;
             }
         }
@@ -105,9 +114,8 @@ void click(uint16_t freq, uint16_t duration){
 bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
     // Test code that turns on the switch led for the key that is pressed
-    // xprintf("event: %d %d\n", record->event.key.col, record->event.key.row);
+    // dprintf("event: %d %d\n", record->event.key.col, record->event.key.row);
     // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
-
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
@@ -120,10 +128,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
-#if defined(ISSI_ENABLE) || defined(AUDIO_ENABLE)
+#ifdef AUDIO_ENABLE
     int8_t sign = 1;
 #endif
-    xprintf("action_function: %d, opt: %02X\n", id, opt);
+    // dprintf("action_function: %d, opt: %02X\n", id, opt);
     if(id == LFK_ESC_TILDE){
         // Send ~ on shift-esc
         void (*method)(uint8_t) = (event->event.pressed) ? &add_key : &del_key;
@@ -141,50 +149,6 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 layer_clear();
                 break;
 #ifdef ISSI_ENABLE
-            case LFK_LED_TOGGLE:
-                if(led_toggle == 0){
-                    led_toggle = 1;
-                    set_backlight(backlight);
-                    set_underglow(under_red, under_green, under_blue);
-                }else{
-                    led_toggle = 0;
-                    set_backlight(0);
-                    set_underglow(0, 0, 0);
-                }
-                issi_devices[0]->led_dirty = 1;
-                issi_devices[3]->led_dirty = 1;
-                break;
-            case LFK_LED_DOWN:
-                sign = -1;  // continue to next statement
-            case LFK_LED_UP:
-                // Change LEDs
-                //  opt 0 : toggle all LEDs on/off
-                //  opt -1 or 1 : increase or decrease brightness
-                //  mods:
-                //      None-    backlight
-                //      Control- Red
-                //      Alt-     Green
-                //      Gui-     Blue
-                led_toggle = 1;
-                uint8_t mods = get_mods();
-                if(mods == 0){
-                    backlight += 32 * sign;
-                    set_backlight(backlight);
-                }else{
-                    if(mods & MOD_LCTL){
-                        under_red += 32 * sign;
-                    }
-                    if(mods & MOD_LALT){
-                        under_green += 32 * sign;
-                    }
-                    if(mods & MOD_LGUI){
-                        under_blue += 32 * sign;
-                    }
-                    set_underglow(under_red, under_green, under_blue);
-                }
-                issi_devices[0]->led_dirty = 1;
-                issi_devices[3]->led_dirty = 1;
-                break;
             case LFK_LED_TEST:
                 led_test();
                 break;
@@ -194,7 +158,6 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 sign = -1;  // continue to next statement
             case LFK_CLICK_FREQ_HIGHER:
                 click_hz += sign * 100;
-                xprintf("click_hz: %d\n", click_hz);
                 click(click_hz, click_time);
                 break;
             case LFK_CLICK_TOGGLE:
@@ -212,22 +175,21 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 sign = -1;  // continue to next statement
             case LFK_CLICK_TIME_LONGER:
                 click_time += sign;
-                xprintf("click_time: %d\n", click_time);
                 click(click_hz, click_time);
                 break;
 #endif
             case LFK_DEBUG_SETTINGS:
-                xprintf("Click:\n");
-                xprintf("  toggle: %d\n", click_toggle);
-                xprintf("  freq(hz): %d\n", click_hz);
-                xprintf("  duration(ms): %d\n", click_time);
+                dprintf("Click:\n");
+                dprintf("  toggle: %d\n", click_toggle);
+                dprintf("  freq(hz): %d\n", click_hz);
+                dprintf("  duration(ms): %d\n", click_time);
                 break;
         }
     }
 }
 
 void reset_keyboard_kb(){
-    xprintf("programming!\n");
+    dprintf("programming!\n");
     OCR1A = 0x0000; // B5 - Red
     OCR1B = 0x0FFF; // B6 - Green
     OCR1C = 0x0FFF; // B7 - Blue

@@ -7,6 +7,9 @@
 #include "TWIlib.h"
 #include "avr/timer_avr.h"
 #include "lighting.h"
+#include "rgblight.h"
+
+const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;
 
 /* RGB Map:
     12  11  10   9  16  32  31  15  30  28
@@ -77,11 +80,21 @@ void set_rgb(uint8_t rgb_led, uint8_t red, uint8_t green, uint8_t blue){
     }
 }
 
-void set_backlight(uint8_t level){
+void backlight_set(uint8_t level){
+    if(!(issi_devices[0] && issi_devices[3])){
+        // if either of the issi devices failed to init, try again
+        issi_init();
+    }
+    uint8_t pwm_value = 0;
+    if(level > 0){
+        pwm_value = backlight_pwm_map[level-1];
+    }
+    dprintf("BACKLIGHT_LEVELS: %d\n", BACKLIGHT_LEVELS);
+    dprintf("backlight_set level: %d pwm: %d\n", level, pwm_value);
     for(int x = 1; x <= 9; x++){
         for(int y = 1; y <= 9; y++){
-            activateLED(6, x, y, level);
-            activateLED(0, x, y, level);
+            activateLED(6, x, y, pwm_value);
+            activateLED(0, x, y, pwm_value);
         }
     }
 }
@@ -92,8 +105,16 @@ void set_underglow(uint8_t red, uint8_t green, uint8_t blue){
     }
 }
 
+void rgblight_set(void) {
+    // set_underglow(led[0].r, led[0].g, led[0].b);
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        set_rgb(i, led[i].r, led[i].g, led[i].b);
+    }
+
+}
+
 void set_backlight_by_keymap(uint8_t col, uint8_t row){
-    xprintf("event: %d %d\n", col, row);
+    dprintf("event: %d %d\n", col, row);
     uint8_t lookup_value = switch_leds[row][col];
     uint8_t matrix = 0;
     if(lookup_value & 0x80){
@@ -104,7 +125,7 @@ void set_backlight_by_keymap(uint8_t col, uint8_t row){
     }
     uint8_t led_col = (lookup_value & 0x70) >> 4;
     uint8_t led_row = lookup_value & 0x0F;
-    xprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, led_col, led_row);
+    dprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, led_col, led_row);
     activateLED(matrix, led_col, led_row, 255);
 }
 
@@ -116,7 +137,7 @@ void force_issi_refresh(){
 }
 
 void led_test(){
-    set_backlight(0);
+    backlight_set(0);
     set_underglow(0, 0, 0);
     force_issi_refresh();
     set_underglow(0, 0, 0);
@@ -136,6 +157,11 @@ void led_test(){
         set_rgb(rgb_sequence[x], 0, 0, 0);
         force_issi_refresh();
     }
+}
+
+void backlight_init_ports(void){
+    dprintf("backlight_init_ports\n");
+    issi_init();
 }
 
 #endif

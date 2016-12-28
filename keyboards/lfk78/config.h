@@ -52,9 +52,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 8
+#define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
+
+#define RGB_DI_PIN A1  // Have to set it to something to get the ws2812 code to compile
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 28     // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
+#define CLICK_HZ 500
+#define CLICK_MS 2
+#define CLICK_ENABLED 0
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
