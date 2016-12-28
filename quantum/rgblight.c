@@ -370,6 +370,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
+__attribute__ ((weak))
 void rgblight_set(void) {
   if (rgblight_config.enable) {
     #ifdef RGBW
