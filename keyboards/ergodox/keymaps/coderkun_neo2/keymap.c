@@ -294,11 +294,10 @@ void unicode_input_start (void) {
 // Override method to use NEO_A instead of KC_A
 uint16_t hex_to_keycode(uint8_t hex)
 {
-  if (hex == 0x0) {
+  if(hex == 0x0) {
     return KC_0;
-  } else if (hex < 0xA) {
-    return KC_1 + (hex - 0x1);
-  } else {
+  }
+  else if(hex >= 0xA) {
     switch(hex) {
       case 0xA:
         return NEO_A;
@@ -314,4 +313,6 @@ uint16_t hex_to_keycode(uint8_t hex)
         return NEO_F;
     }
   }
+
+  return KC_1 + (hex - 0x1);
 }
