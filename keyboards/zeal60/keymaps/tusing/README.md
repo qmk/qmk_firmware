@@ -1,6 +1,6 @@
 # RGB Underglow Strip on the Zeal60: A Guide
 
-***WARNING:*** I don't know if any of this is anywhere near correct. If you follow this, your keyboard will probably explode. Right now, I would appreciate if people could find and point out any mistakes in this guide.
+***WARNING:*** This guide is untested and likely has errors.
 
 ***NOTE:*** As explained in Part C, due to current limits, **underglow will only work on USB 3.0 or above**. If you want to use your keyboard on USB 2.0, make sure either underglow or backlighting is off when you plug in your Zeal60 - or that you have fiddled with the brightness of both to take the board's total consumption under 500mA.
 
@@ -58,13 +58,13 @@ If we take a look at [```rgblight.c```](https://github.com/Wilba6582/qmk_firmwar
 ```c
 // The folliwng three variables should probably be put in config.h.
 #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
-#define RGBSTRIP_RGBW 0                   // 1 if you have an RGBW strip.
+#define RGBW 0                   // 1 if you have an RGBW strip. 
 #define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
 
 void adjust_current(void) {
     /** Dims RGB(W) strip if it exceeds defined current limit. */
     // Convert 1 milliamp to an R+G+B+W brightness value.
-    float rgbw_per_milliamp = 255 * (3 + RGBSTRIP_RGBW) /
+    float rgbw_per_milliamp = 255 * (3 + RGBW) /
                               (float)RGBSTRIP_MAX_CURRENT_PER_LIGHT;
     // Convert strip current limit to brightness limit.
     float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
@@ -73,7 +73,7 @@ void adjust_current(void) {
     uint8_t strip_rgbw_total = 0;
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
         strip_rgbw_total += led[i].r + led[i].g + led[i].b;
-        if (RGBSTRIP_RGBW) {
+        if (RGBW) {
             strip_rgbw_total += led[i].w;
         }
     }
@@ -85,7 +85,7 @@ void adjust_current(void) {
             led[i].r = (uint8_t)(led[i].r * multiplier);
             led[i].g = (uint8_t)(led[i].g * multiplier);
             led[i].b = (uint8_t)(led[i].b * multiplier);
-            if (RGBSTRIP_RGBW) {
+            if (RGBW) {
                 led[i].w = (uint8_t)(led[i].w * multiplier);
             }
         }
