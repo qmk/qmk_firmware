@@ -372,10 +372,10 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 
 void adjust_current(void) {
     /** Dims RGB strip if it exceeds defined current limit. */
-    // Convert 1 milliamp to an R+G+B+W brightness value.
+    // Convert 1 milliamp to an R+G+B brightness value.
     float rgbw_per_milliamp = (255 * 3) /
                               (float)RGBSTRIP_MAX_CURRENT_PER_LIGHT;
-    // Convert strip current limit to brightness limit.
+    // Convert strip current limit to a total brightness limit.
     float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
 
     // Calculate how much brightness the strip currently uses.

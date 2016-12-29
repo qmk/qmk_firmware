@@ -13,6 +13,7 @@
 #define RGBLIGHT_VAL_STEP 10   // How much each press of rgb_val changes val
 
 // Current limiting.
+#define USB_MAX_POWER_CONSUMPTION 900
 #define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
 #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
 

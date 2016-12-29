@@ -51,58 +51,18 @@ Here are some possible configurations with 16 RGB neopixels (6 on top and bottom
 |       50% / 250mA      |         66% / 40mA         |     890mA (USB 3.0)     |
 |      100% / 500mA      |         100% / 60mA        |     1460mA (USB 3.1)    
 
-I'll take the second option. Since we have 900-500=400mA left to work with, we need to implement a software solution to limit the strip's brightness. 
+I'll take the second option.
 
-If we take a look at [```rgblight.c```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/quantum/rgblight.c), we'll notice that all lighting actuation trickles down to [```rgblight_set```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/quantum/rgblight.c#L373). I wrote the following **untested** snippet to limit strip current to 400mA. 
+1. Add the following to your keymap's [```config.h```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/keymaps/default/config.h). Change variable definitions based on your needs.
 
-```c
-// The folliwng three variables should probably be put in config.h.
-#define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
-#define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
-
-void adjust_current(void) {
-    /** Dims RGB(W) strip if it exceeds defined current limit. */
-    // Convert 1 milliamp to an R+G+B+W brightness value.
-    float rgbw_per_milliamp = 255 * (3 + RGBW) /
-                              (float)RGBSTRIP_MAX_CURRENT_PER_LIGHT;
-    // Convert strip current limit to brightness limit.
-    float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
-
-    // Calculate how much brightness the strip currently uses.
-    uint8_t strip_rgbw_total = 0;
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        strip_rgbw_total += led[i].r + led[i].g + led[i].b;
-        if (RGBW) {
-            strip_rgbw_total += led[i].w;
-        }
-    }
-
-    // If we use more brightness than allowed, dim LEDs.
-    if (strip_rgbw_total > strip_rgbw_limit) {
-        float multiplier = strip_rgbw_limit / strip_rgbw_total;
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = (uint8_t)(led[i].r * multiplier);
-            led[i].g = (uint8_t)(led[i].g * multiplier);
-            led[i].b = (uint8_t)(led[i].b * multiplier);
-            if (RGBW) {
-                led[i].w = (uint8_t)(led[i].w * multiplier);
-            }
-        }
-    }
-}
-
-void rgblight_set(void) {
-    adjust_current();
-    // ... rest of function ...
-}
-```
-1. Insert this snippet into your [```rgblight.c```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/quantum/rgblight.c) (and remember to adjust [```rgblight_set```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/quantum/rgblight.c#L373) as described in the the snippet). **Or** find another way to never let your lights exceed 40%.
-2. Change the max power draw limit to 900mA by adding ```#define USB_MAX_POWER_CONSUMPTION 900``` to [```config.h```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/keymaps/default/config.h).
-3. **If you've connected +5V and GND to J1A**, either short or replace the thermistor labeled F1 under the USB port with one that supports your current needs. [Here's a selection](https://goo.gl/748avG) of 900mA-1.5A current hold fuses - look for an SMD 0805-sized fuse. **Otherwise, if you've connected directly to the USB pins**, you don't need to do anything other than limit brightness in software.
+    ```c
+    // Current limiting.
+    #define USB_MAX_POWER_CONSUMPTION 900     // Limit device max power consumption.
+    #define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
+    #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
+    ```
+3. **If you've connected +5V and GND to J1A**, either short or replace the thermistor labeled F1 under the USB port with one that supports your current needs. [Here's a selection](https://goo.gl/748avG) of 900mA-1.5A current hold fuses - look for an SMD 0805-sized fuse. **Otherwise, if you've connected directly to the USB +5V/GND pins**, you don't need to do anything other than limit brightness in software.
 4. Enable all LEDs and test it out!
-
-
-
 
 ## D. Additional resources
 ### A. Connecting the strip.
