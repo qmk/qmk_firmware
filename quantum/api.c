@@ -116,28 +116,29 @@ void process_api(uint16_t length, uint8_t * data) {
                     MT_GET_DATA_ACK(DT_KEYMAP_SIZE, keymap_size, 2);
                     break;
                 }
-                case DT_KEYMAP: {
-                    uint8_t keymap_data[MATRIX_ROWS * MATRIX_COLS * 4 + 3];
-                    keymap_data[0] = data[2];
-                    keymap_data[1] = MATRIX_ROWS;
-                    keymap_data[2] = MATRIX_COLS;
-                    for (int i = 0; i < MATRIX_ROWS; i++) {
-                        for (int j = 0; j < MATRIX_COLS; j++) {
-                            keymap_data[3 + (i*MATRIX_COLS*2) + (j*2)] = pgm_read_word(&keymaps[data[2]][i][j]) >> 8;
-                            keymap_data[3 + (i*MATRIX_COLS*2) + (j*2) + 1] = pgm_read_word(&keymaps[data[2]][i][j]) & 0xFF;
-                        }
-                    }
-                    MT_GET_DATA_ACK(DT_KEYMAP, keymap_data, MATRIX_ROWS * MATRIX_COLS * 4 + 3);
-                    // uint8_t keymap_data[5];
-                    // keymap_data[0] = data[2];
-                    // keymap_data[1] = data[3];
-                    // keymap_data[2] = data[4];
-                    // keymap_data[3] = pgm_read_word(&keymaps[data[2]][data[3]][data[4]]) >> 8;
-                    // keymap_data[4] = pgm_read_word(&keymaps[data[2]][data[3]][data[4]]) & 0xFF;
+                // This may be too much
+                // case DT_KEYMAP: {
+                //     uint8_t keymap_data[MATRIX_ROWS * MATRIX_COLS * 4 + 3];
+                //     keymap_data[0] = data[2];
+                //     keymap_data[1] = MATRIX_ROWS;
+                //     keymap_data[2] = MATRIX_COLS;
+                //     for (int i = 0; i < MATRIX_ROWS; i++) {
+                //         for (int j = 0; j < MATRIX_COLS; j++) {
+                //             keymap_data[3 + (i*MATRIX_COLS*2) + (j*2)] = pgm_read_word(&keymaps[data[2]][i][j]) >> 8;
+                //             keymap_data[3 + (i*MATRIX_COLS*2) + (j*2) + 1] = pgm_read_word(&keymaps[data[2]][i][j]) & 0xFF;
+                //         }
+                //     }
+                //     MT_GET_DATA_ACK(DT_KEYMAP, keymap_data, MATRIX_ROWS * MATRIX_COLS * 4 + 3);
+                //     // uint8_t keymap_data[5];
+                //     // keymap_data[0] = data[2];
+                //     // keymap_data[1] = data[3];
+                //     // keymap_data[2] = data[4];
+                //     // keymap_data[3] = pgm_read_word(&keymaps[data[2]][data[3]][data[4]]) >> 8;
+                //     // keymap_data[4] = pgm_read_word(&keymaps[data[2]][data[3]][data[4]]) & 0xFF;
 
-                    // MT_GET_DATA_ACK(DT_KEYMAP, keymap_data, 5);
-                    break;
-                }
+                //     // MT_GET_DATA_ACK(DT_KEYMAP, keymap_data, 5);
+                //     break;
+                // }
                 default:
                     break;
             }
