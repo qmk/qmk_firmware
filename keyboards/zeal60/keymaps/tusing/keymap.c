@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS},
         {MO(1),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,    _x_  },
         {KC_LSFT,   _x_  , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,   _x_  },
-        {KC_LCTL, KC_LGUI, KC_LALT,   _x_  ,   _x_  ,   _x_  ,   _x_  , KC_SPC,    _x_  ,   _x_  , KC_UP,   KC_LEFT, KC_RGHT, KC_DOWN}
+        {KC_LCTL, KC_LGUI, KC_LALT,   _x_  ,   _x_  ,   _x_  ,   _x_  , KC_SPC,    _x_  ,   _x_  , KC_UP,   KC_DOWN, KC_LEFT, KC_RGHT}
     },
 
 // Layer 1: Pressing Ctrl switches to layer 2.
@@ -32,11 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_INS,  KC_DEL,  _______},
         {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _x_  },
         {KC_CAPS,   _x_  , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _x_  },
-        {TO(2),   _______, _______,   _x_  ,   _x_  ,   _x_  ,   _x_  , _______,   _x_  ,   _x_  , KC_PGUP, KC_HOME, KC_END,  KC_PGDN}
+        {TO(2),   _______, _______,   _x_  ,   _x_  ,   _x_  ,   _x_  , _______,   _x_  ,   _x_  , KC_PGUP, KC_PGDN, KC_HOME,  KC_END}
     },
 
 
-// Layer 2: Zeal60 and backlight configuration. First two rows control Zeal60; next two control RGB underglow.
+// Layer 2: Zeal60 and backlight configuration.
     [2] = {
         {RESET,   EF_DEC,  EF_INC,  BR_DEC,  BR_INC,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
         {_______, H1_DEC,  H1_INC,  S1_DEC,  S1_INC,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
