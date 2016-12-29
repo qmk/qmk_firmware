@@ -371,9 +371,9 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void adjust_current(void) {
-    /** Dims RGB(W) strip if it exceeds defined current limit. */
+    /** Dims RGB strip if it exceeds defined current limit. */
     // Convert 1 milliamp to an R+G+B+W brightness value.
-    float rgbw_per_milliamp = 255 * (3 + RGBW) /
+    float rgbw_per_milliamp = (255 * 3) /
                               (float)RGBSTRIP_MAX_CURRENT_PER_LIGHT;
     // Convert strip current limit to brightness limit.
     float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
@@ -382,9 +382,6 @@ void adjust_current(void) {
     uint8_t strip_rgbw_total = 0;
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
         strip_rgbw_total += led[i].r + led[i].g + led[i].b;
-        if (RGBW) {
-            strip_rgbw_total += led[i].w;
-        }
     }
 
     // If we use more brightness than allowed, dim LEDs.
@@ -394,9 +391,6 @@ void adjust_current(void) {
             led[i].r = (uint8_t)(led[i].r * multiplier);
             led[i].g = (uint8_t)(led[i].g * multiplier);
             led[i].b = (uint8_t)(led[i].b * multiplier);
-            if (RGBW) {
-                led[i].w = (uint8_t)(led[i].w * multiplier);
-            }
         }
     }
 }
