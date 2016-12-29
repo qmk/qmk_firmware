@@ -12,16 +12,14 @@
 const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;
 
 /* RGB Map:
-    12  11  10   9  16  32  31  15  30  28
-13                                          25
-14                                          24
- 8                                          22
- 7                                          21
-     6   5   4   3   2   1  17  18  19  20
+3   7    1   9  16  14   2  19  20  21  22  23   X  25
+4                                                   26
+5                                                   27
+6   8   15  13  12  10  11  18  17  32  31  30  29  28
 */
 const uint8_t rgb_sequence[] = {
-    12, 11, 10, 9, 16, 32, 31, 15, 30, 28, 25, 24, 22, 21,
-    20, 19, 18, 17, 1, 2, 3, 4, 5, 6, 7, 8, 14, 13
+    3, 7, 1, 9, 16, 14, 2, 19, 20, 21, 22, 23, 25, 26, 27,
+    28, 29, 30, 31, 32, 17, 18, 11, 10, 12, 13, 15, 8, 6, 5, 4
 };
 
 const uint8_t rgb_leds[][3][2] = {
@@ -105,12 +103,11 @@ void set_underglow(uint8_t red, uint8_t green, uint8_t blue){
     }
 }
 
-void rgblight_set(void) {
-    // set_underglow(led[0].r, led[0].g, led[0].b);
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        set_rgb(i, led[i].r, led[i].g, led[i].b);
-    }
 
+void rgblight_set(void) {
+    for(uint8_t i = 0; (i < sizeof(rgb_sequence)) && (i < RGBLED_NUM); i++){
+        set_rgb(rgb_sequence[i], led[i].r, led[i].g, led[i].b);
+    }
 }
 
 void set_backlight_by_keymap(uint8_t col, uint8_t row){
