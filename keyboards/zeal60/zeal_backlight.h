@@ -21,7 +21,7 @@ typedef struct zeal_backlight_config
 	HSV color_2;
 } zeal_backlight_config;
 
-void backlight_config_set_flags(uint8_t value);
+void backlight_config_set_flags(uint16_t value);
 void backlight_config_set_alphas_mods( uint16_t *value );
 void backlight_config_load(void);
 void backlight_config_save(void);

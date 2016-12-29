@@ -14,19 +14,23 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 	uint8_t command = data[0];
 	switch ( command )
 	{
+		case id_protocol_version:
+		{
+			msg_protocol_version *msg = (msg_protocol_version*)&data[1];
+			msg->version = PROTOCOL_VERSION;
+			break;
+		}
 #if USE_KEYMAPS_IN_EEPROM
 		case id_keymap_keycode_load:
 		{
-			uint16_t keycode = keymap_keycode_load(data[1], data[2], data[3]);
-			data[4] = (uint8_t)(keycode >> 8);
-			data[5] = (uint8_t)(keycode & 0xFF);
+			msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
+			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->col );
 			break;
 		}
 		case id_keymap_keycode_save:
 		{
-			uint16_t keycode = data[4] << 8;
-			keycode |= data[5];
-			keymap_keycode_save(data[1], data[2], data[3], keycode);
+			msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
+			keymap_keycode_save( msg->layer, msg->row, msg->col, msg->keycode);
 			break;
 		}
 		case id_keymap_default_save:
@@ -37,27 +41,29 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 #endif // USE_KEYMAPS_IN_EEPROM
 		case id_backlight_config_set_flags:
 		{
-			backlight_config_set_flags(data[1]);
+			msg_backlight_config_set_flags *msg = (msg_backlight_config_set_flags*)&data[1];
+			backlight_config_set_flags(msg->flags);
 			backlight_config_save();
 			backlight_init_drivers();
 			break;
 		}
 		case id_backlight_config_set_alphas_mods:
 		{
-			uint16_t alpha_mods[5];
-			alpha_mods[0] = data[1] << 8 | data[2];
-			alpha_mods[1] = data[3] << 8 | data[4];
-			alpha_mods[2] = data[5] << 8 | data[6];
-			alpha_mods[3] = data[7] << 8 | data[8];
-			alpha_mods[4] = data[9] << 8 | data[10];
-			backlight_config_set_alphas_mods( alpha_mods );
+			msg_backlight_config_set_alphas_mods *msg = (msg_backlight_config_set_alphas_mods*)&data[1];
+			backlight_config_set_alphas_mods( msg->alphas_mods );
 			backlight_config_save();
 			break;
 		}
 		case id_backlight_set_key_color:
 		{
-			HSV hsv = { data[3], data[4], data[5] };
-			backlight_set_key_color(data[1], data[2], hsv);
+			msg_backlight_set_key_color *msg = (msg_backlight_set_key_color*)&data[1];
+			backlight_set_key_color(msg->row, msg->col, msg->hsv);
+			break;
+		}
+		default:
+		{
+			// Unhandled message.
+			data[0] = id_unhandled;
 			break;
 		}
 	}
