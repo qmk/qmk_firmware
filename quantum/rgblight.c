@@ -449,6 +449,9 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
       // mode = 21 to 23, knight mode
       rgblight_effect_knight(rgblight_config.mode - 21);
+    } else {
+      // mode = 24, christmas mode
+      rgblight_effect_christmas();
     }
   }
 }
@@ -592,6 +595,24 @@ void rgblight_effect_knight(uint8_t interval) {
       pos += 1;
     }
   }
+}
+
+
+void rgblight_effect_christmas(void) {
+  static uint16_t current_offset = 0;
+  static uint16_t last_timer = 0;
+  uint16_t hue;
+  uint8_t i;
+  if (timer_elapsed(last_timer) < 1000) {
+    return;
+  }
+  last_timer = timer_read();
+  current_offset = (current_offset + 1) % 2;
+  for (i = 0; i < RGBLED_NUM; i++) {
+    hue = 0 + ((RGBLED_NUM * (i + current_offset)) % 2) * 80;
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
+  }
+  rgblight_set();
 }
 
 #endif
