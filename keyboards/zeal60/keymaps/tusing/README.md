@@ -22,14 +22,14 @@ You might find the [**full PCB image**](https://cdn.shopify.com/s/files/1/0490/7
 
     ```Makefile
     RGBLIGHT_ENABLE = yes
-    AUDIO_ENABLE = no  # Underglow cannot be used with audio.
+    AUDIO_ENABLE = no     #Underglow animations cannot be used with audio.
     ```
 2. Add the following to your [```config.h```](https://github.com/Wilba6582/qmk_firmware/blob/zeal60/keyboards/zeal60/keymaps/default/config.h):
 
     ```c
-    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_ANIMATIONS    // Underglow animations.
+    #define RGBW 0                 // 1 if you have an RGBW strip. 
     #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
-    #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 16          // Number of LEDs
     #define RGBLIGHT_HUE_STEP 5    // How much each press of rgb_hue changes hue
     #define RGBLIGHT_SAT_STEP 10   // How much each press of rgb_sat changes sat
@@ -58,7 +58,6 @@ If we take a look at [```rgblight.c```](https://github.com/Wilba6582/qmk_firmwar
 ```c
 // The folliwng three variables should probably be put in config.h.
 #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
-#define RGBW 0                   // 1 if you have an RGBW strip. 
 #define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
 
 void adjust_current(void) {
