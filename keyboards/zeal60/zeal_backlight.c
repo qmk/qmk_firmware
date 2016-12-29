@@ -411,7 +411,7 @@ ISR(TIMER3_COMPA_vect)
 	}
 }
 
-void backlight_config_set_flags(uint8_t flags)
+void backlight_config_set_flags(uint16_t flags)
 {
 	// TODO: replace with #define bitmasks
 	g_config.use_split_backspace = ( flags&(1<<0) ? true : false );
@@ -423,62 +423,53 @@ void backlight_config_set_flags(uint8_t flags)
 
 void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
 {
-	g_config.alphas_mods[0] = alphas_mods[0];
-	g_config.alphas_mods[1] = alphas_mods[1];
-	g_config.alphas_mods[2] = alphas_mods[2];
-	g_config.alphas_mods[3] = alphas_mods[3];
-	g_config.alphas_mods[4] = alphas_mods[4];
+	for ( int i=0; i<5; i++ )
+	{
+		g_config.alphas_mods[i] = alphas_mods[i];
+	}
 }
 
 void backlight_config_load(void)
 {
 	void *addr = EEPROM_BACKLIGHT_CONFIG_ADDR;
-	uint8_t flags = eeprom_read_byte(addr++);
+	uint16_t flags = eeprom_read_word(addr);
+	addr += 2;
 	backlight_config_set_flags(flags);
 
-	g_config.alphas_mods[0] = eeprom_read_byte( addr++ ) << 8;
-	g_config.alphas_mods[0] |= eeprom_read_byte( addr++ );
-	g_config.alphas_mods[1] = eeprom_read_byte( addr++ ) << 8;
-	g_config.alphas_mods[1] |= eeprom_read_byte( addr++ );
-	g_config.alphas_mods[2] = eeprom_read_byte( addr++ ) << 8;
-	g_config.alphas_mods[2] |= eeprom_read_byte( addr++ );
-	g_config.alphas_mods[3] = eeprom_read_byte( addr++ ) << 8;
-	g_config.alphas_mods[3] |= eeprom_read_byte( addr++ );
-	g_config.alphas_mods[4] = eeprom_read_byte( addr++ ) << 8;
-	g_config.alphas_mods[4] |= eeprom_read_byte( addr++ );
+	for ( int i=0; i<5; i++ )
+	{
+		g_config.alphas_mods[i] = eeprom_read_word(addr);
+		addr += 2;
+	}
 
-	g_config.brightness = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+11 );
-	g_config.effect = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+12 );
-	g_config.color_1.h = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+13 );
-	g_config.color_1.s = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+14 );
-	g_config.color_1.v = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+15 );
-	g_config.color_2.h = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+16 );
-	g_config.color_2.s = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+17 );
-	g_config.color_2.v = eeprom_read_byte( EEPROM_BACKLIGHT_CONFIG_ADDR+18 );
+	g_config.brightness = eeprom_read_byte( addr++ );
+	g_config.effect = eeprom_read_byte( addr++ );
+	g_config.color_1.h = eeprom_read_byte( addr++ );
+	g_config.color_1.s = eeprom_read_byte( addr++ );
+	g_config.color_1.v = eeprom_read_byte( addr++ );
+	g_config.color_2.h = eeprom_read_byte( addr++ );
+	g_config.color_2.s = eeprom_read_byte( addr++ );
+	g_config.color_2.v = eeprom_read_byte( addr++ );
 }
 
 void backlight_config_save(void)
 {
 	// TODO: replace with #define bitmasks
-	uint8_t flags = ( g_config.use_split_backspace ? (1<<0) : 0 ) |
+	uint16_t flags = ( g_config.use_split_backspace ? (1<<0) : 0 ) |
 					( g_config.use_split_left_shift ? (1<<1) : 0 ) |
 					( g_config.use_split_right_shift ? (1<<2) : 0 ) |
 					( g_config.use_7u_spacebar ? (1<<3) : 0 ) |
 					( g_config.use_iso_enter ? (1<<4) : 0 );
 
 	void *addr = EEPROM_BACKLIGHT_CONFIG_ADDR;
-	eeprom_update_byte( addr++, flags );
+	eeprom_update_word( addr, flags );
+	addr += 2;
 
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[0] >> 8) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[0] & 0xFF) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[1] >> 8) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[1] & 0xFF) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[2] >> 8) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[2] & 0xFF) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[3] >> 8) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[3] & 0xFF) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[4] >> 8) );
-	eeprom_update_byte( addr++, (uint8_t)(g_config.alphas_mods[4] & 0xFF) );
+	for ( int i=0; i<5; i++ )
+	{
+		eeprom_update_word( addr, g_config.alphas_mods[i] );
+		addr += 2;
+	}
 
 	eeprom_update_byte( addr++, g_config.brightness );
 	eeprom_update_byte( addr++, g_config.effect );
@@ -488,8 +479,6 @@ void backlight_config_save(void)
 	eeprom_update_byte( addr++, g_config.color_2.h );
 	eeprom_update_byte( addr++, g_config.color_2.s );
 	eeprom_update_byte( addr++, g_config.color_2.v );
-
-
 }
 
 void backlight_init_drivers(void)
