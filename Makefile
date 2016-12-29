@@ -473,7 +473,7 @@ if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
 endef
 define RUN_TEST
 +error_occured=0;\
-$($(TEST)_COMMAND))\
+$($(TEST)_COMMAND)\
 if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
 
 endef
