@@ -19,7 +19,7 @@ Here are the steps
    3. Run `git reset --hard`
 3. Open "Bash On Ubuntu On Windows" from the start menu
 4. With the bash window open, navigate to your copy of the [qmk_firmware repository](https://github.com/jackhumbert/qmk_firmware) using the `cd` command. The harddisks can be accessed from `/mnt/<driveletter>`. For example, your main hard drive (C:) can be accessed by executiing the command `cd /mnt/c`. If your username is John and the qmk_firmware folder is in your Downloads folder, you can move to it with the command `cd /mnt/c/Users/John/Downloads/qmk_firmware`. You can use the Tab key as you go to help you autocomplete the folder names.
-5. Run `sudo util/install_dependencies.sh`.
+5. Run `sudo util/install_dependencies.sh`.  **This will run `apt-get upgrade`.**
 6. After a while the installation will finish, and you are good to go
 
 **Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
@@ -60,7 +60,7 @@ If you are going to flash Infinity based keyboards you will also need dfu-util
 
 ### Linux
 
-To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed.
+To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
