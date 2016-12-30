@@ -48,12 +48,10 @@ action_t action_for_key(uint8_t layer, keypos_t key)
 
     action_t action;
     uint8_t action_layer, when, mod;
-    // The arm-none-eabi compiler generates out of bounds warnings when using the fn_actions directly for some reason
-    const uint16_t* actions = fn_actions;
 
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
-            action.code = pgm_read_word(&actions[FN_INDEX(keycode)]);
+            action.code = keymap_function_id_to_action(FN_INDEX(keycode));
             break;
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
@@ -79,7 +77,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case QK_FUNCTION ... QK_FUNCTION_MAX: ;
             // Is a shortcut for function action_layer, pull last 12bits
             // This means we have 4,096 FN macros at our disposal
-            action.code = pgm_read_word(&actions[(int)keycode & 0xFFF]);
+            action.code = keymap_function_id_to_action( (int)keycode & 0xFFF );
             break;
         case QK_MACRO ... QK_MACRO_MAX:
             action.code = ACTION_MACRO(keycode & 0xFF);
@@ -163,9 +161,17 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
 
-/* translates key to keycode */
+// translates key to keycode
+__attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+}
+
+// translates function id to action
+__attribute__ ((weak))
+uint16_t keymap_function_id_to_action( uint16_t function_id )
+{
+	return pgm_read_word(&fn_actions[function_id]);
 }
