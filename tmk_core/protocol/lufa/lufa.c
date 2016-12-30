@@ -1252,28 +1252,40 @@ void cc_callback(MidiDevice * device,
   // midi_send_cc(device, (chan + 1) % 16, num, val);
 }
 
+#ifdef API_SYSEX_ENABLE
 uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
+#endif
 
 void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
     #ifdef API_SYSEX_ENABLE
         // SEND_STRING("\n");
         // send_word(start);
         // SEND_STRING(": ");
+        // Don't store the header
+        int16_t pos = start - 4;
         for (uint8_t place = 0; place < length; place++) {
             // send_byte(*data);
-            midi_buffer[start + place] = *data;
-            if (*data == 0xF7) {
-                // SEND_STRING("\nRD: ");
-                // for (uint8_t i = 0; i < start + place + 1; i++){
-                //     send_byte(midi_buffer[i]);
-                // SEND_STRING(" ");
-                // }
-                uint8_t * decoded = malloc(sizeof(uint8_t) * (sysex_decoded_length(start + place - 4)));
-                uint16_t decode_length = sysex_decode(decoded, midi_buffer + 4, start + place - 4);
-                process_api(decode_length, decoded);
+            if (pos >= 0) {
+                if (*data == 0xF7) {
+                    // SEND_STRING("\nRD: ");
+                    // for (uint8_t i = 0; i < start + place + 1; i++){
+                    //     send_byte(midi_buffer[i]);
+                    // SEND_STRING(" ");
+                    // }
+                    const unsigned decoded_length = sysex_decoded_length(pos);
+                    uint8_t decoded[API_SYSEX_MAX_SIZE];
+                    sysex_decode(decoded, midi_buffer, pos);
+                    process_api(decoded_length, decoded);
+                    return;
+                }
+                else if (pos >= MIDI_SYSEX_BUFFER) {
+                    return;
+                }
+                midi_buffer[pos] = *data;
             }
             // SEND_STRING(" ");
             data++;
+            pos++;
         }
     #endif
 }
