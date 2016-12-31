@@ -1,5 +1,19 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.10
+
+*2016-12-28*
+
+### Miscellaneous
+
+* `µ` can now be entered with UCIS.
+* `™` can now be entered with UCIS.
+
+### Tools
+
+* `tools/hid-commands` can now find Banshee, and prefers it over Kodi.
+* `tools/hid-commands` can now find Chrome too, not juts Chromium.
+
 ## v1.9
 
 *2016-10-16*

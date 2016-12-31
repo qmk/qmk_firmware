@@ -80,4 +80,6 @@
 #   endif
 #endif
 
+#define API_SYSEX_MAX_SIZE 32
+
 #endif

@@ -16,7 +16,8 @@ _cmd_appsel () {
 }
 
 cmd_appsel_music () {
-    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || wmctrl -x -a kodi || true
+    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || \
+        wmctrl -x -a banshee || wmctrl -x -a kodi || true
     xdotool key Escape
 }
 
@@ -33,7 +34,7 @@ cmd_appsel_term () {
 }
 
 cmd_appsel_chrome () {
-    _cmd_appsel chromium
+    _cmd_appsel chrom
 }
 
 cmd_appsel_start () {
