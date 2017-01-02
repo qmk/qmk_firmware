@@ -395,6 +395,7 @@ void adjust_current(void) {
     }
 }
 
+__attribute__ ((weak))
 void rgblight_set(void) {
 #ifdef RGBSTRIP_CURRENT_LIMIT
   adjust_current();
