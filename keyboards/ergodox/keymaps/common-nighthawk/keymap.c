@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_UNDS,         KC_1,          KC_1,          KC_UNDS,         KC_ESC,   ALL_T(KC_NO),      KC_HOME,
         CTL_T(KC_TAB),   KC_Q,          KC_W,          KC_E,            KC_R,     KC_T,              KC_UP,
-        GUI_T(KC_QUOT),  KC_A,          KC_S,          KC_D,            KC_F,     KC_G,
+        M(1),            KC_A,          KC_S,          KC_D,            KC_F,     KC_G,
         KC_LSFT,         KC_Z,          KC_X,          KC_C,            KC_V,     KC_B,              KC_DOWN,
         KC_LALT,         KC_1,          KC_1,          KC_1,            KC_LEFT,
                                                                         RESET,    KC_VOLU,
@@ -166,13 +166,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
           if (record->event.pressed) {
             sunds_timer = timer_read();
-            register_code (KC_LSFT);
+            register_code (KC_LGUI);
           } else {
             if (timer_elapsed (sunds_timer) < TAPPING_TERM) {
-              register_code (KC_MINS);
-              unregister_code (KC_MINS);
+              unregister_code (KC_LGUI);
+              register_code (KC_LSFT);
+              register_code (KC_QUOT);
+              unregister_code (KC_QUOT);
+              unregister_code (KC_LSFT);
+              register_code (KC_LGUI);
             }
-            unregister_code (KC_LSFT);
+            unregister_code (KC_LGUI);
           }
           break;
 
