@@ -9,6 +9,8 @@
 #include "lighting.h"
 #include "rgblight.h"
 
+extern rgblight_config_t rgblight_config; // Declared in rgblight.c
+
 const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;
 
 /* RGB Map:
@@ -106,7 +108,11 @@ void set_underglow(uint8_t red, uint8_t green, uint8_t blue){
 
 void rgblight_set(void) {
     for(uint8_t i = 0; (i < sizeof(rgb_sequence)) && (i < RGBLED_NUM); i++){
-        set_rgb(rgb_sequence[i], led[i].r, led[i].g, led[i].b);
+        if(rgblight_config.enable){
+            set_rgb(rgb_sequence[i], led[i].r, led[i].g, led[i].b);
+        }else{
+            set_rgb(rgb_sequence[i], 0, 0, 0);
+        }
     }
 }
 

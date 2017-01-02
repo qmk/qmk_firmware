@@ -79,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [SETTINGS] = KEYMAP(
   KC_FN10, KC_NO,    RESET, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, BL_DEC, BL_INC, BL_TOGG,    RGB_TOG, RGB_VAI,
-  KC_NO,   KC_NO,    DEBUG,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,    RGB_MOD, RGB_VAD,
-  KC_NO,   KC_NO,    KC_FN0,  KC_FN2,KC_FN4, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,          KC_NO,
-  KC_NO,   KC_NO,    KC_FN6,   KC_FN3,KC_FN5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,             KC_FN0,    RGB_HUI,
+  KC_NO,   KC_NO,    DEBUG,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_FN7,    RGB_MOD, RGB_VAD,
+  KC_NO,   KC_NO,    KC_FN0,  KC_FN2,KC_FN4, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,         KC_NO,
+  KC_NO,   KC_NO,    KC_FN6,   KC_FN3,KC_FN5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,              KC_FN0,    RGB_HUI,
   KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,                  KC_FN8,                           KC_NO, KC_NO, KC_NO,    RGB_SAD, RGB_HUD, RGB_SAI),
 };
 
