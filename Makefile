@@ -473,7 +473,7 @@ if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
 endef
 define RUN_TEST
 +error_occured=0;\
-$($(TEST)_COMMAND))\
+$($(TEST)_COMMAND)\
 if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
 
 endef
@@ -485,11 +485,11 @@ $(SUBPROJECTS): %: %-allkm
 
 # Let's match everything, we handle all the rule parsing ourselves
 .PHONY: %
-ifndef SKIP_GIT
 %:
 	# Check if we have the CMP tool installed
 	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
+ifndef SKIP_GIT
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -497,33 +497,18 @@ ifndef SKIP_GIT
 			*) printf "$(MSG_SUBMODULE_DIRTY)";break;; \
 		esac \
 	done
-	rm -f $(ERROR_FILE) > /dev/null 2>&1
-	$(eval $(call PARSE_RULE,$@))
-	$(eval $(call SET_SILENT_MODE))
-	# Run all the commands in the same shell, notice the + at the first line
-	# it has to be there to allow parallel execution of the submake
-	# This always tries to compile everything, even if error occurs in the middle
-	# But we return the error code at the end, to trigger travis failures
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-	$(foreach TEST,$(TESTS),$(RUN_TEST))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-else
-%:
-	# Check if we have the CMP tool installed
-	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
-	rm -f $(ERROR_FILE) > /dev/null 2>&1
-	$(eval $(call PARSE_RULE,$@))
-	$(eval $(call SET_SILENT_MODE))
-	# Run all the commands in the same shell, notice the + at the first line
-	# it has to be there to allow parallel execution of the submake
-	# This always tries to compile everything, even if error occurs in the middle
-	# But we return the error code at the end, to trigger travis failures
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-	$(foreach TEST,$(TESTS),$(RUN_TEST))
-	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 endif
+	rm -f $(ERROR_FILE) > /dev/null 2>&1
+	$(eval $(call PARSE_RULE,$@))
+	$(eval $(call SET_SILENT_MODE))
+	# Run all the commands in the same shell, notice the + at the first line
+	# it has to be there to allow parallel execution of the submake
+	# This always tries to compile everything, even if error occurs in the middle
+	# But we return the error code at the end, to trigger travis failures
+	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
+	$(foreach TEST,$(TESTS),$(RUN_TEST))
+	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
 # All should compile everything
 .PHONY: all
