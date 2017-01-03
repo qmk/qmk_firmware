@@ -492,16 +492,8 @@ void backlight_init_drivers(void)
 
 	// Initialize TWI
 	TWIInit();
-
-	_delay_ms(100);	
-		
 	IS31FL3731_init( ISSI_ADDR_1 );
-	
-	_delay_ms(100);
-			
 	IS31FL3731_init( ISSI_ADDR_2 );
-
-	_delay_ms(100);
 				
 	// This is how you define which LEDs are present in the matrix.
 	// If you don't turn off missing LEDs, the LED driver doesn't work properly.
