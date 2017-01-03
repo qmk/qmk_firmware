@@ -46,7 +46,7 @@ KC_BSPC,  KC_DEL,  KC_END,
 
 // Right Keyboard
 KC_EQL,    KC_7,     KC_7,     KC_8,     KC_9,     KC_0,     KC_BSLS,
-KC_RBRC    KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,
+KC_RBRC,   KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,
 KC_H,      KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
 MO(FCTN),  KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
 KC_RGUI,   KC_RALT,  KC_RCTL,  KC_UP,    KC_DOWN,
