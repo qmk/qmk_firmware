@@ -370,8 +370,36 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
+void adjust_current(void) {
+    /** Dims RGB strip if it exceeds defined current limit. */
+    // Convert 1 milliamp to an R+G+B brightness value.
+    float rgbw_per_milliamp = (255 * 3) /
+                              (float)RGBSTRIP_MAX_CURRENT_PER_LIGHT;
+    // Convert strip current limit to a total brightness limit.
+    float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
+
+    // Calculate how much brightness the strip currently uses.
+    uint16_t strip_rgbw_total = 0;
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        strip_rgbw_total += led[i].r + led[i].g + led[i].b;
+    }
+
+    // If we use more brightness than allowed, dim LEDs.
+    if (strip_rgbw_total > strip_rgbw_limit) {
+        float multiplier = strip_rgbw_limit / strip_rgbw_total;
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = (uint8_t)(led[i].r * multiplier);
+            led[i].g = (uint8_t)(led[i].g * multiplier);
+            led[i].b = (uint8_t)(led[i].b * multiplier);
+        }
+    }
+}
+
 __attribute__ ((weak))
 void rgblight_set(void) {
+#if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
+  adjust_current();
+#endif
   if (rgblight_config.enable) {
     #ifdef RGBW
       ws2812_setleds_rgbw(led, RGBLED_NUM);
