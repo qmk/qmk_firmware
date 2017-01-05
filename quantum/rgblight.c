@@ -379,7 +379,7 @@ void adjust_current(void) {
     float strip_rgbw_limit = RGBSTRIP_CURRENT_LIMIT * rgbw_per_milliamp;
 
     // Calculate how much brightness the strip currently uses.
-    uint8_t strip_rgbw_total = 0;
+    uint16_t strip_rgbw_total = 0;
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
         strip_rgbw_total += led[i].r + led[i].g + led[i].b;
     }
@@ -397,7 +397,7 @@ void adjust_current(void) {
 
 __attribute__ ((weak))
 void rgblight_set(void) {
-#ifdef RGBSTRIP_CURRENT_LIMIT
+#if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
   adjust_current();
 #endif
   if (rgblight_config.enable) {
