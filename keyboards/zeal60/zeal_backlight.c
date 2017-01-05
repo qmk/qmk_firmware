@@ -287,6 +287,14 @@ void backlight_effect_cycle_all(void)
 	for ( int i=0; i<72; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
+
+		// stabilizer LEDs use spacebar hits
+		if ( i == 36+6 || i == 54+13 || // LC6, LD13
+				( g_config.use_7u_spacebar && i == 54+14 ) ) // LD14
+		{
+			offset2 = g_key_hit[36+0]<<2;
+		}
+
 		offset2 = (offset2<=63) ? (63-offset2) : 0;
 		HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
 		RGB rgb = hsv_to_rgb( hsv );
