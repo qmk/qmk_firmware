@@ -30,7 +30,7 @@
 
 // Enable current limiting for RGB underglow.
 #define USB_MAX_POWER_CONSUMPTION 900
-#define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
-#define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
+#define RGBSTRIP_CURRENT_LIMIT 600        // Strip current limit in mA.
+#define RGBSTRIP_MAX_CURRENT_PER_LIGHT 40 // mA per light when at max brightness.
 
 #endif
