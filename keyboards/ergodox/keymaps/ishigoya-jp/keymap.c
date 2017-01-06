@@ -484,7 +484,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			break;
 		case JPSHI:
 			if (record->event.pressed) {
-				return MACRO( I(1), T(S), T(H), T(I), END);
+				return MACRO( I(1), T(S), T(I), END);
 			}
 			break;
 			case JPKA:
@@ -514,7 +514,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			break;
 		case JPCHI:
 			if (record->event.pressed) {
-				return MACRO( I(1), T(C), T(H), T(I), END);
+				return MACRO( I(1), T(T), T(I), END);
 			}
 			break;
 		case JPFU:
@@ -529,7 +529,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 			break;
 		case JPTSU:
 			if (record->event.pressed) {
-				return MACRO( I(1), T(T), T(S), T(U), END);
+				return MACRO( I(1), T(T), T(U), END);
 			}
 			break;
 		case JPKU:
