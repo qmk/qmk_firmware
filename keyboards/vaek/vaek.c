@@ -1,4 +1,4 @@
-#include "lfk78_revc.h"
+#include "vaek.h"
 #include <avr/sfr_defs.h>
 #include "avr/timer_avr.h"
 #include "issi.h"
@@ -36,7 +36,7 @@ void matrix_init_kb(void)
 #ifdef ISSI_ENABLE
     issi_init();
     // set_underglow(under_red, under_green, under_blue);
-    set_backlight(backlight);
+    // set_backlight(backlight);
     // activateLED(0, 9, 1, 255);
     // led_test();
 #endif
@@ -47,7 +47,16 @@ void matrix_scan_kb(void)
 #ifdef ISSI_ENABLE
     // switch/underglow lighting update
     static uint32_t issi_device = 0;
+    static uint32_t twi_last_ready = 0;
+    if(twi_last_ready > 1000){
+        // Its been way too long since the last ISSI update, reset the I2C bus and start again
+        dprintf("TWI failed to recover, TWI re-init\n");
+        twi_last_ready = 0;
+        TWIInit();
+        force_issi_refresh();
+    }
     if(isTWIReady()){
+        twi_last_ready = 0;
         // If the i2c bus is available, kick off the issi update, alternate between devices
         update_issi(issi_device, 0);
         if(issi_device){
@@ -55,6 +64,8 @@ void matrix_scan_kb(void)
         }else{
             issi_device = 3;
         }
+    }else{
+        twi_last_ready++;
     }
 #endif
     // Update layer indicator LED
@@ -63,27 +74,19 @@ void matrix_scan_kb(void)
     // but can't find QMK equiv
     static uint32_t layer_indicator = -1;
     if(layer_indicator != layer_state){
-        layer_indicator = layer_state;
-        if(layer_state==0){
-            OCR1A = 0x0000; // B5 - Red
-            OCR1B = 0x0FFF; // B6 - Green
-            OCR1C = 0x0000; // B7 - Blue
-        }else if(layer_state & 0x04){
-            OCR1A = 0x0FFF; // B5 - Red
-            OCR1B = 0x0000; // B6 - Green
-            OCR1C = 0x07FF; // B7 - Blue
-        }else if(layer_state & 0x02){
-            OCR1A = 0x0000; // B5 - Red
-            OCR1B = 0x0000; // B6 - Green
-            OCR1C = 0x0FFF; // B7 - Blue
-        }else{
-            xprintf("unknown layer: %02X\n", layer_state);
-            OCR1A = 0x0FFF; // B5 - Red
-            OCR1B = 0x0FFF; // B6 - Green
-            OCR1C = 0x0FFF; // B7 - Blue
+        dprintf("%08lX(%u)\n", layer_state, biton32(layer_state));
+        for(uint32_t i=0;; i++){
+            // the layer_info list should end with layer 0xFFFF
+            // it will break this out of the loop and define the unknown layer color
+            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFFFFFF)){
+                OCR1A = layer_info[i].color.red;
+                OCR1B = layer_info[i].color.green;
+                OCR1C = layer_info[i].color.blue;
+                layer_indicator = layer_state;
+                break;
+            }
         }
     }
-
     matrix_scan_user();
 }
 
@@ -103,10 +106,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
-#ifdef ISSI_ENABLE
-    int8_t sign = 1;
-#endif
-    xprintf("action_function: %d, opt: %02X\n", id, opt);
+    // dprintf("action_function: %d, opt: %02X\n", id, opt);
     if(id == LFK_ESC_TILDE){
         // Send ~ on shift-esc
         void (*method)(uint8_t) = (event->event.pressed) ? &add_key : &del_key;
@@ -124,50 +124,6 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 layer_clear();
                 break;
 #ifdef ISSI_ENABLE
-            case LFK_LED_TOGGLE:
-                if(led_toggle == 0){
-                    led_toggle = 1;
-                    set_backlight(backlight);
-                    set_underglow(under_red, under_green, under_blue);
-                }else{
-                    led_toggle = 0;
-                    set_backlight(0);
-                    set_underglow(0, 0, 0);
-                }
-                issi_devices[0]->led_dirty = 1;
-                issi_devices[3]->led_dirty = 1;
-                break;
-            case LFK_LED_DOWN:
-                sign = -1;  // continue to next statement
-            case LFK_LED_UP:
-                // Change LEDs
-                //  opt 0 : toggle all LEDs on/off
-                //  opt -1 or 1 : increase or decrease brightness
-                //  mods:
-                //      None-    backlight
-                //      Control- Red
-                //      Alt-     Green
-                //      Gui-     Blue
-                led_toggle = 1;
-                uint8_t mods = get_mods();
-                if(mods == 0){
-                    backlight += 32 * sign;
-                    set_backlight(backlight);
-                }else{
-                    if(mods & MOD_LCTL){
-                        under_red += 32 * sign;
-                    }
-                    if(mods & MOD_LALT){
-                        under_green += 32 * sign;
-                    }
-                    if(mods & MOD_LGUI){
-                        under_blue += 32 * sign;
-                    }
-                    set_underglow(under_red, under_green, under_blue);
-                }
-                issi_devices[0]->led_dirty = 1;
-                issi_devices[3]->led_dirty = 1;
-                break;
             case LFK_LED_TEST:
                 led_test();
                 break;

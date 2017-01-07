@@ -167,5 +167,14 @@ void backlight_init_ports(void){
     issi_init();
 }
 
+bool has_backlight(void){
+
+}
+
+bool has_underglow(voiod){
+
+}
+
+
 #endif
 
