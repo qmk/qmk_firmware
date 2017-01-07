@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.                     ,----------------------------------.
  * |      |      |      |      |Ctrl `|                     | PgUp | Home |   Up |  End |  Del |
  * +------+------+------+------+------|                     +------+------+------+------+------|
- * |      |  Gui |  Alt | Ctrl |      |                     | PgDn | Left | Down | Right| Bksp |
+ * |  Gui | Shift|  Alt | Ctrl |      |                     | PgDn | Left | Down | Right| Bksp |
  * +------+------+------+------+------|                     +------+------+------+------+------|
  * | Shift|  Cut | Copy |      | Paste| ,------.   ,------. |      | ^Tab |  Tab |      |Insert|
  * +------+------+------+------+------| |  Del |   | Enter| +------+------+------+------+------|
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_EX] = KEYMAP( /* Extend */
   _______, _______, _______, _______, LCTL(KC_GRV),              KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,
-  _______, KC_LGUI, KC_LALT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
+  KC_LGUI, KC_LSFT, KC_LALT, KC_LCTL, _______,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
   KC_LSFT, KX_CUT,  KX_COPY, _______, KX_PAST,                   _______, KCX_LST, KC_TAB,  _______, KC_INS,
   _______, _______, _______, _______, _______, KC_DEL,  KC_ENT,  KC_SPC,  _______, _______, _______, KC_PSCR
 ),
@@ -140,20 +140,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Functions
  *
  * ,----------------------------------.                     ,----------------------------------.
- * | Caps |  F7  |  F8  |  F9  |  F10 |                     | _USER|Whl Up|  MUp |Whl Dn|      |
+ * | Caps |  F9  |  F10 |  F11 |  F12 |                     | _USER|Whl Up|  MUp |Whl Dn|      |
  * +------+------+------+------+------|                     +------+------+------+------+------|
- * |      |  F4  |  F5  |  F6  |  F11 |                     | Vol ^| MLeft| MDown|MRight|      |
+ * |      |  F5  |  F6  |  F7  |  F8  |                     | Vol ^| MLeft| MDown|MRight|      |
  * +------+------+------+------+------|                     +------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F12 | ,------.   ,------. | Vol v|      |      |      |      |
+ * |      |  F1  |  F2  |  F3  |  F4  | ,------.   ,------. | Vol v|      |      |      |      |
  * +------+------+------+------+------| |      |   |RClick| +------+------+------+------+------|
  * |      |      |      |XXXXXX|      | |      |   |      | |LClick|MClick| _CO  |  _GA | RESET|
  * `----------------------------------' `------'   `------' `----------------------------------'
  *
  */
 [_FN] = KEYMAP( /* Functions */
-  KC_CAPS, KC_F7,   KC_F8,   KC_F9,   KC_F10,                    M(_USER),KC_WH_U, KC_MS_U, KC_WH_D, _______,
-  _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,                    KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F12,                    KC_VOLD, _______, _______, _______, _______,
+  KC_CAPS, KC_F9,   KC_F10,  KC_F11,  KC_F12,                    M(_USER),KC_WH_U, KC_MS_U, KC_WH_D, _______,
+  _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,                     KC_VOLU, KC_MS_L, KC_MS_D, KC_MS_R, _______,
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,                     KC_VOLD, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, KC_BTN2, KC_BTN1, KC_BTN3, DF(_CO), DF(_QW), RESET
 ),
 
