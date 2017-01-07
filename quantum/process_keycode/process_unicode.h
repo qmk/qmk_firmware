@@ -3,10 +3,11 @@
 
 #include "quantum.h"
 
-#define UC_OSX 0
-#define UC_LNX 1
-#define UC_WIN 2
-#define UC_BSD 3
+#define UC_OSX 0  // Mac OS X
+#define UC_LNX 1  // Linux
+#define UC_WIN 2  // Windows 'HexNumpad'
+#define UC_BSD 3  // BSD (not implemented)
+#define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
 
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
@@ -19,6 +20,11 @@ void unicode_input_finish(void);
 void register_hex(uint16_t hex);
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);
+
+#ifdef UNICODEMAP_ENABLE
+void unicode_map_input_error(void);
+bool process_unicode_map(uint16_t keycode, keyrecord_t *record);
+#endif
 
 #ifdef UCIS_ENABLE
 #ifndef UCIS_MAX_SYMBOL_LENGTH
