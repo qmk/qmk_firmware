@@ -11,6 +11,8 @@
 #include "process_unicode.h"
 #include "quantum.h"
 
+// #define TOLELOT_ENABLE
+
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -323,6 +325,7 @@ float tone_windows[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_osx[][2] = SONG(NUM_LOCK_ON_SOUND);
 float tone_click[][2] = SONG(MUSICAL_NOTE(_F3, 2));
 float tone_release[][2] = SONG(MUSICAL_NOTE(_A3, 2));
+float tone_tolelot[][2] = SONG(Q__NOTE(_E5), Q__NOTE(_C5), Q__NOTE(_D5));
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -334,11 +337,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // faux clicky
   // if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
   #ifdef AUDIO_ENABLE
+  #ifdef TOLELOT_ENABLE
+  if (record->event.pressed) {
+    PLAY_NOTE_ARRAY(tone_tolelot, false, 0);
+  }
+  #else
   if (record->event.pressed) {
     PLAY_NOTE_ARRAY(tone_click, false, 0);
   } else {
     PLAY_NOTE_ARRAY(tone_release, false, 0);
   }
+  #endif
   #endif
 
   switch (keycode) {
