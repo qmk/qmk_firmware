@@ -5,23 +5,27 @@
 #include <stdbool.h>
 
 #include "zeal_color.h"
+#include "zeal_rpc.h"
 
-typedef struct zeal_backlight_config
+typedef struct
 {
-	bool use_split_backspace:1;
-	bool use_split_left_shift:1;
-	bool use_split_right_shift:1;
-	bool use_7u_spacebar:1;
-	bool use_iso_enter:1;
-	uint16_t alphas_mods[5];
-	uint8_t brightness;
-	uint8_t effect;
+	bool use_split_backspace:1;         // |
+	bool use_split_left_shift:1;        // |
+	bool use_split_right_shift:1;       // |
+	bool use_7u_spacebar:1;             // |
+	bool use_iso_enter:1;               // |
+	bool disable_when_usb_suspended:1;  // |
+	bool __pad6:1;                      // |
+	bool __pad7:1;                      // 1 byte
+	uint8_t disable_after_timeout;      // 1 byte
+	uint16_t alphas_mods[5];            // 10 bytes
+	uint8_t brightness;                 // 1 byte
+	uint8_t effect;                     // 1 byte
+	HSV color_1;                        // 3 bytes
+	HSV color_2;                        // 3 bytes
+} zeal_backlight_config;                // = 20 bytes
 
-	HSV color_1;
-	HSV color_2;
-} zeal_backlight_config;
-
-void backlight_config_set_flags(uint16_t value);
+void backlight_config_set_values(msg_backlight_config_set_values *values);
 void backlight_config_set_alphas_mods( uint16_t *value );
 void backlight_config_load(void);
 void backlight_config_save(void);
@@ -31,6 +35,8 @@ void backlight_init_drivers(void);
 void backlight_timer_init(void);
 void backlight_timer_enable(void);
 void backlight_timer_disable(void);
+
+void backlight_set_suspend_state(bool state);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
@@ -57,6 +63,8 @@ void backlight_color_2_sat_decrease(void);
 
 void *backlight_get_key_color_eeprom_address(uint8_t led);
 void backlight_get_key_color( uint8_t led, HSV *hsv );
-void backlight_set_key_color( uint8_t row, uint8_t col, HSV hsv );
+void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
+
+void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 
 #endif //ZEAL_BACKLIGHT_H

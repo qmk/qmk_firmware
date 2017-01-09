@@ -3,7 +3,7 @@
 
 #include "zeal_color.h"
 
-#define PROTOCOL_VERSION 0x0001
+#define PROTOCOL_VERSION 0x0002
 
 enum
 {
@@ -11,7 +11,7 @@ enum
 	id_keymap_keycode_load,
 	id_keymap_keycode_save,
 	id_keymap_default_save,
-	id_backlight_config_set_flags,
+	id_backlight_config_set_values,
 	id_backlight_config_set_alphas_mods,
 	id_backlight_set_key_color,
 
@@ -37,7 +37,7 @@ typedef struct PACKED
 {
 	uint8_t layer;
 	uint8_t row;
-	uint8_t col;
+	uint8_t column;
 	uint16_t keycode;
 } msg_keymap_keycode_load;
 
@@ -45,14 +45,20 @@ typedef struct PACKED
 {
 	uint8_t layer;
 	uint8_t row;
-	uint8_t col;
+	uint8_t column;
 	uint16_t keycode;
 } msg_keymap_keycode_save;
 
 typedef struct PACKED
 {
-	uint16_t flags;
-} msg_backlight_config_set_flags;
+	bool use_split_backspace:1;
+	bool use_split_left_shift:1;
+	bool use_split_right_shift:1;
+	bool use_7u_spacebar:1;
+	bool use_iso_enter:1;
+	bool disable_when_usb_suspended:1;
+	uint8_t disable_after_timeout;
+} msg_backlight_config_set_values;
 
 typedef struct PACKED
 {
@@ -62,7 +68,7 @@ typedef struct PACKED
 typedef struct PACKED
 {
 	uint8_t row;
-	uint8_t col;
+	uint8_t column;
 	HSV hsv;
 } msg_backlight_set_key_color;
 

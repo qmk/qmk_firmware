@@ -24,13 +24,13 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		case id_keymap_keycode_load:
 		{
 			msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
-			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->col );
+			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->column );
 			break;
 		}
 		case id_keymap_keycode_save:
 		{
 			msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
-			keymap_keycode_save( msg->layer, msg->row, msg->col, msg->keycode);
+			keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
 			break;
 		}
 		case id_keymap_default_save:
@@ -39,10 +39,10 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 #endif // USE_KEYMAPS_IN_EEPROM
-		case id_backlight_config_set_flags:
+		case id_backlight_config_set_values:
 		{
-			msg_backlight_config_set_flags *msg = (msg_backlight_config_set_flags*)&data[1];
-			backlight_config_set_flags(msg->flags);
+			msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
+			backlight_config_set_values(msg);
 			backlight_config_save();
 			backlight_init_drivers();
 			break;
@@ -57,7 +57,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		case id_backlight_set_key_color:
 		{
 			msg_backlight_set_key_color *msg = (msg_backlight_set_key_color*)&data[1];
-			backlight_set_key_color(msg->row, msg->col, msg->hsv);
+			backlight_set_key_color(msg->row, msg->column, msg->hsv);
 			break;
 		}
 		default:
@@ -88,17 +88,17 @@ void bootmagic_lite(void)
 
 	// If the Esc and space bar are held down on power up,
 	// reset the EEPROM valid state and jump to bootloader.
-    // Assumes Esc is at [0,0] and spacebar is at [4,7].
-    // This isn't very generalized, but we need something that doesn't
-    // rely on user's keymaps in firmware or EEPROM.
-    if ( ( matrix_get_row(0) & (1<<0) ) &&
-    	 ( matrix_get_row(4) & (1<<7) ) )
+	// Assumes Esc is at [0,0] and spacebar is at [4,7].
+	// This isn't very generalized, but we need something that doesn't
+	// rely on user's keymaps in firmware or EEPROM.
+	if ( ( matrix_get_row(0) & (1<<0) ) &&
+		( matrix_get_row(4) & (1<<7) ) )
 	{
-    	// Set the Zeal60 specific EEPROM state as invalid.
+		// Set the Zeal60 specific EEPROM state as invalid.
 		eeprom_set_valid(false);
-    	// Set the TMK/QMK EEPROM state as invalid.
+		// Set the TMK/QMK EEPROM state as invalid.
 		eeconfig_disable();
-    	// Jump to bootloader.
+		// Jump to bootloader.
 		bootloader_jump();
 	}
 }
@@ -127,12 +127,12 @@ void matrix_init_kb(void)
 		for ( int row=0; row < MATRIX_ROWS; row++ )
 		{
 			HSV hsv;
-			for ( int col=0; col < MATRIX_COLS; col++ )
+			for ( int column=0; column < MATRIX_COLS; column++ )
 			{
 				hsv.h = rand() & 0xFF;
 				hsv.s = rand() & 0xFF;
 				hsv.v = 255;
-				backlight_set_key_color( row, col, hsv );
+				backlight_set_key_color( row, column, hsv );
 			}
 		}
 
@@ -141,12 +141,12 @@ void matrix_init_kb(void)
 		keymap_default_save();
 
 		// Save the magic number last, in case saving was interrupted
-	    eeprom_set_valid(true);
+		eeprom_set_valid(true);
 	}
 #endif
 
-    // Initialize LED drivers for backlight.
-    backlight_init_drivers();
+	// Initialize LED drivers for backlight.
+	backlight_init_drivers();
 	
 	backlight_timer_init();
 	backlight_timer_enable();
@@ -371,20 +371,28 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 void led_set_kb(uint8_t usb_led)
 {
 	if (usb_led & (1<<USB_LED_CAPS_LOCK))
-    {
+	{
 		// Output high.
 		DDRE |= (1<<6);
 		PORTE |= (1<<6);
-    }
+	}
 	else
 	{
 		// Output low.
 		DDRE &= ~(1<<6);
 		PORTE &= ~(1<<6);
-    }
+	}
 	
 	led_set_user(usb_led);
 }
 
+void suspend_power_down_kb(void)
+{
+	backlight_set_suspend_state(true);
+}
 
+void suspend_wakeup_init_kb(void)
+{
+	backlight_set_suspend_state(false);
+}
 

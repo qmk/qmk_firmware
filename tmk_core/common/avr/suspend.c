@@ -102,8 +102,12 @@ static void power_down(uint8_t wdto)
 }
 #endif
 
+__attribute__ ((weak)) void suspend_power_down_kb(void) {}
+
 void suspend_power_down(void)
 {
+	suspend_power_down_kb();
+
 #ifndef NO_SUSPEND_POWER_DOWN
     power_down(WDTO_15MS);
 #endif
@@ -122,9 +126,13 @@ bool suspend_wakeup_condition(void)
      return false;
 }
 
+__attribute__ ((weak)) void suspend_wakeup_init_kb(void) {}
+
 // run immediately after wakeup
 void suspend_wakeup_init(void)
 {
+	suspend_wakeup_init_kb();
+
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
