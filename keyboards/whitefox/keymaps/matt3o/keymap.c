@@ -72,7 +72,7 @@ const uint16_t fn_actions[] = {
 
 /* custom action function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	/*
+  /*
   (void)opt;
   switch(id) {
     case ACTION_LEDS_ALL:
