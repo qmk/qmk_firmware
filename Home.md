@@ -303,7 +303,7 @@ This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly
 
 `AUDIO_ENABLE`
 
-This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#driving-a-speaker---audio-support) for more information.
+This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#audio-output-from-a-speaker) for more information.
 
 `VARIABLE_TRACE`
 
