@@ -18,13 +18,6 @@
 //#include "ws2812_config.h"
 //#include "i2cmaster.h"
 
-#define LIGHT_I2C 1
-#define LIGHT_I2C_ADDR        0x84
-#define LIGHT_I2C_ADDR_WRITE  ( (LIGHT_I2C_ADDR<<1) | I2C_WRITE )
-#define LIGHT_I2C_ADDR_READ   ( (LIGHT_I2C_ADDR<<1) | I2C_READ  )
-
-#define RGBW 1
-
 #ifdef RGBW
   #define LED_TYPE struct cRGBW
 #else

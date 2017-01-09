@@ -77,6 +77,7 @@ static bool audio_initialized = false;
 audio_config_t audio_config;
 
 uint16_t envelope_index = 0;
+bool glissando = true;
 
 void audio_init()
 {
@@ -205,13 +206,17 @@ ISR(TIMER3_COMPA_vect)
 					freq = frequencies[voice_place];
 				#endif
 			} else {
-				if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
-					frequency = frequency * pow(2, 440/frequency/12/2);
-				} else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
-					frequency = frequency * pow(2, -440/frequency/12/2);
+				if (glissando) {
+					if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
+						frequency = frequency * pow(2, 440/frequency/12/2);
+					} else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
+						frequency = frequency * pow(2, -440/frequency/12/2);
+					} else {
+						frequency = frequencies[voices - 1];
+					}
 				} else {
 					frequency = frequencies[voices - 1];
-				}
+				}				
 
 				#ifdef VIBRATO_ENABLE
 					if (vibrato_strength > 0) {

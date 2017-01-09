@@ -13,20 +13,16 @@ enum {
   QWERTY,
   CARPALX,
   SYSCTL,
+  MOUSE,
 };
 
 // extra keys
 enum {
   NONE = 0,
 
-  // mouse
-  MS_UL, // up   left
-  MS_UR, // up   right
-  MS_DL, // down left
-  MS_DR, // down right
-
   // tap dance
   TD_FLSH, // flash keyboard
+  TD_LAYR, // SYSCTL and MOUSE layer switch
 };
 
 // application selection
@@ -49,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       |SYSCTL|      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |BEGIN |QWERTY|       |SYSCTL|      |
+ *                                        |BEGIN |QWERTY|       |      |      |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |CARPAL|       |Slack |        |      |
  *                                 |Backsp|LShift|------|       |------| Enter  |Space |
@@ -66,15 +62,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
 
-                                                          ,TG(BEGIN)  ,TG(QWERTY)
-                                                                      ,TG(CARPALX)
-                                                  ,KC_BSPC  ,KC_LSFT  ,TG(SYSCTL)
+                                                          ,TG(BEGIN)  ,TD(TD_LAYR)
+                                                                      ,TG(MOUSE)
+                                                  ,KC_BSPC  ,KC_LSFT  ,TD(TD_LAYR)
 
-                ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
-                ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
-                          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
-                ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
-                                  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                ,KC_NO    ,KC_NO  ,KC_NO       ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                ,KC_NO    ,KC_NO  ,KC_NO       ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                          ,KC_NO  ,KC_NO       ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                ,KC_NO    ,KC_NO  ,KC_NO       ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+                                  ,MO(SYSCTL)  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 
    ,TG(SYSCTL)  ,KC_NO
    ,AP_SLCK
@@ -85,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * a beginner's keymap i currently use.
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |   1  |   2  |   3  |   4  |   5  |   6  |           |   6  |   7  |   8  |   9  |   0  |   -  |   =    |
+ * |        |   1  |   2  |   3  |   4  |   5  | opt  |           |   6  |   7  |   8  |   9  |   0  |   -  |   =    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |  Tab   |   Q  |   W  |   E  |   R  |   T  |   [  |           |   ]  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -104,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 [BEGIN] = KEYMAP(
- KC_TRNS          ,KC_1    ,KC_2     ,KC_3     ,KC_4      ,KC_5    ,KC_6
+ KC_TRNS          ,KC_1    ,KC_2     ,KC_3     ,KC_4      ,KC_5    ,KC_LALT
 ,KC_TAB           ,KC_Q    ,KC_W     ,KC_E     ,KC_R      ,KC_T    ,KC_LBRC
 ,CTL_T(KC_ESC)    ,KC_A    ,KC_S     ,KC_D     ,KC_F      ,KC_G
 ,KC_LSFT          ,KC_Z    ,KC_X     ,KC_C     ,KC_V      ,KC_B    ,KC_LPRN
@@ -114,11 +110,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                              ,KC_TRNS
                                                          ,KC_TRNS  ,KC_TRNS  ,KC_TRNS
 
-                ,KC_6       ,KC_7  ,KC_8   ,KC_9     ,KC_0     ,KC_MINS    ,KC_EQL
-                ,KC_RBRC    ,KC_Y  ,KC_U   ,KC_I     ,KC_O     ,KC_P       ,KC_BSLS
-                            ,KC_H  ,KC_J   ,KC_K     ,KC_L     ,KC_SCLN    ,KC_ENT
-                ,KC_RPRN    ,KC_N  ,KC_M   ,KC_COMM  ,KC_DOT   ,KC_SLSH    ,KC_RSFT
-                                   ,KC_UP  ,KC_DOWN  ,KC_TRNS  ,KC_QUOT    ,KC_TRNS
+                ,KC_6       ,KC_7  ,KC_8     ,KC_9     ,KC_0     ,KC_MINS    ,KC_EQL
+                ,KC_RBRC    ,KC_Y  ,KC_U     ,KC_I     ,KC_O     ,KC_P       ,KC_BSLS
+                            ,KC_H  ,KC_J     ,KC_K     ,KC_L     ,KC_SCLN    ,KC_ENT
+                ,KC_RPRN    ,KC_N  ,KC_M     ,KC_COMM  ,KC_DOT   ,KC_SLSH    ,KC_RSFT
+                                   ,KC_TRNS  ,KC_DOWN  ,KC_TRNS  ,KC_QUOT    ,KC_TRNS
 
       ,KC_TRNS  ,KC_TRNS
       ,KC_TRNS
@@ -213,27 +209,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ,KC_TRNS  ,KC_TRNS  ,KC_TRNS
 ),
 
-
 /* SYSCTL
  * a keymap to control my system.
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      | Mute |VolDn |VolUp |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |MsUpL | MsUp |MsUpR |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |MsLeft| MsDn |MsRght|      | Lock   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |MsDnL | MsDn |      |      | Sleep  |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      | Power|
- *   `----------------------------------'                                       `----------------------------------'
+ * ,--------------------------------------------------.           ,------------------------------------------------------.
+ * |   ^    |      |      |      |      |      |      |           |      |      |      |          |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      | Mute | Home |    Up    | End  |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|VolUp | Left |   Down   |Right |      | Lock   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+----------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |VolDn | Prev |Play/Pause| Next |      | Sleep  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+----------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |          |      |      | Power|
+ *   `----------------------------------'                                       `--------------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |MidClk|
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |Left  |Right |
- *                                 |      |      |------|       |------| Click| Click|
  *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |  ^   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [SYSCTL] = KEYMAP(
@@ -245,13 +240,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                       ,KC_NO  ,KC_NO
                                                               ,KC_NO
-                                              ,KC_NO  ,KC_NO  ,KC_NO
+                                              ,KC_NO  ,KC_NO  ,KC_TRNS
 
-       /*,KC_POP*/,KC_NO    ,KC_NO  ,KC_NO  ,KC_MUTE  ,KC_VOLD  ,KC_VOLU    ,KC_NO
-      /*,KC_PTRN*/,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_NO
-                            ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,LCTL(LSFT(KC_PWR))
-                  ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_SLEP
-                                    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO      ,KC_PWR
+ /*,KC_POP ///  */,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+ /* /// ,KC_PTRN*/,KC_NO    ,KC_MUTE  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_NO    ,KC_NO
+                            ,KC_VOLU  ,KC_LEFT  ,KC_DOWN  ,KC_RGHT  ,KC_NO    ,LCTL(LSFT(KC_PWR))
+                  ,KC_NO    ,KC_VOLD  ,KC_MPRV  ,KC_MPLY  ,KC_MNXT  ,KC_NO    ,KC_SLEP
+                                      ,KC_TRNS  ,KC_NO    ,KC_NO    ,KC_NO    ,KC_PWR
+
+          ,KC_NO  ,KC_NO
+          ,KC_NO
+          ,KC_NO  ,KC_NO  ,KC_NO
+),
+
+/* MOUSE
+ * a keymap to control my system.
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   ^    |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      | MsUp |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|      |MsLeft| MsDn |MsRght|      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |MidClk|
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |Left  |Right |
+ *                                 |      |      |------|       |------| Click| Click|
+ *                                 |      |      |  ^   |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[MOUSE] = KEYMAP(
+ KC_TRNS    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
+,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
+
+                                                      ,KC_NO  ,KC_NO
+                                                              ,KC_NO
+                                              ,KC_NO  ,KC_NO  ,KC_TRNS
+
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_MS_U  ,KC_NO    ,KC_NO    ,KC_NO
+                            ,KC_NO  ,KC_MS_L  ,KC_MS_D  ,KC_MS_R  ,KC_NO    ,KC_NO
+                  ,KC_NO    ,KC_NO  ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
+                                    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO    ,KC_NO
 
           ,KC_NO  ,KC_NO
           ,KC_NO
@@ -341,47 +380,28 @@ void matrix_init_user() {
   ergodox_led_all_off();
 }
 
+// light up leds based on the layer
+void matrix_scan_user(void) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(layer) {
+  case SYSCTL:
+    ergodox_right_led_3_on();
+    break;
+  case MOUSE:
+    ergodox_right_led_2_on();
+    break;
+  default:
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    break;
+  }
+}
+
 // extra keys
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
-
-    // mouse
-  case MS_UL:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_UP);
-      mousekey_on(KC_MS_LEFT);
-    } else {
-      mousekey_off(KC_MS_UP);
-      mousekey_off(KC_MS_LEFT);
-    }
-    break;
-  case MS_UR:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_UP);
-      mousekey_on(KC_MS_RIGHT);
-    } else {
-      mousekey_off(KC_MS_UP);
-      mousekey_off(KC_MS_RIGHT);
-    }
-    break;
-  case MS_DL:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_DOWN);
-      mousekey_on(KC_MS_LEFT);
-    } else {
-      mousekey_off(KC_MS_DOWN);
-      mousekey_off(KC_MS_LEFT);
-    }
-    break;
-  case MS_DR:
-    if (record->event.pressed) {
-      mousekey_on(KC_MS_DOWN);
-      mousekey_on(KC_MS_RIGHT);
-    } else {
-      mousekey_off(KC_MS_DOWN);
-      mousekey_off(KC_MS_RIGHT);
-    }
-    break;
   }
   return MACRO_NONE;
 }
@@ -425,6 +445,31 @@ void flash_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_3_off();
 }
 
+// SYSCTL on first tap, MOUSE ON second tap
+void layers_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(state->count) {
+  case 1:
+    switch(layer) {
+    case SYSCTL:
+      layer_off(SYSCTL);
+      break;
+    case MOUSE:
+      layer_off(MOUSE);
+      break;
+    default:
+      layer_on(SYSCTL);
+      break;
+    }
+    break;
+  case 2:
+    layer_on(MOUSE);
+    break;
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED( flash_each_tap, flash_dance_finished, flash_dance_reset ),
+  [TD_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, layers_dance_finished, NULL ),
 };
