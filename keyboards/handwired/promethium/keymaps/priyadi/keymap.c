@@ -352,15 +352,15 @@ const uint8_t PROGMEM LED_TRACKPOINT[] = {
 
 void led_reset(void) {
   for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 6, 0);
+    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
   }
 
   for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 0, 0);
   }
 
   for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-    rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 15);
+    rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 0);
   }
 }
 
@@ -385,30 +385,30 @@ void led_layer_func(void) {
     rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
   }
 
-  rgbsps_set(LED_I, 15, 0, 15);
-  rgbsps_set(LED_J, 15, 0, 15);
-  rgbsps_set(LED_K, 15, 0, 15);
-  rgbsps_set(LED_L, 15, 0, 15);
+  // rgbsps_set(LED_I, 15, 0, 15);
+  // rgbsps_set(LED_J, 15, 0, 15);
+  // rgbsps_set(LED_K, 15, 0, 15);
+  // rgbsps_set(LED_L, 15, 0, 15);
 
-  rgbsps_set(LED_U, 15, 0, 0);
-  rgbsps_set(LED_O, 15, 0, 0);
-  rgbsps_set(LED_COMM, 15, 0, 0);
-  rgbsps_set(LED_DOT, 15, 0, 0);
-  rgbsps_set(LED_SCLN, 15, 0, 0);
-  rgbsps_set(LED_P, 15, 0, 0);
+  // rgbsps_set(LED_U, 15, 0, 0);
+  // rgbsps_set(LED_O, 15, 0, 0);
+  // rgbsps_set(LED_COMM, 15, 0, 0);
+  // rgbsps_set(LED_DOT, 15, 0, 0);
+  // rgbsps_set(LED_SCLN, 15, 0, 0);
+  // rgbsps_set(LED_P, 15, 0, 0);
 
-  rgbsps_set(LED_Q, 0, 15, 0);
-  rgbsps_set(LED_W, 0, 15, 0);
-  rgbsps_set(LED_E, 0, 15, 0);
-  rgbsps_set(LED_R, 0, 15, 0);
-  rgbsps_set(LED_A, 0, 15, 0);
-  rgbsps_set(LED_S, 0, 15, 0);
-  rgbsps_set(LED_D, 0, 15, 0);
-  rgbsps_set(LED_F, 0, 15, 0);
-  rgbsps_set(LED_Z, 0, 15, 0);
-  rgbsps_set(LED_X, 0, 15, 0);
-  rgbsps_set(LED_C, 0, 15, 0);
-  rgbsps_set(LED_V, 0, 15, 0);
+  // rgbsps_set(LED_Q, 0, 15, 0);
+  // rgbsps_set(LED_W, 0, 15, 0);
+  // rgbsps_set(LED_E, 0, 15, 0);
+  // rgbsps_set(LED_R, 0, 15, 0);
+  // rgbsps_set(LED_A, 0, 15, 0);
+  // rgbsps_set(LED_S, 0, 15, 0);
+  // rgbsps_set(LED_D, 0, 15, 0);
+  // rgbsps_set(LED_F, 0, 15, 0);
+  // rgbsps_set(LED_Z, 0, 15, 0);
+  // rgbsps_set(LED_X, 0, 15, 0);
+  // rgbsps_set(LED_C, 0, 15, 0);
+  // rgbsps_set(LED_V, 0, 15, 0);
 
   rgbsps_send();
 }
@@ -430,54 +430,54 @@ void led_layer_num(void) {
 
   led_reset();
 
-  for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
-  }
+  // for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
+  //   rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
+  // }
 
-  rgbsps_set(LED_U, 0, 5, 15);
-  rgbsps_set(LED_I, 0, 5, 15);
-  rgbsps_set(LED_O, 0, 5, 15);
-  rgbsps_set(LED_J, 0, 5, 15);
-  rgbsps_set(LED_K, 0, 5, 15);
-  rgbsps_set(LED_L, 0, 5, 15);
-  rgbsps_set(LED_M, 0, 5, 15);
-  rgbsps_set(LED_COMM, 0, 5, 15);
-  rgbsps_set(LED_DOT, 0, 5, 15);
-  rgbsps_set(LED_FUNC, 0, 5, 15);
+  // rgbsps_set(LED_U, 0, 5, 15);
+  // rgbsps_set(LED_I, 0, 5, 15);
+  // rgbsps_set(LED_O, 0, 5, 15);
+  // rgbsps_set(LED_J, 0, 5, 15);
+  // rgbsps_set(LED_K, 0, 5, 15);
+  // rgbsps_set(LED_L, 0, 5, 15);
+  // rgbsps_set(LED_M, 0, 5, 15);
+  // rgbsps_set(LED_COMM, 0, 5, 15);
+  // rgbsps_set(LED_DOT, 0, 5, 15);
+  // rgbsps_set(LED_FUNC, 0, 5, 15);
 
-  rgbsps_set(LED_EMOJI, 0, 10, 15);
-  rgbsps_set(LED_RALT, 0, 10, 15);
+  // rgbsps_set(LED_EMOJI, 0, 10, 15);
+  // rgbsps_set(LED_RALT, 0, 10, 15);
 
-  rgbsps_set(LED_Q, 0, 10, 15);
-  rgbsps_set(LED_W, 0, 10, 15);
-  rgbsps_set(LED_E, 0, 10, 15);
-  rgbsps_set(LED_R, 0, 10, 15);
-  rgbsps_set(LED_T, 0, 10, 15);
-  rgbsps_set(LED_Y, 0, 10, 15);
-  rgbsps_set(LED_P, 0, 10, 15);
+  // rgbsps_set(LED_Q, 0, 10, 15);
+  // rgbsps_set(LED_W, 0, 10, 15);
+  // rgbsps_set(LED_E, 0, 10, 15);
+  // rgbsps_set(LED_R, 0, 10, 15);
+  // rgbsps_set(LED_T, 0, 10, 15);
+  // rgbsps_set(LED_Y, 0, 10, 15);
+  // rgbsps_set(LED_P, 0, 10, 15);
 
-  rgbsps_set(LED_A, 0, 15, 15);
-  rgbsps_set(LED_S, 0, 15, 15);
-  rgbsps_set(LED_D, 0, 15, 15);
-  rgbsps_set(LED_F, 0, 15, 15);
-  rgbsps_set(LED_Z, 0, 15, 15);
-  rgbsps_set(LED_X, 0, 15, 15);
-  rgbsps_set(LED_C, 0, 15, 15);
-  rgbsps_set(LED_V, 0, 15, 15);
+  // rgbsps_set(LED_A, 0, 15, 15);
+  // rgbsps_set(LED_S, 0, 15, 15);
+  // rgbsps_set(LED_D, 0, 15, 15);
+  // rgbsps_set(LED_F, 0, 15, 15);
+  // rgbsps_set(LED_Z, 0, 15, 15);
+  // rgbsps_set(LED_X, 0, 15, 15);
+  // rgbsps_set(LED_C, 0, 15, 15);
+  // rgbsps_set(LED_V, 0, 15, 15);
 
   rgbsps_send();
 }
 
 void led_layer_emoji(void) {
-  for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 15, 0);
-  }
-  for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 15, 0);
-  }
-  for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-    rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 0);
-  }
+  // for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
+  //   rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 15, 0);
+  // }
+  // for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
+  //   rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 15, 0);
+  // }
+  // for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
+  //   rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 0);
+  // }
 
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
   rgbsps_set(LED_IND_NUM, 0, 0, 0);
@@ -612,17 +612,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |   \  |   -  |   =  |   <  |   >  |   (  |   )  |   '  |      |      |
+ * |      |      |   \  |   -  |   =  |      |      |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |   |  |   _  |   +  |   {  |   }  |   [  |   ]  |   "  |      |      |
+ * |      |      |   |  |   _  |   +  |      |      |   [  |   ]  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV ,
-  XXXXXXX, XXXXXXX, KC_BSLS, KC_MINS,  KC_EQL, KC_LABK, KC_RABK, KC_LPRN, KC_RPRN, KC_QUOT, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_DQUO, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, XXXXXXX,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
