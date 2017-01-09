@@ -1,0 +1,7 @@
+qmk:
+  build: .
+  environment:
+    keymap: adam
+    keyboard: ergodox
+  volumes:
+    - .:/qmk
