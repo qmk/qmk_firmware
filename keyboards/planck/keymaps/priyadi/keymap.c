@@ -11,6 +11,8 @@
 #include "process_unicode.h"
 #include "quantum.h"
 
+// #define TOLELOT_ENABLE
+
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -21,6 +23,8 @@ enum layers {
   _NUM,
   _FUNC,
   _EMOJI,
+  _GREEKU,
+  _GREEKL,
   _GUI,
 };
 
@@ -36,6 +40,7 @@ enum planck_keycodes {
   FUNC,
   EMOJI,
   GUI,
+  GREEK,
 
   // os switchers
   LINUX,
@@ -98,6 +103,59 @@ enum unicode_name {
   SUN, // sun
   MOON, // moon
   SKULL, // skull
+
+  // greek letters
+  UALPH,
+  UBETA,
+  UGAMM,
+  UDELT,
+  UEPSI,
+  UZETA,
+  UETA,
+  UTHET,
+  UIOTA,
+  UKAPP,
+  ULAMB,
+  UMU,
+  UNU,
+  UXI,
+  UOMIC,
+  UPI,
+  URHO,
+  USIGM,
+  UTAU,
+  UUPSI,
+  UPHI,
+  UCHI,
+  UPSI,
+  UOMEG,
+
+  LALPH,
+  LBETA,
+  LGAMM,
+  LDELT,
+  LEPSI,
+  LZETA,
+  LETA,
+  LTHET,
+  LIOTA,
+  LKAPP,
+  LLAMB,
+  LMU,
+  LNU,
+  LXI,
+  LOMIC,
+  LPI,
+  LRHO,
+  LSIGM,
+  LTAU,
+  LUPSI,
+  LPHI,
+  LCHI,
+  LPSI,
+  LOMEG,
+
+  FSIGM,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -148,6 +206,57 @@ const uint32_t PROGMEM unicode_map[] = {
   [SUN] = 0x2600,
   [MOON] = 0x1F314,
   [SKULL] = 0x1F480,
+
+  // greek letters
+  [UALPH] = 0x0391,
+  [UBETA] = 0x0392,
+  [UGAMM] = 0x0393,
+  [UDELT] = 0x0394,
+  [UEPSI] = 0x0395,
+  [UZETA] = 0x0396,
+  [UETA] = 0x0397,
+  [UTHET] = 0x0398,
+  [UIOTA] = 0x0399,
+  [UKAPP] = 0x039A,
+  [ULAMB] = 0x039B,
+  [UMU] = 0x039C,
+  [UNU] = 0x039D,
+  [UXI] = 0x039E,
+  [UOMIC] = 0x039F,
+  [UPI] = 0x03A0,
+  [URHO] = 0x03A1,
+  [USIGM] = 0x03A3,
+  [UTAU] = 0x03A4,
+  [UUPSI] = 0x03A5,
+  [UPHI] = 0x03A6,
+  [UCHI] = 0x03A7,
+  [UPSI] = 0x03A8,
+  [UOMEG] = 0x03A9,
+  [LALPH] = 0x03B1,
+  [LBETA] = 0x03B2,
+  [LGAMM] = 0x03B3,
+  [LDELT] = 0x03B4,
+  [LEPSI] = 0x03B5,
+  [LZETA] = 0x03B6,
+  [LETA] = 0x03B7,
+  [LTHET] = 0x03B8,
+  [LIOTA] = 0x03B9,
+  [LKAPP] = 0x03BA,
+  [LLAMB] = 0x03BB,
+  [LMU] = 0x03BC,
+  [LNU] = 0x03BD,
+  [LXI] = 0x03BE,
+  [LOMIC] = 0x03BF,
+  [LPI] = 0x03C0,
+  [LRHO] = 0x03C1,
+  [LSIGM] = 0x03C3,
+  [LTAU] = 0x03C4,
+  [LUPSI] = 0x03C5,
+  [LPHI] = 0x03C6,
+  [LCHI] = 0x03C7,
+  [LPSI] = 0x03C8,
+  [LOMEG] = 0x03C9,
+  [FSIGM] = 0x03C2,
 };
 
 
@@ -174,14 +283,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  | Punc | Num  |    Space    | Func |Emoji |AltGr | GUI  | Ctrl |
+ * | Ctrl | GUI  | Alt  | Punc | Num  |    Space    | Func |Emoji |Greek |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT },
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {KC_LCTL, KC_LGUI, KC_LALT, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   KC_RALT, KC_RGUI, KC_RCTL}
+  {KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   GREEK,   KC_RALT, KC_RCTL}
 },
 
 /* Colemak
@@ -217,6 +326,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______},
   {_______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______},
   {_______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Uppercase Greek
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEKU] = {
+  {_______, _______, _______,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______},
+  {_______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), _______, _______},
+  {_______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Lowercase Greek
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEKL] = {
+  {_______, _______,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______},
+  {_______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), _______, _______},
+  {_______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -323,6 +468,7 @@ float tone_windows[][2] = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_osx[][2] = SONG(NUM_LOCK_ON_SOUND);
 float tone_click[][2] = SONG(MUSICAL_NOTE(_F3, 2));
 float tone_release[][2] = SONG(MUSICAL_NOTE(_A3, 2));
+float tone_tolelot[][2] = SONG(Q__NOTE(_E5), Q__NOTE(_C5), Q__NOTE(_D5));
 #endif
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -334,19 +480,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // faux clicky
   // if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
   #ifdef AUDIO_ENABLE
+  #ifdef TOLELOT_ENABLE
+  if (record->event.pressed) {
+    PLAY_NOTE_ARRAY(tone_tolelot, false, 0);
+  }
+  #else
   if (record->event.pressed) {
     PLAY_NOTE_ARRAY(tone_click, false, 0);
   } else {
     PLAY_NOTE_ARRAY(tone_release, false, 0);
   }
   #endif
+  #endif
+
+  bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
+  bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
 
   switch (keycode) {
+    // Greek layer handling
+    case GREEK:
+      if (record->event.pressed) {
+        if (lshifted || rshifted) {
+          layer_on(_GREEKU);
+          layer_off(_GREEKL);
+        } else {
+          layer_on(_GREEKL);
+          layer_off(_GREEKU);
+        }
+      } else {
+        layer_off(_GREEKU);
+        layer_off(_GREEKL);
+      }
+      return false;
+      break;
+
+    case KC_LSFT:
+    case KC_RSFT:
+      ;
+      uint8_t layer = biton32(layer_state);
+      if (layer == _GREEKU || layer == _GREEKL) {
+        if (record->event.pressed) {
+          layer_on(_GREEKU);
+          layer_off(_GREEKL);
+        } else {
+          if (lshifted ^ rshifted) { // if only one shift is pressed
+            layer_on(_GREEKL);
+            layer_off(_GREEKU);
+          }
+        }
+      }
+      return true;
+      break;
+
     // QWERTZ style comma and dot: semicolon and colon when shifted
     case KC_COMM:
       if (record->event.pressed) {
-        bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
-        bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
         if (lshifted || rshifted) {
           if (lshifted) unregister_code(KC_LSFT);
           if (rshifted) unregister_code(KC_RSFT);

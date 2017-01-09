@@ -2,7 +2,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 23
+	#define RGBLIGHT_MODES 24
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -39,6 +39,8 @@
 #include <stdbool.h>
 #include "eeconfig.h"
 #include "light_ws2812.h"
+
+extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
@@ -98,5 +100,6 @@ void rgblight_effect_rainbow_mood(uint8_t interval);
 void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
+void rgblight_effect_christmas(void);
 
 #endif
