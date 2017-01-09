@@ -4,6 +4,7 @@
 #include "quantum.h"
 
 #define PS2_INIT_DELAY 2000
+#define UNICODE_TYPE_DELAY 0
 
 #define KEYMAP( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
