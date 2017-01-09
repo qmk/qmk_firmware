@@ -2,6 +2,9 @@
 
 ## Changelog
 
+* Dec 2016:
+  * Added LED keys
+  * Refreshed layout graphic, comes from http://configure.ergodox-ez.com now.
 * Sep 22, 2016:
   * Created a new key in layer 1 (bottom-corner key) that resets the EEPROM.
 * Feb 2, 2016 (V1.1): 
@@ -9,4 +12,4 @@
 
 This is what we ship with out of the factory. :) The image says it all:
 
-![Default](default_highres.png)
+![Default](default_firmware_v1.2-2.png)
