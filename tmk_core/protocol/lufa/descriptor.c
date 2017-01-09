@@ -40,6 +40,9 @@
 #include "report.h"
 #include "descriptor.h"
 
+#ifndef USB_MAX_POWER_CONSUMPTION
+#define USB_MAX_POWER_CONSUMPTION 500
+#endif
 
 /*******************************************************************************
  * HID Report Descriptors
@@ -140,10 +143,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtrakeyReport[] =
     HID_RI_USAGE(8, 0x80), /* System Control */
     HID_RI_COLLECTION(8, 0x01), /* Application */
         HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
-        HID_RI_LOGICAL_MINIMUM(16, 0x0081),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00B7),
+        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
+        HID_RI_LOGICAL_MAXIMUM(16, 0x0003),
         HID_RI_USAGE_MINIMUM(16, 0x0081), /* System Power Down */
-        HID_RI_USAGE_MAXIMUM(16, 0x00B7), /* System Display LCD Autoscale */
+        HID_RI_USAGE_MAXIMUM(16, 0x0083), /* System Wake Up */
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
@@ -294,7 +297,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
             .ConfigAttributes       = (USB_CONFIG_ATTR_RESERVED | USB_CONFIG_ATTR_REMOTEWAKEUP),
 
-            .MaxPowerConsumption    = USB_CONFIG_POWER_MA(500)
+            .MaxPowerConsumption    = USB_CONFIG_POWER_MA(USB_MAX_POWER_CONSUMPTION)
         },
 
     /*
