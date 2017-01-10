@@ -52,7 +52,7 @@ You can also try these instructions:
 
 1. Install Xcode from the App Store.
 2. Install the Command Line Tools from `Xcode->Preferences->Downloads`.
-3. Install [DFU-Programmer][dfu-prog].
+3. Install [DFU-Programmer](https://dfu-programmer.github.io/).
 
 If you are going to flash Infinity based keyboards you will also need dfu-util
 
