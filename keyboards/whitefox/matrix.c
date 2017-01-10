@@ -69,7 +69,7 @@ uint8_t matrix_scan(void)
             case 8: palSetPad(GPIOC, 11);   break;
         }
 
-        wait_us(10); // need wait to settle pin state
+        wait_us(20); // need wait to settle pin state
 
         // read col data: { PTD0, PTD1, PTD4, PTD5, PTD6, PTD7, PTC1, PTC2 }
         data = ((palReadPort(GPIOC) & 0x06UL) << 5) |
