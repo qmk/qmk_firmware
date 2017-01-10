@@ -23,7 +23,7 @@ All layer images created using [keyboard-layout-editor](http://www.keyboard-layo
 
 ## Layer 3 - Navigation
 
-[![Layer 3 - Navigation](images/deadcyclo-layer-2-media-and-mouse.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
+[![Layer 3 - Navigation](images/deadcyclo-layer-3-navigation.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
 
 # Changelog
 
