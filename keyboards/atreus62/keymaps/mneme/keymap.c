@@ -170,7 +170,7 @@ static void m_handle_kf (keyrecord_t *record, uint8_t id) {
         code = long_press ? KC_F11 : KC_ESC;
         break;
       case KF_12:
-        code = long_press ? KC_F12 : KC_PLUS;
+        code = long_press ? KC_F12 : KN_PLUS;
         break;
     }
     register_code (code);
@@ -267,19 +267,19 @@ void matrix_scan_user(void) {
       register_code(KC_RGUI);
       TAP_ONCE(KC_L);
       unregister_code(KC_RGUI);
-    }; // Todo
+    };
 
     SEQ_TWO_KEYS(KC_F, KC_S){
       register_code(KC_LCTRL);
       TAP_ONCE(KC_S);
       unregister_code(KC_LCTRL);
-    }; // Todo
+    };
 
     SEQ_TWO_KEYS(KC_B, KC_D){
       register_code(KC_LCTRL);
       TAP_ONCE(KC_W);
       unregister_code(KC_LCTRL);
-    }; // Todo
+    };
 
     SEQ_TWO_KEYS (KC_S, KC_S) {
       // ¯\_(ツ)_/¯
