@@ -44,7 +44,7 @@
 #define KN_CIRC LSFT(KN_UMLA)   // ^
 #define KN_ASTR LSFT(KN_QUOT)   // *
 #define KN_TILD RALT(KN_UMLA)   // ~
-#define KN_BSLS RALT(KN_PLUS)   // 
+#define KN_BSLS RALT(KN_PLUS)   //
 
 #define OSM_LCTL OSM(MOD_LCTL)
 #define OSM_LALT OSM(MOD_LALT)
@@ -110,8 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_PGUP  ,KC_NO   ,KC_PGUP  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_PGDN  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_PGUP  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_TRNS  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_F11  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_F12  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_VOLD  ,KC_VOLU }
 
@@ -281,19 +281,13 @@ void matrix_scan_user(void) {
       unregister_code(KC_LCTRL);
     }; // Todo
 
-    SEQ_ONE_KEY(KC_SLSH){
-      register_code(KC_LCTRL);
-      TAP_ONCE(KC_F);
-      unregister_code(KC_LCTRL);
-    }
-
     SEQ_TWO_KEYS (KC_S, KC_S) {
       // ¯\_(ツ)_/¯
       unicode_input_start(); register_hex(0xaf); unicode_input_finish();
-      register_code (KC_RALT); TAP_ONCE (KN_PLUS); unregister_code (KC_RALT); 
+      register_code (KC_RALT); TAP_ONCE (KN_PLUS); unregister_code (KC_RALT);
       register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
       unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-      register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT); 
+      register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT);
       unicode_input_start (); register_hex(0xaf); unicode_input_finish();
     }
 
@@ -302,7 +296,7 @@ void matrix_scan_user(void) {
       unicode_input_start(); register_hex(0x51F8); unicode_input_finish();
       register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
       unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-      register_code (KC_RSFT); TAP_ONCE (KC_9); unregister_code (KC_RSFT); 
+      register_code (KC_RSFT); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
       unicode_input_start (); register_hex(0x51F8); unicode_input_finish();
     }
 

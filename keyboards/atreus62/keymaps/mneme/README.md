@@ -1,2 +1,54 @@
-Keymap that owes just about everything to Algernon.
-Check out his keymap for the Ergodox. It's pretty damned amazing.
+<!-- -*- mode: markdown; fill-column: 8192 -*- -->
+
+Mnemes Swedish Bonaza
+=======================
+
+My Layout in process, most of the code is shamelessly stolen from [algernons][algernon] excellent layout
+
+ [algernon]: https://github.com/algernon/ergodox-layout
+
+It's for Windows (current work forces me to) and Swedish (matter of birth) so ymmw.
+
+## Table of Contents
+
+* [Layouts](#layouts)
+    - [Base layer](#base-layer)
+    - [Fun layer](#fun-layer)
+    - [Nav layer](#nav-layer)
+    - [LED states](#led-states)
+
+# Layouts
+
+## Base layer
+
+![Base layer](img/base.png)
+
+
+* The number row doubles as a function row. Short presses produces numbers, long presses produces Fxx
+* The `Shift`, `Alt`, and `Control` modifiers are one-shot.
+* `Backspace` and `Enter` doubles as switches to the `sym` layer when held
+* The `ESC` key also doubles as a one-shot cancel key.
+* The **Lead** key is followed by a sequence of keys.
+    - `LEAD l`   : `lgui+l`.
+    - `LEAD s l` : `λ`.
+    - `LEAD s s` : `¯\_(ツ)_/¯`
+    - `LEAD s f` : `凸(ツ)凸`
+    - `LEAD f s` : `ctrl+s`
+    - `LEAD b d` : `ctrl+w`
+
+
+## Nav layer
+
+![Fun layer](img/fun.png)
+
+Basic navigation on the right hand and modifiers close
+by for the left. The latter because I tend to use `ctrl+arrows` quite a lot.
+
+## Sym layer
+
+![Sym layer](img/sym.png)
+
+Easy access to most symbols I use on a daily basis. Most common are on the home row, the rest are grouped as best as I could.
+
+# License
+  GPL-3+
