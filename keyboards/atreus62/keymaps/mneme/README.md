@@ -13,8 +13,8 @@ It's for Windows (current work forces me to) and Swedish (matter of birth) so ym
 
 * [Layouts](#layouts)
     - [Base layer](#base-layer)
-    - [Fun layer](#fun-layer)
     - [Nav layer](#nav-layer)
+    - [Sym layer](#sym-layer)
     - [LED states](#led-states)
 
 # Layouts
@@ -39,7 +39,7 @@ It's for Windows (current work forces me to) and Swedish (matter of birth) so ym
 
 ## Nav layer
 
-![Fun layer](img/fun.png)
+![Nav layer](img/fun.png)
 
 Basic navigation on the right hand and modifiers close
 by for the left. The latter because I tend to use `ctrl+arrows` quite a lot.
