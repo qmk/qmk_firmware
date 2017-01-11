@@ -13,27 +13,35 @@
 #define BACKLIGHT_EFFECT_MAX 7
 
 zeal_backlight_config g_config = {
-	.use_split_backspace = USE_SPLIT_BACKSPACE,
-	.use_split_left_shift = USE_SPLIT_LEFT_SHIFT,
-    .use_split_right_shift = USE_SPLIT_RIGHT_SHIFT,
-    .use_7u_spacebar = USE_7U_SPACEBAR,
-    .use_iso_enter = USE_ISO_ENTER,
-	.alphas_mods = {	ALPHAS_MODS_ROW_0,
-						ALPHAS_MODS_ROW_1,
-						ALPHAS_MODS_ROW_2,
-						ALPHAS_MODS_ROW_3,
-						ALPHAS_MODS_ROW_4 },
+	.use_split_backspace = BACKLIGHT_USE_SPLIT_BACKSPACE,
+	.use_split_left_shift = BACKLIGHT_USE_SPLIT_LEFT_SHIFT,
+	.use_split_right_shift = BACKLIGHT_USE_SPLIT_RIGHT_SHIFT,
+	.use_7u_spacebar = BACKLIGHT_USE_7U_SPACEBAR,
+	.use_iso_enter = BACKLIGHT_USE_ISO_ENTER,
+	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
+	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+	.alphas_mods = {
+		BACKLIGHT_ALPHAS_MODS_ROW_0,
+		BACKLIGHT_ALPHAS_MODS_ROW_1,
+		BACKLIGHT_ALPHAS_MODS_ROW_2,
+		BACKLIGHT_ALPHAS_MODS_ROW_3,
+		BACKLIGHT_ALPHAS_MODS_ROW_4 },
 	.brightness = 255,
 	.effect = 0,
 	.color_1 = { .h = 0, .s = 255, .v = 0 },
-	.color_2 = { .h = 127, .s = 255, .v = 0 }
+	.color_2 = { .h = 127, .s = 255, .v = 0 },
 };
+
+bool g_suspend_state = false;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
 
 // Ticks since this key was last hit.
 uint8_t g_key_hit[72];
+
+// Ticks since any key was last hit.
+uint32_t g_any_key_hit = 0;
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -91,7 +99,7 @@ void map_led_to_point( uint8_t index, Point *point )
 		case 36+6: // LC6A
 			if ( g_config.use_7u_spacebar )
 				point->x += 4;
-			break;			
+			break;
 		case 36+16: // LC16A
 			if ( !g_config.use_split_left_shift )
 				point->x += 8;
@@ -119,7 +127,7 @@ void map_led_to_point( uint8_t index, Point *point )
 // C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8,
 // C17,  C8,  C7,  C6, ---, ---, ---,  C0, ---, D13, D14, D15, D16, D17,
 //
-const uint8_t g_map_row_col_to_led[5][14] PROGMEM = {
+const uint8_t g_map_row_column_to_led[5][14] PROGMEM = {
 	{  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4 },
 	{   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14 },
 	{   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5 },
@@ -128,18 +136,19 @@ const uint8_t g_map_row_col_to_led[5][14] PROGMEM = {
 };
 
 
-void map_row_col_to_led( uint8_t row, uint8_t col, uint8_t *led )
+void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 {
 	*led = 255;
-	if ( row < MATRIX_ROWS && col < MATRIX_COLS )
+	if ( row < MATRIX_ROWS && column < MATRIX_COLS )
 	{
-		*led = pgm_read_byte(&g_map_row_col_to_led[row][col]);
+		*led = pgm_read_byte(&g_map_row_column_to_led[row][column]);
 	}
 }
 
 void backlight_update_pwm_buffers(void)
 {
 	IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, ISSI_ADDR_2 );
+	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
 }
 
 void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
@@ -152,11 +161,13 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 	IS31FL3731_set_color_all( red, green, blue );
 }
 
-void backlight_set_key_hit(uint8_t row, uint8_t col)
+void backlight_set_key_hit(uint8_t row, uint8_t column)
 {
 	uint8_t led;
-	map_row_col_to_led(row,col,&led);
+	map_row_column_to_led(row,column,&led);
 	g_key_hit[led] = 0;
+
+	g_any_key_hit = 0;
 }
 
 // This is (F_CPU/1024) / 20 Hz
@@ -195,15 +206,71 @@ void backlight_timer_disable(void)
 	TIMSK3 &= ~_BV(OCIE3A);
 }
 
+void backlight_set_suspend_state(bool state)
+{
+	g_suspend_state = state;
+}
+
+// This tests the LEDs
+// Note that it will change the LED control registers
+// in the LED drivers, and leave them in an invalid
+// state for other backlight effects.
+// ONLY USE THIS FOR TESTING LEDS!
 void backlight_effect_test(void)
 {
-	uint8_t offset = (g_tick<<3) & 0xFF;
-	// Relies on hue being 8-bit and wrapping
-	HSV hsv = { .h = offset, .s = 255, .v = 127 };
-	RGB rgb = hsv_to_rgb( hsv );
+	if ( g_tick < 4*20 )
+	{
+		backlight_set_color_all( 255, 0, 0 );
+		return;
+	}
+	else if ( g_tick < 7*20 )
+	{
+		backlight_set_color_all( 0, 255, 0 );
+		return;
+	}
+	else if ( g_tick < 10*20 )
+	{
+		backlight_set_color_all( 0, 0, 255 );
+		return;
+	}
+	else if ( g_tick < 13*20 )
+	{
+		backlight_set_color_all( 255, 255, 255 );
+		return;
+	}
 
-	backlight_set_color_all( rgb.r, rgb.g, rgb.b );
- }
+	static uint8_t color = 0; // 0,1,2 for R,G,B
+	static uint8_t row = 0;
+	static uint8_t column = 0;
+
+	static uint8_t tick = 0;
+	tick++;
+
+	if ( tick > 2 )
+	{
+		tick = 0;
+		column++;
+	}
+	if ( column > 14 )
+	{
+		column = 0;
+		row++;
+	}
+	if ( row > 4 )
+	{
+		row = 0;
+		color++;
+	}
+	if ( color > 2 )
+	{
+		color = 0;
+	}
+
+	uint8_t index;
+	map_row_column_to_led( row, column, &index );
+	backlight_set_color_all( 255, 255, 255 );
+	backlight_test_led( index, color==0, color==1, color==2 );
+}
 
 // All LEDs off
 void backlight_effect_all_off(void)
@@ -227,13 +294,13 @@ void backlight_effect_alphas_mods(void)
 
 	for ( int row = 0; row < MATRIX_ROWS; row++ )
 	{
-		for ( int col = 0; col < MATRIX_COLS; col++ )
+		for ( int column = 0; column < MATRIX_COLS; column++ )
 		{
 			uint8_t index;
-			map_row_col_to_led( row, col, &index );
+			map_row_column_to_led( row, column, &index );
 			if ( index < 72 )
 			{
-				if ( ( g_config.alphas_mods[row] & (0b0010000000000000>>col) ) == 0 )
+				if ( ( g_config.alphas_mods[row] & (0b0010000000000000>>column) ) == 0 )
 				{
 					backlight_set_color( index, rgb1.r, rgb1.g, rgb1.b );
 				}
@@ -287,15 +354,14 @@ void backlight_effect_cycle_all(void)
 	for ( int i=0; i<72; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
-
 		// stabilizer LEDs use spacebar hits
 		if ( i == 36+6 || i == 54+13 || // LC6, LD13
 				( g_config.use_7u_spacebar && i == 54+14 ) ) // LD14
 		{
 			offset2 = g_key_hit[36+0]<<2;
 		}
-
 		offset2 = (offset2<=63) ? (63-offset2) : 0;
+
 		HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
 		RGB rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
@@ -310,14 +376,23 @@ void backlight_effect_cycle_all(void)
 	Point point;
 	for ( int i=0; i<72; i++ )
 	{
+		uint16_t offset2 = g_key_hit[i]<<2;
+		// stabilizer LEDs use spacebar hits
+		if ( i == 36+6 || i == 54+13 || // LC6, LD13
+				( g_config.use_7u_spacebar && i == 54+14 ) ) // LD14
+		{
+			offset2 = g_key_hit[36+0]<<2;
+		}
+		offset2 = (offset2<=63) ? (63-offset2) : 0;
+
 		map_led_to_point( i, &point );
 		// Relies on hue being 8-bit and wrapping
-		hsv.h = point.x + offset;
+		hsv.h = point.x + offset + offset2;
 		rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-    }
+	}
 }
- 
+
 void backlight_effect_cycle_up_down(void)
 {
 	uint8_t offset = g_tick & 0xFF;
@@ -326,9 +401,18 @@ void backlight_effect_cycle_up_down(void)
 	Point point;
 	for ( int i=0; i<72; i++ )
 	{
+		uint16_t offset2 = g_key_hit[i]<<2;
+		// stabilizer LEDs use spacebar hits
+		if ( i == 36+6 || i == 54+13 || // LC6, LD13
+				( g_config.use_7u_spacebar && i == 54+14 ) ) // LD14
+		{
+			offset2 = g_key_hit[36+0]<<2;
+		}
+		offset2 = (offset2<=63) ? (63-offset2) : 0;
+
 		map_led_to_point( i, &point );
 		// Relies on hue being 8-bit and wrapping
-		hsv.h = point.y + offset;
+		hsv.h = point.y + offset + offset2;
 		rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 	}
@@ -352,6 +436,11 @@ ISR(TIMER3_COMPA_vect)
 {
 	g_tick++;
 
+	if ( g_any_key_hit < 0xFFFFFFFF )
+	{
+		g_any_key_hit++;
+	}
+
 	// delay 1 second before driving LEDs
 	if ( g_tick < 20 )
 	{
@@ -366,67 +455,63 @@ ISR(TIMER3_COMPA_vect)
 		}
 	}
 
-	// Store backlight config to EEPROM every 6.4 seconds
-	// A slightly hacky way of reducing the number of EEPROM writes
-	// should the user be hammering away on backlight changes
-	// Paranoid? Probably...
-	// Note this will only write if it's different, so it's safe to
-	// call often.
-	if ( ( g_tick & 0x7F ) == 0 )
-	{
-		backlight_config_save();
-	}
-
 #ifdef ZEAL60_TEST
 	backlight_effect_test();
-    return;
+	return;
 #endif
+
+	// Ideally we would also stop sending zeros to the LED driver PWM buffers
+	// while suspended and just do a software shutdown. This is a cheap hack for now.
+	uint8_t effect = ( ( g_suspend_state && g_config.disable_when_usb_suspended ) ||
+					( g_config.disable_after_timeout > 0 && g_any_key_hit > g_config.disable_after_timeout*60*20 ) )
+					? 0 : g_config.effect;
 
 	// this gets ticked at 20 Hz.
 	// each effect can opt to do calculations
 	// and/or request PWM buffer updates.
-	if ( g_config.effect == 0 )
+	if ( effect == 0 )
 	{
 		backlight_effect_all_off();
 	}
-	else if ( g_config.effect == 1 )
+	else if ( effect == 1 )
 	{
 		backlight_effect_solid_color();
 	}
-	else if ( g_config.effect == 2 )
+	else if ( effect == 2 )
 	{
 		backlight_effect_alphas_mods();
 	}
-	else if ( g_config.effect == 3 )
+	else if ( effect == 3 )
 	{
 		backlight_effect_gradient_up_down();
 	}
-	else if ( g_config.effect == 4 )
+	else if ( effect == 4 )
 	{
 		backlight_effect_cycle_all();
 	}
-	else if ( g_config.effect == 5 )
+	else if ( effect == 5 )
 	{
 		backlight_effect_cycle_left_right();
 	}
-	else if ( g_config.effect == 6 )
+	else if ( effect == 6 )
 	{
 		backlight_effect_cycle_up_down();
 	}
-	else if ( g_config.effect >= 7 )
+	else if ( effect >= 7 )
 	{
 		backlight_effect_custom();
 	}
 }
 
-void backlight_config_set_flags(uint16_t flags)
+void backlight_config_set_values(msg_backlight_config_set_values *values)
 {
-	// TODO: replace with #define bitmasks
-	g_config.use_split_backspace = ( flags&(1<<0) ? true : false );
-	g_config.use_split_left_shift = ( flags&(1<<1) ? true : false );
-	g_config.use_split_right_shift = ( flags&(1<<2) ? true : false );
-	g_config.use_7u_spacebar = ( flags&(1<<3) ? true : false );
-	g_config.use_iso_enter = ( flags&(1<<4) ? true : false );
+	g_config.use_split_backspace = values->use_split_backspace;
+	g_config.use_split_left_shift = values->use_split_left_shift;
+	g_config.use_split_right_shift = values->use_split_right_shift;
+	g_config.use_7u_spacebar = values->use_7u_spacebar;
+	g_config.use_iso_enter = values->use_iso_enter;
+	g_config.disable_when_usb_suspended = values->disable_when_usb_suspended;
+	g_config.disable_after_timeout = values->disable_after_timeout;
 }
 
 void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
@@ -435,145 +520,49 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
 	{
 		g_config.alphas_mods[i] = alphas_mods[i];
 	}
+
+	backlight_config_save();
 }
 
 void backlight_config_load(void)
 {
-	void *addr = EEPROM_BACKLIGHT_CONFIG_ADDR;
-	uint16_t flags = eeprom_read_word(addr);
-	addr += 2;
-	backlight_config_set_flags(flags);
-
-	for ( int i=0; i<5; i++ )
-	{
-		g_config.alphas_mods[i] = eeprom_read_word(addr);
-		addr += 2;
-	}
-
-	g_config.brightness = eeprom_read_byte( addr++ );
-	g_config.effect = eeprom_read_byte( addr++ );
-	g_config.color_1.h = eeprom_read_byte( addr++ );
-	g_config.color_1.s = eeprom_read_byte( addr++ );
-	g_config.color_1.v = eeprom_read_byte( addr++ );
-	g_config.color_2.h = eeprom_read_byte( addr++ );
-	g_config.color_2.s = eeprom_read_byte( addr++ );
-	g_config.color_2.v = eeprom_read_byte( addr++ );
+	eeprom_read_block( &g_config, EEPROM_BACKLIGHT_CONFIG_ADDR, sizeof(zeal_backlight_config) );
 }
 
 void backlight_config_save(void)
 {
-	// TODO: replace with #define bitmasks
-	uint16_t flags = ( g_config.use_split_backspace ? (1<<0) : 0 ) |
-					( g_config.use_split_left_shift ? (1<<1) : 0 ) |
-					( g_config.use_split_right_shift ? (1<<2) : 0 ) |
-					( g_config.use_7u_spacebar ? (1<<3) : 0 ) |
-					( g_config.use_iso_enter ? (1<<4) : 0 );
-
-	void *addr = EEPROM_BACKLIGHT_CONFIG_ADDR;
-	eeprom_update_word( addr, flags );
-	addr += 2;
-
-	for ( int i=0; i<5; i++ )
-	{
-		eeprom_update_word( addr, g_config.alphas_mods[i] );
-		addr += 2;
-	}
-
-	eeprom_update_byte( addr++, g_config.brightness );
-	eeprom_update_byte( addr++, g_config.effect );
-	eeprom_update_byte( addr++, g_config.color_1.h );
-	eeprom_update_byte( addr++, g_config.color_1.s );
-	eeprom_update_byte( addr++, g_config.color_1.v );
-	eeprom_update_byte( addr++, g_config.color_2.h );
-	eeprom_update_byte( addr++, g_config.color_2.s );
-	eeprom_update_byte( addr++, g_config.color_2.v );
+	eeprom_update_block( &g_config, EEPROM_BACKLIGHT_CONFIG_ADDR, sizeof(zeal_backlight_config) );
 }
 
 void backlight_init_drivers(void)
 {
-	uint8_t enable_led_LB5 = g_config.use_split_backspace;
-	uint8_t enable_led_LC15 = g_config.use_split_left_shift;
-	uint8_t enable_led_LD8 = g_config.use_split_right_shift;
-	uint8_t enable_led_LD13 = g_config.use_7u_spacebar ? 0 : 1;
-	
 	sei();
 
 	// Initialize TWI
 	TWIInit();
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
-				
-	// This is how you define which LEDs are present in the matrix.
-	// If you don't turn off missing LEDs, the LED driver doesn't work properly.
 
-	// This is the bit pattern in the LED control registers
-	// (per matrix)
-	//
-	// R08,R07,R06,R05,R04,R03,R02,R01
-	// G08,G07,G06,G05,G04,G03,G02,R00
-	// B08,B07,B06,B05,B04,B03,G01,G00
-	//  - , - , - , - , - ,B02,B01,B00
-	//  - , - , - , - , - , - , - , -
-	// B17,B16,B15, - , - , - , - , -
-	// G17,G16,B14,B13,B12,B11,B19,B09
-	// R17,G15,G14,G13,G12,G11,G10,G09
-	// R16,R15,R14,R13,R12,R11,R10,R09
-	//
-	// I could probably write some fancy wrapper for this to allow easy
-	// reconfiguration, but it's really too much work and will probably use
-	// up program/data. Easier to just work out which LEDs are not being used
-	// by referencing the Nth LED per matrix and replacing some 1s with 0s below.
-	//
-	// Since this never needs to change at runtime, and only happens once,
-	// it doesn't matter that it's 36 discrete calls ;-)
-	//
+	for ( int index = 0; index < 72; index++ )
+	{
+		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
+		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60, but present on Zeal65
+		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
+						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
+						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
+						  ( index == 54+13 && g_config.use_7u_spacebar ) || // LD13
+						  ( index == 18+6 ) || // LB6
+						  ( index == 18+7 ) || // LB7
+						  ( index == 18+8 ) || // LB8
+						  ( index == 18+15 ) || // LB15
+						  ( index == 18+16 ) || // LB16
+						  ( index == 18+17 ) ); // LB17
 
-	// Driver 1, Matrix A (LA0-LA17)
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x00, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x02, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x04, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x06, 0b00000111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x08, 0b00000000 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0A, 0b11100000 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0C, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0E, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x10, 0b11111111 );
-
-	// Driver 1, Matrix B (LB0-LB17)
-	// Disabled LB6 LB7 LB8 LB15 LB16 LB17
-	// Not present on Zeal60. Present on Zeal65
-	
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x01, 0b00001111 | (enable_led_LB5<<4));
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x03, 0b00001111 | (enable_led_LB5<<4));
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x05, 0b00001111 | (enable_led_LB5<<4));
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x07, 0b00000111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x09, 0b00000000 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0B, 0b00000000 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0D, 0b00111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x0F, 0b00111111 );
-	IS31FL3731_write_register(ISSI_ADDR_1, 0x11, 0b00111111 );
-
-	// Driver 2, Matrix A (LC0-LC17)
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x00, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x02, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x04, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x06, 0b00000111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x08, 0b00000000 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0A, 0b11000000 | (enable_led_LC15<<5));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0C, 0b11111111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0E, 0b10111111 | (enable_led_LC15<<6));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x10, 0b10111111 | (enable_led_LC15<<6));
-
-	// Driver 2, Matrix B (LD0-LD17)
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x01, 0b01111111 | (enable_led_LD8<<7));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x03, 0b01111111 | (enable_led_LD8<<7));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x05, 0b01111111 | (enable_led_LD8<<7));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x07, 0b00000111 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x09, 0b00000000 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0B, 0b11100000 );
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0D, 0b11101111 | (enable_led_LD13<<4));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x0F, 0b11101111 | (enable_led_LD13<<4));
-	IS31FL3731_write_register(ISSI_ADDR_2, 0x11, 0b11101111 | (enable_led_LD13<<4));
+		// This only caches it for later
+		IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+	}
+	// This actually updates the LED drivers
+	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
 
 	// TODO: put the 1 second startup delay here?
 
@@ -686,15 +675,30 @@ void backlight_get_key_color( uint8_t led, HSV *hsv )
 	hsv->v = eeprom_read_byte(address+2);
 }
 
-void backlight_set_key_color( uint8_t row, uint8_t col, HSV hsv )
+void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
 {
 	uint8_t led;
-	map_row_col_to_led( row, col, &led );
+	map_row_column_to_led( row, column, &led );
 	if ( led < 72 )
 	{
 		void *address = backlight_get_custom_key_color_eeprom_address(led);
 		eeprom_update_byte(address, hsv.h);
 		eeprom_update_byte(address+1, hsv.s);
 		eeprom_update_byte(address+2, hsv.v);
+	}
+}
+
+void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
+{
+	for ( int i=0; i<72; i++ )
+	{
+		if ( i == index )
+		{
+			IS31FL3731_set_led_control_register( i, red, green, blue );
+		}
+		else
+		{
+			IS31FL3731_set_led_control_register( i, false, false, false );
+		}
 	}
 }

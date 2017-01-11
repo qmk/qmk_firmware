@@ -6,25 +6,25 @@
 
 #if USE_KEYMAPS_IN_EEPROM
 
-void *keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t col)
+void *keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column)
 {
 	// TODO: optimize this with some left shifts
 	return EEPROM_KEYMAP_ADDR + ( layer * MATRIX_ROWS * MATRIX_COLS * 2 ) +
-		( row * MATRIX_COLS * 2 ) + ( col * 2 );
+		( row * MATRIX_COLS * 2 ) + ( column * 2 );
 }
 
-uint16_t keymap_keycode_load(uint8_t layer, uint8_t row, uint8_t col)
+uint16_t keymap_keycode_load(uint8_t layer, uint8_t row, uint8_t column)
 {
-	void *address = keymap_key_to_eeprom_address(layer, row, col);
+	void *address = keymap_key_to_eeprom_address(layer, row, column);
 	// Big endian, so we can read/write EEPROM directly from host if we want
 	uint16_t keycode = eeprom_read_byte(address) << 8;
 	keycode |= eeprom_read_byte(address + 1);
 	return keycode;
 }
 
-void keymap_keycode_save(uint8_t layer, uint8_t row, uint8_t col, uint16_t keycode)
+void keymap_keycode_save(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode)
 {
-	void *address = keymap_key_to_eeprom_address(layer, row, col);
+	void *address = keymap_key_to_eeprom_address(layer, row, column);
 	// Big endian, so we can read/write EEPROM directly from host if we want
 	eeprom_update_byte(address, (uint8_t)(keycode >> 8));
 	eeprom_update_byte(address+1, (uint8_t)(keycode & 0xFF));
@@ -37,9 +37,9 @@ void keymap_default_save(void)
 	{
 		for ( int row = 0; row < MATRIX_ROWS; row++ )
 		{
-			for ( int col = 0; col < MATRIX_COLS; col++ )
+			for ( int column = 0; column < MATRIX_COLS; column++ )
 			{
-				keymap_keycode_save(layer, row, col, KC_EENULL);
+				keymap_keycode_save(layer, row, column, KC_EENULL);
 			}
 		}
 	}
@@ -64,7 +64,7 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 		}
 	}
 
-    return pgm_read_word(&keymaps[layer][key.row][key.col]);
+	return pgm_read_word(&keymaps[layer][key.row][key.col]);
 }
 #endif // USE_KEYMAPS_IN_EEPROM
 

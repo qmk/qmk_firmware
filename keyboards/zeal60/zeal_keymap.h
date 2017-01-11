@@ -6,9 +6,9 @@
 
 #include "zeal_keycode.h"
 
-void *keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t col);
-uint16_t keymap_keycode_load(uint8_t layer, uint8_t row, uint8_t col);
-void keymap_keycode_save(uint8_t layer, uint8_t row, uint8_t col, uint16_t keycode);
+void *keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column);
+uint16_t keymap_keycode_load(uint8_t layer, uint8_t row, uint8_t column);
+void keymap_keycode_save(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
 void keymap_default_save(void);
 
 // This overrides the one in quantum/keymap_common.c

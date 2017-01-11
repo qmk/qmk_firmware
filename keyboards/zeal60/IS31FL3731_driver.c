@@ -37,6 +37,9 @@ uint8_t g_twi_transfer_buffer[TXMAXBUFLEN];
 uint8_t g_pwm_buffer[2][144];
 bool g_pwm_buffer_update_required = false;
 
+uint8_t g_led_control_registers[2][18] = { { 0 }, { 0 } };
+bool g_led_control_registers_update_required = false;
+
 // map of LED index to register (matrix A and matrix B)
 // i.e. this is LA0..LA17,LB0..LB17 and also LC0..LC17,LD0..LD17
 // Index of LED (0..36) will map to a register.
@@ -58,6 +61,53 @@ const uint8_t g_blue_registers[36] PROGMEM = {
 	0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x79, 0x7A, 0x7B,
 	0x5C, 0x5D, 0x5E, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53,
 	0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x81, 0x82, 0x83 };
+
+typedef struct
+{
+	uint8_t red_register;
+	uint8_t red_bit;
+	uint8_t green_register;
+	uint8_t green_bit;
+	uint8_t blue_register;
+	uint8_t blue_bit;
+} led_control_bitmask;
+
+// This is the bit pattern in the LED control registers
+// (for matrix A, add one to register for matrix B)
+//
+//  reg -  b7  b6  b5  b4  b3  b2  b1  b0
+// 0x00 - R08,R07,R06,R05,R04,R03,R02,R01
+// 0x02 - G08,G07,G06,G05,G04,G03,G02,R00
+// 0x04 - B08,B07,B06,B05,B04,B03,G01,G00
+// 0x06 -  - , - , - , - , - ,B02,B01,B00
+// 0x08 -  - , - , - , - , - , - , - , -
+// 0x0A - B17,B16,B15, - , - , - , - , -
+// 0x0C - G17,G16,B14,B13,B12,B11,B10,B09
+// 0x0E - R17,G15,G14,G13,G12,G11,G10,G09
+// 0x10 - R16,R15,R14,R13,R12,R11,R10,R09
+
+const led_control_bitmask g_led_control_bitmask[18] =
+{
+	{ 0x02, 0, 0x04, 0, 0x06, 0 }, // R00,G00,B00
+	{ 0x00, 0, 0x04, 1, 0x06, 1 }, // R01,G01,B01
+	{ 0x00, 1, 0x02, 1, 0x06, 2 }, // R02,G02,B02
+	{ 0x00, 2, 0x02, 2, 0x04, 2 }, // R03,G03,B03
+	{ 0x00, 3, 0x02, 3, 0x04, 3 }, // R04,G04,B04
+	{ 0x00, 4, 0x02, 4, 0x04, 4 }, // R05,G05,B05
+	{ 0x00, 5, 0x02, 5, 0x04, 5 }, // R06,G06,B06
+	{ 0x00, 6, 0x02, 6, 0x04, 6 }, // R07,G07,B07
+	{ 0x00, 7, 0x02, 7, 0x04, 7 }, // R08,G08,B08
+
+	{ 0x10, 0, 0x0E, 0, 0x0C, 0 }, // R09,G09,B09
+	{ 0x10, 1, 0x0E, 1, 0x0C, 1 }, // R10,G10,B10
+	{ 0x10, 2, 0x0E, 2, 0x0C, 2 }, // R11,G11,B11
+	{ 0x10, 3, 0x0E, 3, 0x0C, 3 }, // R12,G12,B12
+	{ 0x10, 4, 0x0E, 4, 0x0C, 4 }, // R13,G13,B13
+	{ 0x10, 5, 0x0E, 5, 0x0C, 5 }, // R14,G14,B14
+	{ 0x10, 6, 0x0E, 6, 0x0A, 5 }, // R15,G15,B15
+	{ 0x10, 7, 0x0C, 6, 0x0A, 6 }, // R16,G16,B16
+	{ 0x0E, 7, 0x0C, 7, 0x0A, 7 }, // R17,G17,B17
+};
 
 void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
 {
@@ -189,6 +239,57 @@ void IS31FL3731_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 	}
 }
 
+void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, bool blue )
+{
+	uint8_t driver = 0;
+	if ( index >= 36 )
+	{
+		driver = 1;
+		index -= 36;
+	}
+
+	// index now in range 0..35
+	uint8_t matrix = 0; // Matrix A
+	if ( index >= 18 )
+	{
+		matrix = 1; // Matrix B
+		index -= 18;
+	}
+
+	led_control_bitmask bitmask = g_led_control_bitmask[index];
+
+	// Matrix A and B registers are interleaved.
+	// Add 1 to Matrix A register to get Matrix B register
+	if ( red )
+	{
+		g_led_control_registers[driver][bitmask.red_register+matrix] |= (1<<bitmask.red_bit);
+	}
+	else
+	{
+		g_led_control_registers[driver][bitmask.red_register+matrix] &= ~(1<<bitmask.red_bit);
+	}
+	if ( green )
+	{
+		g_led_control_registers[driver][bitmask.green_register+matrix] |= (1<<bitmask.green_bit);
+	}
+	else
+	{
+		g_led_control_registers[driver][bitmask.green_register+matrix] &= ~(1<<bitmask.green_bit);
+	}
+	if ( blue )
+	{
+		g_led_control_registers[driver][bitmask.blue_register+matrix] |= (1<<bitmask.blue_bit);
+	}
+	else
+	{
+		g_led_control_registers[driver][bitmask.blue_register+matrix] &= ~(1<<bitmask.blue_bit);
+	}
+
+	g_led_control_registers_update_required = true;
+
+
+}
+
 void IS31FL3731_update_pwm_buffers( uint8_t addr1, uint8_t addr2 )
 {
 	if ( g_pwm_buffer_update_required )
@@ -198,3 +299,16 @@ void IS31FL3731_update_pwm_buffers( uint8_t addr1, uint8_t addr2 )
 	}
 	g_pwm_buffer_update_required = false;
 }
+
+void IS31FL3731_update_led_control_registers( uint8_t addr1, uint8_t addr2 )
+{
+	if ( g_led_control_registers_update_required )
+	{
+		for ( int i=0; i<18; i++ )
+		{
+			IS31FL3731_write_register(addr1, i, g_led_control_registers[0][i] );
+			IS31FL3731_write_register(addr2, i, g_led_control_registers[1][i] );
+		}
+	}
+}
+

@@ -1,3 +1,5 @@
+// This is only used for factory test, some features are disabled
+
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
