@@ -1,4 +1,6 @@
-There are several Build Options commonly configured in the Makefile.  Various of these will cause the firmware to be substantially larger.
+There are several Build Options commonly configured in the Makefile.  If you build a custom keymap with your own ~keymap.c~ and ~Makefile~, you will need to determine which of these should be enabled.  
+
+Various of these will cause the firmware to be substantially larger; enabling all of them is probably not possible as the aggregate consumes more memory than is available on the Atmel32U4 used on the Planck.
 
 ** BOOTMAGIC_ENABLE
 
@@ -7,7 +9,6 @@ This controls whether or not Virtual DIP switch configuration is supported. (+10
 Seldom used (only in one Planck keymap)
 
 ** MOUSEKEY_ENABLE
-
 Should some keys simulate mouse activity? (+4700 bytes)
 
 Frequently used in Planck keymaps.
@@ -26,8 +27,8 @@ Infrequently used in Planck keymaps.
 Support commands for debug and configuration
 
 Frequently used
-** NKRO_ENABLE
 
+** NKRO_ENABLE
 Nkey Rollover - if this doesn't work, see here: [[https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work][TMK FAQ on NKRO]]
 
 Nearly always enabled.
