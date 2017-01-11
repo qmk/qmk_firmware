@@ -229,11 +229,13 @@ For keyboards and subprojects, the make files are split in two parts `Makefile` 
 
 ### Makefile options
 
-Set the variables to `no` to disable them, and `yes` to enable them.
+Set these variables to `no` to disable them, and `yes` to enable them.
 
 `BOOTMAGIC_ENABLE`
 
 This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.
+
+Consumes about 1000 bytes.
 
 `MOUSEKEY_ENABLE`
 
@@ -258,6 +260,8 @@ To disable print messages (*print*, *xprintf*) and **KEEP** user print messages 
 To see the text, open `hid_listen` and enjoy looking at your printed messages.
 
 **NOTE:** Do not include *uprint* messages in anything other than your keymap code. It must not be used within the QMK system framework. Otherwise, you will bloat other people's .hex files. 
+
+Consumes about 400 bytes.
 
 `COMMAND_ENABLE`
 
@@ -312,6 +316,8 @@ Use this to debug changes to variable values, see the [tracing variables](#traci
 `API_SYSEX_ENABLE`
 
 This enables using the Quantum SYSEX API to send strings (somewhere?)
+
+This consumes about 5390 bytes.
 
 ### Customizing Makefile options on a per-keymap basis
 
