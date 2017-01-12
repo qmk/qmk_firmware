@@ -117,7 +117,7 @@ void rgblight_set(void) {
 }
 
 void set_backlight_by_keymap(uint8_t col, uint8_t row){
-    dprintf("event: %d %d\n", col, row);
+    xprintf("event: %d %d\n", col, row);
     uint8_t lookup_value = switch_leds[row][col];
     uint8_t matrix = 0;
     if(lookup_value & 0x80){
@@ -128,7 +128,7 @@ void set_backlight_by_keymap(uint8_t col, uint8_t row){
     }
     uint8_t led_col = (lookup_value & 0x70) >> 4;
     uint8_t led_row = lookup_value & 0x0F;
-    dprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, led_col, led_row);
+    xprintf("LED: %02X, %d %d %d\n", lookup_value, matrix, led_col, led_row);
     activateLED(matrix, led_col, led_row, 255);
 }
 
@@ -160,8 +160,8 @@ void led_test(){
 }
 
 void backlight_init_ports(void){
-    dprintf("backlight_init_ports\n");
-    issi_init();
+    xprintf("backlight_init_ports\n");
+    // issi_init();
 }
 
 // bool has_backlight(void){

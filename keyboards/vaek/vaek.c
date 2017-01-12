@@ -50,7 +50,7 @@ void matrix_scan_kb(void)
     static uint32_t twi_last_ready = 0;
     if(twi_last_ready > 1000){
         // Its been way too long since the last ISSI update, reset the I2C bus and start again
-        dprintf("TWI failed to recover, TWI re-init\n");
+        xprintf("TWI failed to recover, TWI re-init\n");
         twi_last_ready = 0;
         TWIInit();
         force_issi_refresh();
@@ -74,11 +74,11 @@ void matrix_scan_kb(void)
     // but can't find QMK equiv
     static uint32_t layer_indicator = -1;
     if(layer_indicator != layer_state){
-        dprintf("%08lX(%u)\n", layer_state, biton32(layer_state));
+        xprintf("%08lX(%u)\n", layer_state, biton32(layer_state));
         for(uint32_t i=0;; i++){
             // the layer_info list should end with layer 0xFFFF
             // it will break this out of the loop and define the unknown layer color
-            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFFFFFF)){
+            if((layer_info[i].layer == (layer_state & layer_info[i].mask)) || (layer_info[i].layer == 0xFFFFFFFF)){
                 OCR1A = layer_info[i].color.red;
                 OCR1B = layer_info[i].color.green;
                 OCR1C = layer_info[i].color.blue;
@@ -106,7 +106,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 {
-    // dprintf("action_function: %d, opt: %02X\n", id, opt);
+    // xprintf("action_function: %d, opt: %02X\n", id, opt);
     if(id == LFK_ESC_TILDE){
         // Send ~ on shift-esc
         void (*method)(uint8_t) = (event->event.pressed) ? &add_key : &del_key;

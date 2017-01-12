@@ -22,6 +22,7 @@ typedef struct RGB_Color {
 
 typedef struct Layer_Info {
     uint32_t layer;
+    uint32_t mask;
     RGB_Color color;
 } Layer_Info;
 
