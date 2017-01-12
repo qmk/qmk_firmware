@@ -4,7 +4,6 @@
 #include "action_layer.h"
 #include "action_util.h"
 
-//avrdude -p atmega32u4 -P /dev/tty.usbmodem1411  -c avr109  -U flash:w:atreus63_default.hex
 /*
  *WINDOWS SWEDISH
  */
@@ -101,19 +100,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = {
 
    { M(KF_11) ,M(KF_1)  ,M(KF_2)  ,M(KF_3)  ,M(KF_4) ,M(KF_5)         ,KC_NO   ,M(KF_6)        ,M(KF_7) ,M(KF_8) ,M(KF_9) ,M(KF_10) ,M(KF_12) },
-   { KC_HYP   ,KC_Q     ,KC_W     ,KC_E     ,KC_R    ,KC_T            ,KC_NO   ,KC_Y           ,KC_U    ,KC_I    ,KC_O    ,KC_P     ,KN_AO },
+   { KC_TAB   ,KC_Q     ,KC_W     ,KC_E     ,KC_R    ,KC_T            ,KC_NO   ,KC_Y           ,KC_U    ,KC_I    ,KC_O    ,KC_P     ,KN_AO },
    { OSM_LCTL ,KC_A     ,KC_S     ,KC_D     ,KC_F    ,KC_G            ,KC_NO   ,KC_H           ,KC_J    ,KC_K    ,KC_L    ,KN_OE    ,KN_AE },
    { OSM_LSFT ,KC_Z     ,KC_X     ,KC_C     ,KC_V    ,KC_B            ,KC_DELT ,KC_N           ,KC_M    ,KC_COMM ,KC_DOT  ,KN_MINS  ,OSM_LSFT },
-   { MO(NAV)  ,OSM_LCTL ,OSM_LALT ,KC_LGUI  ,KC_SPC  ,LT(SYM,KC_BSPC) ,KC_TAB  ,LT(SYM,KC_ENT) ,KC_SPC  ,KC_LEAD ,KC_LALT ,KC_LCTRL ,MO(NAV) }
+   { MO(NAV)  ,OSM_LCTL ,OSM_LALT ,KC_LGUI  ,KC_SPC  ,LT(SYM,KC_BSPC) ,KC_HYP  ,LT(SYM,KC_ENT) ,KC_SPC  ,KC_LEAD ,KC_LALT ,KC_LCTRL ,MO(NAV) }
 
  },
   [NAV] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_PGUP  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_TRNS  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_F11  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_F12  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_VOLD  ,KC_VOLU }
+   { KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_L  ,KC_TRNS  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_VOLD  ,KC_VOLU }
 
   },
   [SYM] = {
@@ -179,7 +178,6 @@ static void m_handle_kf (keyrecord_t *record, uint8_t id) {
 }
 
 const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -269,22 +267,51 @@ void matrix_scan_user(void) {
       unregister_code(KC_RGUI);
     };
 
-    SEQ_TWO_KEYS(KC_F, KC_S){
-      register_code(KC_LCTRL);
-      TAP_ONCE(KC_S);
-      unregister_code(KC_LCTRL);
-    };
 
-    SEQ_TWO_KEYS(KC_B, KC_D){
-      register_code(KC_LCTRL);
-      TAP_ONCE(KC_W);
-      unregister_code(KC_LCTRL);
-    };
+    SEQ_TWO_KEYS (KC_A, KC_W) {
+      //Web - chrome
+      register_code (KC_LGUI); TAP_ONCE (KC_1); unregister_code (KC_LGUI);
+    }
+    SEQ_TWO_KEYS (KC_A, KC_P) {
+      //sPotify
+      register_code (KC_LGUI); TAP_ONCE (KC_2); unregister_code (KC_LGUI);
+
+    }
+    SEQ_TWO_KEYS (KC_A, KC_T) {
+      //Total Commander
+      register_code (KC_LGUI); TAP_ONCE (KC_3); unregister_code (KC_LGUI);
+
+    }
+    SEQ_TWO_KEYS (KC_A, KC_A) {
+      //Atom
+      register_code (KC_LGUI); TAP_ONCE (KC_4); unregister_code (KC_LGUI);
+
+    }
+    SEQ_TWO_KEYS (KC_A, KC_E) {
+      //Emacs
+      register_code (KC_LGUI); TAP_ONCE (KC_5); unregister_code (KC_LGUI);
+
+    }
+    SEQ_TWO_KEYS (KC_A, KC_C) {
+      //Cmdr
+      register_code (KC_LGUI); TAP_ONCE (KC_6); unregister_code (KC_LGUI);
+
+    }
+    SEQ_TWO_KEYS (KC_A, KC_S) {
+      //Slack
+      register_code (KC_LGUI); TAP_ONCE (KC_7); unregister_code (KC_LGUI);
+    }
+
 
     SEQ_TWO_KEYS (KC_S, KC_S) {
       // ¯\_(ツ)_/¯
       unicode_input_start(); register_hex(0xaf); unicode_input_finish();
-      register_code (KC_RALT); TAP_ONCE (KN_PLUS); unregister_code (KC_RALT);
+      register_code (KC_LALT);
+      register_code (KC_LCTL);
+      TAP_ONCE (KN_PLUS);
+      unregister_code (KC_LCTL);
+      unregister_code (KC_LALT);
+
       register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
       unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
       register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT);

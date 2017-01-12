@@ -33,8 +33,7 @@ It's for Windows (current work forces me to) and Swedish (matter of birth) so ym
     - `LEAD s l` : `λ`.
     - `LEAD s s` : `¯\_(ツ)_/¯`
     - `LEAD s f` : `凸(ツ)凸`
-    - `LEAD f s` : `ctrl+s`
-    - `LEAD b d` : `ctrl+w`
+    - `LEAD a *` : Application switching based on position in start menu. Very specific to my computer.
 
 
 ## Nav layer
@@ -48,7 +47,10 @@ by for the left. The latter because I tend to use `ctrl+arrows` quite a lot.
 
 ![Sym layer](img/sym.png)
 
-Easy access to most symbols I use on a daily basis. Most common are on the home row, the rest are grouped as best as I could.
+* Easy access to most symbols I use on a daily basis. Most common are on the home row, the rest are grouped as best as I could.
+
+- `eq` : Tapdance, produces `===` and `!==`
+- `fun`: Tapdance, produces `=>` and `() => {\n`
 
 # License
   GPL-3+
