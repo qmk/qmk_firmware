@@ -42,7 +42,7 @@ It's for Windows (current work forces me to) and Swedish (matter of birth) so ym
 
 Basic navigation on the right hand and modifiers close
 by for the left. The latter because I tend to use `ctrl+arrows` quite a lot.
-
+ 
 ## Sym layer
 
 ![Sym layer](img/sym.png)
