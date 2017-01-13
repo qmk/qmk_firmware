@@ -347,7 +347,7 @@ You can then override any settings, rather than having to copy and paste the who
 
 # Going beyond the keycodes
 
-Aside from the [basic keycodes](doc/keycode.txt), your keymap can include shortcuts to common operations.
+Aside from the [basic keycodes](https://github.com/jackhumbert/qmk_firmware/blob/master/doc/keycode.txt), your keymap can include shortcuts to common operations.
 
 ## Quick aliases to common actions
 
