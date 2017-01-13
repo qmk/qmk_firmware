@@ -86,7 +86,7 @@ void matrix_scan_kb(void)
         for(uint32_t i=0;; i++){
             // the layer_info list should end with layer 0xFFFF
             // it will break this out of the loop and define the unknown layer color
-            if((layer_info[i].layer == layer_state) || (layer_info[i].layer == 0xFFFFFFFF)){
+            if((layer_info[i].layer == (layer_state & layer_info[i].mask)) || (layer_info[i].layer == 0xFFFFFFFF)){
                 OCR1A = layer_info[i].color.red;
                 OCR1B = layer_info[i].color.green;
                 OCR1C = layer_info[i].color.blue;
@@ -114,7 +114,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record)
 {
     // Test code that turns on the switch led for the key that is pressed
     // dprintf("event: %d %d\n", record->event.key.col, record->event.key.row);
-    // set_backlight_by_keymap(record->event.key.col, record->event.key.row);
+    set_backlight_by_keymap(record->event.key.col, record->event.key.row);
     if (click_toggle && record->event.pressed){
         click(click_hz, click_time);
     }
@@ -130,7 +130,7 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
 #ifdef AUDIO_ENABLE
     int8_t sign = 1;
 #endif
-    // dprintf("action_function: %d, opt: %02X\n", id, opt);
+    dprintf("action_function: %d, opt: %02X\n", id, opt);
     if(id == LFK_ESC_TILDE){
         // Send ~ on shift-esc
         void (*method)(uint8_t) = (event->event.pressed) ? &add_key : &del_key;
@@ -143,6 +143,10 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
         send_keyboard_report();
     }else if(event->event.pressed){
         switch(id){
+            case LFK_SET_DEFAULT_LAYER:
+                // set/save the current base layer to eeprom, falls through to LFK_CLEAR
+                eeconfig_update_default_layer(1UL << opt);
+                default_layer_set(1UL << opt);
             case LFK_CLEAR:
                 // Go back to default layer
                 layer_clear();

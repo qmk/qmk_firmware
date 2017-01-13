@@ -20,44 +20,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ca178858
-#define PRODUCT         LFK78RevB
-#define DESCRIPTION     A custom keyboard
+#define PRODUCT         USB_PRODUCT
+#define DESCRIPTION     USB_PRODUCT
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define TAPPING_TERM 200
-
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, F0, F1, F4, F5, F6}
-#define MATRIX_COL_PINS { E6, F7, D2, D3, D4, D5, D6, D7 }
-#define UNUSED_PINS { C7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#ifdef LFK_REV_B
+/* RevB Matrix config */
+    #define DIODE_DIRECTION COL2ROW
+    #define MATRIX_ROWS 10
+    #define MATRIX_COLS 8
+    #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, F0, F1, F4, F5, F6}
+    #define MATRIX_COL_PINS { E6, F7, D2, D3, D4, D5, D6, D7 }
+    #define UNUSED_PINS { C7 }
+    #define RGBLED_NUM 31     // Number of LEDs
+#else
+/* RevC/D Matrix config */
+    #define DIODE_DIRECTION COL2ROW
+    #define MATRIX_ROWS 5
+    #define MATRIX_COLS 18
+    #define MATRIX_ROW_PINS {D2, D3, D4, D5, D6 }
+    #define MATRIX_COL_PINS {A0, A1, A2, A3, A4, A5, A6, A7, E6, E7,\
+                             F0, F1, F2, F3, C0, C1, C2, C3 }
+    #define UNUSED_PINS {B0, B1, B2, B3, B4, B4, B5, B6, B7, C4, C5, C6, C7,\
+                         D0, D1, D7, E0, E1, E2, E3, E4, D5, F4, F5, F6, F7,\
+                         E6, E7, F0, F1, F2, F3, C0, C1, C2, C3}
+    #define RGBLED_NUM 27     // Number of LEDs
+#endif
 
 #define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 
-#define RGB_DI_PIN A1  // Have to set it to something to get the ws2812 code to compile
+#define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 31     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
@@ -66,6 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CLICK_MS 2
 #define CLICK_ENABLED 0
 
+#define TAPPING_TERM 200
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
