@@ -16,8 +16,6 @@ endif
 OPT_DEFS += -DLFK_REV_$(LFK_REV)
 OPT_DEFS += -DUSB_PRODUCT=\"LFK_Rev$(LFK_REV)\"
 
-# OPT_DEFS += -DUSB_PRODUCT=\"FUCKYOU\"
-
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
