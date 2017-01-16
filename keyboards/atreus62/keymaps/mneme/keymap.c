@@ -21,7 +21,9 @@
 #define KN_DQT  LSFT(KC_2)      // "
 #define KN_AT   RALT(KC_2)      // @
 #define KN_HASH LSFT(KC_3)      // #
-#define KN_DLR  RALT(KC_4)      // $
+#define KN_DLR  LALT(KC_4)      // $
+#define KN_EUR  LSFT(KC_4)      // $
+
 #define KN_PERC LSFT(KC_5)      // %
 #define KN_AMPR LSFT(KC_6)      // &
 #define KN_SLSH LSFT(KC_7)      // /
@@ -31,19 +33,19 @@
 #define KN_UNDS LSFT(KN_MINS)   // _
 #define KN_QUES LSFT(KN_PLUS)   // ?
 #define KN_GRAV LSFT(KN_ACUT)   // `
-#define KN_LCBR RALT(KC_7)      // {
-#define KN_RCBR RALT(KC_0)      // }
-#define KN_LBRC RALT(KC_8)      // [
-#define KN_RBRC RALT(KC_9)      // ]
+#define KN_LCBR LALT(KC_7)      // {
+#define KN_RCBR LALT(KC_0)      // }
+#define KN_LBRC LALT(KC_8)      // [
+#define KN_RBRC LALT(KC_9)      // ]
 #define KN_RABK LSFT(KN_LABK)   // <
 #define KN_COLN LSFT(KC_DOT)    // :
 #define KN_SCLN LSFT(KC_COMM)   // :
-#define KN_PIPE RALT(KN_LABK)   // |
+#define KN_PIPE LALT(KN_LABK)   // |
 #define KN_QUES LSFT(KN_PLUS)   // ?
 #define KN_CIRC LSFT(KN_UMLA)   // ^
 #define KN_ASTR LSFT(KN_QUOT)   // *
-#define KN_TILD RALT(KN_UMLA)   // ~
-#define KN_BSLS RALT(KN_PLUS)   //
+#define KN_TILD LALT(KN_UMLA)   // ~
+#define KN_BSLS LALT(KN_PLUS)   //
 
 #define OSM_LCTL OSM(MOD_LCTL)
 #define OSM_LALT OSM(MOD_LALT)
@@ -113,8 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,TD(TD_EQ) ,KC_NO   ,TD(TD_FUN) ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KN_LABK  ,KN_RABK  ,KN_LCBR  ,KN_RCBR  ,KN_PLUS   ,KC_NO   ,KN_AT      ,KN_DQT   ,KN_QUOT  ,KN_GRAV  ,KN_SLSH  ,KC_TRNS },
-   { KC_TRNS  ,KN_EXLM  ,KN_EQL   ,KN_LPRN  ,KN_RPRN  ,KN_MINS   ,KC_NO   ,KN_UNDS    ,KN_SCLN  ,KN_COLN  ,KN_AMPR  ,KN_PIPE  ,KC_TRNS },
-   { KC_TRNS  ,KN_DLR   ,KN_PERC  ,KN_LBRC  ,KN_RBRC  ,KN_ASTR   ,KC_TRNS ,KN_HASH    ,KC_COMM  ,KC_DOT   ,KN_QUES  ,KN_BSLS  ,KC_TRNS },
+   { KC_TRNS  ,KN_EXLM  ,KN_EQL   ,KN_LPRN  ,KN_RPRN  ,KN_MINS   ,KC_NO   ,KN_UNDS    ,KN_CIRC  ,KN_DLR   ,KN_AMPR  ,KN_PIPE  ,KC_TRNS },
+   { KC_TRNS  ,KN_EUR   ,KN_PERC  ,KN_LBRC  ,KN_RBRC  ,KN_ASTR   ,KC_TRNS ,KN_HASH    ,KN_SCLN  ,KN_COLN  ,KN_QUES  ,KN_BSLS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS   ,KC_TRNS ,KC_TRNS    ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS }
 
   }
