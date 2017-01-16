@@ -85,14 +85,8 @@ enum {
   TD_EQ
 };
 
-//Custom keycodes
-enum {
-  PLACEHOLDER = SAFE_RANGE
-};
-
 //State and timers
 uint16_t kf_timers[12];
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -109,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_PGUP  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_L  ,KC_TRNS  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_HOME  ,KC_PGDN  ,KC_PGUP  ,KC_END   ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_L     ,KC_TRNS  ,KC_NO   ,KC_LEFT  ,KC_DOWN  ,KC_UP    ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_VOLD  ,KC_VOLU }
 
@@ -300,6 +294,15 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS (KC_A, KC_S) {
       //Slack
       register_code (KC_LGUI); TAP_ONCE (KC_7); unregister_code (KC_LGUI);
+    }
+
+    SEQ_TWO_KEYS (KC_U, KC_L) {
+      set_unicode_input_mode(UC_LNX);
+    }
+
+
+    SEQ_TWO_KEYS (KC_U, KC_W) {
+      set_unicode_input_mode(UC_WINC);
     }
 
 
