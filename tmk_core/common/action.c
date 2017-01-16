@@ -102,6 +102,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
 void process_record(keyrecord_t *record) 
 {
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    if (has_oneshot_layer_timed_out()) {
+        dprintf("Oneshot layer: timeout\n");
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+    }
+#endif
+
     if (IS_NOEVENT(record->event)) { return; }
 
     if(!process_record_quantum(record))
@@ -124,13 +131,6 @@ void process_action(keyrecord_t *record, action_t action)
     keyevent_t event = record->event;
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
-#endif
-
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    if (has_oneshot_layer_timed_out()) {
-        dprintf("Oneshot layer: timeout\n");
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-    }
 #endif
 
     if (event.pressed) {
