@@ -31,7 +31,7 @@ The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/j
 
 This is not a tiny project. While this is the main readme, there are many other files you might want to consult. Here are some points of interest:
 
-* [**The Wiki**](https://github.com/jackhumbert/qmk_firmware/wiki) - the entirity of the readme has been moved here
+* [**The Wiki**](https://github.com/jackhumbert/qmk_firmware/wiki) - the entirety of the readme has been moved here
 * The readme for your own keyboard: This is found under `keyboards/<your keyboards's name>/`. So for the ErgoDox EZ, it's [here](keyboards/ergodox/ez/); for the Planck, it's [here](keyboards/planck/) and so on.
 * The list of possible keycodes you can use in your keymap is actually spread out in a few different places:
   * [doc/keycode.txt](doc/keycode.txt) - an explanation of those same keycodes.
