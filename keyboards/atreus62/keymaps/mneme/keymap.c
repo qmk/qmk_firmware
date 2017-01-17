@@ -7,45 +7,47 @@
 /*
  *WINDOWS SWEDISH
  */
-#define KN_HALF	KC_GRV          // 1/2
-#define KN_PLUS	KC_MINS         // +
-#define KN_ACUT	KC_EQL          // ´
-#define KN_AO	  KC_LBRC         // Å
-#define KN_UMLA	KC_RBRC         // ¨
-#define KN_OE	  KC_SCLN         // Ö
-#define KN_AE	  KC_QUOT         // Ä
-#define	KN_QUOT	KC_NUHS         // '
-#define KN_LABK	KC_NUBS         // <
-#define KN_MINS KC_SLSH         // -
-#define KN_EXLM LSFT(KC_1)      // !
-#define KN_DQT  LSFT(KC_2)      // "
-#define KN_AT   RALT(KC_2)      // @
-#define KN_HASH LSFT(KC_3)      // #
-#define KN_DLR  LALT(KC_4)      // $
-#define KN_EUR  LSFT(KC_4)      // $
-
-#define KN_PERC LSFT(KC_5)      // %
-#define KN_AMPR LSFT(KC_6)      // &
-#define KN_SLSH LSFT(KC_7)      // /
-#define KN_LPRN LSFT(KC_8)      // (
-#define KN_RPRN LSFT(KC_9)      // )
-#define KN_EQL  LSFT(KC_0)      // =
-#define KN_UNDS LSFT(KN_MINS)   // _
-#define KN_QUES LSFT(KN_PLUS)   // ?
-#define KN_GRAV LSFT(KN_ACUT)   // `
-#define KN_LCBR LALT(KC_7)      // {
-#define KN_RCBR LALT(KC_0)      // }
-#define KN_LBRC LALT(KC_8)      // [
-#define KN_RBRC LALT(KC_9)      // ]
-#define KN_RABK LSFT(KN_LABK)   // <
-#define KN_COLN LSFT(KC_DOT)    // :
-#define KN_SCLN LSFT(KC_COMM)   // :
-#define KN_PIPE LALT(KN_LABK)   // |
-#define KN_QUES LSFT(KN_PLUS)   // ?
-#define KN_CIRC LSFT(KN_UMLA)   // ^
-#define KN_ASTR LSFT(KN_QUOT)   // *
-#define KN_TILD LALT(KN_UMLA)   // ~
-#define KN_BSLS LALT(KN_PLUS)   //
+ /*
+  *WINDOWS SWEDISH
+  */
+ #define KN_HALF KC_GRV          // 1/2
+ #define KN_PLUS KC_MINS         // +
+ #define KN_ACUT KC_EQL          // ´
+ #define KN_AO	 KC_LBRC         // Å
+ #define KN_UMLA KC_RBRC         // ¨
+ #define KN_OE	 KC_SCLN         // Ö
+ #define KN_AE	 KC_QUOT         // Ä
+ #define KN_QUOT KC_NUHS         // '
+ #define KN_LABK KC_NUBS         // <
+ #define KN_MINS KC_SLSH         // -
+ #define KN_EXLM LSFT(KC_1)      // !
+ #define KN_DQT  LSFT(KC_2)      // "
+ #define KN_AT   RALT(KC_2)      // @
+ #define KN_HASH LSFT(KC_3)      // #
+ #define KN_EUR  LSFT(KC_4)      // €
+ #define KN_DLR  RALT(KC_4)      // $
+ #define KN_PERC LSFT(KC_5)      // %
+ #define KN_AMPR LSFT(KC_6)      // &
+ #define KN_SLSH LSFT(KC_7)      // /
+ #define KN_LPRN LSFT(KC_8)      // (
+ #define KN_RPRN LSFT(KC_9)      // )
+ #define KN_EQL  LSFT(KC_0)      // =
+ #define KN_UNDS LSFT(KN_MINS)   // _
+ #define KN_QUES LSFT(KN_PLUS)   // ?
+ #define KN_GRAV LSFT(KN_ACUT)   // `
+ #define KN_LCBR RALT(KC_7)      // {
+ #define KN_RCBR RALT(KC_0)      // }
+ #define KN_LBRC RALT(KC_8)      // [
+ #define KN_RBRC RALT(KC_9)      // ]
+ #define KN_RABK LSFT(KN_LABK)   // <
+ #define KN_COLN LSFT(KC_DOT)    // :
+ #define KN_SCLN LSFT(KC_COMM)   // :
+ #define KN_PIPE RALT(KN_LABK)   // |
+ #define KN_QUES LSFT(KN_PLUS)   // ?
+ #define KN_CIRC LSFT(KN_UMLA)   // ^
+ #define KN_ASTR LSFT(KN_QUOT)   // *
+ #define KN_TILD RALT(KN_UMLA)   // ~
+ #define KN_BSLS RALT(KN_PLUS)   //
 
 #define OSM_LCTL OSM(MOD_LCTL)
 #define OSM_LALT OSM(MOD_LALT)
