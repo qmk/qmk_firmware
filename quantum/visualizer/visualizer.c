@@ -53,10 +53,13 @@ SOFTWARE.
 #define "Visualizer thread priority not defined"
 #endif
 
+// mods status
+#include "action_util.h"
 
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
+    .mods = 0xFF,
     .leds = 0xFFFFFFFF,
     .suspended = false,
 };
@@ -64,6 +67,7 @@ static visualizer_keyboard_status_t current_status = {
 static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboard_status_t* status2) {
     return status1->layer == status2->layer &&
         status1->default_layer == status2->default_layer &&
+        status1->mods == status2->mods &&
         status1->leds == status2->leds &&
         status1->suspended == status2->suspended;
 }
@@ -307,6 +311,45 @@ bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_s
     gdispFlush();
     return false;
 }
+
+static void format_mods_bitmap_string(uint8_t mods, char* buffer) {
+    *buffer = ' ';
+    ++buffer;
+
+    for (int i = 0; i<8; i++)
+    {
+        uint32_t mask = (1u << i);
+        if (mods & mask) {
+            *buffer = '1';
+        } else {
+            *buffer = '0';
+        }
+        ++buffer;
+
+        if (i==3) {
+            *buffer = ' ';
+            ++buffer;
+        }
+    }
+    *buffer = 0;
+}
+
+bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+
+    const char* title = "Modifier states";
+    const char* mods_header = " CSAG CSAG ";
+    char status_buffer[12]; 
+    
+    gdispClear(White);
+    gdispDrawString(0, 0, title, state->font_fixed5x8, Black);
+    gdispDrawString(0, 10, mods_header, state->font_fixed5x8, Black);
+    format_mods_bitmap_string(state->status.mods, status_buffer);
+    gdispDrawString(0, 20, status_buffer, state->font_fixed5x8, Black);
+
+    gdispFlush();
+    return false;
+}
 #endif // LCD_ENABLE
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -350,6 +393,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
         .layer = 0xFFFFFFFF,
+        .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
     };
@@ -499,7 +543,18 @@ void update_status(bool changed) {
 #endif
 }
 
-void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
+uint8_t visualizer_get_mods() {
+  uint8_t mods = get_mods();
+
+#ifndef NO_ACTION_ONESHOT
+  if (!has_oneshot_mods_timed_out()) {
+    mods |= get_oneshot_mods();
+  }
+#endif  
+  return mods;
+}
+
+void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds) {
     // Note that there's a small race condition here, the thread could read
     // a state where one of these are set but not the other. But this should
     // not really matter as it will be fixed during the next loop step.
@@ -523,6 +578,7 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
         visualizer_keyboard_status_t new_status = {
             .layer = state,
             .default_layer = default_state,
+            .mods = mods,
             .leds = leds,
             .suspended = current_status.suspended,
         };
