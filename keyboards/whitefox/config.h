@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,47 +18,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
+#define PREVENT_STUCK_MODIFIERS
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Planck Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
+#define PRODUCT_ID      0x0F0F
+#define DEVICE_VER      0x0001
+/* in python2: list(u"whatever".encode('utf-16-le')) */
+/*   at most 32 characters or the ugly hack in usb_main.c borks */
+#define MANUFACTURER "Input Club"
+#define USBSTR_MANUFACTURER    'I', '\x00', 'n', '\x00', 'p', '\x00', 'u', '\x00', 't', '\x00', ' ', '\x00', 'C', '\x00', 'l', '\x00', 'u', '\x00', 'b', '\x00'
+#define PRODUCT "WhiteFox/QMK"
+#define USBSTR_PRODUCT         'W', '\x00', 'h', '\x00', 'i', '\x00', 't', '\x00', 'e', '\x00', 'F', '\x00', 'o', '\x00', 'x', '\x00', ' ', '\x00'
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
-/* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { D0, D5, B5, B6 }
-#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B7
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 8
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE    6
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+/* Keymap for Infinity prototype */
+//#define INFINITY_PROTOTYPE
+
+/* Keymap for Infinity 1.1a (first revision with LED support) */
+//#define INFINITY_LED
 
 /*
  * Feature disable options
@@ -77,20 +74,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-/* prevent the modifiers from being stuck, sacrificing some memory */
-#define PREVENT_STUCK_MODIFIERS
-
-/* A larger buffer for the dynamic macros as this keymap is not taking
- * up that much memory.
- */
-#define DYNAMIC_MACRO_SIZE 256
-
-#ifdef SUBPROJECT_rev3
-    #include "rev3/config.h"
-#endif
-#ifdef SUBPROJECT_rev4
-    #include "rev4/config.h"
-#endif
 
 #endif
