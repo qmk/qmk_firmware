@@ -434,13 +434,13 @@ void adjust_current(void) {
 
 __attribute__ ((weak))
 void rgblight_set(void) {
+    
+  #if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
+    adjust_current();
+  #endif
 
   #ifdef LED_BRIGHTNESS_CORRECTION
     correct_brightness();
-  #endif
-
-  #if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
-    adjust_current();
   #endif
 
   if (rgblight_config.enable) {
