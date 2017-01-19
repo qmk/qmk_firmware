@@ -169,7 +169,7 @@ This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboar
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboards/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
+Download or clone the whole firmware and navigate to the keyboards/atreus folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
