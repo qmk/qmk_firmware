@@ -6,7 +6,8 @@
 #include "action_code.h"
 
 #define BASE    0 // default layer
-#define SHELL_NAV 1
+#define SHELL_LAYER 1
+#define SHELL_NAV 2
 #define KEY_NAV 3 // key navigation layer
 #define KEY_SEL 4 // key selection layer
 #define NUMBER  5  // number layer
@@ -58,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
-        LT(SHELL_NAV,KC_TAB),          KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
+        LT(SHELL_NAV,KC_TAB),      KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
         OSL(BRACKETS),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         KC_FN3,                    KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
@@ -80,6 +81,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      
 
+// permanent shell layer - meant to be used while in a terminal
+[SHELL_LAYER] = KEYMAP(
+       // left hand
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,M(SCREEN_COPY_MODE), M(SCREEN_PASTE),M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
+       KC_TAB, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RCTL(KC_R),
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,LALT(KC_DOT),
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       LALT(KC_B),LALT(KC_F),
+                                                  LALT(KC_D),
+                               KC_TRNS,RCTL(KC_W),KC_TRNS,
+       // right hand
+       RCTL(KC_C), KC_LEFT, KC_RIGHT, RCTL(KC_U), RCTL(KC_K), KC_TRNS, KC_TRNS,
+       KC_UP,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_DOWN,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                // bottom row
+                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS,    KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       MEH(KC_V), KC_TRNS, KC_TRNS
+),	 
+	 
 // shell navigation layer
 [SHELL_NAV] = KEYMAP(
        // left hand
@@ -246,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            MEH(KC_S),    MEH(KC_T),    MEH(KC_U),    MEH(KC_V), MEH(KC_X),
        MEH(KC_6), MEH(KC_7),
        MEH(KC_8),
-       MEH(KC_9), MEH(KC_Y), MEH(KC_Z)
+       MEH(KC_9), TO(BASE), TO(SHELL_LAYER)
 ),
 
 
@@ -407,6 +434,7 @@ void matrix_scan_user(void) {
         case NUMBER:
         case SYMBOL:
 		case BRACKETS:
+		//case SHELL_LAYER:		
             ergodox_right_led_2_on();
             break;
         case KEY_NAV:
