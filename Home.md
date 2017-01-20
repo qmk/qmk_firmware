@@ -388,10 +388,11 @@ You can also chain these, like this:
 
     LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
 
-The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols. Their long names are also available and documented in `/quantum/keymap_common.h`.
+The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols. Their long names are also available and documented in `quantum/quantum_keycodes.h`.
 
     KC_TILD  ~
     KC_EXLM  !
+    KC_QUES  ?
     KC_AT    @
     KC_HASH  #
     KC_DLR   $
