@@ -2,7 +2,7 @@ VUSB_DIR = protocol/vusb
 
 OPT_DEFS += -DPROTOCOL_VUSB
 
-SRC +=	$(VUSB_DIR)/main.c \
+SRC += $(VUSB_DIR)/main.c \
 	$(VUSB_DIR)/vusb.c \
 	$(VUSB_DIR)/usbdrv/usbdrv.c \
 	$(VUSB_DIR)/usbdrv/usbdrvasm.S \
@@ -16,6 +16,7 @@ SRC +=	$(COMMON_DIR)/sendchar_uart.c \
 	$(COMMON_DIR)/uart.c
 endif
 
-
 # Search Path
-VPATH += $(TMK_DIR)/protocol/vusb:$(TMK_DIR)/protocol/vusb/usbdrv
+#VPATH += $(TMK_PATH)/$(VUSB_DIR)
+VPATH += $(TMK_PATH)/$(VUSB_DIR)
+VPATH += $(TMK_PATH)/$(VUSB_DIR)/usbdrv
