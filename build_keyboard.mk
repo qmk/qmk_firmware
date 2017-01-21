@@ -221,7 +221,11 @@ OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
 ifeq ($(PLATFORM),AVR)
+ifeq ($(strip $(PROTOCOL)), VUSB)
+	include $(TMK_PATH)/protocol/vusb.mk
+else
 	include $(TMK_PATH)/protocol/lufa.mk
+endif
 	include $(TMK_PATH)/avr.mk
 endif
 
