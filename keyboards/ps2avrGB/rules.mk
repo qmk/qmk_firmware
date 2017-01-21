@@ -1,38 +1,43 @@
+# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # MCU name
 MCU = atmega32a
-
 PROTOCOL = VUSB
 
-# disable UART since atmega32a apparently doesn't have it
+# unsupported features for now
 NO_UART = yes
-# this simplifies things for now
 NO_SUSPEND_POWER_DOWN = yes
+BACKLIGHT_ENABLE = no
 
-# Processor frequency.
-#   Normally the first thing your program should do is set the clock prescaler,
-#   so your program will run at the correct speed.  You should also set this
-#   variable to same clock speed.  The _delay_ms() macro uses this, and many
-#   examples use this variable to calculate timings.  Do not add a "UL" here.
+# processor frequency
 F_CPU = 12000000
 
-# Build Options
-#   comment out to disable the options.
-#
-BOOTMAGIC_ENABLE = yes  # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes   # Mouse keys
-EXTRAKEY_ENABLE = yes   # Audio control and System control
-CONSOLE_ENABLE = yes    # Console for debug
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-#BACKLIGHT_ENABLE = yes
+# build options
+BOOTMAGIC_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+CONSOLE_ENABLE = yes
+COMMAND_ENABLE = yes
 
-# V-USB debug level: To use ps2_usart.c level must be 0
-# ps2_usart.c requires USART to receive PS/2 signal.
 OPT_DEFS = -DDEBUG_LEVEL=0
-OPS_DEFS += -DPROTOCOL_VUSB
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
+# custom matrix setup
 CUSTOM_MATRIX = yes
 SRC = matrix.c
 
-#---------------- Programming Options --------------------------
+# programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex

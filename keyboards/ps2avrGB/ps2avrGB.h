@@ -17,20 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYMAP_COMMON_H
 #define KEYMAP_COMMON_H
 
-#include <stdint.h>
-#include <stdbool.h>
 #include "keycode.h"
 #include "action.h"
-#include "action_code.h"
-#include "action_layer.h"
-#include "action_macro.h"
-#include "action_util.h"
-#include "report.h"
-#include "host.h"
-#include "print.h"
-#include "debug.h"
-#include "keymap.h"
-
 
 #define KEYMAP( \
     K05, K25, K35, K45, K55, K06, KA6, KA7, K07, KB5, KC5, KD5, KE5, KD1, KE1, KE2, \
