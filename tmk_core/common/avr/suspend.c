@@ -65,7 +65,6 @@ static uint8_t wdt_timeout = 0;
 
 static void power_down(uint8_t wdto)
 {
-#ifndef __AVR_ATmega32A__
 #ifdef PROTOCOL_LUFA
     if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
@@ -100,7 +99,6 @@ static void power_down(uint8_t wdto)
 
     // Disable watchdog after sleep
     wdt_disable();
-#endif
 }
 #endif
 
