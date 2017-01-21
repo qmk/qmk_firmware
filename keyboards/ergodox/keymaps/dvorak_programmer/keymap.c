@@ -100,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_DOWN,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                 // bottom row
-                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS,    KC_TRNS,
+                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS, MEH(KC_V),
        // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       MEH(KC_V), KC_TRNS, KC_TRNS
+       KC_LEFT, KC_RIGHT,
+       KC_HOME,
+       KC_END, KC_TRNS, KC_TRNS
 ),	 
 	 
 // shell navigation layer
