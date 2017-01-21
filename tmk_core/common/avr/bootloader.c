@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
+#include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 #include <util/delay.h>
@@ -89,6 +90,10 @@ void bootloader_jump(void) {
             _delay_ms(5);
         #endif
 
+        #ifdef EEPROM_BOOTLOADER_START
+            eeprom_write_byte((uint8_t *)EEPROM_BOOTLOADER_START, 0x00);
+        #endif
+
         // watchdog reset
         reset_key = BOOTLOADER_RESET_KEY;
         wdt_enable(WDTO_250MS);
@@ -113,6 +118,11 @@ void bootloader_jump(void) {
 
     #endif
 }
+
+#ifdef __AVR_ATmega32A__
+// MCUSR is actually called MCUCSR in ATmega32A
+#define MCUSR MCUCSR
+#endif
 
 /* this runs before main() */
 void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, section (".init3")));
