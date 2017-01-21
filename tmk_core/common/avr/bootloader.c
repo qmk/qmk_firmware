@@ -90,8 +90,10 @@ void bootloader_jump(void) {
             _delay_ms(5);
         #endif
 
-        #ifdef EEPROM_BOOTLOADER_START
-            eeprom_write_byte((uint8_t *)EEPROM_BOOTLOADER_START, 0x00);
+        #ifdef BOOTLOADHID_BOOTLOADER
+            // force bootloadHID to stay in bootloader mode, so that it waits
+            // for a new firmware to be flashed
+            eeprom_write_byte((uint8_t *)1, 0x00);
         #endif
 
         // watchdog reset
