@@ -33,14 +33,22 @@ static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
     f(KC_RGUI);
 }
 
+static inline void qk_register_mods(uint8_t kc) {
+  register_mods(MOD_BIT(kc));
+}
+
+static inline void qk_unregister_mods(uint8_t kc) {
+  unregister_mods(MOD_BIT(kc));
+}
+
 void register_code16 (uint16_t code) {
-  do_code16 (code, register_code);
+  do_code16 (code, qk_register_mods);
   register_code (code);
 }
 
 void unregister_code16 (uint16_t code) {
   unregister_code (code);
-  do_code16 (code, unregister_code);
+  do_code16 (code, qk_unregister_mods);
 }
 
 __attribute__ ((weak))
