@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split
 #define PRODUCT         Lets Split v1
 #define DESCRIPTION     A split keyboard for the cheap makers
 
@@ -42,13 +41,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_I2C
 // Use serial if not using I2C
-#ifndef USE_I2C
+/*#ifndef USE_I2C
 #  define USE_SERIAL
 #endif
 
 // #define EE_HANDS
 
-#define I2C_MASTER_LEFT
+#define I2C_MASTER_LEFT*/
 // #define I2C_MASTER_RIGHT
 
 /* COL2ROW or ROW2COL */
