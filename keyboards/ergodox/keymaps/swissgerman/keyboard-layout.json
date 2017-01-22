@@ -1,6 +1,8 @@
 [
   {
-    "backcolor": "#ffffff"
+    "backcolor": "#ffffff",
+    "name": "Ergodox Swiss German Layout - Base Layer",
+    "author": "Andreas Schmidt (https://github.com/remigius42)"
   },
   [
     {
