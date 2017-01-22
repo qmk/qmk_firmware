@@ -18,6 +18,7 @@
 #define HTML_UL M(11)
 #define HTML_OL M(12)
 #define HTML_CODE M(13)
+#define HTML_BR M(14)
 
 #define SEND_TAG(TAG) do {\
     send_key(KC_NONUS_BSLASH); \
@@ -28,6 +29,13 @@
     SEND_STRING(TAG); \
     send_larger_than(); \
     go_back_based_on_tag(TAG); \
+  } while (0)
+
+#define SEND_SHORT_TAG(TAG) do {\
+    send_key(KC_NONUS_BSLASH); \
+    SEND_STRING(TAG); \
+    SEND_STRING("&"); \
+    send_larger_than();	       \
   } while (0)
 
 void send_key(uint16_t keycode);
@@ -130,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |H_LI  |      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |H_CODE|      |      |      |      |           |      |      |      | Prev | Next |      |        |
+ * |        |      |H_CODE|      |H_BR  |      |      |           |      |      |      | Prev | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | Lclk | Rclk |                                       |VolUp |VolDn | Mute |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -147,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, HTML_CODE, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, HTML_CODE, KC_TRNS, HTML_BR, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
@@ -202,6 +210,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	  SEND_TAG("code");
 	}
 	break;
+      case 14:
+	if (record->event.pressed) {
+	  SEND_SHORT_TAG("br");
+	}
       }
     return MACRO_NONE;
 };
