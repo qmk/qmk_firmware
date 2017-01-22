@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_DOWN, KC_4,   KC_5,    KC_6,    ACTION_MODS_KEY(MOD_RSFT,KC_1), KC_TRNS,
        KC_TRNS, ACTION_MODS_KEY(MOD_RSFT,KC_6), KC_1,   KC_2,    KC_3,  ACTION_MODS_KEY(MOD_RALT,KC_NONUS_BSLASH), KC_TRNS,
        ACTION_MODS_KEY(MOD_RSFT,KC_MINS),KC_DOT,  KC_0,   KC_EQL, KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       KC_ENT, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |Brwser|
+ *                                 |Enter |      |      |       |      |      |Brwser|
  *                                 |      |      |------|       |------|      |Back  |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
