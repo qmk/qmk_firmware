@@ -7,17 +7,22 @@ Layers
 ------
 
 * BASE: this is where you type.
+* SHELL_LAYER: this is a permanent layer which I use when I don't need the F keys and gives me bash shortcuts on the top row.
 * SHELL_NAV: hold down the Tab key to access shell/terminal navigation shorcuts such as forward/backward word, history, Ctrl+C, screen tab movement.
 * KEY_NAV: arrow key movement with backward/forward word support, and copy/paste.
 * KEY_SEL: same as above, but every movement shift-selects.
 * NUMBER: keypad layer.
 * SYMBOL: all the symbols.
-* BRACKET: special brackets-only layer for programming
+* BRACKET: special brackets-only layer for programming. Activated by pressing left capslock (OSL)
 * SHORTCUTS: sends Hyper keys for Autohotkey to interpret. I use this to switch between specific apps.
 * MOUSE: use mouse keys
 
 Updates
 -------
+
+2017/01/22:
+* Made brackets toggle an OSL on the left capslock
+* Added SHELL_LAYER
 
 2016/12/10:
 * toggle for brackets layer is now on left thumb cluster.
