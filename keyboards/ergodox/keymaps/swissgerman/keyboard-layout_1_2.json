@@ -1,6 +1,8 @@
 [
   {
-    "backcolor": "#ffffff"
+    "backcolor": "#ffffff",
+    "name": "Ergodox Swiss German Layout - Symbol & Media Layer",
+    "author": "Andreas Schmidt (https://github.com/remigius42)"
   },
   [
     {
@@ -257,7 +259,7 @@
       "x": 1,
       "t": "#b81c1c\n\n\n#529151"
     },
-    "]",
+    "]\n\n\nHTML br",
     {
       "x": 8.5,
       "t": "#b81c1c"
@@ -378,10 +380,14 @@
   ],
   [
     {
+      "t": "#000000\n\n\n#529151",
+      "a": 4,
       "h": 2
     },
-    "",
+    "\n\n\nEnter",
     {
+      "t": "#000000",
+      "a": 7,
       "h": 2
     },
     "",
