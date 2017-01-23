@@ -114,6 +114,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
             music_sequence_interval+=10;
         return false;
       }
+      #define MUSIC_MODE_GUITAR
 
       #ifdef MUSIC_MODE_CHROMATIC
       float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(MATRIX_ROWS - record->event.key.row));
