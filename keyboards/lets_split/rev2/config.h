@@ -40,18 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CATERINA_BOOTLOADER
 
-// #define USE_I2C
-
-// Use serial if not using I2C
-/*#ifndef USE_I2C
-#  define USE_SERIAL
-#endif
-
-// #define EE_HANDS
-
-#define I2C_MASTER_LEFT*/
-// #define I2C_MASTER_RIGHT
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
