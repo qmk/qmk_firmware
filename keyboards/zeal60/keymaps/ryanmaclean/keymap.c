@@ -14,22 +14,22 @@
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is. KC_LSFT KC_LALT KC_LGUI KC_4
 {
   switch(id) {
-    case 0: // this would trigger when you hit a key mapped as M(0)
+    case 0: // macOS screenshot to capture are to clipboard - this would trigger when you hit a key mapped as M(0)
       if (record->event.pressed) {
         return MACRO( D(LSFT), D(LCTL), D(LGUI), T(4), U(LSFT), U(LCTL), U(LGUI), W(255), END  ); // this sends the string 'hello' when the macro executes
       }
       break;
-    case 1: // this would trigger when you hit a key mapped as M(0)
+    case 1: // macOS screenshot capture area to file - this would trigger when you hit a key mapped as M(1)
       if (record->event.pressed) {
         return MACRO( D(LSFT), D(LGUI), T(4), U(LSFT), U(LGUI), W(255), END  ); // this sends the string 'hello' when the macro executes
       }
       break;
-    case 2: // this would trigger when you hit a key mapped as M(0)
+    case 2: // macOS screenshot to clipboard - this would trigger when you hit a key mapped as M(2)
       if (record->event.pressed) {
         return MACRO( D(LSFT), D(LCTL), D(LGUI), T(3), U(LSFT), U(LCTL), U(LGUI), W(255), END  ); // this sends the string 'hello' when the macro executes
       }
       break;
-    case 3: // this would trigger when you hit a key mapped as M(0)
+    case 3: // macOS screenshot to file - this would trigger when you hit a key mapped as M(3)
       if (record->event.pressed) {
         return MACRO( D(LSFT), D(LGUI), T(3), U(LSFT), U(LGUI), W(255), END  ); // this sends the string 'hello' when the macro executes
       }
