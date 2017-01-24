@@ -12,7 +12,10 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
-  RGB_SLD
+  RGB_SLD,
+  SHRUG,
+  YAY,
+  HUG
 };
 
 // TODO: Get rid of of keys I don't want. Make others that I do. Set up lots of makros (Using hyper (and meh)) keys (where to put them?)
@@ -103,14 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        EPRM, KC_DEL, KC_TRNS
 ),
-/* Keymap 2: Media and mouse keys
+/* Keymap 2: Media, mouse and navigation
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      | MsUp |      |      |      |           |      |      |      |  Up  |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |      |      |  Play  |
+ * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      | Left | Down | Right|      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -124,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// MEDIA AND MOUSE
+// MEDIA , MOUSE and NAVIGATION
 [MDIA] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -135,24 +138,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
-                          KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS,  KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_MPLY,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT,  KC_TRNS, KC_TRNS,
+                          KC_VOLU, KC_VOLD, KC_MUTE,  KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_WBAK
 ),
 
-/* Keymap 3: Navigation TODO: Printscreen, pg up down, home, end, others? Insert for example
+/* Keymap 3: Unicode
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        | VER  |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |  up  |      |      |      |           |      |      |      |      |      |      |        |
+ * |        | Shrug| yay  | hug  |      |      |      |           |      |  ■   |  λ   |  →   |  ➙   |  ▻   |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      | left | down | right|      |------|           |------|      |      |      |      |      |        |
+ * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -166,11 +169,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// NAVIGATION
+// Unicode
 [NAVG] = KEYMAP(
        KC_TRNS, VRSN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS,
+       KC_TRNS, SHRUG, YAY, HUG, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
@@ -178,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  UC(0x25a0), UC(0x03bb), UC(0x2192), UC(0x2799), UC(0x25bb), KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_TRNS, KC_TRNS, KC_TRNS,
                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -191,6 +194,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
+
+static void ang_tap (uint16_t code, ...) {
+  uint16_t kc = code;
+  va_list ap;
+
+  va_start(ap, code);
+
+  do {
+    register_code16(kc);
+    unregister_code16(kc);
+    wait_ms(50);
+    kc = va_arg(ap, int);
+  } while (kc != 0);
+  va_end(ap);
+}
+
+#define TAP_ONCE(code)  \
+  register_code (code); \
+  unregister_code (code)
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -233,13 +255,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+  case SHRUG:
+      if (record->event.pressed) {
+	  unicode_input_start(); register_hex(0xaf); unicode_input_finish();
+	  TAP_ONCE (KC_BSLS);
+	  register_code (KC_RSFT); TAP_ONCE (KC_MINS); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
+	  unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
+	  register_code (KC_RSFT); TAP_ONCE (KC_0); TAP_ONCE (KC_MINS); unregister_code (KC_RSFT);
+	  TAP_ONCE (KC_SLSH);
+	  unicode_input_start (); register_hex(0xaf); unicode_input_finish();
+      }
+      return false;
+      break;
+  case YAY:
+      if (record->event.pressed) {
+	ang_tap (KC_BSLS, KC_O, KC_SLSH, 0);
+      }
+      return false;
+      break;
+ case HUG:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0f3c); unicode_input_finish();
+     TAP_ONCE (KC_SPC);
+     unicode_input_start(); register_hex(0x3064); unicode_input_finish();
+     TAP_ONCE (KC_SPC);
+     unicode_input_start(); register_hex(0x25d5); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x25d5); unicode_input_finish();
+     TAP_ONCE (KC_SPC);
+     unicode_input_start(); register_hex(0x0f3d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x3064); unicode_input_finish();
+   }
+      return false;
+      break;
   }
   return true;
 }
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+  set_unicode_input_mode(UC_LNX);
 };
 
 // Runs constantly in the background, in a loop.
