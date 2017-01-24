@@ -1,9 +1,11 @@
 # ErgoDox EZ 1337 configuration
 
-Custom layout based on the default layout. Intended for interational users of us intl-altgr layout. Note that
-some common keys might be missing, as this layout is intented to be used on *nix systems by users familiar
-with their system. The layout is geared towards avoiding using the rat (mouse for those of you who are
-unfamiliar with tiling window managers) as much as possibly.
+Custom layout based on the default layout. Intended for interational
+users of us intl-altgr layout. Note that some common keys might be
+missing, as this layout is intented to be used on *nix systems by
+users familiar with their system. The layout is geared towards
+avoiding using the rat (mouse for those of you who are unfamiliar with
+tiling window managers) as much as possibly.
 
 # Layouts
 
@@ -12,6 +14,19 @@ All layer images created using [keyboard-layout-editor](http://www.keyboard-layo
 ## Base layer
 
 [![Base layer](images/deadcyclo-base-layout.png)](http://www.keyboard-layout-editor.com/#/gists/0321b18620180a3e46c498206eb65366)
+
+The base layer here is marked with the us international alt-gr layout,
+including characters bound to what on an iso keyboard would be alt-gr
+and on an ansi keyboard right alt.
+
+Regular (and irregular) modifier keys are marked with a yellowish
+gray. Layer moderators are marked with blue, red and green, which are
+the same colors each layer displays on the LEDs when active.
+
+All of the layer switch keys, except for the two center keys marked L1
+TOG, are dual purpose. Hence for example the top left key produces ESC
+if tapped, and temporarilly toggles L3 when hold down. The two center
+L1 TOG keys toggle L1 on and off for more permanent layer toggling.
 
 ## Layer 1 - Symbols
 
@@ -29,8 +44,10 @@ All layer images created using [keyboard-layout-editor](http://www.keyboard-layo
 
 - 02.01.2017 Added delete key on second layer
 - 10.01.2017 Added layer images to readme
+- 24.01.2017 Added support for Ergodox Shine. Added secondary L2 switch key on left hand
 
 # TODO
 
 - Add unicode support (direct input and indirect? see algernon layout for examples)
 - Add descriptions below each layer image of any special functions/keys
+- Move Navigation keys to Layer 2 on right side, add a layer switch to L2 on left side as well, and use L3 for unicode stuff
