@@ -28,26 +28,41 @@ TOG, are dual purpose. Hence for example the top left key produces ESC
 if tapped, and temporarilly toggles L3 when hold down. The two center
 L1 TOG keys toggle L1 on and off for more permanent layer toggling.
 
-## Layer 1 - Symbols
+## Layer 1 - Symbols and RGB
 
-[![Layer 1 - Symbols](images/deadcyclo-layer-1-symbols.png)](http://www.keyboard-layout-editor.com/#/gists/96714e198054c9115bafb5267cc6bc73)
+[![Layer 1 - Symbols and RGB](images/deadcyclo-layer-1-symbols.png)](http://www.keyboard-layout-editor.com/#/gists/96714e198054c9115bafb5267cc6bc73)
 
-## Layer 2 - Media and Mouse
+The Symbols and RGB layer contains function keys, commonly used
+symbols, a numpad and if you have the new Ergodox Ez shine keys for
+controlling various RGB-led functions. In addition, it provides an up
+and a down key for easy scrolling. RGB controller keys are yellow.
 
-[![Layer 2 - Media and Mouse](images/deadcyclo-layer-2-media-and-mouse.png)](http://www.keyboard-layout-editor.com/#/gists/824759486e378bcec30784309a7e5731)
+## Layer 2 - Media, Mouse and Navigation
 
-## Layer 3 - Navigation
+[![Layer 2 - Media, Mouse and Navigation](images/deadcyclo-layer-2-media-and-mouse.png)](http://www.keyboard-layout-editor.com/#/gists/824759486e378bcec30784309a7e5731)
 
-[![Layer 3 - Navigation](images/deadcyclo-layer-3-navigation.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
+The Media, Mouse and unicode layer contains special keys for moving
+the mouse and clicking on it with the keyboard. In addition it
+provides standard media control keys, and default arrow keys.
+
+## Layer 3 - Unicode
+
+[![Layer 3 - Unicode](images/deadcyclo-layer-3-navigation.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
+
+The unicode layer provides keys for directly typing unicode (utf-8)
 
 # Changelog
 
 - 02.01.2017 Added delete key on second layer
 - 10.01.2017 Added layer images to readme
 - 24.01.2017 Added support for Ergodox Shine. Added secondary L2 switch key on left hand
+- 24.01.2017 Added unicode keys. Added shrug hug and yay. Moved Navigation to layer 2
 
 # TODO
 
-- Add unicode support (direct input and indirect? see algernon layout for examples)
-- Add descriptions below each layer image of any special functions/keys
-- Move Navigation keys to Layer 2 on right side, add a layer switch to L2 on left side as well, and use L3 for unicode stuff
+- Add support for unicode by name? (See algernon layout for example)
+- Add macros for lots of stuff. (Lastpass cli, pushbullet cli, other push service cli, linode cli, more?)
+- Make macros for gnu screen and i3wm
+- Look into the app launch macros in algernon keymap
+- Make other smileys like shrug and yay ¯\_(ツ)_/¯ and \o/ and others (see amon others [http://dongerlist.com](http://dongerlist.com)
+
