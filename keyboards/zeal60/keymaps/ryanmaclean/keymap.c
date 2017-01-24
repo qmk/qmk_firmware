@@ -1,4 +1,7 @@
 // Ryan MacLean's layout for Zeal60
+// Note that LGUI and RGUI are swapped with LALT and RALT respectively, for use with Macs
+// Also note that Control has replaced Caps Lock, and that pressing left or right shift once
+// will output left parenthese and right parenthese respectively. 
 
 #include "zeal60.h"
 
