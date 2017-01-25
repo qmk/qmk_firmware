@@ -18,7 +18,6 @@
 enum preonic_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
-  COLEMAK,
   LOWER,
   RAISE,
   BACKLIT
