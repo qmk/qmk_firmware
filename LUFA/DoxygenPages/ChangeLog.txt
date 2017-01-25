@@ -32,6 +32,7 @@
   *     clone project, as the new libUSB driver works for AVRDUDE and Atmel Studio 7 under Windows
   *   - Replaced the LUFA build system with its (compatible) successor, DMBS (Dean's Makefile Build System)
   *   - Removed obsolete library TAR export and associated documentation
+  *   - Fixed incorrect HID_DESCRIPTOR_KEYBOARD() macro definition (thanks to Eric Tang)
   *
   *  \section Sec_ChangeLog151115 Version 151115
   *  <b>New:</b>
