@@ -57,6 +57,7 @@ The unicode layer provides keys for directly typing unicode (utf-8)
 - 10.01.2017 Added layer images to readme
 - 24.01.2017 Added support for Ergodox Shine. Added secondary L2 switch key on left hand
 - 24.01.2017 Added unicode keys. Added shrug hug and yay. Moved Navigation to layer 2
+- 25.01.2017 Added lots of new emojis and some unicode keys
 
 # TODO
 
