@@ -1,3 +1,4 @@
+#include "zeal60.h"
 #include "zeal_backlight.h"
 
 #include <avr/io.h>
@@ -10,7 +11,7 @@
 #include "zeal_color.h"
 #include "IS31FL3731_driver.h"
 
-#define BACKLIGHT_EFFECT_MAX 7
+#define BACKLIGHT_EFFECT_MAX 9
 
 zeal_backlight_config g_config = {
 	.use_split_backspace = BACKLIGHT_USE_SPLIT_BACKSPACE,
@@ -20,19 +21,24 @@ zeal_backlight_config g_config = {
 	.use_iso_enter = BACKLIGHT_USE_ISO_ENTER,
 	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
 	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+	.brightness = 255,
+	.effect = 0,
+	.color_1 = { .h = 0, .s = 255, .v = 255 },
+	.color_2 = { .h = 127, .s = 255, .v = 255 },
+	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
+	.layer_1_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
+	.layer_2_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
+	.layer_3_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
 	.alphas_mods = {
 		BACKLIGHT_ALPHAS_MODS_ROW_0,
 		BACKLIGHT_ALPHAS_MODS_ROW_1,
 		BACKLIGHT_ALPHAS_MODS_ROW_2,
 		BACKLIGHT_ALPHAS_MODS_ROW_3,
-		BACKLIGHT_ALPHAS_MODS_ROW_4 },
-	.brightness = 255,
-	.effect = 0,
-	.color_1 = { .h = 0, .s = 255, .v = 0 },
-	.color_2 = { .h = 127, .s = 255, .v = 0 },
+		BACKLIGHT_ALPHAS_MODS_ROW_4 }
 };
 
 bool g_suspend_state = false;
+uint8_t g_inidicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -211,6 +217,11 @@ void backlight_set_suspend_state(bool state)
 	g_suspend_state = state;
 }
 
+void backlight_set_indicator_state(uint8_t state)
+{
+	g_inidicator_state = state;
+}
+
 // This tests the LEDs
 // Note that it will change the LED control registers
 // in the LED drivers, and leave them in an invalid
@@ -266,10 +277,10 @@ void backlight_effect_test(void)
 		color = 0;
 	}
 
-	uint8_t index;
-	map_row_column_to_led( row, column, &index );
+	uint8_t led;
+	map_row_column_to_led( row, column, &led );
 	backlight_set_color_all( 255, 255, 255 );
-	backlight_test_led( index, color==0, color==1, color==2 );
+	backlight_test_led( led, color==0, color==1, color==2 );
 }
 
 // All LEDs off
@@ -317,19 +328,23 @@ void backlight_effect_gradient_up_down(void)
 {
 	int16_t h1 = g_config.color_1.h;
 	int16_t h2 = g_config.color_2.h;
-	int16_t delta = h2 - h1;
+	int16_t deltaH = h2 - h1;
 
 	// Take the shortest path between hues
-	if ( delta > 127 )
+	if ( deltaH > 127 )
 	{
-		delta -= 256;
+		deltaH -= 256;
 	}
-	else if ( delta < -127 )
+	else if ( deltaH < -127 )
 	{
-		delta += 256;
+		deltaH += 256;
 	}
 	// Divide delta by 4, this gives the delta per row
-	delta /= 4;
+	deltaH /= 4;
+
+	int16_t s1 = g_config.color_1.s;
+	int16_t s2 = g_config.color_2.s;
+	int16_t deltaS = ( s2 - s1 ) / 4;
 
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
@@ -338,11 +353,56 @@ void backlight_effect_gradient_up_down(void)
 	{
 		map_led_to_point( i, &point );
 		// The y range will be 0..64, map this to 0..4
-		int16_t offset = delta * (point.y>>4);
+		uint8_t y = (point.y>>4);
 		// Relies on hue being 8-bit and wrapping
-		hsv.h = g_config.color_1.h + offset;
+		hsv.h = g_config.color_1.h + ( deltaH * y );
+		hsv.s = g_config.color_1.s + ( deltaS * y );
 		rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+	}
+}
+
+void backlight_effect_raindrops(bool initialize)
+{
+	int16_t h1 = g_config.color_1.h;
+	int16_t h2 = g_config.color_2.h;
+	int16_t deltaH = h2 - h1;
+	deltaH /= 4;
+
+	// Take the shortest path between hues
+	if ( deltaH > 127 )
+	{
+		deltaH -= 256;
+	}
+	else if ( deltaH < -127 )
+	{
+		deltaH += 256;
+	}
+
+	int16_t s1 = g_config.color_1.s;
+	int16_t s2 = g_config.color_2.s;
+	int16_t deltaS = ( s2 - s1 ) / 4;
+
+	HSV hsv;
+	RGB rgb;
+
+	// Change one LED every tick
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+
+	for ( int i=0; i<72; i++ )
+	{
+		// If initialize, all get set to random colors
+		// If not, all but one will stay the same as before.
+		if ( initialize || i == led_to_change )
+		{
+			hsv.h = h1 + ( deltaH * ( rand() & 0x03 ) );
+			hsv.s = s1 + ( deltaS * ( rand() & 0x03 ) );
+			// Override brightness with global brightness control
+			hsv.v = g_config.brightness;;
+
+			rgb = hsv_to_rgb( hsv );
+			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+		}
 	}
 }
 
@@ -418,6 +478,31 @@ void backlight_effect_cycle_up_down(void)
 	}
 }
 
+void backlight_effect_jellybean_raindrops( bool initialize )
+{
+	HSV hsv;
+	RGB rgb;
+
+	// Change one LED every tick
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+
+	for ( int i=0; i<72; i++ )
+	{
+		// If initialize, all get set to random colors
+		// If not, all but one will stay the same as before.
+		if ( initialize || i == led_to_change )
+		{
+			hsv.h = rand() & 0xFF;
+			hsv.s = rand() & 0xFF;
+			// Override brightness with global brightness control
+			hsv.v = g_config.brightness;;
+
+			rgb = hsv_to_rgb( hsv );
+			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+		}
+	}
+}
+
 void backlight_effect_custom(void)
 {
 	HSV hsv;
@@ -429,6 +514,74 @@ void backlight_effect_custom(void)
 		hsv.v = g_config.brightness;
 		rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+	}
+}
+
+void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
+{
+	RGB rgb = hsv_to_rgb( hsv );
+	if ( index == 254 )
+	{
+		backlight_set_color_all( rgb.r, rgb.g, rgb.b );
+	}
+	else
+	{
+		backlight_set_color( index, rgb.r, rgb.g, rgb.b );
+
+		// If the spacebar LED is the indicator,
+		// do the same for the spacebar stabilizers
+		if ( index == 36+0 ) // LC0
+		{
+			backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
+			backlight_set_color( 54+13, rgb.r, rgb.g, rgb.b ); // LD13
+			if ( g_config.use_7u_spacebar )
+			{
+				backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
+			}
+		}
+	}
+}
+
+// This runs after another backlight effect and replaces
+// colors already set
+void backlight_effect_indicators(void)
+{
+	if ( g_config.caps_lock_indicator.index != 255 &&
+			( g_inidicator_state & (1<<USB_LED_CAPS_LOCK) ) )
+	{
+		backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
+	}
+
+	// This if/else if structure allows higher layers to
+	// override lower ones. If we set layer 3's indicator
+	// to none, then it will NOT show layer 2 or layer 1
+	// indicators, even if those layers are on via the
+	// MO13/MO23 Fn combo magic.
+	//
+	// Basically we want to handle the case where layer 3 is
+	// still the backlight configuration layer and we don't
+	// want "all LEDs" indicators hiding the backlight effect,
+	// but still allow end users to do whatever they want.
+	if ( IS_LAYER_ON(3) )
+	{
+		if ( g_config.layer_3_indicator.index != 255 )
+		{
+			backlight_effect_indicators_set_colors( g_config.layer_3_indicator.index, g_config.layer_3_indicator.color );
+		}
+	}
+	else if ( IS_LAYER_ON(2) )
+	{
+		if ( g_config.layer_2_indicator.index != 255 )
+		{
+			backlight_effect_indicators_set_colors( g_config.layer_2_indicator.index, g_config.layer_2_indicator.color );
+		}
+	}
+	else if ( IS_LAYER_ON(1) )
+	{
+		if ( g_config.layer_1_indicator.index != 255 )
+		{
+			backlight_effect_indicators_set_colors( g_config.layer_1_indicator.index, g_config.layer_1_indicator.color );
+		}
 	}
 }
 
@@ -447,7 +600,7 @@ ISR(TIMER3_COMPA_vect)
 		return;
 	}
 
-	for ( int led=0; led<72; led++ )
+	for ( int led = 0; led < 72; led++ )
 	{
 		if ( g_key_hit[led] < 255 )
 		{
@@ -462,44 +615,72 @@ ISR(TIMER3_COMPA_vect)
 
 	// Ideally we would also stop sending zeros to the LED driver PWM buffers
 	// while suspended and just do a software shutdown. This is a cheap hack for now.
-	uint8_t effect = ( ( g_suspend_state && g_config.disable_when_usb_suspended ) ||
-					( g_config.disable_after_timeout > 0 && g_any_key_hit > g_config.disable_after_timeout*60*20 ) )
-					? 0 : g_config.effect;
+	bool suspend_backlight = ((g_suspend_state && g_config.disable_when_usb_suspended) ||
+			(g_config.disable_after_timeout > 0 && g_any_key_hit > g_config.disable_after_timeout * 60 * 20));
+	uint8_t effect = suspend_backlight ? 0 : g_config.effect;
+
+	// Keep track of the effect used last time,
+	// detect change in effect, so each effect can
+	// have an optional initialization.
+	static uint8_t effect_last = 255;
+	bool initialize = effect != effect_last;
+	effect_last = effect;
 
 	// this gets ticked at 20 Hz.
 	// each effect can opt to do calculations
 	// and/or request PWM buffer updates.
-	if ( effect == 0 )
+	switch ( effect )
 	{
-		backlight_effect_all_off();
+		case 0:
+			backlight_effect_all_off();
+			break;
+		case 1:
+			backlight_effect_solid_color();
+			break;
+		case 2:
+			backlight_effect_alphas_mods();
+			break;
+		case 3:
+			backlight_effect_gradient_up_down();
+			break;
+		case 4:
+			backlight_effect_raindrops( initialize );
+			break;
+		case 5:
+			backlight_effect_cycle_all();
+			break;
+		case 6:
+			backlight_effect_cycle_left_right();
+			break;
+		case 7:
+			backlight_effect_cycle_up_down();
+			break;
+		case 8:
+			backlight_effect_jellybean_raindrops( initialize );
+			break;
+		case 9:
+		default:
+			backlight_effect_custom();
+			break;
 	}
-	else if ( effect == 1 )
+
+	if ( ! suspend_backlight )
 	{
-		backlight_effect_solid_color();
+		backlight_effect_indicators();
 	}
-	else if ( effect == 2 )
+
+}
+
+void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column )
+{
+	if ( row >= MATRIX_ROWS )
 	{
-		backlight_effect_alphas_mods();
+		// Special value, 255=none, 254=all
+		*index = row;
 	}
-	else if ( effect == 3 )
+	else
 	{
-		backlight_effect_gradient_up_down();
-	}
-	else if ( effect == 4 )
-	{
-		backlight_effect_cycle_all();
-	}
-	else if ( effect == 5 )
-	{
-		backlight_effect_cycle_left_right();
-	}
-	else if ( effect == 6 )
-	{
-		backlight_effect_cycle_up_down();
-	}
-	else if ( effect >= 7 )
-	{
-		backlight_effect_custom();
+		map_row_column_to_led( row, column, index );
 	}
 }
 
@@ -512,6 +693,19 @@ void backlight_config_set_values(msg_backlight_config_set_values *values)
 	g_config.use_iso_enter = values->use_iso_enter;
 	g_config.disable_when_usb_suspended = values->disable_when_usb_suspended;
 	g_config.disable_after_timeout = values->disable_after_timeout;
+
+	g_config.brightness = values->brightness;
+	g_config.effect = values->effect;
+	g_config.color_1 = values->color_1;
+	g_config.color_2 = values->color_2;
+	g_config.caps_lock_indicator.color = values->caps_lock_indicator_color;
+	backlight_set_indicator_index( &g_config.caps_lock_indicator.index, values->caps_lock_indicator_row, values->caps_lock_indicator_column );
+	g_config.layer_1_indicator.color = values->layer_1_indicator_color;
+	backlight_set_indicator_index( &g_config.layer_1_indicator.index, values->layer_1_indicator_row, values->layer_1_indicator_column );
+	g_config.layer_2_indicator.color = values->layer_2_indicator_color;
+	backlight_set_indicator_index( &g_config.layer_2_indicator.index, values->layer_2_indicator_row, values->layer_2_indicator_column );
+	g_config.layer_3_indicator.color = values->layer_3_indicator_color;
+	backlight_set_indicator_index( &g_config.layer_3_indicator.index, values->layer_3_indicator_row, values->layer_3_indicator_column );
 }
 
 void backlight_config_set_alphas_mods( uint16_t *alphas_mods )

@@ -97,8 +97,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_KEYMAPS_IN_EEPROM 1
 
-// Uncomment the following for "factory test" firmware
-// that just tests the LEDs in a fast color cycle
-//#define ZEAL60_TEST
-
 #endif

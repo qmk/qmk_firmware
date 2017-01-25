@@ -9,6 +9,12 @@
 
 typedef struct
 {
+	HSV color;
+	uint8_t index;
+} zeal_indicator;
+
+typedef struct
+{
 	bool use_split_backspace:1;         // |
 	bool use_split_left_shift:1;        // |
 	bool use_split_right_shift:1;       // |
@@ -18,12 +24,16 @@ typedef struct
 	bool __pad6:1;                      // |
 	bool __pad7:1;                      // 1 byte
 	uint8_t disable_after_timeout;      // 1 byte
-	uint16_t alphas_mods[5];            // 10 bytes
 	uint8_t brightness;                 // 1 byte
 	uint8_t effect;                     // 1 byte
 	HSV color_1;                        // 3 bytes
 	HSV color_2;                        // 3 bytes
-} zeal_backlight_config;                // = 20 bytes
+	zeal_indicator caps_lock_indicator;	// 4 bytes
+	zeal_indicator layer_1_indicator;	// 4 bytes
+	zeal_indicator layer_2_indicator;	// 4 bytes
+	zeal_indicator layer_3_indicator;	// 4 bytes
+	uint16_t alphas_mods[5];            // 10 bytes
+} zeal_backlight_config;                // = 36 bytes
 
 void backlight_config_set_values(msg_backlight_config_set_values *values);
 void backlight_config_set_alphas_mods( uint16_t *value );
@@ -37,6 +47,7 @@ void backlight_timer_enable(void);
 void backlight_timer_disable(void);
 
 void backlight_set_suspend_state(bool state);
+void backlight_set_indicator_state(uint8_t state);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
