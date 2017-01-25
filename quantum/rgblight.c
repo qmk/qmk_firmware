@@ -56,6 +56,13 @@ const uint8_t RGBLED_BREATHING_TABLE[] PROGMEM = {
   10, 9, 7, 6, 5, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0
 };
 
+const float BRIGHTNESS_CORRECTION_TABLE[] PROGMEM = {
+    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+    1.0, 1.0, 1.0, 1.0
+};
+
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
@@ -370,6 +377,38 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
+void scale_led(int i, float multiplier) {
+    /** Scale led[i]'s brightness by multiplier. */
+
+    // Prevent multipliers greater than 1 from overflowing
+    // the 8-bit unsigned int that governs LED brightness.
+    if (multiplier > 1.0) {
+        uint8_t max_value = 0;
+        uint8_t led_array[] = {led[i].r, led[i].g, led[i].b};
+        for (uint8_t i = 0; i < 3; i++) {
+            if (led_array[i] > max_value) {
+                max_value = led_array[i];
+            }
+        }
+
+        if ((max_value * multiplier) > 255) {
+            multiplier = 255.0 / max_value;
+        }
+    }
+
+    led[i].r = (uint8_t)(led[i].r * multiplier);
+    led[i].g = (uint8_t)(led[i].g * multiplier);
+    led[i].b = (uint8_t)(led[i].b * multiplier);
+}
+
+void correct_brightness(void) {
+    /** Correct brightness for uneven underglow LEDs as defined by
+    scaling factors in BRIGHTNESS_CORRECTION_TABLE. */
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+        scale_led(i, pgm_read_float(&BRIGHTNESS_CORRECTION_TABLE[i]));
+    }
+}
+
 void adjust_current(void) {
     /** Dims RGB strip if it exceeds defined current limit. */
     // Convert 1 milliamp to an R+G+B brightness value.
@@ -388,18 +427,22 @@ void adjust_current(void) {
     if (strip_rgbw_total > strip_rgbw_limit) {
         float multiplier = strip_rgbw_limit / strip_rgbw_total;
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = (uint8_t)(led[i].r * multiplier);
-            led[i].g = (uint8_t)(led[i].g * multiplier);
-            led[i].b = (uint8_t)(led[i].b * multiplier);
+            scale_led(i, multiplier);
         }
     }
 }
 
 __attribute__ ((weak))
 void rgblight_set(void) {
-#if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
-  adjust_current();
-#endif
+    
+  #if defined(RGBSTRIP_CURRENT_LIMIT) && defined(RGBSTRIP_MAX_CURRENT_PER_LIGHT)
+    adjust_current();
+  #endif
+
+  #ifdef LED_BRIGHTNESS_CORRECTION
+    correct_brightness();
+  #endif
+
   if (rgblight_config.enable) {
     #ifdef RGBW
       ws2812_setleds_rgbw(led, RGBLED_NUM);
