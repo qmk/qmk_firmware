@@ -445,7 +445,7 @@
 				HID_RI_REPORT_SIZE(8, 0x03),                \
 				HID_RI_OUTPUT(8, HID_IOF_CONSTANT),         \
 				HID_RI_LOGICAL_MINIMUM(8, 0x00),            \
-				HID_RI_LOGICAL_MAXIMUM(8, 0xFF),            \
+				HID_RI_LOGICAL_MAXIMUM(16, 0xFF),           \
 				HID_RI_USAGE_PAGE(8, 0x07),                 \
 				HID_RI_USAGE_MINIMUM(8, 0x00),              \
 				HID_RI_USAGE_MAXIMUM(8, 0xFF),              \
@@ -679,4 +679,3 @@
 #endif
 
 /** @} */
-
