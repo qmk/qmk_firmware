@@ -15,7 +15,22 @@ enum custom_keycodes {
   RGB_SLD,
   SHRUG,
   YAY,
-  HUG
+  HUG,
+  SMILE,
+  SMILE2,
+  HMM1,
+  HMM2,
+  BEAR1,
+  BEAR2,
+  FUU,
+  EGGY1,
+  EGGY2,
+  FACE1,
+  FACE2,
+  UHU,
+  SMRK1,
+  SMRK2,
+  LOVE
 };
 
 // TODO: Get rid of of keys I don't want. Make others that I do. Set up lots of makros (Using hyper (and meh)) keys (where to put them?)
@@ -153,13 +168,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        | VER  |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Shrug| yay  | hug  |      |      |      |           |      |  ■   |  λ   |  →   |  ➙   |  ▻   |        |
+ * |        | shrug| yay  | hug  | smile|smile2|      |           |      |  ■   |  λ   |  →   |  ➙   |  ▻   |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |        | hmm1 | hmm2 | bear1| bear2| fuu  |------|           |------|  ☺   |  ☻   |  ☹   |  ♡   |  ♥   |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        | eggy1| eggy2| face1| face2| uhu  |      |           |      |  ❤   |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      | smrk1| smrk2| love |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -172,18 +187,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Unicode
 [NAVG] = KEYMAP(
        KC_TRNS, VRSN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, SHRUG, YAY, HUG, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, SHRUG, YAY, HUG, SMILE, SMILE2, KC_TRNS,
+       KC_TRNS, HMM1, HMM2, BEAR1, BEAR2, FUU,
+       KC_TRNS, EGGY1, EGGY2, FACE1, FACE2, UHU, KC_TRNS,
+       KC_TRNS, SMRK1, SMRK2, LOVE, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  UC(0x25a0), UC(0x03bb), UC(0x2192), UC(0x2799), UC(0x25bb), KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_TRNS, KC_TRNS, KC_TRNS,
+                 UC(0x263a), UC(0x263b), UC(0x2639), UC(0x2661), UC(0x2665), KC_TRNS,
+       KC_TRNS,  UC(0x2764), KC_TRNS, KC_MPRV, KC_TRNS, KC_TRNS, KC_TRNS,
                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -285,6 +300,157 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      TAP_ONCE (KC_SPC);
      unicode_input_start(); register_hex(0x0f3d); unicode_input_finish();
      unicode_input_start(); register_hex(0x3064); unicode_input_finish();
+   }
+      return false;
+      break;
+  case SMILE:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0298); unicode_input_finish();
+     unicode_input_start(); register_hex(0x203f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0298); unicode_input_finish();
+   }
+      return false;
+      break;
+  case SMILE2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0298); unicode_input_finish();
+     unicode_input_start(); register_hex(0x203f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0298); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case HMM1:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0ca0); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0ca0); unicode_input_finish();
+   }
+      return false;
+      break;
+  case HMM2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0ca0); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0ca0); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case BEAR1:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0295); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2022); unicode_input_finish();
+     unicode_input_start(); register_hex(0x1d25); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2022); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0294); unicode_input_finish();
+   }
+      return false;
+      break;
+  case BEAR2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x1d54); unicode_input_finish();
+     unicode_input_start(); register_hex(0x1d25); unicode_input_finish();
+     unicode_input_start(); register_hex(0x1d54); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case FUU:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x256d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2229); unicode_input_finish();
+     unicode_input_start(); register_hex(0x256e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x002d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x002d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+     unicode_input_start(); register_hex(0x256d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2229); unicode_input_finish();
+     unicode_input_start(); register_hex(0x256e); unicode_input_finish();
+   }
+      return false;
+      break;
+  case EGGY1:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x256f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x00b0); unicode_input_finish();
+     unicode_input_start(); register_hex(0x25a1); unicode_input_finish();
+     unicode_input_start(); register_hex(0x00b0); unicode_input_finish();
+     unicode_input_start(); register_hex(0xff09); unicode_input_finish();
+     unicode_input_start(); register_hex(0x256f); unicode_input_finish();
+   }
+      return false;
+      break;
+  case EGGY2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x30ce); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0020); unicode_input_finish();
+     unicode_input_start(); register_hex(0x309c); unicode_input_finish();
+     unicode_input_start(); register_hex(0x002d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x309c); unicode_input_finish();
+     unicode_input_start(); register_hex(0x30ce); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case FACE1:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x002d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x002d); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case FACE2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2022); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2022); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case UHU:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x2299); unicode_input_finish();
+     unicode_input_start(); register_hex(0xfe4f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2299); unicode_input_finish();
+   }
+      return false;
+      break;
+  case SMRK1:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x005e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x032e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005e); unicode_input_finish();
+   }
+      return false;
+      break;
+  case SMRK2:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x0028); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x032e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x005e); unicode_input_finish();
+     unicode_input_start(); register_hex(0x0029); unicode_input_finish();
+   }
+      return false;
+      break;
+  case LOVE:
+   if (record->event.pressed) {
+     unicode_input_start(); register_hex(0x2665); unicode_input_finish();
+     unicode_input_start(); register_hex(0x203f); unicode_input_finish();
+     unicode_input_start(); register_hex(0x2665); unicode_input_finish();
    }
       return false;
       break;
