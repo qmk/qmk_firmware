@@ -73,3 +73,13 @@ USE_I2C ?= yes
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
+
+avrdude: build
+	ls /dev/tty* > /tmp/1; \
+	echo "Reset your Pro Micro then hit any key to continue..."; \
+	read -n 1 -s; \
+	ls /dev/tty* > /tmp/2; \
+	USB=`diff /tmp/1 /tmp/2 | grep '>' | sed -e 's/> //'`; \
+	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
+.PHONY: avrdude
