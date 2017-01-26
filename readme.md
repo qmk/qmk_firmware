@@ -1,5 +1,7 @@
 # Quantum Mechanical Keyboard Firmware
 
+[![Join the chat at https://gitter.im/QMK/qmk_firmware](https://badges.gitter.im/QMK/qmk_firmware.svg)](https://gitter.im/QMK/qmk_firmware?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/jackhumbert/qmk_firmware.svg?branch=master)](https://travis-ci.org/jackhumbert/qmk_firmware)
 
 This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
