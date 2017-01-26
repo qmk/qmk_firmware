@@ -72,6 +72,8 @@ OPT_DEFS += -DBOOTLOADER_SIZE=512
 #
 
 SLEEP_LED_ENABLE = no
+API_SYSEX_ENABLE ?= no
+RGBLIGHT_ENABLE ?= yes
 
 ifndef QUANTUM_DIR
 	include ../../../Makefile

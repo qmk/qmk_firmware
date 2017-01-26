@@ -1,8 +1,8 @@
 #include "process_music.h"
 
 bool music_activated = false;
-uint8_t starting_note = 0x0C;
-int offset = 7;
+uint8_t music_starting_note = 0x0C;
+int music_offset = 7;
 
 // music sequencer
 static bool music_sequence_recording = false;
@@ -115,7 +115,16 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
 
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(starting_note + SCALE[record->event.key.col + offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      #ifdef MUSIC_MODE_CHROMATIC
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(MATRIX_ROWS - record->event.key.row));
+      #elif defined(MUSIC_MODE_GUITAR)
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 7)*5.0/12);
+      #elif defined(MUSIC_MODE_VIOLIN)
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 5)*7.0/12);
+      #else
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + SCALE[record->event.key.col + music_offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      #endif
+
       if (record->event.pressed) {
         play_note(freq, 0xF);
         if (music_sequence_recording) {
