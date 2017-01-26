@@ -25,7 +25,7 @@ If none of the existing keymaps suit you, you can create your own custom
 keymap.  This will require some experience with coding.  Follow these steps
 to customize a keymap:
 
-  - Read the [qmk firmware README](https://github.com/jackhumbert/qmk_firmware) from top to bottom.  Then come back here.  :)
+  - Read the [qmk firmware README](https://github.com/qmk/qmk_firmware) from top to bottom.  Then come back here.  :)
 
   - Clone the qmk_firmware repository
 
