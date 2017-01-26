@@ -246,6 +246,7 @@ enum quantum_keycodes {
 
 #define M(kc) (kc | QK_MACRO)
 
+#define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
