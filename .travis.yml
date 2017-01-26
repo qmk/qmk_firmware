@@ -2,7 +2,6 @@ os: linux
 dist: trusty
 sudo: required
 language: c
-compiler: avr-gcc
 branches:
   except:
     - /^.*-automated-build$/
@@ -12,13 +11,18 @@ env:
   matrix:
   - TARGET=all-keyboards AUTOGEN=true
   - TARGET=test AUTOGEN=false
+before_install:
+  - wget http://www.atmel.com/images/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
+install:
+  - tar -zxf avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
+  - export PATH="$PATH:$TRAVIS_BUILD_DIR/avr8-gnu-toolchain-linux_x86_64/bin"
+before_script:
+  - avr-gcc --version
 script:
 - make $TARGET AUTOGEN=$AUTOGEN
 addons:
   apt:
     packages:
-    - avr-libc
-    - gcc-avr
     - dfu-programmer
     - pandoc
     - gcc-arm-none-eabi
