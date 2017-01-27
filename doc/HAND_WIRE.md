@@ -183,7 +183,7 @@ As you move along, be sure that the Teensy is staying in place - recutting and s
 
 From here, you should have a working keyboard with the correct firmware. Before we attach the Teensy permanently to the keyboard, let's quickly get some firmware loaded onto the Teensy so we can test each keyswitch.
 
-To start out, download [the firmware](https://github.com/jackhumbert/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/).
+To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/).
 
 The first thing we're going to do is create a new project using the script in the root directory of the firmware. In your terminal, run this command with `<project_name>` replaced by the name of your project - it'll need to be different from any other project in the `keyboards/` folder:
 
@@ -276,7 +276,7 @@ This can be accomplished by using the following `keymaps` definition:
     ),
     };
 
-Note that the layout of the keycodes is similar to the physical layout of our keyboard - this make it much easier to see what's going on. A lot of the keycodes should be fairly obvious, but for a full list of them, check out [tmk_code/doc/keycode.txt](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keycode.txt) - there are also a lot of aliases to condense your keymap file.
+Note that the layout of the keycodes is similar to the physical layout of our keyboard - this make it much easier to see what's going on. A lot of the keycodes should be fairly obvious, but for a full list of them, check out [tmk_code/doc/keycode.txt](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/doc/keycode.txt) - there are also a lot of aliases to condense your keymap file.
 
 It's also important to use the `KEYMAP` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
 
@@ -306,7 +306,7 @@ If you've done all of these things, keep in mind that sometimes you might have h
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
-There are a lot of possibilities inside the firmware - check out the [readme](https://github.com/jackhumbert/qmk_firmware/blob/master/readme.md) for a full feature list, and dive into the different project (Planck, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
+There are a lot of possibilities inside the firmware - check out the [readme](https://github.com/qmk/qmk_firmware/blob/master/readme.md) for a full feature list, and dive into the different project (Planck, Ergodox EZ, etc) to see how people use all of them. You can always stop by [the OLKB subreddit for help!](http://reddit.com/r/olkb)
 
 ## Trouble-shooting compiling
 
