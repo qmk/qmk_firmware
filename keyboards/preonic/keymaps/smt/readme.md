@@ -12,7 +12,7 @@ Notable differences from the default are:
 
     I use both the left and right shift keys when I type. When I want to modify a key with shift, I hold shift with the hand opposite the one typing the key. In the default keymap, Enter is where shift would be on a standard keyboard layout. Oh, muscle memory.
 
-    Thankfully, QMK supports [mod-tap](https://github.com/jackhumbert/qmk_firmware/wiki#fun-with-modifier-keys) keys, and this allows me to set the Enter key to send a modifier (MOD_LSFT) when held, and KC_ENT when tapped. Awesome!
+    Thankfully, QMK supports [mod-tap](https://github.com/qmk/qmk_firmware/wiki#fun-with-modifier-keys) keys, and this allows me to set the Enter key to send a modifier (MOD_LSFT) when held, and KC_ENT when tapped. Awesome!
 
 ## Dvorak (default)
 
