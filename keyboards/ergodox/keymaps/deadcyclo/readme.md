@@ -28,6 +28,10 @@ TOG, are dual purpose. Hence for example the top left key produces ESC
 if tapped, and temporarilly toggles L3 when hold down. The two center
 L1 TOG keys toggle L1 on and off for more permanent layer toggling.
 
+The UNI keys enter the linux ibus unicode composer mode
+(ie. Ctrl+Shift+u). Use this to enter unicode characters. Hit the key,
+type in the unicode hex value, and hit enter.
+
 ## Layer 1 - Symbols and RGB
 
 [![Layer 1 - Symbols and RGB](images/deadcyclo-layer-1-symbols.png)](http://www.keyboard-layout-editor.com/#/gists/96714e198054c9115bafb5267cc6bc73)
@@ -58,12 +62,11 @@ The unicode layer provides keys for directly typing unicode (utf-8)
 - 24.01.2017 Added support for Ergodox Shine. Added secondary L2 switch key on left hand
 - 24.01.2017 Added unicode keys. Added shrug hug and yay. Moved Navigation to layer 2
 - 25.01.2017 Added lots of new emojis and some unicode keys
+- 27.01.2017 Added new unicode keys and shortcut for ibus unicode composer key (CTRL+SHIFT+U)
 
 # TODO
 
-- Add support for unicode by name? (See algernon layout for example)
 - Add macros for lots of stuff. (Lastpass cli, pushbullet cli, other push service cli, linode cli, more?)
 - Make macros for gnu screen and i3wm
 - Look into the app launch macros in algernon keymap
-- Make other smileys like shrug and yay ¯\_(ツ)_/¯ and \o/ and others (see amon others [http://dongerlist.com](http://dongerlist.com)
 
