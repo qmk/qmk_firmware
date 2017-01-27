@@ -35,7 +35,9 @@
 #define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 15
 #define SEMICOLON_NEWLINE 16
 #define END_NEWLINE 17
+#define DUAL_CAPSLOCK 18
 
+static uint16_t capslock_timer;
 
 const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_TAP_TOGGLE(KEY_NAV), // FN1 - keynav layer
@@ -59,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
-        LT(SHELL_NAV,KC_TAB),      KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
-        OSL(BRACKETS),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
+        KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
+        M(DUAL_CAPSLOCK),          KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
         OSM(MOD_LSFT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
                                               // thumb cluster
@@ -395,7 +397,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 return MACRO( T(END), T(ENTER), END);
             }		
-		break;		
+		break;	
+		case DUAL_CAPSLOCK: 
+		   if (record->event.pressed) { 
+				   if(timer_elapsed(capslock_timer) < 100) { 
+						   // activate SHELL_NAV
+						   layer_on(SHELL_NAV); 
+				   } else { 
+						   layer_on(BRACKETS);
+				   } 
+		   } else { 
+				   layer_off(SHELL_NAV); 
+				   layer_off(BRACKETS); 
+				   capslock_timer = timer_read();
+		   } 
+		break;
+		
         
       }
     return MACRO_NONE;
