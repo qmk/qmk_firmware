@@ -121,10 +121,10 @@ There is a very small tool in `tools/layer-notify`, that listens to the HID cons
 To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `keyboards/ergodox_ez/algernon-master`. One way to achieve that is this:
 
  [algernon:ez-layout]: https://github.com/algernon/ergodox-layout
- [qmk]: https://github.com/jackhumbert/qmk_firmware
+ [qmk]: https://github.com/qmk/qmk_firmware
 
 ```
-$ git clone https://github.com/jackhumbert/qmk_firmware.git
+$ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
             keyboards/ergodox/keymaps/algernon-master
