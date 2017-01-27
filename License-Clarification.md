@@ -4,6 +4,14 @@ As raised in #1038 and other issues, the licensing status of QMK is not clear. I
 
 # Single Author Files
 
+These are the single author files that still need to have their license clarified.
+
+* quantum/pincontrol.h: Wez Furlong
+* quantum/keymap_extras/keymap_jp.h: h-youhei
+* quantum/keymap_extras/keymap_unicode_cyrillic.h: kuel
+
+## All Single Author Files
+
 These files have only a single author and so clarifying licensing should be pretty straightforward.
 
 * quantum/analog.c: Jack Humbert
