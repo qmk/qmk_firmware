@@ -2,6 +2,66 @@
 
 As raised in #1038 and other issues, the licensing status of QMK is not clear. In an effort to remove ambiguity and to clarify the licensing status of the quantum code we are identifying the providence of our source code files and clarifying what license applies to each one.
 
+# Single Author Files
+
+These files have only a single author and so clarifying licensing should be pretty straightforward.
+
+* quantum/analog.c: Jack Humbert
+* quantum/analog.h: Jack Humbert
+* quantum/api.h: Jack Humbert
+* quantum/keycode_config.c: Jack Humbert
+* quantum/pincontrol.h: Wez Furlong
+* quantum/api/api_sysex.h: Jack Humbert
+* quantum/audio/luts.c: IBNobody
+* quantum/audio/luts.h: IBNobody
+* quantum/audio/musical_notes.h: Jack Humbert
+* quantum/audio/wave.h: Jack Humbert
+* quantum/keymap_extras/keymap_br_abnt2.h: Potiguar Faga
+* quantum/keymap_extras/keymap_dvp.h: Artyom Mironov
+* quantum/keymap_extras/keymap_jp.h: h-youhei
+* quantum/keymap_extras/keymap_unicode_cyrillic.h: kuel
+* quantum/process_keycode/process_chording.c: Jack Humbert
+* quantum/process_keycode/process_chording.h: Jack Humbert
+* quantum/process_keycode/process_leader.c: Jack Humbert
+* quantum/process_keycode/process_leader.h: Jack Humbert
+* quantum/process_keycode/process_midi.h: Jack Humbert
+* quantum/process_keycode/process_music.h: Jack Humbert
+* quantum/process_keycode/process_printer.c: Jack Humbert
+* quantum/process_keycode/process_printer.h: Jack Humbert
+* quantum/process_keycode/process_printer_bb.c: Jack Humbert
+* quantum/serial_link/LICENSE: Fred Sundvik
+* quantum/serial_link/protocol/frame_router.c: Fred Sundvik
+* quantum/serial_link/protocol/frame_router.h: Fred Sundvik
+* quantum/serial_link/protocol/frame_validator.c: Fred Sundvik
+* quantum/serial_link/protocol/frame_validator.h: Fred Sundvik
+* quantum/serial_link/protocol/physical.h: Fred Sundvik
+* quantum/serial_link/protocol/triple_buffered_object.c: Fred Sundvik
+* quantum/serial_link/protocol/triple_buffered_object.h: Fred Sundvik
+* quantum/serial_link/system/serial_link.c: Fred Sundvik
+* quantum/serial_link/system/serial_link.h: Fred Sundvik
+* quantum/serial_link/tests/byte_stuffer_tests.cpp: Fred Sundvik
+* quantum/serial_link/tests/frame_router_tests.cpp: Fred Sundvik
+* quantum/serial_link/tests/frame_validator_tests.cpp: Fred Sundvik
+* quantum/serial_link/tests/Makefile: Fred Sundvik
+* quantum/serial_link/tests/transport_tests.cpp: Fred Sundvik
+* quantum/serial_link/tests/triple_buffered_object_tests.cpp: Fred Sundvik
+* quantum/template/rules.mk: Fred Sundvik
+* quantum/template/keymaps/default/config.h: Jack Humbert
+* quantum/template/keymaps/default/Makefile: Jack Humbert
+* quantum/template/keymaps/default/readme.md: Jack Humbert
+* quantum/tools/eeprom_reset.hex: Jack Humbert
+* quantum/tools/readme.md: Jack Humbert
+* quantum/visualizer/lcd_backlight.c: Fred Sundvik
+* quantum/visualizer/lcd_backlight.h: Fred Sundvik
+* quantum/visualizer/led_test.h: Fred Sundvik
+* quantum/visualizer/LICENSE.md: Fred Sundvik
+* quantum/visualizer/readme.md: Fred Sundvik
+* quantum/visualizer/example_integration/callbacks.c: Fred Sundvik
+* quantum/visualizer/example_integration/gfxconf.h: Fred Sundvik
+* quantum/visualizer/example_integration/lcd_backlight_hal.c: Fred Sundvik
+* quantum/visualizer/example_integration/visualizer_user.c: Fred Sundvik
+
+# Files
 
 ## quantum/analog.c 
 
