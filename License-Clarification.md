@@ -14,7 +14,9 @@ These are the single author files that still need to have their license clarifie
 
 # Multi Author Files
 
-Each file listed below has more than one author and needs to have copyright resolved. The number of lines contributed by each author is shown.
+Each file listed below has more than one author and needs to have copyright resolved. The number of lines contributed by each author is shown as determined by:
+
+```git blame <file> | cut -f 2 -d '(' | cut -f 1 -d '2' | sort | uniq -c | sed 's/^ */* /'```
 
 ## quantum/config_common.h 
 
