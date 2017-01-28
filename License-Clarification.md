@@ -10,7 +10,7 @@ Username | # Lines | Files | Sign Off Date |
 ---------|---------|-------|---------------|
 @Vifon | 231 | quantum/dynamic_macro.h | |
 @wez | 37 | quantum/dynamic_macro.h | |
-@DidierLoiseau | 563 | | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h | |
+@DidierLoiseau | 563 | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h | |
 @h-youhei | 62 | quantum/keymap_extras/keymap_jp.h | |
 @kuel | 240 | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/keymap_russian.h | |
 @eltang | 155 |  quantum/config_common.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/template/config.h | |
