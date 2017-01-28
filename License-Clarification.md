@@ -11,6 +11,7 @@ These are the single author files that still need to have their license clarifie
 * quantum/keymap_extras/keymap_canadian_multilingual.h: @DidierLoiseau
 * quantum/keymap_extras/keymap_jp.h: @h-youhei
 * quantum/keymap_extras/keymap_unicode_cyrillic.h: @kuel
+* quantum/keymap_extras/keymap_russian.h: @kuel
 
 # Multi Author Files
 
@@ -181,204 +182,115 @@ Each file listed below has more than one author and needs to have copyright reso
 
 ## quantum/keymap_extras/keymap_french_osx.h 
 
-* 48eff6dd89672c6c71afd8a3d1cdc5d35b0bf768 Tue Jan 5 10:49:36 2016 +0100 Sébastien Pérochon
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
+* 1 Jack Humbert
+* 76 Sébastien Pérochon
 
 ## quantum/keymap_extras/keymap_german.h 
 
-* 3dbcad51d1217b32c3c17917c2646fa7a9a9165b Sat Dec 19 01:22:12 2015 +0100 Matthias Schmitt
-* da09312dd56e3b085fb217cc7cc2abf06f401992 Tue Jan 19 20:04:08 2016 +0100 plgruener
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 25938a09a6bfb2624bc96841b53897eda532e293 Thu Jul 14 11:13:35 2016 -0500 Jonathan A. Kollasch
+* 1 Jack Humbert
+* 1 Jonathan A. Kollasch
+* 58 Matthias Schmitt
+* 39 plgruener
 
 ## quantum/keymap_extras/keymap_german_ch.h 
 
-* 465aabe11dbd673fb4c68ecbffbfb062273def1a Wed May 18 21:22:04 2016 +0200 heartsekai
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 25938a09a6bfb2624bc96841b53897eda532e293 Thu Jul 14 11:13:35 2016 -0500 Jonathan A. Kollasch
+* 1 Jack Humbert
+* 1 Jonathan A. Kollasch
+* 100 heartsekai
 
 ## quantum/keymap_extras/keymap_german_osx.h 
 
-* e44c30f2030dd4c481a6e38e9392f147be7b0ae2 Fri Jan 15 15:55:00 2016 +0100 Stephan Bösebeck
-* bfc6eca44aeb3ad22a1c37206005dcfe617431cd Mon Mar 14 13:35:34 2016 +0100 Daniel Kriesten
-* dbd4ab3457dd001ab4bbcec14315047b815f7dfe Thu Mar 31 23:15:59 2016 +0200 Stephan Bösebeck
-* 6d40f7c5060f608068b0c4fc90871687c70b4f05 Sun Apr 17 22:19:47 2016 +0200 Stephan Bösebeck
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 1a0bac8bccf0e156d2f3c5f14a7214f9677b6370 Tue Jun 21 17:42:29 2016 -0400 Jack Humbert
-
-## quantum/keymap_extras/keymap_jp.h 
-
-* 2febf9b9f7d610fc2eca666a842272cb90a87919 Tue Nov 22 20:40:12 2016 +0900 h-youhei
+* 1 Jack Humbert
+* 96 Stephan Bösebeck
 
 ## quantum/keymap_extras/keymap_neo2.h 
 
-* 7b7870bae178c80138be5c587238fdedeb837df9 Sat Dec 19 01:41:23 2015 +0100 Matthias Schmitt
-* 4ca43225011ac94bd0a7976baf7f84059274dfbf Fri Feb 19 21:04:30 2016 +0100 plgruener
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* e329729d3a11b5798f4e2b9f65ac9bc2dcc84a9e Tue Jun 21 18:32:28 2016 -0400 Jack Humbert
+* 2 Jack Humbert
+* 42 Matthias Schmitt
+* 19 plgruener
 
 ## quantum/keymap_extras/keymap_nordic.h 
 
-* 46e7fb2d3ccd699c0a1b1fd9d02860b1f2a44141 Mon Oct 26 14:49:46 2015 -0400 Jack Humbert
-* c29ad125a7a58d5a2ced0a619165204136da9019 Fri Feb 5 01:50:54 2016 +0100 Fernando Mendonca
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 25938a09a6bfb2624bc96841b53897eda532e293 Thu Jul 14 11:13:35 2016 -0500 Jonathan A. Kollasch
-* 283ebbe14298fe75128765fa42c46f02534fb761 Mon Jul 25 12:50:27 2016 +0200 Andreas Lindhé
-* 555e41d9e5f8d393637898e2c77c64066b648245 Fri Dec 2 13:03:51 2016 -0500 Erez Zukerman
+* 1 Andreas Lindhé
+* 1 Erez Zukerman
+* 3 Fernando Mendonca
+* 53 Jack Humbert
+* 1 Jonathan A. Kollasch
 
 ## quantum/keymap_extras/keymap_norwegian.h 
 
-* e329729d3a11b5798f4e2b9f65ac9bc2dcc84a9e Tue Jun 21 18:32:28 2016 -0400 Jack Humbert
-* b6fa762234fb5a3590d0ff91ffdf5aa3ae322c8f Mon Jul 25 11:29:54 2016 +0200 Andreas Lindhé
+* 1 Andreas Lindhé
+* 40 joar
 
 ## quantum/keymap_extras/keymap_plover.h 
 
-* 7ccfaf750d08bdb3a25ef2869cac251b7cd4d3ad Sat Apr 23 18:49:10 2016 +0100 James ‘Twey’ Kay
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-
-## quantum/keymap_extras/keymap_russian.h 
-
-* c5ee24a6c3ea39e9725dfc276c92d5bce726ca78 Sun Aug 7 11:01:12 2016 -0500 kuel
-* 2a0121a78643b1dc774d82352f8c9e246010803e Sun Aug 7 11:07:38 2016 -0500 kuel
+* 1 Jack Humbert
+* 31 James ‘Twey’ Kay
 
 ## quantum/keymap_extras/keymap_spanish.h 
 
-* 46e7fb2d3ccd699c0a1b1fd9d02860b1f2a44141 Mon Oct 26 14:49:46 2015 -0400 Jack Humbert
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 132c04746910f7230b63ed33717c4ed65599ed1b Sat Jul 2 10:26:04 2016 +0200 Rubén Díaz-Jorge
-* 25938a09a6bfb2624bc96841b53897eda532e293 Thu Jul 14 11:13:35 2016 -0500 Jonathan A. Kollasch
+* 59 Jack Humbert
+* 1 Jonathan A. Kollasch
+* 2 Rubén Díaz-Jorge
 
 ## quantum/keymap_extras/keymap_uk.h 
 
-* 46e7fb2d3ccd699c0a1b1fd9d02860b1f2a44141 Mon Oct 26 14:49:46 2015 -0400 Jack Humbert
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 010dd1308420e25b327fa4d5d6b13f67a849408b Thu Jul 14 11:04:25 2016 -0500 Jonathan A. Kollasch
-* 25938a09a6bfb2624bc96841b53897eda532e293 Thu Jul 14 11:13:35 2016 -0500 Jonathan A. Kollasch
-
-## quantum/keymap_extras/keymap_unicode_cyrillic.h 
-
-* c5ee24a6c3ea39e9725dfc276c92d5bce726ca78 Sun Aug 7 11:01:12 2016 -0500 kuel
+* 34 Jack Humbert
+* 2 Jonathan A. Kollasch
 
 ## quantum/process_keycode/process_midi.c 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* 8b94e26d7c3b30cc57d710a11e5651d15e8e3b20 Sun Jul 24 22:07:43 2016 -0400 Jack Humbert
-* 8d99140d1b80bf497b2198138d3f481e93b0fbab Thu Sep 29 14:46:10 2016 -0500 Adam Gausmann
+* 3 Adam Gausmann
+* 65 Jack Humbert
 
 ## quantum/process_keycode/process_music.c 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* 3ea738e450e9326b0d3ee4192da881cffb4c13c1 Sun Jul 24 10:00:39 2016 -0400 Robert Dale
-* ae95834f5af7404c04e6fe3446019046278d814b Mon Dec 12 16:06:41 2016 -0500 Jack Humbert
-* 273faa4d9cd5a84207548f83ba550c9efee90933 Fri Dec 23 20:59:00 2016 -0500 Jack Humbert
-* 841d7e6a1d74b1fc45575ed551132ec27353ebf3 Mon Jan 23 13:55:24 2017 -0500 Jack Humbert
+* 180 Jack Humbert
+* 6 Robert Dale
 
 ## quantum/process_keycode/process_tap_dance.c 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* 1a7e954f9fc4d250ba1ae46e3bfc168aca2b5cce Wed Jul 13 00:20:28 2016 +0200 Pavlos Vinieratos
-* f3b56701ed7e6c622dc48e429780124ba5fde172 Wed Jul 13 16:47:45 2016 +0200 Pavlos Vinieratos
-* d3091faf363afc8fef73ddf4948f872439b0e827 Fri Jul 15 23:54:08 2016 +0200 Pavlos Vinieratos
-* dda2fd6ff3984ed96f8275c661b47a0484f9ee18 Mon Jul 18 23:34:02 2016 +0200 Pavlos Vinieratos
-* d5daec2a58019ebdb9804787e0f786e4fc3c05b9 Tue Jul 19 18:00:59 2016 +0200 Pavlos Vinieratos
-* 4e6a8627d8ebd7af942f68142d1a959d60361d90 Tue Jul 19 18:02:13 2016 +0200 Pavlos Vinieratos
-* 70e42489dec375e558d8e81ed5ebfb69b4f3dbd9 Wed Jul 20 10:22:52 2016 +0200 Gergely Nagy
-* ce8cc9219fca5dde077f1142d03d011b38d27479 Wed Jul 20 11:34:45 2016 +0200 Gergely Nagy
-* 44e16ffc80620b61eaa17aedcfdd8233d9c99bd9 Wed Jul 20 11:49:59 2016 +0200 Gergely Nagy
-* b21e8b97acb722bfa7b85831cfd010716ed77962 Wed Jul 27 08:42:09 2016 +0200 Gergely Nagy
-* d78058cc75a9b05a6885991506d5f807ebb2a9f9 Wed Aug 17 10:28:08 2016 +0200 Gergely Nagy
-* 29f64d7a93d941167c6c6e95f893ab84586b2205 Wed Aug 17 13:04:50 2016 +0200 Gergely Nagy
-* 0d28787c5cf2173d12f57b397515f91cffaa820a Thu Aug 18 11:29:53 2016 +0200 Gergely Nagy
-* acda2b793f69c6e0e9b9667e9ebe8a0325eb5ecd Thu Sep 1 08:32:47 2016 +0200 Gergely Nagy
-* e1f131db8e59c6ed3471906d3a62457d593f51af Wed Sep 21 10:11:42 2016 +0200 Pavlos Vinieratos
+* 90 Gergely Nagy
+* 38 Jack Humbert
+* 8 Pavlos Vinieratos
 
 ## quantum/process_keycode/process_tap_dance.h 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* f3b56701ed7e6c622dc48e429780124ba5fde172 Wed Jul 13 16:47:45 2016 +0200 Pavlos Vinieratos
-* d3091faf363afc8fef73ddf4948f872439b0e827 Fri Jul 15 23:54:08 2016 +0200 Pavlos Vinieratos
-* 70e42489dec375e558d8e81ed5ebfb69b4f3dbd9 Wed Jul 20 10:22:52 2016 +0200 Gergely Nagy
-* ce8cc9219fca5dde077f1142d03d011b38d27479 Wed Jul 20 11:34:45 2016 +0200 Gergely Nagy
-* b21e8b97acb722bfa7b85831cfd010716ed77962 Wed Jul 27 08:42:09 2016 +0200 Gergely Nagy
-* 29f64d7a93d941167c6c6e95f893ab84586b2205 Wed Aug 17 13:04:50 2016 +0200 Gergely Nagy
-* 0edc82f0300924394324e2f3c4d2f8f0008439db Wed Sep 21 11:29:34 2016 +0200 Pavlos Vinieratos
-* cda4b534fa4921c2d8f9884aa6a144333e7b07c4 Wed Sep 21 11:29:43 2016 +0200 Pavlos Vinieratos
+* 22 Gergely Nagy
+* 41 Jack Humbert
+* 9 Pavlos Vinieratos
 
 ## quantum/process_keycode/process_unicode.c 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* 8bdf745909bc2581491acce11225f56a85bc8f24 Sat Aug 13 10:33:47 2016 +0200 Gergely Nagy
-* 63e5782d2cdf0ee282ad434c773463d9da9db6b3 Sat Aug 13 10:43:22 2016 +0200 Gergely Nagy
-* fa06a163607e8c6c4bd0968c2de96a9a298b777c Sat Aug 13 10:46:38 2016 +0200 Gergely Nagy
-* 0b6861827faea747345ea38202d64c8004ab128c Sat Aug 13 11:11:22 2016 +0200 Gergely Nagy
-* 857aa5bef6a74f8785a7039feea5286c07bf7067 Sat Aug 13 11:14:42 2016 +0200 Gergely Nagy
-* 234dd276cf03be6fd6961473e9d9c8f35deec682 Sun Aug 14 10:37:51 2016 +0200 Gergely Nagy
-* a312cbf712764277e0dbbbb99410c2f6fc6c7484 Sun Aug 14 14:34:52 2016 +0200 Gergely Nagy
-* 43d08629cf275d0b32281ffe8785258fff226b49 Mon Aug 15 10:02:05 2016 +0200 Gergely Nagy
-* e8845f0daf8dc7a7674dc5420cc5a684bbbea09b Mon Aug 15 10:07:13 2016 +0200 Gergely Nagy
-* dffdeb50b79d3c623e2ed9fd1c1d82d6d0ae7bf0 Sun Aug 21 20:25:19 2016 +0200 coderkun
-* 81594c7883deefedbcd317c72c1b1f1d32e65cd7 Sun Aug 21 21:02:18 2016 +0200 coderkun
-* a058ae40e268b34ba5db45f5fd5d557d50fa5437 Wed Aug 24 15:39:23 2016 +0200 Gergely Nagy
-* c9ea236fc35d350c0ff33de0af84d3dee7d0eb95 Wed Aug 31 08:21:52 2016 +0200 Gergely Nagy
-* a3f5a4cf5839fe29dd37400d72c5e353812002f8 Sun Oct 2 10:35:09 2016 +0200 coderkun
-* 5b2e455d3b71bfb90754930d1f22d3e8ce98b927 Mon Oct 10 00:46:20 2016 +0700 Priyadi Iman Nurcahyo
-* e7d5dc89f2890007d776f6b613dc9deb473cff22 Sun Oct 23 05:36:26 2016 +0700 Priyadi Iman Nurcahyo
-* 4a666c201007eacf13a9031e3c9b156e2e04afe6 Sun Oct 23 19:15:33 2016 +0700 Priyadi Iman Nurcahyo
-* 8d60354d5a116b6cb1fc32eac7461eb125543c7d Wed Oct 26 00:48:44 2016 -0400 Jack Humbert
-* 30b80a23f3cafd846937b37b249f2df4411e1f5a Mon Jan 9 02:59:10 2017 +0700 Priyadi Iman Nurcahyo
+* 176 Gergely Nagy
+* 24 Jack Humbert
+* 84 Priyadi Iman Nurcahyo
+* 5 coderkun
 
 ## quantum/process_keycode/process_unicode.h 
 
-* 65faab3b89245f81c50b029ca178aed175d5f330 Wed Jun 29 17:49:41 2016 -0400 Jack Humbert
-* 63e5782d2cdf0ee282ad434c773463d9da9db6b3 Sat Aug 13 10:43:22 2016 +0200 Gergely Nagy
-* fa06a163607e8c6c4bd0968c2de96a9a298b777c Sat Aug 13 10:46:38 2016 +0200 Gergely Nagy
-* 857aa5bef6a74f8785a7039feea5286c07bf7067 Sat Aug 13 11:14:42 2016 +0200 Gergely Nagy
-* 234dd276cf03be6fd6961473e9d9c8f35deec682 Sun Aug 14 10:37:51 2016 +0200 Gergely Nagy
-* a312cbf712764277e0dbbbb99410c2f6fc6c7484 Sun Aug 14 14:34:52 2016 +0200 Gergely Nagy
-* 43d08629cf275d0b32281ffe8785258fff226b49 Mon Aug 15 10:02:05 2016 +0200 Gergely Nagy
-* e8845f0daf8dc7a7674dc5420cc5a684bbbea09b Mon Aug 15 10:07:13 2016 +0200 Gergely Nagy
-* a058ae40e268b34ba5db45f5fd5d557d50fa5437 Wed Aug 24 15:39:23 2016 +0200 Gergely Nagy
-* c9ea236fc35d350c0ff33de0af84d3dee7d0eb95 Wed Aug 31 08:21:52 2016 +0200 Gergely Nagy
-* 5b2e455d3b71bfb90754930d1f22d3e8ce98b927 Mon Oct 10 00:46:20 2016 +0700 Priyadi Iman Nurcahyo
-* 4a666c201007eacf13a9031e3c9b156e2e04afe6 Sun Oct 23 19:15:33 2016 +0700 Priyadi Iman Nurcahyo
-* 6fee7e178f7c949213a124d78de60bc30267d367 Sat Nov 26 23:53:15 2016 +0700 Priyadi Iman Nurcahyo
+* 40 Gergely Nagy
+* 117 Jack Humbert
+* 10 Priyadi Iman Nurcahyo
 
 ## quantum/template/config.h 
 
-* 6f3141965e88c4ee0ebf7c18a243e4c2d9c5021b Tue Oct 27 14:33:18 2015 -0400 Jack Humbert
-* 24f2698fba0055128eb90fbde793e3c84900df69 Sat Jan 23 20:45:52 2016 -0500 Jack Humbert
-* 577971ab07a49405e1dcd8e5f75b3ecb87e710b9 Mon Mar 28 00:03:21 2016 -0500 IBNobody
-* 1d13aa933bbb57bf0c1fe0196981b81233c3df97 Mon Mar 28 19:45:20 2016 -0500 IBNobody
-* aaa758f1d3f97dda39879f2b055ad2da9680adfe Mon May 23 20:42:21 2016 -0700 Eric Tang
-* 13bb6b4b7fdd2b3e419d0f89c93fb980b00eeb9b Thu Jun 23 22:18:20 2016 -0400 Jack Humbert
+* 9 Eric Tang
+* 78 IBNobody
+* 75 Jack Humbert
 
 ## quantum/template/template.c 
 
-* 6f3141965e88c4ee0ebf7c18a243e4c2d9c5021b Tue Oct 27 14:33:18 2015 -0400 Jack Humbert
-* 641859df84bf40025b2c14319d1a168a435562e2 Thu Mar 10 11:28:34 2016 -0500 yoyoerx
-* eba9a7d74db0be548cddc107f0370dabf43b017f Tue Mar 15 23:52:51 2016 -0500 IBNobody
-* ec62d9e85cab5cf166241b0536120d005fa7c898 Tue Mar 22 20:39:05 2016 -0500 IBNobody
-* 3d56ec052ed485d4b717da930c4024b4a3f792e0 Tue Mar 22 21:06:22 2016 -0500 IBNobody
-* 2181be029e01d9cf46ae3cadcdf25f5bca02c631 Mon Mar 28 16:13:37 2016 +0200 Damien Pollet
-* 0656f2fa10e25e160617c3e5d14cfbae35dd9c8d Fri Apr 29 22:19:40 2016 -0400 Jack Humbert
-* 1a8c0dd22d6a2255511d0db6a456315541b5815b Sun May 15 00:27:32 2016 -0400 Erez Zukerman
-* 13bb6b4b7fdd2b3e419d0f89c93fb980b00eeb9b Thu Jun 23 22:18:20 2016 -0400 Jack Humbert
-* 589df84d6cd19ad7d776cc19bcddade1cd178ddc Thu Jul 7 09:58:44 2016 -0400 Jack Humbert
-* c1dfb636ef61159456bdb24f4fee3f27e5babbeb Thu Jul 7 12:22:10 2016 -0400 Jack Humbert
+* 9 Damien Pollet
+* 7 IBNobody
+* 8 Jack Humbert
+* 4 yoyoerx
 
 ## quantum/template/template.h 
 
-* 6f3141965e88c4ee0ebf7c18a243e4c2d9c5021b Tue Oct 27 14:33:18 2015 -0400 Jack Humbert
-* 24f2698fba0055128eb90fbde793e3c84900df69 Sat Jan 23 20:45:52 2016 -0500 Jack Humbert
-* ee1b94045e5bebda517119cb1853b0ab3fd0f499 Fri Mar 4 10:53:58 2016 -0500 Noah Andrews
-* 641859df84bf40025b2c14319d1a168a435562e2 Thu Mar 10 11:28:34 2016 -0500 yoyoerx
-* eba9a7d74db0be548cddc107f0370dabf43b017f Tue Mar 15 23:52:51 2016 -0500 IBNobody
-* ec62d9e85cab5cf166241b0536120d005fa7c898 Tue Mar 22 20:39:05 2016 -0500 IBNobody
-* 2181be029e01d9cf46ae3cadcdf25f5bca02c631 Mon Mar 28 16:13:37 2016 +0200 Damien Pollet
-* 0656f2fa10e25e160617c3e5d14cfbae35dd9c8d Fri Apr 29 22:19:40 2016 -0400 Jack Humbert
-* 1a8c0dd22d6a2255511d0db6a456315541b5815b Sun May 15 00:27:32 2016 -0400 Erez Zukerman
-* db32864ce7029d758f57729cc2f75e051a28d0a2 Sat Jun 18 14:30:24 2016 -0400 Jack Humbert
-* 13bb6b4b7fdd2b3e419d0f89c93fb980b00eeb9b Thu Jun 23 22:18:20 2016 -0400 Jack Humbert
+* 2 Damien Pollet
+* 16 Jack Humbert
+* 1 Noah Andrews
 
 # All Single Author Files
 
