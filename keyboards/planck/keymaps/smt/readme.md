@@ -14,6 +14,16 @@ Notable differences from the default are:
 
     Thankfully, QMK supports [mod-tap](https://github.com/jackhumbert/qmk_firmware/wiki#fun-with-modifier-keys) keys, and this allows me to set the Enter key to send a modifier (MOD_LSFT) when held, and KC_ENT when tapped. Awesome!
 
+3. Escape
+
+    I am experimenting with using Left Shift as a mod-tap key for Escape, similar to how I use the Enter key. It's set up like this on my Minivan, so in the interest of consistency...
+
+4. Backtick
+
+    I don't currently have LEDs on any of my keyboards, and even if I did, I don't think I would want their controls on a base layer.
+
+    So, why use backtick in the lower left corner? I use it as my tmux prefix key, so I need to type it more frequently than most people. Putting it on the base layer works well for me.
+
 ## Dvorak (default)
 
 ```
@@ -24,7 +34,7 @@ Notable differences from the default are:
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+|   `  | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
 `-----------------------------------------------------------------------------------'
 ```
 
@@ -38,7 +48,7 @@ Notable differences from the default are:
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+|   `  | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
 `-----------------------------------------------------------------------------------'
 ```
 
@@ -76,3 +86,18 @@ I haven't completely filled this layer, which leaves room for future mappings an
 `-----------------------------------------------------------------------------------'
 ```
 
+## Adjust (Lower + Raise)
+
+Utility layer. This is where I'd switch to Qwerty, or ~~fool around with~~ adjust the audio/music settings.
+
+```
+,-----------------------------------------------------------------------------------.
+|      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+|------+------+------+------+------+-------------+------+------+------+------+------|
+|      |      |      |Aud on|AudOff|AGnorm|AGswap|Dvorak|Qwerty|      |      |      |
+|------+------+------+------+------+------|------+------+------+------+------+------|
+|      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
+|------+------+------+------+------+------+------+------+------+------+------+------|
+|      |      |      |      |      |             |      |      |      |      |      |
+`-----------------------------------------------------------------------------------'
+```
