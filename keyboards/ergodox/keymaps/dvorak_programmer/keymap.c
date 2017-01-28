@@ -6,7 +6,6 @@
 #include "action_code.h"
 
 #define BASE    0 // default layer
-#define SHELL_LAYER 1
 #define SHELL_NAV 2
 #define KEY_NAV 3 // key navigation layer
 #define KEY_SEL 4 // key selection layer
@@ -84,31 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      
 
 	 
-// permanent shell layer - meant to be used while in a terminal. only the top keys are overriden
-[SHELL_LAYER] = KEYMAP(
-       // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,LALT(KC_DOT),RCTL(KC_R),RCTL(KC_C),
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       RCTL(KC_W), LALT(KC_B),LALT(KC_F), KC_LEFT, KC_RIGHT, LALT(KC_D), KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                // bottom row
-                 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),	 
 	 
 // shell navigation layer
 [SHELL_NAV] = KEYMAP(
