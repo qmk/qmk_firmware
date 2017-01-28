@@ -250,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            MEH(KC_S),    MEH(KC_T),    MEH(KC_U),    MEH(KC_V), MEH(KC_X),
        MEH(KC_6), MEH(KC_7),
        MEH(KC_8),
-       MEH(KC_9), TO(BASE), TO(SHELL_LAYER)
+       MEH(KC_9), MEH(KC_Y), MEH(KC_Z)
 ),
 
 
