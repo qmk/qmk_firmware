@@ -21,7 +21,7 @@ Username | # Lines | Files | Sign Off Date |
 @Wilba6582 | 330 | quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/quantum_keycodes.h | |
 @yangliu | 465 | quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/rgblight.c<br>quantum/rgblight.h | |
 @ezuk | 118 | quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_nordic.h |
-@yoyoerx | yoyoerx | 6 | quantum/matrix.c<br>quantum/template/template.c | |
+@yoyoerx | 6 | quantum/matrix.c<br>quantum/template/template.c | |
 Gergely Nagy | 380 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
 Ofer Plesser | 2 | quantum/quantum.c | |
 Pavlos Vinieratos | 33 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | |
