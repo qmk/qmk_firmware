@@ -2,6 +2,14 @@
 
 As raised in #1038 and other issues, the licensing status of QMK is not clear. In an effort to remove ambiguity and to clarify the licensing status of the quantum code we are identifying the providence of our source code files and clarifying what license applies to each one.
 
+# Signoff
+
+This section documents the people who need to sign off on applying the GPL to one or more of their contributions. 
+
+Author|# Lines|Files
+------|-------|-----
+TBD | TBD | TBD
+
 # Single Author Files
 
 These are the single author files that still need to have their license clarified.
