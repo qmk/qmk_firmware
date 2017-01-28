@@ -6,53 +6,53 @@ As raised in #1038 and other issues, the licensing status of QMK is not clear. I
 
 This section documents the people who need to sign off on applying the GPL to one or more of their contributions. 
 
-Username | Author | # Lines | Files | Sign Off Date |
----------|--------|---------|-------|---------------|
-@Vifon | | 231 | quantum/dynamic_macro.h | |
-@wez | | 37 | quantum/dynamic_macro.h | |
-@DidierLoiseau | DidierLoiseau | 563 | | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h | |
-@h-youhei | h-youhei | 62 | quantum/keymap_extras/keymap_jp.h | |
-@kuel | kuel | 240 | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/keymap_russian.h | |
-@eltang | Eric Tang | 155 |  quantum/config_common.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/template/config.h | |
-@fredizzimo | Fred Sundvik | 112 | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/keymap_common.c<br>quantum/matrix.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c | |
-@jackhumbert | Jack Humbert | 2841 | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c<br>quantum/audio/audio.c<br>quantum/audio/audio.h<br>quantum/audio/audio_pwm.c<br>quantum/audio/audio_pwm.c<br>quantum/audio/voices.c<br>quantum/audio/voices.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_dvorak.h<br>quantum/keymap_extras/keymap_fr_ch.h<br>quantum/keymap_extras/keymap_french.h<br>quantum/keymap_extras/keymap_french_osx.h<br>quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_german_ch.h<br>quantum/keymap_extras/keymap_german_osx.h<br>quantum/keymap_extras/keymap_neo2.h<br>quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_plover.h<br>quantum/keymap_extras/keymap_spanish.h<br>quantum/keymap_extras/keymap_uk.h<br>quantum/process_keycode/process_midi.c<br>quantum/process_keycode/process_music.c<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h<br>quantum/template/config.h<br>quantum/template/template.c<br>quantum/template/template.h | |
-@ofples | ofples | 1 | quantum/config_common.h | |
-@IBnobody | IBNobody | 1491 | quantum/keycode_config.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/audio/audio.c<br>quantum/audio/audio.h<br>quantum/audio/audio_pwm.c<br>quantum/audio/audio_pwm.c<br>quantum/audio/voices.c<br>quantum/audio/voices.h<br>quantum/template/config.h<br>quantum/template/template.c | |
-@Wilba6582 | Wilba6582 | 330 | quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/quantum_keycodes.h | |
-@yangliu | Yang Liu | 465 | quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/rgblight.c<br>quantum/rgblight.h | |
-@ezuk | Erez Zukerman | 118 | quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_nordic.h |
+Username | # Lines | Files | Sign Off Date |
+---------|---------|-------|---------------|
+@Vifon | 231 | quantum/dynamic_macro.h | |
+@wez | 37 | quantum/dynamic_macro.h | |
+@DidierLoiseau | 563 | | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h | |
+@h-youhei | 62 | quantum/keymap_extras/keymap_jp.h | |
+@kuel | 240 | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/keymap_russian.h | |
+@eltang | 155 |  quantum/config_common.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/template/config.h | |
+@fredizzimo | 112 | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/keymap_common.c<br>quantum/matrix.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c | |
+@jackhumbert | 2841 | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c<br>quantum/audio/audio.c<br>quantum/audio/audio.h<br>quantum/audio/audio_pwm.c<br>quantum/audio/audio_pwm.c<br>quantum/audio/voices.c<br>quantum/audio/voices.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_dvorak.h<br>quantum/keymap_extras/keymap_fr_ch.h<br>quantum/keymap_extras/keymap_french.h<br>quantum/keymap_extras/keymap_french_osx.h<br>quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_german_ch.h<br>quantum/keymap_extras/keymap_german_osx.h<br>quantum/keymap_extras/keymap_neo2.h<br>quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_plover.h<br>quantum/keymap_extras/keymap_spanish.h<br>quantum/keymap_extras/keymap_uk.h<br>quantum/process_keycode/process_midi.c<br>quantum/process_keycode/process_music.c<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h<br>quantum/template/config.h<br>quantum/template/template.c<br>quantum/template/template.h | |
+@ofples | 1 | quantum/config_common.h | |
+@IBnobody | 1491 | quantum/keycode_config.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/audio/audio.c<br>quantum/audio/audio.h<br>quantum/audio/audio_pwm.c<br>quantum/audio/audio_pwm.c<br>quantum/audio/voices.c<br>quantum/audio/voices.h<br>quantum/template/config.h<br>quantum/template/template.c | |
+@Wilba6582 | 330 | quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/quantum_keycodes.h | |
+@yangliu | 465 | quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/rgblight.c<br>quantum/rgblight.h | |
+@ezuk | 118 | quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_nordic.h |
 @yoyoerx | yoyoerx | 6 | quantum/matrix.c<br>quantum/template/template.c | |
- | Gergely Nagy | 380 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
- | Ofer Plesser | 2 | quantum/quantum.c | |
- | Pavlos Vinieratos | 33 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | |
- | Priyadi Iman Nurcahyo | 96 | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
- | Smilliam | 12 | quantum/quantum.c | |
- | TerryMathews | 52 | quantum/quantum.c | |
- | Wojciech Siewierski | 12 | quantum/quantum.c | |
- | Jordi Orlando | 311 | quantum/rgblight.c | |
- | Scott Wilson | 3 | quantum/rgblight.c<br>quantum/rgblight.h | |
-@skullydazed | skullY | 2 | quantum/rgblight.c | |
- | JeeBak Kim | 8 | quantum/audio/audio_pwm.c | |
- | Vivien Alger | 2 | quantum/keymap_extras/keymap_bepo.h | |
- | Jonathan A. Kollasch | 24 | quantum/keymap_extras/keymap_dvorak.h<br>quantum/keymap_extras/keymap_fr_ch.h<br>quantum/keymap_extras/keymap_french.h<br>quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_german_ch.h<br>quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_spanish.h<br>quantum/keymap_extras/keymap_uk.h | |
- | Keller-Laminar | 1 | quantum/keymap_extras/keymap_dvorak.h | |
- | Vincent Pochet | 96 | quantum/keymap_extras/keymap_fr_ch.h | |
- | Kévin Letord | 1 | quantum/keymap_extras/keymap_french.h | |
- | Sébastien Pérochon | 76 | quantum/keymap_extras/keymap_french_osx.h | |
- | Matthias Schmitt | 100 | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
- | plgruener | 58 | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
- | heartsekai | 100 | quantum/keymap_extras/keymap_german_ch.h | |
- | Stephan Bösebeck | 96 | quantum/keymap_extras/keymap_german_osx.h | |
- | Andreas Lindé | 2 | quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_norwegian.h | |
- | Fernando Mendonca | 3 | quantum/keymap_extras/keymap_nordic.h | |
- | joar | 40 | quantum/keymap_extras/keymap_norwegian.h | |
- | James 'Twey' Kay | 31 | quantum/keymap_extras/keymap_plover.h | |
- | Rubén Díaz-Jorge | 2 | quantum/keymap_extras/keymap_spanish.h | |
- | Adam Gausmann | 3 | quantum/process_keycode/process_midi.c | |
- | Robert Dale | 6 | quantum/process_keycode/process_music.c | |
- | coderkun | 5 | quantum/process_keycode/process_unicode.c | |
- | Damien Pollet | 11 | quantum/template/template.c<br>quantum/template/template.h | |
- | Noah Andrews | 1 | quantum/template/template.h | |
+Gergely Nagy | 380 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
+Ofer Plesser | 2 | quantum/quantum.c | |
+Pavlos Vinieratos | 33 | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | |
+Priyadi Iman Nurcahyo | 96 | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
+Smilliam | 12 | quantum/quantum.c | |
+TerryMathews | 52 | quantum/quantum.c | |
+Wojciech Siewierski | 12 | quantum/quantum.c | |
+Jordi Orlando | 311 | quantum/rgblight.c | |
+Scott Wilson | 3 | quantum/rgblight.c<br>quantum/rgblight.h | |
+@skullydazed | 2 | quantum/rgblight.c | |
+JeeBak Kim | 8 | quantum/audio/audio_pwm.c | |
+Vivien Alger | 2 | quantum/keymap_extras/keymap_bepo.h | |
+Jonathan A. Kollasch | 24 | quantum/keymap_extras/keymap_dvorak.h<br>quantum/keymap_extras/keymap_fr_ch.h<br>quantum/keymap_extras/keymap_french.h<br>quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_german_ch.h<br>quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_spanish.h<br>quantum/keymap_extras/keymap_uk.h | |
+Keller-Laminar | 1 | quantum/keymap_extras/keymap_dvorak.h | |
+Vincent Pochet | 96 | quantum/keymap_extras/keymap_fr_ch.h | |
+Kévin Letord | 1 | quantum/keymap_extras/keymap_french.h | |
+Sébastien Pérochon | 76 | quantum/keymap_extras/keymap_french_osx.h | |
+Matthias Schmitt | 100 | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
+plgruener | 58 | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
+heartsekai | 100 | quantum/keymap_extras/keymap_german_ch.h | |
+Stephan Bösebeck | 96 | quantum/keymap_extras/keymap_german_osx.h | |
+Andreas Lindé | 2 | quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_norwegian.h | |
+Fernando Mendonca | 3 | quantum/keymap_extras/keymap_nordic.h | |
+joar | 40 | quantum/keymap_extras/keymap_norwegian.h | |
+James 'Twey' Kay | 31 | quantum/keymap_extras/keymap_plover.h | |
+Rubén Díaz-Jorge | 2 | quantum/keymap_extras/keymap_spanish.h | |
+Adam Gausmann | 3 | quantum/process_keycode/process_midi.c | |
+Robert Dale | 6 | quantum/process_keycode/process_music.c | |
+coderkun | 5 | quantum/process_keycode/process_unicode.c | |
+Damien Pollet | 11 | quantum/template/template.c<br>quantum/template/template.h | |
+@NoahAndrews | 1 | quantum/template/template.h | |
 
 # Single Author Files
 
