@@ -41,22 +41,22 @@ stephan.bosebeck at holidayinsider.com | 96 | quantum/keymap_extras/keymap_germa
 
 Smaller contributions that don't need to sign off on the license change.
 
-Username | # Lines | Files | Sign Off Date |
----------|---------|-------|---------------|
-@AGausmann | 3 | quantum/process_keycode/process_midi.c | |
-@Chipairon | 2 | quantum/keymap_extras/keymap_spanish.h | |
-@coderkun | 5 | quantum/process_keycode/process_unicode.c | |
-@fernandodeperto | 3 | quantum/keymap_extras/keymap_nordic.h | |
-@jeebak | 8 | quantum/audio/audio_pwm.c | |
-@Keller-Laminar | 1 | quantum/keymap_extras/keymap_dvorak.h | |
-kevin at letord.fr | 1 | quantum/keymap_extras/keymap_french.h | |
-@ofpies | 3 | quantum/config_common.h<br>quantum/quantum.c | |
-@MagicianVivi | 2 | quantum/keymap_extras/keymap_bepo.h | |
-@NoahAndrews | 1 | quantum/template/template.h | |
-@robertdale | 6 | quantum/process_keycode/process_music.c | |
-@scott-t-wilson | 3 | quantum/rgblight.c<br>quantum/rgblight.h | |
-@skullydazed | 2 | quantum/rgblight.c | |
-@yoyoerx | 6 | quantum/matrix.c<br>quantum/template/template.c | |
+Username | # Lines | Files | 
+---------|---------|-------|
+@AGausmann | 3 | quantum/process_keycode/process_midi.c |
+@Chipairon | 2 | quantum/keymap_extras/keymap_spanish.h | 
+@coderkun | 5 | quantum/process_keycode/process_unicode.c | 
+@fernandodeperto | 3 | quantum/keymap_extras/keymap_nordic.h | 
+@jeebak | 8 | quantum/audio/audio_pwm.c | 
+@Keller-Laminar | 1 | quantum/keymap_extras/keymap_dvorak.h | 
+kevin at letord.fr | 1 | quantum/keymap_extras/keymap_french.h | 
+@ofpies | 3 | quantum/config_common.h<br>quantum/quantum.c | 
+@MagicianVivi | 2 | quantum/keymap_extras/keymap_bepo.h | 
+@NoahAndrews | 1 | quantum/template/template.h | 
+@robertdale | 6 | quantum/process_keycode/process_music.c | 
+@scott-t-wilson | 3 | quantum/rgblight.c<br>quantum/rgblight.h | 
+@skullydazed | 2 | quantum/rgblight.c | 
+@yoyoerx | 6 | quantum/matrix.c<br>quantum/template/template.c | 
 
 # Single Author Files
 
