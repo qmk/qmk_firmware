@@ -14,7 +14,7 @@ Username | Files | Sign Off Date |
 @DidierLoiseau | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h | |
 @eltang |  quantum/config_common.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/template/config.h | |
 @ezuk | quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_nordic.h |
-@fredizzimo | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/keymap_common.c<br>quantum/matrix.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c | |
+@fredizzimo | quantum/config_common.h<br>quantum/keycode_config.h<br>quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/keymap_common.c<br>quantum/matrix.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/api/api_sysex.c | 2017 Jan 29 |
 @h-youhei | quantum/keymap_extras/keymap_jp.h | 2017 Jan 28 |
 @heartsekai | quantum/keymap_extras/keymap_german_ch.h | |
 @IBnobody | quantum/keycode_config.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/audio/audio.c<br>quantum/audio/audio.h<br>quantum/audio/audio_pwm.c<br>quantum/audio/audio_pwm.c<br>quantum/audio/voices.c<br>quantum/audio/voices.h<br>quantum/template/config.h<br>quantum/template/template.c | |
