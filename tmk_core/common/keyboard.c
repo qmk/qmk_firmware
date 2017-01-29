@@ -188,7 +188,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef VISUALIZER_ENABLE
-    visualizer_update(default_layer_state, layer_state, host_keyboard_leds());
+    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
 #endif
 
     // update LED
