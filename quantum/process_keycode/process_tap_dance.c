@@ -43,12 +43,16 @@ static inline void process_tap_dance_action_on_dance_finished (qk_tap_dance_acti
   if (action->state.finished)
     return;
   action->state.finished = true;
+  add_mods(action->state.oneshot_mods);
+  send_keyboard_report();
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_dance_finished);
 }
 
 static inline void process_tap_dance_action_on_reset (qk_tap_dance_action_t *action)
 {
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_reset);
+  del_mods(action->state.oneshot_mods);
+  send_keyboard_report();
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
@@ -70,6 +74,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+      action->state.oneshot_mods = get_oneshot_mods();
       process_tap_dance_action_on_each_tap (action);
 
       if (last_td && last_td != keycode) {
@@ -109,7 +114,7 @@ void matrix_scan_tap_dance () {
   if (highest_td == -1)
     return;
 
-  for (int i = 0; i <= highest_td; i++) {
+for (int i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
 
     if (action->state.count && timer_elapsed (action->state.timer) > TAPPING_TERM) {
