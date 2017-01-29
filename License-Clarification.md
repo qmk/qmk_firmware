@@ -25,7 +25,7 @@ Username | Files | Sign Off Date |
 @matzebond | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
 @plgruener | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
 @priyadi | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
-@pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | |
+@pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | 2017 Jan 29 |
 @Smilliam | quantum/quantum.c | |
 @sperochon | quantum/keymap_extras/keymap_french_osx.h | |
 stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | |
