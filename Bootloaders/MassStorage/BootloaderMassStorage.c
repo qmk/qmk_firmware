@@ -149,7 +149,7 @@ void Application_Jump_Check(void)
 		MagicBootKey = 0;
 
 		// cppcheck-suppress constStatement
-		((void (*)(void))0x7000)();
+		((void (*)(void))0x0000)();
 	}
 }
 
