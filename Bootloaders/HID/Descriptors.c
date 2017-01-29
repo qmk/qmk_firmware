@@ -110,7 +110,7 @@ const USB_Descriptor_Configuration_t ConfigurationDescriptor =
 		{
 			.Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-			.InterfaceNumber        = INTERFACE_ID_Printer,
+			.InterfaceNumber        = INTERFACE_ID_GenericHID,
 			.AlternateSetting       = 0x00,
 
 			.TotalEndpoints         = 1,
