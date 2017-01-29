@@ -28,7 +28,7 @@ Username | Files | Sign Off Date |
 @pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | |
 @Smilliam | quantum/quantum.c | |
 @sperochon | quantum/keymap_extras/keymap_french_osx.h | |
-stephan.bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | |
+stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | |
 @TerryMathews | quantum/quantum.c | |
 @Twey | quantum/keymap_extras/keymap_plover.h | |
 @Vifon | quantum/dynamic_macro.h<br>quantum/quantum.c | |
