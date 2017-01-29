@@ -4,7 +4,7 @@ As raised in #1038 and other issues, the licensing status of QMK is not clear. I
 
 # Signoff
 
-This section documents the people who need to sign off on applying the GPL to one or more of their contributions. If your name appears below and you consent to applying the GPL to your contributions, please put today's date in the last field of your row. Please stick to the following date format: "YYYY Mon. DD" IE: 2017 Jan 28
+This section documents the people who need to sign off on applying the GPL to one or more of their contributions. If your name appears below and you consent to applying the GPL to your contributions, please put today's date in the last field of your row. Please stick to the following date format: 2017 Jan 28
 
 Username | Files | Sign Off Date |
 ---------|-------|---------------|
