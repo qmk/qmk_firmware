@@ -487,7 +487,7 @@ $(SUBPROJECTS): %: %-allkm
 .PHONY: %
 %:
 	# Check if we have the CMP tool installed
-	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
 	git submodule status --recursive 2>/dev/null | \

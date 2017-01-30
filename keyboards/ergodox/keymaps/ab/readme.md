@@ -8,7 +8,7 @@ Beginner's keymap emulates standard QWERTY keyboard for beginners. Once you get 
 * Easy on beginners. It has everything you need for your day to day usage.
 
 #### Cons
-* Keys are not ergonomically placed to take full advantage of Ergodox-EZ. Take a look at this [Default Keymap](https://github.com/jackhumbert/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/default/readme.md)
+* Keys are not ergonomically placed to take full advantage of Ergodox-EZ. Take a look at this [Default Keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/default/readme.md)
 * While multiple layers are possible, beginner's keymap only uses one additional layer for mouse, function and volume keys.
 
 #### Notes
