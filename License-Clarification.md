@@ -24,7 +24,7 @@ kuel | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/
 @lindhe | quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_norwegian.h | 2017 Jan 30 |
 @matzebond | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
 @plgruener | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | 2017 Jan 30 |
-@priyadi | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | |
+@priyadi | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | 2017 Jan 31 |
 @pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | 2017 Jan 29 |
 @Smilliam | quantum/quantum.c | |
 @sperochon | quantum/keymap_extras/keymap_french_osx.h | 2017 Jan 30 |
