@@ -210,21 +210,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
-static void ang_tap (uint16_t code, ...) {
-  uint16_t kc = code;
-  va_list ap;
-
-  va_start(ap, code);
-
-  do {
-    register_code16(kc);
-    unregister_code16(kc);
-    wait_ms(50);
-    kc = va_arg(ap, int);
-  } while (kc != 0);
-  va_end(ap);
-}
-
 #define TAP_ONCE(code)  \
   register_code (code); \
   unregister_code (code)
@@ -284,7 +269,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   case YAY:
       if (record->event.pressed) {
-	ang_tap (KC_BSLS, KC_O, KC_SLSH, 0);
+	SEND_STRING ("\\o/");
       }
       return false;
       break;
