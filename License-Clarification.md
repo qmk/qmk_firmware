@@ -22,7 +22,7 @@ Username | Files | Sign Off Date |
 @jakllsch | quantum/keymap_extras/keymap_dvorak.h<br>quantum/keymap_extras/keymap_fr_ch.h<br>quantum/keymap_extras/keymap_french.h<br>quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_german_ch.h<br>quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_spanish.h<br>quantum/keymap_extras/keymap_uk.h | 2017 Jan 29 |
 kuel | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/keymap_russian.h | |
 @lindhe | quantum/keymap_extras/keymap_nordic.h<br>quantum/keymap_extras/keymap_norwegian.h | 2017 Jan 30 |
-@matzebond | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | |
+@matzebond | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | 2017 Jan 30 |
 @plgruener | quantum/keymap_extras/keymap_german.h<br>quantum/keymap_extras/keymap_neo2.h | 2017 Jan 30 |
 @priyadi | quantum/quantum.c<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | 2017 Jan 31 |
 @pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | 2017 Jan 29 |
