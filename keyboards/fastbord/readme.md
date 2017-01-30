@@ -1,4 +1,4 @@
-MAX96 keyboard firmware
+fastbord keyboard firmware
 ======================
 
 ## Quantum MK Firmware
@@ -7,7 +7,7 @@ For the full Quantum feature list, see [the parent readme](/).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboards/MAX96 folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Download or clone the whole firmware and navigate to the keyboards/fastbord folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 

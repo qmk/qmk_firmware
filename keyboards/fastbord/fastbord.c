@@ -1,4 +1,4 @@
-#include "MAX96.h"
+#include "fastbord.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
