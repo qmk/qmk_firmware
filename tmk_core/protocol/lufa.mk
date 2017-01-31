@@ -15,6 +15,7 @@ endif
 
 LUFA_SRC = lufa.c \
 	   descriptor.c \
+	   outputselect.c \
 	   $(LUFA_SRC_USB)
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
