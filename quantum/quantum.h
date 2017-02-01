@@ -15,7 +15,6 @@
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
 #endif
-
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>
