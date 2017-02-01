@@ -12,7 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include "lufa.h"
 #include "outputselect.h"
 #ifdef ADAFRUIT_BLE_ENABLE
     #include "adafruit_ble.h"
