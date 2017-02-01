@@ -374,7 +374,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 		break;	
 		case DUAL_CAPSLOCK: 
 		   if (record->event.pressed) { 
-				   if(timer_elapsed(capslock_timer) < 100) { 
+				   if(timer_elapsed(capslock_timer) < 300) { 
 						   // activate SHELL_NAV
 						   layer_on(SHELL_NAV); 
 				   } else { 
