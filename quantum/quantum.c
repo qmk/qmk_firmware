@@ -1,5 +1,5 @@
 #include "quantum.h"
-#if defined(__AVR__)
+#ifdef PROTOCOL_LUFA
 #include "outputselect.h"
 #endif
 
@@ -215,7 +215,7 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
-    #if defined(__AVR__)
+    #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
