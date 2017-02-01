@@ -1,5 +1,7 @@
 #include "quantum.h"
+#if defined(__AVR__)
 #include "outputselect.h"
+#endif
 
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
@@ -213,6 +215,7 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
+    #if defined(__AVR__)
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
@@ -240,6 +243,7 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       return false;
       break;
+    #endif
     #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
