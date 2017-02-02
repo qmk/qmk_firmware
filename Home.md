@@ -1562,4 +1562,4 @@ This will add a traced variable named "layer" (the name is just for your informa
 
 In order to actually detect changes to the variables you should call `VERIFY_TRACED_VARIABLES` around the code that you think that modifies the variable. If a variable is modified it will tell you between which two `VERIFY_TRACED_VARIABLES` calls the modification happened. You can then add more calls to track it down further. I don't recommend spamming the codebase with calls. It's better to start with a few, and then keep adding them in a binary search fashion. You can also delete the ones you don't need, as each call need to store the file name and line number in the ROM, so you can run out of memory if you add too many calls.
 
-Also remember to delete all the tracing code ones you have found the bug, as you wouldn't want to create a pull request with tracing code.
+Also remember to delete all the tracing code once you have found the bug, as you wouldn't want to create a pull request with tracing code.
