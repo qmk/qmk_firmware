@@ -99,10 +99,10 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 # modify the keymap and keyboard assigment to compile what you want
 # defaults are ergodox/default
 
-docker run -e keymap=gwen -e keymap=default -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+docker run -e keymap=gwen -e subproject=ez -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
 # On windows docker seems to have issue with VOLUME tag in Dockerfile, and $('pwd') won't print a windows compliant path, use full path instead like this
-docker run -e keymap=default -e keymap=default -e keyboard=ergobox --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+docker run -e keymap=default -e subproject=ez -e keyboard=ergobox --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
 
