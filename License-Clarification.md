@@ -10,7 +10,7 @@ Username | Files | Sign Off Date |
 ---------|-------|---------------|
 @0xdec | quantum/rgblight.c | 2017 Jan 29 |
 @algernon | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h<br>quantum/process_keycode/process_unicode.c<br>quantum/process_keycode/process_unicode.h | 2017 Jan 29 |
-@cdlm | quantum/template/template.c<br>quantum/template/template.h | |
+@cdlm | quantum/template/template.c<br>quantum/template/template.h | 2017 Feb 03 |
 @DidierLoiseau | quantum/keymap_extras/keymap_canadian_multilingual.h<br>quantum/keymap_extras/keymap_bepo.h |2017 Jan 29 |
 @eltang |  quantum/config_common.h<br>quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/template/config.h | |
 @ezuk | quantum/matrix.c<br>quantum/quantum.c<br>quantum/quantum.h<br>quantum/quantum_keycodes.h<br>quantum/rgblight.c<br>quantum/rgblight.h<br>quantum/keymap_extras/keymap_colemak.h<br>quantum/keymap_extras/keymap_nordic.h | 2017 Jan 31 |
