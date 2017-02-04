@@ -1,5 +1,6 @@
 #include "ergodox.h"
 #include "led.h"
+#include "mousekey.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "action_util.h"
