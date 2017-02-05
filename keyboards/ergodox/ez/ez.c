@@ -52,9 +52,9 @@ uint8_t init_mcp23018(void) {
 
     // I2C subsystem
 
-    uint8_t sreg_prev;
-    sreg_prev=SREG;
-    cli();
+    // uint8_t sreg_prev;
+    // sreg_prev=SREG;
+    // cli();
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
         i2c_initialized++;
@@ -83,7 +83,7 @@ uint8_t init_mcp23018(void) {
 out:
     i2c_stop();
 
-    SREG=sreg_prev;
+    // SREG=sreg_prev;
 
     return mcp23018_status;
 }
