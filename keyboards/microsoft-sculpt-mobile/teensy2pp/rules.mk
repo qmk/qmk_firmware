@@ -1,19 +1,23 @@
+# MCU name
+MCU = at90usb1286
 
-#ifdef SUBPROJECT_teensy2pp
-	SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
-#endif
+F_CPU = 16000000
 
-#ifdef SUBPROJECT_astar
-	OPT_DEFS += -DCATERINA_BOOTLOADER
-	SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
-			 avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
+ARCH = AVR8
 
-#endif
-
+F_USB = $(F_CPU)
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+
+# Boot Section Size in *bytes*
+#   Teensy++ halfKay 2048
+OPT_DEFS += -DBOOTLOADER_SIZE=2048
+
+
+# Build Options
+#   change yes to no to disable
 #
 BOOTMAGIC_ENABLE ?= no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE ?= no       # Mouse keys(+4700)
@@ -29,10 +33,3 @@ MIDI_ENABLE ?= no            # MIDI controls
 UNICODE_ENABLE ?= no         # Unicode
 BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE ?= no           # Audio output on port C6
-
-
-USB ?= /dev/cu.usbmodem1421
- 
-
-upload: build
-	$(SCULPT_UPLOAD_COMMAND)

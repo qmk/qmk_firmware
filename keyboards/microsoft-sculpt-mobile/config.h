@@ -28,27 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         sculpt mobile 
 #define DESCRIPTION     6000
 
-/* key matrix size */
-#define MATRIX_ROWS 8 
-#define MATRIX_COLS 18 
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6,B7 } 
-#define MATRIX_COL_PINS { F0 ,F1, F2, F3, F4, F5, F6, F7,C0, C1, C2, C3, C4, C5, C6, C7, D0, D1 }
-#define UNUSED_PINS { D2, D3, D4, D5 D6 }
+#ifdef SUBPROJECT_astar
+#include "./astar/config.h"
+#endif
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
- 
+#ifdef SUBPROJECT_teensy2pp
+#include "./teensy2pp/config.h"
+#endif
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
