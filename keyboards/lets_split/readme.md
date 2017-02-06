@@ -123,12 +123,12 @@ The EEPROM approach requires additional setup (flashing the eeeprom) but allows 
 The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
 
 ### Setting the left hand as master
-If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` if for some reason it was set.
+If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
 
 ### Setting the right hand as master
 If you always plug the usb cable into the right board, add an extra flag to your `config.h`
 ```
- #define I2C_MASTER_RIGHT
+ #define MASTER_RIGHT
 ```
 
 ### Setting EE_hands to use either hands as master
