@@ -20,7 +20,8 @@ increment_version ()
 NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | wc -l)
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
-	lasttag=$(git tag | grep -Ev '\-' | head -1)
+	git fetch --tags
+	lasttag=$(git tag | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort | awk '{print $4}' | tail -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
 	git push --tags -q https://$GH_TOKEN@github.com/qmk/qmk_firmware
