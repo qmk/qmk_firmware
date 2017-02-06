@@ -2,7 +2,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 24
+	#define RGBLIGHT_MODES 34
 #else
 	#define RGBLIGHT_MODES 1
 #endif
