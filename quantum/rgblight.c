@@ -237,7 +237,7 @@ void rgblight_mode(uint8_t mode) {
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
-  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 23) {
+  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 24) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
@@ -450,7 +450,7 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
       // mode = 21 to 23, knight mode
       rgblight_effect_knight(rgblight_config.mode - 21);
-    } else {
+    } else if (rgblight_config.mode == 24) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
     }
@@ -604,13 +604,13 @@ void rgblight_effect_christmas(void) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < 1000) {
+  if (timer_elapsed(last_timer) < RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL) {
     return;
   }
   last_timer = timer_read();
   current_offset = (current_offset + 1) % 2;
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = 0 + ((RGBLED_NUM * (i + current_offset)) % 2) * 80;
+    hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + current_offset) % 2) * 120;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
