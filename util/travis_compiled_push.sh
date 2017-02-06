@@ -21,7 +21,7 @@ if [[ $NEFM -gt 0 ]] ; then
 	lasttag=$(git tag | grep -Ev '\-' | head -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
-	git push --tags
+	git push --tags -q https://$GH_TOKEN@github.com/qmk/qmk_firmware-$TRAVIS_BRANCH
 else
 	echo "No essential files modified."
 fi
