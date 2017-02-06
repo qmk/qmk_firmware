@@ -219,6 +219,14 @@ void rgblight_step(void) {
   }
   rgblight_mode(mode);
 }
+void rgblight_step_reverse(void) {
+  uint8_t mode = 0;
+  mode = rgblight_config.mode - 1;
+  if (mode < 1) {
+    mode = RGBLIGHT_MODES;
+  }
+  rgblight_mode(mode);
+}
 
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
