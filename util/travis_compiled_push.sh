@@ -7,6 +7,8 @@ rev=$(git rev-parse --short HEAD)
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
 
+if [[ "$TRAVIS_BRANCH" == "master" ]] ; then
+
 increment_version ()
 {
   declare -a part=( ${1//\./ } )
@@ -21,7 +23,7 @@ if [[ $NEFM -gt 0 ]] ; then
 	lasttag=$(git tag | grep -Ev '\-' | head -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
-	git push --tags -q https://$GH_TOKEN@github.com/qmk/qmk_firmware-$TRAVIS_BRANCH
+	git push --tags -q https://$GH_TOKEN@github.com/qmk/qmk_firmware-master
 else
 	echo "No essential files modified."
 fi
@@ -46,5 +48,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
 	git push
+
+fi
 
 fi
