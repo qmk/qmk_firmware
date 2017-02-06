@@ -19,7 +19,9 @@ install:
 before_script:
   - avr-gcc --version
 script:
-- make $TARGET AUTOGEN=$AUTOGEN
+- 'if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
+make $TARGET AUTOGEN=$AUTOGEN
+fi'
 addons:
   apt:
     packages:
