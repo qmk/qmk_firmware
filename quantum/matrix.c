@@ -66,7 +66,6 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
-static matrix_row_t matrix_raw[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 
@@ -166,7 +165,6 @@ void matrix_init(void) {
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_raw[i] = 0;
         matrix_debouncing[i] = 0;
     }
 
