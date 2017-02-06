@@ -866,7 +866,7 @@ For the details about the internals of the dynamic macros, please read the comme
 
 Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-   #include <keymap_colemak.h>
+    #include <keymap_colemak.h>
 
 If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
