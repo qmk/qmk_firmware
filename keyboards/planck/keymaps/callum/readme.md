@@ -23,7 +23,7 @@ We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow c
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Cmd-L|  Up  | Cmd-R|      |      | Cmd-L|  Up  | Cmd-R|      |  Esc |
+ * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
