@@ -7,6 +7,25 @@ rev=$(git rev-parse --short HEAD)
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
 
+increment_version ()
+{
+  declare -a part=( ${1//\./ } )
+  part[2]=$((part[2] + 1))
+  new="${part[*]}"
+  echo -e "${new// /.}"
+} 
+
+NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | wc -l)
+if [[ $NEFM -gt 0 ]] ; then
+	echo "Essential files modified."
+	lasttag=$(git tag | grep -Ev '\-' | head -1)
+	newtag=$(increment_version $lasttag)
+	git tag $newtag
+	git push --tags
+else
+	echo "No essential files modified."
+fi
+
 make ergodox-ez AUTOGEN=true
 
 find . -name ".build" | xargs rm -rf
@@ -23,5 +42,5 @@ cp ../qmk_firmware/readme.md qmk_readme.md
 ./generate.sh
 
 git add -A
-git commit -m "generated from qmk_firmware/$TRAVIS_BRANCH@${rev}" 
+git commit -m "generated from qmk/qmk_firmware@${rev}" 
 git push
