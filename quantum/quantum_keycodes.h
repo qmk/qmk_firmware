@@ -141,6 +141,16 @@ enum quantum_keycodes {
     PRINT_ON,
     PRINT_OFF,
 
+    // output selection
+    OUT_AUTO,
+    OUT_USB,
+#ifdef BLUETOOTH_ENABLE
+    OUT_BT,
+#endif
+#ifdef ADAFRUIT_BLE_ENABLE
+    OUT_BLE,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };

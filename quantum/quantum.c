@@ -1,4 +1,7 @@
 #include "quantum.h"
+#ifdef PROTOCOL_LUFA
+#include "outputselect.h"
+#endif
 
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
@@ -243,6 +246,36 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
+    #ifdef PROTOCOL_LUFA
+    case OUT_AUTO:
+      if (record->event.pressed) {
+        set_output(OUTPUT_AUTO);
+      }
+      return false;
+      break;
+    case OUT_USB:
+      if (record->event.pressed) {
+        set_output(OUTPUT_USB);
+      }
+      return false;
+      break;
+    #ifdef BLUETOOTH_ENABLE
+    case OUT_BT:
+      if (record->event.pressed) {
+        set_output(OUTPUT_BLUETOOTH);
+      }
+      return false;
+      break;
+    #endif
+    #ifdef ADAFRUIT_BLE_ENABLE
+    case OUT_BLE:
+      if (record->event.pressed) {
+        set_output(OUTPUT_ADAFRUIT_BLE);
+      }
+      return false;
+      break;
+    #endif
+    #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
