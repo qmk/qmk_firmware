@@ -2,7 +2,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 24
+	#define RGBLIGHT_MODES 34
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -20,6 +20,14 @@
 
 #ifndef RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH
 #define RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH 4
+#endif
+
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#endif
+
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
 #endif
 
 #ifndef RGBLIGHT_HUE_STEP
@@ -65,6 +73,7 @@ void rgblight_decrease(void);
 void rgblight_toggle(void);
 void rgblight_enable(void);
 void rgblight_step(void);
+void rgblight_step_reverse(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
