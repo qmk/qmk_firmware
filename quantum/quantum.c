@@ -158,6 +158,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
   #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
+  #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
   #endif
@@ -536,6 +539,11 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
   matrix_scan_kb();
 }
 
