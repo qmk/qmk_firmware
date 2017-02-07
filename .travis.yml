@@ -17,7 +17,7 @@ install:
 before_script:
   - avr-gcc --version
 script:
-- make test AUTOGEN=false
+- make test AUTOGEN="false"
 - bash util/travis_build.sh
 addons:
   apt:
