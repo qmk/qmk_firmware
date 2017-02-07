@@ -290,6 +290,7 @@ enum quantum_keycodes {
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define SFT_T(kc) MT(MOD_LSFT, kc)
 #define ALT_T(kc) MT(MOD_LALT, kc)
+#define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
 #define GUI_T(kc) MT(MOD_LGUI, kc)
 #define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
