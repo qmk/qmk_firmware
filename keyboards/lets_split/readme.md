@@ -74,6 +74,10 @@ not be very difficult to adapt it to support more if required.
 Flashing
 --------
 
+From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
+
+Example: `make rev2-serial-avrdude`
+
 If you define `EE_HANDS` in your `config.h`, you will need to set the
 EEPROM for the left and right halves. The EEPROM is used to store whether the
 half is left handed or right handed. This makes it so that the same firmware
