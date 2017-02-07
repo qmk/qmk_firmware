@@ -17,7 +17,7 @@ install:
 before_script:
   - avr-gcc --version
 script:
-- make test AUTOGEN="false"
+- make test AUTOGEN=false
 - bash util/travis_build.sh
 addons:
   apt:
@@ -29,6 +29,4 @@ addons:
     - libnewlib-arm-none-eabi
     - diffutils
 after_success: 
-  if [ "$AUTOGEN" == "true" ]; then
-    bash util/travis_compiled_push.sh;
-  fi
+  bash util/travis_compiled_push.sh
