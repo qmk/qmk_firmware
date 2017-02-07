@@ -33,14 +33,42 @@ static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
     f(KC_RGUI);
 }
 
+static inline void qk_register_weak_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_weak_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_register_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
 void register_code16 (uint16_t code) {
-  do_code16 (code, register_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_register_mods);
+  } else {
+      do_code16 (code, qk_register_weak_mods);
+  }
   register_code (code);
 }
 
 void unregister_code16 (uint16_t code) {
   unregister_code (code);
-  do_code16 (code, unregister_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_unregister_mods);
+  } else {
+      do_code16 (code, qk_unregister_weak_mods);
+  }
 }
 
 __attribute__ ((weak))
@@ -129,6 +157,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
+  #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
   #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
@@ -508,6 +539,11 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
   matrix_scan_kb();
 }
 

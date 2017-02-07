@@ -1,0 +1,271 @@
+[
+  {
+    "backcolor": "#858585",
+    "name": "Planck 40%",
+    "author": "James Folkert",
+    "background": {
+      "name": "Aluminium brushed",
+      "style": "background-image: url('/bg/metal/aluminum_texture1642.jpg');"
+    },
+    "switchMount": "cherry",
+    "switchBrand": "cherry",
+    "switchType": "MX1A-A1xx",
+    "pcb": true,
+    "plate": true
+  },
+  [
+    {
+      "fa": [
+        2,
+        2,
+        0,
+        2
+      ]
+    },
+    "F1\n1\n\n!\n\n\n\n\n\n<i class='kb kb-Tab-2'></i>",
+    "F2\n2\n\n@\n\n\n\n\n\nQ",
+    "F3\n3\n\n#\n\n\n\n\n\nW",
+    "F4\n4\n\n$\n\n\n\n\n\nE",
+    "F5\n5\n\n%\n\n\n\n\n\nR",
+    "F6\n6\n\n^\n\n\n\n\n\nT",
+    "F7\n6\n\n&\n\n\n\n\n\nY",
+    "F8\n8\n\n*\nMacro4\n\n\n\n\nU",
+    "F9\n9\n\n(\n\n\n\n\n\nI",
+    {
+      "fa": [
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    "F10\n0\n\n)\n\n\n\n\n\nO",
+    {
+      "fa": [
+        2,
+        2,
+        0,
+        2
+      ]
+    },
+    "F11\n-\n\n_\n\n\n\n\n\nP",
+    "F12\n=\n\n+\n\n\n\n\n\n<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>"
+  ],
+  [
+    {
+      "a": 7,
+      "f": 3
+    },
+    "<i class='mss mss-Unicode-DeleteRight-Big-2'></i>",
+    {
+      "f": 3
+    },
+    "A",
+    {
+      "f": 3
+    },
+    "S",
+    {
+      "f": 3
+    },
+    "D",
+    {
+      "t": "#ff0000",
+      "a": 4,
+      "f": 3
+    },
+    "\n(\n\n\n\n\n\n\n\nF",
+    {
+      "t": "#000000",
+      "f": 3
+    },
+    "\n)\n\n\n\n\n\n\n\nG",
+    {
+      "f": 3
+    },
+    "\n{\n\n\nMacro0\n\n\n\n\nH",
+    {
+      "t": "#ff0000",
+      "f": 3
+    },
+    "\n}\n\n\nMacro3\n\n\n\n\nJ",
+    {
+      "t": "#000000",
+      "f": 3
+    },
+    "{\n\n\n\n\n\n\n\n\nK",
+    {
+      "f": 3
+    },
+    "{\n\n\n\n\n\n\n\n\nL",
+    {
+      "fa": [
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        2
+      ]
+    },
+    "\\\n\n|\n\n\n\n\n:\n\n;",
+    {
+      "a": 7,
+      "fa": [
+        9
+      ]
+    },
+    "<i class='mss mss-Unicode-Enter-3'></i>"
+  ],
+  [
+    {
+      "f": 3
+    },
+    "Shift",
+    {
+      "f": 3
+    },
+    "Z",
+    {
+      "f": 3
+    },
+    "X\n\n\n\nCut",
+    {
+      "f": 3
+    },
+    "C\n\n\n\nCopy",
+    {
+      "a": 4,
+      "fa": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "\\\n[\n|\n{\nPaste\n\n\n\n\nV",
+    "|\n]\n\n}\nMacro1\n\n\n\n\nB",
+    "`\n'\n~\n\"\nMacro5\n\n\n\n\nN",
+    "~\n\"\n\n\nMacro2\n\n\n\n\nM",
+    {
+      "fa": [
+        2,
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "[\n\n{\n\n\n\n\n<\n\n,",
+    "[\n\n{\n\n\n\n\n\n\n.",
+    {
+      "a": 6
+    },
+    "\n\n?\n\n\n\n\n\n/",
+    {
+      "a": 4,
+      "fa": [
+        2,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        9,
+        0
+      ]
+    },
+    "\n\n\n<i class='kb kb-Arrows-Bottom-4'></i>Shift\n\n\n\n\n<i class='mss mss-Unicode-Enter-3'></i>\n\n<i class='kb kb-Arrows-Bottom-4'></i>Shift"
+  ],
+  [
+    {
+      "a": 7,
+      "f": 3
+    },
+    "Ctrl\n\n\n\nBLight",
+    {
+      "a": 4,
+      "fa": [
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        9,
+        9
+      ]
+    },
+    "\nZNorm\n\n\nRESET\n\n\n\n\n<i class='mss mss-Unicode-Escape-3'></i>",
+    {
+      "fa": [
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        9,
+        6
+      ]
+    },
+    "\nZIn\n\n\n\n\n\n\n\n<i class='kb kb-logo-windows-8'></i>",
+    {
+      "fa": [
+        2,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        9,
+        9
+      ]
+    },
+    "\nZOut\n\n\n\n\n\n\n\n<i class='kb kb-Unicode-Alternate-1'></i>",
+    {
+      "a": 7,
+      "fa": [
+        9
+      ]
+    },
+    "&dArr;",
+    {
+      "a": 4,
+      "fa": [
+        9,
+        5,
+        5
+      ],
+      "w": 2
+    },
+    "\n<i class='kb kb-Unicode-Page-Down-3'></i>\n<i class='kb kb-Unicode-Page-Up-3'></i>",
+    {
+      "a": 7
+    },
+    "&uArr;",
+    {
+      "a": 4,
+      "fa": [
+        2
+      ]
+    },
+    "<i class='kb kb-Multimedia-FastForward-End'></i>\n\n\n\n\n\n\n\n\n&larr;",
+    "<i class='kb kb-Multimedia-Volume-Down-1'></i>\n\n\n\n\n\n\n\n\n&darr;",
+    "<i class='kb kb-Multimedia-Volume-Up-1'></i>\n\n\n\n\n\n\n\n\n&uarr;",
+    "<i class='kb kb-Multimedia-Play-Pause'></i>\n\n\n\n\n\n\n\n\n&rarr;"
+  ]
+]

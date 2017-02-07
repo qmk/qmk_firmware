@@ -1,9 +1,4 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c \
-	   serial.c
 
-# MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
 
@@ -20,6 +15,8 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
+# for avr upload
+USB ?= /dev/cu.usbmodem1421
 #
 # LUFA specific
 #
@@ -39,9 +36,21 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+
+ifdef TEENSY2
+    OPT_DEFS += -DATREUS_TEENSY2
+    ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
+else
+    OPT_DEFS += -DATREUS_ASTAR
+    OPT_DEFS += -DCATERINA_BOOTLOADER
+    ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+                            avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
+endif
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+
+# MCU name
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
@@ -51,35 +60,29 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= no       # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no         # Console for debug(+400)
-COMMAND_ENABLE ?= yes        # Commands for debug and configuration
-NKRO_ENABLE ?= no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE ?= no      # Enable keyboard backlight functionality
+BOOTMAGIC_ENABLE ?= no      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE ?= no        # Console for debug(+400)
+COMMAND_ENABLE ?= no        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE ?= no            # USB Nkey Rollover
+BACKLIGHT_ENABLE ?= no       # Enable keyboard backlight functionality on B7 by default
 MIDI_ENABLE ?= no            # MIDI controls
-AUDIO_ENABLE ?= no           # Audio output on port C6
 UNICODE_ENABLE ?= no         # Unicode
 BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE ?= no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-SUBPROJECT_rev1 ?= yes
-USE_I2C ?= yes
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
+AUDIO_ENABLE ?= no           # Audio output on port C6
 
-CUSTOM_MATRIX = yes
+ifndef QUANTUM_DIR
+	include ../../../Makefile
+endif
 
-avrdude: build
-	ls /dev/tty* > /tmp/1; \
-	echo "Reset your Pro Micro then hit any key to continue..."; \
-	read -n 1 -s; \
-	ls /dev/tty* > /tmp/2; \
-	USB=`diff /tmp/1 /tmp/2 | grep '>' | sed -e 's/> //'`; \
-	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+upload: build
+	$(ATREUS_UPLOAD_COMMAND)
 
-.PHONY: avrdude

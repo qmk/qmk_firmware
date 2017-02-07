@@ -63,6 +63,10 @@ extern uint32_t default_layer_state;
 	#include "process_printer.h"
 #endif
 
+#ifdef COMBO_ENABLE
+	#include "process_combo.h"
+#endif
+
 #define SEND_STRING(str) send_string(PSTR(str))
 void send_string(const char *str);
 
