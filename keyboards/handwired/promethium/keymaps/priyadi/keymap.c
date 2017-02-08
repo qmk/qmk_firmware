@@ -13,6 +13,7 @@
 #include "rgbsps.h"
 #include "ps2_mouse.h"
 #include "ps2.h"
+#include "outputselect.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
 // #define RGBLED_NUM 5
@@ -496,6 +497,24 @@ void led_layer_gui(void) {
   rgbsps_send();
 }
 
+void led_set_output_ble(void) {
+  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 15);
+  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_send();
+}
+
+void led_set_output_usb(void) {
+  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
+  rgbsps_set(LED_IND_USB, 15, 15, 15);
+  rgbsps_send();
+}
+
+void led_set_output_none(void) {
+  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
+  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_send();
+}
+
 void led_init(void) {
   // turn off all
   rgbsps_turnoff();
@@ -693,8 +712,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GUI] = KEYMAP(
   _______, LGUI(KC_1),LGUI(KC_2),LGUI(KC_3),LGUI(KC_4),LGUI(KC_5),LGUI(KC_6),LGUI(KC_7),LGUI(KC_8),LGUI(KC_9),LGUI(KC_0), _______,
-    LINUX, _______, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,KC_PAUS, QWERTY,
-      WIN, _______, KC_MPRV, KC_MPLY, KC_MNXT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, COLEMAK,
+    LINUX, OUT_USB, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,KC_PAUS, QWERTY,
+      WIN, OUT_BLE, KC_MPRV, KC_MPLY, KC_MNXT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, COLEMAK,
       OSX, _______, _______, _______, _______,  BL_DEC,  BL_INC, _______, _______, RGB_VAI, RGB_VAD, WORKMAN
 ),
 
@@ -908,23 +927,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void set_output_user(uint8_t output) {
+  switch(output) {
+    case OUTPUT_USB:
+      led_set_output_usb();
+      break;
+    case OUTPUT_ADAFRUIT_BLE:
+      led_set_output_ble();
+      break;
+    default:
+      led_set_output_none();
+  }
+}
+
 void matrix_init_user(void) {
+  _delay_ms(500); // give time for usb to initialize
+
   #ifdef AUDIO_ENABLE
       startup_user();
   #endif
   set_unicode_input_mode(UC_LNX);
   led_init();
+
+  // auto detect output on init
+  uint8_t output = auto_detect_output();
+  if (output == OUTPUT_USB) {
+    set_output(OUTPUT_USB);
+  } else {
+    set_output(OUTPUT_ADAFRUIT_BLE);
+  }
 }
-
-// void init_rgblight(void) {
-//   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-//     led[i].r = 255;
-//     led[i].g = 85;
-//     led[i].b = 0;
-//   }
-//   ws2812_setleds(led, RGBLED_NUM);
-// }
-
 
 #ifdef AUDIO_ENABLE
 
