@@ -141,6 +141,16 @@ enum quantum_keycodes {
     PRINT_ON,
     PRINT_OFF,
 
+    // output selection
+    OUT_AUTO,
+    OUT_USB,
+#ifdef BLUETOOTH_ENABLE
+    OUT_BT,
+#endif
+#ifdef ADAFRUIT_BLE_ENABLE
+    OUT_BLE,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -246,7 +256,9 @@ enum quantum_keycodes {
 
 #define M(kc) (kc | QK_MACRO)
 
+#define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
+
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
