@@ -7,9 +7,9 @@
 // for intellisense, has to be commented for building
 /*
 #include "..\..\..\..\quantum\keymap_extras\keymap_german.h"
-#include "..\..\..\..\quantum\keymap_common.h"
 #include "..\..\..\..\tmk_core\common\keycode.h"
 */
+
 
 #define _______ KC_TRNS
 
@@ -23,7 +23,7 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Bone2
+/* Bone2 (adapted)
 * ,-----------------------------------------------------------------------------------.
 * | Q    |   J  |   D  |   U  |   A  |   X  |   P  |   H  |   L  |   M  |   W  |  ẞ   |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 /* M1 Special Characters
-very ergonomic placement for coding
+*  very ergonomic placement for coding
 * ,-----------------------------------------------------------------------------------.
 * | °    |   @  |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ´   |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -56,12 +56,12 @@ very ergonomic placement for coding
 [1] = {
 	{ DE_RING, DE_AT,   DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC, DE_EXLM, DE_LESS, DE_MORE, DE_EQL,  DE_AMPR, DE_ACUT },
 	{ _______, DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, DE_QST,  DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, _______ },
-	{ _______, DE_HASH, DE_DLR,  DE_PIPE, DE_TILD, DE_EURO, DE_PLUS, DE_PERC, DE_DQOT, DE_QUOT, DE_SCLN, _______ },
+	{ _______, DE_HASH, DE_TILD,  DE_PIPE, DE_DLR, DE_EURO, DE_PLUS, DE_PERC, DE_DQOT, DE_QUOT, DE_SCLN, _______ },
 	{ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
 },
 
-/* Navigation & Number Blocks
-very easy to get used to & intuituve placement
+/* M2 Navigation & Number Blocks
+*  very easy to get used to & intuituve placement
 * ,-----------------------------------------------------------------------------------.
 * |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |   7  |   8  |   9  |      | Ins  |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -79,8 +79,8 @@ very easy to get used to & intuituve placement
 	{ _______, _______, _______, MO(3),   _______, _______, _______, _______, MO(3), _______, _______, _______ }
 },
 
-/* Flipped Navigation & Number Blocks for one handed use
-accessed by sliding from M2 to M3 with thumb
+/* M3 Switched Navigation & Number Blocks for one handed use
+*  accessed by sliding from M2 to M3 with thumb
 * ,-----------------------------------------------------------------------------------.
 * | Ins  |      |  7   |  8   |  9   |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -100,8 +100,7 @@ accessed by sliding from M2 to M3 with thumb
 },
 
 
-/* Function & Media Keys
-slide from m4 to m5 to access flipped version
+/* M4 Function & Media Keys
 * ,-----------------------------------------------------------------------------------.
 * |      |      | Print|Scroll|Pause |      |      |  F7  |  F8  |  F9  |  F12 |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -120,7 +119,8 @@ slide from m4 to m5 to access flipped version
 },
 
 
-/* flipped Function & Media Keys
+/* M5 Switched Function & Media Keys|
+*  accessed by sliding from M4 to M5 with thumb
 * ,-----------------------------------------------------------------------------------.
 * |      |      |  F7  |  F8  |  F9  |  F12 |      | Print|Scroll| Pause|      |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -138,6 +138,7 @@ slide from m4 to m5 to access flipped version
 	{ _______, _______, _______, KC_NO, _______, _______, _______, _______, KC_NO,   _______, _______, _______ }
 }
 };
+
 
 const uint16_t PROGMEM fn_actions[] = {
 
