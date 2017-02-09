@@ -20,22 +20,30 @@ extern keymap_config_t keymap_config;
 
 enum layers {
   _QWERTY,
+  _DVORAK,
   _COLEMAK,
   _WORKMAN,
+  _NORMAN,
+
   _PUNC,
   _NUM,
   _FUNC,
-  _EMOJI,
+
   _GREEKU,
   _GREEKL,
+
+  _EMOJI,
   _GUI,
+  _SYS,
 };
 
 enum planck_keycodes {
   // layouts
   QWERTY = SAFE_RANGE,
+  DVORAK,
   COLEMAK,
   WORKMAN,
+  NORMAN,
 
   // layer switchers
   PUNC,
@@ -269,9 +277,9 @@ const uint32_t PROGMEM unicode_map[] = {
 // #undef KC_RSFT
 // #define KC_RSFT MT(MOD_LSFT, KC_EQL)
 
-// hybrid right-gui & scroll lock (mapped to Compose in OS)
-#undef KC_RCTL
-#define KC_RCTL MT(MOD_LCTL, KC_SLCK)
+// hybrid right-alt & scroll lock (mapped to Compose in OS)
+#undef KC_RALT
+#define KC_RALT MT(MOD_RALT, KC_SLCK)
 
 // RGBSPS
 
@@ -537,18 +545,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   '  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Emoji |Greek |AltGr | Ctrl |
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    EMOJI,   GREEK,   KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+),
+
+/* Dvorak
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |Enter |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   /  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_DVORAK] = KEYMAP(
+  _______, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    _______,
+  _______, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    _______,
+  _______, KC_SLSH, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Colemak
@@ -559,13 +585,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  | Punc | Num  |    Space    | Func |Emoji |AltGr | GUI  | Ctrl |
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = KEYMAP(
   _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, _______,
   _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______,
   _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Norman
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   D  |   F  |   K  |   J  |   U  |   R  |   L  |   ;  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   E  |   T  |   G  |   Y  |   N  |   I  |   O  |   H  |Enter |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   P  |   M  |   ,  |   .  |   /  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NORMAN] = KEYMAP(
+  _______, KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_QUOT, _______,
+  _______, KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,    _______,
+  _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -577,49 +621,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   M  |   C  |   V  |   K  |   K  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  | Punc | Num  |    Space    | Func |Emoji |AltGr | GUI  | Ctrl |
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_WORKMAN] = KEYMAP(
   _______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______,
   _______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______,
   _______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
-
-/* Uppercase Greek
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_GREEKU] = KEYMAP(
-  _______, _______, _______,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
-  _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), _______, _______,
-  _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
-
-/* Lowercase Greek
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_GREEKL] = KEYMAP(
-  _______, _______,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
-  _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), _______, _______,
-  _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -677,6 +685,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
+/* Uppercase Greek
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEKU] = KEYMAP(
+  _______, _______, _______,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
+  _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), _______, _______,
+  _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Lowercase Greek
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_GREEKL] = KEYMAP(
+  _______, _______,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
+  _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), _______, _______,
+  _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
 /* Emoji
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -713,6 +757,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       OSX, _______, _______, _______, _______,  BL_DEC,  BL_INC, _______, _______, RGB_VAI, RGB_VAD, WORKMAN
 ),
 
+/* GUI
+ * ,-----------------------------------------------------------------------------------.
+ * |      |Qwerty| Win  |      |      |      |      | USB  |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |Audio |      |Dvorak|      | Glow |      |      |WorkMn|Linux |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |Colmak|      | BLE  |Norman|MacOS |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_SYS] = KEYMAP(
+  XXXXXXX, QWERTY,  WIN,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+
 };
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -725,22 +787,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
 
   switch (keycode) {
-    case GREEK:
-      if (record->event.pressed) {
-        if (lshifted || rshifted) {
-          layer_on(_GREEKU);
-          layer_off(_GREEKL);
-        } else {
-          layer_on(_GREEKL);
-          layer_off(_GREEKU);
-        }
-      } else {
-        layer_off(_GREEKU);
-        layer_off(_GREEKL);
-      }
-      return false;
-      break;
-
+    // handle greek layer shift
     case KC_LSFT:
     case KC_RSFT:
       ;
@@ -750,7 +797,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(_GREEKU);
           layer_off(_GREEKL);
         } else {
-          if (lshifted ^ rshifted) { // if only one shift is pressed
+          if (lshifted ^ rshifted) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
           }
@@ -796,6 +843,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case DVORAK:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_DVORAK);
+      }
+      return false;
+      break;
     case COLEMAK:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_COLEMAK);
@@ -808,48 +861,63 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case NORMAN:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_NORMAN);
+      }
+      return false;
+      break;
 
     // layer switcher
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
-        update_tri_layer(_PUNC, _EMOJI, _GUI);
-        if (IS_LAYER_ON(_GUI)) {
-          led_layer_gui();
-        } else {
-          led_layer_punc();;
-        }
-      } else {
-        layer_off(_PUNC);
-        update_tri_layer(_PUNC, _EMOJI, _GUI);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         if (IS_LAYER_ON(_EMOJI)) {
           led_layer_emoji();
         } else {
-          led_layer_normal();;
+          led_layer_punc();
+        }
+      } else {
+        layer_off(_PUNC);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
+        if (IS_LAYER_ON(_GREEKL)) {
+          ;
+        } else {
+          led_layer_normal();
         }
       }
       return false;
       break;
-    case EMOJI:
+
+    case GREEK:
       if (record->event.pressed) {
-        layer_on(_EMOJI);
-        update_tri_layer(_PUNC, _EMOJI, _GUI);
-        if (IS_LAYER_ON(_GUI)) {
-          led_layer_gui();
+        if (lshifted || rshifted) {
+          layer_on(_GREEKU);
+          layer_off(_GREEKL);
         } else {
-          led_layer_emoji();;
+          layer_on(_GREEKL);
+          layer_off(_GREEKU);
+          update_tri_layer(_PUNC, _GREEKL, _EMOJI);
+          if (IS_LAYER_ON(_EMOJI)) {
+            led_layer_emoji();
+          } else {
+            ;
+          }
         }
       } else {
-        layer_off(_EMOJI);
-        update_tri_layer(_PUNC, _EMOJI, _GUI);
+        layer_off(_GREEKU);
+        layer_off(_GREEKL);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         if (IS_LAYER_ON(_PUNC)) {
           led_layer_punc();
         } else {
-          led_layer_normal();;
+          led_layer_normal();
         }
       }
       return false;
       break;
+
     case NUM:
       if (record->event.pressed) {
         layer_on(_NUM);
@@ -860,6 +928,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
     case FUNC:
       if (record->event.pressed) {
         layer_on(_FUNC);
