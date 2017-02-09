@@ -31,7 +31,7 @@ kuel | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/
 stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | |
 @TerryMathews | quantum/quantum.c | 2017 Jan 29 |
 @Twey | quantum/keymap_extras/keymap_plover.h | |
-@Vifon | quantum/dynamic_macro.h<br>quantum/quantum.c | |
+@Vifon | quantum/dynamic_macro.h<br>quantum/quantum.c | 2017 Feb 09 |
 @vincent-pochet | quantum/keymap_extras/keymap_fr_ch.h | |
 @wez | quantum/dynamic_macro.h | 2017 Jan 29 |
 @Wilba6582 | quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/quantum_keycodes.h | |
