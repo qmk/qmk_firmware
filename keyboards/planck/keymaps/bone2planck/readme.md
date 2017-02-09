@@ -1,4 +1,5 @@
 Bone2Planck
+=====================================
 
 This Layout tries to emulate the Bone2 Variant of Neo2, and is intended to be used with a German QWERTZ Softwarelayout.
 It has "üäöß" as it is optimized for a mix of German & English.
@@ -7,7 +8,9 @@ designed to keep the fingers near the home row.
 
 Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 
-* Bone2 (adapted) Base Layer
+To build, run "make" from within the \bone2planck folder.
+
+## Bone2 (adapted) Base Layer
 * ,-----------------------------------------------------------------------------------.
 * | Q    |   J  |   D  |   U  |   A  |   X  |   P  |   H  |   L  |   M  |   W  |  ẞ   |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -18,7 +21,7 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 * | Ctrl | GUI  | Alt  |  M4  |  M2  |    Space    |  M2  |  M4  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 
-* M1 Special Characters
+## M1 Special Characters
 *  very ergonomic placement for coding
 * ,-----------------------------------------------------------------------------------.
 * | °    |   @  |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ´   |
@@ -30,7 +33,7 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 * | Ctrl | GUI  | Alt  |  M4  |  M2  |    Space    |  M2  |  M4  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 
-* M2 Navigation & Number Blocks
+## M2 Navigation & Number Blocks
 *  very easy to get used to & intuituve placement
 * ,-----------------------------------------------------------------------------------.
 * |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |   7  |   8  |   9  |      | Ins  |
@@ -42,7 +45,7 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 * | Ctrl | GUI  | Alt  |  M3  |  M2  |    Space    |  M2  |  M3  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 
-* M4 Function & Media Keys
+## M4 Function & Media Keys
 * ,-----------------------------------------------------------------------------------.
 * |      |      | Print|Scroll|Pause |      |      |  F7  |  F8  |  F9  |  F12 |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -55,9 +58,9 @@ Bone2 wiki page: http://wiki.neo-layout.org/wiki/Bone
 
 
 
-Switched layers for one handed access:
+##Switched layers for one handed access:
 
-* M3 Switched Navigation & Number Blocks for one handed use
+### M3 Switched Navigation & Number Blocks for one handed use
 *  accessed by sliding from M2 to M3 with thumb
 * ,-----------------------------------------------------------------------------------.
 * | Ins  |      |  7   |  8   |  9   |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |
@@ -69,7 +72,7 @@ Switched layers for one handed access:
 * | Ctrl | GUI  | Alt  |  M3  |      |    Space    |      |  M3  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 
-* M5 Switched Function & Media Keys|
+### M5 Switched Function & Media Keys|
 *  accessed by sliding from M4 to M5 with thumb
 * ,-----------------------------------------------------------------------------------.
 * |      |      |  F7  |  F8  |  F9  |  F12 |      | Print|Scroll| Pause|      |      |
