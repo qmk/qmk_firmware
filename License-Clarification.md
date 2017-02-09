@@ -32,7 +32,7 @@ stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_o
 @TerryMathews | quantum/quantum.c | 2017 Jan 29 |
 @Twey | quantum/keymap_extras/keymap_plover.h | |
 @Vifon | quantum/dynamic_macro.h<br>quantum/quantum.c | 2017 Feb 09 |
-@vincent-pochet | quantum/keymap_extras/keymap_fr_ch.h | |
+@vincent-pochet | quantum/keymap_extras/keymap_fr_ch.h | 2017 Feb 09 |
 @wez | quantum/dynamic_macro.h | 2017 Jan 29 |
 @Wilba6582 | quantum/keymap.h<br>quantum/keymap_common.c<br>quantum/quantum_keycodes.h | |
 @yangliu | quantum/light_ws2812.c<br>quantum/light_ws2812.h<br>quantum/rgblight.c<br>quantum/rgblight.h | 2017 Jan 30 |
