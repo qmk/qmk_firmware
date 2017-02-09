@@ -635,36 +635,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |   \  |   -  |   =  |      |      |   (  |   )  |   <  |   >  |      |
+ * |      |   *  |   \  |   -  |   =  |      |      |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |   |  |   _  |   +  |      |      |   [  |   ]  |   {  |   }  |      |
+ * |   &  |   ^  |   |  |   _  |   +  |      |      |   [  |   ]  |   {  |   }  |   :  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV ,
-  XXXXXXX, XXXXXXX, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, XXXXXXX,
+  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Num
  * ,-----------------------------------------------------------------------------------.
- * |  ^   |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |  @   |  A   |  B   |  C   |  (   |  )   |   4  |   5  |   6  |   :  |Enter |
+ * |      |   *  |   \  |   -  |   =  |      |   B  |   4  |   5  |   6  |   E  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |  &   |  #   |  D   |  E   |  F   |  [   |  ]   |   1  |   2  |   3  |   /  |  *   |
+ * |   &  |   ^  |   |  |   _  |   +  |      |   C  |   1  |   2  |   3  |   F  |  :   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  x   |      |             |   0  |   ,  |   .  |   +  |  -   |
+ * |      |      |      |      |      |      |   x  |   0  |   ,  |   .  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
-  KC_CIRC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-  KC_ESC,    KC_AT, S(KC_A), S(KC_B), S(KC_C), KC_LPRN, KC_RPRN,    KC_4,    KC_5,    KC_6, KC_COLN,  KC_ENT,
-  KC_AMPR, KC_HASH, S(KC_D), S(KC_E), S(KC_F), KC_LBRC, KC_RBRC,    KC_1,    KC_2,    KC_3, KC_SLSH, KC_ASTR,
-  _______, _______, _______,    KC_X, _______,  KC_SPC,  KC_SPC,    KC_0, KC_COMM,  KC_DOT, KC_PLUS, KC_MINS
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), KC_GRV,
+  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
+  _______, _______, _______, _______, _______, _______,    KC_X,    KC_0, KC_COMM,  KC_DOT, _______, _______
 ),
 
 /* Func
