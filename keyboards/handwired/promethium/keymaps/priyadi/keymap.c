@@ -882,7 +882,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_PUNC);
         update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         if (IS_LAYER_ON(_GREEKL)) {
-          ;
+          led_layer_normal();
         } else {
           led_layer_normal();
         }
