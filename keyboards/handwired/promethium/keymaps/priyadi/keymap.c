@@ -3,10 +3,6 @@
 
 #include "promethium.h"
 #include "action_layer.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-  #include "musical_notes.h"
-#endif
 #include "eeconfig.h"
 #include "process_unicode.h"
 #include "quantum.h"
@@ -719,29 +715,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_workman[][2]    = SONG(DVORAK_SOUND);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-float tone_linux[][2] = SONG(CAPS_LOCK_ON_SOUND);
-float tone_windows[][2] = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_osx[][2] = SONG(NUM_LOCK_ON_SOUND);
-float tone_click[][2] = SONG(MUSICAL_NOTE(_F3, 2));
-#endif
-
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef AUDIO_ENABLE
-  // faux clicky
-  if (record->event.pressed) PLAY_NOTE_ARRAY(tone_click, false, 0);
-  #endif
-
   bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
   bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
 
@@ -813,27 +792,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        #endif
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
     case WORKMAN:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_workman, false, 0);
-        #endif
         persistant_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
@@ -904,23 +874,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OS switchers
     case LINUX:
       set_unicode_input_mode(UC_LNX);
-      #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_linux, false, 0);
-      #endif
       return false;
       break;
     case WIN:
       set_unicode_input_mode(UC_WINC);
-      #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_windows, false, 0);
-      #endif
       return false;
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
-      #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_osx, false, 0);
-      #endif
       return false;
       break;
   }
@@ -943,9 +904,6 @@ void set_output_user(uint8_t output) {
 void matrix_init_user(void) {
   _delay_ms(500); // give time for usb to initialize
 
-  #ifdef AUDIO_ENABLE
-      startup_user();
-  #endif
   set_unicode_input_mode(UC_LNX);
   led_init();
 
@@ -957,24 +915,6 @@ void matrix_init_user(void) {
     set_output(OUTPUT_ADAFRUIT_BLE);
   }
 }
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-}
-
-void shutdown_user()
-{
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-#endif
-
 
 void ps2_mouse_init_user() {
     uint8_t rcv;
