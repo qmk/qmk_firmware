@@ -2,8 +2,10 @@
 #define CONFIG_DEFINITIONS_H
 
 /* diode directions */
-#define COL2ROW 0
-#define ROW2COL 1
+#define COL2ROW       0
+#define ROW2COL       1
+#define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
+
 /* I/O pins */
 #ifndef F0
     #define B0 0x30
