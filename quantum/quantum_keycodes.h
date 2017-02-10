@@ -43,7 +43,7 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
 #ifdef UNICODEMAP_ENABLE
     QK_UNICODE_MAP        = 0x5800,
-    QK_UNICODE_MAP_MAX    = 0x5FFF,
+    QK_UNICODE_MAP_MAX    = 0x5BFF,
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
@@ -54,7 +54,7 @@ enum quantum_keycodes {
 
     // Loose keycodes - to be used directly
 
-    RESET = 0x7000,
+    RESET = 0x5C00,
     DEBUG,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
     MAGIC_CAPSLOCK_TO_CONTROL,
