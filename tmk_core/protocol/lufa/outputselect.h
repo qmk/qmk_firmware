@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Priyadi Iman Nurcahyo
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -12,20 +12,30 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/io.h>
-#include "stdint.h"
-#include "led.h"
+enum outputs {
+    OUTPUT_AUTO,
 
+    OUTPUT_NONE,
+    OUTPUT_USB,
+    OUTPUT_BLUETOOTH,
+    OUTPUT_ADAFRUIT_BLE,
 
-void led_set(uint8_t usb_led)
-{
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // output low
-        DDRB |= (1<<2);
-        PORTB &= ~(1<<2);
-    } else {
-        // Hi-Z
-        DDRB &= ~(1<<2);
-        PORTB &= ~(1<<2);
-    }
-}
+    // backward compatibility
+    OUTPUT_USB_AND_BT
+};
+
+/**
+ * backward compatibility for BLUETOOTH_ENABLE, send to BT and USB by default
+ */
+#ifndef OUTPUT_DEFAULT
+    #ifdef BLUETOOTH_ENABLE
+        #define OUTPUT_DEFAULT OUTPUT_USB_AND_BT
+    #else
+        #define OUTPUT_DEFAULT OUTPUT_AUTO
+    #endif
+#endif
+
+void set_output(uint8_t output);
+void set_output_user(uint8_t output);
+uint8_t auto_detect_output(void);
+uint8_t where_to_send(void);
