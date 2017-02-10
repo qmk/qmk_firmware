@@ -25,6 +25,7 @@ enum glow_modes {
   GLOW_MIN,
   GLOW_FULL
 };
+
 uint8_t glow_mode = GLOW_MIN;
 
 extern keymap_config_t keymap_config;
@@ -504,11 +505,6 @@ void led_init(void) {
   rgbsps_set(LED_TRACKPOINT1, 15, 0, 0);
   rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
   rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
-
-  // // hardcode indicator for now
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 15);
-  rgbsps_set(LED_IND_USB, 15, 15, 15);
-  rgbsps_set(LED_IND_BATTERY, 0, 15, 0);
 
   led_layer_normal();
 }
@@ -994,6 +990,11 @@ void matrix_init_user(void) {
   } else {
     set_output(OUTPUT_ADAFRUIT_BLE);
   }
+}
+
+void battery_poll(float percentage) {
+  rgbsps_sethsv(LED_IND_BATTERY, percentage*120/100, 255, 15);
+  rgbsps_send();
 }
 
 void ps2_mouse_init_user() {
