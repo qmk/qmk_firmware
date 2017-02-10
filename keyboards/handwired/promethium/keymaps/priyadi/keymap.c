@@ -12,9 +12,13 @@
 #include "outputselect.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
-// #define RGBLED_NUM 5
-// struct cRGB led[RGBLED_NUM];
+// Fillers to make layering clearer
 
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+#define G(x) LGUI(x)
+#define KC_WWWB KC_WWW_BACK
+#define KC_WWWF KC_WWW_FORWARD
 
 extern keymap_config_t keymap_config;
 
@@ -58,12 +62,6 @@ enum planck_keycodes {
   WIN,
   OSX,
 };
-
-// Fillers to make layering clearer
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-#define G(x) LGUI(x)
 
 // unicode map
 
@@ -742,19 +740,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* GUI
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  D1  |  D2  |  D3  |  D4  |  D5  |  D6  |  D7  |  D8  |  D9  |  D10 |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      | Vol- | Mute | Vol+ |      |      | Prev |      | Next |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_GUI] = KEYMAP(
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
