@@ -636,17 +636,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |      |      |   (  |   )  |   <  |   >  |      |
+ * |      |   *  |   \  |   -  |   =  |   /  |      |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |      |      |   [  |   ]  |   {  |   }  |   :  |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |      |   [  |   ]  |   {  |   }  |   :  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV ,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
+  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -654,17 +654,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |      |   B  |   4  |   5  |   6  |   E  |      |
+ * |      |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |      |   C  |   1  |   2  |   3  |   F  |  :   |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |  :   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |   x  |   0  |   ,  |   .  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), KC_GRV,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, XXXXXXX, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, XXXXXXX, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
+  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
   _______, _______, _______, _______, _______, _______,    KC_X,    KC_0, KC_COMM,  KC_DOT, _______, _______
 ),
 
@@ -752,8 +752,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GUI] = KEYMAP(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
