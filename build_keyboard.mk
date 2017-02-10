@@ -144,6 +144,11 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+    OPT_DEFS += -DCOMBO_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
