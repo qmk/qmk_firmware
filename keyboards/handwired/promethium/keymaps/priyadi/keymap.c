@@ -413,61 +413,43 @@ void led_reset(void) {
   }
 }
 
-void led_layer_normal(void) {
+void led_set_layer_indicator(void) {
+  static uint8_t oldlayer = 255;
+
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
   rgbsps_set(LED_IND_NUM, 0, 0, 0);
   rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
   led_reset();
 
-  rgbsps_send();
-}
+  uint8_t layer = biton32(layer_state);
+  if (oldlayer == layer) {
+    return;
+  }
 
-void led_layer_func(void) {
-  rgbsps_set(LED_IND_FUNC, 0, 15, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 0);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
+  oldlayer = layer;
 
-  led_reset();
+  if (layer <= _NORMAN) {
+    rgbsps_send();
+    return;
+  }
 
-  rgbsps_send();
-}
+  switch(layer) {
+    case _FUNC:
+      rgbsps_set(LED_IND_FUNC, 15, 0, 0);
+      break;
+    case _NUM:
+      rgbsps_set(LED_IND_NUM, 0, 0, 15);
+      break;
+    case _EMOJI:
+      rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
+      break;
+    default:
+      rgbsps_set(LED_IND_FUNC, 3, 3, 3);
+      rgbsps_set(LED_IND_NUM, 3, 3, 3);
+      rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
+  }
 
-void led_layer_punc(void) {
-  rgbsps_set(LED_IND_FUNC, 0, 15, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 15);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
-
-  led_reset();
-
-  rgbsps_send();
-}
-
-void led_layer_num(void) {
-  rgbsps_set(LED_IND_FUNC, 0, 0, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 15);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
-
-  led_reset();
-
-  rgbsps_send();
-}
-
-void led_layer_emoji(void) {
-  rgbsps_set(LED_IND_FUNC, 0, 0, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 0);
-  rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
-
-  rgbsps_set(LED_PUNC, 15, 15, 15);
-  rgbsps_set(LED_EMOJI, 15, 15, 15);
-
-  rgbsps_send();
-}
-
-void led_layer_gui(void) {
-  rgbsps_set(LED_IND_FUNC, 15, 10, 15);
-  rgbsps_set(LED_IND_NUM, 15, 10, 15);
-  rgbsps_set(LED_IND_EMOJI, 15, 10, 15);
   rgbsps_send();
 }
 
@@ -497,8 +479,6 @@ void led_init(void) {
   rgbsps_set(LED_TRACKPOINT1, 15, 0, 0);
   rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
   rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
-
-  led_layer_normal();
 }
 
 
@@ -798,6 +778,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
 
+    // press both Supers to activate EMOJI layer
+    case KC_LGUI:
+    case KC_RGUI:
+      ;
+      bool lgui = keyboard_report->mods & MOD_BIT(KC_LGUI);
+      bool rgui = keyboard_report->mods & MOD_BIT(KC_RGUI);
+      if (record->event.pressed) {
+        if (lgui ^ rgui) { // if only one super was pressed
+          layer_on(_EMOJI);
+        }
+      } else {
+        layer_off(_EMOJI);
+      }
+      return true;
+      break;
+
     // QWERTZ style comma and dot: semicolon and colon when shifted
     case KC_COMM:
       if (record->event.pressed) {
@@ -873,19 +869,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_PUNC);
         update_tri_layer(_PUNC, _GREEKL, _GUI);
-        if (IS_LAYER_ON(_GUI)) {
-          led_layer_normal();
-        } else {
-          led_layer_punc();
-        }
       } else {
         layer_off(_PUNC);
         update_tri_layer(_PUNC, _GREEKL, _GUI);
-        if (IS_LAYER_ON(_GREEKL)) {
-          led_layer_normal();
-        } else {
-          led_layer_normal();
-        }
       }
       return false;
       break;
@@ -899,21 +885,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(_GREEKL);
           layer_off(_GREEKU);
           update_tri_layer(_PUNC, _GREEKL, _GUI);
-          if (IS_LAYER_ON(_GUI)) {
-            led_layer_normal();
-          } else {
-            led_layer_normal();
-          }
         }
       } else {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
         update_tri_layer(_PUNC, _GREEKL, _GUI);
-        if (IS_LAYER_ON(_PUNC)) {
-          led_layer_normal();
-        } else {
-          led_layer_normal();
-        }
       }
       return false;
       break;
@@ -921,10 +897,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case NUM:
       if (record->event.pressed) {
         layer_on(_NUM);
-        led_layer_num();
       } else {
         layer_off(_NUM);
-        led_layer_normal();
       }
       return false;
       break;
@@ -932,10 +906,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case FUNC:
       if (record->event.pressed) {
         layer_on(_FUNC);
-        led_layer_func();
       } else {
         layer_off(_FUNC);
-        led_layer_normal();
       }
       return false;
       break;
@@ -1003,6 +975,10 @@ void matrix_init_user(void) {
   }
 }
 
+void matrix_scan_user(void) {
+  led_set_layer_indicator();
+}
+
 void battery_poll(float percentage) {
   rgbsps_sethsv(LED_IND_BATTERY, percentage*120/100, 255, 15);
   rgbsps_send();
@@ -1012,23 +988,23 @@ void ps2_mouse_init_user() {
     uint8_t rcv;
 
     // set TrackPoint sensitivity
-    PS2_MOUSE_SEND(0xE2, "set trackpoint sensitivity: 0xE2");
-    PS2_MOUSE_SEND(0x81, "set trackpoint sensitivity: 0x81");
-    PS2_MOUSE_SEND(0x4A, "set trackpoint sensitivity: 0x4A");
-    PS2_MOUSE_SEND(0x49, "set trackpoint sensitivity: 0x59");
+    PS2_MOUSE_SEND(0xE2, "tpsens: 0xE2");
+    PS2_MOUSE_SEND(0x81, "tpsens: 0x81");
+    PS2_MOUSE_SEND(0x4A, "tpsens: 0x4A");
+    PS2_MOUSE_SEND(0x49, "tpsens: 0x59");
 
     // set TrackPoint Negative Inertia factor
-    PS2_MOUSE_SEND(0xE2, "set negative inertia factor: 0xE2");
-    PS2_MOUSE_SEND(0x81, "set negative inertia factor: 0x81");
-    PS2_MOUSE_SEND(0x4D, "set negative inertia factor: 0x4D");
-    PS2_MOUSE_SEND(0x06, "set negative inertia factor: 0x06");
+    PS2_MOUSE_SEND(0xE2, "tpnegin: 0xE2");
+    PS2_MOUSE_SEND(0x81, "tpnegin: 0x81");
+    PS2_MOUSE_SEND(0x4D, "tpnegin: 0x4D");
+    PS2_MOUSE_SEND(0x06, "tpnegin: 0x06");
 
     // set TrackPoint speed
     // (transfer function upper plateau speed)
-    PS2_MOUSE_SEND(0xE2, "set trackpoint speed: 0xE2");
-    PS2_MOUSE_SEND(0x81, "set trackpoint speed: 0x81");
-    PS2_MOUSE_SEND(0x60, "set trackpoint speed: 0x60");
-    PS2_MOUSE_SEND(0x61, "set trackpoint speed: 0x61");
+    PS2_MOUSE_SEND(0xE2, "tpsp: 0xE2");
+    PS2_MOUSE_SEND(0x81, "tpsp: 0x81");
+    PS2_MOUSE_SEND(0x60, "tpsp: 0x60");
+    PS2_MOUSE_SEND(0x61, "tpsp: 0x61");
 
     // inquire pts status
     rcv = ps2_host_send(0xE2);

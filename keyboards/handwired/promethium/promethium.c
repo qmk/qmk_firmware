@@ -31,6 +31,8 @@ void matrix_scan_kb(void) {
         counter = 0;
         battery_poll(battery_percentage());
     }
+
+    matrix_scan_user();
 }
 
 
