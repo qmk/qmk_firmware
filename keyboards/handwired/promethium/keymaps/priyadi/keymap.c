@@ -63,6 +63,7 @@ enum planck_keycodes {
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+#define G(x) LGUI(x)
 
 // unicode map
 
@@ -741,23 +742,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* GUI
  * ,-----------------------------------------------------------------------------------.
- * |      |  D1  |  D2  |  D3  |  D4  |  D5  |  D6  |  D7  |  D8  |  D9  |  D10 |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |Linux |      | Vol- | Mute | Vol+ |      |      |  D-  |      |  D+  |      |Qwerty|
+ * |      |  D1  |  D2  |  D3  |  D4  |  D5  |  D6  |  D7  |  D8  |  D9  |  D10 |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Win  |      | Prev | Play | Next |      |      |      |      |      |      |Colmak|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | OSX  |      |      |      |      |  BL- |  BL+ |      |      |      |      |Workmn|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_GUI] = KEYMAP(
-  _______, LGUI(KC_1),LGUI(KC_2),LGUI(KC_3),LGUI(KC_4),LGUI(KC_5),LGUI(KC_6),LGUI(KC_7),LGUI(KC_8),LGUI(KC_9),LGUI(KC_0), _______,
-    LINUX, OUT_USB, KC_VOLD, KC_MUTE, KC_VOLU,_______,_______,KC_WWW_BACK,_______,KC_WWW_FORWARD,KC_PAUS, QWERTY,
-      WIN, OUT_BLE, KC_MPRV, KC_MPLY, KC_MNXT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, COLEMAK,
-      OSX, _______, _______, _______, _______,  BL_DEC,  BL_INC, _______, _______, RGB_VAI, RGB_VAD, WORKMAN
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* GUI
+/* Sys
  * ,-----------------------------------------------------------------------------------.
  * |      |Qwerty| Win  |      |      |      |      | USB  |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -772,7 +773,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, QWERTY,  WIN,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
 
 };
@@ -872,15 +873,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-        if (IS_LAYER_ON(_EMOJI)) {
-          led_layer_emoji();
+        update_tri_layer(_PUNC, _GREEKL, _GUI);
+        if (IS_LAYER_ON(_GUI)) {
+          led_layer_normal();
         } else {
           led_layer_punc();
         }
       } else {
         layer_off(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
+        update_tri_layer(_PUNC, _GREEKL, _GUI);
         if (IS_LAYER_ON(_GREEKL)) {
           led_layer_normal();
         } else {
@@ -898,19 +899,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_on(_GREEKL);
           layer_off(_GREEKU);
-          update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-          if (IS_LAYER_ON(_EMOJI)) {
-            led_layer_emoji();
+          update_tri_layer(_PUNC, _GREEKL, _GUI);
+          if (IS_LAYER_ON(_GUI)) {
+            led_layer_normal();
           } else {
-            ;
+            led_layer_normal();
           }
         }
       } else {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
+        update_tri_layer(_PUNC, _GREEKL, _GUI);
         if (IS_LAYER_ON(_PUNC)) {
-          led_layer_punc();
+          led_layer_normal();
         } else {
           led_layer_normal();
         }
