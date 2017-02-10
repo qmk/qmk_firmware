@@ -20,6 +20,13 @@
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 
+enum glow_modes {
+  GLOW_NONE,
+  GLOW_MIN,
+  GLOW_FULL
+};
+uint8_t glow_mode = GLOW_MIN;
+
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -61,6 +68,10 @@ enum planck_keycodes {
   LINUX,
   WIN,
   OSX,
+
+  // others
+  GLOW,
+  AUDIO
 };
 
 // unicode map
@@ -317,6 +328,17 @@ const uint8_t PROGMEM LED_ALNUM[] = {
   LED_RSPC
 };
 
+const uint8_t PROGMEM LED_HOMING[] = {
+  LED_A,
+  LED_S,
+  LED_D,
+  LED_F,
+  LED_J,
+  LED_K,
+  LED_L,
+  LED_SCLN
+};
+
 const uint8_t PROGMEM LED_MODS[] = {
   LED_TAB,
   LED_ESC,
@@ -354,17 +376,47 @@ const uint8_t PROGMEM LED_TRACKPOINT[] = {
   LED_TRACKPOINT3,
 };
 
-void led_reset(void) {
+void led_turnoff_keys(void) {
   for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
     rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
   }
-
   for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
     rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 0, 0);
   }
-
   for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
     rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 0);
+  }
+}
+
+void led_reset(void) {
+  switch (glow_mode) {
+    case GLOW_NONE:
+      led_turnoff_keys();
+      break;
+    case GLOW_MIN:
+      led_turnoff_keys();
+      for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 8, 8, 8);
+      }
+      rgbsps_set(LED_F, 15, 0, 0);
+      rgbsps_set(LED_J, 15, 0, 0);
+      break;
+    case GLOW_FULL:
+      for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
+        rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 8, 8, 8);
+      }
+      for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
+        rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 15, 0);
+      }
+      for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
+        rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 15);
+      }
+      for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 15, 0, 0);
+      }
+      rgbsps_set(LED_F, 15, 15, 0);
+      rgbsps_set(LED_J, 15, 15, 0);
+      break;
   }
 }
 
@@ -384,35 +436,6 @@ void led_layer_func(void) {
   rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
   led_reset();
-
-  for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
-  }
-
-  // rgbsps_set(LED_I, 15, 0, 15);
-  // rgbsps_set(LED_J, 15, 0, 15);
-  // rgbsps_set(LED_K, 15, 0, 15);
-  // rgbsps_set(LED_L, 15, 0, 15);
-
-  // rgbsps_set(LED_U, 15, 0, 0);
-  // rgbsps_set(LED_O, 15, 0, 0);
-  // rgbsps_set(LED_COMM, 15, 0, 0);
-  // rgbsps_set(LED_DOT, 15, 0, 0);
-  // rgbsps_set(LED_SCLN, 15, 0, 0);
-  // rgbsps_set(LED_P, 15, 0, 0);
-
-  // rgbsps_set(LED_Q, 0, 15, 0);
-  // rgbsps_set(LED_W, 0, 15, 0);
-  // rgbsps_set(LED_E, 0, 15, 0);
-  // rgbsps_set(LED_R, 0, 15, 0);
-  // rgbsps_set(LED_A, 0, 15, 0);
-  // rgbsps_set(LED_S, 0, 15, 0);
-  // rgbsps_set(LED_D, 0, 15, 0);
-  // rgbsps_set(LED_F, 0, 15, 0);
-  // rgbsps_set(LED_Z, 0, 15, 0);
-  // rgbsps_set(LED_X, 0, 15, 0);
-  // rgbsps_set(LED_C, 0, 15, 0);
-  // rgbsps_set(LED_V, 0, 15, 0);
 
   rgbsps_send();
 }
@@ -434,55 +457,10 @@ void led_layer_num(void) {
 
   led_reset();
 
-  // for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-  //   rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
-  // }
-
-  // rgbsps_set(LED_U, 0, 5, 15);
-  // rgbsps_set(LED_I, 0, 5, 15);
-  // rgbsps_set(LED_O, 0, 5, 15);
-  // rgbsps_set(LED_J, 0, 5, 15);
-  // rgbsps_set(LED_K, 0, 5, 15);
-  // rgbsps_set(LED_L, 0, 5, 15);
-  // rgbsps_set(LED_M, 0, 5, 15);
-  // rgbsps_set(LED_COMM, 0, 5, 15);
-  // rgbsps_set(LED_DOT, 0, 5, 15);
-  // rgbsps_set(LED_FUNC, 0, 5, 15);
-
-  // rgbsps_set(LED_EMOJI, 0, 10, 15);
-  // rgbsps_set(LED_RALT, 0, 10, 15);
-
-  // rgbsps_set(LED_Q, 0, 10, 15);
-  // rgbsps_set(LED_W, 0, 10, 15);
-  // rgbsps_set(LED_E, 0, 10, 15);
-  // rgbsps_set(LED_R, 0, 10, 15);
-  // rgbsps_set(LED_T, 0, 10, 15);
-  // rgbsps_set(LED_Y, 0, 10, 15);
-  // rgbsps_set(LED_P, 0, 10, 15);
-
-  // rgbsps_set(LED_A, 0, 15, 15);
-  // rgbsps_set(LED_S, 0, 15, 15);
-  // rgbsps_set(LED_D, 0, 15, 15);
-  // rgbsps_set(LED_F, 0, 15, 15);
-  // rgbsps_set(LED_Z, 0, 15, 15);
-  // rgbsps_set(LED_X, 0, 15, 15);
-  // rgbsps_set(LED_C, 0, 15, 15);
-  // rgbsps_set(LED_V, 0, 15, 15);
-
   rgbsps_send();
 }
 
 void led_layer_emoji(void) {
-  // for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-  //   rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 15, 15, 0);
-  // }
-  // for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-  //   rgbsps_set(pgm_read_byte(&LED_MODS[i]), 15, 15, 0);
-  // }
-  // for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-  //   rgbsps_set(pgm_read_byte(&LED_FN[i]), 15, 15, 0);
-  // }
-
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
   rgbsps_set(LED_IND_NUM, 0, 0, 0);
   rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
@@ -769,7 +747,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = KEYMAP(
   XXXXXXX, QWERTY,  WIN,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
+  XXXXXXX, AUDIO,   XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
@@ -966,6 +944,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
+      return false;
+      break;
+
+    // glow mode changer
+    case GLOW:
+      if (record->event.pressed) {
+        glow_mode++;
+        if (glow_mode > GLOW_FULL) {
+          glow_mode = GLOW_NONE;
+        }
+        led_reset();
+        rgbsps_send();
+      }
+      return false;
+      break;
+
+    // faux clicky toggle, TBD
+    case AUDIO:
       return false;
       break;
   }
