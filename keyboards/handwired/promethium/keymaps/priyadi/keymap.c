@@ -13,19 +13,22 @@
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
 // Fillers to make layering clearer
-
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define G(x) LGUI(x)
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 
+// hybrid right-alt & scroll lock (mapped to Compose in OS)
+#undef KC_RALT
+#define KC_RALT MT(MOD_RALT, KC_SLCK)
+
+// glow
 enum glow_modes {
   GLOW_NONE,
   GLOW_MIN,
   GLOW_FULL
 };
-
 uint8_t glow_mode = GLOW_MIN;
 
 extern keymap_config_t keymap_config;
@@ -281,17 +284,6 @@ const uint32_t PROGMEM unicode_map[] = {
   [FSIGM] = 0x03C2,
 };
 
-
-// hybrid shift - =
-// #undef KC_LSFT
-// #define KC_LSFT MT(MOD_LSFT, KC_MINS)
-// #undef KC_RSFT
-// #define KC_RSFT MT(MOD_LSFT, KC_EQL)
-
-// hybrid right-alt & scroll lock (mapped to Compose in OS)
-#undef KC_RALT
-#define KC_RALT MT(MOD_RALT, KC_SLCK)
-
 // RGBSPS
 
 const uint8_t PROGMEM LED_ALNUM[] = {
@@ -543,12 +535,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
+#ifdef LAYOUT_DVORAK
 [_DVORAK] = KEYMAP(
   _______, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    _______,
   _______, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    _______,
   _______, KC_SLSH, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
+#endif
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
@@ -561,12 +555,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
+
+#ifdef LAYOUT_COLEMAK
 [_COLEMAK] = KEYMAP(
   _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, _______,
   _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______,
   _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
+#endif
 
 /* Norman
  * ,-----------------------------------------------------------------------------------.
@@ -579,12 +576,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
+
+#ifdef LAYOUT_NORMAN
 [_NORMAN] = KEYMAP(
   _______, KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_QUOT, _______,
   _______, KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,    _______,
   _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
+#endif
 
 /* Workman
  * ,-----------------------------------------------------------------------------------.
@@ -597,12 +597,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
+
+#ifdef LAYOUT_WORKMAN
 [_WORKMAN] = KEYMAP(
   _______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______,
   _______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______,
   _______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
+#endif
 
 /* Punc
  * ,-----------------------------------------------------------------------------------.
@@ -832,30 +835,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
+#endif
+#ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
+#endif
+#ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
+#endif
+#ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<_NORMAN);
       }
       return false;
       break;
+#endif
 
     // layer switcher
     case PUNC:
