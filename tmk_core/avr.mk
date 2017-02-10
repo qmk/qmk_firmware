@@ -96,6 +96,12 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).hex
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.hex\n" | zipnote -w $(TARGET).qmk
+
 # Program the device.
 program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
