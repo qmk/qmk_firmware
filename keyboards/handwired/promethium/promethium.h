@@ -5,6 +5,8 @@
 
 #define PS2_INIT_DELAY 2000
 #define UNICODE_TYPE_DELAY 0
+#define BATTERY_PIN 9
+#define BATTERY_POLL 30000
 
 #define KEYMAP( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
@@ -22,6 +24,8 @@
     {k37, k38, k39, k3a, k3b, k3c}, \
     {k47, k48, k49, k4a, k4b, k4c} \
 }
+
+
 
 enum led_sequence {
   LED_IND_BLUETOOTH,
@@ -99,4 +103,4 @@ enum led_sequence {
 
 #endif
 
-
+void battery_poll(float percentage);
