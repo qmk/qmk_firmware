@@ -782,8 +782,8 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
-  bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
+  bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
 
   switch (keycode) {
     // handle greek layer shift
@@ -796,7 +796,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_on(_GREEKU);
           layer_off(_GREEKL);
         } else {
-          if (lshifted ^ rshifted) { // if only one shift was pressed
+          if (lshift ^ rshift) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
           }
@@ -805,16 +805,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
 
+    // press both ctrls to activate SYS layer
+    case KC_LCTL:
+    case KC_RCTL:
+      ;
+      bool lctrl = keyboard_report->mods & MOD_BIT(KC_LCTL);
+      bool rctrl = keyboard_report->mods & MOD_BIT(KC_RCTL);
+      if (record->event.pressed) {
+        if (lctrl ^ rctrl) { // if only one ctrl was pressed
+          layer_on(_SYS);
+        }
+      } else {
+        layer_off(_SYS);
+      }
+      return true;
+      break;
+
     // QWERTZ style comma and dot: semicolon and colon when shifted
     case KC_COMM:
       if (record->event.pressed) {
-        if (lshifted || rshifted) {
-          if (lshifted) unregister_code(KC_LSFT);
-          if (rshifted) unregister_code(KC_RSFT);
+        if (lshift || rshift) {
+          if (lshift) unregister_code(KC_LSFT);
+          if (rshift) unregister_code(KC_RSFT);
           register_code(KC_SCLN);
           unregister_code(KC_SCLN);
-          if (lshifted) register_code(KC_LSFT);
-          if (rshifted) register_code(KC_RSFT);
+          if (lshift) register_code(KC_LSFT);
+          if (rshift) register_code(KC_RSFT);
         } else {
           register_code(KC_COMM);
           unregister_code(KC_COMM);
@@ -891,7 +907,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case GREEK:
       if (record->event.pressed) {
-        if (lshifted || rshifted) {
+        if (lshift || rshift) {
           layer_on(_GREEKU);
           layer_off(_GREEKL);
         } else {
