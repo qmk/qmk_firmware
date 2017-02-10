@@ -715,7 +715,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Sys
  * ,-----------------------------------------------------------------------------------.
- * |      |Qwerty| Win  |      |      |      |      | USB  |      |      |      |      |
+ * |      |Qwerty| Win  |      |Reset |      |      | USB  |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |Audio |      |Dvorak|      | Glow |      |      |WorkMn|Linux |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -725,7 +725,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYS] = KEYMAP(
-  XXXXXXX, QWERTY,  WIN,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, AUDIO,   XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
