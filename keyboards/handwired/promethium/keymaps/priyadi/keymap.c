@@ -744,6 +744,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     // handle greek layer shift
+    // handle both shift = capslock
     case KC_LSFT:
     case KC_RSFT:
       ;
@@ -756,6 +757,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lshift ^ rshift) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
+          }
+        }
+      } else {
+        if (record->event.pressed) {
+          if (lshift ^ rshift) { // if only one shift was pressed
+            register_code(KC_CAPS);
+            unregister_code(KC_CAPS);
           }
         }
       }
