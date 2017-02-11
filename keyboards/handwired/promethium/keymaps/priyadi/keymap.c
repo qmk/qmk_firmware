@@ -1058,7 +1058,7 @@ void battery_poll(uint8_t level) {
 void led_set_user(uint8_t usb_led) {
   bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
   if (new_capslock ^ capslock) { // capslock state is different
-    if (capslock = new_capslock) {
+    if ((capslock = new_capslock)) {
       rgbsps_set(LED_IND_NUM, 15, 0, 0);
     } else {
       rgbsps_set(LED_IND_NUM, 0, 0, 0);
