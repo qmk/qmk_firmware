@@ -34,10 +34,14 @@ SOFTWARE.
 #include "lcd_backlight.h"
 #endif
 
+// use this function to merget both real_mods and oneshot_mods in a uint16_t
+uint8_t visualizer_get_mods(void);
+
 // This need to be called once at the start
 void visualizer_init(void);
 // This should be called at every matrix scan
-void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds);
+void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds);
+
 // This should be called when the keyboard goes to suspend state
 void visualizer_suspend(void);
 // This should be called when the keyboard wakes up from suspend state
@@ -61,6 +65,7 @@ struct keyframe_animation_t;
 typedef struct {
     uint32_t layer;
     uint32_t default_layer;
+    uint8_t mods;
     uint32_t leds; // See led.h for available statuses
     bool suspended;
 } visualizer_keyboard_status_t;
@@ -129,6 +134,8 @@ bool keyframe_set_backlight_color(keyframe_animation_t* animation, visualizer_st
 bool keyframe_display_layer_text(keyframe_animation_t* animation, visualizer_state_t* state);
 // Displays a bitmap (0/1) of all the currently active layers
 bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
+// Displays a bitmap (0/1) of all the currently active mods
+bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
 bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);

@@ -62,6 +62,8 @@ void matrix_init(void)
 #endif
     memset(matrix, 0, MATRIX_ROWS);
     memset(matrix_debouncing, 0, MATRIX_ROWS);
+
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
@@ -146,6 +148,7 @@ uint8_t matrix_scan(void)
         }
         debouncing = false;
     }
+    matrix_scan_quantum();
     return 1;
 }
 
