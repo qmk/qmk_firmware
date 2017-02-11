@@ -7,22 +7,19 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _BASE 0
 #define _MOVE 1
 #define _SYMB 2
 #define _MOUSE 3
 #define _FUNC 4
+#define ENDASH LALT(KC_MINS)
+#define POUND LALT(KC_3)
+
 
 enum planck_keycodes {
   MOVE = SAFE_RANGE,
   SYMB,
-  FUNC,
-  BELOW,
-  ABOVE
+  FUNC
 };
 
 // Fillers to make layering more clear
@@ -51,20 +48,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Cmd-L|  Up  | Cmd-R|      |      | Cmd-L|  Up  | Cmd-R|      |  Esc |
+ * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn| Above|      | Pg Dn| Pg Up|      |      |      |
+ * |      |      |      | Pg Up| Pg Dn|      |      | Pg Dn| Pg Up|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      | Below|      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, LGUI(KC_LEFT), KC_UP, LGUI(KC_RGHT), XXXXXXX, XXXXXXX, LGUI(KC_LEFT), KC_UP, LGUI(KC_RGHT), XXXXXXX, KC_ESC },
+  {KC_ESC,  XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, KC_ESC },
   {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
-  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN,   ABOVE, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
-  {_______, _______, _______, _______, _______,   BELOW, _______, _______, _______, _______, _______, _______}
+  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* SYMB
@@ -79,8 +76,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYMB] = {
-  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    LALT(KC_MINS)},
-  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, LALT(KC_3)},
+  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    ENDASH },
+  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, POUND  },
   {_______, KC_TILD, KC_GRV,  KC_PLUS, KC_EQL,  KC_PIPE, KC_BSLS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -150,30 +147,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_FUNC);
       } else {
         layer_off(_FUNC);
-      }
-      return false;
-      break;
-    case BELOW:
-      if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_RGHT);
-        unregister_code(KC_RGHT);
-        unregister_code(KC_LGUI);
-        register_code(KC_ENT);
-        unregister_code(KC_ENT);
-      }
-      return false;
-      break;
-    case ABOVE:
-      if (record->event.pressed) {
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LGUI);
-        register_code(KC_ENT);
-        unregister_code(KC_ENT);
-        register_code(KC_UP);
-        unregister_code(KC_UP);
       }
       return false;
       break;
