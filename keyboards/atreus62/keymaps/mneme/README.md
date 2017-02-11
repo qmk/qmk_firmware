@@ -1,6 +1,6 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
-Mnemes Swedish Bonaza
+Mnemes Swedish Bonanza
 =======================
 
 My Layout in process, most of the code is shamelessly stolen from [algernons][algernon] excellent layout
