@@ -10,6 +10,7 @@
 #include "ps2_mouse.h"
 #include "ps2.h"
 #include "outputselect.h"
+#include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
 // Fillers to make layering clearer
@@ -22,6 +23,8 @@
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
 #undef KC_RALT
 #define KC_RALT MT(MOD_RALT, KC_SLCK)
+
+bool capslock = false;
 
 // glow
 enum glow_modes {
@@ -417,7 +420,7 @@ void led_set_layer_indicator(void) {
   static uint8_t oldlayer = 255;
 
   rgbsps_set(LED_IND_FUNC, 0, 0, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 0);
+  // rgbsps_set(LED_IND_NUM, 0, 0, 0);
   rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
   led_reset();
@@ -438,9 +441,9 @@ void led_set_layer_indicator(void) {
     case _FUNC:
       rgbsps_set(LED_IND_FUNC, 15, 0, 0);
       break;
-    case _NUM:
-      rgbsps_set(LED_IND_NUM, 0, 0, 15);
-      break;
+    // case _NUM:
+    //   rgbsps_set(LED_IND_NUM, 0, 0, 15);
+    //   break;
     case _EMOJI:
       rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
       break;
@@ -990,6 +993,18 @@ void matrix_scan_user(void) {
 void battery_poll(uint8_t level) {
   rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
   rgbsps_send();
+}
+
+void led_set_user(uint8_t usb_led) {
+  bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
+  if (new_capslock ^ capslock) { // capslock state is different
+    if (capslock = new_capslock) {
+      rgbsps_set(LED_IND_NUM, 15, 0, 0);
+    } else {
+      rgbsps_set(LED_IND_NUM, 0, 0, 0);
+    }
+    rgbsps_send();
+  }
 }
 
 void ps2_mouse_init_user() {
