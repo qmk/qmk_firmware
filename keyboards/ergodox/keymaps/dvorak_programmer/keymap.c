@@ -6,7 +6,8 @@
 #include "action_code.h"
 
 #define BASE    0 // default layer
-#define SHELL_NAV 1
+#define SHELL_LAYER 1
+#define SHELL_NAV 2
 #define KEY_NAV 3 // key navigation layer
 #define KEY_SEL 4 // key selection layer
 #define NUMBER  5  // number layer
@@ -58,12 +59,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
-        LT(MOUSE,KC_TAB),       KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
-        MO(SHELL_NAV),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
-        KC_FN3,                    KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
+        LT(SHELL_NAV,KC_TAB),      KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
+        OSL(BRACKETS),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
+        OSM(MOD_LSFT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
                                               // thumb cluster
-                                               MO(BRACKETS), RCTL(KC_S),
+                                               MO(MOUSE), RCTL(KC_S),
                                                                       RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
@@ -80,6 +81,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      
 
+	 
+// permanent shell layer - meant to be used while in a terminal. only the top keys are overriden
+[SHELL_LAYER] = KEYMAP(
+       // left hand
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,LALT(KC_DOT),RCTL(KC_R),RCTL(KC_C),
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       RCTL(KC_W), LALT(KC_B),LALT(KC_F), KC_LEFT, KC_RIGHT, LALT(KC_D), KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                // bottom row
+                 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+),	 
+	 
 // shell navigation layer
 [SHELL_NAV] = KEYMAP(
        // left hand
@@ -209,12 +237,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BRACKETS] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,       
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,               KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,M(OPEN_CLOSE_CURLY), M(OPEN_CLOSE_PAREN),M(OPEN_CLOSE_BRACKET), KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_LPRN, KC_RPRN,            KC_LBRC,            KC_RBRC,               KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,             KC_LCBR,            KC_RCBR,               KC_TRNS,KC_TRNS,       
+       KC_TRNS,KC_TRNS,KC_TRNS,             KC_TRNS,            KC_TRNS,
+                                        KC_TRNS,KC_TRNS,
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
@@ -246,7 +274,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            MEH(KC_S),    MEH(KC_T),    MEH(KC_U),    MEH(KC_V), MEH(KC_X),
        MEH(KC_6), MEH(KC_7),
        MEH(KC_8),
-       MEH(KC_9), MEH(KC_Y), MEH(KC_Z)
+       MEH(KC_9), TO(BASE), TO(SHELL_LAYER)
 ),
 
 
@@ -406,6 +434,8 @@ void matrix_scan_user(void) {
     switch (layer) {
         case NUMBER:
         case SYMBOL:
+		case BRACKETS:
+		//case SHELL_LAYER:		
             ergodox_right_led_2_on();
             break;
         case KEY_NAV:
