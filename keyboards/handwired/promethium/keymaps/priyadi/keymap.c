@@ -41,6 +41,7 @@ enum glow_modes {
 };
 uint8_t glow_mode = GLOW_MIN;
 
+void turn_off_capslock(void);
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -49,6 +50,7 @@ enum layers {
   _COLEMAK,
   _WORKMAN,
   _NORMAN,
+  _DEFAULT_LAYER_MAX = _NORMAN,
 
   _PUNC,
   _NUM,
@@ -444,7 +446,7 @@ void led_set_layer_indicator(void) {
 
   oldlayer = layer;
 
-  if (layer <= _NORMAN) {
+  if (layer <= _DEFAULT_LAYER_MAX) {
     rgbsps_send();
     return;
   }
@@ -461,7 +463,7 @@ void led_set_layer_indicator(void) {
       break;
     default:
       rgbsps_set(LED_IND_FUNC, 3, 3, 3);
-      rgbsps_set(LED_IND_NUM, 3, 3, 3);
+      // rgbsps_set(LED_IND_NUM, 3, 3, 3);
       rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
   }
 
@@ -753,6 +755,30 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *isemitted) {
+  if (pressed) {
+    *isactive = true;
+    if (*otheractive) {
+      layer_on(_SPACE);
+      space_layer_entered = true;
+    }
+  } else {
+    *isactive = false;
+    if (space_layer_entered) {
+      layer_off(_SPACE);
+      if (!*otheractive) {
+        space_layer_entered = false;
+      }
+    } else {
+      if (!*isemitted) {
+        register_code(KC_SPC);
+        unregister_code(KC_SPC);
+      }
+      *isemitted = false;
+    }
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
@@ -786,51 +812,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef DOUBLESPACE_LAYER_ENABLE
     // double-space enter space layer
     case LSPACE:
-      if (record->event.pressed) {
-        lspace_active = true;
-        if (rspace_active) {
-          layer_on(_SPACE);
-          space_layer_entered = true;
-        }
-      } else {
-        lspace_active = false;
-        if (space_layer_entered) {
-          layer_off(_SPACE);
-          if (!rspace_active) {
-            space_layer_entered = false;
-          }
-        } else {
-          if (!lspace_emitted) {
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-          }
-          lspace_emitted = false;
-        }
-      }
+      process_doublespace(record->event.pressed, &lspace_active, &rspace_active, &lspace_emitted);
       return false;
       break;
     case RSPACE:
-      if (record->event.pressed) {
-        rspace_active = true;
-        if (lspace_active) {
-          layer_on(_SPACE);
-          space_layer_entered = true;
-        }
-      } else {
-        rspace_active = false;
-        if (space_layer_entered) {
-          layer_off(_SPACE);
-          if (!lspace_active) {
-            space_layer_entered = false;
-          }
-        } else {
-          if (!rspace_emitted) {
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-          }
-          rspace_emitted = false;
-        }
-      }
+      process_doublespace(record->event.pressed, &rspace_active, &lspace_active, &rspace_emitted);
       return false;
       break;
 #endif
