@@ -987,8 +987,8 @@ void matrix_scan_user(void) {
   led_set_layer_indicator();
 }
 
-void battery_poll(float percentage) {
-  rgbsps_sethsv(LED_IND_BATTERY, percentage*120/100, 255, 15);
+void battery_poll(uint8_t level) {
+  rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
   rgbsps_send();
 }
 

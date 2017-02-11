@@ -7,6 +7,8 @@
 #define UNICODE_TYPE_DELAY 0
 #define BATTERY_PIN 9
 #define BATTERY_POLL 30000
+#define MAX_VOLTAGE 4.2
+#define MIN_VOLTAGE 3.2
 
 #define KEYMAP( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
@@ -103,4 +105,4 @@ enum led_sequence {
 
 #endif
 
-void battery_poll(float percentage);
+void battery_poll(uint8_t level);

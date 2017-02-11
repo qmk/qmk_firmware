@@ -3,20 +3,17 @@
 #include "timer.h"
 #include "matrix.h"
 
-float battery_percentage(void) {
+// cubic fit {3.3, 0}, {3.5, 2.9}, {3.6, 5}, {3.7, 8.6}, {3.8, 36},  {3.9, 62}, {4.0, 73}, {4.05, 83}, {4.1, 89}, {4.15, 94}, {4.2, 100}
+
+uint8_t battery_level(void) {
     float voltage = analogRead(BATTERY_PIN) * 2 * 3.3 / 1024;
-    float percentage = (voltage - 3.5) * 143;
-    if (percentage > 100) {
-        return 100;
-    } else if (percentage < 0) {
-        return 0;
-    } else {
-        return percentage;
-    }
+    if (voltage < MIN_VOLTAGE) return 0;
+    if (voltage > MAX_VOLTAGE) return 255;
+    return (voltage - MIN_VOLTAGE) / (MAX_VOLTAGE - MIN_VOLTAGE) * 255;
 }
 
 __attribute__ ((weak))
-void battery_poll(float percentage) {
+void battery_poll(uint8_t level) {
 }
 
 void matrix_init_kb(void) {
@@ -29,7 +26,7 @@ void matrix_scan_kb(void) {
 
     if (counter > BATTERY_POLL) {
         counter = 0;
-        battery_poll(battery_percentage());
+        battery_poll(battery_level());
     }
 
     matrix_scan_user();
