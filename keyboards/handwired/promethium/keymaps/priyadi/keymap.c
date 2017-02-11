@@ -878,22 +878,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
 
-    // press both Supers to activate EMOJI layer
-    case KC_LGUI:
-    case KC_RGUI:
-      ;
-      bool lgui = keyboard_report->mods & MOD_BIT(KC_LGUI);
-      bool rgui = keyboard_report->mods & MOD_BIT(KC_RGUI);
-      if (record->event.pressed) {
-        if (lgui ^ rgui) { // if only one super was pressed
-          layer_on(_EMOJI);
-        }
-      } else {
-        layer_off(_EMOJI);
-      }
-      return true;
-      break;
-
     // QWERTZ style comma and dot: semicolon and colon when shifted
     case KC_COMM:
       if (record->event.pressed) {
@@ -968,10 +952,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PUNC:
       if (record->event.pressed) {
         layer_on(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _GUI);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
       } else {
         layer_off(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _GUI);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
       }
       return false;
       break;
@@ -984,12 +968,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_on(_GREEKL);
           layer_off(_GREEKU);
-          update_tri_layer(_PUNC, _GREEKL, _GUI);
+          update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         }
       } else {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
-        update_tri_layer(_PUNC, _GREEKL, _GUI);
+        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
       }
       return false;
       break;
