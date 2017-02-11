@@ -19,4 +19,6 @@
 #define LAYOUT_NORMAN
 #define LAYOUT_WORKMAN
 
+#define DOUBLESPACE_LAYER_ENABLE
+
 #endif
