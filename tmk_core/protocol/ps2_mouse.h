@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PS2_MOUSE_SEND(command, message) \
 do { \
-   uint8_t rcv = ps2_host_send(command); \
+   __attribute__ ((unused)) uint8_t rcv = ps2_host_send(command); \
    if (debug_mouse) { \
         print((message)); \
         xprintf(" command: %X, result: %X, error: %X \n", command, rcv, ps2_error); \
@@ -55,13 +55,14 @@ do { \
 
 #define PS2_MOUSE_RECEIVE(message) \
 do { \
-   uint8_t rcv = ps2_host_recv_response(); \
+   __attribute__ ((unused)) uint8_t rcv = ps2_host_recv_response(); \
    if (debug_mouse) { \
         print((message)); \
         xprintf(" result: %X, error: %X \n", rcv, ps2_error); \
     } \
 } while(0)
 
+__attribute__ ((unused))
 static enum ps2_mouse_mode_e {
     PS2_MOUSE_STREAM_MODE,
     PS2_MOUSE_REMOTE_MODE,
