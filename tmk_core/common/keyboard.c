@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <stdint.h>
 #include "keyboard.h"
 #include "matrix.h"
@@ -188,7 +189,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef VISUALIZER_ENABLE
-    visualizer_update(default_layer_state, layer_state, host_keyboard_leds());
+    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
 #endif
 
     // update LED

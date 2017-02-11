@@ -80,6 +80,14 @@ ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
+ifeq ($(strip $(NO_UART)), yes)
+    TMK_COMMON_DEFS += -DNO_UART
+endif
+
+ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
+    TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
+endif
+
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/backlight.c
     TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
