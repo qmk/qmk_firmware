@@ -755,6 +755,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+#ifdef DOUBLESPACE_LAYER_ENABLE
 void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *isemitted) {
   if (pressed) {
     *isactive = true;
@@ -778,6 +779,7 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
     }
   }
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
