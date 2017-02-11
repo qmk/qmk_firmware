@@ -996,6 +996,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case NUM:
       if (record->event.pressed) {
+        turn_off_capslock();
         layer_on(_NUM);
       } else {
         layer_off(_NUM);
@@ -1093,6 +1094,13 @@ void led_set_user(uint8_t usb_led) {
       rgbsps_set(LED_IND_NUM, 0, 0, 0);
     }
     rgbsps_send();
+  }
+}
+
+void turn_off_capslock() {
+  if (capslock) {
+    register_code(KC_CAPS);
+    unregister_code(KC_CAPS);
   }
 }
 
