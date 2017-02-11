@@ -4,7 +4,6 @@
 #include "quantum.h"
 
 #define PS2_INIT_DELAY 2000
-#define UNICODE_TYPE_DELAY 0
 #define BATTERY_PIN 9
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
