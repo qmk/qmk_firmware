@@ -25,6 +25,13 @@
 #define KC_RALT MT(MOD_RALT, KC_SLCK)
 
 bool capslock = false;
+#ifdef DOUBLESPACE_LAYER_ENABLE
+bool lspace_active = false;
+bool rspace_active = false;
+bool lspace_emitted = false;
+bool rspace_emitted = false;
+bool space_layer_entered = false;
+#endif
 
 // glow
 enum glow_modes {
@@ -55,6 +62,9 @@ enum layers {
   _SYS,
 };
 
+// double-space layer
+#define _SPACE _GUI
+
 enum planck_keycodes {
   // layouts
   QWERTY = SAFE_RANGE,
@@ -77,6 +87,8 @@ enum planck_keycodes {
   OSX,
 
   // others
+  LSPACE,
+  RSPACE,
   GLOW,
   AUDIO
 };
@@ -504,7 +516,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     KC_SPC,  KC_SPC,  FUNC,    GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     LSPACE,  RSPACE,  FUNC,    GREEK,   KC_RGUI, KC_RALT, KC_RCTL
 ),
 
 /* Dvorak
@@ -745,7 +757,84 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
 
+#ifdef DOUBLESPACE_LAYER_ENABLE
+  // double-space: send space immediately if any other key depressed before space is released
+  if ((lspace_active ^ rspace_active)
+      && keycode != LSPACE
+      && keycode != RSPACE
+      && record->event.pressed)
+  {
+    if (lspace_active) {
+      if (!lspace_emitted) {
+        register_code(KC_SPC);
+        unregister_code(KC_SPC);
+      }
+      lspace_emitted = true;
+    }
+    if (rspace_active) {
+      if (!rspace_emitted) {
+        register_code(KC_SPC);
+        unregister_code(KC_SPC);
+      }
+      rspace_emitted = true;
+    }
+  }
+#endif
+
   switch (keycode) {
+
+#ifdef DOUBLESPACE_LAYER_ENABLE
+    // double-space enter space layer
+    case LSPACE:
+      if (record->event.pressed) {
+        lspace_active = true;
+        if (rspace_active) {
+          layer_on(_SPACE);
+          space_layer_entered = true;
+        }
+      } else {
+        lspace_active = false;
+        if (space_layer_entered) {
+          layer_off(_SPACE);
+          if (!rspace_active) {
+            space_layer_entered = false;
+          }
+        } else {
+          if (!lspace_emitted) {
+            register_code(KC_SPC);
+            unregister_code(KC_SPC);
+          }
+          lspace_emitted = false;
+        }
+      }
+      return false;
+      break;
+    case RSPACE:
+      if (record->event.pressed) {
+        rspace_active = true;
+        if (lspace_active) {
+          layer_on(_SPACE);
+          space_layer_entered = true;
+        }
+      } else {
+        rspace_active = false;
+        if (space_layer_entered) {
+          layer_off(_SPACE);
+          if (!lspace_active) {
+            space_layer_entered = false;
+          }
+        } else {
+          if (!rspace_emitted) {
+            register_code(KC_SPC);
+            unregister_code(KC_SPC);
+          }
+          rspace_emitted = false;
+        }
+      }
+      return false;
+      break;
+#endif
+
     // handle greek layer shift
     // handle both shift = capslock
     case KC_LSFT:
