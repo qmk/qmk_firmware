@@ -14,4 +14,11 @@
 #define RGB_DI_PIN B5
 #define RGBSPS_NUM 57
 
+#define LAYOUT_DVORAK
+#define LAYOUT_COLEMAK
+#define LAYOUT_NORMAN
+#define LAYOUT_WORKMAN
+
+#define DOUBLESPACE_LAYER_ENABLE
+
 #endif
