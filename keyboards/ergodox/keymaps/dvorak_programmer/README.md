@@ -20,7 +20,7 @@ Updates
 -------
 
 2017/02/10:
-* Made left shift an MO for SHELL_NAV, and symbol+right shift CAPSLOCK
+* Made left shift an MO for SHELL_NAV, and symbol+right shift CAPSLOCK. Made all modifiers OSM.
 
 2017/01/28:
 * Made the capslock key a dual momentary layer activation for BRACKETS and SHELL_NAV. One keypress held down for BRACKETS, one keypress, released and then held down for SHELL_NAV
