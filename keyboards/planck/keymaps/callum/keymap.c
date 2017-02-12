@@ -12,8 +12,6 @@ extern keymap_config_t keymap_config;
 #define _SYMB 2
 #define _MOUSE 3
 #define _FUNC 4
-#define CMDLEFT LGUI(KC_LEFT)
-#define CMDRGHT LGUI(KC_RGHT)
 #define ENDASH LALT(KC_MINS)
 #define POUND LALT(KC_3)
 
@@ -50,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Cmd-L|  Up  | Cmd-R|      |      | Cmd-L|  Up  | Cmd-R|      |  Esc |
+ * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -60,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, XXXXXXX, CMDLEFT, KC_UP,   CMDRGHT, XXXXXXX, KC_ESC },
+  {KC_ESC,  XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, KC_ESC },
   {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
   {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
