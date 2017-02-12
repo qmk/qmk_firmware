@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
                    OSL(SHORTCUTS),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
                                               // thumb cluster
-                                               MO(MOUSE), RCTL(KC_S),
-                                                                      RCTL(KC_DEL),
+                                               OSM(MOD_LSFT), RCTL(KC_S),
+                                                          RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
              KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
