@@ -729,7 +729,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
   KC_ESC,  XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU,S(KC_TAB),KC_TAB,  KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_SPC,  KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Sys
@@ -813,7 +813,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
 
-  if (layer == _SPACE && keycode != S(KC_TAB) && keycode != KC_TAB && keycode != KC_ESC) {
+  if (layer == _SPACE && keycode != S(KC_TAB) && keycode != KC_TAB && keycode != KC_ESC && keycode != XXXXXXX) {
     if (record->event.pressed) {
       unregister_code(KC_LALT);
     } else {
