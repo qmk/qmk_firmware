@@ -309,6 +309,10 @@ This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly
 
 This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#audio-output-from-a-speaker) for more information.
 
+`FAUXCLICKY_ENABLE`
+
+Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as AUDIO_ENABLE.
+
 `VARIABLE_TRACE`
 
 Use this to debug changes to variable values, see the [tracing variables](#tracing-variables) section for more information.
