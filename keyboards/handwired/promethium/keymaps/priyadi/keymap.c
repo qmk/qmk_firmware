@@ -720,14 +720,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      | Vol- | Mute | Vol+ |      |      | Prev |      | Next |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
+ * |      |      | Prev | Play | Next | BTab |  Tab |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_GUI] = KEYMAP(
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
+  KC_ESC,  XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU,S(KC_TAB),KC_TAB,  KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_SPC,  KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 ),
@@ -763,11 +763,13 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
     *isactive = true;
     if (*otheractive) {
       layer_on(_SPACE);
+      register_code(KC_LALT);  // sends alt and enter layer
       space_layer_entered = true;
     }
   } else {
     *isactive = false;
     if (space_layer_entered) {
+      unregister_code(KC_LALT);  // release alt and exit layer
       layer_off(_SPACE);
       if (!*otheractive) {
         space_layer_entered = false;
@@ -786,6 +788,7 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  uint8_t layer = biton32(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
@@ -809,6 +812,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rspace_emitted = true;
     }
   }
+
+  if (layer == _SPACE && keycode != S(KC_TAB) && keycode != KC_TAB && keycode != KC_ESC) {
+    if (record->event.pressed) {
+      unregister_code(KC_LALT);
+    } else {
+      register_code(KC_LALT);
+    }
+  }
 #endif
 
   switch (keycode) {
@@ -830,7 +841,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_LSFT:
     case KC_RSFT:
       ;
-      uint8_t layer = biton32(layer_state);
       if (layer == _GREEKU || layer == _GREEKL) {
         if (record->event.pressed) {
           layer_on(_GREEKU);
