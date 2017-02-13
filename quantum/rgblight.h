@@ -2,7 +2,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 23
+	#define RGBLIGHT_MODES 34
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -22,6 +22,14 @@
 #define RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH 4
 #endif
 
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#endif
+
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
+#endif
+
 #ifndef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 10
 #endif
@@ -39,6 +47,8 @@
 #include <stdbool.h>
 #include "eeconfig.h"
 #include "light_ws2812.h"
+
+extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
@@ -63,6 +73,7 @@ void rgblight_decrease(void);
 void rgblight_toggle(void);
 void rgblight_enable(void);
 void rgblight_step(void);
+void rgblight_step_reverse(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
@@ -98,5 +109,6 @@ void rgblight_effect_rainbow_mood(uint8_t interval);
 void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
+void rgblight_effect_christmas(void);
 
 #endif

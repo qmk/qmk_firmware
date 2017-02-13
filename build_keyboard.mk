@@ -144,6 +144,11 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+    OPT_DEFS += -DCOMBO_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
@@ -154,6 +159,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/audio/audio.c
 	SRC += $(QUANTUM_DIR)/audio/voices.c
 	SRC += $(QUANTUM_DIR)/audio/luts.c
+endif
+
+ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
+    OPT_DEFS += -DFAUXCLICKY_ENABLE
+	SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
@@ -221,7 +231,11 @@ OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
 ifeq ($(PLATFORM),AVR)
+ifeq ($(strip $(PROTOCOL)), VUSB)
+	include $(TMK_PATH)/protocol/vusb.mk
+else
 	include $(TMK_PATH)/protocol/lufa.mk
+endif
 	include $(TMK_PATH)/avr.mk
 endif
 

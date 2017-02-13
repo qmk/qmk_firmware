@@ -53,6 +53,7 @@
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
+#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -589,59 +590,33 @@ void EVENT_USB_Device_ControlRequest(void)
 
 /*******************************************************************************
  * Host driver
-p
  ******************************************************************************/
 static uint8_t keyboard_leds(void)
 {
     return keyboard_led_stats;
 }
 
-#define SendToUSB 1
-#define SendToBT  2
-#define SendToBLE 4
-
-static inline uint8_t where_to_send(void) {
-#ifdef ADAFRUIT_BLE_ENABLE
-#if 0
-  if (adafruit_ble_is_connected()) {
-    // For testing, send to BLE as a priority
-    return SendToBLE;
-  }
-#endif
-
-  // This is the real policy
-  if (USB_DeviceState != DEVICE_STATE_Configured) {
-    if (adafruit_ble_is_connected()) {
-      return SendToBLE;
-    }
-  }
-#endif
-  return ((USB_DeviceState == DEVICE_STATE_Configured) ? SendToUSB : 0)
-#ifdef BLUETOOTH_ENABLE
-    || SendToBT
-#endif
-    ;
-}
-
 static void send_keyboard(report_keyboard_t *report)
 {
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-        bluefruit_serial_send(report->raw[i]);
-    }
-#endif
-
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
+#ifdef BLUETOOTH_ENABLE
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        bluefruit_serial_send(0xFD);
+        for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+            bluefruit_serial_send(report->raw[i]);
+        }
+    }
+#endif
+
 #ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
+    if (where == OUTPUT_ADAFRUIT_BLE) {
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
     }
 #endif
 
-    if (!(where & SendToUSB)) {
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -681,30 +656,31 @@ static void send_keyboard(report_keyboard_t *report)
 static void send_mouse(report_mouse_t *report)
 {
 #ifdef MOUSE_ENABLE
-
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x03);
-    bluefruit_serial_send(report->buttons);
-    bluefruit_serial_send(report->x);
-    bluefruit_serial_send(report->y);
-    bluefruit_serial_send(report->v); // should try sending the wheel v here
-    bluefruit_serial_send(report->h); // should try sending the wheel h here
-    bluefruit_serial_send(0x00);
-#endif
-
     uint8_t timeout = 255;
-
     uint8_t where = where_to_send();
 
+#ifdef BLUETOOTH_ENABLE
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(report->buttons);
+        bluefruit_serial_send(report->x);
+        bluefruit_serial_send(report->y);
+        bluefruit_serial_send(report->v); // should try sending the wheel v here
+        bluefruit_serial_send(report->h); // should try sending the wheel h here
+        bluefruit_serial_send(0x00);
+    }
+#endif
+
 #ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
+    if (where == OUTPUT_ADAFRUIT_BLE) {
       // FIXME: mouse buttons
       adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
     }
 #endif
-    if (!(where & SendToUSB)) {
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -746,32 +722,34 @@ static void send_system(uint16_t data)
 
 static void send_consumer(uint16_t data)
 {
-
-#ifdef BLUETOOTH_ENABLE
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
-    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x02);
-    bluefruit_serial_send((bitmap>>8)&0xFF);
-    bluefruit_serial_send(bitmap&0xFF);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-#endif
-
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
+#ifdef BLUETOOTH_ENABLE
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+        static uint16_t last_data = 0;
+        if (data == last_data) return;
+        last_data = data;
+        uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x02);
+        bluefruit_serial_send((bitmap>>8)&0xFF);
+        bluefruit_serial_send(bitmap&0xFF);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+    }
+#endif
+
 #ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
+    if (where == OUTPUT_ADAFRUIT_BLE) {
       adafruit_ble_send_consumer_key(data, 0);
     }
 #endif
-    if (!(where & SendToUSB)) {
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -1252,28 +1230,40 @@ void cc_callback(MidiDevice * device,
   // midi_send_cc(device, (chan + 1) % 16, num, val);
 }
 
+#ifdef API_SYSEX_ENABLE
 uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
+#endif
 
 void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
     #ifdef API_SYSEX_ENABLE
         // SEND_STRING("\n");
         // send_word(start);
         // SEND_STRING(": ");
+        // Don't store the header
+        int16_t pos = start - 4;
         for (uint8_t place = 0; place < length; place++) {
             // send_byte(*data);
-            midi_buffer[start + place] = *data;
-            if (*data == 0xF7) {
-                // SEND_STRING("\nRD: ");
-                // for (uint8_t i = 0; i < start + place + 1; i++){
-                //     send_byte(midi_buffer[i]);
-                // SEND_STRING(" ");
-                // }
-                uint8_t * decoded = malloc(sizeof(uint8_t) * (sysex_decoded_length(start + place - 4)));
-                uint16_t decode_length = sysex_decode(decoded, midi_buffer + 4, start + place - 4);
-                process_api(decode_length, decoded);
+            if (pos >= 0) {
+                if (*data == 0xF7) {
+                    // SEND_STRING("\nRD: ");
+                    // for (uint8_t i = 0; i < start + place + 1; i++){
+                    //     send_byte(midi_buffer[i]);
+                    // SEND_STRING(" ");
+                    // }
+                    const unsigned decoded_length = sysex_decoded_length(pos);
+                    uint8_t decoded[API_SYSEX_MAX_SIZE];
+                    sysex_decode(decoded, midi_buffer, pos);
+                    process_api(decoded_length, decoded);
+                    return;
+                }
+                else if (pos >= MIDI_SYSEX_BUFFER) {
+                    return;
+                }
+                midi_buffer[pos] = *data;
             }
             // SEND_STRING(" ");
             data++;
+            pos++;
         }
     #endif
 }

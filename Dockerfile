@@ -26,3 +26,4 @@ ENV keymap=default
 
 VOLUME /qmk
 WORKDIR /qmk
+CMD make clean ; make keyboard=${keyboard} subproject=${subproject} keymap=${keymap}
