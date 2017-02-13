@@ -616,8 +616,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV ,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
   KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -634,8 +634,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), KC_GRV,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
   KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
   _______, _______, _______, _______, _______, _______, _______,    KC_0, KC_COMM,  KC_DOT, KC_X,    _______
 ),
