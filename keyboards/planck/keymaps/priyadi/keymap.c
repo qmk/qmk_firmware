@@ -310,6 +310,10 @@ const uint32_t PROGMEM unicode_map[] = {
   [FSIGM] = 0x03C2,
 };
 
+// hybrid right-gui & scroll lock (mapped to Compose in OS)
+#undef KC_RALT
+#define KC_RALT MT(MOD_RALT, KC_SLCK)
+
 // keymaps
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
