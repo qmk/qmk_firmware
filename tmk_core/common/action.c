@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nodebug.h"
 #endif
 
+#ifdef FAUXCLICKY_ENABLE
+#include <fauxclicky.h>
+#endif
 
 void action_exec(keyevent_t event)
 {
@@ -40,6 +43,16 @@ void action_exec(keyevent_t event)
         dprint("\n---- action_exec: start -----\n");
         dprint("EVENT: "); debug_event(event); dprintln();
     }
+
+#ifdef FAUXCLICKY_ENABLE
+    if (IS_PRESSED(event)) {
+        FAUXCLICKY_ACTION_PRESS;
+    }
+    if (IS_RELEASED(event)) {
+        FAUXCLICKY_ACTION_RELEASE;
+    }
+    fauxclicky_check();
+#endif
 
 #ifdef ONEHAND_ENABLE
     if (!IS_NOEVENT(event)) {
