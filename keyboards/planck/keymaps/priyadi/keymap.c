@@ -268,8 +268,8 @@ const uint32_t PROGMEM unicode_map[] = {
 
 
 // hybrid right-gui & scroll lock (mapped to Compose in OS)
-#undef KC_RCTL
-#define KC_RCTL MT(MOD_LCTL, KC_SLCK)
+#undef KC_RALT
+#define KC_RALT MT(MOD_RALT, KC_SLCK)
 
 // keymaps
 
