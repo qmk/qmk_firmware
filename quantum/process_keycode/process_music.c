@@ -114,8 +114,18 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
             music_sequence_interval+=10;
         return false;
       }
+      #define MUSIC_MODE_GUITAR
 
+      #ifdef MUSIC_MODE_CHROMATIC
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(MATRIX_ROWS - record->event.key.row));
+      #elif defined(MUSIC_MODE_GUITAR)
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 7)*5.0/12);
+      #elif defined(MUSIC_MODE_VIOLIN)
+      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 5)*7.0/12);
+      #else
       float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + SCALE[record->event.key.col + music_offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      #endif
+
       if (record->event.pressed) {
         play_note(freq, 0xF);
         if (music_sequence_recording) {
