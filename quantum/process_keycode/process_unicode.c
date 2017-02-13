@@ -139,9 +139,18 @@ void unicode_map_input_error() {}
 bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
-    uint16_t index = keycode & 0x7FF;
+    uint16_t index = keycode - QK_UNICODE_MAP;
     uint32_t code = pgm_read_dword_far(&map[index]);
-    if ((code > 0xFFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
+    if (code > 0xFFFF && code <= 0x10ffff && input_mode == UC_OSX) {
+      // Convert to UTF-16 surrogate pair
+      code -= 0x10000;
+      uint32_t lo = code & 0x3ff;
+      uint32_t hi = (code & 0xffc00) >> 10;
+      unicode_input_start();
+      register_hex32(hi + 0xd800);
+      register_hex32(lo + 0xdc00);
+      unicode_input_finish();
+    } else if ((code > 0x10ffff && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
       // when character is out of range supported by the OS
       unicode_map_input_error();
     } else {
