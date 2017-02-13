@@ -161,6 +161,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
+ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
+    OPT_DEFS += -DFAUXCLICKY_ENABLE
+	SRC += $(QUANTUM_DIR)/fauxclicky.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
 	OPT_DEFS += -DUCIS_ENABLE
 	UNICODE_ENABLE = yes
