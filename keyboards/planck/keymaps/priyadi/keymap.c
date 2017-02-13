@@ -12,6 +12,10 @@
 #include "quantum.h"
 // #define TOLELOT_ENABLE
 #define DOUBLESPACE_LAYER_ENABLE
+#define LAYOUT_DVORAK
+#define LAYOUT_COLEMAK
+#define LAYOUT_WORKMAN
+#define LAYOUT_NORMAN
 
 // so i can copy & paste stuff from my other planck-like keyboards
 #define KEYMAP( \
@@ -558,7 +562,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = KEYMAP(
   XXXXXXX, QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, AUDIO,   XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
+  XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
@@ -852,8 +856,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     // faux clicky toggle, TBD
-    case AUDIO:
-      return false;
+    case FC_TOG:
+      return true;
       break;
 
   }
