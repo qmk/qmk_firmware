@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "musical_notes.h"
+#include "stdbool.h"
 
 __attribute__ ((weak))
 float fauxclicky_pressed_note[2];
@@ -25,6 +26,8 @@ __attribute__ ((weak))
 float fauxclicky_released_note[2];
 __attribute__ ((weak))
 float fauxclicky_beep_note[2];
+
+bool fauxclicky_enabled;
 
 //
 // tempo in BPM
@@ -50,6 +53,15 @@ float fauxclicky_beep_note[2];
 #define FAUXCLICKY_OFF do { \
     fauxclicky_enabled = false; \
     fauxclicky_stop(); \
+} while (0)
+
+// toggle
+#define FAUXCLICKY_TOGGLE do { \
+    if (fauxclicky_enabled) { \
+        FAUXCLICKY_OFF; \
+    } else { \
+        FAUXCLICKY_ON; \
+    } \
 } while (0)
 
 //
