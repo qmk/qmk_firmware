@@ -52,12 +52,12 @@ enum layers {
   _NORMAN,
   _DEFAULT_LAYER_MAX = _NORMAN,
 
-  _PUNC,
-  _NUM,
-  _FUNC,
-
   _GREEKU,
   _GREEKL,
+
+  _NUM,
+  _FUNC,
+  _PUNC,
 
   _EMOJI,
   _GUI,
@@ -637,7 +637,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), _______,
   KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
   KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______,    KC_0, KC_COMM,  KC_DOT, KC_X,    _______
+  _______, _______, _______, _______, _______, _______, _______,    LT(_PUNC, KC_0), KC_COMM,  KC_DOT, KC_X,    _______
 ),
 
 /* Func
@@ -652,10 +652,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = KEYMAP(
-  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4, XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
-  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,KC_PSCREEN,XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
-  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
+  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
+  _______,   KC_F9,  KC_F10,  KC_F11,   KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
+  _______, _______, _______, _______,   PUNC,   _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Uppercase Greek
