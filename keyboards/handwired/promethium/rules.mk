@@ -73,3 +73,4 @@ SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 SRC += $(QUANTUM_DIR)/light_ws2812.c
 SRC += rgbsps.c
+SRC += $(QUANTUM_DIR)/analog.c
