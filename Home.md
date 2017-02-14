@@ -1036,7 +1036,7 @@ This gets called whenever there is a state change on your host LEDs (eg caps loc
 #define USB_LED_KANA                    4
 ```
 
-and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED one, otherwise turn it off.
+and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED on, otherwise turn it off.
 
 # Modding your keyboard
 
