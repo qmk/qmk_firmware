@@ -33,7 +33,7 @@ enum led_sequence {
   LED_IND_USB,
   LED_IND_BATTERY,
 
-  LED_IND_FUNC,
+  LED_IND_FUN,
   LED_IND_NUM,
   LED_IND_EMOJI,
 
@@ -60,7 +60,7 @@ enum led_sequence {
   LED_U,
   LED_J,
   LED_M,
-  LED_FUNC,
+  LED_FUN,
 
   LED_RSPC,
   LED_N,
