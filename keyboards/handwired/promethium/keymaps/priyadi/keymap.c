@@ -56,7 +56,7 @@ enum layers {
   _GREEKL,
 
   _NUM,
-  _FUNC,
+  _FUN,
   _PUNC,
 
   _EMOJI,
@@ -76,9 +76,9 @@ enum planck_keycodes {
   NORMAN,
 
   // layer switchers
-  PUNC,
-  NUM,
-  FUNC,
+  // PUNC,
+  // NUM,
+  // FUN,
   EMOJI,
   GUI,
   GREEK,
@@ -92,10 +92,15 @@ enum planck_keycodes {
   LSPACE,
   RSPACE,
   GLOW,
+  FOR0,
 
   // stub
   AUDIO
 };
+
+#define NUM MO(_NUM)
+#define FUN MO(_FUN)
+#define FUN0 LT(_FUN, KC_0)
 
 // unicode map
 
@@ -369,14 +374,14 @@ const uint8_t PROGMEM LED_MODS[] = {
 const uint8_t PROGMEM LED_FN[] = {
   LED_PUNC,
   LED_NUM,
-  LED_FUNC,
+  LED_FUN,
   LED_EMOJI
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
   LED_IND_EMOJI,
   LED_IND_NUM,
-  LED_IND_FUNC,
+  LED_IND_FUN,
   LED_IND_BATTERY,
   LED_IND_USB,
   LED_IND_BLUETOOTH,
@@ -435,7 +440,7 @@ void led_reset(void) {
 void led_set_layer_indicator(void) {
   static uint8_t oldlayer = 255;
 
-  rgbsps_set(LED_IND_FUNC, 0, 0, 0);
+  rgbsps_set(LED_IND_FUN, 0, 0, 0);
   // rgbsps_set(LED_IND_NUM, 0, 0, 0);
   rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
@@ -454,8 +459,8 @@ void led_set_layer_indicator(void) {
   }
 
   switch(layer) {
-    case _FUNC:
-      rgbsps_set(LED_IND_FUNC, 15, 0, 0);
+    case _FUN:
+      rgbsps_set(LED_IND_FUN, 15, 0, 0);
       break;
     // case _NUM:
     //   rgbsps_set(LED_IND_NUM, 0, 0, 15);
@@ -464,7 +469,7 @@ void led_set_layer_indicator(void) {
       rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
       break;
     default:
-      rgbsps_set(LED_IND_FUNC, 3, 3, 3);
+      rgbsps_set(LED_IND_FUN, 3, 3, 3);
       // rgbsps_set(LED_IND_NUM, 3, 3, 3);
       rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
   }
@@ -520,7 +525,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, NUM,     LSPACE,  RSPACE,  FUNC,    GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, KC_RALT, KC_RCTL
 ),
 
 /* Dvorak
@@ -636,10 +641,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), _______,
-  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______,    LT(_PUNC, KC_0), KC_COMM,  KC_DOT, KC_X,    _______
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),  KC_7,    KC_8,    KC_9,   S(KC_D), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),  KC_4,    KC_5,    KC_6,   S(KC_E), _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_1,    KC_2,    KC_3,   S(KC_F), KC_COLN,
+  _______, _______, _______, _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_X,    _______
 ),
 
 /* Func
@@ -653,11 +658,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_FUNC] = KEYMAP(
-  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
-  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
-  _______,   KC_F9,  KC_F10,  KC_F11,   KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
-  _______, _______, _______, _______,   PUNC,   _______, _______, _______, _______, _______, _______, _______
+[_FUN] = KEYMAP(
+  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
+  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
+  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
+  _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Uppercase Greek
@@ -785,10 +790,25 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
 }
 #endif
 
+uint32_t layer_state_set_kb(uint32_t state)
+{
+  // turn on punc layer if both fun & num are on
+  if ((state & ((1UL<<_NUM) | (1UL<<_FUN))) == ((1UL<<_NUM) | (1UL<<_FUN))) {
+    state |= (1UL<<_PUNC);
+  } else {
+    state &= ~(1UL<<_PUNC);
+  }
+  return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
-  bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
-  uint8_t layer = biton32(layer_state);
+  static bool lshift = false;
+  static bool rshift = false;
+  static uint8_t layer = 0;
+
+  lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
+  rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  layer = biton32(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
@@ -949,17 +969,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     // layer switcher
-    case PUNC:
-      if (record->event.pressed) {
-        layer_on(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-      } else {
-        layer_off(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-      }
-      return false;
-      break;
-
+    //
     case GREEK:
       if (record->event.pressed) {
         if (lshift || rshift) {
@@ -968,31 +978,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_on(_GREEKL);
           layer_off(_GREEKU);
-          update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         }
       } else {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-      }
-      return false;
-      break;
-
-    case NUM:
-      if (record->event.pressed) {
-        turn_off_capslock();
-        layer_on(_NUM);
-      } else {
-        layer_off(_NUM);
-      }
-      return false;
-      break;
-
-    case FUNC:
-      if (record->event.pressed) {
-        layer_on(_FUNC);
-      } else {
-        layer_off(_FUNC);
       }
       return false;
       break;
