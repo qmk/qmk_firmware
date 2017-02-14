@@ -69,6 +69,8 @@ void layer_xor(uint32_t state);
 #define layer_xor(state)
 #define layer_debug()
 
+__attribute__((weak))
+void layer_state_set_kb(uint32_t oldstate, uint32_t newstate);
 #endif
 
 /* pressed actions cache */
