@@ -27,7 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 extern uint32_t default_layer_state;
 void default_layer_debug(void);
-void default_layer_set(uint32_t state);
+uint32_t default_layer_set(uint32_t state);
+
+__attribute__((weak))
+void default_layer_state_set_kb(uint32_t state);
 
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */
@@ -70,7 +73,7 @@ void layer_xor(uint32_t state);
 #define layer_debug()
 
 __attribute__((weak))
-void layer_state_set_kb(uint32_t oldstate, uint32_t newstate);
+uint32_t layer_state_set_kb(uint32_t state);
 #endif
 
 /* pressed actions cache */
