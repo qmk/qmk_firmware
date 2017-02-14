@@ -1,6 +1,6 @@
 This runs on:
 * ATmega32U4 ([PJRC Teensy 2.0](http://www.pjrc.com/teensy/))
-* AT90USB126 ([PJRC Teensy++ 2.0](http://www.pjrc.com/teensy/))
+* AT90USB1286 ([PJRC Teensy++ 2.0](http://www.pjrc.com/teensy/))
 * AT90USB1287 ([Atmel USBKEY](http://www.atmel.com/tools/AT90USBKEY.aspx))
 * ATmega168P with using [V-USB](http://www.obdev.at/products/vusb/index.html)
 * ATmega328P with using [V-USB](http://www.obdev.at/products/vusb/index.html)
