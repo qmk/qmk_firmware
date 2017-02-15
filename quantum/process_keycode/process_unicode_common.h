@@ -8,7 +8,7 @@
 #endif
 
 static uint8_t input_mode;
-uint8_t mods;
+uint8_t unicode_mods;
 
 void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
