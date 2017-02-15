@@ -1,8 +1,5 @@
 #include "process_unicode_common.h"
 
-static uint8_t input_mode;
-uint8_t mods;
-
 void set_unicode_input_mode(uint8_t os_target)
 {
   input_mode = os_target;

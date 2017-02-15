@@ -7,12 +7,14 @@
 #define UNICODE_TYPE_DELAY 10
 #endif
 
+static uint8_t input_mode;
+uint8_t mods;
+
 void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
-
 
 #define UC_OSX 0  // Mac OS X
 #define UC_LNX 1  // Linux
