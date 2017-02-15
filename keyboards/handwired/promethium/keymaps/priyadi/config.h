@@ -14,8 +14,6 @@
 #define PREVENT_STUCK_MODIFIERS
 
 #define RGBSPS_ENABLE
-#define RGB_DI_PIN B5
-#define RGBSPS_NUM 57
 
 #define UNICODE_TYPE_DELAY 0
 

@@ -74,6 +74,7 @@ uint8_t glow_mode = GLOW_MIN;
 void turn_off_capslock(void);
 extern keymap_config_t keymap_config;
 
+// layers, ordering is important!
 enum layers {
   _QWERTY,
   _DVORAK,
@@ -89,9 +90,10 @@ enum layers {
   _FUN,
   _PUNC,
 
+  _EMPTY,
   _EMOJI,
   _GUI,
-  _SYS,
+  _SYS
 };
 
 // double-space layer
@@ -130,6 +132,7 @@ enum planck_keycodes {
   KEYCODE_END
 };
 
+#define EMPTY MO(_EMPTY)
 #define NUM MO(_NUM)
 #define FUN MO(_FUN)
 #define FUN0 LT(_FUN, KC_0)
@@ -237,6 +240,11 @@ enum unicode_name {
   LOMEG,
 
   FSIGM,
+
+  LTEQ,
+  GTEQ,
+  NOTEQ,
+  PLMIN,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -338,6 +346,12 @@ const uint32_t PROGMEM unicode_map[] = {
   [LPSI] = 0x03C8,
   [LOMEG] = 0x03C9,
   [FSIGM] = 0x03C2,
+
+  // other
+  [LTEQ] = 0x2264, // less than or equal
+  [GTEQ] = 0x2265, // greater than or equal
+  [NOTEQ] = 0x2260, // not equal
+  [PLMIN] = 0xB1, // plus minus
 };
 
 // RGBSPS
@@ -551,14 +565,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Fun  |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, KC_RALT, KC_RCTL
 ),
 
 /* Dvorak
@@ -646,31 +660,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Punc
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   ≤  |   ≥  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |   /  |      |   (  |   )  |   <  |   >  |      |
+ * |      |   *  |   \  |   -  |   =  |   /  |   ≠  |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |   ?  |      |   [  |   ]  |   {  |   }  |   :  |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   ±  |   [  |   ]  |   {  |   }  |   :  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, X(LTEQ), X(GTEQ), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, X(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Num
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |   `  |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
+ * |   `  |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |  :   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |   x  |   0  |   ,  |   .  |      |      |
+ * |      |      |      |      |      |      |      |   0  |   ,  |   .  |   x  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
@@ -734,6 +748,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
+/* Empty
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_EMPTY] = KEYMAP(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
 /* Emoji
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -749,7 +781,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   X(HART2), X(CRY2),X(WEARY),X(EYERT),X(SMIRK), X(TJOY),X(RECYC),X(UNAMU),X(MUSIC),X(OKHND),X(PENSV), X(PHEW),
   X(THMUP), X(PRAY),X(SMILE),X(SMIL2),X(FLUSH), X(GRIN),X(HEART),  X(BYE), X(KISS),X(CELEB), X(COOL),X(NOEVS),
   X(THMDN),X(SLEEP), X(CLAP),  X(CRY),  X(VIC),X(BHART),  X(SUN),X(SMEYE), X(WINK), X(MOON),X(CONFU),X(NOEVH),
-    X(POO), X(EYES), _______,X(HUNRD), X(SKULL),X(HORNS), X(HALO), X(FEAR),X(YUMMY),_______,X(DISAP),X(NOEVK)
+    X(POO), X(EYES), X(HUNRD),_______, X(SKULL),X(HORNS), X(HALO), X(FEAR),_______,X(YUMMY),X(DISAP),X(NOEVK)
 ),
 
 /* GUI
@@ -787,6 +819,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
+
 
 };
 
@@ -830,6 +863,16 @@ uint32_t layer_state_set_kb(uint32_t state)
     state |= (1UL<<_PUNC);
   } else {
     state &= ~(1UL<<_PUNC);
+  }
+
+  // turn on emoji layer if empty and greek layer are on
+  if (
+    (state & ((1UL<<_EMPTY) | (1UL<<_GREEKU))) == ((1UL<<_EMPTY) | (1UL<<_GREEKU))
+    || (state & ((1UL<<_EMPTY) | (1UL<<_GREEKL))) == ((1UL<<_EMPTY) | (1UL<<_GREEKL))
+  ) {
+    state |= (1UL<<_EMOJI);
+  } else {
+    state &= ~(1UL<<_EMOJI);
   }
   return state;
 }
