@@ -972,6 +972,19 @@ void send_nibble(uint8_t number) {
     }
 }
 
+
+__attribute__((weak))
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
 void api_send_unicode(uint32_t unicode) {
 #ifdef API_ENABLE
     uint8_t chunk[4];
