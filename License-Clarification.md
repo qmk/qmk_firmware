@@ -28,7 +28,7 @@ kuel | quantum/keymap_extras/keymap_unicode_cyrillic.h<br>quantum/keymap_extras/
 @pvinis | quantum/quantum.c<br>quantum/quantum.h<br>quantum/process_keycode/process_tap_dance.c<br>quantum/process_keycode/process_tap_dance.h | 2017 Jan 29 |
 @Smilliam | quantum/quantum.c | |
 @sperochon | quantum/keymap_extras/keymap_french_osx.h | 2017 Jan 30 |
-stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | |
+stephan . bosebeck at holidayinsider.com | quantum/keymap_extras/keymap_german_osx.h | 2017 Feb 15 |
 @TerryMathews | quantum/quantum.c | 2017 Jan 29 |
 @Twey | quantum/keymap_extras/keymap_plover.h | |
 @Vifon | quantum/dynamic_macro.h<br>quantum/quantum.c | 2017 Feb 09 |
