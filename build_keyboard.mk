@@ -168,12 +168,12 @@ endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
 	OPT_DEFS += -DUCIS_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
 	OPT_DEFS += -DUNICODEMAP_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
