@@ -2,6 +2,7 @@
 #define PROCESS_UCIS_H
 
 #include "quantum.h"
+#include "process_unicode_common.h"
 
 #ifndef UCIS_MAX_SYMBOL_LENGTH
 #define UCIS_MAX_SYMBOL_LENGTH 32
