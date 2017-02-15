@@ -1,14 +1,32 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#include "promethium.h"
+#if defined(PRIYADI_PROMETHIUM)
+  #include "promethium.h"
+#elif defined(PRIYADI_PLANCK)
+  #include "planck.h"
+#else
+  #error "no keyboard defined"
+#endif
+
 #include "action_layer.h"
+#ifdef AUDIO_ENABLE
+  #include "audio.h"
+  #include "musical_notes.h"
+#endif
 #include "eeconfig.h"
 #include "process_unicode.h"
 #include "quantum.h"
+#ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
+#endif
+#ifdef PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
 #include "ps2.h"
+#endif
+#ifdef FAUXCLICKY_ENABLE
+#include "fauxclicky.h"
+#endif
 #include "outputselect.h"
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
@@ -76,9 +94,6 @@ enum planck_keycodes {
   NORMAN,
 
   // layer switchers
-  // PUNC,
-  // NUM,
-  // FUN,
   EMOJI,
   GUI,
   GREEK,
@@ -92,10 +107,15 @@ enum planck_keycodes {
   LSPACE,
   RSPACE,
   GLOW,
-  FOR0,
 
   // stub
-  AUDIO
+#ifndef FAUXCLICKY_ENABLE
+  FC_TOG,
+#endif
+#ifndef ADAFRUIT_BLE_ENABLE
+  OUT_BLE,
+#endif
+  KEYCODE_END
 };
 
 #define NUM MO(_NUM)
@@ -310,6 +330,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 // RGBSPS
 
+#ifdef RGBSPS_ENABLE
 const uint8_t PROGMEM LED_ALNUM[] = {
   LED_Z,
   LED_A,
@@ -504,7 +525,7 @@ void led_init(void) {
   rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
   rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
 }
-
+#endif // RGBSPS_ENABLE
 
 // keymaps
 
@@ -750,7 +771,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = KEYMAP(
   XXXXXXX, QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, AUDIO,   XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
+  XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
@@ -1001,6 +1022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     // glow mode changer
+#ifdef RGBSPS_ENABLE
     case GLOW:
       if (record->event.pressed) {
         glow_mode++;
@@ -1012,16 +1034,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#endif
 
-    // faux clicky toggle, TBD
-    case AUDIO:
-      return false;
+    // faux clicky indicator
+#ifdef FAUXCLICKY_ENABLE
+    case FC_TOG:
+      return true;
       break;
+#endif
   }
   return true;
 }
 
 void set_output_user(uint8_t output) {
+#ifdef ADAFRUIT_BLE_ENABLE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
@@ -1032,42 +1058,27 @@ void set_output_user(uint8_t output) {
     default:
       led_set_output_none();
   }
+#endif
 }
 
-void matrix_init_user(void) {
+void matrix_init_user() {
   _delay_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UC_LNX);
+
+#ifdef RGBSPS_ENABLE
   led_init();
+#endif
 
   // auto detect output on init
+#ifdef ADAFRUIT_BLE_ENABLE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);
   } else {
     set_output(OUTPUT_ADAFRUIT_BLE);
   }
-}
-
-void matrix_scan_user(void) {
-  led_set_layer_indicator();
-}
-
-void battery_poll(uint8_t level) {
-  rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
-  rgbsps_send();
-}
-
-void led_set_user(uint8_t usb_led) {
-  bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
-  if (new_capslock ^ capslock) { // capslock state is different
-    if ((capslock = new_capslock)) {
-      rgbsps_set(LED_IND_NUM, 15, 0, 0);
-    } else {
-      rgbsps_set(LED_IND_NUM, 0, 0, 0);
-    }
-    rgbsps_send();
-  }
+#endif
 }
 
 void turn_off_capslock() {
@@ -1077,37 +1088,62 @@ void turn_off_capslock() {
   }
 }
 
-void ps2_mouse_init_user() {
-    uint8_t rcv;
+#ifdef RGBSPS_ENABLE
+  void matrix_scan_user(void) {
+    led_set_layer_indicator();
+  }
 
-    // set TrackPoint sensitivity
-    PS2_MOUSE_SEND(0xE2, "tpsens: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpsens: 0x81");
-    PS2_MOUSE_SEND(0x4A, "tpsens: 0x4A");
-    PS2_MOUSE_SEND(0x49, "tpsens: 0x59");
+  void battery_poll(uint8_t level) {
+    rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
+    rgbsps_send();
+  }
 
-    // set TrackPoint Negative Inertia factor
-    PS2_MOUSE_SEND(0xE2, "tpnegin: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpnegin: 0x81");
-    PS2_MOUSE_SEND(0x4D, "tpnegin: 0x4D");
-    PS2_MOUSE_SEND(0x06, "tpnegin: 0x06");
-
-    // set TrackPoint speed
-    // (transfer function upper plateau speed)
-    PS2_MOUSE_SEND(0xE2, "tpsp: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpsp: 0x81");
-    PS2_MOUSE_SEND(0x60, "tpsp: 0x60");
-    PS2_MOUSE_SEND(0x61, "tpsp: 0x61");
-
-    // inquire pts status
-    rcv = ps2_host_send(0xE2);
-    rcv = ps2_host_send(0x2C);
-    rcv = ps2_host_recv_response();
-    if ((rcv & 1) == 1) {
-      // if on, disable pts
-      rcv = ps2_host_send(0xE2);
-      rcv = ps2_host_send(0x47);
-      rcv = ps2_host_send(0x2C);
-      rcv = ps2_host_send(0x01);
+  void led_set_user(uint8_t usb_led) {
+    bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
+    if (new_capslock ^ capslock) { // capslock state is different
+      if ((capslock = new_capslock)) {
+        rgbsps_set(LED_IND_NUM, 15, 0, 0);
+      } else {
+        rgbsps_set(LED_IND_NUM, 0, 0, 0);
+      }
+      rgbsps_send();
     }
-}
+  }
+#endif
+
+#ifdef PS2_MOUSE_ENABLE
+  void ps2_mouse_init_user() {
+      uint8_t rcv;
+
+      // set TrackPoint sensitivity
+      PS2_MOUSE_SEND(0xE2, "tpsens: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpsens: 0x81");
+      PS2_MOUSE_SEND(0x4A, "tpsens: 0x4A");
+      PS2_MOUSE_SEND(0x49, "tpsens: 0x59");
+
+      // set TrackPoint Negative Inertia factor
+      PS2_MOUSE_SEND(0xE2, "tpnegin: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpnegin: 0x81");
+      PS2_MOUSE_SEND(0x4D, "tpnegin: 0x4D");
+      PS2_MOUSE_SEND(0x06, "tpnegin: 0x06");
+
+      // set TrackPoint speed
+      // (transfer function upper plateau speed)
+      PS2_MOUSE_SEND(0xE2, "tpsp: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpsp: 0x81");
+      PS2_MOUSE_SEND(0x60, "tpsp: 0x60");
+      PS2_MOUSE_SEND(0x61, "tpsp: 0x61");
+
+      // inquire pts status
+      rcv = ps2_host_send(0xE2);
+      rcv = ps2_host_send(0x2C);
+      rcv = ps2_host_recv_response();
+      if ((rcv & 1) == 1) {
+        // if on, disable pts
+        rcv = ps2_host_send(0xE2);
+        rcv = ps2_host_send(0x47);
+        rcv = ps2_host_send(0x2C);
+        rcv = ps2_host_send(0x01);
+      }
+  }
+#endif
