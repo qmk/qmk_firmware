@@ -47,11 +47,6 @@ When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/key
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
-|KC_LOCKING_CAPS||Locking Caps Lock12|
-|KC_LOCKING_NUM||Locking Num Lock12|
-|KC_LOCKING_SCROLL||Locking Scroll Lock12|
-|KC_INT4|KC_HENK|JIS Henken|
-|KC_INT5|KC_MHEN|JIS Muhenken|
 |KC_LCTRL|KC_LCTL|LeftControl|
 |KC_LSHIFT|KC_LSFT|LeftShift|
 |KC_LALT||LeftAlt|
@@ -60,6 +55,11 @@ When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/key
 |KC_RSHIFT|KC_RSFT|RightShift|
 |KC_RALT||RightAlt|
 |KC_RGUI||Right GUI(Windows/Apple/Meta key)|
+|KC_LOCKING_CAPS||Locking Caps Lock12|
+|KC_LOCKING_NUM||Locking Num Lock12|
+|KC_LOCKING_SCROLL||Locking Scroll Lock12|
+|KC_INT4|KC_HENK|JIS Henken|
+|KC_INT5|KC_MHEN|JIS Muhenken|
 
 ## Commands
 
