@@ -30,7 +30,7 @@ The Ordinary Layout can be used to perform one-handed chorded text input. If you
 
 ## The Symbols Layer ##
 
-* *Symbols* shown in light green. All kinds of brackets are available on this layer. Ampersand and Pipe justapose each other. Pipe, slash, and backslash are arranged in a column.
+* *Symbols* shown in light green. All kinds of brackets are available on this layer. Ampersand and Pipe juxtapose each other. Pipe, slash, and backslash are arranged in a column.
 * *F-Keys* are bright green and overlay the row of numerals. This layer has F1-F10, higher *F-Keys* are on the Symbols layer.
 * *Number pad* in dark green under the right hand includes all four arithmetic operations in the same order found on most number pads and features an Enter key. The keycodes emitted here are normal numeric keycodes, not the number-pad specific keycodes emitted by most number pads so that NumLock is not needed.
 * The dark gray keys do nothing in case you bump them by accident.
