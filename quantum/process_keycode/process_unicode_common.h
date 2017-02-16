@@ -7,6 +7,7 @@
 #define UNICODE_TYPE_DELAY 10
 #endif
 
+__attribute__ ((unused))
 static uint8_t input_mode;
 
 void set_unicode_input_mode(uint8_t os_target);
