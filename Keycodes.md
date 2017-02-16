@@ -1,3 +1,9 @@
+# Overview
+
+When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keyboard scan codes that are available to you in QMK. They can be used by themselves or in combination with one of the [many functions available](https://github.com/qmk/qmk_firmware/wiki#going-beyond-the-keycodes) to customize your board.
+
+# The Keycodes
+
 ## Letters and Numbers
 
 |KC_1|KC_2|KC_3|KC_4|KC_5|KC_6|KC_7|KC_8|
