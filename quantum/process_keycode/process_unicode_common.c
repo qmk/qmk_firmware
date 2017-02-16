@@ -1,5 +1,7 @@
 #include "process_unicode_common.h"
 
+uint8_t mods;
+
 void set_unicode_input_mode(uint8_t os_target)
 {
   input_mode = os_target;
@@ -12,17 +14,17 @@ uint8_t get_unicode_input_mode(void) {
 __attribute__((weak))
 void unicode_input_start (void) {
   // save current mods
-  unicode_mods = keyboard_report->mods;
+  mods = keyboard_report->mods;
 
   // unregister all mods to start from clean state
-  if (unicode_mods & MOD_BIT(KC_LSFT)) unregister_code(KC_LSFT);
-  if (unicode_mods & MOD_BIT(KC_RSFT)) unregister_code(KC_RSFT);
-  if (unicode_mods & MOD_BIT(KC_LCTL)) unregister_code(KC_LCTL);
-  if (unicode_mods & MOD_BIT(KC_RCTL)) unregister_code(KC_RCTL);
-  if (unicode_mods & MOD_BIT(KC_LALT)) unregister_code(KC_LALT);
-  if (unicode_mods & MOD_BIT(KC_RALT)) unregister_code(KC_RALT);
-  if (unicode_mods & MOD_BIT(KC_LGUI)) unregister_code(KC_LGUI);
-  if (unicode_mods & MOD_BIT(KC_RGUI)) unregister_code(KC_RGUI);
+  if (mods & MOD_BIT(KC_LSFT)) unregister_code(KC_LSFT);
+  if (mods & MOD_BIT(KC_RSFT)) unregister_code(KC_RSFT);
+  if (mods & MOD_BIT(KC_LCTL)) unregister_code(KC_LCTL);
+  if (mods & MOD_BIT(KC_RCTL)) unregister_code(KC_RCTL);
+  if (mods & MOD_BIT(KC_LALT)) unregister_code(KC_LALT);
+  if (mods & MOD_BIT(KC_RALT)) unregister_code(KC_RALT);
+  if (mods & MOD_BIT(KC_LGUI)) unregister_code(KC_LGUI);
+  if (mods & MOD_BIT(KC_RGUI)) unregister_code(KC_RGUI);
 
   switch(input_mode) {
   case UC_OSX:
@@ -63,15 +65,15 @@ void unicode_input_finish (void) {
       break;
   }
 
-  // reregister previously set unicode_mods
-  if (unicode_mods & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-  if (unicode_mods & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
-  if (unicode_mods & MOD_BIT(KC_LCTL)) register_code(KC_LCTL);
-  if (unicode_mods & MOD_BIT(KC_RCTL)) register_code(KC_RCTL);
-  if (unicode_mods & MOD_BIT(KC_LALT)) register_code(KC_LALT);
-  if (unicode_mods & MOD_BIT(KC_RALT)) register_code(KC_RALT);
-  if (unicode_mods & MOD_BIT(KC_LGUI)) register_code(KC_LGUI);
-  if (unicode_mods & MOD_BIT(KC_RGUI)) register_code(KC_RGUI);
+  // reregister previously set mods
+  if (mods & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
+  if (mods & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
+  if (mods & MOD_BIT(KC_LCTL)) register_code(KC_LCTL);
+  if (mods & MOD_BIT(KC_RCTL)) register_code(KC_RCTL);
+  if (mods & MOD_BIT(KC_LALT)) register_code(KC_LALT);
+  if (mods & MOD_BIT(KC_RALT)) register_code(KC_RALT);
+  if (mods & MOD_BIT(KC_LGUI)) register_code(KC_LGUI);
+  if (mods & MOD_BIT(KC_RGUI)) register_code(KC_RGUI);
 }
 
 void register_hex(uint16_t hex) {
