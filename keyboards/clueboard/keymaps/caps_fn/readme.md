@@ -9,8 +9,7 @@
 
 ![Clueboard Layout Image](layout.png)
 
-# skullY's Clueboard Layout
+# Caps Fn Layout
 
-This layout is what I (@skullydazed) use on my personal Clueboards. I mostly use it for programming, CAD, and general typing.
-
-The most notable change from the default layout is putting Ctrl on the Capslock key. I also swap Alt and Cmd because I mostly use a Mac day to day.
+This is the default layout except that Caps Lock acts like Caps Lock when
+tapped but Fn when held.
