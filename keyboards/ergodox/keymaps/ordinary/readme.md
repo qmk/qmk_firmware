@@ -10,13 +10,13 @@ no rights reserved, use for any purposes, credit me if you are a nice person
 
 ## The Base Layout ##
 
-* *White Keys* are all the normal characters and symbols in all the normal locations (except for the brackets).
-* *Modifier Keys* are light yellow and in the traditional locationn at the bottom of the keyboard: Control, Option, Command, plus Hyper and Meh.
-* *Shift Keys* are dark yellow, found on the outsides of the keyboard. Capitals Shift (traditional shift) is found in the usual place and above that is found Symbol Shift, Media Shift, and Special Shift (Shift Lock).
+* *White Keys* are all the normal characters and symbols in all the normal locations (except for the brackets, and who touch-types brackets?).
+* *Modifier Keys* are light yellow and in the traditional locationn at the bottom of the keyboard: Control, Option, Command, plus Hyper and Meh. Modifier keys are only found on the base layout.
+* *Shift Keys* are dark yellow, found on the outsides of the keyboard. Capitals Shift (traditional Shift) is found in the usual place and above that are Symbol Shift, Media Shift, and Special Shift (Shift Lock).
 * Several of the shift keys double for entry of characters which would typically be in those locations.
 * *Thumb Keys* shown in orange are for text navigation and manipulation.
 * The keys under pinky fingers and index fingers will *reverse* the keyboard layout.
-* *Escape* is red and it is always found in that location no matter what.
+* *Escape* is red and it is always found in that location (*except* when the layout is reversed).
 
 ![Ordinary base layout](ordinary-base.png)
 
@@ -26,18 +26,18 @@ The Forward Tab and Backward Tab keys are in their locations mostly because I en
 
 #### Reversing The Base Layout ####
 
-The Ordinary Layout can be used to perform one-handed chorded text input. If you hold down the key under either index finger or either pinky finger (A, F, J and Semicolon), the whole base layout reverses order. Most keys are _mirrored_ but the delete keys are merely *translated* to preserve directionality. Pro-tip: This feature is particularly handly for bringing the Enter key to the left hand when the right hand is using the mouse.
+The Ordinary Layout can be used to perform one-handed chorded text input. If you hold down the key under either index finger or either pinky finger (A, F, J and Semicolon), the whole base layout reverses order. Most keys are _mirrored_ but the delete keys, home/end, and left/right arrow keys are merely *translated* to preserve directionality. Pro-tip: This feature is particularly handly for bringing the Enter key to the left hand when the right hand is using the mouse.
 
 ## The Symbols Layer ##
 
 * *Symbols* shown in light green. All kinds of brackets are available on this layer. Ampersand and Pipe justapose each other. Pipe, slash, and backslash are arranged in a column.
 * *F-Keys* are bright green and overlay the row of numerals. This layer has F1-F10, higher *F-Keys* are on the Symbols layer.
 * *Number pad* in dark green under the right hand includes all four arithmetic operations in the same order found on most number pads and features an Enter key. The keycodes emitted here are normal numeric keycodes, not the number-pad specific keycodes emitted by most number pads so that NumLock is not needed.
+* The dark gray keys do nothing in case you bump them by accident.
 
 ![Ordinary symbol layout](ordinary-symbol.png)
 
 The Symbols Layer is based on the Coder Layer from the default Ergodox EZ layout. I slightly rearranged the symbols, added some symbols, expanded the number pad, and straightened out the F-Keys. It's very handy to have the symbols directly underneath the normal typing keys.
-* The dark gray keys do nothing in case you bump them by accident.
 
 ## The Media Layer ##
 
@@ -85,7 +85,7 @@ The Escape and Backspace special sequences are so useful why not have a few more
 
 ## Errata ##
 
-Some of the symbols on the Symbols layer are produced by the keyboard by "capitalizing" another symbol (such as *!* from *1*) so when you type that key you will notice the Capitals Shift red LED turn on.
+Some of the symbols on the Symbols layer are produced by the keyboard by "capitalizing" another character (such as *!* from *1*) so when you type that key you will notice the Capitals Shift red LED turn on.
 
 ****
 
