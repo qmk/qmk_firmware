@@ -33,7 +33,7 @@ Frist remove all files made in previous build,
 
     $ make clean
 
-then build new frimware. 
+then build new firmware. 
 
     $ make [KEYMAP=...]
 
