@@ -10,9 +10,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 
 ## Still to do:
 
- * Need to figure out a better position for the ESC key.
- * Come up with a function for the empty keys shown in the alpha layers below.
- * Fix the CapsLock, NumLock, and ScrLck LEDs.
+ * Implement the CapsLock, NumLock, and ScrLck LEDs on the off-chance that I decide to actually solder some to the keyboard.
 
 ### Function Keys on All Layers (keypad toggles):
 	,-----------------------------------------------------------------.
