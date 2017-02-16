@@ -10,27 +10,166 @@
 |KC_O|KC_P|KC_Q|KC_R|KC_S|KC_T|KC_U|KC_V|
 |KC_W|KC_X|KC_Y|KC_Z|||||
 
-## Basic Keyboard Keys
+## Punctuation
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
-|KC_ENTER|KC_ENT|Keyboard Return (ENTER)
-|KC_ESCAPE|KC_ESC|Keyboard ESCAPE
-|KC_BSPACE|KC_BSPC|Keyboard DELETE (Backspace)|
-|KC_TAB||Keyboard Tab|
-|KC_SPACE|KC_SPC|Keyboard Spacebar|
-|KC_MINUS|KC_MINS|Keyboard - and (underscore)|
-|KC_EQUAL|KC_EQL|Keyboard = and +|
-|KC_LBRACKET|KC_LBRC|Keyboard [ and {|
-|KC_RBRACKET|KC_RBRC|Keyboard ] and }|
-|KC_BSLASH|KC_BSLS|Keyboard \\ and \||
-|KC_NONUS_HASH|KC_NUHS|Keyboard Non-US # and ~|
-|KC_SCOLON|KC_SCLN|Keyboard ; and :|
-|KC_QUOTE|KC_QUOT|Keyboard ‘ and “|
-|KC_GRAVE|KC_GRV|Keyboard Grave Accent and Tilde|
-|KC_COMMA|KC_COMM|Keyboard , and <|
-|KC_DOT||Keyboard . and >|
-|KC_SLASH|KC_SLSH|Keyboard / and ?|
-|KC_CAPSLOCK|KC_CAPS|Keyboard Caps Lock|
+|KC_ENTER|KC_ENT|Return (ENTER)|
+|KC_ESCAPE|KC_ESC|ESCAPE|
+|KC_BSPACE|KC_BSPC|DELETE (Backspace)|
+|KC_TAB||Tab|
+|KC_SPACE|KC_SPC|Spacebar|
+|KC_MINUS|KC_MINS|- and (underscore)|
+|KC_EQUAL|KC_EQL|= and +|
+|KC_LBRACKET|KC_LBRC|[ and {|
+|KC_RBRACKET|KC_RBRC|] and }|
+|KC_BSLASH|KC_BSLS|\\ and \||
+|KC_NONUS_HASH|KC_NUHS|Non-US # and ~|
+|KC_NONUS_BSLASH|KC_NUBS|Non-US \ and |
+|KC_INT1|KC_RO|JIS \\ and \||
+|KC_INT2|KC_KANA|International216|
+|KC_INT3|KC_JYEN|Yen Symbol (¥)|
+|KC_SCOLON|KC_SCLN|; and :|
+|KC_QUOTE|KC_QUOT|‘ and “|
+|KC_GRAVE|KC_GRV|Grave Accent and Tilde|
+|KC_COMMA|KC_COMM|, and <|
+|KC_DOT||. and >|
+|KC_SLASH|KC_SLSH|/ and ?|
+|KC_CAPSLOCK|KC_CAPS|Caps Lock|
 
 ## Modifiers
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_LOCKING_CAPS||Locking Caps Lock12|
+|KC_LOCKING_NUM||Locking Num Lock12|
+|KC_LOCKING_SCROLL||Locking Scroll Lock12|
+|KC_INT4|KC_HENK|JIS Henken|
+|KC_INT5|KC_MHEN|JIS Muhenken|
+|KC_LCTRL|KC_LCTL|LeftControl|
+|KC_LSHIFT|KC_LSFT|LeftShift|
+|KC_LALT||LeftAlt|
+|KC_LGUI||Left GUI(Windows/Apple/Meta key)|
+|KC_RCTRL|KC_RCTL|RightControl|
+|KC_RSHIFT|KC_RSFT|RightShift|
+|KC_RALT||RightAlt|
+|KC_RGUI||Right GUI(Windows/Apple/Meta key)|
+
+## Commands
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_PSCREEN|KC_PSCR|PrintScreen1|
+|KC_SCKLOCK|KC_SLCK|Scroll Lock11|
+|KC_PAUSE|KC_PAUS|Pause1|
+|KC_INSERT|KC_INS|Insert1|
+|KC_HOME||Home1|
+|KC_PGUP||PageUp1|
+|KC_DELETE|KC_DEL|Delete Forward|
+|KC_END||End1|
+|KC_PGDOWN|KC_PGDN|PageDown1|
+|KC_RIGHT|KC_RGHT|RightArrow1|
+|KC_LEFT||LeftArrow1|
+|KC_DOWN||DownArrow1|
+|KC_UP||UpArrow1|
+|KC_APPLICATION|KC_APP|Application10|
+|KC_POWER||Power9|
+|KC_EXECUTE||Execute|
+|KC_HELP||Help|
+|KC_MENU||Menu|
+|KC_SELECT||Select|
+|KC_STOP||Stop|
+|KC_AGAIN||Again|
+|KC_UNDO||Undo|
+|KC_CUT||Cut|
+|KC_COPY||Copy|
+|KC_PASTE||Paste|
+|KC_FIND||Find|
+|KC__MUTE||Mute|
+|KC__VOLUP||Volume Up|
+|KC__VOLDOWN||Volume Down|
+|KC_ALT_ERASE||Alternate Erase7|
+|KC_SYSREQ||SysReq/Attention1|
+|KC_CANCEL||Cancel|
+|KC_CLEAR||Clear|
+|KC_PRIOR||Prior|
+|KC_RETURN||Return|
+|KC_SEPARATOR||Separator|
+|KC_OUT||Out|
+|KC_OPER||Oper|
+|KC_CLEAR_AGAIN||Clear/Again|
+|KC_CRSEL||CrSel/Props|
+|KC_EXSEL||ExSel|
+|KC_SYSTEM_POWER|KC_PWR|System Power Down|
+|KC_SYSTEM_SLEEP|KC_SLEP|System Sleep|
+|KC_SYSTEM_WAKE|KC_WAKE|System Wake|
+|KC_AUDIO_MUTE|KC_MUTE||
+|KC_AUDIO_VOL_UP|KC_VOLU||
+|KC_AUDIO_VOL_DOWN|KC_VOLD||
+|KC_MEDIA_NEXT_TRACK|KC_MNXT||
+|KC_MEDIA_PREV_TRACK|KC_MPRV||
+|KC_MEDIA_STOP|KC_MSTP||
+|KC_MEDIA_PLAY_PAUSE|KC_MPLY||
+|KC_MEDIA_SELECT|KC_MSEL||
+|KC_MAIL|KC_MAIL||
+|KC_CALCULATOR|KC_CALC||
+|KC_MY_COMPUTER|KC_MYCM||
+|KC_WWW_SEARCH|KC_WSCH||
+|KC_WWW_HOME|KC_WHOM||
+|KC_WWW_BACK|KC_WBAK||
+|KC_WWW_FORWARD|KC_WFWD||
+|KC_WWW_STOP|KC_WSTP||
+|KC_WWW_REFRESH|KC_WREF||
+|KC_WWW_FAVORITES|KC_WFAV||
+
+## Numpad
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_NUMLOCK|KC_NLCK|Keypad Num Lock and Clear11|
+|KC_KP_SLASH|KC_PSLS|Keypad /|
+|KC_KP_ASTERISK|KC_PAST|Keypad *|
+|KC_KP_MINUS|KC_PMNS|Keypad -|
+|KC_KP_PLUS|KC_PPLS|Keypad +|
+|KC_KP_ENTER|KC_PENT|Keypad ENTER5|
+|KC_KP_1|KC_P1|Keypad 1 and End|
+|KC_KP_2|KC_P2|Keypad 2 and Down Arrow|
+|KC_KP_3|KC_P3|Keypad 3 and PageDn|
+|KC_KP_4|KC_P4|Keypad 4 and Left Arrow|
+|KC_KP_5|KC_P5|Keypad 5|
+|KC_KP_6|KC_P6|Keypad 6 and Right Arrow|
+|KC_KP_7|KC_P7|Keypad 7 and Home|
+|KC_KP_8|KC_P8|Keypad 8 and Up Arrow|
+|KC_KP_9|KC_P9|Keypad 9 and PageUp|
+|KC_KP_0|KC_P0|Keypad 0 and Insert|
+|KC_KP_DOT|KC_PDOT|Keypad . and Delete|
+|KC_KP_EQUAL|KC_PEQL|Keypad =|
+|KC_KP_COMMA|KC_PCMM|Keypad Comma27|
+|KC_KP_EQUAL_AS400||Keypad Equal Sign29|
+
+## Special Keys
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_NO||Ignore this key. (NOOP) |
+
+## Mousekey
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_MS_UP|KC_MS_U|Mouse Cursor Up|
+|KC_MS_DOWN|KC_MS_D|Mouse Cursor Down|
+|KC_MS_LEFT|KC_MS_L|Mouse Cursor Left|
+|KC_MS_RIGHT|KC_MS_R|Mouse Cursor Right|
+|KC_MS_BTN1|KC_BTN1|Mouse Button 1|
+|KC_MS_BTN2|KC_BTN2|Mouse Button 2|
+|KC_MS_BTN3|KC_BTN3|Mouse Button 3|
+|KC_MS_BTN4|KC_BTN4|Mouse Button 4|
+|KC_MS_BTN5|KC_BTN5|Mouse Button 5|
+|KC_MS_WH_UP|KC_WH_U|Mouse Wheel Up|
+|KC_MS_WH_DOWN|KC_WH_D|Mouse Wheel Down|
+|KC_MS_WH_LEFT|KC_WH_L|Mouse Wheel Left|
+|KC_MS_WH_RIGHT|KC_WH_R|Mouse Wheel Right|
+|KC_MS_ACCEL0|KC_ACL0|Mouse Acceleration 0|
+|KC_MS_ACCEL1|KC_ACL1|Mouse Acceleration 1|
+|KC_MS_ACCEL2|KC_ACL2|Mouse Acceleration 2|
