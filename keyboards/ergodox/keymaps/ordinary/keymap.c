@@ -19,7 +19,9 @@
 #define RSpec 15 // right special-shift key
 
 #define NotEq 16 // != macro
-#define Point 17 // -> macro
+#define GrtEq 17 // >= macro
+#define LesEq 18 // <= macro
+#define DeRef 19 // -> macro
 
 #define MUL   20 // mouse up left
 #define MUR   21 // mouse up right
@@ -71,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,F(LMdia)  ,KC_Q           ,KC_W   ,KC_E   ,KC_R  ,KC_T  ,KC_LBRC
 ,M(LSymb)  ,LT(RBASE, KC_A),KC_S   ,KC_D   ,LT(RBASE, KC_F)  ,KC_G
 ,KC_LSFT   ,KC_Z           ,KC_X   ,KC_C   ,KC_V  ,KC_B  ,LSFT(KC_TAB)
-,KC_SCLN   ,MEH_T(KC_NO)   ,ALL_T(KC_NO),KC_LALT,KC_LGUI
+,KC_LCTL   ,MEH_T(KC_NO)   ,ALL_T(KC_NO),KC_LALT,KC_LGUI
                                          ,KC_HOME,KC_END
                                                  ,KC_PGUP
                                  ,KC_BSPC,KC_DEL ,KC_PGDN
@@ -100,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |   ;   |   &  |   *  |   <  |   >  |                                   |   0  |   .  |   =  |   +  | Enter |
  *     `-----------------------------------'                                   `-----------------------------------'
  *                                         ,-------------.       ,-------------.
- *                                         |||||||||||||||       |||||||||||||||
+ *                                         | |||| | |||| |       | |||| | |||| |
  *                                  ,------|------|------|       |------+------+------.
- *                                  | Plus | Equal||||||||       |||||||| Under| Dash |
+ *                                  | Plus | Equal| |||| |       | |||| | Under| Dash |
  *                                  |      |      |------|       |------| Score|      |
  *                                  |  +   |   =  |  !=  |       |  ->  |  _   |  -   |
  *                                  `--------------------'       `--------------------'
@@ -113,8 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_TRNS ,KC_EXLM     ,KC_AT        ,KC_LCBR ,KC_RCBR ,KC_AMPR ,LSFT(KC_COMM)
 ,KC_TRNS ,KC_HASH     ,KC_DLR       ,KC_LPRN ,KC_RPRN ,KC_GRV
 ,KC_TRNS ,KC_PERC     ,KC_CIRC      ,KC_LBRC ,KC_RBRC ,KC_TILD ,KC_TAB
-,KC_LCTL ,KC_AMPR     ,KC_ASTR ,LSFT(KC_COMM),LSFT(KC_DOT)
-                                                      ,KC_NO   ,KC_NO
+,KC_SCLN ,KC_AMPR     ,KC_ASTR ,LSFT(KC_COMM),LSFT(KC_DOT)
+                                                      ,M(GrtEq),M(LesEq)
                                                                ,KC_NO
                                              ,KC_PLUS ,KC_EQL  ,M(NotEq)
                                                                  // right hand
@@ -125,21 +127,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                             ,KC_0  ,KC_DOT ,KC_EQL,KC_PLUS ,KC_ENT
                                                                  ,KC_NO       ,KC_NO
                                                                  ,KC_NO
-                                                                 ,M(Point)    ,LSFT(KC_MINS),KC_MINS
+                                                                 ,M(DeRef)    ,LSFT(KC_MINS),KC_MINS
 ),
 
 /******* Media Layer *******************************************************************************************************
  *
  * ,---------------------------------------------------------------.    ,---------------------------------------------------------------.
- * |      |   F11   |   F12   |   F13   |   F14   |   F15   | Esc  |    |      |   F16   |   F17   |   F18   |   F19   |   F20   |      |
+ * |      |   F11   |   F12   |   F13   |   F14   |   F15   | Esc  |    | |||| |   F16   |   F17   |   F18   |   F19   |   F20   |      |
  * |------+---------+---------+---------+---------+----------------|    |------+---------+---------+---------+---------+---------+------|
  * |      |Shut Down|MouseUpLf|Mouse Up |MouseUpRg|Volume Up|Scroll|    |Scroll|PrintScrn|   Home  |    Up   |   PgUp  |   Mail  |      |
  * |------+---------+---------+---------+---------+---------|  Up  |    |  Up  |---------+---------+---------+---------+---------+------|
  * |      |  Sleep  |MouseLeft|MouseDown|MouseRght|Volume Dn|------|    |------| Num Lock|   Left  |   Down  |   Right | MyComp  |      |
  * |------+---------+---------+---------+---------+---------|Scroll|    |Scroll|---------+---------+---------+---------+---------+------|
- * |      |         |MouseDnLf|MouseDown|MouseDnRg|  Mute   | Down |    | Down |         |   End   |   Down  |   PgDn  |         |      |
+ * |      |  ||||   |MouseDnLf|MouseDown|MouseDnRg|  Mute   | Down |    | Down |  ||||   |   End   |   Down  |   PgDn  |  ||||   |      |
  * `------+---------+---------+---------+---------+----------------'    `----------------+---------+---------+---------+---------+------'
- *  |     |         |  MClick | LClick  |  R Click|                                      |  Insert |   Del   |         |         |     |
+ *  | ||| |  ||||   |  MClick | LClick  |  R Click|                                      |  Insert |   Del   |   ||||  |  ||||   | ||| |
  *  `---------------------------------------------'                                      `---------------------------------------------'
  *                                                   ,-------------.    ,-------------.
  *                                                   | Stop |Refrsh|    | Prev | Next |
@@ -219,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------------+------+------+------+------+-------------|       |------+------+------+------+------+------+------------|
  * |    \|      |   P  |   O  |   I  |   U  |   Y  |   ]  |       |  [   |   T  |   R  |   E  |   W  |   Q  |    Tab     |
  * |------------+------+------+------+------+------|      |       |      |------+------+------+------+------+------------|
- * |            |   ;  |   L  |   K  |   J  |   H  |------|       |------|   G  |   F  |   D  |   S  |  A   |    '"      |
+ * |    '"      |   ;  |   L  |   K  |   J  |   H  |------|       |------|   G  |   F  |   D  |   S  |  A   |            |
  * |------------+------+------+------+------+------| Tab  |       |Shift |------+------+------+------+------+------------|
  * | Capitals   |   /  |   .  |   ,  |   M  |   N  |      |       | -Tab |   B  |   V  |   C  |   X  |  Z   |   Capitals |
  * `------------+------+------+------+------+-------------'       `-------------+------+------+------+------+------------'
@@ -237,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_EQL    ,KC_0        ,KC_9   ,KC_8   ,KC_7  ,KC_6  ,KC_MINS
 ,KC_BSLS   ,KC_P        ,KC_O   ,KC_I   ,KC_U  ,KC_Y  ,KC_RBRC
-,KC_NO     ,LT(RBASE, KC_SCLN)     ,KC_L   ,KC_K   ,LT(RBASE, KC_J)  ,KC_H
+,KC_QUOT     ,LT(RBASE, KC_SCLN)     ,KC_L   ,KC_K   ,LT(RBASE, KC_J)  ,KC_H
 ,KC_RSFT   ,KC_SLSH     ,KC_DOT ,KC_COMM,KC_M  ,KC_N  ,KC_TAB
 ,KC_RCTL   ,MEH_T(KC_NO),ALL_T(KC_NO),KC_RALT,KC_RGUI
                                              ,KC_LEFT ,KC_RGHT
@@ -246,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                   // right hand
                                                                  ,KC_ESC      ,KC_5   ,KC_4   ,KC_3   ,KC_2    ,KC_1  ,KC_GRV
                                                                  ,KC_LBRC     ,KC_T   ,KC_R   ,KC_E   ,KC_W    ,KC_Q  ,KC_TAB
-                                                                              ,KC_G   ,LT(RBASE, KC_F),KC_D   ,KC_S   ,LT(RBASE, KC_A)  ,F(LSymb)
+                                                                              ,KC_G   ,LT(RBASE, KC_F),KC_D   ,KC_S   ,LT(RBASE, KC_A)  ,KC_NO
                                                                  ,LSFT(KC_TAB),KC_B   ,KC_V   ,KC_C   ,KC_X    ,KC_Z  ,KC_LSFT
                                                                                       ,KC_LGUI,KC_LALT,KC_HYPR ,KC_MEH,KC_LCTL
                                                                  ,KC_HOME     ,KC_END
@@ -390,13 +392,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case NotEq:
         if (record->event.pressed) {
-            return MACRO( I(30), T(EXLM), T(EQL), END  ); //
+            return MACRO( I(10), D(LSFT), T(EXLM), U(LSFT), T(EQL), END  ); // !=
         }
         break;
 
-        case Point:
+        case GrtEq:
         if (record->event.pressed) {
-            return MACRO( I(30), T(MINS), T(DOT), END  ); //
+            return MACRO( I(10), D(LSFT), T(COMM), U(LSFT), T(EQL), END  ); // <=
+        }
+        break;
+
+        case LesEq:
+        if (record->event.pressed) {
+            return MACRO( I(10), D(LSFT), T(DOT), U(LSFT), T(EQL), END  ); // >=
+        }
+        break;
+
+        case DeRef:
+        if (record->event.pressed) {
+            return MACRO( I(10), T(MINS), D(LSFT), T(DOT), U(LSFT), END  ); // ->
         }
         break;
 
