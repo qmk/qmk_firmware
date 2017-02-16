@@ -2,6 +2,8 @@
 
 When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keyboard scan codes that are available to you in QMK. They can be used by themselves or in combination with one of the [many functions available](https://github.com/qmk/qmk_firmware/wiki#going-beyond-the-keycodes) to customize your board.
 
+The source of truth for these codes is the [keycode.txt](https://github.com/qmk/qmk_firmware/blob/master/doc/keycode.txt) file in the qmk documentation.
+
 # The Keycodes
 
 ## Letters and Numbers
