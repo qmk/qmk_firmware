@@ -51,12 +51,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WWWF KC_WWW_FORWARD
 
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
-#undef KC_RALT
-#define KC_RALT MT(MOD_RALT, KC_SLCK)
+#define C_RALT MT(MOD_RALT, KC_SLCK)
 
 // dual use right-shift & del key
-#undef KC_RSFT
-#define KC_RSFT MT(MOD_RSFT, KC_DEL)
+#define C_RSFT MT(MOD_RSFT, KC_DEL)
 
 bool capslock = false;
 #ifdef DOUBLESPACE_LAYER_ENABLE
@@ -575,8 +573,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = KEYMAP(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, C_RSFT,
+  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, C_RALT,  KC_RCTL
 ),
 
 /* Dvorak
