@@ -1,1 +1,1 @@
-* [Build Environment Setup](iki/Build-Environment-Setup)
+* [Build Environment Setup](wiki/Build-Environment-Setup)
