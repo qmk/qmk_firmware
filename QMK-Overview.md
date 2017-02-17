@@ -48,7 +48,7 @@ In the above commands, replace:
 * `<programmer>` The programmer to use. Most keyboards use `dfu`, but some use `teensy`. Infinity keyboards use `dfu-util`. Check the readme file in the keyboard folder to find out which programmer to use.
   * If you  don't add `-<programmer` to the command line, the firmware will be still be compiled into a hex file, but the upload will be skipped.
 
-**NOTE:** Some operating systems will refuse to program unless you run the make command as root for example `sudo make dfu`
+**NOTE:** Some operating systems will refuse to program unless you run the make command as root for example `sudo make clueboard-default-dfu`
 
 ## Make Examples
 
