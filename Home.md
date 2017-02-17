@@ -1,6 +1,6 @@
 # Quantum Mechanical Keyboard Firmware
 
-You have found the QMK Firmware documentation site. QMK is an Open Source firmware for mechanical keyboards. It has been ported to AVR and ARM chips using the LUFA and ChibiOS frameworks. You can use it to power your own hand-wired or custom keyboard PCB.
+You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
 
 # Getting started
 
