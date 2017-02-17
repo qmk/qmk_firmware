@@ -82,7 +82,7 @@ At the bottom of the file we've defined a single custom function. This function 
 
 #### `fn_actions[]`
 
-We define the `fn_actions[]` array to point to custom functions. `F(N)` in a keymap will call element N of that array. In the Clueboard's case that definition looks like this:
+We define the `fn_actions[]` array to point to custom functions. `F(N)` in a keymap will call element N of that array. For the Clueboard's that looks like this:
 
     const uint16_t PROGMEM fn_actions[] = {
       [0] = ACTION_FUNCTION(0),  // Calls action_function()
