@@ -6,7 +6,7 @@
  * [FAQ Keymap](FAQ-Keymap)
 * [Keymap](Keymap)
  * [Keycodes](Keycodes)
- * [Leader Key](Leader Key)
+ * [Leader Key](Leader-Key)
  * [Macros](Macros)
  * [Space Cadet](Space-Cadet-Shift)
  * [Tap Dance](Tap-Dance)
