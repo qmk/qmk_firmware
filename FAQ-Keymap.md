@@ -2,7 +2,7 @@
 https://github.com/tmk/tmk_core/blob/master/doc/keymap.md
 
 ## How to get keycode
-See [Keycodes](Keycodes). Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_keyboard/blob/master/common/keycode.h).
+See [Keycodes](Keycodes). Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
 
 ## Sysrq key
 Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
