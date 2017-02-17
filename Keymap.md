@@ -20,10 +20,12 @@ At the top of the file you'll find this:
     #define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
     #define _______ KC_TRNS
 
-    // Each layer gets a name for readability, which is then used in the keymap matrix below.
-    // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-    // Layer names don't all need to be of the same length, obviously, and you can also skip them
-    // entirely and just use numbers.
+    // Each layer gets a name for readability.
+    // The underscores don't mean anything - you can
+    // have a layer called STUFF or any other name.
+    // Layer names don't all need to be of the same 
+    // length, and you can also skip them entirely
+    // and just use numbers.
     #define _BL 0
     #define _FL 1
     #define _CL 2
