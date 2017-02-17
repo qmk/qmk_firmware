@@ -107,9 +107,121 @@ enum quantum_keycodes {
     MUV_IN,
     MUV_DE,
 
-    // Midi mode on/off
+#ifdef MIDI_ENABLE
+    // Midi
     MIDI_ON,
     MIDI_OFF,
+
+    MIDI_TONE_MIN,
+
+    MI_C = MIDI_TONE_MIN,
+    MI_Cs,
+    MI_Db = MI_Cs,
+    MI_D,
+    MI_Ds,
+    MI_Eb = MI_Ds,
+    MI_E,
+    MI_F,
+    MI_Fs,
+    MI_Gb = MI_Fs,
+    MI_G,
+    MI_Gs,
+    MI_Ab = MI_Gs,
+    MI_A,
+    MI_As,
+    MI_Bb = MI_As,
+    MI_B,
+
+    MI_C_1,
+    MI_Cs_1,
+    MI_Db_1 = MI_Cs_1,
+    MI_D_1,
+    MI_Ds_1,
+    MI_Eb_1 = MI_Ds_1,
+    MI_E_1,
+    MI_F_1,
+    MI_Fs_1,
+    MI_Gb_1 = MI_Fs_1,
+    MI_G_1,
+    MI_Gs_1,
+    MI_Ab_1 = MI_Gs_1,
+    MI_A_1,
+    MI_As_1,
+    MI_Bb_1 = MI_As_1,
+    MI_B_1,
+
+    MI_C_2,
+    MI_Cs_2,
+    MI_Db_2 = MI_Cs_2,
+    MI_D_2,
+    MI_Ds_2,
+    MI_Eb_2 = MI_Ds_2,
+    MI_E_2,
+    MI_F_2,
+    MI_Fs_2,
+    MI_Gb_2 = MI_Fs_2,
+    MI_G_2,
+    MI_Gs_2,
+    MI_Ab_2 = MI_Gs_2,
+    MI_A_2,
+    MI_As_2,
+    MI_Bb_2 = MI_As_2,
+    MI_B_2,
+
+    MIDI_TONE_MAX = MI_B_2,
+
+    MIDI_OCTAVE_MIN,
+    MI_OCT_N2 = MIDI_OCTAVE_MIN,
+    MI_OCT_N1,
+    MI_OCT_0,
+    MI_OCT_1,
+    MI_OCT_2,
+    MI_OCT_3,
+    MI_OCT_4,
+    MI_OCT_5,
+    MI_OCT_6,
+    MI_OCT_7,
+    MIDI_OCTAVE_MAX = MI_OCT_7,
+    MI_OCTD, // octave down
+    MI_OCTU, // octave up
+
+    MIDI_VELOCITY_MIN,
+    MI_VEL_1 = MIDI_VELOCITY_MIN,
+    MI_VEL_2,
+    MI_VEL_3,
+    MI_VEL_5,
+    MI_VEL_6,
+    MI_VEL_7,
+    MI_VEL_8,
+    MI_VEL_9,
+    MI_VEL_10,
+    MIDI_VELOCITY_MAX = MI_VEL_10,
+    MI_VELD, // velocity down
+    MI_VELU, // velocity up
+
+    MIDI_CHANNEL_MIN,
+    MI_CH1 = MIDI_CHANNEL_MIN,
+    MI_CH2,
+    MI_CH3,
+    MI_CH4,
+    MI_CH5,
+    MI_CH6,
+    MI_CH7,
+    MI_CH8,
+    MI_CH9,
+    MI_CH10,
+    MI_CH11,
+    MI_CH12,
+    MI_CH13,
+    MI_CH14,
+    MI_CH15,
+    MI_CH16,
+    MIDI_CHANNEL_MAX = MI_CH16,
+    MI_CHD, // previous channel
+    MI_CHU, // next channel
+
+    MI_SUS, // sustain
+#endif
 
     // Backlight functionality
     BL_0,
