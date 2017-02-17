@@ -1,3 +1,7 @@
+# Quantum Mechanical Keyboard Firmware
+
+You have found the QMK Firmware documentation site. QMK is an Open Source firmware for mechanical keyboards. It has been ported to AVR and ARM chips using the LUFA and ChibiOS frameworks. You can use it to power your own hand-wired or custom keyboard PCB.
+
 # Getting started
 
 Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
