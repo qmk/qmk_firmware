@@ -55,3 +55,21 @@ In the above commands, replace:
 * Build all Clueboard keymaps: `make clueboard`
 * Build the default Planck keymap: `make planck-rev4-default`
 * Build and flash your ergodox-ez: `make ergodox-ez-default-teensy`
+
+# The `config.h` file
+
+There are 2 `config.h` locations:
+
+* keyboard (`/keyboards/<keyboard>/`)
+* keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
+
+The keyboard `config.h` is included only if the keymap one doesn't exist. The format to use for your custom one [is here](/doc/keymap_config_h_example.h). If you want to override a setting from the parent `config.h` file, you need to do this:
+
+```c
+#undef MY_SETTING
+#define MY_SETTING 4
+```
+
+For a value of `4` for this imaginary setting. So we `undef` it first, then `define` it.
+
+You can then override any settings, rather than having to copy and paste the whole thing.
