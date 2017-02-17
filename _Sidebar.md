@@ -9,4 +9,4 @@
  * [Leader Key](Leader Key)
  * [Macros](Macros)
  * [Space Cadet](Space-Cadet-Shift)
- * [Tap Dance](Tap Dance)
+ * [Tap Dance](Tap-Dance)
