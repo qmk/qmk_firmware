@@ -55,7 +55,7 @@ In the above commands, replace:
 
 **NOTE:** Some operating systems will refuse to program unless you run the make command as root for example `sudo make dfu`
 
-#### Make Examples
+## Make Examples
 
 * Build all Clueboard keymaps: `make clueboard`
 * Build the default Planck keymap: `make planck-rev4-default`
