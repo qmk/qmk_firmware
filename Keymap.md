@@ -8,9 +8,9 @@ For this example we will walk through the [default Clueboard keymap](https://git
 
 There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
 
-* The Definitions
-* The Layer/Keymap Datastructure
-* Custom Functions, if any
+* [The Definitions](#definitions)
+* [The Layer/Keymap Datastructure](#layers-and-keymaps)
+* [Custom Functions](#custom-functions), if any
 
 ### Definitions
 
