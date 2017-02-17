@@ -30,6 +30,8 @@ The `make` command is how you compile the firmware into a .hex file, which can b
 
 **NOTE:** To abort a make command press `Ctrl-c`
 
+For more details on the QMK build process see [Make Instructions](Make-Instructions).
+
 ### Simple instructions for building and uploading a keyboard
 
 **Most keyboards have more specific instructions in the keyboard specific readme.md file, so please check that first**
