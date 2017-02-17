@@ -30,13 +30,6 @@ The `make` command is how you compile the firmware into a .hex file, which can b
 
 **NOTE:** To abort a make command press `Ctrl-c`
 
-The following instruction refers to these folders.
-
-* The `root` (`/`) folder is the qmk_firmware folder, in which are `doc`, `keyboard`, `quantum`, etc.
-* The `keyboard` folder is any keyboard project's folder, like `/keyboards/planck`.
-* The `keymap` folder is any keymap's folder, like `/keyboards/planck/keymaps/default`.
-* The `subproject` folder is the subproject folder of a keyboard, like `/keyboards/ergodox/ez`
-
 ### Simple instructions for building and uploading a keyboard
 
 **Most keyboards have more specific instructions in the keyboard specific readme.md file, so please check that first**
