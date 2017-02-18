@@ -189,6 +189,7 @@ enum quantum_keycodes {
     MI_VEL_1 = MIDI_VELOCITY_MIN,
     MI_VEL_2,
     MI_VEL_3,
+    MI_VEL_4,
     MI_VEL_5,
     MI_VEL_6,
     MI_VEL_7,
