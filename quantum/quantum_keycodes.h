@@ -183,6 +183,24 @@ enum quantum_keycodes {
     MI_OCTD, // octave down
     MI_OCTU, // octave up
 
+    MIDI_TRANSPOSE_MIN,
+    MI_TRNS_N6 = MIDI_TRANSPOSE_MIN,
+    MI_TRNS_N5,
+    MI_TRNS_N4,
+    MI_TRNS_N3,
+    MI_TRNS_N2,
+    MI_TRNS_N1,
+    MI_TRNS_0,
+    MI_TRNS_1,
+    MI_TRNS_2,
+    MI_TRNS_3,
+    MI_TRNS_4,
+    MI_TRNS_5,
+    MI_TRNS_6,
+    MIDI_TRANSPOSE_MAX = MI_TRNS_6,
+    MI_TRNSD, // transpose down
+    MI_TRNSU, // transpose up
+
     MIDI_VELOCITY_MIN,
     MI_VEL_1 = MIDI_VELOCITY_MIN,
     MI_VEL_2,
