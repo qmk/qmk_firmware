@@ -109,8 +109,6 @@ enum quantum_keycodes {
 
 #ifdef MIDI_ENABLE
     // Midi
-    MIDI_ON,
-    MIDI_OFF,
 
     MIDI_TONE_MIN,
 
@@ -221,7 +219,13 @@ enum quantum_keycodes {
     MI_CHD, // previous channel
     MI_CHU, // next channel
 
+    MI_OFF, // all notes off
+
     MI_SUS, // sustain
+    MI_PORT, // portamento
+    MI_SOST, // sostenuto
+    MI_SOFT, // soft
+    MI_LEG,  // legato
 #endif
 
     // Backlight functionality
@@ -393,9 +397,6 @@ enum quantum_keycodes {
 
 #define BL_ON  BL_9
 #define BL_OFF BL_0
-
-#define MI_ON MIDI_ON
-#define MI_OFF MIDI_OFF
 
 // GOTO layer - 16 layers max
 // when:
