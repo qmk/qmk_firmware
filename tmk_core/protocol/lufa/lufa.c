@@ -1180,7 +1180,7 @@ int main(void)
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
-        // MIDI_Task();
+        midi_task();
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
