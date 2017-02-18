@@ -2,12 +2,13 @@
 #include "timer.h"
 
 typedef union {
-  uint16_t raw;
+  uint32_t raw;
   struct {
-    uint8_t octave   :4;
-    uint8_t velocity :4;
-    uint8_t channel  :4;
-    uint8_t modulation_interval  :4;
+    uint8_t octave              :4;
+    int8_t transpose            :4;
+    uint8_t velocity            :4;
+    uint8_t channel             :4;
+    uint8_t modulation_interval :4;
   };
 } midi_config_t;
 
@@ -29,7 +30,8 @@ inline uint8_t compute_velocity(uint8_t setting)
 
 void midi_init(void)
 {
-    midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
+    midi_config.octave = MI_OCT_2 - MIDI_OCTAVE_MIN;
+    midi_config.transpose = 0;
     midi_config.velocity = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
     midi_config.channel = 0;
     midi_config.modulation_interval = 8;
@@ -77,7 +79,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             uint8_t tone = keycode - MIDI_TONE_MIN;
             uint8_t velocity = compute_velocity(midi_config.velocity);
             if (record->event.pressed) {
-                uint8_t note = 12 * midi_config.octave + tone;
+                uint8_t note = 12 * midi_config.octave + tone + midi_config.transpose;
                 midi_send_noteon(&midi_device, channel, note, velocity);
                 dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
                 tone_status[tone] = note;
@@ -109,6 +111,27 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             if (record->event.pressed && midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
                 midi_config.octave++;
                 dprintf("midi octave %d\n", midi_config.octave);
+            }
+            return false;
+        case MIDI_TRANSPOSE_MIN ... MIDI_TRANSPOSE_MAX:
+            if (record->event.pressed) {
+                midi_config.transpose = keycode - MI_TRNS_0;
+                dprintf("midi transpose %d\n", midi_config.transpose);
+            }
+            return false;
+        case MI_TRNSD:
+            if (record->event.pressed && midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
+                midi_config.transpose--;
+                dprintf("midi transpose %d\n", midi_config.transpose);
+            }
+            return false;
+        case MI_TRNSU:
+            if (record->event.pressed && midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
+                const bool positive = midi_config.transpose > 0;
+                midi_config.transpose++;
+                if (positive && midi_config.transpose < 0)
+                    midi_config.transpose--;
+                dprintf("midi transpose %d\n", midi_config.transpose);
             }
             return false;
         case MIDI_VELOCITY_MIN ... MIDI_VELOCITY_MAX:
