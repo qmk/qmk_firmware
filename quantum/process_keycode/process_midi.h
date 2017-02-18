@@ -2,6 +2,9 @@
 #define PROCESS_MIDI_H
 
 #include "quantum.h"
+#include "midi.h"
+
+void midi_init(void);
 
 bool process_midi(uint16_t keycode, keyrecord_t *record);
 
