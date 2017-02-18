@@ -224,8 +224,12 @@ enum quantum_keycodes {
     MI_SUS, // sustain
     MI_PORT, // portamento
     MI_SOST, // sostenuto
-    MI_SOFT, // soft
+    MI_SOFT, // soft pedal
     MI_LEG,  // legato
+
+    MI_MOD, // modulation
+    MI_MODSD, // decrease modulation speed
+    MI_MODSU, // increase modulation speed
 #endif
 
     // Backlight functionality
