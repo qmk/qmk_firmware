@@ -19,6 +19,10 @@ midi_config_t midi_config;
 
 #define MIDI_INVALID_NOTE 0xFF
 
+#define MIDI_USE_NOTE_ON_ARRAY
+
+#ifdef MIDI_USE_NOTE_ON_ARRAY
+
 #define MIDI_MAX_NOTES_ON 10
 
 typedef struct {
@@ -33,6 +37,15 @@ typedef struct {
 
 static midi_notes_on_array_t notes_on;
 
+#else
+
+#define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)
+static uint8_t tone_status[MIDI_TONE_COUNT];
+
+#endif
+
+
+
 inline uint8_t compute_velocity(uint8_t setting)
 {
     return (setting + 1) * (128 / (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN + 1));
@@ -43,7 +56,14 @@ void midi_init(void)
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
     midi_config.velocity = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
     midi_config.channel = 0;
+    #ifdef MIDI_USE_NOTE_ON_ARRAY
     notes_on.length = 0;
+    #else
+    for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++)
+    {
+        tone_status[i] = MIDI_INVALID_NOTE;
+    }
+    #endif
 }
 
 bool process_midi(uint16_t keycode, keyrecord_t *record)
@@ -54,15 +74,31 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             uint8_t channel = midi_config.channel;
             uint8_t tone = keycode - MIDI_TONE_MIN;
             uint8_t velocity = compute_velocity(midi_config.velocity);
+            #ifdef MIDI_USE_NOTE_ON_ARRAY
             if (record->event.pressed && notes_on.length < MIDI_MAX_NOTES_ON) {
+            #else
+            if (record->event.pressed) {
+            #endif
                 uint8_t note = 12 * midi_config.octave + tone;
                 midi_send_noteon(&midi_device, channel, note, velocity);
                 dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
+
+                #ifdef MIDI_USE_NOTE_ON_ARRAY
+                
                 notes_on.values[notes_on.length].note = note;
                 notes_on.values[notes_on.length].tone = tone;
                 notes_on.length++;
+                
+                #else
+
+                tone_status[tone] = note;
+
+                #endif
             }
             else {
+                
+                #ifdef MIDI_USE_NOTE_ON_ARRAY
+
                 for (uint8_t i = 0; i < notes_on.length; i++) {
                     uint8_t note = notes_on.values[i].note;
                     if (tone == notes_on.values[i].tone) {
@@ -78,6 +114,18 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                         break;
                     }
                 }
+
+                #else
+
+                uint8_t note = tone_status[tone];
+                if (note != MIDI_INVALID_NOTE)
+                {
+                    midi_send_noteoff(&midi_device, channel, note, velocity);
+                    dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+                }
+                tone_status[tone] = MIDI_INVALID_NOTE;
+
+                #endif
             }
             return false;
         }
@@ -122,5 +170,66 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             return false;
     };
 
+#if 0
+    if (keycode == MI_ON && record->event.pressed) {
+      midi_activated = true;
+#ifdef AUDIO_ENABLE
+      music_scale_user();
+#endif
+      return false;
+    }
+
+    if (keycode == MI_OFF && record->event.pressed) {
+      midi_activated = false;
+      midi_send_cc(&midi_device, 0, 0x7B, 0);
+      return false;
+    }
+
+    if (midi_activated) {
+      if (record->event.key.col == (MATRIX_COLS - 1) && record->event.key.row == (MATRIX_ROWS - 1)) {
+          if (record->event.pressed) {
+              midi_starting_note++; // Change key
+              midi_send_cc(&midi_device, 0, 0x7B, 0);
+          }
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 2) && record->event.key.row == (MATRIX_ROWS - 1)) {
+          if (record->event.pressed) {
+              midi_starting_note--; // Change key
+              midi_send_cc(&midi_device, 0, 0x7B, 0);
+          }
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 3) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+          midi_offset++; // Change scale
+          midi_send_cc(&midi_device, 0, 0x7B, 0);
+          return false;
+      }
+      if (record->event.key.col == (MATRIX_COLS - 4) && record->event.key.row == (MATRIX_ROWS - 1) && record->event.pressed) {
+          midi_offset--; // Change scale
+          midi_send_cc(&midi_device, 0, 0x7B, 0);
+          return false;
+      }
+      // basic
+      // uint8_t note = (midi_starting_note + SCALE[record->event.key.col + midi_offset])+12*(MATRIX_ROWS - record->event.key.row);
+      // advanced
+      // uint8_t note = (midi_starting_note + record->event.key.col + midi_offset)+12*(MATRIX_ROWS - record->event.key.row);
+      // guitar
+      uint8_t note = (midi_starting_note + record->event.key.col + midi_offset)+5*(MATRIX_ROWS - record->event.key.row);
+      // violin
+      // uint8_t note = (midi_starting_note + record->event.key.col + midi_offset)+7*(MATRIX_ROWS - record->event.key.row);
+
+      if (record->event.pressed) {
+        // midi_send_noteon(&midi_device, record->event.key.row, midi_starting_note + SCALE[record->event.key.col], 127);
+        midi_send_noteon(&midi_device, 0, note, 127);
+      } else {
+        // midi_send_noteoff(&midi_device, record->event.key.row, midi_starting_note + SCALE[record->event.key.col], 127);
+        midi_send_noteoff(&midi_device, 0, note, 127);
+      }
+
+      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+        return false;
+    }
+#endif
     return true;
 }
