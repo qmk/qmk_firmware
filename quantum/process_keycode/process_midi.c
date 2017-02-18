@@ -1,4 +1,5 @@
 #include "process_midi.h"
+#include "timer.h"
 
 typedef union {
   uint16_t raw;
@@ -6,6 +7,7 @@ typedef union {
     uint8_t octave   :4;
     uint8_t velocity :4;
     uint8_t channel  :4;
+    uint8_t modulation_interval  :4;
   };
 } midi_config_t;
 
@@ -15,6 +17,10 @@ midi_config_t midi_config;
 
 #define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)
 static uint8_t tone_status[MIDI_TONE_COUNT];
+
+static uint8_t midi_modulation;
+static int8_t midi_modulation_step;
+static uint16_t midi_modulation_timer;
 
 inline uint8_t compute_velocity(uint8_t setting)
 {
@@ -26,14 +32,40 @@ void midi_init(void)
     midi_config.octave = MI_OCT_0 - MIDI_OCTAVE_MIN;
     midi_config.velocity = (MIDI_VELOCITY_MAX - MIDI_VELOCITY_MIN);
     midi_config.channel = 0;
-    #ifdef MIDI_USE_NOTE_ON_ARRAY
-    notes_on.length = 0;
-    #else
+    midi_config.modulation_interval = 8;
+
     for (uint8_t i = 0; i < MIDI_TONE_COUNT; i++)
     {
         tone_status[i] = MIDI_INVALID_NOTE;
     }
-    #endif
+
+    midi_modulation = 0;
+    midi_modulation_step = 0;
+    midi_modulation_timer = 0;
+}
+
+void midi_task(void)
+{
+    if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval)
+        return;
+    midi_modulation_timer = timer_read();
+
+    if (midi_modulation_step != 0)
+    {
+        dprintf("midi modulation %d\n", midi_modulation);
+        midi_send_cc(&midi_device, midi_config.channel, 0x1, midi_modulation);
+
+        if (midi_modulation_step < 0 && midi_modulation < -midi_modulation_step) {
+            midi_modulation = 0;
+            midi_modulation_step = 0;
+            return;
+        }
+
+        midi_modulation += midi_modulation_step;
+
+        if (midi_modulation > 127)
+            midi_modulation = 127;
+    }
 }
 
 bool process_midi(uint16_t keycode, keyrecord_t *record)
@@ -140,6 +172,24 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
         case MI_LEG:
             midi_send_cc(&midi_device, midi_config.channel, 0x43, record->event.pressed ? 127 : 0);
             dprintf("midi legato %d\n", record->event.pressed);
+            return false;
+        case MI_MOD:
+            midi_modulation_step = record->event.pressed ? 1 : -1;
+            return false;
+        case MI_MODSD:
+            if (record->event.pressed) {
+                midi_config.modulation_interval++;
+                // prevent overflow
+                if (midi_config.modulation_interval == 0)
+                    midi_config.modulation_interval--;
+                dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
+            }
+            return false;
+        case MI_MODSU:
+            if (record->event.pressed && midi_config.modulation_interval > 0) {
+                midi_config.modulation_interval--;
+                dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
+            }
             return false;
     };
 
