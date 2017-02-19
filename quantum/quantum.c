@@ -7,8 +7,14 @@
 #define TAPPING_TERM 200
 #endif
 
+<<<<<<< HEAD
 #include "backlight.h"
 extern backlight_config_t backlight_config;
+=======
+#ifdef FAUXCLICKY_ENABLE
+#include "fauxclicky.h"
+#endif
+>>>>>>> 49e72632d2200fc3bf71d5ced2aa43058da3b2e0
 
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
@@ -199,6 +205,26 @@ bool process_record_quantum(keyrecord_t *record) {
       }
 	  return false;
       break;
+  #ifdef FAUXCLICKY_ENABLE
+  case FC_TOG:
+    if (record->event.pressed) {
+      FAUXCLICKY_TOGGLE;
+    }
+    return false;
+    break;
+  case FC_ON:
+    if (record->event.pressed) {
+      FAUXCLICKY_ON;
+    }
+    return false;
+    break;
+  case FC_OFF:
+    if (record->event.pressed) {
+      FAUXCLICKY_OFF;
+    }
+    return false;
+    break;
+  #endif
 	#ifdef RGBLIGHT_ENABLE
 	case RGB_TOG:
 		if (record->event.pressed) {
@@ -977,6 +1003,19 @@ void send_nibble(uint8_t number) {
             unregister_code(KC_A + (number - 0xA));
             break;
     }
+}
+
+
+__attribute__((weak))
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
 }
 
 void api_send_unicode(uint32_t unicode) {
