@@ -161,18 +161,26 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 	SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
 
+ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
+    OPT_DEFS += -DFAUXCLICKY_ENABLE
+	SRC += $(QUANTUM_DIR)/fauxclicky.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
 	OPT_DEFS += -DUCIS_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+	SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
 	OPT_DEFS += -DUNICODEMAP_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
 endif
 

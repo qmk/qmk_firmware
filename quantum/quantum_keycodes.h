@@ -41,15 +41,20 @@ enum quantum_keycodes {
 #endif
     QK_TAP_DANCE          = 0x5700,
     QK_TAP_DANCE_MAX      = 0x57FF,
-#ifdef UNICODEMAP_ENABLE
-    QK_UNICODE_MAP        = 0x5800,
-    QK_UNICODE_MAP_MAX    = 0x5BFF,
-#endif
+    QK_LAYER_TAP_TOGGLE   = 0x5800,
+    QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
+#if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
+    #error "Cannot enable both UNICODEMAP && UNICODE"
+#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
+#endif
+#ifdef UNICODEMAP_ENABLE
+    QK_UNICODE_MAP        = 0x8000,
+    QK_UNICODE_MAP_MAX    = 0x83FF,
 #endif
 
     // Loose keycodes - to be used directly
@@ -85,6 +90,13 @@ enum quantum_keycodes {
     AU_ON,
     AU_OFF,
     AU_TOG,
+
+#ifdef FAUXCLICKY_ENABLE
+    // Faux clicky
+    FC_ON,
+    FC_OFF,
+    FC_TOG,
+#endif
 
     // Music mode on/off/toggle
     MU_ON,
@@ -296,6 +308,9 @@ enum quantum_keycodes {
 
 // One-shot mod
 #define OSM(mod) (mod | QK_ONE_SHOT_MOD)
+
+// Layer tap-toggle
+#define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
 
 // M-od, T-ap - 256 keycode max
 #define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0x1F) << 8))
