@@ -7,14 +7,12 @@
 #define TAPPING_TERM 200
 #endif
 
-<<<<<<< HEAD
 #include "backlight.h"
 extern backlight_config_t backlight_config;
-=======
+
 #ifdef FAUXCLICKY_ENABLE
 #include "fauxclicky.h"
 #endif
->>>>>>> 49e72632d2200fc3bf71d5ced2aa43058da3b2e0
 
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
