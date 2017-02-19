@@ -21,8 +21,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 2: RGB Layer
   KEYMAP(
-      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO,    \
-      BL_STEP, RGB_TOG, RGB_MOD, KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,             KC_NO,    \
+      KC_NO,   BL_TOGG, BL_STEP, KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO,    \
+      KC_NO,   RGB_TOG, RGB_MOD, KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,             KC_NO,    \
       KC_NO,   RGB_HUI, RGB_SAI, RGB_VAI, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    KC_NO,             KC_NO,    \
       KC_NO,   KC_NO,   RGB_HUD, RGB_SAD, RGB_VAD,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    F(1),    KC_NO,    KC_NO,    \
       KC_NO,   KC_NO,   KC_NO,                            KC_NO,                           KC_NO,   KC_NO,    KC_NO,   KC_NO,    KC_NO),
