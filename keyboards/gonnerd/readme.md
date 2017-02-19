@@ -11,6 +11,10 @@ It is possible to change the bootloader of the GON NerD with an ISP programmer. 
 _After changing the bootloader on your GON NerD PCB you will not be able to go back to the original firmware and the official configuration software will
 not work anymore. You will lose your warranty and official support from GON!_
 
+## Reset button
+
+To run the `make dfu` command to flash keymaps onto the board, you need to put the board into DFU mode. As the GON NerD PCBs do not have a reset button on the board to put it into DFU mode, be sure to include a `RESET` button on your keymap. Otherwise you'll have to unscrew your keyboard from the case and short the GND and RST pins.
+
 ## Building
 
 Download or clone the whole firmware and navigate to the keyboards/gonnerd folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file.
