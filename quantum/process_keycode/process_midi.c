@@ -1,22 +1,6 @@
 #include "process_midi.h"
 #include "timer.h"
 
-typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t octave              :4;
-    int8_t transpose            :4;
-    uint8_t velocity            :4;
-    uint8_t channel             :4;
-    uint8_t modulation_interval :4;
-  };
-} midi_config_t;
-
-midi_config_t midi_config;
-
-#define MIDI_INVALID_NOTE 0xFF
-
-#define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)
 static uint8_t tone_status[MIDI_TONE_COUNT];
 
 static uint8_t midi_modulation;
@@ -70,6 +54,11 @@ void midi_task(void)
     }
 }
 
+uint8_t midi_compute_note(uint16_t keycode)
+{
+    return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose;
+}
+
 bool process_midi(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
@@ -79,7 +68,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
             uint8_t tone = keycode - MIDI_TONE_MIN;
             uint8_t velocity = compute_velocity(midi_config.velocity);
             if (record->event.pressed) {
-                uint8_t note = 12 * midi_config.octave + tone + midi_config.transpose;
+                uint8_t note = midi_compute_note(keycode);
                 midi_send_noteon(&midi_device, channel, note, velocity);
                 dprintf("midi noteon channel:%d note:%d velocity:%d\n", channel, note, velocity);
                 tone_status[tone] = note;
