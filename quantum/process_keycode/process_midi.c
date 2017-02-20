@@ -1,3 +1,5 @@
+#define MIDI_TONE_KEYCODE_OCTAVES 2
+
 #include "process_midi.h"
 #include "timer.h"
 
