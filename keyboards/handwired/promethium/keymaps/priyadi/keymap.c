@@ -1046,6 +1046,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 #endif
 
+    // only process Fnumber on key release, and only when layer switcher is still pressed.
+    // this is to avoid accidental presses
+    case KC_F1 ... KC_F12:
+      if (!record->event.pressed && layer == _FUN) {
+          register_code(keycode);
+          unregister_code(keycode);
+      }
+      return false;
+      break;
+
     // layer switcher
     //
     case GREEK:
