@@ -2,6 +2,12 @@
 #ifndef QUANTUM_KEYCODES_H
 #define QUANTUM_KEYCODES_H
 
+#ifdef MIDI_ENABLE
+#ifndef MIDI_TONE_KEYCODE_OCTAVES
+#define MIDI_TONE_KEYCODE_OCTAVES 3
+#endif
+#endif
+
 enum quantum_keycodes {
     // Ranges used in shortucuts - not to be used directly
     QK_TMK                = 0x0000,
@@ -112,6 +118,7 @@ enum quantum_keycodes {
 
     MIDI_TONE_MIN,
 
+#if MIDI_TONE_KEYCODE_OCTAVES > 0
     MI_C = MIDI_TONE_MIN,
     MI_Cs,
     MI_Db = MI_Cs,
@@ -129,7 +136,9 @@ enum quantum_keycodes {
     MI_As,
     MI_Bb = MI_As,
     MI_B,
+#endif
 
+#if MIDI_TONE_KEYCODE_OCTAVES > 1
     MI_C_1,
     MI_Cs_1,
     MI_Db_1 = MI_Cs_1,
@@ -147,7 +156,9 @@ enum quantum_keycodes {
     MI_As_1,
     MI_Bb_1 = MI_As_1,
     MI_B_1,
+#endif
 
+#if MIDI_TONE_KEYCODE_OCTAVES > 2
     MI_C_2,
     MI_Cs_2,
     MI_Db_2 = MI_Cs_2,
@@ -165,8 +176,81 @@ enum quantum_keycodes {
     MI_As_2,
     MI_Bb_2 = MI_As_2,
     MI_B_2,
+#endif
 
+#if MIDI_TONE_KEYCODE_OCTAVES > 3
+    MI_C_3,
+    MI_Cs_3,
+    MI_Db_3 = MI_Cs_3,
+    MI_D_3,
+    MI_Ds_3,
+    MI_Eb_3 = MI_Ds_3,
+    MI_E_3,
+    MI_F_3,
+    MI_Fs_3,
+    MI_Gb_3 = MI_Fs_3,
+    MI_G_3,
+    MI_Gs_3,
+    MI_Ab_3 = MI_Gs_3,
+    MI_A_3,
+    MI_As_3,
+    MI_Bb_3 = MI_As_3,
+    MI_B_3,
+#endif
+
+#if MIDI_TONE_KEYCODE_OCTAVES > 4
+    MI_C_4,
+    MI_Cs_4,
+    MI_Db_4 = MI_Cs_4,
+    MI_D_4,
+    MI_Ds_4,
+    MI_Eb_4 = MI_Ds_4,
+    MI_E_4,
+    MI_F_4,
+    MI_Fs_4,
+    MI_Gb_4 = MI_Fs_4,
+    MI_G_4,
+    MI_Gs_4,
+    MI_Ab_4 = MI_Gs_4,
+    MI_A_4,
+    MI_As_4,
+    MI_Bb_4 = MI_As_4,
+    MI_B_4,
+#endif
+
+#if MIDI_TONE_KEYCODE_OCTAVES > 5
+    MI_C_5,
+    MI_Cs_5,
+    MI_Db_5 = MI_Cs_5,
+    MI_D_5,
+    MI_Ds_5,
+    MI_Eb_5 = MI_Ds_5,
+    MI_E_5,
+    MI_F_5,
+    MI_Fs_5,
+    MI_Gb_5 = MI_Fs_5,
+    MI_G_5,
+    MI_Gs_5,
+    MI_Ab_5 = MI_Gs_5,
+    MI_A_5,
+    MI_As_5,
+    MI_Bb_5 = MI_As_5,
+    MI_B_5,
+#endif
+
+#if MIDI_TONE_KEYCODE_OCTAVES > 5
+    MIDI_TONE_MAX = MI_B_5,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 4
+    MIDI_TONE_MAX = MI_B_4,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 3
+    MIDI_TONE_MAX = MI_B_3,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 2
     MIDI_TONE_MAX = MI_B_2,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 1
+    MIDI_TONE_MAX = MI_B_1,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 0
+    MIDI_TONE_MAX = MI_B,
+#endif
 
     MIDI_OCTAVE_MIN,
     MI_OCT_N2 = MIDI_OCTAVE_MIN,
