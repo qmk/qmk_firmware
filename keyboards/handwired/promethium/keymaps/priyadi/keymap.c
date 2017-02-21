@@ -700,17 +700,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  | Ins  |      | PgUp |  Up  | PgDn | PgUp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn |      |
+ * | Caps |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |      |      | Home |  End |      |      |
+ * |      |  F9  |  F10 |  F11 |  F12 |Pause |      |      | Home |  End |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUN] = KEYMAP(
   XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_INS,  XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP, KC_DEL,
-  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
+  KC_CAPS,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_PAUS, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
   _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -935,7 +935,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     // handle greek layer shift
-    // handle both shift = capslock
     case KC_LSFT:
     case KC_RSFT:
       ;
@@ -947,13 +946,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lshift ^ rshift) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
-          }
-        }
-      } else {
-        if (record->event.pressed) {
-          if (lshift ^ rshift) { // if only one shift was pressed
-            register_code(KC_CAPS);
-            unregister_code(KC_CAPS);
           }
         }
       }
