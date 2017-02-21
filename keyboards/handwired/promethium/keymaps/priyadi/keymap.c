@@ -1039,9 +1039,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     // only process Fnumber on key release, and only when layer switcher is still pressed.
-    // this is to avoid accidental presses
+    // this is to avoid accidental presses on potentially destructive keys
     case KC_F1 ... KC_F12:
-      if (!record->event.pressed && layer == _FUN) {
+    case KC_PAUS:
+    case KC_PSCR:
+    case KC_INS:
+      if (!record->event.pressed && layer == _FUN) { // key released and still in FUN layer
           register_code(keycode);
           unregister_code(keycode);
       }
