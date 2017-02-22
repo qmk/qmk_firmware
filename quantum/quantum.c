@@ -1,4 +1,82 @@
 #include "quantum.h"
+#ifdef PROTOCOL_LUFA
+#include "outputselect.h"
+#endif
+
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
+#ifdef FAUXCLICKY_ENABLE
+#include "fauxclicky.h"
+#endif
+
+static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
+  switch (code) {
+  case QK_MODS ... QK_MODS_MAX:
+    break;
+  default:
+    return;
+  }
+
+  if (code & QK_LCTL)
+    f(KC_LCTL);
+  if (code & QK_LSFT)
+    f(KC_LSFT);
+  if (code & QK_LALT)
+    f(KC_LALT);
+  if (code & QK_LGUI)
+    f(KC_LGUI);
+
+  if (code < QK_RMODS_MIN) return;
+
+  if (code & QK_RCTL)
+    f(KC_RCTL);
+  if (code & QK_RSFT)
+    f(KC_RSFT);
+  if (code & QK_RALT)
+    f(KC_RALT);
+  if (code & QK_RGUI)
+    f(KC_RGUI);
+}
+
+static inline void qk_register_weak_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_weak_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_register_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+void register_code16 (uint16_t code) {
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_register_mods);
+  } else {
+      do_code16 (code, qk_register_weak_mods);
+  }
+  register_code (code);
+}
+
+void unregister_code16 (uint16_t code) {
+  unregister_code (code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_unregister_mods);
+  } else {
+      do_code16 (code, qk_unregister_weak_mods);
+  }
+}
 
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
@@ -38,6 +116,7 @@ void reset_keyboard(void) {
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
+static uint16_t scs_timer = 0;
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -46,18 +125,20 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-    uint8_t layer;
+    /* TODO: Use store_or_get_action() or a similar function. */
+    if (!disable_action_cache) {
+      uint8_t layer;
 
-    if (record->event.pressed) {
-      layer = layer_switch_get_layer(key);
-      update_source_layers_cache(key, layer);
-    } else {
-      layer = read_source_layers_cache(key);
-    }
-    keycode = keymap_key_to_keycode(layer, key);
-  #else
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+      if (record->event.pressed) {
+        layer = layer_switch_get_layer(key);
+        update_source_layers_cache(key, layer);
+      } else {
+        layer = read_source_layers_cache(key);
+      }
+      keycode = keymap_key_to_keycode(layer, key);
+    } else
   #endif
+    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
@@ -84,8 +165,20 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
   #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
+  #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
+  #endif
+  #ifdef UCIS_ENABLE
+    process_ucis(keycode, record) &&
+  #endif
+  #ifdef PRINTING_ENABLE
+    process_printer(keycode, record) &&
+  #endif
+  #ifdef UNICODEMAP_ENABLE
+    process_unicode_map(keycode, record) &&
   #endif
       true)) {
     return false;
@@ -107,6 +200,26 @@ bool process_record_quantum(keyrecord_t *record) {
       }
 	  return false;
       break;
+  #ifdef FAUXCLICKY_ENABLE
+  case FC_TOG:
+    if (record->event.pressed) {
+      FAUXCLICKY_TOGGLE;
+    }
+    return false;
+    break;
+  case FC_ON:
+    if (record->event.pressed) {
+      FAUXCLICKY_ON;
+    }
+    return false;
+    break;
+  case FC_OFF:
+    if (record->event.pressed) {
+      FAUXCLICKY_OFF;
+    }
+    return false;
+    break;
+  #endif
 	#ifdef RGBLIGHT_ENABLE
 	case RGB_TOG:
 		if (record->event.pressed) {
@@ -157,7 +270,37 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
-    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_UNSWAP_ALT_GUI:
+    #ifdef PROTOCOL_LUFA
+    case OUT_AUTO:
+      if (record->event.pressed) {
+        set_output(OUTPUT_AUTO);
+      }
+      return false;
+      break;
+    case OUT_USB:
+      if (record->event.pressed) {
+        set_output(OUTPUT_USB);
+      }
+      return false;
+      break;
+    #ifdef BLUETOOTH_ENABLE
+    case OUT_BT:
+      if (record->event.pressed) {
+        set_output(OUTPUT_BLUETOOTH);
+      }
+      return false;
+      break;
+    #endif
+    #ifdef ADAFRUIT_BLE_ENABLE
+    case OUT_BLE:
+      if (record->event.pressed) {
+        set_output(OUTPUT_ADAFRUIT_BLE);
+      }
+      return false;
+      break;
+    #endif
+    #endif
+    case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
         if (!eeconfig_is_enabled()) {
@@ -165,54 +308,80 @@ bool process_record_quantum(keyrecord_t *record) {
         }
         /* keymap config */
         keymap_config.raw = eeconfig_read_keymap();
-        if (keycode == MAGIC_SWAP_CONTROL_CAPSLOCK) {
-            keymap_config.swap_control_capslock = 1;
-        } else if (keycode == MAGIC_CAPSLOCK_TO_CONTROL) {
-            keymap_config.capslock_to_control = 1;
-        } else if (keycode == MAGIC_SWAP_LALT_LGUI) {
-            keymap_config.swap_lalt_lgui = 1;
-        } else if (keycode == MAGIC_SWAP_RALT_RGUI) {
-            keymap_config.swap_ralt_rgui = 1;
-        } else if (keycode == MAGIC_NO_GUI) {
-            keymap_config.no_gui = 1;
-        } else if (keycode == MAGIC_SWAP_GRAVE_ESC) {
-            keymap_config.swap_grave_esc = 1;
-        } else if (keycode == MAGIC_SWAP_BACKSLASH_BACKSPACE) {
-            keymap_config.swap_backslash_backspace = 1;
-        } else if (keycode == MAGIC_HOST_NKRO) {
-            keymap_config.nkro = 1;
-        } else if (keycode == MAGIC_SWAP_ALT_GUI) {
-            keymap_config.swap_lalt_lgui = 1;
-            keymap_config.swap_ralt_rgui = 1;
-        }
-        /* UNs */
-        else if (keycode == MAGIC_UNSWAP_CONTROL_CAPSLOCK) {
-            keymap_config.swap_control_capslock = 0;
-        } else if (keycode == MAGIC_UNCAPSLOCK_TO_CONTROL) {
-            keymap_config.capslock_to_control = 0;
-        } else if (keycode == MAGIC_UNSWAP_LALT_LGUI) {
-            keymap_config.swap_lalt_lgui = 0;
-        } else if (keycode == MAGIC_UNSWAP_RALT_RGUI) {
-            keymap_config.swap_ralt_rgui = 0;
-        } else if (keycode == MAGIC_UNNO_GUI) {
-            keymap_config.no_gui = 0;
-        } else if (keycode == MAGIC_UNSWAP_GRAVE_ESC) {
-            keymap_config.swap_grave_esc = 0;
-        } else if (keycode == MAGIC_UNSWAP_BACKSLASH_BACKSPACE) {
-            keymap_config.swap_backslash_backspace = 0;
-        } else if (keycode == MAGIC_UNHOST_NKRO) {
-            keymap_config.nkro = 0;
-        } else if (keycode == MAGIC_UNSWAP_ALT_GUI) {
-            keymap_config.swap_lalt_lgui = 0;
-            keymap_config.swap_ralt_rgui = 0;
+        switch (keycode)
+        {
+          case MAGIC_SWAP_CONTROL_CAPSLOCK:
+            keymap_config.swap_control_capslock = true;
+            break;
+          case MAGIC_CAPSLOCK_TO_CONTROL:
+            keymap_config.capslock_to_control = true;
+            break;
+          case MAGIC_SWAP_LALT_LGUI:
+            keymap_config.swap_lalt_lgui = true;
+            break;
+          case MAGIC_SWAP_RALT_RGUI:
+            keymap_config.swap_ralt_rgui = true;
+            break;
+          case MAGIC_NO_GUI:
+            keymap_config.no_gui = true;
+            break;
+          case MAGIC_SWAP_GRAVE_ESC:
+            keymap_config.swap_grave_esc = true;
+            break;
+          case MAGIC_SWAP_BACKSLASH_BACKSPACE:
+            keymap_config.swap_backslash_backspace = true;
+            break;
+          case MAGIC_HOST_NKRO:
+            keymap_config.nkro = true;
+            break;
+          case MAGIC_SWAP_ALT_GUI:
+            keymap_config.swap_lalt_lgui = true;
+            keymap_config.swap_ralt_rgui = true;
+            break;
+          case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
+            keymap_config.swap_control_capslock = false;
+            break;
+          case MAGIC_UNCAPSLOCK_TO_CONTROL:
+            keymap_config.capslock_to_control = false;
+            break;
+          case MAGIC_UNSWAP_LALT_LGUI:
+            keymap_config.swap_lalt_lgui = false;
+            break;
+          case MAGIC_UNSWAP_RALT_RGUI:
+            keymap_config.swap_ralt_rgui = false;
+            break;
+          case MAGIC_UNNO_GUI:
+            keymap_config.no_gui = false;
+            break;
+          case MAGIC_UNSWAP_GRAVE_ESC:
+            keymap_config.swap_grave_esc = false;
+            break;
+          case MAGIC_UNSWAP_BACKSLASH_BACKSPACE:
+            keymap_config.swap_backslash_backspace = false;
+            break;
+          case MAGIC_UNHOST_NKRO:
+            keymap_config.nkro = false;
+            break;
+          case MAGIC_UNSWAP_ALT_GUI:
+            keymap_config.swap_lalt_lgui = false;
+            keymap_config.swap_ralt_rgui = false;
+            break;
+          case MAGIC_TOGGLE_NKRO:
+            keymap_config.nkro = !keymap_config.nkro;
+            break;
+          default:
+            break;
         }
         eeconfig_update_keymap(keymap_config.raw);
+        clear_keyboard(); // clear to prevent stuck keys
+
         return false;
       }
       break;
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
@@ -222,19 +391,20 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[0]) {
+        if (!shift_interrupted[0] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
         unregister_mods(MOD_BIT(KC_LSFT));
       }
       return false;
-      break;
+      // break;
     }
 
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
+        scs_timer = timer_read ();
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
@@ -244,14 +414,14 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[1]) {
+        if (!shift_interrupted[1] && timer_elapsed(scs_timer) < TAPPING_TERM) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
         unregister_mods(MOD_BIT(KC_RSFT));
       }
       return false;
-      break;
+      // break;
     }
     default: {
       shift_interrupted[0] = true;
@@ -426,6 +596,11 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
   matrix_scan_kb();
 }
 
@@ -443,34 +618,45 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define COM1x1 COM1A1
 #  define OCR1x  OCR1A
 #else
-#  error "Backlight pin not supported - use B5, B6, or B7"
+#  define NO_BACKLIGHT_CLOCK
+#endif
+
+#ifndef BACKLIGHT_ON_STATE
+#define BACKLIGHT_ON_STATE 0
 #endif
 
 __attribute__ ((weak))
 void backlight_init_ports(void)
 {
 
-  // Setup backlight pin as output and output low.
+  // Setup backlight pin as output and output to on state.
   // DDRx |= n
   _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
-  // PORTx &= ~n
-  _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #if BACKLIGHT_ON_STATE == 0
+    // PORTx &= ~n
+    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #else
+    // PORTx |= n
+    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  #endif
 
-  // Use full 16-bit resolution.
-  ICR1 = 0xFFFF;
+  #ifndef NO_BACKLIGHT_CLOCK
+    // Use full 16-bit resolution.
+    ICR1 = 0xFFFF;
 
-  // I could write a wall of text here to explain... but TL;DW
-  // Go read the ATmega32u4 datasheet.
-  // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
+    // I could write a wall of text here to explain... but TL;DW
+    // Go read the ATmega32u4 datasheet.
+    // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-  // Pin PB7 = OCR1C (Timer 1, Channel C)
-  // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
-  // (i.e. start high, go low when counter matches.)
-  // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
-  // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
+    // Pin PB7 = OCR1C (Timer 1, Channel C)
+    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
+    // (i.e. start high, go low when counter matches.)
+    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
+    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
 
-  TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
-  TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
+    TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
+    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
+  #endif
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
@@ -482,24 +668,43 @@ __attribute__ ((weak))
 void backlight_set(uint8_t level)
 {
   // Prevent backlight blink on lowest level
-  // PORTx &= ~n
-  _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #if BACKLIGHT_ON_STATE == 0
+    // PORTx &= ~n
+    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #else
+    // PORTx |= n
+    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  #endif
 
   if ( level == 0 ) {
-    // Turn off PWM control on backlight pin, revert to output low.
-    TCCR1A &= ~(_BV(COM1x1));
-    OCR1x = 0x0;
-  } else if ( level == BACKLIGHT_LEVELS ) {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
-    // Set the brightness
-    OCR1x = 0xFFFF;
-  } else {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
-    // Set the brightness
-    OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
-  }
+    #ifndef NO_BACKLIGHT_CLOCK
+      // Turn off PWM control on backlight pin, revert to output low.
+      TCCR1A &= ~(_BV(COM1x1));
+      OCR1x = 0x0;
+    #else
+      #if BACKLIGHT_ON_STATE == 0
+        // PORTx |= n
+        _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      #else
+        // PORTx &= ~n
+        _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      #endif
+    #endif
+  } 
+  #ifndef NO_BACKLIGHT_CLOCK
+    else if ( level == BACKLIGHT_LEVELS ) {
+      // Turn on PWM control of backlight pin
+      TCCR1A |= _BV(COM1x1);
+      // Set the brightness
+      OCR1x = 0xFFFF;
+    } 
+    else {
+      // Turn on PWM control of backlight pin
+      TCCR1A |= _BV(COM1x1);
+      // Set the brightness
+      OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
+    }
+  #endif
 
   #ifdef BACKLIGHT_BREATHING
     breathing_intensity_default();
@@ -729,6 +934,64 @@ void backlight_set(uint8_t level)
 #endif // backlight
 
 
+// Functions for spitting out values
+//
+
+void send_dword(uint32_t number) { // this might not actually work
+    uint16_t word = (number >> 16);
+    send_word(word);
+    send_word(number & 0xFFFFUL);
+}
+
+void send_word(uint16_t number) {
+    uint8_t byte = number >> 8;
+    send_byte(byte);
+    send_byte(number & 0xFF);
+}
+
+void send_byte(uint8_t number) {
+    uint8_t nibble = number >> 4;
+    send_nibble(nibble);
+    send_nibble(number & 0xF);
+}
+
+void send_nibble(uint8_t number) {
+    switch (number) {
+        case 0:
+            register_code(KC_0);
+            unregister_code(KC_0);
+            break;
+        case 1 ... 9:
+            register_code(KC_1 + (number - 1));
+            unregister_code(KC_1 + (number - 1));
+            break;
+        case 0xA ... 0xF:
+            register_code(KC_A + (number - 0xA));
+            unregister_code(KC_A + (number - 0xA));
+            break;
+    }
+}
+
+
+__attribute__((weak))
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
+void api_send_unicode(uint32_t unicode) {
+#ifdef API_ENABLE
+    uint8_t chunk[4];
+    dword_to_bytes(unicode, chunk);
+    MT_SEND_DATA(DT_UNICODE, chunk, 5);
+#endif
+}
 
 __attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
