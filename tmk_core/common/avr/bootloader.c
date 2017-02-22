@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
+#include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 #include <util/delay.h>
@@ -38,7 +39,7 @@
  *          |               |                        |               |
  *          =               =                        =               =
  *          |               | 32KB-4KB               |               | 128KB-8KB
- * 0x6000   +---------------+               0x1FC00  +---------------+
+ * 0x7000   +---------------+               0x1E000  +---------------+
  *          |  Bootloader   | 4KB                    |  Bootloader   | 8KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  *
@@ -64,8 +65,8 @@
 #define BOOTLOADER_START    (FLASH_SIZE - BOOTLOADER_SIZE)
 
 
-/* 
- * Entering the Bootloader via Software 
+/*
+ * Entering the Bootloader via Software
  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.html
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
@@ -87,6 +88,12 @@ void bootloader_jump(void) {
             USBCON = (1<<FRZCLK);
             UCSR1B = 0;
             _delay_ms(5);
+        #endif
+
+        #ifdef BOOTLOADHID_BOOTLOADER
+            // force bootloadHID to stay in bootloader mode, so that it waits
+            // for a new firmware to be flashed
+            eeprom_write_byte((uint8_t *)1, 0x00);
         #endif
 
         // watchdog reset
@@ -114,6 +121,11 @@ void bootloader_jump(void) {
     #endif
 }
 
+#ifdef __AVR_ATmega32A__
+// MCUSR is actually called MCUCSR in ATmega32A
+#define MCUSR MCUCSR
+#endif
+
 /* this runs before main() */
 void bootloader_jump_after_watchdog_reset(void) __attribute__ ((used, naked, section (".init3")));
 void bootloader_jump_after_watchdog_reset(void)
@@ -137,7 +149,7 @@ void bootloader_jump_after_watchdog_reset(void)
 #if 0
 /* Jumping To The Bootloader
  * http://www.pjrc.com/teensy/jump_to_bootloader.html
- * 
+ *
  * This method doen't work when using LUFA. idk why.
  * - needs to initialize more regisers or interrupt setting?
  */

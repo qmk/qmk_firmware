@@ -82,7 +82,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 ### Remember: These are just aliases
 
-These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).
+These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).
 
 Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - the benefit here is being able to use more than 32 function actions (up to 4096), if you happen to need them.
 
@@ -168,13 +168,15 @@ Download or clone the whole firmware and navigate to the keyboards/planck folder
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 
 ### Default
-To build with the default keymap, simply run `make`.
+To build with the default keymap, simply run `make default`.
 
 ### Other Keymaps
 Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a file in the keymaps folder named `<name>.c` and see keymap document (you can find in top readme.md) and existent keymap files.
 
-To build the firmware binary hex file with a keymap just do `make` with `KEYMAP` option like:
+To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+
 ```
-$ make KEYMAP=[default|jack|<name>]
+$ make [default|jack|<name>]
 ```
+
 Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.

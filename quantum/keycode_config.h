@@ -1,6 +1,9 @@
 #include "eeconfig.h"
 #include "keycode.h"
 
+#ifndef KEYCODE_CONFIG_H
+#define KEYCODE_CONFIG_H
+
 uint16_t keycode_config(uint16_t keycode);
 
 /* NOTE: Not portable. Bit field order depends on implementation */
@@ -19,3 +22,5 @@ typedef union {
 } keymap_config_t;
 
 extern keymap_config_t keymap_config;
+
+#endif /* KEYCODE_CONFIG_H */

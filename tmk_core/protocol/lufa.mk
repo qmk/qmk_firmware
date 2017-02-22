@@ -8,22 +8,31 @@ LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
 ifneq (, $(wildcard $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
     # New build system from 20120730
     LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
-    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk 
+    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk
 else
     include $(TMK_PATH)/$(LUFA_PATH)/LUFA/makefile
 endif
 
 LUFA_SRC = lufa.c \
 	   descriptor.c \
+	   outputselect.c \
 	   $(LUFA_SRC_USB)
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
 	include $(TMK_PATH)/protocol/midi.mk
 endif
 
+ifeq ($(strip $(ADAFRUIT_BLE_ENABLE)), yes)
+	LUFA_SRC += $(LUFA_DIR)/adafruit_ble.cpp
+endif
+
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
 	$(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(VIRTSER_ENABLE)), yes)
+	LUFA_SRC += $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDCClassDevice.c
 endif
 
 SRC += $(LUFA_SRC)

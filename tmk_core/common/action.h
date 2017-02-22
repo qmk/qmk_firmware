@@ -65,6 +65,24 @@ bool process_record_quantum(keyrecord_t *record);
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 extern bool disable_action_cache;
 #endif
+
+/* Code for handling one-handed key modifiers. */
+#ifdef ONEHAND_ENABLE
+extern bool swap_hands;
+extern const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
+#if (MATRIX_COLS <= 8)
+typedef  uint8_t    swap_state_row_t;
+#elif (MATRIX_COLS <= 16)
+typedef  uint16_t   swap_state_row_t;
+#elif (MATRIX_COLS <= 32)
+typedef  uint32_t   swap_state_row_t;
+#else
+#error "MATRIX_COLS: invalid value"
+#endif
+
+void process_hand_swap(keyevent_t *record);
+#endif
+
 void process_record_nocache(keyrecord_t *record);
 void process_record(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
