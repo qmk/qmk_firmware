@@ -16,6 +16,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 //#include "ws2812_config.h"
+//#include "i2cmaster.h"
+
+#ifdef RGBW
+  #define LED_TYPE struct cRGBW
+#else
+  #define LED_TYPE struct cRGB
+#endif
+
 
 /*
  *  Structure of the LED array
@@ -42,9 +50,9 @@ struct cRGBW { uint8_t g; uint8_t r; uint8_t b; uint8_t w;};
  *         - Wait 50�s to reset the LEDs
  */
 
-void ws2812_setleds     (struct cRGB  *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_pin (struct cRGB  *ledarray, uint16_t number_of_leds,uint8_t pinmask);
-void ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t number_of_leds);
+void ws2812_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
+void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
 /*
  * Old interface / Internal functions

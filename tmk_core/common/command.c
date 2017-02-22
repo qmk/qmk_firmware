@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "command.h"
 #include "backlight.h"
 #include "quantum.h"
+#include "version.h"
 
 #ifdef MOUSEKEY_ENABLE
 #include "mousekey.h"
@@ -180,7 +181,7 @@ static void print_version(void)
     print("VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
           "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
           "VER: " STR(DEVICE_VER) "\n");
-    print("BUILD: " STR(VERSION) " (" __TIME__ " " __DATE__ ")\n");
+    print("BUILD: " STR(QMK_VERSION) " (" __TIME__ " " __DATE__ ")\n");
 
     /* build options */
     print("OPTIONS:"
@@ -234,10 +235,13 @@ static void print_status(void)
     print("\n\t- Status -\n");
 
     print_val_hex8(host_keyboard_leds());
+#ifndef PROTOCOL_VUSB
+    // these aren't set on the V-USB protocol, so we just ignore them for now
     print_val_hex8(keyboard_protocol);
     print_val_hex8(keyboard_idle);
+#endif
 #ifdef NKRO_ENABLE
-    print_val_hex8(keyboard_nkro);
+    print_val_hex8(keymap_config.nkro);
 #endif
     print_val_hex32(timer_read32());
 
@@ -260,7 +264,10 @@ static void print_status(void)
 #ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
-#ifndef NO_PRINT
+
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
+
     print("default_layer: "); print_dec(eeconfig_read_default_layer()); print("\n");
 
     debug_config_t dc;
@@ -375,9 +382,6 @@ static bool command_common(uint8_t code)
             debug_enable = !debug_enable;
             if (debug_enable) {
                 print("\ndebug: on\n");
-                debug_matrix   = true;
-                debug_keyboard = true;
-                debug_mouse    = true;
             } else {
                 print("\ndebug: off\n");
                 debug_matrix   = false;
@@ -434,8 +438,8 @@ static bool command_common(uint8_t code)
 		// NKRO toggle
         case MAGIC_KC(MAGIC_KEY_NKRO):
             clear_keyboard(); // clear to prevent stuck keys
-            keyboard_nkro = !keyboard_nkro;
-            if (keyboard_nkro) {
+            keymap_config.nkro = !keymap_config.nkro;
+            if (keymap_config.nkro) {
                 print("NKRO: on\n");
             } else {
                 print("NKRO: off\n");
@@ -570,7 +574,8 @@ static uint8_t mousekey_param = 0;
 
 static void mousekey_param_print(void)
 {
-#ifndef NO_PRINT
+// Print these variables if NO_PRINT or USER_PRINT are not defined.
+#if !defined(NO_PRINT) && !defined(USER_PRINT)
     print("\n\t- Values -\n");
     print("1: delay(*10ms): "); pdec(mk_delay); print("\n");
     print("2: interval(ms): "); pdec(mk_interval); print("\n");

@@ -28,6 +28,12 @@
 #include "led.h"
 #endif
 
+#ifdef NKRO_ENABLE
+  #include "keycode_config.h"
+
+  extern keymap_config_t keymap_config;
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -39,9 +45,6 @@ uint16_t keyboard_led_stats __attribute__((aligned(2))) = 0;
 volatile uint16_t keyboard_idle_count = 0;
 static virtual_timer_t keyboard_idle_timer;
 static void keyboard_idle_timer_cb(void *arg);
-#ifdef NKRO_ENABLE
-extern bool keyboard_nkro;
-#endif /* NKRO_ENABLE */
 
 report_keyboard_t keyboard_report_sent = {{0}};
 #ifdef MOUSE_ENABLE
@@ -943,8 +946,8 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
         if((usbp->setup[4] == KBD_INTERFACE) && (usbp->setup[5] == 0)) {   /* wIndex */
           keyboard_protocol = ((usbp->setup[2]) != 0x00);   /* LSB(wValue) */
 #ifdef NKRO_ENABLE
-          keyboard_nkro = !!keyboard_protocol;
-          if(!keyboard_nkro && keyboard_idle) {
+          keymap_config.nkro = !!keyboard_protocol;
+          if(!keymap_config.nkro && keyboard_idle) {
 #else /* NKRO_ENABLE */
           if(keyboard_idle) {
 #endif /* NKRO_ENABLE */
@@ -962,7 +965,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
         keyboard_idle = usbp->setup[3];     /* MSB(wValue) */
         /* arm the timer */
 #ifdef NKRO_ENABLE
-        if(!keyboard_nkro && keyboard_idle) {
+        if(!keymap_config.nkro && keyboard_idle) {
 #else /* NKRO_ENABLE */
         if(keyboard_idle) {
 #endif /* NKRO_ENABLE */
@@ -1089,7 +1092,7 @@ static void keyboard_idle_timer_cb(void *arg) {
   }
 
 #ifdef NKRO_ENABLE
-  if(!keyboard_nkro && keyboard_idle) {
+  if(!keymap_config.nkro && keyboard_idle) {
 #else /* NKRO_ENABLE */
   if(keyboard_idle) {
 #endif /* NKRO_ENABLE */
@@ -1122,7 +1125,7 @@ void send_keyboard(report_keyboard_t *report) {
   osalSysUnlock();
 
 #ifdef NKRO_ENABLE
-  if(keyboard_nkro) {  /* NKRO protocol */
+  if(keymap_config.nkro) {  /* NKRO protocol */
     /* need to wait until the previous packet has made it through */
     /* can rewrite this using the synchronous API, then would wait
      * until *after* the packet has been transmitted. I think
