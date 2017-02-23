@@ -52,40 +52,6 @@ These implementations assume you're using Colemak or Dvorak on your OS, not on y
 
 To give an example, if you're using software-implemented Colemak, and want to get an `F`, you would use `CM_F` - `KC_F` under these same circumstances would result in `T`.
 
-## Additional language support
-
-In `quantum/keymap_extras/`, you'll see various language files - these work the same way as the alternative layout ones do. Most are defined by their two letter country/language code followed by an underscore and a 4-letter abbreviation of its name. `FR_UGRV` which will result in a `ù` when using a software-implemented AZERTY layout. It's currently difficult to send such characters in just the firmware (but it's being worked on - see Unicode support).
-
-## Unicode support
-
-There are three Unicode keymap definition method available in QMK:
-
-### UNICODE_ENABLE
-
-Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in
-keymap file, where *n* is a 4 digit hexadecimal.
-
-### UNICODEMAP_ENABLE
-
-Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping
-table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file.
-The keycode function is `X(n)` where *n* is the array index of the mapping
-table.
-
-### UCIS_ENABLE
-
-TBD
-
-Unicode input in QMK works by inputing a sequence of characters to the OS,
-sort of like macro. Unfortunately, each OS has different ideas on how Unicode is inputted.
-
-This is the current list of Unicode input method in QMK:
-
-* UC_OSX: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
-* UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
-
 ## Backlight Breathing
 
 In order to enable backlight breathing, the following line must be added to your config.h file.
@@ -278,26 +244,6 @@ This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happeni
 ## Bluetooth functionality
 
 This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts), but can be enabled via the Makefile. The firmware will still output characters via USB, so be aware of this when charging via a computer. It would make sense to have a switch on the Bluefruit to turn it off at will.
-
-## International Characters on Windows
-
-[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
-
-The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
-
-First you need to select a modifier combination that is not in use by any of your programs.
-CtrlAltWin is not used very widely and should therefore be perfect for this.
-There is a macro defined for a mod-tab combo `LCAG_T`.
-Add this mod-tab combo to a key on your keyboard, e.g.: `LCAG_T(KC_TAB)`.
-This makes the key behave like a tab key if pressed and released immediately but changes it to the modifier if used with another key.
-
-In the default script of AutoHotkey you can define custom hotkeys.
-
-    <^<!<#a::Send, ä
-    <^<!<#<+a::Send, Ä
-
-The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
-AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 ## RGB Under Glow Mod
 
