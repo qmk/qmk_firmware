@@ -51,8 +51,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WWWF KC_WWW_FORWARD
 
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
-#undef KC_RALT
-#define KC_RALT MT(MOD_RALT, KC_SLCK)
+#define C_RALT MT(MOD_RALT, KC_SLCK)
+
+// dual use right-shift & del key
+// #define C_RSFT MT(MOD_RSFT, KC_DEL)
 
 bool capslock = false;
 #ifdef DOUBLESPACE_LAYER_ENABLE
@@ -572,7 +574,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, C_RALT,  KC_RCTL
 ),
 
 /* Dvorak
@@ -664,16 +666,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |   *  |   \  |   -  |   =  |   /  |   ≠  |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |   ?  |   ±  |   [  |   ]  |   {  |   }  |   :  |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   ±  |   [  |   ]  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |      |      |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, X(LTEQ), X(GTEQ), _______,
   KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, X(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, _______
 ),
 
 /* Num
@@ -682,33 +684,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   `  |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |  :   |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   0  |   ,  |   .  |   x  |      |
+ * |      |      |   x  |      |      |      |      |   0  |   ,  |   .  |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),  KC_7,    KC_8,    KC_9,   S(KC_D), _______,
   KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),  KC_4,    KC_5,    KC_6,   S(KC_E), _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_1,    KC_2,    KC_3,   S(KC_F), KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_X,    _______
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_1,    KC_2,    KC_3,   S(KC_F), _______,
+  _______, _______, KC_X,    _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_COLN, _______
 ),
 
 /* Func
  * ,-----------------------------------------------------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  |      |      | PgUp |  Up  | PgDn | PgUp | Del  |
+ * |      |  F1  |  F2  |  F3  |  F4  | Ins  |      | PgUp |  Up  | PgDn | PgUp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn | Ins  |
+ * | Caps |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |      |      | Home |  End |      |      |
+ * |      |  F9  |  F10 |  F11 |  F12 |Pause |      |      | Home |  End |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUN] = KEYMAP(
-  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
-  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
-  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
+  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_INS,  XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP, KC_DEL,
+  KC_CAPS,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_PAUS, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
   _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -933,7 +935,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     // handle greek layer shift
-    // handle both shift = capslock
     case KC_LSFT:
     case KC_RSFT:
       ;
@@ -945,13 +946,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lshift ^ rshift) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
-          }
-        }
-      } else {
-        if (record->event.pressed) {
-          if (lshift ^ rshift) { // if only one shift was pressed
-            register_code(KC_CAPS);
-            unregister_code(KC_CAPS);
           }
         }
       }
@@ -1043,6 +1037,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 #endif
+
+    // only process Fnumber on key release, and only when layer switcher is still pressed.
+    // this is to avoid accidental presses on potentially destructive keys
+    case KC_F1 ... KC_F12:
+    case KC_PAUS:
+    case KC_PSCR:
+    case KC_INS:
+      if (!record->event.pressed && layer == _FUN) { // key released and still in FUN layer
+          register_code(keycode);
+          unregister_code(keycode);
+      }
+      return false;
+      break;
 
     // layer switcher
     //
