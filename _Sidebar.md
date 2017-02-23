@@ -1,4 +1,4 @@
-* [Wiki Home](/)
+* [Wiki Home](/qmk/qmk_firmware/wiki)
 * Getting started
   * [QMK Overview](QMK-Overview)
   * [Build Environment Setup](Build-Environment-Setup)
