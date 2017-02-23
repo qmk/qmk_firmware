@@ -6,24 +6,18 @@
 
 /* XD60 LEDs
  *   GPIO pads
- *   0 F7 WASD LEDs
- *   1 F6 ESC LED
- *   2 F5 FN LED
- *   3 F4 POKER Arrow LEDs
+ *   0 F7 not connected
+ *   1 F6 RGB PWM Underglow
+ *   2 F5 Backlight LED
+ *   3 F4 not connected
  *   B2 Capslock LED
  *   B0 not connected
  */
 inline void xd60_caps_led_on(void)    { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
-inline void xd60_poker_leds_on(void)  { DDRF |=  (1<<4); PORTF &= ~(1<<4); }
-inline void xd60_fn_led_on(void)    	{ DDRF |=  (1<<5); PORTF &= ~(1<<5); }
-inline void xd60_esc_led_on(void)    	{ DDRF |=  (1<<6); PORTF &= ~(1<<6); }
-inline void xd60_wasd_leds_on(void)   { DDRF |=  (1<<7); PORTF &= ~(1<<7); }
+inline void xd60_bl_led_on(void)    	{ DDRF |=  (1<<5); PORTF &= ~(1<<5); }
 
 inline void xd60_caps_led_off(void)   { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
-inline void xd60_poker_leds_off(void) { DDRF &= ~(1<<4); PORTF &= ~(1<<4); }
-inline void xd60_fn_led_off(void)   	{ DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
-inline void xd60_esc_led_off(void)   	{ DDRF &= ~(1<<6); PORTF &= ~(1<<6); }
-inline void xd60_wasd_leds_off(void)  { DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
+inline void xd60_bl_led_off(void)   	{ DDRF &= ~(1<<5); PORTF &= ~(1<<5); }
 
 /* XD60 Keymap Definition Macro */
 #define KEYMAP( \
