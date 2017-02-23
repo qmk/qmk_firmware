@@ -4,6 +4,7 @@
   * [Build Environment Setup](Build-Environment-Setup)
 * [Overview for keymap creators](Keymap)
  * [Keycodes](Keycodes)
+ * [Layer switching](Key-Functions)
  * [Leader Key](Leader-Key)
  * [Macros](Macros)
  * [Space Cadet](Space-Cadet-Shift)
