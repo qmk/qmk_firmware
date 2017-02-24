@@ -43,6 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 
+#define ONESHOT_TIMEOUT 1000
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
