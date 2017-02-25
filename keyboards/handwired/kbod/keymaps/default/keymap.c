@@ -2,11 +2,31 @@
 
 #define _____ KC_TRNS
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_PRESSED(btn)  (get_mods() & (MOD_BIT(KC_L##btn)|MOD_BIT(KC_R##btn)))
+
+#define SET_WHETHER(mask, btn1, btn2) \
+if (record->event.pressed) {          \
+    if (mask) {                       \
+        add_key(btn2);                \
+        send_keyboard_report();       \
+    } else {                          \
+        add_key(btn1);                \
+        send_keyboard_report();       \
+    }                                 \
+} else {                              \
+    if (mask) {                       \
+        del_key(btn2);                \
+        send_keyboard_report();       \
+    } else {                          \
+        del_key(btn1);                \
+        send_keyboard_report();       \
+    }                                 \
+}                                     \
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KEYMAP( /* Base */
-      F(0), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQUAL, KC_BSPC,
+      F(0), KC_1, KC_2, KC_3, F(1), KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQUAL, KC_BSPC,
       KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLASH,
       KC_CAPS,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON, KC_QUOT, KC_ENTER,
       KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH, KC_RSFT,
@@ -37,31 +57,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(0),
+  [1]  = ACTION_FUNCTION(1),
 };
 
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t shift_esc_shift_mask;
+  static uint8_t shift_esc_mask;
+  static uint8_t alt_mask;
   switch (id) {
     case 0:
-      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-      if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        if (shift_esc_shift_mask) {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
+      shift_esc_mask = MODS_PRESSED(SHIFT);
+      SET_WHETHER(shift_esc_mask, KC_ESC, KC_GRAVE)
+      break;
+    case 1:
+      alt_mask = MODS_PRESSED(ALT);
+      SET_WHETHER(alt_mask, KC_4, KC_F4);
       break;
   }
 }
@@ -81,4 +91,14 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_init_user(void) {
   DDRB |= _BV(PB0);
+  DDRC |= _BV(PC7);
+}
+
+void matrix_scan_user(void) {
+  uint8_t layer = biton32(layer_state);
+  if (layer) {
+    PORTC |= _BV(PC7);
+  } else {
+    PORTC &= ~_BV(PC7);
+  }
 }
