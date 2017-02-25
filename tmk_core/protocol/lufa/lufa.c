@@ -1104,7 +1104,9 @@ void sysex_callback(MidiDevice * device,
 
 void setup_midi(void)
 {
+#ifdef MIDI_ADVANCED
 	midi_init();
+#endif
 	midi_device_init(&midi_device);
     midi_device_set_send_func(&midi_device, usb_send_func);
     midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
@@ -1180,7 +1182,9 @@ int main(void)
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
+#ifdef MIDI_ADVANCED
         midi_task();
+#endif
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
