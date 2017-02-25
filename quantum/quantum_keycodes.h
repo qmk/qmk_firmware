@@ -2,7 +2,7 @@
 #ifndef QUANTUM_KEYCODES_H
 #define QUANTUM_KEYCODES_H
 
-#ifdef MIDI_ENABLE
+#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
 #ifndef MIDI_TONE_KEYCODE_OCTAVES
 #define MIDI_TONE_KEYCODE_OCTAVES 3
 #endif
@@ -116,6 +116,12 @@ enum quantum_keycodes {
 #ifdef MIDI_ENABLE
     // Midi
 
+#ifdef MIDI_BASIC
+    MI_ON,  // send midi notes when music mode is enabled
+    MI_OFF, // don't send midi notes when music mode is enabled
+#endif
+
+#ifdef MIDI_ADVANCED
     MIDI_TONE_MIN,
 
 #if MIDI_TONE_KEYCODE_OCTAVES > 0
@@ -321,7 +327,7 @@ enum quantum_keycodes {
     MI_CHD, // previous channel
     MI_CHU, // next channel
 
-    MI_OFF, // all notes off
+    MI_ALLOFF, // all notes off
 
     MI_SUS, // sustain
     MI_PORT, // portamento
@@ -332,7 +338,8 @@ enum quantum_keycodes {
     MI_MOD, // modulation
     MI_MODSD, // decrease modulation speed
     MI_MODSU, // increase modulation speed
-#endif
+#endif // MIDI_ADVANCED
+#endif // MIDI_ENABLE
 
     // Backlight functionality
     BL_0,
