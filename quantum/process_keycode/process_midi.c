@@ -1,6 +1,7 @@
-#define MIDI_TONE_KEYCODE_OCTAVES 2
-
 #include "process_midi.h"
+
+#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
+
 #include "timer.h"
 
 static uint8_t tone_status[MIDI_TONE_COUNT];
@@ -161,7 +162,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                 dprintf("midi channel %d\n", midi_config.channel);
             }
             return false;
-        case MI_OFF:
+        case MI_ALLOFF:
             if (record->event.pressed) {
                 midi_send_cc(&midi_device, midi_config.channel, 0x7B, 0);
                 dprintf("midi off\n");
@@ -209,3 +210,5 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
 
     return true;
 }
+
+#endif // MIDI_ADVANCED
