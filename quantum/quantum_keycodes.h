@@ -1,8 +1,11 @@
-
 #ifndef QUANTUM_KEYCODES_H
 #define QUANTUM_KEYCODES_H
 
-#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
+#ifndef MIDI_ENABLE_STRICT
+#define MIDI_ENABLE_STRICT 0
+#endif
+
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
 #ifndef MIDI_TONE_KEYCODE_OCTAVES
 #define MIDI_TONE_KEYCODE_OCTAVES 3
 #endif
@@ -113,18 +116,16 @@ enum quantum_keycodes {
     MUV_IN,
     MUV_DE,
 
-#ifdef MIDI_ENABLE
     // Midi
-
-#ifdef MIDI_BASIC
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     MI_ON,  // send midi notes when music mode is enabled
     MI_OFF, // don't send midi notes when music mode is enabled
 #endif
 
-#ifdef MIDI_ADVANCED
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
     MIDI_TONE_MIN,
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 0
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 0
     MI_C = MIDI_TONE_MIN,
     MI_Cs,
     MI_Db = MI_Cs,
@@ -144,7 +145,7 @@ enum quantum_keycodes {
     MI_B,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 1
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 1
     MI_C_1,
     MI_Cs_1,
     MI_Db_1 = MI_Cs_1,
@@ -164,7 +165,7 @@ enum quantum_keycodes {
     MI_B_1,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 2
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 2
     MI_C_2,
     MI_Cs_2,
     MI_Db_2 = MI_Cs_2,
@@ -184,7 +185,7 @@ enum quantum_keycodes {
     MI_B_2,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 3
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 3
     MI_C_3,
     MI_Cs_3,
     MI_Db_3 = MI_Cs_3,
@@ -204,7 +205,7 @@ enum quantum_keycodes {
     MI_B_3,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 4
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 4
     MI_C_4,
     MI_Cs_4,
     MI_Db_4 = MI_Cs_4,
@@ -224,7 +225,7 @@ enum quantum_keycodes {
     MI_B_4,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 5
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 5
     MI_C_5,
     MI_Cs_5,
     MI_Db_5 = MI_Cs_5,
@@ -244,7 +245,7 @@ enum quantum_keycodes {
     MI_B_5,
 #endif
 
-#if MIDI_TONE_KEYCODE_OCTAVES > 5
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 5
     MIDI_TONE_MAX = MI_B_5,
 #elif MIDI_TONE_KEYCODE_OCTAVES > 4
     MIDI_TONE_MAX = MI_B_4,
@@ -339,7 +340,6 @@ enum quantum_keycodes {
     MI_MODSD, // decrease modulation speed
     MI_MODSU, // increase modulation speed
 #endif // MIDI_ADVANCED
-#endif // MIDI_ENABLE
 
     // Backlight functionality
     BL_0,
