@@ -142,7 +142,8 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
         return false;
     }
-  return true;
+
+    return true;
 }
 
 bool is_music_on(void) {
