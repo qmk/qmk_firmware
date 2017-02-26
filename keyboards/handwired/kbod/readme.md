@@ -17,3 +17,5 @@ Something along this line:
 ```
 avrdude -p m32u4 -c avr109 -P <COM PORT> -C <avrdude conf file> -e -u flash:w:handwired_kbod_default.hex
 ```
+
+[More info](https://github.com/fudanchii/keyboard_of_disapproval)
