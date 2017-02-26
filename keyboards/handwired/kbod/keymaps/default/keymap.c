@@ -67,7 +67,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
     case 0:
       shift_esc_mask = MODS_PRESSED(SHIFT);
-      SET_WHETHER(shift_esc_mask, KC_ESC, KC_GRAVE)
+      SET_WHETHER(shift_esc_mask, KC_ESC, KC_GRAVE);
       break;
     case 1:
       alt_mask = MODS_PRESSED(ALT);
