@@ -3,9 +3,6 @@
 
 #include "../../config.h"
 
-#define FORCE_NKRO
-#define WORKMAN_SOUND COLEMAK_SOUND
-
 /*
  * MIDI options
  */
