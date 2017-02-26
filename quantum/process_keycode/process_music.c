@@ -1,5 +1,14 @@
 #include "process_music.h"
 
+#ifdef AUDIO_ENABLE
+#include "process_audio.h"
+#endif
+#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+#include "process_midi.h"
+#endif
+
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+
 bool music_activated = false;
 uint8_t music_starting_note = 0x0C;
 int music_offset = 7;
@@ -8,38 +17,41 @@ int music_offset = 7;
 static bool music_sequence_recording = false;
 static bool music_sequence_recorded = false;
 static bool music_sequence_playing = false;
-static float music_sequence[16] = {0};
+static uint8_t music_sequence[16] = {0};
 static uint8_t music_sequence_count = 0;
 static uint8_t music_sequence_position = 0;
 
 static uint16_t music_sequence_timer = 0;
 static uint16_t music_sequence_interval = 100;
 
+static void music_noteon(uint8_t note) {
+    #ifdef AUDIO_ENABLE
+    process_audio_noteon(note);
+    #endif
+    #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+    process_midi_basic_noteon(note);
+    #endif
+}
+
+static void music_noteoff(uint8_t note) {
+    #ifdef AUDIO_ENABLE
+    process_audio_noteoff(note);
+    #endif
+    #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+    process_midi_basic_noteoff(note);
+    #endif
+}
+
+static void music_all_notes_off(void) {
+    #ifdef AUDIO_ENABLE
+    process_audio_stop_all_notes();
+    #endif
+    #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+    process_midi_basic_stop_all_notes();
+    #endif
+}
+
 bool process_music(uint16_t keycode, keyrecord_t *record) {
-
-	#ifdef AUDIO_ENABLE
-    if (keycode == AU_ON && record->event.pressed) {
-      audio_on();
-      return false;
-    }
-
-    if (keycode == AU_OFF && record->event.pressed) {
-      audio_off();
-      return false;
-    }
-
-    if (keycode == AU_TOG && record->event.pressed) {
-        if (is_audio_on())
-        {
-            audio_off();
-        }
-        else
-        {
-            audio_on();
-        }
-      return false;
-    }
-	#endif // AUDIO_ENABLE
 
     if (keycode == MU_ON && record->event.pressed) {
         music_on();
@@ -63,26 +75,10 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-	#ifdef AUDIO_ENABLE
-    if (keycode == MUV_IN && record->event.pressed) {
-        voice_iterate();
-        music_scale_user();
-        return false;
-    }
-
-    if (keycode == MUV_DE && record->event.pressed) {
-        voice_deiterate();
-        music_scale_user();
-        return false;
-    }
-	#endif // AUDIO_ENABLE
-
     if (music_activated) {
 
       if (keycode == KC_LCTL && record->event.pressed) { // Start recording
-		#ifdef AUDIO_ENABLE
-        stop_all_notes();
-        #endif
+        music_all_notes_off();
         music_sequence_recording = true;
         music_sequence_recorded = false;
         music_sequence_playing = false;
@@ -91,9 +87,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       }
 
       if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
-        #ifdef AUDIO_ENABLE
-        stop_all_notes();
-        #endif
+        music_all_notes_off();
         if (music_sequence_recording) { // was recording
           music_sequence_recorded = true;
         }
@@ -103,9 +97,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       }
 
       if (keycode == KC_LGUI && record->event.pressed && music_sequence_recorded) { // Start playing
-        #ifdef AUDIO_ENABLE
-        stop_all_notes();
-        #endif
+        music_all_notes_off();
         music_sequence_recording = false;
         music_sequence_playing = true;
         music_sequence_position = 0;
@@ -124,32 +116,27 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
             music_sequence_interval+=10;
         return false;
       }
+
       #define MUSIC_MODE_GUITAR
 
-      #ifdef AUDIO_ENABLE
       #ifdef MUSIC_MODE_CHROMATIC
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(MATRIX_ROWS - record->event.key.row));
+      uint8_t note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
       #elif defined(MUSIC_MODE_GUITAR)
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 7)*5.0/12);
+      uint8_t note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
       #elif defined(MUSIC_MODE_VIOLIN)
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + record->event.key.col + music_offset)/12.0+(float)(MATRIX_ROWS - record->event.key.row + 5)*7.0/12);
+      uint8_t note = (music_starting_note + record->event.key.col + music_offset + 32)+7*(MATRIX_ROWS - record->event.key.row);
       #else
-      float freq = ((float)220.0)*pow(2.0, -5.0)*pow(2.0,(music_starting_note + SCALE[record->event.key.col + music_offset])/12.0+(MATRIX_ROWS - record->event.key.row));
+      uint8_t note = (music_starting_note + SCALE[record->event.key.col + music_offset] - 3)+12*(MATRIX_ROWS - record->event.key.row);
       #endif
-      #endif // AUDIO_ENABLE
 
       if (record->event.pressed) {
-      	#ifdef AUDIO_ENABLE
-        play_note(freq, 0xF);
+        music_noteon(note);
         if (music_sequence_recording) {
-          music_sequence[music_sequence_count] = freq;
+          music_sequence[music_sequence_count] = note;
           music_sequence_count++;
         }
-        #endif
       } else {
-      	#ifdef AUDIO_ENABLE
-        stop_note(freq);
-        #endif
+        music_noteoff(note);
       }
 
       if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
@@ -177,32 +164,26 @@ void music_on(void) {
 
 void music_off(void) {
     music_activated = 0;
-    #ifdef AUDIO_ENABLE
-    stop_all_notes();
-    #endif
+    music_all_notes_off();
 }
-
-
-__attribute__ ((weak))
-void music_on_user() {}
-
-#ifdef AUDIO_ENABLE
-__attribute__ ((weak))
-void audio_on_user() {}
-#endif
-
-__attribute__ ((weak))
-void music_scale_user() {}
 
 void matrix_scan_music(void) {
   if (music_sequence_playing) {
     if ((music_sequence_timer == 0) || (timer_elapsed(music_sequence_timer) > music_sequence_interval)) {
       music_sequence_timer = timer_read();
-      #ifdef AUDIO_ENABLE
-      stop_note(music_sequence[(music_sequence_position - 1 < 0)?(music_sequence_position - 1 + music_sequence_count):(music_sequence_position - 1)]);
-      play_note(music_sequence[music_sequence_position], 0xF);
-      #endif
+      uint8_t prev_note = music_sequence[(music_sequence_position - 1 < 0)?(music_sequence_position - 1 + music_sequence_count):(music_sequence_position - 1)];
+      uint8_t next_note = music_sequence[music_sequence_position];
+      music_noteoff(prev_note);
+      music_noteon(next_note);
       music_sequence_position = (music_sequence_position + 1) % music_sequence_count;
     }
   }
 }
+
+__attribute__ ((weak))
+void music_on_user() {}
+
+__attribute__ ((weak))
+void music_scale_user() {}
+
+#endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
