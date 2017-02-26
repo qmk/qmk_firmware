@@ -1,5 +1,7 @@
-kbod keyboard firmware
+KBOD keyboard firmware
 ======================
+
+KBOD is a 60% Keyboard kit, hand-wired, with Arduino Micro as its controller. It's utilize 8x8 matrix and has layout similar to GH-60
 
 ## Quantum MK Firmware
 
@@ -7,22 +9,11 @@ For the full Quantum feature list, see [the parent readme](/).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboards/kbod folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Download or clone the whole firmware and use ```make handwired-kbod-default``` to generate the .hex file. You may flash it with avrdude
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
-
-### Default
-
-To build with the default keymap, simply run `make default`.
-
-### Other Keymaps
-
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
-
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+## Flashing
+Something along this line:
 
 ```
-$ make [default|jack|<name>]
+avrdude -p m32u4 -c avr109 -P <COM PORT> -C <avrdude conf file> -e -u flash:w:handwired_kbod_default.hex
 ```
-
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
