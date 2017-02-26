@@ -17,5 +17,7 @@ I came to this layout after several iterations. It is not the ultimate best ergo
 * The Quote and Enter can be swapped
 * If you use sculpted key caps try turning the bottom key 180 degrees so it became very comfortable to type with thumb.
 
-![Default](colemak_programer_001.jpg)
-![Default](colemak_programer_002.jpg)
+Alternatively view the [graphical creator version](http://configure.ergodox-ez.com/keyboard_layouts/kmevwm/edit) but beware it is not the same due to the creator limitations.
+
+![Default](colemak_programmer_001.jpg)
+![Default](colemak_programmer_002.jpg)
