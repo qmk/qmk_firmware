@@ -2,8 +2,16 @@
 #define PROCESS_MIDI_H
 
 #include "quantum.h"
-#include "midi.h"
 
+#ifdef MIDI_ENABLE
+
+#ifdef MIDI_BASIC
+void process_midi_basic_noteon(uint8_t note);
+void process_midi_basic_noteoff(uint8_t note);
+void process_midi_basic_stop_all_notes(void);
+#endif
+
+#ifdef MIDI_ADVANCED
 typedef union {
   uint32_t raw;
   struct {
@@ -25,5 +33,8 @@ bool process_midi(uint16_t keycode, keyrecord_t *record);
 #define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)
 
 uint8_t midi_compute_note(uint16_t keycode);
+#endif // MIDI_ADVANCED
+
+#endif // MIDI_ENABLE
 
 #endif
