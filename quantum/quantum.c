@@ -153,6 +153,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
+  #ifdef AUDIO_ENABLE
+    process_audio(keycode, record) &&
+  #endif
   #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     process_music(keycode, record) &&
   #endif

@@ -1,6 +1,28 @@
 #include "process_midi.h"
 
-#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
+#ifdef MIDI_ENABLE
+#include "midi.h"
+
+#ifdef MIDI_BASIC
+
+void process_midi_basic_noteon(uint8_t note) 
+{
+    midi_send_noteon(&midi_device, 0, note, 128);
+}
+
+void process_midi_basic_noteoff(uint8_t note)
+{
+    midi_send_noteoff(&midi_device, 0, note, 0);
+}
+
+void process_midi_basic_stop_all_notes(void)
+{
+    midi_send_cc(&midi_device, 0, 0x7B, 0);
+}
+
+#endif // MIDI_BASIC
+
+#ifdef MIDI_ADVANCED
 
 #include "timer.h"
 
@@ -165,7 +187,7 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
         case MI_ALLOFF:
             if (record->event.pressed) {
                 midi_send_cc(&midi_device, midi_config.channel, 0x7B, 0);
-                dprintf("midi off\n");
+                dprintf("midi all notes off\n");
             }
             return false;
         case MI_SUS:
@@ -212,3 +234,5 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
 }
 
 #endif // MIDI_ADVANCED
+
+#endif // MIDI_ENABLE
