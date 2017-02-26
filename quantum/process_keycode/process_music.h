@@ -14,6 +14,7 @@ void music_off(void);
 
 void music_on_user(void);
 void music_scale_user(void);
+void music_all_notes_off(void);
 
 void matrix_scan_music(void);
 

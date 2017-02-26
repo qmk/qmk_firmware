@@ -42,7 +42,7 @@ static void music_noteoff(uint8_t note) {
     #endif
 }
 
-static void music_all_notes_off(void) {
+void music_all_notes_off(void) {
     #ifdef AUDIO_ENABLE
     process_audio_stop_all_notes();
     #endif

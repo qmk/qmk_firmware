@@ -1,5 +1,5 @@
-#include "process_audio.h"
 #include "audio.h"
+#include "process_audio.h"
 
 static float compute_freq_for_midi_note(uint8_t note)
 {
@@ -43,7 +43,7 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    return true
+    return true;
 }
 
 void process_audio_noteon(uint8_t note) {

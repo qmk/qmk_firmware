@@ -95,8 +95,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#ifdef AUDIO_ENABLE
-  stop_all_notes();
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
+  music_all_notes_off();
   shutdown_user();
 #endif
   wait_ms(250);
