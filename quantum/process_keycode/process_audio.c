@@ -28,7 +28,7 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
         {
             audio_on();
         }
-      return false;
+        return false;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
