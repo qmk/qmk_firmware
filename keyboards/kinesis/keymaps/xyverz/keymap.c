@@ -46,7 +46,7 @@ extern keymap_config_t keymap_config;
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -66,7 +66,7 @@ extern keymap_config_t keymap_config;
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -86,7 +86,7 @@ extern keymap_config_t keymap_config;
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -106,7 +106,7 @@ extern keymap_config_t keymap_config;
 	         |      |      |      |      |              |      |      |      |      |
 	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
-	                              |      |      ||      |      |
+	                              | ESC  |      ||      | ESC  |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      |      |
@@ -126,7 +126,7 @@ extern keymap_config_t keymap_config;
 	         |      |      |      |      |              |      |      | KP . |KP Ent|      |
 	         `---------------------------'              `----------------------------------'
 	                              ,-------------.,-------------.
-	                              |      |      ||      |      |
+	                              | ESC  |      ||      | ESC  |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      | KP 0 |
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,
                     KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
            // Left Thumb
-                    CTL_T(KC_ESC), KC_LALT,
+                    KC_LCTL, KC_LALT,
                              KC_HOME,
            KC_BSPC, LT(_MD, KC_DEL),  KC_END,
 
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
                     KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,
            // Right Thumb
-           KC_RGUI, CTL_T(KC_ESC),
+           KC_RGUI, KC_RCTL,
            KC_PGUP,
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
                     KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
            // Left Thumb
-                    CTL_T(KC_ESC), KC_LALT,
+                    KC_LCTL, KC_LALT,
                              KC_HOME,
            KC_BSPC, LT(_MD, KC_DEL),  KC_END,
 
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                     KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,
            // Right Thumb
-           KC_RGUI, CTL_T(KC_ESC),
+           KC_RGUI, KC_RCTL,
            KC_PGUP,
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
                     KC_GRV,  KC_INS,  KC_LEFT, KC_RGHT,
            // Left Thumb
-                    CTL_T(KC_ESC), KC_LALT,
+                    KC_LCTL, KC_LALT,
                              KC_HOME,
            KC_BSPC, LT(_MD, KC_DEL),  KC_END,
 
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                     KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,
            // Right Thumb
-           KC_RGUI, CTL_T(KC_ESC),
+           KC_RGUI, KC_RCTL,
            KC_PGUP,
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,
            // Left Thumb
-                    _______, _______,
+                    KC_ESC,  _______,
                              _______,
            _______, _______, _______,
 
@@ -235,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, _______,
                     _______, _______, _______, _______,
            // Right Thumb
-           _______, _______,
+           _______, KC_ESC,
            _______,
            _______, _______, _______
     ),
@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,
            // Left Thumb
-                    _______, _______,
+                    KC_ESC,  _______,
                              _______,
            _______, _______, _______,
 
@@ -261,7 +261,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
                     _______, _______, KC_PDOT, KC_PENT,
            // Right Thumb
-           _______, _______,
+           _______, KC_ESC,
            _______,
            _______, _______, KC_P0
     )
