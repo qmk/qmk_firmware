@@ -34,7 +34,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -55,7 +55,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -76,7 +76,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
-	                             |Ctr/ESC| LAlt || RGUI |Ctr/ESC|
+	                             | LCtl  | LAlt || RGUI | RCtl  |
 	                      ,------|-------|------||------+-------+-------.
 	                      |      |  Del  | Home || PgUp | Enter |       |
 	                      | BkSp |   /   |------||------|   /   | Space |
@@ -97,7 +97,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	         |      |      |      |      |              |      |      |      |      |
 	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
-	                              |      |      ||      |      |
+	                              | ESC  |      ||      | ESC  |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      |      |
@@ -120,7 +120,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	         |      |      |      |      |              |      |      | KP . |KP Ent|      |
 	         `---------------------------'              `----------------------------------'
 	                              ,-------------.,-------------.
-	                              |      |      ||      |      |
+	                              | ESC  |      ||      | ESC  |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      | KP 0 |
