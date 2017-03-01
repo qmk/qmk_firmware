@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Microsoft+abit 
+#define MANUFACTURER    Microsoftplus
 #define PRODUCT         sculpt mobile 
 #define DESCRIPTION     6000
 
@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* 			0  1  2  3  4 5  6   7 */
 #define MATRIX_ROW_PINS { F7,F6,F4,F5,F3,F2,F1,F0}
 /*                        A   B   C   D   E   F   G   H   I   J  K  L   M   N   O   P   Q  R  */
-#define MATRIX_COL_PINS { B7, D0, D1, D2, D3, D4, D5, D6, D7, E0,E1,C1, C0, C3, C2, C5, C4,C6}
+#define MATRIX_COL_PINS { B7, D0, D1, D2, D3, D4, D5, D6, D7, E0,E1,C1, C0, C3, C2, C5, C4,C7}
 #define UNUSED_PINS { B6,B5,B4,B3,B2,B1,B0 }
 
 
@@ -95,5 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define PREVENT_STUCK_MODIFIERS
 
 #endif
