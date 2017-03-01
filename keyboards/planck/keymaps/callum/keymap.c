@@ -14,7 +14,7 @@ extern keymap_config_t keymap_config;
 #define _FUNC 4
 #define ENDASH LALT(KC_MINS)
 #define POUND LALT(KC_3)
-
+#define H(X) LALT(LCTL(X))
 
 enum planck_keycodes {
   MOVE = SAFE_RANGE,
@@ -48,19 +48,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
+ * | H(3) | H(F1)| H(F2)| H(F3)| H(F4)| H(F5)|      | Home |  Up  |  End |      |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
+ * | H(4) | H(F6)| H(F7)| H(F8)| H(F9)|H(F10)|      | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn|      |      | Pg Dn| Pg Up|      |      |      |
+ * |      |H(F11)|H(F12)| H(0) | H(1) | H(2) |      | Pg Dn| Pg Up|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, KC_ESC },
-  {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
-  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
+  {H(KC_3), H(KC_F1),H(KC_F2),H(KC_F3),H(KC_F4),H(KC_F5),XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, KC_ESC },
+  {H(KC_4), H(KC_F6),H(KC_F7),H(KC_F8),H(KC_F9),H(KC_F10),XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
+  {_______, H(KC_F11),H(KC_F12),H(KC_0),H(KC_1),H(KC_2), XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
