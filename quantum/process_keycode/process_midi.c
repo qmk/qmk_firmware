@@ -15,7 +15,7 @@ void process_midi_basic_noteoff(uint8_t note)
     midi_send_noteoff(&midi_device, 0, note, 0);
 }
 
-void process_midi_basic_stop_all_notes(void)
+void process_midi_all_notes_off(void)
 {
     midi_send_cc(&midi_device, 0, 0x7B, 0);
 }

@@ -54,7 +54,7 @@ void process_audio_noteoff(uint8_t note) {
     stop_note(compute_freq_for_midi_note(note));
 }
 
-void process_audio_stop_all_notes(void) {
+void process_audio_all_notes_off(void) {
     stop_all_notes();
 }
 

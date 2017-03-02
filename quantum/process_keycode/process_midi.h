@@ -8,7 +8,7 @@
 #ifdef MIDI_BASIC
 void process_midi_basic_noteon(uint8_t note);
 void process_midi_basic_noteoff(uint8_t note);
-void process_midi_basic_stop_all_notes(void);
+void process_midi_all_notes_off(void);
 #endif
 
 #ifdef MIDI_ADVANCED
