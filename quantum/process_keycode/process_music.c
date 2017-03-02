@@ -44,10 +44,10 @@ static void music_noteoff(uint8_t note) {
 
 void music_all_notes_off(void) {
     #ifdef AUDIO_ENABLE
-    process_audio_stop_all_notes();
+    process_audio_all_notes_off();
     #endif
     #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_basic_stop_all_notes();
+    process_midi_all_notes_off();
     #endif
 }
 
