@@ -19,10 +19,6 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /*
 
         Function Keys on All Layers (Keypad toggles):
@@ -106,7 +102,7 @@ extern keymap_config_t keymap_config;
 	         |      |      |      |      |              |      |      |      |      |
 	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
-	                              | ESC  |      ||      | ESC  |
+	                              |      |      ||      |      |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      |      |
@@ -126,7 +122,7 @@ extern keymap_config_t keymap_config;
 	         |      |      |      |      |              |      |      | KP . |KP Ent|      |
 	         `---------------------------'              `----------------------------------'
 	                              ,-------------.,-------------.
-	                              | ESC  |      ||      | ESC  |
+	                              |      |      ||      |      |
 	                       ,------|------|------||------+------+------.
 	                       |      |      |      ||      |      |      |
 	                       |      |      |------||------|      | KP 0 |
@@ -223,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,
            // Left Thumb
-                    KC_ESC,  _______,
+                    _______, _______,
                              _______,
            _______, _______, _______,
 
@@ -235,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, _______,
                     _______, _______, _______, _______,
            // Right Thumb
-           _______, KC_ESC,
+           _______, _______,
            _______,
            _______, _______, _______
     ),
@@ -249,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,
            // Left Thumb
-                    KC_ESC,  _______,
+                    _______, _______,
                              _______,
            _______, _______, _______,
 
@@ -261,7 +257,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
                     _______, _______, KC_PDOT, KC_PENT,
            // Right Thumb
-           _______, KC_ESC,
+           _______, _______,
            _______,
            _______, _______, KC_P0
     )
@@ -302,10 +298,5 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
 
 };
