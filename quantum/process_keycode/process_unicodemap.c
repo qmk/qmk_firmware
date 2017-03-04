@@ -1,25 +1,26 @@
 #include "process_unicodemap.h"
+#include "process_unicode_common.h"
 
 __attribute__((weak))
 const uint32_t PROGMEM unicode_map[] = {
 };
 
 void register_hex32(uint32_t hex) {
-  uint8_t onzerostart = 1;
+  bool onzerostart = true;
   for(int i = 7; i >= 0; i--) {
     if (i <= 3) {
-      onzerostart = 0;
+      onzerostart = false;
     }
     uint8_t digit = ((hex >> (i*4)) & 0xF);
     if (digit == 0) {
-      if (onzerostart == 0) {
+      if (!onzerostart) {
         register_code(hex_to_keycode(digit));
         unregister_code(hex_to_keycode(digit));
       }
     } else {
       register_code(hex_to_keycode(digit));
       unregister_code(hex_to_keycode(digit));
-      onzerostart = 0;
+      onzerostart = false;
     }
   }
 }
@@ -28,6 +29,7 @@ __attribute__((weak))
 void unicode_map_input_error() {}
 
 bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
+  uint8_t input_mode = get_unicode_input_mode();
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
     uint16_t index = keycode - QK_UNICODE_MAP;
