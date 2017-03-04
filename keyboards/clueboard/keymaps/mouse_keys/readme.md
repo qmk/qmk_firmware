@@ -9,8 +9,8 @@
 
 ![Clueboard Layout Image](layout.png)
 
-# skullY's Clueboard Layout
+# MouseKeys Layout
 
-This layout is what I (@skullydazed) use on my personal Clueboards. I mostly use it for programming, CAD, and general typing.
-
-The most notable change from the default layout is putting Ctrl on the Capslock key. I also swap Alt and Cmd because I mostly use a Mac day to day.
+This layout adds a mouse layer. When you hold down the spacebar the arrow keys
+will move your mouse cursor. You can click using the 3 mods to the left of the
+arrow keys, or the 3 keys under your primary fingers on the home row.
