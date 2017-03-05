@@ -70,7 +70,7 @@ void I2C_WriteBit(unsigned char c)
 
 // Inits bitbanging port, must be called before using the functions below
 //
-void I2C_Init()
+void I2C_Init(void)
 {
     I2C_PORT &= ~ ((1 << I2C_DAT) | (1 << I2C_CLK));
 
@@ -82,7 +82,7 @@ void I2C_Init()
 
 // Send a START Condition
 //
-void I2C_Start()
+void I2C_Start(void)
 {
     // set both to high at the same time
     I2C_DDR &= ~ ((1 << I2C_DAT) | (1 << I2C_CLK));
@@ -97,7 +97,7 @@ void I2C_Start()
 
 // Send a STOP Condition
 //
-void I2C_Stop()
+void I2C_Stop(void)
 {
     I2C_CLOCK_HI();
     _delay_us(I2C_DELAY);

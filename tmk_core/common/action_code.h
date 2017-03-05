@@ -47,10 +47,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 0100|10| usage(10)     (reserved)
  * 0100|11| usage(10)     (reserved)
  *
- * ACT_MOUSEKEY(0110): TODO: Not needed?
+ *
+ * ACT_MOUSEKEY(0101): TODO: Merge these two actions to conserve space?
  * 0101|xxxx| keycode     Mouse key
  *
- * 011x|xxxx xxxx xxxx    (reseved)
+ * ACT_SWAP_HANDS(0110):
+ * 0110|xxxx| keycode     Swap hands (keycode on tap, or options)
+ *
+ *
+ * 0111|xxxx xxxx xxxx    (reserved)
  *
  *
  * Layer Actions(10xx)
@@ -67,7 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *   ee:    on event(01:press, 10:release, 11:both)
  *
  * 1001|xxxx|xxxx xxxx   (reserved)
- * 1001|oopp|BBBB BBBB   8-bit Bitwise Operation???
  *
  * ACT_LAYER_TAP(101x):
  * 101E|LLLL| keycode    On/Off with tap key    (0x00-DF)[TAP]

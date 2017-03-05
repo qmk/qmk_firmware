@@ -16,10 +16,10 @@ ifdef SILENT
 endif
 
 # We need to make sure that silent is always turned off at the top level
-# Otherwise the [OK], [ERROR] and [WARN] messags won't be displayed correctly
+# Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
-ON_ERROR := error_occured=1
+ON_ERROR := error_occurred=1
 
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
@@ -34,13 +34,13 @@ ABS_ROOT_DIR := $(dir $(ABS_ROOT_MAKEFILE))
 STARTING_DIR := $(subst $(ABS_ROOT_DIR),,$(ABS_STARTING_DIR))
 BUILD_DIR := $(ROOT_DIR)/.build
 TEST_DIR := $(BUILD_DIR)/test
-ERROR_FILE := $(BUILD_DIR)/error_occured
+ERROR_FILE := $(BUILD_DIR)/error_occurred
 
 MAKEFILE_INCLUDED=yes
 
 # Helper function to process the newt element of a space separated path
 # It works a bit like the traditional functional head tail
-# so the CURRENT_PATH_ELEMENT will beome the new head
+# so the CURRENT_PATH_ELEMENT will become the new head
 # and the PATH_ELEMENTS are the rest that are still unprocessed
 define NEXT_PATH_ELEMENT
     $$(eval CURRENT_PATH_ELEMENT := $$(firstword  $$(PATH_ELEMENTS)))
@@ -84,7 +84,7 @@ endif
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 KEYBOARDS := $(notdir $(patsubst %/Makefile,%,$(wildcard $(ROOT_DIR)/keyboards/*/Makefile)))
 
-#Compability with the old make variables, anything you specify directly on the command line
+#Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
 ifdef keyboard
     KEYBOARD := $(keyboard)
@@ -106,7 +106,7 @@ endif
 #$(info Keyboards: $(KEYBOARDS))
 
 
-# Set the default goal depening on where we are running make from
+# Set the default goal depending on where we are running make from
 # this handles the case where you run make without any arguments
 .DEFAULT_GOAL := all
 ifneq ($(KEYMAP),)
@@ -170,7 +170,7 @@ define TRY_TO_MATCH_RULE_FROM_LIST_HELPER3
 endef
 
 # A recursive helper function for finding the longest match
-# $1 The list to be checed
+# $1 The list to be checked
 # It works by always removing the currently matched item from the list
 # and call itself recursively, until a match is found
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
@@ -180,7 +180,7 @@ define TRY_TO_MATCH_RULE_FROM_LIST_HELPER2
         $$(eval $$(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER3,$1))
         # If a match is found in the current list, otherwise just return what we had before
         ifeq ($$(RULE_FOUND),true)
-            # Save the best match so far and call itself recursivel
+            # Save the best match so far and call itself recursively
             BEST_MATCH := $$(MATCHED_ITEM)
             BEST_MATCH_RULE := $$(RULE)
             RULE_FOUND := false
@@ -337,7 +337,7 @@ define PARSE_SUBPROJECT
             $$(eval $$(call PARSE_ALL_KEYMAPS))
         endif
     else
-        # As earlier mentione,d when allsb is specified, we call our self recursively
+        # As earlier mentioned when allsb is specified, we call our self recursively
         # for all of the subprojects
         $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_SUBPROJECT,$(SUBPROJECTS)))
     endif
@@ -403,11 +403,11 @@ define BUILD
         printf "$$(MAKE_MSG)\n\n"; \
         $$(MAKE_CMD) $$(MAKE_VARS) SILENT=false; \
         if [ $$$$? -gt 0 ]; \
-            then error_occured=1; \
+            then error_occurred=1; \
         fi;
 endef
 
-# Just parse all the keymaps for a specifc keyboard
+# Just parse all the keymaps for a specific keyboard
 define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
@@ -428,7 +428,7 @@ define BUILD_TEST
             printf "$$(TEST_MSG)\n"; \
             $$(TEST_EXECUTABLE); \
             if [ $$$$? -gt 0 ]; \
-                then error_occured=1; \
+                then error_occurred=1; \
             fi; \
             printf "\n";
     endif
@@ -448,7 +448,7 @@ endef
 
 
 # Set the silent mode depending on if we are trying to compile multiple keyboards or not
-# By default it's on in that case, but it can be overriden by specifying silent=false
+# By default it's on in that case, but it can be overridden by specifying silent=false
 # from the command line
 define SET_SILENT_MODE
     ifdef SUB_IS_SILENT
@@ -465,16 +465,16 @@ include $(ROOT_DIR)/message.mk
 # The empty line is important here, as it will force a new shell to be created for each command
 # Otherwise the command line will become too long with a lot of keyboards and keymaps
 define RUN_COMMAND
-+error_occured=0;\
++error_occurred=0;\
 $(COMMAND_$(SILENT_MODE)_$(COMMAND))\
-if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+if [ $$error_occurred -gt 0 ]; then echo $$error_occurred > $(ERROR_FILE); fi;
 
 
 endef
 define RUN_TEST
-+error_occured=0;\
++error_occurred=0;\
 $($(TEST)_COMMAND)\
-if [ $$error_occured -gt 0 ]; then echo $$error_occured > $(ERROR_FILE); fi;
+if [ $$error_occurred -gt 0 ]; then echo $$error_occurred > $(ERROR_FILE); fi;
 
 endef
 
@@ -487,7 +487,7 @@ $(SUBPROJECTS): %: %-allkm
 .PHONY: %
 %:
 	# Check if we have the CMP tool installed
-	cmp --version >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
+	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
 	git submodule status --recursive 2>/dev/null | \
@@ -514,7 +514,7 @@ endif
 .PHONY: all
 all: all-keyboards test-all
 
-# Define some shortcuts, mostly for compability with the old syntax
+# Define some shortcuts, mostly for compatibility with the old syntax
 .PHONY: all-keyboards
 all-keyboards: allkb-allsp-allkm
 
