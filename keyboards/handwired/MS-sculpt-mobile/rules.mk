@@ -1,5 +1,9 @@
 #CFLAGS=-D ASTAR
 
+## Project specific files
+SRC=  babblePaste.c
+
+
 ifdef ASTAR
  OPT_DEFS += -DBOOTLOADER_SIZE=4096
  MCU = atmega32u4

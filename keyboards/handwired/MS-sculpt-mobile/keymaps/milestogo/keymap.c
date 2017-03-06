@@ -1,5 +1,7 @@
 #include "MS-sculpt-mobile.h"
 #include "action_layer.h"
+#include "action_util.h"
+#include "babblePaste.h"
 
 #ifdef AUDIO_ENABLE
   #include "audio.h"
@@ -10,6 +12,13 @@
 #define _SYM 3
 #define _MOV 4
 #define _TRAN 5
+
+
+
+
+// adjust babblemode default
+extern uint8_t babble_mode;
+
 
 
 enum layer_keycodes {
@@ -37,7 +46,11 @@ TRAN
 enum macro_keycodes {
 DHPASTE=1,
 VIBRK,
-TO_CDH, 
+B_LNX,
+B_WIN,
+B_MAC,
+B_VI,
+B_READ ,
 };
 
 
@@ -71,8 +84,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
    KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
    KC_TAB,  KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, ____,    ____,   ____,\
-   TT_MOV,  KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT, KC_ENT, ____,\
-   KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, ____,   ____,\
+   TT_MOV,  KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E,    KC_I,   KC_O,    KC_QUOT, KC_ENT, KC_2,\
+   KC_LSFT, KC_Z, KC_X, KC_C, M(DHPASTE), KC_V, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, ____,   KC_1,\
   ____,     ____, ____ , KC_FN1, ____, ____, ____, ____, ____,   ____
 
 ),
@@ -86,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *  --------------------------------------------------------------------------
 * | ESC: | ^  |  { |  } |  @ |  % |    |   [ | ( | )  | _  |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|  ! |  # |  0 | =  |    |   * | -  | 1 |  + |  ] |  ` | enter     |PgUp|
+* |Bak/Mov|  ! |  # |  0 | =  |  { |   } | -  | 1 |  + |  ] |  ` | enter     |PgUp|
 * --------------------------------------------------------------------------------	
-* |Lsft    |  ; | ~ |  : | ~  | "|"|  $ |  ~ |    |    |  / |      Rsft| Up| PgDn|
+* |Lsft    |  ; | ~ |  : | ~  | "|"|  $ | *   |    |  .  |  / |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------	
 * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
 * ---------------------------------------------------------------------------------	
@@ -98,16 +111,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
   M(VIBRK),  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
-  ____,    KC_EXLM, KC_HASH,  KC_0,  KC_EQL, ____,           KC_ASTR,KC_MINS,KC_1,  KC_PLUS,KC_RBRC,  KC_GRV,   ____,  ____,\
-  ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,          KC_DLR, KC_TILDE,____,  ____,   KC_SLSH,     ____, ____, ____,\
+  ____,    KC_EXLM, KC_HASH,  KC_0,  KC_EQL, KC_LCBR,            KC_RCBR,KC_MINS,KC_1,  KC_PLUS,KC_RBRC,  KC_GRV,   ____,  ____,\
+  ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,          KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 
 [_MOV] = KEYMAP (\
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,     ____,RGUI(KC_TAB), ____,  ____, RCTL(KC_B), ____, ____, KC_UP,   ____,   ____,  ____,     ____,   ____, \
-  ____,     RCTL(KC_A), KC_S, RCTL(KC_K), RCTL(KC_E), ____,   ____, KC_LEFT,KC_DOWN, KC_RIGHT, ____, ____,____,____,\
+  ____,     M(B_WIN),M(B_MAC),M(B_READ), M(B_VI), ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
+  ____,     M(BABL_UNDO), ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
+  ____,     ____,RGUI(KC_TAB), ____,  ____, RCTL(KC_B), ____, M(BABL_DEL_LEFT_WORD), KC_UP,   M(BABL_DEL_RIGHT_WORD),   ____,  ____,     ____,   ____, \
+  ____,     RCTL(KC_A), KC_S, RCTL(KC_K), RCTL(KC_E), ____,   M(BABL_GO_START_LINE), KC_LEFT,KC_DOWN, KC_RIGHT,  M(BABL_GO_END_LINE), ____,____,____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____, \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
@@ -121,7 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 )
 };
-
 
 const uint16_t PROGMEM fn_actions[] = {
 [1] = ACTION_LAYER_TAP_KEY(_SYM,KC_SPACE),
@@ -171,10 +183,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  return true;
 
 }
-
-
+ 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+
+/* If this is in the range of BABL macros, call a separate function */
+#ifdef USE_BABLPASTE
+   if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
+   		if (record->event.pressed)  { // is there a case where this isn't desired?
+  
+   			babblePaste ( record,  id );
+   			return MACRO_NONE;
+   		}
+   	}
+#endif
+
   // MACRODOWN only works in this function
       switch(id) {
         case 0:
@@ -185,49 +208,72 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
         break;
 
-
- 	case DHPASTE:
-	  if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
-              if (record->event.pressed) {
-	  	 clear_keyboard_but_mods();
-		 register_code(KC_V);
-	     } else {
-		 unregister_code(KC_V);
-	    }
-	  }else {
-             if (record->event.pressed) {
-          	  register_code(KC_D);
+ /* Colemak mod-dh moves the D key to the qwerty V position
+   This hack makes apple-V_position do what I mean */
+ 	case DHPASTE:  
+		if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
+			if (record->event.pressed) {
+	  	 		clear_keyboard_but_mods();
+		 		register_code(KC_V);
+	     	} else {
+		 		unregister_code(KC_V);
+	    	}
+		} else {
+            if (record->event.pressed) {
+          		register_code(KC_D);
             } else {
-           	 unregister_code(KC_D);
-	   }	
-	}
+           		unregister_code(KC_D);
+	   		}	
+		}
 	break;
 			
 	case VIBRK: // vi esc:
 		 if (record->event.pressed) {
-			return MACRO( T(E),D(LSFT),T(SCLN),U(LSFT), END );
+			return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
 		 }
 	break;	
-      }
 
 
-    return MACRO_NONE;
-};
 
+ 
+#ifdef USE_BABLPASTE
 
-#ifdef AUDIO_ENABLE
-
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-}
+#ifdef LINUX_MODE
+	case B_LNX:
+		return switch_babble_mode(LINUX_MODE);
+#endif
+#ifdef MS_MODE	
+	case B_WIN:
+		return switch_babble_mode(MS_MODE);
+#endif
+#ifdef MAC_MODE
+	case B_MAC:
+		return switch_babble_mode(MAC_MODE);
+#endif
+#ifdef VI_MODE
+	case B_VI:
+		return switch_babble_mode(VI_MODE);
+#endif
+#ifdef READMUX_MODE
+	case B_READ:
+		return switch_babble_mode(READMUX_MODE);
+#endif
 #endif
 
 
-void matrix_init_user(void) {
+	default:
+    	return MACRO_NONE;
+    }
 
+
+return MACRO_NONE;
+};
+
+
+
+
+
+void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
@@ -238,5 +284,13 @@ void matrix_scan_user(void) {
 void led_set_user(uint8_t usb_led) {
 
 }
+
+
+macro_t* switch_babble_mode( uint8_t id) {
+ babble_mode= id;
+ return MACRO_NONE; //less typing above
+}
+
+
 
 
