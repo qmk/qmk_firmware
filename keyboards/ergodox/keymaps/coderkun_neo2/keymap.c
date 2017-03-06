@@ -312,6 +312,8 @@ uint16_t hex_to_keycode(uint8_t hex)
         return NEO_E;
       case 0xF:
         return NEO_F;
+      default:
+        return KC_NO;
     }
   }
 }
