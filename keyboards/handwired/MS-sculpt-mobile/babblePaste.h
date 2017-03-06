@@ -9,27 +9,39 @@ and jeebak & algernon's keymap
 */
 #ifndef _babblePaste_h_included__
 #define _babblePaste_h_included__
+#include "action_layer.h"
 
+#ifdef USE_BABLPASTE
 
-/*  Add this to your config.h
-// Uncomment any modes you want. 
-// Windows. 
-//#define MS_MODE 0
+/* ***************************
+
+// Uncomment any modes you want. Whatever mode = 0 will be the default on boot
+
+//#define MS_MODE 0 // Windows. 
 //#define MAC_MODE 1
-//aka gnome+KDE
-//#define LINUX_MODE 2 
+//#define LINUX_MODE 2 //aka gnome+KDE
 //#define EMACS_MODE 3
 //#define VI_MODE 4
 //#define WORDSTAR_MODE 5
-// Readline and tmux
-//#define READMUX 6 
-*/
+//#define READMUX 6  // Readline and tmux
+****************************/
 
-/* Macros handled by babblepaste. Most should be available for all platforms.  */
+
+// Uncomment if you need more free flash space
+// It removes everything but cursor movement
+//#define BABL_MOVEMENTONLY
+
+
+// Define starting number for BABL macros in the macro range. 
+// Probably can start the default even lower
+#define BABL_START_NUM 50
+
+/* Macros handled by babblepaste. Most should be available for all platforms.
+Whatever isn't defined will NOP  */
 enum  {
  
 	// Movement
-	BABL_DEL_RIGHT_1C=200,
+	BABL_DEL_RIGHT_1C= BABL_START_NUM,
 	BABL_DEL_LEFT_WORD,
 	BABL_DEL_RIGHT_WORD,
 	BABL_GO_LEFT_1C,
@@ -64,9 +76,26 @@ enum  {
 #endif
 };
 
+// How many macros/ how many array elements?
+#define BABL_NUM_MACROS 28
 
 
+/*  from action_macro.h
+typedef uint8_t macro_t;
 
-//static macro_t *babblePaste(keyrecord_t *record,  uint16_t shortcut) 
- 
- #endif
+#define MACRO_NONE      (macro_t*)0
+#define MACRO(...)      ({ static const macro_t __m[] PROGMEM = { __VA_ARGS__ }; &__m[0]; })
+#define MACRO_GET(p)    pgm_read_byte(p)
+
+#define BABL_MSTART (entry, os,  macro...) ( const macro_t bablDict[entry][os] PROGMEM = { macro... }; )
+
+*/
+
+const macro_t *babblePaste(keyrecord_t *record,  uint8_t shortcut);
+
+macro_t* switch_babble_mode( uint8_t id);
+
+
+#endif
+#endif
+
