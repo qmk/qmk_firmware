@@ -1,52 +1,58 @@
-#include "CMD60.h"
+#include "magicforce68.h"
+
+#define _QWERTY 0
+#define _FN1 1
+#define _FN2 2
+#define KC_ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = KEYMAP( /* CMD60 - QWERTY */
-      KC_ESC,   KC_1,     KC_2,     KC_3,    KC_4,     KC_5,     KC_6,     KC_7,    KC_8,  KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,  \
-      KC_TAB,   KC_Q,     KC_W,     KC_E,    KC_R,     KC_T,     KC_Y,     KC_U,    KC_I,  KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  \
-      LT(3, KC_ENT),  KC_A,     KC_S,     KC_D,    KC_F,     KC_G,     KC_H,     KC_J,    KC_K,  KC_L,     KC_SCLN,  KC_QUOT,  KC_NO,    KC_ENT,   \
-      KC_LSFT,  KC_Z,    KC_X,     KC_C,    KC_V,     KC_B,     KC_N,     KC_M,    KC_COMM,  KC_DOT,  KC_SLSH,   KC_NO,  KC_NO,    KC_RSFT,  \
-      KC_LCTL,  KC_LGUI,  KC_LALT,                     LT(2, KC_SPC),                                       MO(3),  MO(4),  MO(5),  TG(1) \
+  [_QWERTY] = KEYMAP(
+ /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
+    ESC , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,  BSPC  ,   INS ,PGUP,
+ /*|----`----`----`----`----`----`----`----`----`----`----`----`----`--------|  |----`----| */
+    TAB   , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,LBRC,RBRC, BSLS ,   DEL ,PGDN,
+ /*|------`----`----`----`----`----`----`----`----`----`----`----`----`------|  `----`----' */
+    FN0    , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN,QUOT,    ENTER ,
+ /*|-------`----`----`----`----`----`----`----`----`----`----`----`----------|  ,----. */
+    LSFT     , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH,       RSFT  ,    UP ,
+ /*|---------`----`----`----`----`----`----`----`----`----`----`-------------.--|----|----. */
+    LCTL ,LGUI ,LALT ,            SPACE             , FN1  ,RALT ,RCTL ,    LEFT,DOWN,RGHT
+ /*`-----+-----+-----+------------------------------+------+-----+-----'   `----+----+----' */
   ),
-  [1] = KEYMAP( /* CMD60 - GameMode */
-      KC_TRNS,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_TRNS,  \
-      KC_TRNS,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  \
-      KC_CAPS,  KC_TRNS,  KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_NO,    KC_TRNS,   \
-      KC_LSFT,  KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,  KC_NO,    KC_RSFT,  \
-      KC_TRNS,  KC_NO,  KC_TRNS,                     KC_SPC,                                       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS \
+
+  [_FN1] = KEYMAP(
+ /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
+    GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,   VOLU,HOME,
+ /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */
+          ,    ,    , UP ,    ,    ,    ,    ,    ,    ,    ,    ,    ,      ,   VOLD,END,
+ /*|tab---`-q--`-w--`-e--`-r--`-t--`-y--`-u--`-i--`-o--`-p--`-{--`-}--`--|---|  `del-`pgdn' */
+           ,    ,LEFT,DOWN,RGHT,    ,    ,    ,    ,    ,    ,    ,          ,
+ /*|caps---`-a--`-s--`-d--`-f--`-g--`-h--`-j--`-k--`-l--`-;--`-'--`----enter-|  ,----. */
+             ,    ,    ,    ,    ,    ,    ,MUTE,    ,    ,    ,             ,   MUTE,
+ /*|shift----`-z--`-x--`-c--`-v--`-b--`-n--`-m--`-,--`-.--`-/--`-------shift-.--|-up-|----. */
+         ,     ,     ,                              ,      ,     ,     ,    MPRV,MPLY,MNXT
+ /*`ctrl-+-gui-+-alt-+----------space---------------+-fn---+-alt-+ctrl-'   `left+down+rght' */
   ),
-  [2] = KEYMAP( /* CMD60 - Arrows */
-      KC_GRV,   KC_F1,     KC_F2,     KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,    KC_F8,  KC_F9,     KC_F10,     KC_F11,  KC_F12,   KC_DEL,  \
-      KC_TRNS,   KC_BSPC,     KC_UP,     KC_DEL,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_BSPC,    KC_UP,  KC_DEL,     KC_PSCR,     KC_SLCK,  KC_PAUS,  KC_TRNS,  \
-      KC_TRNS,  KC_LEFT,  KC_DOWN,     KC_RIGHT,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_LEFT,    KC_DOWN,  KC_RIGHT,     KC_TRNS,  KC_TRNS,  KC_NO,    KC_TRNS,   \
-      KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_SPC,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,  KC_NO,    KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                     KC_TRNS,                                       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS \
-  ),
-  [3] = KEYMAP( /* CMD60 - Functions */
-      KC_GRV,   KC_F1,     KC_F2,     KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,    KC_F8,  KC_F9,     KC_F10,     KC_F11,  KC_F12,   KC_DEL,  \
-      KC_AUDIO_MUTE,   KC_BSPC,     KC_PGUP,     KC_DEL,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_PGUP,    KC_UP,  KC_PGDN,     KC_TRNS,     KC_PAUSE,  KC_SLCK,  KC_PSCREEN,  \
-      KC_TRNS,  KC_HOME,  KC_PGDN,     KC_END,    KC_TRNS,     KC_TRNS,     KC_HOME,     KC_LEFT,    KC_DOWN,  KC_RIGHT,     KC_TRNS,  KC_INSERT,  KC_NO,    KC_TRNS,   \
-      KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_END,     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_NO,  KC_NO,    KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                     KC_TRNS,                                       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS \
-  ),
-  [4] = KEYMAP( /* CMD60 - Mouse */
-      KC_SYSTEM_SLEEP,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_TRNS,  \
-      KC_TRNS,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_MS_BTN1,  KC_MS_UP,     KC_MS_BTN2,     KC_TRNS,  KC_TRNS,  KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_MS_LEFT,  KC_MS_DOWN,     KC_MS_RIGHT,  KC_TRNS,  KC_NO,    KC_TRNS,   \
-      KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_MS_WH_UP,  KC_MS_BTN3,  KC_MS_WH_DOWN,   KC_NO,  KC_NO,    KC_TRNS,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                     KC_TRNS,                                       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS \
-  ),
-  [5] = KEYMAP( /* CMD60 - Media */
-      KC_SYSTEM_WAKE,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS,  KC_TRNS,   KC_TRNS,  \
-      KC_TRNS,   KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,  KC_AUDIO_MUTE,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_TRNS,     KC_TRNS,  KC_MEDIA_PREV_TRACK,  KC_MEDIA_NEXT_TRACK,    KC_MEDIA_PLAY_PAUSE,   \
-      KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_WWW_BACK,  KC_WWW_FORWARD,   KC_NO,  KC_NO,    KC_WWW_REFRESH,  \
-      KC_TRNS,  KC_TRNS,  KC_TRNS,                     KC_TRNS,                                       KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS \
-  ),
+
+  [_FN2] = KEYMAP(
+ /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
+    GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,   VOLU,HOME,
+ /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */
+          ,    ,    , UP ,    ,    ,    , 7  , 8  , 9  ,    ,    ,    ,      ,   VOLD,END,
+ /*|tab---`-q--`-w--`-e--`-r--`-t--`-y--`-u--`-i--`-o--`-p--`-{--`-}--`--|---|  `del-`pgdn' */
+           ,    ,LEFT,DOWN,RGHT,    ,    , 4  , 5  , 6  ,    ,    ,          ,
+ /*|caps---`-a--`-s--`-d--`-f--`-g--`-h--`-j--`-k--`-l--`-;--`-'--`----enter-|  ,----. */
+             ,    ,    ,    ,    ,    , 0  , 1  , 2  , 3  ,    ,             ,   MUTE,
+ /*|shift----`-z--`-x--`-c--`-v--`-b--`-n--`-m--`-,--`-.--`-/--`-------shift-.--|-up-|----. */
+         ,     ,     ,                              ,      ,     ,     ,    MPRV,MPLY,MNXT
+ /*`ctrl-+-gui-+-alt-+----------space---------------+-fn---+-alt-+ctrl-'   `left+down+rght' */
+  )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-
+    [0] = LT(KC_FN2, KC_GRV),
+    [1] = MO(_FN1),
+    [2] = MO(_FN2),
 };
 
 
