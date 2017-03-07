@@ -1,35 +1,20 @@
-CMD60 keyboard firmware
-======================
+Magicforce 68 Handwired
+=======================
 
-##CMD60
+This firmware is for a Magicforce 68 that's had its PCB removed and is handwired with an Arduino Micro. NOTE: The Arduino Micro is different than the Arduino *Pro* Micro.
 
-This layout has been designed to optimize use of the left-hand, and it focussed specifically on programmers who work
-with text editors like SublimeText and Atom. It utilizes the power of Space_fn, and features a caps lock swap for Fn2
-and enter key on tap. These features allow you to keep your right hand on the mouse more and should enable you to
-achieve a higher level of productivity if you take the time to learn its function layers.
+## Wiring Layout
 
-## Quantum MK Firmware
+![Wiring Layout](wiring-layout.png)
 
-For the full Quantum feature list, see [the parent readme.md](/doc/readme.md).
+## Pinout
 
-## Building
+The following pins are used:
+- Columns 1-15: B2, B0, D3, D2, D1, D0, D4, C6, D7, E6, B4, B5, B6, B7, D6
+- Rows 1-5: F0, F1, F4, F5, F6
 
-Download or clone the whole firmware and navigate to the keyboards/handwired/CMD60 folder.
-Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use
-the Teensy Loader to program your .hex file.
+## Compiling and loading the firmware
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+To build the firmware, run `make`.
 
-### Default
-
-To build with the default keymap, simply run `make`.
-
-### Other Keymaps
-
-To build the firmware binary hex file with a keymap just do `make` with `keymap` option like:
-
-```
-$ make keymap=[default|jack|<name>]
-```
-
-Keymaps follow the format **__keymap.c__** and are stored in folders in the `keymaps` folder, eg `keymaps/my_keymap/`
+To flash the firemware onto the microcontroller, run `make avrdude`, and press the reset button.
