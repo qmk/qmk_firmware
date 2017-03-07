@@ -1,4 +1,7 @@
 #include "quantum.h"
+#ifdef PROTOCOL_LUFA
+#include "outputselect.h"
+#endif
 
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
@@ -33,14 +36,42 @@ static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
     f(KC_RGUI);
 }
 
+static inline void qk_register_weak_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_weak_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_register_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
 void register_code16 (uint16_t code) {
-  do_code16 (code, register_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_register_mods);
+  } else {
+      do_code16 (code, qk_register_weak_mods);
+  }
   register_code (code);
 }
 
 void unregister_code16 (uint16_t code) {
   unregister_code (code);
-  do_code16 (code, unregister_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_unregister_mods);
+  } else {
+      do_code16 (code, qk_unregister_weak_mods);
+  }
 }
 
 __attribute__ ((weak))
@@ -130,6 +161,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
   #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
+  #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
   #endif
@@ -212,6 +246,36 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
+    #ifdef PROTOCOL_LUFA
+    case OUT_AUTO:
+      if (record->event.pressed) {
+        set_output(OUTPUT_AUTO);
+      }
+      return false;
+      break;
+    case OUT_USB:
+      if (record->event.pressed) {
+        set_output(OUTPUT_USB);
+      }
+      return false;
+      break;
+    #ifdef BLUETOOTH_ENABLE
+    case OUT_BT:
+      if (record->event.pressed) {
+        set_output(OUTPUT_BLUETOOTH);
+      }
+      return false;
+      break;
+    #endif
+    #ifdef ADAFRUIT_BLE_ENABLE
+    case OUT_BLE:
+      if (record->event.pressed) {
+        set_output(OUTPUT_ADAFRUIT_BLE);
+      }
+      return false;
+      break;
+    #endif
+    #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
@@ -508,6 +572,11 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
   matrix_scan_kb();
 }
 
