@@ -66,6 +66,8 @@ __attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
+const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
 rgblight_config_t rgblight_config;
 rgblight_config_t inmem_config;
@@ -219,6 +221,14 @@ void rgblight_step(void) {
   }
   rgblight_mode(mode);
 }
+void rgblight_step_reverse(void) {
+  uint8_t mode = 0;
+  mode = rgblight_config.mode - 1;
+  if (mode < 1) {
+    mode = RGBLIGHT_MODES;
+  }
+  rgblight_mode(mode);
+}
 
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
@@ -237,7 +247,7 @@ void rgblight_mode(uint8_t mode) {
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
-  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 23) {
+  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 24) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
@@ -246,6 +256,12 @@ void rgblight_mode(uint8_t mode) {
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
+    #endif
+  } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+    // MODE 25-34, static gradient
+
+    #ifdef RGBLIGHT_ANIMATIONS
+      rgblight_timer_disable();
     #endif
   }
   rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
@@ -350,6 +366,17 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
       } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 14) {
         // rainbow mood and rainbow swirl, ignore the change of hue
         hue = rgblight_config.hue;
+      } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+        // static gradient
+        uint16_t _hue;
+        int8_t direction = ((rgblight_config.mode - 25) % 2) ? -1 : 1;
+        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[(rgblight_config.mode - 25) / 2]);
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+          _hue = (range / RGBLED_NUM * i * direction + hue + 360) % 360;
+          dprintf("rgblight rainbow set hsv: %u,%u,%d,%u\n", i, _hue, direction, range);
+          sethsv(_hue, sat, val, (LED_TYPE *)&led[i]);
+        }
+        rgblight_set();
       }
     }
     rgblight_config.hue = hue;
@@ -450,7 +477,7 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
       // mode = 21 to 23, knight mode
       rgblight_effect_knight(rgblight_config.mode - 21);
-    } else {
+    } else if (rgblight_config.mode == 24) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
     }
@@ -604,13 +631,13 @@ void rgblight_effect_christmas(void) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < 1000) {
+  if (timer_elapsed(last_timer) < RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL) {
     return;
   }
   last_timer = timer_read();
   current_offset = (current_offset + 1) % 2;
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = 0 + ((RGBLED_NUM * (i + current_offset)) % 2) * 80;
+    hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + current_offset) % 2) * 120;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
