@@ -4,6 +4,8 @@
 #define _FN1 1
 #define _FN2 2
 #define KC_ KC_TRNS
+#define KC_X0 LT(_FN2, KC_GRV)
+#define KC_X1 MO(_FN1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = KEYMAP(
@@ -12,11 +14,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*|----`----`----`----`----`----`----`----`----`----`----`----`----`--------|  |----`----| */
     TAB   , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,LBRC,RBRC, BSLS ,   DEL ,PGDN,
  /*|------`----`----`----`----`----`----`----`----`----`----`----`----`------|  `----`----' */
-    FN0    , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN,QUOT,    ENTER ,
+    X0     , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN,QUOT,    ENTER ,
  /*|-------`----`----`----`----`----`----`----`----`----`----`----`----------|  ,----. */
     LSFT     , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH,       RSFT  ,    UP ,
  /*|---------`----`----`----`----`----`----`----`----`----`----`-------------.--|----|----. */
-    LCTL ,LGUI ,LALT ,            SPACE             , FN1  ,RALT ,RCTL ,    LEFT,DOWN,RGHT
+    LCTL ,LGUI ,LALT ,            SPACE             ,  X1  ,RALT ,RCTL ,    LEFT,DOWN,RGHT
  /*`-----+-----+-----+------------------------------+------+-----+-----'   `----+----+----' */
   ),
 
@@ -48,13 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*`ctrl-+-gui-+-alt-+----------space---------------+-fn---+-alt-+ctrl-'   `left+down+rght' */
   )
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = LT(KC_FN2, KC_GRV),
-    [1] = MO(_FN1),
-    [2] = MO(_FN2),
-};
-
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
