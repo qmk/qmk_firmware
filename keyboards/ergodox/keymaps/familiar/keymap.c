@@ -37,9 +37,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |PRTSCR| ESC  |       | VOL- | VOL+ |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | ALT/ |      | NUMLK|       | MUTE |      | ALT/ |
- *                                 | SPC  | SLASH|------|       |------|WHACK | SPC  |
- *                                 |      |      | LAY3 |       | LAY2 |      |      |
+ *                                 | ALT/ |SLASH/| NUMLK|       | MUTE |WHACK/| ALT/ |
+ *                                 | SPC  |MO(1)/|------|       |------|MO(1)/| SPC  |
+ *                                 |      |TG(1) | LAY3 |       | LAY2 |TG(1) |      |
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP(
@@ -72,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      | LEFT | DOWN |RIGHT |      |------|           |------| LEFT | DOWN |  UP  | RIGHT|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |M_PREV|M_STOP|M_PLPS|M_NEXT|      |      |           |      |      |      |      |      |  UP  |        |
+ * |        |M_PREV|M_STOP|M_PLPS|M_NEXT|      |      |           |      |      |      |      |      | PGUP |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- * |        |      |      |      |      |                                       |      |      | LEFT | DOWN |  RIGHT |
+ * |        |      |      |      |      |                                       |      |      | HOME | PGDN |    END |
  * `------------------------------------'                                       `------------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |SYSREQ| PAUSE|       |      |      |
@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     _______,
             _______,    _______,    _______,    _______,    _______,    _______,    KC_INS,
                         KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    _______,    _______,
-            _______,    _______,    _______,    _______,    _______,    KC_UP,      _______,
-                                    _______,    _______,    KC_LEFT,    KC_DOWN,    KC_RGHT,
+            _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,
+                                    _______,    _______,    KC_HOME,    KC_PGDN,    KC_END,
             _______,    _______,
             _______,
             _______,    _______,    _______
@@ -200,7 +200,7 @@ typedef struct {
     bool sticky;
 } td_ta_state_t;
 
-static void ang_tap_dance_s_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void slash_finished (qk_tap_dance_state_t *state, void *user_data) {
     td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
     if (td_ta->sticky) {
@@ -221,7 +221,7 @@ static void ang_tap_dance_s_finished (qk_tap_dance_state_t *state, void *user_da
     }
 }
 
-static void ang_tap_dance_s_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void slash_reset (qk_tap_dance_state_t *state, void *user_data) {
     td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
     if (!td_ta->layer_toggle)
@@ -230,7 +230,7 @@ static void ang_tap_dance_s_reset (qk_tap_dance_state_t *state, void *user_data)
         layer_off (ARRW);
 }
 
-static void ang_tap_dance_w_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void whack_finished (qk_tap_dance_state_t *state, void *user_data) {
     td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
     if (td_ta->sticky) {
@@ -251,7 +251,7 @@ static void ang_tap_dance_w_finished (qk_tap_dance_state_t *state, void *user_da
     }
 }
 
-static void ang_tap_dance_w_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void whack_reset (qk_tap_dance_state_t *state, void *user_data) {
     td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
     if (!td_ta->layer_toggle)
@@ -262,11 +262,11 @@ static void ang_tap_dance_w_reset (qk_tap_dance_state_t *state, void *user_data)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [SLASH] = {
-        .fn = { NULL, ang_tap_dance_s_finished, ang_tap_dance_s_reset },
+        .fn = { NULL, slash_finished, slash_reset },
         .user_data = (void *)&((td_ta_state_t) { false, false })
     },
     [WHACK] = {
-        .fn = { NULL, ang_tap_dance_w_finished, ang_tap_dance_w_reset },
+        .fn = { NULL, whack_finished, whack_reset },
         .user_data = (void *)&((td_ta_state_t) { false, false })
     }
 };
