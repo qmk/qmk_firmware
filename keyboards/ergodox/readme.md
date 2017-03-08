@@ -100,7 +100,7 @@ for the left and right halves seperately.  To flash them:
 
   - Install the firmware with `sudo make infinity-keymapname-dfu-util`
 
-  - Build left hand firmware with `make infinity-keymapname MASTER=right`
+  - Build right hand firmware with `make infinity-keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 
