@@ -53,6 +53,6 @@ The Astar mini has all pins exposed , so you can do 18x8
 If you want a speaker, LEDs &etc, you'll need to free up a pin.  I recommend joining columns
 R and L to the same pin. 
 
-Building - edit rules.mk to set ASTAR=1 or comment it out for teensy2++
+Building - add ASTAR=1 to the compile line or leave out for teensy2++
 
 
