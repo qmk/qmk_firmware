@@ -4,7 +4,7 @@ A practical keymap that emulates standard QWERTY keyboard for Planck. Once you g
 ![Layout](keyboard-layout.png "Practical Keymap")
 ![Photo](keyboard-photo.jpg "Planck Keyboard")
 
-* Online keyboard layout editor: http://goo.gl/mlLAFZ
+* Online keyboard layout editor: http://www.keyboard-layout-editor.com/#/gists/bda299020baaafe6a2a4a82e615e3cfc
 
 # Programming Instructions:
 Enter into programming mode and run the following command.
