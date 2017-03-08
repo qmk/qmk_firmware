@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
   M(VIBRK),  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
   ____,    KC_EXLM, KC_HASH,  KC_0,  KC_EQL, KC_LCBR,            KC_RCBR,KC_MINS,KC_1,  KC_PLUS,KC_RBRC,  KC_GRV,   ____,  ____,\
-  ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,          KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
+  ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,     KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* 
@@ -108,11 +108,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *  -------------------------------------------------------------------------------'
 * |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
 * ---------------------------------------------------------------------------
-* | tab  |  q |  w |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
+* | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
-* |Bak/Mov|  a |  s |  d |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter     |PgUp|
+* |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
 * --------------------------------------------------------------------------------	
-* |Lsft    |Undo| Cut|Copy|Pste|  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
+* |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
 * ---------------------------------------------------------------------------------	
 * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
 * ---------------------------------------------------------------------------------	
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
-/* If this is in the range of BABL macros, call a separate function */
+/* If id is in the range of BABL macros, call the babl function */
 /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
 #ifdef USE_BABLPASTE
 
