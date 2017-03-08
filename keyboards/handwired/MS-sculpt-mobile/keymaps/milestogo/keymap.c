@@ -14,13 +14,6 @@
 #define _TRAN 5
 
 
-
-
-// adjust babblemode default
-extern uint8_t babble_mode;
-
-
-
 enum layer_keycodes {
 QWR,
 CDH,
@@ -46,11 +39,6 @@ TRAN
 enum macro_keycodes {
 DHPASTE=1,
 VIBRK,
-B_LNX,
-B_WIN,
-B_MAC,
-B_VI,
-B_READ ,
 };
 
 
@@ -115,24 +103,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,          KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
+/* 
+* |ESC | Win| MAC|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
+*  -------------------------------------------------------------------------------'
+* |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
+* ---------------------------------------------------------------------------
+* | tab  |  q |  w |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
+*  -------------------------------------------------------------------------------'
+* |Bak/Mov|  a |  s |  d |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter     |PgUp|
+* --------------------------------------------------------------------------------	
+* |Lsft    |Undo| Cut|Copy|Pste|  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
+* ---------------------------------------------------------------------------------	
+* |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
+* ---------------------------------------------------------------------------------	
+*/
 
 [_MOV] = KEYMAP (\
-  ____,     M(B_WIN),M(B_MAC),M(B_READ), M(B_VI), ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,     M(BABL_UNDO), ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,     ____,RGUI(KC_TAB), ____,  ____, RCTL(KC_B), ____, M(BABL_DEL_LEFT_WORD), KC_UP,   M(BABL_DEL_RIGHT_WORD),   ____,  ____,     ____,   ____, \
-  ____,     RCTL(KC_A), KC_S, RCTL(KC_K), RCTL(KC_E), ____,   M(BABL_GO_START_LINE), KC_LEFT,KC_DOWN, KC_RIGHT,  M(BABL_GO_END_LINE), ____,____,____,\
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____, \
+  ____,    B_MAC,B_WIN,B_READ, B_VI, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
+  ____,      ____, B_PAPP, B_NAPP, ____, ____,      ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
+  ____,     B_UNDO, ____, B_BFND, ____, B_PTAB,     B_DSOL, B_DLW, B_UP,   B_DRW, B_DEOL,  ____,  ____,   ____, \
+  ____,     B_SELA, B_BRLD, ____, ____, B_NXTB,     B_GSOL, B_L1C, B_DOWN, B_R1C,B_GEOL,   ____, ____, ____,\
+  ____,     B_UNDO,B_CUT, B_COPY, B_PAST, B_PAST,    ____, ____, ____, ____, ____,       ____,  ____,   ____, \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 
 [_TRAN] = KEYMAP (\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____, \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____, \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____, \
-  ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
-)
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
+  ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
+) 
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -188,6 +190,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
 /* If this is in the range of BABL macros, call a separate function */
+/* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
 #ifdef USE_BABLPASTE
    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
    		if (record->event.pressed)  { // is there a case where this isn't desired?
@@ -235,31 +238,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 
 
- 
-#ifdef USE_BABLPASTE
-
-#ifdef LINUX_MODE
-	case B_LNX:
-		return switch_babble_mode(LINUX_MODE);
-#endif
-#ifdef MS_MODE	
-	case B_WIN:
-		return switch_babble_mode(MS_MODE);
-#endif
-#ifdef MAC_MODE
-	case B_MAC:
-		return switch_babble_mode(MAC_MODE);
-#endif
-#ifdef VI_MODE
-	case B_VI:
-		return switch_babble_mode(VI_MODE);
-#endif
-#ifdef READMUX_MODE
-	case B_READ:
-		return switch_babble_mode(READMUX_MODE);
-#endif
-#endif
-
 
 	default:
     	return MACRO_NONE;
@@ -286,10 +264,6 @@ void led_set_user(uint8_t usb_led) {
 }
 
 
-macro_t* switch_babble_mode( uint8_t id) {
- babble_mode= id;
- return MACRO_NONE; //less typing above
-}
 
 
 
