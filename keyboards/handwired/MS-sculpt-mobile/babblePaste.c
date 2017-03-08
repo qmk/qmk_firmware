@@ -19,7 +19,7 @@ uint8_t babble_mode =0 ;
 
 macro_t* switch_babble_mode( uint8_t id) {
  babble_mode= id;
- return MACRO_NONE; //less typing above
+ return MACRO_NONE; //less typing where called
 }
 
 		
@@ -42,12 +42,32 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 			return MACRO_NONE;
 		}
 */
-  switch(babble_mode) {
-     
-     
+ 
 
 #ifdef MS_MODE
-		if ( BABL_WINDOWS  == shortcut ) { return switch_babble_mode(MS_MODE);  } 
+	if ( BABL_WINDOWS  == shortcut ) { return switch_babble_mode(MS_MODE);  } 
+#endif    
+#ifdef MAC_MODE
+	if ( BABL_MAC == shortcut) { return switch_babble_mode(MAC_MODE);  } 
+#endif
+#ifdef LINUX_MODE
+	if ( BABL_LINUX == shortcut ) { return switch_babble_mode(LINUX_MODE);  }
+#endif	    
+ #ifdef READMUX_MODE
+	if ( BABL_READLINE == shortcut  ) { switch_babble_mode(READMUX_MODE); return MACRO_NONE; }
+#endif   
+#ifdef VI_MODE
+	if ( BABL_VI == shortcut  ) { return switch_babble_mode(VI_MODE);   }
+#endif
+#ifdef EMACS_MODE
+	if ( BABL_EMACS == shortcut  ) { return switch_babble_mode(EMACS_MODE);   }
+#endif
+
+
+
+    switch(babble_mode) {  
+
+#ifdef MS_MODE
 		
 	 case MS_MODE:	
 		BABLM( BABL_GO_LEFT_1C,	T(LEFT), END );
@@ -111,7 +131,6 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 
 
 #ifdef LINUX_MODE
-	if ( BABL_LINUX == shortcut ) { return switch_babble_mode(LINUX_MODE);  } 
 
 	 case LINUX_MODE:
 		BABLM( BABL_GO_LEFT_1C  , 	T(LEFT), END );
@@ -172,7 +191,6 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 #endif 
 	  
 #ifdef MAC_MODE
-	if ( BABL_MAC == shortcut) { return switch_babble_mode(MAC_MODE);  } 
 
 	 case MAC_MODE:
 		BABLM( BABL_GO_LEFT_1C ,	T(LEFT), END );
@@ -233,8 +251,6 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 #endif 	
 	
 #ifdef EMACS_MODE
-
-	if ( BABL_EMACS == shortcut  ) { return switch_babble_mode(EMACS_MODE);   }
 
 	 case EMACS_MODE:
 	 	switch(shortcut) {
@@ -303,7 +319,6 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 
 
 #ifdef VI_MODE
-	if ( BABL_VI == shortcut  ) { return switch_babble_mode(VI_MODE);   }
 	 case VI_MODE:
 // you have to track the modes yourself. Otherwise motion is awful (bell, bell, bell)
 			
@@ -371,7 +386,8 @@ const  macro_t *babblePaste (keyrecord_t *record,  uint8_t shortcut) {
 #ifdef READMUX_MODE
 // Readline command line editing + tmux windowing
 // I havent decided how much to do readline and how much tmux
-	if ( BABL_READLINE == shortcut  ) { switch_babble_mode(READMUX_MODE); return MACRO_NONE; }
+	
+	
 	case READMUX_MODE:		
 		
 		BABLM( BABL_GO_LEFT_1C , 		T(LEFT), END );

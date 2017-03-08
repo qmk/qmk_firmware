@@ -18,6 +18,9 @@ and jeebak & algernon's keymap
 /* ***************************
 
 // Uncomment any modes you want. Whatever mode = 0 will be the default on boot
+// Expect to get errors if you comment a feature out and leave it in your keymap. 
+
+#define USE_BABLPASTE
 
 //#define MS_MODE 0 // Windows. 
 //#define MAC_MODE 1
@@ -26,6 +29,11 @@ and jeebak & algernon's keymap
 //#define VI_MODE 4
 //#define WORDSTAR_MODE 5
 //#define READMUX 6  // Readline and tmux
+
+// This removes everything but cursor movement
+//#define BABL_MOVEMENTONLY
+// and this just removes browser shortcuts
+//#define BABL_NOBROWSER
 ****************************/
 
 
@@ -130,7 +138,7 @@ enum  {
 };
 
 // BUG, used to jump to babble functiion. Surely there is a way to calculate size of enum? 
-#define BABL_NUM_MACROS 48 + 4 // 48 + # of defined modes. 
+#define BABL_NUM_MACROS 48+4 // 48 + # of defined modes. 
 
 /* And all the shorthand keymap ready versions */
 // First the mode switching macros
