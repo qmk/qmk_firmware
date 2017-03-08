@@ -4,7 +4,9 @@
 #include "keymap.h"
 
 // Alt gr
+#ifndef ALGR
 #define ALGR(kc) RALT(kc)
+#endif
 #define NO_ALGR KC_RALT
 
 // Normal characters
@@ -72,7 +74,7 @@
 #define FR_PIPE ALGR(KC_6)
 #define FR_GRV 	ALGR(KC_7)
 #define FR_BSLS	ALGR(KC_8)
-#define FR_CIRC	ALGR(KC_9)
+#define FR_CCIRC	ALGR(KC_9)
 #define FR_AT 	ALGR(KC_0)
 #define FR_RBRC	ALGR(FR_RPRN)
 #define FR_RCBR ALGR(FR_EQL)

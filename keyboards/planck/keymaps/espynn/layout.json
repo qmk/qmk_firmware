@@ -3,6 +3,7 @@
     "backcolor": "#858585",
     "name": "Planck 40%",
     "author": "James Folkert",
+    "notes": "# Espynn's keymap for Planck Ortholinear 40% Mechanical Keyboard\nAdded several custom functions to the keymap from the \"ab\" map. Special thanks to \"mollat\" for demonstration of macros in their keymap.c\n \n\n![Layout](keyboard-layout.png \"Practical Keymap\")\n\n* Online keyboard layout editor: http://goo.gl/mlLAFZ\n\n# Notes\n* Front legend text is the custom layer (both raise and lower)\n* Holding is denoted by down arrow, for example, right shift is an enter button when tapped, shift when held\n* Simultaneous RAISE+LOWER enters CUSTOM layer. Several custom keymaps are here\n* I disregarded the advice of Jack and used macros for passwords. I accept my fate.\n* RAISE and LOWER also acts as PgUp and PgDn when tapped.\n* [CapsLock] also acts as [Ctrl] key when you press and hold. It is convenient for GNU Emacs users. (not sure if this works)\n* Bracket/ paran/ brace keys are placed in the center of the keyboard for programmer's convenience.",
     "background": {
       "name": "Aluminium brushed",
       "style": "background-image: url('/bg/metal/aluminum_texture1642.jpg');"
@@ -19,41 +20,49 @@
         2,
         2,
         0,
-        2
+        0
       ]
     },
-    "F1\n1\n\n!\n\n\n\n\n\n<i class='kb kb-Tab-2'></i>",
-    "F2\n2\n\n@\n\n\n\n\n\nQ",
-    "F3\n3\n\n#\n\n\n\n\n\nW",
-    "F4\n4\n\n$\n\n\n\n\n\nE",
-    "F5\n5\n\n%\n\n\n\n\n\nR",
-    "F6\n6\n\n^\n\n\n\n\n\nT",
-    "F7\n6\n\n&\n\n\n\n\n\nY",
-    "F8\n8\n\n*\nMacro4\n\n\n\n\nU",
-    "F9\n9\n\n(\n\n\n\n\n\nI",
+    "!\n1\n\n\nF1\n\n\n\n\n<i class='kb kb-Tab-2'></i>",
+    "@\n2\n\n\nF2\n\n\n\n\nQ",
+    "#\n3\n\n\nF3\n\n\n\n\nW",
+    "$\n4\n\n\nF4\n\n\n\n\nE",
+    "%\n5\n\n\nF5\n\n\n\n\nR",
+    "^\n6\n\n\nF6\n\n\n\n\nT",
+    "&\n7\n\n\nF7\n\n\n\n\nY",
+    "*\n8\n\n\nF8\n\n\n\n\nU",
+    "(\n9\n\n\nF9\n\n\n\n\nI",
     {
       "fa": [
+        2,
         0,
         0,
-        0,
-        2
+        0
       ]
     },
-    "F10\n0\n\n)\n\n\n\n\n\nO",
+    ")\n0\n\n\nF10\n\n\n\n\nO",
     {
       "fa": [
         2,
         2,
         0,
-        2
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     },
-    "F11\n-\n\n_\n\n\n\n\n\nP",
-    "F12\n=\n\n+\n\n\n\n\n\n<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>"
+    "_\n-\n\n\nF11\n\n\n\n\nP",
+    {
+      "a": 7,
+      "f": 3
+    },
+    "<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>"
   ],
   [
     {
-      "a": 7,
       "f": 3
     },
     "<i class='mss mss-Unicode-DeleteRight-Big-2'></i>",
@@ -66,12 +75,12 @@
     },
     "S",
     {
+      "a": 4,
       "f": 3
     },
-    "D",
+    "=\n_\n\n\n\n\n\n\n\nD",
     {
       "t": "#ff0000",
-      "a": 4,
       "f": 3
     },
     "\n(\n\n\n\n\n\n\n\nF",
@@ -93,24 +102,21 @@
       "t": "#000000",
       "f": 3
     },
-    "{\n\n\n\n\n\n\n\n\nK",
+    "+\n-\n\n\nMacro4\n\n\n\n\nK",
     {
+      "a": 7,
       "f": 3
     },
-    "{\n\n\n\n\n\n\n\n\nL",
+    "L",
     {
+      "a": 6,
       "fa": [
         2,
         2,
-        2,
-        2,
-        0,
-        0,
-        0,
         2
       ]
     },
-    "\\\n\n|\n\n\n\n\n:\n\n;",
+    "\n\n:\n\nF12\n\n\n\n;",
     {
       "a": 7,
       "fa": [
@@ -141,66 +147,79 @@
       "fa": [
         2,
         2,
-        2,
-        2
+        0,
+        0
       ]
     },
-    "\\\n[\n|\n{\nPaste\n\n\n\n\nV",
-    "|\n]\n\n}\nMacro1\n\n\n\n\nB",
-    "`\n'\n~\n\"\nMacro5\n\n\n\n\nN",
+    "\\\n[\n\n\nPaste\n\n\n\n\nV",
+    "|\n]\n\n\nMacro1\n\n\n\n\nB",
+    "`\n'\n\n\nMacro5\n\n\n\n\nN",
     "~\n\"\n\n\nMacro2\n\n\n\n\nM",
     {
       "fa": [
         2,
         2,
-        2,
-        2,
         0,
         0,
         0,
-        1
+        0,
+        0,
+        2
       ]
     },
-    "[\n\n{\n\n\n\n\n<\n\n,",
-    "[\n\n{\n\n\n\n\n\n\n.",
+    "<\n\n\n\n\n\n\n<\n\n,",
     {
-      "a": 6
-    },
-    "\n\n?\n\n\n\n\n\n/",
-    {
-      "a": 4,
       "fa": [
         2,
         2,
+        0
+      ]
+    },
+    ">\n\n\n\n\n\n\n>\n\n.",
+    {
+      "fa": [
+        0,
         2,
         0,
         0,
         0,
         0,
-        1,
-        9,
-        0
+        0,
+        2
+      ]
+    },
+    "\\\n\n\n\n\n\n\n?\n\n/",
+    {
+      "fa": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        9
       ]
     },
     "\n\n\n<i class='kb kb-Arrows-Bottom-4'></i>Shift\n\n\n\n\n<i class='mss mss-Unicode-Enter-3'></i>\n\n<i class='kb kb-Arrows-Bottom-4'></i>Shift"
   ],
   [
     {
-      "a": 7,
-      "f": 3
+      "a": 7
     },
     "Ctrl\n\n\n\nBLight",
     {
       "a": 4,
       "fa": [
-        2,
-        1,
-        2,
-        0,
-        0,
-        0,
         0,
         1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
         9,
         9
       ]
@@ -208,29 +227,29 @@
     "\nZNorm\n\n\nRESET\n\n\n\n\n<i class='mss mss-Unicode-Escape-3'></i>",
     {
       "fa": [
-        2,
-        1,
-        2,
-        0,
-        0,
-        0,
         0,
         1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
         9,
         6
       ]
     },
-    "\nZIn\n\n\n\n\n\n\n\n<i class='kb kb-logo-windows-8'></i>",
+    "\nZIn\n\n\nc.a.del\n\n\n\n\n<i class='kb kb-logo-windows-8'></i>",
     {
       "fa": [
-        2,
-        1,
-        2,
-        0,
-        0,
-        0,
         0,
         1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
         9,
         9
       ]
