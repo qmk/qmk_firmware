@@ -162,8 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// MEDIA AND MOUSE
+// Shortcuts
 [SHRT] = KEYMAP(
+    // left hand
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, LCA(KC_F1), LCA(KC_F2), LCA(KC_F3), LCA(KC_F4), LCA(KC_F5), KC_TRNS,
        KC_TRNS, KC_TRNS, LCA(KC_LEFT), KC_TRNS, LCA(KC_RIGHT), KC_TRNS,
