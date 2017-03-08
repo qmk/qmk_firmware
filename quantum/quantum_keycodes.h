@@ -39,22 +39,27 @@ enum quantum_keycodes {
     QK_CHORDING           = 0x5600,
     QK_CHORDING_MAX       = 0x56FF,
 #endif
+    QK_TAP_DANCE          = 0x5700,
+    QK_TAP_DANCE_MAX      = 0x57FF,
+    QK_LAYER_TAP_TOGGLE   = 0x5800,
+    QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
     QK_MOD_TAP            = 0x6000,
-    QK_MOD_TAP_MAX        = 0x6FFF,
-    QK_TAP_DANCE          = 0x7100,
-    QK_TAP_DANCE_MAX      = 0x71FF,
-#ifdef UNICODEMAP_ENABLE
-    QK_UNICODE_MAP        = 0x7800,
-    QK_UNICODE_MAP_MAX    = 0x7FFF,
+    QK_MOD_TAP_MAX        = 0x7FFF,
+#if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
+    #error "Cannot enable both UNICODEMAP && UNICODE"
 #endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
 #endif
+#ifdef UNICODEMAP_ENABLE
+    QK_UNICODE_MAP        = 0x8000,
+    QK_UNICODE_MAP_MAX    = 0x83FF,
+#endif
 
     // Loose keycodes - to be used directly
 
-    RESET = 0x7000,
+    RESET = 0x5C00,
     DEBUG,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
     MAGIC_CAPSLOCK_TO_CONTROL,
@@ -85,6 +90,13 @@ enum quantum_keycodes {
     AU_ON,
     AU_OFF,
     AU_TOG,
+
+#ifdef FAUXCLICKY_ENABLE
+    // Faux clicky
+    FC_ON,
+    FC_OFF,
+    FC_TOG,
+#endif
 
     // Music mode on/off/toggle
     MU_ON,
@@ -171,6 +183,7 @@ enum quantum_keycodes {
 #define ALTG(kc) (kc | QK_RCTL | QK_RALT)
 #define SCMD(kc) (kc | QK_LGUI | QK_LSFT)
 #define SWIN(kc) SCMD(kc)
+#define LCA(kc) (kc | QK_LCTL | QK_LALT)
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -297,19 +310,37 @@ enum quantum_keycodes {
 // One-shot mod
 #define OSM(mod) (mod | QK_ONE_SHOT_MOD)
 
+// Layer tap-toggle
+#define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
+
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0xF) << 8))
+#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0x1F) << 8))
+
 #define CTL_T(kc) MT(MOD_LCTL, kc)
+#define LCTL_T(kc) MT(MOD_LCTL, kc)
+#define RCTL_T(kc) MT(MOD_RCTL, kc)
+
 #define SFT_T(kc) MT(MOD_LSFT, kc)
+#define LSFT_T(kc) MT(MOD_LSFT, kc)
+#define RSFT_T(kc) MT(MOD_RSFT, kc)
+
 #define ALT_T(kc) MT(MOD_LALT, kc)
+#define LALT_T(kc) MT(MOD_LALT, kc)
+#define RALT_T(kc) MT(MOD_RALT, kc)
 #define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
+
 #define GUI_T(kc) MT(MOD_LGUI, kc)
+#define LGUI_T(kc) MT(MOD_LGUI, kc)
+#define RGUI_T(kc) MT(MOD_RGUI, kc)
+
 #define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
 #define LCAG_T(kc) MT((MOD_LCTL | MOD_LALT | MOD_LGUI), kc) // Left control alt and gui
+#define RCAG_T(kc) MT((MOD_RCTL | MOD_RALT | MOD_RGUI), kc) // Right control alt and gui
 #define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 #define SCMD_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
 #define SWIN_T(kc) SCMD_T(kc)
+#define LCA_T(kc) MT((MOD_LCTL | MOD_LALT), kc) // Left control and left alt
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)
