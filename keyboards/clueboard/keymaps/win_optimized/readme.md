@@ -9,8 +9,9 @@
 
 ![Clueboard Layout Image](layout.png)
 
-# skullY's Clueboard Layout
+# Default Clueboard Layout
 
-This layout is what I (@skullydazed) use on my personal Clueboards. I mostly use it for programming, CAD, and general typing.
-
-The most notable change from the default layout is putting Ctrl on the Capslock key. I also swap Alt and Cmd because I mostly use a Mac day to day.
+This is the default layout that comes flashed on every Clueboard. For the most
+part it's a straightforward and easy to follow layout. The only unusual key is 
+the key in the upper left, which sends Escape normally, but Grave when any of
+the Ctrl, Alt, or GUI modifiers are held down.

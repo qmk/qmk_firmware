@@ -9,8 +9,6 @@
 
 ![Clueboard Layout Image](layout.png)
 
-# skullY's Clueboard Layout
+# Maximised Clueboard Layout
 
-This layout is what I (@skullydazed) use on my personal Clueboards. I mostly use it for programming, CAD, and general typing.
-
-The most notable change from the default layout is putting Ctrl on the Capslock key. I also swap Alt and Cmd because I mostly use a Mac day to day.
+This layout is intended for a board with one or both shifts split. The outside key on the split shift is an Fn, while the inside is shift. The bottom row has all the mods on both sides, optimised for a Mac.
