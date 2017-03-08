@@ -10,15 +10,15 @@
 #ifdef USE_BABLPASTE
 //define BabblePaste maps
 // Windows. 
-#define MS_MODE 0
-#define MAC_MODE   1
+#define MAC_MODE   0
+#define MS_MODE 1
 //aka gnome+KDE
 //#define LINUX_MODE 2 
 //#define EMACS_MODE 3
-#define VI_MODE 4
-//#define WORDSTAR_MODE 5
+#define VI_MODE 3
 // Readline and tmux
-#define READMUX_MODE 6 
+#define READMUX_MODE 2 
+//#define WORDSTAR_MODE 5
 #endif
 
 // Uncomment if you need more free flash space

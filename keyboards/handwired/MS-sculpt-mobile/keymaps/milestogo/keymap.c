@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 /* 
-* |ESC | Win| MAC|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
+* |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
 *  -------------------------------------------------------------------------------'
 * |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
 * ---------------------------------------------------------------------------
@@ -192,6 +192,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 /* If this is in the range of BABL macros, call a separate function */
 /* Any clever remapping with modifiers should happen here e.g. shift bablkey does opposite*/
 #ifdef USE_BABLPASTE
+
    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
    		if (record->event.pressed)  { // is there a case where this isn't desired?
   
@@ -200,6 +201,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
    		}
    	}
 #endif
+
 
   // MACRODOWN only works in this function
       switch(id) {
