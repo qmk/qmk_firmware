@@ -1,14 +1,44 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
+/*
+Copyright 2017 Priyadi Iman Nurcahyo
 
-#include "promethium.h"
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#if defined(PRIYADI_PROMETHIUM)
+  #include "promethium.h"
+#elif defined(PRIYADI_PLANCK)
+  #include "planck.h"
+#else
+  #error "no keyboard defined"
+#endif
+
 #include "action_layer.h"
+#ifdef AUDIO_ENABLE
+  #include "audio.h"
+  #include "musical_notes.h"
+#endif
 #include "eeconfig.h"
 #include "process_unicode.h"
 #include "quantum.h"
+#ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
+#endif
+#ifdef PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
 #include "ps2.h"
+#endif
+#ifdef FAUXCLICKY_ENABLE
+#include "fauxclicky.h"
+#endif
 #include "outputselect.h"
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
@@ -21,8 +51,10 @@
 #define KC_WWWF KC_WWW_FORWARD
 
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
-#undef KC_RALT
-#define KC_RALT MT(MOD_RALT, KC_SLCK)
+#define C_RALT MT(MOD_RALT, KC_SLCK)
+
+// dual use right-shift & del key
+// #define C_RSFT MT(MOD_RSFT, KC_DEL)
 
 bool capslock = false;
 #ifdef DOUBLESPACE_LAYER_ENABLE
@@ -41,25 +73,29 @@ enum glow_modes {
 };
 uint8_t glow_mode = GLOW_MIN;
 
+void turn_off_capslock(void);
 extern keymap_config_t keymap_config;
 
+// layers, ordering is important!
 enum layers {
   _QWERTY,
   _DVORAK,
   _COLEMAK,
   _WORKMAN,
   _NORMAN,
-
-  _PUNC,
-  _NUM,
-  _FUNC,
+  _DEFAULT_LAYER_MAX = _NORMAN,
 
   _GREEKU,
   _GREEKL,
 
+  _NUM,
+  _FUN,
+  _PUNC,
+
+  _EMPTY,
   _EMOJI,
   _GUI,
-  _SYS,
+  _SYS
 };
 
 // double-space layer
@@ -74,9 +110,6 @@ enum planck_keycodes {
   NORMAN,
 
   // layer switchers
-  PUNC,
-  NUM,
-  FUNC,
   EMOJI,
   GUI,
   GREEK,
@@ -90,8 +123,21 @@ enum planck_keycodes {
   LSPACE,
   RSPACE,
   GLOW,
-  AUDIO
+
+  // stub
+#ifndef FAUXCLICKY_ENABLE
+  FC_TOG,
+#endif
+#ifndef ADAFRUIT_BLE_ENABLE
+  OUT_BLE,
+#endif
+  KEYCODE_END
 };
+
+#define EMPTY MO(_EMPTY)
+#define NUM MO(_NUM)
+#define FUN MO(_FUN)
+#define FUN0 LT(_FUN, KC_0)
 
 // unicode map
 
@@ -196,6 +242,11 @@ enum unicode_name {
   LOMEG,
 
   FSIGM,
+
+  LTEQ,
+  GTEQ,
+  NOTEQ,
+  PLMIN,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -297,10 +348,17 @@ const uint32_t PROGMEM unicode_map[] = {
   [LPSI] = 0x03C8,
   [LOMEG] = 0x03C9,
   [FSIGM] = 0x03C2,
+
+  // other
+  [LTEQ] = 0x2264, // less than or equal
+  [GTEQ] = 0x2265, // greater than or equal
+  [NOTEQ] = 0x2260, // not equal
+  [PLMIN] = 0xB1, // plus minus
 };
 
 // RGBSPS
 
+#ifdef RGBSPS_ENABLE
 const uint8_t PROGMEM LED_ALNUM[] = {
   LED_Z,
   LED_A,
@@ -365,14 +423,14 @@ const uint8_t PROGMEM LED_MODS[] = {
 const uint8_t PROGMEM LED_FN[] = {
   LED_PUNC,
   LED_NUM,
-  LED_FUNC,
+  LED_FUN,
   LED_EMOJI
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
   LED_IND_EMOJI,
   LED_IND_NUM,
-  LED_IND_FUNC,
+  LED_IND_FUN,
   LED_IND_BATTERY,
   LED_IND_USB,
   LED_IND_BLUETOOTH,
@@ -431,7 +489,7 @@ void led_reset(void) {
 void led_set_layer_indicator(void) {
   static uint8_t oldlayer = 255;
 
-  rgbsps_set(LED_IND_FUNC, 0, 0, 0);
+  rgbsps_set(LED_IND_FUN, 0, 0, 0);
   // rgbsps_set(LED_IND_NUM, 0, 0, 0);
   rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
@@ -444,14 +502,14 @@ void led_set_layer_indicator(void) {
 
   oldlayer = layer;
 
-  if (layer <= _NORMAN) {
+  if (layer <= _DEFAULT_LAYER_MAX) {
     rgbsps_send();
     return;
   }
 
   switch(layer) {
-    case _FUNC:
-      rgbsps_set(LED_IND_FUNC, 15, 0, 0);
+    case _FUN:
+      rgbsps_set(LED_IND_FUN, 15, 0, 0);
       break;
     // case _NUM:
     //   rgbsps_set(LED_IND_NUM, 0, 0, 15);
@@ -460,8 +518,8 @@ void led_set_layer_indicator(void) {
       rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
       break;
     default:
-      rgbsps_set(LED_IND_FUNC, 3, 3, 3);
-      rgbsps_set(LED_IND_NUM, 3, 3, 3);
+      rgbsps_set(LED_IND_FUN, 3, 3, 3);
+      // rgbsps_set(LED_IND_NUM, 3, 3, 3);
       rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
   }
 
@@ -495,7 +553,7 @@ void led_init(void) {
   rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
   rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
 }
-
+#endif // RGBSPS_ENABLE
 
 // keymaps
 
@@ -509,14 +567,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Func |Greek | GUI  |AltGr | Ctrl |
+ * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Fun  |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, PUNC,    NUM,     LSPACE,  RSPACE,  FUNC,    GREEK,   KC_RGUI, KC_RALT, KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, C_RALT,  KC_RCTL
 ),
 
 /* Dvorak
@@ -604,56 +662,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Punc
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   `  |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   ≤  |   ≥  |   `  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |   /  |      |   (  |   )  |   <  |   >  |      |
+ * |      |   *  |   \  |   -  |   =  |   /  |   ≠  |   (  |   )  |   <  |   >  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |   ?  |      |   [  |   ]  |   {  |   }  |   :  |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   ±  |   [  |   ]  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |      |      |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV ,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, XXXXXXX, KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, XXXXXXX,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, XXXXXXX, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, X(LTEQ), X(GTEQ), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, X(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, _______
 ),
 
 /* Num
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |   `  |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   A  |   7  |   8  |   9  |   D  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
+ * |   `  |   *  |   \  |   -  |   =  |   /  |   B  |   4  |   5  |   6  |   E  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |  :   |
+ * |   &  |   ^  |   |  |   _  |   +  |   ?  |   C  |   1  |   2  |   3  |   F  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |   x  |   0  |   ,  |   .  |      |      |
+ * |      |      |   x  |      |      |      |      |   0  |   ,  |   .  |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUM] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),    KC_7,    KC_8,    KC_9, S(KC_D), KC_GRV,
-  XXXXXXX, KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),    KC_4,    KC_5,    KC_6, S(KC_E), _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),    KC_1,    KC_2,    KC_3, S(KC_F), KC_COLN,
-  _______, _______, _______, _______, _______, _______, _______,    KC_0, KC_COMM,  KC_DOT, KC_X,    _______
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),  KC_7,    KC_8,    KC_9,   S(KC_D), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),  KC_4,    KC_5,    KC_6,   S(KC_E), _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_1,    KC_2,    KC_3,   S(KC_F), _______,
+  _______, _______, KC_X,    _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_COLN, _______
 ),
 
 /* Func
  * ,-----------------------------------------------------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  |      |      | PgUp |  Up  | PgDn | PgUp | Del  |
+ * |      |  F1  |  F2  |  F3  |  F4  | Ins  |      | PgUp |  Up  | PgDn | PgUp |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn | Ins  |
+ * | Caps |  F5  |  F6  |  F7  |  F8  |PrtSc |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |      |      | Home |  End |      |      |
+ * |      |  F9  |  F10 |  F11 |  F12 |Pause |      |      | Home |  End |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_FUNC] = KEYMAP(
-  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4, XXXXXXX, XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP,  KC_DEL,
-  XXXXXXX,   KC_F5,   KC_F6,   KC_F7,  KC_F8,KC_PSCREEN,XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  KC_INS,
-  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+[_FUN] = KEYMAP(
+  XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_INS,  XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP, KC_DEL,
+  KC_CAPS,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+  _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_PAUS, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
+  _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Uppercase Greek
@@ -668,9 +726,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GREEKU] = KEYMAP(
-  _______, _______, _______,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
-  _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), _______, _______,
-  _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
+  _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), KC_QUOT, _______,
+  _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -686,9 +744,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GREEKL] = KEYMAP(
-  _______, _______,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
-  _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), _______, _______,
-  _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), _______, _______, _______, _______,
+  _______, XXXXXXX,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
+  _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), KC_QUOT, _______,
+  _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Empty
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_EMPTY] = KEYMAP(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -707,14 +783,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   X(HART2), X(CRY2),X(WEARY),X(EYERT),X(SMIRK), X(TJOY),X(RECYC),X(UNAMU),X(MUSIC),X(OKHND),X(PENSV), X(PHEW),
   X(THMUP), X(PRAY),X(SMILE),X(SMIL2),X(FLUSH), X(GRIN),X(HEART),  X(BYE), X(KISS),X(CELEB), X(COOL),X(NOEVS),
   X(THMDN),X(SLEEP), X(CLAP),  X(CRY),  X(VIC),X(BHART),  X(SUN),X(SMEYE), X(WINK), X(MOON),X(CONFU),X(NOEVH),
-    X(POO), X(EYES), _______,X(HUNRD), X(SKULL),X(HORNS), X(HALO), X(FEAR),X(YUMMY),_______,X(DISAP),X(NOEVK)
+    X(POO), X(EYES), X(HUNRD),_______, X(SKULL),X(HORNS), X(HALO), X(FEAR),_______,X(YUMMY),X(DISAP),X(NOEVK)
 ),
 
 /* GUI
  * ,-----------------------------------------------------------------------------------.
  * |      |  D1  |  D2  |  D3  |  D4  |  D5  |  D6  |  D7  |  D8  |  D9  |  D10 |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      | Vol- | Mute | Vol+ |      |      | Prev |      | Next |      |      |
+ * | Esc  |      | Btab | Esc  | Tab  |      |      | Prev |      | Next |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -723,9 +799,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_GUI] = KEYMAP(
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_SPC,  KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+  KC_ESC,  XXXXXXX, S(KC_TAB),KC_ESC, KC_TAB,  XXXXXXX, XXXXXXX, KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, KC_SPC,  KC_SPC,  KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 /* Sys
@@ -741,10 +817,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = KEYMAP(
   XXXXXXX, QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, AUDIO,   XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
+  XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
 ),
+
 
 };
 
@@ -753,9 +830,63 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+#ifdef DOUBLESPACE_LAYER_ENABLE
+void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *isemitted) {
+  if (pressed) {
+    *isactive = true;
+    if (*otheractive) {
+      layer_on(_SPACE);
+      register_code(KC_LALT);  // sends alt and enter layer
+      space_layer_entered = true;
+    }
+  } else {
+    *isactive = false;
+    if (space_layer_entered) {
+      unregister_code(KC_LALT);  // release alt and exit layer
+      layer_off(_SPACE);
+      if (!*otheractive) {
+        space_layer_entered = false;
+      }
+    } else {
+      if (!*isemitted) {
+        register_code(KC_SPC);
+        unregister_code(KC_SPC);
+      }
+      *isemitted = false;
+    }
+  }
+}
+#endif
+
+uint32_t layer_state_set_kb(uint32_t state)
+{
+  // turn on punc layer if both fun & num are on
+  if ((state & ((1UL<<_NUM) | (1UL<<_FUN))) == ((1UL<<_NUM) | (1UL<<_FUN))) {
+    state |= (1UL<<_PUNC);
+  } else {
+    state &= ~(1UL<<_PUNC);
+  }
+
+  // turn on emoji layer if empty and greek layer are on
+  if (
+    (state & ((1UL<<_EMPTY) | (1UL<<_GREEKU))) == ((1UL<<_EMPTY) | (1UL<<_GREEKU))
+    || (state & ((1UL<<_EMPTY) | (1UL<<_GREEKL))) == ((1UL<<_EMPTY) | (1UL<<_GREEKL))
+  ) {
+    state |= (1UL<<_EMOJI);
+  } else {
+    state &= ~(1UL<<_EMOJI);
+  }
+  return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
-  bool rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  static bool lshift = false;
+  static bool rshift = false;
+  static uint8_t layer = 0;
+
+  lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
+  rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  layer = biton32(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
@@ -779,6 +910,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rspace_emitted = true;
     }
   }
+
+  if (layer == _SPACE && keycode != S(KC_TAB) && keycode != KC_TAB && keycode != KC_ESC && keycode != XXXXXXX) {
+    if (record->event.pressed) {
+      unregister_code(KC_LALT);
+    } else {
+      register_code(KC_LALT);
+    }
+  }
 #endif
 
   switch (keycode) {
@@ -786,61 +925,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef DOUBLESPACE_LAYER_ENABLE
     // double-space enter space layer
     case LSPACE:
-      if (record->event.pressed) {
-        lspace_active = true;
-        if (rspace_active) {
-          layer_on(_SPACE);
-          space_layer_entered = true;
-        }
-      } else {
-        lspace_active = false;
-        if (space_layer_entered) {
-          layer_off(_SPACE);
-          if (!rspace_active) {
-            space_layer_entered = false;
-          }
-        } else {
-          if (!lspace_emitted) {
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-          }
-          lspace_emitted = false;
-        }
-      }
+      process_doublespace(record->event.pressed, &lspace_active, &rspace_active, &lspace_emitted);
       return false;
       break;
     case RSPACE:
-      if (record->event.pressed) {
-        rspace_active = true;
-        if (lspace_active) {
-          layer_on(_SPACE);
-          space_layer_entered = true;
-        }
-      } else {
-        rspace_active = false;
-        if (space_layer_entered) {
-          layer_off(_SPACE);
-          if (!lspace_active) {
-            space_layer_entered = false;
-          }
-        } else {
-          if (!rspace_emitted) {
-            register_code(KC_SPC);
-            unregister_code(KC_SPC);
-          }
-          rspace_emitted = false;
-        }
-      }
+      process_doublespace(record->event.pressed, &rspace_active, &lspace_active, &rspace_emitted);
       return false;
       break;
 #endif
 
     // handle greek layer shift
-    // handle both shift = capslock
     case KC_LSFT:
     case KC_RSFT:
       ;
-      uint8_t layer = biton32(layer_state);
       if (layer == _GREEKU || layer == _GREEKL) {
         if (record->event.pressed) {
           layer_on(_GREEKU);
@@ -849,13 +946,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (lshift ^ rshift) { // if only one shift was pressed
             layer_on(_GREEKL);
             layer_off(_GREEKU);
-          }
-        }
-      } else {
-        if (record->event.pressed) {
-          if (lshift ^ rshift) { // if only one shift was pressed
-            register_code(KC_CAPS);
-            unregister_code(KC_CAPS);
           }
         }
       }
@@ -948,18 +1038,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 #endif
 
-    // layer switcher
-    case PUNC:
-      if (record->event.pressed) {
-        layer_on(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-      } else {
-        layer_off(_PUNC);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
+    // only process Fnumber on key release, and only when layer switcher is still pressed.
+    // this is to avoid accidental presses on potentially destructive keys
+    case KC_F1 ... KC_F12:
+    case KC_PAUS:
+    case KC_PSCR:
+    case KC_INS:
+      if (!record->event.pressed && layer == _FUN) { // key released and still in FUN layer
+          register_code(keycode);
+          unregister_code(keycode);
       }
       return false;
       break;
 
+    // layer switcher
+    //
     case GREEK:
       if (record->event.pressed) {
         if (lshift || rshift) {
@@ -968,31 +1061,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_on(_GREEKL);
           layer_off(_GREEKU);
-          update_tri_layer(_PUNC, _GREEKL, _EMOJI);
         }
       } else {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
-        update_tri_layer(_PUNC, _GREEKL, _EMOJI);
-      }
-      return false;
-      break;
-
-    case NUM:
-      if (record->event.pressed) {
-        turn_off_capslock();
-        layer_on(_NUM);
-      } else {
-        layer_off(_NUM);
-      }
-      return false;
-      break;
-
-    case FUNC:
-      if (record->event.pressed) {
-        layer_on(_FUNC);
-      } else {
-        layer_off(_FUNC);
       }
       return false;
       break;
@@ -1012,6 +1084,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
     // glow mode changer
+#ifdef RGBSPS_ENABLE
     case GLOW:
       if (record->event.pressed) {
         glow_mode++;
@@ -1023,16 +1096,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#endif
 
-    // faux clicky toggle, TBD
-    case AUDIO:
-      return false;
+    // faux clicky indicator
+#ifdef FAUXCLICKY_ENABLE
+    case FC_TOG:
+      return true;
       break;
+#endif
   }
   return true;
 }
 
 void set_output_user(uint8_t output) {
+#ifdef ADAFRUIT_BLE_ENABLE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
@@ -1043,42 +1120,27 @@ void set_output_user(uint8_t output) {
     default:
       led_set_output_none();
   }
+#endif
 }
 
-void matrix_init_user(void) {
+void matrix_init_user() {
   _delay_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UC_LNX);
+
+#ifdef RGBSPS_ENABLE
   led_init();
+#endif
 
   // auto detect output on init
+#ifdef ADAFRUIT_BLE_ENABLE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);
   } else {
     set_output(OUTPUT_ADAFRUIT_BLE);
   }
-}
-
-void matrix_scan_user(void) {
-  led_set_layer_indicator();
-}
-
-void battery_poll(uint8_t level) {
-  rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
-  rgbsps_send();
-}
-
-void led_set_user(uint8_t usb_led) {
-  bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
-  if (new_capslock ^ capslock) { // capslock state is different
-    if (capslock = new_capslock) {
-      rgbsps_set(LED_IND_NUM, 15, 0, 0);
-    } else {
-      rgbsps_set(LED_IND_NUM, 0, 0, 0);
-    }
-    rgbsps_send();
-  }
+#endif
 }
 
 void turn_off_capslock() {
@@ -1088,37 +1150,62 @@ void turn_off_capslock() {
   }
 }
 
-void ps2_mouse_init_user() {
-    uint8_t rcv;
+#ifdef RGBSPS_ENABLE
+  void matrix_scan_user(void) {
+    led_set_layer_indicator();
+  }
 
-    // set TrackPoint sensitivity
-    PS2_MOUSE_SEND(0xE2, "tpsens: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpsens: 0x81");
-    PS2_MOUSE_SEND(0x4A, "tpsens: 0x4A");
-    PS2_MOUSE_SEND(0x49, "tpsens: 0x59");
+  void battery_poll(uint8_t level) {
+    rgbsps_sethsv(LED_IND_BATTERY, level * 120/255, 255, 15);
+    rgbsps_send();
+  }
 
-    // set TrackPoint Negative Inertia factor
-    PS2_MOUSE_SEND(0xE2, "tpnegin: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpnegin: 0x81");
-    PS2_MOUSE_SEND(0x4D, "tpnegin: 0x4D");
-    PS2_MOUSE_SEND(0x06, "tpnegin: 0x06");
-
-    // set TrackPoint speed
-    // (transfer function upper plateau speed)
-    PS2_MOUSE_SEND(0xE2, "tpsp: 0xE2");
-    PS2_MOUSE_SEND(0x81, "tpsp: 0x81");
-    PS2_MOUSE_SEND(0x60, "tpsp: 0x60");
-    PS2_MOUSE_SEND(0x61, "tpsp: 0x61");
-
-    // inquire pts status
-    rcv = ps2_host_send(0xE2);
-    rcv = ps2_host_send(0x2C);
-    rcv = ps2_host_recv_response();
-    if ((rcv & 1) == 1) {
-      // if on, disable pts
-      rcv = ps2_host_send(0xE2);
-      rcv = ps2_host_send(0x47);
-      rcv = ps2_host_send(0x2C);
-      rcv = ps2_host_send(0x01);
+  void led_set_user(uint8_t usb_led) {
+    bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
+    if (new_capslock ^ capslock) { // capslock state is different
+      if ((capslock = new_capslock)) {
+        rgbsps_set(LED_IND_NUM, 15, 0, 0);
+      } else {
+        rgbsps_set(LED_IND_NUM, 0, 0, 0);
+      }
+      rgbsps_send();
     }
-}
+  }
+#endif
+
+#ifdef PS2_MOUSE_ENABLE
+  void ps2_mouse_init_user() {
+      uint8_t rcv;
+
+      // set TrackPoint sensitivity
+      PS2_MOUSE_SEND(0xE2, "tpsens: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpsens: 0x81");
+      PS2_MOUSE_SEND(0x4A, "tpsens: 0x4A");
+      PS2_MOUSE_SEND(0x49, "tpsens: 0x59");
+
+      // set TrackPoint Negative Inertia factor
+      PS2_MOUSE_SEND(0xE2, "tpnegin: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpnegin: 0x81");
+      PS2_MOUSE_SEND(0x4D, "tpnegin: 0x4D");
+      PS2_MOUSE_SEND(0x06, "tpnegin: 0x06");
+
+      // set TrackPoint speed
+      // (transfer function upper plateau speed)
+      PS2_MOUSE_SEND(0xE2, "tpsp: 0xE2");
+      PS2_MOUSE_SEND(0x81, "tpsp: 0x81");
+      PS2_MOUSE_SEND(0x60, "tpsp: 0x60");
+      PS2_MOUSE_SEND(0x61, "tpsp: 0x61");
+
+      // inquire pts status
+      rcv = ps2_host_send(0xE2);
+      rcv = ps2_host_send(0x2C);
+      rcv = ps2_host_recv_response();
+      if ((rcv & 1) == 1) {
+        // if on, disable pts
+        rcv = ps2_host_send(0xE2);
+        rcv = ps2_host_send(0x47);
+        rcv = ps2_host_send(0x2C);
+        rcv = ps2_host_send(0x01);
+      }
+  }
+#endif
