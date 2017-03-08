@@ -9,8 +9,9 @@
 
 ![Clueboard Layout Image](layout.png)
 
-# skullY's Clueboard Layout
+# Shift Fn Clueboard Layout
 
-This layout is what I (@skullydazed) use on my personal Clueboards. I mostly use it for programming, CAD, and general typing.
-
-The most notable change from the default layout is putting Ctrl on the Capslock key. I also swap Alt and Cmd because I mostly use a Mac day to day.
+This is an experimental layout. It makes the left shift key a dual roll key.
+For most keys it acts as a shift key, but for some keys it activates an 
+alternate function instead. Primarily I use this to access the F-keys under
+the number rows.
