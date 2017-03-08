@@ -14,7 +14,7 @@ extern keymap_config_t keymap_config;
 #define _FUNC 4
 #define ENDASH LALT(KC_MINS)
 #define POUND LALT(KC_3)
-
+#define H(X) LALT(LCTL(X))
 
 enum planck_keycodes {
   MOVE = SAFE_RANGE,
@@ -48,19 +48,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
+ * | H(3) | H(F1)| H(F2)| H(F3)| H(F4)| H(F5)| H(8) | Home |  Up  |  End | H(7) |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
+ * | H(4) | H(F6)| H(F7)| H(F8)| H(F9)|H(F10)| H(9) | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn|      |      | Pg Dn| Pg Up|      |      |      |
+ * |      |H(F11)|H(F12)| H(0) | H(1) | H(2) | H(A) | Pg Dn| Pg Up| H(5) | H(6) |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {KC_ESC,  XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  XXXXXXX, KC_ESC },
-  {KC_DEL,  KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
-  {_______, XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, _______},
+  {H(KC_3), H(KC_F1),H(KC_F2),H(KC_F3),H(KC_F4),H(KC_F5),H(KC_8), KC_HOME, KC_UP,   KC_END,  H(KC_7), KC_ESC },
+  {H(KC_4), H(KC_F6),H(KC_F7),H(KC_F8),H(KC_F9),H(KC_F10),H(KC_9),KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
+  {_______, H(KC_F11),H(KC_F12),H(KC_0),H(KC_1),H(KC_2), H(KC_A), KC_PGDN, KC_PGUP, H(KC_5), H(KC_6), _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNC] = {
   {RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_VOLU},
   {XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD},
-  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, KC_POWER, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, KC_POWER,XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, KC_MPRV, KC_MUTE, KC_MPLY, KC_MNXT, _______, _______, _______, _______}
 }
 
