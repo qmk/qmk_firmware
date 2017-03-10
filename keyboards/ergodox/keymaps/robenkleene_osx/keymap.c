@@ -89,7 +89,7 @@ RESET,    KC_F1,  KC_F2,    KC_F3,    KC_F4,    KC_F5,  KC_NO,
 KC_NO,    KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO,
 KC_TRNS,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,
 KC_TRNS,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO,
-KC_TRNS,    KC_NO,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+KC_TRNS,  KC_NO,  KC_TRNS,  KC_TRNS,  KC_TRNS,
 
 // Left Cluster
 KC_TRNS,  KC_TRNS,
