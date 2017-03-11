@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   .-----+-----+-----! !-----+-----+-----.
  *                   !     !     |     | !     |     !     !
  *                   ! CTL !     !-ALT-! !-CTL-!     ! ALT !
- *                   |ENTER|MO(1)| TAB | !ESC  |MO(3)|SPACE|
+ *                   |ENTER|MO(1)| TAB | !ESC  |MO(1)|SPACE|
  *                   '-----------------' '-----------------'
  */
 [L0] = KEYMAP(
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*-*/    /*-*/    MO(2),    MO(3),   KC_APP,   KC_RALT, KC_RCTL,
  KC_MUTE, KC_MPLY,
  KC_TRNS,
- CTL_T(KC_ESC), MO(3),   ALT_T(KC_SPACE)
+ CTL_T(KC_ESC), MO(1),   ALT_T(KC_SPACE)
 ),
 /*
  * .------------------------------------.------------------------------------.
