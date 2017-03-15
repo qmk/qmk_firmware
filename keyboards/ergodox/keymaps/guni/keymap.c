@@ -170,7 +170,7 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
     if (id == TEENSY_KEY) {
         clear_keyboard();
         print("\n\nJump to bootloader... ");
-        _delay_ms(250);
+        wait_ms(250);
         bootloader_jump(); // should not return
         print("not supported.\n");
     }
