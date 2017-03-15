@@ -62,23 +62,19 @@ static uint8_t qw_dv_swap_state = 0;
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_LGUI) {
         if (record->event.pressed)
-            qw_dv_swap_state |= B00000001;
+            qw_dv_swap_state |= 0b00000001;
         else
-            qw_dv_swap_state &= ~(B00000001);
+            qw_dv_swap_state &= ~(0b00000001);
     }
     if (keycode == KC_LCTL) {
         if (record->event.pressed)
-            qw_dv_swap_state |= B00000010;
+            qw_dv_swap_state |= 0b00000010;
         else
-            qw_dv_swap_state &= ~(B00000010);
+            qw_dv_swap_state &= ~(0b00000010);
     }
 
-    if (qw_dv_swap_state == B00000011) {
-        uint8_t layer = biton32(layer_state);
-        if (layer == QW)
-            TO(DV);
-        else if (layer == DV)
-            TO(QW);
-        return true;
+    if (qw_dv_swap_state == 0b00000011) {
+        layer_invert(DV);
     }
+    return true;
 }
