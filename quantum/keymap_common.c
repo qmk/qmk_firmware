@@ -80,7 +80,10 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = keymap_function_id_to_action( (int)keycode & 0xFFF );
             break;
         case QK_MACRO ... QK_MACRO_MAX:
-            action.code = ACTION_MACRO(keycode & 0xFF);
+            if (keycode & 0x800) // tap macros have upper bit set
+                action.code = ACTION_MACRO_TAP(keycode & 0xFF);
+            else
+                action.code = ACTION_MACRO(keycode & 0xFF);
             break;
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
@@ -116,8 +119,11 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             mod = keycode & 0xFF;
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+            action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
+            break;
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
+            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0x1F, keycode & 0xFF);
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_0 ... BL_15:
