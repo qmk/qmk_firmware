@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 
-#define EE_HANDS
+#define TAPPING_TERM 150
 
 #undef RGBLED_NUM
 #define RGB_DI_PIN B0
