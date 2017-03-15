@@ -1,10 +1,4 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-
-#include "menelaus.h"
-
-#define ____ KC_TRNS
-#define xxxx KC_NO
+#include "atreus62.h"
 
 // Layers
 #define QW 0
@@ -13,38 +7,38 @@
 #define DL 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = KEYMAP(
-	1,    2,    3,    4,     5,    ____, 6,    7,    8,    9,    0,    \
-	Q,    W,    E,    R,     T,    ____, Y,    U,    I,    O,    P,    \
-	A,    S,    D,    F,     G,    ____, H,    J,    K,    L,    SCLN, \
-	Z,    X,    C,    V,     B,    BSPC, N,    M,    COMM, DOT,  SLSH, \
-	ESC,  TAB,  LCTL, MO(QL),LSFT, ENT,  SPC,  LALT, LGUI, LEFT, RGHT  ),
+[QW] = KEYMAP(
+	NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
+	NO, Q,    W,    E,    R,    T,                Y,    U,    I,    O,    P,    NO, \
+	NO, A,    S,    D,    F,    G,                H,    J,    K,    L,    SCLN, NO, \
+	NO, Z,    X,    C,    V,    B,                N,    M,    COMM, DOT,  SLSH, NO, \
+	NO, ESC,  TAB,  LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  LALT, LGUI, LEFT, RGHT, NO  ),
 
-[_QUP] = KEYMAP(
-	F1,   F2,   F3,   F4,   F5,   ____,  F6,   F7,   F8,   F9,   F10,  \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, \
-	____, ____, ____, ____, ____, ____,  ____, LEFT, DOWN, UP,   RGHT, \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, ),
+[QL] = KEYMAP(
+	NO, F1,   F2,   F3,   F4,   F5,               F6,   F7,   F8,   F9,   F10,  NO, \
+	NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+	NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, LEFT, DOWN, UP,   RGHT, NO, \
+	NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+	NO, TRNS, TRNS, TRNS, FN1,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
 
-[_DVORAK] = KEYMAP(
-	1,    2,    3,    4,     5,    ____,  6,    7,    8,    9,    0,   \
-	QUOT, COMM, DOT,  P,     Y,    ____,  F,    G,    C,    R,    L,   \
-	A,    O,    E,    U,     I,    ____,  D,    H,    T,    N,    S,   \
-	SCLN, Q,    J,    K,     X,    BSPC,  B,    M,    W,    V,    Z,   \
-	ESC,  TAB,  LCTL, MO(DP),LSFT, ENT,   SPC,  LALT, LGUI, LEFT, RGHT ),
+[DV] = KEYMAP(
+	NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
+	NO, QUOT, COMM, DOT,  P,    Y,                F,    G,    C,    R,    L,    NO, \
+	NO, A,    O,    E,    U,    I,                D,    H,    T,    N,    S,    NO, \
+	NO, SCLN, Q,    J,    K,    X,                B,    M,    W,    V,    Z,    NO, \
+	NO, ESC,  TAB,  LCTL, F2,   LSFT, BSPC, ENT,  SPC,  LALT, LGUI, LEFT, RGHT, NO  ),
 
-[_QUP] = KEYMAP(
-	F1,   F2,   F3,   F4,   F5,   ____,  F6,   F7,   F8,   F9,   F10,  \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, \
-	____, ____, ____, ____, ____, ____,  ____, LEFT, DOWN, UP,   RGHT, \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, \
-	____, ____, ____, ____, ____, ____,  ____, ____, ____, ____, ____, )
-
+[DL] = KEYMAP(
+	NO, F1,   F2,   F3,   F4,   F5,               F6,   F7,   F8,   F9,   F10,  NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, LEFT, DOWN, UP,   RGHT, NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+    NO, TRNS, TRNS, TRNS, FN2,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-
+    [1] = ACTION_LAYER_MOMENTARY(QL), // Qwerty FN layer
+    [2] = ACTION_LAYER_MOMENTARY(DV)  // Dvorak FN layer
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
