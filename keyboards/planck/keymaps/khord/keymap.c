@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const qk_tap_dance_action_t tape_dance_actions[] = {
+qk_tap_dance_action_t tape_dance_actions[] = {
   [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
 };
 
