@@ -33,21 +33,14 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 // Tap Dance Declarations
 enum {
   TD_ESC_CAPS = 0
 };
-
-// Tap Dance Definitions
-qk_tap_dance_action_t tape_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
-  // Other declarations would go here, separated by commas, if you have them
-};
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Dylan's additions
 #define C_A_DEL LALT(LCTL(KC_DEL))
@@ -328,3 +321,9 @@ void music_scale_user(void)
 }
 
 #endif
+
+// Tap Dance Definitions
+const qk_tap_dance_action_t tape_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+};
