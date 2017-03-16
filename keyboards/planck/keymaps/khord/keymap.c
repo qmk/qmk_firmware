@@ -39,7 +39,11 @@ enum planck_keycodes {
 
 // Tap Dance Declarations
 enum {
-  TD_ESC_CAPS = 0
+  ESC_CAP = 0,
+  LFT_HOM,
+  DWN_PDN,
+  UPP_PUP,
+  RGT_END
 };
 
 // Dylan's additions
@@ -60,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {TD(TD_ESC_CAPS),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT) },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TAB,      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,        KC_O,        KC_P,        KC_BSPC      },
+  {TD(ESC_CAP), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,        KC_L,        KC_SCLN,     KC_QUOT      },
+  {KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,     KC_DOT,      KC_SLSH,     SFT_T(KC_ENT)},
+  {BACKLIT,     KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   TD(LFT_HOM), TD(DWN_PDN), TD(UPP_PUP), TD(RGT_END)  }
 },
 
 /* Colemak
@@ -179,8 +183,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-qk_tap_dance_action_t tape_dance_actions[] = {
-  [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [ESC_CAP] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+  [LFT_HOM] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_HOME),
+  [DWN_PDN] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_PGDN),
+  [UPP_PUP] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_PGUP),
+  [RGT_END] = ACTION_TAP_DANCE_DOUBLE(KC_RGHT, KC_END)
 };
 
 #ifdef AUDIO_ENABLE
