@@ -13,7 +13,7 @@ Main layer modifications from default Planck layout:
 * Lower & Raise is now called Num and Fun.
 * OS & Left keys become another thumb modifier: Empty & Greek (Empty because I used this for another use and my muscle memory is not adapted to it yet)
 
-On Promethium, Trackpoint is enabled on PD2 and PD2. We impersonate a Thinkpad keyboard to be able to use Thinkpad driver on Windows (still needs verification).
+On Promethium, Trackpoint is enabled on PD2 and PD3. We impersonate a Thinkpad keyboard to be able to use Thinkpad driver on Windows (still needs verification).
 
 AltGr & Compose dual use key. Tap for Compose (mapped to Scroll Lock in hardware) and press for AltGr.
 
