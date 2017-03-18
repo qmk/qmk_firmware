@@ -51,9 +51,15 @@ provides standard media control keys, and default arrow keys.
 
 ## Layer 3 - Unicode
 
-[![Layer 3 - Unicode](images/deadcyclo-layer-3-navigation.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
+[![Layer 3 - Unicode](images/deadcyclo-layer-3-unicode.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
 
 The unicode layer provides keys for directly typing unicode (utf-8)
+
+## Layer 4 - Unicode 2
+
+[![Layer 43 - Unicode](images/deadcyclo-layer-4-unicode-2.png)](http://www.keyboard-layout-editor.com/#/gists/7b2241110ab8311d9668a0798f3baf4a)
+
+The unicode 2 layer provides keys for directly typing unicode (utf-8)
 
 # Changelog
 
@@ -63,6 +69,7 @@ The unicode layer provides keys for directly typing unicode (utf-8)
 - 24.01.2017 Added unicode keys. Added shrug hug and yay. Moved Navigation to layer 2
 - 25.01.2017 Added lots of new emojis and some unicode keys
 - 27.01.2017 Added new unicode keys and shortcut for ibus unicode composer key (CTRL+SHIFT+U)
+- 11.03.2017 Added additional unicode layer. Moved some layer switch keys to more sane locations
 
 # TODO
 
