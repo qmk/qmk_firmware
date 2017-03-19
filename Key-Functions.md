@@ -67,16 +67,20 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
 
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
 
-These are the values you can use for the `mod` in `MT()` and `OSM()` (right-hand modifiers are not available for `MT()`):
+These are the values you can use for the `mod` in `MT()` and `OSM()`:
 
   * MOD_LCTL
   * MOD_LSFT
   * MOD_LALT
   * MOD_LGUI
+  * MOD_RCTL
+  * MOD_RSFT
+  * MOD_RALT
+  * MOD_RGUI
   * MOD_HYPR
   * MOD_MEH
 
-These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
+These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped. Note however, that you cannot mix right and left side modifiers.
 
 We've added shortcuts to make common modifier/tap (mod-tap) mappings more compact:
 
