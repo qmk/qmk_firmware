@@ -1,5 +1,3 @@
-//TODO(gabe): customize for frosty flake
-
 /*
   Copyright 2014 Ralf Schmitt <ralf@bunkertor.net>
 
@@ -26,16 +24,71 @@
 #include "util.h"
 #include "matrix.h"
 
+#ifndef CONFIG_SPECIFIC_H
+#define CONFIG_SPECIFIC_H
+
+#define CONFIG_LED_IO \
+  DDRB |= (1<<7); \
+  DDRC |= (1<<5) | (1<<6);
+
+#define USB_LED_CAPS_LOCK_ON    PORTC &= ~(1<<5)
+#define USB_LED_CAPS_LOCK_OFF   PORTC |=  (1<<5)
+#define USB_LED_NUM_LOCK_ON     PORTB &= ~(1<<7)
+#define USB_LED_NUM_LOCK_OFF    PORTB |=  (1<<7)
+#define USB_LED_SCROLL_LOCK_ON  PORTC &= ~(1<<6)
+#define USB_LED_SCROLL_LOCK_OFF PORTC |=  (1<<6)
+
+#define CONFIG_MATRIX_IO   \
+  /* Column output pins */ \
+  DDRD  |=  0b01111011;    \
+  /* Row input pins */     \
+  DDRC  &= ~0b10000000;    \
+  DDRB  &= ~0b01111111;    \
+  PORTC |=  0b10000000;    \
+  PORTB |=  0b01111111;
+
+#define MATRIX_ROW_SCAN                      \
+  (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) | \
+  (PINB&(1<<5) ? 0 : ((matrix_row_t)1<<1)) | \
+  (PINB&(1<<4) ? 0 : ((matrix_row_t)1<<2)) | \
+  (PINB&(1<<6) ? 0 : ((matrix_row_t)1<<3)) | \
+  (PINB&(1<<1) ? 0 : ((matrix_row_t)1<<4)) | \
+  (PINB&(1<<2) ? 0 : ((matrix_row_t)1<<5)) | \
+  (PINB&(1<<3) ? 0 : ((matrix_row_t)1<<6)) | \
+  (PINB&(1<<0) ? 0 : ((matrix_row_t)1<<7))
+
+#define MATRIX_ROW_SELECT                                     \
+  case  0: PORTD = (PORTD & ~0b01111011) | 0b00011011; break; \
+  case  1: PORTD = (PORTD & ~0b01111011) | 0b01000011; break; \
+  case  2: PORTD = (PORTD & ~0b01111011) | 0b01101010; break; \
+  case  3: PORTD = (PORTD & ~0b01111011) | 0b01111001; break; \
+  case  4: PORTD = (PORTD & ~0b01111011) | 0b01100010; break; \
+  case  5: PORTD = (PORTD & ~0b01111011) | 0b01110001; break; \
+  case  6: PORTD = (PORTD & ~0b01111011) | 0b01100001; break; \
+  case  7: PORTD = (PORTD & ~0b01111011) | 0b01110000; break; \
+  case  8: PORTD = (PORTD & ~0b01111011) | 0b01100000; break; \
+  case  9: PORTD = (PORTD & ~0b01111011) | 0b01101000; break; \
+  case 10: PORTD = (PORTD & ~0b01111011) | 0b00101011; break; \
+  case 11: PORTD = (PORTD & ~0b01111011) | 0b00110011; break; \
+  case 12: PORTD = (PORTD & ~0b01111011) | 0b00100011; break; \
+  case 13: PORTD = (PORTD & ~0b01111011) | 0b01111000; break; \
+  case 14: PORTD = (PORTD & ~0b01111011) | 0b00010011; break; \
+  case 15: PORTD = (PORTD & ~0b01111011) | 0b01101001; break; \
+  case 16: PORTD = (PORTD & ~0b01111011) | 0b00001011; break; \
+  case 17: PORTD = (PORTD & ~0b01111011) | 0b00111011; break;
+
+#endif
+
 #ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#   define DEBOUNCING_DELAY 0
 #endif
 static uint8_t debouncing = DEBOUNCING_DELAY;
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static uint8_t read_rows(void);
-static void select_col(uint8_t col);
+static matrix_row_t scan_row(void);
+static void select_row(uint8_t row);
 
 inline uint8_t matrix_rows(void) {
   return MATRIX_ROWS;
@@ -45,58 +98,40 @@ inline uint8_t matrix_cols(void) {
   return MATRIX_COLS;
 }
 
-/* Column pin configuration
- *
- * col: 0    1    2    3    4    5    6    7
- * pin: PC7  PD5  PD3  PD1  PC2  PD6  PD4  PD2
- *
- * Rrr pin configuration 
- *
- * These rrrs uses one 74HC154 4 to 16 bit demultiplexer (low
- * active), together with 2 rrrs driven directly from the micro
- * controller, to control the 18 rrrs. The rrrs are driven from
- * pins B6,5,4,3,2,1,0.
- */
 void matrix_init(void) {
-  DDRC  &= ~0b10000100;  // Row input pins
-  DDRD  &= ~0b01111110;
-  PORTC |=  0b10000100;
-  PORTD |=  0b01111110;
-
-  DDRB  |=  0b01111111;  // Column output pins
+  CONFIG_MATRIX_IO;
 
   for (uint8_t i=0; i < MATRIX_ROWS; i++)  {
     matrix[i] = 0;
     matrix_debouncing[i] = 0;
   }
+
   matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
-  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-    select_col(col);
+  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    select_row(row);
     _delay_us(3);
-    uint8_t rows = read_rows();
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    matrix_row_t row_scan = scan_row();
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
       bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
-      bool curr_bit = rows & (1<<row);
+      bool curr_bit = row_scan & (1<<col);
       if (prev_bit != curr_bit) {
         matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
         debouncing = DEBOUNCING_DELAY;
       }
     }
   }
-  
+
   if (debouncing) {
-    if (--debouncing) {
+    if (--debouncing)
       _delay_ms(1);
-    }
-    else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+    else
+      for (uint8_t i = 0; i < MATRIX_ROWS; i++)
         matrix[i] = matrix_debouncing[i];
-      }
-    }
   }
+
   matrix_scan_quantum();
   return 1;
 }
@@ -117,9 +152,15 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
-  print("\nr/c 0123456789ABCDEF\n");
+  print("\nr/c 01234567\n");
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
+    matrix_row_t row_scan = matrix_get_row(row);
+    xprintf("%02X: ", row);
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+      bool curr_bit = row_scan & (1<<col);
+      xprintf("%c", curr_bit ? '*' : '.');
+    }
+    print("\n");
   }
 }
 
@@ -131,37 +172,12 @@ uint8_t matrix_key_count(void) {
   return count;
 }
 
-static uint8_t read_rows(void) {
-  return
-    (PINC&(1<<7) ? 0 : (1<<0)) |
-    (PIND&(1<<5) ? 0 : (1<<1)) |
-    (PIND&(1<<3) ? 0 : (1<<2)) |
-    (PIND&(1<<1) ? 0 : (1<<3)) |
-    (PINC&(1<<2) ? 0 : (1<<4)) |
-    (PIND&(1<<2) ? 0 : (1<<5)) |
-    (PIND&(1<<4) ? 0 : (1<<6)) |
-    (PIND&(1<<6) ? 0 : (1<<7));
+static matrix_row_t scan_row(void) {
+  return MATRIX_ROW_SCAN;
 }
 
-static void select_col(uint8_t col) {
-  switch (col) {
-  case  0: PORTB = (PORTB & ~0b01111111) | 0b01100100; break;
-  case  1: PORTB = (PORTB & ~0b01111111) | 0b01101100; break;
-  case  2: PORTB = (PORTB & ~0b01111111) | 0b01100010; break;
-  case  3: PORTB = (PORTB & ~0b01111111) | 0b01111010; break;
-  case  4: PORTB = (PORTB & ~0b01111111) | 0b01100110; break;
-  case  5: PORTB = (PORTB & ~0b01111111) | 0b01110110; break;
-  case  6: PORTB = (PORTB & ~0b01111111) | 0b01101110; break;
-  case  7: PORTB = (PORTB & ~0b01111111) | 0b01111110; break;
-  case  8: PORTB = (PORTB & ~0b01111111) | 0b01000001; break;
-  case  9: PORTB = (PORTB & ~0b01111111) | 0b00100001; break;
-  case 10: PORTB = (PORTB & ~0b01111111) | 0b01101010; break;
-  case 11: PORTB = (PORTB & ~0b01111111) | 0b01110010; break;
-  case 12: PORTB = (PORTB & ~0b01111111) | 0b01111100; break;
-  case 13: PORTB = (PORTB & ~0b01111111) | 0b01110100; break;
-  case 14: PORTB = (PORTB & ~0b01111111) | 0b01111000; break;
-  case 15: PORTB = (PORTB & ~0b01111111) | 0b01110000; break;
-  case 16: PORTB = (PORTB & ~0b01111111) | 0b01100000; break;
-  case 17: PORTB = (PORTB & ~0b01111111) | 0b01101000; break;
+static void select_row(uint8_t row) {
+  switch (row) {
+    MATRIX_ROW_SELECT;
   }
 }

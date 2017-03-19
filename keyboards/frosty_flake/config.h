@@ -30,13 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Frosty Flake Rev. 20140521 made by Bathroom Ephiphanies
- * Schematic is available at https://deskthority.net/w/images/a/a4/Frosty_Flake_Schematics.pdf
+ * Ported from the Bathroom Epiphanies TMK Firmware:
+ * https://github.com/BathroomEpiphanies/epiphanies_tmk_keyboard/tree/master/be_controllers
  *
  */
 
 /* key matrix size */
-#define MATRIX_ROWS 8    // Row0 to Row7 in the schematic
-#define MATRIX_COLS 18   // ColA to ColR in the schematic
+#define MATRIX_ROWS 18
+#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
