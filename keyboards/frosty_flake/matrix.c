@@ -32,8 +32,41 @@ static uint8_t debouncing = DEBOUNCING_DELAY;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static matrix_row_t scan_col(void);
-static void select_col(uint8_t row);
+static matrix_row_t scan_col(void) {
+    return (
+        (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) |
+        (PINB&(1<<5) ? 0 : ((matrix_row_t)1<<1)) |
+        (PINB&(1<<4) ? 0 : ((matrix_row_t)1<<2)) |
+        (PINB&(1<<6) ? 0 : ((matrix_row_t)1<<3)) |
+        (PINB&(1<<1) ? 0 : ((matrix_row_t)1<<4)) |
+        (PINB&(1<<2) ? 0 : ((matrix_row_t)1<<5)) |
+        (PINB&(1<<3) ? 0 : ((matrix_row_t)1<<6)) |
+        (PINB&(1<<0) ? 0 : ((matrix_row_t)1<<7))
+    );
+}
+
+static void select_col(uint8_t col) {
+    switch (col) {
+        case  0: PORTD = (PORTD & ~0b01111011) | 0b00011011; break;
+        case  1: PORTD = (PORTD & ~0b01111011) | 0b01000011; break;
+        case  2: PORTD = (PORTD & ~0b01111011) | 0b01101010; break;
+        case  3: PORTD = (PORTD & ~0b01111011) | 0b01111001; break;
+        case  4: PORTD = (PORTD & ~0b01111011) | 0b01100010; break;
+        case  5: PORTD = (PORTD & ~0b01111011) | 0b01110001; break;
+        case  6: PORTD = (PORTD & ~0b01111011) | 0b01100001; break;
+        case  7: PORTD = (PORTD & ~0b01111011) | 0b01110000; break;
+        case  8: PORTD = (PORTD & ~0b01111011) | 0b01100000; break;
+        case  9: PORTD = (PORTD & ~0b01111011) | 0b01101000; break;
+        case 10: PORTD = (PORTD & ~0b01111011) | 0b00101011; break;
+        case 11: PORTD = (PORTD & ~0b01111011) | 0b00110011; break;
+        case 12: PORTD = (PORTD & ~0b01111011) | 0b00100011; break;
+        case 13: PORTD = (PORTD & ~0b01111011) | 0b01111000; break;
+        case 14: PORTD = (PORTD & ~0b01111011) | 0b00010011; break;
+        case 15: PORTD = (PORTD & ~0b01111011) | 0b01101001; break;
+        case 16: PORTD = (PORTD & ~0b01111011) | 0b00001011; break;
+        case 17: PORTD = (PORTD & ~0b01111011) | 0b00111011; break;
+    }
+}
 
 void matrix_init(void) {
     /* Row output pins */
@@ -82,57 +115,21 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
-  print("\nr\\c ABCDEFGHIJKLMNOPQR\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    matrix_row_t matrix_row = matrix_get_row(row);
-    xprintf("%02X: ", row);
-    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-      bool curr_bit = matrix_row & (1<<col);
-      xprintf("%c", curr_bit ? '*' : '.');
+    print("\nr\\c ABCDEFGHIJKLMNOPQR\n");
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        matrix_row_t matrix_row = matrix_get_row(row);
+        xprintf("%02X: ", row);
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            bool curr_bit = matrix_row & (1<<col);
+            xprintf("%c", curr_bit ? '*' : '.');
+        }
+        print("\n");
     }
-    print("\n");
-  }
 }
 
 uint8_t matrix_key_count(void) {
-  uint8_t count = 0;
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++)
-    count += bitpop32(matrix[row]);
-  return count;
-}
-
-static matrix_row_t scan_col(void) {
-    return (
-        (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) |
-        (PINB&(1<<5) ? 0 : ((matrix_row_t)1<<1)) |
-        (PINB&(1<<4) ? 0 : ((matrix_row_t)1<<2)) |
-        (PINB&(1<<6) ? 0 : ((matrix_row_t)1<<3)) |
-        (PINB&(1<<1) ? 0 : ((matrix_row_t)1<<4)) |
-        (PINB&(1<<2) ? 0 : ((matrix_row_t)1<<5)) |
-        (PINB&(1<<3) ? 0 : ((matrix_row_t)1<<6)) |
-        (PINB&(1<<0) ? 0 : ((matrix_row_t)1<<7))
-    );
-}
-
-static void select_col(uint8_t col) {
-    switch (col) {
-        case  0: PORTD = (PORTD & ~0b01111011) | 0b00011011; break;
-        case  1: PORTD = (PORTD & ~0b01111011) | 0b01000011; break;
-        case  2: PORTD = (PORTD & ~0b01111011) | 0b01101010; break;
-        case  3: PORTD = (PORTD & ~0b01111011) | 0b01111001; break;
-        case  4: PORTD = (PORTD & ~0b01111011) | 0b01100010; break;
-        case  5: PORTD = (PORTD & ~0b01111011) | 0b01110001; break;
-        case  6: PORTD = (PORTD & ~0b01111011) | 0b01100001; break;
-        case  7: PORTD = (PORTD & ~0b01111011) | 0b01110000; break;
-        case  8: PORTD = (PORTD & ~0b01111011) | 0b01100000; break;
-        case  9: PORTD = (PORTD & ~0b01111011) | 0b01101000; break;
-        case 10: PORTD = (PORTD & ~0b01111011) | 0b00101011; break;
-        case 11: PORTD = (PORTD & ~0b01111011) | 0b00110011; break;
-        case 12: PORTD = (PORTD & ~0b01111011) | 0b00100011; break;
-        case 13: PORTD = (PORTD & ~0b01111011) | 0b01111000; break;
-        case 14: PORTD = (PORTD & ~0b01111011) | 0b00010011; break;
-        case 15: PORTD = (PORTD & ~0b01111011) | 0b01101001; break;
-        case 16: PORTD = (PORTD & ~0b01111011) | 0b00001011; break;
-        case 17: PORTD = (PORTD & ~0b01111011) | 0b00111011; break;
-    }
+    uint8_t count = 0;
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++)
+        count += bitpop32(matrix[row]);
+    return count;
 }
