@@ -36,38 +36,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 18
+#define MATRIX_ROWS 8   // Row0 - Row7 in the schematic
+#define MATRIX_COLS 18  // ColA - ColR in the schematic
 
 /*
  * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-//#define MATRIX_ROW_PINS { D5, D4, D6, D2, D1, D0 }
-//#define MATRIX_COL_PINS << n/a >>
-//#define UNUSED_PINS { B0, C4, D3 }
-
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-//#define DIODE_DIRECTION << n/a >>
-
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
+ */
+#define UNUSED_PINS { B0, C4, D3 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
