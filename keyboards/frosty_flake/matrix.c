@@ -151,11 +151,13 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
   return matrix[row];
 }
 
+static const char ROW_NAMES[] = "ABCDEFGHIJKLMNOPQR";
+
 void matrix_print(void) {
   print("\nr/c 01234567\n");
   for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
     matrix_row_t row_scan = matrix_get_row(row);
-    xprintf("%02X: ", row);
+    xprintf("%c:  ", ROW_NAMES[row]);
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
       bool curr_bit = row_scan & (1<<col);
       xprintf("%c", curr_bit ? '*' : '.');
