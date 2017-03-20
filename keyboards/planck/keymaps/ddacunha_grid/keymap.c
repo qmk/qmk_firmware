@@ -55,6 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,          KC_H,    KC_J,               KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,          KC_N,    KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
   {KC_CAPS, XXXXXXX, XXXXXXX, KC_LCTL, LOWER, GUI_T(KC_ENT), KC_LALT, LT(_RAISE, KC_SPC), XXXXXXX, LGUI(LALT(KC_EJCT)), KC_MNXT, KC_MPLY}
+  {KC_CAPS, BACKLIT, XXXXXXX, KC_LCTL, LOWER, GUI_T(KC_ENT), KC_LALT, LT(_RAISE, KC_SPC), XXXXXXX, XXXXXXX, KC_MNXT, KC_MPLY}
 },
 
 /* Colemak
