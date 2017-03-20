@@ -1,6 +1,10 @@
 frosty_flake keyboard firmware
 ======================
 
+This is the firmware for Rev. 20140521 of the Frosty Flake controller by [Bathroom Epiphanies](http://bathroomepiphanies.com/controllers/).
+
+The code was adapted from the [BathroomEpiphanies TMK Firmware](https://github.com/BathroomEpiphanies/epiphanies_tmk_keyboard/tree/master/be_controllers), but has been cleaned up to match the [schematic](https://deskthority.net/wiki/File:Frosty_Flake_Schematics.pdf) and gone through some minor refactoring for QMK.
+
 ## Quantum MK Firmware
 
 For the full Quantum feature list, see [the parent readme](/).
