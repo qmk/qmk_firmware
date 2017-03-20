@@ -7,16 +7,6 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-#if 0
-#define KEYMAP( \
-    k00, k01, k02, \
-      k10,  k11   \
-) \
-{ \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k11 }, \
-}
-#endif
 
 /*
   Matrix col/row mapping
@@ -36,38 +26,6 @@
   | A4 | P2 | C6 |                  K6                  | C0 | M3 | D0 | A1 | | O0 | K0 | L0 | | L6      | Q6 |    |
   `-------------------------------------------------------------------------' `--------------' `-------------------'
 */
-
-#define KEYMAP( \
-  KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5,                       \
-  KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
-  KJ2, KJ5, KI5, KH5, KG5, KG2, KF2, KF5, KE5, KD5, KR5, KR2, KE2, KB3,   KK4, KO7, KQ7,   KK5, KL5, KQ5, KO5, \
-  KI2, KJ3, KI3, KH3, KG3, KG6, KF6, KF3, KE3, KD3, KR3, KR6,      KB1,                    KK2, KL2, KQ2,      \
-  KN2, KI6, KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        KO6,        KK3, KL3, KQ3, KO3, \
-  KA4, KP2, KC6,                KK6,                KC0, KM3, KD0, KA1,   KO0, KK0, KL0,   KL6,      KQ6       \
-) \
-{ \
-/*          0       1       2       3       4       5       6       7       */ \
-/* A */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* B */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* C */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* D */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* E */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* F */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* G */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* H */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* I */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* J */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KJ6,    KC_NO   }, \
-/* K */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* L */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* M */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* N */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* O */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* P */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* Q */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }, \
-/* R */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO   }  \
-}
-
-#if 0
 #define KEYMAP( \
   KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5,                       \
   KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4,   KK1, KL1, KQ1, KQ0, \
@@ -88,6 +46,5 @@
 /* 6 */ {   KC_NO,  KB6,    KC6,    KC_NO,  KE6,    KF6,    KG6,    KH6,    KI6,    KJ6,    KK6,    KL6,    KC_NO,  KC_NO,  KO6,    KC_NO,  KQ6,    KR6     }, \
 /* 7 */ {   KA7,    KB7,    KC7,    KD7,    KE7,    KF7,    KG7,    KH7,    KI7,    KJ7,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KO7,    KC_NO,  KQ7,    KR7     }  \
 }
-#endif
 
 #endif
