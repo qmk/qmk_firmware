@@ -20,6 +20,10 @@ enum planck_keycodes {
   DVORAK
 };
 
+enum {
+  TD_SHIFT_RAISE = 0
+};
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
@@ -28,7 +32,7 @@ enum planck_keycodes {
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper (Super+Ctrl+Shift+Alt)
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
-#define SFT_RSE     TD(KC_LSFT, OS(_RAISE))     // Double-tap for RAISE one-shot, otherwise Left Shift
+#define SFT_RSE     TD(TD_SHIFT_RAISE)          // Double-tap for RAISE one-shot, otherwise Left Shift
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _QWERTY: (Base Layer) Default Layer
@@ -170,36 +174,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-enum function_id {
-    SHIFT_ESC,
+// Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap/hold once for Shift, tap twice for raise layer
+  [TD_SHIFT_RAISE] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, _RAISE)
+// Other declarations would go here, separated by commas, if you have them
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-  [0]  = ACTION_FUNCTION(SHIFT_ESC),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t shift_esc_shift_mask;
-  switch (id) {
-    case SHIFT_ESC:
-      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-      if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        if (shift_esc_shift_mask) {
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-  }
-}
