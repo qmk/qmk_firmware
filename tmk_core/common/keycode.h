@@ -130,6 +130,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_ACL0 KC_MS_ACCEL0
 #define KC_ACL1 KC_MS_ACCEL1
 #define KC_ACL2 KC_MS_ACCEL2
+#define KC_ACL3 KC_MS_ACCEL3
+#define KC_USPD KC_MS_UPSPED
+#define KC_DSPD KC_MS_DNSPED
 /* Sytem Control */
 #define KC_PWR  KC_SYSTEM_POWER
 #define KC_SLEP KC_SYSTEM_SLEEP
@@ -481,9 +484,9 @@ enum internal_special_keycodes {
     KC_MS_WH_LEFT,
     KC_MS_WH_RIGHT,     /* 0xFC */
     /* Mousekey accel */
-    KC_MS_ACCEL0,
-    KC_MS_ACCEL1,
-    KC_MS_ACCEL2        /* 0xFF */
+    KC_MS_ACCEL3,
+    KC_MS_DNSPED,
+    KC_MS_UPSPED        /* 0xFF */
 };
 
 #endif /* KEYCODE_H */
