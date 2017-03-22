@@ -48,7 +48,7 @@ void i2c_master_init(void) {
 // returns: 0 => success
 //          1 => error
 uint8_t i2c_master_start(uint8_t address) {
-  TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+  TWCR = (1<<TWINT)| (1<<TWEN) | (1<<TWSTA) ;
 
   i2c_delay();
 
