@@ -62,8 +62,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         /* The key is being pressed.
          */
         if (mods_pressed) {
-          add_key(KC_GRV);
           mod_flag = true;
+          add_key(KC_GRV);
           send_keyboard_report();
         } else {
           add_key(KC_ESC);
@@ -73,8 +73,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         /* The key is being released.
          */
         if (mod_flag) {
-          del_key(KC_GRV);
           mod_flag = false;
+          del_key(KC_GRV);
           send_keyboard_report();
         } else {
           del_key(KC_ESC);
