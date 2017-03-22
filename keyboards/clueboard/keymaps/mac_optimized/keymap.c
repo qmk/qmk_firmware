@@ -49,8 +49,8 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t mod_pressed;
-  static bool mods_flag;
+  static uint8_t mods_pressed;
+  static bool mod_flag;
 
   switch (id) {
     case 0:
