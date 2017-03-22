@@ -209,14 +209,14 @@ bool iota_gfx_init(void) {
   send_cmd2(SetChargePump, 0x14 /* Enable */);
   send_cmd2(SetMemoryMode, 0 /* horizontal addressing */);
 
-/* Flips the display orientation 0 degrees
+/// Flips the display orientation 0 degrees
   send_cmd1(SegRemap | 0x1);
   send_cmd1(ComScanDec);
-*/
-// the following Flip the display orientation 180 degrees */
+/*
+// the following Flip the display orientation 180 degrees
   send_cmd1(SegRemap);
   send_cmd1(ComScanInc);
-//end flip
+*/end flip
   send_cmd2(SetComPins, 0x2);
   send_cmd2(SetContrast, 0x8f);
   send_cmd2(SetPreCharge, 0xf1);
@@ -379,21 +379,6 @@ void iota_gfx_flush(void) {
   matrix_render(&display);
 }
 
-//#include "LUFA/Drivers/Peripheral/ADC.h"
-
-/* Returns the battery voltage; returns the number of millivolts
-static uint32_t read_battery_voltage(void) {
-  if (last_battery_update == 0 ||
-      timer_elapsed(last_battery_update) > BatteryUpdateInterval) {
-    ADC_Init(ADC_SINGLE_CONVERSION | ADC_PRESCALE_32);
-    ADC_SetupChannel(12);
-    vbat = 2 * 3.3 * ADC_GetChannelReading(ADC_REFERENCE_AVCC | ADC_CHANNEL12);
-
-    last_battery_update = timer_read();
-  }
-  return vbat;
-} */
-
 static void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
@@ -438,18 +423,7 @@ static void render_status_info(void) {
   }
 #endif
 
-    // matrix_write_P(&matrix, (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? PSTR("\n            NUMLOCK") : PSTR("\n"));
-//  matrix_write_P(&matrix, PSTR("\nBLE: "));
-//#ifdef ADAFRUIT_BLE_ENABLE
-//  matrix_write_P(&matrix, adafruit_ble_is_connected() ? PSTR("Connected")
-//      : PSTR("Not Connected"));
-//#endif
-
-//  char buf[40];
-//  snprintf(buf, sizeof(buf), "VBat: %4lumV\nLayer: 0x%04lx  %s",
-//           read_battery_voltage(), layer_state,
-//           (host_keyboard_leds() & USB_LED_CAPS_LOCK) ? "CAPS" : "");
-//  matrix_write(&matrix, buf);
+// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
 
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
@@ -464,21 +438,6 @@ static void render_status_info(void) {
         case _LOWER:
            matrix_write_P(&matrix, PSTR("Lower"));
            break;
-        case _MOUSECURSOR:
-           matrix_write_P(&matrix, PSTR("Mouse/Macro"));
-           break;
-        case _FNLAYER:
-           matrix_write_P(&matrix, PSTR("Symbols/Fn"));
-           break;
-        case _NUMLAY:
-           matrix_write_P(&matrix, PSTR("Numbers"));
-           break;
-        case _NLOWER:
-           matrix_write_P(&matrix, PSTR("Num + Lower"));
-           break;
-        case _NFNLAYER:
-           matrix_write_P(&matrix, PSTR("Num + FN"));
-           break;
         case _ADJUST:
            matrix_write_P(&matrix, PSTR("ADJUST"));
            break;
@@ -486,6 +445,7 @@ static void render_status_info(void) {
            matrix_write(&matrix, buf);
  }
   
+  // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
