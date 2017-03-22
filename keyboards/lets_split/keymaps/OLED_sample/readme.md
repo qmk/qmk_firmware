@@ -15,13 +15,6 @@ Some features supported by the firmware:
 Wiring
 ------
 
-The wiring for i2c:
-
-![i2c wiring](imgs/split-keyboard-i2c-schematic.png)
-
-The pull-up resistors may be placed on either half. It is also possible
-to use 4 resistors and have the pull-ups in both halves, but this is
-unnecessary in simple use cases.
 
 Work in progress...
 
