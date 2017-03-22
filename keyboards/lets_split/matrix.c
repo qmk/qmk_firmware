@@ -210,8 +210,7 @@ uint8_t matrix_scan(void)
     if( serial_transaction() ) {
 #endif
         // turn on the indicator led when halves are disconnected
-//        TXLED1;
-        TXLED0;
+        TXLED1;
         
         error_count++;
 
