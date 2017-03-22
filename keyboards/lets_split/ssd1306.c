@@ -216,7 +216,7 @@ bool iota_gfx_init(void) {
 // the following Flip the display orientation 180 degrees
   send_cmd1(SegRemap);
   send_cmd1(ComScanInc);
-*/end flip
+// end flip */
   send_cmd2(SetComPins, 0x2);
   send_cmd2(SetContrast, 0x8f);
   send_cmd2(SetPreCharge, 0xf1);
