@@ -211,7 +211,7 @@ uint8_t matrix_scan(void)
 #endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
-        
+
         error_count++;
 
         if (error_count > ERROR_DISCONNECT_COUNT) {
