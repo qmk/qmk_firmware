@@ -50,6 +50,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   static uint8_t mods_pressed;
+  static bool mod_flag;
 
   switch (id) {
     case 0:
@@ -62,6 +63,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
          */
         if (mods_pressed) {
           add_key(KC_GRV);
+          mod_flag = true;
           send_keyboard_report();
         } else {
           add_key(KC_ESC);
@@ -70,8 +72,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       } else {
         /* The key is being released.
          */
-        if (mods_pressed) {
+        if (mod_flag) {
           del_key(KC_GRV);
+          mod_flag = false;
           send_keyboard_report();
         } else {
           del_key(KC_ESC);
