@@ -56,7 +56,6 @@ uint8_t i2c_master_start(uint8_t address) {
   if ( (TW_STATUS != TW_START) && (TW_STATUS != TW_REP_START))
     return 1;
 
-  // send device address
   TWDR = address;
   TWCR = (1<<TWINT) | (1<<TWEN);
 
@@ -160,5 +159,4 @@ ISR(TWI_vect) {
   // Reset everything, so we are ready for the next TWI interrupt
   TWCR |= (1<<TWIE) | (1<<TWINT) | (ack<<TWEA) | (1<<TWEN);
 }
-
 #endif
