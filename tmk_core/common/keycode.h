@@ -32,19 +32,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_MRWD)
-#define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
+#define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN28)
 #define IS_MOUSEKEY(code)        (KC_MS_UP     <= (code) && (code) <= KC_MS_ACCEL2)
 #define IS_MOUSEKEY_MOVE(code)   (KC_MS_UP     <= (code) && (code) <= KC_MS_RIGHT)
 #define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1   <= (code) && (code) <= KC_MS_BTN5)
 #define IS_MOUSEKEY_WHEEL(code)  (KC_MS_WH_UP  <= (code) && (code) <= KC_MS_WH_RIGHT)
-#define IS_MOUSEKEY_ACCEL(code)  (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
+#define IS_MOUSEKEY_ACCEL(code)  (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL3)
+#define IS_MOUSEKEY_SPEED(code)  (KC_MS_UPSPED <= (code) && (code) <= KC_MS_DNSPED)
 
 #define MOD_BIT(code)   (1<<MOD_INDEX(code))
 #define MOD_INDEX(code) ((code) & 0x07)
 #define FN_BIT(code)    (1<<FN_INDEX(code))
 #define FN_INDEX(code)  ((code) - KC_FN0)
 #define FN_MIN          KC_FN0
-#define FN_MAX          KC_FN31
+#define FN_MAX          KC_FN28
 
 
 /*
@@ -459,17 +460,14 @@ enum internal_special_keycodes {
     KC_FN25,
     KC_FN26,
     KC_FN27,
-    KC_FN28,
-    KC_FN29,
-    KC_FN30,
-    KC_FN31,            /* 0xDF */
+    KC_FN28,            /* 0xDF */
 
     /**************************************/
     /* 0xE0-E7 for Modifiers. DO NOT USE. */
     /**************************************/
 
     /* Mousekey */
-    KC_MS_UP            = 0xF0,
+    KC_MS_UP            = 0xDD,
     KC_MS_DOWN,
     KC_MS_LEFT,
     KC_MS_RIGHT,
@@ -484,6 +482,9 @@ enum internal_special_keycodes {
     KC_MS_WH_LEFT,
     KC_MS_WH_RIGHT,     /* 0xFC */
     /* Mousekey accel */
+    KC_MS_ACCEL0,
+    KC_MS_ACCEL1,
+    KC_MS_ACCEL2,
     KC_MS_ACCEL3,
     KC_MS_DNSPED,
     KC_MS_UPSPED        /* 0xFF */

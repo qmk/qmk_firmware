@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static report_mouse_t mouse_report = {};
 static uint8_t mousekey_repeat =  0;
 static uint8_t mousekey_accel = 0;
+static uint8_t mk_delta_min = 1;
+static uint8_t mk_delta_max = 10;
 
 static void mousekey_debug(void);
 
@@ -53,6 +55,8 @@ uint8_t mk_move_delta = MOUSEKEY_MOVE_DELTA;
 uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
+bool changedMouseSpeed = false;
+
 
 static uint16_t last_timer = 0;
 
@@ -61,21 +65,13 @@ static uint8_t move_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (mk_move_delta * mk_max_speed)*2;
+        unit = (mk_move_delta * mk_max_speed)/4;
     } else if (mousekey_accel & (1<<1)) {
-        if (mk_move_delta < 10) mk_move_delta++;
-        unit = (mk_move_delta * mk_max_speed);
+        unit = (mk_move_delta * mk_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
-        if (mk_move_delta > 1) mk_move_delta--;
         unit = (mk_move_delta * mk_max_speed);
-    // } else if (mousekey_accel & (1<<3)) {
-    //     unit = (mk_move_delta * mk_max_speed)*2;
-    // } else if (mousekey_accel & (1<<4)) {
-    //     mk_move_delta++;
-    //     unit = (mk_move_delta * mk_max_speed);
-    // } else if (mousekey_accel & (1<<5)) {
-    //     mk_move_delta--;
-    //     unit = (mk_move_delta * mk_max_speed);
+    } else if (mousekey_accel & (1<<3)) {
+        unit = (mk_move_delta * mk_max_speed)*2;
     } else if (mousekey_repeat == 0) {
         unit = mk_move_delta;
     } else if (mousekey_repeat >= mk_time_to_max) {
@@ -148,12 +144,12 @@ void mousekey_on(uint8_t code)
     else if (code == KC_MS_WH_RIGHT) mouse_report.h = wheel_unit();
     else if (code == KC_MS_BTN1)     mouse_report.buttons |= MOUSE_BTN1;
     else if (code == KC_MS_BTN2)     mouse_report.buttons |= MOUSE_BTN2;
-    else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<0);
-    else if (code == KC_MS_UPSPED)   mousekey_accel |= (1<<1);
-      else if (code == KC_MS_DNSPED)   mousekey_accel |= (1<<2);
-    // else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<3);
-    // else if (code == KC_MS_UPSPED)   mousekey_accel |= (1<<4);
-    // else if (code == KC_MS_DNSPED)   mousekey_accel |= (1<<5);
+    else if (code == KC_MS_ACCEL0)   mousekey_accel |= (1<<0);
+    else if (code == KC_MS_ACCEL1)   mousekey_accel |= (1<<1);
+    else if (code == KC_MS_ACCEL2)   mousekey_accel |= (1<<2);
+    else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<3);
+    else if (code == KC_MS_UPSPED)   changeMouseSpeed(1);
+    else if (code == KC_MS_DNSPED)   changeMouseSpeed(-1);
 }
 
 void mousekey_off(uint8_t code)
@@ -168,12 +164,12 @@ void mousekey_off(uint8_t code)
     else if (code == KC_MS_WH_RIGHT && mouse_report.h > 0) mouse_report.h = 0;
     else if (code == KC_MS_BTN1) mouse_report.buttons &= ~MOUSE_BTN1;
     else if (code == KC_MS_BTN2) mouse_report.buttons &= ~MOUSE_BTN2;
-    // else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
-    // else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
-    // else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
-    else if (code == KC_MS_ACCEL3) mousekey_accel &= ~(1<<0);
-    else if (code == KC_MS_UPSPED) mousekey_accel &= ~(1<<1);
-    else if (code == KC_MS_DNSPED) mousekey_accel &= ~(1<<2);
+    else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
+    else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
+    else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
+    else if (code == KC_MS_ACCEL3) mousekey_accel &= ~(1<<3);
+    else if (code == KC_MS_UPSPED) changedMouseSpeed = false;
+    else if (code == KC_MS_DNSPED) changedMouseSpeed = false;
 
     if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
         mousekey_repeat = 0;
@@ -191,6 +187,12 @@ void mousekey_clear(void)
     mouse_report = (report_mouse_t){};
     mousekey_repeat = 0;
     mousekey_accel = 0;
+}
+
+void changeMouseSpeed(int change){
+  changedMouseSpeed = true;
+  if (mk_move_delta > 1 && mk_move_delta < 10)
+    mk_move_delta += change
 }
 
 static void mousekey_debug(void)

@@ -183,7 +183,7 @@ KC_RSHIFT           KC_RSFT         E5 Keyboard RightShift
 KC_RALT                             E6 Keyboard RightAlt
 KC_RGUI                             E7 Keyboard Right GUI(Windows/Apple/Meta key)
 
-/* 
+/*
  * Virtual keycodes
  */
 /* System Control */
@@ -226,6 +226,9 @@ KC_MS_WH_RIGHT      KC_WH_R         Mouse Wheel Right
 KC_MS_ACCEL0        KC_ACL0         Mouse Acceleration 0
 KC_MS_ACCEL1        KC_ACL1         Mouse Acceleration 1
 KC_MS_ACCEL2        KC_ACL2         Mouse Acceleration 2
+KC_MS_ACCEL3        KC_ACL3         Mouse Acceleration 3
+KC_MS_UPSPED        KC_USPD         Mouse Speed Up
+KC_MS_DNSPED        KC_DSPD         Mouse Speed Down
 /* Fn key */
 KC_FN0
 KC_FN1
@@ -256,6 +259,3 @@ KC_FN25
 KC_FN26
 KC_FN27
 KC_FN28
-KC_FN29
-KC_FN30
-KC_FN31

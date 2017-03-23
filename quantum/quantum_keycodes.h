@@ -260,7 +260,7 @@ enum quantum_keycodes {
 
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
-// Alias for function layers than expand past FN31
+// Alias for function layers than expand past FN28
 #define FUNC(kc) (kc | QK_FUNCTION)
 
 // Aliases

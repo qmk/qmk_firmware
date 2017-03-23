@@ -50,7 +50,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     uint8_t action_layer, when, mod;
 
     switch (keycode) {
-        case KC_FN0 ... KC_FN31:
+        case KC_FN0 ... KC_FN28:
             action.code = keymap_function_id_to_action(FN_INDEX(keycode));
             break;
         case KC_A ... KC_EXSEL:

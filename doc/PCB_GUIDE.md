@@ -85,11 +85,11 @@ Unlike the other keymaps, prefixing the keycodes with `KC_` is required. A full 
 You can use modifiers with keycodes like this:
 
     LCTL(KC_C)
-    
+
 Which will generate Ctrl+c. These are daisy-chainable, meaning you can do things like:
 
     LCTL(LALT(KC_C))
-    
+
 That will generate Ctrl+Alt+c. The entire list of these functions is here:
 
 * `LCTL()`: Left control
@@ -117,7 +117,7 @@ A number of other keycodes have been added that you may find useful:
 
 ### Function layers
 
-The extended keymap extends the number of function layers from 32 to the near-infinite value of 256. Rather than using `FN<num>` notation (still available, but limited to `FN0`-`FN31`), you can use the `FUNC(<num>)` notation. `F(<num>)` is a shortcut for this.
+The extended keymap extends the number of function layers from 32 to the near-infinite value of 256. Rather than using `FN<num>` notation (still available, but limited to `FN0`-`FN28`), you can use the `FUNC(<num>)` notation. `F(<num>)` is a shortcut for this.
 
 The function actions are unchanged, and you can see the full list of them [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/common/action_code.h). They are explained in detail [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keymap.md#2-action).
 
@@ -138,7 +138,7 @@ Macros have been setup in the `keymaps/keymap_default.c` file so that you can us
       case 3:
         return MACRODOWN(TYPE(KC_D), END);
         break;
-    } 
+    }
     return MACRO_NONE;
 
 `MACRODOWN()` is a shortcut for `(record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)` which tells the macro to execute when the key is pressed. Without this, the macro will be executed on both the down and up stroke.
