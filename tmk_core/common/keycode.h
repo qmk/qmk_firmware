@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOD(code)             (KC_LCTRL     <= (code) && (code) <= KC_RGUI)
 
 
-#define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
+#define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDC) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_MRWD)
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN28)
@@ -470,7 +470,7 @@ enum internal_special_keycodes {
     KC_MS_UP            = 0xDD,
     KC_MS_DOWN,
     KC_MS_LEFT,
-    KC_MS_RIGHT,
+    KC_MS_RIGHT         = 0xF0,
     KC_MS_BTN1,
     KC_MS_BTN2,
     KC_MS_BTN3,
@@ -486,8 +486,8 @@ enum internal_special_keycodes {
     KC_MS_ACCEL1,
     KC_MS_ACCEL2,
     KC_MS_ACCEL3,
-    KC_MS_DNSPED,
-    KC_MS_UPSPED        /* 0xFF */
+    KC_MS_UPSPED,
+    KC_MS_DNSPED         /* 0xFF */
 };
 
 #endif /* KEYCODE_H */

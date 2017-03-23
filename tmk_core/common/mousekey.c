@@ -148,8 +148,8 @@ void mousekey_on(uint8_t code)
     else if (code == KC_MS_ACCEL1)   mousekey_accel |= (1<<1);
     else if (code == KC_MS_ACCEL2)   mousekey_accel |= (1<<2);
     else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<3);
-    else if (code == KC_MS_UPSPED)   changeMouseSpeed(1);
-    else if (code == KC_MS_DNSPED)   changeMouseSpeed(-1);
+    else if (code == KC_MS_UPSPED)   mousekey_change_speed(1);
+    else if (code == KC_MS_DNSPED)   mousekey_change_speed(-1);
 }
 
 void mousekey_off(uint8_t code)
@@ -189,10 +189,17 @@ void mousekey_clear(void)
     mousekey_accel = 0;
 }
 
-void changeMouseSpeed(int change){
-  changedMouseSpeed = true;
-  if (mk_move_delta > 1 && mk_move_delta < 10)
-    mk_move_delta += change
+void mousekey_change_speed(int change)
+{
+  if (!changedMouseSpeed){
+    if (change < 0 && mk_move_delta > mk_delta_min) {
+      changedMouseSpeed = true;
+      mk_move_delta--;
+    } else if (change > 0 && mk_move_delta < mk_delta_max) {
+      changedMouseSpeed = true;
+      mk_move_delta++;
+    }
+  }
 }
 
 static void mousekey_debug(void)
