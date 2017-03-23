@@ -1,7 +1,6 @@
 #include "lets_split.h"
 #include "action_layer.h"
 #include "eeconfig.h"
-#include "compact_keymap.h"
 
 extern keymap_config_t keymap_config;
 
@@ -25,6 +24,7 @@ enum custom_keycodes {
   ADJUST,
 };
 
+#define KC_ KC_TRNS
 #define _______ KC_TRNS
 
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
