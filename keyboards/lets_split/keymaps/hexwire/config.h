@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 150
 
 #undef RGBLED_NUM
-#define RGB_DI_PIN B0
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8
 #define RGBLIGHT_HUE_STEP 8
