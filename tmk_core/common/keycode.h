@@ -460,7 +460,7 @@ enum internal_special_keycodes {
     KC_FN25,
     KC_FN26,
     KC_FN27,
-    KC_FN28,            /* 0xDF */
+    KC_FN28,            /* 0xDC */
 
     /**************************************/
     /* 0xE0-E7 for Modifiers. DO NOT USE. */
