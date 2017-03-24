@@ -603,14 +603,16 @@ static void send_keyboard(report_keyboard_t *report)
     uint8_t where = where_to_send();
 
 #ifdef BLUETOOTH_ENABLE
-  #ifdef MODULE_ADAFRUIT_BLE
-    adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-  #else
-    bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-      bluefruit_serial_send(report->raw[i]);
-    }
-  #endif
+  if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    #ifdef MODULE_ADAFRUIT_BLE
+      adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
+    #else
+      bluefruit_serial_send(0xFD);
+      for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+        bluefruit_serial_send(report->raw[i]);
+      }
+    #endif
+  }
 #endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
