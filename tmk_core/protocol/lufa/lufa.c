@@ -1125,6 +1125,10 @@ int main(void)
     // midi_send_noteoff(&midi_device, 0, 64, 127);
 #endif
 
+#ifdef MODULE_ADAFRUIT_EZKEY
+    serial_init();
+#endif
+
     /* wait for USB startup & debug output */
 
 #ifdef WAIT_FOR_USB
@@ -1171,10 +1175,6 @@ int main(void)
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();
-#endif
-
-#ifdef MODULE_ADAFRUIT_EZKEY
-    serial_init();
 #endif
 
 #ifdef MODULE_ADAFRUIT_BLE
