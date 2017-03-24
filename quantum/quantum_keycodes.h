@@ -159,9 +159,6 @@ enum quantum_keycodes {
 #ifdef BLUETOOTH_ENABLE
     OUT_BT,
 #endif
-#ifdef ADAFRUIT_BLE_ENABLE
-    OUT_BLE,
-#endif
 
     // always leave at the end
     SAFE_RANGE
