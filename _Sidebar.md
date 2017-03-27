@@ -9,6 +9,7 @@
  * [Macros](Macros)
  * [Space Cadet](Space-Cadet-Shift)
  * [Tap Dance](Tap-Dance)
+ * [Mouse keys](Mouse-keys)
  * [FAQ: Creating a Keymap](FAQ-Keymap)
  * [FAQ: Compiling QMK](FAQ-Build)
 * For hardware makers and modders
