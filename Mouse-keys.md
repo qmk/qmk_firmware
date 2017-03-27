@@ -14,4 +14,4 @@ Thanks!
 #define MOUSEKEY_WHEEL_DELAY 0
 ```
 
-Tweak away. A lower interval or higher max speed will effectively make the mouse move faster. Time-to-max controls acceleration. (See [this Reddit thread for the original discussion](https://www.reddit.com/r/ErgoDoxEZ/comments/61fwr2/a_reliable_way_to_increase_the_speed_of_the_mouse/)
+Tweak away. A lower interval or higher max speed will effectively make the mouse move faster. Time-to-max controls acceleration. (See [this Reddit thread for the original discussion](https://www.reddit.com/r/ErgoDoxEZ/comments/61fwr2/a_reliable_way_to_increase_the_speed_of_the_mouse/)).
