@@ -93,12 +93,18 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
 endif
 
-ifeq ($(strip $(ADAFRUIT_BLE_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DADAFRUIT_BLE_ENABLE
-endif
-
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
+		TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+		TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_BLE
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
+		TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+		TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_EZKEY
 endif
 
 ifeq ($(strip $(ONEHAND_ENABLE)), yes)
