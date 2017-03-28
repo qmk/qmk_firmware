@@ -1,13 +1,14 @@
 #include "satan.h"
+static uint16_t key_timer;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // general keydefs
 #define norm 0		// Default layer
 #define elev 1		// Layer directional keys
 #define supr 2		// F-keys and mediakeys
-#define spac 3
+#define spac 3		//
 #define FNO1 4		//
 #define FNO2 5		//
-#define FNO3 6				//
+#define FNO3 6		//
 #define MAC0 M(0)	//
 #define MAC1 M(1)	//
 #define MAC2 M(2)	//
@@ -143,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { // MACRODOWN only works in this function
-	static uint16_t key_timer;
+	
 	bool checkTime(){
 		return (timer_elapsed(key_timer) < 150) ? true : false;
 	}
