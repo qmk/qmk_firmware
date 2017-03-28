@@ -22,23 +22,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split v2
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define PRODUCT_ID      0x6060
+#define MANUFACTURER    Ortholinear Keyboards
+#define PRODUCT         The Planck Keyboard
+#define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
-// wiring of each half
-#define MATRIX_ROW_PINS { D7, E6, B4, B5 }
-//#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+/* Planck PCB default pin-out */
+#define MATRIX_ROW_PINS { D0, D5, B5, B6 }
+#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
+#define UNUSED_PINS
 
-//#define CATERINA_BOOTLOADER
+#define AUDIO_VOICES
+
+#define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -62,12 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 12    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
+/* Tap Dance */
+#define TAPPING_TERM 150
 
 /*
  * Feature disable options
@@ -75,10 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-// #define NO_DEBUG
+//#define NO_DEBUG
 
 /* disable print */
-// #define NO_PRINT
+//#define NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -87,5 +83,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+#ifdef SUBPROJECT_rev3
+    #include "rev3/config.h"
+#endif
+#ifdef SUBPROJECT_rev4
+    #include "rev4/config.h"
+#endif
 
 #endif
