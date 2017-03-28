@@ -4,7 +4,7 @@ static uint16_t key_timer;
 
 bool checktime(void){
 		return (timer_elapsed(key_timer) < 150) ? true : false;
-	}
+	};
 
 // general keydefs
 #define norm 0		// Default layer
@@ -149,8 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				XXXX, XXXX, XXXX, 					XXXX,			  		XXXX, XXXX, XXXX, XXXX),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {3 // MACRODOWN only works in this function
-	
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { // MACRODOWN only works in this function
     switch(id) {
         case 0: //MAC0 - Hold for lshift and { on tap
 					if (record->event.pressed) {
