@@ -1096,16 +1096,23 @@ void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val);
 void sysex_callback(MidiDevice * device,
     uint16_t start, uint8_t length, uint8_t * data);
+
+void setup_midi(void)
+{
+#ifdef MIDI_ADVANCED
+	midi_init();
+#endif
+	midi_device_init(&midi_device);
+    midi_device_set_send_func(&midi_device, usb_send_func);
+    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+}
 #endif
 
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
-
 #ifdef MIDI_ENABLE
-    midi_device_init(&midi_device);
-    midi_device_set_send_func(&midi_device, usb_send_func);
-    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+    setup_midi();
 #endif
 
     setup_mcu();
@@ -1170,7 +1177,9 @@ int main(void)
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
-        // MIDI_Task();
+#ifdef MIDI_ADVANCED
+        midi_task();
+#endif
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
