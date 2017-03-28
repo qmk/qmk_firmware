@@ -43,3 +43,5 @@ void matrix_scan_music(void);
 #endif
 
 #endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+
+#endif
