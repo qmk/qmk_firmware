@@ -1,5 +1,6 @@
 #include "satan.h"
 static uint16_t key_timer;
+bool checkTime(void);
 
 // general keydefs
 #define norm 0		// Default layer
