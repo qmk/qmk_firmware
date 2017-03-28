@@ -1,6 +1,6 @@
 #include "satan.h"
 static uint16_t key_timer;
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
 // general keydefs
 #define norm 0		// Default layer
 #define elev 1		// Layer directional keys
@@ -114,6 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define DEAD 	KC_NO
 #define SCAN	KC_TRNS // Scandinavian keys, the Row 5 key 5 is actually Row 1 key 15 on the PCB
 
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ norm ] = KEYMAP( // Normal scandinavian mapping (danish has QUOT and SCLN wapped)
         GRAV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, MINS, EQUL, BSPC, DELE,\
         DUTB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LBRC, RBRC, DEAD,\
