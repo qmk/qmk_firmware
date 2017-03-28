@@ -549,6 +549,9 @@ Layer switching with tap key:
 
 [dual_role]: http://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
+When user hold a key after tap, it repeat the tapped key rather to hold a modifier key.
+If you prefer to hold a modifier instead, define `TAPPING_FORCE_HOLD` in `config.h`.
+See https://github.com/qmk/qmk_firmware/issues/889 for the detail.
 
 ### 4.2 Tap Toggle
 This is a feature to assign both toggle layer and momentary switch layer action to just same one physical key. It works as momentary layer switch when holding a key but toggle switch with several taps.
