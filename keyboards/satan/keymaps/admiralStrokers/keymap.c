@@ -1,6 +1,8 @@
 #include "satan.h"
 static uint16_t key_timer;
-bool checkTime(void);
+bool checkTime(void){
+		return (timer_elapsed(key_timer) < 150) ? true : false;
+	}
 
 // general keydefs
 #define norm 0		// Default layer
@@ -147,11 +149,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { // MACRODOWN only works in this function
 	
-	bool checkTime(void){
-		return (timer_elapsed(key_timer) < 150) ? true : false;
-	}
-
-
     switch(id) {
         case 0: //MAC0 - Hold for lshift and { on tap
 					if (record->event.pressed) {
