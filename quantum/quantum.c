@@ -7,6 +7,9 @@
 #define TAPPING_TERM 200
 #endif
 
+#include "backlight.h"
+extern backlight_config_t backlight_config;
+
 #ifdef FAUXCLICKY_ENABLE
 #include "fauxclicky.h"
 #endif
@@ -601,6 +604,10 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
   #endif
 
+  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
+    backlight_task();
+  #endif
+
   matrix_scan_kb();
 }
 
@@ -668,13 +675,13 @@ __attribute__ ((weak))
 void backlight_set(uint8_t level)
 {
   // Prevent backlight blink on lowest level
-  #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-  #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-  #endif
+  // #if BACKLIGHT_ON_STATE == 0
+  //   // PORTx &= ~n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  // #else
+  //   // PORTx |= n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  // #endif
 
   if ( level == 0 ) {
     #ifndef NO_BACKLIGHT_CLOCK
@@ -682,13 +689,13 @@ void backlight_set(uint8_t level)
       TCCR1A &= ~(_BV(COM1x1));
       OCR1x = 0x0;
     #else
-      #if BACKLIGHT_ON_STATE == 0
-        // PORTx |= n
-        _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-      #else
-        // PORTx &= ~n
-        _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-      #endif
+      // #if BACKLIGHT_ON_STATE == 0
+      //   // PORTx |= n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      // #else
+      //   // PORTx &= ~n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      // #endif
     #endif
   } 
   #ifndef NO_BACKLIGHT_CLOCK
@@ -711,6 +718,30 @@ void backlight_set(uint8_t level)
   #endif
 }
 
+uint8_t backlight_tick = 0;
+
+void backlight_task(void) {
+  #ifdef NO_BACKLIGHT_CLOCK
+  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) { 
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #else
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #endif
+  } else {
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #else
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #endif
+  }
+  backlight_tick = (backlight_tick + 1) % 16;
+  #endif
+}
 
 #ifdef BACKLIGHT_BREATHING
 
