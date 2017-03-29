@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <stdint.h>
 #include "keyboard.h"
 #include "matrix.h"
@@ -49,6 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef RGBLIGHT_ENABLE
 #   include "rgblight.h"
+#endif
+#ifdef FAUXCLICKY_ENABLE
+#   include "fauxclicky.h"
 #endif
 #ifdef SERIAL_LINK_ENABLE
 #   include "serial_link/system/serial_link.h"
@@ -106,6 +110,9 @@ void keyboard_init(void) {
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
+#endif
+#ifdef FAUXCLICKY_ENABLE
+    fauxclicky_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
@@ -188,7 +195,7 @@ MATRIX_LOOP_END:
 #endif
 
 #ifdef VISUALIZER_ENABLE
-    visualizer_update(default_layer_state, layer_state, host_keyboard_leds());
+    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
 #endif
 
     // update LED
