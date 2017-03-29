@@ -23,9 +23,9 @@ ifdef master
 	MASTER = $(master)
 endif
 
-ifeq ($(MASTER),right)	
+ifeq ($(MASTER),right)
 	OPT_DEFS += -DMASTER_IS_ON_RIGHT
-else 
+else
 	ifneq ($(MASTER),left)
 $(error MASTER does not have a valid value(left/right))
 	endif
@@ -38,7 +38,7 @@ KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
 
 ifneq ("$(wildcard $(KEYBOARD_C))","")
     include $(KEYBOARD_PATH)/rules.mk
-else 
+else
     $(error "$(KEYBOARD_C)" does not exist)
 endif
 
@@ -49,7 +49,7 @@ ifneq ($(SUBPROJECT),)
     ifneq ("$(wildcard $(SUBPROJECT_C))","")
         OPT_DEFS += -DSUBPROJECT_$(SUBPROJECT)
         include $(SUBPROJECT_PATH)/rules.mk
-    else 
+    else
         $(error "$(SUBPROJECT_PATH)/$(SUBPROJECT).c" does not exist)
     endif
 endif
@@ -83,7 +83,7 @@ ifneq ($(SUBPROJECT),)
 	endif
 endif
 
-# Save the defines and includes here, so we don't include any keymap specific ones 
+# Save the defines and includes here, so we don't include any keymap specific ones
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(SUBPROJECT_PATH) $(KEYBOARD_PATH)
 PROJECT_CONFIG := $(CONFIG_H)
@@ -131,35 +131,64 @@ ifndef CUSTOM_MATRIX
 	SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
+ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
+	OPT_DEFS += -DAPI_SYSEX_ENABLE
+	SRC += $(QUANTUM_DIR)/api/api_sysex.c
+	OPT_DEFS += -DAPI_ENABLE
+	SRC += $(QUANTUM_DIR)/api.c
+    MIDI_ENABLE=yes
+endif
+
+MUSIC_ENABLE := 0
+
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    OPT_DEFS += -DAUDIO_ENABLE
+    MUSIC_ENABLE := 1
+	SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
+	SRC += $(QUANTUM_DIR)/audio/audio.c
+	SRC += $(QUANTUM_DIR)/audio/voices.c
+	SRC += $(QUANTUM_DIR)/audio/luts.c
+endif
+
 ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
+	MUSIC_ENABLE := 1
 	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
+endif
+
+ifeq ($(MUSIC_ENABLE), 1)
+	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
+endif
+
+ifeq ($(strip $(COMBO_ENABLE)), yes)
+    OPT_DEFS += -DCOMBO_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
 
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    OPT_DEFS += -DAUDIO_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
-	SRC += $(QUANTUM_DIR)/audio/audio.c
-	SRC += $(QUANTUM_DIR)/audio/voices.c
-	SRC += $(QUANTUM_DIR)/audio/luts.c
+ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
+    OPT_DEFS += -DFAUXCLICKY_ENABLE
+	SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
 	OPT_DEFS += -DUCIS_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+	SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
 endif
 
 ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
 	OPT_DEFS += -DUNICODEMAP_ENABLE
-	UNICODE_ENABLE = yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
 endif
 
 ifeq ($(strip $(UNICODE_ENABLE)), yes)
     OPT_DEFS += -DUNICODE_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
 	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
 endif
 
@@ -172,6 +201,12 @@ endif
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	OPT_DEFS += -DTAP_DANCE_ENABLE
 	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(PRINTING_ENABLE)), yes)
+	OPT_DEFS += -DPRINTING_ENABLE
+	SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
+	SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
@@ -199,6 +234,7 @@ endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(COMMON_VPATH)
 
+include $(TMK_PATH)/protocol.mk
 
 include $(TMK_PATH)/common.mk
 SRC += $(TMK_COMMON_SRC)
@@ -206,7 +242,11 @@ OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
 ifeq ($(PLATFORM),AVR)
+ifeq ($(strip $(PROTOCOL)), VUSB)
+	include $(TMK_PATH)/protocol/vusb.mk
+else
 	include $(TMK_PATH)/protocol/lufa.mk
+endif
 	include $(TMK_PATH)/avr.mk
 endif
 
@@ -218,7 +258,7 @@ endif
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
-$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\" 
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)

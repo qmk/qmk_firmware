@@ -1,7 +1,8 @@
 #include "ergodox.h"
 #include "debug.h"
+#include "led.h"
 #include "action_layer.h"
-#include "keymap_neo2.h"
+#include "keymap_extras/keymap_neo2.h"
 
 // Layer names
 #define BASE 0 // default layer
@@ -11,45 +12,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ^    |   1  |   2  |   3  |   4  |   5  | Play |           | Next |   6  |   7  |   8  |   9  |   0  |BackSpce|
+ * |  Del   |   1  |   2  |   3  |   4  |   5  | Play |           | Next |   6  |   7  |   8  |   9  |   0  |   ß    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  Del   |   X  |   V  |   L  |   C  |   W  |  L1  |           |  L1  |   K  |   H  |   G  |   F  |   Q  |   ß    |
+ * |  Tab   |   X  |   V  |   L  |   C  |   W  | Esc  |           | Esc  |   K  |   H  |   G  |   F  |   Q  |   Y    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  Caps  |   U  |   I  |   A  |   E  |   O  |------|           |------|   S  |   N  |   R  |   T  |   D  |   Y    |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |Ü/Ctrl| Ö/C-S| Ä/Alt|   P  |   Z  |      |           |      |   B  |   M  |   ,  |   .  |   J  | RShift |
+ * | NeoL1  |   U  |   I  |   A  |   E  |   O  |------|           |------|   S  |   N  |   R  |   T  |   D  | NeoR1  |
+ * |--------+------+------+------+------+------| L1   |           | L1   |------+------+------+------+------+--------|
+ * | LShift |Ü/Ctrl| Ö/Win| Ä/Alt|   P  |   Z  |      |           |      |   B  |   M  |   ,  |   .  |   J  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  L1  | Home | PgDn | PgUp | End  |                                       | Right| Down |  Up  | Left |  Esc  |
+ *   |NeoL2 | Home | PgDn | PgUp | End  |                                       | Right| Down |  Up  | Left | NeoR2|
  *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
+ *                                        ,-------------.       ,---------------.
  *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------+------+------|       |------+--------+------.
- *                                 |      |      |NeoL2 |       |NeoL2 |        |      |
- *                                 | Tab  |Backsp|------|       |------|  Space |Enter |
- *                                 |      |ace   |NeoL1 |       |NeoL1 |        |      |
+ *                                 |      |      | Enter|       |Delete|        |      |
+ *                                 | Space|Backsp|------|       |------|  Enter |Space |
+ *                                 |      |ace   | Tab  |       | Esc  |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_CIRC,         KC_1,          KC_2,          KC_3,          KC_4,    KC_5,    KC_MPLY,
-        KC_DELT,         NEO_X,         NEO_V,         NEO_L,         NEO_C,   NEO_W,   TG(1),
-        KC_CAPS,         NEO_U,         NEO_I,         NEO_A,         NEO_E,   NEO_O,
-        KC_LSFT,         CTL_T(NEO_UE), C_S_T(NEO_OE), ALT_T(NEO_AE), NEO_P,   NEO_Z,   ALL_T(KC_NO),
-        DE_LESS,         KC_HOME,       KC_PGDN,        KC_PGUP,        KC_END,
-                                                ALT_T(KC_APP),KC_LGUI,
-                                                              NEO_L2_L,
-                                               KC_TAB,KC_BSPC,NEO_L1_L,
+        KC_DELT,         NEO_1,         NEO_2,         NEO_3,         NEO_4,   NEO_5,   KC_MPLY,
+        KC_TAB,          NEO_X,         NEO_V,         NEO_L,         NEO_C,   NEO_W,   KC_ESC,
+        NEO_L1_L,        NEO_U,         NEO_I,         NEO_A,         NEO_E,   NEO_O,
+        KC_LSFT,         CTL_T(NEO_UE), GUI_T(NEO_OE), ALT_T(NEO_AE), NEO_P,   NEO_Z,   TG(1),
+        NEO_L2_L,        KC_HOME,       KC_PGDN,       KC_PGUP,       KC_END,
+                                                C_S_T(KC_ESC),KC_LGUI,
+                                                              KC_ENT,
+                                               KC_SPC,KC_BSPC,KC_TAB,
         // right hand
-        KC_MNXT,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-        TG(1),       NEO_K,   NEO_H,   NEO_G,   NEO_F,   NEO_Q,   NEO_SS,
-                     NEO_S,   NEO_N,   NEO_R,   NEO_T,   NEO_D,   NEO_Y,
-        MEH_T(KC_NO),NEO_B,   NEO_M,   KC_COMM, KC_DOT,  NEO_J,   KC_RSFT,
-                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_ESC,
-        KC_LALT,CTL_T(KC_ESC),
-        NEO_L2_R,
-        NEO_L1_R,KC_SPC, KC_ENT
+        KC_MNXT,     NEO_6,   NEO_7,   NEO_8,   NEO_9,   NEO_0,   NEO_SS,
+        KC_ESC,      NEO_K,   NEO_H,   NEO_G,   NEO_F,   NEO_Q,   NEO_Y,
+                     NEO_S,   NEO_N,   NEO_R,   NEO_T,   NEO_D,   NEO_L1_R,
+        TG(1),       NEO_B,   NEO_M,   NEO_COMM, NEO_DOT, NEO_J,   KC_RSFT,
+                              KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, NEO_L2_R,
+        KC_LALT,KC_RGUI,
+        KC_DELT,
+        KC_ESC,KC_ENT, KC_SPC
     ),
 /* Keymap 1: Media and mouse keys
  *
@@ -127,12 +128,15 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+    ergodox_board_led_off();
+
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+        ergodox_right_led_3_on();
+    }
+
     switch (layer) {
         case MDIA:
             ergodox_right_led_2_on();
-            break;
-        default:
-            ergodox_board_led_off();
             break;
     }
 
