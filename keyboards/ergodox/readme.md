@@ -69,8 +69,11 @@ files.  Check them out with:
 
 The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
-Linux users need to modify udev rules as described on the Teensy Linux page (which page?).
-Some distributions provide a binary, maybe called `teensy-loader-cli`.
+Linux users need to modify udev rules as described on the [Teensy
+Linux page].  Some distributions provide a binary, maybe called
+`teensy-loader-cli`.
+
+[Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
 
 To flash the firmware:
 
