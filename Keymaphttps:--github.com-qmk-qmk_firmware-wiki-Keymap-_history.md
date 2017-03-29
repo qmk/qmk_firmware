@@ -42,6 +42,10 @@ The main part of this file is the `keymaps[]` definition. This is where you list
 
 After this you'll find a list of KEYMAP() macros. A KEYMAP() is simply a list of keys to define a single layer. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer. 
 
+`keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard. 
+
+> TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the `fn_actions[]` array.
+
 #### Base Layer
 
 Here is an example of the Clueboard's base layer:
@@ -92,6 +96,8 @@ We define the `fn_actions[]` array to point to custom functions. `F(N)` in a key
 
 In this case we've instructed QMK to call the `ACTION_FUNCTION` callback, which we will define in the next section.
 
+> This `fn_actions[]` interface is mostly for backward compatibility.  In QMK, you don't need to use `fn_actions[]`.  You can directly `ACTION_FUNCTION(N)` or any other action code value itself in `keymaps[][MATRIX_ROWS][MATRIX_COLS]`.  N in `F(N)` can only be 0 to 31.  Use of the action code directly in `keymaps` unlock this limitation.
+
 #### `action_function()`
 
 To actually handle the keypress event we define an `action_function()`. This function will be called when the key is pressed, and then again when the key is released. We have to handle both situations within our code, as well as determining whether to send/release `KC_ESC` or `KC_GRAVE`.
@@ -134,7 +140,7 @@ To actually handle the keypress event we define an `action_function()`. This fun
 
 This should have given you a basic overview for creating your own keymap. For more details see the following resources:
 
-* https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md
+* https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md (If you see `static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]`, it is still the TMK code example code.)
 * https://github.com/qmk/qmk_firmware/wiki/Keycodes
 * https://github.com/qmk/qmk_firmware/wiki/FAQ-Keymap
 * https://github.com/qmk/qmk_firmware/wiki/Keymap-examples
