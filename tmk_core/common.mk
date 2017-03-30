@@ -107,6 +107,11 @@ ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
 		TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_EZKEY
 endif
 
+ifeq ($(strip $(BLUETOOTH)), RN42)
+		TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+		TMK_COMMON_DEFS += -DMODULE_RN42
+endif
+
 ifeq ($(strip $(ONEHAND_ENABLE)), yes)
     TMK_COMMON_DEFS += -DONEHAND_ENABLE
 endif
