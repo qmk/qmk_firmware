@@ -14,7 +14,7 @@ extern keymap_config_t keymap_config;
 #define _FUNC 4
 #define ENDASH LALT(KC_MINS)
 #define POUND LALT(KC_3)
-#define H(X) RALT(X)
+#define H(X) LALT(LCTL(X))
 
 enum planck_keycodes {
   MOVE = SAFE_RANGE,
