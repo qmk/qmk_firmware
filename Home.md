@@ -36,7 +36,7 @@ For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
 
 ## C macros for action code
 
-Basic "C macros" are documented in the [Key Functions](Key-Functions) page.  
+Basic "C macros" for layer switching are documented in the [Key Functions](Key-Functions) page.  
 
 > The keyboard [macros](Macros) are completely different concept from the C macros for action code.  Please don't get confused.
 
