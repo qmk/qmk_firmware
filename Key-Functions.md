@@ -87,6 +87,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `CTL_T(kc)` - is LCTL when held and *kc* when tapped
   * `SFT_T(kc)` - is LSFT when held and *kc* when tapped
   * `ALT_T(kc)` - is LALT when held and *kc* when tapped
+  * `ALGR_T(kc)` - is AltGr when held and *kc* when tapped
   * `GUI_T(kc)` - is LGUI when held and *kc* when tapped
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
