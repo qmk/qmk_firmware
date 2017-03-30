@@ -2,6 +2,15 @@
 
 You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
 
+Understanding the essential changes made on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) should help you understand the QMK Firmware.
+
+| Firmware                     |TMK                    |QMK                      |
+|------------------------------|-----------------------|-------------------------|
+| Maintainer                   |hasu  (@tmk)           |Jack Humbert et al.      |
+| Build path customization     | `TMK_DIR = ...`       | `include .../Makefile`  |
+| `keymaps` array data | 3D array of `uint8_t`  holding **keycode**      | 3D array of `uint16_t` holding **action code**  |
+| `fn_actions` array data  | 1D array of `uint16_t`  holding **action code** | 1D array of `uint16_t` holding **action code**  |
+
 # Getting started
 
 Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
@@ -9,13 +18,27 @@ Before you are able to compile, you'll need to install an environment for AVR de
 * [Build Environment Setup](Build-Environment-Setup)
 * [QMK Overview](QMK-Overview)
 
-# Going beyond the keycodes
+# Configuring QMK Firmware
 
-Aside from the [basic keycodes](https://github.com/qmk/qmk_firmware/wiki/Keycodes), your keymap can include shortcuts to common operations.
+The QMK Firmware can be configured via the `keymaps` array data.
 
-## Quick aliases to common actions
+For simply generating a [basic keycode](https://github.com/qmk/qmk_firmware/wiki/Keycodes), you add it as an element of your `keymaps` array data.
 
-Your keymap can include shortcuts to common operations (called "function actions" in tmk). To learn more about them check out the [Key Functions](Key-Functions) page.
+For more complicated actions, you add the corresponding **action code** directly as an element of your `keymaps` array data.
+
+The **action code** is a 16 bit data and organized carefully to represent common operations with the combination of C macros.  It is sometimes called quantum keycode in the QMK source comment.
+
+For example, the keycode `KC_8` as an element of your `keymaps` array data is for generating keystroke of "8".  The action code `SHFT(KC_8)` an element of your `keymaps` array data is for generating key stroke of "*" which is "8" key shifted.
+
+Please note only up to 32 **action codes** were usable in `fn_actions` array data and accessed via special keycodes (`KC_FN0` to `KC_FN31`) in `keymaps` array data in tmk.
+
+For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
+
+## C macro functions for action code
+
+Basic C macro functions is documented in the [Key Functions](Key-Functions) page.
+
+There are several new standardized support for common operations with new action codes as follows.
 
 ## Space Cadet Shift: The future, built in
 
