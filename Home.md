@@ -30,7 +30,7 @@ The **action code** is a 16 bit data and organized carefully to represent common
 
 For example, the keycode `KC_8` as an element of your `keymaps` array data is for generating keystroke of "8".  The action code `SHFT(KC_8)` an element of your `keymaps` array data is for generating key stroke of "*" which is "8" key shifted.
 
-Please note only up to 32 **action codes** were usable in `fn_actions` array data and accessed via special keycodes (`KC_FN0` to `KC_FN31`) in `keymaps` array data in tmk.
+> In tmk, only up to 32 **action codes** are usable in `fn_actions` array data which is accessed via 32 special keycodes (`KC_FN0` to `KC_FN31`) in `keymaps` array data.
 
 For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
 
