@@ -34,9 +34,11 @@ Please note only up to 32 **action codes** were usable in `fn_actions` array dat
 
 For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
 
-## C macro functions for action code
+## C macros for action code
 
-Basic C macro functions is documented in the [Key Functions](Key-Functions) page.
+Basic "C macros" are documented in the [Key Functions](Key-Functions) page.  
+
+> The keyboard [macros](Macros) are completely different concept from the C macros for action code.  Please don't get confused.
 
 There are several new standardized support for common operations with new action codes as follows.
 
