@@ -1,10 +1,20 @@
 # Overview
 
-When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keyboard scan codes that are available to you in QMK. They can be used by themselves or in combination with one of the [many functions available](https://github.com/qmk/qmk_firmware/wiki#going-beyond-the-keycodes) to customize your board.
+When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap.md) each key needs a valid key definition.
 
-The source of truth for these codes is the [keycode.txt](https://github.com/qmk/qmk_firmware/blob/master/doc/keycode.txt) file in the qmk documentation.
+This page documents the symbols that correspond to keycodes that are available to you in QMK.
+
+To customize your board, they can be used by themselves or as **action codes** in combination with one of the [many C macros](https://github.com/qmk/qmk_firmware/wiki#c-macros-for-action-code).
+
+The source of truth for these codes is [tmk_core/common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h) file in the qmk source code.
 
 # The Keycodes
+
+Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) with following exceptions:
+
+* `KC_NO` = 0 for no action
+* `KC_TRNS` = 1 for layer transparency
+* internal special keycodes in the `0xA5-DF` range (tmk heritage).
 
 ## Letters and Numbers
 
