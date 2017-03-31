@@ -17,7 +17,6 @@
 #include "process_unicode_common.h"
 
 static uint8_t input_mode;
-static uint8_t first_flag = 0;
 uint8_t mods;
 
 void set_unicode_input_mode(uint8_t os_target)
