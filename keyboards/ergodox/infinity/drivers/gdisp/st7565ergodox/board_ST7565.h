@@ -37,10 +37,14 @@
 // MSB First
 // CLK Low by default
 static const SPIConfig spi1config = {
-	NULL,
-	/* HW dependent part.*/
-	ST7565_GPIOPORT,
-    ST7565_SS_PIN,
+   // Operation complete callback or @p NULL.
+  .end_cb = NULL,
+   //The chip select line port - when not using pcs.
+  .ssport = ST7565_GPIOPORT,
+   // brief The chip select line pad number - when not using pcs.
+  .sspad=ST7565_SS_PIN,
+   // SPI initialization data.
+  .tar0 =
     SPIx_CTARn_FMSZ(7)
     | SPIx_CTARn_ASC(7)
     | SPIx_CTARn_DT(7)
@@ -50,13 +54,10 @@ static const SPIConfig spi1config = {
 	//SPI_CR1_BR_0
 };
 
-static bool_t st7565_is_data_mode = 1;
-
 static GFXINLINE void init_board(GDisplay *g) {
     (void) g;
     palSetPadModeNamed(A0, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-    st7565_is_data_mode = 1;
     palSetPadModeNamed(RST, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
     palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
@@ -65,7 +66,6 @@ static GFXINLINE void init_board(GDisplay *g) {
 
     spiInit();
     spiStart(&SPID1, &spi1config);
-    spiSelect(&SPID1);
 }
 
 static GFXINLINE void post_init_board(GDisplay *g) {
@@ -86,39 +86,27 @@ static GFXINLINE void acquire_bus(GDisplay *g) {
     (void) g;
     // Only the LCD is using the SPI bus, so no need to acquire
     // spiAcquireBus(&SPID1);
+    spiSelect(&SPID1);
 }
 
 static GFXINLINE void release_bus(GDisplay *g) {
     (void) g;
     // Only the LCD is using the SPI bus, so no need to release
     //spiReleaseBus(&SPID1);
+    spiUnselect(&SPID1);
 }
 
-static GFXINLINE void write_cmd(GDisplay *g, uint8_t cmd) {
-	(void) g;
-	if (st7565_is_data_mode) {
-	    // The sleeps need to be at lest 10 vs 25 ns respectively
-	    // So let's sleep two ticks, one tick might not be enough
-	    // if we are at the end of the tick
-	    chThdSleep(2);
-        palClearPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-        chThdSleep(2);
-        st7565_is_data_mode = 0;
-	}
-	spiSend(&SPID1, 1, &cmd);
+static GFXINLINE void enter_data_mode(GDisplay *g) {
+    palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
 }
+
+static GFXINLINE void enter_cmd_mode(GDisplay *g) {
+    palClearPad(ST7565_GPIOPORT, ST7565_A0_PIN);
+}
+
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
 	(void) g;
-	if (!st7565_is_data_mode) {
-	    // The sleeps need to be at lest 10 vs 25 ns respectively
-	    // So let's sleep two ticks, one tick might not be enough
-	    // if we are at the end of the tick
-	    chThdSleep(2);
-        palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-	    chThdSleep(2);
-        st7565_is_data_mode = 1;
-	}
 	spiSend(&SPID1, length, data);
 }
 
