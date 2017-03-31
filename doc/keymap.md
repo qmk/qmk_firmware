@@ -6,12 +6,12 @@ QMK is based on TMK.   Understanding the essential changes made should help you 
 
 ## TMK vs. QMK
 
-| Firmware                                        |TMK                    |QMK                      |
-|-------------------------------------------------|-----------------------|-------------------------|
-| Maintainer                                      |hasu                   |Jack Humbert et al.      |
-| Build path customization                        | `TMK_DIR = ...`       | `include .../Makefile`  |
-| `keymaps` data                                  | 3D array of `uint8_t`  holding **keycode**      | 3D array of `uint16_t` holding **action code**  |
-| `fn_actions` data                               | 1D array of `uint16_t`  holding **action code** | 3D array of `uint16_t` holding **action code**  |
+| Firmware                  |TMK                    |QMK                      |
+|---------------------------|-----------------------|-------------------------|
+| Maintainer                |hasu                   |Jack Humbert et al.      |
+| Build path customization  | `TMK_DIR = ...`       | `include .../Makefile`  |
+| `keymaps` data            | 3D array of `uint8_t` holding **keycode**      | 3D array of `uint16_t` holding **action code**  |
+| `fn_actions` data         | 1D array of `uint16_t` holding **action code** | 1D array of `uint16_t` holding **action code**  |
 
 Since QMK is based on TMK and uses major portion of TMK code as is, understanding the essential changes made should help you understand the code.
 
@@ -45,7 +45,7 @@ Keymap layer has its state in two 32 bit parameters:
 * **`default_layer_state`** indicates a base keymap layer(0-31) which is always valid and to be referred.
 * **`layer_state`** () has current on/off status of the layer on its each bit.
 
-Keymap has its state in two parameter**`default_layer`** indicates a base keymap layer(0-31) which is always valid and to be referred, **`keymap_stat`** is 16bit variable which has current on/off status of layers on its each bit.
+Keymap has its state in two parameter **`default_layer`** indicates a base keymap layer(0-31) which is always valid and to be referred, **`keymap_stat`** is 16bit variable which has current on/off status of layers on its each bit.
 Keymap layer '0' is usually `default_layer` and which is the only valid layer and other layers is initially off after boot up firmware, though, you can configured them in `config.h`.
 To change `default_layer` will be useful when you switch key layout completely, say you want Colmak instead of Qwerty.
 
