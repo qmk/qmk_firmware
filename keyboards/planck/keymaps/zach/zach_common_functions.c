@@ -141,31 +141,31 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
-#ifdef UNICODE_ENABLE
+//#ifdef UNICODE_ENABLE
 // Unicode shortcuts
-#define IBANG   UC(0x203D)
-#define RAROW   UC(0x2192)
-#define LAROW   UC(0x2190)
-#define DEGREE  UC(0x00B0)
-#define OMEGA   UC(0x03A9)
-#define WOMEGA  UC(0x03C9)
-#define MICRO   UC(0x00B5)
-#define PLUMIN  UC(0x00B1)
-#define SUPA2   UC(0x00B2)
-#define ROMAN1  UC(0x2160)
-#define ROMAN2  UC(0x2161)
-#define ROMAN3  UC(0x2162)
-#define ROMAN4  UC(0x2163)
-#define ROMAN5  UC(0x2164)
-#define ROMAN6  UC(0x2165)
-#define ROMAN7  UC(0x2166)
-#define roman1  UC(0x2170)
-#define roman2  UC(0x2171)
-#define roman3  UC(0x2172)
-#define roman4  UC(0x2173)
-#define roman5  UC(0x2174)
-#define roman6  UC(0x2175)
-#define roman7  UC(0x2176)
+#define IBANG   X(0x203D)
+#define RAROW   X(0x2192)
+#define LAROW   X(0x2190)
+#define DEGREE  X(0x00B0)
+#define OMEGA   X(0x03A9)
+#define WOMEGA  X(0x03C9)
+#define MICRO   X(0x00B5)
+#define PLUMIN  X(0x00B1)
+#define SUPA2   X(0x00B2)
+#define ROMAN1  X(0x2160)
+#define ROMAN2  X(0x2161)
+#define ROMAN3  X(0x2162)
+#define ROMAN4  X(0x2163)
+#define ROMAN5  X(0x2164)
+#define ROMAN6  X(0x2165)
+#define ROMAN7  X(0x2166)
+#define roman1  X(0x2170)
+#define roman2  X(0x2171)
+#define roman3  X(0x2172)
+#define roman4  X(0x2173)
+#define roman5  X(0x2174)
+#define roman6  X(0x2175)
+#define roman7  X(0x2176)
 
 #ifdef UNICODEMAP_ENABLE        // For Unicode characters larger than 0x8000. Send with X(<unicode>)
 enum Ext_Unicode{
@@ -192,7 +192,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #define TMBL    X(TUMBLER)
 #endif
 
-#endif
+//#endif
 
 static uint16_t key_timer;
 static uint8_t  caps_status = 0;
