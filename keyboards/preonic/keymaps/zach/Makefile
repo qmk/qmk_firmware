@@ -17,8 +17,8 @@ BACKLIGHT_ENABLE    = yes   # Enable keyboard backlight functionality
 MIDI_ENABLE         = no    # MIDI controls
 AUDIO_ENABLE        = yes   # Audio output on port C6
 #VARIABLE_TRACE      = no    # Debug changes to variable values
-UNICODE_ENABLE      = yes   # Unicode
-UNICODEMAP_ENABLE   = no    # Enable extended unicode
+UNICODE_ENABLE      = no    # Unicode
+UNICODEMAP_ENABLE   = yes   # Enable extended unicode
 BLUETOOTH_ENABLE    = no    # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE     = no    # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
