@@ -1,3 +1,18 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "musical_notes.h"
 
 #ifndef SONG_LIST_H
@@ -121,5 +136,32 @@
 #define NUM_LOCK_OFF_SOUND \
     E__NOTE(_E5),          \
     E__NOTE(_D5),
+
+#define COIN_SOUND \
+    E__NOTE(_A5  ),      \
+    HD_NOTE(_E6  ),
+
+#define ONE_UP_SOUND \
+    Q__NOTE(_E6  ),  \
+    Q__NOTE(_G6  ),  \
+    Q__NOTE(_E7  ),  \
+    Q__NOTE(_C7  ),  \
+    Q__NOTE(_D7  ),  \
+    Q__NOTE(_G7  ),
+
+#define SONIC_RING \
+    E__NOTE(_E6),  \
+    E__NOTE(_G6),  \
+    HD_NOTE(_C7),
+
+#define ZELDA_PUZZLE \
+    Q__NOTE(_G5),     \
+    Q__NOTE(_FS5),    \
+    Q__NOTE(_DS5),     \
+    Q__NOTE(_A4),    \
+    Q__NOTE(_GS4),     \
+    Q__NOTE(_E5),     \
+    Q__NOTE(_GS5),     \
+    HD_NOTE(_C6),
 
 #endif
