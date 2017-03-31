@@ -16,6 +16,8 @@
 #include "quantum.h"
 #include "action_tapping.h"
 
+uint8_t get_oneshot_mods(void);
+
 static uint16_t last_td;
 static int8_t highest_td = -1;
 
