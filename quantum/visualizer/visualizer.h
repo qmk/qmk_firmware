@@ -68,6 +68,9 @@ typedef struct {
     uint8_t mods;
     uint32_t leds; // See led.h for available statuses
     bool suspended;
+#ifdef VISUALIZER_USER_DATA_SIZE
+    uint8_t user_data[VISUALIZER_USER_DATA_SIZE];
+#endif
 } visualizer_keyboard_status_t;
 
 // The state struct is used by the various keyframe functions
@@ -145,6 +148,11 @@ bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualiz
 // Call this once, when the initial animation has finished, alternatively you can call it
 // directly from the initalize_user_visualizer function (the animation can be null)
 bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
+
+// The master can set userdata which will be transferred to the slave
+#ifdef VISUALIZER_USER_DATA_SIZE
+void visualizer_set_user_data(void* user_data);
+#endif
 
 // These functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
