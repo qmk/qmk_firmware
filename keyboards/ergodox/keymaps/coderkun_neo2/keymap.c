@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤ TL2 │     │ TL3 ├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ü  │  Ö  │  Ä  │  P  │  Z  │     │     │     │  B  │  M  │  ,  │  .  │  J  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ Mod4│                             │ Mod4│ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ Mod4│                             │ Mod4│ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     NEO_K,  NEO_H,  NEO_G,  NEO_F,  NEO_Q,  NEO_SS,
                     NEO_S,  NEO_N,  NEO_R,  NEO_T,  NEO_D,  NEO_L1_R,
         TG(PMN),    NEO_B,  NEO_M,  KC_COMM,KC_DOT, NEO_J,  KC_RSFT,
-                            NEO_L2_R,KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            NEO_L2_R,KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ä  │  Q  │  R  │  W  │  N  │     │     │     │  J  │  M  │  ,  │  .  │  ẞ  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     DE_B,   DE_A,   DE_S,   DE_G,   DE_V,   DE_Y,
                     DE_U,   DE_MINS,DE_Z,   DE_E,   DE_X,   NEO_L1_R,
         KC_TRNS,    DE_J,   DE_M,   DE_COMM,DE_DOT, DE_SS,  KC_RSFT,
-                            MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            MO(NHL),KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ü  │  Ö  │  Ä  │  P  │  Z  │     │     │     │  B  │  M  │  ,  │  .  │  J  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     DE_K,   DE_H,   DE_G,   DE_F,   DE_Q,   DE_SS,
                     DE_S,   DE_N,   DE_R,   DE_T,   DE_D,   KC_NO,
         KC_TRNS,    DE_B,   DE_M,   KC_COMM,KC_DOT, DE_J,   KC_RSFT,
-                            MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            MO(NHL),KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
