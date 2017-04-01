@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "visualizer.h"
-#include "led_test.h"
 
 // To generate an image array like this
 // Ensure the image is 128 x 32 or smaller
@@ -205,5 +204,4 @@ void user_visualizer_resume(visualizer_state_t* state) {
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     start_keyframe_animation(&resume_animation);
-    start_keyframe_animation(&led_test_animation);
 }
