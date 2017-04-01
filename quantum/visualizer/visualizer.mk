@@ -32,12 +32,12 @@ OPT_DEFS += -DLCD_ENABLE
 ULIBS += -lm
 endif
 
-ifdef LCD_BACKLIGHT_ENABLE
+ifeq ($(strip $(LCD_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
-ifdef LED_ENABLE
+ifeq ($(strip $(LED_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/led_test.c
 OPT_DEFS += -DLED_ENABLE
 endif
