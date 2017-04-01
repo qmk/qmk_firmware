@@ -136,6 +136,8 @@ bool keyframe_display_layer_text(keyframe_animation_t* animation, visualizer_sta
 bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
 // Displays a bitmap (0/1) of all the currently active mods
 bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
+// Displays the keyboard led states (CAPS (Caps lock), NUM (Num lock), SCRL (Scroll lock), COMP (Compose), KANA)
+bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_state_t* state);
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
 bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
@@ -146,7 +148,7 @@ bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* s
 
 // These functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
-void update_user_visualizer_state(visualizer_state_t* state);
+void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t prev_status);
 void user_visualizer_suspend(visualizer_state_t* state);
 void user_visualizer_resume(visualizer_state_t* state);
 
