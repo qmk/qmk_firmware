@@ -254,6 +254,32 @@ LLDSPEC color_t gdisp_lld_get_pixel_color(GDisplay *g) {
 }
 #endif
 
+LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
+    uint8_t* buffer = (uint8_t*)g->p.ptr;
+    int linelength = g->p.cx;
+    for (int i = 0; i < g->p.cy; i++) {
+        unsigned dstx = g->p.x;
+        unsigned dsty = g->p.y + i;
+        unsigned srcx = g->p.x1;
+        unsigned srcy = g->p.y1 + i;
+        unsigned srcbit = srcy * g->p.x2 + srcx;
+        for(int j=0; j < linelength; j++) {
+            uint8_t src = buffer[srcbit / 8];
+            uint8_t bit = 7-(srcbit % 8);
+            uint8_t bitset = (src >> bit) & 1;
+            uint8_t* dst = &(RAM(g)[xyaddr(dstx, dsty)]);
+            if (bitset) {
+                *dst |= xybit(dsty);
+            }
+            else {
+                *dst &= ~xybit(dsty);
+            }
+			dstx++;
+            srcbit++;
+        }
+    }
+}
+
 #if GDISP_NEED_CONTROL && GDISP_HARDWARE_CONTROL
 LLDSPEC void gdisp_lld_control(GDisplay *g) {
     switch(g->p.x) {
