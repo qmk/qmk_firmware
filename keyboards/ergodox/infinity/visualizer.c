@@ -99,7 +99,12 @@ typedef struct {
 } visualizer_user_data_t;
 
 // Don't access from visualization function, use the visualizer state instead
-static visualizer_user_data_t user_data_keyboard = {};
+static visualizer_user_data_t user_data_keyboard = {
+    .led_on = 0,
+    .led1 = LED_BRIGHTNESS_HI,
+    .led2 = LED_BRIGHTNESS_HI,
+    .led3 = LED_BRIGHTNESS_HI,
+};
 
 _Static_assert(sizeof(visualizer_user_data_t) <= VISUALIZER_USER_DATA_SIZE,
     "Please increase the VISUALIZER_USER_DATA_SIZE");
@@ -250,18 +255,21 @@ static uint8_t get_secondary_led_index(visualizer_user_data_t* user_data) {
     return 0;
 }
 
-void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t prev_status) {
-    // Check the status here to start and stop animations
-    // You might have to save some state, like the current animation here so that you can start the right
-    // This function is called every time the status changes
+static uint8_t get_brightness(visualizer_user_data_t* user_data, uint8_t index) {
+    switch (index) {
+    case 1:
+        return user_data->led1;
+    case 2:
+        return user_data->led2;
+    case 3:
+        return user_data->led3;
+    }
+    return 0;
+}
 
-    // NOTE that this is called from the visualizer thread, so don't access anything else outside the status
-    // This is also important because the slave won't have access to the active layer for example outside the
-    // status.
-
-
+static void update_emulated_leds(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status) {
     visualizer_user_data_t* user_data_new = (visualizer_user_data_t*)state->status.user_data;
-    visualizer_user_data_t* user_data_old = (visualizer_user_data_t*)prev_status.user_data;
+    visualizer_user_data_t* user_data_old = (visualizer_user_data_t*)prev_status->user_data;
 
     uint8_t new_index;
     uint8_t old_index;
@@ -277,27 +285,41 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
     uint8_t new_secondary_index = get_secondary_led_index(user_data_new);
     uint8_t old_secondary_index = get_secondary_led_index(user_data_old);
 
+    uint8_t old_brightness = get_brightness(user_data_old, old_index);
+    uint8_t new_brightness = get_brightness(user_data_new, new_index);
+
+    uint8_t old_secondary_brightness = get_brightness(user_data_old, old_secondary_index);
+    uint8_t new_secondary_brightness = get_brightness(user_data_new, new_secondary_index);
+
     if (lcd_state == LCD_STATE_INITIAL ||
             new_index != old_index ||
-            new_secondary_index != old_secondary_index) {
+            new_secondary_index != old_secondary_index ||
+            new_brightness != old_brightness ||
+            new_secondary_brightness != old_secondary_brightness) {
 
         if (new_secondary_index != 0) {
-            state->target_lcd_color = led_emulation_colors[new_index];
-            next_led_target_color = led_emulation_colors[new_secondary_index];
+            state->target_lcd_color = change_lcd_color_intensity(
+                led_emulation_colors[new_index], new_brightness);
+            next_led_target_color = change_lcd_color_intensity(
+                led_emulation_colors[new_secondary_index], new_secondary_brightness);
+
             stop_keyframe_animation(&one_led_color);
             start_keyframe_animation(&two_led_colors);
         } else {
-            state->target_lcd_color = led_emulation_colors[new_index];
+            state->target_lcd_color = change_lcd_color_intensity(
+                led_emulation_colors[new_index], new_brightness);
             stop_keyframe_animation(&two_led_colors);
             start_keyframe_animation(&one_led_color);
         }
     }
+}
 
+static void update_lcd_text(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status) {
     if (state->status.leds) {
         if (lcd_state != LCD_STATE_BITMAP_AND_LEDS ||
-                state->status.leds != prev_status.leds ||
-                state->status.layer != prev_status.layer ||
-                state->status.default_layer != prev_status.default_layer) {
+                state->status.leds != prev_status->leds ||
+                state->status.layer != prev_status->layer ||
+                state->status.default_layer != prev_status->default_layer) {
 
             // NOTE: that it doesn't matter if the animation isn't playing, stop will do nothing in that case
             stop_keyframe_animation(&lcd_bitmap_animation);
@@ -310,8 +332,8 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
         }
     } else {
         if (lcd_state != LCD_STATE_LAYER_BITMAP ||
-                state->status.layer != prev_status.layer ||
-                state->status.default_layer != prev_status.default_layer) {
+                state->status.layer != prev_status->layer ||
+                state->status.default_layer != prev_status->default_layer) {
 
             stop_keyframe_animation(&lcd_bitmap_leds_animation);
 
@@ -319,6 +341,20 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
             start_keyframe_animation(&lcd_bitmap_animation);
         }
     }
+}
+
+void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status) {
+    // Check the status here to start and stop animations
+    // You might have to save some state, like the current animation here so that you can start the right
+    // This function is called every time the status changes
+
+    // NOTE that this is called from the visualizer thread, so don't access anything else outside the status
+    // This is also important because the slave won't have access to the active layer for example outside the
+    // status.
+
+    update_emulated_leds(state, prev_status);
+    update_lcd_text(state, prev_status);
+
 }
 
 void user_visualizer_suspend(visualizer_state_t* state) {

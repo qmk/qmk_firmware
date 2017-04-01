@@ -156,7 +156,7 @@ void visualizer_set_user_data(void* user_data);
 
 // These functions have to be implemented by the user
 void initialize_user_visualizer(visualizer_state_t* state);
-void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t prev_status);
+void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status);
 void user_visualizer_suspend(visualizer_state_t* state);
 void user_visualizer_resume(visualizer_state_t* state);
 
