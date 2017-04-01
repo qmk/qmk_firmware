@@ -126,34 +126,48 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
+__attribute__ ((weak))
 void ergodox_board_led_on(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_1_on(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_2_on(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_3_on(void){
 }
 
-void ergodox_right_led_on(uint8_t led){
-}
-
+__attribute__ ((weak))
 void ergodox_board_led_off(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_1_off(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_2_off(void){
 }
 
+__attribute__ ((weak))
 void ergodox_right_led_3_off(void){
 }
 
-void ergodox_right_led_off(uint8_t led){
+__attribute__ ((weak))
+void ergodox_right_led_1_set(uint8_t n) {
+}
+
+__attribute__ ((weak))
+void ergodox_right_led_2_set(uint8_t n) {
+}
+
+__attribute__ ((weak))
+void ergodox_right_led_3_set(uint8_t n) {
 }
 
 #ifdef ONEHAND_ENABLE
