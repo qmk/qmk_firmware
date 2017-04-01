@@ -56,6 +56,8 @@ SOFTWARE.
 // mods status
 #include "action_util.h"
 
+#include "led.h"
+
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
@@ -350,6 +352,39 @@ bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_st
     gdispFlush();
     return false;
 }
+
+bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_state_t* state)
+{
+    char output[sizeof("NUM CAPS SCRL COMP KANA")];
+    uint8_t pos = 0;
+
+    if (state->status.leds & (1u << USB_LED_NUM_LOCK)) {
+       memcpy(output + pos, "NUM ", 4);
+       pos += 4;
+    }
+    if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
+       memcpy(output + pos, "CAPS ", 5);
+       pos += 5;
+    }
+    if (state->status.leds & (1u << USB_LED_SCROLL_LOCK)) {
+       memcpy(output + pos, "SCRL ", 5);
+       pos += 5;
+    }
+    if (state->status.leds & (1u << USB_LED_COMPOSE)) {
+       memcpy(output + pos, "COMP ", 5);
+       pos += 5;
+    }
+    if (state->status.leds & (1u << USB_LED_KANA)) {
+       memcpy(output + pos, "KANA ", 5);
+       pos += 5;
+    }
+    output[pos] = 0;
+    gdispClear(White);
+    gdispDrawString(0, 10, output, state->font_dejavusansbold12, Black);
+    gdispFlush();
+    return false;
+}
+
 #endif // LCD_ENABLE
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -433,8 +468,9 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                     user_visualizer_suspend(&state);
                 }
                 else {
+                    visualizer_keyboard_status_t prev_status = state.status;
                     state.status = current_status;
-                    update_user_visualizer_state(&state);
+                    update_user_visualizer_state(&state, prev_status);
                 }
                 state.prev_lcd_color = state.current_lcd_color;
             }

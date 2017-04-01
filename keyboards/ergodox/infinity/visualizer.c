@@ -73,6 +73,14 @@ static const uint8_t image_data_lcd_logo[512] = {
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
 
+typedef enum {
+    LCD_STATE_INITIAL,
+    LCD_STATE_LAYER_BITMAP,
+    LCD_STATE_BITMAP_AND_LEDS,
+} lcd_state_t;
+
+static lcd_state_t lcd_state = LCD_STATE_INITIAL;
+
 bool display_logo(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     (void)animation;
@@ -122,11 +130,18 @@ static keyframe_animation_t color_animation = {
 
 // The LCD animation alternates between the layer name display and a
 // bitmap that displays all active layers
-static keyframe_animation_t lcd_animation = {
+static keyframe_animation_t lcd_bitmap_animation = {
+    .num_frames = 1,
+    .loop = false,
+    .frame_lengths = {gfxMillisecondsToTicks(0)},
+    .frame_functions = {keyframe_display_layer_bitmap},
+};
+
+static keyframe_animation_t lcd_bitmap_leds_animation = {
     .num_frames = 2,
     .loop = true,
     .frame_lengths = {gfxMillisecondsToTicks(2000), gfxMillisecondsToTicks(2000)},
-    .frame_functions = {keyframe_display_layer_text, keyframe_display_layer_bitmap},
+    .frame_functions = {keyframe_display_layer_bitmap, keyframe_display_led_states},
 };
 
 static keyframe_animation_t suspend_animation = {
@@ -158,38 +173,50 @@ void initialize_user_visualizer(visualizer_state_t* state) {
     lcd_backlight_brightness(130);
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
+    lcd_state = LCD_STATE_INITIAL;
     start_keyframe_animation(&startup_animation);
 }
 
-void update_user_visualizer_state(visualizer_state_t* state) {
-    // Add more tests, change the colors and layer texts here
-    // Usually you want to check the high bits (higher layers first)
-    // because that's the order layers are processed for keypresses
-    // You can for check for example:
-    // state->status.layer
-    // state->status.default_layer
-    // state->status.leds (see led.h for available statuses)
-    if (state->status.layer & 0x8) {
-        state->target_lcd_color = LCD_COLOR(0xC0, 0xB0, 0xFF);
-        state->layer_text = "Numpad";
-    }
-    else if (state->status.layer & 0x4) {
-        state->target_lcd_color = LCD_COLOR(0, 0xB0, 0xFF);
-        state->layer_text = "KBD functions";
-    }
-    else if (state->status.layer & 0x2) {
-        state->target_lcd_color = LCD_COLOR(0x80, 0xB0, 0xFF);
-        state->layer_text = "Function keys";
-    }
-    else {
+void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t prev_status) {
+    // Check the status here to start and stop animations
+    // You might have to save some state, like the current animation here so that you can start the right
+    // This function is called every time the status changes
+
+    // NOTE that this is called from the visualizer thread, so don't access anything else outside the status
+    // This is also important because the slave won't have access to the active layer for example outside the
+    // status.
+
+    if (lcd_state == LCD_STATE_INITIAL) {
         state->target_lcd_color = LCD_COLOR(0x40, 0xB0, 0xFF);
-        state->layer_text = "Default";
+        start_keyframe_animation(&color_animation);
     }
-    // You can also stop existing animations, and start your custom ones here
-    // remember that you should normally have only one animation for the LCD
-    // and one for the background. But you can also combine them if you want.
-    start_keyframe_animation(&lcd_animation);
-    start_keyframe_animation(&color_animation);
+
+    if (state->status.leds) {
+        if (lcd_state != LCD_STATE_BITMAP_AND_LEDS ||
+                state->status.leds != prev_status.leds ||
+                state->status.layer != prev_status.layer ||
+                state->status.default_layer != prev_status.default_layer) {
+
+            // NOTE: that it doesn't matter if the animation isn't playing, stop will do nothing in that case
+            stop_keyframe_animation(&lcd_bitmap_animation);
+
+            lcd_state = LCD_STATE_BITMAP_AND_LEDS;
+            // For information:
+            // The logic in this function makes sure that this doesn't happen, but if you call start on an
+            // animation that is already playing it will be restarted.
+            start_keyframe_animation(&lcd_bitmap_leds_animation);
+        }
+    } else {
+        if (lcd_state != LCD_STATE_LAYER_BITMAP ||
+                state->status.layer != prev_status.layer ||
+                state->status.default_layer != prev_status.default_layer) {
+
+            stop_keyframe_animation(&lcd_bitmap_leds_animation);
+
+            lcd_state = LCD_STATE_LAYER_BITMAP;
+            start_keyframe_animation(&lcd_bitmap_animation);
+        }
+    }
 }
 
 void user_visualizer_suspend(visualizer_state_t* state) {
@@ -203,5 +230,6 @@ void user_visualizer_suspend(visualizer_state_t* state) {
 void user_visualizer_resume(visualizer_state_t* state) {
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
+    lcd_state = LCD_STATE_INITIAL;
     start_keyframe_animation(&resume_animation);
 }
