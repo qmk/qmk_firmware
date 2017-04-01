@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
-#define LED_BRIGHTNESS_LO       15
+#define LED_BRIGHTNESS_LO       100
 #define LED_BRIGHTNESS_HI       255
 
 /* define if matrix has ghost */
