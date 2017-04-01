@@ -484,7 +484,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 else {
                     visualizer_keyboard_status_t prev_status = state.status;
                     state.status = current_status;
-                    update_user_visualizer_state(&state, prev_status);
+                    update_user_visualizer_state(&state, &prev_status);
                 }
                 state.prev_lcd_color = state.current_lcd_color;
             }
