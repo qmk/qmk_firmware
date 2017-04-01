@@ -70,8 +70,8 @@ static const uint8_t image_data_lcd_logo[512] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0x80);
-static const uint32_t initial_color = LCD_COLOR(0, 0, 0xFF);
+static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
+static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
 
 bool display_logo(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
@@ -155,7 +155,7 @@ static keyframe_animation_t resume_animation = {
 void initialize_user_visualizer(visualizer_state_t* state) {
     // The brightness will be dynamically adjustable in the future
     // But for now, change it here.
-    lcd_backlight_brightness(0x50);
+    lcd_backlight_brightness(130);
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     start_keyframe_animation(&startup_animation);
