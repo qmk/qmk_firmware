@@ -24,6 +24,7 @@ void voice_deiterate() {
 
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
+    __attribute__ ((unused))
     uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 
     switch (voice) {

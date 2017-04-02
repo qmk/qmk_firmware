@@ -6,7 +6,6 @@
 #include "action_code.h"
 
 #define BASE    0 // default layer
-#define SHELL_LAYER 1
 #define SHELL_NAV 2
 #define KEY_NAV 3 // key navigation layer
 #define KEY_SEL 4 // key selection layer
@@ -37,41 +36,25 @@
 #define END_NEWLINE 17
 
 
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(KEY_NAV), // FN1 - keynav layer
-  [2] = ACTION_LAYER_TAP_TOGGLE(NUMBER), // FN2 - number layer
-  [3] = ACTION_MODS_ONESHOT(MOD_LSFT),   // FN3 - shift modifier / oneshot
-  [4] = ACTION_MODS_ONESHOT(MOD_LCTL),   // FN4 - ctrl modifier / oneshot
-  [5] = ACTION_MODS_ONESHOT(MOD_LALT),   // FN5 - alt modifier / oneshot
-};
-
-//Tap Dance Declarations
-enum {
-  TD_SHIFT_CAPSLOCK = 0,
-  TD_BRK_LEFT = 1,
-  TD_BRK_RIGHT = 2
-};
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // base layer
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,                    KC_F1,          KC_F2,       KC_F3,        KC_F4,       KC_F5,       KC_F6,
-        LT(SHELL_NAV,KC_TAB),      KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
-        OSL(BRACKETS),             KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
-        OSM(MOD_LSFT),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
-                   OSL(SHORTCUTS),KC_FN4, KC_FN5,OSL(SYMBOL),MO(NUMBER),  
+        KC_TAB,                    KC_QUOT,        KC_COMM,     KC_DOT,       KC_P,        KC_Y,        MO(KEY_SEL),
+        MO(BRACKETS),              KC_A,           KC_O,        KC_E,         KC_U,        KC_I,
+        MO(SHELL_NAV),             KC_SCLN,        KC_Q,        KC_J,         KC_K,        KC_X,        MO(KEY_NAV),
+                   OSL(SHORTCUTS),OSM(MOD_LCTL), OSM(MOD_LALT),OSL(SYMBOL),MO(NUMBER),  
                                               // thumb cluster
-                                               MO(MOUSE), RCTL(KC_S),
-                                                                      RCTL(KC_DEL),
+                                               OSM(MOD_LSFT), RCTL(KC_S),
+                                                          RCTL(KC_DEL),
                                                KC_BSPC,RCTL(KC_BSPC),KC_DEL,
         // right hand
              KC_F7,       KC_F8,       KC_F9,       KC_F10,        KC_F11,       KC_F12,       KC_BSLS,
              KC_PGUP,     KC_F,        KC_G,        KC_C,          KC_R,         KC_L,         KC_SLSH,
                           KC_D,        KC_H,        KC_T,          KC_N,         KC_S,         KC_MINS,
-             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         TD(TD_SHIFT_CAPSLOCK),
+             KC_PGDN,     KC_B,        KC_M,        KC_W,          KC_V,         KC_Z,         OSM(MOD_LSFT),
                                   // lower keys - browser tab control
                                   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), RCTL(KC_W),
              // thumb cluster
@@ -82,31 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      
 
 	 
-// permanent shell layer - meant to be used while in a terminal. only the top keys are overriden
-[SHELL_LAYER] = KEYMAP(
-       // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,LALT(KC_DOT),RCTL(KC_R),RCTL(KC_C),
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               // bottom row
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       // thumb cluster
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-       // right hand
-       RCTL(KC_W), LALT(KC_B),LALT(KC_F), KC_LEFT, KC_RIGHT, LALT(KC_D), KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                // bottom row
-                 KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       // thumb cluster
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-),	 
 	 
 // shell navigation layer
 [SHELL_NAV] = KEYMAP(
@@ -270,11 +228,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MEH(KC_F7), MEH(KC_F8), MEH(KC_F9), MEH(KC_F10),  MEH(KC_F11), MEH(KC_F12),  M(SWITCH_NDS),
        KC_TRNS, MEH(KC_A), MEH(KC_B),    MEH(KC_C),    MEH(KC_D),    MEH(KC_E), MEH(KC_F),
                 MEH(KC_G), MEH(KC_H),    MEH(KC_I),    MEH(KC_J),    MEH(KC_K), MEH(KC_L),
-       KC_TRNS, MEH(KC_M), MEH(KC_N),    MEH(KC_O),    MEH(KC_P),    MEH(KC_Q), MEH(KC_R),
+       KC_TRNS, MEH(KC_M), MEH(KC_N),    MEH(KC_O),    MEH(KC_P),    MEH(KC_Q), KC_CAPSLOCK,
                            MEH(KC_S),    MEH(KC_T),    MEH(KC_U),    MEH(KC_V), MEH(KC_X),
        MEH(KC_6), MEH(KC_7),
        MEH(KC_8),
-       MEH(KC_9), TO(BASE), TO(SHELL_LAYER)
+       MEH(KC_9), MEH(KC_Y), MEH(KC_Z)
 ),
 
 
@@ -395,7 +353,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed) {
                 return MACRO( T(END), T(ENTER), END);
             }		
-		break;		
+		break;	
+		
         
       }
     return MACRO_NONE;
@@ -414,13 +373,6 @@ void led_set_user(uint8_t usb_led) {
         ergodox_right_led_1_off();
     }
 }
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_SHIFT_CAPSLOCK]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
-  [TD_BRK_LEFT]  = ACTION_TAP_DANCE_DOUBLE (KC_LPRN, KC_LCBR),
-  [TD_BRK_RIGHT] = ACTION_TAP_DANCE_DOUBLE (KC_RPRN, KC_RCBR)
-
-};
 
 
 // Runs constantly in the background, in a loop.
