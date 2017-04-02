@@ -18,7 +18,6 @@ enum outputs {
     OUTPUT_NONE,
     OUTPUT_USB,
     OUTPUT_BLUETOOTH,
-    OUTPUT_ADAFRUIT_BLE,
 
     // backward compatibility
     OUTPUT_USB_AND_BT
