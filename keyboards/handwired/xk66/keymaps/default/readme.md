@@ -1,1 +1,0 @@
-# The default keymap for handwired/xk66
