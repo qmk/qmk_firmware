@@ -102,6 +102,8 @@ Please note the USB port can only supply a limited amount of power to the keyboa
 
 Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
 
+To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest from a Thinkpad keyboard), identify the function of each pin of the module, and make the necessary circuitry between controller and Trackpoint module. For more information, please refer to [Trackpoint Hardware](https://deskthority.net/wiki/TrackPoint_Hardware) page on Deskthority Wiki.
+
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
 ### Busywait version
