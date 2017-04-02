@@ -39,6 +39,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
 * [Ergodox Infinity](/keyboards/ergodox) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
+* [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
 * [Happy Hacking Keyboard](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
 * [Infinity 60%](/keyboards/infinity60) - &mdash; Compact community keyboard by Input Club.
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
