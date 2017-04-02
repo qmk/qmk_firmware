@@ -1,1 +1,0 @@
-Focus of this particular keymap is to enable easy transition from more traditional keyboards to OLKB Planck.
