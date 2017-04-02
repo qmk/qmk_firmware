@@ -48,19 +48,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * | H(3) | H(F1)| H(F2)| H(F3)| H(F4)| H(F5)| H(8) | Home |  Up  |  End | H(7) |  Esc |
+ * | H(F7)| H(F8)| H(6) | H(5) | H(4) | H(F9)|H(F10)| Home |  Up  |  End | H(A) |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | H(4) | H(F6)| H(F7)| H(F8)| H(F9)|H(F10)| H(9) | Left | Down | Right| Caps |  Del |
+ * | H(F3)| H(F4)| H(3) | H(2) | H(1) | H(F5)| H(F6)| Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |H(F11)|H(F12)| H(0) | H(1) | H(2) | H(A) | Pg Dn| Pg Up| H(5) | H(6) |      |
+ * |      | H(0) | H(9) | H(8) | H(7) | H(F1)| H(F2)| Pg Dn| Pg Up|H(F11)|H(F12)|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE] = {
-  {H(KC_3), H(KC_F1),H(KC_F2),H(KC_F3),H(KC_F4),H(KC_F5),H(KC_8), KC_HOME, KC_UP,   KC_END,  H(KC_7), KC_ESC },
-  {H(KC_4), H(KC_F6),H(KC_F7),H(KC_F8),H(KC_F9),H(KC_F10),H(KC_9),KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
-  {_______, H(KC_F11),H(KC_F12),H(KC_0),H(KC_1),H(KC_2), H(KC_A), KC_PGDN, KC_PGUP, H(KC_5), H(KC_6), _______},
+  {H(KC_F7),H(KC_F8),H(KC_6), H(KC_5), H(KC_4), H(KC_F9),H(KC_F10),KC_HOME,KC_UP,   KC_END,  H(KC_A), KC_ESC },
+  {H(KC_F3),H(KC_F4),H(KC_3), H(KC_2), H(KC_1), H(KC_F5),H(KC_F6),KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, KC_DEL },
+  {_______, H(KC_0), H(KC_9), H(KC_8), H(KC_7), H(KC_F1),H(KC_F2),KC_PGDN,KC_PGUP,H(KC_F11),H(KC_F12),_______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 

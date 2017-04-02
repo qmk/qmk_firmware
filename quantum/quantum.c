@@ -1,3 +1,19 @@
+/* Copyright 2016-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "quantum.h"
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
@@ -6,6 +22,9 @@
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif
+
+#include "backlight.h"
+extern backlight_config_t backlight_config;
 
 #ifdef FAUXCLICKY_ENABLE
 #include "fauxclicky.h"
@@ -95,8 +114,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#ifdef AUDIO_ENABLE
-  stop_all_notes();
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
+  music_all_notes_off();
   shutdown_user();
 #endif
   wait_ms(250);
@@ -150,10 +169,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
-  #ifdef MIDI_ENABLE
+  #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
   #ifdef AUDIO_ENABLE
+    process_audio(keycode, record) &&
+  #endif
+  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -287,14 +309,6 @@ bool process_record_quantum(keyrecord_t *record) {
     case OUT_BT:
       if (record->event.pressed) {
         set_output(OUTPUT_BLUETOOTH);
-      }
-      return false;
-      break;
-    #endif
-    #ifdef ADAFRUIT_BLE_ENABLE
-    case OUT_BLE:
-      if (record->event.pressed) {
-        set_output(OUTPUT_ADAFRUIT_BLE);
       }
       return false;
       break;
@@ -601,6 +615,10 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
   #endif
 
+  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
+    backlight_task();
+  #endif
+
   matrix_scan_kb();
 }
 
@@ -668,13 +686,13 @@ __attribute__ ((weak))
 void backlight_set(uint8_t level)
 {
   // Prevent backlight blink on lowest level
-  #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-  #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-  #endif
+  // #if BACKLIGHT_ON_STATE == 0
+  //   // PORTx &= ~n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  // #else
+  //   // PORTx |= n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  // #endif
 
   if ( level == 0 ) {
     #ifndef NO_BACKLIGHT_CLOCK
@@ -682,13 +700,13 @@ void backlight_set(uint8_t level)
       TCCR1A &= ~(_BV(COM1x1));
       OCR1x = 0x0;
     #else
-      #if BACKLIGHT_ON_STATE == 0
-        // PORTx |= n
-        _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-      #else
-        // PORTx &= ~n
-        _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-      #endif
+      // #if BACKLIGHT_ON_STATE == 0
+      //   // PORTx |= n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      // #else
+      //   // PORTx &= ~n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      // #endif
     #endif
   } 
   #ifndef NO_BACKLIGHT_CLOCK
@@ -711,6 +729,30 @@ void backlight_set(uint8_t level)
   #endif
 }
 
+uint8_t backlight_tick = 0;
+
+void backlight_task(void) {
+  #ifdef NO_BACKLIGHT_CLOCK
+  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) { 
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #else
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #endif
+  } else {
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #else
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #endif
+  }
+  backlight_tick = (backlight_tick + 1) % 16;
+  #endif
+}
 
 #ifdef BACKLIGHT_BREATHING
 
