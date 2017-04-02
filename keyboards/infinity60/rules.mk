@@ -1,6 +1,7 @@
 # project specific files
 SRC =	matrix.c \
-	led.c
+	led.c \
+	led_controller.c
 
 ## chip/board settings
 # - the next two should match the directories in
