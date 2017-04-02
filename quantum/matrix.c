@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako
-Copyright 2014 Jack Humbert
+Copyright 2012-2017 Jun Wako, Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -143,8 +143,13 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
+DFU_ARGS =
+ifneq ("$(SERIAL)","")
+	DFU_ARGS += -S $(SERIAL)
+endif
+
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
-	dfu-util -D $(BUILD_DIR)/$(TARGET).bin
+	dfu-util $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
