@@ -13,17 +13,6 @@
 	#include <avr/io.h>
 	#include <avr/interrupt.h>
 #endif
-#ifdef SSD1306OLED
-	extern bool iota_gfx_init(void);
-	extern void iota_gfx_task(void);
-	extern bool iota_gfx_off(void);
-	extern bool iota_gfx_on(void);
-	extern void iota_gfx_flush(void);
-	extern void iota_gfx_write_char(uint8_t c);
-	extern void iota_gfx_write(const char *data);
-	extern void iota_gfx_write_P(const char *data);
-	extern void iota_gfx_clear_screen(void);
-#endif
 #endif
 
 //void promicro_bootloader_jmp(bool program);
