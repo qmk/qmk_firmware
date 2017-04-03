@@ -47,9 +47,9 @@ enum dynamic_macro_keycodes {
 /* Blink the LEDs to notify the user about some event. */
 void dynamic_macro_led_blink(void)
 {
-    backlight_toggle();
-    _delay_ms(100);
-    backlight_toggle();
+    //backlight_toggle();
+    //_delay_ms(100);
+    //backlight_toggle();
 }
 
 /**
@@ -113,7 +113,7 @@ void dynamic_macro_record_key(
     } else {
         /* Notify about the end of buffer. The blinks are paired
          * because they should happen on both down and up events. */
-        backlight_toggle();
+        //backlight_toggle();
     }
 }
 
