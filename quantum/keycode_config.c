@@ -94,8 +94,7 @@ uint8_t mod_config(uint8_t mod) {
         if (mod & MOD_LGUI) {
             mod &= ~MOD_LGUI;
             mod |= MOD_LALT;
-        }
-        if (mod & MOD_LALT) {
+        } else if (mod & MOD_LALT) {
             mod &= ~MOD_LALT;
             mod |= MOD_LGUI;
         }
@@ -104,8 +103,7 @@ uint8_t mod_config(uint8_t mod) {
         if (mod & MOD_RGUI) {
             mod &= ~MOD_RGUI;
             mod |= MOD_RALT;
-        }
-        if (mod & MOD_RALT) {
+        } else if (mod & MOD_RALT) {
             mod &= ~MOD_RALT;
             mod |= MOD_RGUI;
         }
