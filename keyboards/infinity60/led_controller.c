@@ -26,10 +26,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "led_controller.h"
 
-#include "hook.h"
+//#include "hook.h"
 #include "suspend.h"
 
 #include "usb_main.h"
+
+/* Infinity60 LED MAP
+    - digits mean "row" and "col", i.e. 45 means C4-5 in the IS31 datasheet, matrix A
+
+  11 12 13 14 15 16 17 18 21 22 23 24 25  26 27*
+   28 31 32 33 34 35 36 37 38 41 42 43 44 45
+   46 47 48 51 52 53 54 55 56 57 58 61    62
+    63 64 65 66 67 68 71 72 73 74 75      76 77*
+  78  81  82       83         84  85  86  87
+
+*Unused in Alphabet Layout
+*/
 
 /* WF LED MAP
     - digits mean "row" and "col", i.e. 45 means C4-5 in the IS31 datasheet, matrix A
@@ -52,10 +64,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* Which LED should be used for CAPS LOCK indicator
- * The usual Caps Lock position is C4-8, so the address is
- * 0x24 + (4-1)*0x10 + (8-1) = 0x5B */
+ * The usual Caps Lock position is C4-6, so the address is
+ * 0x24 + (4-1)*0x10 + (8-1) = 0x59 */
 #if !defined(CAPS_LOCK_LED_ADDRESS)
-#define CAPS_LOCK_LED_ADDRESS 0x5B
+#define CAPS_LOCK_LED_ADDRESS 0x59
 #endif
 
 /* Which LED should breathe during sleep */
@@ -81,9 +93,12 @@ uint8_t rx[1] __attribute__((aligned(2)));
 uint8_t full_page[0xB4+1] = {0};
 
 // LED mask (which LEDs are present, selected by bits)
-const uint8_t is31_wf_leds_mask[0x12] = {
+// See page comment above, control alternates CA matrix/CB matrix
+// IC60 pcb uses only CA matrix.
+// Each byte is a control pin for 8 leds 8-1
+const uint8_t is31_ic60_leds_mask[0x12] = {
   0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
-  0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0x7F, 0x00
+  0x00, 0xFF, 0x00, 0xFF, 0x00, 0x7F, 0x00, 0x00, 0x00
 };
 
 /* ============================
@@ -233,6 +248,8 @@ static THD_FUNCTION(LEDthread, arg) {
   }
 }
 
+//These relate to the LED map above, row and column
+//0x24 = 11 --> hex value   
 /* LED game mode */
 const uint8_t led_game[83] = {
   0x24,
@@ -240,19 +257,17 @@ const uint8_t led_game[83] = {
   0x34,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x44,
-  0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x54,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF,
   0x64,
-  0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x74,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x84,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x94,
   0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00,
-  0xA4,
-  0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00,
 };
 
 /* ALL LEDs */
@@ -272,8 +287,6 @@ const uint8_t led_all[83] = {
   0x84,
   0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
   0x94,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
-  0xA4,
   0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
 };
 
@@ -299,9 +312,9 @@ void hook_early_init(void) {
   /* initialise IS31 chip */
   is31_init();
 
-  /* enable WF LEDs on all pages */
+  /* enable LEDs on all pages */
   full_page[0] = 0;
-  __builtin_memcpy(full_page+1, is31_wf_leds_mask, 0x12);
+  __builtin_memcpy(full_page+1, is31_ic60_leds_mask, 0x12);
   for(i=0; i<8; i++) {
     is31_write_data(i, full_page, 1+0x12);
   }
