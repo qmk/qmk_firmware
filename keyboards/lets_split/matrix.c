@@ -226,9 +226,7 @@ uint8_t matrix_scan(void)
         TXLED0;
         error_count = 0;
     }
-
     matrix_scan_quantum();
-
     return ret;
 }
 
