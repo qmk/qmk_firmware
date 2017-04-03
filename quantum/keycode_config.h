@@ -16,6 +16,7 @@
 
 #include "eeconfig.h"
 #include "keycode.h"
+#include "action_code.h"
 
 #ifndef KEYCODE_CONFIG_H
 #define KEYCODE_CONFIG_H
