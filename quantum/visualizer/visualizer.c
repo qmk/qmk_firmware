@@ -364,9 +364,9 @@ bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_st
     return false;
 }
 
-bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_state_t* state)
-{
-    char output[sizeof("NUM CAPS SCRL COMP KANA")];
+#define LED_STATE_STRING_SIZE sizeof("NUM CAPS SCRL COMP KANA")
+
+static void get_led_state_string(char* output, visualizer_state_t* state) {
     uint8_t pos = 0;
 
     if (state->status.leds & (1u << USB_LED_NUM_LOCK)) {
@@ -390,8 +390,30 @@ bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_sta
        pos += 5;
     }
     output[pos] = 0;
+}
+
+bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_state_t* state)
+{
+    (void)animation;
+    char output[LED_STATE_STRING_SIZE];
+    get_led_state_string(output, state);
     gdispClear(White);
     gdispDrawString(0, 10, output, state->font_dejavusansbold12, Black);
+    gdispFlush();
+    return false;
+}
+
+bool keyframe_display_layer_and_led_states(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    gdispClear(White);
+    uint8_t y = 10;
+    if (state->status.leds) {
+        char output[LED_STATE_STRING_SIZE];
+        get_led_state_string(output, state);
+        gdispDrawString(0, 1, output, state->font_dejavusansbold12, Black);
+        y = 17;
+    }
+    gdispDrawString(0, y, state->layer_text, state->font_dejavusansbold12, Black);
     gdispFlush();
     return false;
 }

@@ -141,6 +141,7 @@ bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_s
 bool keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualizer_state_t* state);
 // Displays the keyboard led states (CAPS (Caps lock), NUM (Num lock), SCRL (Scroll lock), COMP (Compose), KANA)
 bool keyframe_display_led_states(keyframe_animation_t* animation, visualizer_state_t* state);
+bool keyframe_display_layer_and_led_states(keyframe_animation_t* animation, visualizer_state_t* state);
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
 bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
