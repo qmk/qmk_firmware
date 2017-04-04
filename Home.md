@@ -11,27 +11,9 @@ Before you are able to compile, you'll need to install an environment for AVR de
 
 # Configuring QMK Firmware
 
-The QMK Firmware can be configured via the `keymaps` array data.
-
-For simply generating a [basic keycode](https://github.com/qmk/qmk_firmware/wiki/Keycodes), you add it as an element of your `keymaps` array data.
-
-For more complicated actions, you add the corresponding **action code** directly as an element of your `keymaps` array data.
-
-The **action code** is a 16 bit data and organized carefully to represent common operations with the combination of C macros.  It is sometimes called quantum keycode in the QMK source comment.
-
-For example, the keycode `KC_8` as an element of your `keymaps` array data is for generating keystroke of "8".  The action code `SHFT(KC_8)` an element of your `keymaps` array data is for generating key stroke of "*" which is "8" key shifted.
-
-> In tmk, only up to 32 **action codes** are usable in `fn_actions` array data which is accessed via 32 special keycodes (`KC_FN0` to `KC_FN31`) in `keymaps` array data.
+The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](Keycodes), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](Key-Functions) page. 
 
 For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
-
-## C macros for action code
-
-Basic "C macros" for layer switching are documented in the [Key Functions](Key-Functions) page.  
-
-> The keyboard [macros](Macros) are completely different concept from the C macros for action code.  Please don't get confused.
-
-There are several new standardized support for common operations with new action codes as follows.
 
 ## Space Cadet Shift: The future, built in
 
