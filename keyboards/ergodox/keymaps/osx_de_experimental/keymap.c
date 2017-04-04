@@ -13,7 +13,7 @@ enum planck_keycodes {
   EXT_PLV,
   DYNAMIC_MACRO_RANGE,
 };
-#define _DYN 5
+#define _DYN 4
 
 #include "dynamic_macro.h"
 #include "keymap_extras/keymap_german.h"
@@ -21,12 +21,9 @@ enum planck_keycodes {
 
 #define BASE 0
 #define SYMB 1
-#define SMLY 2
-#define NUMB 3
-#define EGOS 4
+#define NUMB 2
+#define EGOS 3
 
-
-#define SMLY_TOG_QUOT 0
 
 #define M_TOGGLE_EGOS 1
 
@@ -60,14 +57,17 @@ enum planck_keycodes {
 
 #define _______ KC_TRNS
 
-
+//Tap Dance Declarations
+enum {
+	TD_ESC_CAPS = 0
+};
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
 * Layer: BASE
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
-* | ESC                | 1                  | 2                  | 3                  | 4                  | 5                  | Hold or toggle     |                       | ADNW               | 6                  | 7                  | 8                  | 9                  | 0                  | ß                  |                      
+* | ESC                | 1                  | 2                  | 3                  | 4                  | 5                  | Hold or toggle     |                       | LEAD               | 6                  | 7                  | 8                  | 9                  | 0                  | ß                  |                      
 * |                    |                    |                    |                    |                    |                    | Layer NUMB         |                       |                    |                    |                    |                    |                    |                    |                    |                      
 * /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                        /-------------------//-------------------//-------------------//-------------------//-------------------//-------------------//-------------------/                       
 * | TAB                | Q                  | W                  | E                  | R                  | T                  | Cmd                |                       | Cmd                | Z                  | U                  | I                  | O                  | P                  | Ü                  |                      
@@ -99,16 +99,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 **/
 [BASE]=KEYMAP(
 //left half
-    KC_ESC, DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
+    TD(TD_ESC_CAPS), DE_OSX_1, DE_OSX_2, DE_OSX_3, DE_OSX_4, DE_OSX_5, M(TGH_NUM), 
     KC_TAB, DE_OSX_Q, DE_OSX_W, DE_OSX_E, DE_OSX_R, DE_OSX_T, KC_LGUI, 
     KC_LALT, DE_OSX_A, DE_OSX_S, DE_OSX_D, DE_OSX_F, DE_OSX_G, 
     KC_LSPO, CTL_T(DE_OSX_Y), DE_OSX_X, DE_OSX_C, DE_OSX_V, DE_OSX_B, MEH_T(KC_NO), 
-                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), LCTL(KC_LALT), LSFT(KC_LCTRL), OSL(SMLY), 
+                  LT(SYMB,DE_OSX_LESS), M(M_DE_OSX_CIRC_CTRLCMD), LCTL(KC_LALT), LSFT(KC_LCTRL), MO(_DYN), 
                                               KC_HOME, KC_END, 
                                                      KC_PGUP, 
                                        KC_BSPC, KC_DEL, KC_PGDN, 
     //right half
-    MO(_DYN), DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
+    KC_LEAD, DE_OSX_6, DE_OSX_7, DE_OSX_8, DE_OSX_9, DE_OSX_0, DE_OSX_SS, 
     KC_RGUI, DE_OSX_Z, DE_OSX_U, DE_OSX_I, DE_OSX_O, DE_OSX_P, DE_OSX_UE, 
            DE_OSX_H, DE_OSX_J, DE_OSX_K, DE_OSX_L, DE_OSX_OE, ALT_T(DE_OSX_AE), 
     ALL_T(KC_NO), DE_OSX_N, DE_OSX_M, DE_OSX_COMM, DE_OSX_DOT, CTL_T(DE_OSX_MINS), KC_RSPC, 
@@ -168,58 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F13, KC_F12, 
     KC_F14, 
     KC_F15, _______, _______),
-/**
-* Layer: SMLY
-* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |         |            |         | Typing  | Typing  |         |         |         |         |           
-* |         |         |         |         |         |         |         |            |         | SM_KISS | SM_HEART|         |         |         |         |           
-* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |         |            |         | Typing  | Typing  | Typing  |         |         |         |           
-* |         |         |         |         |         |         |         |            |         | SM_FROWN| SM_SAD  | SM_CRY  |         |         |         |           
-* /--------//--------//--------//--------//--------//--------/\--------\             \--------\/--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |                                | Typing  | Typing  | Typing  |         |         |         |           
-* |         |         |         |         |         |         |                                | SM_SMIRK| SM_SMILE| SM_LAUGH|         |         |         |           
-* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
-* |         |         |         |         |         |         |         |            |         |         |         |         |         |         |         |           
-* |         |         |         |         |         |         |         |            |         |         |         |         |         |         |         |           
-* \--------\\--------\\--------\\--------\\--------\\--------\\--------\             \--------\\--------\\--------\\--------\\--------\\--------\\--------\            
-*                                                                                                                                                                      
-*                                                                                                                                                                      
-*                     /--------//--------//--------//--------//--------/                                           /--------//--------//--------//--------//--------/  
-*                     |         |         |         |         |         |                                          |         |         |         |         |         | 
-*                     |         |         |         |         |         |                                          |         |         |         |         |         | 
-*                     \--------\\--------\\--------\\--------\/--------//--------/   /--------//--------/          \--------\\--------\\--------\\--------\\--------\  
-*                                                             |         |         |  |         |         |                                                             
-*                                                             |         |         |  |         |         |                                                             
-*                                                             \--------\/--------/   /--------/\--------\                                                              
-*                                                                       |         |  |         |                                                                       
-*                                                                       |         |  |         |                                                                       
-*                                                   /--------//--------//--------/   /--------//--------//--------/                                                    
-*                                                   |         |         |         |  |         |         |         |                                                   
-*                                                   |         |         |         |  |         |         |         |                                                   
-*                                                   \--------\\--------\\--------\   \--------\\--------\\--------\                                                    
-*                                                                                                                                                                      
-* 
-**/
-[SMLY]=KEYMAP(
-//left half
-    _______, _______, _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, 
-                  _______, _______, _______, _______, _______, 
-                                              _______, _______, 
-                                                     _______, 
-                                       _______, _______, _______, 
-    //right half
-    _______, M(SM_KISS), M(SM_HEART), _______, _______, _______, _______, 
-    _______, M(SM_FROWN), M(SM_SAD), M(SM_CRY), _______, _______, _______, 
-           M(SM_SMIRK), M(SM_SMILE), M(SM_LAUGH), _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, 
-                         _______, _______, _______, _______, _______, 
-    _______, _______, 
-    _______, 
-    _______, _______, _______),
+
 /**
 * Layer: NUMB
 * /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
@@ -325,36 +274,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, 
     _______, _______, _______),
 /**
-* Layer: ADNW
-* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
-* |      | 1    | 2    | 3    | 4    | 5    |      |         |      | 6    | 7    | 8    | 9    | 0    | ß    |        
-* |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
-* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
-* |      | K    | .    | O    | ,    | Z    | Cmd  |         | Cmd  | V    | G    | C    | L    | -    | Y    |        
-* |      |      |      |      |      |      |      |         |      |      |      |      |      |      |      |        
-* /-----//-----//-----//-----//-----//-----/\-----\          \-----\/-----//-----//-----//-----//-----//-----/         
-* |      | H    | A    | E    | I    | U    |                       | D    | T    | R    | N    | S    | F    |        
-* |      |      |      |      |      |      |                       |      |      |      |      |      | ALT  |        
-* /-----//-----//-----//-----//-----//-----//-----/          /-----//-----//-----//-----//-----//-----//-----/         
-* |      | X    | Q    | Ä    | Ü    | Ö    | NO   |         | NO   | B    | P    | W    | M    | J    |      |        
-* |      | Ctrl |      |      |      |      | Meh  |         | Hyper|      |      |      |      | Ctrl |      |        
-* \-----\\-----\\-----\\-----\\-----\\-----\\-----\          \-----\\-----\\-----\\-----\\-----\\-----\\-----\         
-*                                                                                                                      
-*                                                                                                                      
-*               /-----//-----//-----//-----//-----/                               /-----//-----//-----//-----//-----/  
-*               |      |      |      |      |      |                              |      |      |      |      |      | 
-*               |      |      |      |      |      |                              |      |      |      |      |      | 
-*               \-----\\-----\\-----\\-----\/-----//-----/   /-----//-----/       \-----\\-----\\-----\\-----\\-----\  
-*                                           | HOME | END  |  | LEFT | RIGHT|                                           
-*                                           |      |      |  |      |      |                                           
-*                                           \-----\/-----/   /-----/\-----\                                            
-*                                                  | PGUP |  | UP   |                                                  
-*                                                  |      |  |      |                                                  
-*                                    /-----//-----//-----/   /-----//-----//-----/                                     
-*                                    | BSPC | DEL  | PGDN |  | DOWN | ENT  | SPC  |                                    
-*                                    |      |      |      |  |      |      |      |                                    
-*                                    \-----\\-----\\-----\   \-----\\-----\\-----\                                     
-*                                                                                                                      
+* Layer: _DYN
+* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
+* |         |  REC1   |   REC2  |         |         |         |         |            |         | Typing  | Typing  |         |         |         |         |           
+* |         |         |         |         |         |         |         |            |         | SM_KISS | SM_HEART|         |         |         |         |           
+* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
+* |         |         |         |         |         |         | PLAY1   |            |  PLAY1  | Typing  | Typing  | Typing  |         |         |         |           
+* |         |         |         |         |         |         |         |            |         | SM_FROWN| SM_SAD  | SM_CRY  |         |         |         |           
+* /--------//--------//--------//--------//--------//--------/\--------\             \--------\/--------//--------//--------//--------//--------//--------/            
+* |         |         |         |         |         |         |                                | Typing  | Typing  | Typing  |         |         |         |           
+* |         |         |         |         |         |         |                                | SM_SMIRK| SM_SMILE| SM_LAUGH|         |         |         |           
+* /--------//--------//--------//--------//--------//--------//--------/             /--------//--------//--------//--------//--------//--------//--------/            
+* |         |         |         |         |         |         | PLAY2   |            | PLAY2   |         |         |         |         |         |         |           
+* |         |         |         |         |         |         |         |            |         |         |         |         |         |         |         |           
+* \--------\\--------\\--------\\--------\\--------\\--------\\--------\             \--------\\--------\\--------\\--------\\--------\\--------\\--------\            
+*                                                                                                                                                                      
+*                                                                                                                                                                      
+*                     /--------//--------//--------//--------//--------/                                           /--------//--------//--------//--------//--------/  
+*                     |         |         |         |         |         |                                          |         |         |         |         |         | 
+*                     |         |         |         |         |         |                                          |         |         |         |         |         | 
+*                     \--------\\--------\\--------\\--------\/--------//--------/   /--------//--------/          \--------\\--------\\--------\\--------\\--------\  
+*                                                             |         |         |  |         |         |                                                             
+*                                                             |         |         |  |         |         |                                                             
+*                                                             \--------\/--------/   /--------/\--------\                                                              
+*                                                                       |         |  |         |                                                                       
+*                                                                       |         |  |         |                                                                       
+*                                                   /--------//--------//--------/   /--------//--------//--------/                                                    
+*                                                   |         |         |         |  |         |         |         |                                                   
+*                                                   |         |         |         |  |         |         |         |                                                   
+*                                                   \--------\\--------\\--------\   \--------\\--------\\--------\                                                    
+*                                                                                                                                                                      
 * 
 **/
 [_DYN]=KEYMAP(
@@ -368,10 +317,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, 
                                        _______, _______, _______, 
     //right half
-    _______, _______, _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, 
-           _______, _______, _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, 
+    _______, M(SM_KISS), M(SM_HEART), _______, _______, _______, _______, 
+    DYN_MACRO_PLAY1, M(SM_FROWN), M(SM_SAD), M(SM_CRY), _______, _______, _______, 
+           M(SM_SMIRK), M(SM_SMILE), M(SM_LAUGH), _______, _______, _______, 
+    DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, 
                          _______, _______, _______, _______, _______, 
     _______, _______, 
     _______, 
@@ -391,171 +340,162 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-static uint16_t start;
-switch(id) {
-case SMLY_TOG_QUOT:
-//Macro: SMLY_TOG_QUOT//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-           layer_state ^= (1<<SMLY);
-           layer_state &= (1<<SMLY);
-			return MACRO_NONE; 		} else {
-           layer_state ^= (1<<SMLY);
-           layer_state &= (1<<SMLY);
-			if (timer_elapsed(start) >150) {
-				return MACRO_NONE;
-			} else {
-				return MACRO(DOWN(KC_LSFT),TYPE(DE_OSX_HASH),UP(KC_LSFT),END);
-			}
-		}
+  static uint16_t start;
+  switch(id) {
 
-break;
-case M_TOGGLE_EGOS:
-//Macro: M_TOGGLE_EGOS//-----------------------
- if (record->event.pressed){
-           layer_state ^= (1<<EGOS);
-           layer_state &= (1<<EGOS);
-        }
+    case M_TOGGLE_EGOS:
+    //Macro: M_TOGGLE_EGOS//-----------------------
+     if (record->event.pressed){
+               layer_state ^= (1<<EGOS);
+               layer_state &= (1<<EGOS);
+            }
 
-break;
-case TGH_NUM:
-//Macro: TGH_NUM//-----------------------
-if (record->event.pressed){
-         start = timer_read();
-         layer_state ^=(1<<NUMB);
-         layer_state &=(1<<NUMB);
- } else {
-         if (timer_elapsed(start) > 150) {
-                 layer_state^=(1<<NUMB);
-                 layer_state&=(1<<NUMB);
-         }
- }
-return MACRO_NONE;
+    break;
+    case TGH_NUM:
+    //Macro: TGH_NUM//-----------------------
+    if (record->event.pressed){
+             start = timer_read();
+             layer_state ^=(1<<NUMB);
+             layer_state &=(1<<NUMB);
+     } else {
+             if (timer_elapsed(start) > 150) {
+                     layer_state^=(1<<NUMB);
+                     layer_state&=(1<<NUMB);
+             }
+     }
+    return MACRO_NONE;
 
-break;
-case M_DE_OSX_PLUS_CTRLALT:
-//Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LALT),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(KC_RBRC),END);
-			}
-		}
+    break;
+    case M_DE_OSX_PLUS_CTRLALT:
+    //Macro: M_DE_OSX_PLUS_CTRLALT//-----------------------
+    if (record->event.pressed) {
+    			start = timer_read();
+    			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LALT),END);
+    		} else {
+    			if (timer_elapsed(start) >150) {
+    				return MACRO(U(LCTRL),U(LALT),END);
+    			} else {
+    				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(KC_RBRC),END);
+    			}
+    		}
 
-break;
-case SM_KISS:
-//Macro: SM_KISS//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_RBRC),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_KISS:
+    //Macro: SM_KISS//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_RBRC),UP(KC_LSFT),END);
+    		}
 
-break;
-case SM_FROWN:
-//Macro: SM_FROWN//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LALT),TYPE(KC_8),UP(KC_LALT),END);
-		}
+    break;
+    case SM_FROWN:
+    //Macro: SM_FROWN//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LALT),TYPE(KC_8),UP(KC_LALT),END);
+    		}
 
-break;
-case SM_CRY:
-//Macro: SM_CRY//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_CRY:
+    //Macro: SM_CRY//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
+    		}
 
-break;
-case SM_SMILE:
-//Macro: SM_SMILE//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_SMILE:
+    //Macro: SM_SMILE//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
+    		}
 
-break;
-case SM_SMIRK:
-//Macro: SM_SMIRK//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_SMIRK:
+    //Macro: SM_SMIRK//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_COMM),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_9),UP(KC_LSFT),END);
+    		}
 
-break;
-case M_Key_KC_BSLS_MODS:
-//Macro: M_Key_KC_BSLS_MODS//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LALT),DOWN(KC_LGUI),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LALT),U(LGUI),END);
-			} else {
-				return MACRO(UP(KC_LALT),UP(KC_LGUI),TYPE(KC_BSLS),END);
-			}
-		}
+    break;
+    case M_Key_KC_BSLS_MODS:
+    //Macro: M_Key_KC_BSLS_MODS//-----------------------
+    if (record->event.pressed) {
+    			start = timer_read();
+    			return MACRO(DOWN(KC_LALT),DOWN(KC_LGUI),END);
+    		} else {
+    			if (timer_elapsed(start) >150) {
+    				return MACRO(U(LALT),U(LGUI),END);
+    			} else {
+    				return MACRO(UP(KC_LALT),UP(KC_LGUI),TYPE(KC_BSLS),END);
+    			}
+    		}
 
-break;
-case M_LGUI_SHFT:
-//Macro: M_LGUI_SHFT//-----------------------
-if (record->event.pressed){
-			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
-		}else{
-			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
-		}
+    break;
+    case M_LGUI_SHFT:
+    //Macro: M_LGUI_SHFT//-----------------------
+    if (record->event.pressed){
+    			return MACRO(DOWN(KC_LGUI),DOWN(KC_LSFT),END);
+    		}else{
+    			return MACRO(UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),UP(KC_LGUI),UP(KC_LSFT),U(LGUI),U(LSFT),END);
+    		}
 
-break;
-case SM_HEART:
-//Macro: SM_HEART//-----------------------
-if (record->event.pressed) {
-			return MACRO(TYPE(KC_GRV),TYPE(KC_3),END);
-		}
+    break;
+    case SM_HEART:
+    //Macro: SM_HEART//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(TYPE(KC_GRV),TYPE(KC_3),END);
+    		}
 
-break;
-case SM_LAUGH:
-//Macro: SM_LAUGH//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_D),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_LAUGH:
+    //Macro: SM_LAUGH//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_D),UP(KC_LSFT),END);
+    		}
 
-break;
-case SM_SAD:
-//Macro: SM_SAD//-----------------------
-if (record->event.pressed) {
-			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
-		}
+    break;
+    case SM_SAD:
+    //Macro: SM_SAD//-----------------------
+    if (record->event.pressed) {
+    			return MACRO(DOWN(KC_LSFT),TYPE(KC_DOT),UP(KC_LSFT),TYPE(KC_SLSH),DOWN(KC_LSFT),TYPE(KC_8),UP(KC_LSFT),END);
+    		}
 
-break;
-case M_DE_OSX_CIRC_CTRLCMD:
-//Macro: M_DE_OSX_CIRC_CTRLCMD//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LGUI),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LGUI),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LGUI),TYPE(KC_NUBS),END);
-			}
-		}
+    break;
+    case M_DE_OSX_CIRC_CTRLCMD:
+    //Macro: M_DE_OSX_CIRC_CTRLCMD//-----------------------
+    if (record->event.pressed) {
+    			start = timer_read();
+    			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LGUI),END);
+    		} else {
+    			if (timer_elapsed(start) >150) {
+    				return MACRO(U(LCTRL),U(LGUI),END);
+    			} else {
+    				return MACRO(UP(KC_LCTRL),UP(KC_LGUI),TYPE(KC_NUBS),END);
+    			}
+    		}
 
-break;
-case M_MEH_SH_ACUT:
-//Macro: M_MEH_SH_ACUT//-----------------------
-if (record->event.pressed) {
-			start = timer_read();
-			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LSFT),DOWN(KC_LALT),END);
-		} else {
-			if (timer_elapsed(start) >150) {
-				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
-			} else {
-				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_OSX_ACUT),UP(KC_LSFT),END);
-			}
-		}
+    break;
+    case M_MEH_SH_ACUT:
+    //Macro: M_MEH_SH_ACUT//-----------------------
+    if (record->event.pressed) {
+    			start = timer_read();
+    			return MACRO(DOWN(KC_LCTRL),DOWN(KC_LSFT),DOWN(KC_LALT),END);
+    		} else {
+    			if (timer_elapsed(start) >150) {
+    				return MACRO(U(LCTRL),U(LSFT),U(LALT),END);
+    			} else {
+    				return MACRO(UP(KC_LCTRL),UP(KC_LALT),TYPE(DE_OSX_ACUT),UP(KC_LSFT),END);
+    			}
+    		}
 
-break;
-}
-return MACRO_NONE;
+    break;
+  }
+  return MACRO_NONE;
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
 };
 
 // Runs just one time when the keyboard initializes.
@@ -563,46 +503,58 @@ void matrix_init_user(void) {
 
 };
 
+LEADER_EXTERNS();
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-uint8_t layer = biton32(layer_state);
+    uint8_t layer = biton32(layer_state);
 
-ergodox_board_led_off();
-ergodox_right_led_1_off();
-ergodox_right_led_2_off();
-ergodox_right_led_3_off();
-switch (layer) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    switch (layer) {
+        case SYMB:
+            ergodox_right_led_1_on(); 
+        break;
+        case NUMB:
+            ergodox_right_led_3_on();
+        break;
+        case EGOS:
+            ergodox_right_led_2_on();
+        break;
+        case _DYN:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+        break;
+        default:
+        // none
+        break;
+    }
 
-    case SYMB:
-        ergodox_right_led_1_on();
-        
-        
-    break;
-    case SMLY:
-        ergodox_right_led_1_on();
-        
-        ergodox_right_led_3_on();
-    break;
-    case NUMB:
-        
-        
-        ergodox_right_led_3_on();
-    break;
-    case EGOS:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-    break;
-    case _DYN:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        
-    break;
-default:
-// none
-break;
-}
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_A) {
+            layer_state ^= (1<<EGOS);
+            layer_state &= (1<<EGOS);
+        }
+        /*
+        SEQ_TWO_KEYS(KC_A, KC_S) {
+          register_code(KC_H);
+          unregister_code(KC_H);
+        }
+        SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
+          register_code(KC_LGUI);
+          register_code(KC_S);
+          unregister_code(KC_S);
+          unregister_code(KC_LGUI);
+        }
+        */
+    }
 
 };
 
