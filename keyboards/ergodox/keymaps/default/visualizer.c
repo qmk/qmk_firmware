@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "visualizer.h"
 #include "system/serial_link.h"
+#include "led.h"
 
 // To generate an image array like this
 // Ensure the image is 128 x 32 or smaller
@@ -117,34 +118,11 @@ static keyframe_animation_t startup_animation = {
     },
 };
 
-// The LCD animation alternates between the layer name display and a
-// bitmap that displays all active layers
-static keyframe_animation_t lcd_layer_bitmap_animation = {
-    .num_frames = 2,
-    .loop = true,
-    .frame_lengths = {
-        gfxMillisecondsToTicks(2000),
-        gfxMillisecondsToTicks(2000)
-    },
-    .frame_functions = {
-        keyframe_display_layer_text,
-        keyframe_display_layer_bitmap
-    },
-};
-
-static keyframe_animation_t lcd_layer_bitmap_leds_animation = {
-    .num_frames = 3,
-    .loop = true,
-    .frame_lengths = {
-        gfxMillisecondsToTicks(2000),
-        gfxMillisecondsToTicks(2000),
-        gfxMillisecondsToTicks(2000)
-    },
-    .frame_functions = {
-        keyframe_display_layer_text,
-        keyframe_display_led_states,
-        keyframe_display_layer_bitmap,
-    },
+static keyframe_animation_t lcd_layer_display = {
+    .num_frames = 1,
+    .loop = false,
+    .frame_lengths = {gfxMillisecondsToTicks(0)},
+    .frame_functions = {keyframe_display_layer_and_led_states}
 };
 
 static keyframe_animation_t suspend_animation = {
@@ -200,49 +178,31 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
     // state->status.default_layer
     // state->status.leds (see led.h for available statuses)
 
+    uint8_t saturation = 60;
+    if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
+        saturation = 255;
+    }
     if (state->status.layer & 0x4) {
-        state->target_lcd_color = LCD_COLOR(0, 0xB0, 0xFF);
+        state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Media & Mouse";
     }
     else if (state->status.layer & 0x2) {
-        state->target_lcd_color = LCD_COLOR(0x80, 0xB0, 0xFF);
+        state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
         state->layer_text = "Symbol";
     }
     else {
-        state->target_lcd_color = LCD_COLOR(0x40, 0xB0, 0xFF);
+        state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
         state->layer_text = "Default";
     }
 
-    if (lcd_state == LCD_STATE_INITIAL || state->status.layer != prev_status->layer) {
+    if (lcd_state == LCD_STATE_INITIAL ||
+            state->status.layer != prev_status->layer ||
+            state->status.default_layer != prev_status->default_layer ||
+            state->status.leds != prev_status->leds) {
         start_keyframe_animation(&color_animation);
+        start_keyframe_animation(&lcd_layer_display);
     }
 
-    if (state->status.leds) {
-        if (lcd_state != LCD_STATE_BITMAP_AND_LEDS ||
-                state->status.leds != prev_status->leds ||
-                state->status.layer != prev_status->layer ||
-                state->status.default_layer != prev_status->default_layer) {
-
-            // NOTE: that it doesn't matter if the animation isn't playing, stop will do nothing in that case
-            stop_keyframe_animation(&lcd_layer_bitmap_animation);
-
-            lcd_state = LCD_STATE_BITMAP_AND_LEDS;
-            // For information:
-            // The logic in this function makes sure that this doesn't happen, but if you call start on an
-            // animation that is already playing it will be restarted.
-            start_keyframe_animation(&lcd_layer_bitmap_leds_animation);
-        }
-    } else {
-        if (lcd_state != LCD_STATE_LAYER_BITMAP ||
-                state->status.layer != prev_status->layer ||
-                state->status.default_layer != prev_status->default_layer) {
-
-            stop_keyframe_animation(&lcd_layer_bitmap_leds_animation);
-
-            lcd_state = LCD_STATE_LAYER_BITMAP;
-            start_keyframe_animation(&lcd_layer_bitmap_animation);
-        }
-    }
     // You can also stop existing animations, and start your custom ones here
     // remember that you should normally have only one animation for the LCD
     // and one for the background. But you can also combine them if you want.
