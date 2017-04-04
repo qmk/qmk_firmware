@@ -37,4 +37,3 @@ void shutdown_user(void) {
 	stop_all_notes();
     #endif
 }
-
