@@ -1,7 +1,6 @@
 #include "lets_split.h"
 #include "action_layer.h"
 #include "eeconfig.h"
-#include "compact_keymap.h"
 
 extern keymap_config_t keymap_config;
 
@@ -25,6 +24,7 @@ enum custom_keycodes {
   ADJUST,
 };
 
+#define KC_ KC_TRNS
 #define _______ KC_TRNS
 
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
@@ -39,7 +39,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = COMPACT_KEYMAP(
+  [_QWERTY] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_COLEMAK] = COMPACT_KEYMAP(
+  [_COLEMAK] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_DVORAK] = COMPACT_KEYMAP(
+  [_DVORAK] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_LOWER] = COMPACT_KEYMAP(
+  [_LOWER] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_RAISE] = COMPACT_KEYMAP(
+  [_RAISE] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_FN3] = COMPACT_KEYMAP(
+  [_FN3] = KC_KEYMAP(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
