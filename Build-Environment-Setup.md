@@ -40,7 +40,8 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew install avr-libc
     brew install dfu-programmer
 
-This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line.
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. 
+Note: The `make` and `make install` during the homebrew installation of avr-libc can take 15+ minutes for each and exhibit high CPU usage.
 
 You can also try these instructions:
 
