@@ -15,6 +15,7 @@
 * For hardware makers and modders
   * [Modding your keyboard](Modding-your-keyboard)
   * [Porting your keyboard to QMK](Porting-your-keyboard-to-QMK)
+  * [Adding features to QMK](Adding-features-to-QMK)
 * [General FAQ](FAQ)
 
 
