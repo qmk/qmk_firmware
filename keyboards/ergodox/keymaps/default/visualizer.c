@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "visualizer.h"
 #include "lcd_keyframes.h"
+#include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
 #include "led.h"
 
@@ -114,7 +115,7 @@ static keyframe_animation_t startup_animation = {
     .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
             display_logo,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             enable_visualization
     },
 };
@@ -132,7 +133,7 @@ static keyframe_animation_t suspend_animation = {
     .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
     .frame_functions = {
             lcd_keyframe_display_layer_text,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             keyframe_disable_lcd_and_backlight,
     },
 };
@@ -144,7 +145,7 @@ static keyframe_animation_t resume_animation = {
     .frame_functions = {
             keyframe_enable_lcd_and_backlight,
             display_logo,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             enable_visualization,
     },
 };
@@ -157,7 +158,7 @@ static keyframe_animation_t color_animation = {
     // this prevents the color from changing when activating the layer
     // momentarily
     .frame_lengths = {gfxMillisecondsToTicks(200), gfxMillisecondsToTicks(500)},
-    .frame_functions = {keyframe_no_operation, keyframe_animate_backlight_color},
+    .frame_functions = {keyframe_no_operation, backlight_keyframe_animate_color},
 };
 
 void initialize_user_visualizer(visualizer_state_t* state) {

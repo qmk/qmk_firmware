@@ -129,10 +129,6 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
 // Some predefined keyframe functions that can be used by the user code
 // Does nothing, useful for adding delays
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
-// Animates the LCD backlight color between the current color and the target color (of the state)
-bool keyframe_animate_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state);
-// Sets the backlight color to the target color
-bool keyframe_set_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state);
 
 bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
 bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
