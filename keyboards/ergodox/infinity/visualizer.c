@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "visualizer.h"
+#include "lcd_keyframes.h"
 #include "system/serial_link.h"
 
 // To generate an image array like this
@@ -173,14 +174,14 @@ static keyframe_animation_t lcd_bitmap_animation = {
     .num_frames = 1,
     .loop = false,
     .frame_lengths = {gfxMillisecondsToTicks(0)},
-    .frame_functions = {keyframe_display_layer_bitmap},
+    .frame_functions = {lcd_keyframe_display_layer_bitmap},
 };
 
 static keyframe_animation_t lcd_bitmap_leds_animation = {
     .num_frames = 2,
     .loop = true,
     .frame_lengths = {gfxMillisecondsToTicks(2000), gfxMillisecondsToTicks(2000)},
-    .frame_functions = {keyframe_display_layer_bitmap, keyframe_display_led_states},
+    .frame_functions = {lcd_keyframe_display_layer_bitmap, lcd_keyframe_display_led_states},
 };
 
 static keyframe_animation_t suspend_animation = {
@@ -188,7 +189,7 @@ static keyframe_animation_t suspend_animation = {
     .loop = false,
     .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
     .frame_functions = {
-            keyframe_display_layer_text,
+            lcd_keyframe_display_layer_text,
             keyframe_animate_backlight_color,
             keyframe_disable_lcd_and_backlight,
     },
