@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 KC_BTN1,
                                             KC_TRNS, KC_TRNS,   KC_TRNS,
         // right hand
-        KC_TRNS,    KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
+        KC_F7,      KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_TRNS,
         KC_TRNS,    UC(0x2194),UC(0x2190),UC(0x2192),UC(0x2191),UC(0x2193),KC_TRNS,
                     KC_TRNS,   UC(0x2713),UC(0x2715),UC(0x2022),UC(0x2236),KC_TRNS,
         KC_TRNS,    UC(0x21D4),UC(0x21D0),UC(0x21D2),UC(0x21D1),UC(0x21D3),KC_TRNS,
