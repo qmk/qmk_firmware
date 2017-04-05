@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #include "visualizer.h"
+#include "visualizer_keyframes.h"
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
