@@ -12,13 +12,38 @@ Each of the functions described below can be defined with a `_kb()` suffix or an
 
 When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `*_user()` before executing anything else- otherwise the keymap level function will never be called.
 
-## `void matrix_init_kb(void)` and `void matrix_init_user(void)`
+## Matrix Initialization Code
 
-This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
+* Keyboard/Revision: `void matrix_init_kb(void)` 
+* Keymap: `void matrix_init_user(void)`
 
-You should use this function to initialize any custom hardware you may have, such as speakers, LED drivers, or other features which need to be setup after the keyboard powers on.
+This function gets called when the matrix is initiated. You should use this function to initialize any custom hardware you may have, such as speakers, LED drivers, or other features which need to be setup after the keyboard powers on.
 
-## `void matrix_scan_kb(void)` and `void matrix_scan_user(void)`
+#### Example
+
+```
+void matrix_init_kb(void) {
+        // put your keyboard start-up code here
+        // runs once when the firmware starts up
+        matrix_init_user();
+
+        // JTAG disable for PORT F. write JTD bit twice within four cycles.
+        MCUCR |= (1<<JTD);
+        MCUCR |= (1<<JTD);
+
+        // * Set our LED pins as output
+        DDRB |= (1<<0);
+        DDRB |= (1<<1);
+        DDRB |= (1<<2);
+        DDRB |= (1<<3);
+        DDRB |= (1<<4);
+}
+```
+
+## Matrix Scanning Code
+
+* Keyboard/Revision: `void matrix_scan_kb(void)`
+* Keymap: `void matrix_scan_user(void)`
 
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
