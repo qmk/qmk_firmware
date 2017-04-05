@@ -49,9 +49,14 @@ This function gets called at every matrix scan, which is basically as often as t
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
-## `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` and `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
+## Hook Into Key Presses
 
-This function gets called every time a key is pressed or released. This is where you should define most custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
+* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` 
+* Keymap: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
+
+This function gets called every time a key is pressed or released. This is particularly useful when defining custom keys or overriding the behavior of existing keys.
+
+The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
 
 The `keycode` variable is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. and can be switch-cased to execute code whenever a particular code is pressed.
 
@@ -72,7 +77,10 @@ keyrecord_t record {
 
 The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
 
-## `void led_set_kb(uint8_t usb_led)` and `void led_set_user(uint8_t usb_led)`
+## LED Control
+
+* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)` 
+* Keymap: `void led_set_user(uint8_t usb_led)`
 
 This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.
 
@@ -82,7 +90,7 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-This is a typical pattern for lighting LED's to match the `USB_LED_*` state
+#### Example:
 
 ```
 void led_set_kb(uint8_t usb_led) {
