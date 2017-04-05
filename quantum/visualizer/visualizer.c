@@ -228,27 +228,6 @@ bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* 
     return false;
 }
 
-bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-#ifdef LCD_ENABLE
-    gdispSetPowerMode(powerOff);
-#endif
-#ifdef LCD_BACKLIGHT_ENABLE
-    lcd_backlight_hal_color(0, 0, 0);
-#endif
-    return false;
-}
-
-bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-#ifdef LCD_ENABLE
-    gdispSetPowerMode(powerOn);
-#endif
-    return false;
-}
-
 bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
