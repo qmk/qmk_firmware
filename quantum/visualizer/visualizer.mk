@@ -35,6 +35,7 @@ endif
 ifeq ($(strip $(LCD_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/lcd_backlight.c
 SRC += $(VISUALIZER_DIR)/lcd_keyframes.c
+SRC += $(VISUALIZER_DIR)/lcd_backlight_keyframes.c
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 

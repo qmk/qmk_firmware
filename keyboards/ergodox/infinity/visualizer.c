@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "visualizer.h"
 #include "lcd_keyframes.h"
+#include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
 
 // To generate an image array like this
@@ -140,7 +141,7 @@ static keyframe_animation_t startup_animation = {
     .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
             display_logo,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             enable_visualization
     },
 };
@@ -150,7 +151,7 @@ static keyframe_animation_t one_led_color = {
     .num_frames = 1,
     .loop = false,
     .frame_lengths = {gfxMillisecondsToTicks(0)},
-    .frame_functions = {keyframe_set_backlight_color},
+    .frame_functions = {backlight_keyframe_set_color},
 };
 
 bool swap_led_target_color(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -165,7 +166,7 @@ static keyframe_animation_t two_led_colors = {
     .num_frames = 2,
     .loop = true,
     .frame_lengths = {gfxMillisecondsToTicks(1000), gfxMillisecondsToTicks(0)},
-    .frame_functions = {keyframe_set_backlight_color, swap_led_target_color},
+    .frame_functions = {backlight_keyframe_set_color, swap_led_target_color},
 };
 
 // The LCD animation alternates between the layer name display and a
@@ -190,7 +191,7 @@ static keyframe_animation_t suspend_animation = {
     .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
     .frame_functions = {
             lcd_keyframe_display_layer_text,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             keyframe_disable_lcd_and_backlight,
     },
 };
@@ -202,7 +203,7 @@ static keyframe_animation_t resume_animation = {
     .frame_functions = {
             keyframe_enable_lcd_and_backlight,
             display_logo,
-            keyframe_animate_backlight_color,
+            backlight_keyframe_animate_color,
             enable_visualization,
     },
 };
