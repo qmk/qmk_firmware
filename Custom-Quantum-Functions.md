@@ -8,7 +8,7 @@ We have structured QMK as a hierarchy:
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
-Each of the functions described below can be defined with a `_kb()` suffix or an `_user()` suffix. We intend for you to use the `_kb()` suffix at the Keyboard/Revision level, while the `_user()` suffix should be used at the keymap level.
+Each of the functions described below can be defined with a `_kb()` suffix or an `_user()` suffix. We intend for you to use the `_kb()` suffix at the Keyboard/Revision level, while the `_user()` suffix should be used at the Keymap level.
 
 When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `*_user()` before executing anything else- otherwise the keymap level function will never be called.
 
