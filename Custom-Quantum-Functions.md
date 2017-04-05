@@ -1,4 +1,4 @@
-A custom keyboard is about more than sending button presses to your computer. QMK has designed hooks to allow you to inject code, override functionality, and otherwise customize how your keyboard responds in different situations. These allow you to control status LED's, write complex macros, or even change a key's behavior based on the keyboard's state.
+A custom keyboard is about more than sending button presses to your computer. QMK has designed hooks to allow you to inject code, override functionality, and otherwise customize how your keyboard responds in different situations. 
 
 ## A Word on Keyboards vs Keymap
 
