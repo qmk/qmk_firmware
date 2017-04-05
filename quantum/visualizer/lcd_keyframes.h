@@ -30,4 +30,8 @@ bool lcd_keyframe_display_led_states(keyframe_animation_t* animation, visualizer
 // Displays both the layer text and the led states
 bool lcd_keyframe_display_layer_and_led_states(keyframe_animation_t* animation, visualizer_state_t* state);
 
+bool lcd_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
+
+
 #endif /* QUANTUM_VISUALIZER_LCD_KEYFRAMES_H_ */

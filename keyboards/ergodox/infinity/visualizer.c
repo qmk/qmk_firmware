@@ -186,22 +186,24 @@ static keyframe_animation_t lcd_bitmap_leds_animation = {
 };
 
 static keyframe_animation_t suspend_animation = {
-    .num_frames = 3,
+    .num_frames = 4,
     .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
+    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0, 0},
     .frame_functions = {
             lcd_keyframe_display_layer_text,
             backlight_keyframe_animate_color,
-            keyframe_disable_lcd_and_backlight,
+            lcd_keyframe_disable,
+            lcd_keyframe_disable,
     },
 };
 
 static keyframe_animation_t resume_animation = {
-    .num_frames = 4,
+    .num_frames = 5,
     .loop = false,
-    .frame_lengths = {0, 0, gfxMillisecondsToTicks(10000), 0},
+    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
-            keyframe_enable_lcd_and_backlight,
+            lcd_keyframe_enable,
+            backlight_keyframe_enable,
             display_logo,
             backlight_keyframe_animate_color,
             enable_visualization,

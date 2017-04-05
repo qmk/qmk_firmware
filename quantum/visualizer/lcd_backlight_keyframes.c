@@ -59,3 +59,19 @@ bool backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_st
             LCD_INT(state->current_lcd_color));
     return false;
 }
+
+bool backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    lcd_backlight_hal_color(0, 0, 0);
+    return false;
+}
+
+bool backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    lcd_backlight_color(LCD_HUE(state->current_lcd_color),
+        LCD_SAT(state->current_lcd_color),
+        LCD_INT(state->current_lcd_color));
+    return false;
+}

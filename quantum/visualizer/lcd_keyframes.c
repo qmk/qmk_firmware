@@ -158,3 +158,17 @@ bool lcd_keyframe_display_layer_and_led_states(keyframe_animation_t* animation, 
     gdispFlush();
     return false;
 }
+
+bool lcd_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    gdispSetPowerMode(powerOff);
+    return false;
+}
+
+bool lcd_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)animation;
+    (void)state;
+    gdispSetPowerMode(powerOn);
+    return false;
+}
