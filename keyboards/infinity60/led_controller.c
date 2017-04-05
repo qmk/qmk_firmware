@@ -23,10 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ch.h"
 #include "hal.h"
+#include "print.h"
 
 #include "led_controller.h"
 
-//#include "hook.h"
 #include "suspend.h"
 
 #include "usb_main.h"
@@ -249,9 +249,9 @@ static THD_FUNCTION(LEDthread, arg) {
 }
 
 //These relate to the LED map above, row and column
-//0x24 = 11 --> hex value   
+//0x24 = first byte (CA1) of PWM page, 0x34 is 17th byte (CA2)
 /* LED game mode */
-const uint8_t led_game[83] = {
+const uint8_t led_game[72] = {
   0x24,
   0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x34,
@@ -267,35 +267,36 @@ const uint8_t led_game[83] = {
   0x84,
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x94,
-  0x00, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
 /* ALL LEDs */
-const uint8_t led_all[83] = {
+const uint8_t led_all[72] = {
   0x24,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x34,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
-  0x44,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+0x44,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x54,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x64,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x74,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x84,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
   0x94,
-  0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 };
 
 /* =============
  * hook into TMK
  * ============= */
-void hook_early_init(void) {
+void led_controller_init(void) {
   uint8_t i;
 
+  xprintf("led_controller_init");
   /* initialise I2C */
   /* I2C pins */
   palSetPadMode(GPIOB, 0, PAL_MODE_ALTERNATIVE_2); // PTB0/I2C0/SCL
@@ -325,7 +326,7 @@ void hook_early_init(void) {
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
 
   /* Write pages */
-  for(i=0; i<9; i++) {
+  for(i=0; i<8; i++) {
     is31_write_data(1,(uint8_t *)(led_game+(9*i)),9);
     chThdSleepMilliseconds(5);
     is31_write_data(2,(uint8_t *)(led_all+(9*i)),9);
@@ -342,26 +343,29 @@ void hook_early_init(void) {
   chThdCreateStatic(waLEDthread, sizeof(waLEDthread), LOWPRIO, LEDthread, NULL);
 }
 
-void hook_usb_suspend_entry(void) {
-#ifdef SLEEP_LED_ENABLE
-  chSysLockFromISR();
-  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_ON);
-  chSysUnlockFromISR();
-#endif /* SLEEP_LED_ENABLE */
-}
-
-void hook_usb_suspend_loop(void) {
-  chThdSleepMilliseconds(100);
-  /* Remote wakeup */
-  if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-    send_remote_wakeup(&USB_DRIVER);
-  }
-}
-
-void hook_usb_wakeup(void) {
-#ifdef SLEEP_LED_ENABLE
-  chSysLockFromISR();
-  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_OFF);
-  chSysUnlockFromISR();
-#endif /* SLEEP_LED_ENABLE */
-}
+//TODO: Don't know equivalent QMK hooks for these
+//
+//void hook_usb_suspend_entry(void) {
+//#ifdef SLEEP_LED_ENABLE
+//  chSysLockFromISR();
+//  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_ON);
+//  chSysUnlockFromISR();
+//#endif /* SLEEP_LED_ENABLE */
+//}
+//
+//void hook_usb_suspend_loop(void) {
+//  chThdSleepMilliseconds(100);
+//  /* Remote wakeup */
+//  if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
+//    send_remote_wakeup(&USB_DRIVER);
+//  }
+//}
+//
+//void hook_usb_wakeup(void) {
+//#ifdef SLEEP_LED_ENABLE
+//  chSysLockFromISR();
+//  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_OFF);
+//  chSysUnlockFromISR();
+//#endif /* SLEEP_LED_ENABLE */
+//}
+//*/
