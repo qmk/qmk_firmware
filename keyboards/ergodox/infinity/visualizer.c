@@ -136,13 +136,12 @@ bool display_logo(keyframe_animation_t* animation, visualizer_state_t* state) {
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
 // during that time
 static keyframe_animation_t startup_animation = {
-    .num_frames = 3,
+    .num_frames = 2,
     .loop = false,
     .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
             display_logo,
             backlight_keyframe_animate_color,
-            enable_visualization
     },
 };
 
@@ -198,7 +197,7 @@ static keyframe_animation_t suspend_animation = {
 };
 
 static keyframe_animation_t resume_animation = {
-    .num_frames = 5,
+    .num_frames = 4,
     .loop = false,
     .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
@@ -206,7 +205,6 @@ static keyframe_animation_t resume_animation = {
             backlight_keyframe_enable,
             display_logo,
             backlight_keyframe_animate_color,
-            enable_visualization,
     },
 };
 

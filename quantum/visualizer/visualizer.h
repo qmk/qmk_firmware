@@ -130,20 +130,22 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
 // Does nothing, useful for adding delays
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// Call this once, when the initial animation has finished, alternatively you can call it
-// directly from the initalize_user_visualizer function (the animation can be null)
-bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
-
 // The master can set userdata which will be transferred to the slave
 #ifdef VISUALIZER_USER_DATA_SIZE
 void visualizer_set_user_data(void* user_data);
 #endif
 
 // These functions have to be implemented by the user
-void initialize_user_visualizer(visualizer_state_t* state);
+// Called regularly each time the state has changed (but not every scan loop)
 void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status);
+// Called when the computer goes to suspend, will also stop calling update_user_visualizer_state
 void user_visualizer_suspend(visualizer_state_t* state);
+// You have to start at least one animation as a response to the following two functions
+// When the animation has finished the visualizer will resume normal operation and start calling the
+// update_user_visualizer_state again
+// Called when the keyboard boots up
+void initialize_user_visualizer(visualizer_state_t* state);
+// Called when the computer resumes from a suspend
 void user_visualizer_resume(visualizer_state_t* state);
-
 
 #endif /* VISUALIZER_H */

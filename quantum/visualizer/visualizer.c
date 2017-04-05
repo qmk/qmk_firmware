@@ -154,6 +154,14 @@ void stop_all_keyframe_animations(void) {
     }
 }
 
+static uint8_t get_num_running_animations(void) {
+    uint8_t count = 0;
+    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+        count += animations[i] ? 1 : 0;
+    }
+    return count;
+}
+
 static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systemticks_t delta, systemticks_t* sleep_time) {
     // TODO: Clean up this messy code
     dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
@@ -228,14 +236,6 @@ bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* 
     return false;
 }
 
-bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-    dprint("User visualizer inited\n");
-    visualizer_enabled = true;
-    return false;
-}
-
 // TODO: Optimize the stack size, this is probably way too big
 static DECLARE_THREAD_STACK(visualizerThreadStack, 1024);
 static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
@@ -276,13 +276,15 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 
     systemticks_t sleep_time = TIME_INFINITE;
     systemticks_t current_time = gfxSystemTicks();
+    bool force_update = true;
 
     while(true) {
         systemticks_t new_time = gfxSystemTicks();
         systemticks_t delta = new_time - current_time;
         current_time = new_time;
         bool enabled = visualizer_enabled;
-        if (!same_status(&state.status, &current_status)) {
+        if (force_update || !same_status(&state.status, &current_status)) {
+            force_update = false;
             if (visualizer_enabled) {
                 if (current_status.suspended) {
                     stop_all_keyframe_animations();
@@ -320,10 +322,10 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 #ifdef EMULATOR
         draw_emulator();
 #endif
-        // The animation can enable the visualizer
-        // And we might need to update the state when that happens
-        // so don't sleep
-        if (enabled != visualizer_enabled) {
+        // Enable the visualizer when the startup or the suspend animation has finished
+        if (!visualizer_enabled && state.status.suspended == false && get_num_running_animations() == 0) {
+            visualizer_enabled = true;
+            force_update = true;
             sleep_time = 0;
         }
 
