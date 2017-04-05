@@ -34,7 +34,7 @@ SOFTWARE.
 #include "lcd_backlight.h"
 #endif
 
-// use this function to merget both real_mods and oneshot_mods in a uint16_t
+// use this function to merge both real_mods and oneshot_mods in a uint16_t
 uint8_t visualizer_get_mods(void);
 
 // This need to be called once at the start
@@ -125,10 +125,6 @@ void stop_keyframe_animation(keyframe_animation_t* animation);
 // This runs the next keyframe, but does not update the animation state
 // Useful for crossfades for example
 void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* state);
-
-// Some predefined keyframe functions that can be used by the user code
-// Does nothing, useful for adding delays
-bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
 
 // The master can set userdata which will be transferred to the slave
 #ifdef VISUALIZER_USER_DATA_SIZE

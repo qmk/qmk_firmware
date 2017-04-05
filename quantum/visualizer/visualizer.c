@@ -230,12 +230,6 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
     (*temp_animation.frame_functions[next_frame])(&temp_animation, &temp_state);
 }
 
-bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-    return false;
-}
-
 // TODO: Optimize the stack size, this is probably way too big
 static DECLARE_THREAD_STACK(visualizerThreadStack, 1024);
 static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
