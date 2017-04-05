@@ -19,7 +19,7 @@ When defining functions at the Keyboard/Revision level it is important that your
 
 This function gets called when the matrix is initiated. You should use this function to initialize any custom hardware you may have, such as speakers, LED drivers, or other features which need to be setup after the keyboard powers on.
 
-#### Example
+### Example
 
 ```
 void matrix_init_kb(void) {
@@ -90,7 +90,7 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-#### Example:
+### Example:
 
 ```
 void led_set_kb(uint8_t usb_led) {
