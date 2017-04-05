@@ -130,9 +130,6 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
 // Does nothing, useful for adding delays
 bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state);
 
-bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state);
-
 // Call this once, when the initial animation has finished, alternatively you can call it
 // directly from the initalize_user_visualizer function (the animation can be null)
 bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state);
