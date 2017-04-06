@@ -1,5 +1,5 @@
 #include "infinity60.h"
-#include "backlight.h"
+#include "led_controller.h"
 
 //Helpful Defines
 #define _______ KC_TRNS
@@ -57,7 +57,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,_______,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,     \
-        _______,_______,F(2),M(1),_______,_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
+        _______,_______,F(2),F(3),_______,_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
         _______,_______,_______,               KC_MPLY,             _______,_______, _______,_______      \
     ),
     /* ~ */
@@ -85,12 +85,15 @@ enum function_id {
 
 enum macro_id {
     ACTION_LEDS_ALL,
+    ACTION_LEDS_GAME
 };
 
 const uint16_t fn_actions[] = {
     [0] = ACTION_KEY(LALT(LCTL(KC_DEL))),
     [1] = ACTION_LAYER_MODS(_TILDE, MOD_LSFT),
-    [2] = ACTION_BACKLIGHT_TOGGLE()
+    [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
+    [3] = ACTION_FUNCTION(ACTION_LEDS_GAME)
+
 /*    [1] = ACTION_FUNCTION(ACTION_LEDS_GAME),
 
     [4] = ACTION_USAGE_CONSUMER(0x1B4),
@@ -101,27 +104,29 @@ const uint16_t fn_actions[] = {
 };
 
 /* custom action function */
-/*
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   (void)opt;
   switch(id) {
-    case 1:
+    case ACTION_LEDS_ALL:
         if(record->event.pressed) {
           // signal the LED controller thread
           chMBPost(&led_mailbox, LED_MSG_GAME_TOGGLE, TIME_IMMEDIATE);
         }
-        break;
-    }
-
+      break;
+    case ACTION_LEDS_GAME:
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        chMBPost(&led_mailbox, LED_MSG_ALL_TOGGLE, TIME_IMMEDIATE);
+      }
+      break;
+  }
 }
-*/
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch(id) {
         case 0: 
             if (record->event.pressed) {
-                return MACRO( I(5), END);
             }
             break;
         case 1:
@@ -135,7 +140,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+    led_controller_init();
 };
 
 // Runs constantly in the background, in a loop.
