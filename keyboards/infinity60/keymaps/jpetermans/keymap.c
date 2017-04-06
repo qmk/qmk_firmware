@@ -55,8 +55,8 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* media */
     [_MEDIA] = KEYMAP( \
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
-        _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,_______,\
-        _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,     \
+        _______,_______,_______,_______,_______,_______,_______, _______, KC_UP, _______,_______, _______,_______,_______,\
+        _______,_______,_______,_______,_______,_______,_______, KC_LEFT, KC_DOWN, KC_RGHT,_______, _______,_______,     \
         _______,_______,F(2),F(3),_______,_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
         _______,_______,_______,               KC_MPLY,             _______,_______, _______,_______      \
     ),
@@ -93,14 +93,6 @@ const uint16_t fn_actions[] = {
     [1] = ACTION_LAYER_MODS(_TILDE, MOD_LSFT),
     [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
     [3] = ACTION_FUNCTION(ACTION_LEDS_GAME)
-
-/*    [1] = ACTION_FUNCTION(ACTION_LEDS_GAME),
-
-    [4] = ACTION_USAGE_CONSUMER(0x1B4),
-    [5] = ACTION_USAGE_CONSUMER(0x196),
-    [6] = ACTION_USAGE_CONSUMER(0x1A6),
-    [7] = ACTION_USAGE_CONSUMER(0x1A0)
-*/
 };
 
 /* custom action function */
