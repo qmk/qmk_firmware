@@ -26,7 +26,7 @@
 #define GDISP_SCREEN_WIDTH		128
 #endif
 #ifndef GDISP_INITIAL_CONTRAST
-#define GDISP_INITIAL_CONTRAST	0
+#define GDISP_INITIAL_CONTRAST	35
 #endif
 #ifndef GDISP_INITIAL_BACKLIGHT
 #define GDISP_INITIAL_BACKLIGHT	100
@@ -111,41 +111,25 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     gfxSleepMilliseconds(20);
     setpin_reset(g, FALSE);
     gfxSleepMilliseconds(20);
-
     acquire_bus(g);
     enter_cmd_mode(g);
-    write_cmd(g, ST7565_DISPLAY_OFF);
+
+    write_cmd(g, ST7565_RESET);
     write_cmd(g, ST7565_LCD_BIAS);
     write_cmd(g, ST7565_ADC);
     write_cmd(g, ST7565_COM_SCAN);
 
-    write_cmd(g, ST7565_START_LINE | 0);
+    write_cmd(g, ST7565_RESISTOR_RATIO | 0x1);
+    write_cmd2(g, ST7565_CONTRAST, GDISP_INITIAL_CONTRAST);
 
-    write_cmd(g, ST7565_RESISTOR_RATIO | 0x6);
-
-    // turn on voltage converter (VC=1, VR=0, VF=0)
-    write_cmd(g, ST7565_POWER_CONTROL | 0x04);
-    flush_cmd(g);
-    delay_ms(50);
-
-    // turn on voltage regulator (VC=1, VR=1, VF=0)
-    write_cmd(g, ST7565_POWER_CONTROL | 0x06);
-    flush_cmd(g);
-    delay_ms(50);
-
-    // turn on voltage follower (VC=1, VR=1, VF=1)
+    // turn on internal power supply (VC=1, VR=1, VF=1)
     write_cmd(g, ST7565_POWER_CONTROL | 0x07);
-    flush_cmd(g);
-    delay_ms(50);
 
-    write_cmd(g, 0xE2);
-    write_cmd(g, ST7565_COM_SCAN);
-    write_cmd2(g, ST7565_CONTRAST, GDISP_INITIAL_CONTRAST*64/101);
-    //write_cmd2(g, ST7565_CONTRAST, 0);
-    write_cmd(g, ST7565_DISPLAY_ON);
-    write_cmd(g, ST7565_ALLON_NORMAL);
     write_cmd(g, ST7565_INVERT_DISPLAY);
+    write_cmd(g, ST7565_ALLON_NORMAL);
+    write_cmd(g, ST7565_DISPLAY_ON);
 
+    write_cmd(g, ST7565_START_LINE | 0);
     write_cmd(g, ST7565_RMW);
     flush_cmd(g);
 
@@ -331,14 +315,12 @@ LLDSPEC void gdisp_lld_control(GDisplay *g) {
             return;
 
             case GDISP_CONTROL_CONTRAST:
-                if ((unsigned)g->p.ptr > 100)
-                    g->p.ptr = (void *)100;
+                g->g.Contrast = (unsigned)g->p.ptr & 63;
                 acquire_bus(g);
                 enter_cmd_mode(g);
-                write_cmd2(g, ST7565_CONTRAST, ((((unsigned)g->p.ptr)<<6)/101) & 0x3F);
+                write_cmd2(g, ST7565_CONTRAST, g->g.Contrast);
                 flush_cmd(g);
                 release_bus(g);
-                g->g.Contrast = (unsigned)g->p.ptr;
                 return;
     }
 }
