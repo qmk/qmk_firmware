@@ -11,8 +11,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 
 ## Still to do:
 
- * Tidy the keymap up so that it's readable.
- * Learn how to make alias macros for mod_tap keys.
+ * Enjoy this revision; figure out new things later.
 
 ### Layer 0: Dvorak layer
 

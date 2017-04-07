@@ -28,6 +28,12 @@ enum planck_keycodes {
   BACKLIT
 };
 
+// Adding macros to make the keymaps below much easier to read.
+#define SFTSCLN SFT_T(KC_SCLN)
+#define SFTSLSH SFT_T(KC_SLSH)
+#define SFTZED SFT_T(KC_Z)
+#define ALTENT ALT_T(KC_ENT)
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -46,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = {
     {KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    XXXXXXX, KC_F,    KC_G,    KC_C,    KC_R,    KC_L   },
     {KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    XXXXXXX, KC_D,    KC_H,    KC_T,    KC_N,    KC_S   },
-    {SFT_T(KC_SCLN), KC_Q,  KC_J,  KC_K,  KC_X,   KC_LCTL, KC_B,    KC_M,    KC_W,   KC_V, SFT_T(KC_Z)},
-    {KC_ESC, KC_TAB, KC_LGUI, LOWER, KC_BSPC, ALT_T(KC_ENT), KC_SPC, RAISE, KC_MINS, KC_SLSH, KC_BSLS }
+    {SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LCTL, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED },
+    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS}
   },
 
 /* QWERTY Layer
@@ -63,8 +69,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = {
     {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
     {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
-    {SFT_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,    KC_LCTL, KC_N, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)},
-    {KC_ESC, KC_TAB, KC_LGUI, LOWER, KC_BSPC, ALT_T(KC_ENT), KC_SPC, RAISE, KC_MINS, KC_QUOT, KC_BSLS }
+    {SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_LCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH},
+    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
   },
 
 /* Colemak Layer
@@ -75,13 +81,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|------.,------|------+------+------+------+------|
 	|SFT/ Z|   X  |   C  |   V  |   B  | CTRL ||Alt / |   K  |   M  |   ,  |   .  |SFT/ /|
 	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
-	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  | RGUI |
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  |   \  |
 	`----------------------------------'              `----------------------------------'*/
   [_COLEMAK] = {
     {KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN},
     {KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    XXXXXXX, KC_H,    KC_N,    KC_E,    KC_I,    KC_O   },
-    {SFT_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,    KC_LCTL, KC_K, KC_M, KC_COMM, KC_DOT, SFT_T(KC_SLSH)},
-    {KC_ESC, KC_TAB, KC_LGUI, LOWER, KC_BSPC, ALT_T(KC_ENT), KC_SPC, RAISE, KC_MINS, KC_QUOT, KC_BSLS }
+    {SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_LCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH},
+    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
   },
 
 /* LOWER Layer
