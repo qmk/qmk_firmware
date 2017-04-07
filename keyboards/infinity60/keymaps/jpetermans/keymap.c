@@ -12,6 +12,10 @@
 #define _MEDIA 3
 #define _TILDE 4
 
+/* ==================================
+ *             KEYMAPS 
+ * ==================================*/
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
@@ -58,7 +62,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,_______,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,     \
-        _______,_______,F(2),F(3),_______,_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
+        _______,_______,F(2),F(3),F(4),_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
         _______,_______,_______,               KC_MPLY,             _______,_______, _______,_______      \
     ),
     /* ~ */
@@ -86,28 +90,35 @@ enum function_id {
 
 enum macro_id {
     ACTION_LEDS_ALL,
-    ACTION_LEDS_GAME
-//TODO: ACTION_LED_LAYER which reads current layer and turns on appropriate LED
+    ACTION_LEDS_GAME,
+    ACTION_LED_1
 };
+        
+/* ==================================
+ *          LED MAPPING 
+ * ==================================*/
+
+//TODO: ACTION_LED_LAYER which reads current layer and turns on appropriate LED
 
 /*
-   Configuring led control can be done
+   Configuring led control can be done as
    1. full keyboard at a time - define led array, or
-   2. individual - send specific led address (defined in keymap.h)
+   2. individual led - send specific led address (defined in keymap.h)
 
-    The arrays relate to the mcu's LED pages (8 available) desribed in led_controller.c
+    Infinity60 LED MAP
+    11 12 13 14 15 16 17 18 21 22 23 24 25  26 27*
+     28 31 32 33 34 35 36 37 38 41 42 43 44 45
+     46 47 48 51 52 53 54 55 56 57 58 61    62
+      63 64 65 66 67 68 71 72 73 74 75      76 77*
+    78  81  82       83         84  85  86  87
+    *Unused in Alphabet Layout
+
+    The full keyboard arrays map to the mcu's LED pages 
+    (8 available) desribed in led_controller.c
+   
     0x24 (pcb row 1) is first byte of PWM portion of LED page
     0x34 (pcb row 2) is 17th byte of PWM portion of LED page
     array translates to row and column positions
-
-
- Infinity60 LED MAP
-  11 12 13 14 15 16 17 18 21 22 23 24 25  26 27*
-   28 31 32 33 34 35 36 37 38 41 42 43 44 45
-   46 47 48 51 52 53 54 55 56 57 58 61    62
-    63 64 65 66 67 68 71 72 73 74 75      76 77*
-  78  81  82       83         84  85  86  87
-*Unused in Alphabet Layout
 */
 
 //"WASD"
@@ -153,7 +164,8 @@ const uint16_t fn_actions[] = {
     [0] = ACTION_KEY(LALT(LCTL(KC_DEL))),
     [1] = ACTION_LAYER_MODS(_TILDE, MOD_LSFT),
     [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
-    [3] = ACTION_FUNCTION(ACTION_LEDS_GAME)
+    [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
+    [4] = ACTION_FUNCTION(ACTION_LED_1)
 
 };
 
@@ -162,15 +174,21 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   (void)opt;
   switch(id) {
     case ACTION_LEDS_ALL:
-        if(record->event.pressed) {
-          // signal the LED controller thread
-          chMBPost(&led_mailbox, LED_MSG_GAME_TOGGLE, TIME_IMMEDIATE);
-        }
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        chMBPost(&led_mailbox, 1, TIME_IMMEDIATE);
+      }
       break;
     case ACTION_LEDS_GAME:
       if(record->event.pressed) {
         // signal the LED controller thread
-        chMBPost(&led_mailbox, LED_MSG_ALL_TOGGLE, TIME_IMMEDIATE);
+        chMBPost(&led_mailbox, 2, TIME_IMMEDIATE);
+      }
+      break;
+    case ACTION_LED_1:
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        chMBPost(&led_mailbox, ADDR_LED_1, TIME_IMMEDIATE);
       }
       break;
   }
@@ -179,14 +197,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch(id) {
-        case 0: 
-            if (record->event.pressed) {
-            }
-            break;
-        case 1:
-            if (record->event.pressed) {
-            }
-            break;
+      case 0: 
+        if (record->event.pressed) {
+        }
+        break;
+      case 1:
+        if (record->event.pressed) {
+        }
+        break;
     }
     return MACRO_NONE;
 };

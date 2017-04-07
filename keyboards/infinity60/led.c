@@ -36,6 +36,9 @@ void led_set(uint8_t usb_led) {
         GPIOA->PCOR |= (1<<5);
     }
  */
+//TODO: How does this test if led is set
+//usb_led --> led_set(usb_led) <-- chibios/host_keyboard_leds <-- keyboard_leds from usbSetupTransfer
+//keyboard_leds is enum'd in chibios/main.c
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // signal the LED control thread
         chSysUnconditionalLock();

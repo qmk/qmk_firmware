@@ -112,8 +112,8 @@ msg_t is31_write_register(uint8_t page, uint8_t reg, uint8_t data) {
   return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, US2ST(IS31_TIMEOUT));
 }
 
-msg_t is31_read_register(uint8_t b, uint8_t reg, uint8_t *result) {
-  is31_select_page(b);
+msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result) {
+  is31_select_page(page);
 
   tx[0] = reg;
   return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 1, result, 1, US2ST(IS31_TIMEOUT));
@@ -134,6 +134,7 @@ void is31_init(void) {
   // software shutdown
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_SHUTDOWN, 0);
   chThdSleepMilliseconds(10);
+  // TODO: This already done above, remove?
   // zero function page, all registers
   is31_write_data(IS31_FUNCTIONREG, full_page, 0xD + 1);
   chThdSleepMilliseconds(10);
@@ -159,7 +160,8 @@ static THD_FUNCTION(LEDthread, arg) {
   (void)arg;
   chRegSetThreadName("LEDthread");
 
-  uint8_t temp;
+  uint8_t i;
+  uint8_t temp, pwm;
   uint8_t save_page, save_breath1, save_breath2;
   msg_t msg, retval;
 
@@ -170,78 +172,82 @@ static THD_FUNCTION(LEDthread, arg) {
     chMBFetch(&led_mailbox, &msg, TIME_INFINITE);
 
     // process 'msg' here
-    switch(msg) {
+    // if msg between 0-7, then process as page#, otherwise a specific LED address
+    xprintf("--------------------\n");
+    xprintf("mailbox fetch\ntemp: %X - msg: %X\n", temp, msg);
+    if (msg < 8) {
+
+       // read current page into 'temp'
+       is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &temp);
+       chThdSleepMilliseconds(1);
+       // If page is already in layer, switch off (layer 0)
+        xprintf("Layer: post-read\ntemp: %X\n", temp);
+       if(temp == msg) {
+         is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 0);
+       } else {
+         is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, msg);
+       }
+        xprintf("Layer: post-change\ntemp: %X\n", temp);
+
+    } else {
+
+      switch(msg) {
 //TODO: make this generic and able to turn on/off any address and loop through all(or current) pages
-      case LED_MSG_CAPS_ON:
-        // turn caps on on pages 1 and 2
-        is31_write_register(0, CAPS_LOCK_LED_ADDRESS, 0xFF);
-        is31_write_register(1, CAPS_LOCK_LED_ADDRESS, 0xFF);
-        is31_write_register(2, CAPS_LOCK_LED_ADDRESS, 0xFF);
-        break;
-      case LED_MSG_CAPS_OFF:
-        // turn caps off on pages 1 and 2
-        is31_write_register(0, CAPS_LOCK_LED_ADDRESS, 0);
-        is31_write_register(1, CAPS_LOCK_LED_ADDRESS, 0);
-        is31_write_register(2, CAPS_LOCK_LED_ADDRESS, 0);
-        break;
-      case LED_MSG_SLEEP_LED_ON:
-        // save current settings
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &save_page);
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, &save_breath1);
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, &save_breath2);
-        // use pages 7 and 8 for (hardware) breathing (assuming they're empty)
-        is31_write_register(6, BREATHE_LED_ADDRESS, 0xFF);
-        is31_write_register(7, BREATHE_LED_ADDRESS, 0x00);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, (6<<4)|6);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
-        retval = MSG_TIMEOUT;
-        temp = 6;
-        while(retval == MSG_TIMEOUT) {
-          // switch to the other page
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, temp);
-          temp = (temp == 6 ? 7 : 6);
-          // the times should be sufficiently long for IS31 to finish switching pages
-          retval = chMBFetch(&led_mailbox, &msg, MS2ST(temp == 6 ? 4000 : 6000));
-        }
-        // received a message (should be a wakeup), so restore previous state
-        chThdSleepMilliseconds(3000); // need to wait until the page change finishes
-        // note: any other messages are queued
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, save_breath1);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, save_breath2);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, save_page);
-        break;
-      case LED_MSG_SLEEP_LED_OFF:
-        // should not get here; wakeup should be received in the branch above
-        break;
-      case LED_MSG_ALL_TOGGLE:
-        // read current page into 'temp'
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &temp);
-        chThdSleepMilliseconds(1);
-        // switch to 'the other' page
-        if(temp==2) {
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 0);
-        } else {
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 2);
-        }
-        break;
-      case LED_MSG_GAME_TOGGLE:
-        // read current page into 'temp'
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &temp);
-        chThdSleepMilliseconds(1);
-        // switch to 'the other' page
-        if(temp==1) {
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 0);
-        } else {
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 1);
-        }
-        break;
+//TODO: set number of layers somewhere and loop through all when setting specific led
+        case LED_MSG_SLEEP_LED_ON:
+          // save current settings
+          is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &save_page);
+          is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, &save_breath1);
+          is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, &save_breath2);
+          // use pages 7 and 8 for (hardware) breathing (assuming they're empty)
+          is31_write_register(6, BREATHE_LED_ADDRESS, 0xFF);
+          is31_write_register(7, BREATHE_LED_ADDRESS, 0x00);
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, (6<<4)|6);
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
+          retval = MSG_TIMEOUT;
+          temp = 6;
+          while(retval == MSG_TIMEOUT) {
+            // switch to the other page
+            is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, temp);
+            temp = (temp == 6 ? 7 : 6);
+            // the times should be sufficiently long for IS31 to finish switching pages
+            retval = chMBFetch(&led_mailbox, &msg, MS2ST(temp == 6 ? 4000 : 6000));
+          }
+          // received a message (should be a wakeup), so restore previous state
+          chThdSleepMilliseconds(3000); // need to wait until the page change finishes
+          // note: any other messages are queued
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, save_breath1);
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, save_breath2);
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, save_page);
+          break;
+        case LED_MSG_SLEEP_LED_OFF: 
+          // should not get here; wakeup should be received in the branch above break;
+          break;
+        default:
+          if(msg >= 0x24) { 
+            xprintf("Power pre-read\ntemp: %X - msg: %X - pwm: %X\n", temp, msg, pwm);
+            is31_read_register(0, msg, &temp);
+            chThdSleepMilliseconds(10);
+            xprintf("Post-read\ntemp: %X - msg: %X - pwm: %X\n", temp, msg, pwm);
+            chThdSleepMilliseconds(10);
+            pwm = (temp > 0x00 ? 0x00 : 0xFF);
+            xprintf("pwm after: %X\n", pwm);
+            chThdSleepMilliseconds(10);
+            for(i=0; i<8; i++) {
+              is31_write_register(i, msg, pwm);
+            }
+            xprintf("Power post-change\ntemp: %X - msg: %X - pwm: %X\n", temp, msg, pwm);
+            chThdSleepMilliseconds(10);
+          }
+          break;
+      }
     }
+    xprintf("--------------------\n");
   }
 }
-
-/* =============
- * hook into TMK
- * ============= */
+/* =====================
+ * hook into user keymap
+ * ===================== */
 void led_controller_init(void) {
   uint8_t i;
 
