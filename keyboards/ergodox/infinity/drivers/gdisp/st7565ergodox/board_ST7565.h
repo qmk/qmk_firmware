@@ -45,14 +45,27 @@ static const SPIConfig spi1config = {
   .sspad=ST7565_SS_PIN,
    // SPI initialization data.
   .tar0 =
-    SPIx_CTARn_FMSZ(7)
-    | SPIx_CTARn_ASC(7)
-    | SPIx_CTARn_DT(7)
-    | SPIx_CTARn_CSSCK(7)
-    | SPIx_CTARn_PBR(0)
-    | SPIx_CTARn_BR(7)
-	//SPI_CR1_BR_0
+    SPIx_CTARn_FMSZ(7) // Frame size = 8 bytes
+    | SPIx_CTARn_ASC(1) // After SCK Delay Scaler (min 50 ns) = 55.56ns
+    | SPIx_CTARn_DT(0) // Delay After Transfer Scaler (no minimum)= 27.78ns
+    | SPIx_CTARn_CSSCK(0) // PCS to SCK Delay Scaler (min 20 ns) = 27.78ns
+    | SPIx_CTARn_PBR(0) // Baud Rate Prescaler = 2
+    | SPIx_CTARn_BR(0) // Baud rate (min 50ns) = 55.56ns
 };
+
+static GFXINLINE void acquire_bus(GDisplay *g) {
+    (void) g;
+    // Only the LCD is using the SPI bus, so no need to acquire
+    // spiAcquireBus(&SPID1);
+    spiSelect(&SPID1);
+}
+
+static GFXINLINE void release_bus(GDisplay *g) {
+    (void) g;
+    // Only the LCD is using the SPI bus, so no need to release
+    //spiReleaseBus(&SPID1);
+    spiUnselect(&SPID1);
+}
 
 static GFXINLINE void init_board(GDisplay *g) {
     (void) g;
@@ -62,10 +75,11 @@ static GFXINLINE void init_board(GDisplay *g) {
     palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
     palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
     palSetPadModeRaw(SLCK, ST7565_SPI_MODE);
-    palSetPadModeRaw(SS, ST7565_SPI_MODE);
+    palSetPadModeRaw(SS, PAL_MODE_OUTPUT_PUSHPULL);
 
     spiInit();
     spiStart(&SPID1, &spi1config);
+    release_bus(g);
 }
 
 static GFXINLINE void post_init_board(GDisplay *g) {
@@ -80,20 +94,6 @@ static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
     else {
         palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
     }
-}
-
-static GFXINLINE void acquire_bus(GDisplay *g) {
-    (void) g;
-    // Only the LCD is using the SPI bus, so no need to acquire
-    // spiAcquireBus(&SPID1);
-    spiSelect(&SPID1);
-}
-
-static GFXINLINE void release_bus(GDisplay *g) {
-    (void) g;
-    // Only the LCD is using the SPI bus, so no need to release
-    //spiReleaseBus(&SPID1);
-    spiUnselect(&SPID1);
 }
 
 static GFXINLINE void enter_data_mode(GDisplay *g) {
