@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if defined(VISUALIZER_ENABLE)
+
 #include "animations.h"
 #include "visualizer.h"
 #ifdef LCD_ENABLE
@@ -23,7 +25,14 @@
 #include "lcd_backlight_keyframes.h"
 #endif
 
-#if defined(VISUALIZER_ENABLE) && defined(LCD_ENABLE) && defined(LCD_BACKLIGHT_ENABLE)
+#ifdef LED_ENABLE
+#include "led_keyframes.h"
+#endif
+
+#include "visualizer_keyframes.h"
+
+
+#if defined(LCD_ENABLE) && defined(LCD_BACKLIGHT_ENABLE)
 
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
 // during that time
@@ -50,5 +59,49 @@ keyframe_animation_t default_suspend_animation = {
             backlight_keyframe_disable,
     },
 };
+#endif
+
+#if defined(LED_ENABLE)
+#define CROSSFADE_TIME 1000
+#define GRADIENT_TIME 3000
+
+keyframe_animation_t led_test_animation = {
+    .num_frames = 14,
+    .loop = true,
+    .frame_lengths = {
+        gfxMillisecondsToTicks(1000), // fade in
+        gfxMillisecondsToTicks(1000), // no op (leds on)
+        gfxMillisecondsToTicks(1000), // fade out
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
+        0,           // mirror leds
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
+        0,           // normal leds
+        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
+
+    },
+    .frame_functions = {
+        led_keyframe_fade_in_all,
+        keyframe_no_operation,
+        led_keyframe_fade_out_all,
+        led_keyframe_crossfade,
+        led_keyframe_left_to_right_gradient,
+        led_keyframe_crossfade,
+        led_keyframe_top_to_bottom_gradient,
+        led_keyframe_mirror_orientation,
+        led_keyframe_crossfade,
+        led_keyframe_left_to_right_gradient,
+        led_keyframe_crossfade,
+        led_keyframe_top_to_bottom_gradient,
+        led_keyframe_normal_orientation,
+        led_keyframe_crossfade,
+    },
+};
+#endif
 
 #endif

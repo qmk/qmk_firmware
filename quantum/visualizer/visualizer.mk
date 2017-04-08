@@ -43,7 +43,7 @@ OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
 ifeq ($(strip $(LED_ENABLE)), yes)
-SRC += $(VISUALIZER_DIR)/led_test.c
+SRC += $(VISUALIZER_DIR)/led_keyframes.c
 OPT_DEFS += -DLED_ENABLE
 endif
 

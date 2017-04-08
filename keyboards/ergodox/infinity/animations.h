@@ -19,7 +19,12 @@
 
 #include "visualizer.h"
 
+// You can use these default animations, but of course you can also write your own custom ones instead
 extern keyframe_animation_t default_startup_animation;
 extern keyframe_animation_t default_suspend_animation;
+
+// An animation for testing and demonstrating the led support, should probably not be used for real world
+// cases
+extern keyframe_animation_t led_test_animation;
 
 #endif /* KEYBOARDS_ERGODOX_INFINITY_ANIMATIONS_H_ */
