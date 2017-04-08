@@ -46,24 +46,6 @@ typedef enum {
 
 static lcd_state_t lcd_state = LCD_STATE_INITIAL;
 
-bool display_logo(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)state;
-    (void)animation;
-    (void)state;
-    // Read the uGFX documentation for information how to use the displays
-    // http://wiki.ugfx.org/index.php/Main_Page
-    gdispClear(White);
-
-    // You can use static variables for things that can't be found in the animation
-    // or state structs, here we use the image
-
-    //gdispGBlitArea is a tricky function to use since it supports blitting part of the image
-    // if you have full screen image, then just use 128 and 32 for both source and target dimensions
-    gdispGBlitArea(GDISP, 0, 0, 128, 32, 0, 0, 128, (pixel_t*)resource_lcd_logo);
-
-    return false;
-}
-
 // Feel free to modify the animations below, or even add new ones if needed
 
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
@@ -73,7 +55,7 @@ static keyframe_animation_t startup_animation = {
     .loop = false,
     .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
-            display_logo,
+            lcd_keyframe_draw_logo,
             backlight_keyframe_animate_color,
     },
 };
@@ -104,7 +86,7 @@ static keyframe_animation_t resume_animation = {
     .frame_functions = {
             lcd_keyframe_enable,
             backlight_keyframe_enable,
-            display_logo,
+            lcd_keyframe_draw_logo,
             backlight_keyframe_animate_color,
     },
 };
