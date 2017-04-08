@@ -90,7 +90,7 @@ Your LEDs will change to indicate your layer. You'll know you are in the base la
 
 To build, you will need the [QMK][qmk] firmware checked out. from there, dive into `keyboards/ergodox/keymaps/win10_writers-block/`
 
-[qmk]: https://github.com/jackhumbert/qmk_firmware
+[qmk]: https://github.com/qmk/qmk_firmware
 
 ```
 $ make keyboard=ergodox keymap=win10_writers-block
