@@ -75,7 +75,7 @@ static keyframe_animation_t suspend_animation = {
             lcd_keyframe_display_layer_text,
             backlight_keyframe_animate_color,
             lcd_keyframe_disable,
-            lcd_keyframe_disable,
+            backlight_keyframe_disable,
     },
 };
 
