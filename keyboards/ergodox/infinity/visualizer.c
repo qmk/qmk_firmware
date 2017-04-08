@@ -127,8 +127,6 @@ bool display_logo(keyframe_animation_t* animation, visualizer_state_t* state) {
     // if you have full screen image, then just use 128 and 32 for both source and target dimensions
     gdispGBlitArea(GDISP, 0, 0, 128, 32, 0, 0, 128, (pixel_t*)image_data_lcd_logo);
 
-    // Always remember to flush the display
-    gdispFlush();
     return false;
 }
 
