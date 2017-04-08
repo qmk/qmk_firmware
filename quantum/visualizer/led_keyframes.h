@@ -22,20 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef TMK_VISUALIZER_LED_TEST_H_
-#define TMK_VISUALIZER_LED_TEST_H_
+#ifndef LED_KEYFRAMES_H
+#define LED_KEYFRAMES_H
 
 #include "visualizer.h"
 
-bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_led_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_mirror_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
-bool keyframe_normal_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_fade_in_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_fade_out_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
 
 extern keyframe_animation_t led_test_animation;
 
 
-#endif /* TMK_VISUALIZER_LED_TEST_H_ */
+#endif /* LED_KEYFRAMES_H */
