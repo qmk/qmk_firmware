@@ -46,7 +46,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|------+------+------+------+------|------.,------|------+------+------+------+------|
 	|Shft Z|   X  |   C  |   V  |   B  | CTRL ||Alt / |   K  |   M  |   ,  |   .  |Shft /|
 	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
-	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  | RGUI |
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  |   \  |
 	`----------------------------------'              `----------------------------------'
 
 ### layer 3 : LOWER layer
