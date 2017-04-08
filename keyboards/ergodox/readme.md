@@ -1,6 +1,6 @@
 # The Easy Way
 
-If you have an ErgoDox EZ, the absolute easiest way for you to customize your firmware is using the [graphical configurator](http://configure.ergodox-ez.com), which uses QMK under the hood. 
+If you have an ErgoDox EZ, the absolute easiest way for you to customize your firmware is using the [graphical configurator](http://configure.ergodox-ez.com), which uses QMK under the hood.
 
 If you can find firmware someone else has made that does what you want, that
 is the easiest way to customize your ErgoDox.  It requires no programming
@@ -25,7 +25,7 @@ If none of the existing keymaps suit you, you can create your own custom
 keymap.  This will require some experience with coding.  Follow these steps
 to customize a keymap:
 
-  - Read the [qmk firmware README](https://github.com/jackhumbert/qmk_firmware) from top to bottom.  Then come back here.  :)
+  - Read the [qmk firmware README](https://github.com/qmk/qmk_firmware) from top to bottom.  Then come back here.  :)
 
   - Clone the qmk_firmware repository
 
@@ -69,12 +69,16 @@ files.  Check them out with:
 
 The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
-Linux users need to modify udev rules as described on the Teensy Linux page.
-Some distributions provide a binary, maybe called `teensy-loader-cli`).
+Linux users need to modify udev rules as described on the [Teensy
+Linux page].  Some distributions provide a binary, maybe called
+`teensy-loader-cli`.
+
+[Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
 
 To flash the firmware:
 
-  - Build the firmware with `make keymapname`, for example `make default` 
+  - Build the firmware with `make keymapname`, for example `make default`
+
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
@@ -86,6 +90,15 @@ To flash the firmware:
     in the top right corder.
 
   - Click the button in the Teensy app to download the firmware.
+
+To flash with ´teensy-loader-cli´:
+
+  - Build the firmware with `make keymapname`, for example `make default`
+
+  - Run ´<path/to/>teensy_loader_cli --mcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
+
+  - Press the Reset button by inserting a paperclip gently into the reset hole
+    in the top right corder.
 
 ## ErgoDox Infinity
 
@@ -100,7 +113,7 @@ for the left and right halves seperately.  To flash them:
 
   - Install the firmware with `sudo make infinity-keymapname-dfu-util`
 
-  - Build left hand firmware with `make infinity-keymapname MASTER=right`
+  - Build right hand firmware with `make infinity-keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 
