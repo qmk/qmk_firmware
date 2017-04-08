@@ -127,7 +127,6 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 
     write_cmd(g, ST7565_INVERT_DISPLAY);
     write_cmd(g, ST7565_ALLON_NORMAL);
-    write_cmd(g, ST7565_DISPLAY_ON);
 
     write_cmd(g, ST7565_START_LINE | 0);
     write_cmd(g, ST7565_RMW);
@@ -143,7 +142,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     g->g.Width = GDISP_SCREEN_WIDTH;
     g->g.Height = GDISP_SCREEN_HEIGHT;
     g->g.Orientation = GDISP_ROTATE_0;
-    g->g.Powermode = powerOn;
+    g->g.Powermode = powerOff;
     g->g.Backlight = GDISP_INITIAL_BACKLIGHT;
     g->g.Contrast = GDISP_INITIAL_CONTRAST;
     return TRUE;
