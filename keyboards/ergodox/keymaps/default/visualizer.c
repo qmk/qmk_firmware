@@ -32,8 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
 #include "led.h"
-
-#include "resources/resources.h"
+#include "animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
@@ -48,47 +47,11 @@ static lcd_state_t lcd_state = LCD_STATE_INITIAL;
 
 // Feel free to modify the animations below, or even add new ones if needed
 
-// Don't worry, if the startup animation is long, you can use the keyboard like normal
-// during that time
-static keyframe_animation_t startup_animation = {
-    .num_frames = 2,
-    .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
-    .frame_functions = {
-            lcd_keyframe_draw_logo,
-            backlight_keyframe_animate_color,
-    },
-};
-
 static keyframe_animation_t lcd_layer_display = {
     .num_frames = 1,
     .loop = false,
     .frame_lengths = {gfxMillisecondsToTicks(0)},
     .frame_functions = {lcd_keyframe_display_layer_and_led_states}
-};
-
-static keyframe_animation_t suspend_animation = {
-    .num_frames = 4,
-    .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0, 0},
-    .frame_functions = {
-            lcd_keyframe_display_layer_text,
-            backlight_keyframe_animate_color,
-            lcd_keyframe_disable,
-            backlight_keyframe_disable,
-    },
-};
-
-static keyframe_animation_t resume_animation = {
-    .num_frames = 4,
-    .loop = false,
-    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(10000), 0},
-    .frame_functions = {
-            lcd_keyframe_enable,
-            backlight_keyframe_enable,
-            lcd_keyframe_draw_logo,
-            backlight_keyframe_animate_color,
-    },
 };
 
 // The color animation animates the LCD color when you change layers
@@ -109,7 +72,7 @@ void initialize_user_visualizer(visualizer_state_t* state) {
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     lcd_state = LCD_STATE_INITIAL;
-    start_keyframe_animation(&startup_animation);
+    start_keyframe_animation(&default_startup_animation);
 }
 
 void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard_status_t* prev_status) {
@@ -156,12 +119,12 @@ void user_visualizer_suspend(visualizer_state_t* state) {
     uint8_t hue = LCD_HUE(state->current_lcd_color);
     uint8_t sat = LCD_SAT(state->current_lcd_color);
     state->target_lcd_color = LCD_COLOR(hue, sat, 0);
-    start_keyframe_animation(&suspend_animation);
+    start_keyframe_animation(&default_suspend_animation);
 }
 
 void user_visualizer_resume(visualizer_state_t* state) {
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     lcd_state = LCD_STATE_INITIAL;
-    start_keyframe_animation(&resume_animation);
+    start_keyframe_animation(&default_startup_animation);
 }
