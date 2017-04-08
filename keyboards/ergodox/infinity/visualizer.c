@@ -77,10 +77,12 @@ _Static_assert(sizeof(visualizer_user_data_t) <= VISUALIZER_USER_DATA_SIZE,
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
 // during that time
 static keyframe_animation_t startup_animation = {
-    .num_frames = 2,
+    .num_frames = 4,
     .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(10000), 0},
+    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(10000), 0},
     .frame_functions = {
+            lcd_keyframe_enable,
+            backlight_keyframe_enable,
             lcd_keyframe_draw_logo,
             backlight_keyframe_animate_color,
     },
@@ -134,18 +136,6 @@ static keyframe_animation_t suspend_animation = {
             backlight_keyframe_animate_color,
             lcd_keyframe_disable,
             backlight_keyframe_disable,
-    },
-};
-
-static keyframe_animation_t resume_animation = {
-    .num_frames = 4,
-    .loop = false,
-    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(10000), 0},
-    .frame_functions = {
-            lcd_keyframe_enable,
-            backlight_keyframe_enable,
-            lcd_keyframe_draw_logo,
-            backlight_keyframe_animate_color,
     },
 };
 
@@ -312,7 +302,7 @@ void user_visualizer_resume(visualizer_state_t* state) {
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     lcd_state = LCD_STATE_INITIAL;
-    start_keyframe_animation(&resume_animation);
+    start_keyframe_animation(&startup_animation);
 }
 
 void ergodox_board_led_on(void){
