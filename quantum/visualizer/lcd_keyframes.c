@@ -23,7 +23,6 @@ bool lcd_keyframe_display_layer_text(keyframe_animation_t* animation, visualizer
     (void)animation;
     gdispClear(White);
     gdispDrawString(0, 10, state->layer_text, state->font_dejavusansbold12, Black);
-    gdispFlush();
     return false;
 }
 
@@ -62,7 +61,6 @@ bool lcd_keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualiz
     gdispDrawString(0, 10, layer_buffer, state->font_fixed5x8, Black);
     format_layer_bitmap_string(state->status.default_layer >> 16, state->status.layer >> 16, layer_buffer);
     gdispDrawString(0, 20, layer_buffer, state->font_fixed5x8, Black);
-    gdispFlush();
     return false;
 }
 
@@ -101,7 +99,6 @@ bool lcd_keyframe_display_mods_bitmap(keyframe_animation_t* animation, visualize
     format_mods_bitmap_string(state->status.mods, status_buffer);
     gdispDrawString(0, 20, status_buffer, state->font_fixed5x8, Black);
 
-    gdispFlush();
     return false;
 }
 
@@ -140,7 +137,6 @@ bool lcd_keyframe_display_led_states(keyframe_animation_t* animation, visualizer
     get_led_state_string(output, state);
     gdispClear(White);
     gdispDrawString(0, 10, output, state->font_dejavusansbold12, Black);
-    gdispFlush();
     return false;
 }
 
@@ -155,7 +151,6 @@ bool lcd_keyframe_display_layer_and_led_states(keyframe_animation_t* animation, 
         y = 17;
     }
     gdispDrawString(0, y, state->layer_text, state->font_dejavusansbold12, Black);
-    gdispFlush();
     return false;
 }
 

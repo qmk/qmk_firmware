@@ -262,6 +262,7 @@ LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
             srcbit++;
         }
     }
+    g->flags |= GDISP_FLG_NEEDFLUSH;
 }
 
 #if GDISP_NEED_CONTROL && GDISP_HARDWARE_CONTROL

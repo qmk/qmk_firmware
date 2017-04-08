@@ -313,6 +313,10 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         gdispGFlush(LED_DISPLAY);
 #endif
 
+#ifdef LCD_ENABLE
+        gdispGFlush(LCD_DISPLAY);
+#endif
+
 #ifdef EMULATOR
         draw_emulator();
 #endif
