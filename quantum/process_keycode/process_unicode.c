@@ -15,6 +15,7 @@
  */
 #include "process_unicode.h"
 #include "action_util.h"
+#include "eeprom.h"
 
 static uint8_t first_flag = 0;
 
