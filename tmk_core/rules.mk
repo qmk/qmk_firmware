@@ -92,6 +92,7 @@ endif
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+CFLAGS += -Werror
 #CFLAGS += -mshort-calls
 #CFLAGS += -fno-unit-at-a-time
 #CFLAGS += -Wundef
@@ -115,6 +116,7 @@ CPPFLAGS += -O$(OPT)
 CPPFLAGS += -w
 CPPFLAGS += -Wall
 CPPFLAGS += -Wundef
+CPPFLAGS += -Werror
 #CPPFLAGS += -mshort-calls
 #CPPFLAGS += -fno-unit-at-a-time
 #CPPFLAGS += -Wstrict-prototypes
