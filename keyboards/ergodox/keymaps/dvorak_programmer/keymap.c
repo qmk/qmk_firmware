@@ -311,12 +311,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;        
         case SWITCH_NDS:
              if (record->event.pressed) {
-                return MACRO( D(LSFT), T(F11), U(LSFT), W(500), D(LALT), T(TAB), U(LALT), END); 
+                return MACRO( D(LSFT), T(F11), U(LSFT), W(255), D(LALT), T(TAB), U(LALT), END);
             }                                
         break;        
         case OPEN_CLOSE_PAREN:
             if (record->event.pressed) {
-                return MACRO( D(LSFT), T(LPRN), T(RPRN), U(LSFT), T(LEFT), END);
+                return MACRO( D(LSFT), T(9), T(0), U(LSFT), T(LEFT), END);
             }
         break;
         case OPEN_CLOSE_BRACKET:
@@ -326,7 +326,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;        
         case OPEN_CLOSE_CURLY:
             if (record->event.pressed) {
-                return MACRO( D(LSFT), T(LCBR), T(RCBR), U(LSFT), T(LEFT), END);
+                return MACRO( D(LSFT), T(LBRC), T(RBRC), U(LSFT), T(LEFT), END);
             }
         break;                
         case OPEN_CLOSE_SINGLE_QUOTE:
