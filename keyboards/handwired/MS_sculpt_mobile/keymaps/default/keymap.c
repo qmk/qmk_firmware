@@ -1,4 +1,4 @@
-#include "MS-sculpt-mobile.h"
+#include "../../MS_sculpt_mobile.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* 
