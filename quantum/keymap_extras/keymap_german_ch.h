@@ -33,6 +33,10 @@
 #define CH_E KC_E
 #define CH_F KC_F
 #define CH_G KC_G
+#ifdef CH_H
+// The ChibiOS ch.h file defines this...
+#undef CH_H
+#endif
 #define CH_H KC_H
 #define CH_I KC_I
 #define CH_J KC_J
