@@ -7,7 +7,14 @@ time, but still very much like the original Atreus keymap. I've managed to get t
 implemented (more like copied) the RAISE/LOWER/ADJUST layers. This is a work in progress, but I think I'm closer
 to a final go with this.
 
+I'm using MOD_TAP quite a bit in this keymap. On all layers, R4 pinky keys use mod-tap and are SHIFT when held
+and their normal keys when tapped. In addition, ESC and TAB are also set as Ctrl and ALT respectively when held,
+and Enter/ALT on the right thumb key for all layers.
+
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
+
+Recently added: Documentation, Formatting, and another Dvorak layer that has Command on the left thumb, instead of
+Control.
 
 ## Still to do:
 
@@ -49,7 +56,19 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   '  |   \  |
 	`----------------------------------'              `----------------------------------'
 
-### layer 3 : LOWER layer
+### Keymap 3: Dvorak for Mac layout
+
+	,----------------------------------.              ,----------------------------------.
+	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
+	|------+------+------+------+------|              |------+------+------+------+------|
+	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | CMD  ||Alt / |   B  |   M  |   W  |   V  |SFT/ Z|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   /  |   \  |
+	`----------------------------------'              `----------------------------------'
+
+### Keymap 4: LOWER layer
 
 	,----------------------------------.              ,----------------------------------.
 	|   !  |   @  |   #  |   $  |   %  |              |   ^  |   &  |   *  |   (  |   )  |
@@ -62,7 +81,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	`----------------------------------'              `----------------------------------'
 
 
-### Keymap 4: RAISE layer
+### Keymap 5: RAISE layer
 
 	,----------------------------------.              ,----------------------------------.
 	|   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |
@@ -74,14 +93,14 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|   `  |      |      |      | Del  |------'`------| Ins  |      |      |      |      |
 	`----------------------------------'              `----------------------------------'
 
-### Keymap 5: ADJUST layer
+### Keymap 6: ADJUST layer
 
 	,----------------------------------.              ,----------------------------------.
 	|  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  |
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|  F11 |      |      |      |      |              |      | PScr | SLck | Paus | F12  |
 	|------+------+------+------+------|------.,------|------+------+------+------+------|
-	|      |QWERTY|COLEMK|DVORAK|      |      ||      |      |      |      |      |      |
+	|      |QWERTY|COLEMK|DVORAK|DVORMC|      ||      |      |      |      |      |      |
 	|------+------+------+------+------|      ||      |------+------+------+------+------|
 	|      |      |      |      |      |------'`------|      |      |      |      | RESET|
 	`----------------------------------'              `----------------------------------'
