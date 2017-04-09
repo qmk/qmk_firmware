@@ -21,6 +21,8 @@ override SILENT := false
 
 ON_ERROR := error_occurred=1
 
+BREAK_ON_ERRORS = no
+
 STARTING_MAKEFILE := $(firstword $(MAKEFILE_LIST))
 ROOT_MAKEFILE := $(lastword $(MAKEFILE_LIST))
 ROOT_DIR := $(dir $(ROOT_MAKEFILE))
@@ -462,20 +464,25 @@ endef
 
 include $(ROOT_DIR)/message.mk
 
+ifeq ($(strip $(BREAK_ON_ERRORS)), yes)
+HANDLE_ERROR = exit 1
+else
+HANDLE_ERROR = echo $$error_occurred > $(ERROR_FILE)
+endif
+
 # The empty line is important here, as it will force a new shell to be created for each command
 # Otherwise the command line will become too long with a lot of keyboards and keymaps
 define RUN_COMMAND
 +error_occurred=0;\
 $(COMMAND_$(SILENT_MODE)_$(COMMAND))\
-if [ $$error_occurred -gt 0 ]; then echo $$error_occurred > $(ERROR_FILE); fi;
+if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
 
 
 endef
 define RUN_TEST
 +error_occurred=0;\
 $($(TEST)_COMMAND)\
-if [ $$error_occurred -gt 0 ]; then echo $$error_occurred > $(ERROR_FILE); fi;
-
+if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
 endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
