@@ -15,14 +15,16 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 0
 #define _QWERTY 1
 #define _COLEMAK 2
-#define _LOWER 3
-#define _RAISE 4
+#define _DVORMAC 3
+#define _LOWER 4
+#define _RAISE 5
 #define _ADJUST 16
 
 enum planck_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
   COLEMAK,
+  DVORMAC,
   LOWER,
   RAISE,
   BACKLIT
@@ -33,6 +35,8 @@ enum planck_keycodes {
 #define SFTSLSH SFT_T(KC_SLSH)
 #define SFTZED SFT_T(KC_Z)
 #define ALTENT ALT_T(KC_ENT)
+#define ESCTRL CTL_T(KC_ESC)
+#define TABALT ALT_T(KC_TAB)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -53,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    XXXXXXX, KC_F,    KC_G,    KC_C,    KC_R,    KC_L   },
     {KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    XXXXXXX, KC_D,    KC_H,    KC_T,    KC_N,    KC_S   },
     {SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LCTL, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED },
-    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS}
+    {ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS}
   },
 
 /* QWERTY Layer
@@ -70,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
     {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
     {SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_LCTL, KC_N,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH},
-    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
+    {ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
   },
 
 /* Colemak Layer
@@ -87,7 +91,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN},
     {KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    XXXXXXX, KC_H,    KC_N,    KC_E,    KC_I,    KC_O   },
     {SFTZED,  KC_X,    KC_C,    KC_V,    KC_B,    KC_LCTL, KC_K,    KC_M,    KC_COMM, KC_DOT,  SFTSLSH},
-    {KC_ESC,  KC_TAB,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
+    {ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_QUOT, KC_BSLS}
+  },
+
+/* Dvorak Layer with Command key on left thumb instead of Control
+	,----------------------------------.              ,----------------------------------.
+	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
+	|------+------+------+------+------|              |------+------+------+------+------|
+	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
+	|------+------+------+------+------|------.,------|------+------+------+------+------|
+	|SFT/ ;|   Q  |   J  |   K  |   X  | CMD  ||Alt / |   B  |   M  |   W  |   V  |SFT/ Z|
+	|------+------+------+------+------|      ||Enter |------+------+------+------+------|
+	|  Esc |  Tab |  GUI | LOWER| BkSp |------'`------|  Spc | RAISE|   -  |   /  |   \  |
+	`----------------------------------'              `----------------------------------' */
+  [_DVORMAC] = {
+    {KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    XXXXXXX, KC_F,    KC_G,    KC_C,    KC_R,    KC_L   },
+    {KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    XXXXXXX, KC_D,    KC_H,    KC_T,    KC_N,    KC_S   },
+    {SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LGUI, KC_B,    KC_M,    KC_W,    KC_V,    SFTZED },
+    {ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS}
   },
 
 /* LOWER Layer
@@ -130,14 +151,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------|              |------+------+------+------+------|
 	|  F11 |      |      |      |      |              |      | PrSc | ScLk | Paus | F12  |
 	|------+------+------+------+------|------.,------|------+------+------+------+------|
-	|      |QWERTY|COLEMK|DVORAK|      |      ||      |      |      |      |      |      |
+	|      |QWERTY|COLEMK|DVORAK|DVORMC|      ||      |      |      |      |      |      |
 	|------+------+------+------+------|      ||      |------+------+------+------+------|
 	|      |      |      |      |      |------'`------|      |      |      |      | RESET|
 	`----------------------------------'              `----------------------------------'*/
   [_ADJUST] = {
     {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10 },
     {KC_F11,  _______, _______, _______, _______, XXXXXXX, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_F12 },
-    {_______, QWERTY,  COLEMAK, DVORAK,  _______, _______, _______, _______, _______, _______, _______},
+    {_______, QWERTY,  COLEMAK, DVORAK,  DVORMAC, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET  }
   }
 
@@ -169,6 +190,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case DVORAK:
           if (record->event.pressed) {
             persistant_default_layer_set(1UL<<_DVORAK);
+          }
+          return false;
+          break;
+        case DVORMAC:
+          if (record->event.pressed) {
+            persistant_default_layer_set(1UL<<_DVORMAC);
           }
           return false;
           break;
