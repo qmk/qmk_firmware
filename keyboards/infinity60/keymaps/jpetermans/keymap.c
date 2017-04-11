@@ -98,8 +98,6 @@ enum macro_id {
  *          LED MAPPING 
  * ==================================*/
 
-//TODO: ACTION_LED_LAYER which reads current layer and turns on appropriate LED
-
 /*
    Configuring led control can be done as
    1. full keyboard at a time - define led array, or
@@ -121,43 +119,50 @@ enum macro_id {
     array translates to row and column positions
 */
 
-//"WASD"
-const uint8_t led_game[72] = {
-  0x24,
-  0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x34,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x44,
-  0x00, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x54,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF,
-  0x64,
-  0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x74,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x84,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-  0x94,
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//LED Layer indicator (1 per layer 3-7)
+const uint8_t led_single_layer[5] = {
+  12,13,14,15,16
 };
-
-const uint8_t led_all[72] = {
-  0x24,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x34,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x44,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x54,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x64,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x74,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x84,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-  0x94,
-  0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//LED Page 1 - All off
+//LED Page 2 - All on
+//LED Page 3 - _Nav
+const uint8_t led_nav[33] = {
+  11,12,13,14,15,16,17,18,21,22,23,24,25,
+  28,                   37,38,41,42,45,
+  46,47,48,            54,55,56,57,58,
+     64,65,66,      71,
+                                  84,85
+};
+//LED Page 4 - _Numpad
+const uint8_t led_numpad[17] = {
+  18,21,22,23,
+  37,38,41,42,
+  55,56,57,58,
+  72,73,74,75,
+           85
+};
+//LED Page 5 - _Media
+const uint8_t led_media[12] = {
+             23,24,25,
+     38,
+  55,56,57,
+      73,74,75,
+  83,          86
+};
+//LED Page 6 - _Game
+const uint8_t led_game[5] = {
+  //row 1
+  11,
+  //row 2
+  //row 3
+  32,
+  //row 4
+  47, 48,
+  //row 5
+  51
+  //row 6
+  //row 7
+  //row 8
 };
 
 const uint16_t fn_actions[] = {
@@ -172,17 +177,20 @@ const uint16_t fn_actions[] = {
 /* custom action function */
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   (void)opt;
+  msg_t msg;
   switch(id) {
     case ACTION_LEDS_ALL:
       if(record->event.pressed) {
         // signal the LED controller thread
-        chMBPost(&led_mailbox, 1, TIME_IMMEDIATE);
+        msg=(TOGGLE_LED << 8) | 12;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
     case ACTION_LEDS_GAME:
       if(record->event.pressed) {
         // signal the LED controller thread
-        chMBPost(&led_mailbox, 2, TIME_IMMEDIATE);
+        msg=(TOGGLE_LAYER_LEDS << 8) | 5;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
     case ACTION_LED_1:
@@ -212,19 +220,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    uint8_t j;
 
     led_controller_init();
 
 //TODO: do pages need to be written at init or ok on demand?
-  /* Write pages */
-  for(j=0; j<8; j++) {
-    is31_write_data(1,(uint8_t *)(led_game+(9*j)),9);
+/* Write pages */
+    write_led_page(3, led_nav, 33);
     chThdSleepMilliseconds(5);
-    is31_write_data(2,(uint8_t *)(led_all+(9*j)),9);
-    chThdSleepMilliseconds(5);
-  }
 
+    write_led_page(4, led_numpad, 17);
+    chThdSleepMilliseconds(5);
+
+    write_led_page(5, led_media, 12);
+    chThdSleepMilliseconds(5);
+
+    write_led_page(6, led_game, 5);
+    chThdSleepMilliseconds(5);
 };
 
 // Runs constantly in the background, in a loop.
