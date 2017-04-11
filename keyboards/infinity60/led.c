@@ -42,12 +42,12 @@ void led_set(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // signal the LED control thread
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, LED_MSG_CAPS_ON);
+        chMBPostI(&led_mailbox, 0x59);
         chSysUnconditionalUnlock();
     } else {
         // signal the LED control thread
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, LED_MSG_CAPS_OFF);
+        chMBPostI(&led_mailbox, 0x59);
         chSysUnconditionalUnlock();
     }
 }

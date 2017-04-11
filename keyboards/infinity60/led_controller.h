@@ -26,11 +26,14 @@ msg_t is31_write_data(uint8_t page, uint8_t *buffer, uint8_t size);
 msg_t is31_write_register(uint8_t page, uint8_t reg, uint8_t data);
 msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result);
 
-/* =========================
- *  init functions
- * ========================= */
+/* ============================
+ *  init functions/definitions
+ * ============================*/
 
 void led_controller_init(void);
+
+#define CAPS_LOCK_LED_ADDRESS 0x46
+#define NUM_LOCK_LED_ADDRESS 0x85
 
 /* =============================
  * IS31 chip related definitions
@@ -82,20 +85,26 @@ void led_controller_init(void);
 
 #define IS31_TIMEOUT 10000 // needs to be long enough to write a whole page
 
-/* ==============================
- * LED Thread related definitions
- * ============================== */
+/* ========================================
+ * LED Thread related definitions/functions
+ * ========================================*/
 
 extern mailbox_t led_mailbox;
 
+void set_led_bit (uint8_t *led_control_reg, uint8_t led_msg, uint8_t toggle_on);
+void set_lock_leds (uint8_t *led_control_reg, uint8_t lock_status);
+void write_led_page (uint8_t page, const uint8_t *led_array, uint8_t led_count);
+
 // constants for signaling the LED controller thread
 enum led_msg_t {
-    LED_MSG_CAPS_ON,
-    LED_MSG_CAPS_OFF,
-    LED_MSG_SLEEP_LED_ON,
-    LED_MSG_SLEEP_LED_OFF,
-    LED_MSG_ALL_TOGGLE,
-    LED_MSG_GAME_TOGGLE
+    KEY_LIGHT,
+    TOGGLE_LED,
+    TOGGLE_ALL,
+    TOGGLE_BACKLIGHT,
+    TOGGLE_LAYER_LEDS,
+    TOGGLE_LOCK_LED,
+    MODE_BREATH,
+    STEP_BRIGHTNESS
 };
 
 #endif /* _LED_CONTROLLER_H_ */
