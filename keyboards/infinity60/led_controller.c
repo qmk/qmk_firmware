@@ -122,7 +122,6 @@ msg_t is31_write_register(uint8_t page, uint8_t reg, uint8_t data) {
   is31_select_page(page);
   tx[0] = reg;
   tx[1] = data;
-    xprintf("page display: %X\n", page);
   return i2cMasterTransmitTimeout(&I2CD1, IS31_ADDR_DEFAULT, tx, 2, NULL, 0, US2ST(IS31_TIMEOUT));
 }
 
@@ -379,6 +378,8 @@ void set_led_bit (uint8_t *led_control_reg, uint8_t msg_led, uint8_t toggle_on) 
   ////first byte is register address 0x00
   row_byte = ((msg_led / 10) % 10 - 1 ) * 2 + 1;
   column_bit = 1<<(msg_led % 10 - 1);
+    xprintf("row  %X\n", row_byte);
+    xprintf("col  %X\n", column_bit);
 
   if (toggle_on) {
     led_control_reg[row_byte] |= 1<<(column_bit);
@@ -451,15 +452,23 @@ void led_controller_init(void) {
   /* initialise IS31 chip */
   is31_init();
 
-  /* enable LEDs on all pages */
-  full_page[0] = 0;
-  __builtin_memcpy(full_page+1, is31_ic60_leds_mask, 0x12);
-  for(i=0; i<8; i++) {
-    is31_write_data(i, full_page, 1+0x12);
-  }
-
   //set Display Option Register so all pwm intensity is controlled from Frame 1
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_DISPLAYOPT, IS31_REG_DISPLAYOPT_INTENSITY_SAME);
+
+  /* set full pwm on Frame 1 */
+  for(i=1; i<9; i++) {
+    pwm_reg_array[i]=0xFF; 
+  }
+  for(i=0; i<8; i++) {
+    pwm_reg_array[0] = 0x24 + (i * 0x10);//first byte of 9 bytes must be register address
+    is31_write_data(0, pwm_reg_array, 9);
+    chThdSleepMilliseconds(5);
+  }
+
+  //set all led bits on for Frame 2 LEDS_ALL
+  full_page[0] = 0;
+  __builtin_memcpy(full_page+1, is31_ic60_leds_mask, 0x12);
+  is31_write_data(1, full_page, 1+0x12);
 
   /* enable breathing when the displayed page changes */
   // Fade-in Fade-out, time = 26ms * 2^N, N=3

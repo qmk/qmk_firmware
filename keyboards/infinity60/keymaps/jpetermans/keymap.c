@@ -62,7 +62,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,KC_MUTE, KC_VOLD, KC_VOLU,_______,KC_NO,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,_______,\
         _______,_______,_______,_______,_______,_______,_______, _______, _______, _______,_______, _______,_______,     \
-        _______,_______,F(2),F(3),F(4),_______,_______, _______, KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
+        _______,_______,F(2),F(3),F(4),F(5),F(6),F(7), KC_MPRV, KC_MNXT,KC_MSTP, _______,KC_NO,       \
         _______,_______,_______,               KC_MPLY,             _______,_______, _______,_______      \
     ),
     /* ~ */
@@ -91,7 +91,9 @@ enum function_id {
 enum macro_id {
     ACTION_LEDS_ALL,
     ACTION_LEDS_GAME,
-    ACTION_LED_1
+    ACTION_LEDS_NAV,
+    ACTION_LEDS_MEDIA,
+    ACTION_LEDS_NUMPAD
 };
         
 /* ==================================
@@ -170,7 +172,9 @@ const uint16_t fn_actions[] = {
     [1] = ACTION_LAYER_MODS(_TILDE, MOD_LSFT),
     [2] = ACTION_FUNCTION(ACTION_LEDS_ALL),
     [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
-    [4] = ACTION_FUNCTION(ACTION_LED_1)
+    [4] = ACTION_FUNCTION(ACTION_LEDS_MEDIA),
+    [5] = ACTION_FUNCTION(ACTION_LEDS_NAV),
+    [6] = ACTION_FUNCTION(ACTION_LEDS_NUMPAD)
 
 };
 
@@ -182,23 +186,35 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_ALL:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LED << 8) | 12;
+        msg=(TOGGLE_ALL << 8) | 0;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
     case ACTION_LEDS_GAME:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LAYER_LEDS << 8) | 5;
+        msg=(TOGGLE_LED << 8) | 11;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
-    case ACTION_LED_1:
+    case ACTION_LEDS_NAV:
       if(record->event.pressed) {
         // signal the LED controller thread
-        chMBPost(&led_mailbox, ADDR_LED_1, TIME_IMMEDIATE);
+        msg=(TOGGLE_LAYER_LEDS << 8) | 3;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-      break;
+    case ACTION_LEDS_NUMPAD:
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        msg=(TOGGLE_LAYER_LEDS << 8) | 4;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
+      }
+    case ACTION_LEDS_MEDIA:
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        msg=(TOGGLE_LAYER_LEDS << 8) | 5;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
+      }
   }
 }
 
