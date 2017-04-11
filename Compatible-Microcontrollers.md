@@ -15,7 +15,7 @@ NOTE: To enable full features of firmware you'll need 32KB flash size.
 
 Please add any tested microcontrollers to this list.
 
-* ARM
+# ARM
 
 You can also use any ARM processor that ChibiOS supports. The following processors have been tested:
 
