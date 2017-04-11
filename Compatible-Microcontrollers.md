@@ -17,7 +17,7 @@ Please add any tested microcontrollers to this list.
 
 # ARM
 
-You can also use any ARM processor that ChibiOS supports. The following processors have been tested:
+You can also use any ARM processor that [ChibiOS](http://www.chibios.org) supports. The following processors have been tested:
 
 * [Kinetis MKL26Z64](http://www.nxp.com/products/microcontrollers-and-processors/arm-processors/kinetis-cortex-m-mcus/l-series-ultra-low-power-m0-plus/kinetis-kl2x-48-mhz-usb-ultra-low-power-microcontrollers-mcus-based-on-arm-cortex-m0-plus-core:KL2x)
 * [Kinetis MK20DX128](http://www.nxp.com/assets/documents/data/en/data-sheets/K20P64M50SF0.pdf)
