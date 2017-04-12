@@ -34,6 +34,7 @@ void led_controller_init(void);
 
 #define CAPS_LOCK_LED_ADDRESS 0x46
 #define NUM_LOCK_LED_ADDRESS 0x85
+#define BACKLIGHT_OFF_LOCK_LED_OFF 1 //set to 0 to show lock leds even if backlight off
 
 /* =============================
  * IS31 chip related definitions
