@@ -66,11 +66,11 @@ KC_PGDN,  KC_ENT,  KC_SPC
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           | VolU |  FF  | Mute |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------| Play | PgUp |      |  UP  |      |        |
+ * |        |      |      |      |      |      |------|           |------| Play | PgUp |      |      |      |        |
  * |--------+------+------+------+------+------|      |           | VolD |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |  RW  | PgDn | LEFT | DOWN |RIGHT |        |
+ * |        |      |      |      |      |      |      |           |      |  RW  | PgDn |      |  UP  |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       |      | LEFT | DOWN |RIGHT |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -97,11 +97,11 @@ KC_TRNS,
 KC_TRNS,  KC_TRNS,  KC_TRNS,
 
 // Right Keyboard
-KC_NO,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,
-KC_VOLU,  KC_MNXT,  KC_MUTE,  KC_NO,    KC_NO,    KC_NO,     KC_NO,
-KC_MPLY,  KC_PGUP,  KC_NO,    KC_UP,    KC_NO,    KC_NO,
-KC_VOLD,  KC_MPRV,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS,
-KC_TRNS,  KC_TRNS,  KC_NO,    KC_NO,    KC_TRNS,
+KC_NO,    KC_F6,    KC_F7,    KC_F8,     KC_F9,    KC_F10,  KC_F11,
+KC_VOLU,  KC_MNXT,  KC_MUTE,  KC_NO,     KC_NO,    KC_NO,   KC_NO,
+KC_MPLY,  KC_PGUP,  KC_NO,    KC_UP,     KC_NO,    KC_NO,
+KC_VOLD,  KC_MPRV,  KC_PGDN,  KC_NO,     KC_UP,    KC_NO,   KC_TRNS,
+KC_NO,    KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS,
 
 // Right Cluster
 KC_TRNS,  KC_TRNS,
