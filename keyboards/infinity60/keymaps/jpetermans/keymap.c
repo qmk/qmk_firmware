@@ -93,7 +93,8 @@ enum macro_id {
     ACTION_LEDS_GAME,
     ACTION_LEDS_NAV,
     ACTION_LEDS_MEDIA,
-    ACTION_LEDS_NUMPAD
+    ACTION_LEDS_NUMPAD,
+    ACTION_LEDS_TEST
 };
         
 /* ==================================
@@ -174,7 +175,9 @@ const uint16_t fn_actions[] = {
     [3] = ACTION_FUNCTION(ACTION_LEDS_GAME),
     [4] = ACTION_FUNCTION(ACTION_LEDS_MEDIA),
     [5] = ACTION_FUNCTION(ACTION_LEDS_NAV),
-    [6] = ACTION_FUNCTION(ACTION_LEDS_NUMPAD)
+    [6] = ACTION_FUNCTION(ACTION_LEDS_NUMPAD),
+    [7] = ACTION_FUNCTION(ACTION_LEDS_TEST)
+
 
 };
 
@@ -193,7 +196,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_GAME:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LED << 8) | 11;
+        msg=(TOGGLE_LAYER_LEDS << 8) | 6;
+        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
+      }
+      break;
+    case ACTION_LEDS_MEDIA:
+      if(record->event.pressed) {
+        // signal the LED controller thread
+        msg=(TOGGLE_LAYER_LEDS << 8) | 5;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
@@ -203,18 +213,21 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         msg=(TOGGLE_LAYER_LEDS << 8) | 3;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
+      break;
     case ACTION_LEDS_NUMPAD:
       if(record->event.pressed) {
         // signal the LED controller thread
         msg=(TOGGLE_LAYER_LEDS << 8) | 4;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
-    case ACTION_LEDS_MEDIA:
+      break;
+    case ACTION_LEDS_TEST:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LAYER_LEDS << 8) | 5;
+        msg=(TOGGLE_LED << 8) | 12;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
+      break;
   }
 }
 
@@ -236,6 +249,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    xprintf("init start");
 
     led_controller_init();
 
