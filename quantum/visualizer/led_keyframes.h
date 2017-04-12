@@ -22,15 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "keyboard.h"
-#include "action_layer.h"
+#ifndef LED_KEYFRAMES_H
+#define LED_KEYFRAMES_H
+
 #include "visualizer.h"
-#include "host.h"
 
-void post_keyboard_init(void) {
-    visualizer_init();
-}
+bool led_keyframe_fade_in_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_fade_out_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
 
-void post_keyboard_task() {
-    visualizer_set_state(default_layer_state, layer_state, host_keyboard_leds());
-}
+extern keyframe_animation_t led_test_animation;
+
+
+#endif /* LED_KEYFRAMES_H */

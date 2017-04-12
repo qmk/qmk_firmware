@@ -25,10 +25,10 @@ SOFTWARE.
 #include "lcd_backlight.h"
 #include <math.h>
 
-static uint8_t current_hue = 0x00;
-static uint8_t current_saturation = 0x00;
-static uint8_t current_intensity = 0xFF;
-static uint8_t current_brightness = 0x7F;
+static uint8_t current_hue = 0;
+static uint8_t current_saturation = 0;
+static uint8_t current_intensity = 0;
+static uint8_t current_brightness = 0;
 
 void lcd_backlight_init(void) {
     lcd_backlight_hal_init();
