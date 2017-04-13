@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ch.h"
 #include "hal.h"
 #include "print.h"
+#include "led.h"
 
 #include "led_controller.h"
 
@@ -57,11 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The usual Caps Lock position is C4-6, so the address is
  * 0x24 + (4-1)*0x10 + (8-1) = 0x59 */
 #if !defined(CAPS_LOCK_LED_ADDRESS)
-#define CAPS_LOCK_LED_ADDRESS 0x46
+#define CAPS_LOCK_LED_ADDRESS 46
 #endif
 
 #if !defined(NUM_LOCK_LED_ADDRESS)
-#define NUM_LOCK_LED_ADDRESS 0x85
+#define NUM_LOCK_LED_ADDRESS 85
 #endif
 
 /* Which LED should breathe during sleep */
@@ -215,7 +216,6 @@ layer_status = 0;
       is31_write_data (7, led_control_reg, 0x12+1);
       is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, 7);
       layer_status = 7;
-      is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &temp);
       break;
 
     case TOGGLE_ALL:
@@ -259,12 +259,18 @@ layer_status = 0;
       }
       break;
       
-    case TOGGLE_LOCK_LED:
-      //msg_led = 0-3 for lock flags
-      lock_status ^= msg_led; //TODO: confirm toggling works and doesn't get out of sync
-      set_lock_leds(led_control_reg, lock_status);
+    case TOGGLE_NUM_LOCK:
+      //msg_led = 0 or 1, off/on
+      //TODO: confirm toggling works and doesn't get out of sync
+      set_lock_leds(USB_LED_NUM_LOCK, msg_led);
       break;
     
+    case TOGGLE_CAPS_LOCK:
+      //msg_led = 0 or 1, off/on
+      //TODO: confirm toggling works and doesn't get out of sync
+      set_lock_leds(USB_LED_CAPS_LOCK, msg_led);
+      break;
+
     case MODE_BREATH:
       break;
     case STEP_BRIGHTNESS:
@@ -335,11 +341,10 @@ layer_status = 0;
  * ======================== */
 void set_led_bit (uint8_t *led_control_reg, uint8_t msg_led, uint8_t toggle_on) {
   uint8_t row_byte, column_bit;
-  //msg_led tens column is pin#, A-control register is every other 8 bits
+  //msg_led tens column is pin#
   //ones column is bit position in 8-bit mask
-  //control register will be one bit shifted into position along register's full 0x12 bytes
-  ////first byte is register address 0x00
-  row_byte = ((msg_led / 10) % 10 - 1 ) * 2 + 1;
+  //first byte is register address 0x00
+  row_byte = ((msg_led / 10) % 10 - 1 ) * 2 + 1;// A register is every other 8 bits
   column_bit = 1<<(msg_led % 10 - 1);
 
   if (toggle_on) {
@@ -349,31 +354,61 @@ void set_led_bit (uint8_t *led_control_reg, uint8_t msg_led, uint8_t toggle_on) 
   }
 }
 
-void set_lock_leds(uint8_t *led_control_reg, uint8_t lock_status) {
-  uint8_t i;
+//TODO: not toggling off correctly
+//TODO: confirm led_off page still has FF pwm for all
+void set_lock_leds(uint8_t lock_type, uint8_t lock_status) {
+  uint8_t page;
+  uint8_t led_addr, temp;
+  uint8_t control_reg[2] = {0};//register address and led bits
 
-  switch (lock_status) {
-    case 1:
-      set_led_bit(led_control_reg, CAPS_LOCK_LED_ADDRESS, 1);
-      set_led_bit(led_control_reg, NUM_LOCK_LED_ADDRESS, 0);
-      break;
-    case 2:
-      set_led_bit(led_control_reg, CAPS_LOCK_LED_ADDRESS, 0);
-      set_led_bit(led_control_reg, NUM_LOCK_LED_ADDRESS, 1);
-      break;
-    case 3:
-      set_led_bit(led_control_reg, NUM_LOCK_LED_ADDRESS, 1);
-      set_led_bit(led_control_reg, CAPS_LOCK_LED_ADDRESS, 1);
-      break;
-  }
+  switch(lock_type) {
+      case USB_LED_NUM_LOCK:
+          led_addr = NUM_LOCK_LED_ADDRESS;
+          break;
+      case USB_LED_CAPS_LOCK:
+          led_addr = CAPS_LOCK_LED_ADDRESS;
+          break;
+      #ifdef SCROLL_LOCK_LED_ADDRESS
+      case USB_LED_SCROLL_LOCK:
+          led_addr = SCROLL_LOCK_LED_ADDRESS;
+          break;
+      #endif
+      #ifdef COMPOSE_LED_ADDRESS
+      case USB_LED_COMPOSE:
+          led_addr = COMPOSE_LED_ADDRESS;
+          break;
+      #endif
+      #ifdef SCROLL_LOCK_LED_ADDRESS
+      case USB_LED_KANA:
+          led_addr = KANA_LED_ADDRESS;
+          break;
+      #endif
+  }          
+  xprintf("led_addr: %X\n", led_addr);
+  chThdSleepMilliseconds(30);
+  control_reg[0] = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-register is every other byte
+  xprintf("control_reg: %X\n", control_reg[0]);
+  chThdSleepMilliseconds(30);
 
-  for(i=BACKLIGHT_OFF_LOCK_LED_OFF; i<8; i++) { //set in led_controller.h
-    is31_write_data (i, led_control_reg, 0x12+1);
+  for(page=BACKLIGHT_OFF_LOCK_LED_OFF; page<8; page++) { //set in led_controller.h
+    is31_read_register(page,control_reg[0],&temp);//need to maintain status of leds in this row (1 byte)
+  chThdSleepMilliseconds(30);
+    xprintf("1lock byte: %X\n", temp);
+  chThdSleepMilliseconds(30);
+    if (lock_status) {
+        temp |= 1<<(led_addr % 10 - 1);
+    } else {
+        temp &= ~1<<(led_addr % 10 - 1);
+    }
+  chThdSleepMilliseconds(30);
+    xprintf("2lock byte: %X\n", temp);
+  chThdSleepMilliseconds(30);
+    control_reg[1] = temp;
+    is31_write_data (page, control_reg, 0x02);
   }
 }
 
 void write_led_page (uint8_t page, const uint8_t *led_array, uint8_t led_count) {
-//TODO: init function that accepts array of led addresses and sets them by row
   uint8_t i;
   uint8_t row, col;
   uint8_t temp_control_reg[0x13] = {0};//led control register start address + 0x12 bytes
@@ -433,9 +468,8 @@ void led_controller_init(void) {
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
 
   // clean up the lock LEDs
-  //TODO: adjust for new addressing and additional frames
-  //is31_write_register(1, CAPS_LOCK_LED_ADDRESS, 0);
-  //is31_write_register(2, CAPS_LOCK_LED_ADDRESS, 0);
+  set_lock_leds(USB_LED_NUM_LOCK, 0);
+  set_lock_leds(USB_LED_CAPS_LOCK, 0);
 
   /* more time consuming LED processing should be offloaded into
    * a thread, with asynchronous messaging. */
