@@ -212,10 +212,10 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
-  {440.0*pow(2.0,(14)/12.0), 20},
-  {440.0*pow(2.0,(26)/12.0), 8},
-  {440.0*pow(2.0,(18)/12.0), 20},
-  {440.0*pow(2.0,(26)/12.0), 8}
+   MUSICAL_NOTE(_B5, 20),
+   MUSICAL_NOTE(_B6, 8),
+   MUSICAL_NOTE(_DS6, 20),
+   MUSICAL_NOTE(_B6, 8),
 };
 
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
@@ -323,7 +323,7 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void play_goodbye_tone()
+void play_goodbye_tone(void)
 {
   PLAY_NOTE_ARRAY(goodbye, false, 0);
   _delay_ms(150);
