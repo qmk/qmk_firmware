@@ -1,6 +1,7 @@
 # project specific files
 SRC =	matrix.c \
-	led.c
+	led.c \
+	animations.c
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -59,16 +60,12 @@ OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 #
 CUSTOM_MATRIX ?= yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
-VISUALIZER_ENABLE ?= no #temporarily disabled to make everything compile
+VISUALIZER_ENABLE ?= yes
 LCD_ENABLE ?= yes
-LED_ENABLE ?= yes
+LED_ENABLE ?= no
 LCD_BACKLIGHT_ENABLE ?= yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
 
 ifdef LCD_ENABLE
 include $(SUBPROJECT_PATH)/drivers/gdisp/st7565ergodox/driver.mk
