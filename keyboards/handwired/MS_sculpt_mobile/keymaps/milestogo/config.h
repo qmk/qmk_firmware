@@ -1,7 +1,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include "../../../MS_sculpt_mobile/config.h"
 
 #define USE_BABLPASTE
 

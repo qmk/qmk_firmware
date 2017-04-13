@@ -20,12 +20,12 @@
 bool printing_enabled = false;
 uint8_t character_shift = 0;
 
-void enabled_printing() {
+void enable_printing(void) {
 	printing_enabled = true;
 	serial_init();
 }
 
-void disable_printing() {
+void disable_printing(void) {
 	printing_enabled = false;
 }
 
@@ -41,9 +41,14 @@ void print_char(char c) {
 	USB_Init();
 }
 
-void print_box_string(uint8_t text[]) {
-	uint8_t len = strlen(text);
-	uint8_t out[len * 3 + 8];
+void print_string(char c[]) {
+	for(uint8_t i = 0; i < strlen(c); i++)
+		print_char(c[i]);
+}
+
+void print_box_string(const char text[]) {
+	size_t len = strlen(text);
+	char out[len * 3 + 8];
 	out[0] = 0xDA;
 	for (uint8_t i = 0; i < len; i++) {
 		out[i+1] = 0xC4;
@@ -69,14 +74,9 @@ void print_box_string(uint8_t text[]) {
 	print_string(out); 
 }
 
-void print_string(char c[]) {
-	for(uint8_t i = 0; i < strlen(c); i++)
-		print_char(c[i]);
-}
-
 bool process_printer(uint16_t keycode, keyrecord_t *record) {
 	if (keycode == PRINT_ON) {
-		enabled_printing();
+		enable_printing();
 		return false;
 	}
 	if (keycode == PRINT_OFF) {

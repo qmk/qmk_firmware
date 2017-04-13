@@ -179,5 +179,12 @@ uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 __attribute__ ((weak))
 uint16_t keymap_function_id_to_action( uint16_t function_id )
 {
+    // The compiler sees the empty (weak) fn_actions and generates a warning
+    // This function should not be called in that case, so the warning is too strict
+    // If this function is called however, the keymap should have overridden fn_actions, and then the compile
+    // is comparing against the wrong array
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Warray-bounds"
 	return pgm_read_word(&fn_actions[function_id]);
+    #pragma GCC diagnostic pop
 }
