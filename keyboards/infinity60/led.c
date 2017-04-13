@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "hal.h"
+#include "print.h"
 
 #include "led.h"
 
@@ -26,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * In particular, I2C functions (interrupt-driven) should NOT be called from here.
  */
 void led_set(uint8_t usb_led) {
+    msg_t msg;
 /*
     // PTA5: LED (1:on/0:off)
     GPIOA->PDDR |= (1<<1);
@@ -36,18 +38,32 @@ void led_set(uint8_t usb_led) {
         GPIOA->PCOR |= (1<<5);
     }
  */
-//TODO: How does this test if led is set
-//usb_led --> led_set(usb_led) <-- chibios/host_keyboard_leds <-- keyboard_leds from usbSetupTransfer
-//keyboard_leds is enum'd in chibios/main.c
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // signal the LED control thread
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, 0x59);
+        msg=(TOGGLE_NUM_LOCK << 8) | 1;
+        chMBPostI(&led_mailbox, msg);
+        chSysUnconditionalUnlock();
+    } else {
+        // signal the LED control thread
+        xprintf("NUMLOCK OFF\n");
+        chSysUnconditionalLock();
+        msg=(TOGGLE_NUM_LOCK << 8) | 0;
+        chMBPostI(&led_mailbox, msg);
+        chSysUnconditionalUnlock();
+    }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // signal the LED control thread
+        xprintf("CAPSLOCK ON\n");
+        chSysUnconditionalLock();
+        msg=(TOGGLE_CAPS_LOCK << 8) | 1;
+        chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     } else {
         // signal the LED control thread
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, 0x59);
+        msg=(TOGGLE_CAPS_LOCK << 8) | 0;
+        chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     }
 }

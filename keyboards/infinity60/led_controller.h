@@ -32,9 +32,9 @@ msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result);
 
 void led_controller_init(void);
 
-#define CAPS_LOCK_LED_ADDRESS 0x46
-#define NUM_LOCK_LED_ADDRESS 0x85
-#define BACKLIGHT_OFF_LOCK_LED_OFF 1 //set to 0 to show lock leds even if backlight off
+#define CAPS_LOCK_LED_ADDRESS 46
+#define NUM_LOCK_LED_ADDRESS 85
+#define BACKLIGHT_OFF_LOCK_LED_OFF 0 //set to 0 to show lock leds even if backlight off
 
 /* =============================
  * IS31 chip related definitions
@@ -93,7 +93,7 @@ void led_controller_init(void);
 extern mailbox_t led_mailbox;
 
 void set_led_bit (uint8_t *led_control_reg, uint8_t led_msg, uint8_t toggle_on);
-void set_lock_leds (uint8_t *led_control_reg, uint8_t lock_status);
+void set_lock_leds (uint8_t lock_type, uint8_t lock_status);
 void write_led_page (uint8_t page, const uint8_t *led_array, uint8_t led_count);
 
 // constants for signaling the LED controller thread
@@ -103,7 +103,8 @@ enum led_msg_t {
     TOGGLE_ALL,
     TOGGLE_BACKLIGHT,
     TOGGLE_LAYER_LEDS,
-    TOGGLE_LOCK_LED,
+    TOGGLE_NUM_LOCK,
+    TOGGLE_CAPS_LOCK,
     MODE_BREATH,
     STEP_BRIGHTNESS
 };
