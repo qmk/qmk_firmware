@@ -5,8 +5,9 @@
 
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
+// Need to keep checking 0x5F00 is still in the safe range.
 enum zeal60_keycodes {
-	BR_INC = 0x7080,	// backlight brightness increase
+	BR_INC = 0x5F00,	// backlight brightness increase
 	BR_DEC, 			// backlight brightness decrease
 	EF_INC, 			// backlight effect increase
 	EF_DEC,  			// backlight effect decrease

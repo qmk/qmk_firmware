@@ -38,7 +38,7 @@ zeal_backlight_config g_config = {
 };
 
 bool g_suspend_state = false;
-uint8_t g_inidicator_state = 0;
+uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -257,7 +257,7 @@ void backlight_set_suspend_state(bool state)
 
 void backlight_set_indicator_state(uint8_t state)
 {
-	g_inidicator_state = state;
+	g_indicator_state = state;
 }
 
 void backlight_effect_rgb_test(void)
@@ -598,7 +598,7 @@ void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
 void backlight_effect_indicators(void)
 {
 	if ( g_config.caps_lock_indicator.index != 255 &&
-			( g_inidicator_state & (1<<USB_LED_CAPS_LOCK) ) )
+			( g_indicator_state & (1<<USB_LED_CAPS_LOCK) ) )
 	{
 		backlight_effect_indicators_set_colors( g_config.caps_lock_indicator.index, g_config.caps_lock_indicator.color );
 	}
@@ -652,7 +652,6 @@ ISR(TIMER3_COMPA_vect)
 	{
 		g_any_key_hit++;
 	}
-
 
 	for ( int led = 0; led < 72; led++ )
 	{
@@ -966,3 +965,18 @@ uint32_t backlight_get_tick(void)
 	return g_tick;
 }
 
+void backlight_debug_led( bool state )
+{
+	if (state)
+	{
+		// Output high.
+		DDRE |= (1<<6);
+		PORTE |= (1<<6);
+	}
+	else
+	{
+		// Output low.
+		DDRE &= ~(1<<6);
+		PORTE &= ~(1<<6);
+	}
+}

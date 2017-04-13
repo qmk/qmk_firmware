@@ -373,23 +373,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void led_set_kb(uint8_t usb_led)
 {
-
-#if 0
-	if (usb_led & (1<<USB_LED_CAPS_LOCK))
-	{
-		// Output high.
-		DDRE |= (1<<6);
-		PORTE |= (1<<6);
-	}
-	else
-	{
-		// Output low.
-		DDRE &= ~(1<<6);
-		PORTE &= ~(1<<6);
-	}
-#endif
-	
 	backlight_set_indicator_state(usb_led);
+	//backlight_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
 }
 
 void suspend_power_down_kb(void)
