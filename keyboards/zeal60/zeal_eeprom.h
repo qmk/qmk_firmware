@@ -32,6 +32,11 @@
 // 287 + 560 = 847
 // 847 < 1024 :-)
 
+// For Zeal65 this is 5*15*2=150 bytes
+// 4 keymaps = 600 bytes
+// 287 + 600 = 887
+// 887 < 1024 :-)
+
 bool eeprom_is_valid(void);
 void eeprom_set_valid(bool valid);
 

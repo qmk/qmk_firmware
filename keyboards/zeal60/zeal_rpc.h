@@ -3,7 +3,7 @@
 
 #include "zeal_color.h"
 
-#define PROTOCOL_VERSION 0x0003
+#define PROTOCOL_VERSION 0x0004
 
 enum
 {
@@ -14,7 +14,8 @@ enum
 	id_backlight_config_set_values,
 	id_backlight_config_set_alphas_mods,
 	id_backlight_set_key_color,
-
+	id_system_get_state,
+	id_system_set_state,
 	id_unhandled = 0xFF,
 };
 
@@ -88,6 +89,12 @@ typedef struct PACKED
 	uint8_t column;
 	HSV hsv;
 } msg_backlight_set_key_color;
+
+typedef struct PACKED
+{
+	uint8_t id;
+	uint32_t value;
+} msg_system_state;
 
 #if defined(_MSC_VER)
 #pragma pack( pop )

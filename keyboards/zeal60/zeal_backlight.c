@@ -22,7 +22,7 @@ zeal_backlight_config g_config = {
 	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
 	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
 	.brightness = 255,
-	.effect = 0,
+	.effect = 255, // Default to RGB test, so Zeal can flash and test in one pass!
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
 	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
@@ -59,9 +59,26 @@ typedef struct Point {
 	uint8_t y;
 } Point;
 
+
 // index in range 0..71 (LA0..LA17, LB0..LB17, LC0..LC17, LD0..LD17)
 // point values in range x=0..224 y=0..64
 // origin is center of top-left key (i.e Esc)
+#ifdef CONFIG_ZEAL65
+const Point g_map_led_to_point[72] PROGMEM = {
+	// LA0..LA17
+	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
+	{128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
+	// LB0..LB17
+	{144,0}, {160,0}, {176,0}, {192,0}, {216,0}, {224,0}, {240,0}, {240,16}, {240,32},
+	{136,16}, {152,16}, {168,16}, {184,16}, {200,16}, {220,16}, {240,48}, {240,64}, {224,64},
+	// LC0..LC17
+	{96,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {60,64}, {48,60}, {28,64},
+	{108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {20,48}, {2,48}, {4,64},
+	// LD0..LD17
+	{124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {210,48}, {224,48},
+	{116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {144,60}, {164,64}, {188,64}, {208,64}
+};
+#else
 const Point g_map_led_to_point[72] PROGMEM = {
 	// LA0..LA17
 	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
@@ -76,6 +93,7 @@ const Point g_map_led_to_point[72] PROGMEM = {
 	{124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {210,48}, {224,48},
 	{116,48}, {132,48}, {148,48}, {164,48}, {144,64}, {161,64}, {181,64}, {201,64}, {221,64}
 };
+#endif // ZEAL65_PROTO
 
 // This may seem counter-intuitive, but it's quite flexible.
 // For each LED, get it's position to decide what color to make it.
@@ -98,6 +116,7 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_iso_enter )
 				point->y += 8; // extremely pedantic
 			break;
+#ifndef ZEAL65_PROTO
 		case 36+0: // LC0A
 			if ( g_config.use_7u_spacebar )
 				point->x += 10;
@@ -106,6 +125,7 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_7u_spacebar )
 				point->x += 4;
 			break;
+#endif
 		case 36+16: // LC16A
 			if ( !g_config.use_split_left_shift )
 				point->x += 8;
@@ -124,6 +144,25 @@ void map_led_to_point( uint8_t index, Point *point )
 //
 // Maps switch matrix coordinate (row,col) to LED index
 //
+
+
+#ifdef CONFIG_ZEAL65
+// Note: Left spacebar stab is at 4,3 (LC7)
+// Right spacebar stab is at 4,9 (D14)
+//
+// A17, A16, A15, A14, A13, A12, A11, A10,  A9,  B0,  B1,  B2,  B3,  B4,  B6
+//  A7,  A6,  A5,  A4,  A3,  A2,  A1,  A0,  B9, B10, B11, B12, B13, B14,  B7
+//  A8, C14, C13, C12, C11, C10,  C9,  D0,  D1,  D2,  D3,  D4,  D5,  B5,  B8
+// C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8, B15
+// C17,  C8,  C7, ---, ---, ---, ---,  C0, ---, D14, D15, D16, D17, B17, B16
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+	{  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4,  18+6 },
+	{   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14,  18+7 },
+	{   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5,  18+8 },
+	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+15 },
+	{ 36+17,  36+8,  36+7,   255,   255,   255,   255,  36+0,  255,  54+14, 54+15, 54+16, 54+17, 18+17, 18+16 }
+};
+#else
 // Note: Left spacebar stab is at 4,3 (LC6)
 // Right spacebar stab is at 4,9 (LD13) or 4,10 (LD14)
 //
@@ -132,15 +171,14 @@ void map_led_to_point( uint8_t index, Point *point )
 //  A8, C14, C13, C12, C11, C10,  C9,  D0,  D1,  D2,  D3,  D4,  D5,  B5,
 // C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8,
 // C17,  C8,  C7,  C6, ---, ---, ---,  C0, ---, D13, D14, D15, D16, D17,
-//
-const uint8_t g_map_row_column_to_led[5][14] PROGMEM = {
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4 },
 	{   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14 },
 	{   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5 },
 	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8 },
 	{ 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,  54+13, 54+14, 54+15, 54+16, 54+17 }
 };
-
+#endif
 
 void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 {
@@ -222,34 +260,42 @@ void backlight_set_indicator_state(uint8_t state)
 	g_inidicator_state = state;
 }
 
+void backlight_effect_rgb_test(void)
+{
+	// Mask out bits 4 and 5
+	// This 2-bit value will stay the same for 16 ticks.
+	switch ( (g_tick & 0x30) >> 4 )
+	{
+		case 0:
+		{
+			backlight_set_color_all( 255, 0, 0 );
+			break;
+		}
+		case 1:
+		{
+			backlight_set_color_all( 0, 255, 0 );
+			break;
+		}
+		case 2:
+		{
+			backlight_set_color_all( 0, 0, 255 );
+			break;
+		}
+		case 3:
+		{
+			backlight_set_color_all( 255, 255, 255 );
+			break;
+		}
+	}
+}
+
 // This tests the LEDs
 // Note that it will change the LED control registers
 // in the LED drivers, and leave them in an invalid
 // state for other backlight effects.
 // ONLY USE THIS FOR TESTING LEDS!
-void backlight_effect_test(void)
+void backlight_effect_single_LED_test(void)
 {
-	if ( g_tick < 4*20 )
-	{
-		backlight_set_color_all( 255, 0, 0 );
-		return;
-	}
-	else if ( g_tick < 7*20 )
-	{
-		backlight_set_color_all( 0, 255, 0 );
-		return;
-	}
-	else if ( g_tick < 10*20 )
-	{
-		backlight_set_color_all( 0, 0, 255 );
-		return;
-	}
-	else if ( g_tick < 13*20 )
-	{
-		backlight_set_color_all( 255, 255, 255 );
-		return;
-	}
-
 	static uint8_t color = 0; // 0,1,2 for R,G,B
 	static uint8_t row = 0;
 	static uint8_t column = 0;
@@ -311,7 +357,7 @@ void backlight_effect_alphas_mods(void)
 			map_row_column_to_led( row, column, &index );
 			if ( index < 72 )
 			{
-				if ( ( g_config.alphas_mods[row] & (0b0010000000000000>>column) ) == 0 )
+				if ( ( g_config.alphas_mods[row] & (1<<column) ) == 0 )
 				{
 					backlight_set_color( index, rgb1.r, rgb1.g, rgb1.b );
 				}
@@ -428,8 +474,8 @@ void backlight_effect_cycle_all(void)
 	}
 }
 
- void backlight_effect_cycle_left_right(void)
- {
+void backlight_effect_cycle_left_right(void)
+{
 	uint8_t offset = g_tick & 0xFF;
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
@@ -532,12 +578,17 @@ void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
 		// do the same for the spacebar stabilizers
 		if ( index == 36+0 ) // LC0
 		{
+#ifdef CONFIG_ZEAL65
+			backlight_set_color( 36+7, rgb.r, rgb.g, rgb.b ); // LC7
+			backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
+#else
 			backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
 			backlight_set_color( 54+13, rgb.r, rgb.g, rgb.b ); // LD13
 			if ( g_config.use_7u_spacebar )
 			{
 				backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
 			}
+#endif
 		}
 	}
 }
@@ -587,6 +638,14 @@ void backlight_effect_indicators(void)
 
 ISR(TIMER3_COMPA_vect)
 {
+	// delay 1 second before driving LEDs or doing anything else
+	static uint8_t startup_tick = 0;
+	if ( startup_tick < 20 )
+	{
+		startup_tick++;
+		return;
+	}
+
 	g_tick++;
 
 	if ( g_any_key_hit < 0xFFFFFFFF )
@@ -594,11 +653,6 @@ ISR(TIMER3_COMPA_vect)
 		g_any_key_hit++;
 	}
 
-	// delay 1 second before driving LEDs
-	if ( g_tick < 20 )
-	{
-		return;
-	}
 
 	for ( int led = 0; led < 72; led++ )
 	{
@@ -608,10 +662,12 @@ ISR(TIMER3_COMPA_vect)
 		}
 	}
 
-#ifdef ZEAL60_TEST
-	backlight_effect_test();
-	return;
-#endif
+	// Factory default magic value
+	if ( g_config.effect == 255 )
+	{
+		backlight_effect_rgb_test();
+		return;
+	}
 
 	// Ideally we would also stop sending zeros to the LED driver PWM buffers
 	// while suspended and just do a software shutdown. This is a cheap hack for now.
@@ -740,7 +796,16 @@ void backlight_init_drivers(void)
 	for ( int index = 0; index < 72; index++ )
 	{
 		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
-		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60, but present on Zeal65
+		// LC6 LD13 not present on Zeal65
+#ifdef CONFIG_ZEAL65
+		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
+						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
+						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
+						  ( index == 36+6 ) || // LC6
+						  ( index == 54+13 ) ); // LD13
+#else
+
+		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
 						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
@@ -751,7 +816,7 @@ void backlight_init_drivers(void)
 						  ( index == 18+15 ) || // LB15
 						  ( index == 18+16 ) || // LB16
 						  ( index == 18+17 ) ); // LB17
-
+#endif
 		// This only caches it for later
 		IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
 	}
@@ -767,91 +832,90 @@ void backlight_init_drivers(void)
 	}
 }
 
-
 // Deals with the messy details of incrementing an integer
-uint8_t increment( uint8_t value, uint8_t step, uint8_t max )
+uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
 {
 	int16_t new_value = value;
 	new_value += step;
-	return ( new_value <= max ) ? new_value : max;
+	return MIN( MAX( new_value, min ), max );
 }
 
-uint8_t decrement( uint8_t value, uint8_t step, uint8_t min )
+uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
 {
 	int16_t new_value = value;
 	new_value -= step;
-	return ( new_value >= min ) ? new_value : min;
+	return MIN( MAX( new_value, min ), max );
 }
 
 void backlight_effect_increase(void)
 {
-	g_config.effect = increment( g_config.effect, 1, BACKLIGHT_EFFECT_MAX );
+	g_config.effect = increment( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
 	backlight_config_save();
 }
 
 void backlight_effect_decrease(void)
 {
-	g_config.effect = decrement( g_config.effect, 1, 0 );
+	g_config.effect = decrement( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
 	backlight_config_save();
 }
 
 void backlight_brightness_increase(void)
 {
-	g_config.brightness = increment( g_config.brightness, 8, 255 );
+	g_config.brightness = increment( g_config.brightness, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_brightness_decrease(void)
 {
-	g_config.brightness = decrement( g_config.brightness, 8, 0 );
+	g_config.brightness = decrement( g_config.brightness, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_1_hue_increase(void)
 {
-	g_config.color_1.h = increment( g_config.color_1.h, 8, 255 );
+	g_config.color_1.h = increment( g_config.color_1.h, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_1_hue_decrease(void)
 {
-	g_config.color_1.h = decrement( g_config.color_1.h, 8, 0 );
+	g_config.color_1.h = decrement( g_config.color_1.h, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_1_sat_increase(void)
 {
-	g_config.color_1.s = increment( g_config.color_1.s, 8, 255 );
+	g_config.color_1.s = increment( g_config.color_1.s, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_1_sat_decrease(void)
 {
-	g_config.color_1.s = decrement( g_config.color_1.s, 8, 0 );
+	g_config.color_1.s = decrement( g_config.color_1.s, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_2_hue_increase(void)
 {
-	g_config.color_2.h = increment( g_config.color_2.h, 8, 255 );
+	g_config.color_2.h = increment( g_config.color_2.h, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_2_hue_decrease(void)
 {
-	g_config.color_2.h = decrement( g_config.color_2.h, 8, 0 );
+	g_config.color_2.h = decrement( g_config.color_2.h, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_2_sat_increase(void)
 {
-	g_config.color_2.s = increment( g_config.color_2.s, 8, 255 );
+	g_config.color_2.s = increment( g_config.color_2.s, 8, 0, 255 );
 	backlight_config_save();
 }
 
 void backlight_color_2_sat_decrease(void)
 {
-	g_config.color_2.s = decrement( g_config.color_2.s, 8, 0 );
+	g_config.color_2.s = decrement( g_config.color_2.s, 8, 0, 255 );
 	backlight_config_save();
 }
 
@@ -896,3 +960,9 @@ void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 		}
 	}
 }
+
+uint32_t backlight_get_tick(void)
+{
+	return g_tick;
+}
+

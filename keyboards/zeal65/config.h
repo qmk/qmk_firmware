@@ -20,21 +20,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+// This conditionally compiles the backlight code for Zeal65 specifics
+#define CONFIG_ZEAL65
+
 // USB Device descriptor parameter
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0x6065
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
-#define PRODUCT         Zeal60
-#define DESCRIPTION     Zeal60 (QMK Firmware)
+#define PRODUCT         Zeal65
+#define DESCRIPTION     Zeal65 (QMK Firmware)
 
 // key matrix size
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 14
+#define MATRIX_COLS 15
 
 // Zeal60 PCB default pin-out
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
+#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
 
 // COL2ROW or ROW2COL
@@ -89,11 +92,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // alphas vs. mods
 // Each value is for a row, bit 0 is column 0
 // Alpha=0 Mod=1
-#define BACKLIGHT_ALPHAS_MODS_ROW_0 0b0010000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_1 0b0000000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_2 0b0001000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
+#define BACKLIGHT_ALPHAS_MODS_ROW_0 0b0110000000000001
+#define BACKLIGHT_ALPHAS_MODS_ROW_1 0b0100000000000001
+#define BACKLIGHT_ALPHAS_MODS_ROW_2 0b0101000000000001
+#define BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
+#define BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111110000000011
+
 
 #define USE_KEYMAPS_IN_EEPROM 1
 
