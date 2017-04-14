@@ -210,14 +210,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_NAV:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LAYER_LEDS << 8) | 3;
+        msg=(OFF_LED << 8) | 12;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
     case ACTION_LEDS_NUMPAD:
       if(record->event.pressed) {
         // signal the LED controller thread
-        msg=(TOGGLE_LAYER_LEDS << 8) | 4;
+        msg=(ON_LED << 8) | 12;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
