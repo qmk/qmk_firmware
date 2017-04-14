@@ -1,7 +1,33 @@
+/* Copyright 2016-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "quantum.h"
+#ifdef PROTOCOL_LUFA
+#include "outputselect.h"
+#endif
 
 #ifndef TAPPING_TERM
 #define TAPPING_TERM 200
+#endif
+
+#include "backlight.h"
+extern backlight_config_t backlight_config;
+
+#ifdef FAUXCLICKY_ENABLE
+#include "fauxclicky.h"
 #endif
 
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
@@ -33,14 +59,42 @@ static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
     f(KC_RGUI);
 }
 
+static inline void qk_register_weak_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_weak_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_register_mods(uint8_t kc) {
+    add_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
+static inline void qk_unregister_mods(uint8_t kc) {
+    del_weak_mods(MOD_BIT(kc));
+    send_keyboard_report();
+}
+
 void register_code16 (uint16_t code) {
-  do_code16 (code, register_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_register_mods);
+  } else {
+      do_code16 (code, qk_register_weak_mods);
+  }
   register_code (code);
 }
 
 void unregister_code16 (uint16_t code) {
   unregister_code (code);
-  do_code16 (code, unregister_code);
+  if (IS_MOD(code) || code == KC_NO) {
+      do_code16 (code, qk_unregister_mods);
+  } else {
+      do_code16 (code, qk_unregister_weak_mods);
+  }
 }
 
 __attribute__ ((weak))
@@ -60,8 +114,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#ifdef AUDIO_ENABLE
-  stop_all_notes();
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
+  music_all_notes_off();
   shutdown_user();
 #endif
   wait_ms(250);
@@ -81,7 +135,7 @@ void reset_keyboard(void) {
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
-static uint16_t scs_timer = 0;
+static uint16_t scs_timer[2] = {0, 0};
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -115,10 +169,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
-  #ifdef MIDI_ENABLE
+  #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
   #ifdef AUDIO_ENABLE
+    process_audio(keycode, record) &&
+  #endif
+  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -129,6 +186,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifndef DISABLE_CHORDING
     process_chording(keycode, record) &&
+  #endif
+  #ifdef COMBO_ENABLE
+    process_combo(keycode, record) &&
   #endif
   #ifdef UNICODE_ENABLE
     process_unicode(keycode, record) &&
@@ -162,6 +222,26 @@ bool process_record_quantum(keyrecord_t *record) {
       }
 	  return false;
       break;
+  #ifdef FAUXCLICKY_ENABLE
+  case FC_TOG:
+    if (record->event.pressed) {
+      FAUXCLICKY_TOGGLE;
+    }
+    return false;
+    break;
+  case FC_ON:
+    if (record->event.pressed) {
+      FAUXCLICKY_ON;
+    }
+    return false;
+    break;
+  case FC_OFF:
+    if (record->event.pressed) {
+      FAUXCLICKY_OFF;
+    }
+    return false;
+    break;
+  #endif
 	#ifdef RGBLIGHT_ENABLE
 	case RGB_TOG:
 		if (record->event.pressed) {
@@ -212,6 +292,28 @@ bool process_record_quantum(keyrecord_t *record) {
 	  return false;
       break;
 	#endif
+    #ifdef PROTOCOL_LUFA
+    case OUT_AUTO:
+      if (record->event.pressed) {
+        set_output(OUTPUT_AUTO);
+      }
+      return false;
+      break;
+    case OUT_USB:
+      if (record->event.pressed) {
+        set_output(OUTPUT_USB);
+      }
+      return false;
+      break;
+    #ifdef BLUETOOTH_ENABLE
+    case OUT_BT:
+      if (record->event.pressed) {
+        set_output(OUTPUT_BLUETOOTH);
+      }
+      return false;
+      break;
+    #endif
+    #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
         // MAGIC actions (BOOTMAGIC without the boot)
@@ -293,7 +395,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
-        scs_timer = timer_read ();
+        scs_timer[0] = timer_read ();
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
@@ -303,7 +405,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[0] && timer_elapsed(scs_timer) < TAPPING_TERM) {
+        if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
@@ -316,7 +418,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
-        scs_timer = timer_read ();
+        scs_timer[1] = timer_read ();
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
@@ -326,7 +428,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[1] && timer_elapsed(scs_timer) < TAPPING_TERM) {
+        if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
@@ -508,6 +610,15 @@ void matrix_scan_quantum() {
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
   #endif
+
+  #ifdef COMBO_ENABLE
+    matrix_scan_combo();
+  #endif
+
+  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
+    backlight_task();
+  #endif
+
   matrix_scan_kb();
 }
 
@@ -525,34 +636,45 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define COM1x1 COM1A1
 #  define OCR1x  OCR1A
 #else
-#  error "Backlight pin not supported - use B5, B6, or B7"
+#  define NO_BACKLIGHT_CLOCK
+#endif
+
+#ifndef BACKLIGHT_ON_STATE
+#define BACKLIGHT_ON_STATE 0
 #endif
 
 __attribute__ ((weak))
 void backlight_init_ports(void)
 {
 
-  // Setup backlight pin as output and output low.
+  // Setup backlight pin as output and output to on state.
   // DDRx |= n
   _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
-  // PORTx &= ~n
-  _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #if BACKLIGHT_ON_STATE == 0
+    // PORTx &= ~n
+    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  #else
+    // PORTx |= n
+    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  #endif
 
-  // Use full 16-bit resolution.
-  ICR1 = 0xFFFF;
+  #ifndef NO_BACKLIGHT_CLOCK
+    // Use full 16-bit resolution.
+    ICR1 = 0xFFFF;
 
-  // I could write a wall of text here to explain... but TL;DW
-  // Go read the ATmega32u4 datasheet.
-  // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
+    // I could write a wall of text here to explain... but TL;DW
+    // Go read the ATmega32u4 datasheet.
+    // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-  // Pin PB7 = OCR1C (Timer 1, Channel C)
-  // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
-  // (i.e. start high, go low when counter matches.)
-  // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
-  // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
+    // Pin PB7 = OCR1C (Timer 1, Channel C)
+    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
+    // (i.e. start high, go low when counter matches.)
+    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
+    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
 
-  TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
-  TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
+    TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
+    TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
+  #endif
 
   backlight_init();
   #ifdef BACKLIGHT_BREATHING
@@ -564,30 +686,73 @@ __attribute__ ((weak))
 void backlight_set(uint8_t level)
 {
   // Prevent backlight blink on lowest level
-  // PORTx &= ~n
-  _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  // #if BACKLIGHT_ON_STATE == 0
+  //   // PORTx &= ~n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+  // #else
+  //   // PORTx |= n
+  //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  // #endif
 
   if ( level == 0 ) {
-    // Turn off PWM control on backlight pin, revert to output low.
-    TCCR1A &= ~(_BV(COM1x1));
-    OCR1x = 0x0;
-  } else if ( level == BACKLIGHT_LEVELS ) {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
-    // Set the brightness
-    OCR1x = 0xFFFF;
-  } else {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
-    // Set the brightness
-    OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
-  }
+    #ifndef NO_BACKLIGHT_CLOCK
+      // Turn off PWM control on backlight pin, revert to output low.
+      TCCR1A &= ~(_BV(COM1x1));
+      OCR1x = 0x0;
+    #else
+      // #if BACKLIGHT_ON_STATE == 0
+      //   // PORTx |= n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+      // #else
+      //   // PORTx &= ~n
+      //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+      // #endif
+    #endif
+  } 
+  #ifndef NO_BACKLIGHT_CLOCK
+    else if ( level == BACKLIGHT_LEVELS ) {
+      // Turn on PWM control of backlight pin
+      TCCR1A |= _BV(COM1x1);
+      // Set the brightness
+      OCR1x = 0xFFFF;
+    } 
+    else {
+      // Turn on PWM control of backlight pin
+      TCCR1A |= _BV(COM1x1);
+      // Set the brightness
+      OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
+    }
+  #endif
 
   #ifdef BACKLIGHT_BREATHING
     breathing_intensity_default();
   #endif
 }
 
+uint8_t backlight_tick = 0;
+
+void backlight_task(void) {
+  #ifdef NO_BACKLIGHT_CLOCK
+  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) { 
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #else
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #endif
+  } else {
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #else
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #endif
+  }
+  backlight_tick = (backlight_tick + 1) % 16;
+  #endif
+}
 
 #ifdef BACKLIGHT_BREATHING
 
@@ -847,6 +1012,19 @@ void send_nibble(uint8_t number) {
             unregister_code(KC_A + (number - 0xA));
             break;
     }
+}
+
+
+__attribute__((weak))
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
 }
 
 void api_send_unicode(uint32_t unicode) {

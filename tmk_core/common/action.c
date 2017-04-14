@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nodebug.h"
 #endif
 
+#ifdef FAUXCLICKY_ENABLE
+#include <fauxclicky.h>
+#endif
 
 void action_exec(keyevent_t event)
 {
@@ -41,6 +44,16 @@ void action_exec(keyevent_t event)
         dprint("EVENT: "); debug_event(event); dprintln();
     }
 
+#ifdef FAUXCLICKY_ENABLE
+    if (IS_PRESSED(event)) {
+        FAUXCLICKY_ACTION_PRESS;
+    }
+    if (IS_RELEASED(event)) {
+        FAUXCLICKY_ACTION_RELEASE;
+    }
+    fauxclicky_check();
+#endif
+
 #ifdef ONEHAND_ENABLE
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
@@ -48,6 +61,13 @@ void action_exec(keyevent_t event)
 #endif
 
     keyrecord_t record = { .event = event };
+
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+    if (has_oneshot_layer_timed_out()) {
+        dprintf("Oneshot layer: timeout\n");
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+    }
+#endif
 
 #ifndef NO_ACTION_TAPPING
     action_tapping_process(record);
@@ -100,7 +120,7 @@ bool process_record_quantum(keyrecord_t *record) {
     return true;
 }
 
-void process_record(keyrecord_t *record) 
+void process_record(keyrecord_t *record)
 {
     if (IS_NOEVENT(record->event)) { return; }
 
@@ -120,17 +140,9 @@ void process_record(keyrecord_t *record)
 
 void process_action(keyrecord_t *record, action_t action)
 {
-    bool do_release_oneshot = false;
     keyevent_t event = record->event;
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
-#endif
-
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    if (has_oneshot_layer_timed_out()) {
-        dprintf("Oneshot layer: timeout\n");
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-    }
 #endif
 
     if (event.pressed) {
@@ -139,6 +151,7 @@ void process_action(keyrecord_t *record, action_t action)
     }
 
 #ifndef NO_ACTION_ONESHOT
+    bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
     if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);

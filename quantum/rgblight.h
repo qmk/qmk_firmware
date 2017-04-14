@@ -1,8 +1,23 @@
+/* Copyright 2017 Yang Liu
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 24
+	#define RGBLIGHT_MODES 34
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -20,6 +35,14 @@
 
 #ifndef RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH
 #define RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH 4
+#endif
+
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 1000
+#endif
+
+#ifndef RGBLIGHT_EFFECT_CHRISTMAS_STEP
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
 #endif
 
 #ifndef RGBLIGHT_HUE_STEP
@@ -65,6 +88,7 @@ void rgblight_decrease(void);
 void rgblight_toggle(void);
 void rgblight_enable(void);
 void rgblight_step(void);
+void rgblight_step_reverse(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);

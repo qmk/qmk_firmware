@@ -7,43 +7,47 @@
 /*
  *WINDOWS SWEDISH
  */
-#define KN_HALF	KC_GRV          // 1/2
-#define KN_PLUS	KC_MINS         // +
-#define KN_ACUT	KC_EQL          // ´
-#define KN_AO	  KC_LBRC         // Å
-#define KN_UMLA	KC_RBRC         // ¨
-#define KN_OE	  KC_SCLN         // Ö
-#define KN_AE	  KC_QUOT         // Ä
-#define	KN_QUOT	KC_NUHS         // '
-#define KN_LABK	KC_NUBS         // <
-#define KN_MINS KC_SLSH         // -
-#define KN_EXLM LSFT(KC_1)      // !
-#define KN_DQT  LSFT(KC_2)      // "
-#define KN_AT   RALT(KC_2)      // @
-#define KN_HASH LSFT(KC_3)      // #
-#define KN_DLR  RALT(KC_4)      // $
-#define KN_PERC LSFT(KC_5)      // %
-#define KN_AMPR LSFT(KC_6)      // &
-#define KN_SLSH LSFT(KC_7)      // /
-#define KN_LPRN LSFT(KC_8)      // (
-#define KN_RPRN LSFT(KC_9)      // )
-#define KN_EQL  LSFT(KC_0)      // =
-#define KN_UNDS LSFT(KN_MINS)   // _
-#define KN_QUES LSFT(KN_PLUS)   // ?
-#define KN_GRAV LSFT(KN_ACUT)   // `
-#define KN_LCBR RALT(KC_7)      // {
-#define KN_RCBR RALT(KC_0)      // }
-#define KN_LBRC RALT(KC_8)      // [
-#define KN_RBRC RALT(KC_9)      // ]
-#define KN_RABK LSFT(KN_LABK)   // <
-#define KN_COLN LSFT(KC_DOT)    // :
-#define KN_SCLN LSFT(KC_COMM)   // :
-#define KN_PIPE RALT(KN_LABK)   // |
-#define KN_QUES LSFT(KN_PLUS)   // ?
-#define KN_CIRC LSFT(KN_UMLA)   // ^
-#define KN_ASTR LSFT(KN_QUOT)   // *
-#define KN_TILD RALT(KN_UMLA)   // ~
-#define KN_BSLS RALT(KN_PLUS)   //
+ /*
+  *WINDOWS SWEDISH
+  */
+ #define KN_HALF KC_GRV          // 1/2
+ #define KN_PLUS KC_MINS         // +
+ #define KN_ACUT KC_EQL          // ´
+ #define KN_AO	 KC_LBRC         // Å
+ #define KN_UMLA KC_RBRC         // ¨
+ #define KN_OE	 KC_SCLN         // Ö
+ #define KN_AE	 KC_QUOT         // Ä
+ #define KN_QUOT KC_NUHS         // '
+ #define KN_LABK KC_NUBS         // <
+ #define KN_MINS KC_SLSH         // -
+ #define KN_EXLM LSFT(KC_1)      // !
+ #define KN_DQT  LSFT(KC_2)      // "
+ #define KN_AT   RALT(KC_2)      // @
+ #define KN_HASH LSFT(KC_3)      // #
+ #define KN_EUR  LSFT(KC_4)      // €
+ #define KN_DLR  RALT(KC_4)      // $
+ #define KN_PERC LSFT(KC_5)      // %
+ #define KN_AMPR LSFT(KC_6)      // &
+ #define KN_SLSH LSFT(KC_7)      // /
+ #define KN_LPRN LSFT(KC_8)      // (
+ #define KN_RPRN LSFT(KC_9)      // )
+ #define KN_EQL  LSFT(KC_0)      // =
+ #define KN_UNDS LSFT(KN_MINS)   // _
+ #define KN_QUES LSFT(KN_PLUS)   // ?
+ #define KN_GRAV LSFT(KN_ACUT)   // `
+ #define KN_LCBR RALT(KC_7)      // {
+ #define KN_RCBR RALT(KC_0)      // }
+ #define KN_LBRC RALT(KC_8)      // [
+ #define KN_RBRC RALT(KC_9)      // ]
+ #define KN_RABK LSFT(KN_LABK)   // <
+ #define KN_COLN LSFT(KC_DOT)    // :
+ #define KN_SCLN LSFT(KC_COMM)   // :
+ #define KN_PIPE RALT(KN_LABK)   // |
+ #define KN_QUES LSFT(KN_PLUS)   // ?
+ #define KN_CIRC LSFT(KN_UMLA)   // ^
+ #define KN_ASTR LSFT(KN_QUOT)   // *
+ #define KN_TILD RALT(KN_UMLA)   // ~
+ #define KN_BSLS RALT(KN_PLUS)   //
 
 #define OSM_LCTL OSM(MOD_LCTL)
 #define OSM_LALT OSM(MOD_LALT)
@@ -85,32 +89,26 @@ enum {
   TD_EQ
 };
 
-//Custom keycodes
-enum {
-  PLACEHOLDER = SAFE_RANGE
-};
-
 //State and timers
 uint16_t kf_timers[12];
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = {
 
-   { M(KF_11) ,M(KF_1)  ,M(KF_2)  ,M(KF_3)  ,M(KF_4) ,M(KF_5)         ,KC_NO   ,M(KF_6)        ,M(KF_7) ,M(KF_8) ,M(KF_9) ,M(KF_10) ,M(KF_12) },
-   { KC_TAB   ,KC_Q     ,KC_W     ,KC_E     ,KC_R    ,KC_T            ,KC_NO   ,KC_Y           ,KC_U    ,KC_I    ,KC_O    ,KC_P     ,KN_AO },
-   { OSM_LCTL ,KC_A     ,KC_S     ,KC_D     ,KC_F    ,KC_G            ,KC_NO   ,KC_H           ,KC_J    ,KC_K    ,KC_L    ,KN_OE    ,KN_AE },
-   { OSM_LSFT ,KC_Z     ,KC_X     ,KC_C     ,KC_V    ,KC_B            ,KC_DELT ,KC_N           ,KC_M    ,KC_COMM ,KC_DOT  ,KN_MINS  ,OSM_LSFT },
-   { MO(NAV)  ,OSM_LCTL ,OSM_LALT ,KC_LGUI  ,KC_SPC  ,LT(SYM,KC_BSPC) ,KC_HYP  ,LT(SYM,KC_ENT) ,KC_SPC  ,KC_LEAD ,KC_LALT ,KC_LCTRL ,MO(NAV) }
+   { M(KF_11) ,M(KF_1)  ,M(KF_2)  ,M(KF_3)  ,M(KF_4) ,M(KF_5)  ,KC_NO   ,M(KF_6) ,M(KF_7) ,M(KF_8) ,M(KF_9) ,M(KF_10) ,M(KF_12) },
+   { KC_TAB   ,KC_Q     ,KC_W     ,KC_E     ,KC_R    ,KC_T     ,KC_NO   ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P     ,KN_AO },
+   { OSM_LCTL ,KC_A     ,KC_S     ,KC_D     ,KC_F    ,KC_G     ,KC_NO   ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KN_OE    ,KN_AE },
+   { OSM_LSFT ,KC_Z     ,KC_X     ,KC_C     ,KC_V    ,KC_B     ,KC_DELT ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KN_MINS  ,OSM_LSFT },
+   { MO(NAV)  ,OSM_LCTL ,OSM_LALT ,KC_LGUI  ,MO(SYM) ,KC_BSPC  ,KC_ENT  ,KC_SPC  ,MO(SYM) ,KC_LEAD ,KC_LALT ,KC_LCTRL ,KC_HYP }
 
  },
   [NAV] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_PGUP  ,KC_HOME  ,KC_UP    ,KC_END   ,KC_TRNS  ,KC_TRNS },
-   { KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_L  ,KC_TRNS  ,KC_NO   ,KC_PGDN  ,KC_LEFT  ,KC_DOWN  ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_NO   ,KC_HOME  ,KC_PGDN  ,KC_PGUP  ,KC_END   ,KC_TRNS  ,KC_TRNS },
+   { KC_TRNS  ,KC_LSFT  ,KC_LCTL  ,KC_LALT  ,KC_L     ,KC_TRNS  ,KC_NO   ,KC_LEFT  ,KC_DOWN  ,KC_UP    ,KC_RIGHT ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_VOLD  ,KC_VOLU }
 
@@ -119,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,TD(TD_EQ) ,KC_NO   ,TD(TD_FUN) ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS },
    { KC_TRNS  ,KN_LABK  ,KN_RABK  ,KN_LCBR  ,KN_RCBR  ,KN_PLUS   ,KC_NO   ,KN_AT      ,KN_DQT   ,KN_QUOT  ,KN_GRAV  ,KN_SLSH  ,KC_TRNS },
-   { KC_TRNS  ,KN_EXLM  ,KN_EQL   ,KN_LPRN  ,KN_RPRN  ,KN_MINS   ,KC_NO   ,KN_UNDS    ,KN_SCLN  ,KN_COLN  ,KN_AMPR  ,KN_PIPE  ,KC_TRNS },
-   { KC_TRNS  ,KN_DLR   ,KN_PERC  ,KN_LBRC  ,KN_RBRC  ,KN_ASTR   ,KC_TRNS ,KN_HASH    ,KC_COMM  ,KC_DOT   ,KN_QUES  ,KN_BSLS  ,KC_TRNS },
+   { KC_TRNS  ,KN_EXLM  ,KN_EQL   ,KN_LPRN  ,KN_RPRN  ,KN_MINS   ,KC_NO   ,KN_UNDS    ,KN_CIRC  ,KN_DLR   ,KN_AMPR  ,KN_PIPE  ,KC_TRNS },
+   { KC_TRNS  ,KN_EUR   ,KN_PERC  ,KN_LBRC  ,KN_RBRC  ,KN_ASTR   ,KC_TRNS ,KN_HASH    ,KN_SCLN  ,KN_COLN  ,KN_QUES  ,KN_BSLS  ,KC_TRNS },
    { KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS   ,KC_TRNS ,KC_TRNS    ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS }
 
   }
@@ -300,6 +298,15 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS (KC_A, KC_S) {
       //Slack
       register_code (KC_LGUI); TAP_ONCE (KC_7); unregister_code (KC_LGUI);
+    }
+
+    SEQ_TWO_KEYS (KC_U, KC_L) {
+      set_unicode_input_mode(UC_LNX);
+    }
+
+
+    SEQ_TWO_KEYS (KC_U, KC_W) {
+      set_unicode_input_mode(UC_WINC);
     }
 
 
