@@ -376,26 +376,40 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
   uint8_t control_reg_addr, column_bit, column_byte, temp;
   //first byte is led control register address 0x00
   //msg_led tens column is pin#, ones column is bit position in 8-bit mask
+    chThdSleepMilliseconds(10);
+        xprintf("led_addr: %d ", led_addr);
   control_reg_addr = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-register is every other byte
   column_bit = 1<<(led_addr % 10 - 1);
 
   is31_read_register(page,control_reg_addr,&temp);//need to maintain status of leds in this row (1 byte)
+    chThdSleepMilliseconds(10);
+        xprintf("col_bit: %X ", column_bit);
   column_byte = temp;
 
+    chThdSleepMilliseconds(10);
+        xprintf("action: %X ", action);
   switch(action) {
     case 0:
-      column_byte &= ~1<<(column_bit);
+        xprintf("off-");
+    chThdSleepMilliseconds(10);
+      column_byte &= ~column_bit;
       break;
     case 1:
-      column_byte |= 1<<(column_bit);
+        xprintf("on-");
+    chThdSleepMilliseconds(10);
+      column_byte |= column_bit;
       break;
     case 2:
-      column_byte ^= 1<<(column_bit);
+        xprintf("toggle-");
+    chThdSleepMilliseconds(10);
+      column_byte ^= column_bit;
       break;
   }
 
   led_control_reg[0] = control_reg_addr;
   led_control_reg[1] = column_byte;
+    chThdSleepMilliseconds(10);
+    xprintf("set_bit row: %X    set_bit col: %X\n", led_control_reg[0], led_control_reg[1]);
 }
 
 void set_lock_leds(uint8_t lock_type, uint8_t led_on) {
@@ -427,11 +441,13 @@ void set_lock_leds(uint8_t lock_type, uint8_t led_on) {
       #endif
   }          
 
-  for(page=BACKLIGHT_OFF_LOCK_LED_OFF; page<8; page++) { //set in led_controller.h
+  for(page=0; page<8; page++) { //set in led_controller.h
   //TODO: check if frame2 (or frame1, first byte all on), and ignore if true
   //also if BACKLIGHT_OFF_LOCK_LED_OFF set
     set_led_bit(page,led_control_write,led_addr,led_on);
-    is31_write_data (page, led_control_write, 0x02);
+    xprintf("lock_led row: %X  lock_led col%X\n", led_control_write[0], led_control_write[1]);
+    is31_write_data(page, led_control_write, 0x02);
+    chThdSleepMilliseconds(10);
   }
 }
 
