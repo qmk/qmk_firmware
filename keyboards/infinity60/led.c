@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "hal.h"
-#include "print.h"
 
 #include "led.h"
 
@@ -28,16 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 void led_set(uint8_t usb_led) {
     msg_t msg;
-/*
-    // PTA5: LED (1:on/0:off)
-    GPIOA->PDDR |= (1<<1);
-    PORTA->PCR[5] |= PORTx_PCRn_DSE | PORTx_PCRn_MUX(1);
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        GPIOA->PSOR |= (1<<5);
-    } else {
-        GPIOA->PCOR |= (1<<5);
-    }
- */
+
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // signal the LED control thread
         chSysUnconditionalLock();
@@ -46,7 +36,6 @@ void led_set(uint8_t usb_led) {
         chSysUnconditionalUnlock();
     } else {
         // signal the LED control thread
-        xprintf("NUMLOCK OFF\n");
         chSysUnconditionalLock();
         msg=(TOGGLE_NUM_LOCK << 8) | 0;
         chMBPostI(&led_mailbox, msg);
@@ -54,7 +43,6 @@ void led_set(uint8_t usb_led) {
     }
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // signal the LED control thread
-        xprintf("CAPSLOCK ON\n");
         chSysUnconditionalLock();
         msg=(TOGGLE_CAPS_LOCK << 8) | 1;
         chMBPostI(&led_mailbox, msg);

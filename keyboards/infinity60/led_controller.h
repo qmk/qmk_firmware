@@ -32,7 +32,7 @@ msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result);
 
 void led_controller_init(void);
 
-#define CAPS_LOCK_LED_ADDRESS 46
+#define CAPS_LOCK_LED_ADDRESS 46 //pin matrix location
 #define NUM_LOCK_LED_ADDRESS 85
 #define BACKLIGHT_OFF_LOCK_LED_OFF 0 //set to 0 to show lock leds even if backlight off
 
@@ -87,18 +87,20 @@ void led_controller_init(void);
 #define IS31_TIMEOUT 10000 // needs to be long enough to write a whole page
 
 /* ========================================
- * LED Thread related definitions/functions
+ * LED Thread related functions/definitions
  * ========================================*/
 
 extern mailbox_t led_mailbox;
 
-void set_led_bit (uint8_t *led_control_reg, uint8_t led_msg, uint8_t toggle_on);
-void set_lock_leds (uint8_t lock_type, uint8_t lock_status);
+void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action);
+void set_lock_leds (uint8_t lock_type, uint8_t led_on);
 void write_led_page (uint8_t page, const uint8_t *led_array, uint8_t led_count);
 
 // constants for signaling the LED controller thread
 enum led_msg_t {
     KEY_LIGHT,
+    OFF_LED,
+    ON_LED,
     TOGGLE_LED,
     TOGGLE_ALL,
     TOGGLE_BACKLIGHT,
