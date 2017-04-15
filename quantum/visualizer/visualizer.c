@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "visualizer.h"
 #include "config.h"
+#include "visualizer.h"
 #include <string.h>
 #ifdef PROTOCOL_CHIBIOS
 #include "ch.h"
