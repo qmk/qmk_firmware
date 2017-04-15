@@ -96,16 +96,12 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_HELP||Help|
 |KC_MENU||Menu|
 |KC_SELECT||Select|
-|KC_STOP||Stop|
 |KC_AGAIN||Again|
 |KC_UNDO||Undo|
 |KC_CUT||Cut|
 |KC_COPY||Copy|
 |KC_PASTE||Paste|
 |KC_FIND||Find|
-|KC__MUTE||Mute|
-|KC__VOLUP||Volume Up|
-|KC__VOLDOWN||Volume Down|
 |KC_ALT_ERASE||Alternate Erase7|
 |KC_SYSREQ||SysReq/Attention1|
 |KC_CANCEL||Cancel|
@@ -121,16 +117,6 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_SYSTEM_POWER|KC_PWR|System Power Down|
 |KC_SYSTEM_SLEEP|KC_SLEP|System Sleep|
 |KC_SYSTEM_WAKE|KC_WAKE|System Wake|
-|KC_AUDIO_MUTE|KC_MUTE||
-|KC_AUDIO_VOL_UP|KC_VOLU||
-|KC_AUDIO_VOL_DOWN|KC_VOLD||
-|KC_MEDIA_NEXT_TRACK|KC_MNXT||
-|KC_MEDIA_PREV_TRACK|KC_MPRV||
-|KC_MEDIA_FAST_FORWARD|KC_MFFD||
-|KC_MEDIA_REWIND|KC_MRWD||
-|KC_MEDIA_STOP|KC_MSTP||
-|KC_MEDIA_PLAY_PAUSE|KC_MPLY||
-|KC_MEDIA_SELECT|KC_MSEL||
 |KC_MAIL|KC_MAIL||
 |KC_CALCULATOR|KC_CALC||
 |KC_MY_COMPUTER|KC_MYCM||
@@ -141,6 +127,27 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_WWW_STOP|KC_WSTP||
 |KC_WWW_REFRESH|KC_WREF||
 |KC_WWW_FAVORITES|KC_WFAV||
+
+## Media Keys
+
+Windows and Mac use different key codes for next track and previous track. Make sure you choose the keycode that corresponds to your OS.
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_STOP||Stop|
+|KC__MUTE||Mute|
+|KC__VOLUP||Volume Up|
+|KC__VOLDOWN||Volume Down|
+|KC_AUDIO_MUTE|KC_MUTE||
+|KC_AUDIO_VOL_UP|KC_VOLU||
+|KC_AUDIO_VOL_DOWN|KC_VOLD||
+|KC_MEDIA_NEXT_TRACK|KC_MNXT|Next Track (Windows)|
+|KC_MEDIA_PREV_TRACK|KC_MPRV|Previous Track (Windows)|
+|KC_MEDIA_FAST_FORWARD|KC_MFFD|Next Track (macOS)|
+|KC_MEDIA_REWIND|KC_MRWD|Previous Track (macOS)|
+|KC_MEDIA_STOP|KC_MSTP||
+|KC_MEDIA_PLAY_PAUSE|KC_MPLY||
+|KC_MEDIA_SELECT|KC_MSEL||
 
 ## Numpad
 
