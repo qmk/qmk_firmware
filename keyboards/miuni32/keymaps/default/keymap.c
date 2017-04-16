@@ -21,13 +21,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      * |  TAB  |   4   |   5   |   6   |   -   |   +   |  HOME |   UP  |  END  |  PGUP |  TRNS |
      * |---------------------------------------------------------------------------------------|
-     * |  LATL |   1   |   2   |   3   |   0   |   NO  |  LEFT |  DOWN |  RGHT |  PGDN |  RALT |
+     * |  LATL |   1   |   2   |   3   |   0   |   NO  |  LEFT |  DOWN |  RGHT |  PGDN | RSHFT |
      * |---------------------------------------------------------------------------------------|
      */
 	[1] ={
 		{KC_ESC, KC_7, KC_8, KC_9, KC_SLSH, KC_ASTR, KC_DOT, KC_COMM, KC_LPRN, KC_RPRN, KC_DEL}, 
 		{KC_TAB, KC_4, KC_5, KC_6, KC_MINS, KC_PLUS, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_TRNS},
-		{KC_LALT, KC_1, KC_2, KC_3, KC_0, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_RALT}
+		{KC_LALT, KC_1, KC_2, KC_3, KC_0, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_RSFT}
 	},
 	/* Level 2: Symbols Layer
      * ,---------------------------------------------------------------------------------------.
