@@ -125,8 +125,8 @@ static void get_led_state_string(char* output, visualizer_state_t* state) {
        pos += 5;
     }
     if (state->status.leds & (1u << USB_LED_KANA)) {
-       memcpy(output + pos, "KANA ", 5);
-       pos += 5;
+       memcpy(output + pos, "KANA", 4);
+       pos += 4;
     }
     output[pos] = 0;
 }
