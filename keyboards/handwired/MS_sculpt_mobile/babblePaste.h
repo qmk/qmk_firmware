@@ -9,9 +9,9 @@ and jeebak & algernon's keymap
 */
 #ifndef _babblePaste_h_included__
 #define _babblePaste_h_included__
+#include "../MS_sculpt_mobile/config.h"
 #include "action_layer.h"
 #include "quantum_keycodes.h"
-#include "config.h"
 
 #ifdef USE_BABLPASTE
 
