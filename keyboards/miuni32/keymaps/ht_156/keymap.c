@@ -3,6 +3,7 @@
 #define BASE    0
 #define NUMBERS 1
 #define SYMBOLS 2
+#define MEDIA   3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Level 0: Default Layer
@@ -11,13 +12,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      * |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |  ENT  |  RSFT |
      * |---------------------------------------------------------------------------------------|
-     * |LT(2|Z)|   X   |   C   |   V   |   B   |  SPC  |   N   |   M   |   ,   |LT(1|.)|  RCTL |
+     * |LT(2|Z)|LT(3|X)|   C   |   V   |   B   |  SPC  |   N   |   M   |   ,   |LT(1|.)|  RCTL |
      * |---------------------------------------------------------------------------------------|
      */
 	[BASE] ={
 		{KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC}, 
 		{KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_ENT, KC_RSFT}, 
-		{LT(2, KC_Z), KC_X, KC_C, KC_V, KC_B, KC_SPC, KC_N, KC_M, KC_COMMA, LT(1, KC_DOT), KC_RCTL}
+		{LT(2, KC_Z), LT(3, KC_X), KC_C, KC_V, KC_B, KC_SPC, KC_N, KC_M, KC_COMMA, LT(1, KC_DOT), KC_RCTL}
 	},
 	/* Level 1: Numbers Layer
      * ,---------------------------------------------------------------------------------------.
@@ -46,7 +47,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		{KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_EQL, KC_QUES},
 		{RESET, KC_LSFT, KC_TILD, KC_LCBR, KC_RCBR, KC_BSLS, KC_PIPE, KC_SCLN, KC_COLN, KC_GRV, KC_DQUO},
 		{KC_TRNS, KC_LCTL, KC_TRNS, KC_LBRC, KC_RBRC, KC_TAB, KC_LABK, KC_RABK, KC_TRNS, KC_RCTL, KC_TRNS}
-	}
+	},
+    /* Level 3: Media Layer
+     * ,---------------------------------------------------------------------------------------.
+     * |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  CALC |  WREF |  WFAV |  MUTE |  VOLD |  VOLU |
+     * |---------------------------------------------------------------------------------------|
+     * |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  WHOM |  WBAK |  WFWD |  TRNS |  STOP |  PLAY |
+     * |---------------------------------------------------------------------------------------|
+     * |  TRNS | !TRNS!|  TRNS |  TRNS |  TRNS |  MYCM |  WSTP |  WSCH |  MSEL |  MPRV |  MNXT |
+     * |---------------------------------------------------------------------------------------|
+     */
+    [MEDIA] ={
+        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CALC, KC_WREF, KC_WFAV, KC_MUTE, KC_VOLD, KC_VOLU},
+        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WHOM, KC_WBAK, KC_WFWD, KC_TRNS, KC_MSTP, KC_MPLY},
+        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM, KC_WSTP, KC_WSCH, KC_MSEL, KC_MPRV, KC_MNXT}
+    }
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
