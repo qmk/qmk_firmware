@@ -21,50 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include "led_test.h"
 #include "gfx.h"
 #include "math.h"
-
-#define CROSSFADE_TIME 1000
-#define GRADIENT_TIME 3000
-
-keyframe_animation_t led_test_animation = {
-    .num_frames = 14,
-    .loop = true,
-    .frame_lengths = {
-        gfxMillisecondsToTicks(1000), // fade in
-        gfxMillisecondsToTicks(1000), // no op (leds on)
-        gfxMillisecondsToTicks(1000), // fade out
-        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
-        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
-        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
-        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
-        0,           // mirror leds
-        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
-        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
-        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
-        gfxMillisecondsToTicks(GRADIENT_TIME), // top_to_bottom
-        0,           // normal leds
-        gfxMillisecondsToTicks(CROSSFADE_TIME), // crossfade
-
-    },
-    .frame_functions = {
-        keyframe_fade_in_all_leds,
-        keyframe_no_operation,
-        keyframe_fade_out_all_leds,
-        keyframe_led_crossfade,
-        keyframe_led_left_to_right_gradient,
-        keyframe_led_crossfade,
-        keyframe_led_top_to_bottom_gradient,
-        keyframe_mirror_led_orientation,
-        keyframe_led_crossfade,
-        keyframe_led_left_to_right_gradient,
-        keyframe_led_crossfade,
-        keyframe_led_top_to_bottom_gradient,
-        keyframe_normal_led_orientation,
-        keyframe_led_crossfade,
-    },
-};
+#include "led_keyframes.h"
 
 static uint8_t fade_led_color(keyframe_animation_t* animation, int from, int to) {
     int frame_length = animation->frame_lengths[animation->current_frame];
@@ -96,19 +55,19 @@ static uint8_t compute_gradient_color(float t, float index, float num) {
     return (uint8_t)(255.0f * v);
 }
 
-bool keyframe_fade_in_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_fade_in_all(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     keyframe_fade_all_leds_from_to(animation, 0, 255);
     return true;
 }
 
-bool keyframe_fade_out_all_leds(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_fade_out_all(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     keyframe_fade_all_leds_from_to(animation, 255, 0);
     return true;
 }
 
-bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     float frame_length = animation->frame_lengths[animation->current_frame];
     float current_pos = frame_length - animation->time_left_in_frame;
@@ -120,7 +79,7 @@ bool keyframe_led_left_to_right_gradient(keyframe_animation_t* animation, visual
     return true;
 }
 
-bool keyframe_led_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     float frame_length = animation->frame_lengths[animation->current_frame];
     float current_pos = frame_length - animation->time_left_in_frame;
@@ -139,7 +98,7 @@ static void copy_current_led_state(uint8_t* dest) {
         }
     }
 }
-bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     if (animation->first_update_of_frame) {
         copy_current_led_state(&crossfade_start_frame[0][0]);
@@ -155,14 +114,14 @@ bool keyframe_led_crossfade(keyframe_animation_t* animation, visualizer_state_t*
     return true;
 }
 
-bool keyframe_mirror_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     (void)animation;
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_180);
     return false;
 }
 
-bool keyframe_normal_led_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     (void)animation;
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_0);

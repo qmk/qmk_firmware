@@ -7,7 +7,8 @@ Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
 and https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/jeebak/keymap.c 
 */
 
-#include "babblePaste.h"
+#include "../MS_sculpt_mobile/babblePaste.h"
+
 #include "action_macro.h"
 
 #ifdef USE_BABLPASTE
@@ -27,7 +28,7 @@ macro_t* switch_babble_mode( uint8_t id) {
 // And else statements have problems, see https://gcc.gnu.org/onlinedocs/gcc-3.0.1/cpp_3.html#SEC15
 #define BABLM(ent, macro...) \
 	if ( ent == shortcut ) \
-		 {  action_macro_play( MACRO(macro)); return MACRO_NONE; }   
+		 {  action_macro_play( MACRO(macro)); return MACRO_NONE; }
 
 
 /* this function runs the appropriate babblepaste macro, given

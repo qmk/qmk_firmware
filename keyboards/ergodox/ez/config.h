@@ -49,6 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 255
 #define RGBLIGHT_VAL_STEP 12
 
+/* fix space cadet rollover issue */
+#define DISABLE_SPACE_CADET_ROLLOVER
+
 // #define RGB_MIDI
 #define RGBW_BB_TWI
 
