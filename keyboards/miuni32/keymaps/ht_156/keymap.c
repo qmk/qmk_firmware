@@ -1,9 +1,16 @@
 #include "miuni32.h"
 
+// Keyboard layer definitions
 #define BASE    0
 #define NUMBERS 1
 #define SYMBOLS 2
 #define MEDIA   3
+
+// Keyboard macro defintions
+#define GIT_ST  M(0)
+#define GIT_PU  M(1)
+#define GIT_CM  M(2)
+#define HM_DIR  M(3)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Level 0: Default Layer
@@ -50,31 +57,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	},
     /* Level 3: Media Layer
      * ,---------------------------------------------------------------------------------------.
-     * |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  CALC |  WREF |  WFAV |  MUTE |  VOLD |  VOLU |
+     * |  TRNS |  TRNS | GIT_ST| GIT_PU| GIT_CM|  CALC |  WREF |  WFAV |  MUTE |  VOLD |  VOLU |
      * |---------------------------------------------------------------------------------------|
-     * |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  WHOM |  WBAK |  WFWD |  TRNS |  STOP |  PLAY |
+     * |  TRNS |  TRNS | HM_DIR|  TRNS |  TRNS |  WHOM |  WBAK |  WFWD |  TRNS |  STOP |  PLAY |
      * |---------------------------------------------------------------------------------------|
      * |  TRNS | !TRNS!|  TRNS |  TRNS |  TRNS |  MYCM |  WSTP |  WSCH |  MSEL |  MPRV |  MNXT |
      * |---------------------------------------------------------------------------------------|
      */
     [MEDIA] ={
-        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_CALC, KC_WREF, KC_WFAV, KC_MUTE, KC_VOLD, KC_VOLU},
-        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_WHOM, KC_WBAK, KC_WFWD, KC_TRNS, KC_MSTP, KC_MPLY},
+        {KC_TRNS, KC_TRNS, GIT_ST, GIT_PU, GIT_CM, KC_CALC, KC_WREF, KC_WFAV, KC_MUTE, KC_VOLD, KC_VOLU},
+        {KC_TRNS, KC_TRNS, HM_DIR, KC_TRNS, KC_TRNS, KC_WHOM, KC_WBAK, KC_WFWD, KC_TRNS, KC_MSTP, KC_MPLY},
         {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM, KC_WSTP, KC_WSCH, KC_MSEL, KC_MPRV, KC_MNXT}
     }
 };
 
+void press_and_release_key(uint8_t code)
+{
+    register_code(code);
+    unregister_code(code);
+}
+
+void press_and_release_mod_key(uint8_t mod, uint8_t code)
+{
+    register_code(mod);
+    register_code(code);
+    unregister_code(code);
+    unregister_code(mod);
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
+      switch(id) 
+      {
         case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
+          if (record->event.pressed) 
+          {
+            return MACRO(T(G), T(I), T(T), T(SPC),
+                         T(S), T(T), T(A), T(T), T(U), T(S), END);
           }
         break;
+        case 1:
+          if (record->event.pressed) 
+          {
+            return MACRO(T(G), T(I), T(T), T(SPC),
+                         T(P), T(U), T(L), T(L), END);
+          }
+        break;
+        case 2:
+          if (record->event.pressed) 
+          {
+            return MACRO(T(G), T(I), T(T), T(SPC),
+                         T(C), T(O), T(M), T(M), T(I), T(T), END);
+          }
+        break;
+        case 3:
+          if (record->event.pressed) 
+          {
+            press_and_release_key(KC_C);
+            press_and_release_key(KC_D);
+            press_and_release_key(KC_SPC);
+            press_and_release_mod_key(KC_LSFT, KC_GRV);
+            press_and_release_key(KC_SLSH);
+            press_and_release_key(KC_Q);
+            press_and_release_key(KC_M);
+            press_and_release_key(KC_K);
+            press_and_release_mod_key(KC_LSFT, KC_MINS);
+            return MACRO(T(F), T(I), T(R), T(M), T(W), T(A), T(R), T(E), T(SLSH),
+                         T(K), T(E), T(Y), T(B), T(O), T(A), T(R), T(D), T(S), T(SLSH), 
+                         T(M), T(I), T(U), T(N), T(I), T(3), T(2), T(SLSH),
+                         T(K), T(E), T(Y), T(M), T(A), T(P), T(S), END);
+          }
       }
     return MACRO_NONE;
 };
