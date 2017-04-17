@@ -14,6 +14,9 @@ extern keymap_config_t keymap_config;
 #define DVORAK M(_DV)
 #define QWERTY M(_QW)
 #define COLEMAK M(_CM)
+#define ESCLOWR LT(_L1, KC_ESC)
+#define MINSRSE LT(_L2, KC_MINS)
+#define QUOTRSE LT(_L2, KC_QUOT)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -23,21 +26,21 @@ extern keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DV] = { /* 0: Dvorak */
     {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH },
-    {MO(_L1), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    LT(_L2, KC_MINS)},
+    {ESCLOWR, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    MINSRSE },
     {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT },
     {KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  KC_BSLS, KC_EQL,  XXXXXXX, KC_ENT  }
   },
 
   [_QW] = { /* 1: Qwerty */
     {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
-    {MO(_L1), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, LT(_L2, KC_QUOT)},
+    {ESCLOWR, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, QUOTRSE },
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT },
     {KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  KC_SLSH, KC_MINS, XXXXXXX, KC_ENT  }
   },
 
   [_CM] = { /* 2: Colemak */
     {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC },
-    {MO(_L1), KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    LT(_L2, KC_QUOT)},
+    {ESCLOWR, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    QUOTRSE },
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT },
     {KC_LCTL, KC_LALT, KC_LGUI, KC_BSPC, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC,  KC_SLSH, KC_MINS, XXXXXXX, KC_ENT  }
   },
