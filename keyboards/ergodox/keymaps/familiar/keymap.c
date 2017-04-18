@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LCTRL  | LGUI | MENU |   '  |   "  |                                       |   [  |   ]  | LEFT | DOWN |  RIGHT |
  * `------------------------------------'                                       `------------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | VOL- | VOL+ |       |      |      |
+ *                                        | VOL- | VOL+ |       |PRTSCR|      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 | SPC/ |SLASH/| MUTE |       |NUMLCK|WHACK/| SPC/ |
  *                                 | ALT  | MO(1)|------|       |------|MO(1) | ALT  |
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_ENTER,
             KC_PGDN,    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_UP,      KC_RSPC,
                                     KC_LBRC,    KC_RBRC,    KC_LEFT,    KC_DOWN,    KC_RGHT,
-            _______,     _______,
+            KC_PSCR,     _______,
             KC_NLCK,
             TG(NUMP),   LT(ARRW,KC_BSLS),   ALT_T(KC_SPC)
     ),
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      |      |                                       |      |      | HOME | PGDN |    END |
  * `------------------------------------'                                       `------------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      | PAUSE|       |      |      |
+ *                                        |      | PAUSE|       |SYSREQ|      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |SCRLK |      |      |
  *                                 |      |      |------|       |------|      |      |
@@ -225,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    _______,    _______,
             _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,
                                     _______,    _______,    KC_HOME,    KC_PGDN,    KC_END,
-            _______,    _______,
+            KC_SYSREQ,  _______,
             KC_SLCK,
             _______,    _______,    _______
     ),
