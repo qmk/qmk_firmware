@@ -3,9 +3,13 @@
 #include "action_layer.h"
 #include "version.h"
 
+
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
+
+#define MACRO_TMUX_ESC        10
+#define M_TESC   M(MACRO_TMUX_ESC)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -18,34 +22,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1! |   2@ |   3# |   4$ |   5% |  `~  |           |  6^  |   7& |   8* |   9( |   0) |   -_ |   =+   |
+ * | `~(Esc)|   1! |   2@ |   3# |   4$ |   5% |  `~  |           |  6^  |   7& |   8* |   9( |   0) |   -_ |   =+   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   \|   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;   |   '"   |
- * |--------+------+------+------+------+------|  [(  |           |  ])  |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,< |   .> |   /? | RShift |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | LANG |           |      |   N  |   M  |   ,< |   .> |   /? | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      | Alt  |  Cmd | Fn(1)|                         |      | Cmd  |  Alt |      |      |
+ *   |      |      | Alt  |  Cmd | Fn(1)|                         |      | Cmd  |  Alt |   [( |  ])  |
  *   `----------------------------------'                         `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | LEFT | RIGHT|       | DOWN | UP   |
+ *                                        | PGDN | PGUP |       | LEFT | RIGHT|
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|      |------|       |------| BS     |Enter |
- *                                 |      |      | End  |       | PgDn |        |      |
+ *                                 |      |      | Home |       | UP   |        |      |
+ *                                 | Space| ESC  |------|       |------| BS     |Enter |
+ *                                 |      |      | End  |       | DOWN |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_GRV,
+        M(10),         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_GRV,
         KC_TAB,         KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,     KC_NO,
         KC_LCTL,        KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
-        KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_LBRC,
-        KC_NO,          KC_NO,        KC_LALT,    KC_LGUI,    LT(1,KC_NO),
-                                                  KC_LEFT,    KC_RIGHT,
+        KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     LGUI(KC_SPC),
+        KC_NO,         KC_NO,        KC_LALT,    KC_LGUI,    LT(1,KC_NO),
+                                                  KC_PGDN,    KC_PGUP,
                                                               KC_HOME,
                                       KC_SPC,     KC_ESC,     KC_END,
 
@@ -53,22 +57,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_6,           KC_7,         KC_8,       KC_9,       KC_0,        KC_MINS,   KC_EQL,
         KC_NO,          KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      KC_BSLS,
                         KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_QUOT,
-        KC_RBRC,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_RSFT,
-        KC_NO,          KC_RGUI,      KC_RALT,    KC_NO,      KC_NO,
-        KC_DOWN,          KC_UP,
-        KC_PGUP,
-        KC_PGDN,        KC_BSPC,      KC_ENT
+        KC_NO,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_RSFT,
+        KC_NO,          KC_RGUI,      KC_RALT,    KC_LBRC,      KC_RBRC,
+        KC_LEFT,        KC_RIGHT,
+        KC_UP,
+        KC_DOWN,        KC_BSPC,      KC_ENT
     ),
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * | RESET   |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | F6  |  F7  |  F8  |  F9  |  F10 |   F11 |   F12  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      | Lclk | MsUp | Rclk |      |      |           |      | UNDO |      | REDO |      |      |        |
+ * |         |      | Lclk | MsUp | Rclk |      |      |           |      |      | UNDO |      | REDO |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |      |MsLeft|MsDown|MsRght|      |------|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |  CP  | CUT  | PST  |      |      |        |
+ * |         |      |      |      |      |      |      |           |      |      | CP   | CUT  | PST  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       |      |      |      | Fn(1)|                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -93,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         LGUI(KC_SPC), KC_TRNS,  KC_TRNS,
        // right hand
        KC_F6,     KC_F7,     KC_F8,     KC_F9,      KC_F10,      KC_F11,   KC_F12,
-       KC_TRNS,   LGUI(KC_Z),KC_NO,     LGUI(KC_Y), KC_NO,       KC_TRNS,  KC_TRNS,
+       KC_TRNS,   KC_NO,     LGUI(KC_Z),KC_NO,     LGUI(KC_Y),   KC_NO,    KC_TRNS,
                   KC_LEFT,   KC_DOWN,   KC_UP,      KC_RIGHT,    KC_NO,    KC_TRNS,
-       KC_TRNS,   LGUI(KC_C),LGUI(KC_X),LGUI(KC_V), KC_NO,       KC_NO,    KC_TRNS,
+       KC_TRNS,   KC_NO,     LGUI(KC_C),LGUI(KC_X),LGUI(KC_V),   KC_NO,    KC_TRNS,
                   KC_TRNS,   KC_TRNS,   KC_TRNS,    KC_TRNS,     KC_TRNS,
        KC_TRNS,   KC_TRNS,
        KC_TRNS,
@@ -148,6 +152,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
+static uint16_t key_timer;
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -162,8 +167,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           eeconfig_init();
         }
         break;
+        case 10:
+        if (record->event.pressed) {
+          key_timer = timer_read();
+        } else {
+          if (timer_elapsed(key_timer) >= 200) {
+            return MACRO(T(ESC), END);
+          } else {
+            return MACRO(T(GRV), END);
+          }
+        }
+        break;
       }
-    return MACRO_NONE;
+      return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
