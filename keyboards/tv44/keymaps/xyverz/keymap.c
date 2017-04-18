@@ -4,20 +4,22 @@
 
 extern keymap_config_t keymap_config;
 
-// Layer Names
-#define _DVORAK 0
-#define _QWERTY 1
-#define _COLEMAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum planck_layers {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _ADJUST
+};
 
 enum planck_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
   COLEMAK,
   LOWER,
-  RAISE
+  RAISE,
+  ADJUST
 };
 
 // Layer-Tapping macros
@@ -74,52 +76,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-      switch(keycode) {
-        case DVORAK:
-          if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_DVORAK);
-          }
-          break;
-        case QWERTY:
-          if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_QWERTY);
-          }
-          break;
-        case COLEMAK:
-          if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_COLEMAK);
-          }
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_QWERTY);
       }
-    return MACRO_NONE;
-};
+      return false;
+      break;
+    case COLEMAK:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_COLEMAK);
+      }
+      return false;
+      break;
+    case DVORAK:
+      if (record->event.pressed) {
+        persistant_default_layer_set(1UL<<_DVORAK);
+      }
+      return false;
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
