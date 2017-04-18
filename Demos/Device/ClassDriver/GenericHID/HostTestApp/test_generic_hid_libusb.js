@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 //             LUFA Library
-//     Copyright (C) Dean Camera, 2016.
+//     Copyright (C) Dean Camera, 2017.
 //
 //  dean [at] fourwalledcubicle [dot] com
 //           www.lufa-lib.org
