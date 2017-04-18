@@ -38,6 +38,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef FAUXCLICKY_ENABLE
 #include "fauxclicky.h"
+#ifdef RGBSPS_ENABLE
+#undef FAUXCLICKY_OFF
+#define FAUXCLICKY_OFF do { \
+    fauxclicky_enabled = false; \
+    rgbsps_set(LED_AUDIO, 0, 0, 0); \
+    fauxclicky_stop(); \
+} while (0)
+#undef FAUXCLICKY_ON
+#define FAUXCLICKY_ON do { \
+    fauxclicky_enabled = true; \
+    rgbsps_set(LED_AUDIO, 8, 0, 8); \
+} while (0)
+#endif
 #endif
 #include "outputselect.h"
 #include "led.h"
@@ -128,8 +141,8 @@ enum planck_keycodes {
 #ifndef FAUXCLICKY_ENABLE
   FC_TOG,
 #endif
-#ifndef ADAFRUIT_BLE_ENABLE
-  OUT_BLE,
+#ifndef MODULE_ADAFRUIT_BLE
+  OUT_BT,
 #endif
   KEYCODE_END
 };
@@ -428,12 +441,23 @@ const uint8_t PROGMEM LED_FN[] = {
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
-  LED_IND_EMOJI,
-  LED_IND_NUM,
-  LED_IND_FUN,
-  LED_IND_BATTERY,
-  LED_IND_USB,
+  LED_IND_LINUX,
+  LED_IND_APPLE,
+  LED_IND_WINDOWS,
+  LED_IND_QWERTY,
+  LED_IND_ALT,
+  LED_IND_AUDIO,
   LED_IND_BLUETOOTH,
+  LED_IND_USB,
+
+  LED_IND_BATTERY,
+  LED_IND_CAPSLOCK,
+  LED_IND_GUI,
+  LED_IND_FUN,
+  LED_IND_NUM,
+  LED_IND_PUNC,
+  LED_IND_EMOJI,
+  LED_IND_GREEK,
 };
 
 const uint8_t PROGMEM LED_TRACKPOINT[] = {
@@ -486,14 +510,30 @@ void led_reset(void) {
   }
 }
 
+void led_set_default_layer_indicator(void) {
+  uint8_t default_layer = biton32(default_layer_state);
+  if (default_layer == _QWERTY) {
+    rgbsps_set(LED_IND_QWERTY, 15, 10, 0);
+    rgbsps_set(LED_IND_ALT, 0, 0, 0);
+  } else {
+    rgbsps_set(LED_IND_QWERTY, 0, 0, 0);
+    rgbsps_set(LED_IND_ALT, 15, 10, 0);
+  }
+  rgbsps_send();
+  return;
+}
+
 void led_set_layer_indicator(void) {
   static uint8_t oldlayer = 255;
 
-  rgbsps_set(LED_IND_FUN, 0, 0, 0);
-  // rgbsps_set(LED_IND_NUM, 0, 0, 0);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
-
   led_reset();
+
+  rgbsps_set(LED_IND_GUI, 0, 0, 0);
+  rgbsps_set(LED_IND_FUN, 0, 0, 0);
+  rgbsps_set(LED_IND_NUM, 0, 0, 0);
+  rgbsps_set(LED_IND_PUNC, 0, 0, 0);
+  rgbsps_set(LED_IND_GREEK, 0, 0, 0);
+  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
 
   uint8_t layer = biton32(layer_state);
   if (oldlayer == layer) {
@@ -508,21 +548,54 @@ void led_set_layer_indicator(void) {
   }
 
   switch(layer) {
+    case _GUI:
+      rgbsps_set(LED_IND_GUI, 15, 0, 15);
+      break;
     case _FUN:
       rgbsps_set(LED_IND_FUN, 15, 0, 0);
       break;
-    // case _NUM:
-    //   rgbsps_set(LED_IND_NUM, 0, 0, 15);
-    //   break;
+    case _NUM:
+      rgbsps_set(LED_IND_NUM, 0, 0, 15);
+      break;
+    case _PUNC:
+      rgbsps_set(LED_IND_PUNC, 0, 15, 0);
+      break;
+    case _GREEKL:
+    case _GREEKU:
+      rgbsps_set(LED_IND_GREEK, 0, 15, 15);
+      break;
     case _EMOJI:
       rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
       break;
     default:
+      rgbsps_set(LED_IND_GUI, 3, 3, 3);
       rgbsps_set(LED_IND_FUN, 3, 3, 3);
-      // rgbsps_set(LED_IND_NUM, 3, 3, 3);
+      rgbsps_set(LED_IND_NUM, 3, 3, 3);
+      rgbsps_set(LED_IND_PUNC, 3, 3, 3);
+      rgbsps_set(LED_IND_GREEK, 3, 3, 3);
       rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
   }
 
+  rgbsps_send();
+}
+
+void led_set_unicode_input_mode(void) {
+  rgbsps_set(LED_IND_LINUX, 0, 0, 0);
+  rgbsps_set(LED_IND_APPLE, 0, 0, 0);
+  rgbsps_set(LED_IND_WINDOWS, 0, 0, 0);
+
+  switch (get_unicode_input_mode()) {
+    case UC_LNX:
+      rgbsps_set(LED_IND_LINUX, 15, 15, 15);
+      break;
+    case UC_OSX:
+      rgbsps_set(LED_IND_APPLE, 15, 15, 15);
+      break;
+    case UC_WIN:
+    case UC_WINC:
+      rgbsps_set(LED_IND_WINDOWS, 15, 15, 15);
+      break;
+  }
   rgbsps_send();
 }
 
@@ -552,7 +625,16 @@ void led_init(void) {
   rgbsps_set(LED_TRACKPOINT1, 15, 0, 0);
   rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
   rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
+
+  // unicode input mode
+  led_set_unicode_input_mode();
+
+  // layer indicator
+  led_set_layer_indicator();
+  led_set_default_layer_indicator();
 }
+
+
 #endif // RGBSPS_ENABLE
 
 // keymaps
@@ -831,7 +913,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYS] = KEYMAP(
   DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                            _______, _______, _______
 ),
@@ -842,6 +924,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+  led_set_default_layer_indicator();
 }
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
@@ -1086,14 +1169,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OS switchers
     case LINUX:
       set_unicode_input_mode(UC_LNX);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
     case WIN:
       set_unicode_input_mode(UC_WINC);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
 
@@ -1115,6 +1207,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // faux clicky indicator
 #ifdef FAUXCLICKY_ENABLE
     case FC_TOG:
+#ifdef RGBSPS_ENABLE
+      if (fauxclicky_enabled) {
+        rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
+      } else {
+        rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
+      }
+      rgbsps_send();
+#endif
       return true;
       break;
 #endif
@@ -1123,12 +1223,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void set_output_user(uint8_t output) {
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
       break;
-    case OUTPUT_ADAFRUIT_BLE:
+    case OUTPUT_BLUETOOTH:
       led_set_output_ble();
       break;
     default:
@@ -1147,12 +1247,12 @@ void matrix_init_user() {
 #endif
 
   // auto detect output on init
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);
   } else {
-    set_output(OUTPUT_ADAFRUIT_BLE);
+    set_output(OUTPUT_BLUETOOTH);
   }
 #endif
 }
@@ -1178,9 +1278,9 @@ void turn_off_capslock() {
     bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
     if (new_capslock ^ capslock) { // capslock state is different
       if ((capslock = new_capslock)) {
-        rgbsps_set(LED_IND_NUM, 15, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, 15, 0, 0);
       } else {
-        rgbsps_set(LED_IND_NUM, 0, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, 0, 0, 0);
       }
       rgbsps_send();
     }
