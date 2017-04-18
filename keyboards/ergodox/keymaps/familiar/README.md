@@ -1,5 +1,5 @@
 # ErgoDox Familiar Layout
-Familiar layout for those who regularly switch back and forth from ErgoDox to regular QWERTY.
+Familiar layout for those who regularly switch back and forth from ErgoDox to "normal" QWERTY.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](../../../../license_GPLv3.md../../../../license_GPLv3.md) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
@@ -50,7 +50,7 @@ $ make ergodox-ez-familiar-teensy
 ### Layers
 1. Base Layer: QWERTY, with arrow keys at bottom right.
 1. UCIS Layer: US-International symbols layer, plus —. Accessed by toggling the `INTL` layer using the UCIS key (bottom of left thumb cluster).
-1. UCIS-Shifted Layer: Making shift work for UCIS characters. An ugly workaround. Any ideas? Accessed through holding shift while the UCIS layer is active (toggles the `INSF` layer).
+1. UCIS-Shifted Layer: Making shift work for UCIS characters. An ugly workaround. Any ideas? Accessed by holding shift while the UCIS layer is active (toggles the `INSF` layer).
 1. Numpad Layer: Right hand number pad. Accessed by toggling the `NUMP` layer using the NPAD key (bottom of right thumb cluster).
 1. Function Layer: F1-F12, arrows on ESDF and HJKL, media player controls. Accessed by holding either FN key (center key of each thumb cluster), which toggles the `ARRW` layer. I know, I need to work on my naming conventions.
 
