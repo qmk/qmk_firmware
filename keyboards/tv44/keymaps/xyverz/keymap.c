@@ -22,20 +22,10 @@ enum planck_keycodes {
   ADJUST
 };
 
-<<<<<<< HEAD
-// Macro name shortcuts
-#define DVORAK M(_DV)
-#define QWERTY M(_QW)
-#define COLEMAK M(_CM)
-#define ESCLOWR LT(_L1, KC_ESC)
-#define MINSRSE LT(_L2, KC_MINS)
-#define QUOTRSE LT(_L2, KC_QUOT)
-=======
 // Layer-Tapping macros
 #define ESCLOWR LT(_LOWER, KC_ESC)
 #define MINSRSE LT(_RAISE, KC_MINS)
 #define QUOTRSE LT(_RAISE, KC_QUOT)
->>>>>>> tv44_revamp
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
