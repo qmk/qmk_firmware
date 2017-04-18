@@ -6,7 +6,7 @@
 
  /** \page Page_ChangeLog Project Changelog
   *
-  *  \section Sec_ChangeLogXXXXXX Version XXXXXX
+  *  \section Sec_ChangeLog170418 Version 170418
   *  <b>New:</b>
   *  - Core:
   *   - Added support for the Pololu A-Star Micro board (thanks to Joh Schneider)

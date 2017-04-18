@@ -10,16 +10,17 @@
 # ---------------------------------------
 
 LUFA_ROOT            := ..
-LUFA_VERSION_NUM     := $(shell grep LUFA_VERSION_STRING $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
+LUFA_VERSION_NUM     := $(shell grep -e "\#define *LUFA_VERSION_STRING " $(LUFA_ROOT)/Version.h | cut -d'"' -f2)
+LUFA_VERSION_TYPE    := $(shell grep -e "\#define *LUFA_VERSION_RELEASE_TYPE " $(LUFA_ROOT)/Version.h)
 
-ifneq ($(LUFA_VERSION_NUM),000000)
+ifneq ($(findstring LUFA_VERSION_RELEASE_TYPE_DEVELOPMENT, $(LUFA_VERSION_TYPE)),LUFA_VERSION_RELEASE_TYPE_DEVELOPMENT)
   EXT_VERSION_NUM    := $(shell date +"%y.%m.%d").$(LUFA_VERSION_NUM)
   EXT_VSIX_NAME      := LUFA-RELEASE-$(LUFA_VERSION_NUM).vsix
 else
   EXT_VERSION_NUM    := 0.$(shell date +"%y%m%d.%H%M%S")
   EXT_VSIX_NAME      := LUFA-TESTING-$(shell date +"%y.%m.%d-%H.%M.%S").vsix
 
-  $(warning No LUFA version set - assuming a test version should be created.)
+  $(warning Development mode set - assuming a test version should be created.)
 endif
 
 DOXYGEN_TAG_FILE_XML := $(LUFA_ROOT)/Documentation/lufa_doc_tags.xml
