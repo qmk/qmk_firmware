@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "stdbool.h"
 
 __attribute__ ((weak))
-float fauxclicky_pressed_note[2];
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_D4, 0.25);
 __attribute__ ((weak))
-float fauxclicky_released_note[2];
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_C4, 0.125);
 __attribute__ ((weak))
-float fauxclicky_beep_note[2];
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C4, 0.25);
 
 bool fauxclicky_enabled;
 
@@ -73,11 +73,11 @@ bool fauxclicky_enabled;
 #endif
 
 #ifndef FAUXCLICKY_ENABLE_OUTPUT
-#define FAUXCLICKY_ENABLE_OUTPUT TCCR3A |= _BV(COM3A1);
+#define FAUXCLICKY_ENABLE_OUTPUT TCCR3A |= _BV(COM3A1)
 #endif
 
 #ifndef FAUXCLICKY_DISABLE_OUTPUT
-#define FAUXCLICKY_DISABLE_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
+#define FAUXCLICKY_DISABLE_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0))
 #endif
 
 #ifndef FAUXCLICKY_TIMER_PERIOD
