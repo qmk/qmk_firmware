@@ -59,9 +59,13 @@
  *    - <b>Windows:</b> AVRDUDE 6.2, with alternative driver
  *    - <b>Linux:</b> AVRDUDE 6.1
  *
- *  <b>Note that this clone requires an alternative driver under Windows,</b> due to an incompatible change in the official
+ *  <b>Note that this clone requires a libUSB based driver under Windows,</b> due to an incompatible change in the official
  *  Jungo based driver. The alternative driver given here will function with both real and clone AVRISP devices in Atmel
  *  Studio 7 onwards under Windows - and as a bonus, also provides AVRDude access to the programmer.
+ *
+ *  As of Atmel Studio version 7.0.1417 the legacy Jungo driver has been deprecated in favor of an official libUSB based
+ *  driver, making the driver packaged here superfluous. Use the driver packaged here only if you are still using an earlier
+ *  Atmel Studio 7 build, otherwise the official Atmel libUSB driver should be used.
  *
  *  Note that this design currently has the following limitations:
  *    - No reversed/shorted target connector detection and notification
