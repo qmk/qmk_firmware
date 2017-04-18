@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS, ______,  ______,  ______,  ______, ______, ______,  ______,  KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,  ______, ______,  \
       ______,  KC_VOLD, KC_VOLU, KC_MUTE, ______, ______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT,______, ______,   \
       ______,  ______,  KC_MPRV, KC_MPLY, KC_MNXT,______, ______, KC_PPLS,  KC_PMNS, KC_END,  KC_PGDN, KC_DOWN,______, ______, ______,  \
-      ______,  ______,  ______,                           TG(_WASD),                          KC_MSTP, ______, ______, ______ \
+      ______,  ______,  ______,                           ______,                          KC_MSTP, ______, ______, ______ \
       ),
 
 
