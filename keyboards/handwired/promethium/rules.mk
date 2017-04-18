@@ -67,6 +67,7 @@ PS2_MOUSE_ENABLE ?= yes
 PS2_USE_INT ?= yes
 ADAFRUIT_BLE_ENABLE ?= yes
 API_SYSEX_ENABLE ?= no
+CUSTOM_MATRIX ?= yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
@@ -74,3 +75,4 @@ SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 SRC += $(QUANTUM_DIR)/light_ws2812.c
 SRC += rgbsps.c
 SRC += $(QUANTUM_DIR)/analog.c
+SRC += matrix.c
