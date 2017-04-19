@@ -205,7 +205,7 @@ enum led_sequence {
   LED_RSFT,
   LED_RCTL,
 
-  LED_RGUI,
+  LED_RALT,
   LED_SLSH,
   LED_SCLN,
   LED_P,
@@ -213,9 +213,9 @@ enum led_sequence {
   LED_O,
   LED_L,
   LED_DOT,
-  LED_RALT,
+  LED_RGUI,
 
-  LED_EMOJI,
+  LED_GREEK,
   LED_COMM,
   LED_K,
   LED_I,
@@ -244,7 +244,7 @@ enum led_sequence {
   LED_V,
   LED_NUM,
 
-  LED_PUNC,
+  LED_EMPTY,
   LED_C,
   LED_D,
   LED_E,
@@ -252,9 +252,9 @@ enum led_sequence {
   LED_W,
   LED_S,
   LED_X,
-  LED_LALT,
-
   LED_LGUI,
+
+  LED_LALT,
   LED_Z,
   LED_A,
   LED_Q,
