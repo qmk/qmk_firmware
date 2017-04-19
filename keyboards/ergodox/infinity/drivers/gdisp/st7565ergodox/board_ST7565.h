@@ -75,7 +75,7 @@ static GFXINLINE void init_board(GDisplay *g) {
     palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
     palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
     palSetPadModeRaw(SLCK, ST7565_SPI_MODE);
-    palSetPadModeRaw(SS, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadModeNamed(SS, PAL_MODE_OUTPUT_PUSHPULL);
 
     spiInit();
     spiStart(&SPID1, &spi1config);
