@@ -1,4 +1,4 @@
-#include "s60-x-rgb.h"
+#include "s60-x.h"
 
 #define _DEFAULT 0
 #define _FN 1
