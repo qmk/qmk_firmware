@@ -434,10 +434,10 @@ const uint8_t PROGMEM LED_MODS[] = {
 };
 
 const uint8_t PROGMEM LED_FN[] = {
-  LED_PUNC,
+  LED_EMPTY,
   LED_NUM,
   LED_FUN,
-  LED_EMOJI
+  LED_GREEK
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
@@ -632,6 +632,14 @@ void led_init(void) {
   // layer indicator
   led_set_layer_indicator();
   led_set_default_layer_indicator();
+
+  // clicky
+  if (fauxclicky_enabled) {
+    rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
+  } else {
+    rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
+  }
+  rgbsps_send();
 }
 
 
@@ -1211,9 +1219,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case FC_TOG:
 #ifdef RGBSPS_ENABLE
       if (fauxclicky_enabled) {
-        rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
-      } else {
         rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
+      } else {
+        rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
       }
       rgbsps_send();
 #endif
