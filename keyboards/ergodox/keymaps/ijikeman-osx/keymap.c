@@ -9,7 +9,9 @@
 #define MDIA 2 // media keys
 
 #define MACRO_TMUX_ESC        10
+#define MACRO_TMUX_LANG        11
 #define M_TESC   M(MACRO_TMUX_ESC)
+#define M_TLANG   M(MACRO_TMUX_LANG)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -28,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |  ]}  |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;   |   '"   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |  [{  |   N  |   M  |   ,< |   .> |   /? | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |*(LANG)|           |  [{  |   N  |   M  |   ,< |   .> |   /? | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      | LANG | Alt  |  Cmd | Fn(1)|                         |  BS  | Cmd  |  Alt |      |      |
+ *   |      |      | Alt  |  Cmd | Fn(1)|                         |  BS  | Cmd  |  Alt |      |      |
  *   `----------------------------------'                         `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | PGDN | PGUP |       | LEFT | RIGHT|
@@ -43,17 +45,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
-        // left hand
-        M(10),         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_NO,
+        M_TESC,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_NO,
         KC_TAB,         KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,     KC_NO,
         KC_LCTL,        KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
-        KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
-        KC_NO,         LGUI(KC_SPC),        KC_LALT,    KC_LGUI,    LT(1,KC_NO),
+        KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     M_TLANG,
+        KC_NO,          KC_NO,        KC_LALT,    KC_LGUI,    LT(1,KC_NO),
                                                   KC_PGDN,    KC_PGUP,
                                                               KC_HOME,
                                       KC_SPC,     KC_ESC,     KC_END,
 
-        // right handjkjljkljlj
+        // right hand
         KC_6,           KC_7,         KC_8,       KC_9,       KC_0,        KC_MINS,   KC_EQL,
         KC_RBRC,          KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      KC_BSLS,
                         KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_QUOT,
@@ -167,7 +168,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           eeconfig_init();
         }
         break;
-        case 10:
+        case MACRO_TMUX_ESC:
         if (record->event.pressed) {
           key_timer = timer_read();
         } else {
@@ -175,6 +176,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO(T(ESC), END);
           } else {
             return MACRO(T(GRV), END);
+          }
+        }
+        break;
+        case MACRO_TMUX_LANG:
+        if (record->event.pressed) {
+          key_timer = timer_read();
+        } else {
+          if (timer_elapsed(key_timer) >= 200) {
+            return MACRO(D(LGUI), T(SPC), U(LGUI), END);
+          } else {
+            return MACRO(END);
           }
         }
         break;
