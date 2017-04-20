@@ -48,17 +48,14 @@ enum macro_keycodes {
 #define XXXXXXX KC_NO
 
 // Custom macros
-#define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
-#define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
-#define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper
-#define GUI_SEM     GUI_T(KC_SCLN)              // Tap for Semicolon, hold for GUI
-#define ALT_QUO     ALT_T(KC_QUOT)              // Tap for Quote, hold for Alt
-#define ALT_COMM    ALT_T(KC_COMM)
-#define GUI_DOT     GUI_T(KC_DOT)
+#define ALT_DOT     ALT_T(KC_DOT)
+#define ALT_X       ALT_T(KC_X)
 #define CTL_SLSH    CTL_T(KC_SLSH)
 #define CTL_Z       CTL_T(KC_Z)
-#define GUI_X       GUI_T(KC_X)
-#define ALT_C       ALT_T(KC_C)
+#define GUI_C       GUI_T(KC_C)
+#define GUI_COMM    GUI_T(KC_COMM)
+#define HPR_ESC     ALL_T(KC_ESC)               // Tap for Tab, hold for Hyper
+#define HPR_QUO     ALL_T(KC_QUOT)              // Tap for Quote, hold for Hyper
 
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_TC       LT(_TOUCHCURSOR, KC_SPC)    // L-ayer T-ap T-ouch C-ursor
@@ -82,37 +79,37 @@ enum macro_keycodes {
 /* Qwerty
  *
  * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
- * |Hyper/Tab|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |      |
+ * |   Tab   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |      |
  * |---------`------`------`------`------`------`------`------`------`------`------`------`------|
- * | Ctrl/Esc |   A  |   S  | MC/D |   F  |   G  |   H  |   J  |   K  |   L  |GUI/; |   Alt/"    |
+ * |Hyper/Esc|   A  |   S  |  D   |   F  |   G  |   H  |   J  |   K  |   L  |MEDIA/;|  Hyper/"   |
  * |----------`------`------`------`------`------`------`------`------`------`------`------------|
- * |   Shift   |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  Sft/Ent  |
+ * |   Shift   |CTL/Zl|ALT/X |GUI/C |   V  |   B  |   N  |   M  |GUI/, | ALT/.|CTL// |  Shift    |
  * |-----------`------`------`------`------`-----'-------`------`------`------`------`-----------|
- * |        |  Alt  |  GUI  | Lower | TC/Space |   Bksp   |  Raise  |        |        |          |
+ * |        |       |       | Lower | DEV/Space| MOUSE/Ent|  Raise  |        |        |          |
  *  `-------+-------+-------+-------+---^^^----+---^^^----+---------+--------+--------+----------'
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = KEYMAP_JD45(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------.*/
-    HPR_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC, ALL_T(KC_NO),
+     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC, ALL_T(KC_NO),
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------|*/
-    CTL_ESC ,   KC_A, KC_S,LT_MC(KC_D),    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, LT(_MEDIA, KC_SCLN),    KC_QUOT     ,
+    HPR_ESC ,   KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, LT(_MEDIA, KC_SCLN), HPR_QUO,
 /*|---------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
-    KC_LSFT,   CTL_Z,  GUI_X,   ALT_C,    KC_V,    KC_B,    KC_N,    KC_M,ALT_COMM, GUI_DOT, CTL_SLSH,    KC_RSFT    ,
+    KC_LSFT,   CTL_Z,  ALT_X,   GUI_C,    KC_V,    KC_B,    KC_N,    KC_M,GUI_COMM, ALT_DOT, CTL_SLSH,    KC_RSFT    ,
 /*|----------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
-    _______  ,  KC_LALT  ,  KC_LGUI  ,   LOWER   ,   LT_TC   ,  ALL_T(KC_ENT)  ,    RAISE  ,  _______  ,  _______  , _______),
+    _______  ,  _______  ,  _______  ,   LOWER   ,   LT_TC   , ALL_T(KC_ENT), RAISE  ,  _______  ,  _______  , _______),
 /*`----------+-----------+-----------+-----------+----^^^----+----^^^----+-----------+-----------+-----------+--------'*/
 
 /* Lower
  * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
- * |   ~     |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp | Bksp |
+ * |   `     |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp | Bksp |
  * |---------`------`------`------`------`------`------`------`------`------`------`------`------|
  * |   [      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |   "|"      |
  * |----------`------`------`------`------`------`------`------`------`------`------`------------|
  * |   ]       |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   -  |   =  |   [  |   ]  |    \      |
  * |-----------`------`------`------`------`-----'-------`------`------`------`------`-----------|
- * | Brite  |       |       |       |          |          |         |  Prev  |  Next  |   Mute   |
+ * |        |       |       |       |          |          |         |  Prev  |  Next  |   Mute   |
  *  `-------+-------+-------+-------+---^^^----+---^^^----+---------+--------+--------+----------'
  */
 [_LOWER] = KEYMAP_JD45(
@@ -128,18 +125,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
- * |   0     |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp | Bksp |
+ * |   ~     |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp | Bksp |
  * |---------`------`------`------`------`------`------`------`------`------`------`------`------|
  * |   $      |   4  |   5  |   6  |   .  |   +  |   .  |   4  |   5  |   6  |   *  |   "|"      |
  * |----------`------`------`------`------`------`------`------`------`------`------`------------|
  * |   =       |   7  |   8  |   9  |   0  |   -  |   .  |   1  |   2  |   3  |   /  |    \      |
  * |-----------`------`------`------`------`-----'-------`------`------`------`------`-----------|
- * | Brite  |       |       |       |          |          |         |  Prev  |  Next  |   Mute   |
+ * |        |       |       |       |          |          |         |  Prev  |  Next  |   Mute   |
  *  `-------+-------+-------+-------+---^^^----+---^^^----+---------+--------+--------+----------'
  */
 [_RAISE] = KEYMAP_JD45(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------.*/
-    KC_0   ,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC, KC_BSPC,
+    KC_TILD,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC, KC_BSPC,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------|*/
     KC_DLR  ,   KC_4,    KC_5,    KC_6,  KC_DOT, KC_PLUS,  KC_DOT,    KC_4,    KC_5,    KC_6, KC_ASTR,    KC_PIPE     ,
 /*|---------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
@@ -201,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
  * |         |      |      |      |      |      |      |      |      |      |      |      | Del  |
  * |---------`------`------`------`------`------`------`------`------`------`------`------`------|
- * |          |      |      |      |      |AGnorm|AGswap|Qwerty|      |      |Plover|            |
+ * |          |      |      |      |      |AGnorm|AGswap|Qwerty|Mouse |      |Plover|            |
  * |----------`------`------`------`------`------`------`------`------`------`------`------------|
  * |           |      |      |      |      |     |       |      |      |      |      |           |
  * |-----------`------`------`------`------`-----'-------`------`------`------`------`-----------|
