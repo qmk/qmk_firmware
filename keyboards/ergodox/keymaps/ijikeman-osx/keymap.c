@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * | RESET   |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |           |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |   F12  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- *  |        |      |      | MsUp |      |      |      |           |      |      | UNDO |      | REDO |      |        |
+ *  |        |      | BTN1 | MsUp | BTN2 |      |      |           |      |      | UNDO |      | REDO |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- *  |        |  BTN1|MsLeft|MsDown|MsRght|      |------|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
+ *  |        |      |MsLeft|MsDown|MsRght|      |------|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  *  |        |      |      |      |      |      |      |           |      |      | CP   | CUT  | PST  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -89,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = KEYMAP(
        // left hand
        RESET,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
-       KC_TRNS,   KC_TRNS,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NO,    KC_TRNS,
+       KC_TRNS,   KC_NO,    KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NO,    KC_TRNS,
        KC_TRNS,   KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,
-       KC_TRNS,   KC_NO,    KC_NO,    KC_NO,    KC_NO,     KCNO,    KC_TRNS,
+       KC_TRNS,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_TRNS,
        KC_TRNS,   KC_NO,    KC_TRNS,  KC_TRNS,  KC_TRNS,
                                       KC_TRNS,  KC_TRNS,
                                                 KC_TRNS,
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |     ;s |
+ *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -172,7 +172,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed) {
           key_timer = timer_read();
         } else {
-          if (timer_elapsed(key_timer) >= 200) {
+          if (timer_elapsed(key_timer) >= 150) {
             return MACRO(T(ESC), END);
           } else {
             return MACRO(T(GRV), END);
@@ -183,7 +183,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed) {
           key_timer = timer_read();
         } else {
-          if (timer_elapsed(key_timer) >= 200) {
+          if (timer_elapsed(key_timer) >= 150) {
             return MACRO(D(LGUI), T(SPC), U(LGUI), END);
           } else {
             return MACRO(END);
