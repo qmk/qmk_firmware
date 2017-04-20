@@ -14,3 +14,9 @@
     { K26,   K27,   K28,   K29,   K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   KC_NO }, \
     { K38,   K39,   K40,   K41,   K42, KC_NO,   K43, KC_NO,   K44,   K45,   K46,   K47,   KC_NO }  \
 }
+
+/**
+ * this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when
+ * you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
+ */
+#define IGNORE_MOD_TAP_INTERRUPT
