@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
    */
 [_BL] = KEYMAP(
-  F(2),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
+  KC_GRV,    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
   KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
   F(1), KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,                             \
   KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_RO,    KC_RSFT,          KC_UP,            \
@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _FL: Function Layer
    */
 [_FL] = KEYMAP(
-  F(2),  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_PSCR, KC_DEL,           KC_HOME, \
-  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  _______,                KC_END,  \
+  KC_ESC,     KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,  _______, KC_DEL,           KC_HOME, \
+  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  KC_PSCR,                KC_END,  \
   _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                           \
   _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,          KC_PGUP,         \
   _______, _______, _______, _______,        _______,_______,                        _______,  _______,  MO(_FL),  MO(_ME), KC_HOME, KC_PGDN, KC_END),
@@ -35,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap _FL: Function Layer
    */
 [_ME] = KEYMAP(
-  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  KC_VOLD,  KC_VOLU, _______,          KC__VOLUP, \
-  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  _______,                   KC__VOLDOWN, \
+  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______, _______,  _______,  KC_MUTE,          KC_VOLU, \
+  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  _______,                   KC_VOLD, \
   _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                           \
-  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, KC_MRWD,  KC_MFFD, _______ ,  _______,          _______,         \
+  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______, _______ ,  _______,          _______,         \
   _______, _______, _______, _______,        _______,_______,                        _______,  _______,  MO(_FL),  MO(_ME), KC_MPRV, KC_MPLY, KC_MNXT),
 
 
@@ -58,7 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
   [0] = ACTION_FUNCTION(0),  // Calls action_function()
   [1] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),
-  [2] = ACTION_FUNCTION(0)
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
