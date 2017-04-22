@@ -7,11 +7,15 @@
  (_)    \_____|_|\__,_|\___|_.__/ \___/ \__,_|_|  \__,_|  \___/ \___/_/ (_)
 ```
 
-![Clueboard Layout Image](layout.png)
+#### Base Layer
+![Base Layout Image](layout-base.png)
 
-# Default Clueboard Layout
+#### Fn Layer
+![Fn Layout Image](layout-fn.png)
 
-This is the default layout that comes flashed on every Clueboard. For the most
-part it's a straightforward and easy to follow layout. The only unusual key is 
-the key in the upper left, which sends Escape normally, but Grave when any of
-the Ctrl, Alt, or GUI modifiers are held down.
+#### Media Layer
+![Media Layer Image](layout-media.png)
+
+# Serubin's Clueboard Layout
+
+This is the layout based on the clueboard default, modified for development on Mac, PC, and Windows. This layout also handles media and volume keys on all the previously listed platforms. Most importantly, Capslock has been replaced by a dual function Esc/Ctrl key. This is particularly handy for use in Vim. 
