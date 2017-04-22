@@ -39,6 +39,7 @@ inline uint32_t change_lcd_color_intensity(uint32_t color, uint8_t new_intensity
 void lcd_backlight_init(void);
 void lcd_backlight_color(uint8_t hue, uint8_t saturation, uint8_t intensity);
 void lcd_backlight_brightness(uint8_t b);
+uint8_t lcd_get_backlight_brightness(void);
 
 void lcd_backlight_hal_init(void);
 void lcd_backlight_hal_color(uint16_t r, uint16_t g, uint16_t b);
