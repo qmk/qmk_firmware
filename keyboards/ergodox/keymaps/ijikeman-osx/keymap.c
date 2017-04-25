@@ -8,9 +8,31 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
-#define MACRO_TMUX_ESC        10
-#define MACRO_TMUX_LANG        11
-#define MACRO_TMUX_BRC         12
+#define MACRO_SHIFTIT_MOVE         10
+#define MACRO_SHIFTIT_LUP         11
+#define MACRO_SHIFTIT_LDOWN         12
+#define MACRO_SHIFTIT_RUP         13
+#define MACRO_SHIFTIT_RDOWN         14
+#define MACRO_SHIFTIT_LEFT         15
+#define MACRO_SHIFTIT_RIGHT         16
+#define MACRO_SHIFTIT_UP         17
+#define MACRO_SHIFTIT_DOWN         18
+#define MACRO_SHIFTIT_FULL         19
+
+#define MACRO_TMUX_ESC        30
+#define MACRO_TMUX_LANG        31
+#define MACRO_TMUX_BRC         32
+
+#define M_SH_LU   M(MACRO_SHIFTIT_LUP)
+#define M_SH_LD   M(MACRO_SHIFTIT_LDOWN)
+#define M_SH_RU   M(MACRO_SHIFTIT_RUP)
+#define M_SH_RD   M(MACRO_SHIFTIT_RDOWN)
+#define M_SH_L   M(MACRO_SHIFTIT_LEFT)
+#define M_SH_R   M(MACRO_SHIFTIT_RIGHT)
+#define M_SH_U   M(MACRO_SHIFTIT_UP)
+#define M_SH_D   M(MACRO_SHIFTIT_DOWN)
+#define M_SH_FL   M(MACRO_SHIFTIT_FULL)
+#define M_SH_MV   M(MACRO_SHIFTIT_MOVE)
 #define M_TESC   M(MACRO_TMUX_ESC)
 #define M_TLANG   M(MACRO_TMUX_LANG)
 #define M_BRC   M(MACRO_TMUX_BRC)
@@ -40,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | PGDN | PGUP |       | LEFT | RIGHT|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | UP   |        |      |
- *                                 | Fn(1)|      |-----|        |------|        | LANG |
+ *                                 | Fn(1)|Fn(2) |-----|        |------|        | LANG |
  *                                 |      |      | End  |       | DOWN |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -54,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,         KC_NO,        KC_LALT,    KC_LGUI,    KC_SPC,
                                                   KC_PGDN,    KC_PGUP,
                                                               KC_HOME,
-                                      LT(1,KC_NO),     KC_NO,     KC_END,
+                                      LT(1,KC_NO),     LT(2,KC_NO),     KC_END,
 
         // right hand
         KC_6,           KC_7,         KC_8,       KC_9,       KC_0,        KC_MINS,   KC_EQL,
@@ -131,10 +153,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = KEYMAP(
-       RESET,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_L, M_SH_FL, M_SH_R,
+       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LD, M_SH_D, M_SH_RD, M_SH_MV,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
@@ -168,6 +190,56 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
         if (record->event.pressed) { // For resetting EEPROM
           eeconfig_init();
+        }
+        break;
+        case MACRO_SHIFTIT_MOVE:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(N), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_FULL:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(M), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_RUP:
+        if (record->event.pressed) {
+        case MACRO_SHIFTIT_LUP:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(1), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(2), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_LDOWN:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(3), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_RDOWN:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(4), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_LEFT:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(5), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        case MACRO_SHIFTIT_RIGHT:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(6), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        break;
+        case MACRO_SHIFTIT_UP:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(7), U(LCTL), U(LALT), U(LGUI), END);
+        }
+        break;
+        case MACRO_SHIFTIT_DOWN:
+        if (record->event.pressed) {
+          return MACRO(D(LCTL), D(LALT), D(LGUI), T(8), U(LCTL), U(LALT), U(LGUI), END);
         }
         break;
         case MACRO_TMUX_ESC:
