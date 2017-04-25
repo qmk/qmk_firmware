@@ -10,8 +10,10 @@
 
 #define MACRO_TMUX_ESC        10
 #define MACRO_TMUX_LANG        11
+#define MACRO_TMUX_BRC         12
 #define M_TESC   M(MACRO_TMUX_ESC)
 #define M_TLANG   M(MACRO_TMUX_LANG)
+#define M_BRC   M(MACRO_TMUX_BRC)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -24,45 +26,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | `~(Esc)|   1! |   2@ |   3# |   4$ |   5% |  6^  |           |  6^  |   7& |   8* |   9( |   0) |   -_ |   =+   |
+ * | `~     |   1! |   2@ |   3# |   4$ |   5% |  6^  |           |  6^  |   7& |   8* |   9( |   0) |   -_ |   =+   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   \|   |
- * |--------+------+------+------+------+------|      |           |  ]}  |------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  | [{ ]}  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;:   | Enter |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |  [{  |   N  |   M  |   ,< |   .> |   /? | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,< |   .> |   /? | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  Esc |      | Alt  |  Cmd | Fn(1)|                         |  BS  |  Cmd |   \| |  '"  |      |
+ *   |  Esc |      | Alt  |  Cmd | Spc  |                         |  BS  |  \|  |  '"  |      |      |      |
  *   `----------------------------------'                         `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | PGDN | PGUP |       | LEFT | RIGHT|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | UP   |        |      |
- *                                 | Spc  |*(LANG)|-----|       |------|        |  Spc |
+ *                                 | Fn(1)|      |-----|        |------|        | LANG |
  *                                 |      |      | End  |       | DOWN |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
-        M_TESC,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_6,
+        KC_GRV,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_6,
         KC_TAB,         KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,     KC_NO,
         KC_LCTL,        KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
         KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
-        KC_ESC,         KC_NO,        KC_LALT,    KC_LGUI,   LT(1,KC_NO),
+        KC_ESC,         KC_NO,        KC_LALT,    KC_LGUI,    KC_SPC,
                                                   KC_PGDN,    KC_PGUP,
                                                               KC_HOME,
-                                      KC_SPC,     M_TLANG,     KC_END,
+                                      LT(1,KC_NO),     KC_NO,     KC_END,
 
         // right hand
         KC_6,           KC_7,         KC_8,       KC_9,       KC_0,        KC_MINS,   KC_EQL,
-        KC_RBRC,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      KC_BSLS,
+        KC_RBRC,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      M_BRC,
                         KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_ENT,
         KC_LBRC,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_RSFT,
-        KC_BSPC,        KC_RGUI,      KC_BSLS,    KC_QUOT,    KC_NO,
+        KC_BSPC,        KC_BSLS,      KC_QUOT,      KC_NO,      KC_NO,
         KC_LEFT,        KC_RIGHT,
         KC_UP,
-        KC_DOWN,        KC_NO,      KC_SPC
+        KC_DOWN,        KC_NO,        LGUI(KC_SPC)
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -75,13 +77,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  *  |        |      |      |      |      |      |      |           |      |      | CP   | CUT  | PST  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      | Fn(1)|                                       |  DEL |      |      |      |      |
+ *   |       |      |      |      |      |                                       |  DEL |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
+ *                                 | Fn(1)|      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -176,6 +178,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO(T(ESC), END);
           } else {
             return MACRO(T(GRV), END);
+          }
+        }
+        break;
+        case MACRO_TMUX_BRC:
+        if (record->event.pressed) {
+          key_timer = timer_read();
+        } else {
+          if (timer_elapsed(key_timer) >= 150) {
+            return MACRO(T(RBRC), END);
+          } else {
+            return MACRO(T(LBRC), END);
           }
         }
         break;
