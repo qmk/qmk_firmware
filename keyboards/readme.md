@@ -47,6 +47,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Kinesis Advantage](/keyboards/kinesis) &mdash; Contoured ergonomic keyboard by Kinesis Computer Ergonomics.
 * [The Kitten Paw](/keyboards/kitten_paw) &mdash; A replacement controller (2016 revision) for the Filco Majestouch by [Bathroom Epiphanies](https://github.com/BathroomEpiphanies).
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
+* [Minorca](/keyboards/minorca) - 40% staggered split space bar keyboard by Panc Interactive.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
 * [Retro Refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
 * [S60-x](/keyboards/s60-x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
