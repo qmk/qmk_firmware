@@ -6,7 +6,7 @@ This is a layout for the grid planck, built with a few ideals in mind:
 - The hands should never need to leave the home position. The usual culprit for this is the arrow cluster, so the arrow cluster should be as close to home as possible.
 - There should be two of every modifier (one on each side), otherwise certain long key combinations become hard to make.
 
-We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow cluster and other movement keys; a `SYMB` layer, with numbers and symbols; a `FUNC` layer, with function keys and media keys; and a `MOUSE` layer, with mouse emulation. The `MOUSE` layer is activated by holding the Move and Symb keys simultaniously.
+We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow cluster, other movement keys, and hotkeys; a `SYMB` layer, with numbers and symbols; a `FUNC` layer, with function keys and media keys; and a `MOUSE` layer, with mouse emulation. The `MOUSE` layer is activated by holding the Move and Symb keys simultaniously.
 
 ```
 /* BASE
@@ -23,11 +23,11 @@ We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow c
 
 /* MOVE
  * ,-----------------------------------------------------------------------------------.
- * |  Esc |      | Home |  Up  |  End |      |      | Home |  Up  |  End |      |  Esc |
+ * | H(3) | H(F1)| H(F2)| H(F3)| H(F4)| H(F5)| H(8) | Home |  Up  |  End | H(7) |  Esc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del | Caps | Left | Down | Right|      |      | Left | Down | Right| Caps |  Del |
+ * | H(4) | H(F6)| H(F7)| H(F8)| H(F9)|H(F10)| H(9) | Left | Down | Right| Caps |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Pg Up| Pg Dn|      |      | Pg Dn| Pg Up|      |      |      |
+ * |      |H(F11)|H(F12)| H(0) | H(1) | H(2) | H(A) | Pg Dn| Pg Up| H(5) | H(6) |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -68,4 +68,4 @@ We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow c
  * |      |      |      |      | Prev | Mute | Play | Next |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- ```
+```

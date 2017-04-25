@@ -143,7 +143,7 @@
         #define GDISP_HARDWARE_DRAWPIXEL             TRUE
         #define GDISP_HARDWARE_CLEARS                FALSE
         #define GDISP_HARDWARE_FILLS                 FALSE
-        #define GDISP_HARDWARE_BITFILLS              FALSE
+        //#define GDISP_HARDWARE_BITFILLS              FALSE
         #define GDISP_HARDWARE_SCROLL                FALSE
         #define GDISP_HARDWARE_PIXELREAD             TRUE
         #define GDISP_HARDWARE_CONTROL               TRUE

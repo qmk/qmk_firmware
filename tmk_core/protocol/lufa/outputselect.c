@@ -14,7 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "lufa.h"
 #include "outputselect.h"
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
     #include "adafruit_ble.h"
 #endif
 
@@ -34,9 +34,9 @@ uint8_t auto_detect_output(void) {
         return OUTPUT_USB;
     }
 
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
     if (adafruit_ble_is_connected()) {
-        return OUTPUT_ADAFRUIT_BLE;
+        return OUTPUT_BLUETOOTH;
     }
 #endif
 

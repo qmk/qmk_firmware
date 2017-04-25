@@ -13,7 +13,7 @@ Main layer modifications from default Planck layout:
 * Lower & Raise is now called Num and Fun.
 * OS & Left keys become another thumb modifier: Empty & Greek (Empty because I used this for another use and my muscle memory is not adapted to it yet)
 
-On Promethium, Trackpoint is enabled on PD2 and PD2. We impersonate a Thinkpad keyboard to be able to use Thinkpad driver on Windows (still needs verification).
+On Promethium, Trackpoint is enabled on PD2 and PD3. We impersonate a Thinkpad keyboard to be able to use Thinkpad driver on Windows (still needs verification).
 
 AltGr & Compose dual use key. Tap for Compose (mapped to Scroll Lock in hardware) and press for AltGr.
 
@@ -37,8 +37,8 @@ On Promethium, USB or Bluetooth output is detected on startup. If USB is connect
 
 SYS-W, SYS-L, SYS-M switch Unicode input method. SYS-Q, SYS-D, SYS-C, SYS-K, SYS-N switch to QWERTY, DVORAK, Colemak, Workman and Norman, respectively.
 
-On Planck, SYS-A (mnemonic: audio) toggles faux clicky: use buzzer to emit clicks on key presses and releases.
+SYS-A (mnemonic: audio) toggles faux clicky: use buzzer to emit clicks on key presses and releases.
 
-On Promethium there are 6 indicator LEDs, and under switch LEDs on each switches, including Trackpoint buttons. Totaling 57 LEDs. Output is limited to 0xF for each LEDs to conserve power. SYS-G (mnemonic: glow) toggles various backlighting modes.
+On Promethium there are 16 indicator LEDs, and under switch LEDs on each switches, including Trackpoint buttons. Totaling 67 LEDs. Output is limited to 0xF for each LEDs to conserve power. SYS-G (mnemonic: glow) toggles various backlighting modes.
 
 On Promethium, there's a LED to indicate battery level. Hue indicates level: green is full, red is empty.
