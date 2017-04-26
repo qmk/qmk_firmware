@@ -18,6 +18,8 @@
 #define MACRO_SHIFTIT_UP         17
 #define MACRO_SHIFTIT_DOWN         18
 #define MACRO_SHIFTIT_FULL         19
+#define MACRO_ZERO_ZERO           20
+
 
 #define MACRO_TMUX_ESC        30
 #define MACRO_TMUX_LANG        31
@@ -36,6 +38,7 @@
 #define M_TESC   M(MACRO_TMUX_ESC)
 #define M_TLANG   M(MACRO_TMUX_LANG)
 #define M_BRC   M(MACRO_TMUX_BRC)
+#define M_00   M(MACRO_ZERO_ZERO)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -133,15 +136,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |           |  F6  |  F7  |  F8  |  F9  |  F10 |   F11 |  F12  |
+ * | RESET  |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |           |      |      |      |  /   |   *  |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |     |   7  |   8  |   9  |       |        |
+ * |        |      |      |      |      |      |      |           |      |      |   7  |   8  |   9  |   -  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |   4  |   5  |   6  |      |        |
+ * |        |      |      |      |      |      |------|           |------|      |   4  |   5  |   6  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |   1  |   2  |   3  |   .  |        |
+ * |        |      |      |      |      |      |      |           |      |      |   1  |   2  |   3  |  BS  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      | Fn(2)|   0  |      |      |
+ *   |      |      |      |      |      |                                       |   0   |  00  |  .  | Enter|      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -153,20 +156,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_L, M_SH_FL, M_SH_R,
-       KC_TRNS, KC_TRNS, KC_TRNS, M_SH_LD, M_SH_D, M_SH_RD, M_SH_MV,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS, 
+       KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,KC_TRNS, 
+       KC_TRNS, KC_TRNS, M_SH_L, M_SH_FL, M_SH_R,  KC_TRNS, 
+       KC_TRNS, KC_TRNS, M_SH_LD, M_SH_D, M_SH_RD, M_SH_MV,KC_TRNS, 
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,      KC_F11,   KC_F12,
-       KC_TRNS,   KC_NO,     KC_7,      KC_8,      KC_9,        KC_NO,    KC_TRNS,
-                  KC_NO,     KC_4,      KC_5,      KC_6,        KC_NO,    KC_TRNS,
-       KC_TRNS,  KC_NO,      KC_1,      KC_2,      KC_3,        KC_DOT,   KC_TRNS,
-                          KC_TRNS,      KC_TRNS,   KC_0,        KC_NO,    KC_TRNS,
+       KC_F6,     KC_NO,     KC_NO,   KC_KP_SLASH, KC_KP_ASTERISK,KC_NO,        KC_NO,
+       KC_TRNS,   KC_NO,     KC_7,      KC_8,      KC_9,        KC_KP_MINUS,   KC_NO,
+                  KC_NO,     KC_4,      KC_5,      KC_6,        KC_KP_PLUS,    KC_NO,
+       KC_TRNS,   KC_NO,     KC_1,      KC_2,      KC_3,        KC_BSPC,       KC_NO,
+                             KC_0,      M_00,      KC_DOT,      KC_ENT,        KC_NO,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -273,6 +276,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           } else {
             return MACRO(END);
           }
+        }
+        break;
+        case MACRO_ZERO_ZERO:
+        if (record->event.pressed) {
+          SEND_STRING("00");
         }
         break;
       }
