@@ -95,7 +95,7 @@ syntax) if desired, as they are provided by this module.
  <tbody>
    <tr>
     <td>DMBS_VERSION</td>
-    <td>Current version of this DMBS release, as a ISO 8601 integer (such as `160403` for `2016-04-03`).</td>
+    <td>Current version of this DMBS release, as a ISO 8601 integer (such as `20160403` for `2016-04-03`).</td>
    </tr>
  </tbody>
 </table>

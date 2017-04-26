@@ -83,7 +83,7 @@ variable per line) in the user makefile to be able to use this module:
    <tr>
     <td>TARGET</td>
     <td>Name of the application output file prefix (e.g. `TestApplication`).</td>
-   </tr>   
+   </tr>
    <tr>
     <td>ARCH</td>
     <td>Target device architecture (e.g. `AVR8`).</td>
@@ -103,6 +103,10 @@ be assumed.
 
 <table>
  <tbody>
+   <tr>
+    <td>COMPILER_PATH</td>
+    <td>Path to the compiler to use, in case a specific compiler should be substituted for the one in the system's `PATH` variable. Default is blank (use `PATH` provided compiler).</td>
+   </tr>
    <tr>
     <td>OPTIMIZATION</td>
     <td>Optimization level to use when compiling C and C++ source files. Default is `s` (optimize for smallest size).</td>
@@ -144,6 +148,10 @@ be assumed.
     <td>Boolean, if `Y` linker relaxations will be enabled to slightly reduce the resulting binary's size. Default is `Y`.</td>
    </tr>
    <tr>
+    <td>JUMP_TABLES</td>
+    <td>Boolean, if `Y` jump tables will be enabled to slightly reduce the resulting binary's size - note that this can cause incorrect jumps if the binary is relocated after compilation, such as for a bootloader. Default is `N`.</td>
+   </tr>
+   <tr>
     <td>OBJDIR</td>
     <td>Directory to store the intermediate object files, as they are generated from the source files. Default is `obj`.</td>
    </tr>
@@ -158,10 +166,6 @@ be assumed.
    <tr>
     <td>DEBUG_LEVEL</td>
     <td>Level of the debugging information to generate in the compiled object files. Debug is 2 (medium level debugging information).</td>
-   </tr>
-   <tr>
-    <td>COMPILER_PATH</td>
-    <td>Path to the compiler to use, in case a specific compiler should be substituted for the one in the system's `PATH` variable. Default is blank (use `PATH` provided compiler).</td>
    </tr>
  </tbody>
 </table>
@@ -199,6 +203,9 @@ this module.
 
 The changes to this module since its initial release are listed below, as of the
 DMBS version where the change was made.
+
+### 20170426
+Added `JUMP_TABLES` optional variable.
 
 ### 20160403
 Initial release.

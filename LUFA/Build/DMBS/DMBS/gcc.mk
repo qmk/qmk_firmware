@@ -9,7 +9,7 @@
 DMBS_BUILD_MODULES         += GCC
 DMBS_BUILD_TARGETS         += size symbol-sizes all lib elf bin hex lss clean mostlyclean
 DMBS_BUILD_MANDATORY_VARS  += TARGET ARCH MCU SRC
-DMBS_BUILD_OPTIONAL_VARS   += BOARD OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS COMPILER_PATH
+DMBS_BUILD_OPTIONAL_VARS   += COMPILER_PATH OPTIMIZATION C_STANDARD CPP_STANDARD F_CPU C_FLAGS CPP_FLAGS ASM_FLAGS CC_FLAGS LD_FLAGS OBJDIR OBJECT_FILES DEBUG_TYPE DEBUG_LEVEL LINKER_RELAXATIONS JUMP_TABLES
 DMBS_BUILD_PROVIDED_VARS   +=
 DMBS_BUILD_PROVIDED_MACROS +=
 
@@ -34,6 +34,7 @@ OBJECT_FILES       ?=
 DEBUG_FORMAT       ?= dwarf-2
 DEBUG_LEVEL        ?= 2
 LINKER_RELAXATIONS ?= Y
+JUMP_TABLES        ?= N
 
 # Sanity check user supplied values
 $(foreach MANDATORY_VAR, $(DMBS_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
@@ -47,6 +48,7 @@ $(call ERROR_IF_EMPTY, OBJDIR)
 $(call ERROR_IF_EMPTY, DEBUG_FORMAT)
 $(call ERROR_IF_EMPTY, DEBUG_LEVEL)
 $(call ERROR_IF_NONBOOL, LINKER_RELAXATIONS)
+$(call ERROR_IF_NONBOOL, JUMP_TABLES)
 
 # Determine the utility prefix to use for the selected architecture
 ifeq ($(ARCH), AVR8)
@@ -117,19 +119,20 @@ ifneq ($(F_CPU),)
    BASE_CC_FLAGS += -DF_CPU=$(F_CPU)UL
 endif
 ifeq ($(LINKER_RELAXATIONS), Y)
-BASE_CC_FLAGS += -mrelax
+   BASE_CC_FLAGS += -mrelax
+endif
+ifeq ($(JUMP_TABLES), N)
+   # This flag is required for bootloaders as GCC will emit invalid jump table
+   # assembly code for devices with large amounts of flash; the jump table target
+   # is extracted from FLASH without using the correct ELPM instruction, resulting
+   # in a pseudo-random jump target.
+   BASE_CC_FLAGS += -fno-jump-tables
 endif
 
 # Additional language specific compiler flags
 BASE_C_FLAGS   := -x c -O$(OPTIMIZATION) -std=$(C_STANDARD) -Wstrict-prototypes
 BASE_CPP_FLAGS := -x c++ -O$(OPTIMIZATION) -std=$(CPP_STANDARD)
 BASE_ASM_FLAGS := -x assembler-with-cpp
-
-# This flag is required for bootloaders as GCC will emit invalid jump table
-# assembly code for devices with large amounts of flash; the jump table target
-# is extracted from FLASH without using the correct ELPM instruction, resulting
-# in a pseudo-random jump target.
-BASE_CC_FLAGS += -fno-jump-tables
 
 # Create a list of flags to pass to the linker
 BASE_LD_FLAGS := -lm -Wl,-Map=$(TARGET).map,--cref -Wl,--gc-sections

@@ -63,6 +63,7 @@ user:
     $(foreach MANDATORY_VAR, $(DMBS_BUILD_MANDATORY_VARS), $(call ERROR_IF_UNSET, $(MANDATORY_VAR)))
 
 As well as complaining if they are set, but currently empty:
+
     $(call ERROR_IF_EMPTY, SOME_MANDATORY_VARIABLE)
     $(call ERROR_IF_EMPTY, SOME_OPTIONAL_BUT_NON_EMPTY_VARIABLE)
 

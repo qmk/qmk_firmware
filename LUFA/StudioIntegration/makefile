@@ -58,7 +58,7 @@ clean:
 	@cd $(LUFA_ROOT)/.. && rm -f contents.zip exampleProjects.xml content.xml.cache extension.vsixmanifest asf-manifest.xml extension.xml helpcontentsetup.msha $(notdir $(VSIX_ASSETS)) *.vsix *.mshc
 
 $(DOXYGEN_TAG_FILE_XML):
-	@$(MAKE) -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
+	@make -C ../ doxygen DOXYGEN_OVERRIDE_PARAMS="GENERATE_TAGFILE=Documentation/lufa_doc_tags.xml GENERATE_HTML=no GENERATE_XML=yes"
 
 $(DOXYGEN_COMBINED_XML): $(DOXYGEN_TAG_FILE_XML)
 	@xsltproc $(dir $@)/combine.xslt $(dir $@)/index.xml > $(DOXYGEN_COMBINED_XML)
