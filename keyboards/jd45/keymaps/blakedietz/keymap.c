@@ -16,6 +16,8 @@ extern keymap_config_t keymap_config;
 #define _RAISE 4
 #define _TOUCHCURSOR 6
 #define _VIM 9
+// TODO: (bdietz) - make a symbols layer for fun emoji and ascii art
+// TODO: (bdietz) - make a symbol layer for greek symbols
 
 // Keycodes
 enum planck_keycodes {
@@ -87,7 +89,6 @@ enum macro_keycodes {
  * |        |       |       | Lower | VIM/Space| MOUSE/Ent|  Raise  |        |        |          |
  *  `-------+-------+-------+-------+---^^^----+---^^^----+---------+--------+--------+----------'
  */
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = KEYMAP_JD45(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------.*/
@@ -142,32 +143,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQL   ,   CTL_T(KC_7),    ALT_T(KC_8),    GUI_T(KC_9),    KC_0, KC_MINS,  KC_DOT, KC_1 ,GUI_T(KC_2), ALT_T(KC_3), CTL_T(KC_SLSH),    KC_BSLS    ,
 /*|----------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
     _______  ,    _______,    _______,    _______,  _______  ,  _______  ,    _______,    KC_MPRV,    KC_MNXT, KC_MUTE),
-/*`----------+-----------+-----------+-----------+----^^^----+----^^^----+-----------+-----------+-----------+--------'*/
-
-/* TouchCursor layer (http://martin-stone.github.io/touchcursor/) plus personal customizations
- * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
- * | AltTab  |CmdTab|CtlTab| GUI  |Shift |  ~   |Insert| Home |  Up  | End  | Bksp |      |      |
- * |---------`------`------`------`------`------`------`------`------`------`------`------`------|
- * |          | Alt  |Space |Tab_C | Find |Again | PgUp | Left | Down |Right |Desk_L|  Desk_R    |
- * |----------`------`------`------`------`------`------`------`------`------`------`------------|
- * |           | Undo | Cut  | Copy |Paste |  `   | PgDn | Del  |Tab_N |Tab_R |iTerm2|           |
- * |-----------`------`------`------`------`-----'-------`------`------`------`------`-----------|
- * |        |       |       |       |          |          |         |        |        |          |
- *  `-------+-------+-------+-------+---^^^----+---^^^----+---------+--------+--------+----------'
- *
- * The KC_UNDO, KC_CUT, KC_COPY, KC_PASTE, KC_FIND, and KC_AGAIN keycodes don't
- * seem to work on Mac. Presumably they'll work under Windows.
- */
-
-[_TOUCHCURSOR] = KEYMAP_JD45(
-/*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------.*/
-    ALT_TAB,CMD_TAB, CTL_TAB, KC_LGUI, KC_LSFT, KC_TILD,  KC_INS, KC_HOME,   KC_UP,  KC_END, KC_BSPC, _______, _______,
-/*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------`--------|*/
-    _______ ,KC_LALT,  KC_SPC,  AG_T_C, AG_FIND,AG_AGAIN, KC_PGUP, KC_LEFT, KC_DOWN, KC_RGHT,  AG_D_L,    AG_D_R      ,
-/*|---------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
-    _______  ,AG_UNDO,  AG_CUT, AG_COPY,AG_PASTE,  KC_GRV, KC_PGDN,  KC_DEL,  AG_T_N,  AG_T_R,CMD_SLSH,    _______    ,
-/*|----------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
-    _______  ,    _______,    _______,    _______, _______   , _______   ,    _______,    _______,    _______, _______),
 /*`----------+-----------+-----------+-----------+----^^^----+----^^^----+-----------+-----------+-----------+--------'*/
 
 /* Mouse Layer
