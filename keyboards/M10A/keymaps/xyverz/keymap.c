@@ -27,7 +27,7 @@ enum keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER0] = {{KC_P7,   KC_P8,   KC_P9  }, {KC_P4,   KC_P5,   KC_P6  }, {KC_P1,   KC_P2,   KC_P3  }, {XXXXXXX, XXXXXXX, LT(_LAYER1, KC_P0)}},
-  [_LAYER1] = {{KC_NLCK, _______, BACKLIT}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, _______}}
+  [_LAYER1] = {{KC_NLCK, _______, BACKLIT}, {_______, _______, _______}, {_______, _______, RESET  }, {XXXXXXX, XXXXXXX, _______}}
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
