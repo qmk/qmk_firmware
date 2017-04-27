@@ -94,7 +94,7 @@ extern mailbox_t led_mailbox;
 
 void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action);
 void set_lock_leds (uint8_t lock_type, uint8_t led_on);
-void write_led_page (uint8_t page, const uint8_t *led_array, uint8_t led_count);
+void write_led_page (uint8_t page, uint8_t *led_array, uint8_t led_count);
 
 // constants for signaling the LED controller thread
 enum led_msg_t {
@@ -104,7 +104,8 @@ enum led_msg_t {
     TOGGLE_LED,
     TOGGLE_ALL,
     TOGGLE_BACKLIGHT,
-    TOGGLE_PAGE_LEDS,
+    DISPLAY_PAGE,
+    RESET_PAGE,
     TOGGLE_NUM_LOCK,
     TOGGLE_CAPS_LOCK,
     MODE_BREATH,
