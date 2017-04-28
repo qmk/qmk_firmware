@@ -200,3 +200,29 @@ Windows and Mac use different key codes for next track and previous track. Make 
 |KC_MS_ACCEL0|KC_ACL0|Mouse Acceleration 0|
 |KC_MS_ACCEL1|KC_ACL1|Mouse Acceleration 1|
 |KC_MS_ACCEL2|KC_ACL2|Mouse Acceleration 2|
+
+## Magic Keys
+
+The following keys can be used to turn on and off various "Magic" features. These include Boot Magic (holding certain keys down while plugging the keyboard in) and the Magic Key.
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|MAGIC_SWAP_CONTROL_CAPSLOCK||Swap Capslock and Control|
+|MAGIC_CAPSLOCK_TO_CONTROL||Change Capslock to Control|
+|MAGIC_SWAP_ALT_GUI||Swap ALT and GUI|
+|MAGIC_SWAP_LALT_LGUI||Swap LALT and LGUI|
+|MAGIC_SWAP_RALT_RGUI||Swap RALT and RGUI|
+|MAGIC_NO_GUI||Disable off the GUI key|
+|MAGIC_SWAP_GRAVE_ESC||Swap the GRAVE (~ `) and Esc keys|
+|MAGIC_SWAP_BACKSLASH_BACKSPACE||Swap Backslash and Backspace|
+|MAGIC_UNSWAP_CONTROL_CAPSLOCK||Disable the Control/Caps Swap|
+|MAGIC_UNCAPSLOCK_TO_CONTROL||Turn Capslock back into Capslock|
+|MAGIC_UNSWAP_ALT_GUI||Turn the ALT/GUI swap off|
+|MAGIC_UNSWAP_LALT_LGUI||Turn the LALT/LGUI swap off|
+|MAGIC_UNSWAP_RALT_RGUI||Turn the RALT/RGUI swap off|
+|MAGIC_UNNO_GUI||Enable the GUI key|
+|MAGIC_UNSWAP_GRAVE_ESC||Turn the GRAVE/ESC swap off|
+|MAGIC_UNSWAP_BACKSLASH_BACKSPACE||Turn the Backslash/Backspace swap off|
+|MAGIC_HOST_NKRO||Turn NKRO on|
+|MAGIC_UNHOST_NKRO||Turn NKRO off|
+|MAGIC_TOGGLE_NKRO||Toggle NKRO on or off|
