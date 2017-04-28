@@ -1,4 +1,4 @@
- #include "ergodox.h"
+#include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
@@ -40,6 +40,7 @@
 #define M_BRC   M(MACRO_TMUX_BRC)
 #define M_00   M(MACRO_ZERO_ZERO)
 
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -57,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;:   | Enter |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,< |   .> |   /? | RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,< |   .> |   /? |   '"   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  Esc |      | Alt  |  Cmd | Spc  |                         |  BS  |  \|  |  '"  |      |      |      |
+ *   |  Esc |      | Alt  |  Cmd | Spc  |                         |  BS  |  \|  |      |      |      |
  *   `----------------------------------'                         `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | PGDN | PGUP |       | LEFT | RIGHT|
@@ -83,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_6,           KC_7,         KC_8,       KC_9,       KC_0,        KC_MINS,   KC_EQL,
-        KC_RBRC,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      M_BRC,
+        KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      M_BRC,
                         KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_ENT,
-        KC_LBRC,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_RSFT,
-        KC_BSPC,        KC_BSLS,      KC_QUOT,      KC_NO,      KC_NO,
+        KC_NO,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_QUOT,
+        KC_BSPC,        KC_BSLS,      KC_NO,      KC_NO,      KC_NO,
         KC_LEFT,        KC_RIGHT,
         KC_UP,
         KC_DOWN,        KC_NO,        LGUI(KC_SPC)
@@ -100,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  *  |        |      |MsLeft|MsDown|MsRght|      |------|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- *  |        |      |      |      |      |      |      |           |      |      | CP   | CUT  | PST  |      |        |
+ *  |        |      |WheelL|WheelU|WheelR|      |      |           |      |      | CP   | CUT  | PST  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |  DEL |      |      |      |      |
+ *   |       |      |      |WheelD      |      |                                       |  DEL |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -118,8 +119,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        RESET,     KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
        KC_TRNS,   KC_NO,    KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NO,    KC_TRNS,
        KC_TRNS,   KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_NO,
-       KC_TRNS,   KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_TRNS,
-       KC_TRNS,   KC_NO,    KC_TRNS,  KC_TRNS,  KC_TRNS,
+       KC_TRNS,   KC_NO,    KC_WH_L,  KC_WH_U,  KC_WH_R,  KC_NO,    KC_TRNS,
+       KC_TRNS,   KC_NO,    KC_NO,    KC_WH_D,  KC_NO,
                                       KC_TRNS,  KC_TRNS,
                                                 KC_TRNS,
                         KC_TRNS, KC_TRNS,  KC_TRNS,
