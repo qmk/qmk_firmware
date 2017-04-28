@@ -57,17 +57,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	},
     /* Level 3: Media Layer
      * ,---------------------------------------------------------------------------------------.
-     * |  TRNS |  TRNS | GIT_ST| GIT_PU| GIT_CM|  CALC |  WREF |  WFAV |  MUTE |  VOLD |  VOLU |
+     * |RGB_TOG|RGB_HUI|RGB_SAI|RGB_VAI| GIT_CM|  CALC |  WREF |  WFAV |  MUTE |  VOLD |  VOLU |
      * |---------------------------------------------------------------------------------------|
-     * |  TRNS |  TRNS | HM_DIR|  TRNS |  TRNS |  WHOM |  WBAK |  WFWD |  TRNS |  STOP |  PLAY |
+     * |RGB_MOD|RGB_HUD|RGB_SAD|RGB_VAD| GIT_ST|  WHOM |  WBAK |  WFWD |  TRNS |  STOP |  PLAY |
      * |---------------------------------------------------------------------------------------|
-     * |  TRNS | !TRNS!|  TRNS |  TRNS |  TRNS |  MYCM |  WSTP |  WSCH |  MSEL |  MPRV |  MNXT |
+     * |  TRNS | !TRNS!|  TRNS | HM_DIR| GIT_PU|  MYCM |  WSTP |  WSCH |  MSEL |  MPRV |  MNXT |
      * |---------------------------------------------------------------------------------------|
      */
     [MEDIA] ={
-        {KC_TRNS, KC_TRNS, GIT_ST, GIT_PU, GIT_CM, KC_CALC, KC_WREF, KC_WFAV, KC_MUTE, KC_VOLD, KC_VOLU},
-        {KC_TRNS, KC_TRNS, HM_DIR, KC_TRNS, KC_TRNS, KC_WHOM, KC_WBAK, KC_WFWD, KC_TRNS, KC_MSTP, KC_MPLY},
-        {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM, KC_WSTP, KC_WSCH, KC_MSEL, KC_MPRV, KC_MNXT}
+        {RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, GIT_CM, KC_CALC, KC_WREF, KC_WFAV, KC_MUTE, KC_VOLD, KC_VOLU},
+        {RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, GIT_ST, KC_WHOM, KC_WBAK, KC_WFWD, KC_TRNS, KC_MSTP, KC_MPLY},
+        {KC_TRNS, KC_TRNS, KC_TRNS, HM_DIR, GIT_PU, KC_MYCM, KC_WSTP, KC_WSCH, KC_MSEL, KC_MPRV, KC_MNXT}
     }
 };
 
@@ -114,7 +114,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 3:
           if (record->event.pressed) 
           {
-            press_and_release_key(KC_C);
+            /*press_and_release_key(KC_C);
             press_and_release_key(KC_D);
             press_and_release_key(KC_SPC);
             press_and_release_mod_key(KC_LSFT, KC_GRV);
@@ -122,8 +122,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             press_and_release_key(KC_Q);
             press_and_release_key(KC_M);
             press_and_release_key(KC_K);
-            press_and_release_mod_key(KC_LSFT, KC_MINS);
-            return MACRO(T(F), T(I), T(R), T(M), T(W), T(A), T(R), T(E), T(SLSH),
+            press_and_release_mod_key(KC_LSFT, KC_MINS);*/
+            return MACRO(I(0),
+                         T(C), T(D), T(SPC),
+                         D(LSFT), T(GRV), U(LSFT), T(SLSH),
+                         T(Q), T(M), T(K), D(LSFT), T(MINS), U(LSFT),
+                         T(F), T(I), T(R), T(M), T(W), T(A), T(R), T(E), T(SLSH),
                          T(K), T(E), T(Y), T(B), T(O), T(A), T(R), T(D), T(S), T(SLSH), 
                          T(M), T(I), T(U), T(N), T(I), T(3), T(2), T(SLSH),
                          T(K), T(E), T(Y), T(M), T(A), T(P), T(S), END);
