@@ -144,6 +144,7 @@ enum planck_keycodes {
 #ifndef MODULE_ADAFRUIT_BLE
   OUT_BT,
 #endif
+  RGBDEMO,
   KEYCODE_END
 };
 
@@ -478,6 +479,27 @@ void led_turnoff_keys(void) {
   }
 }
 
+#ifdef RGBSPS_DEMO_ENABLE
+void led_demo(void) {
+  rgbsps_set(LED_IND_LINUX, 15, 15, 15);
+  rgbsps_set(LED_IND_APPLE, 15, 15, 15);
+  rgbsps_set(LED_IND_WINDOWS, 15, 15, 15);
+  rgbsps_set(LED_IND_QWERTY, 15, 10, 0);
+  rgbsps_set(LED_IND_ALT, 15, 10, 0);
+  rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
+  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 15);
+  rgbsps_set(LED_IND_USB, 15, 15, 15);
+  rgbsps_set(LED_IND_CAPSLOCK, 15, 0, 0);
+  rgbsps_set(LED_IND_GUI, 15, 0, 15);
+  rgbsps_set(LED_IND_FUN, 15, 0, 0);
+  rgbsps_set(LED_IND_NUM, 0, 0, 15);
+  rgbsps_set(LED_IND_PUNC, 0, 15, 0);
+  rgbsps_set(LED_IND_GREEK, 0, 15, 15);
+  rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
+  rgbsps_send();
+}
+#endif
+
 void led_reset(void) {
   switch (glow_mode) {
     case GLOW_NONE:
@@ -634,11 +656,14 @@ void led_init(void) {
   led_set_default_layer_indicator();
 
   // clicky
+#ifdef FAUXCLICKY_ENABLE
   if (fauxclicky_enabled) {
     rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
   } else {
     rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
   }
+#endif
+
   rgbsps_send();
 }
 
@@ -919,7 +944,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYS] = KEYMAP(
-  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
@@ -1226,6 +1251,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgbsps_send();
 #endif
       return true;
+      break;
+#endif
+
+#ifdef RGBSPS_DEMO_ENABLE
+    case RGBDEMO:
+      led_demo();
+      return false;
       break;
 #endif
   }
