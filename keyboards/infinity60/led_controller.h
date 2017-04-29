@@ -93,7 +93,7 @@ void led_controller_init(void);
 extern mailbox_t led_mailbox;
 
 void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action);
-void set_lock_leds (uint8_t lock_type, uint8_t led_on);
+void set_lock_leds (uint8_t lock_addr, uint8_t led_action);
 void write_led_page (uint8_t page, uint8_t *led_array, uint8_t led_count);
 
 // constants for signaling the LED controller thread
