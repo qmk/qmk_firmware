@@ -262,10 +262,10 @@ page_status = 0; //start frame 0 (all off/on)
 
         //maintain lock leds
         if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
-          set_lock_leds(USB_LED_NUM_LOCK, 1);
+          set_lock_leds(NUM_LOCK_LED_ADDRESS, 1);
         }
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          set_lock_leds(USB_LED_CAPS_LOCK, 1);
+          set_lock_leds(CAPS_LOCK_LED_ADDRESS, 1);
         }
 
         page_status=0;
@@ -308,28 +308,28 @@ page_status = 0; //start frame 0 (all off/on)
 
         //maintain lock leds
         if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) {
-          set_lock_leds(USB_LED_NUM_LOCK, 1);
+          set_lock_leds(NUM_LOCK_LED_ADDRESS, 1);
         }
         if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
-          set_lock_leds(USB_LED_CAPS_LOCK, 1);
+          set_lock_leds(CAPS_LOCK_LED_ADDRESS, 1);
         }
         break;
         
       case TOGGLE_NUM_LOCK:
         //msg_led = 0 or 1, off/on
-        set_lock_leds(USB_LED_NUM_LOCK, msg_led);
+        set_lock_leds(NUM_LOCK_LED_ADDRESS, msg_led);
         break;
       
       case TOGGLE_CAPS_LOCK:
         //msg_led = 0 or 1, off/on
-        set_lock_leds(USB_LED_CAPS_LOCK, msg_led);
+        set_lock_leds(CAPS_LOCK_LED_ADDRESS, msg_led);
         break;
 
       //TODO: MODE_BREATH
       case MODE_BREATH:
         break;
       case STEP_BRIGHTNESS:
-      xprintf("TOGGLE_BACKLIGHT\n");
+      xprintf("STEP_BACKLIGHT\n");
             chThdSleepMilliseconds(10);
         //led_msg = step pwm up or down
       switch (msg_led) {
@@ -458,45 +458,20 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
   led_control_reg[1] = column_byte;
 }
 
-void set_lock_leds(uint8_t lock_type, uint8_t led_on) {
-  uint8_t page, led_addr, start, temp;
+void set_lock_leds(uint8_t led_addr, uint8_t led_action) {
+  uint8_t page, temp;
   uint8_t led_control_word[2] = {0};
   //TODO: this function call could send led address vs lock_type.
   //however, the switch/case allows for additional steps, like audio, depending on type
 
-  led_addr = 0;
-  switch(lock_type) {
-      case USB_LED_NUM_LOCK:
-          led_addr = NUM_LOCK_LED_ADDRESS;
-          break;
-      case USB_LED_CAPS_LOCK:
-          led_addr = CAPS_LOCK_LED_ADDRESS;
-          break;
-      #ifdef SCROLL_LOCK_LED_ADDRESS
-      case USB_LED_SCROLL_LOCK:
-          led_addr = SCROLL_LOCK_LED_ADDRESS;
-          break;
-      #endif
-      #ifdef COMPOSE_LED_ADDRESS
-      case USB_LED_COMPOSE:
-          led_addr = COMPOSE_LED_ADDRESS;
-          break;
-      #endif
-      #ifdef SCROLL_LOCK_LED_ADDRESS
-      case USB_LED_KANA:
-          led_addr = KANA_LED_ADDRESS;
-          break;
-      #endif
-  }          
-
   //ignore frame0 if all leds are on or if option set in led_controller.h
   //TODO: blink of all leds are on, clear blink register if not
-  is31_read_register(0, 0x00, &temp);
-  led_addr += temp == 0 ? 0 : 0x12;//send bit to blink register instead
-  start = BACKLIGHT_OFF_LOCK_LED_OFF ? 1 : 0; 
+  //is31_read_register(0, 0x00, &temp);
+  //led_addr += temp == 0 ? 0 : 0x12;//send bit to blink register instead
+  //start = BACKLIGHT_OFF_LOCK_LED_OFF ? 1 : 0; 
 
-  for(page=start; page<8; page++) { 
-    set_led_bit(page,led_control_word,led_addr,led_on);
+  for(page=0; page<8; page++) { 
+    set_led_bit(page,led_control_word,led_addr,led_action);
     is31_write_data(page, led_control_word, 0x02);
   }
 }
@@ -558,8 +533,8 @@ void led_controller_init(void) {
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
 
   // clean up the lock LEDs
-  set_lock_leds(USB_LED_NUM_LOCK, 0);
-  set_lock_leds(USB_LED_CAPS_LOCK, 0);
+  set_lock_leds(NUM_LOCK_LED_ADDRESS, 0);
+  set_lock_leds(CAPS_LOCK_LED_ADDRESS, 0);
 
   /* more time consuming LED processing should be offloaded into
    * a thread, with asynchronous messaging. */
