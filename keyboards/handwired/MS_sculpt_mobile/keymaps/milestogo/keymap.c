@@ -1,7 +1,7 @@
-#include "MS-sculpt-mobile.h"
+#include "../../../MS_sculpt_mobile/babblePaste.h"
+#include "../../MS_sculpt_mobile.h"
 #include "action_layer.h"
 #include "action_util.h"
-#include "babblePaste.h"
 
 #ifdef AUDIO_ENABLE
   #include "audio.h"

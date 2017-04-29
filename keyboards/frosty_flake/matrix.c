@@ -115,6 +115,7 @@ inline matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
+#ifndef NO_PRINT
     print("\nr\\c ABCDEFGHIJKLMNOPQR\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t matrix_row = matrix_get_row(row);
@@ -125,6 +126,7 @@ void matrix_print(void) {
         }
         print("\n");
     }
+#endif
 }
 
 uint8_t matrix_key_count(void) {
