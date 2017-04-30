@@ -34,7 +34,6 @@ void led_controller_init(void);
 
 #define CAPS_LOCK_LED_ADDRESS 46 //pin matrix location
 #define NUM_LOCK_LED_ADDRESS 85
-#define BACKLIGHT_OFF_LOCK_LED_OFF 0 //set to 0 to show lock leds even if backlight off
 
 /* =============================
  * IS31 chip related definitions
@@ -93,12 +92,16 @@ void led_controller_init(void);
 extern mailbox_t led_mailbox;
 
 void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action);
-void set_lock_leds (uint8_t lock_type, uint8_t led_on);
+void set_lock_leds (uint8_t led_addr, uint8_t led_action);
+void write_led_byte (uint8_t page, uint8_t row, uint8_t led_byte);
 void write_led_page (uint8_t page, uint8_t *led_array, uint8_t led_count);
 
 // constants for signaling the LED controller thread
 enum led_msg_t {
     KEY_LIGHT,
+    BLINK_OFF_LED,
+    BLINK_ON_LED,
+    BLINK_TOGGLE_LED,
     OFF_LED,
     ON_LED,
     TOGGLE_LED,
