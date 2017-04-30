@@ -153,7 +153,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#define PS2_INIT_DELAY 3000
+#define PS2_MOUSE_INIT_DELAY 2000
 #define BATTERY_PIN 9
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
@@ -205,7 +205,7 @@ enum led_sequence {
   LED_RSFT,
   LED_RCTL,
 
-  LED_RGUI,
+  LED_RALT,
   LED_SLSH,
   LED_SCLN,
   LED_P,
@@ -213,9 +213,9 @@ enum led_sequence {
   LED_O,
   LED_L,
   LED_DOT,
-  LED_RALT,
+  LED_RGUI,
 
-  LED_EMOJI,
+  LED_GREEK,
   LED_COMM,
   LED_K,
   LED_I,
@@ -234,35 +234,35 @@ enum led_sequence {
   LED_TRACKPOINT2,
   LED_TRACKPOINT1,
 
-  LED_LSPC,
-  LED_B,
-  LED_G,
   LED_T,
+  LED_G,
+  LED_B,
+  LED_LSPC,
 
-  LED_R,
-  LED_F,
-  LED_V,
   LED_NUM,
+  LED_V,
+  LED_F,
+  LED_R,
 
-  LED_PUNC,
-  LED_C,
-  LED_D,
   LED_E,
-
-  LED_W,
-  LED_S,
-  LED_X,
-  LED_LALT,
+  LED_D,
+  LED_C,
+  LED_EMPTY,
 
   LED_LGUI,
-  LED_Z,
-  LED_A,
-  LED_Q,
+  LED_X,
+  LED_S,
+  LED_W,
 
-  LED_TAB,
-  LED_ESC,
-  LED_LSFT,
+  LED_Q,
+  LED_A,
+  LED_Z,
+  LED_LALT,
+
   LED_LCTL,
+  LED_LSFT,
+  LED_ESC,
+  LED_TAB,
 
   LED_TOTAL
 };
