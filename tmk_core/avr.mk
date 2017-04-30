@@ -89,9 +89,9 @@ DEBUG_HOST = localhost
 #============================================================================
 # Autodecct teensy loader
 ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-  TEENSY_LOADER_CLI = teensy-loader-cli
+  TEENSY_LOADER_CLI ?= teensy-loader-cli
 else
-  TEENSY_LOADER_CLI = teensy_loader_cli
+  TEENSY_LOADER_CLI ?= teensy_loader_cli
 endif
 
 # Program the device.
@@ -100,43 +100,47 @@ program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 
 teensy: $(BUILD_DIR)/$(TARGET).hex
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
+	
+BATCHISP ?= batchisp 
 
 flip: $(BUILD_DIR)/$(TARGET).hex
-	batchisp -hardware usb -device $(MCU) -operation erase f
-	batchisp -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
+	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
+	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
+	
+DFU_PROGRAMMER ?= dfu-programmer
 
 dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
-	until dfu-programmer $(MCU) get bootloader-version; do\
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
 	done
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) erase --force
+ifneq (, $(findstring 0.7, $(shell $(DFU_PROGRAMMER) --version 2>&1)))
+	$(DFU_PROGRAMMER) $(MCU) erase --force
 else
-	dfu-programmer $(MCU) erase
+	$(DFU_PROGRAMMER) $(MCU) erase
 endif
-	dfu-programmer $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
-	dfu-programmer $(MCU) reset
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
 
 dfu-start:
-	dfu-programmer $(MCU) reset
-	dfu-programmer $(MCU) start
+	$(DFU_PROGRAMMER) $(MCU) reset
+	$(DFU_PROGRAMMER) $(MCU) start
 
 flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(COPY) $(BUILD_DIR)/$(TARGET).eep $(BUILD_DIR)/$(TARGET)eep.hex
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM erase
-	batchisp -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
-	batchisp -hardware usb -device $(MCU) -operation start reset 0
+	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM erase
+	$(BATCHISP) -hardware usb -device $(MCU) -operation memory EEPROM loadbuffer $(BUILD_DIR)/$(TARGET)eep.hex program
+	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
 	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	dfu-programmer $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
+	$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
 else
-	dfu-programmer $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
+	$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
 endif
-	dfu-programmer $(MCU) reset
+	$(DFU_PROGRAMMER) $(MCU) reset
 
 # Convert hex to bin.
 flashbin: $(BUILD_DIR)/$(TARGET).hex
