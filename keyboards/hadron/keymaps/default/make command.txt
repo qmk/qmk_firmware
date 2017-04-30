@@ -1,0 +1,2 @@
+cd ~/Dropbox/Keyboard/qmk_firmware-master/keyboards/hadron
+make
