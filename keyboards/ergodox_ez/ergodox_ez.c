@@ -61,11 +61,46 @@ void ergodox_blink_all_leds(void)
     _delay_ms(50);
     ergodox_right_led_3_on();
     _delay_ms(50);
+#ifdef LEFT_LEDS
+    ergodox_left_led_1_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    ergodox_left_led_2_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    ergodox_left_led_3_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+#endif
     ergodox_right_led_1_off();
     _delay_ms(50);
     ergodox_right_led_2_off();
     _delay_ms(50);
     ergodox_right_led_3_off();
+#ifdef LEFT_LEDS
+    _delay_ms(50);
+    ergodox_left_led_1_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    _delay_ms(50);
+    ergodox_left_led_2_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    _delay_ms(50);
+    ergodox_left_led_3_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+#endif
+    
     //ergodox_led_all_on();
     //_delay_ms(333);
     ergodox_led_all_off();
@@ -106,6 +141,10 @@ uint8_t init_mcp23018(void) {
 
 out:
     i2c_stop();
+
+#ifdef LEFT_LEDS
+    if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
+#endif // LEFT_LEDS
 
     // SREG=sreg_prev;
 
