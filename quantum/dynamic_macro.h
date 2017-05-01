@@ -40,6 +40,7 @@
 enum dynamic_macro_keycodes {
     DYN_REC_START1 = DYNAMIC_MACRO_RANGE,
     DYN_REC_START2,
+    DYN_REC_STOP,
     DYN_MACRO_PLAY1,
     DYN_MACRO_PLAY2,
 };
@@ -209,9 +210,8 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-        case MO(_DYN):
-            /* Use the layer key used to access the macro recording as
-             * a stop button. */
+        case DYN_REC_STOP:
+            /* Stop the macro recording. */
             if (record->event.pressed) { /* Ignore the initial release
                                           * just after the recoding
                                           * starts. */
