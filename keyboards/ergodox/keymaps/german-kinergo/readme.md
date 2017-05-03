@@ -2,7 +2,7 @@
 
 This layout is inspired by the "kinesis-qwerty-mod" from benblazak's
 [ergodox-firmware](https://github.com/benblazak/ergodox-firmware), as well as by the "german" layout from the 
-[qmk_firmware](https://github.com/jackhumbert/qmk_firmware).
+[qmk_firmware](https://github.com/qmk/qmk_firmware).
 The goal was to have a layout that is pretty close to an ordinary German
 keyboard, so I don't have to make adjustments on the operating system level
 and I keep some of the muscle memory to use a regular keyboard.

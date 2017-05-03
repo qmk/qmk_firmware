@@ -48,27 +48,41 @@ SOFTWARE.
 #include "serial_link/system/serial_link.h"
 #endif
 
+#include "action_util.h"
+
 // Define this in config.h
 #ifndef VISUALIZER_THREAD_PRIORITY
 #define "Visualizer thread priority not defined"
 #endif
 
-
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
+    .mods = 0xFF,
     .leds = 0xFFFFFFFF,
     .suspended = false,
+#ifdef VISUALIZER_USER_DATA_SIZE
+    .user_data = {0}
+#endif
 };
 
 static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboard_status_t* status2) {
     return status1->layer == status2->layer &&
         status1->default_layer == status2->default_layer &&
+        status1->mods == status2->mods &&
         status1->leds == status2->leds &&
-        status1->suspended == status2->suspended;
+        status1->suspended == status2->suspended
+#ifdef VISUALIZER_USER_DATA_SIZE
+        && memcmp(status1->user_data, status2->user_data, VISUALIZER_USER_DATA_SIZE) == 0
+#endif
+    ;
 }
 
 static bool visualizer_enabled = false;
+
+#ifdef VISUALIZER_USER_DATA_SIZE
+static uint8_t user_data[VISUALIZER_USER_DATA_SIZE];
+#endif
 
 #define MAX_SIMULTANEOUS_ANIMATIONS 4
 static keyframe_animation_t* animations[MAX_SIMULTANEOUS_ANIMATIONS] = {};
@@ -140,6 +154,14 @@ void stop_all_keyframe_animations(void) {
     }
 }
 
+static uint8_t get_num_running_animations(void) {
+    uint8_t count = 0;
+    for (int i=0;i<MAX_SIMULTANEOUS_ANIMATIONS;i++) {
+        count += animations[i] ? 1 : 0;
+    }
+    return count;
+}
+
 static bool update_keyframe_animation(keyframe_animation_t* animation, visualizer_state_t* state, systemticks_t delta, systemticks_t* sleep_time) {
     // TODO: Clean up this messy code
     dprintf("Animation frame%d, left %d, delta %d\n", animation->current_frame,
@@ -208,136 +230,6 @@ void run_next_keyframe(keyframe_animation_t* animation, visualizer_state_t* stat
     (*temp_animation.frame_functions[next_frame])(&temp_animation, &temp_state);
 }
 
-bool keyframe_no_operation(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-    return false;
-}
-
-#ifdef LCD_BACKLIGHT_ENABLE
-bool keyframe_animate_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state) {
-    int frame_length = animation->frame_lengths[animation->current_frame];
-    int current_pos = frame_length - animation->time_left_in_frame;
-    uint8_t t_h = LCD_HUE(state->target_lcd_color);
-    uint8_t t_s = LCD_SAT(state->target_lcd_color);
-    uint8_t t_i = LCD_INT(state->target_lcd_color);
-    uint8_t p_h = LCD_HUE(state->prev_lcd_color);
-    uint8_t p_s = LCD_SAT(state->prev_lcd_color);
-    uint8_t p_i = LCD_INT(state->prev_lcd_color);
-
-    uint8_t d_h1 = t_h - p_h; //Modulo arithmetic since we want to wrap around
-    int d_h2 = t_h - p_h;
-    // Chose the shortest way around
-    int d_h = abs(d_h2) < d_h1 ? d_h2 : d_h1;
-    int d_s = t_s - p_s;
-    int d_i = t_i - p_i;
-
-    int hue = (d_h * current_pos) / frame_length;
-    int sat = (d_s * current_pos) / frame_length;
-    int intensity = (d_i * current_pos) / frame_length;
-    //dprintf("%X -> %X = %X\n", p_h, t_h, hue);
-    hue += p_h;
-    sat += p_s;
-    intensity += p_i;
-    state->current_lcd_color = LCD_COLOR(hue, sat, intensity);
-    lcd_backlight_color(
-            LCD_HUE(state->current_lcd_color),
-            LCD_SAT(state->current_lcd_color),
-            LCD_INT(state->current_lcd_color));
-
-    return true;
-}
-
-bool keyframe_set_backlight_color(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    state->prev_lcd_color = state->target_lcd_color;
-    state->current_lcd_color = state->target_lcd_color;
-    lcd_backlight_color(
-            LCD_HUE(state->current_lcd_color),
-            LCD_SAT(state->current_lcd_color),
-            LCD_INT(state->current_lcd_color));
-    return false;
-}
-#endif // LCD_BACKLIGHT_ENABLE
-
-#ifdef LCD_ENABLE
-bool keyframe_display_layer_text(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    gdispClear(White);
-    gdispDrawString(0, 10, state->layer_text, state->font_dejavusansbold12, Black);
-    gdispFlush();
-    return false;
-}
-
-static void format_layer_bitmap_string(uint16_t default_layer, uint16_t layer, char* buffer) {
-    for (int i=0; i<16;i++)
-    {
-        uint32_t mask = (1u << i);
-        if (default_layer & mask) {
-            if (layer & mask) {
-                *buffer = 'B';
-            } else {
-                *buffer = 'D';
-            }
-        } else if (layer & mask) {
-            *buffer = '1';
-        } else {
-            *buffer = '0';
-        }
-        ++buffer;
-
-        if (i==3 || i==7 || i==11) {
-            *buffer = ' ';
-            ++buffer;
-        }
-    }
-    *buffer = 0;
-}
-
-bool keyframe_display_layer_bitmap(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    const char* layer_help = "1=On D=Default B=Both";
-    char layer_buffer[16 + 4]; // 3 spaces and one null terminator
-    gdispClear(White);
-    gdispDrawString(0, 0, layer_help, state->font_fixed5x8, Black);
-    format_layer_bitmap_string(state->status.default_layer, state->status.layer, layer_buffer);
-    gdispDrawString(0, 10, layer_buffer, state->font_fixed5x8, Black);
-    format_layer_bitmap_string(state->status.default_layer >> 16, state->status.layer >> 16, layer_buffer);
-    gdispDrawString(0, 20, layer_buffer, state->font_fixed5x8, Black);
-    gdispFlush();
-    return false;
-}
-#endif // LCD_ENABLE
-
-bool keyframe_disable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-#ifdef LCD_ENABLE
-    gdispSetPowerMode(powerOff);
-#endif
-#ifdef LCD_BACKLIGHT_ENABLE
-    lcd_backlight_hal_color(0, 0, 0);
-#endif
-    return false;
-}
-
-bool keyframe_enable_lcd_and_backlight(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-#ifdef LCD_ENABLE
-    gdispSetPowerMode(powerOn);
-#endif
-    return false;
-}
-
-bool enable_visualization(keyframe_animation_t* animation, visualizer_state_t* state) {
-    (void)animation;
-    (void)state;
-    dprint("User visualizer inited\n");
-    visualizer_enabled = true;
-    return false;
-}
-
 // TODO: Optimize the stack size, this is probably way too big
 static DECLARE_THREAD_STACK(visualizerThreadStack, 1024);
 static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
@@ -350,8 +242,12 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     visualizer_keyboard_status_t initial_status = {
         .default_layer = 0xFFFFFFFF,
         .layer = 0xFFFFFFFF,
+        .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
+#ifdef VISUALIZER_USER_DATA_SIZE
+        .user_data = {0},
+#endif
     };
 
     visualizer_state_t state = {
@@ -374,13 +270,15 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 
     systemticks_t sleep_time = TIME_INFINITE;
     systemticks_t current_time = gfxSystemTicks();
+    bool force_update = true;
 
     while(true) {
         systemticks_t new_time = gfxSystemTicks();
         systemticks_t delta = new_time - current_time;
         current_time = new_time;
         bool enabled = visualizer_enabled;
-        if (!same_status(&state.status, &current_status)) {
+        if (force_update || !same_status(&state.status, &current_status)) {
+            force_update = false;
             if (visualizer_enabled) {
                 if (current_status.suspended) {
                     stop_all_keyframe_animations();
@@ -389,8 +287,9 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                     user_visualizer_suspend(&state);
                 }
                 else {
+                    visualizer_keyboard_status_t prev_status = state.status;
                     state.status = current_status;
-                    update_user_visualizer_state(&state);
+                    update_user_visualizer_state(&state, &prev_status);
                 }
                 state.prev_lcd_color = state.current_lcd_color;
             }
@@ -414,13 +313,17 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         gdispGFlush(LED_DISPLAY);
 #endif
 
+#ifdef LCD_ENABLE
+        gdispGFlush(LCD_DISPLAY);
+#endif
+
 #ifdef EMULATOR
         draw_emulator();
 #endif
-        // The animation can enable the visualizer
-        // And we might need to update the state when that happens
-        // so don't sleep
-        if (enabled != visualizer_enabled) {
+        // Enable the visualizer when the startup or the suspend animation has finished
+        if (!visualizer_enabled && state.status.suspended == false && get_num_running_animations() == 0) {
+            visualizer_enabled = true;
+            force_update = true;
             sleep_time = 0;
         }
 
@@ -499,7 +402,24 @@ void update_status(bool changed) {
 #endif
 }
 
-void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
+uint8_t visualizer_get_mods() {
+  uint8_t mods = get_mods();
+
+#ifndef NO_ACTION_ONESHOT
+  if (!has_oneshot_mods_timed_out()) {
+    mods |= get_oneshot_mods();
+  }
+#endif  
+  return mods;
+}
+
+#ifdef VISUALIZER_USER_DATA_SIZE
+void visualizer_set_user_data(void* u) {
+    memcpy(user_data, u, VISUALIZER_USER_DATA_SIZE);
+}
+#endif
+
+void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uint32_t leds) {
     // Note that there's a small race condition here, the thread could read
     // a state where one of these are set but not the other. But this should
     // not really matter as it will be fixed during the next loop step.
@@ -523,9 +443,13 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint32_t leds) {
         visualizer_keyboard_status_t new_status = {
             .layer = state,
             .default_layer = default_state,
+            .mods = mods,
             .leds = leds,
             .suspended = current_status.suspended,
         };
+#ifdef VISUALIZER_USER_DATA_SIZE
+       memcpy(new_status.user_data, user_data, VISUALIZER_USER_DATA_SIZE);
+#endif
         if (!same_status(&current_status, &new_status)) {
             changed = true;
             current_status = new_status;

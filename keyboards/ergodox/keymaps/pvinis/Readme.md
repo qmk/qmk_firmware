@@ -59,7 +59,7 @@ I have two commented out layers that are just templates, so I can easily create 
 # Building
 
 ```
-$ git clone https://github.com/jackhumbert/qmk_firmware.git
+$ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware/keyboards/ergodox/keymaps/pvinis
 $ make
 ```

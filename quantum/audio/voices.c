@@ -1,3 +1,18 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "voices.h"
 #include "audio.h"
 #include "stdlib.h"
@@ -24,6 +39,7 @@ void voice_deiterate() {
 
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
+    __attribute__ ((unused))
     uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 
     switch (voice) {

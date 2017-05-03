@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako
-Copyright 2014 Jack Humbert
+Copyright 2012-2017 Jun Wako, Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -60,13 +59,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     extern const matrix_row_t matrix_mask[];
 #endif
 
+#if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
-static matrix_row_t matrix_raw[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 
@@ -76,7 +76,7 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_rows(void);
     static void select_row(uint8_t row);
     static void unselect_row(uint8_t row);
-#else // ROW2COL
+#elif (DIODE_DIRECTION == ROW2COL)
     static void init_rows(void);
     static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
     static void unselect_cols(void);
@@ -133,7 +133,7 @@ uint8_t matrix_cols(void) {
 //         /* PORTxn */
 //         _SFR_IO8((col_pins[c] >> 4) + 2) |= _BV(col_pins[c] & 0xF);
 //     }
-// #else
+// #elif (DIODE_DIRECTION == ROW2COL)
 //     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
 //         /* DDRxn */
 //         _SFR_IO8((col_pins[c] >> 4) + 1) |= _BV(col_pins[c] & 0xF);
@@ -158,7 +158,7 @@ void matrix_init(void) {
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
-#else // ROW2COL
+#elif (DIODE_DIRECTION == ROW2COL)
     unselect_cols();
     init_rows();
 #endif
@@ -166,7 +166,6 @@ void matrix_init(void) {
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_raw[i] = 0;
         matrix_debouncing[i] = 0;
     }
 
@@ -194,7 +193,7 @@ uint8_t matrix_scan(void)
 
     }
 
-#else // ROW2COL
+#elif (DIODE_DIRECTION == ROW2COL)
 
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
@@ -336,7 +335,7 @@ static void unselect_rows(void)
     }
 }
 
-#else // ROW2COL
+#elif (DIODE_DIRECTION == ROW2COL)
 
 static void init_rows(void)
 {

@@ -1,7 +1,25 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef PROCESS_MUSIC_H
 #define PROCESS_MUSIC_H
 
 #include "quantum.h"
+
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
@@ -10,9 +28,9 @@ void music_toggle(void);
 void music_on(void);
 void music_off(void);
 
-void audio_on_user(void);
 void music_on_user(void);
 void music_scale_user(void);
+void music_all_notes_off(void);
 
 void matrix_scan_music(void);
 
@@ -23,5 +41,7 @@ void matrix_scan_music(void);
                            0 + (12*3), 2 + (12*3), 4 + (12*3), 5 + (12*3), 7 + (12*3), 9 + (12*3), 11 + (12*3), \
                            0 + (12*4), 2 + (12*4), 4 + (12*4), 5 + (12*4), 7 + (12*4), 9 + (12*4), 11 + (12*4), }
 #endif
+
+#endif // defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
 #endif

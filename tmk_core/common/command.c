@@ -235,8 +235,11 @@ static void print_status(void)
     print("\n\t- Status -\n");
 
     print_val_hex8(host_keyboard_leds());
+#ifndef PROTOCOL_VUSB
+    // these aren't set on the V-USB protocol, so we just ignore them for now
     print_val_hex8(keyboard_protocol);
     print_val_hex8(keyboard_idle);
+#endif
 #ifdef NKRO_ENABLE
     print_val_hex8(keymap_config.nkro);
 #endif

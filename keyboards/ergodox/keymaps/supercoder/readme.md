@@ -22,7 +22,7 @@ your own:
  [hex]: https://raw.githubusercontent.com/algernon/ergodox-supercoder/master/supercoder.hex
 
 ```
-$ git clone https://github.com/jackhumbert/qmk_firmware.git
+$ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware/keyboards/ergodox
 $ git clone https://github.com/algernon/ergodox-supercoder.git keymaps/supercoder
 $ make KEYMAP=supercoder
