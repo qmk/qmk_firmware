@@ -97,17 +97,24 @@ void dynamic_macro_play(
 /**
  * Record a single key in a dynamic macro.
  *
+ * @param macro_buffer[in] The start of the used macro buffer.
  * @param macro_pointer[in,out] The current buffer position.
  * @param macro_end2[in] The end of the other macro which shouldn't be overwritten.
  * @param direction[in]  Either +1 or -1, which way to iterate the buffer.
  * @param record[in]     The current keypress.
  */
 void dynamic_macro_record_key(
+    keyrecord_t *macro_buffer,
     keyrecord_t **macro_pointer,
     keyrecord_t *macro_end2,
     int8_t direction,
     keyrecord_t *record)
 {
+    /* If we've just started recording, ignore all the key releases. */
+    if (!record->event.pressed && *macro_pointer == macro_buffer) {
+        return;
+    }
+
     if (*macro_pointer + direction != macro_end2) {
         **macro_pointer = *record;
         *macro_pointer += direction;
@@ -230,10 +237,10 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
             /* Store the key in the macro buffer and process it normally. */
             switch (macro_id) {
             case 1:
-                dynamic_macro_record_key(&macro_pointer, r_macro_end, +1, record);
+                dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
                 break;
             case 2:
-                dynamic_macro_record_key(&macro_pointer, macro_end, -1, record);
+                dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
                 break;
             }
             return true;
