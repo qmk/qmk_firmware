@@ -134,6 +134,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LSFT);
         break;
     case KM_RST:
+    {
+        /* Make slash available on the PP layer. */
+        if ((1UL << _PP) & default_layer_state) {
+            int32_t old_default_layer_state = default_layer_state;
+            int32_t old_layer_state = layer_state;
+
+            layer_state = 0;
+            default_layer_state = (1UL << _QW);
+
+            process_record(record);
+
+            layer_state = old_layer_state;
+            default_layer_state = old_default_layer_state;
+
+            return false;
+        }
+    }
+
         if (record->event.pressed) {
             key_timer = timer_read();
         } else {
