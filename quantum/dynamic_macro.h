@@ -119,9 +119,7 @@ void dynamic_macro_record_key(
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
-        /* Notify about the end of buffer. The blinks are paired
-         * because they should happen on both down and up events. */
-        backlight_toggle();
+        dynamic_macro_led_blink();
     }
 }
 
