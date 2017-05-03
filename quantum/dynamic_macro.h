@@ -127,9 +127,21 @@ void dynamic_macro_record_key(
  * End recording of the dynamic macro. Essentially just update the
  * pointer to the end of the macro.
  */
-void dynamic_macro_record_end(keyrecord_t *macro_pointer, keyrecord_t **macro_end)
+void dynamic_macro_record_end(
+    keyrecord_t *macro_buffer,
+    keyrecord_t *macro_pointer,
+    int8_t direction,
+    keyrecord_t **macro_end)
 {
     dynamic_macro_led_blink();
+
+    /* Do not save the keys being held when stopping the recording,
+     * i.e. the keys used to access the layer DYN_REC_STOP is on.
+     */
+    while (macro_pointer != macro_buffer &&
+           (macro_pointer - direction)->event.pressed) {
+        macro_pointer -= direction;
+    }
 
     *macro_end = macro_pointer;
 }
@@ -222,10 +234,10 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
                                           * starts. */
                 switch (macro_id) {
                 case 1:
-                    dynamic_macro_record_end(macro_pointer, &macro_end);
+                    dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
                     break;
                 case 2:
-                    dynamic_macro_record_end(macro_pointer, &r_macro_end);
+                    dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
                     break;
                 }
                 macro_id = 0;
