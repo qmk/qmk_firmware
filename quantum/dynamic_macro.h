@@ -53,6 +53,15 @@ void dynamic_macro_led_blink(void)
     backlight_toggle();
 }
 
+/* Convenience macros used for retrieving the debug info. All of them
+ * need a `direction` variable accessible at the call site.
+ */
+#define DYNAMIC_MACRO_CURRENT_SLOT() (direction > 0 ? 1 : 2)
+#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) \
+    ((int)(direction * ((POINTER) - (BEGIN))))
+#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) \
+    ((int)(direction * ((END2) - (BEGIN)) + 1))
+
 /**
  * Start recording of the dynamic macro.
  *
@@ -62,6 +71,8 @@ void dynamic_macro_led_blink(void)
 void dynamic_macro_record_start(
     keyrecord_t **macro_pointer, keyrecord_t *macro_buffer)
 {
+    dprintln("dynamic macro recording: started");
+
     dynamic_macro_led_blink();
 
     clear_keyboard();
@@ -79,6 +90,8 @@ void dynamic_macro_record_start(
 void dynamic_macro_play(
     keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_t direction)
 {
+    dprintf("dynamic macro: slot %d playback\n", DYNAMIC_MACRO_CURRENT_SLOT());
+
     uint32_t saved_layer_state = layer_state;
 
     clear_keyboard();
@@ -112,6 +125,7 @@ void dynamic_macro_record_key(
 {
     /* If we've just started recording, ignore all the key releases. */
     if (!record->event.pressed && *macro_pointer == macro_buffer) {
+        dprintln("dynamic macro: ignoring a leading key-up event");
         return;
     }
 
@@ -124,6 +138,12 @@ void dynamic_macro_record_key(
     } else {
         dynamic_macro_led_blink();
     }
+
+    dprintf(
+        "dynamic macro: slot %d length: %d/%d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer),
+        DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
 }
 
 /**
@@ -143,8 +163,14 @@ void dynamic_macro_record_end(
      */
     while (macro_pointer != macro_buffer &&
            (macro_pointer - direction)->event.pressed) {
+        dprintln("dynamic macro: trimming a trailing key-down event");
         macro_pointer -= direction;
     }
+
+    dprintf(
+        "dynamic macro: slot %d saved, length: %d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer));
 
     *macro_end = macro_pointer;
 }
@@ -263,5 +289,9 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
 
     return true;
 }
+
+#undef DYNAMIC_MACRO_CURRENT_SLOT
+#undef DYNAMIC_MACRO_CURRENT_LENGTH
+#undef DYNAMIC_MACRO_CURRENT_CAPACITY
 
 #endif
