@@ -99,7 +99,7 @@ void dynamic_macro_play(
  *
  * @param macro_buffer[in] The start of the used macro buffer.
  * @param macro_pointer[in,out] The current buffer position.
- * @param macro2_end[in] The last buffer element it is safe to use before overwriting the other macro.
+ * @param macro2_end[in] The end of the other macro.
  * @param direction[in]  Either +1 or -1, which way to iterate the buffer.
  * @param record[in]     The current keypress.
  */
@@ -115,6 +115,9 @@ void dynamic_macro_record_key(
         return;
     }
 
+    /* The other end of the other macro is the last buffer element it
+     * is safe to use before overwriting the other macro.
+     */
     if (*macro_pointer - direction != macro2_end) {
         **macro_pointer = *record;
         *macro_pointer += direction;
@@ -170,7 +173,7 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
      * &macro_buffer   macro_end
      *  v                   v
      * +------------------------------------------------------------+
-     * |>>>>>> MACRO1 >>>>>>|    |<<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
+     * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
      * +------------------------------------------------------------+
      *                           ^                                 ^
      *                         r_macro_end                  r_macro_buffer
