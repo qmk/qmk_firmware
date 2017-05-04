@@ -35,12 +35,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION
 
 /* key matrix size */
-#define MATRIX_ROWS 8
 #define MATRIX_COLS 6
+#define MATRIX_ROWS 9
 
 /* default pin-out */
-#define MATRIX_COL_PINS { B6, B7, D6, C7, F6, F7 }
-#define MATRIX_ROW_PINS { D7, C6, D0, D1, F5, F4, F1, F0 }
+#define MATRIX_COL_PINS { F4, F1, F0, D6, D0, D1 }
+#define MATRIX_ROW_PINS { F5, F6, F7 }
+#define TRACKPOINT_PINS { B7, B6, D7 }
 #define UNUSED_PINS
 
 /*
@@ -152,17 +153,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#define PS2_INIT_DELAY 2000
+#define PS2_MOUSE_INIT_DELAY 2000
 #define BATTERY_PIN 9
 #define BATTERY_POLL 30000
 #define MAX_VOLTAGE 4.2
 #define MIN_VOLTAGE 3.2
 
+#define ___ KC_NO
+
 #define KEYMAP( \
-    k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
-    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, \
-    k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, \
-    k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c \
+    k11, k12, k13, k14, k15, k16,      k17, k18, k19, k1a, k1b, k1c, \
+    k21, k22, k23, k24, k25, k26,      k27, k28, k29, k2a, k2b, k2c, \
+    k31, k32, k33, k34, k35, k36,      k37, k38, k39, k3a, k3b, k3c, \
+    k41, k42, k43, k44, k45, k46,      k47, k48, k49, k4a, k4b, k4c, \
+                             tp1, tp2, tp3 \
 ) \
 { \
     {k11, k12, k13, k14, k15, k16}, \
@@ -172,25 +176,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {k17, k18, k19, k1a, k1b, k1c}, \
     {k27, k28, k29, k2a, k2b, k2c}, \
     {k37, k38, k39, k3a, k3b, k3c}, \
-    {k47, k48, k49, k4a, k4b, k4c} \
+    {k47, k48, k49, k4a, k4b, k4c}, \
+    {tp1, tp2, tp3, ___, ___, ___}  \
 }
 
 #ifndef __ASSEMBLER__ // assembler doesn't like enum in .h file
 enum led_sequence {
+  LED_IND_LINUX,
+  LED_IND_APPLE,
+  LED_IND_WINDOWS,
+  LED_IND_QWERTY,
+  LED_IND_ALT,
+  LED_IND_AUDIO,
   LED_IND_BLUETOOTH,
   LED_IND_USB,
-  LED_IND_BATTERY,
 
+  LED_IND_BATTERY,
+  LED_IND_CAPSLOCK,
+  LED_IND_GUI,
   LED_IND_FUN,
   LED_IND_NUM,
+  LED_IND_PUNC,
   LED_IND_EMOJI,
+  LED_IND_GREEK,
 
   LED_BKSP,
   LED_ENT,
   LED_RSFT,
   LED_RCTL,
 
-  LED_RGUI,
+  LED_RALT,
   LED_SLSH,
   LED_SCLN,
   LED_P,
@@ -198,9 +213,9 @@ enum led_sequence {
   LED_O,
   LED_L,
   LED_DOT,
-  LED_RALT,
+  LED_RGUI,
 
-  LED_EMOJI,
+  LED_GREEK,
   LED_COMM,
   LED_K,
   LED_I,
@@ -219,35 +234,35 @@ enum led_sequence {
   LED_TRACKPOINT2,
   LED_TRACKPOINT1,
 
-  LED_LSPC,
-  LED_B,
-  LED_G,
   LED_T,
+  LED_G,
+  LED_B,
+  LED_LSPC,
 
-  LED_R,
-  LED_F,
-  LED_V,
   LED_NUM,
+  LED_V,
+  LED_F,
+  LED_R,
 
-  LED_PUNC,
-  LED_C,
-  LED_D,
   LED_E,
-
-  LED_W,
-  LED_S,
-  LED_X,
-  LED_LALT,
+  LED_D,
+  LED_C,
+  LED_EMPTY,
 
   LED_LGUI,
-  LED_Z,
-  LED_A,
-  LED_Q,
+  LED_X,
+  LED_S,
+  LED_W,
 
-  LED_TAB,
-  LED_ESC,
-  LED_LSFT,
+  LED_Q,
+  LED_A,
+  LED_Z,
+  LED_LALT,
+
   LED_LCTL,
+  LED_LSFT,
+  LED_ESC,
+  LED_TAB,
 
   LED_TOTAL
 };
@@ -261,7 +276,7 @@ enum led_sequence {
 #   define PS2_CLOCK_PORT  PORTD
 #   define PS2_CLOCK_PIN   PIND
 #   define PS2_CLOCK_DDR   DDRD
-#   define PS2_CLOCK_BIT   1
+#   define PS2_CLOCK_BIT   3
 #   define PS2_DATA_PORT   PORTD
 #   define PS2_DATA_PIN    PIND
 #   define PS2_DATA_DDR    DDRD
