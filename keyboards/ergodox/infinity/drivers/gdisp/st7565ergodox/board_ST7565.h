@@ -8,8 +8,6 @@
 #ifndef _GDISP_LLD_BOARD_H
 #define _GDISP_LLD_BOARD_H
 
-#include "print.h"
-
 #define ST7565_LCD_BIAS         ST7565_LCD_BIAS_9 // actually 6
 #define ST7565_ADC              ST7565_ADC_NORMAL
 #define ST7565_COM_SCAN         ST7565_COM_SCAN_DEC
@@ -39,35 +37,49 @@
 // MSB First
 // CLK Low by default
 static const SPIConfig spi1config = {
-	NULL,
-	/* HW dependent part.*/
-	ST7565_GPIOPORT,
-    ST7565_SS_PIN,
-    SPIx_CTARn_FMSZ(7)
-    | SPIx_CTARn_ASC(7)
-    | SPIx_CTARn_DT(7)
-    | SPIx_CTARn_CSSCK(7)
-    | SPIx_CTARn_PBR(0)
-    | SPIx_CTARn_BR(7)
-	//SPI_CR1_BR_0
+   // Operation complete callback or @p NULL.
+  .end_cb = NULL,
+   //The chip select line port - when not using pcs.
+  .ssport = ST7565_GPIOPORT,
+   // brief The chip select line pad number - when not using pcs.
+  .sspad=ST7565_SS_PIN,
+   // SPI initialization data.
+  .tar0 =
+    SPIx_CTARn_FMSZ(7) // Frame size = 8 bytes
+    | SPIx_CTARn_ASC(1) // After SCK Delay Scaler (min 50 ns) = 55.56ns
+    | SPIx_CTARn_DT(0) // Delay After Transfer Scaler (no minimum)= 27.78ns
+    | SPIx_CTARn_CSSCK(0) // PCS to SCK Delay Scaler (min 20 ns) = 27.78ns
+    | SPIx_CTARn_PBR(0) // Baud Rate Prescaler = 2
+    | SPIx_CTARn_BR(0) // Baud rate (min 50ns) = 55.56ns
 };
 
-static bool_t st7565_is_data_mode = 1;
+static GFXINLINE void acquire_bus(GDisplay *g) {
+    (void) g;
+    // Only the LCD is using the SPI bus, so no need to acquire
+    // spiAcquireBus(&SPID1);
+    spiSelect(&SPID1);
+}
+
+static GFXINLINE void release_bus(GDisplay *g) {
+    (void) g;
+    // Only the LCD is using the SPI bus, so no need to release
+    //spiReleaseBus(&SPID1);
+    spiUnselect(&SPID1);
+}
 
 static GFXINLINE void init_board(GDisplay *g) {
     (void) g;
     palSetPadModeNamed(A0, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-    st7565_is_data_mode = 1;
     palSetPadModeNamed(RST, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPad(ST7565_GPIOPORT, ST7565_RST_PIN);
     palSetPadModeRaw(MOSI, ST7565_SPI_MODE);
     palSetPadModeRaw(SLCK, ST7565_SPI_MODE);
-    palSetPadModeRaw(SS, ST7565_SPI_MODE);
+    palSetPadModeNamed(SS, PAL_MODE_OUTPUT_PUSHPULL);
 
     spiInit();
     spiStart(&SPID1, &spi1config);
-    spiSelect(&SPID1);
+    release_bus(g);
 }
 
 static GFXINLINE void post_init_board(GDisplay *g) {
@@ -84,43 +96,17 @@ static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
     }
 }
 
-static GFXINLINE void acquire_bus(GDisplay *g) {
-    (void) g;
-    // Only the LCD is using the SPI bus, so no need to acquire
-    // spiAcquireBus(&SPID1);
+static GFXINLINE void enter_data_mode(GDisplay *g) {
+    palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
 }
 
-static GFXINLINE void release_bus(GDisplay *g) {
-    (void) g;
-    // Only the LCD is using the SPI bus, so no need to release
-    //spiReleaseBus(&SPID1);
+static GFXINLINE void enter_cmd_mode(GDisplay *g) {
+    palClearPad(ST7565_GPIOPORT, ST7565_A0_PIN);
 }
 
-static GFXINLINE void write_cmd(GDisplay *g, uint8_t cmd) {
-	(void) g;
-	if (st7565_is_data_mode) {
-	    // The sleeps need to be at lest 10 vs 25 ns respectively
-	    // So let's sleep two ticks, one tick might not be enough
-	    // if we are at the end of the tick
-	    chThdSleep(2);
-        palClearPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-        chThdSleep(2);
-        st7565_is_data_mode = 0;
-	}
-	spiSend(&SPID1, 1, &cmd);
-}
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
 	(void) g;
-	if (!st7565_is_data_mode) {
-	    // The sleeps need to be at lest 10 vs 25 ns respectively
-	    // So let's sleep two ticks, one tick might not be enough
-	    // if we are at the end of the tick
-	    chThdSleep(2);
-        palSetPad(ST7565_GPIOPORT, ST7565_A0_PIN);
-	    chThdSleep(2);
-        st7565_is_data_mode = 1;
-	}
 	spiSend(&SPID1, length, data);
 }
 

@@ -32,6 +32,10 @@ SOFTWARE.
 #define LCD_SAT(color) ((color >> 8) & 0xFF)
 #define LCD_INT(color) (color & 0xFF)
 
+inline uint32_t change_lcd_color_intensity(uint32_t color, uint8_t new_intensity) {
+    return (color & 0xFFFFFF00) | new_intensity;
+}
+
 void lcd_backlight_init(void);
 void lcd_backlight_color(uint8_t hue, uint8_t saturation, uint8_t intensity);
 void lcd_backlight_brightness(uint8_t b);
