@@ -4,21 +4,14 @@ The idea of this layout is to use it for [Neo2](http://www.neo-layout.org) but a
 
 The main goal of the default layer is to provide a complete symmetric layout with each modifier equally placed for both hands (mirror, of course).
 
-It also features a layer for additional keys like F-keys (F1 – F12), some mouse keys and (hopefully in the near future) some useful Unicode symbols.
+It also features a layer for additional keys like F-keys (F1 – F12), some mouse keys and some useful Unicode symbols.
 
 
 ## Build
 
-1. Enable Unicode in Makefile
-
-    ```
-    UNICODE_ENABLE   = yes
-    ```
-2. Build as usual
-
     ```
     make clean
-    make KEYMAP=coderkun_neo2
+    make coderkun_neo2
     ```
 
 
