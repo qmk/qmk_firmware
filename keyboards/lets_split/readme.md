@@ -7,6 +7,12 @@ Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
 
+## Build Guide
+
+A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
+
+There is additional information there about flashing and adding RGB underglow.
+
 ## First Time Setup
 
 Download or clone the whole firmware and navigate to the keyboards/lets_split directory. Once your dev env is setup, you'll be able to generate the default .hex using:
@@ -62,8 +68,7 @@ Apart from diodes and key switches for the keyboard matrix in each half, you
 will need:
 
 * 2 Arduino Pro Micro's. You can find theses on aliexpress for ≈3.50USD each.
-* 2 TRS sockets
-* 1 TRS cable.
+* 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
 
 Alternatively, you can use any sort of cable and socket that has at least 3
 wires. If you want to use I2C to communicate between halves, you will need a
@@ -77,7 +82,7 @@ A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and t
 Wiring
 ------
 
-The 3 wires of the TRS cable need to connect GND, VCC, and digital pin 3 (i.e.
+The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
 PD0 on the ATmega32u4) between the two Pro Micros.
 
 Then wire your key matrix to any of the remaining 17 IO pins of the pro micro

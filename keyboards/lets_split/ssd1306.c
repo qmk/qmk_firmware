@@ -1,8 +1,9 @@
+#ifdef SSD1306OLED
+
+#include "ssd1306.h"
 #include "config.h"
 #include "i2c.h"
-#include <stdbool.h>
 #include <string.h>
-#include <stdio.h>
 #include "print.h"
 #include "lets_split.h"
 #include "common/glcdfont.c"
@@ -466,3 +467,4 @@ void iota_gfx_task(void) {
     iota_gfx_off();
   }
 }
+#endif
