@@ -21,7 +21,7 @@ static void setup_handedness(void) {
   #ifdef EE_HANDS
     isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
   #else
-    // I2c_MASTER_RIGHT ish deprecate use MASTER_RIGHT instead since this works for both serial and i2c:
+    // I2C_MASTER_RIGHT is deprecated, use MASTER_RIGHT instead, since this works for both serial and i2c
     #if defined(I2C_MASTER_RIGHT) || defined(MASTER_RIGHT)
       isLeftHand = !has_usb();
     #else

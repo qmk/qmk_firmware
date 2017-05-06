@@ -96,7 +96,7 @@ The keyboard `config.h` is included only if the keymap one doesn't exist. The fo
 ```
 #undef MY_SETTING
 #define MY_SETTING 4
-```c
+```
 
 For a value of `4` for this imaginary setting. So we `undef` it first, then `define` it.
 
