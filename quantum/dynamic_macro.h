@@ -40,6 +40,7 @@
 enum dynamic_macro_keycodes {
     DYN_REC_START1 = DYNAMIC_MACRO_RANGE,
     DYN_REC_START2,
+    DYN_REC_STOP,
     DYN_MACRO_PLAY1,
     DYN_MACRO_PLAY2,
 };
@@ -96,24 +97,29 @@ void dynamic_macro_play(
 /**
  * Record a single key in a dynamic macro.
  *
+ * @param macro_buffer[in] The start of the used macro buffer.
  * @param macro_pointer[in,out] The current buffer position.
- * @param macro_end2[in] The end of the other macro which shouldn't be overwritten.
+ * @param macro2_end[in] The last buffer element it is safe to use before overwriting the other macro.
  * @param direction[in]  Either +1 or -1, which way to iterate the buffer.
  * @param record[in]     The current keypress.
  */
 void dynamic_macro_record_key(
+    keyrecord_t *macro_buffer,
     keyrecord_t **macro_pointer,
-    keyrecord_t *macro_end2,
+    keyrecord_t *macro2_end,
     int8_t direction,
     keyrecord_t *record)
 {
-    if (*macro_pointer + direction != macro_end2) {
+    /* If we've just started recording, ignore all the key releases. */
+    if (!record->event.pressed && *macro_pointer == macro_buffer) {
+        return;
+    }
+
+    if (*macro_pointer - direction != macro2_end) {
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
-        /* Notify about the end of buffer. The blinks are paired
-         * because they should happen on both down and up events. */
-        backlight_toggle();
+        dynamic_macro_led_blink();
     }
 }
 
@@ -209,9 +215,8 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
     } else {
         /* A macro is being recorded right now. */
         switch (keycode) {
-        case MO(_DYN):
-            /* Use the layer key used to access the macro recording as
-             * a stop button. */
+        case DYN_REC_STOP:
+            /* Stop the macro recording. */
             if (record->event.pressed) { /* Ignore the initial release
                                           * just after the recoding
                                           * starts. */
@@ -230,10 +235,10 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
             /* Store the key in the macro buffer and process it normally. */
             switch (macro_id) {
             case 1:
-                dynamic_macro_record_key(&macro_pointer, r_macro_end, +1, record);
+                dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
                 break;
             case 2:
-                dynamic_macro_record_key(&macro_pointer, macro_end, -1, record);
+                dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
                 break;
             }
             return true;
