@@ -392,7 +392,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case NotEq:
         if (record->event.pressed) {
-            return MACRO( I(10), D(LSFT), T(EXLM), U(LSFT), T(EQL), END  ); // !=
+            return MACRO( I(10), D(LSFT), T(1), U(LSFT), T(EQL), END  ); // !=
         }
         break;
 
