@@ -140,7 +140,6 @@ void process_record(keyrecord_t *record)
 
 void process_action(keyrecord_t *record, action_t action)
 {
-    bool do_release_oneshot = false;
     keyevent_t event = record->event;
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
@@ -152,6 +151,7 @@ void process_action(keyrecord_t *record, action_t action)
     }
 
 #ifndef NO_ACTION_ONESHOT
+    bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
     if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
