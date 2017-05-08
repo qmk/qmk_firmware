@@ -317,19 +317,19 @@ page_status = 0; //start frame 0 (all off/on)
         
       case TOGGLE_NUM_LOCK:
         //msg_led = 0 or 1, off/on
-        set_lock_leds(NUM_LOCK_LED_ADDRESS, msg_led);
+        set_lock_leds(NUM_LOCK_LED_ADDRESS, 1);
         break;
       
       case TOGGLE_CAPS_LOCK:
         //msg_led = 0 or 1, off/on
-        set_lock_leds(CAPS_LOCK_LED_ADDRESS, msg_led);
+        set_lock_leds(CAPS_LOCK_LED_ADDRESS, 1);
         break;
 
       //TODO: MODE_BREATH
       case MODE_BREATH:
         break;
       case STEP_BRIGHTNESS:
-      xprintf("STEP_BACKLIGHT\n");
+      xprintf("TOGGLE_BACKLIGHT\n");
             chThdSleepMilliseconds(10);
         //led_msg = step pwm up or down
       switch (msg_led) {
@@ -459,10 +459,8 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
 }
 
 void set_lock_leds(uint8_t led_addr, uint8_t led_action) {
-  uint8_t page, temp;
+  uint8_t page;
   uint8_t led_control_word[2] = {0};
-  //TODO: this function call could send led address vs lock_type.
-  //however, the switch/case allows for additional steps, like audio, depending on type
 
   //ignore frame0 if all leds are on or if option set in led_controller.h
   //TODO: blink of all leds are on, clear blink register if not
