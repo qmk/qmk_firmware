@@ -72,10 +72,13 @@ chMBPost(&led_mailbox, message, timeout);
 -timeout is usually TIME_IMMEDIATE
 
 An example:
-1. set the message to be sent. First byte (LSB) is the led address, and second is the message type
-    * `msg=(ON_LED << 8) | 42;`
-2. send msg to the led mailbox
-    * `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
+```c
+//set the message to be sent. First byte (LSB) is the led address, and second is the message type
+msg=(ON_LED << 8) | 42;
+
+//send msg to the led mailbox
+chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
+```
 
 Another:
 ```c
