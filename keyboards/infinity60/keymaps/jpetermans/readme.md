@@ -78,9 +78,9 @@ An example:
     * `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
 
 Another:
-    * `msg=(BLINK_TOGGLE_LED << 8) | 46;`
-    * `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
+- `msg=(BLINK_TOGGLE_LED << 8) | 46;`
+- `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
 
 Finally, SET_FULL_ROW requires an extra byte with row information in the message so sending this message looks like:
-    * `msg=(row<<16) | (SET_FULL_ROW << 8) | (led_pin_byte);`
-    * `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
+- `msg=(row<<16) | (SET_FULL_ROW << 8) | (led_pin_byte);`
+- `chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);`
