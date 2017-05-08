@@ -31,7 +31,6 @@ msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result);
  * ============================*/
 
 void led_controller_init(void);
-void print_debug (uint8_t page);
 
 #define CAPS_LOCK_LED_ADDRESS 46 //pin matrix location
 #define NUM_LOCK_LED_ADDRESS 85

@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * LED controller code
- * WF uses IS31FL3731C matrix LED driver from ISSI
+ * IS31FL3731C matrix LED driver from ISSI
  * datasheet: http://www.issi.com/WW/pdf/31FL3731C.pdf
  */
 
@@ -56,9 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     order same as above (CA 1st row (8bytes), CB 1st row (8bytes), ...)
 */
 
-/* Which LED should be used for CAPS LOCK indicator
- * The usual Caps Lock position is C4-6, so the address is
- * 0x24 + (4-1)*0x10 + (8-1) = 0x59 */
+// Which LED should be used for CAPS LOCK indicator
 #if !defined(CAPS_LOCK_LED_ADDRESS)
 #define CAPS_LOCK_LED_ADDRESS 46
 #endif
@@ -90,7 +88,6 @@ uint8_t rx[1] __attribute__((aligned(2)));
 uint8_t full_page[0xB4+1] = {0};
 
 // LED mask (which LEDs are present, selected by bits)
-// See page comment above, control alternates CA matrix/CB matrix
 // IC60 pcb uses only CA matrix.
 // Each byte is a control pin for 8 leds ordered 8-1
 const uint8_t all_on_leds_mask[0x12] = {
@@ -182,11 +179,6 @@ static THD_FUNCTION(LEDthread, arg) {
   uint8_t temp, msg_type, msg_pin, msg_col, msg_led;
   msg_t msg;
 
-/*  //control register variables
-  uint8_t page, save_page, save_breath1, save_breath2;
-  msg_t msg, retval;
-*/
-
 // initialize persistent variables
 pwm_step_status = 4; //full brightness
 page_status = 0; //start frame 0 (all off/on)
@@ -197,77 +189,51 @@ page_status = 0; //start frame 0 (all off/on)
     //  be processed right away)
     chMBFetch(&led_mailbox, &msg, TIME_INFINITE);
     msg_col = (msg >> 24) & 0xFF;//if needed
-    msg_pin = (msg >> 16) & 0XFF;//if needed (SET_FULL_ROW)
+    msg_pin = (msg >> 16) & 0XFF;//if needed (e.g. SET_FULL_ROW)
     msg_type = (msg >> 8) & 0xFF; //second byte is msg type
     msg_led = (msg) & 0xFF; //first byte is action information
 
-    xprintf("--------------------\n");
-    xprintf("mailbox fetch\nmsg: %X\n", msg);
-            chThdSleepMilliseconds(20);
-    xprintf("type: %X - pin: %X\n", msg_type, msg_pin); 
-            chThdSleepMilliseconds(20);
-    xprintf("col: %X - led: %X\n", msg_col, msg_led); 
-            chThdSleepMilliseconds(10);
-
     switch (msg_type){
-      case KEY_LIGHT:
-      //TODO: lighting key led on keypress
-      break;
-      
       case SET_FULL_ROW:
       //write full byte to pin address, msg_pin = pin #, msg_led = byte to write
       //writes only to current page
-      xprintf("SET_FULL_ROW\n");
         write_led_byte(page_status,msg_pin,msg_led);
       break;
 
       case OFF_LED:      
       //on/off/toggle single led, msg_led = row/col of led
-    xprintf("OFF_LED: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 0);
         is31_write_data (7, control_register_word, 0x02);
         break;
       case ON_LED:      
-    xprintf("ON_LED: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 1);
         is31_write_data (7, control_register_word, 0x02);
         break;
       case TOGGLE_LED:      
-    xprintf("TOGGLE_LED: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 2);
         is31_write_data (7, control_register_word, 0x02);
         break;
 
       case BLINK_OFF_LED:      
       //on/off/toggle single led, msg_led = row/col of led
-    xprintf("BLINK_ON: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 4);
         is31_write_data (7, control_register_word, 0x02);
         break;
       case BLINK_ON_LED:      
-    xprintf("BLINK_OFF: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 5);
         is31_write_data (7, control_register_word, 0x02);
         break;
       case BLINK_TOGGLE_LED:      
-    xprintf("BLINK_TOGGLE: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         set_led_bit(7, control_register_word, msg_led, 6);
         is31_write_data (7, control_register_word, 0x02);
         break;
 
       case TOGGLE_ALL:
-    xprintf("TOGGLE_ALL: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
         //msg_led = unused
-        is31_read_register(0, 0x00, &temp);//if first byte is on, then toggle frame 0 off
+        is31_read_register(0, 0x00, &temp);
         led_control_reg[0] = 0;
 
+        //if first byte is on, then toggle frame 0 off
         if (temp==0 || page_status > 0) {
           __builtin_memcpy(led_control_reg+1, all_on_leds_mask, 0x12);
         } else {
@@ -287,8 +253,6 @@ page_status = 0; //start frame 0 (all off/on)
 
       case TOGGLE_BACKLIGHT:
         //msg_led = on/off
-      xprintf("TOGGLE_BACKLIGHT\n");
-            chThdSleepMilliseconds(10);
 
         //populate the 9 byte rows to be written to each pin, first byte is register (pin) address
         if (msg_led == 1) {
@@ -304,13 +268,9 @@ page_status = 0; //start frame 0 (all off/on)
         }
         break;
 
-      case DISPLAY_PAGE://show single layer indicator or full map of layer
-        //msg_led = page to toggle on
-      xprintf("DISPLAY_PAGE\n");
-            chThdSleepMilliseconds(10);
+      case DISPLAY_PAGE:
+      //msg_led = page to toggle on
         if (page_status != msg_led) {
-      xprintf(" - new page\n");
-            chThdSleepMilliseconds(10);
           is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, msg_led);
           page_status = msg_led;
 
@@ -321,33 +281,22 @@ page_status = 0; //start frame 0 (all off/on)
 
       case RESET_PAGE:
       //led_msg = page to reset
-      xprintf("RESET_PAGE\n");
-      chThdSleepMilliseconds(10);
         led_control_reg[0] = 0;
         __builtin_memset(led_control_reg+1, 0, 0x12);
         is31_write_data(msg_led, led_control_reg, 0x13);
         break;
         
       case TOGGLE_NUM_LOCK:
-        //msg_led = 0 or 1, off/on
-    xprintf("NUMLOCK: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
+      //msg_led = 0 or 1, off/on
         set_lock_leds(NUM_LOCK_LED_ADDRESS, msg_led, page_status);
         break;
-      
       case TOGGLE_CAPS_LOCK:
-    xprintf("CAPSLOCK: %d\n", msg_led);
-            chThdSleepMilliseconds(10);
-        //msg_led = 0 or 1, off/on
+      //msg_led = 0 or 1, off/on
         set_lock_leds(CAPS_LOCK_LED_ADDRESS, msg_led, page_status);
         break;
 
-      //TODO: MODE_BREATH
-
       case STEP_BRIGHTNESS:
-      xprintf("STEP_BACKLIGHT\n");
-            chThdSleepMilliseconds(10);
-        //led_msg = step pwm up or down
+      //led_msg = step pwm up or down
         switch (msg_led) {
           case 0:
             if (pwm_step_status == 0) {
@@ -375,137 +324,6 @@ page_status = 0; //start frame 0 (all off/on)
           is31_write_data(0,pwm_register_array,9);
         }
         break;
-
-/*    case LED_MSG_SLEEP_LED_ON:
-      // save current settings
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, &save_page);
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, &save_breath1);
-        is31_read_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, &save_breath2);
-        // use pages 7 and 8 for (hardware) breathing (assuming they're empty)
-        is31_write_register(6, BREATHE_LED_ADDRESS, 0xFF);
-        is31_write_register(7, BREATHE_LED_ADDRESS, 0x00);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, (6<<4)|6);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, IS31_REG_BREATHCTRL2_ENABLE|3);
-        retval = MSG_TIMEOUT;
-        temp = 6;
-        while(retval == MSG_TIMEOUT) {
-          // switch to the other page
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, temp);
-          temp = (temp == 6 ? 7 : 6);
-          // the times should be sufficiently long for IS31 to finish switching pages
-          retval = chMBFetch(&led_mailbox, &msg, MS2ST(temp == 6 ? 4000 : 6000));
-        }
-        // received a message (should be a wakeup), so restore previous state
-        chThdSleepMilliseconds(3000); // need to wait until the page change finishes
-        // note: any other messages are queued
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL1, save_breath1);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_BREATHCTRL2, save_breath2);
-        is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, save_page);
-        break;
-      case LED_MSG_SLEEP_LED_OFF: 
-        // should not get here; wakeup should be received in the branch above break;
-        break;
-*/  
-      xprintf("--------------------\n");
-            chThdSleepMilliseconds(10);
-    }
-  }
-}
-
-/* ==============================
- *    debug function
- * ============================== */
-void print_debug(uint8_t page) {
-  uint8_t j, debug_temp;
-  //debugging code - print full led/blink/pwm registers on each frame
-  xprintf("----layer state----: %X\n", layer_state);
-  xprintf("page: %d\n", page);
-  chThdSleepMilliseconds(10);
-  for(j=0;j<0x24;j++){
-    if(j > 0 && j % 9 == 0){
-      xprintf("\n");
-    }
-    switch (j) {
-      case 0:
-        xprintf("\n--on-off--\n");
-        chThdSleepMilliseconds(10);
-        break;
-      case 0x12:
-        xprintf("\n--blink--\n");
-        chThdSleepMilliseconds(10);
-        break;
-      }
-    is31_read_register(page,j,&debug_temp);
-    xprintf("%02X, ", debug_temp);
-    chThdSleepMilliseconds(10);
-  }
-
-  xprintf("\n--pwm--\n");
-  chThdSleepMilliseconds(10);
-  for(j=0x24;j<0xB4;j++) {
-    is31_read_register(page,j,&debug_temp);
-    xprintf("%02X, ", debug_temp);
-    chThdSleepMilliseconds(10);
-    if(j > 0x24 && (j-3) % 8 == 0){
-      xprintf("\n");
-    }
-  }
-  xprintf("\n");
-
-  //Function Register
-  xprintf("\n--FUNCTION--\n");
-  chThdSleepMilliseconds(10);
-  for(j=0;j<0x0D;j++) {
-    is31_read_register(0x0B,j,&debug_temp);
-    switch(j) {
-      case 0:
-        xprintf("Config %02X", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 1:
-        xprintf(" - Pict %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 2:
-        xprintf("Auto1 %02X", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 3:
-        xprintf(" - Auto2 %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 5:
-        xprintf("Disp %02X", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 6:
-        xprintf(" - Audio %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 7:
-        xprintf("Frame %02X", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 8:
-        xprintf(" - Breath1 %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 9:
-        xprintf("Breath2 %02X - ", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 10:
-        xprintf(" - Shut %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 11:
-        xprintf("AGC %02X", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
-      case 12:
-        xprintf(" - ADC %02X\n", debug_temp);
-        chThdSleepMilliseconds(2);
-        break;
     }
   }
 }
@@ -515,50 +333,29 @@ void print_debug(uint8_t page) {
  * ============================== */
 
 void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action) {
-  //returns 2 bytes led control register address and byte to write
+  //returns 2 bytes: led control register address and byte to write
   //0 - bit off, 1 - bit on, 2 - toggle bit
 
   uint8_t control_reg_addr, column_bit, column_byte, bit_temp, blink_on;
 
   //check for valid led address
   if (led_addr < 0 || led_addr > 87 || led_addr % 10 > 8) {
-    xprintf("Invalid address: %d\n", led_addr);
     return;
   }
 
-    xprintf("set_led_bit: %d\n", led_addr);
-    xprintf("action: %d\n", action);
-            chThdSleepMilliseconds(10);
-  //check blink bit
+  //check for blink bit
   blink_on = action>>2;
   action &= ~(1<<2); //strip blink bit
 
   //first byte is led control register address 0x00
   //msg_led tens column is pin#, ones column is bit position in 8-bit mask
   control_reg_addr = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-register is every other byte
-    xprintf("pre-reg_addr: %2X\n", control_reg_addr);
-            chThdSleepMilliseconds(10);
   control_reg_addr += blink_on == 1 ? 0x12 : 0x00;//shift 12 bytes to blink register
-    xprintf("blink-reg_addr: %2X\n", control_reg_addr);
-            chThdSleepMilliseconds(10);
-    xprintf("page: %2X\n", page);
-            chThdSleepMilliseconds(10);
 
-
-  is31_read_register(page, 0x06, &bit_temp);//maintain status of leds on this byte
-    xprintf("reg 06: %2X\n", bit_temp);
-  is31_read_register(page, 0x17, &bit_temp);//maintain status of leds on this byte
-    xprintf("reg 17: %2X\n", bit_temp);
-  is31_read_register(page, 0x18, &bit_temp);//maintain status of leds on this byte
-    xprintf("reg 18: %2X\n", bit_temp);
-  is31_read_register(page, 0x19, &bit_temp);//maintain status of leds on this byte
-    xprintf("reg 19: %2X\n", bit_temp);
   is31_read_register(page, control_reg_addr, &bit_temp);//maintain status of leds on this byte
   column_bit = 1<<(led_addr % 10 - 1);
   column_byte = bit_temp;
 
-    xprintf("column_byte read: %2X\n", column_byte);
-            chThdSleepMilliseconds(10);
   switch(action) {
     case 0:
       column_byte &= ~column_bit;
@@ -570,8 +367,6 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
       column_byte ^= column_bit;
       break;
   }
-    xprintf("column_byte write: %2X\n", column_byte);
-            chThdSleepMilliseconds(10);
 
   //return word to be written in register
   led_control_reg[0] = control_reg_addr;
@@ -589,7 +384,7 @@ void write_led_byte (uint8_t page, uint8_t row, uint8_t led_byte) {
 void write_led_page (uint8_t page, uint8_t *user_led_array, uint8_t led_count) {
   uint8_t i;
   uint8_t pin, col;
-  uint8_t led_control_register[0x13] = {0};//control register start address + 0x12 bytes
+  uint8_t led_control_register[0x13] = {0};
 
   __builtin_memset(led_control_register,0,13);
 
@@ -607,30 +402,15 @@ void set_lock_leds(uint8_t led_addr, uint8_t led_action, uint8_t page) {
   uint8_t lock_temp;
   uint8_t led_control_word[2] = {0};
 
-    xprintf("---set lock---\n");
-            chThdSleepMilliseconds(10);
-
   //blink if all leds are on
   if (page == 0) {
     is31_read_register(0, 0x00, &lock_temp);
-    xprintf("AllOnReg: %2X\n", lock_temp);
-    chThdSleepMilliseconds(10);
     if (lock_temp == 0xFF) {
-      xprintf("AllOntrue\n");
-      chThdSleepMilliseconds(10);
       led_action |= (1<<2); //set blink bit
-    } else {
-      xprintf("AllOnfalse\n");
-      chThdSleepMilliseconds(10);
     }
   }
 
   set_led_bit(page,led_control_word,led_addr,led_action);
-
-  xprintf("led_word: %2X", led_control_word[0]);
-  xprintf("%X\n", led_control_word[1]);
-  chThdSleepMilliseconds(10);
-
   is31_write_data(page, led_control_word, 0x02);
 }
 
@@ -679,30 +459,3 @@ void led_controller_init(void) {
   chMBObjectInit(&led_mailbox, led_mailbox_queue, LED_MAILBOX_NUM_MSGS);
   chThdCreateStatic(waLEDthread, sizeof(waLEDthread), LOWPRIO, LEDthread, NULL);
 }
-
-//TODO: Don't know equivalent QMK hooks for these
-//
-//void hook_usb_suspend_entry(void) {
-//#ifdef SLEEP_LED_ENABLE
-//  chSysLockFromISR();
-//  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_ON);
-//  chSysUnlockFromISR();
-//#endif /* SLEEP_LED_ENABLE */
-//}
-//
-//void hook_usb_suspend_loop(void) {
-//  chThdSleepMilliseconds(100);
-//  /* Remote wakeup */
-//  if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-//    send_remote_wakeup(&USB_DRIVER);
-//  }
-//}
-//
-//void hook_usb_wakeup(void) {
-//#ifdef SLEEP_LED_ENABLE
-//  chSysLockFromISR();
-//  chMBPostI(&led_mailbox, LED_MSG_SLEEP_LED_OFF);
-//  chSysUnlockFromISR();
-//#endif /* SLEEP_LED_ENABLE */
-//}
-//*/
