@@ -23,7 +23,6 @@ enum ic60_keycodes {
   BACKLIGHT,
   BRIGHT,
   DIM,
-  BREATH,
   ALL,
   GAME,
   MODE_SINGLE,
@@ -118,7 +117,6 @@ enum macro_id {
     ACTION_LEDS_BACKLIGHT,
     ACTION_LEDS_BRIGHT,
     ACTION_LEDS_DIM,
-    ACTION_LEDS_BREATH,
     ACTION_LEDS_SINGLE,
     ACTION_LEDS_PAGE,
     ACTION_LEDS_FLASH,
@@ -175,7 +173,6 @@ const uint16_t fn_actions[] = {
     [BACKLIGHT] = ACTION_FUNCTION(ACTION_LEDS_BACKLIGHT),
     [BRIGHT] = ACTION_FUNCTION(ACTION_LEDS_BRIGHT),
     [DIM] = ACTION_FUNCTION(ACTION_LEDS_DIM),
-    [BREATH] = ACTION_FUNCTION(ACTION_LEDS_BREATH),
     [MODE_SINGLE] = ACTION_FUNCTION(ACTION_LEDS_SINGLE),
     [MODE_PAGE] = ACTION_FUNCTION(ACTION_LEDS_PAGE),
     [MODE_FLASH] = ACTION_FUNCTION(ACTION_LEDS_FLASH),
@@ -221,13 +218,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_DIM:
       if(record->event.pressed) {
         msg=(STEP_BRIGHTNESS << 8) | 0;
-        chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
-      }
-      break;
-
-    case ACTION_LEDS_BREATH:
-      if(record->event.pressed) {
-        msg=(TOGGLE_BREATH << 8) | 0;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
