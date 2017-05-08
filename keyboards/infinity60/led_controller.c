@@ -186,7 +186,7 @@ page_status = 0; //start frame 0 (all off/on)
   while(true) {
     // wait for a message (asynchronous)
     // (messages are queued (up to LED_MAILBOX_NUM_MSGS) if they can't
-    //  be processed right away)
+    //  be processed right away
     chMBFetch(&led_mailbox, &msg, TIME_INFINITE);
     msg_col = (msg >> 24) & 0xFF;//if needed
     msg_pin = (msg >> 16) & 0XFF;//if needed (e.g. SET_FULL_ROW)
@@ -229,7 +229,7 @@ page_status = 0; //start frame 0 (all off/on)
         break;
 
       case TOGGLE_ALL:
-        //msg_led = unused
+      //msg_led = unused
         is31_read_register(0, 0x00, &temp);
         led_control_reg[0] = 0;
 
@@ -315,7 +315,7 @@ page_status = 0; //start frame 0 (all off/on)
             break;
         }
 
-        //populate 8 byte rows to write on each pin
+        //populate 8 byte arrays to write on each pin
         //first byte is register address, every 0x10 9 bytes are A-register pwm pins
         __builtin_memset(pwm_register_array+1, pwm_levels[pwm_step_status], 8);
 
