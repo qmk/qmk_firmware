@@ -46,7 +46,7 @@ void serial_output(void) {
 }
 
 
-void enabled_printing() {
+void enable_printing() {
 	printing_enabled = true;
 	serial_output();
 	serial_high();
@@ -82,7 +82,7 @@ void print_string(char c[]) {
 
 bool process_printer(uint16_t keycode, keyrecord_t *record) {
 	if (keycode == PRINT_ON) {
-		enabled_printing();
+		enable_printing();
 		return false;
 	}
 	if (keycode == PRINT_OFF) {
