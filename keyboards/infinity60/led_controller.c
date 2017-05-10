@@ -143,9 +143,6 @@ void is31_init(void) {
   palSetPadMode(GPIOB, 16, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPad(GPIOB, 16);
   chThdSleepMilliseconds(10);
-  // software shutdown
-  is31_write_register(IS31_FUNCTIONREG, IS31_REG_SHUTDOWN, 0);
-  chThdSleepMilliseconds(10);
   // software shutdown disable (i.e. turn stuff on)
   is31_write_register(IS31_FUNCTIONREG, IS31_REG_SHUTDOWN, IS31_REG_SHUTDOWN_ON);
   chThdSleepMilliseconds(10);
@@ -153,7 +150,7 @@ void is31_init(void) {
   uint8_t i;
   for(i=0; i<8; i++) {
     is31_write_data(i, full_page, 0xB4 + 1);
-    chThdSleepMilliseconds(1);
+    chThdSleepMilliseconds(5);
   }
 }
 
@@ -176,64 +173,65 @@ static THD_FUNCTION(LEDthread, arg) {
   uint8_t pwm_step_status, page_status;
 
   //mailbox variables
-  uint8_t temp, msg_type, msg_pin, msg_col, msg_led;
+  uint8_t temp, msg_type;
+  uint8_t msg_args[3];
   msg_t msg;
 
-// initialize persistent variables
-pwm_step_status = 4; //full brightness
-page_status = 0; //start frame 0 (all off/on)
+  // initialize persistent variables
+  pwm_step_status = 4; //full brightness
+  page_status = 0; //start frame 0 (all off/on)
 
   while(true) {
     // wait for a message (asynchronous)
     // (messages are queued (up to LED_MAILBOX_NUM_MSGS) if they can't
     //  be processed right away
     chMBFetch(&led_mailbox, &msg, TIME_INFINITE);
-    msg_col = (msg >> 24) & 0xFF;//if needed
-    msg_pin = (msg >> 16) & 0XFF;//if needed (e.g. SET_FULL_ROW)
-    msg_type = (msg >> 8) & 0xFF; //second byte is msg type
-    msg_led = (msg) & 0xFF; //first byte is action information
+    msg_type = msg & 0xFF; //first byte is action information
+    msg_args[0] = (msg >> 8) & 0xFF;
+    msg_args[1] = (msg >> 16) & 0XFF;
+    msg_args[2] = (msg >> 24) & 0xFF;
 
     switch (msg_type){
       case SET_FULL_ROW:
-      //write full byte to pin address, msg_pin = pin #, msg_led = byte to write
-      //writes only to current page
-        write_led_byte(page_status,msg_pin,msg_led);
-      break;
-
-      case OFF_LED:      
-      //on/off/toggle single led, msg_led = row/col of led
-        set_led_bit(7, control_register_word, msg_led, 0);
-        is31_write_data (7, control_register_word, 0x02);
-        break;
-      case ON_LED:      
-        set_led_bit(7, control_register_word, msg_led, 1);
-        is31_write_data (7, control_register_word, 0x02);
-        break;
-      case TOGGLE_LED:      
-        set_led_bit(7, control_register_word, msg_led, 2);
-        is31_write_data (7, control_register_word, 0x02);
+      //write full byte to pin address, msg_args[1] = pin #, msg_args[0] = 8 bits to write
+      //writes only to currently displayed page
+        write_led_byte(page_status, msg_args[1], msg_args[0]);
         break;
 
-      case BLINK_OFF_LED:      
-      //on/off/toggle single led, msg_led = row/col of led
-        set_led_bit(7, control_register_word, msg_led, 4);
-        is31_write_data (7, control_register_word, 0x02);
+      case OFF_LED:
+      //on/off/toggle single led, msg_args[0] = row/col of led
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 0);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
-      case BLINK_ON_LED:      
-        set_led_bit(7, control_register_word, msg_led, 5);
-        is31_write_data (7, control_register_word, 0x02);
+      case ON_LED:
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 1);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
-      case BLINK_TOGGLE_LED:      
-        set_led_bit(7, control_register_word, msg_led, 6);
-        is31_write_data (7, control_register_word, 0x02);
+      case TOGGLE_LED:
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 2);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
+        break;
+
+      case BLINK_OFF_LED:
+      //on/off/toggle single led, msg_args[0] = row/col of led
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 4);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
+        break;
+      case BLINK_ON_LED:
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 5);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
+        break;
+      case BLINK_TOGGLE_LED:
+        set_led_bit(msg_args[1], control_register_word, msg_args[0], 6);
+        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
 
       case TOGGLE_ALL:
-      //msg_led = unused
+      //turn on/off all leds, msg_args = unused
         is31_read_register(0, 0x00, &temp);
         led_control_reg[0] = 0;
 
-        //if first byte is on, then toggle frame 0 off
+        //if first leds are already on, toggle frame 0 off
         if (temp==0 || page_status > 0) {
           __builtin_memcpy(led_control_reg+1, all_on_leds_mask, 0x12);
         } else {
@@ -252,27 +250,27 @@ page_status = 0; //start frame 0 (all off/on)
         break;
 
       case TOGGLE_BACKLIGHT:
-        //msg_led = on/off
+        //msg_args[0] = on/off
 
-        //populate the 9 byte rows to be written to each pin, first byte is register (pin) address
-        if (msg_led == 1) {
+        //populate 9 byte rows to be written to each pin, first byte is register (pin) address
+        if (msg_args[0] == 1) {
           __builtin_memset(pwm_register_array+1, pwm_levels[pwm_step_status], 8);
         } else {
           __builtin_memset(pwm_register_array+1, 0, 8);
         }
 
         for(i=0; i<8; i++) {
-        //first byte is register address, every 0x10 9 bytes is A-register pwm pins
+        //first byte is register address, every 0x10 9 bytes is A-matrix pwm pins
           pwm_register_array[0] = 0x24 + (i * 0x10);
           is31_write_data(0,pwm_register_array,9);
         }
         break;
 
       case DISPLAY_PAGE:
-      //msg_led = page to toggle on
-        if (page_status != msg_led) {
-          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, msg_led);
-          page_status = msg_led;
+      //msg_args[0] = page to toggle on
+        if (page_status != msg_args[0]) {
+          is31_write_register(IS31_FUNCTIONREG, IS31_REG_PICTDISP, msg_args[0]);
+          page_status = msg_args[0];
 
           //maintain lock leds
           led_set(host_keyboard_leds());
@@ -280,24 +278,24 @@ page_status = 0; //start frame 0 (all off/on)
         break;
 
       case RESET_PAGE:
-      //led_msg = page to reset
+      //led_args[0] = page to reset
         led_control_reg[0] = 0;
         __builtin_memset(led_control_reg+1, 0, 0x12);
-        is31_write_data(msg_led, led_control_reg, 0x13);
+        is31_write_data(msg_args[0], led_control_reg, 0x13);
         break;
-        
+
       case TOGGLE_NUM_LOCK:
-      //msg_led = 0 or 1, off/on
-        set_lock_leds(NUM_LOCK_LED_ADDRESS, msg_led, page_status);
+      //msg_args[0] = 0 or 1, off/on
+        set_lock_leds(NUM_LOCK_LED_ADDRESS, msg_args[0], page_status);
         break;
       case TOGGLE_CAPS_LOCK:
-      //msg_led = 0 or 1, off/on
-        set_lock_leds(CAPS_LOCK_LED_ADDRESS, msg_led, page_status);
+      //msg_args[0] = 0 or 1, off/on
+        set_lock_leds(CAPS_LOCK_LED_ADDRESS, msg_args[0], page_status);
         break;
 
       case STEP_BRIGHTNESS:
-      //led_msg = step pwm up or down
-        switch (msg_led) {
+      //led_args[0] = step up (1) or down (0)
+        switch (msg_args[0]) {
           case 0:
             if (pwm_step_status == 0) {
               pwm_step_status = 4;
@@ -305,7 +303,7 @@ page_status = 0; //start frame 0 (all off/on)
               pwm_step_status--;
             }
             break;
-          
+
           case 1:
             if (pwm_step_status == 4) {
               pwm_step_status = 0;
@@ -316,7 +314,7 @@ page_status = 0; //start frame 0 (all off/on)
         }
 
         //populate 8 byte arrays to write on each pin
-        //first byte is register address, every 0x10 9 bytes are A-register pwm pins
+        //first byte is register address, every 0x10 9 bytes are A-matrix pwm pins
         __builtin_memset(pwm_register_array+1, pwm_levels[pwm_step_status], 8);
 
         for(i=0; i<8; i++) {
@@ -334,9 +332,9 @@ page_status = 0; //start frame 0 (all off/on)
 
 void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action) {
   //returns 2 bytes: led control register address and byte to write
-  //0 - bit off, 1 - bit on, 2 - toggle bit
+  //action: 0 - off, 1 - on, 2 - toggle, 4 - blink on, 5 - blink off, 6 - toggle blink
 
-  uint8_t control_reg_addr, column_bit, column_byte, bit_temp, blink_on;
+  uint8_t control_reg_addr, column_bit, column_byte, temp, blink_bit;
 
   //check for valid led address
   if (led_addr < 0 || led_addr > 87 || led_addr % 10 > 8) {
@@ -344,17 +342,17 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
   }
 
   //check for blink bit
-  blink_on = action>>2;
+  blink_bit = action>>2;
   action &= ~(1<<2); //strip blink bit
 
   //first byte is led control register address 0x00
-  //msg_led tens column is pin#, ones column is bit position in 8-bit mask
-  control_reg_addr = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-register is every other byte
-  control_reg_addr += blink_on == 1 ? 0x12 : 0x00;//shift 12 bytes to blink register
+  //led_addr tens column is pin#, ones column is bit position in 8-bit mask
+  control_reg_addr = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-matrix is every other byte
+  control_reg_addr += blink_bit == 1 ? 0x12 : 0x00;//if blink_bit, shift 12 bytes to blink register
 
-  is31_read_register(page, control_reg_addr, &bit_temp);//maintain status of leds on this byte
+  is31_read_register(page, control_reg_addr, &temp);//maintain status of leds on this byte
   column_bit = 1<<(led_addr % 10 - 1);
-  column_byte = bit_temp;
+  column_byte = temp;
 
   switch(action) {
     case 0:
@@ -376,7 +374,7 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
 void write_led_byte (uint8_t page, uint8_t row, uint8_t led_byte) {
   uint8_t led_control_word[2] = {0};//register address and on/off byte
 
-  led_control_word[0] = (row - 1 ) * 0x02;// A-register is every other byte
+  led_control_word[0] = (row - 1 ) * 0x02;// A-matrix is every other byte
   led_control_word[1] = led_byte;
   is31_write_data(page, led_control_word, 0x02);
 }
@@ -389,7 +387,7 @@ void write_led_page (uint8_t page, uint8_t *user_led_array, uint8_t led_count) {
   __builtin_memset(led_control_register,0,13);
 
   for(i=0;i<led_count;i++){
-    // 1 byte shift for led register 0x00 address
+    //shift pin by 1 for led register 0x00 address
     pin = ((user_led_array[i] / 10) % 10 - 1 ) * 2 + 1;
     col = user_led_array[i] % 10 - 1;
     led_control_register[pin] |= 1<<(col);
@@ -399,13 +397,13 @@ void write_led_page (uint8_t page, uint8_t *user_led_array, uint8_t led_count) {
 }
 
 void set_lock_leds(uint8_t led_addr, uint8_t led_action, uint8_t page) {
-  uint8_t lock_temp;
+  uint8_t temp;
   uint8_t led_control_word[2] = {0};
 
   //blink if all leds are on
   if (page == 0) {
-    is31_read_register(0, 0x00, &lock_temp);
-    if (lock_temp == 0xFF) {
+    is31_read_register(0, 0x00, &temp);
+    if (temp == 0xFF) {
       led_action |= (1<<2); //set blink bit
     }
   }
