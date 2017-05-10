@@ -12,7 +12,7 @@
 #define _TILDE 4
 
 //IS31 chip has 8 available led pages, using 0 for all leds and 7 for single toggles
-#define max_pages 6 
+#define max_pages 6
 
 enum ic60_keycodes {
   NUMPAD,
@@ -75,7 +75,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FNAV] = KEYMAP( \
         KC_GRV, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,KC_NO,\
         KC_CAPS,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_UP,KC_PGDN,KC_PSCR,_______,_______,KC_DEL,  \
-        _______,M(0),KC_BTN2,_______,_______,_______,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_INS,_______,_______,     \
+        _______,_______,KC_BTN2,_______,_______,_______,KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_INS,_______,_______,     \
         _______,KC_APP,KC_BTN1,KC_CALC,_______,_______,KC_END,_______,_______,_______,_______,_______,KC_NO,         \
         _______,_______,_______,               _______,         F(CTLALTDEL),KC_NLCK,_______,_______   \
     ),
@@ -119,7 +119,7 @@ enum macro_id {
     ACTION_LEDS_DIM,
     ACTION_LEDS_SINGLE,
     ACTION_LEDS_PAGE,
-    ACTION_LEDS_FLASH,
+    ACTION_LEDS_FLASH
 };
 
 /* ==================================
@@ -137,9 +137,8 @@ enum macro_id {
 */
 
 //======== full page arrays =========
-//LED Page 1 - _Numpad
 //any change in array size needs to be mirrored in matrix_init_user
-uint8_t led_numpad[16] = { 
+uint8_t led_numpad[16] = {
   18,21,22,23,
   37,38,41,42,
   55,56,57,58,
@@ -186,7 +185,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_ALL:
       if(record->event.pressed) {
         led_mode_global = led_mode_global == ALL ? MODE_SINGLE : ALL;
-        msg=(TOGGLE_ALL << 8) | 0;
+        msg=TOGGLE_ALL;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
@@ -194,7 +193,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case ACTION_LEDS_BACKLIGHT:
       if(record->event.pressed) {
         backlight_status_global ^= 1;
-        msg=(TOGGLE_BACKLIGHT << 8) | (backlight_status_global);
+        msg=(backlight_status_global << 8) | TOGGLE_BACKLIGHT;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
@@ -203,21 +202,21 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       if(record->event.pressed) {
         led_mode_global = led_mode_global == GAME ? MODE_SINGLE : GAME;
 
-        msg=(DISPLAY_PAGE << 8) | 4;
+        msg=(4 << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
 
     case ACTION_LEDS_BRIGHT:
       if(record->event.pressed) {
-        msg=(STEP_BRIGHTNESS << 8) | 1;
+        msg=(1 << 8) | STEP_BRIGHTNESS;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
 
     case ACTION_LEDS_DIM:
       if(record->event.pressed) {
-        msg=(STEP_BRIGHTNESS << 8) | 0;
+        msg=(0 << 8) | STEP_BRIGHTNESS;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
       }
       break;
@@ -282,26 +281,25 @@ void matrix_scan_user(void) {
     switch(led_mode_global) {
       case MODE_FLASH: //flash preset page leds then single indicator
         page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
-        msg=(DISPLAY_PAGE << 8) | (page);
+        msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         chThdSleepMilliseconds(500);
         //flow to display single layer leds
 
       case MODE_SINGLE: //light layer indicators for all active layers
         led_pin_byte = layer_state & 0xFF;
-        msg=(DISPLAY_PAGE << 8) | 7;
+        msg=(7 << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
-        msg=(1<<16) | (SET_FULL_ROW << 8) | (led_pin_byte);
+        msg=(1<<16) | (led_pin_byte << 8) | SET_FULL_ROW;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         break;
 
       case MODE_PAGE: //display pre-defined led page
         page = biton32(layer_state) > max_pages ? 7 : biton32(layer_state);
-        msg=(DISPLAY_PAGE << 8) | (page);
+        msg=(page << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         break;
       }
   led_layer_state = layer_state;
   }
 }
-
