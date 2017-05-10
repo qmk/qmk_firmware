@@ -16,26 +16,24 @@ digits mean "row" and "col", i.e. 45 means pin 4, column 5 in the IS31 datasheet
 ```
 *Unused in Alphabet Layout
 
-The IS31 includes 8 pages (or frames) 0-7 and each page consists of 0xB4 (144) bytes
-- **0 - 17** 
-    * LED control (on/off). 
-    * 18 pins which alternate between A and B matrices (CA1, CB1, CA2, CB2, ..). 
+The IS31 includes 8 pages (or frames) 0-7 and each page consists of 144 bytes
+- **bytes 0 - 17** - LED control (on/off).
+    * 18 pins which alternate between A and B matrices (CA1, CB1, CA2, CB2, ..).
     * Each byte controls the 8 leds on that pin with bits (8 to 1).
-- **18 - 35** 
-    * Blink control. 
+- **bytes 8 - 35** - Blink control.
     * Same as LED control above, but sets blink on/off.
-- **36 - 143** 
-    * PWM control. One byte per LED, sets PWM from 0 to 255. 
+- **bytes 36 - 143** - PWM control.
+    * One byte per LED, sets PWM from 0 to 255.
     * Same as above, the register alternates, every 8 *bytes* (not bits) between the A & B matrices.
 
 ## Led Controller Code
-In the Infinity60 project folder, led_controller.c sets up ability to write led layers at startup or control leds on demand as part of fn_actions. By default led_controller.c assumes page 0 will be used for full on/off and page 7 for controlling individual leds. The remaining 6 pages (1-6) are free to preset led maps at init or on demand. Communication with the IS31 is primarily done through the led_mailbox using chMBPost described further below under "Sending messages in Keymap.c"
+In the Infinity60 project folder, led_controller.c sets up ability to write led layers at startup or control leds on demand as part of fn_actions. By default led_controller.c assumes page 0 will be used for full on/off. The remaining 7 pages (1-7) are free for preset led maps or single led actions at init or on demand. Communication with the IS31 is primarily done through the led_mailbox using chMBPost described further below under "Sending messages in Keymap.c". This code is based on work matt3o and flabbergast did for tmk firmware on the [whitefox](https://github.com/tmk/whitefox).
 
 One function is available to directly set leds without the mailbox:
 ```
 write_led_page(page#, array of leds by address, # of leds in array)
 ```
-This function saves a full page using a supplied array of led locations such as:
+This function saves a full page to the controller using a supplied array of led locations such as:
 ```c
 uint8_t led_numpad[16] =  {
   18,21,22,23,
@@ -48,13 +46,9 @@ write_led_page(5, led_numpad, 16);
 
 Remaining led control is done through the led mailbox using these message types:
 - **SET_FULL_ROW** (3 bytes) - row#, message type, 8-bit mask. Sets all leds on one pin per the bit mask.
-- **OFF_LED** (2 bytes) - message type, led address. Turn off specific led.
-- **ON_LED** (2 bytes) - message type, led address. Turn on specific led.
-- **TOGGLE_LED** (2 bytes) - message type, led address. Toggle specific led on/off.
-- **BLINK_OFF_LED** (2 bytes) - message type, led address. Set blink off for specific led.
-- **BLINK_ON_LED** (2 bytes) - message type, led address. Set blink on for specific led.
-- **BLINK_TOGGLE_LED** (2 bytes) - message type, led address. Toggle blink for specific led.
-- **TOGGLE_ALL** (2 bytes) - message type, not used. Turn on/off full backlight.
+- **OFF_LED, ON_LED, TOGGLE_LED** (3 bytes) - message type, led address, and page#. Off/on/toggle specific led.
+- **BLINK_OFF_LED, BLINK_ON_LED, BLINK_OFF_LED** (3 bytes) - message type, led address, and page#. Set blink Off/on/toggle for specific led.
+- **TOGGLE_ALL** (1 byte) - Turn on/off full backlight.
 - **TOGGLE_BACKLIGHT** (2 bytes) - message type, on/off. Sets backlight completely off, no leds will display.
 - **DISPLAY_PAGE** (2 bytes) - message type, page to display. Switch to specific pre-set page.
 - **RESET_PAGE** (2 bytes) - message type, page to reset. Reset/erase specific page.
@@ -68,13 +62,13 @@ Sending an action to the led mailbox is done using chMBPost:
 chMBPost(&led_mailbox, message, timeout);
 ```
 - &led_mailbox - pointer to led mailbox
-- message - up to 4 bytes but most messages use only 2. First byte (LSB) is the message to process, the second byte is type. The third is only used to pass row information in SET_FULL_ROW. The fourth byte is currently unused.
--timeout is usually TIME_IMMEDIATE
+- message - up to 4 bytes but most messages use only 2. First byte (LSB) is the message type, the remaining three bytes are the message to process.
+- timeout is TIME_IMMEDIATE
 
 An example:
 ```c
 //set the message to be sent. First byte (LSB) is the led address, and second is the message type
-msg=(ON_LED << 8) | 42;
+msg=(42 << 8) | ON_LED
 
 //send msg to the led mailbox
 chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
@@ -82,12 +76,12 @@ chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
 
 Another:
 ```c
-msg=(BLINK_TOGGLE_LED << 8) | 46;
+msg=(46 << 8) | BLINK_TOGGLE_LED
 chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
 ```
 
 Finally, SET_FULL_ROW requires an extra byte with row information in the message so sending this message looks like:
 ```c
-msg=(row<<16) | (SET_FULL_ROW << 8) | (led_pin_byte);
+msg=(row<<16) | (led_pin_byte << 8) | SET_FULL_ROW;
 chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
 ```

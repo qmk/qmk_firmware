@@ -30,23 +30,23 @@ void led_set(uint8_t usb_led) {
 
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         chSysUnconditionalLock();
-        msg=(TOGGLE_NUM_LOCK << 8) | 1;
+        msg=(1 << 8) | TOGGLE_NUM_LOCK;
         chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     } else {
         chSysUnconditionalLock();
-        msg=(TOGGLE_NUM_LOCK << 8) | 0;
+        msg=(0 << 8) | TOGGLE_NUM_LOCK;
         chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     }
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         chSysUnconditionalLock();
-        msg=(TOGGLE_CAPS_LOCK << 8) | 1;
+        msg=(1 << 8) | TOGGLE_CAPS_LOCK;
         chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     } else {
         chSysUnconditionalLock();
-        msg=(TOGGLE_CAPS_LOCK << 8) | 0;
+        msg=(0 << 8) | TOGGLE_CAPS_LOCK;
         chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     }
