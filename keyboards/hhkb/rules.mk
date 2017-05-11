@@ -53,7 +53,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # as per original hasu settings
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   comment out to disable the options.
