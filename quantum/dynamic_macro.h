@@ -112,6 +112,7 @@ void dynamic_macro_play(
 /**
  * Record a single key in a dynamic macro.
  *
+ * @param keycode[in] Code of the key to record
  * @param macro_buffer[in] The start of the used macro buffer.
  * @param macro_pointer[in,out] The current buffer position.
  * @param macro2_end[in] The end of the other macro.
@@ -119,6 +120,7 @@ void dynamic_macro_play(
  * @param record[in]     The current keypress.
  */
 void dynamic_macro_record_key(
+    uint16_t keycode,
     keyrecord_t *macro_buffer,
     keyrecord_t **macro_pointer,
     keyrecord_t *macro2_end,
@@ -128,6 +130,12 @@ void dynamic_macro_record_key(
     /* If we've just started recording, ignore all the key releases. */
     if (!record->event.pressed && *macro_pointer == macro_buffer) {
         dprintln("dynamic macro: ignoring a leading key-up event");
+        return;
+    }
+
+    /* Prevent the creation of looping macros */
+    if (keycode == DYN_MACRO_PLAY1 || keycode == DYN_MACRO_PLAY2) {
+        dprintln("dynamic macro: ignoring macro play key while recording");
         return;
     }
 
@@ -278,10 +286,10 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
             /* Store the key in the macro buffer and process it normally. */
             switch (macro_id) {
             case 1:
-                dynamic_macro_record_key(macro_buffer, &macro_pointer, r_macro_end, +1, record);
+                dynamic_macro_record_key(keycode, macro_buffer, &macro_pointer, r_macro_end, +1, record);
                 break;
             case 2:
-                dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
+                dynamic_macro_record_key(keycode, r_macro_buffer, &macro_pointer, macro_end, -1, record);
                 break;
             }
             return true;
