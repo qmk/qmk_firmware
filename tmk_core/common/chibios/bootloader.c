@@ -16,6 +16,19 @@ void bootloader_jump(void) {
    NVIC_SystemReset();
 }
 
+#elif defined(STM32F3XX)
+/* This code should be checked whether it runs correctly on platforms. 
+ * It was added for clueboard60 BUT HAS NOT BEEN TESTED.
+ * FIXME - Test this
+ */
+#define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
+extern uint32_t __ram0_end__;
+
+void bootloader_jump(void) {
+  *((unsigned long *)(SYMVAL(__ram0_end__) - 4)) = 0xDEADBEEF; // set magic flag => reset handler will jump into boot loader
+   NVIC_SystemReset();
+}
+
 #else /* defined(STM32F0XX) */
 #error Check that the bootloader code works on your platform and add it to bootloader.c!
 #endif /* defined(STM32F0XX) */
