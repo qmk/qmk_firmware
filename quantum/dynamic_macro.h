@@ -48,10 +48,21 @@ enum dynamic_macro_keycodes {
 /* Blink the LEDs to notify the user about some event. */
 void dynamic_macro_led_blink(void)
 {
+#ifdef BACKLIGHT_ENABLE
     backlight_toggle();
     _delay_ms(100);
     backlight_toggle();
+#endif
 }
+
+/* Convenience macros used for retrieving the debug info. All of them
+ * need a `direction` variable accessible at the call site.
+ */
+#define DYNAMIC_MACRO_CURRENT_SLOT() (direction > 0 ? 1 : 2)
+#define DYNAMIC_MACRO_CURRENT_LENGTH(BEGIN, POINTER) \
+    ((int)(direction * ((POINTER) - (BEGIN))))
+#define DYNAMIC_MACRO_CURRENT_CAPACITY(BEGIN, END2) \
+    ((int)(direction * ((END2) - (BEGIN)) + 1))
 
 /**
  * Start recording of the dynamic macro.
@@ -62,6 +73,8 @@ void dynamic_macro_led_blink(void)
 void dynamic_macro_record_start(
     keyrecord_t **macro_pointer, keyrecord_t *macro_buffer)
 {
+    dprintln("dynamic macro recording: started");
+
     dynamic_macro_led_blink();
 
     clear_keyboard();
@@ -79,6 +92,8 @@ void dynamic_macro_record_start(
 void dynamic_macro_play(
     keyrecord_t *macro_buffer, keyrecord_t *macro_end, int8_t direction)
 {
+    dprintf("dynamic macro: slot %d playback\n", DYNAMIC_MACRO_CURRENT_SLOT());
+
     uint32_t saved_layer_state = layer_state;
 
     clear_keyboard();
@@ -99,7 +114,7 @@ void dynamic_macro_play(
  *
  * @param macro_buffer[in] The start of the used macro buffer.
  * @param macro_pointer[in,out] The current buffer position.
- * @param macro2_end[in] The last buffer element it is safe to use before overwriting the other macro.
+ * @param macro2_end[in] The end of the other macro.
  * @param direction[in]  Either +1 or -1, which way to iterate the buffer.
  * @param record[in]     The current keypress.
  */
@@ -112,24 +127,52 @@ void dynamic_macro_record_key(
 {
     /* If we've just started recording, ignore all the key releases. */
     if (!record->event.pressed && *macro_pointer == macro_buffer) {
+        dprintln("dynamic macro: ignoring a leading key-up event");
         return;
     }
 
+    /* The other end of the other macro is the last buffer element it
+     * is safe to use before overwriting the other macro.
+     */
     if (*macro_pointer - direction != macro2_end) {
         **macro_pointer = *record;
         *macro_pointer += direction;
     } else {
         dynamic_macro_led_blink();
     }
+
+    dprintf(
+        "dynamic macro: slot %d length: %d/%d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, *macro_pointer),
+        DYNAMIC_MACRO_CURRENT_CAPACITY(macro_buffer, macro2_end));
 }
 
 /**
  * End recording of the dynamic macro. Essentially just update the
  * pointer to the end of the macro.
  */
-void dynamic_macro_record_end(keyrecord_t *macro_pointer, keyrecord_t **macro_end)
+void dynamic_macro_record_end(
+    keyrecord_t *macro_buffer,
+    keyrecord_t *macro_pointer,
+    int8_t direction,
+    keyrecord_t **macro_end)
 {
     dynamic_macro_led_blink();
+
+    /* Do not save the keys being held when stopping the recording,
+     * i.e. the keys used to access the layer DYN_REC_STOP is on.
+     */
+    while (macro_pointer != macro_buffer &&
+           (macro_pointer - direction)->event.pressed) {
+        dprintln("dynamic macro: trimming a trailing key-down event");
+        macro_pointer -= direction;
+    }
+
+    dprintf(
+        "dynamic macro: slot %d saved, length: %d\n",
+        DYNAMIC_MACRO_CURRENT_SLOT(),
+        DYNAMIC_MACRO_CURRENT_LENGTH(macro_buffer, macro_pointer));
 
     *macro_end = macro_pointer;
 }
@@ -158,7 +201,7 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
      * &macro_buffer   macro_end
      *  v                   v
      * +------------------------------------------------------------+
-     * |>>>>>> MACRO1 >>>>>>|    |<<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
+     * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
      * +------------------------------------------------------------+
      *                           ^                                 ^
      *                         r_macro_end                  r_macro_buffer
@@ -222,10 +265,10 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
                                           * starts. */
                 switch (macro_id) {
                 case 1:
-                    dynamic_macro_record_end(macro_pointer, &macro_end);
+                    dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
                     break;
                 case 2:
-                    dynamic_macro_record_end(macro_pointer, &r_macro_end);
+                    dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
                     break;
                 }
                 macro_id = 0;
@@ -248,5 +291,9 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
 
     return true;
 }
+
+#undef DYNAMIC_MACRO_CURRENT_SLOT
+#undef DYNAMIC_MACRO_CURRENT_LENGTH
+#undef DYNAMIC_MACRO_CURRENT_CAPACITY
 
 #endif
