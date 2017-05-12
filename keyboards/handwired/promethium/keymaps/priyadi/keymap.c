@@ -955,7 +955,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 #ifdef RGBSPS_ENABLE
@@ -1134,14 +1134,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
@@ -1149,7 +1149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
@@ -1157,7 +1157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_WORKMAN);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
@@ -1165,7 +1165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_NORMAN);
+        persistent_default_layer_set(1UL<<_NORMAN);
       }
       return false;
       break;
