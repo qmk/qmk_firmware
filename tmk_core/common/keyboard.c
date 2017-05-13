@@ -63,39 +63,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef MATRIX_HAS_GHOST
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-// bit map of true keys and empty spots in matrix, each row is reversed
-static uint16_t get_row_ghost_check(uint16_t row){
-    for (int col = 0; col < MATRIX_COLS; col++) {
-        if (keymaps[0][row][col])
-            row &= 1<<col;
-        else
-            row &= 0<<col;
-    }
-    return row;
-}
-static bool has_ghost_in_row(uint8_t row)
+static uint16_t matrix_ghost_check[MATRIX_ROWS];
+
+static inline bool countones(uint16_t data)
 {
-    matrix_row_t matrix_row = (get_row_ghost_check(matrix_get_row(row)));
+    int count = 0;
+    for (int col = 0; col < MATRIX_COLS; col++) {
+        if (data & (1<<col))
+            count++;
+    }
+    if (count > 1){
+        return true;
+    }
+    return false;
+}
+static inline bool has_ghost_in_row(uint8_t row, uint16_t rowdata)
+{
+    rowdata &= matrix_ghost_check[row];
+    if (((rowdata - 1) & rowdata) == 0){
+        return false;
+    }
     /* No ghost exists when less than 2 keys are down on the row.
     If there are "active" blanks in the matrix, the key can't be pressed by the user,
     there is no doubt as to which keys are really being pressed.
     The ghosts will be ignored, they are KC_NO.   */
-    if (((matrix_row - 1) & matrix_row) == 0){
-        return false;
-    }
     // Ghost occurs when the row shares column line with other row, blanks in the matrix don't matter
-    // If there are two or more real keys pressed and they match another row's real keys, the row will be ignored.
+    // If there are more than two real keys pressed and they match another row's real keys, the row will be ignored.
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && __builtin_popcount(
-        get_row_ghost_check(matrix_get_row(i)) & matrix_row
-        ) > 1){
+        if (i != row && countones((matrix_get_row(i) & matrix_ghost_check[i]) & rowdata)){
             return true;
         }
     }
     return false;
 }
+
+extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+// bit map of true keys and empty spots in matrix, each row is reversed
+static inline void make_ghost_check_array(void){
+    for (int row = 0; row < MATRIX_ROWS; row++) {
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            if (pgm_read_byte(&keymaps[0][row][col]) != 0)
+                matrix_ghost_check[row] |= 1<<col;
+        }
+    }
+}
+
 #endif
+
 
 __attribute__ ((weak))
 void matrix_setup(void) {
@@ -134,6 +148,9 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
+#ifdef MATRIX_HAS_GHOST
+    make_ghost_check_array();
+#endif
 }
 
 /*
@@ -156,7 +173,7 @@ void keyboard_task(void)
         matrix_change = matrix_row ^ matrix_prev[r];
         if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-            if (has_ghost_in_row(r)) {
+            if (has_ghost_in_row(r, matrix_row)) {
                 /* Keep track of whether ghosted status has changed for
                  * debugging. But don't update matrix_prev until un-ghosted, or
                  * the last key would be lost.
