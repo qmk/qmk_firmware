@@ -1,3 +1,5 @@
 {
-    "structure.readme": "Home"
+    "structure": {
+        "readme": "Home.md"
+    }
 }
