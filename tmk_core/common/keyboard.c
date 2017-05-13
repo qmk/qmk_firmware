@@ -62,12 +62,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-
 #ifdef MATRIX_HAS_GHOST
-static uint16_t matrix_ghost_check[MATRIX_ROWS];
+extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+// bit map of true keys and empty spots in matrix, each row is reversed
+static uint16_t get_row_ghost_check(uint16_t row){
+    for (int col = 0; col < MATRIX_COLS; col++) {
+        if (keymaps[0][row][col])
+            row &= 1<<col;
+        else
+            row &= 0<<col;
+    }
+    return row;
+}
 static bool has_ghost_in_row(uint8_t row)
 {
-    matrix_row_t matrix_row = (matrix_get_row(row) & matrix_ghost_check[row]);
+    matrix_row_t matrix_row = (get_row_ghost_check(matrix_get_row(row)));
     /* No ghost exists when less than 2 keys are down on the row.
     If there are "active" blanks in the matrix, the key can't be pressed by the user,
     there is no doubt as to which keys are really being pressed.
@@ -76,29 +85,16 @@ static bool has_ghost_in_row(uint8_t row)
         return false;
     }
     // Ghost occurs when the row shares column line with other row, blanks in the matrix don't matter
-    // If there are more than two real keys pressed and they match another row's real keys, the row will be ignored.
+    // If there are two or more real keys pressed and they match another row's real keys, the row will be ignored.
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && __builtin_popcount((matrix_get_row(i) & matrix_ghost_check[i]) & matrix_row) > 1){
+        if (i != row && __builtin_popcount(
+        get_row_ghost_check(matrix_get_row(i)) & matrix_row
+        ) > 1){
             return true;
         }
     }
     return false;
-    return false;
 }
-
-extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-// bit map of true keys and empty spots in matrix, each row is reversed
-void make_ghost_check_array(){
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            if (keymaps[0][row][col] & 0xFF)
-                matrix_ghost_check[row] |= 1<<col;
-            else
-                matrix_ghost_check[row] |= 0<<col;
-        }
-    }
-}
-
 #endif
 
 __attribute__ ((weak))
@@ -137,9 +133,6 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
-#endif
-#ifdef MATRIX_HAS_GHOST
-    make_ghost_check_array();
 #endif
 }
 
