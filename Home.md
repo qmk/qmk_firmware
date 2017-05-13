@@ -1,17 +1,17 @@
 # Quantum Mechanical Keyboard Firmware
 
-You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk_keyboard firmware](http://github.com/tmk/tmk_keyboard) ([view differences](Differences-from-TMK)) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
+You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) \([view differences](Differences-from-TMK)\) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
 
 # Getting started
 
-Before you are able to compile, you'll need to install an environment for AVR development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
+Before you are able to compile, you'll need to install an environment for AVR or ARM development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
 
 * [Build Environment Setup](Build-Environment-Setup)
 * [QMK Overview](QMK-Overview)
 
 # Configuring QMK Firmware
 
-The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](Keycodes), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](Key-Functions) page. 
+The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](Keycodes), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](Key-Functions) page.
 
 For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
 
@@ -29,22 +29,24 @@ Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a co
 
 ## Temporarily setting the default layer
 
-`DF(layer)` - sets default layer to *layer*. The default layer is the one at the "bottom" of the layer stack - the ultimate fallback layer. This currently does not persist over power loss. When you plug the keyboard back in, layer 0 will always be the default. It is theoretically possible to work around that, but that's not what `DF` does.
+`DF(layer)` - sets default layer to _layer_. The default layer is the one at the "bottom" of the layer stack - the ultimate fallback layer. This currently does not persist over power loss. When you plug the keyboard back in, layer 0 will always be the default. It is theoretically possible to work around that, but that's not what `DF` does.
 
 ## Macro shortcuts: Send a whole string when pressing just one key
 
 How would you like a single keypress to send a whole word, sentence, paragraph, or even document? Head on over to the [Macros](Macros) page to read up on all aspects of Simple and Dynamic Macros.
 
-## Additional keycode aliases for software-implemented layouts (Colemak, Dvorak, etc)
+## Additional keycode aliases for software-implemented layouts \(Colemak, Dvorak, etc\)
 
-Everything is assuming you're in Qwerty (in software) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
+Everything is assuming you're in Qwerty \(in software\) by default, but there is built-in support for using a Colemak or Dvorak layout by including this at the top of your keymap:
 
-    #include <keymap_colemak.h>
+```
+#include <keymap_colemak.h>
+```
 
 If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this line. After including this line, you will get access to:
 
- * `CM_*` for all of the Colemak-equivalent characters
- * `DV_*` for all of the Dvorak-equivalent characters
+* `CM_*` for all of the Colemak-equivalent characters
+* `DV_*` for all of the Dvorak-equivalent characters
 
 These implementations assume you're using Colemak or Dvorak on your OS, not on your keyboard - this is referred to as a software-implemented layout. If your computer is in Qwerty and your keymap is in Colemak or Dvorak, this is referred to as a firmware-implemented layout, and you won't need these features.
 
@@ -54,69 +56,75 @@ To give an example, if you're using software-implemented Colemak, and want to ge
 
 In order to enable backlight breathing, the following line must be added to your config.h file.
 
-    #define BACKLIGHT_BREATHING
+```
+#define BACKLIGHT_BREATHING
+```
 
 The following function calls are used to control the breathing effect.
 
-* ```breathing_enable()``` - Enable the free-running breathing effect.
-* ```breathing_disable()``` - Disable the free-running breathing effect immediately.
-* ```breathing_self_disable()``` - Disable the free-running breathing effect after the current effect ends.
-* ```breathing_toggle()``` - Toggle the free-running breathing effect.
-* ```breathing_defaults()``` - Reset the speed and brightness settings of the breathing effect.
+* `breathing_enable()` - Enable the free-running breathing effect.
+* `breathing_disable()` - Disable the free-running breathing effect immediately.
+* `breathing_self_disable()` - Disable the free-running breathing effect after the current effect ends.
+* `breathing_toggle()` - Toggle the free-running breathing effect.
+* `breathing_defaults()` - Reset the speed and brightness settings of the breathing effect.
 
 The following function calls are used to control the maximum brightness of the breathing effect.
 
-* ```breathing_intensity_set(value)``` - Set the brightness of the breathing effect when it is at its max value.
-* ```breathing_intensity_default()``` - Reset the brightness of the breathing effect to the default value based on the current backlight intensity.
+* `breathing_intensity_set(value)` - Set the brightness of the breathing effect when it is at its max value.
+* `breathing_intensity_default()` - Reset the brightness of the breathing effect to the default value based on the current backlight intensity.
 
 The following function calls are used to control the cycling speed of the breathing effect.
 
-* ```breathing_speed_set(value)``` - Set the speed of the breathing effect - how fast it cycles.
-* ```breathing_speed_inc(value)``` - Increase the speed of the breathing effect by a fixed value.
-* ```breathing_speed_dec(value)``` - Decrease the speed of the breathing effect by a fixed value.
-* ```breathing_speed_default()``` - Reset the speed of the breathing effect to the default value.
+* `breathing_speed_set(value)` - Set the speed of the breathing effect - how fast it cycles.
+* `breathing_speed_inc(value)` - Increase the speed of the breathing effect by a fixed value.
+* `breathing_speed_dec(value)` - Decrease the speed of the breathing effect by a fixed value.
+* `breathing_speed_default()` - Reset the speed of the breathing effect to the default value.
 
 The following example shows how to enable the backlight breathing effect when the FUNCTION layer macro button is pressed:
 
-    case MACRO_FUNCTION:
-        if (record->event.pressed)
-        {
-            breathing_speed_set(3);
-            breathing_enable();
-            layer_on(LAYER_FUNCTION);
-        }
-        else
-        {
-            breathing_speed_set(1);
-            breathing_self_disable();
-            layer_off(LAYER_FUNCTION);
-        }
-        break;
+```
+case MACRO_FUNCTION:
+    if (record->event.pressed)
+    {
+        breathing_speed_set(3);
+        breathing_enable();
+        layer_on(LAYER_FUNCTION);
+    }
+    else
+    {
+        breathing_speed_set(1);
+        breathing_self_disable();
+        layer_off(LAYER_FUNCTION);
+    }
+    break;
+```
 
 The following example shows how to pulse the backlight on-off-on when the RAISED layer macro button is pressed:
 
-    case MACRO_RAISED:
-      if (record->event.pressed)
-      {
-        layer_on(LAYER_RAISED);
-        breathing_speed_set(2);
-        breathing_pulse();
-        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
-      }
-      else
-      {
-        layer_off(LAYER_RAISED);
-        update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
-      }
-      break;
+```
+case MACRO_RAISED:
+  if (record->event.pressed)
+  {
+    layer_on(LAYER_RAISED);
+    breathing_speed_set(2);
+    breathing_pulse();
+    update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+  }
+  else
+  {
+    layer_off(LAYER_RAISED);
+    update_tri_layer(LAYER_LOWER, LAYER_RAISED, LAYER_ADJUST);
+  }
+  break;
+```
 
 ## Other firmware shortcut keycodes
 
-* `RESET` - puts the MCU in DFU mode for flashing new firmware (with `make dfu`)
-* `DEBUG` - the firmware into debug mode - you'll need hid_listen to see things
+* `RESET` - puts the MCU in DFU mode for flashing new firmware \(with `make dfu`\)
+* `DEBUG` - the firmware into debug mode - you'll need hid\_listen to see things
 * `BL_ON` - turns the backlight on
 * `BL_OFF` - turns the backlight off
-* `BL_<n>` - sets the backlight to level *n*
+* `BL_<n>` - sets the backlight to level _n_
 * `BL_INC` - increments the backlight level by one
 * `BL_DEC` - decrements the backlight level by one
 * `BL_TOGG` - toggles the backlight
@@ -161,7 +169,7 @@ The conditional `if (record->event.pressed)` can tell if the key is being presse
 
 ## `void led_set_*(uint8_t usb_led)`
 
-This gets called whenever there is a state change on your host LEDs (eg caps lock, scroll lock, etc). The LEDs are defined as:
+This gets called whenever there is a state change on your host LEDs \(eg caps lock, scroll lock, etc\). The LEDs are defined as:
 
 ```
 #define USB_LED_NUM_LOCK                0
@@ -172,3 +180,4 @@ This gets called whenever there is a state change on your host LEDs (eg caps loc
 ```
 
 and can be tested against the `usb_led` with a conditional like `if (usb_led & (1<<USB_LED_CAPS_LOCK))` - if this is true, you can turn your LED on, otherwise turn it off.
+
