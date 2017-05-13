@@ -64,20 +64,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef MATRIX_HAS_GHOST
+static uint16_t matrix_ghost_check[MATRIX_ROWS];
 static bool has_ghost_in_row(uint8_t row)
 {
-    matrix_row_t matrix_row = matrix_get_row(row);
-    // No ghost exists when less than 2 keys are down on the row
-    if (((matrix_row - 1) & matrix_row) == 0)
+    matrix_row_t matrix_row = (matrix_get_row(row) & matrix_ghost_check[row]);
+    /* No ghost exists when less than 2 keys are down on the row.
+    If there are "active" blanks in the matrix, the key can't be pressed by the user,
+    there is no doubt as to which keys are really being pressed.
+    The ghosts will be ignored, they are KC_NO.   */
+    if (((matrix_row - 1) & matrix_row) == 0){
         return false;
-
-    // Ghost occurs when the row shares column line with other row
+    }
+    // Ghost occurs when the row shares column line with other row, blanks in the matrix don't matter
+    // If there are more than two real keys pressed and they match another row's real keys, the row will be ignored.
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && (matrix_get_row(i) & matrix_row))
+        if (i != row && __builtin_popcount((matrix_get_row(i) & matrix_ghost_check[i]) & matrix_row) > 1){
             return true;
+        }
     }
     return false;
+    return false;
 }
+
+extern const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+// bit map of true keys and empty spots in matrix, each row is reversed
+void make_ghost_check_array(){
+    for (int row = 0; row < MATRIX_ROWS; row++) {
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            if (keymaps[0][row][col] & 0xFF)
+                matrix_ghost_check[row] |= 1<<col;
+            else
+                matrix_ghost_check[row] |= 0<<col;
+        }
+    }
+}
+
 #endif
 
 __attribute__ ((weak))
@@ -116,6 +137,9 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
+#endif
+#ifdef MATRIX_HAS_GHOST
+    make_ghost_check_array();
 #endif
 }
 
