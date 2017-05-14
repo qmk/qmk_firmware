@@ -161,7 +161,7 @@ void keyboard_task(void)
 {
     static matrix_row_t matrix_prev[MATRIX_ROWS];
 #ifdef MATRIX_HAS_GHOST
-    static matrix_row_t matrix_ghost[MATRIX_ROWS];
+  //  static matrix_row_t matrix_ghost[MATRIX_ROWS];
 #endif
     static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
@@ -178,13 +178,13 @@ void keyboard_task(void)
                  * debugging. But don't update matrix_prev until un-ghosted, or
                  * the last key would be lost.
                  */
-                if (debug_matrix && matrix_ghost[r] != matrix_row) {
-                    matrix_print();
-                }
-                matrix_ghost[r] = matrix_row;
+                //if (debug_matrix && matrix_ghost[r] != matrix_row) {
+                //    matrix_print();
+                //}
+                //matrix_ghost[r] = matrix_row;
                 continue;
             }
-            matrix_ghost[r] = matrix_row;
+            //matrix_ghost[r] = matrix_row;
 #endif
             if (debug_matrix) matrix_print();
             for (uint8_t c = 0; c < MATRIX_COLS; c++) {
