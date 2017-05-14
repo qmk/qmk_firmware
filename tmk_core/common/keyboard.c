@@ -63,14 +63,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef MATRIX_HAS_GHOST
-static matrix_row_t matrix_ghost_check[MATRIX_ROWS];
+extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
+    matrix_row_t out = 0;
+    for (int col = 0; col < MATRIX_COLS; col++) {
+        if (pgm_read_byte(&keymaps[0][row][col]) && ((rowdata & (1<<col)))){
+            out |= 1<<col;
+        }
+    }
+    return out;
+}
+
 
 static inline bool countones(matrix_row_t data)
 {
     int count = 0;
     for (int col = 0; col < MATRIX_COLS; col++) {
-        if (data & (1<<col))
+        if (data & (1<<col)){
             count++;
+        }
     }
     if (count > 1){
         return true;
@@ -79,7 +90,7 @@ static inline bool countones(matrix_row_t data)
 }
 static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 {
-    rowdata &= matrix_ghost_check[row];
+    rowdata = get_real_keys(row, rowdata);
     if (((rowdata - 1) & rowdata) == 0){
         return false;
     }
@@ -90,22 +101,11 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
     // Ghost occurs when the row shares column line with other row, blanks in the matrix don't matter
     // If there are more than two real keys pressed and they match another row's real keys, the row will be ignored.
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && countones((matrix_get_row(i) & matrix_ghost_check[i]) & rowdata)){
+        if (i != row && countones(get_real_keys(i, matrix_get_row(i)) & rowdata)){
             return true;
         }
     }
     return false;
-}
-
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-// bit map of true keys and empty spots in matrix, each row is reversed
-static inline void make_ghost_check_array(void){
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            if (pgm_read_byte(&keymaps[0][row][col]) != 0)
-                matrix_ghost_check[row] |= 1<<col;
-        }
-    }
 }
 
 #endif
@@ -147,9 +147,6 @@ void keyboard_init(void) {
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
-#endif
-#ifdef MATRIX_HAS_GHOST
-    make_ghost_check_array();
 #endif
 }
 
