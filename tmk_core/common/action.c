@@ -140,7 +140,6 @@ void process_record(keyrecord_t *record)
 
 void process_action(keyrecord_t *record, action_t action)
 {
-    bool do_release_oneshot = false;
     keyevent_t event = record->event;
 #ifndef NO_ACTION_TAPPING
     uint8_t tap_count = record->tap.count;
@@ -152,6 +151,7 @@ void process_action(keyrecord_t *record, action_t action)
     }
 
 #ifndef NO_ACTION_ONESHOT
+    bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
     if (is_oneshot_layer_active() && event.pressed && !IS_MOD(action.key.code)) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
@@ -536,6 +536,21 @@ void process_action(keyrecord_t *record, action_t action)
         default:
             break;
     }
+
+#ifndef NO_ACTION_LAYER
+    // if this event is a layer action, update the leds
+    switch (action.kind.id) {
+        case ACT_LAYER:
+        #ifndef NO_ACTION_TAPPING
+        case ACT_LAYER_TAP:
+        case ACT_LAYER_TAP_EXT:
+        #endif
+            led_set(host_keyboard_leds());
+            break;
+        default:
+            break;
+    }
+#endif
 
 #ifndef NO_ACTION_ONESHOT
     /* Because we switch layers after a oneshot event, we need to release the

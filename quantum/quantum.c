@@ -1,3 +1,19 @@
+/* Copyright 2016-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "quantum.h"
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
@@ -98,8 +114,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#ifdef AUDIO_ENABLE
-  stop_all_notes();
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
+  music_all_notes_off();
   shutdown_user();
 #endif
   wait_ms(250);
@@ -119,7 +135,7 @@ void reset_keyboard(void) {
 #endif
 
 static bool shift_interrupted[2] = {0, 0};
-static uint16_t scs_timer = 0;
+static uint16_t scs_timer[2] = {0, 0};
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -153,10 +169,13 @@ bool process_record_quantum(keyrecord_t *record) {
 
   if (!(
     process_record_kb(keycode, record) &&
-  #ifdef MIDI_ENABLE
+  #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
   #ifdef AUDIO_ENABLE
+    process_audio(keycode, record) &&
+  #endif
+  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -294,14 +313,6 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       break;
     #endif
-    #ifdef ADAFRUIT_BLE_ENABLE
-    case OUT_BLE:
-      if (record->event.pressed) {
-        set_output(OUTPUT_ADAFRUIT_BLE);
-      }
-      return false;
-      break;
-    #endif
     #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
@@ -384,7 +395,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
-        scs_timer = timer_read ();
+        scs_timer[0] = timer_read ();
         register_mods(MOD_BIT(KC_LSFT));
       }
       else {
@@ -394,7 +405,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[0] && timer_elapsed(scs_timer) < TAPPING_TERM) {
+        if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
         }
@@ -407,7 +418,7 @@ bool process_record_quantum(keyrecord_t *record) {
     case KC_RSPC: {
       if (record->event.pressed) {
         shift_interrupted[1] = false;
-        scs_timer = timer_read ();
+        scs_timer[1] = timer_read ();
         register_mods(MOD_BIT(KC_RSFT));
       }
       else {
@@ -417,7 +428,7 @@ bool process_record_quantum(keyrecord_t *record) {
             shift_interrupted[1] = true;
           }
         #endif
-        if (!shift_interrupted[1] && timer_elapsed(scs_timer) < TAPPING_TERM) {
+        if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
         }
