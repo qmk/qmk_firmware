@@ -74,20 +74,19 @@ static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
     return out;
 }
 
-
-static inline bool countones(matrix_row_t data)
+static inline bool countones(matrix_row_t row)
 {
     int count = 0;
-    for (int col = 0; col < MATRIX_COLS; col++) {
-        if (data & (1<<col)){
-            count++;
-        }
+    while (row > 0){
+        count += 1;
+        row &= row-1;
     }
     if (count > 1){
         return true;
     }
     return false;
 }
+
 static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 {
     rowdata = get_real_keys(row, rowdata);
