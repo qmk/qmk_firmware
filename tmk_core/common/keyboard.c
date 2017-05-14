@@ -63,9 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef MATRIX_HAS_GHOST
-static uint16_t matrix_ghost_check[MATRIX_ROWS];
+static matrix_row_t matrix_ghost_check[MATRIX_ROWS];
 
-static inline bool countones(uint16_t data)
+static inline bool countones(matrix_row_t data)
 {
     int count = 0;
     for (int col = 0; col < MATRIX_COLS; col++) {
@@ -77,7 +77,7 @@ static inline bool countones(uint16_t data)
     }
     return false;
 }
-static inline bool has_ghost_in_row(uint8_t row, uint16_t rowdata)
+static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 {
     rowdata &= matrix_ghost_check[row];
     if (((rowdata - 1) & rowdata) == 0){
