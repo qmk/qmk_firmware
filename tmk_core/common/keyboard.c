@@ -61,39 +61,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   include "visualizer/visualizer.h"
 #endif
 
-
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
     matrix_row_t out = 0;
-    for (int col = 0; col < MATRIX_COLS; col++) {
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+        //read each key in the row data and check if the keymap defines it as a real key
         if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1<<col))){
+            //this creates new row data, if a key is defined in the keymap, it will be set here
             out |= 1<<col;
         }
     }
     return out;
 }
 
-static inline bool countones(matrix_row_t row)
+static inline bool popcount_more_than_one(matrix_row_t rowdata)
 {
-    row &= row-1;
-    return row;
+    rowdata &= rowdata-1; //if there are less than two bits (keys) set, rowdata will become zero
+    return rowdata;
 }
 
 static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 {
-    rowdata = get_real_keys(row, rowdata);
-    if ((countones(rowdata)) == 0){
-        return false;
-    }
     /* No ghost exists when less than 2 keys are down on the row.
     If there are "active" blanks in the matrix, the key can't be pressed by the user,
     there is no doubt as to which keys are really being pressed.
     The ghosts will be ignored, they are KC_NO.   */
-    // Ghost occurs when the row shares column line with other row, blanks in the matrix don't matter
-    // If there are more than two real keys pressed and they match another row's real keys, the row will be ignored.
+    rowdata = get_real_keys(row, rowdata);
+    if ((popcount_more_than_one(rowdata)) == 0){
+        return false;
+    }
+    /* Ghost occurs when the row shares a column line with other row,
+    and two columns are read on each row. Blanks in the matrix don't matter,
+    so they are filtered out.
+    If there are two or more real keys pressed and they match columns with
+    at least two of another row's real keys, the row will be ignored. Keep in mind,
+    we are checking one row at a time, not all of them at once.
+    */
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        if (i != row && countones(get_real_keys(i, matrix_get_row(i)) & rowdata)){
+        if (i != row && popcount_more_than_one(get_real_keys(i, matrix_get_row(i)) & rowdata)){
             return true;
         }
     }
@@ -101,7 +107,6 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 }
 
 #endif
-
 
 __attribute__ ((weak))
 void matrix_setup(void) {
