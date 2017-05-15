@@ -48,6 +48,7 @@ uint8_t mk_max_speed = MOUSEKEY_MAX_SPEED;
 uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 /* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
 //int8_t mk_curve = 0;
+uint8_t mk_move_delta = MOUSEKEY_MOVE_DELTA;
 /* wheel params */
 uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
@@ -60,17 +61,27 @@ static uint8_t move_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/4;
+        unit = (mk_move_delta * mk_max_speed)*2;
     } else if (mousekey_accel & (1<<1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
+        if (mk_move_delta < 10) mk_move_delta++;
+        unit = (mk_move_delta * mk_max_speed);
     } else if (mousekey_accel & (1<<2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+        if (mk_move_delta > 1) mk_move_delta--;
+        unit = (mk_move_delta * mk_max_speed);
+    // } else if (mousekey_accel & (1<<3)) {
+    //     unit = (mk_move_delta * mk_max_speed)*2;
+    // } else if (mousekey_accel & (1<<4)) {
+    //     mk_move_delta++;
+    //     unit = (mk_move_delta * mk_max_speed);
+    // } else if (mousekey_accel & (1<<5)) {
+    //     mk_move_delta--;
+    //     unit = (mk_move_delta * mk_max_speed);
     } else if (mousekey_repeat == 0) {
-        unit = MOUSEKEY_MOVE_DELTA;
+        unit = mk_move_delta;
     } else if (mousekey_repeat >= mk_time_to_max) {
-        unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+        unit = mk_move_delta * mk_max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (mk_move_delta * mk_max_speed * mousekey_repeat) / mk_time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
@@ -137,12 +148,12 @@ void mousekey_on(uint8_t code)
     else if (code == KC_MS_WH_RIGHT) mouse_report.h = wheel_unit();
     else if (code == KC_MS_BTN1)     mouse_report.buttons |= MOUSE_BTN1;
     else if (code == KC_MS_BTN2)     mouse_report.buttons |= MOUSE_BTN2;
-    else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
-    else if (code == KC_MS_BTN4)     mouse_report.buttons |= MOUSE_BTN4;
-    else if (code == KC_MS_BTN5)     mouse_report.buttons |= MOUSE_BTN5;
-    else if (code == KC_MS_ACCEL0)   mousekey_accel |= (1<<0);
-    else if (code == KC_MS_ACCEL1)   mousekey_accel |= (1<<1);
-    else if (code == KC_MS_ACCEL2)   mousekey_accel |= (1<<2);
+    else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<0);
+    else if (code == KC_MS_UPSPED)   mousekey_accel |= (1<<1);
+      else if (code == KC_MS_DNSPED)   mousekey_accel |= (1<<2);
+    // else if (code == KC_MS_ACCEL3)   mousekey_accel |= (1<<3);
+    // else if (code == KC_MS_UPSPED)   mousekey_accel |= (1<<4);
+    // else if (code == KC_MS_DNSPED)   mousekey_accel |= (1<<5);
 }
 
 void mousekey_off(uint8_t code)
@@ -157,12 +168,12 @@ void mousekey_off(uint8_t code)
     else if (code == KC_MS_WH_RIGHT && mouse_report.h > 0) mouse_report.h = 0;
     else if (code == KC_MS_BTN1) mouse_report.buttons &= ~MOUSE_BTN1;
     else if (code == KC_MS_BTN2) mouse_report.buttons &= ~MOUSE_BTN2;
-    else if (code == KC_MS_BTN3) mouse_report.buttons &= ~MOUSE_BTN3;
-    else if (code == KC_MS_BTN4) mouse_report.buttons &= ~MOUSE_BTN4;
-    else if (code == KC_MS_BTN5) mouse_report.buttons &= ~MOUSE_BTN5;
-    else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
-    else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
-    else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
+    // else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
+    // else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
+    // else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
+    else if (code == KC_MS_ACCEL3) mousekey_accel &= ~(1<<0);
+    else if (code == KC_MS_UPSPED) mousekey_accel &= ~(1<<1);
+    else if (code == KC_MS_DNSPED) mousekey_accel &= ~(1<<2);
 
     if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
         mousekey_repeat = 0;
