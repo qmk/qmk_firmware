@@ -1,0 +1,14 @@
+#!/bin/bash
+set -x
+BUILD_DIR=.
+TARGET=lets_split_rev2_adam.hex
+MCU=atmega32u4
+ls /dev/tty* > /tmp/1;
+echo "Reset your Pro Micro now";
+while [[ -z $USB ]]; do
+  echo "."
+  sleep 1;
+  ls /dev/tty* > /tmp/2;
+  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`;
+done;
+avrdude -p $MCU -c avr109 -P $USB -U flash:w:$BUILD_DIR/$TARGET
