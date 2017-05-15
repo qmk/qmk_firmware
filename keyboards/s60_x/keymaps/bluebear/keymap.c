@@ -11,6 +11,13 @@ enum keyboard_layers {
 
 // Midi Chord Keycodes
 
+bool midi_chord(uint8_t mode, uint16_t root);
+
+enum midi_chord_modes {
+  major = 0,
+  minor,
+};
+
 enum midi_chord_keycodes {
 
   //Major Chords
@@ -152,3 +159,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				  ),
 
 };
+
+// Midi Chord Function
+
+bool midi_chord(uint8_t mode, uint16_t root) {
+  switch (mode) {
+  case 0:
+	uint8_t channel = midi_config.channel;
+	uint8_t tone = root - MIDI_TONE_MIN;
+	uint8_t velocity = compute_velocity(midi_config.velocity);
+	if (record->event.pressed) {
+	  uint8_t root_note = midi_compute_note(root);
+	  uint8_t major_third = midi_compute_note(root) + 4;
+	  uint8_t fifth = midi_compute_note(root) + 7;
+	  midi_send_noteon(&midi_device, channel, root_note, velocity);
+	  midi_send_noteon(&midi_device, channel, major_third, velocity);
+	  midi_send_noteon(&midi_device, channel, fifth, velocity);
+	  tone_status[tone] = root_note;
+	}
+	else {
+	  uint8_t root_note = tone_status[tone];
+	  uint8_t major_third = root_note + 4;
+	  uint8_t fifth = root_note + 7;
+	  if (root_note != MIDI_INVALID_NOTE)
+		{
+		  midi_send_noteoff(&midi_device, channel, root_note, velocity);
+		  midi_send_noteoff(&midi_device, channel, major_third, velocity);
+		  midi_send_noteoff(&midi_device, channel, fifth, velocity);
+		}
+	  tone_status[tone] = MIDI_INVALID_NOTE;
+	}
+	return false;
+  case 1:
+	uint8_t channel = midi_config.channel;
+	uint8_t tone = root - MIDI_TONE_MIN;
+	uint8_t velocity = compute_velocity(midi_config.velocity);
+	if (record->event.pressed) {
+	  uint8_t root_note = midi_compute_note(root);
+	  uint8_t minor_third = midi_compute_note(root) + 3;
+	  uint8_t fifth = midi_compute_note(root) + 7;
+	  midi_send_noteon(&midi_device, channel, root_note, velocity);
+	  midi_send_noteon(&midi_device, channel, major_third, velocity);
+	  midi_send_noteon(&midi_device, channel, fifth, velocity);
+	  tone_status[tone] = root_note;
+	}
+	else {
+	  uint8_t root_note = tone_status[tone];
+	  uint8_t minor_third = root_note + 3;
+	  uint8_t fifth = root_note + 7;
+	  if (root_note != MIDI_INVALID_NOTE)
+		{
+		  midi_send_noteoff(&midi_device, channel, root_note, velocity);
+		  midi_send_noteoff(&midi_device, channel, minor_third, velocity);
+		  midi_send_noteoff(&midi_device, channel, fifth, velocity);
+		}
+	  tone_status[tone] = MIDI_INVALID_NOTE;
+	}
+	return false;
+  };
+  return true;
+};
+  
