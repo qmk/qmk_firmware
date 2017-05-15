@@ -6,16 +6,30 @@
 
 #define _______ KC_TRNS
 
+void tap(uint16_t keycode){
+    register_code(keycode);
+    unregister_code(keycode);
+};
+
+
 //Tap Dance Declarations
-enum {
+enum taps{
   TD_CTCPS = 0
 };
 
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for CTRL, twice for Caps Lock
-  [TD_CTCPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS)
-// Other declarations would go here, separated by commas, if you have them
+enum unicode_name {
+  THINK, // thinking face 🤔
+  GRIN, // grinning face 😊
+  BBB, // dat B 🅱
+  POO, // poop 💩
+  HUNDR, // 100 💯
+  SMRK, // smirk 😏
+  WEARY, // good shit 😩
+  EGGPL, // EGGPLANT 🍆
+  WATER, // wet 💦
+  LIT, // fire 🔥
+  UNAMU, // unamused 😒
+  SNEK // snke 🐍
 };
 
 enum my_macros {
@@ -25,8 +39,24 @@ enum my_macros {
   CLOSEDESK
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
-{
+enum quick {
+  DISFACE = 0,
+  TFLIP,
+  TPUT,
+  SHRUG,
+  FACE,
+  RANDIG
+};
+
+// Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for CTRL, twice for Caps Lock
+  [TD_CTCPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
+};
+
+// macros
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case NEWDESK: // this would trigger when you hit a key mapped as M(0)
       if (record->event.pressed) {
@@ -52,22 +82,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
   return MACRO_NONE;
 };
 
-
-enum unicode_name {
-  THINK, // thinking face 🤔
-  GRIN, // grinning face 😊
-  BBB, // dat B 🅱
-  POO, // poop 💩
-  HUNDR, // 100 💯
-  SMRK, // smirk 😏
-  WEARY, // good shit 😩
-  EGGPL, // EGGPLANT 🍆
-  WATER, // wet 💦
-  LIT, // fire 🔥
-  UNAMU, // unamused 😒
-  SNEK // snke 🐍
-};
-
+// emojis in unicode
 const uint32_t PROGMEM unicode_map[] = {
   [THINK] = 0x1F914,
   [GRIN] = 0x1F600,
@@ -83,6 +98,8 @@ const uint32_t PROGMEM unicode_map[] = {
   [SNEK] = 0x1F40D
  };
 
+
+// Layouts
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(\
       KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                        \
@@ -116,10 +133,8 @@ void matrix_scan_user(void) {
 
     SEQ_TWO_KEYS(KC_A, KC_A) {
       register_code(KC_LCTL);
-      register_code(KC_A);
-      unregister_code(KC_A);
-      register_code(KC_C);
-      unregister_code(KC_C);
+      tap(KC_A);
+      tap(KC_C);
       unregister_code(KC_LCTL);
     }
 
@@ -130,3 +145,5 @@ void matrix_init_user(void) {
   _delay_ms(500);
   set_unicode_input_mode(UC_WINC);
 };
+
+
