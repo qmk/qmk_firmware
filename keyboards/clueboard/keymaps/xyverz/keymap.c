@@ -1,4 +1,8 @@
 #include "clueboard.h"
+#include "action_layer.h"
+#include "eeconfig.h"
+
+extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -16,12 +20,10 @@ enum planck_keycodes {
   DVORAK
 };
 
-// Helpful defines
+// Useful defines
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-
-// Custom macros
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define FN_CAPS     LT(_FL, KC_CAPS)            // Tap for Caps Lock, Hold for Function Layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------|  |---|
    * |HpTab|  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|  |PgD|
    * |-----------------------------------------------------------|  `---'
-   * |CtlEsc|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|   | Ent|
+   * |FnCaps|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|   | Ent|
    * |--------------------------------------------------------------.
    * |Shift|  |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift| Fn| Up|
    * |------------------------------------------------------------------.
@@ -39,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_QWERTY] = KEYMAP(
-  F(0),    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
-  KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
-  FN_CAPS, KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  XXXXXXX,  KC_ENT,                             \
-  KC_LSFT, XXXXXXX, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_SLSH,  KC_RSFT,          KC_UP,            \
-  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,           KC_SPC,KC_SPC,                        XXXXXXX,  KC_RGUI,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+  F(0),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_GRV,  KC_BSPC,          KC_PGUP, \
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,                   KC_PGDN, \
+  FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,                             \
+  KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SLSH, KC_RSFT,          KC_UP,            \
+  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,          KC_SPC,  KC_SPC,                             XXXXXXX, KC_RGUI, KC_RCTL, MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
 
   /* Keymap _COLEMAK: Base Layer
    * ,-----------------------------------------------------------.  ,---.
@@ -51,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------|  |---|
    * |HpTab|  Q|  W|  F|  P|  G|  J|  L|  U|  Y|  ;|  [|  ]|   BS|  |PgD|
    * |-----------------------------------------------------------|  `---'
-   * |CtlEsc|  A|  R|  S|  T|  D|  H|  N|  E|  I|  O|  '|   | Ent|
+   * |FnCaps|  A|  R|  S|  T|  D|  H|  N|  E|  I|  O|  '|   | Ent|
    * |--------------------------------------------------------------.
    * |Shift|  |  Z|  X|  C|  V|  B|  K|  M|  ,|  .|  /|Shift| Fn| Up|
    * |------------------------------------------------------------------.
@@ -59,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_COLEMAK] = KEYMAP(
-  F(0),    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
-  KC_TAB,  KC_Q,    KC_W,    KC_F,   KC_P,   KC_G,   KC_J,   KC_L,   KC_U,   KC_Y,    KC_SCLN,  KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
-  FN_CAPS, KC_A,    KC_R,    KC_S,   KC_T,   KC_D,   KC_H,   KC_N,   KC_E,   KC_I,    KC_O,     KC_QUOT,  XXXXXXX,  KC_ENT,                             \
-  KC_LSFT, XXXXXXX, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_K,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_SLSH,  KC_RSFT,          KC_UP,            \
-  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,           KC_SPC,KC_SPC,                        XXXXXXX,  KC_RGUI,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+  F(0),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_GRV,  KC_BSPC,          KC_PGUP, \
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,                   KC_PGDN, \
+  FN_CAPS, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, XXXXXXX, KC_ENT,                             \
+  KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SLSH, KC_RSFT,          KC_UP,            \
+  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,          KC_SPC,  KC_SPC,                             XXXXXXX, KC_RGUI, KC_RCTL, MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
 
   /* Keymap _DVORAK: Base Layer
    * ,-----------------------------------------------------------.  ,---.
@@ -71,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------|  |---|
    * |HpTab|  '|  ,|  .|  P|  Y|  F|  G|  C|  R|  L|  /|  =|   BS|  |PgD|
    * |-----------------------------------------------------------|  `---'
-   * |CtlEsc|  A|  O|  E|  U|  I|  D|  H|  T|  N|  S|  -|   | Ent|
+   * |FnCaps|  A|  O|  E|  U|  I|  D|  H|  T|  N|  S|  -|   | Ent|
    * |--------------------------------------------------------------.
    * |Shift|  |  ;|  Q|  J|  K|  X|  B|  M|  W|  V|  Z|Shift| Fn| Up|
    * |------------------------------------------------------------------.
@@ -79,53 +81,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_DVORAK] = KEYMAP(
-  F(0),    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_LBRC,  KC_RBRC,  KC_GRV,  KC_BSPC,          KC_PGUP, \
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,    KC_L,     KC_SLSH,  KC_EQL,   KC_BSLS,                   KC_PGDN, \
-  FN_CAPS, KC_A,    KC_O,    KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,    KC_S,     KC_MINS,  XXXXXXX,  KC_ENT,                             \
-  KC_LSFT, XXXXXXX, KC_SCLN, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,    KC_V,     KC_Z,     KC_SLSH,  KC_RSFT,          KC_UP,            \
-  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,           KC_SPC,KC_SPC,                        XXXXXXX,  KC_RGUI,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+  F(0),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_GRV,  KC_BSPC,          KC_PGUP, \
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS,                   KC_PGDN, \
+  FN_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, XXXXXXX, KC_ENT,                             \
+  KC_LSFT, XXXXXXX, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_SLSH, KC_RSFT,          KC_UP,            \
+  KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,          KC_SPC,  KC_SPC,                             XXXXXXX, KC_RGUI, KC_RCTL, MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
 
   /* Keymap _FL: Function Layer
    */
 [_FL] = KEYMAP(
-  KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, _______,          BL_STEP, \
-  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  KC_DEL,                    _______, \
-  _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                            \
-  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  MO(_FL),          KC_PGUP,          \
-  _______, _______, _______, _______,        _______,_______,                        _______,  _______,  _______,  _______, KC_HOME, KC_PGDN, KC_END),
-
+  KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,           BL_STEP, \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______,                   _______, \
+  _______, _______, MO(_CL), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_PGUP,          \
+  _______, _______, _______, _______,          _______, _______,                            _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END),
+  
   /* Keymap _CL: Control layer
    */
 [_CL] = KEYMAP(
-  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______, RGB_TOG,          RGB_VAI, \
-  _______, _______, _______,_______,RESET,  _______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                   RGB_VAD, \
-  _______, _______, MO(_CL),_______,_______,_______,_______,QWERTY, COLEMAK,DVORAK,  _______,  _______,  _______,  _______,                            \
-  MO(_FL), _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  MO(_FL),          RGB_SAI,          \
-  _______, _______, _______,_______,         RGB_MOD,RGB_MOD,                        _______,  _______,  _______,  _______, RGB_HUD, RGB_SAD, RGB_HUI),
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG,          RGB_VAI, \
+  _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______,                   RGB_VAD, \
+  _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, _______, _______, _______,                            \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          RGB_SAI,          \
+  _______, _______, _______, _______,          RGB_MOD, RGB_MOD,                            _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_HUI),
 };
 
-/* This is a list of user defined functions. F(N) corresponds to item N
-   of this list.
- */
+enum function_id {
+    SHIFT_ESC,
+};
+
 const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_FUNCTION(0),  // Calls action_function()
+  [0]  = ACTION_FUNCTION(SHIFT_ESC),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t mods_pressed;
-  static bool mod_flag;
-
+  static uint8_t shift_esc_shift_mask;
   switch (id) {
-    case 0:
-      /* Handle the combined Grave/Esc key
-       */
-      mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
-
+    case SHIFT_ESC:
+      shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
       if (record->event.pressed) {
-        /* The key is being pressed.
-         */
-        if (mods_pressed) {
-          mod_flag = true;
+        if (shift_esc_shift_mask) {
           add_key(KC_GRV);
           send_keyboard_report();
         } else {
@@ -133,10 +128,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
           send_keyboard_report();
         }
       } else {
-        /* The key is being released.
-         */
-        if (mod_flag) {
-          mod_flag = false;
+        if (shift_esc_shift_mask) {
           del_key(KC_GRV);
           send_keyboard_report();
         } else {
