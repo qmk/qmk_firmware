@@ -7,7 +7,7 @@
 
 ### LEADER KEY - RALT
 COMBOS
--a,s => Select All, Copy
+-a,a => Select All, Copy
 
 
 
