@@ -42,6 +42,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* How long a "key tap" is. Used in functions like LT() and macros to determine
+ * how long QMK "holds down" a tapped key.
+ *
+ * If you are macOS this should be at least 500ms to avoid macOS's accidental
+ * Caps Lock activation prevention measures, as noted by /u/JerryEn here:
+ *
+ * https://www.reddit.com/r/clueboard/comments/6bfc2m/lt_not_working_with_caps_lock/dhmbp88/
+ */
+#define TAPPING_TERM 600 // ms
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
