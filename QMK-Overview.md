@@ -30,7 +30,7 @@ The `make` command is how you compile the firmware into a .hex file, which can b
 
 **NOTE:** To abort a make command press `Ctrl-c`
 
-For more details on the QMK build process see [Make Instructions](Make-Instructions).
+For more details on the QMK build process see [Make Instructions](/Make-Instructions.md).
 
 ### Simple instructions for building and uploading a keyboard
 
@@ -63,7 +63,7 @@ There are 2 `config.h` locations:
 * keyboard (`/keyboards/<keyboard>/`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/`)
 
-The keyboard `config.h` is included only if the keymap one doesn't exist. The format to use for your custom one [is here](/doc/keymap_config_h_example.h). If you want to override a setting from the parent `config.h` file, you need to do this:
+The keyboard `config.h` is included only if the keymap one doesn't exist. The format to use for your custom one [is here](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap_config_h_example.h). If you want to override a setting from the parent `config.h` file, you need to do this:
 
 ```c
 #undef MY_SETTING

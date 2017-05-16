@@ -1,31 +1,31 @@
 # Quantum Mechanical Keyboard Firmware
 
-You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) \([view differences](Differences-from-TMK)\) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
+You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) \([view differences](/Differences-from-TMK.md)\) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
 
 # Getting started
 
 Before you are able to compile, you'll need to install an environment for AVR or ARM development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
 
-* [Build Environment Setup](Build-Environment-Setup)
-* [QMK Overview](QMK-Overview)
+* [Build Environment Setup](/Build-Environment-Setup.md)
+* [QMK Overview](/QMK-Overview.md)
 
 # Configuring QMK Firmware
 
-The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](Keycodes), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](Key-Functions) page.
+The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](/Keycodes.md), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](/Key-Functions.md) page.
 
-For more details of the `keymaps` array, see [Keymap Overview](Keymap) page.
+For more details of the `keymaps` array, see [Keymap Overview](/Keymap.md) page.
 
 ## Space Cadet Shift: The future, built in
 
-Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) the Space Cadet Shift quite well. Essentially, you hit the left Shift on its own, and you get an opening parenthesis; hit the right Shift on its own, and you get the closing one. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds. Head on over to the [Space Cadet Shift](Space-Cadet-Shift) page to read about it.
+Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) the Space Cadet Shift quite well. Essentially, you hit the left Shift on its own, and you get an opening parenthesis; hit the right Shift on its own, and you get the closing one. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds. Head on over to the [Space Cadet Shift](/Space-Cadet-Shift.md) page to read about it.
 
 ## The Leader key: A new kind of modifier
 
-Most modifiers have to be held or toggled. But what if you had a key that indicated the start of a sequence? You could press that key and then rapidly press 1-3 more keys to trigger a macro, or enter a special layer, or anything else you might want to do. To learn more about it check out the [Leader Key](Leader-Key) page.
+Most modifiers have to be held or toggled. But what if you had a key that indicated the start of a sequence? You could press that key and then rapidly press 1-3 more keys to trigger a macro, or enter a special layer, or anything else you might want to do. To learn more about it check out the [Leader Key](/Leader-Key.md) page.
 
 ## Tap Dance: A single key can do 3, 5, or 100 different things
 
-Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. Read more about it on the [Tap Dance](Tap-Dance) page.
+Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. Read more about it on the [Tap Dance](/Tap-Dance.md) page.
 
 ## Temporarily setting the default layer
 
@@ -33,7 +33,7 @@ Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a co
 
 ## Macro shortcuts: Send a whole string when pressing just one key
 
-How would you like a single keypress to send a whole word, sentence, paragraph, or even document? Head on over to the [Macros](Macros) page to read up on all aspects of Simple and Dynamic Macros.
+How would you like a single keypress to send a whole word, sentence, paragraph, or even document? Head on over to the [Macros](/Macros.md) page to read up on all aspects of Simple and Dynamic Macros.
 
 ## Additional keycode aliases for software-implemented layouts \(Colemak, Dvorak, etc\)
 

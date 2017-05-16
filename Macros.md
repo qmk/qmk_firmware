@@ -91,7 +91,7 @@ If you have a bunch of macros you want to refer to from your keymap, while keepi
 #define EXT_PLV M(13)
 ```
 
-As was done on the [Planck default keymap](/keyboards/planck/keymaps/default/keymap.c#L33-L40)
+As was done on the [Planck default keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/default/keymap.c#L33-L40)
 
 #### Timer functionality
 

@@ -21,7 +21,7 @@ As mentioned above, there are some shortcuts, when you are in a:
 * `keyboard` folder, the command will automatically fill the `<keyboard>` part. So you only need to type `<subproject>-<keymap>-<target>`
 * `subproject` folder, it will fill in both `<keyboard>` and `<subproject>`
 * `keymap` folder, then `<keyboard>` and `<keymap>` will be filled in. If you need to specify the `<subproject>` use the following syntax `<subproject>-<target>`
-  * Note in order to support this shortcut, the keymap needs its own Makefile (see the example [here](/doc/keymap_makefile_example.mk))
+  * Note in order to support this shortcut, the keymap needs its own Makefile (see the example [here](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap_makefile_example.mk))
 * `keymap` folder of a `subproject`, then everything except the `<target>` will be filled in
 
 The `<target>` means the following
@@ -58,7 +58,7 @@ There are 5 different `make` and `Makefile` locations:
 * subproject (`/keyboards/<keyboard>/<subproject>`)
 * subproject keymap (`/keyboards/<keyboard>/<subproject>/keymaps/<keymap>`)
 
-The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **The file is required if you want to run `make` in the keymap folder.**
+The root contains the code used to automatically figure out which keymap or keymaps to compile based on your current directory and commandline arguments. It's considered stable, and shouldn't be modified. The keyboard one will contain the MCU set-up and default settings for your keyboard, and shouldn't be modified unless you are the producer of that keyboard. The keymap Makefile can be modified by users, and is optional. It is included automatically if it exists. You can see an example [here](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap_makefile_example.mk) - the last few lines are the most important. The settings you set here will override any defaults set in the keyboard Makefile. **The file is required if you want to run `make` in the keymap folder.**
 
 For keyboards and subprojects, the make files are split in two parts `Makefile` and `rules.mk`. All settings can be found in the `rules.mk` file, while the `Makefile` is just there for support and including the root `Makefile`. Keymaps contain just one `Makefile` for simplicity.
 
