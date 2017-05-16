@@ -1,25 +1,19 @@
-[Wiki Home](/Home.md)
-
+* [Wiki Home](/Home.md
 * Getting started
-  * [QMK Overview](QMK-Overview)
-  * [Build Environment Setup](Build-Environment-Setup)
-* [Overview for keymap creators](Keymap)
-  * [Keycodes](Keycodes)
-  * [Layer switching](Key-Functions)
-  * [Leader Key](Leader-Key)
-  * [Macros](Macros)
-  * [Space Cadet](Space-Cadet-Shift)
-  * [Tap Dance](Tap-Dance)
-  * [Mouse keys](Mouse-keys)
-  * [FAQ: Creating a Keymap](FAQ-Keymap)
-  * [FAQ: Compiling QMK](FAQ-Build)
+  * [QMK Overview](/QMK-Overview.md)
+  * [Build Environment Setup](/Build-Environment-Setup.md)
+* [Overview for keymap creators](/Keymap.md)
+  * [Keycodes](/Keycodes.md)
+  * [Layer switching](/Key-Functions.md)
+  * [Leader Key](/Leader-Key.md)
+  * [Macros](/Macros.md)
+  * [Space Cadet](/Space-Cadet-Shift.md)
+  * [Tap Dance](/Tap-Dance.md)
+  * [Mouse keys](/Mouse-keys.md)
+  * [FAQ: Creating a Keymap](/FAQ-Keymap.md)
+  * [FAQ: Compiling QMK](/FAQ-Build.md)
 * For hardware makers and modders
-  * [Modding your keyboard](Modding-your-keyboard)
-  * [Porting your keyboard to QMK](Porting-your-keyboard-to-QMK)
-  * [Adding features to QMK](Adding-features-to-QMK)
-* [General FAQ](FAQ)
-
-
-
-
-
+  * [Modding your keyboard](/Modding-your-keyboard.md)
+  * [Porting your keyboard to QMK](/Porting-your-keyboard-to-QMK.md)
+  * [Adding features to QMK](/Adding-features-to-QMK.md)
+* [General FAQ](FAQ.md)
