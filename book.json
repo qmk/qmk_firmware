@@ -2,6 +2,7 @@
     "structure": {
         "readme": "Home.md"
     },
+    "plugins" : ["plugin-toolbar"],
     "pluginsConfig": {
         "toolbar": {
             "buttons":
