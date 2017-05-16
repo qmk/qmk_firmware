@@ -9,15 +9,16 @@ enum keyboard_layers {
   MIDI,     //Midi Layer
 };
 
-// Midi Chord Keycodes
 
+// Midi Chord Keycodes
+/*
 bool midi_chord(uint8_t mode, uint16_t root);
 
 enum midi_chord_modes {
   major = 0,
   minor,
 };
-
+*/
 enum midi_chord_keycodes {
 
   //Major Chords
@@ -160,6 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+/*
 // Midi Chord Function
 
 bool midi_chord(uint8_t mode, uint16_t root) {
@@ -199,7 +201,7 @@ bool midi_chord(uint8_t mode, uint16_t root) {
 	  uint8_t minor_third = midi_compute_note(root) + 3;
 	  uint8_t fifth = midi_compute_note(root) + 7;
 	  midi_send_noteon(&midi_device, channel, root_note, velocity);
-	  midi_send_noteon(&midi_device, channel, major_third, velocity);
+	  midi_send_noteon(&midi_device, channel, minor_third, velocity);
 	  midi_send_noteon(&midi_device, channel, fifth, velocity);
 	  tone_status[tone] = root_note;
 	}
@@ -219,4 +221,4 @@ bool midi_chord(uint8_t mode, uint16_t root) {
   };
   return true;
 };
-  
+*/
