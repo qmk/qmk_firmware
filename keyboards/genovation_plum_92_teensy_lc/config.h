@@ -39,10 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_HAS_GHOST //GROSS, had to solder some wires to make it better
 
 /* Set 0 if debouncing isn't needed */
-//using the bit count method, 12 bits, at 48Mhz this is about 2ms and works very well
-//I've used 8 bits for a while and had zero problems, but 12 is safer
-//If you're using something other than a teensy LC you might want to increase this
-#define DEBOUNCE    12
+//I've used 2ms for a while and had zero problems, but 3ms or 5ms is safer
+#define DEBOUNCE    2
 
 /* key combination for command */
 #define IS_COMMAND() ( \
