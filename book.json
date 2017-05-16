@@ -2,4 +2,16 @@
     "structure": {
         "readme": "Home.md"
     }
+    "pluginsConfig": {
+        "toolbar": {
+            "buttons":
+            [
+                {
+                    "label": "QMK Firmware",
+                    "icon": "fa fa-github",
+                    "url": "https://github.com/qmk/qmk_firmware"
+                }
+            ]
+        }
+    }
 }
