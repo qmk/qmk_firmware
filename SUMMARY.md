@@ -1,7 +1,9 @@
-* [Wiki Home](/Home.md)
-* Getting started
+[Home](/Home.md)
+### Getting started
+
   * [QMK Overview](/QMK-Overview.md)
   * [Build Environment Setup](/Build-Environment-Setup.md)
+
 * [Overview for keymap creators](/Keymap.md)
   * [Keycodes](/Keycodes.md)
   * [Layer switching](/Key-Functions.md)
