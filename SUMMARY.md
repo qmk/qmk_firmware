@@ -1,4 +1,4 @@
-* [Wiki Home](/Home.md
+* [Wiki Home](/Home.md)
 * Getting started
   * [QMK Overview](/QMK-Overview.md)
   * [Build Environment Setup](/Build-Environment-Setup.md)
