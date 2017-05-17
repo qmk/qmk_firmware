@@ -5,7 +5,6 @@
 #include "quantum_keycodes.h"
 #include "hal.h"
 #define  OOOOOOO KC_TRNS
-static uint16_t led_toggle = 0;
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* 0: qerty */
@@ -36,21 +35,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt){
     }
     return MACRO_NONE;
 };
-
-void matrix_scan_user(void) {
-    if (biton32(layer_state) == 1) {
-        if ((led_toggle++ > 35)) {
-            led_toggle = 0;
-            // output high
-            palSetPad(TEENSY_PIN17_IOPORT, TEENSY_PIN17);
-        } else {
-            // output low
-            palSetPadMode(TEENSY_PIN17_IOPORT, TEENSY_PIN17, PAL_MODE_OUTPUT_PUSHPULL);
-            palClearPad(TEENSY_PIN17_IOPORT, TEENSY_PIN17);
-        }
-    } else {
-        // output low
-        palSetPadMode(TEENSY_PIN17_IOPORT, TEENSY_PIN17, PAL_MODE_OUTPUT_PUSHPULL);
-        palClearPad(TEENSY_PIN17_IOPORT, TEENSY_PIN17);
-    }
-}
