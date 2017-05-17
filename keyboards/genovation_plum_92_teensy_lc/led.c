@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void led_set(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
         // output high
-        palSetPadMode(TEENSY_PIN17_IOPORT, TEENSY_PIN17, PAL_MODE_OUTPUT_PUSHPULL);
         palSetPad(TEENSY_PIN17_IOPORT, TEENSY_PIN17) ;
     } else {
     	// output low

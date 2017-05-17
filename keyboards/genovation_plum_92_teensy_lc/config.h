@@ -84,8 +84,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 
-//this will print scans per second for debuging, and to check your decounce time :)
-// turn on PRINT and use hid_listen at https://www.pjrc.com/teensy/hid_listen.html
+//this will print scans per second for debuging
+// turn on console and use hid_listen at https://www.pjrc.com/teensy/hid_listen.html
 //#define PRINT_SCAN_PER_SECOND
 
 /*

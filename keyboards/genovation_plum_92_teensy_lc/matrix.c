@@ -38,9 +38,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    //should be in some sort of led_init function, but works fine here
-    palSetPadMode(TEENSY_PIN17_IOPORT, TEENSY_PIN17, PAL_MODE_OUTPUT_PUSHPULL);
-    // initialize row and col
     init_cols();
     // initialize matrix state: all keys off, rows hi-z
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -54,18 +51,16 @@ void matrix_init(void)
 uint8_t matrix_scan(void)
 {
     #ifdef PRINT_SCAN_PER_SECOND
-    if (scan_count == 10000){
-        print_decs(10000000/timer_elapsed(time_start));
+    if ((scan_count++ == 8001)){
+        print_decs(8000000/timer_elapsed(time_start));
         print(" scans per second\n");
         scan_count = 1;
         time_start = timer_read();
-    }else{
-        scan_count++;
     }
     #endif
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         select_row(row);
-        //chThdSleepMicroseconds(1);
+        //chThdSleepMicroseconds(1); //might need for diodes
         matrix_row_t rowdata = read_cols();
 
         if (matrix_debouncing[row] != rowdata) {
@@ -99,6 +94,7 @@ matrix_row_t matrix_get_row(uint8_t row)
     return matrix[row];
 }
 
+// if you run your finger down each row, you can get a keymap!
 void matrix_print(void)
 {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -115,8 +111,7 @@ void matrix_print(void)
     print("\n");
 }
 
-/* Column pin configuration
- */
+/* Column pin configuration */
 static void  init_cols(void)
 {
     // internal pull-up
@@ -141,8 +136,8 @@ static void  init_cols(void)
 /* Returns status of switches(1:on, 0:off) */
 static matrix_row_t read_cols(void)
 {
-    return ((palReadPad(TEENSY_PIN8_IOPORT, TEENSY_PIN8)==PAL_HIGH) ? 0 : (1<<0))
-         | ((palReadPad(TEENSY_PIN9_IOPORT, TEENSY_PIN9)==PAL_HIGH) ? 0 : (1<<1))
+    return ((palReadPad(TEENSY_PIN8_IOPORT, TEENSY_PIN8)==PAL_HIGH)   ? 0 : (1<<0))
+         | ((palReadPad(TEENSY_PIN9_IOPORT, TEENSY_PIN9)==PAL_HIGH)   ? 0 : (1<<1))
          | ((palReadPad(TEENSY_PIN10_IOPORT, TEENSY_PIN10)==PAL_HIGH) ? 0 : (1<<2))
          | ((palReadPad(TEENSY_PIN11_IOPORT, TEENSY_PIN11)==PAL_HIGH) ? 0 : (1<<3))
          | ((palReadPad(TEENSY_PIN12_IOPORT, TEENSY_PIN12)==PAL_HIGH) ? 0 : (1<<4))
@@ -159,12 +154,9 @@ static matrix_row_t read_cols(void)
          | ((palReadPad(TEENSY_PIN25_IOPORT, TEENSY_PIN25)==PAL_HIGH) ? 0 : (1<<15));
 }
 
-/* Row pin configuration
- */
+/* Put row pin back in hi-Z*/
 static void unselect_row(uint8_t row)
 {
-    (void)row;
-    // Output low to select
     switch (row) {
         case 0: palSetPadMode(TEENSY_PIN0_IOPORT, TEENSY_PIN0, PAL_MODE_INPUT); break;
         case 1: palSetPadMode(TEENSY_PIN1_IOPORT, TEENSY_PIN1, PAL_MODE_INPUT); break;
@@ -179,7 +171,6 @@ static void unselect_row(uint8_t row)
 
 static void select_row(uint8_t row)
 {
-    (void)row;
     // Output low to select
     switch (row) {
         case 0:
