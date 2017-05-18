@@ -14,7 +14,6 @@ extern keymap_config_t keymap_config;
 #define _MOUSECURSOR 7
 #define _QWERTY 0
 #define _RAISE 4
-#define _TOUCHCURSOR 6
 #define _VIM 9
 // TODO: (bdietz) - make a symbols layer for fun emoji and ascii art
 // TODO: (bdietz) - make a symbol layer for greek symbols
@@ -48,19 +47,29 @@ enum macro_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-// Custom macros
+/**
+ * This section of macros is for tap or hold functionality. Keys will fire off the second symbol in the name if tapped
+ * or fire the first symbol in the name if held. For example
+ * GUI_Z
+ *
+ * - will fire z if tapped
+ * - will fire cmd/super/win if held
+ */
 #define ALT_DOT     ALT_T(KC_DOT)
 #define ALT_X       ALT_T(KC_X)
 #define CTL_SLSH    CTL_T(KC_SLSH)
 #define CTL_Z       CTL_T(KC_Z)
 #define GUI_C       GUI_T(KC_C)
 #define GUI_COMM    GUI_T(KC_COMM)
-#define HPR_ESC     ALL_T(KC_ESC)               // Tap for Tab, hold for Hyper
-#define HPR_QUO     ALL_T(KC_QUOT)              // Tap for Quote, hold for Hyper
+#define HPR_ESC     ALL_T(KC_ESC)
+#define HPR_QUO     ALL_T(KC_QUOT)
 
-// Requires KC_TRNS/_______ for the trigger key in the destination layer
+// Toggle to VIM when left space button is held, emit space keycode when left space is tapped
 #define TGL_VIM     LT(_VIM, KC_SPC)
+// Toggle to the mouse layer when the right space button is held and emit enter when right space is tapped
 #define TGL_MOUSE   LT(_MOUSECURSOR, KC_ENT)
+
+// TODO: (bdietz) - need to audit these keycodes to see what sort of cool things the default layout was doing.
 #define ALT_TAB     M(KC_ALT_TAB)               // Macro for Alt-Tab
 #define CMD_TAB     M(KC_CMD_TAB)               // Macro for Cmd-Tab
 #define CTL_TAB     M(KC_CTL_TAB)               // Macro for Ctl-Tab
@@ -101,6 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  ,  _______  ,  _______  ,   LOWER   ,  TGL_VIM  , TGL_MOUSE ,    RAISE  ,  _______  ,  _______  , _______),
 /*`----------+-----------+-----------+-----------+----^^^----+----^^^----+-----------+-----------+-----------+--------'*/
 
+// TODO: (bdietz) - update the keymap documentation to include the modifier keys on the third row
 /* Lower
  * ,---------+------+------+------+------+------+------+------+------+------+------+------+------.
  * |   `     |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp | Bksp |
