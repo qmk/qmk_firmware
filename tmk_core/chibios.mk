@@ -151,5 +151,7 @@ endif
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
+DFU_UTIL ?= dfu-util
+
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
-	dfu-util $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
