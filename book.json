@@ -5,7 +5,7 @@
     "plugins" : ["toolbar", "edit-link"],
     "pluginsConfig": {
             "edit-link": {
-                "base": "https://github.com/qmk/qmk_firmware/edit/master/path/to/book",
+                "base": "https://github.com/qmk/qmk_firmware_docs/edit/master",
                 "label": "Edit This Page"
             },
         "toolbar": {
