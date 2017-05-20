@@ -6,7 +6,7 @@
     "pluginsConfig": {
             "edit-link": {
                 "base": "https://github.com/qmk/qmk_firmware_docs/edit/master",
-                "label": "Edit This Page"
+                "label": "Suggest an edit"
             },
         "toolbar": {
             "buttons":
