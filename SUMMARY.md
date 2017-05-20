@@ -21,5 +21,6 @@
 * [Porting your keyboard to QMK](/Porting-your-keyboard-to-QMK.md)
 * [Adding features to QMK](/Adding-features-to-QMK.md)
   
+### Other topics
 * [General FAQ](/FAQ.md)
 * [Differences from TMK](/Differences-from-TMK.md)
