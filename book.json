@@ -2,8 +2,12 @@
     "structure": {
         "readme": "Home.md"
     },
-    "plugins" : ["toolbar"],
+    "plugins" : ["toolbar", "edit-link"],
     "pluginsConfig": {
+            "edit-link": {
+                "base": "https://github.com/qmk/qmk_firmware/edit/master/path/to/book",
+                "label": "Edit This Page"
+            },
         "toolbar": {
             "buttons":
             [
