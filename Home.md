@@ -50,7 +50,7 @@ If you use Dvorak, use `keymap_dvorak.h` instead of `keymap_colemak.h` for this 
 
 These implementations assume you're using Colemak or Dvorak on your OS, not on your keyboard - this is referred to as a software-implemented layout. If your computer is in Qwerty and your keymap is in Colemak or Dvorak, this is referred to as a firmware-implemented layout, and you won't need these features.
 
-To give an example, if you're using software-implemented Colemak, and want to get an `F`, you would use `CM_F` - `KC_F` under these same circumstances would result in `T`.
+To give an example, if you're using software-implemented Colemak, and want to get an `F`, you would use `CM_F`. Using `KC_F` under these same circumstances would result in `T`.
 
 ## Backlight Breathing
 
