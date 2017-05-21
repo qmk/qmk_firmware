@@ -147,7 +147,7 @@ And then, to assign this macro to a key on your keyboard layout, you just use `M
 
 In addition to the static macros described above, you may enable the dynamic macros which you may record while writing. They are forgotten as soon as the keyboard is unplugged. Only two such macros may be stored at the same time, with the total length of 64 keypresses (by default).
 
-To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMIC_MACRO_RANGE`:
+To enable them, first add a new element to the `planck_keycodes` enum — `DYNAMIC_MACRO_RANGE`:
 
     enum planck_keycodes {
       QWERTY = SAFE_RANGE,
@@ -161,22 +161,19 @@ To enable them, first add a new element to the `planck_keycodes` enum -- `DYNAMI
       DYNAMIC_MACRO_RANGE,
     };
 
-Afterwards create a new layer called `_DYN`:
+It must be the last element because `dynamic_macros.h` will add some more keycodes after it.
 
-    #define _DYN 6    /* almost any other free number should be ok */
-
-Below these two modifications include the `dynamic_macro.h` header:
+Below it include the `dynamic_macro.h` header:
 
     #include "dynamic_macro.h"`
 
-Then define the `_DYN` layer with the following keys: `DYN_REC_START1`, `DYN_MACRO_PLAY1`,`DYN_REC_START2` and `DYN_MACRO_PLAY2`. It may also contain other keys, it doesn't matter apart from the fact that you won't be able to record these keys in the dynamic macros.
+Add the following keys to your keymap:
 
-    [_DYN]= {
-        {_______,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-        {_______,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
-        {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
-    },
+- `DYN_REC_START1` — start recording the macro 1,
+- `DYN_REC_START2` — start recording the macro 2,
+- `DYN_MACRO_PLAY1` — replay the macro 1,
+- `DYN_MACRO_PLAY2` — replay the macro 2,
+- `DYN_MACRO_STOP` — finish the currently recorded macro.
 
 Add the following code to the very beginning of your `process_record_user()` function:
 
@@ -184,7 +181,16 @@ Add the following code to the very beginning of your `process_record_user()` fun
         return false;
     }
 
-To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `_DYN` layer button. The handler awaits specifically for the `MO(_DYN)` keycode as the "stop signal" so please don't use any fancy ways to access this layer, use the regular `MO()` modifier. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+That should be everything necessary. To start recording the macro, press either `DYN_REC_START1` or `DYN_REC_START2`. To finish the recording, press the `DYN_REC_STOP` layer button. To replay the macro, press either `DYN_MACRO_PLAY1` or `DYN_MACRO_PLAY2`.
+
+Note that it's possible to replay a macro as part of a macro. It's ok to replay macro 2 while recording macro 1 and vice versa but never create recursive macros i.e. macro 1 that replays macro 1. If you do so and the keyboard will get unresponsive, unplug the keyboard and plug it again.
+
+For users of the earlier versions of dynamic macros: It is still possible to finish the macro recording using just the layer modifier used to access the dynamic macro keys, without a dedicated `DYN_REC_STOP` key. If you want this behavior back, use the following snippet instead of the one above:
+
+    uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+    if (!process_record_dynamic_macro(macro_kc, record)) {
+        return false;
+    }
 
 If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
 
