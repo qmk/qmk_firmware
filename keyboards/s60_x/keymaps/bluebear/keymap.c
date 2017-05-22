@@ -3,7 +3,7 @@
 // Keyboard Layers
 
 enum keyboard_layers {
-  BASE = 0, //Base Layer
+  BASE,     //Base Layer
   ARROWFN,  //Arrow/FN Layer
   MOUSE,    //Mouse Layer
   MIDI,     //Midi Layer
@@ -13,12 +13,12 @@ enum keyboard_layers {
 // Midi Chords
 
 enum midi_chord_modes { //ACTION_FUNCTION id
-  major = 0,
+  major,
   minor,
 };
 
 enum midi_chord_root { //ACTION_FUNCTION opt
-  C = 0,
+  C,
   Cs,
   Db = Cs,
   D,
@@ -41,43 +41,43 @@ enum midi_chord_keycodes {
 
   //Major Chords
 
-  MI_CH_C = ACTION_FUNCTION(0, 0),
-  MI_CH_Cs = ACTION_FUNCTION(0, 1),
+  MI_CH_C = ACTION_FUNCTION_OPT(major,C),
+  MI_CH_Cs = ACTION_FUNCTION_OPT(major,Cs),
   MI_CH_Db = MI_CH_Cs,
-  MI_CH_D = ACTION_FUNCTION(0, 2),
-  MI_CH_Ds = ACTION_FUNCTION(0, 3),
+  MI_CH_D = ACTION_FUNCTION_OPT(major,D),
+  MI_CH_Ds = ACTION_FUNCTION_OPT(major,Ds),
   MI_CH_Eb = MI_CH_Ds,
-  MI_CH_E = ACTION_FUNCTION(0, 4),
-  MI_CH_F = ACTION_FUNCTION(0, 5),
-  MI_CH_Fs = ACTION_FUNCTION(0, 6),
+  MI_CH_E = ACTION_FUNCTION_OPT(major,E),
+  MI_CH_F = ACTION_FUNCTION_OPT(major,F),
+  MI_CH_Fs = ACTION_FUNCTION_OPT(major,Fs),
   MI_CH_Gb = MI_CH_Fs,
-  MI_CH_G = ACTION_FUNCTION(0, 7),
-  MI_CH_Gs = ACTION_FUNCTION(0, 8),
+  MI_CH_G = ACTION_FUNCTION_OPT(major,G),
+  MI_CH_Gs = ACTION_FUNCTION_OPT(major,Gs),
   MI_CH_Ab = MI_CH_Gs,
-  MI_CH_A = ACTION_FUNCTION(0, 9),
-  MI_CH_As = ACTION_FUNCTION(0, 10),
+  MI_CH_A = ACTION_FUNCTION_OPT(major,A),
+  MI_CH_As = ACTION_FUNCTION_OPT(major,As),
   MI_CH_Bb = MI_CH_As,
-  MI_CH_B = ACTION_FUNCTION(0, 11),
+  MI_CH_B = ACTION_FUNCTION_OPT(major,B),
 
   //Minor Chords
 
-  MI_CH_Cm = ACTION_FUNCTION(1, 0),
-  MI_CH_Csm = ACTION_FUNCTION(1, 1),
+  MI_CH_Cm = ACTION_FUNCTION_OPT(minor,C),
+  MI_CH_Csm = ACTION_FUNCTION_OPT(minor,Cs),
   MI_CH_Dbm = MI_CH_Csm,
-  MI_CH_Dm = ACTION_FUNCTION(1, 2),
-  MI_CH_Dsm = ACTION_FUNCTION(1, 3),
+  MI_CH_Dm = ACTION_FUNCTION_OPT(minor,D),
+  MI_CH_Dsm = ACTION_FUNCTION_OPT(minor,Ds),
   MI_CH_Ebm = MI_CH_Dsm,
-  MI_CH_Em = ACTION_FUNCTION(1, 4),
-  MI_CH_Fm = ACTION_FUNCTION(1, 5),
-  MI_CH_Fsm = ACTION_FUNCTION(1, 6),
+  MI_CH_Em = ACTION_FUNCTION_OPT(minor,E),
+  MI_CH_Fm = ACTION_FUNCTION_OPT(minor,F),
+  MI_CH_Fsm = ACTION_FUNCTION_OPT(minor,Fs),
   MI_CH_Gbm = MI_CH_Fsm,
-  MI_CH_Gm = ACTION_FUNCTION(1, 7),
-  MI_CH_Gsm= ACTION_FUNCTION(1, 8),
+  MI_CH_Gm = ACTION_FUNCTION_OPT(minor,G),
+  MI_CH_Gsm= ACTION_FUNCTION_OPT(minor,Gs),
   MI_CH_Abm = MI_CH_Gsm,
-  MI_CH_Am = ACTION_FUNCTION(1, 9),
-  MI_CH_Asm = ACTION_FUNCTION(1, 10),
+  MI_CH_Am = ACTION_FUNCTION_OPT(minor,A),
+  MI_CH_Asm = ACTION_FUNCTION_OPT(minor,As),
   MI_CH_Bbm = MI_CH_Asm,
-  MI_CH_Bm = ACTION_FUNCTION(1, 11),
+  MI_CH_Bm = ACTION_FUNCTION_OPT(minor,B),
 };
 
 //Morse Code Macro Keys
@@ -166,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				  KC_LSPO,  KC_NO,  KC_SCLN,  KC_Q,  KC_J,  KC_K,  KC_X,  KC_B,  KC_M,  KC_W,  KC_V,  KC_Z,  KC_NO,  KC_RSPC,  KC_NO, \
 				  MO(2), KC_LGUI, KC_LALT,  LT(1, KC_SPACE),  ALGR_T(KC_APP),  KC_RGUI,  OSM(MOD_LCTL | MOD_LSFT),  OSM(MOD_LCTL | MOD_LALT)
 				  ),
-  
+
   /* 1: Arrow/FN Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │TG(3)│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │     │     │
+	 │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │TO(3)│TO(4)│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │CAPS │     │     │     │     │     │     │PGUP │  UP │HOME │ END │     │ INS │ DEL │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -183,17 +183,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [ARROWFN] = KEYMAP(
-				   TG(3),  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  KC_NO,  KC_NO,  \
-				   KC_CAPS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_HOME,  KC_END,  KC_NO,  KC_INS,  KC_DEL,  \
-				   KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
-				   KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_TRNS,  KC_NO, \
-				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
-				   ),
+					 KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(4), \
+					 KC_CAPS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_HOME,  KC_END,  KC_NO,  KC_INS,  KC_DEL, \
+					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
+					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_TRNS,  KC_NO, \
+					 KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
+					 ),
 
   /* 2: Mouse Keys Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │RESET│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │     │     │     │     │
+	 │RESET│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │     │     │     │     │     │BTN1 │MS_UP│BTN2 │WH_UP│     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -217,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 3: Midi Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │TG(0)│ Cmaj│ Gmaj│ Dmaj│ Amaj│ Emaj│ Bmaj│Gbmaj│Dbmaj│Abmaj│Ebmaj│Bbmaj│ Fmaj│     │     │
+	 │TO(0)│ Cmaj│ Gmaj│ Dmaj│ Amaj│ Emaj│ Bmaj│Gbmaj│Dbmaj│Abmaj│Ebmaj│Bbmaj│ Fmaj│     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │  C# │  D# │     │  F# │  G# │  A# │     │  C# │  D# │     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -240,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 4: Morse Code Layer
 	 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │     │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │     │     │
+	 │TO(0)│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │  '  │  ,  │  .  │  P  │  Y  │  F  │  G  │  C  │  R  │  L  │  /  │  =  │BSPC │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -253,19 +253,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   
   [MORSE] = KEYMAP(
-				  KC_NO,  MC_1,  MC_2,  MC_3,  MC_4,  MC_5,  MC_6,  MC_7,  MC_8,  MC_9,  MC_0,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
-				  KC_NO,  MC_APOS,  MC_COMM, MC_DOT,  MC_P,  MC_Y,  MC_F,  MC_G,  MC_C,  MC_R,  MC_L,  MC_SLSH,  MC_EQL,  KC_BSPC, \
-				  KC_NO,  MC_A,  MC_O,  MC_E,  MC_U,  MC_I,  MC_D,  MC_H,  MC_T,  MC_N,  MC_S,  MC_MINS,  KC_NO,  KC_ENT,	\
-				  KC_LSFT,  KC_NO,  MC_SCLN,  MC_Q,  MC_J,  MC_K,  MC_X,  MC_B,  MC_M,  MC_W,  MC_V,  MC_Z,  KC_NO,  KC_RSFT,  KC_NO, \
-				  KC_NO, KC_NO, KC_NO,   MC_SPACE,  KC_NO,  KC_NO,  KC_NO, KC_NO
-				  ),
+				   TO(0),  MC_1,  MC_2,  MC_3,  MC_4,  MC_5,  MC_6,  MC_7,  MC_8,  MC_9,  MC_0,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
+				   KC_TAB,  MC_APOS,  MC_COMM, MC_DOT,  MC_P,  MC_Y,  MC_F,  MC_G,  MC_C,  MC_R,  MC_L,  MC_SLSH,  MC_EQL,  KC_BSPC, \
+				   KC_NO,  MC_A,  MC_O,  MC_E,  MC_U,  MC_I,  MC_D,  MC_H,  MC_T,  MC_N,  MC_S,  MC_MINS,  KC_NO,  KC_ENT, \
+				   KC_LSFT,  KC_NO,  MC_SCLN,  MC_Q,  MC_J,  MC_K,  MC_X,  MC_B,  MC_M,  MC_W,  MC_V,  MC_Z,  KC_NO,  KC_RSFT,  KC_NO, \
+				   KC_NO, KC_NO, KC_NO,   MC_SPACE,  KC_NO,  KC_NO,  KC_NO, KC_NO
+				   ),
 
 };
 
 // Morse Code Macros
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
   case 0: //Number 0
 	if (record->event.pressed) {
@@ -319,131 +318,209 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	break;
   case 10: //Letter A
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(SPACE), END); //.-
 	}
 	break;
   case 11: //Letter B
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-...
 	}
 	break;
   case 12: //Letter C
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-.-.
 	}
 	break;
   case 13: //Letter D
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(SPACE), END); //-..
 	}
 	break;
   case 14: //Letter E
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(SPACE), END); //.
 	}
 	break;
   case 15: //Letter F
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //..-.
 	}
 	break;
   case 16: //Letter G
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(SPACE), END); //--.
 	}
 	break;
   case 17: //Letter H
-	  if (record->event.pressed) {
-		return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //....
+	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 	  }
+	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //....
+	}
 	break; 
   case 18: //Letter I
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(SPACE), END); //..
 	}
 	break;
   case 19: //Letter J
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(SPACE), END); //.---
 	}
 	break;
   case 20: //Letter K
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.-
 	}
 	break;
   case 21: //Letter L
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(SPACE), END); //.-..
 	}
 	break;
   case 22: //Letter M
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(SPACE), END); //--
 	}
 	break;
   case 23: //Letter N
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(SPACE), END); //-.
 	}
 	break;
   case 24: //Letter O
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(SPACE), END); //---
 	}
 	break;
   case 25: //Letter P
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //.--.
 	}
 	break;
   case 26: //Letter Q
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //--.-
 	}
 	break;
   case 27: //Letter R
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.
 	}
 	break;
   case 28: //Letter S
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(SPACE), END); //...
 	}
 	break;
   case 29: //Letter T
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(SPACE), END); //-
 	}
 	break;
   case 30: //Letter U
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(SPACE), END); //..-
 	}
 	break;
   case 31: //Letter V
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-
 	}
 	break;
   case 32: //Letter W
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(SPACE), END); //.--
 	}
 	break;
   case 33: //Letter X
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-..-
 	}
 	break;
   case 34: //Letter Y
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.--
 	}
 	break;
   case 35: //Letter Z
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //--..
 	}
 	break;
@@ -535,6 +612,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   case 53: //Punctuation _
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //..--.-
+	}
+	break;
   case 54: //Morse Space
 	if (record->event.pressed) {
 	  return MACRO(T(BSLS), T(SPACE), END); //When pressed, this sends a slash followed by a space, making it easier to distinguish words in Morse
@@ -547,60 +626,71 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 /*
 // Midi Chord Function
 
-  switch (mode) {
-  case 0:
-	uint8_t channel = midi_config.channel;
-	uint8_t tone = root - MIDI_TONE_MIN;
-	uint8_t velocity = compute_velocity(midi_config.velocity);
-	if (record->event.pressed) {
-	  uint8_t root_note = midi_compute_note(root);
-	  uint8_t major_third = midi_compute_note(root) + 4;
-	  uint8_t fifth = midi_compute_note(root) + 7;
-	  midi_send_noteon(&midi_device, channel, root_note, velocity);
-	  midi_send_noteon(&midi_device, channel, major_third, velocity);
-	  midi_send_noteon(&midi_device, channel, fifth, velocity);
-	  tone_status[tone] = root_note;
-	}
-	else {
-	  uint8_t root_note = tone_status[tone];
-	  uint8_t major_third = root_note + 4;
-	  uint8_t fifth = root_note + 7;
-	  if (root_note != MIDI_INVALID_NOTE)
-		{
-		  midi_send_noteoff(&midi_device, channel, root_note, velocity);
-		  midi_send_noteoff(&midi_device, channel, major_third, velocity);
-		  midi_send_noteoff(&midi_device, channel, fifth, velocity);
-		}
-	  tone_status[tone] = MIDI_INVALID_NOTE;
-	}
-	return false;
-  case 1:
-	uint8_t channel = midi_config.channel;
-	uint8_t tone = root - MIDI_TONE_MIN;
-	uint8_t velocity = compute_velocity(midi_config.velocity);
-	if (record->event.pressed) {
-	  uint8_t root_note = midi_compute_note(root);
-	  uint8_t minor_third = midi_compute_note(root) + 3;
-	  uint8_t fifth = midi_compute_note(root) + 7;
-	  midi_send_noteon(&midi_device, channel, root_note, velocity);
-	  midi_send_noteon(&midi_device, channel, minor_third, velocity);
-	  midi_send_noteon(&midi_device, channel, fifth, velocity);
-	  tone_status[tone] = root_note;
-	}
-	else {
-	  uint8_t root_note = tone_status[tone];
-	  uint8_t minor_third = root_note + 3;
-	  uint8_t fifth = root_note + 7;
-	  if (root_note != MIDI_INVALID_NOTE)
-		{
-		  midi_send_noteoff(&midi_device, channel, root_note, velocity);
-		  midi_send_noteoff(&midi_device, channel, minor_third, velocity);
-		  midi_send_noteoff(&midi_device, channel, fifth, velocity);
-		}
-	  tone_status[tone] = MIDI_INVALID_NOTE;
-	}
-	return false;
-  };
-  return true;
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+uint16_t root_note;
+uint8_t channel = midi_config.channel;
+uint8_t velocity = compute_velocity(midi_config.velocity);
+switch (opt) {
+case 0: //Root note C
+root_note = MI_C;
+case 1: //Root note C#/Db
+root_note = MI_Cs;
+case 2: // Root note D
+root_note = MI_D;
+case 3: // Root note D#/Eb
+root_note = MI_Ds;
+case 4: // Root note E
+root_note = MI_E;
+case 5: // Root note F
+root_note = MI_F;
+case 6: // Root note F#/Gb
+root_note = MI_Fs;
+case 7: // Root note G
+root_note = MI_G;
+case 8: // Root note G#/Ab
+root_note = MI_Gs;
+case 9: // Root note A
+root_note = MI_A;
+case 10: // Root note A#/Bb
+root_note = MI_As;
+case 11: // Root note B
+root_note = MI_B;
+switch (id) {
+uint8_t tone = root_note - MIDI_TONE_MIN;
+uint8_t root = midi_compute_note(root_note);
+uint8_t major_third = midi_compute_note(root_note) + 4;
+uint8_t minor_third = midi_compute_note(root_note) + 3;
+uint8_t fifth = midi_compute_note(root_note) + 7;
+case 0: //Major chord
+if (record->event.pressed) {
+midi_send_noteon(&midi_device, channel, root, velocity);
+midi_send_noteon(&midi_device, channel, major_third, velocity);
+midi_send_noteon(&midi_device, channel, fifth, velocity);
+tone_status[tone] = root;
+}
+else {
+uint8_t root = tone_status[tone];
+if (root != MIDI_INVALID_NOTE)
+{
+midi_send_noteoff(&midi_device, channel, root, velocity);
+}
+tone_status[tone] = MIDI_INVALID_NOTE;
+}
+case 1: //Minor chord
+if (record->event.pressed) {
+midi_send_noteon(&midi_device, channel, root_note, velocity);
+midi_send_noteon(&midi_device, channel, minor_third, velocity);
+midi_send_noteon(&midi_device, channel, fifth, velocity);
+}
+else {
+uint8_t root = tone_status[tone];
+if (root != MIDI_INVALID_NOTE)
+{
+midi_send_noteoff(&midi_device, channel, root, velocity);
+}
+tone_status[tone] = MIDI_INVALID_NOTE;
+}
+}
+}
 };
 */
