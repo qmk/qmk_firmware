@@ -10,8 +10,7 @@ void tap(uint16_t keycode){
     register_code(keycode);
     unregister_code(keycode);
 };
-
-
+s
 //Tap Dance Declarations
 enum taps{
   TD_CTCPS = 0
