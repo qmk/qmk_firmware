@@ -6,9 +6,10 @@
 #define KC_ KC_TRNS
 #define KC_X0 LT(_FN2, KC_GRV)
 #define KC_X1 MO(_FN1)
+#define KC_X2 BL_STEP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = KEYMAP(
+  [_QWERTY] = KC_KEYMAP(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     ESC , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,  BSPC  ,   INS ,PGUP,
  /*|----`----`----`----`----`----`----`----`----`----`----`----`----`--------|  |----`----| */
@@ -22,11 +23,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*`-----+-----+-----+------------------------------+------+-----+-----'   `----+----+----' */
   ),
 
-  [_FN1] = KEYMAP(
+  [_FN1] = KC_KEYMAP(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,   VOLU,HOME,
  /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */
-          ,    ,    , UP ,    ,    ,    ,    ,    ,    ,    ,    ,    ,      ,   VOLD,END,
+          ,    ,    , UP ,    ,    ,    ,    ,    ,    ,    ,    , X2 ,      ,   VOLD,END,
  /*|tab---`-q--`-w--`-e--`-r--`-t--`-y--`-u--`-i--`-o--`-p--`-{--`-}--`--|---|  `del-`pgdn' */
            ,    ,LEFT,DOWN,RGHT,    ,    ,    ,    ,    ,    ,    ,          ,
  /*|caps---`-a--`-s--`-d--`-f--`-g--`-h--`-j--`-k--`-l--`-;--`-'--`----enter-|  ,----. */
@@ -36,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*`ctrl-+-gui-+-alt-+----------space---------------+-fn---+-alt-+ctrl-'   `left+down+rght' */
   ),
 
-  [_FN2] = KEYMAP(
+  [_FN2] = KC_KEYMAP(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,   VOLU,HOME,
  /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */
