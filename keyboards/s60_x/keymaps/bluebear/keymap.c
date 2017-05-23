@@ -121,23 +121,12 @@ enum morse_macros {
   MC_Z = M(35),
   MC_DOT = M(36),
   MC_COMM = M(37),
-  MC_QUES = M(38),
-  MC_APOS = M(39),
-  MC_EXCL = M(40),
-  MC_SLSH = M(41),
-  MC_PARO = M(42),
-  MC_PARC = M(43),
-  MC_AMP = M(44),
-  MC_COL = M(45),
-  MC_SCLN = M(46),
-  MC_EQL = M(47),
-  MC_PLUS = M(48),
-  MC_MINS = M(49),
-  MC_QUOT = M(50),
-  MC_DOLR = M(51),
-  MC_AT = M(52),
-  MC_UNDS = M(53),
-  MC_SPACE = M(54),
+  MC_APOS = M(38),
+  MC_SLSH = M(39),
+  MC_SCLN = M(40),
+  MC_EQL = M(41),
+  MC_MINS = M(42),
+  MC_SPACE = M(43),
 };
 
 //Keymaps
@@ -183,11 +172,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [ARROWFN] = KEYMAP(
-					 KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(4), \
+					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(4), \
 					 KC_CAPS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_HOME,  KC_END,  KC_NO,  KC_INS,  KC_DEL, \
-					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
-					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_TRNS,  KC_NO, \
-					 KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
+					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
+					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_NO,  KC_NO, \
+					 KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, KC_NO,  KC_NO,  KC_TRNS
 					 ),
 
   /* 2: Mouse Keys Layer
@@ -266,54 +255,102 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
-  case 0: //Number 0
+  case 0: //Number 0-)
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //-----
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
+	  }
+	  else {
+		return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //-----
+	  }
 	}
 	break;
-  case 1: //Number 1
+  case 1: //Number 1-!
 	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //.----
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.-.--
+	  }
+	  else {
+		return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //.----
+	  }
 	}
 	break;
-  case 2: //Number 2
+  case 2: //Number 2-@
 	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(MINS), T(SPACE), END); //..---
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.--.-.
+	  }
+	  else {
+		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(MINS), T(SPACE), END); //..---
+	  }
 	}
 	break;
   case 3: // Number 3
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //...--
 	}
 	break;
-  case 4: //Number 4
+  case 4: //Number 4-$
 	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //....-
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-..-
+	  }
+	  else {
+		return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //....-
+	  }
 	}
 	break;
   case 5: //Number 5
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.....
 	}
 	break;
   case 6: //Number 6
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-....
 	}
 	break;
-  case 7: //Number 7
+  case 7: //Number 7-&
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //--...
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.-...
+	  }
+	  else {
+		return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //--...
+	  }
 	}
 	break;
   case 8: //Number 8
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //---..
 	}
 	break;
-  case 9: //Number 9
+  case 9: //Number 9-(
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(DOT), T(SPACE), END); //----.
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-.--.
+	  }
+	  else {
+		return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(DOT), T(SPACE), END); //----.
+	  }
 	}
 	break;
   case 10: //Letter A
@@ -526,96 +563,80 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 36: //Punctuation .
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(SPACE), END); //.-.-.-
 	}
 	break;
   case 37: //Punctuation ,
 	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //--..--
 	}
 	break;
-  case 38: //Punctuation ?
+  case 38: //Punctuation '-"
 	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //..--..
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-..-.
+	  }
+	  else {
+		return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-....-
+	  }
 	}
 	break;
-  case 39: //Punctuation '
+  case 39: //Punctuation /-?
 	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-....-
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //..--..
+	  }
+	  else {
+		return MACRO(T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-..-.
+	  }
 	}
 	break;
-  case 40: //Punctuation !
+  case 40: //Punctuation ;-:
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.-.--
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //---...
+	  }
+	  else {
+		return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-.-.-.
+	  }
 	}
 	break;
-  case 41: //Punctuation /
+  case 41: //Punctuation =-+
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-..-.
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.-.
+	  }
+	  else {
+		return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-...-
+	  }
 	}
 	break;
-  case 42: //Punctuation (
+  case 42: //Punctuation --_
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-.--.
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //..--.-
+	  }
+	  else {
+		return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-....-
+	  }
 	}
 	break;
-  case 43: //Punctuation )
+  case 43: //Morse Space
 	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
-	}
-	break;
-  case 44: //Punctuation &
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.-...
-	}
-	break;
-  case 45: //Punctuation :
-	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //---...
-	}
-	break;
-  case 46: //Punctuation ;
-	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-.-.-.
-	}
-	break;
-  case 47: //Punctuation =
-	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-...-
-	}
-	break;
-  case 48: //Punctuation +
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.-.
-	}
-	break;
-  case 49: //Punctuation -
-	if (record->event.pressed) {
-	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-....-
-	}
-	break;
-  case 50: //Punctuation "
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-..-.
-	}
-	break;
-  case 51: //Punctuation $
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-..-
-	}
-	break;
-  case 52: //Punctuation @
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.--.-.
-	}
-	break;		
-  case 53: //Punctuation _
-	if (record->event.pressed) {
-	  return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //..--.-
-	}
-	break;
-  case 54: //Morse Space
-	if (record->event.pressed) {
+	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+		unregister_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+	  }
 	  return MACRO(T(BSLS), T(SPACE), END); //When pressed, this sends a slash followed by a space, making it easier to distinguish words in Morse
 	}
 	break;
