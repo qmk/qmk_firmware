@@ -10,7 +10,7 @@ void tap(uint16_t keycode){
     register_code(keycode);
     unregister_code(keycode);
 };
-s
+
 //Tap Dance Declarations
 enum taps{
   TD_CTCPS = 0
@@ -96,7 +96,6 @@ const uint32_t PROGMEM unicode_map[] = {
   [UNAMU] = 0x1F612,
   [SNEK] = 0x1F40D
  };
-
 
 // Layouts
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
