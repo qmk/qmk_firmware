@@ -69,13 +69,9 @@ enum custom_keycodes {
 
 //Tap Dance Declarations
 enum {
- CT_SE = 0,
- CT_CLN,
- CT_EGG,
- CT_FLSH,
- CT_LAYER0,
- CT_LAYER1,
- CT_LAYER2,
+ TD_BRC,
+ TD_MINUS_EQL,
+ TD_LCTL
 };
 
 
@@ -83,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | `~     |   1! |   2@ |   3# |   4$ |   5% |      |           |      |   6^  |   7& |   8* |   9( |   0) | -_(=+)|
+ * | `~     |   1! |   2@ |   3# |   4$ |   5% |      |           |      |   6^  |   7& |   8* |   9( |   0) | -_/=+ |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  | [{ ]}  |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  | [{ / ]}|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;:   | Enter |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -106,16 +102,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         KC_GRV,         KC_1,         KC_2,       KC_3,       KC_4,       KC_5,     KC_NO,
         KC_TAB,         KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,     KC_NO,
-        KC_LCTL,        KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
+        TD(TD_LCTL),    KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
         KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
         KC_ESC,         KC_LANG2,        KC_LALT,    KC_LGUI, LT(2,KC_NO),
-                                                  KC_NO,      TD(CT_LAYER1),
+                                                  KC_NO,      KC_NO,
                                                               KC_NO,
                                  KC_SPC,     LT(3,KC_NO),     RESET,
 
         // right hand
-        KC_NO,        KC_6,         KC_7,       KC_8,       KC_9,        KC_0,      M_MINUS,
-        KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      M_BRC,
+        KC_NO,        KC_6,         KC_7,       KC_8,       KC_9,        KC_0,      TD(TD_MINUS_EQL),
+        KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      TD(TD_BRC),
                       KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_ENT,
         KC_NO,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_QUOT,
         LT(1,KC_NO),  KC_BSLS,      KC_NO,      KC_LANG1,      KC_NO,
@@ -157,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
-       KC_TRNS,   KC_6,      KC_7,      KC_8,      KC_9,        KC_0,       M_MINUS,
+       KC_TRNS,   KC_6,      KC_7,      KC_8,      KC_9,        KC_0,       TD(TD_MINUS_EQL),
                   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
                              KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,    KC_TRNS,
@@ -265,7 +261,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_NO,        KC_NO,        KC_NO,      KC_NO,      KC_NO,       KC_NO,   KC_NO,
-        KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,    M_BRC,
+        KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,    TD(TD_BRC),
                       KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN, KC_ENT,
         KC_NO,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH, KC_QUOT,
         LT(6,KC_NO),  KC_BSLS,      KC_NO,      KC_LANG1,      KC_NO,
@@ -286,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_TRNS,        KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,   KC_TRNS,
-        KC_TRNS,        S(KC_6),      S(KC_7),    S(KC_8),    S(KC_9),     S(KC_0),   S(M_MINUS),
+        KC_TRNS,        S(KC_6),      S(KC_7),    S(KC_8),    S(KC_9),     S(KC_0),   S(TD_MINUS_EQL),
                   KC_LEFT,   KC_DOWN,   KC_UP,      KC_RIGHT,    KC_NO,    KC_TRNS,
        KC_TRNS,   KC_NO,     LGUI(KC_C),LGUI(KC_X),LGUI(KC_V),   KC_NO,    KC_TRNS,
         KC_TRNS,        KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,
@@ -522,76 +518,8 @@ void matrix_scan_user(void) {
 
 
 //Tap Dance Definitions
-/* Have the above three on the keymap, TD(CT_SE), etc... */
-
-void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_RSFT);
-    register_code (KC_SCLN);
-  } else {
-    register_code (KC_SCLN);
-  }
-}
-
-void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_RSFT);
-    unregister_code (KC_SCLN);
-  } else {
-    unregister_code (KC_SCLN);
-  }
-}
-
-void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 100) {
-    SEND_STRING ("Safety dance!");
-    reset_tap_dance (state);
-  }
-}
-
-// on each tap, light up one led, from right to left
-// on the forth tap, turn them off from right to left
-void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->count) {
-  case 1:
-    ergodox_right_led_3_on();
-    break;
-  case 2:
-    ergodox_right_led_2_on();
-    break;
-  case 3:
-    ergodox_right_led_1_on();
-    break;
-  case 4:
-    ergodox_right_led_3_off();
-    _delay_ms(50);
-    ergodox_right_led_2_off();
-    _delay_ms(50);
-    ergodox_right_led_1_off();
-  }
-}
-
-// on the fourth tap, set the keyboard on flash state
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 4) {
-    reset_keyboard();
-    reset_tap_dance(state);
-  }
-}
-
-// if the flash state didnt happen, then turn off leds, left to right
-void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
-  ergodox_right_led_1_off();
-  _delay_ms(50);
-  ergodox_right_led_2_off();
-  _delay_ms(50);
-  ergodox_right_led_3_off();
-}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
- ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
- ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
- ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
- ,[CT_LAYER1] = ACTION_TAP_DANCE_DOUBLE (KC_1, KC_2)
+ [TD_BRC] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_RBRC),
+ [TD_MINUS_EQL] = ACTION_TAP_DANCE_DOUBLE (KC_MINUS, KC_EQL),
+ [TD_LCTL] = ACTION_TAP_DANCE_DOUBLE (KC_LCTL, KC_CAPS)
 };
