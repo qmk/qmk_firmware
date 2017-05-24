@@ -1,1 +1,0 @@
-# The default keymap for planck_teensy2
