@@ -26,11 +26,14 @@ msg_t is31_write_data(uint8_t page, uint8_t *buffer, uint8_t size);
 msg_t is31_write_register(uint8_t page, uint8_t reg, uint8_t data);
 msg_t is31_read_register(uint8_t page, uint8_t reg, uint8_t *result);
 
-/* =========================
- *  init functions
- * ========================= */
+/* ============================
+ *  init functions/definitions
+ * ============================*/
 
 void led_controller_init(void);
+
+#define CAPS_LOCK_LED_ADDRESS 46 //pin matrix location
+#define NUM_LOCK_LED_ADDRESS 85
 
 /* =============================
  * IS31 chip related definitions
@@ -55,7 +58,7 @@ void led_controller_init(void);
 
 #define IS31_REG_DISPLAYOPT 0x05
 #define IS31_REG_DISPLAYOPT_INTENSITY_SAME 0x20 // same intensity for all frames
-#define IS31_REG_DISPLAYOPT_BLINK_ENABLE 0x8
+#define IS31_REG_DISPLAYOPT_BLINK_ENABLE 0x08
 // D2:D0 bits blink period time (*0.27s)
 
 #define IS31_REG_AUDIOSYNC 0x06
@@ -82,20 +85,35 @@ void led_controller_init(void);
 
 #define IS31_TIMEOUT 10000 // needs to be long enough to write a whole page
 
-/* ==============================
- * LED Thread related definitions
- * ============================== */
+/* ========================================
+ * LED Thread related items
+ * ========================================*/
 
 extern mailbox_t led_mailbox;
 
+void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action);
+void set_lock_leds (uint8_t led_addr, uint8_t led_action, uint8_t page);
+void write_led_byte (uint8_t page, uint8_t row, uint8_t led_byte);
+void write_led_page (uint8_t page, uint8_t *led_array, uint8_t led_count);
+
 // constants for signaling the LED controller thread
 enum led_msg_t {
-    LED_MSG_CAPS_ON,
-    LED_MSG_CAPS_OFF,
-    LED_MSG_SLEEP_LED_ON,
-    LED_MSG_SLEEP_LED_OFF,
-    LED_MSG_ALL_TOGGLE,
-    LED_MSG_GAME_TOGGLE
+    KEY_LIGHT,
+    SET_FULL_ROW,
+    OFF_LED,
+    ON_LED,
+    TOGGLE_LED,
+    BLINK_OFF_LED,
+    BLINK_ON_LED,
+    BLINK_TOGGLE_LED,
+    TOGGLE_ALL,
+    TOGGLE_BACKLIGHT,
+    DISPLAY_PAGE,
+    RESET_PAGE,
+    TOGGLE_NUM_LOCK,
+    TOGGLE_CAPS_LOCK,
+    TOGGLE_BREATH,
+    STEP_BRIGHTNESS
 };
 
 #endif /* _LED_CONTROLLER_H_ */
