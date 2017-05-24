@@ -16,9 +16,9 @@ digits mean "row" and "col", i.e. 45 means pin 4, column 5 in the IS31 datasheet
 ```
 *Unused in Alphabet Layout
 
-The IS31 includes 8 pages (or frames) 0-7 and each page consists of 144 bytes
+The IS31 includes 8 led pages (or frames) 0-7 than can be displayed, and each page consists of 144 bytes.
 - **bytes 0 - 17** - LED control (on/off).
-    * 18 pins which alternate between A and B matrices (CA1, CB1, CA2, CB2, ..).
+    * 18 pins which alternate between A and B matrices (A1, B1, A2, B2, ..).
     * Each byte controls the 8 leds on that pin with bits (8 to 1).
 - **bytes 8 - 35** - Blink control.
     * Same as LED control above, but sets blink on/off.
@@ -31,7 +31,7 @@ In the Infinity60 project folder, led_controller.c sets up ability to write led 
 
 One function is available to directly set leds without the mailbox:
 ```
-write_led_page(page#, array of leds by address, # of leds in array)
+write_led_page(page#, array of leds by address, # of addresses in array)
 ```
 This function saves a full page to the controller using a supplied array of led locations such as:
 ```c
@@ -45,7 +45,7 @@ write_led_page(5, led_numpad, 16);
 ```
 
 Remaining led control is done through the led mailbox using these message types:
-- **SET_FULL_ROW** (3 bytes) - row#, message type, 8-bit mask. Sets all leds on one pin per the bit mask.
+- **SET_FULL_ROW** (3 bytes) - message type, 8-bit mask, and row#. Sets all leds on one pin per the bit mask.
 - **OFF_LED, ON_LED, TOGGLE_LED** (3 bytes) - message type, led address, and page#. Off/on/toggle specific led.
 - **BLINK_OFF_LED, BLINK_ON_LED, BLINK_OFF_LED** (3 bytes) - message type, led address, and page#. Set blink Off/on/toggle for specific led.
 - **TOGGLE_ALL** (1 byte) - Turn on/off full backlight.
@@ -68,7 +68,7 @@ chMBPost(&led_mailbox, message, timeout);
 An example:
 ```c
 //set the message to be sent. First byte (LSB) is the led address, and second is the message type
-msg=(42 << 8) | ON_LED
+msg=(42 << 8) | ON_LED;
 
 //send msg to the led mailbox
 chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
@@ -76,7 +76,7 @@ chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
 
 Another:
 ```c
-msg=(46 << 8) | BLINK_TOGGLE_LED
+msg=(46 << 8) | BLINK_TOGGLE_LED;
 chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
 ```
 

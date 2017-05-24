@@ -59,7 +59,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,   \
         TT(_FNAV), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_ENT,         \
         KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,F(TILDE),KC_NO,          \
-        KC_LCTL,   KC_LGUI,KC_LALT,               KC_SPC,          KC_RALT,TG(_NUMPAD),MO(_MEDIA), KC_RCTL         \
+        KC_LCTL,   KC_LGUI,KC_LALT,            LT(_FNAV, KC_SPC),       KC_RALT,TG(_NUMPAD),MO(_MEDIA), KC_RCTL         \
     ),
 
     /* numpad */
@@ -68,7 +68,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,_______, KC_P4, KC_P5, KC_P6, KC_PAST, _______,_______,_______, \
         MO(_FNAV),_______,_______,_______,_______,_______,_______, KC_P1, KC_P2, KC_P3, KC_PMNS, _______,_______,      \
         _______,_______,_______,_______,_______,_______,_______, KC_P0,KC_COMM,KC_PDOT,KC_PPLS, _______,KC_NO,      \
-        _______,_______,_______,               MO(_BASE),           _______,_______,_______,_______   \
+        _______,_______,_______,               TO(_BASE),           _______,_______,_______,_______   \
     ),
 
     /* F-, arrow, and media keys */
@@ -290,7 +290,7 @@ void matrix_scan_user(void) {
         led_pin_byte = layer_state & 0xFF;
         msg=(7 << 8) | DISPLAY_PAGE;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
-        msg=(1<<16) | (led_pin_byte << 8) | SET_FULL_ROW;
+        msg=(1 << 16) | (led_pin_byte << 8) | SET_FULL_ROW;
         chMBPost(&led_mailbox, msg, TIME_IMMEDIATE);
         break;
 
