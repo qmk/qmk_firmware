@@ -420,7 +420,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
         case MACRO_OSX_MISSION: 
         if (record->event.pressed) {
-          return MACRO(T(LCTL), T(UP), END);
+          return MACRO(D(LCTL), T(UP), U(LCTL), END);
         }
         break;
         case MACRO_OSX_ZOOMIN: 
