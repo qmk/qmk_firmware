@@ -32,27 +32,27 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
-|KC_ENTER|KC_ENT|Return (ENTER)|
-|KC_ESCAPE|KC_ESC|ESCAPE|
-|KC_BSPACE|KC_BSPC|DELETE (Backspace)|
-|KC_TAB||Tab|
+|KC_ENTER|KC_ENT|`Return (ENTER)`|
+|KC_ESCAPE|KC_ESC|`ESCAPE`|
+|KC_BSPACE|KC_BSPC|`DELETE (Backspace)`|
+|KC_TAB||`Tab`|
 |KC_SPACE|KC_SPC|Spacebar|
-|KC_MINUS|KC_MINS|- and (underscore)|
-|KC_EQUAL|KC_EQL|= and +|
-|KC_LBRACKET|KC_LBRC|[ and {|
-|KC_RBRACKET|KC_RBRC|] and }|
-|KC_BSLASH|KC_BSLS|\\ and \|
-|KC_NONUS_HASH|KC_NUHS|Non-US # and ~|
-|KC_NONUS_BSLASH|KC_NUBS|Non-US \ and |
-|KC_INT1|KC_RO|JIS \\ and \|
+|KC_MINUS|KC_MINS|`-` and `_`|
+|KC_EQUAL|KC_EQL|`=` and `+`|
+|KC_LBRACKET|KC_LBRC|`[` and `{`|
+|KC_RBRACKET|KC_RBRC|`]` and `}`|
+|KC_BSLASH|KC_BSLS|`\` and `|` |
+|KC_NONUS_HASH|KC_NUHS|Non-US `#` and `~`|
+|KC_NONUS_BSLASH|KC_NUBS|Non-US `\` and `|` |
+|KC_INT1|KC_RO|JIS `\` and `|` |
 |KC_INT2|KC_KANA|International216|
-|KC_INT3|KC_JYEN|Yen Symbol (¥)|
-|KC_SCOLON|KC_SCLN|; and :|
-|KC_QUOTE|KC_QUOT|‘ and “|
+|KC_INT3|KC_JYEN|Yen Symbol (`¥`)|
+|KC_SCOLON|KC_SCLN|`;` and `:`|
+|KC_QUOTE|KC_QUOT|`‘` and `“`|
 |KC_GRAVE|KC_GRV|Grave Accent and Tilde|
-|KC_COMMA|KC_COMM|, and <|
-|KC_DOT||. and >|
-|KC_SLASH|KC_SLSH|/ and ?|
+|KC_COMMA|KC_COMM|`,` and `<`|
+|KC_DOT||`.` and `>`|
+|KC_SLASH|KC_SLSH|`/` and `?`|
 |KC_CAPSLOCK|KC_CAPS|Caps Lock|
 
 ## Modifiers
