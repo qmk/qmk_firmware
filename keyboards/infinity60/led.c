@@ -26,25 +26,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * In particular, I2C functions (interrupt-driven) should NOT be called from here.
  */
 void led_set(uint8_t usb_led) {
-/*
-    // PTA5: LED (1:on/0:off)
-    GPIOA->PDDR |= (1<<1);
-    PORTA->PCR[5] |= PORTx_PCRn_DSE | PORTx_PCRn_MUX(1);
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        GPIOA->PSOR |= (1<<5);
-    } else {
-        GPIOA->PCOR |= (1<<5);
-    }
- */
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // signal the LED control thread
+    msg_t msg;
+
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, LED_MSG_CAPS_ON);
+        msg=(1 << 8) | TOGGLE_NUM_LOCK;
+        chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     } else {
-        // signal the LED control thread
         chSysUnconditionalLock();
-        chMBPostI(&led_mailbox, LED_MSG_CAPS_OFF);
+        msg=(0 << 8) | TOGGLE_NUM_LOCK;
+        chMBPostI(&led_mailbox, msg);
+        chSysUnconditionalUnlock();
+    }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        chSysUnconditionalLock();
+        msg=(1 << 8) | TOGGLE_CAPS_LOCK;
+        chMBPostI(&led_mailbox, msg);
+        chSysUnconditionalUnlock();
+    } else {
+        chSysUnconditionalLock();
+        msg=(0 << 8) | TOGGLE_CAPS_LOCK;
+        chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     }
 }
