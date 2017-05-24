@@ -41,10 +41,10 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_EQUAL|KC_EQL|`=` and `+`|
 |KC_LBRACKET|KC_LBRC|`[` and `{`|
 |KC_RBRACKET|KC_RBRC|`]` and `}`|
-|KC_BSLASH|KC_BSLS|`\` and `|` |
+|KC_BSLASH|KC_BSLS|`\` and &#124; |
 |KC_NONUS_HASH|KC_NUHS|Non-US `#` and `~`|
-|KC_NONUS_BSLASH|KC_NUBS|Non-US `\` and `|` |
-|KC_INT1|KC_RO|JIS `\` and `|` |
+|KC_NONUS_BSLASH|KC_NUBS|Non-US `\` and `&#124;` |
+|KC_INT1|KC_RO|JIS `\` and `&#124;` |
 |KC_INT2|KC_KANA|International216|
 |KC_INT3|KC_JYEN|Yen Symbol (`¥`)|
 |KC_SCOLON|KC_SCLN|`;` and `:`|
