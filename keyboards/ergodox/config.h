@@ -9,6 +9,8 @@
 
 #define TAPPING_TOGGLE  1
 
+#define TAPPING_TERM 200
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 

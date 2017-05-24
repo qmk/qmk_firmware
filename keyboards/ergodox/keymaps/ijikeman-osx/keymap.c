@@ -66,6 +66,19 @@ enum custom_keycodes {
   RGB_SLD
 };
 
+
+//Tap Dance Declarations
+enum {
+ CT_SE = 0,
+ CT_CLN,
+ CT_EGG,
+ CT_FLSH,
+ CT_LAYER0,
+ CT_LAYER1,
+ CT_LAYER2,
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -96,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
         KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
         KC_ESC,         KC_LANG2,        KC_LALT,    KC_LGUI, LT(2,KC_NO),
-                                                  KC_NO,      KC_NO,
+                                                  KC_NO,      TD(CT_LAYER1),
                                                               KC_NO,
                                  KC_SPC,     LT(3,KC_NO),     RESET,
 
@@ -505,5 +518,80 @@ void matrix_scan_user(void) {
             // none
             break;
     }
+};
 
+
+//Tap Dance Definitions
+/* Have the above three on the keymap, TD(CT_SE), etc... */
+
+void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+  } else {
+    register_code (KC_SCLN);
+  }
+}
+
+void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_SCLN);
+  } else {
+    unregister_code (KC_SCLN);
+  }
+}
+
+void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count >= 100) {
+    SEND_STRING ("Safety dance!");
+    reset_tap_dance (state);
+  }
+}
+
+// on each tap, light up one led, from right to left
+// on the forth tap, turn them off from right to left
+void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+  case 1:
+    ergodox_right_led_3_on();
+    break;
+  case 2:
+    ergodox_right_led_2_on();
+    break;
+  case 3:
+    ergodox_right_led_1_on();
+    break;
+  case 4:
+    ergodox_right_led_3_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+  }
+}
+
+// on the fourth tap, set the keyboard on flash state
+void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count >= 4) {
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
+// if the flash state didnt happen, then turn off leds, left to right
+void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
+  ergodox_right_led_1_off();
+  _delay_ms(50);
+  ergodox_right_led_2_off();
+  _delay_ms(50);
+  ergodox_right_led_3_off();
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
+ ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+ ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+ ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
+ ,[CT_LAYER1] = ACTION_TAP_DANCE_DOUBLE (KC_1, KC_2)
 };
