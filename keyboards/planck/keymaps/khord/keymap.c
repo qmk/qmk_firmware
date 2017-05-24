@@ -37,6 +37,14 @@ enum planck_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#define MACRO_BREATH_TOGGLE    21
+#define MACRO_BREATH_SPEED_INC 23
+#define MACRO_BREATH_SPEED_DEC 24
+#define MACRO_BREATH_DEFAULT   25
+#define M_BRTOG M(MACRO_BREATH_TOGGLE)
+#define M_BRINC M(MACRO_BREATH_SPEED_INC)
+#define M_BRDEC M(MACRO_BREATH_SPEED_DEC)
+#define M_BRDFT M(MACRO_BREATH_DEFAULT)
 // Tap Dance Declarations
 enum {
   ESC_CAP = 0,
@@ -173,10 +181,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, C_A_INS, C_A_DEL}
+  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, M_BRDFT, KC_DEL },
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, M_BRINC, _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, M_BRDEC, C_A_INS},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, M_BRTOG, C_A_DEL}
 }
 
 
@@ -205,9 +213,35 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+}
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  switch(id) {
+    case MACRO_BREATH_TOGGLE:
+      if (record->event.pressed) {
+        breathing_toggle();
+      }
+      break;
+    case MACRO_BREATH_SPEED_INC:
+      if (record->event.pressed) {
+        breathing_speed_inc(1);
+      }
+      break;
+    case MACRO_BREATH_SPEED_DEC:
+      if (record->event.pressed) {
+        breathing_speed_dec(1);
+      }
+      break;
+    case MACRO_BREATH_DEFAULT:
+      if (record->event.pressed) {
+        breathing_defaults();
+      }
+      break;
+  }
+  return MACRO_NONE;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -217,7 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
@@ -226,7 +260,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_colemak, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
@@ -235,7 +269,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
