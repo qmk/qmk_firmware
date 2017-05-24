@@ -32,6 +32,8 @@
 #define MACRO_OSX_MISSION        40
 #define MACRO_OSX_ZOOMIN        41
 #define MACRO_OSX_ZOOMOUT        42
+#define MACRO_OSX_FORWARD        43
+#define MACRO_OSX_RETURN        44
 
 #define M_SH_LU   M(MACRO_SHIFTIT_LUP)
 #define M_SH_LD   M(MACRO_SHIFTIT_LDOWN)
@@ -51,6 +53,8 @@
 #define M_OSX_MISSION   M(MACRO_OSX_MISSION)
 #define M_OSX_ZOOMIN   M(MACRO_OSX_ZOOMIN)
 #define M_OSX_ZOOMOUT   M(MACRO_OSX_ZOOMOUT)
+#define M_OSX_FORWARD   M(MACRO_OSX_FORWARD)
+#define M_OSX_RETURN   M(MACRO_OSX_RETURN)
 
 #define PUSH_TIME 100
 
@@ -156,9 +160,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  *  |        |      | BTN1 | MsUp | BTN2 |      |      |           |      |      | UNDO |      | REDO |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- *  |        |      |MsLeft|MsDown|MsRght|ZOOMOUT|-----|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
+ *  |        |FORWARD|MsLeft|MsDown|MsRght|ZOOMOUT|-----|           |------| LEFT | DOWN | UP   |RIGHT |      |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- *  |        |      |WheelU|MISSION||WheelD|ZOOMIN|    |           |      |      | CP   | CUT  | PST  |      |        |
+ *  |        |RETURN|WheelU|MISSION||WheelD|ZOOMIN|    |           |      |      | CP   | CUT  | PST  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -175,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        KC_TRNS,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,
        KC_TRNS,   KC_NO,    KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NO,    KC_TRNS,
-       KC_TRNS,   KC_NO,    KC_MS_L,  KC_MS_D,  KC_MS_R,  M_OSX_ZOOMOUT,
-       KC_TRNS,   KC_NO,    KC_WH_D,  M_OSX_MISSION,KC_WH_U,M_OSX_ZOOMIN,KC_TRNS,
+       KC_TRNS,   M_OSX_FORWARD,    KC_MS_L,  KC_MS_D,  KC_MS_R,  M_OSX_ZOOMOUT,
+       KC_TRNS,   M_OSX_RETURN,    KC_WH_D,  M_OSX_MISSION,KC_WH_U,M_OSX_ZOOMIN,KC_TRNS,
        KC_TRNS,   KC_NO,    KC_TRNS,  KC_TRNS,    KC_TRNS,
                                       KC_TRNS,  KC_TRNS,
                                                 KC_TRNS,
@@ -431,6 +435,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_OSX_ZOOMOUT: 
         if (record->event.pressed) {
           return MACRO(D(LGUI), T(MINUS), U(LGUI), END);
+        }
+        break;
+        case MACRO_OSX_FORWARD: 
+        if (record->event.pressed) {
+          return MACRO(D(LGUI), T(RBRC), U(LGUI), END);
+        }
+        break;
+        case MACRO_OSX_RETURN: 
+        if (record->event.pressed) {
+          return MACRO(D(LGUI), T(LBRC), U(LGUI), END);
         }
         break;
       }
