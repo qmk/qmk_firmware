@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "hal.h"
 #include "print.h"
 #include "led.h"
-#include "action_layer.h"
 #include "host.h"
 
 #include "led_controller.h"
@@ -199,31 +198,25 @@ static THD_FUNCTION(LEDthread, arg) {
         break;
 
       case OFF_LED:
-      //on/off/toggle single led, msg_args[0] = row/col of led
+      //on/off/toggle single led, msg_args[0] = row/col of led, msg_args[1] = page
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 0);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
       case ON_LED:
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 1);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
       case TOGGLE_LED:
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 2);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
 
       case BLINK_OFF_LED:
       //on/off/toggle single led, msg_args[0] = row/col of led
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 4);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
       case BLINK_ON_LED:
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 5);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
       case BLINK_TOGGLE_LED:
         set_led_bit(msg_args[1], control_register_word, msg_args[0], 6);
-        is31_write_data (msg_args[1], control_register_word, 0x02);
         break;
 
       case TOGGLE_ALL:
@@ -282,6 +275,10 @@ static THD_FUNCTION(LEDthread, arg) {
         led_control_reg[0] = 0;
         __builtin_memset(led_control_reg+1, 0, 0x12);
         is31_write_data(msg_args[0], led_control_reg, 0x13);
+
+        //repeat for blink register
+        led_control_reg[0] = 0x12;
+        is31_write_data(msg_args[0], led_control_reg, 0x13);
         break;
 
       case TOGGLE_NUM_LOCK:
@@ -330,7 +327,7 @@ static THD_FUNCTION(LEDthread, arg) {
  *    led processing functions
  * ============================== */
 
-void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint8_t action) {
+void set_led_bit (uint8_t page, uint8_t *led_control_word, uint8_t led_addr, uint8_t action) {
   //returns 2 bytes: led control register address and byte to write
   //action: 0 - off, 1 - on, 2 - toggle, 4 - blink on, 5 - blink off, 6 - toggle blink
 
@@ -341,11 +338,9 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
     return;
   }
 
-  //check for blink bit
-  blink_bit = action>>2;
+  blink_bit = action>>2;//check for blink bit
   action &= ~(1<<2); //strip blink bit
 
-  //first byte is led control register address 0x00
   //led_addr tens column is pin#, ones column is bit position in 8-bit mask
   control_reg_addr = ((led_addr / 10) % 10 - 1 ) * 0x02;// A-matrix is every other byte
   control_reg_addr += blink_bit == 1 ? 0x12 : 0x00;//if blink_bit, shift 12 bytes to blink register
@@ -367,8 +362,9 @@ void set_led_bit (uint8_t page, uint8_t *led_control_reg, uint8_t led_addr, uint
   }
 
   //return word to be written in register
-  led_control_reg[0] = control_reg_addr;
-  led_control_reg[1] = column_byte;
+  led_control_word[0] = control_reg_addr;
+  led_control_word[1] = column_byte;
+  is31_write_data (page, led_control_word, 0x02);
 }
 
 void write_led_byte (uint8_t page, uint8_t row, uint8_t led_byte) {
@@ -403,13 +399,14 @@ void set_lock_leds(uint8_t led_addr, uint8_t led_action, uint8_t page) {
   //blink if all leds are on
   if (page == 0) {
     is31_read_register(0, 0x00, &temp);
+    chThdSleepMilliseconds(10);
+
     if (temp == 0xFF) {
       led_action |= (1<<2); //set blink bit
     }
   }
 
   set_led_bit(page,led_control_word,led_addr,led_action);
-  is31_write_data(page, led_control_word, 0x02);
 }
 
 /* =====================
