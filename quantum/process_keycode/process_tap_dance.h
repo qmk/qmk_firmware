@@ -63,9 +63,9 @@ typedef struct
     .user_data = NULL, \
   }
 
-#define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset) { \
+#define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, tap_specific_tapping_term) { \
     .fn = { user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset }, \
-    .user_data = NULL, \
+    .user_data = (void *)(tap_specific_tapping_term), \
   }
 
 extern qk_tap_dance_action_t tap_dance_actions[];

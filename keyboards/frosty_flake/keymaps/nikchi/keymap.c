@@ -77,10 +77,10 @@ enum quick {
 qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap once for CTRL, twice for Caps Lock
   [TD_CTCPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_CAPS),
-  [EMOJIS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleEmojis, NULL, NULL),
-  [ANIMAL] = ACTION_TAP_DANCE_FN_ADVANCED(cycleAnimals, NULL, NULL),
-  [HAND] = ACTION_TAP_DANCE_FN_ADVANCED(cycleHands, NULL, NULL),
-  [MEMES] = ACTION_TAP_DANCE_FN_ADVANCED(cycleMemes, NULL, NULL)
+  [EMOJIS] = ACTION_TAP_DANCE_FN_ADVANCED(cycleEmojis, NULL, NULL, 800),
+  [ANIMAL] = ACTION_TAP_DANCE_FN_ADVANCED(cycleAnimals, NULL, NULL, 800),
+  [HAND] = ACTION_TAP_DANCE_FN_ADVANCED(cycleHands, NULL, NULL, 800),
+  [MEMES] = ACTION_TAP_DANCE_FN_ADVANCED(cycleMemes, NULL, NULL, 800)
 // Other declarations would go here, separated by commas, if you have them
 };
 

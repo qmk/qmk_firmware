@@ -130,11 +130,17 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_tap_dance () {
   if (highest_td == -1)
     return;
+  int tap_user_defined;
 
 for (int i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
-
-    if (action->state.count && timer_elapsed (action->state.timer) > TAPPING_TERM) {
+    if(action->user_data != NULL ) {
+      tap_user_defined = (int)action->user_data;
+    }
+    else{
+      tap_user_defined = TAPPING_TERM;
+    }
+    if (action->state.count && timer_elapsed (action->state.timer) > tap_user_defined) {
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
     }
