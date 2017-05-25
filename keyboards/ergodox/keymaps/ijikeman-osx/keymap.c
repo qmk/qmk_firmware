@@ -529,17 +529,30 @@ void matrix_scan_user(void) {
 
 
 #ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 200
+#define TAPPING_TERM 100
 
 void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
   switch(state->count){      // Only turn the layer on once
     case 1:
         layer_off(BASE);
+        layer_off(LOWR);
         layer_on(RAIS);
         update_tri_layer(LOWR, RAIS, BASE);
         break;
   }
 };
+
+void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called on tap
+  switch(state->count){
+    case 1:         // Turn on lower
+        layer_off(BASE);
+        layer_off(RAIS);
+        layer_on(LOWR);
+        update_tri_layer(LOWR, RAIS, BASE);
+        break;
+  }
+};
+
 void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
@@ -549,27 +562,13 @@ void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
         break;
   }
 };
-/////////////////////////////////////////////////////////////////////
-void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called on tap
-  switch(state->count){
-    case 1:         // Turn on lower
-        layer_off(BASE);
-        layer_on(LOWR);
-        update_tri_layer(LOWR, RAIS, BASE);
-        break;
-  }
-};
+
 void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
         layer_off(LOWR);
         update_tri_layer(LOWR, RAIS, BASE);
         layer_off(BASE);
-        break;
-    case 2:         // Turn on _UNICODES layer
-        layer_off(LOWR);
-        update_tri_layer(LOWR, RAIS, BASE);
-        layer_on(BASE);
         break;
   }
 };
