@@ -34,6 +34,7 @@
 #define MACRO_OSX_ZOOMOUT        42
 #define MACRO_OSX_FORWARD        43
 #define MACRO_OSX_RETURN        44
+#define MACRO_OSX_APP           45
 
 #define M_SH_LU   M(MACRO_SHIFTIT_LUP)
 #define M_SH_LD   M(MACRO_SHIFTIT_LDOWN)
@@ -55,7 +56,7 @@
 #define M_OSX_ZOOMOUT   M(MACRO_OSX_ZOOMOUT)
 #define M_OSX_FORWARD   M(MACRO_OSX_FORWARD)
 #define M_OSX_RETURN   M(MACRO_OSX_RETURN)
-
+#define M_OSX_APP      M(MACRO_OSX_APP)
 #define PUSH_TIME 100
 
 
@@ -71,7 +72,10 @@ enum custom_keycodes {
 enum {
  TD_BRC,
  TD_MINUS_EQL,
- TD_LCTL
+ TD_LCTL,
+ TD_LAYER0,
+ TD_LAYER1,
+ TD_LAYER2
 };
 
 
@@ -105,8 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_LCTL),    KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
         KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
         KC_ESC,         KC_LANG2,        KC_LALT,    KC_LGUI, LT(2,KC_NO),
-                                                  KC_NO,      KC_NO,
-                                                              KC_NO,
+                                                  TD(TD_LAYER2),      TD(TD_LAYER1),
+                                                              KC_0,
                                  KC_SPC,     LT(3,KC_NO),     RESET,
 
         // right hand
@@ -209,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SHIF] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,
        KC_TRNS, KC_TRNS, M_SH_LU, M_SH_U, M_SH_RU, KC_TRNS,KC_TRNS,
-       KC_TRNS, KC_TRNS, M_SH_L, M_SH_FL, M_SH_R,  KC_TRNS,
+       KC_TRNS, KC_TRNS, M_SH_L, M_SH_FL, M_SH_R,  M_OSX_APP,
        KC_TRNS, KC_TRNS, M_SH_LD, M_SH_D, M_SH_RD, M_SH_MV,KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
@@ -456,6 +460,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           return MACRO(D(LGUI), T(LBRC), U(LGUI), END);
         }
         break;
+        case MACRO_OSX_APP: 
+        if (record->event.pressed) {
+          return MACRO(D(LGUI), T(TAB), END);
+        }
+        break;
       }
       return MACRO_NONE;
 };
@@ -521,5 +530,8 @@ void matrix_scan_user(void) {
 qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_BRC] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_RBRC),
  [TD_MINUS_EQL] = ACTION_TAP_DANCE_DOUBLE (KC_MINUS, KC_EQL),
- [TD_LCTL] = ACTION_TAP_DANCE_DOUBLE (KC_LCTL, KC_CAPS)
+ [TD_LCTL] = ACTION_TAP_DANCE_DOUBLE (KC_LCTL, KC_CAPS),
+ [TD_LAYER0] = ACTION_TAP_DANCE_DOUBLE (LT(0, KC_NO), TG(0)),
+ [TD_LAYER1] = ACTION_TAP_DANCE_DOUBLE (TG(1), LT(1, KC_NO)),
+ [TD_LAYER2] = ACTION_TAP_DANCE_DOUBLE (DF(2), LT(2, KC_NO))
 };
