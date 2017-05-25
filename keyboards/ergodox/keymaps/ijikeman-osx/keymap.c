@@ -75,7 +75,9 @@ enum {
  TD_LCTL,
  TD_LAYER0,
  TD_LAYER1,
- TD_LAYER2
+ TD_LAYER2,
+ TD_RAIS,
+ TD_LOWR
 };
 
 
@@ -108,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,       KC_E,       KC_R,       KC_T,     KC_NO,
         TD(TD_LCTL),    KC_A,         KC_S,       KC_D,       KC_F,       KC_G,
         KC_LSFT,        KC_Z,         KC_X,       KC_C,       KC_V,       KC_B,     KC_NO,
-        KC_ESC,         KC_LANG2,        KC_LALT,    KC_LGUI, LT(2,KC_NO),
+        KC_ESC,         KC_LANG2,        KC_LALT,    KC_LGUI, TD(TD_LOWR),
                                                   TD(TD_LAYER2),      TD(TD_LAYER1),
                                                               KC_0,
                                  KC_SPC,     LT(3,KC_NO),     RESET,
@@ -118,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,        KC_Y,         KC_U,       KC_I,       KC_O,        KC_P,      TD(TD_BRC),
                       KC_H,         KC_J,       KC_K,       KC_L,        KC_SCLN,   KC_ENT,
         KC_NO,        KC_N,         KC_M,       KC_COMM,    KC_DOT,      KC_SLSH,   KC_QUOT,
-        LT(1,KC_NO),  KC_BSLS,      KC_NO,      KC_LANG1,      KC_NO,
+        TD(TD_RAIS),  KC_BSLS,      KC_NO,      KC_LANG1,      KC_NO,
         KC_NO,        KC_NO,
         KC_NO,
         TG(4),        KC_NO, KC_BSPC
@@ -526,6 +528,52 @@ void matrix_scan_user(void) {
 };
 
 
+#ifdef TAP_DANCE_ENABLE
+#define TAPPING_TERM 200
+
+void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
+  switch(state->count){      // Only turn the layer on once
+    case 1:
+        layer_off(BASE);
+        layer_on(RAIS);
+        update_tri_layer(LOWR, RAIS, BASE);
+        break;
+  }
+};
+void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+  switch(state->count){
+    case 1:         // Normal action. Turn off layers
+        layer_off(RAIS);
+        update_tri_layer(LOWR, RAIS, BASE);
+        layer_off(BASE);
+        break;
+  }
+};
+/////////////////////////////////////////////////////////////////////
+void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called on tap
+  switch(state->count){
+    case 1:         // Turn on lower
+        layer_off(BASE);
+        layer_on(LOWR);
+        update_tri_layer(LOWR, RAIS, BASE);
+        break;
+  }
+};
+void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+  switch(state->count){
+    case 1:         // Normal action. Turn off layers
+        layer_off(LOWR);
+        update_tri_layer(LOWR, RAIS, BASE);
+        layer_off(BASE);
+        break;
+    case 2:         // Turn on _UNICODES layer
+        layer_off(LOWR);
+        update_tri_layer(LOWR, RAIS, BASE);
+        layer_on(BASE);
+        break;
+  }
+};
+
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_BRC] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_RBRC),
@@ -533,5 +581,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_LCTL] = ACTION_TAP_DANCE_DOUBLE (KC_LCTL, KC_CAPS),
  [TD_LAYER0] = ACTION_TAP_DANCE_DOUBLE (LT(0, KC_NO), TG(0)),
  [TD_LAYER1] = ACTION_TAP_DANCE_DOUBLE (TG(1), LT(1, KC_NO)),
- [TD_LAYER2] = ACTION_TAP_DANCE_DOUBLE (DF(2), LT(2, KC_NO))
+ [TD_LAYER2] = ACTION_TAP_DANCE_DOUBLE (DF(2), LT(2, KC_NO)),
+ [TD_RAIS] = ACTION_TAP_DANCE_FN_ADVANCED(dance_raise_press, NULL, dance_raise_lift),
+ [TD_LOWR] = ACTION_TAP_DANCE_FN_ADVANCED(dance_lower_press, NULL, dance_lower_lift)
 };
+#endif
