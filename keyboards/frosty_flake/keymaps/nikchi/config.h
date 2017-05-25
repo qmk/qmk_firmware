@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-#define TAPPING_TERM 300
+#define TAPPING_TERM 800
 #define LEADER_TIMEOUT 400
 
 #define DISABLE_SPACE_CADET_ROLLOVER
@@ -21,4 +21,3 @@
 // place overrides here
 
 #endif
-
