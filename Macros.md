@@ -173,7 +173,7 @@ Add the following keys to your keymap:
 - `DYN_REC_START2` — start recording the macro 2,
 - `DYN_MACRO_PLAY1` — replay the macro 1,
 - `DYN_MACRO_PLAY2` — replay the macro 2,
-- `DYN_MACRO_STOP` — finish the currently recorded macro.
+- `DYN_REC_STOP` — finish the macro that is currently being recorded.
 
 Add the following code to the very beginning of your `process_record_user()` function:
 
