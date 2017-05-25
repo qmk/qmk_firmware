@@ -12,3 +12,5 @@
 
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 0
+
+#define TAPPING_TERM    100

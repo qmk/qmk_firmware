@@ -528,7 +528,6 @@ void matrix_scan_user(void) {
 
 
 #ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 100
 
 void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
   switch(state->count){      // Only turn the layer on once
