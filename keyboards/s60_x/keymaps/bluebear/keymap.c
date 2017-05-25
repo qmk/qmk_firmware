@@ -161,9 +161,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 	 │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │TO(3)│TO(4)│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │CAPS │     │     │     │     │     │     │PGUP │  UP │HOME │ END │     │ INS │ DEL │█████│
+	 │     │     │     │     │     │     │     │PGUP │  UP │     │     │     │ INS │ DEL │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │     │     │     │     │     │     │     │LEFT │DOWN │RIGHT│     │     │▒▒▒▒▒│     │█████│
+	 │CAPS │HOME │     │ END │     │     │     │LEFT │DOWN │RIGHT│     │     │▒▒▒▒▒│     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │▒▒▒▒▒│     │     │     │     │     │SPACE│PGDN │PSCR │SLCK │PAUSE│▒▒▒▒▒│     │▒▒▒▒▒│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -173,8 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ARROWFN] = KEYMAP(
 					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(4), \
-					 KC_CAPS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_HOME,  KC_END,  KC_NO,  KC_INS,  KC_DEL, \
-					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
+					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_NO,  KC_NO,  KC_NO,  KC_INS,  KC_DEL, \
+					 KC_CAPS,  KC_HOME,  KC_NO,  KC_END,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
 					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_NO,  KC_NO, \
 					 KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, KC_NO,  KC_NO,  KC_TRNS
 					 ),
@@ -644,74 +644,64 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   return MACRO_NONE;
 };
 
-/*
 // Midi Chord Function
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-uint16_t root_note;
-uint8_t channel = midi_config.channel;
-uint8_t velocity = compute_velocity(midi_config.velocity);
-switch (opt) {
-case 0: //Root note C
-root_note = MI_C;
-case 1: //Root note C#/Db
-root_note = MI_Cs;
-case 2: // Root note D
-root_note = MI_D;
-case 3: // Root note D#/Eb
-root_note = MI_Ds;
-case 4: // Root note E
-root_note = MI_E;
-case 5: // Root note F
-root_note = MI_F;
-case 6: // Root note F#/Gb
-root_note = MI_Fs;
-case 7: // Root note G
-root_note = MI_G;
-case 8: // Root note G#/Ab
-root_note = MI_Gs;
-case 9: // Root note A
-root_note = MI_A;
-case 10: // Root note A#/Bb
-root_note = MI_As;
-case 11: // Root note B
-root_note = MI_B;
-switch (id) {
-uint8_t tone = root_note - MIDI_TONE_MIN;
-uint8_t root = midi_compute_note(root_note);
-uint8_t major_third = midi_compute_note(root_note) + 4;
-uint8_t minor_third = midi_compute_note(root_note) + 3;
-uint8_t fifth = midi_compute_note(root_note) + 7;
-case 0: //Major chord
-if (record->event.pressed) {
-midi_send_noteon(&midi_device, channel, root, velocity);
-midi_send_noteon(&midi_device, channel, major_third, velocity);
-midi_send_noteon(&midi_device, channel, fifth, velocity);
-tone_status[tone] = root;
+  uint16_t root_note;
+  uint8_t channel = midi_config.channel;
+  uint8_t velocity = compute_velocity(midi_config.velocity);
+  switch (opt) {
+  case 0: //Root note C
+	root_note = MI_C;
+  case 1: //Root note C#/Db
+	root_note = MI_Cs;
+  case 2: // Root note D
+	root_note = MI_D;
+  case 3: // Root note D#/Eb
+	root_note = MI_Ds;
+  case 4: // Root note E
+	root_note = MI_E;
+  case 5: // Root note F
+	root_note = MI_F;
+  case 6: // Root note F#/Gb
+	root_note = MI_Fs;
+  case 7: // Root note G
+	root_note = MI_G;
+  case 8: // Root note G#/Ab
+	root_note = MI_Gs;
+  case 9: // Root note A
+	root_note = MI_A;
+  case 10: // Root note A#/Bb
+	root_note = MI_As;
+  case 11: // Root note B
+	root_note = MI_B;
+	switch (id) {
+	  uint8_t root = midi_compute_note(root_note);
+	  uint8_t major_third = midi_compute_note(root_note) + 4;
+	  uint8_t minor_third = midi_compute_note(root_note) + 3;
+	  uint8_t fifth = midi_compute_note(root_note) + 7;
+	case 0: //Major chord
+	  if (record->event.pressed) {
+		midi_send_noteon(&midi_device, channel, root, velocity);
+		midi_send_noteon(&midi_device, channel, major_third, velocity);
+		midi_send_noteon(&midi_device, channel, fifth, velocity);
+	  }
+	  else {
+		midi_send_noteoff(&midi_device, channel, root, velocity);
+		midi_send_noteoff(&midi_device, channel, major_third, velocity);
+		midi_send_noteoff(&midi_device, channel, fifth, velocity);		
+	  }
+	case 1: //Minor chord
+	  if (record->event.pressed) {
+		midi_send_noteon(&midi_device, channel, root_note, velocity);
+		midi_send_noteon(&midi_device, channel, minor_third, velocity);
+		midi_send_noteon(&midi_device, channel, fifth, velocity);
+	  }
+	  else {
+		midi_send_noteoff(&midi_device, channel, root, velocity);
+		midi_send_noteoff(&midi_device, channel, minor_third, velocity);
+		midi_send_noteoff(&midi_device, channel, fifth, velocity);
+	  }
+	}
+  }
 }
-else {
-uint8_t root = tone_status[tone];
-if (root != MIDI_INVALID_NOTE)
-{
-midi_send_noteoff(&midi_device, channel, root, velocity);
-}
-tone_status[tone] = MIDI_INVALID_NOTE;
-}
-case 1: //Minor chord
-if (record->event.pressed) {
-midi_send_noteon(&midi_device, channel, root_note, velocity);
-midi_send_noteon(&midi_device, channel, minor_third, velocity);
-midi_send_noteon(&midi_device, channel, fifth, velocity);
-}
-else {
-uint8_t root = tone_status[tone];
-if (root != MIDI_INVALID_NOTE)
-{
-midi_send_noteoff(&midi_device, channel, root, velocity);
-}
-tone_status[tone] = MIDI_INVALID_NOTE;
-}
-}
-}
-};
-*/
