@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
+#include "rgbtheme.h"
 #endif
 #ifdef PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
@@ -42,13 +43,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef FAUXCLICKY_OFF
 #define FAUXCLICKY_OFF do { \
     fauxclicky_enabled = false; \
-    rgbsps_set(LED_AUDIO, 0, 0, 0); \
+    rgbsps_set(LED_AUDIO, COLOR_BLANK); \
     fauxclicky_stop(); \
 } while (0)
 #undef FAUXCLICKY_ON
 #define FAUXCLICKY_ON do { \
     fauxclicky_enabled = true; \
-    rgbsps_set(LED_AUDIO, 8, 0, 8); \
+    rgbsps_set(LED_AUDIO, THEME_COLOR_AUDIO); \
 } while (0)
 #endif
 #endif
@@ -144,6 +145,7 @@ enum planck_keycodes {
 #ifndef MODULE_ADAFRUIT_BLE
   OUT_BT,
 #endif
+  RGBDEMO,
   KEYCODE_END
 };
 
@@ -434,10 +436,10 @@ const uint8_t PROGMEM LED_MODS[] = {
 };
 
 const uint8_t PROGMEM LED_FN[] = {
-  LED_PUNC,
+  LED_EMPTY,
   LED_NUM,
   LED_FUN,
-  LED_EMOJI
+  LED_GREEK
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
@@ -468,15 +470,36 @@ const uint8_t PROGMEM LED_TRACKPOINT[] = {
 
 void led_turnoff_keys(void) {
   for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), COLOR_BLACK);
   }
   for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_MODS[i]), COLOR_BLACK);
   }
   for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-    rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_FN[i]), COLOR_BLACK);
   }
 }
+
+#ifdef RGBSPS_DEMO_ENABLE
+void led_demo(void) {
+  rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
+  rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
+  rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
+  rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
+  rgbsps_set(LED_IND_ALT, THEME_COLOR_ALT);
+  rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
+  rgbsps_set(LED_IND_BLUETOOTH, THEME_COLOR_BLUETOOTH);
+  rgbsps_set(LED_IND_USB, THEME_COLOR_USB);
+  rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
+  rgbsps_set(LED_IND_GUI, THEME_COLOR_GUI);
+  rgbsps_set(LED_IND_FUN, THEME_COLOR_FUN);
+  rgbsps_set(LED_IND_NUM, THEME_COLOR_NUM);
+  rgbsps_set(LED_IND_PUNC, THEME_COLOR_PUNC);
+  rgbsps_set(LED_IND_GREEK, THEME_COLOR_GREEK);
+  rgbsps_set(LED_IND_EMOJI, THEME_COLOR_EMOJI);
+  rgbsps_send();
+}
+#endif
 
 void led_reset(void) {
   switch (glow_mode) {
@@ -486,26 +509,26 @@ void led_reset(void) {
     case GLOW_MIN:
       led_turnoff_keys();
       for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
-        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 8, 8, 8);
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), THEME_COLOR_GLOW1_HOME);
       }
-      rgbsps_set(LED_F, 15, 0, 0);
-      rgbsps_set(LED_J, 15, 0, 0);
+      rgbsps_set(LED_F, THEME_COLOR_GLOW1_HOMING);
+      rgbsps_set(LED_J, THEME_COLOR_GLOW1_HOMING);
       break;
     case GLOW_FULL:
       for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-        rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 8, 8, 8);
+        rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), THEME_COLOR_GLOW2_ALPHA);
       }
       for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-        rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 15, 0);
+        rgbsps_set(pgm_read_byte(&LED_MODS[i]), THEME_COLOR_GLOW2_MODS);
       }
       for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-        rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 15);
+        rgbsps_set(pgm_read_byte(&LED_FN[i]), THEME_COLOR_GLOW2_FN);
       }
       for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
-        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 15, 0, 0);
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), THEME_COLOR_GLOW2_HOME);
       }
-      rgbsps_set(LED_F, 15, 15, 0);
-      rgbsps_set(LED_J, 15, 15, 0);
+      rgbsps_set(LED_F, THEME_COLOR_GLOW2_HOMING);
+      rgbsps_set(LED_J, THEME_COLOR_GLOW2_HOMING);
       break;
   }
 }
@@ -513,11 +536,11 @@ void led_reset(void) {
 void led_set_default_layer_indicator(void) {
   uint8_t default_layer = biton32(default_layer_state);
   if (default_layer == _QWERTY) {
-    rgbsps_set(LED_IND_QWERTY, 15, 10, 0);
-    rgbsps_set(LED_IND_ALT, 0, 0, 0);
+    rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
+    rgbsps_set(LED_IND_ALT, COLOR_BLANK);
   } else {
-    rgbsps_set(LED_IND_QWERTY, 0, 0, 0);
-    rgbsps_set(LED_IND_ALT, 15, 10, 0);
+    rgbsps_set(LED_IND_QWERTY, COLOR_BLANK);
+    rgbsps_set(LED_IND_ALT, THEME_COLOR_ALT);
   }
   rgbsps_send();
   return;
@@ -528,12 +551,12 @@ void led_set_layer_indicator(void) {
 
   led_reset();
 
-  rgbsps_set(LED_IND_GUI, 0, 0, 0);
-  rgbsps_set(LED_IND_FUN, 0, 0, 0);
-  rgbsps_set(LED_IND_NUM, 0, 0, 0);
-  rgbsps_set(LED_IND_PUNC, 0, 0, 0);
-  rgbsps_set(LED_IND_GREEK, 0, 0, 0);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
+  rgbsps_set(LED_IND_GUI, COLOR_BLANK);
+  rgbsps_set(LED_IND_FUN, COLOR_BLANK);
+  rgbsps_set(LED_IND_NUM, COLOR_BLANK);
+  rgbsps_set(LED_IND_PUNC, COLOR_BLANK);
+  rgbsps_set(LED_IND_GREEK, COLOR_BLANK);
+  rgbsps_set(LED_IND_EMOJI, COLOR_BLANK);
 
   uint8_t layer = biton32(layer_state);
   if (oldlayer == layer) {
@@ -549,71 +572,71 @@ void led_set_layer_indicator(void) {
 
   switch(layer) {
     case _GUI:
-      rgbsps_set(LED_IND_GUI, 15, 0, 15);
+      rgbsps_set(LED_IND_GUI, THEME_COLOR_GUI);
       break;
     case _FUN:
-      rgbsps_set(LED_IND_FUN, 15, 0, 0);
+      rgbsps_set(LED_IND_FUN, THEME_COLOR_FUN);
       break;
     case _NUM:
-      rgbsps_set(LED_IND_NUM, 0, 0, 15);
+      rgbsps_set(LED_IND_NUM, THEME_COLOR_NUM);
       break;
     case _PUNC:
-      rgbsps_set(LED_IND_PUNC, 0, 15, 0);
+      rgbsps_set(LED_IND_PUNC, THEME_COLOR_PUNC);
       break;
     case _GREEKL:
     case _GREEKU:
-      rgbsps_set(LED_IND_GREEK, 0, 15, 15);
+      rgbsps_set(LED_IND_GREEK, THEME_COLOR_GREEK);
       break;
     case _EMOJI:
-      rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
+      rgbsps_set(LED_IND_EMOJI, THEME_COLOR_EMOJI);
       break;
     default:
-      rgbsps_set(LED_IND_GUI, 3, 3, 3);
-      rgbsps_set(LED_IND_FUN, 3, 3, 3);
-      rgbsps_set(LED_IND_NUM, 3, 3, 3);
-      rgbsps_set(LED_IND_PUNC, 3, 3, 3);
-      rgbsps_set(LED_IND_GREEK, 3, 3, 3);
-      rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
+      rgbsps_set(LED_IND_GUI, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_FUN, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_NUM, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_PUNC, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_GREEK, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_EMOJI, THEME_COLOR_OTHERLAYER);
   }
 
   rgbsps_send();
 }
 
 void led_set_unicode_input_mode(void) {
-  rgbsps_set(LED_IND_LINUX, 0, 0, 0);
-  rgbsps_set(LED_IND_APPLE, 0, 0, 0);
-  rgbsps_set(LED_IND_WINDOWS, 0, 0, 0);
+  rgbsps_set(LED_IND_LINUX, COLOR_BLANK);
+  rgbsps_set(LED_IND_APPLE, COLOR_BLANK);
+  rgbsps_set(LED_IND_WINDOWS, COLOR_BLANK);
 
   switch (get_unicode_input_mode()) {
     case UC_LNX:
-      rgbsps_set(LED_IND_LINUX, 15, 15, 15);
+      rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
       break;
     case UC_OSX:
-      rgbsps_set(LED_IND_APPLE, 15, 15, 15);
+      rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
     case UC_WIN:
     case UC_WINC:
-      rgbsps_set(LED_IND_WINDOWS, 15, 15, 15);
+      rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
       break;
   }
   rgbsps_send();
 }
 
 void led_set_output_ble(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 15);
-  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_set(LED_IND_BLUETOOTH, THEME_COLOR_BLUETOOTH);
+  rgbsps_set(LED_IND_USB, COLOR_BLANK);
   rgbsps_send();
 }
 
 void led_set_output_usb(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
-  rgbsps_set(LED_IND_USB, 15, 15, 15);
+  rgbsps_set(LED_IND_BLUETOOTH, COLOR_BLANK);
+  rgbsps_set(LED_IND_USB, THEME_COLOR_USB);
   rgbsps_send();
 }
 
 void led_set_output_none(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
-  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_set(LED_IND_BLUETOOTH, COLOR_BLANK);
+  rgbsps_set(LED_IND_USB, COLOR_BLANK);
   rgbsps_send();
 }
 
@@ -622,9 +645,9 @@ void led_init(void) {
   rgbsps_turnoff();
 
   // set trackpoint color
-  rgbsps_set(LED_TRACKPOINT1, 15, 0, 0);
-  rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
-  rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
+  rgbsps_set(LED_TRACKPOINT1, THEME_COLOR_TP1);
+  rgbsps_set(LED_TRACKPOINT2, THEME_COLOR_TP2);
+  rgbsps_set(LED_TRACKPOINT3, THEME_COLOR_TP3);
 
   // unicode input mode
   led_set_unicode_input_mode();
@@ -632,6 +655,17 @@ void led_init(void) {
   // layer indicator
   led_set_layer_indicator();
   led_set_default_layer_indicator();
+
+  // clicky
+#ifdef FAUXCLICKY_ENABLE
+  if (fauxclicky_enabled) {
+    rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
+  } else {
+    rgbsps_set(LED_IND_AUDIO, COLOR_BLANK);
+  }
+#endif
+
+  rgbsps_send();
 }
 
 
@@ -911,7 +945,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYS] = KEYMAP(
-  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
@@ -921,7 +955,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 #ifdef RGBSPS_ENABLE
@@ -1100,14 +1134,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
@@ -1115,7 +1149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
@@ -1123,7 +1157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_WORKMAN);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
@@ -1131,7 +1165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_NORMAN);
+        persistent_default_layer_set(1UL<<_NORMAN);
       }
       return false;
       break;
@@ -1211,13 +1245,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case FC_TOG:
 #ifdef RGBSPS_ENABLE
       if (fauxclicky_enabled) {
-        rgbsps_set(LED_IND_AUDIO, 0, 0, 0);
+        rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
       } else {
-        rgbsps_set(LED_IND_AUDIO, 5, 11, 13);
+        rgbsps_set(LED_IND_AUDIO, COLOR_BLANK);
       }
       rgbsps_send();
 #endif
       return true;
+      break;
+#endif
+
+#ifdef RGBSPS_DEMO_ENABLE
+    case RGBDEMO:
+      led_demo();
+      return false;
       break;
 #endif
   }
@@ -1280,9 +1321,9 @@ void turn_off_capslock() {
     bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
     if (new_capslock ^ capslock) { // capslock state is different
       if ((capslock = new_capslock)) {
-        rgbsps_set(LED_IND_CAPSLOCK, 15, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
       } else {
-        rgbsps_set(LED_IND_CAPSLOCK, 0, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, COLOR_BLANK);
       }
       rgbsps_send();
     }
