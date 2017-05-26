@@ -196,7 +196,7 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           return false;
           break;
@@ -231,7 +231,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case MQWERTY:
           if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_MQWERTY);
+            persistent_default_layer_set(1UL<<_MQWERTY);
           }
           return false;
           break;
