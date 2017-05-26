@@ -50,7 +50,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     uint8_t action_layer, when, mod;
 
     switch (keycode) {
-        case KC_FN0 ... KC_FN31:
+        case KC_FN0 ... KC_FN28:
             action.code = keymap_function_id_to_action(FN_INDEX(keycode));
             break;
         case KC_A ... KC_EXSEL:
@@ -63,9 +63,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
-        case KC_MS_UP ... KC_MS_ACCEL2:
+        case KC_MS_UP ... KC_MS_LEFT:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
+				case KC_MS_RIGHT ... KC_MS_DNSPED:
+						action.code = ACTION_MOUSEKEY(keycode);
+						break;
         case KC_TRNS:
             action.code = ACTION_TRANSPARENT;
             break;
