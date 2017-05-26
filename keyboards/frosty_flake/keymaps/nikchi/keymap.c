@@ -6,6 +6,7 @@
 #include "quantum.h"
 
 #define _______ KC_TRNS
+#define EMOJIBLOCK 5
 
 
 //declarations for tap dancing emojis
@@ -189,7 +190,7 @@ void cycleEmojis(qk_tap_dance_state_t *state, void *user_data) {
     register_hex32(pgm_read_dword(&unicode_map[state->count]));
     unicode_input_finish();
   }
-  else if(state->count <= 5) {
+  else if(state->count <= EMOJIBLOCK) {
     tap(KC_BSPC);
     unicode_input_start();
     register_hex32(pgm_read_dword(&unicode_map[state->count]));
@@ -203,7 +204,7 @@ void cycleAnimals(qk_tap_dance_state_t *state, void *user_data) {
     register_hex32(pgm_read_dword(&unicode_map[state->count+5]));
     unicode_input_finish();
   }
-  else if(state->count <= 5) {
+  else if(state->count <= EMOJIBLOCK) {
     tap(KC_BSPC);
     unicode_input_start();
     register_hex32(pgm_read_dword(&unicode_map[state->count+5]));
@@ -217,7 +218,7 @@ void cycleHands(qk_tap_dance_state_t *state, void *user_data) {
     register_hex32(pgm_read_dword(&unicode_map[state->count+10]));
     unicode_input_finish();
   }
-  else if(state->count <= 5) {
+  else if(state->count <= EMOJIBLOCK) {
     tap(KC_BSPC);
     unicode_input_start();
     register_hex32(pgm_read_dword(&unicode_map[state->count+10]));
@@ -231,7 +232,7 @@ void cycleMemes(qk_tap_dance_state_t *state, void *user_data) {
     register_hex32(pgm_read_dword(&unicode_map[state->count+15]));
     unicode_input_finish();
   }
-  else if(state->count <= 5) {
+  else if(state->count <= EMOJIBLOCK) {
     tap(KC_BSPC);
     unicode_input_start();
     register_hex32(pgm_read_dword(&unicode_map[state->count+15]));
