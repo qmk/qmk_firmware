@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 	 │RESET│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │     │     │     │     │     │     │     │BTN1 │MS_UP│BTN2 │WH_UP│     │     │     │█████│
+	 │DEBUG│     │     │     │     │     │     │BTN1 │MS_UP│BTN2 │WH_UP│     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │     │     │     │     │     │MS_LT│MS_DN│MS_RT│WH_DN│BTN3 │▒▒▒▒▒│     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOUSE] = KEYMAP(
 					 
 				   RESET,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  KC_NO,  KC_NO,  \
-				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO,  \
+				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
 				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_NO,  \
 				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
 				   KC_TRNS,  KC_NO,  KC_NO,  KC_POWER,  KC_NO, KC_NO,  KC_NO,  KC_NO
@@ -646,7 +646,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 // Midi Chord Function
 
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+void action_function_opt(keyrecord_t *record, uint8_t id, uint8_t opt) {
   uint16_t root_note = MIDI_INVALID_NOTE;
   switch (opt) {
   case 0: //Root note C
@@ -686,34 +686,19 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	root_note = MI_B;
 	break;
   }
-  //  uint8_t root = midi_compute_note(root_note);
   uint8_t major_third = root_note + 4;
   uint8_t minor_third = root_note + 3;
   uint8_t fifth = root_note + 7;
   switch (id) {
   case 0: //Major chord
-	if (record->event.pressed) {
-	  register_code16(root_note);
-	  register_code16(major_third);
-	  register_code16(fifth);
-	}
-	else {
-	  unregister_code16(root_note);
-	  unregister_code16(major_third);
-	  unregister_code16(fifth);
-	}
+	process_midi(root_note, record);
+	process_midi(major_third, record);
+	process_midi(fifth, record);
 	break;
   case 1: //Minor chord
-	if (record->event.pressed) {
-	  register_code16(root_note);
-	  register_code16(minor_third);
-	  register_code16(fifth);
-	}
-	else {
-	  unregister_code16(root_note);
-	  unregister_code16(minor_third);
-	  unregister_code16(fifth);
-	}
+	process_midi(root_note, record);
+	process_midi(minor_third, record);
+	process_midi(fifth, record);
 	break;
   }
 }
