@@ -225,8 +225,6 @@ In your keyboard config.h:
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
-#endif
-#endif
 ```
 
 ### Additional Settings
