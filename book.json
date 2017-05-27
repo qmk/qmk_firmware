@@ -2,7 +2,7 @@
     "structure": {
         "readme": "Home.md"
     },
-    "plugins" : ["toolbar", "edit-link"],
+    "plugins" : ["toolbar", "edit-link", "anchors"],
     "pluginsConfig": {
             "edit-link": {
                 "base": "https://github.com/qmk/qmk_firmware_docs/edit/master",
