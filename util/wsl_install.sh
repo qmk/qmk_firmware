@@ -10,15 +10,15 @@ function install_utils {
 
     echo "Installing dfu-programmer"
     wget 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip'
-    7z x -odfu-programmer dfu-programmer-win-0.7.2.zip
+    unzip -d dfu-programmer dfu-programmer-win-0.7.2.zip
 
     echo "Installing dfu-util"
     wget 'http://dfu-util.sourceforge.net/releases/dfu-util-0.9-win64.zip'
-    7z x dfu-util-0.9-win64.zip
+    unzip dfu-util-0.9-win64.zip
 
     echo "Installing teensy_loader_cli"
     wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
-    7z x teensy_loader_cli_windows.zip
+    unzip teensy_loader_cli_windows.zip
 
     echo "Installing Atmel Flip"
     wget 'http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe'
@@ -63,9 +63,9 @@ while true; do
     esac
 done
 
-echo "Installing dependencies needed for the installation (p7zip-full, wget)"
+echo "Installing dependencies needed for the installation (unzip, wget)"
 echo "This will ask for the sudo password"
-sudo apt-get install p7zip-full wget
+sudo apt-get install unzip wget
 
 
 if [ ! -d "$download_dir" ]; then
