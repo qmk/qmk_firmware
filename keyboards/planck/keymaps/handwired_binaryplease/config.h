@@ -3,27 +3,21 @@
 
 #include "../../config.h"
 
-/*
- * MIDI options
- */
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x6060
+#define MANUFACTURER    binaryplease
+#define PRODUCT         Teensy_Planck
+#define DESCRIPTION     A compact ortholinear keyboard using a teensy 2.0
 
-/* Prevent use of disabled MIDI features in the keymap */
-//#define MIDI_ENABLE_STRICT 1
+#define MATRIX_ROW_PINS { D3, D2, D1, D0 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, B6, B5, B4, D7, D6, D4 }
+#define UNUSED_PINS
 
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-#define MIDI_BASIC
+#define BACKLIGHT_PIN B7
 
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 0
 
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #endif
