@@ -27,21 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern rgblight_config_t rgblight_config;
 
 void rgblight_set(void) {
-    uint8_t data[3 * RGBLED_NUM];
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        if (rgblight_config.enable) {
-            data[3 * i] = led[i].g;
-            data[3 * i + 1] = led[i].r;
-            data[3 * i + 2] = led[i].b;
-        } else {
-            data[3 * i] = 0;
-            data[3 * i + 1] = 0;
-            data[3 * i + 2] = 0;
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
         }
     }
 
     i2c_init();
-    i2c_send(0xb0, data, 48);
+    i2c_send(0xb0, (uint8_t*)led, 48);
 }
 
 __attribute__ ((weak))
