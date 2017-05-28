@@ -56,7 +56,19 @@ fi
 
 pushd "$dir"
 
-#install_utils
+if [ ! -d "$download_dir" ]; then
+    install_utils
+else
+    while true; do
+        echo
+        read -p "The utils seem to already be downloaded, do you want to re-download them and update to the newest version (Y/N) " res
+        case $res in
+            [Yy]* ) install_utils; break;;
+            [Nn]* ) break;;
+            * ) echo "Invalid answer";;
+        esac
+    done
+fi
 
 while true; do
     echo
