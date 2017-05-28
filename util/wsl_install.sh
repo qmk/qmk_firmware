@@ -22,13 +22,12 @@ function install_utils {
 
     echo "Installing Atmel Flip"
     wget 'http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe'
-    7z x -oFlip Flip\ Installer\ -\ 3.4.7.112.exe
+    mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
 
     echo "Downloading the QMK driver installer"
     wget -qO- https://api.github.com/repos/qmk/qmk_driver_installer/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | wget -i -
 
     rm -f *.zip
-    rm Flip\ Installer\ -\ 3.4.7.112.exe
 
     popd > /dev/null
 }
@@ -85,6 +84,17 @@ fi
 
 while true; do
     echo
+    read -p "Flip need to be installed if you want to use that for programming, do you want to install it now? (Y/N) " res
+    case $res in
+        [Yy]* ) cmd.exe /c $download_dir\\FlipInstaller.exe; break;;
+        [Nn]* ) break;;
+        * ) echo "Invalid answer";;
+    esac
+done
+
+
+while true; do
+    echo
     echo "Which USB drivers do you want to install?"
     echo "(A)all - All supported drivers will be installed"
     echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode) will be installed"
@@ -105,6 +115,12 @@ echo "Creating a softlink to the utils directory as ~/qmk_utils."
 echo "This is needed so that the the make system can find all utils it need."
 read -p "Press any key to continue (ctrl-c to abort)"
 ln -sf "$dir" ~/qmk_utils
+
+echo
+echo "******************************************************************************"
+echo "Installation completed!"
+echo "You need to open a new batch command prompt for all the utils to work properly"
+echo "******************************************************************************"
 
 popd > /dev/null
 
