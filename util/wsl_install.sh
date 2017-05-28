@@ -116,6 +116,26 @@ echo "This is needed so that the the make system can find all utils it need."
 read -p "Press any key to continue (ctrl-c to abort)"
 ln -sfn "$dir" ~/qmk_utils
 
+if grep "^source ~/qmk_utils/activate_wsl.sh$" ~/.bashrc
+then
+    echo
+    echo "The line source ~/qmk_utils/activate_wsl.sh is already added to your /.bashrc"
+    echo "Not adding it twice"
+else
+    while true; do
+        echo
+        echo "Do you want to add 'source ~/qmk_utils/activate_wsl.sh' to the end of you .bashrc file?"
+        echo "Without this make won't find the needed utils, so if you don't want to do it automatically,"
+        echo "then you have to do it manually."
+        read -p "(Y/N)? " res
+        case $res in
+            [Yy]* ) echo "source ~/qmk_utils/activate_wsl.sh" >> ~/.bashrc; break;;
+            [Nn]* ) break;;
+            * ) echo "Invalid answer";;
+        esac
+    done
+fi
+
 echo
 echo "******************************************************************************"
 echo "Installation completed!"
