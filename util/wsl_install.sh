@@ -1,6 +1,6 @@
 #!/bin/bash
 
-download_dir = wsl_downloaded
+download_dir=wsl_downloaded
 
 function install_utils {
     rm -f -r $download_dir
@@ -33,7 +33,11 @@ function install_utils {
     popd > /dev/null
 }
 
-function make_environment {
+function install_drivers {
+    pushd $download_dir
+    cp ../drivers.txt .
+    cmd.exe /C qmk_driver_installer.exe $1 $2 ../drivers.txt
+    popd > /dev/null
 }
 
 echo "Installing dependencies (p7zip-full, wget)"
@@ -53,6 +57,23 @@ fi
 pushd "$dir"
 
 #install_utils
+
+while true; do
+    echo
+    echo "Which USB drivers do you want to install?"
+    echo "(A)all - All supported drivers will be installed"
+    echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode) will be installed"
+    echo "(F)force - Like all, but will also override existing drivers for connected keyboards"
+    echo "(N)one - No drivers will be installed, flashing your keyboard will most likely not work"
+    read -p "(A/C/F/N)? " res
+    case $res in
+        [Aa]* ) install_drivers --all; break;;
+        [Cc]* ) install_drivers; break;;
+        [Ff]* ) install_drivers --all --force; break;;
+        [Nn]* ) break;;
+        * ) echo "Invalid answer";;
+    esac
+done
 
 popd > /dev/null
 
