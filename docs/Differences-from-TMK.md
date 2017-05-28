@@ -5,4 +5,4 @@ Understanding the essential changes made on the [tmk_keyboard firmware](http://g
 | Maintainer                   |hasu  (@tmk)           |Jack Humbert et al.      |
 | Build path customization     | `TMK_DIR = ...`       | `include .../Makefile`  |
 | `keymaps` array data | 3D array of `uint8_t`  holding **keycode**      | 3D array of `uint16_t` holding **keycode**  |
-| `fn_actions` array data  | 1D array of `uint16_t`  holding **action code** | 1D array of `uint16_t` holding **action code**  |
+| `fn_actions` array data  | 1D array of `uint8_t`  holding **action code** | 1D array of `uint16_t` holding **action code**  |
