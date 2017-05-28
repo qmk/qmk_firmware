@@ -37,47 +37,90 @@ enum midi_chord_root { //ACTION_FUNCTION opt
   B,
 };
   
-enum midi_chord_keycodes {
+enum midi_chord_id { //ACTION_FUNCTION Progmem Id
 
   //Major Chords
 
-  MI_CH_C = ACTION_FUNCTION_OPT(major,C),
-  MI_CH_Cs = ACTION_FUNCTION_OPT(major,Cs),
-  MI_CH_Db = MI_CH_Cs,
-  MI_CH_D = ACTION_FUNCTION_OPT(major,D),
-  MI_CH_Ds = ACTION_FUNCTION_OPT(major,Ds),
-  MI_CH_Eb = MI_CH_Ds,
-  MI_CH_E = ACTION_FUNCTION_OPT(major,E),
-  MI_CH_F = ACTION_FUNCTION_OPT(major,F),
-  MI_CH_Fs = ACTION_FUNCTION_OPT(major,Fs),
-  MI_CH_Gb = MI_CH_Fs,
-  MI_CH_G = ACTION_FUNCTION_OPT(major,G),
-  MI_CH_Gs = ACTION_FUNCTION_OPT(major,Gs),
-  MI_CH_Ab = MI_CH_Gs,
-  MI_CH_A = ACTION_FUNCTION_OPT(major,A),
-  MI_CH_As = ACTION_FUNCTION_OPT(major,As),
-  MI_CH_Bb = MI_CH_As,
-  MI_CH_B = ACTION_FUNCTION_OPT(major,B),
+  CMajor,
+  CsMajor,
+  DbMajor = CsMajor,
+  DMajor,
+  DsMajor,
+  EbMajor = DsMajor,
+  EMajor,
+  FMajor,
+  FsMajor,
+  GbMajor = FsMajor,
+  GMajor,
+  GsMajor,
+  AbMajor = GsMajor,
+  AMajor,
+  AsMajor,
+  BbMajor = AsMajor,
+  BMajor,
 
   //Minor Chords
 
-  MI_CH_Cm = ACTION_FUNCTION_OPT(minor,C),
-  MI_CH_Csm = ACTION_FUNCTION_OPT(minor,Cs),
+  CMinor,
+  CsMinor,
+  DbMinor = CsMinor,
+  DMinor,
+  DsMinor,
+  EbMinor = DsMinor,
+  EMinor,
+  FMinor,
+  FsMinor,
+  GbMinor = FsMinor,
+  GMinor,
+  GsMinor,
+  AbMinor = GsMinor,
+  AMinor,
+  AsMinor,
+  BbMinor = AsMinor,
+  BMinor,
+};
+
+enum midi_chord_keycodes { //Midi Chocd Keycodes
+
+  //Major Chord Keycodes
+  
+  MI_CH_C = F(CMajor),
+  MI_CH_Cs = F(CsMajor),
+  MI_CH_Db = MI_CH_Cs,
+  MI_CH_D = F(DMajor),
+  MI_CH_Ds = F(DsMajor),
+  MI_CH_Eb = MI_CH_Ds,
+  MI_CH_E = F(EMajor),
+  MI_CH_F = F(FMajor),
+  MI_CH_Fs = F(FsMajor),
+  MI_CH_Gb = MI_CH_Fs,
+  MI_CH_G = F(GMajor),
+  MI_CH_Gs = F(GsMajor),
+  MI_CH_Ab = MI_CH_Gs,
+  MI_CH_A = F(AMajor),
+  MI_CH_As = F(AsMajor),
+  MI_CH_Bb = MI_CH_As,
+  MI_CH_B = F(BMajor),
+
+  //Minor Chord Keycodes
+
+  MI_CH_Cm = F(CMinor),
+  MI_CH_Csm = F(CsMinor),
   MI_CH_Dbm = MI_CH_Csm,
-  MI_CH_Dm = ACTION_FUNCTION_OPT(minor,D),
-  MI_CH_Dsm = ACTION_FUNCTION_OPT(minor,Ds),
+  MI_CH_Dm = F(DMinor),
+  MI_CH_Dsm = F(DsMinor),
   MI_CH_Ebm = MI_CH_Dsm,
-  MI_CH_Em = ACTION_FUNCTION_OPT(minor,E),
-  MI_CH_Fm = ACTION_FUNCTION_OPT(minor,F),
-  MI_CH_Fsm = ACTION_FUNCTION_OPT(minor,Fs),
+  MI_CH_Em = F(EMinor),
+  MI_CH_Fm = F(FMinor),
+  MI_CH_Fsm = F(FsMinor),
   MI_CH_Gbm = MI_CH_Fsm,
-  MI_CH_Gm = ACTION_FUNCTION_OPT(minor,G),
-  MI_CH_Gsm= ACTION_FUNCTION_OPT(minor,Gs),
+  MI_CH_Gm = F(GMinor),
+  MI_CH_Gsm = F(GsMinor),
   MI_CH_Abm = MI_CH_Gsm,
-  MI_CH_Am = ACTION_FUNCTION_OPT(minor,A),
-  MI_CH_Asm = ACTION_FUNCTION_OPT(minor,As),
+  MI_CH_Am = F(AMinor),
+  MI_CH_Asm = F(AsMinor),
   MI_CH_Bbm = MI_CH_Asm,
-  MI_CH_Bm = ACTION_FUNCTION_OPT(minor,B),
+  MI_CH_Bm = F(BMinor),
 };
 
 //Morse Code Macro Keys
@@ -646,56 +689,91 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 // Midi Chord Function
 
-void action_function_opt(keyrecord_t *record, uint8_t id, uint8_t opt) {
+const uint16_t PROGMEM fn_actions[] = {
+
+  //Major Chords
+  
+  [CMajor] = ACTION_FUNCTION_OPT(major, C),
+  [CsMajor] =  ACTION_FUNCTION_OPT(major, Cs),
+  [DMajor] = ACTION_FUNCTION_OPT(major, D),
+  [DsMajor] = ACTION_FUNCTION_OPT(major, Ds),
+  [EMajor] = ACTION_FUNCTION_OPT(major, E),
+  [FMajor] = ACTION_FUNCTION_OPT(major, F),
+  [FsMajor] = ACTION_FUNCTION_OPT(major, Fs),
+  [GMajor] = ACTION_FUNCTION_OPT(major, G),
+  [GsMajor] = ACTION_FUNCTION_OPT(major, Gs),
+  [AMajor] = ACTION_FUNCTION_OPT(major, A),
+  [AsMajor] = ACTION_FUNCTION_OPT(major, As),
+  [BMajor] = ACTION_FUNCTION_OPT(major, B),
+
+  //Minor Chords
+
+  [CMinor] = ACTION_FUNCTION_OPT(minor, C),
+  [CsMinor] =  ACTION_FUNCTION_OPT(minor, Cs),
+  [DMinor] = ACTION_FUNCTION_OPT(minor, D),
+  [DsMinor] = ACTION_FUNCTION_OPT(minor, Ds),
+  [EMinor] = ACTION_FUNCTION_OPT(minor, E),
+  [FMinor] = ACTION_FUNCTION_OPT(minor, F),
+  [FsMinor] = ACTION_FUNCTION_OPT(minor, Fs),
+  [GMinor] = ACTION_FUNCTION_OPT(minor, G),
+  [GsMinor] = ACTION_FUNCTION_OPT(minor, Gs),
+  [AMinor] = ACTION_FUNCTION_OPT(minor, A),
+  [AsMinor] = ACTION_FUNCTION_OPT(minor, As),
+  [BMinor] = ACTION_FUNCTION_OPT(minor, B),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   uint16_t root_note = MIDI_INVALID_NOTE;
   switch (opt) {
-  case 0: //Root note C
+  case C: //Root note C
 	root_note = MI_C;
 	break;
-  case 1: //Root note C#/Db
+  case Cs: //Root note C#/Db
 	root_note = MI_Cs;
 	break;
-  case 2: // Root note D
+  case D: // Root note D
 	root_note = MI_D;
 	break;
-  case 3: // Root note D#/Eb
+  case Ds: // Root note D#/Eb
 	root_note = MI_Ds;
 	break;
-  case 4: // Root note E
+  case E: // Root note E
 	root_note = MI_E;
 	break;
-  case 5: // Root note F
+  case F: // Root note F
 	root_note = MI_F;
 	break;
-  case 6: // Root note F#/Gb
+  case Fs: // Root note F#/Gb
 	root_note = MI_Fs;
 	break;
-  case 7: // Root note G
+  case G: // Root note G
 	root_note = MI_G;
 	break;
-  case 8: // Root note G#/Ab
+  case Gs: // Root note G#/Ab
 	root_note = MI_Gs;
 	break;
-  case 9: // Root note A
+  case A: // Root note A
 	root_note = MI_A;
 	break;
-  case 10: // Root note A#/Bb
+  case As: // Root note A#/Bb
 	root_note = MI_As;
 	break;
-  case 11: // Root note B
+  case B: // Root note B
 	root_note = MI_B;
 	break;
   }
-  uint8_t major_third = root_note + 4;
-  uint8_t minor_third = root_note + 3;
-  uint8_t fifth = root_note + 7;
+  uint16_t major_third = root_note + 4;
+  uint16_t minor_third = root_note + 3;
+  uint16_t fifth = root_note + 7;
   switch (id) {
-  case 0: //Major chord
+  case major: //Major chord
+	dprintf("Root Note:%d - Major Third:%d - Fifth:%d\n", root_note, major_third, fifth);
 	process_midi(root_note, record);
 	process_midi(major_third, record);
 	process_midi(fifth, record);
 	break;
-  case 1: //Minor chord
+  case minor: //Minor chord
+	dprintf("Root Note:%d - Minor Third:%d - Fifth:%d\n", root_note, minor_third, fifth);	
 	process_midi(root_note, record);
 	process_midi(minor_third, record);
 	process_midi(fifth, record);
