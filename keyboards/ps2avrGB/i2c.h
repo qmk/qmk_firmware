@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,27 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef __I2C_H__
+#define __I2C_H__
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         ps2avrGB
-
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-
-#define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+void i2c_init(void);
+void i2c_set_bitrate(uint16_t bitrate_khz);
+uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
 
 #endif

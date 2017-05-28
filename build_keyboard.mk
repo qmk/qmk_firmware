@@ -198,7 +198,9 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/light_ws2812.c
+ifneq ($(strip $(DISABLE_WS2812)), yes)
+        SRC += $(QUANTUM_DIR)/light_ws2812.c
+endif
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
