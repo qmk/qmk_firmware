@@ -114,7 +114,7 @@ echo
 echo "Creating a softlink to the utils directory as ~/qmk_utils."
 echo "This is needed so that the the make system can find all utils it need."
 read -p "Press any key to continue (ctrl-c to abort)"
-ln -sf "$dir" ~/qmk_utils
+ln -sfn "$dir" ~/qmk_utils
 
 echo
 echo "******************************************************************************"
