@@ -35,7 +35,6 @@ function install_utils {
 
 function install_drivers {
     pushd $download_dir
-    cp ../drivers.txt .
     cmd.exe /C qmk_driver_installer.exe $1 $2 ../drivers.txt
     popd > /dev/null
 }
@@ -100,6 +99,12 @@ while true; do
         * ) echo "Invalid answer";;
     esac
 done
+
+echo 
+echo "Creating a softlink to the utils directory as ~/qmk_utils."
+echo "This is needed so that the the make system can find all utils it need."
+read -p "Press any key to continue (ctrl-c to abort)"
+ln -sf "$dir" ~/qmk_utils
 
 popd > /dev/null
 
