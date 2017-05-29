@@ -195,3 +195,21 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 If the LED-s start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
 
 For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.
+
+# Sending strings
+Some people want to have a password or some text on a key. This is possible without having to do every key individually using `SEND_STRING("<text>");`. Note the caps, because `send_string("<text>");` does something else. For example:
+```c
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) // this is the function signature -- just copy/paste it into your keymap file as it is.
+{
+  switch(id) {
+    case 0: // this would trigger when you hit a key mapped as M(0)
+      if (record->event.pressed) {
+				SEND_STRING("QMK is the best thing ever!"); // This would type "QMK is the best thing ever!" (without quotation marks).
+        return false; // This is false because it has to return something.
+      }
+      break;
+  }
+  return MACRO_NONE;
+};
+```
+If you'd want it to press enter as well, just replace `return false;` with `return MACRO( T(ENT), END );`.
