@@ -43,7 +43,7 @@ extern bool adafruit_ble_send_consumer_key(uint16_t keycode, int hold_duration);
  * The parameters are signed and indicate positive of negative direction
  * change. */
 extern bool adafruit_ble_send_mouse_move(int8_t x, int8_t y, int8_t scroll,
-                                         int8_t pan);
+                                         int8_t pan, uint8_t buttons);
 #endif
 
 /* Compute battery voltage by reading an analog pin.
