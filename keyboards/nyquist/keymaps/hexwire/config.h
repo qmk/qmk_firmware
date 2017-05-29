@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_rev1
     #include "../../rev1/config.h"
 #endif
-#ifdef SUBPROJECT_rev2
-    #include "../../rev2/config.h"
-#endif
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
