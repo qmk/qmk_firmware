@@ -669,7 +669,7 @@ static void send_mouse(report_mouse_t *report)
   if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
     #ifdef MODULE_ADAFRUIT_BLE
       // FIXME: mouse buttons
-      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
     #else
       bluefruit_serial_send(0xFD);
       bluefruit_serial_send(0x00);
