@@ -7,12 +7,10 @@ rev=$(git rev-parse --short HEAD)
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
 
-openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in util/qmk_firmware.enc -out qmk_firmware -d
-openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in util/qmk.fm.enc -out qmk.fm -d
-chmod 600 qmk_firmware
+chmod 600 id_rsa_qmk_firmware
 chmod 600 qmk.fm
 eval `ssh-agent -s`
-ssh-add qmk_firmware
+ssh-add id_rsa_qmk_firmware
 ssh-add qmk.fm
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
