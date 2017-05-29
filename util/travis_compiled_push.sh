@@ -55,7 +55,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
-	git push git@github.com:qmk/qmk.fm.git master
+	git push git@github.com:qmk/qmk.fm.git
 
 fi
 
