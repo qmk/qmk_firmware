@@ -7,6 +7,12 @@ rev=$(git rev-parse --short HEAD)
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
 
+chmod 600 id_rsa_qmk_firmware
+chmod 600 qmk.fm
+eval `ssh-agent -s`
+ssh-add id_rsa_qmk_firmware
+ssh-add qmk.fm
+
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
 increment_version ()
@@ -17,14 +23,14 @@ increment_version ()
   echo -e "${new// /.}"
 } 
 
-NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | wc -l)
+NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | wc -l)
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
 	lasttag=$(git tag | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
-	git push --tags -q https://$GH_TOKEN@github.com/qmk/qmk_firmware
+	git push --tags
 else
 	echo "No essential files modified."
 fi
@@ -34,7 +40,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	make ergodox-ez AUTOGEN=true
 
 	cd ..
-	git clone https://$GH_TOKEN@github.com/jackhumbert/qmk.fm.git
+	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
