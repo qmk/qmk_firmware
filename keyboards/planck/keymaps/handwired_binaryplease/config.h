@@ -4,6 +4,22 @@
 #include "../../config.h"
 
 /* USB Device descriptor parameter */
+
+
+
+#undef VENDOR_ID
+#undef PRODUCT_ID
+#undef MANUFACTURER
+#undef PRODUCT
+#undef DESCRIPTION
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+#undef UNUSED_PINS
+#undef BACKLIGHT_PIN
+#undef BACKLIGHT_LEVELS
+
+
+
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define MANUFACTURER    binaryplease
