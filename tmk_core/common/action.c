@@ -324,9 +324,10 @@ void process_action(keyrecord_t *record, action_t action)
                         tp_buttons |= (1<<2);
                         break;
                     default:
-                        mousekey_on(action.key.code);
-                        mousekey_send();
+                        break;
                 }
+                mousekey_on(action.key.code);
+                mousekey_send();
             } else {
                 switch (action.key.code) {
                     case KC_MS_BTN1:
@@ -339,9 +340,10 @@ void process_action(keyrecord_t *record, action_t action)
                         tp_buttons &= ~(1<<2);
                         break;
                     default:
-                        mousekey_off(action.key.code);
-                        mousekey_send();
+                        break;
                 }
+                mousekey_off(action.key.code);
+                mousekey_send();
             }
             break;
 #endif
