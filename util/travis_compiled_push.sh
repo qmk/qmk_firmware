@@ -30,7 +30,7 @@ if [[ $NEFM -gt 0 ]] ; then
 	lasttag=$(git tag | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
-	git push --tags
+	git push --tags git@github.com:qmk/qmk_firmware.git
 else
 	echo "No essential files modified."
 fi
@@ -55,7 +55,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
-	git push
+	git push git@github.com:qmk/qmk.fm.git master
 
 fi
 
