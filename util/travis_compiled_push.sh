@@ -6,8 +6,8 @@ rev=$(git rev-parse --short HEAD)
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
-git config --global user.name "Travis CI"
-git config --global user.email "jack.humb+travis.ci@gmail.com"
+git config --global user.name "QMK Bot"
+git config --global user.email "hello@qmk.fm"
 
 openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in secrets.tar.enc -out secrets.tar -d
 tar xvf secrets.tar
