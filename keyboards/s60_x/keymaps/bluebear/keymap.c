@@ -3,11 +3,12 @@
 // Keyboard Layers
 
 enum keyboard_layers {
-  BASE,     //Base Layer
-  ARROWFN,  //Arrow/FN Layer
-  MOUSE,    //Mouse Layer
-  MIDI,     //Midi Layer
-  MORSE,    //Morse Code Layer
+  BASE,        //Base Layer
+  ARROWFN,     //Arrow/FN Layer
+  MOUSE,       //Mouse Layer
+  MIDI_BASE,   //Midi Layer
+  MIDI_CHORDS, //Midi Chord Layer
+  MORSE,       //Morse Code Layer
 };
 
 // Midi Chords
@@ -15,6 +16,8 @@ enum keyboard_layers {
 enum midi_chord_modes { //ACTION_FUNCTION id
   major,
   minor,
+  dom_seventh,
+  dim_seventh,
 };
 
 enum midi_chord_root { //ACTION_FUNCTION opt
@@ -78,6 +81,46 @@ enum midi_chord_id { //ACTION_FUNCTION Progmem Id
   AsMinor,
   BbMinor = AsMinor,
   BMinor,
+
+  //Dominant Seventh Chords
+
+  CDom7,
+  CsDom7,
+  DbDom7 = CsDom7,
+  DDom7,
+  DsDom7,
+  EbDom7 = DsDom7,
+  EDom7,
+  FDom7,
+  FsDom7,
+  GbDom7 = FsDom7,
+  GDom7,
+  GsDom7,
+  AbDom7 = GsDom7,
+  ADom7,
+  AsDom7,
+  BbDom7 = AsDom7,
+  BDom7,
+  
+  //Diminished Seventh Chords
+
+  CDim7,
+  CsDim7,
+  DbDim7 = CsDim7,
+  DDim7,
+  DsDim7,
+  EbDim7 = DsDim7,
+  EDim7,
+  FDim7,
+  FsDim7,
+  GbDim7 = FsDim7,
+  GDim7,
+  GsDim7,
+  AbDim7 = GsDim7,
+  ADim7,
+  AsDim7,
+  BbDim7 = AsDim7,
+  BDim7, 
 };
 
 enum midi_chord_keycodes { //Midi Chocd Keycodes
@@ -121,6 +164,46 @@ enum midi_chord_keycodes { //Midi Chocd Keycodes
   MI_CH_Asm = F(AsMinor),
   MI_CH_Bbm = MI_CH_Asm,
   MI_CH_Bm = F(BMinor),
+
+  //Dominant Seventh Keycodes
+
+  MI_CH_CDom7 = F(CDom7),
+  MI_CH_CsDom7 = F(CsDom7),
+  MI_CH_DbDom7 = MI_CH_CsDom7,
+  MI_CH_DDom7 = F(DDom7),
+  MI_CH_DsDom7 = F(DsDom7),
+  MI_CH_EbDom7 = MI_CH_DsDom7,
+  MI_CH_EDom7 = F(EDom7),
+  MI_CH_FDom7 = F(FDom7),
+  MI_CH_FsDom7 = F(FsDom7),
+  MI_CH_GbDom7 = MI_CH_FsDom7,
+  MI_CH_GDom7 = F(GDom7),
+  MI_CH_GsDom7 = F(GsDom7),
+  MI_CH_AbDom7 = MI_CH_GsDom7,
+  MI_CH_ADom7 = F(ADom7),
+  MI_CH_AsDom7 = F(AsDom7),
+  MI_CH_BbDom7 = MI_CH_AsDom7,
+  MI_CH_BDom7 = F(BDom7),
+
+  //Diminished Seventh Keycodes
+
+  MI_CH_CDim7 = F(CDim7),
+  MI_CH_CsDim7 = F(CsDim7),
+  MI_CH_DbDim7 = MI_CH_CsDim7,
+  MI_CH_DDim7 = F(DDim7),
+  MI_CH_DsDim7 = F(DsDim7),
+  MI_CH_EbDim7 = MI_CH_DsDim7,
+  MI_CH_EDim7 = F(EDim7),
+  MI_CH_FDim7 = F(FDim7),
+  MI_CH_FsDim7 = F(FsDim7),
+  MI_CH_GbDim7 = MI_CH_FsDim7,
+  MI_CH_GDim7 = F(GDim7),
+  MI_CH_GsDim7 = F(GsDim7),
+  MI_CH_AbDim7 = MI_CH_GsDim7,
+  MI_CH_ADim7 = F(ADim7),
+  MI_CH_AsDim7 = F(AsDim7),
+  MI_CH_BbDim7 = MI_CH_AsDim7,
+  MI_CH_BDim7 = F(BDim7),
 };
 
 //Morse Code Macro Keys
@@ -202,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 1: Arrow/FN Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │TO(3)│TO(4)│
+	 │     │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │TO(3)│TO(5)│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │     │     │     │     │     │PGUP │  UP │     │     │     │ INS │ DEL │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -215,7 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [ARROWFN] = KEYMAP(
-					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(4), \
+					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(5), \
 					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_NO,  KC_NO,  KC_NO,  KC_INS,  KC_DEL, \
 					 KC_CAPS,  KC_HOME,  KC_NO,  KC_END,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
 					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_NO,  KC_NO, \
@@ -225,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 2: Mouse Keys Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │RESET│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │     │     │
+	 │RESET│ F13 │ F14 │ F15 │ F16 │ F17 │ F18 │ F19 │ F20 │ F21 │ F22 │ F23 │ F24 │     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │DEBUG│     │     │     │     │     │     │BTN1 │MS_UP│BTN2 │WH_UP│     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -239,37 +322,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MOUSE] = KEYMAP(
 					 
-				   RESET,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  KC_NO,  KC_NO,  \
+				   RESET,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21, KC_F22,  KC_F23,  KC_F24,  KC_NO,  KC_NO,  \
 				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
 				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_NO,  \
 				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
 				   KC_TRNS,  KC_NO,  KC_NO,  KC_POWER,  KC_NO, KC_NO,  KC_NO,  KC_NO
 				   ),
 
-  /* 3: Midi Layer
+  /* 3: Midi Base Layer
 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-	 │TO(0)│ Cmaj│ Gmaj│ Dmaj│ Amaj│ Emaj│ Bmaj│Gbmaj│Dbmaj│Abmaj│Ebmaj│Bbmaj│ Fmaj│     │     │
+	 │TO(0)│ Cmaj│ Gmaj│ Dmaj│ Amaj│ Emaj│ Bmaj│Gbmaj│Dbmaj│Abmaj│Ebmaj│Bbmaj│ Fmaj│     │TO(4)│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │     │     │  C# │  D# │     │  F# │  G# │  A# │     │  C# │  D# │     │     │     │█████│
+	 │OCT+ │     │  C# │  D# │     │  F# │  G# │  A# │     │  C# │  D# │     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │OCT- │  C  │  D  │  E  │  F  │  G  │  A  │  B  │  C  │  D  │  E  │  F  │▒▒▒▒▒│OCT+ │█████│
+	 │OCT- │  C  │  D  │  E  │  F  │  G  │  A  │  B  │  C  │  D  │  E  │  F  │▒▒▒▒▒│     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │ Am  │▒▒▒▒▒│ Em  │ Bm  │ F#m │ C#m │ G#m │ D#m │ Bbm │ Fm  │ Cm  │ Gm  │▒▒▒▒▒│ Dm  │▒▒▒▒▒│
+	 │ Cm  │▒▒▒▒▒│ Gm  │ Dm  │ Am  │ Em  │ Bm  │ Gbm │ Dbm │ Abm │ Ebm │ Bbm │▒▒▒▒▒│ Fm  │▒▒▒▒▒│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │     │█████│█████│█████│A-OFF│█████│█████│█████│     │     │     │     │█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
 	
-  [MIDI] = KEYMAP(
-				  TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  KC_NO,  KC_NO, \
-				  KC_NO,  KC_NO,  MI_Cs,  MI_Ds,  KC_NO,  MI_Fs,  MI_Gs,  MI_As,  KC_NO,  MI_Cs_1,  MI_Ds_1,  KC_NO,  KC_NO,  KC_NO, \
-				  MI_OCTD,  MI_C,  MI_D,  MI_E,  MI_F,  MI_G,  MI_A,  MI_B,  MI_C_1,  MI_D_1,  MI_E_1,  MI_F_1,  KC_NO,  MI_OCTU,  \
-				  MI_CH_Am,  KC_NO,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Fsm,  MI_CH_Csm,  MI_CH_Gsm,  MI_CH_Dsm,  MI_CH_Bbm,  MI_CH_Fm,  MI_CH_Cm,  MI_CH_Gm,  KC_NO,  MI_CH_Dm,  KC_NO, \
-				  KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
-				  ),
+  [MIDI_BASE] = KEYMAP(
+					   TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  KC_NO,  TO(4), \
+					   MI_OCTU,  KC_NO,  MI_Cs,  MI_Ds,  KC_NO,  MI_Fs,  MI_Gs,  MI_As,  KC_NO,  MI_Cs_1,  MI_Ds_1,  KC_NO,  KC_NO,  KC_NO, \
+					   MI_OCTD,  MI_C,  MI_D,  MI_E,  MI_F,  MI_G,  MI_A,  MI_B,  MI_C_1,  MI_D_1,  MI_E_1,  MI_F_1,  KC_NO,  KC_NO,  \
+					   MI_CH_Cm,  KC_NO,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  KC_NO,  MI_CH_Fm,  KC_NO, \
+					   KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
+					   ),
 
-  /* 4: Morse Code Layer
+  /* 4: Midi Chord Layer
+
+	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+	 │TO(0)│ Cmaj│ Gmaj│ Dmaj│ Amaj│ Emaj│ Bmaj│Gbmaj│Dbmaj│Abmaj│Ebmaj│Bbmaj│ Fmaj│TO(3)│     │
+	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+	 │OCT+ │  Cm │  Gm │  Dm │  Am │  Em │ Bbm │ Gbm │ Dbm │ Abm │ Ebm │ Bbm │ Fm  │     │█████│
+	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+	 │OCT- │Cdom7│Gdom7│Ddom7│Adom7│Edom7│Bdom7│Gbdo7│Dbdo7│Abdo7│Ebdo7│Bbdo7│▒▒▒▒▒│Fdom7│█████│
+	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+	 │Cdim7│▒▒▒▒▒│Gdim7│Ddim7│Adim7│Edim7│Bdim7│Gbdi7│Dbdi7│Abdi7│Ebdi7│Bbdi7│▒▒▒▒▒│Fdim7│▒▒▒▒▒│
+	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+	 │     │     │     │█████│█████│█████│A-OFF│█████│█████│█████│     │     │     │     │█████│
+	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+  */
+	
+  [MIDI_CHORDS] = KEYMAP(
+						 TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  TO(3),  KC_NO, \
+						 MI_OCTU,  MI_CH_Cm,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bbm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  MI_CH_Fm,  KC_NO, \
+						 MI_OCTD,  MI_CH_CDom7,  MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7,  MI_CH_GbDom7,  MI_CH_DbDom7,  MI_CH_AbDom7,  MI_CH_EbDom7,  MI_CH_BbDom7,  KC_NO,  MI_CH_FDom7, \
+						 MI_CH_CDim7,  KC_NO,  MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7,  MI_CH_GbDim7,  MI_CH_DbDim7,  MI_CH_AbDim7,  MI_CH_EbDim7,  MI_CH_BbDim7,  KC_NO,  MI_CH_FDim7,  KC_NO, \
+						 KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
+						 ),
+
+  /* 5: Morse Code Layer
 	 
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 	 │TO(0)│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │     │     │
@@ -720,6 +826,36 @@ const uint16_t PROGMEM fn_actions[] = {
   [AMinor] = ACTION_FUNCTION_OPT(minor, A),
   [AsMinor] = ACTION_FUNCTION_OPT(minor, As),
   [BMinor] = ACTION_FUNCTION_OPT(minor, B),
+  
+  //Dominant 7th
+
+  [CDom7] = ACTION_FUNCTION_OPT(dom_seventh, C),
+  [CsDom7] =  ACTION_FUNCTION_OPT(dom_seventh, Cs),
+  [DDom7] = ACTION_FUNCTION_OPT(dom_seventh, D),
+  [DsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Ds),
+  [EDom7] = ACTION_FUNCTION_OPT(dom_seventh, E),
+  [FDom7] = ACTION_FUNCTION_OPT(dom_seventh, F),
+  [FsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Fs),
+  [GDom7] = ACTION_FUNCTION_OPT(dom_seventh, G),
+  [GsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Gs),
+  [ADom7] = ACTION_FUNCTION_OPT(dom_seventh, A),
+  [AsDom7] = ACTION_FUNCTION_OPT(dom_seventh, As),
+  [BDom7] = ACTION_FUNCTION_OPT(dom_seventh, B),
+
+  //Diminished 7th
+
+  [CDim7] = ACTION_FUNCTION_OPT(dim_seventh, C),
+  [CsDim7] =  ACTION_FUNCTION_OPT(dim_seventh, Cs),
+  [DDim7] = ACTION_FUNCTION_OPT(dim_seventh, D),
+  [DsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Ds),
+  [EDim7] = ACTION_FUNCTION_OPT(dim_seventh, E),
+  [FDim7] = ACTION_FUNCTION_OPT(dim_seventh, F),
+  [FsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Fs),
+  [GDim7] = ACTION_FUNCTION_OPT(dim_seventh, G),
+  [GsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Gs),
+  [ADim7] = ACTION_FUNCTION_OPT(dim_seventh, A),
+  [AsDim7] = ACTION_FUNCTION_OPT(dim_seventh, As),
+  [BDim7] = ACTION_FUNCTION_OPT(dim_seventh, B),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -764,19 +900,30 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   }
   uint16_t major_third = root_note + 4;
   uint16_t minor_third = root_note + 3;
+  //uint16_t flat_fifth = root_note + 6;
   uint16_t fifth = root_note + 7;
+  uint16_t minor_seventh = root_note + 10;
+  uint16_t diminished_seventh = root_note -3;
   switch (id) {
   case major: //Major chord
-	dprintf("Root Note:%d - Major Third:%d - Fifth:%d\n", root_note, major_third, fifth);
 	process_midi(root_note, record);
 	process_midi(major_third, record);
 	process_midi(fifth, record);
 	break;
   case minor: //Minor chord
-	dprintf("Root Note:%d - Minor Third:%d - Fifth:%d\n", root_note, minor_third, fifth);	
 	process_midi(root_note, record);
 	process_midi(minor_third, record);
 	process_midi(fifth, record);
+	break;
+  case dom_seventh: //Dominant Seventh chord
+	process_midi(root_note, record);
+	process_midi(major_third, record);
+	process_midi(minor_seventh, record);
+	break;
+  case dim_seventh: //Diminished Seventh Chord
+	process_midi(root_note, record);
+	process_midi(minor_third, record);
+	process_midi(diminished_seventh, record);
 	break;
   }
 }
