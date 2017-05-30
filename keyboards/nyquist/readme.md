@@ -1,50 +1,43 @@
-Let's Split
-======
+The Nyquist Keyboard
+====================
 
-This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
-
-Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
-based boards.
+The Nyquist is a 60% split ortholinear board by [Keebio](https://keeb.io). It has been designed in a similar manner to the Let's Split v2 by /u/wootpatoot. Each half of the keyboard is arranged in a 5x6 grid. There is an option to use a 2u key with PCB mounted MX stablizers, in place of the two innermost 1u keys on the bottom row.
 
 
 ## Build Guide
 
-A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
+Since the design is very similar to the Let's Split v2, the build guide for that can be used while the build guide for the Nyquist is being fully developed. A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
 
 There is additional information there about flashing and adding RGB underglow.
 
 ## First Time Setup
 
-Download or clone the whole firmware and navigate to the keyboards/lets_split directory. Once your dev env is setup, you'll be able to generate the default .hex using:
+Download or clone the whole firmware and navigate to the keyboards/nyquist directory. Once your development environment is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make rev2
+$ make serial
 ```
 
-You will see a lot of output and if everything worked correctly you will see the built hex files:
+You will see a lot of output and if everything worked correctly you will see the built hex file:
 
 ```
-lets_split_rev2_serial.hex
-lets_split_rev2_i2c.hex
+nyquist_rev1_serial.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
 
 
 ```
-$ make rev2-YOUR_KEYMAP_NAME
+$ make YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-lets_split_rev2_YOUR_KEYMAP_NAME.hex
+nyquist_rev1_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
-
-### Let's split 1.0
-If you have a first generation Let's Split you will need to use the revision 1 code. To do so, use `rev1` in all your commands instead.
 
 Features
 --------
@@ -60,6 +53,9 @@ Some features supported by the firmware:
 * Optional support for I2C connection between the two halves if for some
   reason you require a faster connection between the two halves. Note this
   requires an extra wire between halves and pull-up resistors on the data lines.
+
+### 2u Support
+In place of the two innermost 1u keys on the bottom row, a single 2u key can be used. If you choose to use this option, then in your keymap, set the innermost key on the bottom row to what you want the 2u key to be. For example, if using the 2u key on the left half of the board, set the keycode for the lower right key.
 
 Required Hardware
 -----------------
@@ -100,21 +96,10 @@ The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
 unnecessary in simple use cases.
 
-Notes on Software Configuration
--------------------------------
-
-Configuring the firmware is similar to any other QMK project. One thing
-to note is that `MATIX_ROWS` in `config.h` is the total number of rows between
-the two halves, i.e. if your split keyboard has 4 rows in each half, then
-`MATRIX_ROWS=8`.
-
-Also the current implementation assumes a maximum of 8 columns, but it would
-not be very difficult to adapt it to support more if required.
-
 Flashing
 -------
 From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make rev2-serial-avrdude`
+Example: `make rev1-serial-avrdude`
 
 
 Choosing which board to plug the USB cable into (choosing Master)
