@@ -10,7 +10,7 @@ inline void dk60_esc_led_on(void)    	{ DDRF |=  (1<<0); PORTF &= ~(1<<0); }
 inline void dk60_caps_led_off(void)     { DDRE &= ~(1<<6); PORTE &= ~(1<<6); }
 inline void dk60_esc_led_off(void)   	{ DDRF &= ~(1<<0); PORTF &= ~(1<<0); }
 
-#define ___ KC_TRNS
+#define ___ KC_NO
 
 #define KEYMAP( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K4B, K4A, \
