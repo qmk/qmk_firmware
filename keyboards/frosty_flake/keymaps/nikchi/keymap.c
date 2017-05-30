@@ -167,7 +167,7 @@ void matrix_scan_user(void) {
       tap(KC_C);
       unregister_code(KC_LCTL);
     }
-    SEQ_THREE_KEYS(KC_L,KC_I,KC_T) { // 🔥
+    SEQ_THREE_KEYS(KC_L,KC_I,KC_T) { // 🔥🔥
       unicode_input_start();
       register_hex32(pgm_read_dword(&unicode_map[LIT]));
       unicode_input_finish();
