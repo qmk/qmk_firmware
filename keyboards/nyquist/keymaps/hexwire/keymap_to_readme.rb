@@ -15,7 +15,7 @@ class KeymapConverter
   def parse_line(line)
     case @mode
     when :search
-      if line =~ /COMPACT_KEYMAP/
+      if line =~ /KC_KEYMAP/
         puts "### #{line}"
         puts "```"
         @mode = :parse
