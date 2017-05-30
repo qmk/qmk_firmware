@@ -65,14 +65,7 @@ enum my_macros {
   RIGHTDESK,
   CLOSEDESK
 };
-enum quick {
-  DISFACE = 0,
-  TFLIP,
-  TPUT,
-  SHRUG,
-  FACE,
-  RANDIG
-};
+
 
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -174,6 +167,11 @@ void matrix_scan_user(void) {
       tap(KC_C);
       unregister_code(KC_LCTL);
     }
+    SEQ_THREE_KEYS(KC_L,KC_I,KC_T) { // 🔥
+      unicode_input_start();
+      register_hex32(pgm_read_dword(&unicode_map[LIT]));
+      unicode_input_finish();
+    }
 
   }
 }
@@ -239,4 +237,5 @@ void cycleMemes(qk_tap_dance_state_t *state, void *user_data) {
     unicode_input_finish();
   }
 };
+
 

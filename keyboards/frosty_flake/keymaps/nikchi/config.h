@@ -4,7 +4,7 @@
 #include "../../config.h"
 
 #define TAPPING_TERM 200
-#define LEADER_TIMEOUT 400
+#define LEADER_TIMEOUT 800
 
 #define DISABLE_SPACE_CADET_ROLLOVER
 
