@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Damien Broqua <contact@darkou.fr>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define MATRIX_COLS 13
 
     // ROWS: Top to bottom, COLS: Left to right
-
     #define MATRIX_ROW_PINS { B6, B4, D7, D6, D4 }
     #define MATRIX_COL_PINS { B0, B3, B2, B1, D3, D5, B5, B7, C6, C7, D0, D1, D2 }
     #define UNUSED_PINS

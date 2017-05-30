@@ -3,7 +3,6 @@
 
     #include "quantum.h"
     #include <util/delay.h>
-//    #include "led.h"
 
     inline void dk60_caps_led_on(void)      {  PORTE |= (1<<6); }
     inline void dk60_esc_led_on(void)    	{  PORTF |= (1<<0); }
