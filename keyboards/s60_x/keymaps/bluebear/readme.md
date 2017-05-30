@@ -50,7 +50,7 @@ This layer was inspired by the Satan Midi layout (https://github.com/qmk/qmk_fir
 
 ## MIDI_CHORD Layer
 
-![MIDI_CHORD Layer](S60X-Bluebear-MIDI_CHORDS-Layer.png)
+![MIDI_CHORD Layer](S60X-Bluebear-MIDI_CHORD-Layer.png)
 
 After figuring out how to code my MIDI chord function, I decided to dedicate a full layer to these chords. This chord layout was inspired by the Stradella Base system (https://en.wikipedia.org/wiki/Stradella_bass_system) found on accordions. This layer is a tool for musical composition and songwriting.
 
