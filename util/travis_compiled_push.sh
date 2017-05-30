@@ -4,16 +4,18 @@ set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
 
+if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
+
 git config --global user.name "Travis CI"
 git config --global user.email "jack.humb+travis.ci@gmail.com"
+
+openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in secrets.tar.enc -out secrets.tar -d
+tar xvf secrets.tar
 
 chmod 600 id_rsa_qmk_firmware
 chmod 600 qmk.fm
 eval `ssh-agent -s`
 ssh-add id_rsa_qmk_firmware
-ssh-add qmk.fm
-
-if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
 increment_version ()
 {
@@ -42,6 +44,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
+	ssh-add ../qmk_firmware/qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
 	#rm -rf keyboards
