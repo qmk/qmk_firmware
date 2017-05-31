@@ -33,8 +33,6 @@ DeltaSplit75_V2_Default.hex
 ```
 
 
-```
-
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
 
 ### DeltaSplit75 V2
