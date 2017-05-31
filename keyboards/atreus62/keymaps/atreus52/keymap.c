@@ -4,6 +4,7 @@
 #define QWERTY 0
 #define DVORAK 1
 #define RAISE 2
+#define LOWER 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY] = KC_KEYMAP(
@@ -11,27 +12,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NO, Q,    W,    E,    R,    T,                Y,    U,    I,    O,    P,    NO, \
     NO, A,    S,    D,    F,    G,                H,    J,    K,    L,    SCLN, NO, \
     NO, Z,    X,    C,    V,    B,                N,    M,    COMM, DOT,  SLSH, NO, \
-    NO, UP,   DOWN, LCTL, LALT, FN1,  BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
+    NO, FN2,  LALT, LCTL, FN1,  FN3,  BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
 
 [DVORAK] = KC_KEYMAP(
     NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
     NO, QUOT, COMM, DOT,  P,    Y,                F,    G,    C,    R,    L,    NO, \
     NO, A,    O,    E,    U,    I,                D,    H,    T,    N,    S,    NO, \
     NO, SCLN, Q,    J,    K,    X,                B,    M,    W,    V,    Z,    NO, \
-    NO, UP,   DOWN, LCTL, LALT, FN1,  BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
+    NO, FN2,  LALT, LCTL, FN1,  FN3,  BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
 
 [RAISE] = KC_KEYMAP(
     NO, MRWD, MPRV, MPLY, MNXT, MFFD,             TRNS, MUTE, VOLD, VOLU, DEL,  NO, \
-    NO, TAB,  ESC,  GRV,  QUES, PIPE,             BSLS, LPRN, LCBR, LBRC, QUOT, NO, \
-    NO, UNDS, MINS, PLUS, EQL,  TILD,             SLSH, LEFT, DOWN, UP,   RGHT, NO, \
-    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             FN2,  RPRN, RCBR, RBRC, DQUO, NO, \
+    NO, TILD, GRV,  DQUO, QUOT, LCBR,             RCBR, EQL,  PLUS, MINS, QUES, NO, \
+    NO, ESC,  TAB,  BSLS, SLS,  LPRN,             RPRN, LEFT, DOWN, UP,   RGHT, NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, LBRC,             RBRC, PIPE, UNDS, TRNS, TRNS, NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
+
+[LOWER] = KC_KEYMAP(
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+    NO, EXLM, AT,   HASH, DLR,  PERC,             CIRC, AMPR, ASTR, LPRN, RPRN, NO, \
+    NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, DOT,  TRNS, TRNS, TRNS, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  )
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(RAISE), // Raise layer
-    [1] = OSM(MOD_LSFT), // One shot shift
-    [2] = LALT(KC_TAB) // Alt Tab key
+    [1] = ACTION_LAYER_MOMENTARY(LOWER), // Lower layer
+    [2] = ACTION_LAYER_TOGGLE(NAV),
+    [3] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_SPC)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
