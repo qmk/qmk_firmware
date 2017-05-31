@@ -2,6 +2,7 @@ DeltaSplit75
 ======
 
 This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/ and https://github.com/qmk/qmk_firmware/tree/master/keyboards/lets_split
+
 Credit to ahtn and wootpatoot for work on the split keyboard firmware
 
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
@@ -14,7 +15,9 @@ Download or clone the whole firmware and navigate to the keyboards/DeltaSplit75 
 
 ```
 $ make V2
+
 or
+
 $ make ProtoSplit (if you have one of the prototype PCBs)
 ```
 
@@ -22,8 +25,11 @@ You will see a lot of output and if everything worked correctly you will see the
 
 ```
 DeltaSplit75_ProtoSplit_Default
+
 or
+
 DeltaSplit75_V2_Default.hex
+
 ```
 
 
