@@ -13,14 +13,14 @@ enum keyboard_layers {
 
 // Midi Chords
 
-enum midi_chord_modes { //ACTION_FUNCTION id
+enum midi_chord_modes { //ACTION_FUNCTION opt
   major,
   minor,
   dom_seventh,
   dim_seventh,
 };
 
-enum midi_chord_root { //ACTION_FUNCTION opt
+enum midi_chord_root { //ACTION_FUNCTION id
   C,
   Cs,
   Db = Cs,
@@ -301,8 +301,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(5), \
 					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_NO,  KC_NO,  KC_NO,  KC_INS,  KC_DEL, \
 					 KC_CAPS,  KC_HOME,  KC_NO,  KC_END,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
-					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_NO,  KC_NO, \
-					 KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, KC_NO,  KC_NO,  KC_TRNS
+					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_TRNS,  KC_NO, \
+					 KC_NO,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
 					 ),
 
   /* 2: Mouse Keys Layer
@@ -324,9 +324,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					 
 				   RESET,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21, KC_F22,  KC_F23,  KC_F24,  KC_NO,  KC_NO,  \
 				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
-				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_NO,  \
-				   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
-				   KC_TRNS,  KC_NO,  KC_NO,  KC_POWER,  KC_NO, KC_NO,  KC_NO,  KC_NO
+				   KC_LCTL,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_TRNS,  \
+				   KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, \
+				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_POWER,  KC_TRNS, KC_TRNS,  KC_NO,  KC_NO
 				   ),
 
   /* 3: Midi Base Layer
@@ -799,68 +799,68 @@ const uint16_t PROGMEM fn_actions[] = {
 
   //Major Chords
   
-  [CMajor] = ACTION_FUNCTION_OPT(major, C),
-  [CsMajor] =  ACTION_FUNCTION_OPT(major, Cs),
-  [DMajor] = ACTION_FUNCTION_OPT(major, D),
-  [DsMajor] = ACTION_FUNCTION_OPT(major, Ds),
-  [EMajor] = ACTION_FUNCTION_OPT(major, E),
-  [FMajor] = ACTION_FUNCTION_OPT(major, F),
-  [FsMajor] = ACTION_FUNCTION_OPT(major, Fs),
-  [GMajor] = ACTION_FUNCTION_OPT(major, G),
-  [GsMajor] = ACTION_FUNCTION_OPT(major, Gs),
-  [AMajor] = ACTION_FUNCTION_OPT(major, A),
-  [AsMajor] = ACTION_FUNCTION_OPT(major, As),
-  [BMajor] = ACTION_FUNCTION_OPT(major, B),
+  [CMajor] = ACTION_FUNCTION_OPT(C, major),
+  [CsMajor] =  ACTION_FUNCTION_OPT(Cs, major),
+  [DMajor] = ACTION_FUNCTION_OPT(D, major),
+  [DsMajor] = ACTION_FUNCTION_OPT(Ds, major),
+  [EMajor] = ACTION_FUNCTION_OPT(E, major),
+  [FMajor] = ACTION_FUNCTION_OPT(F, major),
+  [FsMajor] = ACTION_FUNCTION_OPT(Fs, major),
+  [GMajor] = ACTION_FUNCTION_OPT(G, major),
+  [GsMajor] = ACTION_FUNCTION_OPT(Gs, major),
+  [AMajor] = ACTION_FUNCTION_OPT(A, major),
+  [AsMajor] = ACTION_FUNCTION_OPT(As, major),
+  [BMajor] = ACTION_FUNCTION_OPT(B, major),
 
   //Minor Chords
 
-  [CMinor] = ACTION_FUNCTION_OPT(minor, C),
-  [CsMinor] =  ACTION_FUNCTION_OPT(minor, Cs),
-  [DMinor] = ACTION_FUNCTION_OPT(minor, D),
-  [DsMinor] = ACTION_FUNCTION_OPT(minor, Ds),
-  [EMinor] = ACTION_FUNCTION_OPT(minor, E),
-  [FMinor] = ACTION_FUNCTION_OPT(minor, F),
-  [FsMinor] = ACTION_FUNCTION_OPT(minor, Fs),
-  [GMinor] = ACTION_FUNCTION_OPT(minor, G),
-  [GsMinor] = ACTION_FUNCTION_OPT(minor, Gs),
-  [AMinor] = ACTION_FUNCTION_OPT(minor, A),
-  [AsMinor] = ACTION_FUNCTION_OPT(minor, As),
-  [BMinor] = ACTION_FUNCTION_OPT(minor, B),
+  [CMinor] = ACTION_FUNCTION_OPT(C, minor),
+  [CsMinor] =  ACTION_FUNCTION_OPT(Cs, minor),
+  [DMinor] = ACTION_FUNCTION_OPT(D, minor),
+  [DsMinor] = ACTION_FUNCTION_OPT(Ds, minor),
+  [EMinor] = ACTION_FUNCTION_OPT(E, minor),
+  [FMinor] = ACTION_FUNCTION_OPT(F, minor),
+  [FsMinor] = ACTION_FUNCTION_OPT(Fs, minor),
+  [GMinor] = ACTION_FUNCTION_OPT(G, minor),
+  [GsMinor] = ACTION_FUNCTION_OPT(Gs, minor),
+  [AMinor] = ACTION_FUNCTION_OPT(A, minor),
+  [AsMinor] = ACTION_FUNCTION_OPT(As, minor),
+  [BMinor] = ACTION_FUNCTION_OPT(B, minor),
   
   //Dominant 7th
 
-  [CDom7] = ACTION_FUNCTION_OPT(dom_seventh, C),
-  [CsDom7] =  ACTION_FUNCTION_OPT(dom_seventh, Cs),
-  [DDom7] = ACTION_FUNCTION_OPT(dom_seventh, D),
-  [DsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Ds),
-  [EDom7] = ACTION_FUNCTION_OPT(dom_seventh, E),
-  [FDom7] = ACTION_FUNCTION_OPT(dom_seventh, F),
-  [FsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Fs),
-  [GDom7] = ACTION_FUNCTION_OPT(dom_seventh, G),
-  [GsDom7] = ACTION_FUNCTION_OPT(dom_seventh, Gs),
-  [ADom7] = ACTION_FUNCTION_OPT(dom_seventh, A),
-  [AsDom7] = ACTION_FUNCTION_OPT(dom_seventh, As),
-  [BDom7] = ACTION_FUNCTION_OPT(dom_seventh, B),
+  [CDom7] = ACTION_FUNCTION_OPT(C, dom_seventh),
+  [CsDom7] =  ACTION_FUNCTION_OPT(Cs, dom_seventh),
+  [DDom7] = ACTION_FUNCTION_OPT(D, dom_seventh),
+  [DsDom7] = ACTION_FUNCTION_OPT(Ds, dom_seventh),
+  [EDom7] = ACTION_FUNCTION_OPT(E, dom_seventh),
+  [FDom7] = ACTION_FUNCTION_OPT(F, dom_seventh),
+  [FsDom7] = ACTION_FUNCTION_OPT(Fs, dom_seventh),
+  [GDom7] = ACTION_FUNCTION_OPT(G, dom_seventh),
+  [GsDom7] = ACTION_FUNCTION_OPT(Gs, dom_seventh),
+  [ADom7] = ACTION_FUNCTION_OPT(A, dom_seventh),
+  [AsDom7] = ACTION_FUNCTION_OPT(As, dom_seventh),
+  [BDom7] = ACTION_FUNCTION_OPT(B, dom_seventh),
 
   //Diminished 7th
 
-  [CDim7] = ACTION_FUNCTION_OPT(dim_seventh, C),
-  [CsDim7] =  ACTION_FUNCTION_OPT(dim_seventh, Cs),
-  [DDim7] = ACTION_FUNCTION_OPT(dim_seventh, D),
-  [DsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Ds),
-  [EDim7] = ACTION_FUNCTION_OPT(dim_seventh, E),
-  [FDim7] = ACTION_FUNCTION_OPT(dim_seventh, F),
-  [FsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Fs),
-  [GDim7] = ACTION_FUNCTION_OPT(dim_seventh, G),
-  [GsDim7] = ACTION_FUNCTION_OPT(dim_seventh, Gs),
-  [ADim7] = ACTION_FUNCTION_OPT(dim_seventh, A),
-  [AsDim7] = ACTION_FUNCTION_OPT(dim_seventh, As),
-  [BDim7] = ACTION_FUNCTION_OPT(dim_seventh, B),
+  [CDim7] = ACTION_FUNCTION_OPT(C, dim_seventh),
+  [CsDim7] =  ACTION_FUNCTION_OPT(Cs, dim_seventh),
+  [DDim7] = ACTION_FUNCTION_OPT(D, dim_seventh),
+  [DsDim7] = ACTION_FUNCTION_OPT(Ds, dim_seventh),
+  [EDim7] = ACTION_FUNCTION_OPT(E, dim_seventh),
+  [FDim7] = ACTION_FUNCTION_OPT(F, dim_seventh),
+  [FsDim7] = ACTION_FUNCTION_OPT(Fs, dim_seventh),
+  [GDim7] = ACTION_FUNCTION_OPT(G, dim_seventh),
+  [GsDim7] = ACTION_FUNCTION_OPT(Gs, dim_seventh),
+  [ADim7] = ACTION_FUNCTION_OPT(A, dim_seventh),
+  [AsDim7] = ACTION_FUNCTION_OPT(As, dim_seventh),
+  [BDim7] = ACTION_FUNCTION_OPT(B, dim_seventh),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   uint16_t root_note = MIDI_INVALID_NOTE;
-  switch (opt) {
+  switch (id) {
   case C: //Root note C
 	root_note = MI_C;
 	break;
@@ -904,7 +904,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   uint16_t fifth = root_note + 7;
   uint16_t minor_seventh = root_note + 10;
   uint16_t diminished_seventh = root_note -3;
-  switch (id) {
+  switch (opt) {
   case major: //Major chord
 	process_midi(root_note, record);
 	process_midi(major_third, record);
