@@ -53,7 +53,7 @@ Some features supported by the firmware:
 * Split Backspace and ISO support
 
 
-  Flashing
+Flashing
 -------
 I personally use xLoader to upload my hex files to the keyboard, though any other working software is fine too
 
