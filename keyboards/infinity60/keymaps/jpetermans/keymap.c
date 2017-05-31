@@ -247,7 +247,6 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    xprintf("init start");
 
     led_controller_init();
 
