@@ -75,7 +75,8 @@ void led_controller_init(void);
 // D2:D0 extinguish time (3.5ms*2^i)
 
 #define IS31_REG_SHUTDOWN 0x0A
-#define IS31_REG_SHUTDOWN_ON 0x1
+#define IS31_REG_SHUTDOWN_OFF 0x1
+#define IS31_REG_SHUTDOWN_ON 0x0
 
 #define IS31_REG_AGCCTRL 0x0B
 #define IS31_REG_ADCRATE 0x0C
