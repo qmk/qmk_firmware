@@ -289,7 +289,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO(D(LCTL), D(LGUI), T(RIGHT), U(LGUI), U(LCTL), END);
           }
           break;
-        case PSCREEN_APP;
+        case PSCREEN_APP:
           if (record->event.pressed) {
             return MACRO(D(LALT), T(PSCR), U(LALT));
           }
