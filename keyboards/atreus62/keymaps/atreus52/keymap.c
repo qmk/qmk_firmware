@@ -5,6 +5,7 @@
 #define DVORAK 1
 #define RAISE 2
 #define LOWER 3
+#define NAV 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY] = KC_KEYMAP(
@@ -24,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [RAISE] = KC_KEYMAP(
     NO, MRWD, MPRV, MPLY, MNXT, MFFD,             TRNS, MUTE, VOLD, VOLU, DEL,  NO, \
     NO, TILD, GRV,  DQUO, QUOT, LCBR,             RCBR, EQL,  PLUS, MINS, QUES, NO, \
-    NO, ESC,  TAB,  BSLS, SLS,  LPRN,             RPRN, LEFT, DOWN, UP,   RGHT, NO, \
+    NO, ESC,  TAB,  BSLS, SLSH, LPRN,             RPRN, LEFT, DOWN, UP,   RGHT, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, LBRC,             RBRC, PIPE, UNDS, TRNS, TRNS, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
 
@@ -33,6 +34,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NO, EXLM, AT,   HASH, DLR,  PERC,             CIRC, AMPR, ASTR, LPRN, RPRN, NO, \
     NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, DOT,  TRNS, TRNS, TRNS, NO, \
+    NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
+
+[NAV] = KC_KEYMAP(
+    NO, GRV,  1,    2,    3,    4,                TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+    NO, 5,    Q,    W,    E,    R,                TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
+    NO, 6,    A,    S,    D,    F,                TRNS, LEFT, UP,   RGHT, TRNS, NO, \
+    NO, 7,    Z,    X,    C,    V,                TRNS, TRNS, DOWN, TRNS, TRNS, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  )
 
 };
@@ -40,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(RAISE), // Raise layer
     [1] = ACTION_LAYER_MOMENTARY(LOWER), // Lower layer
-    [2] = ACTION_LAYER_TOGGLE(NAV),
+    [2] = ACTION_LAYER_TOGGLE(NAV), // Nav layer
     [3] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_SPC)
 };
 
