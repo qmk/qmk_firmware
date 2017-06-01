@@ -15,13 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #define USE_SERIAL
 
 #define MASTER_LEFT
 // #define _MASTER_RIGHT
 // #define EE_HANDS
-
 
 #ifdef SUBPROJECT_rev1
     #include "../../rev1/config.h"
