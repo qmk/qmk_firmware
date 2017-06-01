@@ -18,9 +18,21 @@ enum custom_keycodes {
 enum custom_macros {
   VERSION,
   EEPROM,
+
+  // Windows macros
+  DLEFT,
+  DRIGHT,
+  PSCREEN_APP,
+
+  // VS Macros
   REFACTOR,
   TEST,
   DEBUG_TEST,
+  FORMAT,
+
+  // KeePass macros
+  KEEPASS_OPEN,
+  KEEPASS_TYPE,
 };
 
 // Tap Dance Definitions
@@ -32,6 +44,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLON)
 };
 
+// NOTE: Cells marked with ACCESS must remain transparent, they're the keys that actually get to that layer
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -41,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Esc    |   A  |   S  |   D  |LT 3,F|   G  |------|           |------|   H  |   J  |   K  |   L  |; / : |   '    |
- * |--------+------+------+------+------+------|  L1  |           |TT(3) |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  L1  |           |MO(3) |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |LCTRL |  F4  |  F5  | LGUI | LALT |                                       | Left | Down |  Up  | Right| RGUI |
@@ -70,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(CODE),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,                  KC_MINS,
              TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,                  KC_BSLS,
                           KC_H,   KC_J,   KC_K,   KC_L,   TD(TD_SEMICOLON_COLON),KC_QUOT,
-             TT(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        KC_RSFT,
+             MO(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        KC_RSFT,
                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,          KC_RGUI,
              KC_RALT,        CTL_T(KC_ESC),
              KC_PGDN,
@@ -79,18 +93,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Code Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |           |ACCESS|      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |  F10 |           |  F11 |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |      |      |       | Test | DTest  |
+ *                                        |Format|      |       | Test | DTest  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |Refact|       |      |        |      |
  *                                 |      |      |------|       |------|        |      |
@@ -106,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                                                             KC_TRNS, KC_TRNS,
+                                                                             M(FORMAT), KC_TRNS,
                                                                                       M(REFACTOR),
                                                                     KC_TRNS, KC_TRNS, KC_TRNS,
         // right hand
@@ -125,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   (  |   )  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
+ * |         |   !  |   @  |   (  |   )  |   |  |ACCESS|           |ACCESS|   Up |   7  |   8  |   9  |   *  |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   {  |   }  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -136,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      | Caps |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      | PScr |       |      |      |      |
+ *                                 |      |      |APScr |       |      |      |      |
+ *                                 |      |ACCESS|------|       |------|      |      |
+ *                                 |      |      | PScr |       |ACCESS|      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
@@ -150,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
           EPRM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        KC_TRNS,KC_CAPS,
-                                               KC_TRNS,
+                                               M(PSCREEN_APP),
                                KC_TRNS,KC_TRNS,KC_PSCR,
        // right hand
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
@@ -170,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           |ACCESS|------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | Lclk | Rclk |                                       |      |      |      |      |      |
@@ -210,9 +224,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |LShift|      |      |------|           |------| Left | Down |  Up  | Right|      |        |
+ * |        |DLeft |DRight|LShift|ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -226,11 +240,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MOVE] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_LSFT, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LSFT, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(KEEPASS_OPEN),M(KEEPASS_TYPE),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,
                                              KC_TRNS, KC_TRNS,
                                                       KC_TRNS,
                                     KC_TRNS, KC_LCTRL,KC_TRNS,
@@ -265,6 +279,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             eeconfig_init();
           }
           break;
+        case DLEFT:
+          if (record->event.pressed) { // Windows move desktop left
+            return MACRO(D(LCTL), D(LGUI), T(LEFT), U(LGUI), U(LCTL), END);
+          }
+          break;
+        case DRIGHT:
+          if (record->event.pressed) { // Windows move desktop right
+            return MACRO(D(LCTL), D(LGUI), T(RIGHT), U(LGUI), U(LCTL), END);
+          }
+          break;
+        case PSCREEN_APP;
+          if (record->event.pressed) {
+            return MACRO(D(LALT), T(PSCR), U(LALT));
+          }
+          break;
         case REFACTOR:
           if (record->event.pressed) { // VS Refactor CTRL+R, R
             return MACRO(D(LCTL), T(R), U(LCTL), T(R), END);
@@ -278,6 +307,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case DEBUG_TEST:
           if (record->event.pressed) { // VS Debug Tests CTRL+R, CTRL+T
             return MACRO(D(LCTL), T(R), T(T), U(LCTL), END);
+          }
+          break;
+        case FORMAT:
+          if (record->event.pressed) { // VS Format Document, CTRL+K, CTRL+D
+            return MACRO(D(LCTL), T(K), T(D), U(LCTL), END);
+          }
+          break;
+        case KEEPASS_OPEN:
+          if (record->event.pressed) { // Keepass open application
+            return MACRO(D(LCTL), D(LALT), T(K), U(LALT), U(LCTL), END);
+          }
+          break;
+        case KEEPASS_TYPE:
+          if (record->event.pressed) { // Keepass autotype
+            return MACRO(D(LCTL), D(LALT), T(A), U(LALT), U(LCTL), END);
           }
           break;
       }
