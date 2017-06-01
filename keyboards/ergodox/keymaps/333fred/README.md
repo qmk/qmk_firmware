@@ -21,7 +21,8 @@
                                 |      |      | Del  |       |OSL(2)|        |      |
                                 `--------------------'       `----------------------'
 ```
-
+* Double-click `;` to get a `:`
+* Press-and-hold `f` to go to the movement layer
 
 ### Keymap 1: Code Layer
 ```
@@ -37,13 +38,14 @@
   |      |      |      |      |      |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,---------------.
-                                       |      |      |       | Test | DTest  |
+                                       |Format|      |       | Test | DTest  |
                                 ,------|------|------|       |------+--------+------.
                                 |      |      |Refact|       |      |        |      |
                                 |      |      |------|       |------|        |      |
                                 |      |      |      |       |      |        |      |
                                 `--------------------'       `----------------------'
 ```
+* Format - Visual Studio Format. Sends `CTRL + K, CTRL + D`
 * Refact - Visual Studio Refactor. Sends `CTRL + R, R`
 * Test   - Visual Studio Run Test. Sends `CTRL + R, T`
 * DTest  - Visual Studio Debug Test. Sends `CTRL + R, CTRL + T`
@@ -64,11 +66,12 @@
                                        ,-------------.       ,-------------.
                                        |      | Caps |       |      |      |
                                 ,------|------|------|       |------+------+------.
-                                |      |      |      |       |      |      |      |
+                                |      |      |APscr |       |      |      |      |
                                 |      |      |------|       |------|      |      |
                                 |      |      | PScr |       |      |      |      |
                                 `--------------------'       `--------------------'
 ```
+* APscr - Take a printscreen of the current app. Sends `Alt + Print Screen`
 
 ### Keymap 3: Media and Mouse Keys
 ```
@@ -99,9 +102,9 @@
 |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-|        |      |      |LShift|      |      |------|           |------| Left | Down |  Up  | Right|      |        |
+|        |DLeft |DRight|LShift|      |      |------|           |------| Left | Down |  Up  | Right|      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-|        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+|        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
   |      |      |      |      |      |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
@@ -113,4 +116,7 @@
                                 |      |      |      |       |      |      |      |
                                 `--------------------'       `--------------------'
 ```
- 
+* DLeft - Move to the left Desktop. Sends `Ctrl + Win + Left Arrow`
+* DRight - Move to the right Desktop. Sends `Ctrl + Win + Right Arrow`
+* KOpen - Opens KeePass. Sends `Ctrl + Alt + k`
+* KType - Autotypes KeePass password. Sends `Ctrl + Alt + a`
