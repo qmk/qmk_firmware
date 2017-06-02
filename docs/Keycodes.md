@@ -1,6 +1,6 @@
 # Overview
 
-When defining a [keymap](https://github.com/qmk/qmk_firmware/blob/master/docs/Keymap.md) each key needs a valid key definition.
+When defining a [keymap](/Keymap.md) each key needs a valid key definition.
 
 This page documents the symbols that correspond to keycodes that are available to you in QMK.
 
