@@ -406,7 +406,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
   case 0: //Number 0-)
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
 	  }
@@ -417,7 +417,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 1: //Number 1-!
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.-.--
 	  }
@@ -428,7 +428,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 2: //Number 2-@
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.--.-.
 	  }
@@ -439,7 +439,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 3: // Number 3
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //...--
@@ -447,7 +447,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 4: //Number 4-$
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-..-
 	  }
@@ -458,7 +458,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 5: //Number 5
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.....
@@ -466,7 +466,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 6: //Number 6
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-....
@@ -474,7 +474,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 7: //Number 7-&
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.-...
 	  }
@@ -485,7 +485,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 8: //Number 8
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //---..
@@ -493,7 +493,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 9: //Number 9-(
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-.--.
 	  }
@@ -504,7 +504,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 10: //Letter A
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(SPACE), END); //.-
@@ -512,7 +512,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 11: //Letter B
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-...
@@ -520,7 +520,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 12: //Letter C
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-.-.
@@ -528,7 +528,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 13: //Letter D
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(SPACE), END); //-..
@@ -536,7 +536,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 14: //Letter E
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(SPACE), END); //.
@@ -544,7 +544,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 15: //Letter F
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //..-.
@@ -552,7 +552,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 16: //Letter G
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(SPACE), END); //--.
@@ -560,7 +560,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 17: //Letter H
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //....
@@ -568,7 +568,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break; 
   case 18: //Letter I
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(SPACE), END); //..
@@ -576,7 +576,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 19: //Letter J
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(SPACE), END); //.---
@@ -584,7 +584,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 20: //Letter K
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.-
@@ -592,7 +592,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 21: //Letter L
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(SPACE), END); //.-..
@@ -600,7 +600,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 22: //Letter M
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(SPACE), END); //--
@@ -608,7 +608,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 23: //Letter N
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(SPACE), END); //-.
@@ -616,7 +616,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 24: //Letter O
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(SPACE), END); //---
@@ -624,7 +624,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 25: //Letter P
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //.--.
@@ -632,7 +632,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 26: //Letter Q
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //--.-
@@ -640,7 +640,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 27: //Letter R
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.
@@ -648,7 +648,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 28: //Letter S
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(SPACE), END); //...
@@ -656,7 +656,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 29: //Letter T
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(SPACE), END); //-
@@ -664,7 +664,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 30: //Letter U
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(SPACE), END); //..-
@@ -672,7 +672,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 31: //Letter V
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-
@@ -680,7 +680,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 32: //Letter W
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(SPACE), END); //.--
@@ -688,7 +688,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 33: //Letter X
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-..-
@@ -696,7 +696,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 34: //Letter Y
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.--
@@ -704,7 +704,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 35: //Letter Z
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //--..
@@ -712,7 +712,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 36: //Punctuation .
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(SPACE), END); //.-.-.-
@@ -720,7 +720,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 37: //Punctuation ,
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //--..--
@@ -728,7 +728,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 38: //Punctuation '-"
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-..-.
 	  }
@@ -739,7 +739,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 39: //Punctuation /-?
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //..--..
 	  }
@@ -750,7 +750,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 40: //Punctuation ;-:
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //---...
 	  }
@@ -761,7 +761,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 41: //Punctuation =-+
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.-.
 	  }
@@ -772,7 +772,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 42: //Punctuation --_
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //..--.-
 	  }
@@ -783,7 +783,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   case 43: //Morse Space
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & MOD_BIT(KC_LSFT) || MOD_BIT(KC_RSFT)) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 	  }
 	  return MACRO(T(BSLS), T(SPACE), END); //When pressed, this sends a slash followed by a space, making it easier to distinguish words in Morse
