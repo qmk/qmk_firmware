@@ -1,3 +1,6 @@
+# specify keyboard / keymap / subproject (if req) and run `docker compose up`
+# will install all deps into a docker container and build firmware, cross platform
+# Only prereq is docker
 qmk:
   build: .
   environment:

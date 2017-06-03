@@ -78,7 +78,6 @@ Linux page].  Some distributions provide a binary, maybe called
 To flash the firmware:
 
   - Build the firmware with `make keymapname`, for example `make default`
-
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
