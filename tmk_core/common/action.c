@@ -26,12 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
+#include "wait.h"
 
 #ifdef DEBUG_ACTION
 #include "debug.h"
 #else
 #include "nodebug.h"
 #endif
+
+int tp_buttons;
 
 #ifdef FAUXCLICKY_ENABLE
 #include <fauxclicky.h>
@@ -310,9 +313,35 @@ void process_action(keyrecord_t *record, action_t action)
         /* Mouse key */
         case ACT_MOUSEKEY:
             if (event.pressed) {
+                switch (action.key.code) {
+                    case KC_MS_BTN1:
+                        tp_buttons |= (1<<0);
+                        break;
+                    case KC_MS_BTN2:
+                        tp_buttons |= (1<<1);
+                        break;
+                    case KC_MS_BTN3:
+                        tp_buttons |= (1<<2);
+                        break;
+                    default:
+                        break;
+                }
                 mousekey_on(action.key.code);
                 mousekey_send();
             } else {
+                switch (action.key.code) {
+                    case KC_MS_BTN1:
+                        tp_buttons &= ~(1<<0);
+                        break;
+                    case KC_MS_BTN2:
+                        tp_buttons &= ~(1<<1);
+                        break;
+                    case KC_MS_BTN3:
+                        tp_buttons &= ~(1<<2);
+                        break;
+                    default:
+                        break;
+                }
                 mousekey_off(action.key.code);
                 mousekey_send();
             }
@@ -438,6 +467,9 @@ void process_action(keyrecord_t *record, action_t action)
                     } else {
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
+                            if (action.layer_tap.code == KC_CAPS) {
+                                wait_ms(80);
+                            }
                             unregister_code(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
@@ -536,6 +568,21 @@ void process_action(keyrecord_t *record, action_t action)
         default:
             break;
     }
+
+#ifndef NO_ACTION_LAYER
+    // if this event is a layer action, update the leds
+    switch (action.kind.id) {
+        case ACT_LAYER:
+        #ifndef NO_ACTION_TAPPING
+        case ACT_LAYER_TAP:
+        case ACT_LAYER_TAP_EXT:
+        #endif
+            led_set(host_keyboard_leds());
+            break;
+        default:
+            break;
+    }
+#endif
 
 #ifndef NO_ACTION_ONESHOT
     /* Because we switch layers after a oneshot event, we need to release the

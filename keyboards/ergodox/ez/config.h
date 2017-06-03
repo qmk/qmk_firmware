@@ -58,7 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBW 1
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCE    15
+
+#define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 500
 

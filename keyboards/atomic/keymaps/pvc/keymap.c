@@ -255,7 +255,7 @@ float tone_scroll_off[][2] = SONG(SCROLL_LOCK_OFF_SOUND);
 
 #endif /* AUDIO_ENABLE */
 
-void persistant_default_layer_set(uint16_t default_layer)
+void persistent_default_layer_set(uint16_t default_layer)
 {
     eeconfig_update_default_layer(default_layer);
     default_layer_set(default_layer);
@@ -366,7 +366,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_QWERTY:
             if (record->event.pressed)
             {
-                persistant_default_layer_set(1UL<<LAYER_QWERTY);
+                persistent_default_layer_set(1UL<<LAYER_QWERTY);
             }
             break;
 
