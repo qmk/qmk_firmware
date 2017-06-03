@@ -36,7 +36,7 @@ DeltaSplit75_V2_Default.hex
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
 
 ### DeltaSplit75 V2
-The PCBs available in groupbuy are all v2, if you've bought one of my prototype PCBs (it says DeltaSplit65 on the silkscreen instead of 75), use the code $make ProtoSplit instead
+The PCBs available in groupbuy are all v2, if you've bought one of my prototype PCBs (it says DeltaSplit65 on the silkscreen instead of 75), use the code make ProtoSplit-ProtoSplit instead
 
 Features
 --------
