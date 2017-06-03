@@ -49,7 +49,7 @@ bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
     uint16_t index = keycode - QK_UNICODE_MAP;
-    uint32_t code = pgm_read_dword_far(&map[index]);
+    uint32_t code = pgm_read_dword(&map[index]);
     if (code > 0xFFFF && code <= 0x10ffff && input_mode == UC_OSX) {
       // Convert to UTF-16 surrogate pair
       code -= 0x10000;

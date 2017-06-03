@@ -669,7 +669,7 @@ static void send_mouse(report_mouse_t *report)
   if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
     #ifdef MODULE_ADAFRUIT_BLE
       // FIXME: mouse buttons
-      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
     #else
       bluefruit_serial_send(0xFD);
       bluefruit_serial_send(0x00);
@@ -1180,7 +1180,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #if !defined(BLUETOOTH_ENABLE)
+        #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
