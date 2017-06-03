@@ -233,8 +233,10 @@ ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
-ifeq ($(strip $(LED_ENABLE)), yes)
-    CIE1931_CURVE = yes
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+        CIE1931_CURVE = yes
+    endif
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
