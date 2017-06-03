@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         MT(MOD_RALT, KC_LBRC),  KC_RBRC,    KC_LEFT,    KC_DOWN,    KC_RGHT,
             KC_PSCR,     _______,
             KC_NLCK,
-            TG(NUMP),   LT(ARRW, C_BSLS),   KC_SPC
+            TG(NUMP),   LT(ARRW, KC_BSLS),  KC_SPC
     ),
 
 /* layer 1: International symbols, etc
@@ -242,26 +242,26 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-        case INTL:
-        case INSF:
-            ergodox_right_led_1_on();
-            break;
-        case NUMP:
-            ergodox_right_led_2_on();
-            break;
-        case ARRW:
-            ergodox_right_led_3_on();
-            break;
-        default:
-            // none
-            break;
-    }
+    // uint8_t layer = biton32(layer_state);
+    //
+    // ergodox_board_led_off();
+    // ergodox_right_led_1_off();
+    // ergodox_right_led_2_off();
+    // ergodox_right_led_3_off();
+    // switch (layer) {
+    //     case INTL:
+    //     case INSF:
+    //         ergodox_right_led_1_on();
+    //         break;
+    //     case NUMP:
+    //         ergodox_right_led_2_on();
+    //         break;
+    //     case ARRW:
+    //         ergodox_right_led_3_on();
+    //         break;
+    //     default:
+    //         // none
+    //         break;
+    // }
 
 };
