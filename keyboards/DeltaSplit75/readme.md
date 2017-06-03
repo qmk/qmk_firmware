@@ -14,17 +14,17 @@ based boards.
 Download or clone the whole firmware and navigate to the keyboards/DeltaSplit75 directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make V2
+make V2
 
 or
 
-$ make ProtoSplit (if you have one of the prototype PCBs)
+make ProtoSplit-ProtoSplit (if you have one of the prototype PCBs)
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex files:
 
 ```
-DeltaSplit75_ProtoSplit_Default
+DeltaSplit75_ProtoSplit_ProtoSplit.hex
 
 or
 
