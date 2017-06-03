@@ -25,7 +25,7 @@
 #include "lcd_backlight_keyframes.h"
 #endif
 
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
 #include "led_keyframes.h"
 #endif
 
@@ -61,7 +61,7 @@ keyframe_animation_t default_suspend_animation = {
 };
 #endif
 
-#if defined(LED_ENABLE)
+#if defined(BACKLIGHT_ENABLE)
 #define CROSSFADE_TIME 1000
 #define GRADIENT_TIME 3000
 

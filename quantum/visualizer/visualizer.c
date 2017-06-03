@@ -309,7 +309,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
         gdispGFlush(LED_DISPLAY);
 #endif
 
@@ -372,7 +372,7 @@ void visualizer_init(void) {
 #ifdef LCD_ENABLE
     LCD_DISPLAY = get_lcd_display();
 #endif
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
     LED_DISPLAY = get_led_display();
 #endif
 
