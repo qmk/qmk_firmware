@@ -127,3 +127,17 @@ bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_0);
     return false;
 }
+
+bool led_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetPowerMode(LED_DISPLAY, powerOff);
+    return false;
+}
+
+bool led_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetPowerMode(LED_DISPLAY, powerOn);
+    return false;
+}
