@@ -1,25 +1,32 @@
 ### Windows 10
 
-Due to some issues with the "Windows (Vista and later)" instructions below, we now recommend following these instructions if you use Windows, which will allow you to use the Windows Subsystem for Linux to compile the firmware. If you are not using Windows 10 with the Anniversary Update installed (which came out in July 2016), you will need to use one of the other methods, such as Docker, Vagrant, or the instructions for Vista and later. 
+#### Creators Update
+If you have Windows 10 with Creators Update or later, you can build and flash the firmware directly. Before the Creators Update, only building was possible. If you don't have it yet or if are unsure, follow [these instructions](https://support.microsoft.com/en-us/instantanswers/d4efb316-79f0-1aa1-9ef3-dcada78f3fa0/get-the-windows-10-creators-update).
 
-If you use this method, you will need to use a standalone tool to flash the firmware to the keyboard after you compile it. We recommend the official [QMK Firmware Flasher](https://github.com/qmk/qmk_firmware_flasher/releases). This is because the Windows 10 Subsystem for Linux lacks [libUSB support](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13355724-unable-to-access-usb-devices-from-bash), so it can't access the keyboard's microcontroller. Please add your vote for Microsoft to fix this issue using the link!
+#### Windows Subsystem for Linux
+In addition to the Creators Update, you need Windows 10 Subystem for Linux, so install it following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/). If you already have the Windows 10 Subsystem for Linux from the Anniversary update it's recommended that you [upgrade](https://betanews.com/2017/04/14/upgrade-windows-subsystem-for-linux/) it to 16.04LTS, because some keyboards don't compile with the toolchains included in 14.04LTS. Note that you need to know what your are doing if you chose the `sudo do-release-upgrade` method.
 
-Here are the steps
+#### Git
+If you already have cloned the repository on your Windows file system you can ignore this section.
 
-1. Install the Windows 10 subsystem for Linux, following [these instructions](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
-2. If you have  cloned the repository using git before August 20, 2016, clean up the line endings from wherever you currently access git:
-   1. Make sure that you have no changes you haven't committed by running `git status`. ANY UNCOMMITTED CHANGES WILL BE PERMANENTLY LOST.
-   2. Run `git rm --cached -r .`
-   3. Run `git reset --hard`
-3. Open "Bash On Ubuntu On Windows" from the start menu
-4. With the bash window open, navigate to your copy of the [qmk_firmware repository](https://github.com/qmk/qmk_firmware) using the `cd` command. The harddisks can be accessed from `/mnt/<driveletter>`. For example, your main hard drive (C:) can be accessed by executing the command `cd /mnt/c`. If your username is John and the qmk_firmware folder is in your Downloads folder, you can move to it with the command `cd /mnt/c/Users/John/Downloads/qmk_firmware`. You can use the Tab key as you go to help you autocomplete the folder names.
-5. Run `sudo util/install_dependencies.sh`.  **This will run `apt-get upgrade`.**
-6. After a while the installation will finish, and you are good to go
+You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute. 
 
-**Note** From time to time, the dependencies might change, so just run `install_dependencies.sh` again if things are not working.
+Once Git is installed, open the Git bash command and change the directory to where you want to clone QMK, note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
 
-**Warning:** If you edit Makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
+#### Toolchain setup
+The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.
 
+1. Open "Bash On Ubuntu On Windows" from the start menu. 
+2. Go to the directory where you cloned `qmk_firmware`. Note that the paths start with `/mnt/` in the WSL, so you have to write for example `cd /mnt/c/path/to/qmk_firmware`. 
+3. Run `util/wsl_install.sh` and follow the on-screen instructions.
+4. Close the Bash command window, and re-open it.
+5. You are ready to compile and flash the firmware!
+
+#### Some important things to keep in mind
+* You can run `util/wsl_install.sh` again to get all the newest updates.
+* Your QMK repository need to be on a Windows file system path, since WSL can't run executables outside it.
+* The WSL Git is **not** compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations
+* You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
 
 ### Windows (Vista and later)
 1. If you have ever installed WinAVR, uninstall it.
