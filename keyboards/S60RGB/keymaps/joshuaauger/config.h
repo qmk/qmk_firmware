@@ -1,0 +1,19 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include "../../config.h"
+
+#define ONESHOT_TAP_TOGGLE 2
+
+#define RGB_DI_PIN F6
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 3
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 2
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 10    // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
+#endif
