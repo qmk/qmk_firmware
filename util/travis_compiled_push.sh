@@ -4,16 +4,18 @@ set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
 
-git config --global user.name "Travis CI"
-git config --global user.email "jack.humb+travis.ci@gmail.com"
+if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
+
+git config --global user.name "QMK Bot"
+git config --global user.email "hello@qmk.fm"
+
+openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_iv -in secrets.tar.enc -out secrets.tar -d
+tar xvf secrets.tar
 
 chmod 600 id_rsa_qmk_firmware
 chmod 600 qmk.fm
 eval `ssh-agent -s`
 ssh-add id_rsa_qmk_firmware
-ssh-add qmk.fm
-
-if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
 increment_version ()
 {
@@ -30,7 +32,7 @@ if [[ $NEFM -gt 0 ]] ; then
 	lasttag=$(git tag | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
 	newtag=$(increment_version $lasttag)
 	git tag $newtag
-	git push --tags
+	git push --tags git@github.com:qmk/qmk_firmware.git
 else
 	echo "No essential files modified."
 fi
@@ -42,6 +44,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
+	ssh-add ../qmk_firmware/qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
 	#rm -rf keyboards
@@ -55,7 +58,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
-	git push
+	git push git@github.com:qmk/qmk.fm.git
 
 fi
 
