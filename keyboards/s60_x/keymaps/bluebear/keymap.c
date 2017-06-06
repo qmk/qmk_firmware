@@ -255,6 +255,13 @@ enum morse_macros {
   MC_SPACE = M(43),
 };
 
+// Custom Keys
+
+enum custom_keys {
+  MAGSYS, // Magic SysRq key - Sends Alt-PSCR
+  TFS = LCTL(LALT(KC_DEL)), // Three Finger Salute - Sends Ctl-Alt-Del
+};
+
 //Keymaps
   
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -312,9 +319,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │DEBUG│     │     │     │     │     │     │BTN1 │MS_UP│BTN2 │WH_UP│     │     │     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │     │     │     │     │     │     │     │MS_LT│MS_DN│MS_RT│WH_DN│BTN3 │▒▒▒▒▒│     │█████│
+	 │TFS  │     │     │     │     │     │     │MS_LT│MS_DN│MS_RT│WH_DN│BTN3 │▒▒▒▒▒│     │█████│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-	 │     │▒▒▒▒▒│     │     │     │     │     │     │     │     │     │     │▒▒▒▒▒│     │▒▒▒▒▒│
+	 │MAGSYS▒▒▒▒▒│     │     │     │     │     │     │     │     │     │     │▒▒▒▒▒│     │▒▒▒▒▒│
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 	 │     │     │     │█████│█████│█████│ PWR │█████│█████│█████│     │     │     │     │█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
@@ -324,8 +331,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 					 
 				   RESET,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21, KC_F22,  KC_F23,  KC_F24,  KC_NO,  KC_NO,  \
 				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
-				   KC_LCTL,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_TRNS,  \
-				   KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, \
+				   TFS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_TRNS,  \
+				   MAGSYS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, \
 				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_POWER,  KC_TRNS, KC_TRNS,  KC_NO,  KC_NO
 				   ),
 
@@ -400,13 +407,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// Morse Code Macros
+// Macros
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
+	
+	// Morse Code Macros
+	
   case 0: //Number 0-)
 	if (record->event.pressed) {
-	  if (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
 		clear_mods();
 		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
 	  }
@@ -791,7 +801,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	break;
   }
   return MACRO_NONE;
-};
+}
+
+// Custom Keys
+
+bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+  case MAGSYS: //Magic SysRq function - Toggles key on and off depending on state of LALT key
+	if (record->event.pressed) {
+	  if (keyboard_report->mods & (MOD_BIT(KC_LALT))) {
+		unregister_code(KC_PSCR);
+		unregister_code(KC_LALT);
+	  } else {
+		register_code(KC_LALT);
+		register_code(KC_PSCR);
+	  }
+	}
+	break;
+  }
+  return true;
+}
 
 // Midi Chord Function
 
