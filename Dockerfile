@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y build-essential
     binutils-arm-none-eabi \
     libnewlib-arm-none-eabi \
     git \
+    software-properties-common \
+    avrdude \
     && rm -rf /var/lib/apt/lists/*
 
 ENV keyboard=ergodox
@@ -23,4 +25,4 @@ ENV keymap=default
 
 VOLUME /qmk
 WORKDIR /qmk
-CMD make clean ; make keyboard=${keyboard} subproject=${subproject} keymap=${keymap}
+CMD make clean; make;
