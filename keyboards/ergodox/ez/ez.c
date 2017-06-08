@@ -22,30 +22,30 @@ void matrix_init_kb(void) {
     PORTD |=  (1<<5 | 1<<4);
     PORTE |=  (1<<6);
 
-    //ergodox_blink_all_leds();
+    ergodox_blink_all_leds();
 
     matrix_init_user();
 }
 
-// void ergodox_blink_all_leds(void)
-// {
-//     ergodox_led_all_off();
-//     ergodox_led_all_set(LED_BRIGHTNESS_HI);
-//     ergodox_right_led_1_on();
-//     _delay_ms(50);
-//     ergodox_right_led_2_on();
-//     _delay_ms(50);
-//     ergodox_right_led_3_on();
-//     _delay_ms(50);
-//     ergodox_right_led_1_off();
-//     _delay_ms(50);
-//     ergodox_right_led_2_off();
-//     _delay_ms(50);
-//     ergodox_right_led_3_off();
-//     //ergodox_led_all_on();
-//     //_delay_ms(333);
-//     ergodox_led_all_off();
-// }
+void ergodox_blink_all_leds(void)
+{
+    ergodox_led_all_off();
+    ergodox_led_all_set(LED_BRIGHTNESS_HI);
+    ergodox_right_led_1_on();
+    _delay_ms(50);
+    ergodox_right_led_2_on();
+    _delay_ms(50);
+    ergodox_right_led_3_on();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_3_off();
+    //ergodox_led_all_on();
+    //_delay_ms(333);
+    ergodox_led_all_off();
+}
 
 uint8_t init_mcp23018(void) {
     mcp23018_status = 0x20;
@@ -57,7 +57,7 @@ uint8_t init_mcp23018(void) {
     // cli();
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
-        i2c_initialized = 1;
+        i2c_initialized++;
         _delay_ms(1000);
     }
 
