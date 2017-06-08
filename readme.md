@@ -28,4 +28,4 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
 
 ## Documentation
 
-[https://docs.qmk.fm](https://docs.qmk.fm) is hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [Github](https://github.com/qmk/qmk_firmware_docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware_docs/pulls), or by clicking the "suggest an edit" link on any page of the Docs.
+[https://docs.qmk.fm](https://docs.qmk.fm) is hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [Github](/docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "suggest an edit" link on any page of the Docs.
