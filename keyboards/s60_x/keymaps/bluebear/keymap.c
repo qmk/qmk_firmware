@@ -407,21 +407,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// Macros
+// Custom Function - Check if shift is pressed
+
+bool check_shift(void);
+
+bool check_shift() {
+  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT))) {
+	return KC_LSHIFT;
+  }
+  if (keyboard_report->mods & (MOD_BIT(KC_RSHIFT))) {
+	return KC_RSHIFT;
+  }
+  else {
+	return false;
+  }
+}
+
+// Morse Code Macros
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  uint16_t is_shift = check_shift();
   switch(id) {
-	
-	// Morse Code Macros
-	
   case 0: //Number 0-)
 	if (record->event.pressed) {
-	  if (keyboard_report->mods & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
-		clear_mods();
-		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
-	  }
+	  if (is_shift == false) {
+		  return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //-----
+		}
 	  else {
-		return MACRO(T(MINS), T(MINS), T(MINS), T(MINS), T(MINS), T(SPACE), END); //-----
+		unregister_mods(MOD_BIT(is_shift));
+		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.--.-
+		register_code(is_shift);
 	  }
 	}
 	break;
