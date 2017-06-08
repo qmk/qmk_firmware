@@ -116,24 +116,29 @@ enum layer_id {
 void clueboard_set_led(uint8_t id) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv(346, 0, 255);
+      rgblight_sethsv_noeeprom(346, 0, 255);
       break;
     case LAYER_FUNCTION:
-      rgblight_sethsv(46, 255, 255);
+      rgblight_sethsv_noeeprom(46, 255, 255);
       break;
     case LAYER_MEDIA:
-      rgblight_sethsv(86, 255, 255);
+      rgblight_sethsv_noeeprom(86, 255, 255);
       break;
     case LAYER_CONTROL:
-      rgblight_sethsv(346, 255, 255);
+      rgblight_sethsv_noeeprom(346, 255, 255);
       break;
     case LAYER_MOUSE:
-      rgblight_sethsv(206, 255, 255);
+      rgblight_sethsv_noeeprom(206, 255, 255);
       break;
   }
 };
 
 void matrix_scan_user(void) {
+    rgblight_config_t rgblight_config;
+    rgblight_config.raw = eeconfig_read_rgblight();
+
+    if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
+
     uint32_t layer = layer_state;
 
     if (layer & (1<<_FL)) {
