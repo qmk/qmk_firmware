@@ -137,7 +137,7 @@ void matrix_scan_user(void) {
     rgblight_config_t rgblight_config;
     rgblight_config.raw = eeconfig_read_rgblight();
 
-    if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
+    if (!rgblight_config.enable || rgblight_config.mode > 5) { return; }
 
     uint32_t layer = layer_state;
 
