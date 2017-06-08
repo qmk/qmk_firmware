@@ -40,6 +40,12 @@ Then, with the keyboard plugged in, simply run this command from the
 $ make ps2avrGB-program
 ```
 
+Or if you have a MechMini:
+
+```
+$ make ps2avrGB-mechmini-program
+```
+
 If you prefer, you can just build it and flash the firmware directly with
 `bootloadHID` if you boot the board while holding down `L_Ctrl` to keep it
 in the bootloader:
