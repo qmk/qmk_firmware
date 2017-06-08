@@ -5,7 +5,7 @@
 #define DVORAK 1
 #define RAISE 2
 #define LOWER 3
-#define NAV 4
+#define BDO 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERTY] = KC_KEYMAP(
@@ -36,19 +36,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NO, TRNS, TRNS, TRNS, TRNS, TRNS,             TRNS, DOT,  TRNS, TRNS, TRNS, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
 
-[NAV] = KC_KEYMAP(
-    NO, GRV,  1,    2,    3,    4,                TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
-    NO, 5,    Q,    W,    E,    R,                TRNS, TRNS, TRNS, TRNS, TRNS, NO, \
-    NO, 6,    A,    S,    D,    F,                TRNS, LEFT, UP,   RGHT, TRNS, NO, \
-    NO, 7,    Z,    X,    C,    V,                TRNS, TRNS, DOWN, TRNS, TRNS, NO, \
-    NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  )
+[BDO] = KC_KEYMAP(
+    NO, ESC,  1,    2,    3,    4,                5,    NO,   NO,   NO,   NO,   NO, \
+    NO, TAB,  Q,    W,    E,    R,                6,    Y,    I,    O,    P,    NO, \
+    NO, LSFT, A,    S,    D,    F,                7,    G,    H,    J,    K,    NO, \
+    NO, T,    Z,    X,    C,    V,                8,    B,    N,    M,    L,    NO, \
+    NO, LCTL, SPC,  SPC,  SPC,  SPC,  0,    9,    SLSH, NO,   NO,   NO,   FN2,  NO  )
 
 };
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(RAISE), // Raise layer
     [1] = ACTION_LAYER_MOMENTARY(LOWER), // Lower layer
-    [2] = ACTION_LAYER_TOGGLE(NAV), // Nav layer
+    [2] = ACTION_LAYER_TOGGLE(BDO), // BDO layer
     [3] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_SPC)
 };
 
