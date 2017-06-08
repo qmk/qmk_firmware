@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         MT(MOD_RALT, KC_LBRC),  KC_RBRC,    KC_LEFT,    KC_DOWN,    KC_RGHT,
             KC_PSCR,     _______,
             KC_NLCK,
-            TG(NUMP),   LT(ARRW, KC_BSLS),  KC_SPC
+            TG(NUMP),   LT(ARRW, C_BSLS),   KC_SPC
     ),
 
 /* layer 1: International symbols, etc
