@@ -23,12 +23,14 @@ enum custom_macros {
   DLEFT,
   DRIGHT,
   PSCREEN_APP,
+  LSFT_TAB,
 
   // VS Macros
   REFACTOR,
   TEST,
   DEBUG_TEST,
   FORMAT,
+  BUILD,
 
   // KeePass macros
   KEEPASS_OPEN,
@@ -104,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |Format|      |       | Test | DTest  |
+ *                                        |Format|Build |       | Test | DTest  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |Refact|       |      |        |      |
  *                                 |      |      |------|       |------|        |      |
@@ -120,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                                                             M(FORMAT), KC_TRNS,
-                                                                                      M(REFACTOR),
-                                                                    KC_TRNS, KC_TRNS, KC_TRNS,
+                                                                             M(FORMAT),M(BUILD),
+                                                                                       M(REFACTOR),
+                                                                    KC_TRNS, KC_TRNS,  KC_TRNS,
         // right hand
 
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -222,11 +224,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |DLeft |DRight|LShift|ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |DLeft |DRight|LCTRL |ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |SFT_TB| TAB  |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -234,20 +236,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      | CTRL |------|       |------|      |      |
+ *                                 |      |LSHIFT|------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [MOVE] = KEYMAP(
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LSFT, KC_TRNS, KC_TRNS,
        KC_TRNS, M(KEEPASS_OPEN),M(KEEPASS_TYPE),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LCTL, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(LSFT_TAB),    KC_TAB,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,
                                              KC_TRNS, KC_TRNS,
                                                       KC_TRNS,
-                                    KC_TRNS, KC_LCTRL,KC_TRNS,
+                                    KC_TRNS, KC_LSFT, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -291,9 +293,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           break;
         case PSCREEN_APP:
           if (record->event.pressed) {
-            return MACRO(D(LALT), T(PSCR), U(LALT));
+            return MACRO(D(LALT), T(PSCR), U(LALT), END);
           }
           break;
+        case LSFT_TAB:
+          if (record->event.pressed) {
+            return MACRO(D(LSFT), T(TAB), U(LSFT), END);
+          }
         case REFACTOR:
           if (record->event.pressed) { // VS Refactor CTRL+R, R
             return MACRO(D(LCTL), T(R), U(LCTL), T(R), END);
@@ -314,6 +320,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO(D(LCTL), T(K), T(D), U(LCTL), END);
           }
           break;
+        case BUILD:
+          if (record->event.pressed) {
+            return MACRO(D(LCTL), D(LSFT), T(B), U(LSFT), U(LCTL), END);
+          }
         case KEEPASS_OPEN:
           if (record->event.pressed) { // Keepass open application
             return MACRO(D(LCTL), D(LALT), T(K), U(LALT), U(LCTL), END);
