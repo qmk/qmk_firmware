@@ -78,7 +78,7 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
 |KC_PSCREEN|KC_PSCR|PrintScreen1|
-|KC_SCKLOCK|KC_SLCK|Scroll Lock11|
+|KC_SCROLLLOCK|KC_SLCK|Scroll Lock11|
 |KC_PAUSE|KC_PAUS|Pause1|
 |KC_INSERT|KC_INS|Insert1|
 |KC_HOME||Home1|
