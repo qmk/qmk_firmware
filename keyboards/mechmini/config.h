@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
 #define MANUFACTURER    winkeyless.kr
-#define PRODUCT         ps2avrGB
+#define PRODUCT         mechmini
 
 /* matrix size */
 #define MATRIX_ROWS 8
