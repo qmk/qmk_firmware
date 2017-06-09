@@ -28,8 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_FL] = KEYMAP(
     KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, _______,          BL_STEP, \
-    _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,_______, _______,  _______,  _______,  _______,                   _______, \
-    MO(_FL), _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                            \
+    _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,_______, KC_PAUS,  _______,  _______,  _______,                   _______, \
+    MO(_FL), _______, MO(_CL),_______,_______,_______,KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT, _______,  _______,  _______,  _______,                            \
     _______, _______, _______,_______,_______,_______,_______,_______,MO(_ME),_______, _______,  _______,  _______,  _______,          KC_PGUP,          \
     _______, _______, _______,_______,        _______,_______,                         _______,  _______,  _______,  MO(_FL), KC_HOME, KC_PGDN, KC_END),
 
@@ -116,24 +116,29 @@ enum layer_id {
 void clueboard_set_led(uint8_t id) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv(346, 0, 255);
+      rgblight_sethsv_noeeprom(346, 0, 255);
       break;
     case LAYER_FUNCTION:
-      rgblight_sethsv(46, 255, 255);
+      rgblight_sethsv_noeeprom(46, 255, 255);
       break;
     case LAYER_MEDIA:
-      rgblight_sethsv(86, 255, 255);
+      rgblight_sethsv_noeeprom(86, 255, 255);
       break;
     case LAYER_CONTROL:
-      rgblight_sethsv(346, 255, 255);
+      rgblight_sethsv_noeeprom(346, 255, 255);
       break;
     case LAYER_MOUSE:
-      rgblight_sethsv(206, 255, 255);
+      rgblight_sethsv_noeeprom(206, 255, 255);
       break;
   }
 };
 
 void matrix_scan_user(void) {
+    rgblight_config_t rgblight_config;
+    rgblight_config.raw = eeconfig_read_rgblight();
+
+    if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
+
     uint32_t layer = layer_state;
 
     if (layer & (1<<_FL)) {
