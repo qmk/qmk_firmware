@@ -92,3 +92,26 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
+
+##### Permissive Hold
+
+As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
+
+```
+#define PERMISSIVE_HOLD
+```
+
+This makes it easier for fast typists to use dual-function keys. As described in the PR:
+
+Without this, if you let go of a held key inside the tapping term, it won't register.
+
+Example: (Tapping Term = 200)
+
+- SHFT_T(KC_A) Down
+- KC_X Down
+- KC_X Up
+- SHFT_T(KC_A) Up
+
+With permissive hold, if above is typed within tapping term, this will emit `X` (so, Shift+X).
+
+With defaults, if above is typed within tapping term, this will emit `ax`, which I doubt is what anyone really wants

@@ -48,16 +48,25 @@ This is inside one of the macros. So when that macro executes, your keyboard pla
 
 "Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
 
+## Music mode
 
-## Recording And Playing back Music
-* ```Music On``` - Turn music mode on. The default mapping is ```Lower+Upper+C```
-* ```LCTL``` - start a recording
-* play some tones
-* ```LALT``` - stop recording, stop playing
-* ```LGUI``` - play recording
-* ```LALT``` - stop playing
-* ```Music Off``` - Turn music mode off. The default mapping is ```Lower+Upper+V```
+The music mode maps your columns to a chromatic scale, and your rows to octaves. This works best with ortholinear keyboards, but can be made to work with others. All keycodes less than `0xFF` get blocked, so you won't type while playing notes - if you have special keys/mods, those will still work. A work-around for this is to jump to a different layer with KC_NOs before (or after) enabling music mode.  
 
+Recording is experimental due to some memory issues - if you experience some weird behavior, unplugging/replugging your keyboard will fix things.
+
+Keycodes available:
+
+* `MU_ON` - Turn music mode on
+* `MU_OFF` - Turn music mode off
+* `MU_TOG` - Toggle music mode
+
+In music mode, the following keycodes work differently, and don't pass through:
+
+* `LCTL` - start a recording
+* `LALT` - stop recording/stop playing
+* `LGUI` - play recording
+* `KC_UP` - speed-up playback
+* `KC_DOWN` - slow-down playback
 
 ## MIDI functionalty
 

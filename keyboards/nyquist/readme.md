@@ -86,11 +86,11 @@ and modify the `matrix.c` accordingly.
 
 The wiring for serial:
 
-![serial wiring](imgs/split-keyboard-serial-schematic.png)
+![serial wiring](http://imgur.com/BnCGU1Y)
 
 The wiring for i2c:
 
-![i2c wiring](imgs/split-keyboard-i2c-schematic.png)
+![i2c wiring](http://imgur.com/5eiArDA)
 
 The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
