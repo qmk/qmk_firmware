@@ -40,4 +40,4 @@ CUSTOM_MATRIX = yes
 SRC = matrix.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
+PROGRAM_CMD = ./keyboards/mechmini/program $(TARGET).hex
