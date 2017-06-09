@@ -1,15 +1,6 @@
-```
- ___     _____ _            _                         _     __    __ _   __
-|__ \   / ____| |          | |                       | |   / /   / /(_) / /
- ||) | | |    | |_   _  ___| |__   ___   __ _ _ __ __| |  / /_  / /_   / /
- |/ /  | |    | | | | |/ _ \ '_ \ / _ \ / _` | '__/ _` | | '_ \| '_ \ / /
- |_|   | |____| | |_| |  __/ |_) | (_) | (_| | | | (_| | | (_) | (_) / / _
- (_)    \_____|_|\__,_|\___|_.__/ \___/ \__,_|_|  \__,_|  \___/ \___/_/ (_)
-```
-
 # smt Clueboard Layout (HHKB variant)
 
-![Clueboard Layout Image](layout.png)
+![Clueboard Layout Image](http://i.imgur.com/Ll5gGte.png)
 
 This is smt's HHKB variant layout, based on the default layout that comes
 flashed on every Clueboard. The primary differences from the default are:
