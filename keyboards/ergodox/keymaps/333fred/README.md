@@ -38,7 +38,7 @@
   |      |      |      |      |      |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,---------------.
-                                       |Format|      |       | Test | DTest  |
+                                       |Format|Build |       | Test | DTest  |
                                 ,------|------|------|       |------+--------+------.
                                 |      |      |Refact|       |      |        |      |
                                 |      |      |------|       |------|        |      |
@@ -49,6 +49,7 @@
 * Refact - Visual Studio Refactor. Sends `CTRL + R, R`
 * Test   - Visual Studio Run Test. Sends `CTRL + R, T`
 * DTest  - Visual Studio Debug Test. Sends `CTRL + R, CTRL + T`
+* Build  - Visualt Studio Build Solution. Sends `CTRL + SHFT + B`
 
 ### Keymap 2: Symbol Layer
 ```
@@ -100,11 +101,11 @@
 ,--------------------------------------------------.           ,--------------------------------------------------.
 |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-|        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+|        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 |        |DLeft |DRight|LShift|      |      |------|           |------| Left | Down |  Up  | Right|      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-|        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
+|        |SFT_TB| Tab  |      |      |      |      |           |      |      |      |      |      |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
   |      |      |      |      |      |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
@@ -116,7 +117,8 @@
                                 |      |      |      |       |      |      |      |
                                 `--------------------'       `--------------------'
 ```
-* DLeft - Move to the left Desktop. Sends `Ctrl + Win + Left Arrow`
+* DLeft  - Move to the left Desktop. Sends `Ctrl + Win + Left Arrow`
 * DRight - Move to the right Desktop. Sends `Ctrl + Win + Right Arrow`
-* KOpen - Opens KeePass. Sends `Ctrl + Alt + k`
-* KType - Autotypes KeePass password. Sends `Ctrl + Alt + a`
+* KOpen  - Opens KeePass. Sends `Ctrl + Alt + k`
+* KType  - Autotypes KeePass password. Sends `Ctrl + Alt + a`
+* SFT_TB - Sends `CTRL + TAB`.
