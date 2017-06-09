@@ -13,10 +13,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ps2avrGB.h"
+#include "mechmini.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    MECHMINI_KEYMAP(
+    KEYMAP(
         TAB,  Q,    W,    E,    R,    T,    Y,    U,   I,    O,    P,    BSLS,
         LCTL, A,    S,    D,    F,    G,    H,    J,   K,    L,    SCLN,
         LSFT, Z,    X,    C,    V,    B,    N,    M,   COMM, DOT,  SLSH,
