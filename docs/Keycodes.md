@@ -67,9 +67,9 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_RSHIFT|KC_RSFT|RightShift|
 |KC_RALT||RightAlt|
 |KC_RGUI||Right GUI(Windows/Apple/Meta key)|
-|KC_LOCKING_CAPS||Locking Caps Lock12|
-|KC_LOCKING_NUM||Locking Num Lock12|
-|KC_LOCKING_SCROLL||Locking Scroll Lock12|
+|KC_LOCKING_CAPS||Locking Caps Lock|
+|KC_LOCKING_NUM||Locking Num Lock|
+|KC_LOCKING_SCROLL||Locking Scroll Lock|
 |KC_INT4|KC_HENK|JIS Henken|
 |KC_INT5|KC_MHEN|JIS Muhenken|
 
@@ -77,21 +77,21 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
-|KC_PSCREEN|KC_PSCR|PrintScreen1|
-|KC_SCROLLLOCK|KC_SLCK|Scroll Lock11|
-|KC_PAUSE|KC_PAUS|Pause1|
-|KC_INSERT|KC_INS|Insert1|
-|KC_HOME||Home1|
-|KC_PGUP||PageUp1|
+|KC_PSCREEN|KC_PSCR|PrintScreen|
+|KC_SCROLLLOCK|KC_SLCK|Scroll Lock|
+|KC_PAUSE|KC_PAUS|Pause|
+|KC_INSERT|KC_INS|Insert|
+|KC_HOME||Home|
+|KC_PGUP||PageUp|
 |KC_DELETE|KC_DEL|Delete Forward|
-|KC_END||End1|
-|KC_PGDOWN|KC_PGDN|PageDown1|
-|KC_RIGHT|KC_RGHT|RightArrow1|
-|KC_LEFT||LeftArrow1|
-|KC_DOWN||DownArrow1|
-|KC_UP||UpArrow1|
-|KC_APPLICATION|KC_APP|Application10|
-|KC_POWER||Power9|
+|KC_END||End|
+|KC_PGDOWN|KC_PGDN|PageDown|
+|KC_RIGHT|KC_RGHT|RightArrow|
+|KC_LEFT||LeftArrow|
+|KC_DOWN||DownArrow|
+|KC_UP||UpArrow|
+|KC_APPLICATION|KC_APP|Application|
+|KC_POWER||Power|
 |KC_EXECUTE||Execute|
 |KC_HELP||Help|
 |KC_MENU||Menu|
@@ -102,8 +102,8 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_COPY||Copy|
 |KC_PASTE||Paste|
 |KC_FIND||Find|
-|KC_ALT_ERASE||Alternate Erase7|
-|KC_SYSREQ||SysReq/Attention1|
+|KC_ALT_ERASE||Alternate Erase|
+|KC_SYSREQ||SysReq/Attention|
 |KC_CANCEL||Cancel|
 |KC_CLEAR||Clear|
 |KC_PRIOR||Prior|
@@ -153,12 +153,12 @@ Windows and Mac use different key codes for next track and previous track. Make 
 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
-|KC_NUMLOCK|KC_NLCK|Keypad Num Lock and Clear11|
+|KC_NUMLOCK|KC_NLCK|Keypad Num Lock and Clear|
 |KC_KP_SLASH|KC_PSLS|Keypad /|
 |KC_KP_ASTERISK|KC_PAST|Keypad *|
 |KC_KP_MINUS|KC_PMNS|Keypad -|
 |KC_KP_PLUS|KC_PPLS|Keypad +|
-|KC_KP_ENTER|KC_PENT|Keypad ENTER5|
+|KC_KP_ENTER|KC_PENT|Keypad ENTER|
 |KC_KP_1|KC_P1|Keypad 1 and End|
 |KC_KP_2|KC_P2|Keypad 2 and Down Arrow|
 |KC_KP_3|KC_P3|Keypad 3 and PageDn|
@@ -171,8 +171,8 @@ Windows and Mac use different key codes for next track and previous track. Make 
 |KC_KP_0|KC_P0|Keypad 0 and Insert|
 |KC_KP_DOT|KC_PDOT|Keypad . and Delete|
 |KC_KP_EQUAL|KC_PEQL|Keypad =|
-|KC_KP_COMMA|KC_PCMM|Keypad Comma27|
-|KC_KP_EQUAL_AS400||Keypad Equal Sign29|
+|KC_KP_COMMA|KC_PCMM|Keypad Comma|
+|KC_KP_EQUAL_AS400||Keypad Equal Sign|
 
 ## Special Keys
 
