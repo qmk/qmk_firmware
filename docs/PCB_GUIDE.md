@@ -119,7 +119,7 @@ A number of other keycodes have been added that you may find useful:
 
 The extended keymap extends the number of function layers from 32 to the near-infinite value of 256. Rather than using `FN<num>` notation (still available, but limited to `FN0`-`FN31`), you can use the `FUNC(<num>)` notation. `F(<num>)` is a shortcut for this.
 
-The function actions are unchanged, and you can see the full list of them [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/common/action_code.h). They are explained in detail [here](https://github.com/jackhumbert/tmk_keyboard/blob/master/doc/keymap.md#2-action).
+The function actions are unchanged, and you can see the full list of them [here](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_code.h). They are explained in detail [here](keymap.md#2-action).
 
 ### Macros
 
