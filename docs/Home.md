@@ -136,15 +136,15 @@ Enable the backlight from the Makefile.
 
 All of these functions are available in the `*_kb()` or `*_user()` variety. `kb` ones should only be used in the `<keyboard>/<keyboard>.c` file, and `user` ones should only be used in the `keymap.c`. The keyboard ones call the user ones - it's necessary to keep these calls to allow the keymap functions to work correctly.
 
-## `void matrix_init_*(void)`
+## `void matrix_init_user(void)`/`void matrix_init_kb(void)`
 
 This function gets called when the matrix is initiated, and can contain start-up code for your keyboard/keymap.
 
-## `void matrix_scan_*(void)`
+## `void matrix_scan_user(void)`/`void matrix_scan_kb(void)`
 
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
-## `bool process_record_*(uint16_t keycode, keyrecord_t *record)`
+## `bool process_record_user(uint16_t keycode, keyrecord_t *record)`/`bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 
 This function gets called on every keypress/release, and is where you can define custom functionality. The return value is whether or not QMK should continue processing the keycode - returning `false` stops the execution.
 
@@ -167,7 +167,7 @@ keyrecord_t record {
 
 The conditional `if (record->event.pressed)` can tell if the key is being pressed or released, and you can execute code based on that.
 
-## `void led_set_*(uint8_t usb_led)`
+## `void led_set_user(uint8_t usb_led)`/`void led_set_kb(uint8_t usb_led)`
 
 This gets called whenever there is a state change on your host LEDs \(eg caps lock, scroll lock, etc\). The LEDs are defined as:
 
