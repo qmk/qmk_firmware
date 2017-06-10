@@ -20,6 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
+#ifdef USE_I2C
+// provides memcpy for copying TWI slave buffer
+#include <string.h>
+#endif
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
@@ -167,11 +171,13 @@ int i2c_transaction(void) {
     if (err) goto i2c_error;
 
     if (!err) {
-        int i;
-        for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-            matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
+	// read from TWI byte-by-byte into matrix_row_t memory space
+        size_t i;
+        for (i = 0; i < SLAVE_BUFFER_SIZE-1; ++i) {
+            *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_ACK);
         }
-        matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
+	// last byte to be read / end of chunk
+        *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_NACK);
         i2c_master_stop();
     } else {
 i2c_error: // the cable is disconnceted, or something else went wrong
@@ -236,10 +242,8 @@ void matrix_slave_scan(void) {
     int offset = (isLeftHand) ? 0 : (MATRIX_ROWS / 2);
 
 #ifdef USE_I2C
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        /* i2c_slave_buffer[i] = matrix[offset+i]; */
-        i2c_slave_buffer[i] = matrix[offset+i];
-    }
+    // SLAVE_BUFFER_SIZE is from i2c.h
+    memcpy((void*)i2c_slave_buffer, (const void*)&matrix[offset], SLAVE_BUFFER_SIZE);
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
