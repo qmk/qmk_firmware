@@ -164,4 +164,4 @@ If your keymap directory has a file called `Makefile` (note the filename), any M
 
 So let's say your keyboard's makefile has `BACKLIGHT_ENABLE = yes` (or maybe doesn't even list the `BACKLIGHT_ENABLE` option, which would cause it to be off). You want your particular keymap to not have the debug console, so you make a file called `Makefile` and specify `BACKLIGHT_ENABLE = no`.
 
-You can use the `doc/keymap_makefile_example.md` as a template/starting point.
+You can use the `docs/keymap_makefile_example.md` as a template/starting point.

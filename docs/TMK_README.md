@@ -113,13 +113,13 @@ Third party libraries like LUFA, PJRC and V-USB have their own license respectiv
 
 Build Firmware and Program Controller
 -------------------------------------
-See [build environment setup](/readme.md#build-environment-setup), or the readme in the particular keyboards/* folder.
+See [build environment setup](build_environment_setup.md), or the readme in the particular keyboards/* folder.
 
 
 
 Change your keymap
 ------------------
-See [doc/keymap.md](tmk_core/doc/keymap.md).
+See [keymap.md](keymap.md).
 
 
 
@@ -159,7 +159,7 @@ Boot Magic Configuration - Virtual DIP Switch
 Boot Magic are executed during boot up time. Press Magic key below then plug in keyboard cable.
 Note that you must use keys of **Layer 0** as Magic keys. These settings are stored in EEPROM so that retain your configure over power cycles.
 
-To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [tmk_core/common/bootmagic.h](tmk_core/common/bootmagic.h).
+To avoid configuring accidentally additive salt key `KC_SPACE` also needs to be pressed along with the following configuration keys. The salt key is configurable in `config.h`. See [tmk_core/common/bootmagic.h](/tmk_core/common/bootmagic.h).
 
 #### General
 - Skip reading EEPROM to start with default configuration(`ESC`)
@@ -240,4 +240,4 @@ Coding Style
 
 Other Keyboard Firmware Projects
 ------------------
-You can learn a lot about keyboard firmware from these. See [doc/other_projects.md](tmk_core/doc/other_projects.md).
+You can learn a lot about keyboard firmware from these. See [docs/other_projects.md](other_projects.md).

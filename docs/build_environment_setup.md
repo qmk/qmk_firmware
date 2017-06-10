@@ -110,7 +110,7 @@ docker run -e keymap=default -e subproject=ez -e keyboard=ergobox --rm -v D:/Use
 This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.
 
 ### Vagrant
-If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [VAGRANT_GUIDE file](https://github.com/qmk/qmk_firmware/blob/master/doc/VAGRANT_GUIDE.md).
+If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [vagrant guide](vagrant_guide.md).
 
 ## Verify Your Installation
 1. If you haven't already, obtain this repository ([https://github.com/qmk/qmk_firmware](https://github.com/qmk/qmk_firmware)). You can either download it as a zip file and extract it, or clone it using the command line tool git or the Github Desktop application.

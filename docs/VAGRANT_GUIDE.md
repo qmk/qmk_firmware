@@ -13,11 +13,11 @@ Other than having Vagrant and Virtualbox installed and possibly a restart of you
 
 Build Firmware and Program Controller
 -------------------------------------
-See [/doc/BUIDE_GUIDE.md](/doc/BUILD_GUIDE.md), or the readme in the particular keyboards/* folder.
+See [build_guide.md](build_guide.md), or the readme in the particular keyboards/* folder.
 
 Change your keymap
 ------------------
-See [/doc/keymap.md](/doc/keymap.md).
+See [keymap.md](keymap.md).
 
 ## Flashing the firmware
 
