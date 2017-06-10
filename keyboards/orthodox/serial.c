@@ -11,6 +11,7 @@
 #include <util/delay.h>
 #include <stdbool.h>
 #include "serial.h"
+#include "matrix.h"
 
 #ifdef USE_SERIAL
 
@@ -18,8 +19,8 @@
 // value.
 #define SERIAL_DELAY 24
 
-uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
-uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
+matrix_row_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+matrix_row_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 
 #define SLAVE_DATA_CORRUPT (1<<0)
 volatile uint8_t status = 0;
@@ -42,7 +43,7 @@ void serial_input(void) {
 }
 
 inline static
-uint8_t serial_read_pin(void) {
+matrix_row_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
 }
 
@@ -93,10 +94,10 @@ void sync_send(void) {
 
 // Reads a byte from the serial line
 static
-uint8_t serial_read_byte(void) {
-  uint8_t byte = 0;
+matrix_row_t serial_read_byte(void) {
+  matrix_row_t byte = 0;
   serial_input();
-  for ( uint8_t i = 0; i < 8; ++i) {
+  for ( uint8_t i = 0; i < sizeof(matrix_row_t); ++i) {
     byte = (byte << 1) | serial_read_pin();
     serial_delay();
     _delay_us(1);
@@ -107,8 +108,8 @@ uint8_t serial_read_byte(void) {
 
 // Sends a byte with MSB ordering
 static
-void serial_write_byte(uint8_t data) {
-  uint8_t b = 8;
+void serial_write_byte(matrix_row_t data) {
+  matrix_row_t b = sizeof(matrix_row_t);
   serial_output();
   while( b-- ) {
     if(data & (1 << b)) {
@@ -145,7 +146,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
     sync_send();
     checksum_computed += serial_master_buffer[i];
   }
-  uint8_t checksum_received = serial_read_byte();
+  matrix_row_t checksum_received = serial_read_byte();
   sync_send();
 
   serial_input(); // end transaction
