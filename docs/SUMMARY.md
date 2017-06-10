@@ -6,6 +6,7 @@
 
 ### Making a keymap
 * [Keymap overview](/Keymap.md)
+* [Custom Quantum Functions](Custom-Quantum-Functions.md)
 * [Keycodes](/Keycodes.md)
 * [Layer switching](/Key-Functions.md)
 * [Leader Key](/Leader-Key.md)
