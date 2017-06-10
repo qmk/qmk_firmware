@@ -1,5 +1,5 @@
 ## READ FIRST
-- https://github.com/jackhumbert/qmk_firmware/blob/master/doc/BUILD_GUIDE.md
+- https://github.com/qmk/qmk_firmware/blob/master/docs/build_guide.md
 
 In short,
 
