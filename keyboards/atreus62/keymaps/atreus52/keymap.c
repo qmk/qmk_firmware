@@ -37,11 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, NO  ),
 
 [BDO] = KC_KEYMAP(
-    NO, ESC,  1,    2,    3,    4,                5,    NO,   NO,   NO,   NO,   NO, \
+    NO, ESC,  1,    2,    3,    4,                5,    0,    SLSH, U,    C,    NO, \
     NO, TAB,  Q,    W,    E,    R,                6,    Y,    I,    O,    P,    NO, \
     NO, LSFT, A,    S,    D,    F,                7,    G,    H,    J,    K,    NO, \
     NO, T,    Z,    X,    C,    V,                8,    B,    N,    M,    L,    NO, \
-    NO, LCTL, SPC,  SPC,  SPC,  SPC,  0,    9,    SLSH, NO,   NO,   NO,   FN2,  NO  )
+    NO, LCTL, SPC,  SPC,  SPC,  SPC,  COMM, ENT,  9,    NO,   NO,   NO,   FN2,  NO  )
 
 };
 
