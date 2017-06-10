@@ -21,6 +21,7 @@
  */
 
 #ifndef RGBLIGHT_TYPES
+#define RGBLIGHT_TYPES
 
 #include <avr/io.h>
 
