@@ -6,10 +6,12 @@
 
 ### Making a keymap
 * [Keymap overview](/Keymap.md)
+* [Custom Quantum Functions](Custom-Quantum-Functions.md)
 * [Keycodes](/Keycodes.md)
 * [Layer switching](/Key-Functions.md)
 * [Leader Key](/Leader-Key.md)
 * [Macros](/Macros.md)
+* [Dynamic Macros](/Dynamic-Macros.md)
 * [Space Cadet](/Space-Cadet-Shift.md)
 * [Tap Dance](/Tap-Dance.md)
 * [Mouse keys](/Mouse-keys.md)
