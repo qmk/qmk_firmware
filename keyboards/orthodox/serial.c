@@ -11,7 +11,6 @@
 #include <util/delay.h>
 #include <stdbool.h>
 #include "serial.h"
-#include "matrix.h"
 
 #ifdef USE_SERIAL
 
@@ -97,7 +96,7 @@ static
 matrix_row_t serial_read_byte(void) {
   matrix_row_t byte = 0;
   serial_input();
-  for ( uint8_t i = 0; i < sizeof(matrix_row_t); ++i) {
+  for ( uint8_t i = 0; i < sizeof(matrix_row_t)*8; ++i) {
     byte = (byte << 1) | serial_read_pin();
     serial_delay();
     _delay_us(1);
@@ -109,7 +108,7 @@ matrix_row_t serial_read_byte(void) {
 // Sends a byte with MSB ordering
 static
 void serial_write_byte(matrix_row_t data) {
-  matrix_row_t b = sizeof(matrix_row_t);
+  matrix_row_t b = sizeof(matrix_row_t)*8;
   serial_output();
   while( b-- ) {
     if(data & (1 << b)) {
