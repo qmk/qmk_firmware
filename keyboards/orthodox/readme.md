@@ -1,7 +1,7 @@
-Let's Split
+Orthodox
 ======
 
-This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
+**Please note this guide is a heavy work in progress and is based heavily off of the Let's Split guide.
 
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
@@ -9,23 +9,20 @@ based boards.
 
 ## Build Guide
 
-A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
-
-There is additional information there about flashing and adding RGB underglow.
+Coming soon!
 
 ## First Time Setup
 
-Download or clone the whole firmware and navigate to the keyboards/lets_split directory. Once your dev env is setup, you'll be able to generate the default .hex using:
+Download or clone the whole firmware and navigate to the keyboards/orthodox directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make rev2
+$ make rev1
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex files:
 
 ```
-lets_split_rev2_serial.hex
-lets_split_rev2_i2c.hex
+orhtodox_rev1_serial.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
@@ -57,9 +54,7 @@ Some features supported by the firmware:
   independently.
 * You only need 3 wires to connect the two halves. Two for VCC and GND and one
   for serial communication.
-* Optional support for I2C connection between the two halves if for some
-  reason you require a faster connection between the two halves. Note this
-  requires an extra wire between halves and pull-up resistors on the data lines.
+
 
 Required Hardware
 -----------------
@@ -71,34 +66,8 @@ will need:
 * 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
 
 Alternatively, you can use any sort of cable and socket that has at least 3
-wires. If you want to use I2C to communicate between halves, you will need a
-cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
+wires. 
 
-Optional Hardware
------------------
-
-A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
-
-Wiring
-------
-
-The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
-PD0 on the ATmega32u4) between the two Pro Micros.
-
-Then wire your key matrix to any of the remaining 17 IO pins of the pro micro
-and modify the `matrix.c` accordingly.
-
-The wiring for serial:
-
-![serial wiring](imgs/split-keyboard-serial-schematic.png)
-
-The wiring for i2c:
-
-![i2c wiring](imgs/split-keyboard-i2c-schematic.png)
-
-The pull-up resistors may be placed on either half. It is also possible
-to use 4 resistors and have the pull-ups in both halves, but this is
-unnecessary in simple use cases.
 
 Notes on Software Configuration
 -------------------------------
