@@ -4,7 +4,7 @@ A custom keyboard is about more than sending button presses to your computer. QM
 
 We have structured QMK as a hierarchy:
 
-* Core
+* Core (`_quantum`)
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
@@ -64,14 +64,14 @@ The `record` variable contains infomation about the actual press:
 
 ```
 keyrecord_t record {
-  keyevent_t event {
-    keypos_t key {
-      uint8_t col
-      uint8_t row
-    }
-    bool     pressed
-    uint16_t time
-  }
++-keyevent_t event {
+| +-keypos_t key {
+| | +-uint8_t col
+| | +-uint8_t row
+| | }
+| +-bool     pressed
+| +-uint16_t time
+| }
 }
 ```
 
