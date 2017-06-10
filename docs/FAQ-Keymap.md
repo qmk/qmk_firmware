@@ -111,7 +111,6 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and `~ on a key
 
-
 You can define FC660 and Poker style ESC with `ACTION_LAYER_MODS`.
 https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
 
@@ -246,3 +245,21 @@ here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
+
+## Timer functionality
+
+It's possible to start timers and read values for time-specific events - here's an example:
+
+```c
+static uint16_t key_timer;
+key_timer = timer_read();
+
+if (timer_elapsed(key_timer) < 100) {
+  // do something if less than 100ms have passed
+} else {
+  // do something if 100ms or more have passed
+}
+```
+
+It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.
+
