@@ -21,9 +21,9 @@ from the Kinesis I was using so far.
 
 Here are the layout mapping in images so you can have a glimpse on it:
 
-![Base Layout](townk_osx_base.png)
-![fn Layout](townk_osx_fn.png)
-![Keypad & Mouse Layout](townk_osx_keypad.png)
+![Base Layout](https://i.imgur.com/m1yyQvU.png)
+![fn Layout](https://i.imgur.com/AJIzrjq.png)
+![Keypad & Mouse Layout](https://i.imgur.com/9I6Qr0e.png)
 
 Notice that, differently from the default behavior, my layer keys are not transparent
 by default, which means that if you press any non-labeled white key, nothing will be

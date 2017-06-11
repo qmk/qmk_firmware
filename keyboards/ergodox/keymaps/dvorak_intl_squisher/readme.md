@@ -19,9 +19,9 @@ Known issues:
 * Alt+Shift does not work reliably (depends on the X11 kb layout? Not
   entirely clear...)
 
-![layer0](keyboard-layout0.png)
-![layer1](keyboard-layout1.png)
-![layer2](keyboard-layout2.png)
+![layer0](https://i.imgur.com/AL70X44.png)
+![layer1](https://i.imgur.com/k1DcUdt.png)
+![layer2](https://i.imgur.com/nK80mKf.png)
 
 ## Changelog
 
