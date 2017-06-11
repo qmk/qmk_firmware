@@ -11,202 +11,7 @@ enum keyboard_layers {
   MORSE,       //Morse Code Layer
 };
 
-// Midi Chords
-
-enum midi_chord_modes { //ACTION_FUNCTION opt
-  major,
-  minor,
-  dom_seventh,
-  dim_seventh,
-};
-
-enum midi_chord_root { //ACTION_FUNCTION id
-  C,
-  Cs,
-  Db = Cs,
-  D,
-  Ds,
-  Eb = Ds,
-  E,
-  F,
-  Fs,
-  Gb = Fs,
-  G,
-  Gs,
-  Ab = Gs,
-  A,
-  As,
-  Bb = As,
-  B,
-};
-  
-enum midi_chord_id { //ACTION_FUNCTION Progmem Id
-
-  //Major Chords
-
-  CMajor,
-  CsMajor,
-  DbMajor = CsMajor,
-  DMajor,
-  DsMajor,
-  EbMajor = DsMajor,
-  EMajor,
-  FMajor,
-  FsMajor,
-  GbMajor = FsMajor,
-  GMajor,
-  GsMajor,
-  AbMajor = GsMajor,
-  AMajor,
-  AsMajor,
-  BbMajor = AsMajor,
-  BMajor,
-
-  //Minor Chords
-
-  CMinor,
-  CsMinor,
-  DbMinor = CsMinor,
-  DMinor,
-  DsMinor,
-  EbMinor = DsMinor,
-  EMinor,
-  FMinor,
-  FsMinor,
-  GbMinor = FsMinor,
-  GMinor,
-  GsMinor,
-  AbMinor = GsMinor,
-  AMinor,
-  AsMinor,
-  BbMinor = AsMinor,
-  BMinor,
-
-  //Dominant Seventh Chords
-
-  CDom7,
-  CsDom7,
-  DbDom7 = CsDom7,
-  DDom7,
-  DsDom7,
-  EbDom7 = DsDom7,
-  EDom7,
-  FDom7,
-  FsDom7,
-  GbDom7 = FsDom7,
-  GDom7,
-  GsDom7,
-  AbDom7 = GsDom7,
-  ADom7,
-  AsDom7,
-  BbDom7 = AsDom7,
-  BDom7,
-  
-  //Diminished Seventh Chords
-
-  CDim7,
-  CsDim7,
-  DbDim7 = CsDim7,
-  DDim7,
-  DsDim7,
-  EbDim7 = DsDim7,
-  EDim7,
-  FDim7,
-  FsDim7,
-  GbDim7 = FsDim7,
-  GDim7,
-  GsDim7,
-  AbDim7 = GsDim7,
-  ADim7,
-  AsDim7,
-  BbDim7 = AsDim7,
-  BDim7, 
-};
-
-enum midi_chord_keycodes { //Midi Chocd Keycodes
-
-  //Major Chord Keycodes
-  
-  MI_CH_C = F(CMajor),
-  MI_CH_Cs = F(CsMajor),
-  MI_CH_Db = MI_CH_Cs,
-  MI_CH_D = F(DMajor),
-  MI_CH_Ds = F(DsMajor),
-  MI_CH_Eb = MI_CH_Ds,
-  MI_CH_E = F(EMajor),
-  MI_CH_F = F(FMajor),
-  MI_CH_Fs = F(FsMajor),
-  MI_CH_Gb = MI_CH_Fs,
-  MI_CH_G = F(GMajor),
-  MI_CH_Gs = F(GsMajor),
-  MI_CH_Ab = MI_CH_Gs,
-  MI_CH_A = F(AMajor),
-  MI_CH_As = F(AsMajor),
-  MI_CH_Bb = MI_CH_As,
-  MI_CH_B = F(BMajor),
-
-  //Minor Chord Keycodes
-
-  MI_CH_Cm = F(CMinor),
-  MI_CH_Csm = F(CsMinor),
-  MI_CH_Dbm = MI_CH_Csm,
-  MI_CH_Dm = F(DMinor),
-  MI_CH_Dsm = F(DsMinor),
-  MI_CH_Ebm = MI_CH_Dsm,
-  MI_CH_Em = F(EMinor),
-  MI_CH_Fm = F(FMinor),
-  MI_CH_Fsm = F(FsMinor),
-  MI_CH_Gbm = MI_CH_Fsm,
-  MI_CH_Gm = F(GMinor),
-  MI_CH_Gsm = F(GsMinor),
-  MI_CH_Abm = MI_CH_Gsm,
-  MI_CH_Am = F(AMinor),
-  MI_CH_Asm = F(AsMinor),
-  MI_CH_Bbm = MI_CH_Asm,
-  MI_CH_Bm = F(BMinor),
-
-  //Dominant Seventh Keycodes
-
-  MI_CH_CDom7 = F(CDom7),
-  MI_CH_CsDom7 = F(CsDom7),
-  MI_CH_DbDom7 = MI_CH_CsDom7,
-  MI_CH_DDom7 = F(DDom7),
-  MI_CH_DsDom7 = F(DsDom7),
-  MI_CH_EbDom7 = MI_CH_DsDom7,
-  MI_CH_EDom7 = F(EDom7),
-  MI_CH_FDom7 = F(FDom7),
-  MI_CH_FsDom7 = F(FsDom7),
-  MI_CH_GbDom7 = MI_CH_FsDom7,
-  MI_CH_GDom7 = F(GDom7),
-  MI_CH_GsDom7 = F(GsDom7),
-  MI_CH_AbDom7 = MI_CH_GsDom7,
-  MI_CH_ADom7 = F(ADom7),
-  MI_CH_AsDom7 = F(AsDom7),
-  MI_CH_BbDom7 = MI_CH_AsDom7,
-  MI_CH_BDom7 = F(BDom7),
-
-  //Diminished Seventh Keycodes
-
-  MI_CH_CDim7 = F(CDim7),
-  MI_CH_CsDim7 = F(CsDim7),
-  MI_CH_DbDim7 = MI_CH_CsDim7,
-  MI_CH_DDim7 = F(DDim7),
-  MI_CH_DsDim7 = F(DsDim7),
-  MI_CH_EbDim7 = MI_CH_DsDim7,
-  MI_CH_EDim7 = F(EDim7),
-  MI_CH_FDim7 = F(FDim7),
-  MI_CH_FsDim7 = F(FsDim7),
-  MI_CH_GbDim7 = MI_CH_FsDim7,
-  MI_CH_GDim7 = F(GDim7),
-  MI_CH_GsDim7 = F(GsDim7),
-  MI_CH_AbDim7 = MI_CH_GsDim7,
-  MI_CH_ADim7 = F(ADim7),
-  MI_CH_AsDim7 = F(AsDim7),
-  MI_CH_BbDim7 = MI_CH_AsDim7,
-  MI_CH_BDim7 = F(BDim7),
-};
-
-//Morse Code Macro Keys
+// Morse Code Macro Keys
 
 enum morse_macros {
   MC_0 = M(0),
@@ -258,10 +63,94 @@ enum morse_macros {
 // Custom Keys
 
 enum custom_keys {
+
+  // Miscellaneous Keycodes
+  
+  TFS = LCTL(LALT(KC_DEL)), // Three Finger Salute - Sends Ctl-Alt-Del  
   MAGSYS = SAFE_RANGE, // Magic SysRq key - Sends Alt-PSCR
-  MC_LSFT,
-  MC_RSFT,
-  TFS = LCTL(LALT(KC_DEL)), // Three Finger Salute - Sends Ctl-Alt-Del
+  MC_LSFT, // Morse Code Left Shift
+  MC_RSFT, // Morse Code Right Shift
+
+  // MIDI Chord Keycodes - Major
+  
+  MI_CH_C,
+  MI_CH_Cs,
+  MI_CH_Db = MI_CH_Cs,
+  MI_CH_D,
+  MI_CH_Ds,
+  MI_CH_Eb = MI_CH_Ds,
+  MI_CH_E,
+  MI_CH_F,
+  MI_CH_Fs,
+  MI_CH_Gb = MI_CH_Fs,
+  MI_CH_G ,
+  MI_CH_Gs,
+  MI_CH_Ab = MI_CH_Gs,
+  MI_CH_A,
+  MI_CH_As,
+  MI_CH_Bb = MI_CH_As,
+  MI_CH_B,
+
+  // MIDI Chord Keycodes Minor
+
+  MI_CH_Cm,
+  MI_CH_Csm,
+  MI_CH_Dbm = MI_CH_Csm,
+  MI_CH_Dm,
+  MI_CH_Dsm,
+  MI_CH_Ebm = MI_CH_Dsm,
+  MI_CH_Em,
+  MI_CH_Fm,
+  MI_CH_Fsm,
+  MI_CH_Gbm = MI_CH_Fsm,
+  MI_CH_Gm,
+  MI_CH_Gsm,
+  MI_CH_Abm = MI_CH_Gsm,
+  MI_CH_Am,
+  MI_CH_Asm,
+  MI_CH_Bbm = MI_CH_Asm,
+  MI_CH_Bm,
+
+  //MIDI Chord Keycodes Dominant Seventh
+
+  MI_CH_CDom7,
+  MI_CH_CsDom7,
+  MI_CH_DbDom7 = MI_CH_CsDom7,
+  MI_CH_DDom7,
+  MI_CH_DsDom7,
+  MI_CH_EbDom7 = MI_CH_DsDom7,
+  MI_CH_EDom7,
+  MI_CH_FDom7,
+  MI_CH_FsDom7,
+  MI_CH_GbDom7 = MI_CH_FsDom7,
+  MI_CH_GDom7,
+  MI_CH_GsDom7,
+  MI_CH_AbDom7 = MI_CH_GsDom7,
+  MI_CH_ADom7,
+  MI_CH_AsDom7,
+  MI_CH_BbDom7 = MI_CH_AsDom7,
+  MI_CH_BDom7,
+
+  // MIDI Chord Keycodes Diminished Seventh
+
+  MI_CH_CDim7,
+  MI_CH_CsDim7,
+  MI_CH_DbDim7 = MI_CH_CsDim7,
+  MI_CH_DDim7,
+  MI_CH_DsDim7,
+  MI_CH_EbDim7 = MI_CH_DsDim7,
+  MI_CH_EDim7,
+  MI_CH_FDim7,
+  MI_CH_FsDim7,
+  MI_CH_GbDim7 = MI_CH_FsDim7,
+  MI_CH_GDim7,
+  MI_CH_GsDim7,
+  MI_CH_AbDim7 = MI_CH_GsDim7,
+  MI_CH_ADim7,
+  MI_CH_AsDim7,
+  MI_CH_BbDim7 = MI_CH_AsDim7,
+  MI_CH_BDim7,
+
 };
 
 //Keymaps
@@ -378,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
   [MIDI_CHORDS] = KEYMAP(
 						 TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  TO(3),  KC_NO, \
-						 MI_OCTU,  MI_CH_Cm,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bbm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  MI_CH_Fm,  KC_NO, \
+						 MI_OCTU,  MI_CH_Cm,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  MI_CH_Fm,  KC_NO, \
 						 MI_OCTD,  MI_CH_CDom7,  MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7,  MI_CH_GbDom7,  MI_CH_DbDom7,  MI_CH_AbDom7,  MI_CH_EbDom7,  MI_CH_BbDom7,  KC_NO,  MI_CH_FDom7, \
 						 MI_CH_CDim7,  KC_NO,  MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7,  MI_CH_GbDim7,  MI_CH_DbDim7,  MI_CH_AbDim7,  MI_CH_EbDim7,  MI_CH_BbDim7,  KC_NO,  MI_CH_FDim7,  KC_NO, \
 						 KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
@@ -411,10 +300,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Morse Code Macros
 
-int mc_shift_on = false;
+int mc_shift_on = false; // Variable that defines whether MC_LSFT or MC_RSFT are pressed
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+
   switch(id) {
+
   case 0: //Number 0-)
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {
@@ -425,6 +316,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 1: //Number 1-!
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {
@@ -435,6 +327,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 2: //Number 2-@
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {
@@ -445,11 +338,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 3: // Number 3
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //...--
 	}
 	break;
+
   case 4: //Number 4-$
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -460,16 +355,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 5: //Number 5
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.....
 	}
 	break;
+
   case 6: //Number 6
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-....
 	}
 	break;
+
   case 7: //Number 7-&
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -480,11 +378,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 8: //Number 8
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //---..
 	}
 	break;
+
   case 9: //Number 9-(
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -495,126 +395,151 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 10: //Letter A
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(SPACE), END); //.-
 	}
 	break;
+
   case 11: //Letter B
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //-...
 	}
 	break;
+
   case 12: //Letter C
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //-.-.
 	}
 	break;
+
   case 13: //Letter D
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(SPACE), END); //-..
 	}
 	break;
+
   case 14: //Letter E
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(SPACE), END); //.
 	}
 	break;
+
   case 15: //Letter F
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //..-.
 	}
 	break;
+
   case 16: //Letter G
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(SPACE), END); //--.
 	}
 	break;
+
   case 17: //Letter H
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //....
 	}
 	break; 
+
   case 18: //Letter I
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(SPACE), END); //..
 	}
 	break;
+
   case 19: //Letter J
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(MINS), T(SPACE), END); //.---
 	}
 	break;
+
   case 20: //Letter K
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(SPACE), END); //-.-
 	}
 	break;
+
   case 21: //Letter L
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(SPACE), END); //.-..
 	}
 	break;
+
   case 22: //Letter M
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(SPACE), END); //--
 	}
 	break;
+
   case 23: //Letter N
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(SPACE), END); //-.
 	}
 	break;
+
   case 24: //Letter O
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(MINS), T(SPACE), END); //---
 	}
 	break;
+
   case 25: //Letter P
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //.--.
 	}
 	break;
+
   case 26: //Letter Q
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //--.-
 	}
 	break;
+
   case 27: //Letter R
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.
 	}
 	break;
+
   case 28: //Letter S
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(SPACE), END); //...
 	}
 	break;
+
   case 29: //Letter T
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(SPACE), END); //-
 	}
 	break;
+
   case 30: //Letter U
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(MINS), T(SPACE), END); //..-
 	}
 	break;
+
   case 31: //Letter V
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-
 	}
 	break;
+
   case 32: //Letter W
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(MINS), T(SPACE), END); //.--
 	}
 	break;
+
   case 33: //Letter X
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //-..-
 	}
 	break;
+
   case 34: //Letter Y
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -622,21 +547,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.--
 	}
 	break;
+
   case 35: //Letter Z
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //--..
 	}
 	break;
+
   case 36: //Punctuation .
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(MINS), T(SPACE), END); //.-.-.-
 	}
 	break;
+
   case 37: //Punctuation ,
 	if (record->event.pressed) {
 	  return MACRO(T(MINS), T(MINS), T(DOT), T(DOT), T(MINS), T(MINS), T(SPACE), END); //--..--
 	}
 	break;
+
   case 38: //Punctuation '-"
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -647,6 +576,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 39: //Punctuation /-?
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -657,6 +587,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 40: //Punctuation ;-:
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -667,6 +598,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 41: //Punctuation =-+
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -677,6 +609,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 42: //Punctuation --_
 	if (record->event.pressed) {
 	  if (mc_shift_on == true) {		
@@ -687,6 +620,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	  }
 	}
 	break;
+
   case 43: //Morse Space
 	if (record->event.pressed) {
 	  return MACRO(T(BSLS), T(SPACE), END); //When pressed, this sends a slash followed by a space, making it easier to distinguish words in Morse
@@ -699,7 +633,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 // Custom Keys
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+
+  uint16_t root_note = MIDI_INVALID_NOTE; // Starting value for the root note of each chord
+  
   switch(keycode) {
+
+	// Miscellaneous Keycodes
+
   case MAGSYS: //Magic SysRq function - Toggles key on and off depending on state of LALT key
 	if (record->event.pressed) {
 	  if (keyboard_report->mods & (MOD_BIT(KC_LALT))) {
@@ -711,6 +651,7 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 	  }
 	}
 	break;
+
   case MC_LSFT ... MC_RSFT:
 	if (record->event.pressed) {
 	  mc_shift_on = true;
@@ -719,141 +660,36 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 	  mc_shift_on = false;
 	}
 	break;
+
+	// MIDI Chord Keycodes
+	
+  case MI_CH_C ... MI_CH_B: // Major Chords
+	root_note = keycode - MI_CH_C + MI_C;
+	process_midi(root_note, record);
+	process_midi(root_note + 4, record); // Major Third Note
+	process_midi(root_note + 7, record); // Fifth Note
+	break;
+
+  case MI_CH_Cm ... MI_CH_Bm: // Minor Chord
+	root_note = keycode - MI_CH_Cm + MI_C;
+	process_midi(root_note, record);
+	process_midi(root_note + 3, record); // Minor Third Note
+	process_midi(root_note + 7, record); // Fifth Note
+	break;
+
+  case MI_CH_CDom7 ... MI_CH_BDom7: // Dominant 7th Chord
+	root_note = keycode - MI_CH_CDom7 + MI_C;
+	process_midi(root_note, record);
+	process_midi(root_note + 4, record); // Major Third Note
+	process_midi(root_note + 10, record); // Minor Seventh Note
+	break;
+
+  case MI_CH_CDim7 ... MI_CH_BDim7: // Diminished 7th Chord
+	root_note = keycode - MI_CH_CDim7 + MI_C;
+	process_midi(root_note, record);
+	process_midi(root_note + 3, record); // Minor Third Note
+	process_midi(root_note - 3, record); // Diminished 7th Note
+	break;
   }
   return true;
-}
-
-// Midi Chord Function
-
-const uint16_t PROGMEM fn_actions[] = {
-
-  //Major Chords
-  
-  [CMajor] = ACTION_FUNCTION_OPT(C, major),
-  [CsMajor] =  ACTION_FUNCTION_OPT(Cs, major),
-  [DMajor] = ACTION_FUNCTION_OPT(D, major),
-  [DsMajor] = ACTION_FUNCTION_OPT(Ds, major),
-  [EMajor] = ACTION_FUNCTION_OPT(E, major),
-  [FMajor] = ACTION_FUNCTION_OPT(F, major),
-  [FsMajor] = ACTION_FUNCTION_OPT(Fs, major),
-  [GMajor] = ACTION_FUNCTION_OPT(G, major),
-  [GsMajor] = ACTION_FUNCTION_OPT(Gs, major),
-  [AMajor] = ACTION_FUNCTION_OPT(A, major),
-  [AsMajor] = ACTION_FUNCTION_OPT(As, major),
-  [BMajor] = ACTION_FUNCTION_OPT(B, major),
-
-  //Minor Chords
-
-  [CMinor] = ACTION_FUNCTION_OPT(C, minor),
-  [CsMinor] =  ACTION_FUNCTION_OPT(Cs, minor),
-  [DMinor] = ACTION_FUNCTION_OPT(D, minor),
-  [DsMinor] = ACTION_FUNCTION_OPT(Ds, minor),
-  [EMinor] = ACTION_FUNCTION_OPT(E, minor),
-  [FMinor] = ACTION_FUNCTION_OPT(F, minor),
-  [FsMinor] = ACTION_FUNCTION_OPT(Fs, minor),
-  [GMinor] = ACTION_FUNCTION_OPT(G, minor),
-  [GsMinor] = ACTION_FUNCTION_OPT(Gs, minor),
-  [AMinor] = ACTION_FUNCTION_OPT(A, minor),
-  [AsMinor] = ACTION_FUNCTION_OPT(As, minor),
-  [BMinor] = ACTION_FUNCTION_OPT(B, minor),
-  
-  //Dominant 7th
-
-  [CDom7] = ACTION_FUNCTION_OPT(C, dom_seventh),
-  [CsDom7] =  ACTION_FUNCTION_OPT(Cs, dom_seventh),
-  [DDom7] = ACTION_FUNCTION_OPT(D, dom_seventh),
-  [DsDom7] = ACTION_FUNCTION_OPT(Ds, dom_seventh),
-  [EDom7] = ACTION_FUNCTION_OPT(E, dom_seventh),
-  [FDom7] = ACTION_FUNCTION_OPT(F, dom_seventh),
-  [FsDom7] = ACTION_FUNCTION_OPT(Fs, dom_seventh),
-  [GDom7] = ACTION_FUNCTION_OPT(G, dom_seventh),
-  [GsDom7] = ACTION_FUNCTION_OPT(Gs, dom_seventh),
-  [ADom7] = ACTION_FUNCTION_OPT(A, dom_seventh),
-  [AsDom7] = ACTION_FUNCTION_OPT(As, dom_seventh),
-  [BDom7] = ACTION_FUNCTION_OPT(B, dom_seventh),
-
-  //Diminished 7th
-
-  [CDim7] = ACTION_FUNCTION_OPT(C, dim_seventh),
-  [CsDim7] =  ACTION_FUNCTION_OPT(Cs, dim_seventh),
-  [DDim7] = ACTION_FUNCTION_OPT(D, dim_seventh),
-  [DsDim7] = ACTION_FUNCTION_OPT(Ds, dim_seventh),
-  [EDim7] = ACTION_FUNCTION_OPT(E, dim_seventh),
-  [FDim7] = ACTION_FUNCTION_OPT(F, dim_seventh),
-  [FsDim7] = ACTION_FUNCTION_OPT(Fs, dim_seventh),
-  [GDim7] = ACTION_FUNCTION_OPT(G, dim_seventh),
-  [GsDim7] = ACTION_FUNCTION_OPT(Gs, dim_seventh),
-  [ADim7] = ACTION_FUNCTION_OPT(A, dim_seventh),
-  [AsDim7] = ACTION_FUNCTION_OPT(As, dim_seventh),
-  [BDim7] = ACTION_FUNCTION_OPT(B, dim_seventh),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  uint16_t root_note = MIDI_INVALID_NOTE;
-  switch (id) {
-  case C: //Root note C
-	root_note = MI_C;
-	break;
-  case Cs: //Root note C#/Db
-	root_note = MI_Cs;
-	break;
-  case D: // Root note D
-	root_note = MI_D;
-	break;
-  case Ds: // Root note D#/Eb
-	root_note = MI_Ds;
-	break;
-  case E: // Root note E
-	root_note = MI_E;
-	break;
-  case F: // Root note F
-	root_note = MI_F;
-	break;
-  case Fs: // Root note F#/Gb
-	root_note = MI_Fs;
-	break;
-  case G: // Root note G
-	root_note = MI_G;
-	break;
-  case Gs: // Root note G#/Ab
-	root_note = MI_Gs;
-	break;
-  case A: // Root note A
-	root_note = MI_A;
-	break;
-  case As: // Root note A#/Bb
-	root_note = MI_As;
-	break;
-  case B: // Root note B
-	root_note = MI_B;
-	break;
-  }
-  uint16_t major_third = root_note + 4;
-  uint16_t minor_third = root_note + 3;
-  //uint16_t flat_fifth = root_note + 6;
-  uint16_t fifth = root_note + 7;
-  uint16_t minor_seventh = root_note + 10;
-  uint16_t diminished_seventh = root_note -3;
-  switch (opt) {
-  case major: //Major chord
-	process_midi(root_note, record);
-	process_midi(major_third, record);
-	process_midi(fifth, record);
-	break;
-  case minor: //Minor chord
-	process_midi(root_note, record);
-	process_midi(minor_third, record);
-	process_midi(fifth, record);
-	break;
-  case dom_seventh: //Dominant Seventh chord
-	process_midi(root_note, record);
-	process_midi(major_third, record);
-	process_midi(minor_seventh, record);
-	break;
-  case dim_seventh: //Diminished Seventh Chord
-	process_midi(root_note, record);
-	process_midi(minor_third, record);
-	process_midi(diminished_seventh, record);
-	break;
-  }
 }
