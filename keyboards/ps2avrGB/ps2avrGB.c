@@ -36,7 +36,7 @@ void rgblight_set(void) {
     }
 
     i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 48);
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
 }
 
 __attribute__ ((weak))
