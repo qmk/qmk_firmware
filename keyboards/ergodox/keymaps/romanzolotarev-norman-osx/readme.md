@@ -9,7 +9,7 @@ Looking for multiple-layer layouts?
   arrows](../romanzolotarev-norman-plover-osx-hjkl/)
 - [Same with IJKL arrows](../romanzolotarev-norman-plover-osx/)
 
-[![keyboard-layout](romanzolotarev-norman-osx.png)](http://www.keyboard-layout-editor.com/#/gists/9e89d54f1ea6eeeb7dab1b2d19d28195)
+[![keyboard-layout](https://i.imgur.com/U14664K.png)](http://www.keyboard-layout-editor.com/#/gists/9e89d54f1ea6eeeb7dab1b2d19d28195)
 
 ## How to use Vim key
 
