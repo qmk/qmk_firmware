@@ -21,6 +21,8 @@
 matrix_row_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 matrix_row_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 
+#define ROW_MASK (((matrix_row_t)0-1)>>(8*sizeof(matrix_row_t)-MATRIX_COLS))
+
 #define SLAVE_DATA_CORRUPT (1<<0)
 volatile uint8_t status = 0;
 
@@ -96,7 +98,7 @@ static
 matrix_row_t serial_read_byte(void) {
   matrix_row_t byte = 0;
   serial_input();
-  for ( uint8_t i = 0; i < sizeof(matrix_row_t)*8; ++i) {
+  for ( uint8_t i = 0; i < MATRIX_COLS; ++i) {
     byte = (byte << 1) | serial_read_pin();
     serial_delay();
     _delay_us(1);
@@ -108,10 +110,10 @@ matrix_row_t serial_read_byte(void) {
 // Sends a byte with MSB ordering
 static
 void serial_write_byte(matrix_row_t data) {
-  matrix_row_t b = sizeof(matrix_row_t)*8;
+  matrix_row_t b = MATRIX_COLS;
   serial_output();
   while( b-- ) {
-    if(data & (1 << b)) {
+    if(data & (1UL << b)) {
       serial_high();
     } else {
       serial_low();
@@ -128,7 +130,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
     serial_write_byte(serial_slave_buffer[i]);
     sync_send();
-    checksum += serial_slave_buffer[i];
+    checksum += ROW_MASK & serial_slave_buffer[i];
   }
   serial_write_byte(checksum);
   sync_send();
@@ -143,7 +145,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     serial_master_buffer[i] = serial_read_byte();
     sync_send();
-    checksum_computed += serial_master_buffer[i];
+    checksum_computed += ROW_MASK & serial_master_buffer[i];
   }
   matrix_row_t checksum_received = serial_read_byte();
   sync_send();
@@ -197,7 +199,7 @@ int serial_update_buffers(void) {
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
     serial_slave_buffer[i] = serial_read_byte();
     sync_recv();
-    checksum_computed += serial_slave_buffer[i];
+    checksum_computed += ROW_MASK & serial_slave_buffer[i];
   }
   matrix_row_t checksum_received = serial_read_byte();
   sync_recv();
@@ -212,7 +214,7 @@ int serial_update_buffers(void) {
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     serial_write_byte(serial_master_buffer[i]);
     sync_recv();
-    checksum += serial_master_buffer[i];
+    checksum += ROW_MASK & serial_master_buffer[i];
   }
   serial_write_byte(checksum);
   sync_recv();
