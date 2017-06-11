@@ -34,3 +34,8 @@ CMakeLists.txt
 util/Win_Check_Output.txt
 .vscode
 .stfolder
+
+# ignore image files
+*.png
+*.jpg
+*.gif

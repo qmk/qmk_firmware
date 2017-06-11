@@ -45,7 +45,7 @@ $ make ergodox-ez-familiar-teensy
 
 ## Usage
 
-[![Familiar Layout](familiar.png)](http://www.keyboard-layout-editor.com/#/gists/13508a9f99cff381d58b7be6f7dcc644)
+[![Familiar Layout](https://i.imgur.com/jflmkBb.png)](http://www.keyboard-layout-editor.com/#/gists/13508a9f99cff381d58b7be6f7dcc644)
 
 ### Layers
 1. Base Layer: QWERTY, with arrow keys at bottom right.
