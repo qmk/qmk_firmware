@@ -1,7 +1,7 @@
 # denolfe's Layout
 Customized Satan keymap 
 
-![Layout](keyboard-layout.png "Practical Keymap")
+![Layout](https://i.imgur.com/IrSUSMR.png "Practical Keymap")
 
 ## Programming Instructions:
 `cd` into keymap directory, `make dfu`
