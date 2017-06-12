@@ -21,6 +21,8 @@ PB6	27	c7  			LC	DL	BS	RC	EN	SP	h	j	k		l	;:	'"
 PB7	28	c8					RA		PU		PD	n	m	,<		.>	/?	RS	
  */
 
+schematic:
+https://i.imgur.com/cCmWH4E.png
 
 40 pin connector
 
