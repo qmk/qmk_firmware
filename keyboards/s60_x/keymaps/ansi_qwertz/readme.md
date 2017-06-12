@@ -77,17 +77,17 @@ If you don't want this to be the case, uncomment the following line in `keymap.c
 The base layer is shown here for ANSI keysm, HHKB-style right shift and split backspace. If you use a 2U backspace key there, `Del` will not be available.
 Again, the Y and Z keys are swapped, so you get the QWERTZ-positions of Y and Z when using the US-International layout.
 
-![base_layer](docs/base_layer.PNG)
+![base_layer](https://i.imgur.com/gDvJT2n.png)
 
 ###1.1 Gaming layer
 To turn this layer on, please use the combination `Fn+RShift`, not `Space+RShift`. If you do the latter, the Function layer will become stuck. You can press `Fn` once to unstick it if this happens to you. A solution is being worked on.
 
-![gaming_layer](docs/gaming_layer.PNG)
+![gaming_layer](https://i.imgur.com/mPBElHc.png)
 
 ###1.2 Function Layer
 This is the function layer for German diacritics. It can be accessed via the `Fn` or by holding `Space` on the base layer.
 
-![function_layer](docs/function_layer.PNG)
+![function_layer](https://i.imgur.com/abpqBDE.png)
 
 
 
