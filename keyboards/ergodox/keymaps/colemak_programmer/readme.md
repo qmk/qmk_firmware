@@ -19,5 +19,5 @@ I came to this layout after several iterations. It is not the ultimate best ergo
 
 Alternatively view the [graphical creator version](http://configure.ergodox-ez.com/keyboard_layouts/kmevwm/edit) but beware it is not the same due to the creator limitations.
 
-![Default](colemak_programmer_001.jpg)
-![Default](colemak_programmer_002.jpg)
+![Default](https://i.imgur.com/BCJEoKw.jpg)
+![Default](https://i.imgur.com/0P1jBph.jpg)

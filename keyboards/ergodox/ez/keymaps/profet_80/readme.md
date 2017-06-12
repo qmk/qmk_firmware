@@ -7,4 +7,4 @@ If you own an 80 key Ergodox, use this as an example to get your desired keymap.
 **NOTE:** This layout is not physically supported by the Ergodox EZ.
 
 
-![Default80](ergodox80.png)
+![Default80](https://i.imgur.com/P2Lga9x.png)
