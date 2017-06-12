@@ -6,7 +6,7 @@ I had been using something close to the default Minivan layout, but after spendi
 
 Also, it's worth noting that my Minivan is one with the "arrows" layout, which has a 45th key, so I had to define a new KEYMAP_TV45 macro in config.h. In spite of this, the 45-key Minivan is still technically considered a "TV44" as far as I know.
 
-![smt's TV44 keymap](keyboard-layout-minivan.png)
+![smt's TV44 keymap](https://i.imgur.com/Y4n6eHj.png)
 
 ## Notable features (most of which can be found in my or jeebak's respective keymap file):
 
