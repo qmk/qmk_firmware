@@ -11,7 +11,7 @@ never seen before!
 
 Behold the Ultimate SuperCoder 2000 layout!
 
-![SuperCoder layout](images/layout.png)
+![SuperCoder layout](https://i.imgur.com/Ymzlr9G.png)
 
 ### To use it...
 
