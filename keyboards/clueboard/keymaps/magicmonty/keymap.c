@@ -137,26 +137,26 @@ enum layer_id {
 #endif
 };
 
-void clueboard_set_led(uint8_t id) {
+void clueboard_set_led(uint8_t id, uint8_t val) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv_noeeprom(346, 0, 255);
+      rgblight_sethsv_noeeprom(346, 0, val);
       break;
     case LAYER_FUNCTION:
-      rgblight_sethsv_noeeprom(46, 255, 255);
+      rgblight_sethsv_noeeprom(46, 255, val);
       break;
     case LAYER_MEDIA:
-      rgblight_sethsv_noeeprom(86, 255, 255);
+      rgblight_sethsv_noeeprom(86, 255, val);
       break;
     case LAYER_CONTROL:
-      rgblight_sethsv_noeeprom(346, 255, 255);
+      rgblight_sethsv_noeeprom(346, 255, val);
       break;
     case LAYER_MOUSE:
-      rgblight_sethsv_noeeprom(206, 255, 255);
+      rgblight_sethsv_noeeprom(206, 255, val);
       break;
 #if defined(MIDI_ENABLE)
     case LAYER_MIDI:
-      rgblight_sethsv_noeeprom(316, 255, 255);
+      rgblight_sethsv_noeeprom(316, 255, val);
       break;
 #endif
   }
@@ -169,22 +169,23 @@ void matrix_scan_user(void) {
     if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
 
     uint32_t layer = layer_state;
+    uint8_t val = rgblight_config.val;
 
     if (layer & (1<<_FL)) {
       if (layer & (1<<_ME)) {
-        clueboard_set_led(LAYER_MEDIA);
+        clueboard_set_led(LAYER_MEDIA, val);
       } else if (layer & (1<<_CL)) {
-        clueboard_set_led(LAYER_CONTROL);
+        clueboard_set_led(LAYER_CONTROL, val);
       } else {
-        clueboard_set_led(LAYER_FUNCTION);
+        clueboard_set_led(LAYER_FUNCTION, val);
       }
     } else if (layer & (1<<_ML)) {
-        clueboard_set_led(LAYER_MOUSE);
+        clueboard_set_led(LAYER_MOUSE, val);
 #if defined(MIDI_ENABLE)
     } else if (layer & (1<<_MI)) {
-        clueboard_set_led(LAYER_MIDI);
+        clueboard_set_led(LAYER_MIDI, val);
 #endif
     } else {
-        clueboard_set_led(LAYER_BASE);
+        clueboard_set_led(LAYER_BASE, val);
     }
 };
