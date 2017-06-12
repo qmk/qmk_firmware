@@ -1,7 +1,7 @@
 SuperCoder 2000 layout for the ErgoDox
 ==================================================
 
-![SuperCoder 2000](images/supercoder_2000.jpg)
+![SuperCoder 2000](https://i.imgur.com/6dcU9VY.jpg)
 
 Ever found yourself in need of entering binary codes rapidly? Ever wanted to use
 all ten fingers to do so? Ever felt your SuperCoder 2000 too limiting, by only
