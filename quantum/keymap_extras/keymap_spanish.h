@@ -72,6 +72,6 @@
 #define ES_RBRC ALGR(ES_PLUS)
 
 #define ES_LCBR	ALGR(ES_ACUT)
-#define ES_RCRB	ALGR(ES_CCED)
+#define ES_RCBR	ALGR(ES_CCED)
 
 #endif
