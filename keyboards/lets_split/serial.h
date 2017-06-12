@@ -3,7 +3,6 @@
 
 #include "config.h"
 #include <stdbool.h>
-#include "matrix.h"
 
 /* TODO:  some defines for interrupt setup */
 #define SERIAL_PIN_DDR DDRD
@@ -16,8 +15,8 @@
 #define SERIAL_MASTER_BUFFER_LENGTH 1
 
 // Buffers for master - slave communication
-extern volatile matrix_row_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
-extern volatile matrix_row_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
+extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
+extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
 
 void serial_master_init(void);
 void serial_slave_init(void);

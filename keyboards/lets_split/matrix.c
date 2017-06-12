@@ -122,7 +122,7 @@ void matrix_init(void)
 
 uint8_t _matrix_scan(void)
 {
-    // Right hand is stored after the left in the matrix so, we need to offset it
+    // Right hand is stored after the left in the matirx so, we need to offset it
     int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
 
     for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
