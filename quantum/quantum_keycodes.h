@@ -85,7 +85,6 @@ enum quantum_keycodes {
 
     RESET = 0x5C00,
     DEBUG,
-    GRAVE_ESC      = 0x5900,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
     MAGIC_CAPSLOCK_TO_CONTROL,
     MAGIC_SWAP_LALT_LGUI,
@@ -105,6 +104,7 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    GRAVE_ESC,
 
     // Leader key
 #ifndef DISABLE_LEADER
