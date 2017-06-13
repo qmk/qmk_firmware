@@ -437,6 +437,16 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       // break;
     }
+    case QK_GRAVE_ESC: {
+      void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+
+      if(layer_state == 0)
+        method(shifted ? KC_GRAVE : KC_ESCAPE);
+      else
+        method(shifted ? KC_ESCAPE : KC_GRAVE);
+      send_keyboard_report(); 
+    }
     default: {
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
