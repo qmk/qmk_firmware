@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #ifdef USE_I2C
 // provides memcpy for copying TWI slave buffer
-#include <string.h>
+// #include <string.h>
 #endif
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -171,6 +171,7 @@ int i2c_transaction(void) {
     if (err) goto i2c_error;
 
     if (!err) {
+	/*
 	// read from TWI byte-by-byte into matrix_row_t memory space
         size_t i;
         for (i = 0; i < SLAVE_BUFFER_SIZE-1; ++i) {
@@ -178,9 +179,18 @@ int i2c_transaction(void) {
         }
 	// last byte to be read / end of chunk
         *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_NACK);
+	*/
+
+	i2c_master_read(I2C_ACK);
+	matrix[slaveOffset+0] = i2c_master_read(I2C_ACK);
+	i2c_master_read(I2C_ACK);
+	matrix[slaveOffset+1] = i2c_master_read(I2C_ACK);
+	i2c_master_read(I2C_ACK);
+	matrix[slaveOffset+2] = i2c_master_read(I2C_NACK);
+
         i2c_master_stop();
     } else {
-i2c_error: // the cable is disconnceted, or something else went wrong
+i2c_error: // the cable is disconnected, or something else went wrong
         i2c_reset_state();
         return err;
     }
@@ -239,11 +249,18 @@ uint8_t matrix_scan(void)
 void matrix_slave_scan(void) {
     _matrix_scan();
 
-    int offset = (isLeftHand) ? 0 : (MATRIX_ROWS / 2);
+    int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_I2C
     // SLAVE_BUFFER_SIZE is from i2c.h
-    memcpy((void*)i2c_slave_buffer, (const void*)&matrix[offset], SLAVE_BUFFER_SIZE);
+    // (MATRIX_ROWS/2*sizeof(matrix_row_t))
+    // memcpy((void*)i2c_slave_buffer, (const void*)&matrix[offset], (ROWS_PER_HAND*sizeof(matrix_row_t)));
+    i2c_slave_buffer[0] = (uint8_t)matrix[offset+0];
+    i2c_slave_buffer[1] = (uint8_t)matrix[offset+0];
+    i2c_slave_buffer[2] = (uint8_t)(matrix[offset+1]>>8);
+    i2c_slave_buffer[3] = (uint8_t)(matrix[offset+1]>>8);
+    i2c_slave_buffer[4] = (uint8_t)(matrix[offset+2]>>8);
+    i2c_slave_buffer[5] = (uint8_t)matrix[offset+2];
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
