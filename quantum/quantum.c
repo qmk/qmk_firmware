@@ -437,7 +437,7 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       // break;
     }
-    case QK_GRAVE_ESC: {
+    case GRAVE_ESC: {
       void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
       uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
 

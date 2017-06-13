@@ -85,7 +85,7 @@ enum quantum_keycodes {
 
     RESET = 0x5C00,
     DEBUG,
-    QK_GRAVE_ESC      = 0x5900,
+    GRAVE_ESC      = 0x5900,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
     MAGIC_CAPSLOCK_TO_CONTROL,
     MAGIC_SWAP_LALT_LGUI,
@@ -515,7 +515,7 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
-#define KC_GESC QK_GRAVE_ESC
+#define KC_GESC GRAVE_ESC
 
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
