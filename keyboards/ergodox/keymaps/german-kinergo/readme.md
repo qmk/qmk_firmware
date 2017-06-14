@@ -21,15 +21,15 @@ Modifications I made with regard to the aforementioned layouts:
 
 ## Default Layer
 
-![Layout of the default layer](layout.png "Layout of the default layer")
+![Layout of the default layer](https://i.imgur.com/BIn8QF8.png "Layout of the default layer")
 
 ## Code Layer
 
-![Layout of the code layer](layout-code.png "Layout of the code layer")
+![Layout of the code layer](https://i.imgur.com/RHZjBlt.png "Layout of the code layer")
 
 ## Media Layer
 
-![Layout of the media layer](layout-media.png "Layout of the media layer")
+![Layout of the media layer](https://i.imgur.com/qRMmrL4.png "Layout of the media layer")
 
 Christoph Schmitz &lt;schm4704 at web dot de&gt;
 2016-01-28

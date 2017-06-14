@@ -35,4 +35,4 @@ I have only tested this on an original Ergodox with a Teensy 2.0.
  - Layer 1 board light is on solid
  - Layer 2 board light blinks at speed controlled by BLINK_BASE
 
-![osx whiskey tango foxtrot](osx_whiskey_tango_foxtrot_capslock.png)
+![osx whiskey tango foxtrot](https://i.imgur.com/yQl1DFe.png)
