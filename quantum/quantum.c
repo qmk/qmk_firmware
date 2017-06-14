@@ -439,12 +439,10 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     case GRAVE_ESC: {
       void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
-      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
 
-      if(layer_state == 0)
-        method(shifted ? KC_GRAVE : KC_ESCAPE);
-      else
-        method(shifted ? KC_ESCAPE : KC_GRAVE);
+      method(shifted ? KC_GRAVE : KC_ESCAPE);
       send_keyboard_report(); 
     }
     default: {
