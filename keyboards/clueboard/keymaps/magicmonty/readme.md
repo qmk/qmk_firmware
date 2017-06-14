@@ -2,7 +2,7 @@
 
 [Keyboard Layout Editor File]
 
-![Clueboard Layout Image](http://i.imgur.com/TNh2Qai.png)
+![Clueboard Layout Image](http://i.imgur.com/WFfJ15k.png)
 
 This layout is a combination of the `mouse_keys` and the `win_optimized` layouts.
 This layout is optimized for an ISO layout.
@@ -14,7 +14,7 @@ The Left, Down, Up and Right for the mouse movement are also VIM-Like on the HJK
 
 There is also a MIDI layer included.
 
-The CapsLock is disabled and works as Escape when tapped and Left Control when Hold.
+The CapsLock is disabled and works as Escape when tapped and Fn when Hold.
 The Tab key works as Tab when tapped, and [Hyper] (Ctrl + Alt + Shift + Cmd) when hold
 The Shift-Keys are configured as [Space Cadet Shift Parentheses]
 
