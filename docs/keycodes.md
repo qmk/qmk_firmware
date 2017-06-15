@@ -70,8 +70,8 @@ Keycodes in QMK are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.u
 |KC_LOCKING_CAPS||Locking Caps Lock|
 |KC_LOCKING_NUM||Locking Num Lock|
 |KC_LOCKING_SCROLL||Locking Scroll Lock|
-|KC_INT4|KC_HENK|JIS Henken|
-|KC_INT5|KC_MHEN|JIS Muhenken|
+|KC_INT4|KC_HENK|JIS Henkan|
+|KC_INT5|KC_MHEN|JIS Muhenkan|
 
 ## Commands
 
