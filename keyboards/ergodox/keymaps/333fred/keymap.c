@@ -31,6 +31,9 @@ enum custom_macros {
   DEBUG_TEST,
   FORMAT,
   BUILD,
+  GO_TO_IMPL,
+  FIND_ALL_REF,
+  REMOVE_SORT_USINGS,
 
   // KeePass macros
   KEEPASS_OPEN,
@@ -67,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | PgUp |       | PgDn |        |      |
  *                                 | Bcksp|OSL(2)|------|       |------|  Ent   |Space |
- *                                 |      |      | Del  |       |OSL(2)|        |      |
+ *                                 |      |      | Del  |       | RCtrl|        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -88,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_H,   KC_J,   KC_K,   KC_L,   TD(TD_SEMICOLON_COLON),KC_QUOT,
              MO(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        KC_RSFT,
                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,          KC_RGUI,
-             KC_RALT,        CTL_T(KC_ESC),
+             KC_RALT, CTL_T(KC_ESC),
              KC_PGDN,
-             OSL(SYMB),KC_ENT, KC_SPC
+             KC_RCTL, KC_ENT, KC_SPC
     ),
 /* Keymap 1: Code Layer
  *
@@ -103,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       | F12  |GoToIm|  FAR |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        |Format|Build |       | Test | DTest  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |Refact|       |      |        |      |
+ *                                 |      |      |Refact|       |Sort U|        |      |
  *                                 |      |      |------|       |------|        |      |
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
@@ -127,13 +130,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     KC_TRNS, KC_TRNS,  KC_TRNS,
         // right hand
 
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_F11,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+            KC_F11,  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+                     KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+                              KC_F12,  M(GO_TO_IMPL),M(FIND_ALL_REF),KC_TRNS, KC_TRNS,
              M(TEST), M(DEBUG_TEST),
-             KC_TRNS,
+             M(REMOVE_SORT_USINGS),
              KC_TRNS, KC_TRNS, KC_TRNS
     ),
 /* Keymap 2: Symbol Layer
@@ -324,6 +327,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           if (record->event.pressed) {
             return MACRO(D(LCTL), D(LSFT), T(B), U(LSFT), U(LCTL), END);
           }
+          break;
+        case GO_TO_IMPL:
+          if (record->event.pressed) {
+            return MACRO(D(LCTL), T(F12), U(LCTL), END);
+          }
+          break;
+        case FIND_ALL_REF:
+          if (record->event.pressed) {
+            return MACRO(D(LCTL), T(K), U(LCTL), T(R), END);
+          }
+          break;
+        case REMOVE_SORT_USINGS:
+          if (record->event.pressed) {
+            return MACRO(D(LCTL), T(R), T(G), U(LCTL), END);
+          }
+          break;
         case KEEPASS_OPEN:
           if (record->event.pressed) { // Keepass open application
             return MACRO(D(LCTL), D(LALT), T(K), U(LALT), U(LCTL), END);
