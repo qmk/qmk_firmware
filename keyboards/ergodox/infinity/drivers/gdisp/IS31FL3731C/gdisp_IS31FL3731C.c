@@ -302,7 +302,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 		    if (g->g.Backlight == (unsigned)g->p.ptr)
                 return;
 		    unsigned val = (unsigned)g->p.ptr;
-		    g->g.Backlight = val > 255 ? 255 : val;
+		    g->g.Backlight = val > 100 ? 100 : val;
             g->flags |= GDISP_FLG_NEEDFLUSH;
 		    return;
 		}
