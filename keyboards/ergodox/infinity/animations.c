@@ -65,7 +65,7 @@ static bool keyframe_fade_in(keyframe_animation_t* animation, visualizer_state_t
 #ifdef LCD_BACKLIGHT_ENABLE
     ret |= backlight_keyframe_animate_color(animation, state);
 #endif
-#ifdef BACLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
     ret |= led_keyframe_fade_in_all(animation, state);
 #endif
     return ret;
@@ -76,7 +76,7 @@ static bool keyframe_fade_out(keyframe_animation_t* animation, visualizer_state_
 #ifdef LCD_BACKLIGHT_ENABLE
     ret |= backlight_keyframe_animate_color(animation, state);
 #endif
-#ifdef BACLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
     ret |= led_keyframe_fade_out_all(animation, state);
 #endif
     return ret;
