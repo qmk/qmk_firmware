@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/native
 endif
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
