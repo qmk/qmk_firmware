@@ -104,6 +104,7 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    GRAVE_ESC,
 
     // Leader key
 #ifndef DISABLE_LEADER
@@ -513,6 +514,8 @@ enum quantum_keycodes {
 
 #define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
+
+#define KC_GESC GRAVE_ESC
 
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
