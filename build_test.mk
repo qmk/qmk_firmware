@@ -42,6 +42,11 @@ all: elf
 VPATH += $(COMMON_VPATH)
 PLATFORM:=TEST
 
+ifneq ($(filter $(FULL_TESTS),$(TEST)),)
+include tests/$(TEST)/rules.mk
+endif
+
+include common_features.mk
 include $(TMK_PATH)/common.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
