@@ -16,6 +16,9 @@
 
 
 #include "matrix.h"
+#include "test_matrix.h"
+
+static matrix_row_t matrix[MATRIX_ROWS] = {};
 
 void matrix_init(void) {
     matrix_init_quantum();
@@ -27,7 +30,7 @@ uint8_t matrix_scan(void) {
 }
 
 matrix_row_t matrix_get_row(uint8_t row) {
-    return 0;
+    return matrix[row];
 }
 
 void matrix_print(void) {
@@ -40,4 +43,12 @@ void matrix_init_kb(void) {
 
 void matrix_scan_kb(void) {
 
+}
+
+void press_key(uint8_t col, uint8_t row) {
+    matrix[row] |= 1 << col;
+}
+
+void release_key(uint8_t col, uint8_t row) {
+    matrix[row] &= ~(1 << col);
 }

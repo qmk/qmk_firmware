@@ -14,11 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#ifndef TESTS_TEST_COMMON_TEST_MATRIX_H_
+#define TESTS_TEST_COMMON_TEST_MATRIX_H_
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = {
-	    {KC_A, KC_B},
-	    {KC_C, KC_D}
-	},
-};
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void press_key(uint8_t col, uint8_t row);
+void release_key(uint8_t col, uint8_t row);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* TESTS_TEST_COMMON_TEST_MATRIX_H_ */
