@@ -40,6 +40,7 @@ VPATH +=\
 all: elf
 
 VPATH += $(COMMON_VPATH)
+PLATFORM:=TEST
 
 include $(TMK_PATH)/common.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
