@@ -18,6 +18,6 @@ include tests/$(TEST)/rules.mk
 
 TEST_PATH=tests/$(TEST)
 
-$(TEST)_SRC=$(TEST_PATH)/test.c $(TMK_COMMON_SRC)
+$(TEST)_SRC=$(TEST_PATH)/test.c $(TMK_COMMON_SRC) $(QUANTUM_SRC)
 $(TEST)_DEFS=$(TMK_COMMON_DEFS)
 $(TEST)_CONFIG=$(TEST_PATH)/config.h
