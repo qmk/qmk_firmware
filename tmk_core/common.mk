@@ -4,7 +4,7 @@ ifeq ($(PLATFORM),AVR)
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
 else
-	PLATFORM_COMMON_DIR = $(COMMON_DIR)/native
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
 endif
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
