@@ -50,6 +50,7 @@ endif
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
 $(TEST_OBJ)/$(TEST)_DEFS := $($(TEST)_DEFS)
+$(TEST_OBJ)/$(TEST)_CONFIG := $($(TEST)_CONFIG)
 
 include $(TMK_PATH)/native.mk
 include $(TMK_PATH)/rules.mk
