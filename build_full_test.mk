@@ -12,3 +12,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+include tests/$(TEST)/rules.mk
+#include $(TMK_PATH)/protocol.mk
+
+TEST_PATH=tests/$(TEST)
+
+$(TEST)_SRC=$(TEST_PATH)/test.c $(TMK_COMMON_SRC)
+$(TEST)_DEFS=$(TMK_COMMON_DEFS)
