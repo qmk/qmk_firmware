@@ -43,6 +43,9 @@ VPATH += $(COMMON_VPATH)
 
 include $(TMK_PATH)/common.mk
 include $(QUANTUM_PATH)/serial_link/tests/rules.mk
+ifneq ($(filter $(FULL_TESTS),$(TEST)),)
+include build_full_test.mk
+endif
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)
