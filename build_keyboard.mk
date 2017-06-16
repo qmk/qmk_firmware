@@ -31,8 +31,6 @@ $(error MASTER does not have a valid value(left/right))
     endif
 endif
 
-
-
 KEYBOARD_PATH := keyboards/$(KEYBOARD)
 KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
 
@@ -41,7 +39,6 @@ ifneq ("$(wildcard $(KEYBOARD_C))","")
 else
     $(error "$(KEYBOARD_C)" does not exist)
 endif
-
 
 ifneq ($(SUBPROJECT),)
     SUBPROJECT_PATH := keyboards/$(KEYBOARD)/$(SUBPROJECT)
@@ -118,17 +115,10 @@ endif
 # # project specific files
 SRC += $(KEYBOARD_C) \
     $(KEYMAP_C) \
-    $(QUANTUM_DIR)/quantum.c \
-    $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_SRC)
 
 ifneq ($(SUBPROJECT),)
     SRC += $(SUBPROJECT_C)
-endif
-
-ifndef CUSTOM_MATRIX
-    SRC += $(QUANTUM_DIR)/matrix.c
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
@@ -142,9 +132,10 @@ endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(COMMON_VPATH)
 
+include common_features.mk
 include $(TMK_PATH)/protocol.mk
-
 include $(TMK_PATH)/common.mk
+
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
