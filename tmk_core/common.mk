@@ -31,6 +31,10 @@ ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
+ifeq ($(PLATFORM),TEST)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+endif
+
 
 
 # Option modules
