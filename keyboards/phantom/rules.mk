@@ -61,7 +61,7 @@ SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE ?= yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE ?= no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE ?= yes       # Enable WS2812 RGB underlight. Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight. Do not enable this with audio at the same time.
 MIDI_ENABLE ?= no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE ?= no         # Unicode
 BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
