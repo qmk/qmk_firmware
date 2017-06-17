@@ -175,3 +175,33 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
     }
 }
 #endif
+
+void add_key_to_report(report_keyboard_t* keyboard_report, int8_t key)
+{
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        add_key_bit(keyboard_report, key);
+        return;
+    }
+#endif
+    add_key_byte(keyboard_report, key);
+}
+
+void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
+{
+#ifdef NKRO_ENABLE
+    if (keyboard_protocol && keymap_config.nkro) {
+        del_key_bit(keyboard_report, key);
+        return;
+    }
+#endif
+    del_key_byte(keyboard_report, key);
+}
+
+void clear_keys_from_report(report_keyboard_t* keyboard_report)
+{
+    // not clear mods
+    for (int8_t i = 1; i < KEYBOARD_REPORT_SIZE; i++) {
+        keyboard_report->raw[i] = 0;
+    }
+}
