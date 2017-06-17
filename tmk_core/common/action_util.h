@@ -82,9 +82,7 @@ uint8_t get_oneshot_layer_state(void);
 bool has_oneshot_layer_timed_out(void);
 
 /* inspect */
-uint8_t has_anykey(void);
 uint8_t has_anymod(void);
-uint8_t get_first_key(void);
 
 #ifdef __cplusplus
 }
