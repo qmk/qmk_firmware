@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0003
-#define MANUFACTURER    PHANTOM
-#define PRODUCT         PHANTOM RGB MOD
-#define DESCRIPTION     QMK keyboard firmware for PHANTOM TKL
+#define MANUFACTURER    bpiphany
+#define PRODUCT         PHANTOM
+#define DESCRIPTION     QMK keyboard firmware for PHANTOM
 
 /* key matrix size */
 #define MATRIX_ROWS 6
