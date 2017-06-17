@@ -33,16 +33,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 TEST(Basic, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
-    keyboard_init();
     TestDriver driver;
+    EXPECT_CALL(driver, send_keyboard_mock(_));
+    keyboard_init();
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     keyboard_task();
 }
 
 TEST(Basic, SendKeyboardIsCalledWhenAKeyIsPressed) {
-    keyboard_init();
     TestDriver driver;
+    EXPECT_CALL(driver, send_keyboard_mock(_));
+    keyboard_init();
     press_key(0, 0);
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(_));
