@@ -22,7 +22,8 @@ $(TEST)_SRC= \
 	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	tests/test_common/matrix.c \
-	tests/test_common/test_driver.cpp
+	tests/test_common/test_driver.cpp \
+	tests/test_common/keyboard_report_util.cpp
 $(TEST)_DEFS=$(TMK_COMMON_DEFS)
 $(TEST)_CONFIG=$(TEST_PATH)/config.h
 VPATH+=$(TOP_DIR)/tests/test_common

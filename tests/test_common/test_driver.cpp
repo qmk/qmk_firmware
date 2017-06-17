@@ -41,12 +41,12 @@ uint8_t TestDriver::keyboard_leds(void) {
 }
 
 void TestDriver::send_keyboard(report_keyboard_t* report) {
-    m_this->send_keyboard_mock(report);
+    m_this->send_keyboard_mock(*report);
 
 }
 
 void TestDriver::send_mouse(report_mouse_t* report) {
-    m_this->send_mouse_mock(report);
+    m_this->send_mouse_mock(*report);
 }
 
 void TestDriver::send_system(uint16_t data) {
@@ -54,5 +54,5 @@ void TestDriver::send_system(uint16_t data) {
 }
 
 void TestDriver::send_consumer(uint16_t data) {
-    m_this->send_consumer_mock(data);
+    m_this->send_consumer(data);
 }

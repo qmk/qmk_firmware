@@ -21,6 +21,7 @@
 #include "keyboard.h"
 #include "test_driver.h"
 #include "test_matrix.h"
+#include "keyboard_report_util.h"
 
 using testing::_;
 using testing::Return;
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	},
 };
 
-TEST(Basic, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
+TEST(KeyPress, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
     TestDriver driver;
     EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();
@@ -41,12 +42,15 @@ TEST(Basic, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
     keyboard_task();
 }
 
-TEST(Basic, SendKeyboardIsCalledWhenAKeyIsPressed) {
+TEST(KeyPress, CorrectKeyIsReportedWhenPressed) {
     TestDriver driver;
     EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_init();
     press_key(0, 0);
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+    keyboard_task();
+}
     EXPECT_CALL(driver, send_keyboard_mock(_));
     keyboard_task();
 }

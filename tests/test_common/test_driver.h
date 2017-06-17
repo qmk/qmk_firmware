@@ -20,6 +20,7 @@
 #include "gmock/gmock.h"
 #include <stdint.h>
 #include "host.h"
+#include "keyboard_report_util.h"
 
 
 class TestDriver {
@@ -27,8 +28,8 @@ public:
     TestDriver();
     ~TestDriver();
     MOCK_METHOD0(keyboard_leds_mock, uint8_t ());
-    MOCK_METHOD1(send_keyboard_mock, void (report_keyboard_t*));
-    MOCK_METHOD1(send_mouse_mock, void (report_mouse_t*));
+    MOCK_METHOD1(send_keyboard_mock, void (report_keyboard_t&));
+    MOCK_METHOD1(send_mouse_mock, void (report_mouse_t&));
     MOCK_METHOD1(send_system_mock, void (uint16_t));
     MOCK_METHOD1(send_consumer_mock, void (uint16_t));
 private:
