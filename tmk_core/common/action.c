@@ -70,6 +70,9 @@ void action_exec(keyevent_t event)
         dprintf("Oneshot layer: timeout\n");
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
+    if (has_oneshot_mods_timed_out()) {
+        clear_oneshot_mods();
+    }
 #endif
 
 #ifndef NO_ACTION_TAPPING
