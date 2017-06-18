@@ -17,10 +17,12 @@
 
 #include "matrix.h"
 #include "test_matrix.h"
+#include <string.h>
 
 static matrix_row_t matrix[MATRIX_ROWS] = {};
 
 void matrix_init(void) {
+    memset(matrix, 0, sizeof(matrix));
     matrix_init_quantum();
 }
 
