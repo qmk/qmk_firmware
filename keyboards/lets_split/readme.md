@@ -6,6 +6,7 @@ This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
+**Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
 
 ## Build Guide
 
