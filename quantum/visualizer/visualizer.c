@@ -58,8 +58,11 @@ SOFTWARE.
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
-    .mods = 0xFF,
     .leds = 0xFFFFFFFF,
+#ifdef BACKLIGHT_ENABLE
+    .backlight_level = 0,
+#endif
+    .mods = 0xFF,
     .suspended = false,
 #ifdef VISUALIZER_USER_DATA_SIZE
     .user_data = {0}
@@ -72,6 +75,9 @@ static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboa
         status1->mods == status2->mods &&
         status1->leds == status2->leds &&
         status1->suspended == status2->suspended
+#ifdef BACKLIGHT_ENABLE
+        && status1->backlight_level == status2->backlight_level
+#endif
 #ifdef VISUALIZER_USER_DATA_SIZE
         && memcmp(status1->user_data, status2->user_data, VISUALIZER_USER_DATA_SIZE) == 0
 #endif
@@ -279,6 +285,18 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         bool enabled = visualizer_enabled;
         if (force_update || !same_status(&state.status, &current_status)) {
             force_update = false;
+    #if BACKLIGHT_ENABLE
+            if(current_status.backlight_level != state.status.backlight_level) {
+                if (current_status.backlight_level != 0) {
+                    gdispGSetPowerMode(LED_DISPLAY, powerOn);
+                    uint16_t percent = (uint16_t)current_status.backlight_level * 100 / BACKLIGHT_LEVELS;
+                    gdispGSetBacklight(LED_DISPLAY, percent);
+                }
+                else {
+                    gdispGSetPowerMode(LED_DISPLAY, powerOff);
+                }
+            }
+    #endif
             if (visualizer_enabled) {
                 if (current_status.suspended) {
                     stop_all_keyframe_animations();
@@ -309,7 +327,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
         gdispGFlush(LED_DISPLAY);
 #endif
 
@@ -372,7 +390,7 @@ void visualizer_init(void) {
 #ifdef LCD_ENABLE
     LCD_DISPLAY = get_lcd_display();
 #endif
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
     LED_DISPLAY = get_led_display();
 #endif
 
@@ -445,6 +463,9 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uin
             .default_layer = default_state,
             .mods = mods,
             .leds = leds,
+#ifdef BACKLIGHT_ENABLE
+            .backlight_level = current_status.backlight_level,
+#endif
             .suspended = current_status.suspended,
         };
 #ifdef VISUALIZER_USER_DATA_SIZE
@@ -467,3 +488,10 @@ void visualizer_resume(void) {
     current_status.suspended = false;
     update_status(true);
 }
+
+#ifdef BACKLIGHT_ENABLE
+void backlight_set(uint8_t level) {
+    current_status.backlight_level = level;
+    update_status(true);
+}
+#endif
