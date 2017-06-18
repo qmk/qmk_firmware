@@ -25,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [RAISE] = KC_KEYMAP(
     NO, MRWD, MPRV, MPLY, MNXT, MFFD,             TRNS, MUTE, VOLD, VOLU, DEL,  NO, \
-    NO, TILD, GRV,  DQUO, QUOT, LCBR,             RCBR, EQL,  PLUS, MINS, QUES, NO, \
-    NO, ESC,  TAB,  BSLS, SLSH, LPRN,             RPRN, LEFT, DOWN, UP,   RGHT, NO, \
-    NO, TRNS, TRNS, TRNS, TRNS, LBRC,             RBRC, PIPE, UNDS, TRNS, TRNS, NO, \
+    NO, TILD, GRV,  LCBR, RCBR, DQUO,             QUOT, EQL,  PLUS, MINS, QUES, NO, \
+    NO, ESC,  TAB,  LPRN, RPRN, BSLS,             SLSH, LEFT, DOWN, UP,   RGHT, NO, \
+    NO, TRNS, TRNS, LBRC, RBRC, TRNS,             INS,  PIPE, UNDS, TRNS, TRNS, NO, \
     NO, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN3,  NO  ),
 
 [LOWER] = KC_KEYMAP(
