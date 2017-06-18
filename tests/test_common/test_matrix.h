@@ -23,6 +23,7 @@ extern "C" {
 
 void press_key(uint8_t col, uint8_t row);
 void release_key(uint8_t col, uint8_t row);
+void clear_all_keys(void);
 
 #ifdef __cplusplus
 }

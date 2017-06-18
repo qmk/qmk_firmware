@@ -18,10 +18,10 @@
 #include "gmock/gmock.h"
 
 #include "quantum.h"
-#include "keyboard.h"
 #include "test_driver.h"
 #include "test_matrix.h"
 #include "keyboard_report_util.h"
+#include "test_fixture.h"
 
 using testing::_;
 using testing::Return;
@@ -33,35 +33,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	},
 };
 
-TEST(KeyPress, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
+class KeyPress : public TestFixture {};
+
+TEST_F(KeyPress, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
     TestDriver driver;
-    EXPECT_CALL(driver, send_keyboard_mock(_));
-    keyboard_init();
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     keyboard_task();
 }
 
-TEST(KeyPress, CorrectKeyIsReportedWhenPressed) {
+TEST_F(KeyPress, CorrectKeyIsReportedWhenPressed) {
     TestDriver driver;
-    EXPECT_CALL(driver, send_keyboard_mock(_));
-    keyboard_init();
     press_key(0, 0);
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     keyboard_task();
 }
 
-TEST(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
+TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     TestDriver driver;
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    keyboard_init();
     press_key(1, 0);
     press_key(0, 1);
     EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
-    //TODO: This is a left-over from the previous test and need to be fixed
-    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
-    keyboard_task();
     //Note that QMK only processes one key at a time
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
     keyboard_task();

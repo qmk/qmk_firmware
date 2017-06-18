@@ -14,47 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ #pragma once
 
-#include "matrix.h"
-#include "test_matrix.h"
-#include <string.h>
+#include "gtest/gtest.h"
 
-static matrix_row_t matrix[MATRIX_ROWS] = {};
+class TestFixture : public testing::Test {
+public:
+    TestFixture();
+    ~TestFixture();
+    static void SetUpTestCase();
+    static void TearDownTestCase();
 
-void matrix_init(void) {
-    clear_all_keys();
-    matrix_init_quantum();
-}
-
-uint8_t matrix_scan(void) {
-    matrix_scan_quantum();
-    return 1;
-}
-
-matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_print(void) {
-
-}
-
-void matrix_init_kb(void) {
-
-}
-
-void matrix_scan_kb(void) {
-
-}
-
-void press_key(uint8_t col, uint8_t row) {
-    matrix[row] |= 1 << col;
-}
-
-void release_key(uint8_t col, uint8_t row) {
-    matrix[row] &= ~(1 << col);
-}
-
-void clear_all_keys(void) {
-    memset(matrix, 0, sizeof(matrix));
-}
+};
