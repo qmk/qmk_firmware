@@ -47,6 +47,8 @@ bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
 
 std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value) {
     stream << "Keyboard report:" << std::endl;
+    stream << "Mods: " << value.mods << std::endl;
+    // TODO: This should probably print friendly names for the keys
     for (uint32_t k: get_keys(value)) {
         stream << k << std::endl;
     }
@@ -54,6 +56,7 @@ std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value) {
 }
 
 KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
+    // TODO: Support modifiers
     memset(m_report.raw, 0, sizeof(m_report.raw));
     for (auto k: keys) {
         add_key_to_report(&m_report, k);
