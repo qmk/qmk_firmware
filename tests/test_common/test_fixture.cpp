@@ -27,12 +27,10 @@ TestFixture::~TestFixture() {
     // Run for a while to make sure all keys are completely released
     // Should probably wait until tapping term etc, has timed out
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(AnyNumber());
-    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     for (int i=0; i<100; i++) {
         keyboard_task();
     }
     testing::Mock::VerifyAndClearExpectations(&driver); 
     // Verify that the matrix really is cleared
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(Between(0, 1));
-    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
 }
