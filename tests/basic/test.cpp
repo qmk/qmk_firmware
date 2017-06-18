@@ -51,6 +51,20 @@ TEST(KeyPress, CorrectKeyIsReportedWhenPressed) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     keyboard_task();
 }
-    EXPECT_CALL(driver, send_keyboard_mock(_));
+
+TEST(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
+    TestDriver driver;
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_init();
+    press_key(1, 0);
+    press_key(0, 1);
+    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
+    //TODO: This is a left-over from the previous test and need to be fixed
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_task();
+    //Note that QMK only processes one key at a time
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
+    keyboard_task();
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B, KC_C)));
     keyboard_task();
 }
