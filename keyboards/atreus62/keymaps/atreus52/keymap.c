@@ -1,26 +1,26 @@
 #include "atreus62.h"
 
 // Layers
-#define QWERTY 0
-#define DVORAK 1
+#define DVORAK 0
+#define QWERTY 1
 #define RAISE 2
 #define LOWER 3
 #define BDO 4
 #define RESETL 5
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[QWERTY] = KC_KEYMAP(
-    NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
-    NO, Q,    W,    E,    R,    T,                Y,    U,    I,    O,    P,    NO, \
-    NO, A,    S,    D,    F,    G,                H,    J,    K,    L,    SCLN, NO, \
-    NO, Z,    X,    C,    V,    B,                N,    M,    COMM, DOT,  SLSH, NO, \
-    NO, FN2,  LALT, LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
-
 [DVORAK] = KC_KEYMAP(
     NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
     NO, QUOT, COMM, DOT,  P,    Y,                F,    G,    C,    R,    L,    NO, \
     NO, A,    O,    E,    U,    I,                D,    H,    T,    N,    S,    NO, \
     NO, SCLN, Q,    J,    K,    X,                B,    M,    W,    V,    Z,    NO, \
+    NO, FN2,  LALT, LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
+
+[QWERTY] = KC_KEYMAP(
+    NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
+    NO, Q,    W,    E,    R,    T,                Y,    U,    I,    O,    P,    NO, \
+    NO, A,    S,    D,    F,    G,                H,    J,    K,    L,    SCLN, NO, \
+    NO, Z,    X,    C,    V,    B,                N,    M,    COMM, DOT,  SLSH, NO, \
     NO, FN2,  LALT, LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO  ),
 
 [RAISE] = KC_KEYMAP(
