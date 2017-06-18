@@ -8,7 +8,7 @@ Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - 
 
 ### Limits of these aliases
 
-Currently, the keycodes able to used with these functions are limited to the TMK ones, meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used, [see this list](keycode.txt).
+Currently, the keycodes able to used with these functions are limited to the TMK ones, meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used, [see this list](keycode.md).
 
 ### Switching and toggling layers
 
