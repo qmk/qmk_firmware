@@ -25,43 +25,90 @@
 #include "lcd_backlight_keyframes.h"
 #endif
 
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
 #include "led_keyframes.h"
 #endif
 
 #include "visualizer_keyframes.h"
 
 
-#if defined(LCD_ENABLE) && defined(LCD_BACKLIGHT_ENABLE)
+#if defined(LCD_ENABLE) || defined(LCD_BACKLIGHT_ENABLE) || defined(BACKLIGHT_ENABLE)
+
+static bool keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+#ifdef LCD_ENABLE
+    lcd_keyframe_enable(animation, state);
+#endif
+#ifdef LCD_BACKLIGHT_ENABLE
+    backlight_keyframe_enable(animation, state);
+#endif
+#ifdef BACKLIGHT_ENABLE
+    led_keyframe_enable(animation, state);
+#endif
+    return false;
+}
+
+static bool keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+#ifdef LCD_ENABLE
+    lcd_keyframe_disable(animation, state);
+#endif
+#ifdef LCD_BACKLIGHT_ENABLE
+    backlight_keyframe_disable(animation, state);
+#endif
+#ifdef BACKLIGHT_ENABLE
+    led_keyframe_disable(animation, state);
+#endif
+    return false;
+}
+
+static bool keyframe_fade_in(keyframe_animation_t* animation, visualizer_state_t* state) {
+    bool ret = false;
+#ifdef LCD_BACKLIGHT_ENABLE
+    ret |= backlight_keyframe_animate_color(animation, state);
+#endif
+#ifdef BACKLIGHT_ENABLE
+    ret |= led_keyframe_fade_in_all(animation, state);
+#endif
+    return ret;
+}
+
+static bool keyframe_fade_out(keyframe_animation_t* animation, visualizer_state_t* state) {
+    bool ret = false;
+#ifdef LCD_BACKLIGHT_ENABLE
+    ret |= backlight_keyframe_animate_color(animation, state);
+#endif
+#ifdef BACKLIGHT_ENABLE
+    ret |= led_keyframe_fade_out_all(animation, state);
+#endif
+    return ret;
+}
+
 
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
 // during that time
 keyframe_animation_t default_startup_animation = {
-    .num_frames = 4,
+    .num_frames = 3,
     .loop = false,
-    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(5000), 0},
+    .frame_lengths = {0, 0, gfxMillisecondsToTicks(5000)},
     .frame_functions = {
-            lcd_keyframe_enable,
-            backlight_keyframe_enable,
+            keyframe_enable,
             lcd_keyframe_draw_logo,
-            backlight_keyframe_animate_color,
+            keyframe_fade_in,
     },
 };
 
 keyframe_animation_t default_suspend_animation = {
-    .num_frames = 4,
+    .num_frames = 3,
     .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0, 0},
+    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
     .frame_functions = {
             lcd_keyframe_display_layer_text,
-            backlight_keyframe_animate_color,
-            lcd_keyframe_disable,
-            backlight_keyframe_disable,
+            keyframe_fade_out,
+            keyframe_disable,
     },
 };
 #endif
 
-#if defined(LED_ENABLE)
+#if defined(BACKLIGHT_ENABLE)
 #define CROSSFADE_TIME 1000
 #define GRADIENT_TIME 3000
 

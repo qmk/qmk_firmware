@@ -42,9 +42,8 @@ SRC += $(VISUALIZER_DIR)/resources/lcd_logo.c
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
-ifeq ($(strip $(LED_ENABLE)), yes)
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/led_keyframes.c
-OPT_DEFS += -DLED_ENABLE
 endif
 
 include $(GFXLIB)/gfx.mk

@@ -34,6 +34,10 @@ SOFTWARE.
 #include "lcd_backlight.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#include "backlight.h"
+#endif
+
 // use this function to merge both real_mods and oneshot_mods in a uint16_t
 uint8_t visualizer_get_mods(void);
 
@@ -65,9 +69,12 @@ struct keyframe_animation_t;
 typedef struct {
     uint32_t layer;
     uint32_t default_layer;
-    uint8_t mods;
     uint32_t leds; // See led.h for available statuses
+    uint8_t mods;
     bool suspended;
+#ifdef BACKLIGHT_ENABLE
+    uint8_t backlight_level;
+#endif
 #ifdef VISUALIZER_USER_DATA_SIZE
     uint8_t user_data[VISUALIZER_USER_DATA_SIZE];
 #endif
