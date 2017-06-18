@@ -6,7 +6,8 @@ TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
 if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then 
 	exit_code=0
 	NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)'  | grep -Ev '^(docs/)' | wc -l)
-	if [[ $NEFM -gt 0 ]] ; then
+	BRANCH=$(git rev-parse --abbrev-ref HEAD)
+	if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
 		echo "Making all keymaps for all keyboards"
 		make all-keyboards AUTOGEN="true"
 		: $((exit_code = $exit_code + $?))
