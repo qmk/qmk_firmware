@@ -14,7 +14,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_]+)(?=\/)' | sort -u)
 		for KB in $MKB ; do
 			echo "Making all keymaps for $KB"
-			make "$KB" AUTOGEN=true
+			make ${KB}-allsp-allkm AUTOGEN=true
 			: $((exit_code = $exit_code + $?))
 		done
 	fi
