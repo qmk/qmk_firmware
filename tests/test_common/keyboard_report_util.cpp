@@ -15,15 +15,41 @@
  */
 
  #include "keyboard_report_util.h"
+ #include <vector>
+ #include <algorithm>
  using namespace testing;
 
+ namespace
+ {
+     std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
+        std::vector<uint8_t> result;
+        #if defined(NKRO_ENABLE)
+        #error NKRO support not implemented yet
+        #elif defined(USB_6KRO_ENABLE)
+        #error 6KRO support not implemented yet
+        #else
+        for(size_t i=0; i<KEYBOARD_REPORT_KEYS; i++) {
+            if (report.keys[i]) {
+                result.emplace_back(report.keys[i]);
+            }
+        }
+        #endif
+        std::sort(result.begin(), result.end());
+        return result;
+     }
+ }
+
 bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
-    return memcmp(lhs.raw, rhs.raw, sizeof(lhs.raw))==0;
+    auto lhskeys = get_keys(lhs);
+    auto rhskeys = get_keys(rhs);
+    return lhs.mods == rhs.mods && lhskeys == rhskeys;
 }
 
 std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value) {
     stream << "Keyboard report:" << std::endl;
-    stream << (uint32_t)value.keys[0] << std::endl;
+    for (uint32_t k: get_keys(value)) {
+        stream << k << std::endl;
+    }
     return stream;
 }
 
