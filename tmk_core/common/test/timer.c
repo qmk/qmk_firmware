@@ -16,6 +16,9 @@
 
 #include "timer.h"
 
+// TODO: the timer should work, but at a much faster rate than realtime
+// It should also have some kind of integration with the testing system
+
 void timer_init(void) {}
 
 void timer_clear(void) {}
