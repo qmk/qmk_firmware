@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "eeconfig.h"
+#include "eeprom.h"
 
 #define LAYER_ON(pos) ((layer_state) & (1<<(pos)))
 #define _______ KC_TRNS
