@@ -37,7 +37,6 @@ class KeyPress : public TestFixture {};
 
 TEST_F(KeyPress, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
     TestDriver driver;
-    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     keyboard_task();
 }
@@ -45,7 +44,6 @@ TEST_F(KeyPress, SendKeyboardIsNotCalledWhenNoKeyIsPressed) {
 TEST_F(KeyPress, CorrectKeyIsReportedWhenPressed) {
     TestDriver driver;
     press_key(0, 0);
-    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     keyboard_task();
 }
@@ -54,7 +52,6 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     TestDriver driver;
     press_key(1, 0);
     press_key(0, 1);
-    EXPECT_CALL(driver, keyboard_leds_mock()).WillRepeatedly(Return(0));
     //Note that QMK only processes one key at a time
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
     keyboard_task();

@@ -27,7 +27,6 @@ TestDriver::TestDriver()
         &TestDriver::send_consumer
     }
 {
-
     host_set_driver(&m_driver);
     m_this = this;
 }
@@ -37,7 +36,7 @@ TestDriver::~TestDriver() {
 }
 
 uint8_t TestDriver::keyboard_leds(void) {
-    return m_this->keyboard_leds_mock();
+    return m_this->m_leds;
 }
 
 void TestDriver::send_keyboard(report_keyboard_t* report) {
