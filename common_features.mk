@@ -18,6 +18,7 @@ SERIAL_PATH := $(QUANTUM_PATH)/serial_link
 SERIAL_SRC := $(wildcard $(SERIAL_PATH)/protocol/*.c)
 SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 SERIAL_DEFS += -DSERIAL_LINK_ENABLE
+COMMON_VPATH += $(SERIAL_PATH)
 
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
