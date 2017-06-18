@@ -43,6 +43,10 @@ static int8_t cb_count = 0;
 //report_keyboard_t keyboard_report = {};
 report_keyboard_t *keyboard_report = &(report_keyboard_t){};
 
+extern inline void add_key(uint8_t key);
+extern inline void del_key(uint8_t key);
+extern inline void clear_keys(void);
+
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;
 static int8_t oneshot_locked_mods = 0;
