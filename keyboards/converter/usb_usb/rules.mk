@@ -41,10 +41,10 @@
 # Target file name (without extension).
 # TARGET ?= usb_usb
 
-TMK_DIR ?= ../../tmk_core
+# TMK_DIR ?= ../../tmk_core
 
 # Directory keyboard dependent files exist
-TARGET_DIR ?= .
+# TARGET_DIR ?= .
 
 # MCU name
 MCU ?= atmega32u4
@@ -92,7 +92,8 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #
 #MOUSEKEY_ENABLE ?= yes	# Mouse keys
 EXTRAKEY_ENABLE ?= yes	# Media control and System control
-CONSOLE_ENABLE ?= yes	# Console for debug
+# CONSOLE_ENABLE ?= yes	# Console for debug
+CONSOLE_ENABLE ?= no	# Console for debug
 #COMMAND_ENABLE ?= yes    # Commands for debug and configuration
 #NKRO_ENABLE ?= yes	# USB Nkey Rollover
 
@@ -108,7 +109,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #OPT_DEFS += -DNO_ACTION_LAYER
 #OPT_DEFS += -DNO_ACTION_MACRO
 
-CUSTOM_MATRIX=yes
+CUSTOM_MATRIX = yes
 
 SRC = matrix.cpp
 
