@@ -1,0 +1,6 @@
+TARGET = usb_usb_debug
+UNIMAP_ENABLE = yes
+#KEYMAP_SECTION_ENABLE = yes
+#LUFA_DEBUG = yes
+OPT_DEFS += -DDEBUG_USB_HOST
+include Makefile
