@@ -1,6 +1,7 @@
 # project specific files
 SRC =	matrix.c \
-	led.c
+	led.c \
+	animations.c
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -66,3 +67,7 @@ COMMAND_ENABLE ?= yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE ?= yes	    # USB Nkey Rollover
 CUSTOM_MATRIX ?= yes # Custom matrix file
+BACKLIGHT_ENABLE ?= yes
+VISUALIZER_ENABLE ?= yes
+
+include $(KEYBOARD_PATH)/drivers/gdisp/IS31FL3731C/driver.mk
