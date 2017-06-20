@@ -39,7 +39,7 @@
 #----------------------------------------------------------------------------
 
 # Target file name (without extension).
-TARGET ?= usb_usb
+# TARGET ?= usb_usb
 
 TMK_DIR ?= ../../tmk_core
 
@@ -108,6 +108,8 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #OPT_DEFS += -DNO_ACTION_LAYER
 #OPT_DEFS += -DNO_ACTION_MACRO
 
+CUSTOM_MATRIX=yes
+
 SRC = matrix.cpp
 
 #
@@ -143,7 +145,7 @@ SRC = matrix.cpp
 
 
 
-include $(TMK_DIR)/protocol/usb_hid.mk
-include $(TMK_DIR)/protocol/lufa.mk
+# include $(TMK_DIR)/protocol/usb_hid.mk
+# include $(TMK_DIR)/protocol/lufa.mk
 # include $(TMK_DIR)/common.mk
 # include $(TMK_DIR)/rules.mk
