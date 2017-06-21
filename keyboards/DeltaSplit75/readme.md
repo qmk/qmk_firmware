@@ -8,6 +8,9 @@ Credit to ahtn and wootpatoot for work on the split keyboard firmware
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
+## Case Files
+Files are available here: https://github.com/xyxjj/DeltaSplit75-Case-files
+
 
 ## First Time Setup
 
