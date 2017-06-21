@@ -181,11 +181,11 @@ int i2c_transaction(void) {
         *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_NACK);
 	*/
 
-	i2c_master_read(I2C_ACK);
+	// i2c_master_read(I2C_ACK);
 	matrix[slaveOffset+0] = i2c_master_read(I2C_ACK);
-	i2c_master_read(I2C_ACK);
+	// i2c_master_read(I2C_ACK);
 	matrix[slaveOffset+1] = i2c_master_read(I2C_ACK);
-	i2c_master_read(I2C_ACK);
+	// i2c_master_read(I2C_ACK);
 	matrix[slaveOffset+2] = i2c_master_read(I2C_NACK);
 
         i2c_master_stop();
@@ -255,12 +255,17 @@ void matrix_slave_scan(void) {
     // SLAVE_BUFFER_SIZE is from i2c.h
     // (MATRIX_ROWS/2*sizeof(matrix_row_t))
     // memcpy((void*)i2c_slave_buffer, (const void*)&matrix[offset], (ROWS_PER_HAND*sizeof(matrix_row_t)));
-    i2c_slave_buffer[0] = (uint8_t)matrix[offset+0];
+    i2c_slave_buffer[0] = (uint8_t)(matrix[offset+0]);
+    i2c_slave_buffer[1] = (uint8_t)(matrix[offset+1]);
+    i2c_slave_buffer[2] = (uint8_t)(matrix[offset+2]);
+    // note: looks like a possible operator-precedence bug here, in last version?
+    /*
     i2c_slave_buffer[1] = (uint8_t)matrix[offset+0];
     i2c_slave_buffer[2] = (uint8_t)(matrix[offset+1]>>8);
     i2c_slave_buffer[3] = (uint8_t)(matrix[offset+1]>>8);
     i2c_slave_buffer[4] = (uint8_t)(matrix[offset+2]>>8);
     i2c_slave_buffer[5] = (uint8_t)matrix[offset+2];
+    */
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
