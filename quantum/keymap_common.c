@@ -124,7 +124,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             mod = mod_config((keycode >> 0x8) & 0x1F);
-            action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
+            action.code = ACTION_MODS_TAP_KEY(mod, keycode & (~(0x1F << 8)));
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_0 ... BL_15:
