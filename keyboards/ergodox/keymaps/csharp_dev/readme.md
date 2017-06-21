@@ -16,7 +16,8 @@ The biggest flaw in standard QWERTY keyboards was that I always needed to perfor
 
 Then I came across the ErgoDox EZ project, that allowed a full customization of its firmware, and a unique 2 parts design.
 
-![CSharpDev](csharp_dev_legend.png)
+![CSharpDev](https://i.imgur.com/PkNqi7V.png)
+![CSharpDev](https://i.imgur.com/0IcMgMf.png)
 
 ## Layout design principles
 * No key combination required for the most common input characters ( (),[],{},<> ... )
