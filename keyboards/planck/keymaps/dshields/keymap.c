@@ -25,10 +25,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [DEF] = {
-        {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,  KC_BSPC, KC_Y,    KC_U,    KC_I,    KC_O,   KC_P},
-        {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,  KC_ENT,  KC_H,    KC_J,    KC_K,    KC_L,   TD_SCLN},
-        {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OSM_SFT, DM_PLAY, KC_N,    KC_M,    TD_COMM, TD_DOT, TD_SLSH},
-        {OSM_CTL, KC_LGUI, OSM_ALT, OSL_FUN, OSL_LWR, KC_SPC,  KC_SPC,  OSL_RSE, KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT}
+        {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,  KC_BSPC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
+        {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,  KC_ENT,  KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN},
+        {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OSM_SFT, DM_PLAY, KC_N,    KC_M,    TD_COMM, TD_DOT,  TD_SLSH},
+        {OSM_CTL, KC_LGUI, OSM_ALT, OSL_FUN, OSL_LWR, KC_SPC,  KC_SPC,  OSL_RSE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
     },
     /* Lower
      * ,-----------------------------------------------------------------------------------.
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN},
         {KC_TILD, _______, _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, _______, KC_LCBR, KC_RCBR},
         {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DQUO, KC_PIPE},
-        {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
+        {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END }
     },
     /* Raise
      * ,-----------------------------------------------------------------------------------.
@@ -59,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [RSE] = {
-        {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0},
+        {KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   },
         {KC_GRV,  _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  _______, KC_LBRC, KC_RBRC},
         {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_QUOT, KC_BSLS},
-        {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
+        {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END }
     },
     /* Function
      * ,-----------------------------------------------------------------------------------.
@@ -76,17 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [FUN] = {
-        {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,   KC_DEL,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10},
+        {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,   KC_DEL,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10 },
         {KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R},
         {BL_TOGG, BL_STEP, _______, _______, _______, DM_STRT, DM_STOP, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3},
         {_______, _______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R}
     },
-
-};
-
-void tap(uint16_t keycode) {
-    register_code16(keycode);
-    unregister_code16(keycode);
 };
 
 void tap_dance_triple(qk_tap_dance_state_t *state, void *user_data) {
@@ -96,25 +90,22 @@ void tap_dance_triple(qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count) {
         case 2:
             register_code(KC_LSFT);
-            tap(keycode);
+            TAP(keycode);
             unregister_code(KC_LSFT);
             break;
-        case 3:
+        case 3: // fall through
             if (pair->kc2) {
                 keycode = pair->kc2;
             }
-            tap(keycode);
-            tap(keycode);
-            break;
+            TAP(keycode);
         default:
-            tap(keycode);
-            break;
+            TAP(keycode);
     }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TDK_SCLN]  = ACTION_TAP_DANCE_FN_KEYCODE2(tap_dance_triple, KC_SCLN, KC_COLN),
-    [TDK_COMM]  = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_COMM),
+    [TDK_COMM]  = ACTION_TAP_DANCE_FN_KEYCODE2(tap_dance_triple, KC_COMM, KC_LABK),
     [TDK_DOT]   = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_DOT),
     [TDK_SLSH]  = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_SLSH)
 };
@@ -124,8 +115,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     return true;
-}
-
-void matrix_init_user(void) {
 }
 

@@ -37,6 +37,7 @@
 #define TD_DOT  TD(TDK_DOT)
 #define TD_SLSH TD(TDK_SLSH)
 
+// macros
 #define ACTION_TAP_DANCE_FN_KEYCODE(user_fn, kc) {  \
     .fn = { NULL, user_fn, NULL }, \
     .user_data = (void *)&((qk_tap_dance_pair_t) { kc, 0 }) \
@@ -47,6 +48,7 @@
     .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }) \
 }
 
+#define TAP(keycode) register_code16(keycode); unregister_code16(keycode)
 
 #endif
 
