@@ -6,6 +6,7 @@ This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
+**Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
 
 ## Build Guide
 
@@ -90,11 +91,11 @@ and modify the `matrix.c` accordingly.
 
 The wiring for serial:
 
-![serial wiring](imgs/split-keyboard-serial-schematic.png)
+![serial wiring](https://i.imgur.com/C3D1GAQ.png)
 
 The wiring for i2c:
 
-![i2c wiring](imgs/split-keyboard-i2c-schematic.png)
+![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
 
 The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is

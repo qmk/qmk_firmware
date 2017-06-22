@@ -35,6 +35,9 @@ bool led_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t*
 bool led_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
 bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
 
+bool led_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
+
 extern keyframe_animation_t led_test_animation;
 
 

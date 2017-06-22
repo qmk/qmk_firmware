@@ -22,3 +22,5 @@ especially considered.
 * Shift lock is indicated using first LED.
 * Arrow keys layer is indicated using second LED.
 * Mouse keys layer is indicated using third LED.
+
+![videck.png](https://i.imgur.com/kw0CwuB.png)

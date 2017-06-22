@@ -53,3 +53,6 @@ This keymap contains a dvorak implementation as well as media and symbol layers.
 
 Run `make dvorak` while in the `kinesis_stapelberg` working directory.
 
+![controller board](https://i.imgur.com/2ZPMwvZ.jpg)
+![exterior reset](https://i.imgur.com/JNoxI40.jpg)
+![teensy detail](https://i.imgur.com/HrkGUjc.jpg)
