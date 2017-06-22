@@ -19,8 +19,9 @@
 * [FAQ: Compiling QMK](faq_build.md)
   
 ### For hardware makers and modders
-* [Modding your keyboard](modding_your_keyboard.md)
+* [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
 * [Porting your keyboard to QMK](porting_your_keyboard_to_qmk.md)
+* [Modding your keyboard](modding_your_keyboard.md)
 * [Adding features to QMK](adding_features_to_qmk.md)
   
 ### Other topics
