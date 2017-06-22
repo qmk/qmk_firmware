@@ -212,8 +212,8 @@ void press_enter(void) {
 
 void press_underscore(void) {
   if(shift_count > 0) unregister_code (KC_LSHIFT);
-  register_code (BP_UNDS);
-  unregister_code (BP_UNDS);
+  register_code ((unsigned char) BP_UNDS);
+  unregister_code ((unsigned char) BP_UNDS);
   if(shift_count > 0) register_code (KC_LSHIFT);
 }
 
