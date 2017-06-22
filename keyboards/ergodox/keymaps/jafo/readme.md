@@ -17,4 +17,4 @@ manager, so I made these changes:
 - Making the Ctrl (held) and Esc (tap) on my thumbs symmetric.  Not sure I
   need that with the Esc left of A and Ctrl on the Z and / keys when held...
 
-![Jafo](jafo_highres.png)
+![Jafo](https://i.imgur.com/ISEc630.png)

@@ -8,4 +8,4 @@
   * Shortcut for shush (Hyper+m)
   * Combo modifier for LGUI + LALT
 
-![Plums](plums.png)
+![Plums](https://i.imgur.com/0HkgLvb.png)
