@@ -34,7 +34,7 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define ISSI_ADDR_1 0b1110100
-#define ISSI_ADDR_2 0b1110101
+#define ISSI_ADDR_2 0b1110110
 
 #define BACKLIGHT_EFFECT_MAX 9
 
@@ -115,10 +115,10 @@ void map_led_to_point( uint8_t index, Point *point )
 // Note: Left spacebar stab is at 4,3 (LC7)
 // Right spacebar stab is at 4,9 (D14)
 //
-//  A3,  A4,  A5,  B3,  B4,  B5,      C3,  C4,  C5,  D3,  D4,  D5,
-//  A6,  A7,  A8,  B6,  B7,  B8,      C6,  C7,  C8,  D6,  D7,  B8,
-//  A9, A10, A11,  B9, B10, B11,      C9, C10, C11,  D9, D10, D11,
-// A12, A13, A14, B12, B13,  --, B15, --, C13, C14, D12, D13, D14,
+//  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
+//  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
+//  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
+// A12, A13, A14, B12, B13, B15, --, C13, C14, D12, D13, D14,
 
 const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{  0+3,   0+4,   0+5,  18+3,  18+4,  18+5, 36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
@@ -130,16 +130,10 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 // Note: Left spacebar stab is at 4,3 (LC6)
 // Right spacebar stab is at 4,9 (LD13) or 4,10 (LD14)
 //
-// A17, A16, A15, A14, A13, A12, A11, A10,  A9,  B0,  B1,  B2,  B3,  B4,
-//  A7,  A6,  A5,  A4,  A3,  A2,  A1,  A0,  B9, B10, B11, B12, B13, B14,
-//  A8, C14, C13, C12, C11, C10,  C9,  D0,  D1,  D2,  D3,  D4,  D5,  B5,
-// C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8,
-// C17,  C8,  C7,  C6, ---, ---, ---,  C0, ---, D13, D14, D15, D16, D17,
-
-//  A3,  A4,  A5,  B3,  B4,  B5,      C3,  C4,  C5,  D3,  D4,  D5,
-//  A6,  A7,  A8,  B6,  B7,  B8,      C6,  C7,  C8,  D6,  D7,  B8,
-//  A9, A10, A11,  B9, B10, B11,      C9, C10, C11,  D9, D10, D11,
-// A12, A13, A14, B12, B13, B14, --, C12, C13, C14, D12, D13, D14,
+//  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
+//  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
+//  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
+// A12, A13, A14, B12, B13, B14, C12, C13, C14, D12, D13, D14,
 
 const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{  0+3,  0+4,  0+5,  18+3,  18+4,  18+5,  36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
@@ -159,12 +153,51 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 }
 
 void matrix_init_kb(void) {
+
+	// Initialize LED drivers for backlight.
+	backlight_init_drivers();
+	
+	backlight_timer_init();
+	backlight_timer_enable();
+
 	// Turn status LED on
 	DDRD |= (1<<6);
 	PORTD |= (1<<6);
 
 	matrix_init_user();
 }
+
+uint16_t backlight_task_counter = 0;
+
+void matrix_scan_kb(void)
+{
+
+	if (backlight_task_counter == 0)
+		backlight_rgb_task();
+	backlight_task_counter = ((backlight_task_counter + 1) % 20);
+
+	// This only updates the LED driver buffers if something has changed.
+	backlight_update_pwm_buffers();
+
+	matrix_scan_user();
+}
+
+void led_set_kb(uint8_t usb_led)
+{
+	backlight_set_indicator_state(usb_led);
+	//backlight_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
+}
+
+void suspend_power_down_kb(void)
+{
+	backlight_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_kb(void)
+{
+	backlight_set_suspend_state(false);
+}
+
 
 void backlight_update_pwm_buffers(void)
 {
@@ -194,11 +227,11 @@ void backlight_set_key_hit(uint8_t row, uint8_t column)
 // This is (F_CPU/1024) / 20 Hz
 // = 15625 Hz / 20 Hz
 // = 781
-#define TIMER3_TOP 781
+// #define TIMER3_TOP 781
 
 void backlight_timer_init(void)
 {
-	/*
+	
 	static uint8_t backlight_timer_is_init = 0;
 	if ( backlight_timer_is_init )
 	{
@@ -207,16 +240,16 @@ void backlight_timer_init(void)
 	backlight_timer_is_init = 1;
 
 	// Timer 3 setup
-	TCCR3B = _BV(WGM32) | 			// CTC mode OCR3A as TOP
-			 _BV(CS32) | _BV(CS30); // prescale by /1024
+	//TCCR3B = _BV(WGM32) | 			// CTC mode OCR3A as TOP
+	//		 _BV(CS32) | _BV(CS30); // prescale by /1024
 	// Set TOP value
-	uint8_t sreg = SREG;
-	cli();
+	//uint8_t sreg = SREG;
+	//cli();
 
-	OCR3AH = (TIMER3_TOP >> 8) & 0xff;
-	OCR3AL = TIMER3_TOP & 0xff;
-	SREG = sreg;
-	*/
+	//OCR3AH = (TIMER3_TOP >> 8) & 0xff;
+	//OCR3AL = TIMER3_TOP & 0xff;
+	//SREG = sreg;
+	
 }
 
 void backlight_timer_enable(void)
@@ -615,7 +648,7 @@ void backlight_effect_indicators(void)
 	}
 }
 
-void backlight_task(void) {
+void backlight_rgb_task(void) {
 	// delay 1 second before driving LEDs or doing anything else
 	static uint8_t startup_tick = 0;
 	if ( startup_tick < 20 )
@@ -738,7 +771,7 @@ void backlight_config_save(void)
 
 void backlight_init_drivers(void)
 {
-	sei();
+	//sei();
 
 	// Initialize TWI
 	TWIInit();
@@ -747,28 +780,7 @@ void backlight_init_drivers(void)
 
 	for ( int index = 0; index < 72; index++ )
 	{
-		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
-		// LC6 LD13 not present on Zeal65
-#ifdef CONFIG_ZEAL65
-		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
-						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
-						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
-						  ( index == 36+6 ) || // LC6
-						  ( index == 54+13 ) ); // LD13
-#else
-
-		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60
-		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
-						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
-						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
-						  ( index == 54+13 && g_config.use_7u_spacebar ) || // LD13
-						  ( index == 18+6 ) || // LB6
-						  ( index == 18+7 ) || // LB7
-						  ( index == 18+8 ) || // LB8
-						  ( index == 18+15 ) || // LB15
-						  ( index == 18+16 ) || // LB16
-						  ( index == 18+17 ) ); // LB17
-#endif
+		bool enabled = true;
 		// This only caches it for later
 		IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
 	}
@@ -920,16 +932,16 @@ uint32_t backlight_get_tick(void)
 
 void backlight_debug_led( bool state )
 {
-	if (state)
-	{
-		// Output high.
-		DDRE |= (1<<6);
-		PORTE |= (1<<6);
-	}
-	else
-	{
-		// Output low.
-		DDRE &= ~(1<<6);
-		PORTE &= ~(1<<6);
-	}
+	// if (state)
+	// {
+	// 	// Output high.
+	// 	DDRD |= (1<<6);
+	// 	PORTD |= (1<<6);
+	// }
+	// else
+	// {
+	// 	// Output low.
+	// 	DDRD &= ~(1<<6);
+	// 	PORTD &= ~(1<<6);
+	// }
 }

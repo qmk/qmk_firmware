@@ -56,6 +56,9 @@ typedef struct
 // 35+36=71
 #define EEPROM_BACKLIGHT_KEY_COLOR_ADDR ((void*)71)
 
+
+void backlight_effect_single_LED_test(void);
+
 void backlight_config_set_alphas_mods( uint16_t *value );
 void backlight_config_load(void);
 void backlight_config_save(void);
@@ -68,6 +71,9 @@ void backlight_timer_disable(void);
 
 void backlight_set_suspend_state(bool state);
 void backlight_set_indicator_state(uint8_t state);
+
+
+void backlight_rgb_task(void);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
