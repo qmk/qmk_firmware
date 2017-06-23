@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      |      |      |  F10 |           |  F11 |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  L2  |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       | F12  |GoToIm|  FAR |      |      |
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F10,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(SYMB),
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                                                              M(FORMAT),M(BUILD),
                                                                                        M(REFACTOR),
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |         |   !  |   @  |   (  |   )  |   |  |ACCESS|           |ACCESS|   Up |   7  |   8  |   9  |   *  |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   {  |   }  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |---------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
  * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |   0  |   0  |   .  |   =  |      |
@@ -324,17 +324,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
           break;
         case BUILD:
-          if (record->event.pressed) {
+          if (record->event.pressed) { // VS Build. Sends CTRL+SHFT+B
             return MACRO(D(LCTL), D(LSFT), T(B), U(LSFT), U(LCTL), END);
           }
           break;
         case GO_TO_IMPL:
-          if (record->event.pressed) {
+          if (record->event.pressed) { // VS Go To Implementation. Sends CTRL+F12
             return MACRO(D(LCTL), T(F12), U(LCTL), END);
           }
           break;
         case FIND_ALL_REF:
-          if (record->event.pressed) {
+          if (record->event.pressed) { // VS Find All References. Sends CTRL+K, R
             return MACRO(D(LCTL), T(K), U(LCTL), T(R), END);
           }
           break;
