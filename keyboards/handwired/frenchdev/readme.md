@@ -11,7 +11,7 @@ http://imgur.com/a/R0vvs
 
 to build :
 
-    docker run --rm -e keymap=default -e subproject=v1 -e keyboard=frenchdev --rm -v D:/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+    docker run --rm -e keymap=default -e keyboard=frenchdev --rm -v D:/Repositories/qmk:/qmk:rw edasque/qmk_firmware
     
 
 The PHYSICAL rows and columns are connected as such :
@@ -60,3 +60,5 @@ and on left hand (main) :
 we use pull up resistor for SCL et VDA, see https://github.com/ErgoDox-EZ/docs/blob/master/ErgoDox%20EZ%20Schematic.pdf for example
 
 the connector is a standard TRRS (jack with audio + mic)
+
+Diode direction is row to column
