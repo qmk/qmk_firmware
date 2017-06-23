@@ -23,12 +23,17 @@ enum custom_macros {
   DLEFT,
   DRIGHT,
   PSCREEN_APP,
+  LSFT_TAB,
 
   // VS Macros
   REFACTOR,
   TEST,
   DEBUG_TEST,
   FORMAT,
+  BUILD,
+  GO_TO_IMPL,
+  FIND_ALL_REF,
+  REMOVE_SORT_USINGS,
 
   // KeePass macros
   KEEPASS_OPEN,
@@ -61,11 +66,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |LCTRL |  F4  |  F5  | LGUI | LALT |                                       | Left | Down |  Up  | Right| RGUI |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Home | End  |       | Alt  |Ctrl/Esc|
+ *                                        | Copy | Paste|       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | PgUp |       | PgDn |        |      |
  *                                 | Bcksp|OSL(2)|------|       |------|  Ent   |Space |
- *                                 |      |      | Del  |       |OSL(2)|        |      |
+ *                                 |      |      | Del  |       | RCtrl|        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -75,20 +80,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,        KC_1,         KC_2,   KC_3,   KC_4,          KC_5,   KC_EQL,
         KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,          KC_T,   TG(SYMB),
         KC_ESC,        KC_A,         KC_S,   KC_D,   LT(MOVE, KC_F),KC_G,
-        KC_LSFT,       CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,          KC_B,   TG(CODE),
-        KC_LCTRL,      KC_F4,        KC_F5,  KC_LGUI,KC_LALT,
-                                                                             KC_HOME,  KC_END,
-                                                                                       KC_PGUP,
-                                                                     KC_BSPC,OSL(SYMB),KC_DEL,
+        OSM(MOD_LSFT), CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,          KC_B,   TG(CODE),
+        OSM(MOD_LCTL), KC_F4,        KC_F5,  KC_LGUI,KC_LALT,
+                                                                             LCTL(KC_C),LCTL(KC_V),
+                                                                                        KC_PGUP,
+                                                                     KC_BSPC,OSL(SYMB), KC_DEL,
         // right hand
              TG(CODE),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,                  KC_MINS,
              TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,                  KC_BSLS,
                           KC_H,   KC_J,   KC_K,   KC_L,   TD(TD_SEMICOLON_COLON),KC_QUOT,
-             MO(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        KC_RSFT,
+             MO(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        OSM(MOD_RSFT),
                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,          KC_RGUI,
-             KC_RALT,        CTL_T(KC_ESC),
+             KC_RALT, CTL_T(KC_ESC),
              KC_PGDN,
-             OSL(SYMB),KC_ENT, KC_SPC
+             KC_RCTL, KC_ENT, KC_SPC
     ),
 /* Keymap 1: Code Layer
  *
@@ -98,15 +103,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      |      |      |  F10 |           |  F11 |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  L2  |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       | F12  |GoToIm|  FAR |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |Format|      |       | Test | DTest  |
+ *                                        |Format|Build |       | Test | DTest  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |Refact|       |      |        |      |
+ *                                 |      |      |Refact|       |Sort U|        |      |
  *                                 |      |      |------|       |------|        |      |
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
@@ -118,20 +123,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F10,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(SYMB),
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                                                             M(FORMAT), KC_TRNS,
-                                                                                      M(REFACTOR),
-                                                                    KC_TRNS, KC_TRNS, KC_TRNS,
+                                                                             M(FORMAT),M(BUILD),
+                                                                                       M(REFACTOR),
+                                                                    KC_TRNS, KC_TRNS,  KC_TRNS,
         // right hand
 
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_F11,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+            KC_F11,  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+                     KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
+                              KC_F12,  M(GO_TO_IMPL),M(FIND_ALL_REF),KC_TRNS, KC_TRNS,
              M(TEST), M(DEBUG_TEST),
-             KC_TRNS,
+             M(REMOVE_SORT_USINGS),
              KC_TRNS, KC_TRNS, KC_TRNS
     ),
 /* Keymap 2: Symbol Layer
@@ -142,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |         |   !  |   @  |   (  |   )  |   |  |ACCESS|           |ACCESS|   Up |   7  |   8  |   9  |   *  |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   #  |   $  |   {  |   }  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |---------+------+------+------+------+------|ACCESS|           |      |------+------+------+------+------+--------|
  * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |   0  |   0  |   .  |   =  |      |
@@ -190,9 +195,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      | Lclk | Rclk |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       | Vol+ |      |
+ *                                        | Back+| Back-|       | Vol+ |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       | Vol- |      |      |
+ *                                 |      |      |BackTg|       | Vol- |      |      |
  *                                 |      |      |------|       |------| PL/PS| Next |
  *                                 |      |      |      |       | Back |      |      |
  *                                 `--------------------'       `--------------------'
@@ -204,8 +209,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
+                                           BL_INC,  BL_DEC,
+                                                    BL_TOGG,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -222,39 +227,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |KOpen |KType |      |      |      |      |           |      | Copy |      |      |      | Paste|        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |DLeft |DRight|LShift|ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
+ * |        |DLeft |DRight|LCTRL |ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |SFT_TB| TAB  |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      |      |       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      | CTRL |------|       |------|      |      |
+ *                                 |      |LSHIFT|------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [MOVE] = KEYMAP(
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LSFT, KC_TRNS, KC_TRNS,
        KC_TRNS, M(KEEPASS_OPEN),M(KEEPASS_TYPE),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LCTL, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(LSFT_TAB),    KC_TAB,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,
                                              KC_TRNS, KC_TRNS,
                                                       KC_TRNS,
-                                    KC_TRNS, KC_LCTRL,KC_TRNS,
+                                    KC_TRNS, KC_LSFT, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
+       KC_TRNS,  LCTL(KC_C),KC_TRNS, KC_TRNS, KC_TRNS, LCTL(KC_V),KC_TRNS,
+                 KC_LEFT,   KC_DOWN, KC_UP,   KC_RIGHT,KC_TRNS,   KC_TRNS,
+       KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
+                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
+       KC_HOME,  KC_END,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 
@@ -291,9 +296,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           break;
         case PSCREEN_APP:
           if (record->event.pressed) {
-            return MACRO(D(LALT), T(PSCR), U(LALT));
+            return MACRO(D(LALT), T(PSCR), U(LALT), END);
           }
           break;
+        case LSFT_TAB:
+          if (record->event.pressed) {
+            return MACRO(D(LSFT), T(TAB), U(LSFT), END);
+          }
         case REFACTOR:
           if (record->event.pressed) { // VS Refactor CTRL+R, R
             return MACRO(D(LCTL), T(R), U(LCTL), T(R), END);
@@ -312,6 +321,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case FORMAT:
           if (record->event.pressed) { // VS Format Document, CTRL+K, CTRL+D
             return MACRO(D(LCTL), T(K), T(D), U(LCTL), END);
+          }
+          break;
+        case BUILD:
+          if (record->event.pressed) { // VS Build. Sends CTRL+SHFT+B
+            return MACRO(D(LCTL), D(LSFT), T(B), U(LSFT), U(LCTL), END);
+          }
+          break;
+        case GO_TO_IMPL:
+          if (record->event.pressed) { // VS Go To Implementation. Sends CTRL+F12
+            return MACRO(D(LCTL), T(F12), U(LCTL), END);
+          }
+          break;
+        case FIND_ALL_REF:
+          if (record->event.pressed) { // VS Find All References. Sends CTRL+K, R
+            return MACRO(D(LCTL), T(K), U(LCTL), T(R), END);
+          }
+          break;
+        case REMOVE_SORT_USINGS:
+          if (record->event.pressed) {
+            return MACRO(D(LCTL), T(R), T(G), U(LCTL), END);
           }
           break;
         case KEEPASS_OPEN:
