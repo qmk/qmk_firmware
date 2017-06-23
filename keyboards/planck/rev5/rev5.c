@@ -24,6 +24,7 @@
 #include "config.h"
 #include "IS31FL3731_driver.h"
 #include "eeprom.h"
+#include "lufa.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -773,9 +774,6 @@ void backlight_init_drivers(void)
 		g_key_hit[led] = 255;
 	}
 }
-
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 // Deals with the messy details of incrementing an integer
 uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max )
