@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_DTRM,                                        BP_DCRC, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
   KC_TAB,  BP_B,    BP_ECUT, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
   BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_APOS, \
-  M(M_SF), BP_Z,    BP_AGRV, BP_Y,    BP_X,    BP_W,    M(M_SFS), BP_CBSP, M(L2INS), M(L2LOC), BP_CDEL, M(M_SFS),BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M(M_SF), \
+  M(M_SF), BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRACKET,    M(M_SFS), BP_CBSP, M(L2INS), M(L2LOC), BP_CDEL, M(M_SFS),BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M(M_SF), \
   KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M(M_L1E), KC_LALT,                     KC_CAPS, M(M_L1E),KC_SPACE,KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
   //left pedals
   M(M_LP), M(M_RP), KC_TRNS, \

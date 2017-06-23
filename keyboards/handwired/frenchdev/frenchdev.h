@@ -105,7 +105,7 @@ inline void ergodox_led_all_set(uint8_t n)
     \
     { k57,   k47,  k37,   PL1,   PL2,   PL3   },   \
     { k56,   k46,  k36,   k26,   k16,   k06   },   \
-    { k55,   k44,  k35,   k25,   k15,   k05   },   \
+    { k55,   k45,  k35,   k25,   k15,   k05   },   \
     { k54,   k44,  k34,   k24,   k14,   k04   },   \
     { k53,   k43,  k33,   k23,   k13,   k03   },   \
     { k52,   k42,  k32,   k22,   k12,   k02   },   \

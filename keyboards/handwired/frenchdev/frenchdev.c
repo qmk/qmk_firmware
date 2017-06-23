@@ -1,4 +1,4 @@
-#include "v1.h"
+#include "frenchdev.h"
 #include "i2cmaster.h"
 
 bool i2c_initialized = 0;
