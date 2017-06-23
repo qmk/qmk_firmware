@@ -1,6 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 201 Nicolas Poirey <nicolas.poirey@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,15 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef FRENCHDEV_V1_CONFIG_H
 #define FRENCHDEV_V1_CONFIG_H
 
-#include "../config.h"
-
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1307
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Sacapuces
+#define MANUFACTURER    Nicolas Poirey
 #define PRODUCT         Frenchdev V1
 #define DESCRIPTION     QMK keyboard firmware for Frenchdev
 
@@ -45,6 +42,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE    5
 
 #define USB_MAX_POWER_CONSUMPTION 500
+
+#define MOUSEKEY_INTERVAL       20
+#define MOUSEKEY_DELAY          0
+#define MOUSEKEY_TIME_TO_MAX    5
+#define MOUSEKEY_MAX_SPEED      2
+#define MOUSEKEY_WHEEL_DELAY 0
+
+#define TAPPING_TOGGLE  1
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
+
+#define TAPPING_TERM    200
+#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
+    keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
+)
 
 /*
  * Feature disable options
@@ -65,4 +82,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
 
-#endif
+#endif //FRENCHDEV_V1_CONFIG_H
