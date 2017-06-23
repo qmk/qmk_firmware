@@ -10,7 +10,7 @@
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 #define CPU_16MHz       0x00
 
-// I2C aliases and register addresses (see "mcp23018.md")
+// I2C aliases and register addresses (see "mcp23018.md" on tmk repository)
 #define I2C_ADDR        0b0100000
 #define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
 #define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
@@ -25,57 +25,56 @@
 
 extern uint8_t mcp23018_status;
 
-void init_ergodox(void);
-void ergodox_blink_all_leds(void);
+void init_frenchdev(void);
+void frenchdev_blink_all_leds(void);
 uint8_t init_mcp23018(void);
-uint8_t ergodox_left_leds_update(void);
 
 #define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 
 
-inline void ergodox_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
-inline void ergodox_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void ergodox_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
-inline void ergodox_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
-inline void ergodox_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
+inline void frenchdev_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
+inline void frenchdev_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
+inline void frenchdev_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
+inline void frenchdev_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
+inline void frenchdev_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
 
-inline void ergodox_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
-inline void ergodox_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
-inline void ergodox_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
-inline void ergodox_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-inline void ergodox_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
+inline void frenchdev_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
+inline void frenchdev_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
+inline void frenchdev_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
+inline void frenchdev_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
+inline void frenchdev_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
 
-inline void ergodox_led_all_on(void)
+inline void frenchdev_led_all_on(void)
 {
-    ergodox_board_led_on();
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
+    frenchdev_board_led_on();
+    frenchdev_led_1_on();
+    frenchdev_led_2_on();
+    frenchdev_led_3_on();
 }
 
-inline void ergodox_led_all_off(void)
+inline void frenchdev_led_all_off(void)
 {
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
+    frenchdev_board_led_off();
+    frenchdev_led_1_off();
+    frenchdev_led_2_off();
+    frenchdev_led_3_off();
 }
 
-inline void ergodox_right_led_1_set(uint8_t n)    { OCR1A = n; }
-inline void ergodox_right_led_2_set(uint8_t n)    { OCR1B = n; }
-inline void ergodox_right_led_3_set(uint8_t n)    { OCR1C = n; }
-inline void ergodox_right_led_set(uint8_t led, uint8_t n)  {
+inline void frenchdev_led_1_set(uint8_t n)    { OCR1A = n; }
+inline void frenchdev_led_2_set(uint8_t n)    { OCR1B = n; }
+inline void frenchdev_led_3_set(uint8_t n)    { OCR1C = n; }
+inline void frenchdev_led_set(uint8_t led, uint8_t n)  {
     (led == 1) ? (OCR1A = n) :
     (led == 2) ? (OCR1B = n) :
                  (OCR1C = n);
 }
 
-inline void ergodox_led_all_set(uint8_t n)
+inline void frenchdev_led_all_set(uint8_t n)
 {
-    ergodox_right_led_1_set(n);
-    ergodox_right_led_2_set(n);
-    ergodox_right_led_3_set(n);
+    frenchdev_led_1_set(n);
+    frenchdev_led_2_set(n);
+    frenchdev_led_3_set(n);
 }
 
 #define KEYMAP(                                                 \

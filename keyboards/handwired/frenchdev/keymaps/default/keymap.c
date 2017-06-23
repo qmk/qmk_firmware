@@ -374,18 +374,18 @@ uint8_t old_layer=_BASE;
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
+    frenchdev_led_1_off();
+    frenchdev_led_2_off();
     switch (layer) {
         case _BASE:
-            ergodox_right_led_2_on();
+            frenchdev_led_2_on();
             break;
         case _SYMBOLS:
-            ergodox_right_led_1_on();
+            frenchdev_led_1_on();
             break;
         case _MEDIA:
-           ergodox_right_led_1_on();
-           ergodox_right_led_2_on();
+           frenchdev_led_1_on();
+           frenchdev_led_2_on();
         default:
             // none
             break;
@@ -399,9 +399,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)){
-    ergodox_right_led_3_on();
+    frenchdev_led_3_on();
   } else {
-    ergodox_right_led_3_off();
+    frenchdev_led_3_off();
   }
   return ;
 }
