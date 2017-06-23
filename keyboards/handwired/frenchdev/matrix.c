@@ -1,15 +1,17 @@
 /*
 
+Note to self: adapted from ergodox EZ matrix
+The "column" and "row" in here actually refers to the opposite on the keyboard
+see definition of KEYMAP in v1.h, the grid is transposed so that a "row" in here is actually a "column" on the physical keyboard
+Nicolas
+
 Note for ErgoDox EZ customizers: Here be dragons!
 This is not a file you want to be messing with.
 All of the interesting stuff for you is under keymaps/ :)
 Love, Erez
 
-Note to self, the "column" and "row" in here actually refers to the opposite on the keyboard
-see definition of KEYMAP in v1.h, the grid is transposed so that a "row" in here is actually a "column" on the physical keyboard
-Nicolas
-
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2013 Nicolas Poirey <nicolas.poirey@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -164,7 +166,7 @@ uint8_t matrix_scan(void)
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                ergodox_blink_all_leds();
+                frenchdev_blink_all_leds();
             }
         }
     }
