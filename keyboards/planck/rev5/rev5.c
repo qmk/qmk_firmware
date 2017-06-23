@@ -158,6 +158,14 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 	}
 }
 
+void matrix_init_kb(void) {
+	// Turn status LED on
+	DDRD |= (1<<6);
+	PORTD |= (1<<6);
+
+	matrix_init_user();
+}
+
 void backlight_update_pwm_buffers(void)
 {
 	IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, ISSI_ADDR_2 );
@@ -190,6 +198,7 @@ void backlight_set_key_hit(uint8_t row, uint8_t column)
 
 void backlight_timer_init(void)
 {
+	/*
 	static uint8_t backlight_timer_is_init = 0;
 	if ( backlight_timer_is_init )
 	{
@@ -207,16 +216,17 @@ void backlight_timer_init(void)
 	OCR3AH = (TIMER3_TOP >> 8) & 0xff;
 	OCR3AL = TIMER3_TOP & 0xff;
 	SREG = sreg;
+	*/
 }
 
 void backlight_timer_enable(void)
 {
-	TIMSK3 |= _BV(OCIE3A);
+	//TIMSK3 |= _BV(OCIE3A);
 }
 
 void backlight_timer_disable(void)
 {
-	TIMSK3 &= ~_BV(OCIE3A);
+	//TIMSK3 &= ~_BV(OCIE3A);
 }
 
 void backlight_set_suspend_state(bool state)
@@ -605,8 +615,7 @@ void backlight_effect_indicators(void)
 	}
 }
 
-ISR(TIMER3_COMPA_vect)
-{
+void backlight_task(void) {
 	// delay 1 second before driving LEDs or doing anything else
 	static uint8_t startup_tick = 0;
 	if ( startup_tick < 20 )

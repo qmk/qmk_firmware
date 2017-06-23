@@ -10,6 +10,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
+__attribute__ ((weak))
 void matrix_init_kb(void) {
 	// Turn status LED on
 	DDRE |= (1<<6);
