@@ -271,9 +271,9 @@ void IS31FL3731_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 		map_index_to_led(index, &led);
 
 		// Subtract 0x24 to get the second index of g_pwm_buffer
-		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][0]) - 0x24] = red;
-		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][1]) - 0x24] = green;
-		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][2]) - 0x24] = blue;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.matrix][led.control_index][0]) - 0x24] = red;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.matrix][led.control_index][1]) - 0x24] = green;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.matrix][led.control_index][2]) - 0x24] = blue;
 		g_pwm_buffer_update_required = true;
 	}
 }
