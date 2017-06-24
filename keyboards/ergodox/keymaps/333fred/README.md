@@ -14,7 +14,7 @@
   |LCTRL |  F4  |  F5  | LGUI | LALT |                                       | Left | Down |  Up  | Right| RGUI |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       | Home | End  |       | Alt  |Ctrl/Esc|
+                                       | Copy | Paste|       | Alt  |Ctrl/Esc|
                                 ,------|------|------|       |------+--------+------.
                                 |      |      | PgUp |       | PgDn |        |      |
                                 | Bcksp|OSL(2)|------|       |------|  Ent   |Space |
@@ -32,23 +32,28 @@
 |        |      |      |      |      |      |  F10 |           |  F11 |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
-|--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+|--------+------+------+------+------+------|  L2  |           |      |------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |      |      |      |      |      |                                       |      |      |      |      |      |
+  |      |      |      |      |      |                                       | F12  |GoToIm| FAR  |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,---------------.
-                                       |Format|      |       | Test | DTest  |
+                                       |Format|Build |       | Test | DTest  |
                                 ,------|------|------|       |------+--------+------.
-                                |      |      |Refact|       |      |        |      |
+                                |      |      |Refact|       |Sort U|        |      |
                                 |      |      |------|       |------|        |      |
                                 |      |      |      |       |      |        |      |
                                 `--------------------'       `----------------------'
 ```
-* Format - Visual Studio Format. Sends `CTRL + K, CTRL + D`
-* Refact - Visual Studio Refactor. Sends `CTRL + R, R`
-* Test   - Visual Studio Run Test. Sends `CTRL + R, T`
+* Build  - Visualt Studio Build Solution. Sends `CTRL + SHFT + B`
 * DTest  - Visual Studio Debug Test. Sends `CTRL + R, CTRL + T`
+* FAR    - Visual Studio Find All References. Sends `CTRL + K, R`
+* Format - Visual Studio Format. Sends `CTRL + K, CTRL + D`
+* GoToIm - Visual Studio Go To Implementation. Sends `CTRL + F12`
+* Refact - Visual Studio Refactor. Sends `CTRL + R, R`
+* Sort U - Visual Studio Sort Usings. Sends `CTRL + R, CTRL + G`
+* Test   - Visual Studio Run Test. Sends `CTRL + R, T`
+
 
 ### Keymap 2: Symbol Layer
 ```
@@ -87,9 +92,9 @@
   |      |      |      | Lclk | Rclk |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       |      |      |       | Vol+ |      |
+                                       | Back+| Back-|       | Vol+ |      |
                                 ,------|------|------|       |------+------+------.
-                                |      |      |      |       | Vol- |      |      |
+                                |      |      |BL_TOG|       | Vol- |      |      |
                                 |      |      |------|       |------| PL/PS| Next |
                                 |      |      |      |       | Back |      |      |
                                 `--------------------'       `--------------------'
@@ -100,23 +105,24 @@
 ,--------------------------------------------------.           ,--------------------------------------------------.
 |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-|        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+|        |KOpen |KType |      |      |      |      |           |      | Copy |      |      |      | Paste|        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-|        |DLeft |DRight|LShift|      |      |------|           |------| Left | Down |  Up  | Right|      |        |
+|        |DLeft |DRight| LCTL |      |      |------|           |------| Left | Down |  Up  | Right|      |        |
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-|        |KOpen |KType |      |      |      |      |           |      |      |      |      |      |      |        |
+|        |SFT_TB| Tab  |      |      |      |      |           |      |      |      |      |      |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
   |      |      |      |      |      |                                       |      |      |      |      |      |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       |      |      |       |      |      |
+                                       |      |      |       | Home | End  |
                                 ,------|------|------|       |------+------+------.
                                 |      |      |      |       |      |      |      |
-                                |      | CTRL |------|       |------|      |      |
+                                |      | LSFT |------|       |------|      |      |
                                 |      |      |      |       |      |      |      |
                                 `--------------------'       `--------------------'
 ```
-* DLeft - Move to the left Desktop. Sends `Ctrl + Win + Left Arrow`
+* DLeft  - Move to the left Desktop. Sends `Ctrl + Win + Left Arrow`
 * DRight - Move to the right Desktop. Sends `Ctrl + Win + Right Arrow`
-* KOpen - Opens KeePass. Sends `Ctrl + Alt + k`
-* KType - Autotypes KeePass password. Sends `Ctrl + Alt + a`
+* KOpen  - Opens KeePass. Sends `Ctrl + Alt + k`
+* KType  - Autotypes KeePass password. Sends `Ctrl + Alt + a`
+* SFT_TB - Sends `CTRL + TAB`.
