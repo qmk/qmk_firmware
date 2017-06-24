@@ -82,47 +82,6 @@ const Point g_map_led_to_point[DRIVER_LED_TOTAL] PROGMEM = {
 	{18*9,16*2}, {18*10,16*2}, {18*11,16*2}, {18*9,16*3}, {18*10,16*3}, {18*11,16*3}
 };
 
-const uint8_t g_map_index_to_driver[DRIVER_LED_TOTAL] PROGMEM = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-};
-
-const uint8_t g_map_index_to_driver_index[DRIVER_LED_TOTAL] PROGMEM = {
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
-};
-
-const uint8_t g_map_index_to_matrix[DRIVER_LED_TOTAL] PROGMEM = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-};
-// const uint8_t g_map_index_to_matrix[DRIVER_LED_TOTAL] PROGMEM = {
-// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
-// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
-// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
-// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1
-// };
-// const uint8_t g_map_index_to_matrix_index[DRIVER_LED_TOTAL] PROGMEM = {
-// 	0,  1,  2,  3,  4,  5,  0,  1,  2,  3,  4,  5, 
-// 	6,  7,  8,  9,  10, 11, 6,  7,  8,  9,  10, 11,
-// 	0,  1,  2,  3,  4,  5,  0,  1,  2,  3,  4,  5, 
-// 	6,  7,  8,  9,  10, 11, 6,  7,  8,  9,  10, 11
-// };
-
-const uint8_t g_map_index_to_matrix_index[DRIVER_LED_TOTAL] PROGMEM = {
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11
-};
-
-
 // This may seem counter-intuitive, but it's quite flexible.
 // For each LED, get it's position to decide what color to make it.
 // This solves the issue of LEDs (and switches) not aligning to a grid,
@@ -150,12 +109,19 @@ void map_led_to_point( uint8_t index, Point *point )
 // Maps switch matrix coordinate (row,col) to LED index
 //
 
+// const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+// 	{ 0, 1,  2,  12, 13, 14, 24, 25, 26, 36, 37, 38},
+// 	{ 3, 4,  5,  15, 16, 17, 27, 28, 29, 39, 40, 41},
+// 	{ 6, 7,  8,  18, 19, 20, 30, 31, 32, 42, 43, 44},
+// 	{ 9, 10, 11, 21, 22, 23, 33, 34, 35, 45, 46, 47}
+// };
 const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-	{ 0, 1,  2,  12, 13, 14, 24, 25, 26, 36, 37, 38},
-	{ 3, 4,  5,  15, 16, 17, 27, 28, 29, 39, 40, 41},
-	{ 6, 7,  8,  18, 19, 20, 30, 31, 32, 42, 43, 44},
-	{ 9, 10, 11, 21, 22, 23, 33, 34, 35, 45, 46, 47}
+	{ 0, 1,  2,  3, 4,  5, 6, 7,  8, 9, 10, 11 },
+	{ 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 },
+	{ 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 },
+	{ 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47 }
 };
+
 
 // #ifdef PLANCK_MIT_LAYOUT
 // // Note: Left spacebar stab is at 4,3 (LC7)
@@ -219,8 +185,8 @@ void matrix_scan_kb(void)
 {
 
 	if (backlight_task_counter == 0)
-		backlight_effect_single_LED_test();
-		// backlight_rgb_task();
+		backlight_rgb_task();
+		// backlight_effect_single_LED_test();
 	backlight_task_counter = ((backlight_task_counter + 1) % 20);
 
 	// This only updates the LED driver buffers if something has changed.
