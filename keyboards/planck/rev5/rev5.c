@@ -39,8 +39,8 @@
 #define BACKLIGHT_EFFECT_MAX 9
 
 zeal_backlight_config g_config = {
-	.brightness = 255,
-	.effect = 255, // Default to RGB test, so Zeal can flash and test in one pass!
+	.brightness = 40,
+	.effect = 1, // Default to RGB test, so Zeal can flash and test in one pass!
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
 	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
@@ -174,7 +174,8 @@ void matrix_scan_kb(void)
 
 	if (backlight_task_counter == 0)
 		backlight_rgb_task();
-	backlight_task_counter = ((backlight_task_counter + 1) % 50);
+		// backlight_effect_single_LED_test();
+	backlight_task_counter = ((backlight_task_counter + 1) % 20);
 
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
@@ -280,22 +281,22 @@ void backlight_effect_rgb_test(void)
 	{
 		case 0:
 		{
-			backlight_set_color_all( 255, 0, 0 );
+			backlight_set_color_all( 20, 0, 0 );
 			break;
 		}
 		case 1:
 		{
-			backlight_set_color_all( 0, 255, 0 );
+			backlight_set_color_all( 0, 20, 0 );
 			break;
 		}
 		case 2:
 		{
-			backlight_set_color_all( 0, 0, 255 );
+			backlight_set_color_all( 0, 0, 20 );
 			break;
 		}
 		case 3:
 		{
-			backlight_set_color_all( 255, 255, 255 );
+			backlight_set_color_all( 20, 20, 20 );
 			break;
 		}
 	}
@@ -337,7 +338,7 @@ void backlight_effect_single_LED_test(void)
 
 	uint8_t led;
 	map_row_column_to_led( row, column, &led );
-	backlight_set_color_all( 255, 255, 255 );
+	backlight_set_color_all( 40, 40, 40 );
 	backlight_test_led( led, color==0, color==1, color==2 );
 }
 
