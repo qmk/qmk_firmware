@@ -174,7 +174,7 @@ void matrix_scan_kb(void)
 
 	if (backlight_task_counter == 0)
 		backlight_rgb_task();
-	backlight_task_counter = ((backlight_task_counter + 1) % 20);
+	backlight_task_counter = ((backlight_task_counter + 1) % 50);
 
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
