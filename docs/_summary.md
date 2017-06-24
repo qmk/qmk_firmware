@@ -3,6 +3,7 @@
 * [Introduction](home.md)
 * [QMK Overview](qmk_overview.md)
 * [Build Environment Setup](build_environment_setup.md)
+* [Make instructions](make_instructions.md)
 
 ### Making a keymap
 * [Keymap overview](keymap.md)
