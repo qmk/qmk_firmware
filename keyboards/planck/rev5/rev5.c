@@ -26,16 +26,6 @@
 #include "eeprom.h"
 #include "lufa.h"
 
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 0b1110100 AD <-> GND
-// 0b1110111 AD <-> VCC
-// 0b1110101 AD <-> SCL
-// 0b1110110 AD <-> SDA
-#define ISSI_ADDR_1 0b1110100
-#define ISSI_ADDR_2 0b1110110
-
 #define BACKLIGHT_EFFECT_MAX 9
 
 zeal_backlight_config g_config = {
@@ -66,21 +56,64 @@ uint8_t g_key_hit[49];
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
 
+// map of LED index to register (matrix A and matrix B)
+// i.e. this is LA0..LA17,LB0..LB17 and also LC0..LC17,LD0..LD17
+// Index of LED (0..36) will map to a register.
+// Subtract 0x24 to get the second index of g_pwm_buffer
+const uint8_t g_red_registers[DRIVER_COUNT][36] PROGMEM = {
+	{
+	0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
+	0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA,
+	0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
+	0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1 },
+	{
+	0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
+	0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9,
+	0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
+	0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1 }
+};
+
+const uint8_t g_green_registers[DRIVER_COUNT][36] PROGMEM = {
+	{
+	0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B,
+	0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A,
+	0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43,
+	0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1 },
+	{
+	0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B,
+	0x94, 0x95, 0x96, 0x97, 0x98, 0x99,
+	0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43,
+	0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1 }
+};
+
+const uint8_t g_blue_registers[DRIVER_COUNT][36] PROGMEM = {
+	{
+	0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B,
+	0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x79,
+	0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53,
+	0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91 },
+	{
+	0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B,
+	0x84, 0x85, 0x86, 0x87, 0x88, 0x89,
+	0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53,
+	0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91 }
+};
+
 // index in range 0..71 (LA0..LA17, LB0..LB17, LC0..LC17, LD0..LD17)
 // point values in range x=0..224 y=0..64
 // origin is center of top-left key (i.e Esc)
-const Point g_map_led_to_point[48] PROGMEM = {
+const Point g_map_led_to_point[DRIVER_LED_TOTAL] PROGMEM = {
 	// LA0..LA17
-	{18*0, 0}, {18*1, 0}, {18*2, 0}, {18*0,16*1}, {18*1,16*1}, {18*2,16*1},
-	{18*0,16*2}, {18*1,16*2}, {18*2,16*2}, {18*0,16*3}, {18*1,16*3}, {18*2,16*3},
+	{18*0, 0},   {18*1, 0},    {18*2, 0},    {18*0,16*1}, {18*1,16*1},  {18*2,16*1},
+	{18*0,16*2}, {18*1,16*2},  {18*2,16*2},  {18*0,16*3}, {18*1,16*3},  {18*2,16*3},
 	// LB0..LB17
-	{18*3, 0}, {18*4, 0}, {18*5, 0}, {18*3,16*1}, {18*4,16*1}, {18*5,16*1},
-	{18*3,16*2}, {18*4,16*2}, {18*5,16*2}, {18*3,16*3}, {18*4,16*3}, {18*5,16*3},
+	{18*3, 0},   {18*4, 0},    {18*5, 0},    {18*3,16*1}, {18*4,16*1},  {18*5,16*1},
+	{18*3,16*2}, {18*4,16*2},  {18*5,16*2},  {18*3,16*3}, {18*4,16*3},  {18*5,16*3},
 	// LC0..LC17
-	{18*6, 0}, {18*7, 0}, {18*8, 0}, {18*6,16*1}, {18*7,16*1}, {18*8,16*1},
-	{18*6,16*2}, {18*7,16*2}, {18*8,16*2}, {18*6,16*3}, {18*7,16*3}, {18*8,16*3},
-	// LD0..LD17
-	{18*9, 0}, {18*10,0}, {18*11,0}, {18*9,16*1}, {18*10,16*1}, {18*11,16*1},
+	{18*6, 0},   {18*7, 0},    {18*8, 0},    {18*6,16*1}, {18*7,16*1},  {18*8,16*1},
+	{18*6,16*2}, {18*7,16*2},  {18*8,16*2},  {18*6,16*3}, {18*7,16*3},  {18*8,16*3},
+	// LD0..LD17 
+	{18*9, 0},   {18*10,0},    {18*11,0},    {18*9,16*1}, {18*10,16*1}, {18*11,16*1},
 	{18*9,16*2}, {18*10,16*2}, {18*11,16*2}, {18*9,16*3}, {18*10,16*3}, {18*11,16*3}
 };
 
@@ -202,8 +235,8 @@ void suspend_wakeup_init_kb(void)
 
 void backlight_update_pwm_buffers(void)
 {
-	IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, ISSI_ADDR_2 );
-	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
+	IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+	IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
@@ -368,7 +401,7 @@ void backlight_effect_alphas_mods(void)
 		{
 			uint8_t index;
 			map_row_column_to_led( row, column, &index );
-			if ( index < 48 )
+			if ( index < DRIVER_LED_TOTAL )
 			{
 				if ( ( g_config.alphas_mods[row] & (1<<column) ) == 0 )
 				{
@@ -408,7 +441,7 @@ void backlight_effect_gradient_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		map_led_to_point( i, &point );
 		// The y range will be 0..64, map this to 0..4
@@ -446,9 +479,9 @@ void backlight_effect_raindrops(bool initialize)
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 48 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % DRIVER_LED_TOTAL : 255;
 
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -470,7 +503,7 @@ void backlight_effect_cycle_all(void)
 	uint8_t offset = g_tick & 0xFF;
 
 	// Relies on hue being 8-bit and wrapping
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -493,7 +526,7 @@ void backlight_effect_cycle_left_right(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -518,7 +551,7 @@ void backlight_effect_cycle_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -543,9 +576,9 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 48 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % DRIVER_LED_TOTAL : 255;
 
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -566,7 +599,7 @@ void backlight_effect_custom(void)
 {
 	HSV hsv;
 	RGB rgb;
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		backlight_get_key_color(i, &hsv);
 		// Override brightness with global brightness control
@@ -665,7 +698,7 @@ void backlight_rgb_task(void) {
 		g_any_key_hit++;
 	}
 
-	for ( int led = 0; led < 48; led++ )
+	for ( int led = 0; led < DRIVER_LED_TOTAL; led++ )
 	{
 		if ( g_key_hit[led] < 255 )
 		{
@@ -776,22 +809,22 @@ void backlight_init_drivers(void)
 
 	// Initialize TWI
 	TWIInit();
-	IS31FL3731_init( ISSI_ADDR_1 );
-	IS31FL3731_init( ISSI_ADDR_2 );
+	IS31FL3731_init( DRIVER_ADDR_1 );
+	IS31FL3731_init( DRIVER_ADDR_2 );
 
-	for ( int index = 0; index < 48; index++ )
+	for ( int index = 0; index < DRIVER_LED_TOTAL; index++ )
 	{
 		bool enabled = true;
 		// This only caches it for later
 		IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
 	}
 	// This actually updates the LED drivers
-	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
+	IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 
 	// TODO: put the 1 second startup delay here?
 
 	// clear the key hits
-	for ( int led=0; led<48; led++ )
+	for ( int led=0; led<DRIVER_LED_TOTAL; led++ )
 	{
 		g_key_hit[led] = 255;
 	}
@@ -902,7 +935,7 @@ void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
 {
 	uint8_t led;
 	map_row_column_to_led( row, column, &led );
-	if ( led < 48 )
+	if ( led < DRIVER_LED_TOTAL )
 	{
 		void *address = backlight_get_custom_key_color_eeprom_address(led);
 		eeprom_update_byte(address, hsv.h);
@@ -913,7 +946,7 @@ void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
 
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 {
-	for ( int i=0; i<48; i++ )
+	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		if ( i == index )
 		{

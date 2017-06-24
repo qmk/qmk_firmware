@@ -21,6 +21,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+extern const uint8_t g_red_registers[][36];
+extern const uint8_t g_green_registers[][36];
+extern const uint8_t g_blue_registers[][36];
+
 void IS31FL3731_init( uint8_t addr );
 void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data );
 void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer );
