@@ -109,6 +109,49 @@ const led_control_bitmask g_led_control_bitmask[18] =
 	{ 0x0E, 7, 0x0C, 7, 0x0A, 7 }, // R17,G17,B17
 };
 
+const uint8_t g_map_control_index_to_register[2][18][3] PROGMEM = {
+ {
+ 	{0x34, 0x44, 0x54}, // 00
+ 	{0x24, 0x45, 0x55}, // 01
+ 	{0x25, 0x35, 0x56}, // 02
+ 	{0x26, 0x36, 0x46}, // 03
+ 	{0x27, 0x37, 0x47}, // 04
+ 	{0x28, 0x38, 0x48}, // 05
+ 	{0x29, 0x39, 0x49}, // 06
+ 	{0x2a, 0x3a, 0x4a}, // 07
+ 	{0x2a, 0x3b, 0x4b}, // 08
+
+ 	{0xa4, 0x94, 0x84}, // 09
+ 	{0xa5, 0x95, 0x85}, // 10
+ 	{0xa6, 0x96, 0x86}, // 11
+ 	{0xa7, 0x97, 0x87}, // 12
+ 	{0xa8, 0x98, 0x88}, // 13
+ 	{0xa9, 0x99, 0x89}, // 14
+ 	{0xaa, 0x9a, 0x79}, // 15
+ 	{0xab, 0x8a, 0x7a}, // 16
+ 	{0x9b, 0x8b, 0x7b} // 17
+ }, {
+ 	{0x34 + 8, 0x44 + 8, 0x54}, // 00
+ 	{0x24 + 8, 0x45 + 8, 0x55}, // 01
+ 	{0x25 + 8, 0x35 + 8, 0x56}, // 02
+ 	{0x26 + 8, 0x36 + 8, 0x46}, // 03
+ 	{0x27 + 8, 0x37 + 8, 0x47}, // 04
+ 	{0x28 + 8, 0x38 + 8, 0x48}, // 05
+ 	{0x29 + 8, 0x39 + 8, 0x49}, // 06
+ 	{0x2a + 8, 0x3a + 8, 0x4a}, // 07
+ 	{0x2a + 8, 0x3b + 8, 0x4b}, // 08
+
+ 	{0xa4 + 8, 0x94 + 8, 0x84}, // 09
+ 	{0xa5 + 8, 0x95 + 8, 0x85}, // 10
+ 	{0xa6 + 8, 0x96 + 8, 0x86}, // 11
+ 	{0xa7 + 8, 0x97 + 8, 0x87}, // 12
+ 	{0xa8 + 8, 0x98 + 8, 0x88}, // 13
+ 	{0xa9 + 8, 0x99 + 8, 0x89}, // 14
+ 	{0xaa + 8, 0x9a + 8, 0x79}, // 15
+ 	{0xab + 8, 0x8a + 8, 0x7a}, // 16
+ 	{0x9b + 8, 0x8b + 8, 0x7b} // 17
+}};
+
 void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
 {
 	g_twi_transfer_buffer[0] = (addr << 1) | 0x00;
@@ -212,32 +255,25 @@ void IS31FL3731_init( uint8_t addr )
 	IS31FL3731_write_register( addr, ISSI_COMMANDREGISTER, 0 );
 }
 
-const uint8_t g_map_index_to_driver[DRIVER_LED_TOTAL] PROGMEM = {
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-};
 
-const uint8_t g_map_index_to_driver_index[DRIVER_LED_TOTAL] PROGMEM = {
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
-	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
-};
+void map_index_to_led( uint8_t index, is31_led *led ) {
+	uint8_t *addr = (uint8_t*)&g_is31_leds[index];
+	led->driver = pgm_read_byte(addr);
+	led->matrix = pgm_read_byte(addr+1);
+	led->control_index = pgm_read_byte(addr+2);
+}
 
 void IS31FL3731_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 {
 	if ( index >= 0 && index < DRIVER_LED_TOTAL )
 	{
-		uint8_t driver = pgm_read_byte(&g_map_index_to_driver[index]);
-		uint8_t driver_index = pgm_read_byte(&g_map_index_to_driver_index[index]);
+		is31_led led;
+		map_index_to_led(index, &led);
 
-		// Index of LED (0..36) will map to a register.
 		// Subtract 0x24 to get the second index of g_pwm_buffer
-		g_pwm_buffer[driver][ pgm_read_byte(&g_red_registers[driver][driver_index]) - 0x24] = red;
-		g_pwm_buffer[driver][ pgm_read_byte(&g_green_registers[driver][driver_index]) - 0x24] = green;
-		g_pwm_buffer[driver][ pgm_read_byte(&g_blue_registers[driver][driver_index]) - 0x24] = blue;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][0]) - 0x24] = red;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][1]) - 0x24] = green;
+		g_pwm_buffer[led.driver][ pgm_read_byte(&g_map_control_index_to_register[led.driver][led.control_index][2]) - 0x24] = blue;
 		g_pwm_buffer_update_required = true;
 	}
 }
@@ -252,40 +288,36 @@ void IS31FL3731_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 
 void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, bool blue )
 {
-	uint8_t driver = pgm_read_byte(&g_map_index_to_driver[index]);
-	uint8_t driver_index = pgm_read_byte(&g_map_index_to_driver_index[index]);
+	is31_led led;
+	map_index_to_led(index, &led);
 
-	// index now in range 0..35
-	uint8_t matrix = driver_index / 18;
-	uint8_t matrix_index = driver_index % 18;
-
-	led_control_bitmask bitmask = g_led_control_bitmask[matrix_index];
+	led_control_bitmask bitmask = g_led_control_bitmask[led.control_index];
 
 	// Matrix A and B registers are interleaved.
 	// Add 1 to Matrix A register to get Matrix B register
 	if ( red )
 	{
-		g_led_control_registers[driver][bitmask.red_register+matrix] |= (1<<bitmask.red_bit);
+		g_led_control_registers[led.driver][bitmask.red_register+led.matrix] |= (1<<bitmask.red_bit);
 	}
 	else
 	{
-		g_led_control_registers[driver][bitmask.red_register+matrix] &= ~(1<<bitmask.red_bit);
+		g_led_control_registers[led.driver][bitmask.red_register+led.matrix] &= ~(1<<bitmask.red_bit);
 	}
 	if ( green )
 	{
-		g_led_control_registers[driver][bitmask.green_register+matrix] |= (1<<bitmask.green_bit);
+		g_led_control_registers[led.driver][bitmask.green_register+led.matrix] |= (1<<bitmask.green_bit);
 	}
 	else
 	{
-		g_led_control_registers[driver][bitmask.green_register+matrix] &= ~(1<<bitmask.green_bit);
+		g_led_control_registers[led.driver][bitmask.green_register+led.matrix] &= ~(1<<bitmask.green_bit);
 	}
 	if ( blue )
 	{
-		g_led_control_registers[driver][bitmask.blue_register+matrix] |= (1<<bitmask.blue_bit);
+		g_led_control_registers[led.driver][bitmask.blue_register+led.matrix] |= (1<<bitmask.blue_bit);
 	}
 	else
 	{
-		g_led_control_registers[driver][bitmask.blue_register+matrix] &= ~(1<<bitmask.blue_bit);
+		g_led_control_registers[led.driver][bitmask.blue_register+led.matrix] &= ~(1<<bitmask.blue_bit);
 	}
 
 	g_led_control_registers_update_required = true;

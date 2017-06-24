@@ -44,6 +44,13 @@ typedef struct Point {
 	uint8_t y;
 } Point;	
 
+const is31_led g_is31_leds[DRIVER_LED_TOTAL] PROGMEM = {
+ 	{0, 0, 3}, {0, 0, 4}, {0, 0, 5}, {0, 1, 3}, {0, 1, 4}, {0, 1, 5}, {1, 0, 3}, {1, 0, 4}, {1, 0, 5}, {1, 1, 3}, {1, 1, 4}, {1, 1, 5},
+ 	{0, 0, 6}, {0, 0, 7}, {0, 0, 8}, {0, 1, 6}, {0, 1, 7}, {0, 1, 8}, {1, 0, 6}, {1, 0, 7}, {1, 0, 8}, {1, 1, 6}, {1, 1, 7}, {1, 1, 8},
+  	{0, 0, 9}, {0, 0, 10}, {0, 0, 11}, {0, 1, 9}, {0, 1, 10}, {0, 1, 11}, {1, 0, 9}, {1, 0, 10}, {1, 0, 11}, {1, 1, 9}, {1, 1, 10}, {1, 1, 11},
+ 	{0, 0, 12}, {0, 0, 13}, {0, 0, 14}, {0, 1, 12}, {0, 1, 13}, {0, 1, 14}, {1, 0, 12}, {1, 0, 13}, {1, 0, 14}, {1, 1, 12}, {1, 1, 13}, {1, 1, 14}
+};
+
 bool g_suspend_state = false;
 uint8_t g_indicator_state = 0;
 
@@ -56,48 +63,6 @@ uint8_t g_key_hit[49];
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
 
-// map of LED index to register (matrix A and matrix B)
-// i.e. this is LA0..LA17,LB0..LB17 and also LC0..LC17,LD0..LD17
-// Index of LED (0..36) will map to a register.
-// Subtract 0x24 to get the second index of g_pwm_buffer
-const uint8_t g_red_registers[DRIVER_COUNT][36] PROGMEM = {
-	{
-	0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
-	0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA,
-	0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
-	0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1 },
-	{
-	0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B,
-	0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9,
-	0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
-	0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1 }
-};
-
-const uint8_t g_green_registers[DRIVER_COUNT][36] PROGMEM = {
-	{
-	0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B,
-	0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9A,
-	0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43,
-	0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1 },
-	{
-	0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B,
-	0x94, 0x95, 0x96, 0x97, 0x98, 0x99,
-	0x3E, 0x3F, 0x40, 0x41, 0x42, 0x43,
-	0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1 }
-};
-
-const uint8_t g_blue_registers[DRIVER_COUNT][36] PROGMEM = {
-	{
-	0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B,
-	0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x79,
-	0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53,
-	0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91 },
-	{
-	0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B,
-	0x84, 0x85, 0x86, 0x87, 0x88, 0x89,
-	0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53,
-	0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91 }
-};
 
 // index in range 0..71 (LA0..LA17, LB0..LB17, LC0..LC17, LD0..LD17)
 // point values in range x=0..224 y=0..64
@@ -116,6 +81,47 @@ const Point g_map_led_to_point[DRIVER_LED_TOTAL] PROGMEM = {
 	{18*9, 0},   {18*10,0},    {18*11,0},    {18*9,16*1}, {18*10,16*1}, {18*11,16*1},
 	{18*9,16*2}, {18*10,16*2}, {18*11,16*2}, {18*9,16*3}, {18*10,16*3}, {18*11,16*3}
 };
+
+const uint8_t g_map_index_to_driver[DRIVER_LED_TOTAL] PROGMEM = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+};
+
+const uint8_t g_map_index_to_driver_index[DRIVER_LED_TOTAL] PROGMEM = {
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
+	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
+	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
+};
+
+const uint8_t g_map_index_to_matrix[DRIVER_LED_TOTAL] PROGMEM = {
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+};
+// const uint8_t g_map_index_to_matrix[DRIVER_LED_TOTAL] PROGMEM = {
+// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+// 	0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1
+// };
+// const uint8_t g_map_index_to_matrix_index[DRIVER_LED_TOTAL] PROGMEM = {
+// 	0,  1,  2,  3,  4,  5,  0,  1,  2,  3,  4,  5, 
+// 	6,  7,  8,  9,  10, 11, 6,  7,  8,  9,  10, 11,
+// 	0,  1,  2,  3,  4,  5,  0,  1,  2,  3,  4,  5, 
+// 	6,  7,  8,  9,  10, 11, 6,  7,  8,  9,  10, 11
+// };
+
+const uint8_t g_map_index_to_matrix_index[DRIVER_LED_TOTAL] PROGMEM = {
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
+	0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11
+};
+
 
 // This may seem counter-intuitive, but it's quite flexible.
 // For each LED, get it's position to decide what color to make it.
@@ -144,37 +150,44 @@ void map_led_to_point( uint8_t index, Point *point )
 // Maps switch matrix coordinate (row,col) to LED index
 //
 
-#ifdef PLANCK_MIT_LAYOUT
-// Note: Left spacebar stab is at 4,3 (LC7)
-// Right spacebar stab is at 4,9 (D14)
-//
-//  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
-//  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
-//  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
-// A12, A13, A14, B12, B13, B15, --, C13, C14, D12, D13, D14,
-
 const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-	{  0+3,   0+4,   0+5,  18+3,  18+4,  18+5, 36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
-	{  0+6,   0+7,   0+8,  18+6,  18+7,  18+8, 36+6,  36+7,  36+8,  54+6,  54+7,  54+8},
-	{  0+9,  0+10,  0+11,  18+9, 18+10, 18+11, 36+9, 36+10, 36+11,  54+9, 54+10, 54+11},
-	{ 0+12,  0+13,  0+14, 18+12, 18+13, 18+15, 255,  36+13, 36+14, 54+12, 54+13, 54+14}
+	{ 0, 1,  2,  12, 13, 14, 24, 25, 26, 36, 37, 38},
+	{ 3, 4,  5,  15, 16, 17, 27, 28, 29, 39, 40, 41},
+	{ 6, 7,  8,  18, 19, 20, 30, 31, 32, 42, 43, 44},
+	{ 9, 10, 11, 21, 22, 23, 33, 34, 35, 45, 46, 47}
 };
-#else
-// Note: Left spacebar stab is at 4,3 (LC6)
-// Right spacebar stab is at 4,9 (LD13) or 4,10 (LD14)
-//
-//  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
-//  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
-//  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
-// A12, A13, A14, B12, B13, B14, C12, C13, C14, D12, D13, D14,
 
-const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-	{  0+3,  0+4,  0+5,  18+3,  18+4,  18+5,  36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
-	{  0+6,  0+7,  0+8,  18+6,  18+7,  18+8,  36+6,  36+7,  36+8,  54+6,  54+7,  54+8},
-	{  0+9, 0+10, 0+11,  18+9, 18+10, 18+11,  36+9, 36+10, 36+11,  54+9, 54+10, 54+11},
-	{ 0+12, 0+13, 0+14, 18+12, 18+13, 18+14,  36+12, 36+13, 36+14, 54+12, 54+13, 54+14}
-};
-#endif
+// #ifdef PLANCK_MIT_LAYOUT
+// // Note: Left spacebar stab is at 4,3 (LC7)
+// // Right spacebar stab is at 4,9 (D14)
+// //
+// //  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
+// //  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
+// //  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
+// // A12, A13, A14, B12, B13, B15, --, C13, C14, D12, D13, D14,
+
+// const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+// 	{  0+3,   0+4,   0+5,  18+3,  18+4,  18+5, 36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
+// 	{  0+6,   0+7,   0+8,  18+6,  18+7,  18+8, 36+6,  36+7,  36+8,  54+6,  54+7,  54+8},
+// 	{  0+9,  0+10,  0+11,  18+9, 18+10, 18+11, 36+9, 36+10, 36+11,  54+9, 54+10, 54+11},
+// 	{ 0+12,  0+13,  0+14, 18+12, 18+13, 18+15, 255,  36+13, 36+14, 54+12, 54+13, 54+14}
+// };
+// #else
+// // Note: Left spacebar stab is at 4,3 (LC6)
+// // Right spacebar stab is at 4,9 (LD13) or 4,10 (LD14)
+// //
+// //  A3,  A4,  A5,  B3,  B4,  B5, C3,  C4,  C5,  D3,  D4,  D5,
+// //  A6,  A7,  A8,  B6,  B7,  B8, C6,  C7,  C8,  D6,  D7,  B8,
+// //  A9, A10, A11,  B9, B10, B11, C9, C10, C11,  D9, D10, D11,
+// // A12, A13, A14, B12, B13, B14, C12, C13, C14, D12, D13, D14,
+
+// const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+// 	{  0+3,  0+4,  0+5,  18+3,  18+4,  18+5,  36+3,  36+4,  36+5,  54+3,  54+4,  54+5},
+// 	{  0+6,  0+7,  0+8,  18+6,  18+7,  18+8,  36+6,  36+7,  36+8,  54+6,  54+7,  54+8},
+// 	{  0+9, 0+10, 0+11,  18+9, 18+10, 18+11,  36+9, 36+10, 36+11,  54+9, 54+10, 54+11},
+// 	{ 0+12, 0+13, 0+14, 18+12, 18+13, 18+14,  36+12, 36+13, 36+14, 54+12, 54+13, 54+14}
+// };
+// #endif
 
 void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 {
@@ -206,8 +219,8 @@ void matrix_scan_kb(void)
 {
 
 	if (backlight_task_counter == 0)
-		backlight_rgb_task();
-		// backlight_effect_single_LED_test();
+		backlight_effect_single_LED_test();
+		// backlight_rgb_task();
 	backlight_task_counter = ((backlight_task_counter + 1) % 20);
 
 	// This only updates the LED driver buffers if something has changed.
@@ -354,12 +367,12 @@ void backlight_effect_single_LED_test(void)
 		tick = 0;
 		column++;
 	}
-	if ( column > 14 )
+	if ( column > MATRIX_COLS )
 	{
 		column = 0;
 		row++;
 	}
-	if ( row > 4 )
+	if ( row > MATRIX_ROWS )
 	{
 		row = 0;
 		color++;
