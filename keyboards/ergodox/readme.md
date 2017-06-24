@@ -94,7 +94,7 @@ To flash with ´teensy-loader-cli´:
 
   - Build the firmware with `make keymapname`, for example `make default`
 
-  - Run ´<path/to/>teensy_loader_cli --mcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
+  - Run ´<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
 
   - Press the Reset button by inserting a paperclip gently into the reset hole
     in the top right corder.
