@@ -40,7 +40,7 @@
 
 zeal_backlight_config g_config = {
 	.brightness = 40,
-	.effect = 1, // Default to RGB test, so Zeal can flash and test in one pass!
+	.effect = 255, // Default to RGB test, so Zeal can flash and test in one pass!
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
 	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
@@ -61,7 +61,7 @@ uint8_t g_indicator_state = 0;
 uint32_t g_tick = 0;
 
 // Ticks since this key was last hit.
-uint8_t g_key_hit[72];
+uint8_t g_key_hit[49];
 
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
@@ -69,19 +69,19 @@ uint32_t g_any_key_hit = 0;
 // index in range 0..71 (LA0..LA17, LB0..LB17, LC0..LC17, LD0..LD17)
 // point values in range x=0..224 y=0..64
 // origin is center of top-left key (i.e Esc)
-const Point g_map_led_to_point[72] PROGMEM = {
+const Point g_map_led_to_point[48] PROGMEM = {
 	// LA0..LA17
-	{255,255}, {255,255}, {255,255}, {18*0, 0}, {18*1, 0}, {18*2, 0}, {18*0,16*1}, {18*1,16*1}, {18*2,16*1},
-	{18*0,16*2}, {18*1,16*2}, {18*2,16*2}, {18*0,16*3}, {18*1,16*3}, {18*2,16*3}, {255,255}, {255,255}, {255,255},
+	{18*0, 0}, {18*1, 0}, {18*2, 0}, {18*0,16*1}, {18*1,16*1}, {18*2,16*1},
+	{18*0,16*2}, {18*1,16*2}, {18*2,16*2}, {18*0,16*3}, {18*1,16*3}, {18*2,16*3},
 	// LB0..LB17
-	{255,255}, {255,255}, {255,255}, {18*3, 0}, {18*4, 0}, {18*5, 0}, {18*3,16*1}, {18*4,16*1}, {18*5,16*1},
-	{18*3,16*2}, {18*4,16*2}, {18*5,16*2}, {18*3,16*3}, {18*4,16*3}, {18*5,16*3}, {255,255}, {255,255}, {255,255},
+	{18*3, 0}, {18*4, 0}, {18*5, 0}, {18*3,16*1}, {18*4,16*1}, {18*5,16*1},
+	{18*3,16*2}, {18*4,16*2}, {18*5,16*2}, {18*3,16*3}, {18*4,16*3}, {18*5,16*3},
 	// LC0..LC17
-	{255,255}, {255,255}, {255,255}, {18*6, 0}, {18*7, 0}, {18*8, 0}, {18*6,16*1}, {18*7,16*1}, {18*8,16*1},
-	{18*6,16*2}, {18*7,16*2}, {18*8,16*2}, {18*6,16*3}, {18*7,16*3}, {18*8,16*3}, {255,255}, {255,255}, {255,255},
+	{18*6, 0}, {18*7, 0}, {18*8, 0}, {18*6,16*1}, {18*7,16*1}, {18*8,16*1},
+	{18*6,16*2}, {18*7,16*2}, {18*8,16*2}, {18*6,16*3}, {18*7,16*3}, {18*8,16*3},
 	// LD0..LD17
-	{255,255}, {255,255}, {255,255}, {18*9, 0}, {18*10,0}, {18*11,0}, {18*9,16*1}, {18*10,16*1}, {18*11,16*1},
-	{18*9,16*2}, {18*10,16*2}, {18*11,16*2}, {18*9,16*3}, {18*10,16*3}, {18*11,16*3}, {255,255}, {255,255}, {255,255}
+	{18*9, 0}, {18*10,0}, {18*11,0}, {18*9,16*1}, {18*10,16*1}, {18*11,16*1},
+	{18*9,16*2}, {18*10,16*2}, {18*11,16*2}, {18*9,16*3}, {18*10,16*3}, {18*11,16*3}
 };
 
 // This may seem counter-intuitive, but it's quite flexible.
@@ -368,7 +368,7 @@ void backlight_effect_alphas_mods(void)
 		{
 			uint8_t index;
 			map_row_column_to_led( row, column, &index );
-			if ( index < 72 )
+			if ( index < 48 )
 			{
 				if ( ( g_config.alphas_mods[row] & (1<<column) ) == 0 )
 				{
@@ -408,7 +408,7 @@ void backlight_effect_gradient_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		map_led_to_point( i, &point );
 		// The y range will be 0..64, map this to 0..4
@@ -446,9 +446,9 @@ void backlight_effect_raindrops(bool initialize)
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 48 : 255;
 
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -470,7 +470,7 @@ void backlight_effect_cycle_all(void)
 	uint8_t offset = g_tick & 0xFF;
 
 	// Relies on hue being 8-bit and wrapping
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -493,7 +493,7 @@ void backlight_effect_cycle_left_right(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -518,7 +518,7 @@ void backlight_effect_cycle_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -543,9 +543,9 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 48 : 255;
 
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -566,7 +566,7 @@ void backlight_effect_custom(void)
 {
 	HSV hsv;
 	RGB rgb;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		backlight_get_key_color(i, &hsv);
 		// Override brightness with global brightness control
@@ -665,7 +665,7 @@ void backlight_rgb_task(void) {
 		g_any_key_hit++;
 	}
 
-	for ( int led = 0; led < 72; led++ )
+	for ( int led = 0; led < 48; led++ )
 	{
 		if ( g_key_hit[led] < 255 )
 		{
@@ -779,7 +779,7 @@ void backlight_init_drivers(void)
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
 
-	for ( int index = 0; index < 72; index++ )
+	for ( int index = 0; index < 48; index++ )
 	{
 		bool enabled = true;
 		// This only caches it for later
@@ -791,7 +791,7 @@ void backlight_init_drivers(void)
 	// TODO: put the 1 second startup delay here?
 
 	// clear the key hits
-	for ( int led=0; led<72; led++ )
+	for ( int led=0; led<48; led++ )
 	{
 		g_key_hit[led] = 255;
 	}
@@ -902,7 +902,7 @@ void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
 {
 	uint8_t led;
 	map_row_column_to_led( row, column, &led );
-	if ( led < 72 )
+	if ( led < 48 )
 	{
 		void *address = backlight_get_custom_key_color_eeprom_address(led);
 		eeprom_update_byte(address, hsv.h);
@@ -913,7 +913,7 @@ void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
 
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 {
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<48; i++ )
 	{
 		if ( i == index )
 		{
