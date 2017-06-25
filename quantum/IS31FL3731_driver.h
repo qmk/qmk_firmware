@@ -29,17 +29,6 @@ typedef struct is31_led {
 
 extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
 
-
-extern const uint8_t g_red_registers[][36];
-extern const uint8_t g_green_registers[][36];
-extern const uint8_t g_blue_registers[][36];
-
-extern const uint8_t g_map_index_to_driver[DRIVER_LED_TOTAL];
-extern const uint8_t g_map_index_to_driver_index[DRIVER_LED_TOTAL];
-extern const uint8_t g_map_index_to_matrix[DRIVER_LED_TOTAL];
-extern const uint8_t g_map_index_to_matrix_index[DRIVER_LED_TOTAL];
-
-
 void IS31FL3731_init( uint8_t addr );
 void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data );
 void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer );

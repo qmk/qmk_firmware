@@ -129,7 +129,7 @@ const uint8_t g_map_control_index_to_register[2][18][3] PROGMEM = {
  	{0xa9, 0x99, 0x89}, // 14
  	{0xaa, 0x9a, 0x79}, // 15
  	{0xab, 0x8a, 0x7a}, // 16
- 	{0x9b, 0x8b, 0x7b} // 17
+ 	{0x9b, 0x8b, 0x7b}  // 17
  }, {
  	{0x34 + 8, 0x44 + 8, 0x54 + 8}, // 00
  	{0x24 + 8, 0x45 + 8, 0x55 + 8}, // 01
@@ -149,7 +149,7 @@ const uint8_t g_map_control_index_to_register[2][18][3] PROGMEM = {
  	{0xa9 + 8, 0x99 + 8, 0x89 + 8}, // 14
  	{0xaa + 8, 0x9a + 8, 0x79 + 8}, // 15
  	{0xab + 8, 0x8a + 8, 0x7a + 8}, // 16
- 	{0x9b + 8, 0x8b + 8, 0x7b + 8} // 17
+ 	{0x9b + 8, 0x8b + 8, 0x7b + 8}  // 17
 }};
 
 void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
@@ -161,10 +161,10 @@ void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
 	// Set the error code to have no relevant information
 	TWIInfo.errorCode = TWI_NO_RELEVANT_INFO;
 	// Continuously attempt to transmit data until a successful transmission occurs
-	while ( TWIInfo.errorCode != 0xFF )
-	{
+	//while ( TWIInfo.errorCode != 0xFF )
+	//{
 		TWITransmitData( g_twi_transfer_buffer, 3, 0 );
-	}
+	//}
 }
 
 void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer )
