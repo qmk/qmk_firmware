@@ -32,7 +32,9 @@ CMakeLists.txt
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt
-.vscode
+# Let these ones be user specific, since we have so many different configurations
+.vscode/launch.json
+.vscode/tasks.json
 .stfolder
 
 # ignore image files
