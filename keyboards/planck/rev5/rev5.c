@@ -142,6 +142,10 @@ void matrix_init_kb(void) {
 	DDRD |= (1<<6);
 	PORTD |= (1<<6);
 
+	// Enable speaker
+	DDRB |= (1<<4);
+	PORTB |= (1<<4);
+
 	matrix_init_user();
 }
 
