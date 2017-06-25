@@ -48,7 +48,7 @@ static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
 static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
 
 static uint8_t compute_gradient_color(float t, float index, float num) {
-    const float two_pi = M_2_PI;
+    const float two_pi = M_PI * 2.0f;
     float normalized_index = (1.0f - index / (num - 1.0f)) * two_pi;
     float x = t * two_pi + normalized_index;
     float v = 0.5 * (cosf(x) + 1.0f);
