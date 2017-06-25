@@ -95,8 +95,8 @@ endif
 
 ifeq ($(strip $(RGBARRAY_ENABLE)), yes)
     OPT_DEFS += -DRGBARRAY_ENABLE
-    SRC += $(QUANTUM_DIR)/IS31FL3731_driver.c
-    SRC += $(QUANTUM_DIR)/TWIlib.c
+    SRC += $(DRIVER_DIR)/is31fl3731.c
+    SRC += $(DRIVER_DIR)/TWIlib.c
     SRC += $(QUANTUM_DIR)/color.c
 endif
 

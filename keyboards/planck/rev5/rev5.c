@@ -22,7 +22,7 @@
 #include <avr/interrupt.h>
 #include "progmem.h"
 #include "config.h"
-#include "IS31FL3731_driver.h"
+#include "is31fl3731.h"
 #include "eeprom.h"
 #include "lufa.h"
 
