@@ -90,11 +90,12 @@ uint16_t keycode_config(uint16_t keycode) {
 }
 
 uint8_t mod_config(uint8_t mod) {
+    keymap_config.raw = eeconfig_read_keymap();
     if (keymap_config.swap_lalt_lgui) {
-        if (mod & MOD_LGUI) {
+        if (mod & MOD_LGUI && !(mod & MOD_RGUI)) {
             mod &= ~MOD_LGUI;
             mod |= MOD_LALT;
-        } else if (mod & MOD_LALT) {
+        } else if (mod & MOD_LALT && !(mod & MOD_RALT)) {
             mod &= ~MOD_LALT;
             mod |= MOD_LGUI;
         }
@@ -108,10 +109,10 @@ uint8_t mod_config(uint8_t mod) {
             mod |= MOD_RGUI;
         }
     }
-    if (keymap_config.no_gui) {
-        mod &= ~MOD_LGUI;
-        mod &= ~MOD_RGUI;
-    }
+    // if (keymap_config.no_gui) {
+    //     mod &= ~MOD_LGUI;
+    //     mod &= ~MOD_RGUI;
+    // }
 
     return mod;
 }
