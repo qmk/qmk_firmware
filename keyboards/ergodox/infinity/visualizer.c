@@ -123,7 +123,7 @@ void initialize_user_visualizer(visualizer_state_t* state) {
     start_keyframe_animation(&default_startup_animation);
 }
 
-inline bool is_led_on(visualizer_user_data_t* user_data, uint8_t num) {
+static inline bool is_led_on(visualizer_user_data_t* user_data, uint8_t num) {
     return user_data->led_on & (1u << num);
 }
 
