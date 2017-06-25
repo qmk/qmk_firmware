@@ -66,12 +66,12 @@ Each file listed below has more than one author and needs to have copyright reso
 * 11 Wilba6582
 * 3 fredizzimo
 
-## quantum/light_ws2812.c 
+## drivers/ws2812.c 
 
 * 163 Jack Humbert
 * 168 Yang Liu
 
-## quantum/light_ws2812.h 
+## drivers/ws2812.h 
 
 * 11 Jack Humbert
 * 70 Yang Liu
@@ -483,7 +483,7 @@ These files have only a single author and so clarifying licensing should be pret
 * 8b94e26d7c3b30cc57d710a11e5651d15e8e3b20 Sun Jul 24 22:07:43 2016 -0400 Jack Humbert
 * d8a608f3ff4cb4d73cd57be500fd9881e230099d Thu Dec 29 18:28:48 2016 +1100 Wilba6582
 
-## quantum/light_ws2812.c 
+## drivers/ws2812.c 
 
 * ba9ac457b2159097ecfd9848c5171c52e3a68260 Sun Jan 24 17:05:47 2016 -0800 Yang Liu
 * 57e08eb8badc5db2fb44d2df684f32ea48cce411 Thu Jul 7 11:33:32 2016 -0400 Jack Humbert
@@ -493,7 +493,7 @@ These files have only a single author and so clarifying licensing should be pret
 * 530dd3377e4d409a7ca2fee7e47b60b735ebc0fa Tue Nov 15 13:18:10 2016 -0500 Jack Humbert
 * 3774a7fcdab5544fc787f4c200be05fcd417e31f Thu Nov 17 17:42:14 2016 -0500 Jack Humbert
 
-## quantum/light_ws2812.h 
+## drivers/ws2812.h 
 
 * ba9ac457b2159097ecfd9848c5171c52e3a68260 Sun Jan 24 17:05:47 2016 -0800 Yang Liu
 * 5f91fb413624781ac79db641549b9e08753c04b5 Sun Oct 16 16:03:33 2016 -0400 Jack Humbert
