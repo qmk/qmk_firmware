@@ -530,7 +530,7 @@ void send_string(const char *str) {
           shift = false;
         }
         else {
-          int hi = ascii_code>>4 & 0x0f;
+          int hi = ascii_code>>4 & 0x0f,
               lo = ascii_code & 0x0f;
           keycode = pgm_read_byte(&ascii_to_keycode_lut[hi][lo]);
           shift = !!( pgm_read_word(&ascii_to_shift_lut[hi]) & (0x8000u>>lo) );
