@@ -171,22 +171,27 @@ int i2c_transaction(void) {
     if (err) goto i2c_error;
 
     if (!err) {
-	/*
-	// read from TWI byte-by-byte into matrix_row_t memory space
+        /*
+        // read from TWI byte-by-byte into matrix_row_t memory space
         size_t i;
         for (i = 0; i < SLAVE_BUFFER_SIZE-1; ++i) {
             *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_ACK);
         }
-	// last byte to be read / end of chunk
+        // last byte to be read / end of chunk
         *((uint8_t*)&matrix[slaveOffset]+i) = i2c_master_read(I2C_NACK);
-	*/
+        */
 
-	// i2c_master_read(I2C_ACK);
-	matrix[slaveOffset+0] = i2c_master_read(I2C_ACK);
-	// i2c_master_read(I2C_ACK);
-	matrix[slaveOffset+1] = i2c_master_read(I2C_ACK);
-	// i2c_master_read(I2C_ACK);
-	matrix[slaveOffset+2] = i2c_master_read(I2C_NACK);
+        // kludge for column #9: unpack bits for keys (2,9) and (3,9) from (1,7) and (1,8)
+        // i2c_master_read(I2C_ACK);
+        matrix[slaveOffset+0] = i2c_master_read(I2C_ACK);
+        // i2c_master_read(I2C_ACK);
+        matrix[slaveOffset+1] = (matrix_row_t)i2c_master_read(I2C_ACK)\
+                                | (matrix[slaveOffset+0]&0x40U)<<2;
+        // i2c_master_read(I2C_ACK);
+        matrix[slaveOffset+2] = (matrix_row_t)i2c_master_read(I2C_NACK)\
+                                | (matrix[slaveOffset+0]&0x80U)<<1;
+        // clear highest two bits on row 1, where the col9 bits were transported
+        matrix[slaveOffset+0] &= 0x3F;
 
         i2c_master_stop();
     } else {
@@ -255,7 +260,11 @@ void matrix_slave_scan(void) {
     // SLAVE_BUFFER_SIZE is from i2c.h
     // (MATRIX_ROWS/2*sizeof(matrix_row_t))
     // memcpy((void*)i2c_slave_buffer, (const void*)&matrix[offset], (ROWS_PER_HAND*sizeof(matrix_row_t)));
-    i2c_slave_buffer[0] = (uint8_t)(matrix[offset+0]);
+
+    // kludge for column #9: put bits for keys (2,9) and (3,9) into (1,7) and (1,8)
+    i2c_slave_buffer[0] = (uint8_t)(matrix[offset+0])\
+                          | (matrix[offset+1]&0x100U)>>2\
+                          | (matrix[offset+2]&0x100U)>>1;
     i2c_slave_buffer[1] = (uint8_t)(matrix[offset+1]);
     i2c_slave_buffer[2] = (uint8_t)(matrix[offset+2]);
     // note: looks like a possible operator-precedence bug here, in last version?
