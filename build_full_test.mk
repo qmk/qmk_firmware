@@ -19,6 +19,7 @@ TEST_PATH=tests/$(TEST)
 
 $(TEST)_SRC= \
 	$(TEST_PATH)/test.cpp \
+	$(TEST_PATH)/keymap.c \
 	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	tests/test_common/matrix.c \
