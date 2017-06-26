@@ -15,11 +15,12 @@
  */
 
 
-#ifndef ZEAL_COLOR_H
-#define ZEAL_COLOR_H
+#ifndef COLOR_H
+#define COLOR_H
 
 #include <stdint.h>
 #include <stdbool.h>
+
 
 #if defined(__GNUC__)
 #define PACKED __attribute__ ((__packed__))
@@ -51,4 +52,4 @@ typedef struct PACKED
 
 RGB hsv_to_rgb( HSV hsv );
 
-#endif // ZEAL_COLOR_H
+#endif // COLOR_H

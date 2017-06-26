@@ -98,6 +98,7 @@ ifeq ($(strip $(RGBARRAY_ENABLE)), yes)
     SRC += $(DRIVER_DIR)/is31fl3731.c
     SRC += $(DRIVER_DIR)/TWIlib.c
     SRC += $(QUANTUM_DIR)/color.c
+    CIE1931_CURVE = yes
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
