@@ -16,9 +16,13 @@
 
 #include "quantum.h"
 
+// Don't rearrange keys as existing tests might rely on the order
+// Col2, Row 0 has to be KC_NO, because tests rely on it
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = {
-	    {KC_A, KC_B},
-	    {KC_C, KC_D}
+	    {KC_A,  KC_B,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_C,  KC_D,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
 	},
 };
