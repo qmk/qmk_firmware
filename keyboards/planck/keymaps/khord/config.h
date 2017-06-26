@@ -29,4 +29,6 @@
 /* Tap Dance */
 #define TAPPING_TERM 150
 
+#define BACKLIGHT_BREATHING
+
 #endif

@@ -43,6 +43,7 @@
 /* Only print user print statements */
 #define USER_PRINT
 
+#define BACKLIGHT_BREATHING
 
 /* disable action features */
 //#define NO_ACTION_LAYER
