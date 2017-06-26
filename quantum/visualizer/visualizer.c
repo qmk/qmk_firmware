@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "visualizer.h"
 #include "config.h"
+#include "visualizer.h"
 #include <string.h>
 #ifdef PROTOCOL_CHIBIOS
 #include "ch.h"
@@ -105,15 +105,19 @@ static remote_object_t* remote_objects[] = {
 GDisplay* LCD_DISPLAY = 0;
 GDisplay* LED_DISPLAY = 0;
 
+#ifdef LCD_DISPLAY_NUMBER
 __attribute__((weak))
 GDisplay* get_lcd_display(void) {
-    return gdispGetDisplay(0);
+    return gdispGetDisplay(LCD_DISPLAY_NUMBER);
 }
+#endif
 
+#ifdef LED_DISPLAY_NUMBER
 __attribute__((weak))
 GDisplay* get_led_display(void) {
-    return gdispGetDisplay(1);
+    return gdispGetDisplay(LED_DISPLAY_NUMBER);
 }
+#endif
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -251,9 +255,9 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
-#ifdef VISUALIZER_USER_DATA_SIZE
+    #ifdef VISUALIZER_USER_DATA_SIZE
         .user_data = {0},
-#endif
+    #endif
     };
 
     visualizer_state_t state = {
@@ -379,25 +383,26 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 void visualizer_init(void) {
     gfxInit();
 
-#ifdef LCD_BACKLIGHT_ENABLE
+  #ifdef LCD_BACKLIGHT_ENABLE
     lcd_backlight_init();
-#endif
+  #endif
 
-#ifdef SERIAL_LINK_ENABLE
+  #ifdef SERIAL_LINK_ENABLE
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
-#endif
+  #endif
 
-#ifdef LCD_ENABLE
+  #ifdef LCD_ENABLE
     LCD_DISPLAY = get_lcd_display();
-#endif
-#ifdef BACKLIGHT_ENABLE
+  #endif
+
+  #ifdef BACKLIGHT_ENABLE
     LED_DISPLAY = get_led_display();
-#endif
+  #endif
 
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
-    gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
-                              VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
+  gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
+                  VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {

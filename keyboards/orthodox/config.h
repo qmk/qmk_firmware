@@ -15,29 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/io.h>
-#include "stdint.h"
-#include "led.h"
+#ifndef CONFIG_H
+#define CONFIG_H
 
-void led_init_ports(void) {
-    // * Set our LED pins as output
-    DDRB |= (1<<6);
-	DDRB |= (1<<7);
-}
+#include "config_common.h"
 
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // Turn capslock on
-        PORTB |= (1<<6);
-    } else {
-        // Turn capslock off
-        PORTB &= ~(1<<6);
-    }
-	if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        // Turn scrolllock on
-        PORTB |= (1<<7);
-    } else {
-        // Turn scrolllock off
-        PORTB &= ~(1<<7);
-    }
-}
+#ifdef SUBPROJECT_rev1
+    #include "rev1/config.h"
+#endif
+#ifdef SUBPROJECT_rev2
+    #include "rev2/config.h"
+#endif
+#ifdef SUBPROJECT_rev2fliphalf
+	#include "../../rev2fliphalf/config.h"
+#endif
+#endif
