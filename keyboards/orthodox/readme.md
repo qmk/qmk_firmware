@@ -1,15 +1,36 @@
 Orthodox
-======
+========
 
-**Please note this guide is a heavy work in progress and is based heavily off of the Let's Split guide.
+*Please note this guide is a work in progress and is based directly on the Let's Split guide.*
 
-Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
-based boards.
+Orthodox is a split ortholinear keyboard with thumb-clusters designed in 2017 by /u/Deductivemonkee, expected to be available in group buys.
+Each half has 18 keys in a 3x6 grid and a five key thumb-cluster, of which three use 1.25-unit keycaps.
 
+![Example prototype build by /u/Deductivemonkee](http://i.imgur.com/R4PPKdog.jpg)
+
+Its firmware is based on the Let's Split's.
+Each side is controlled by an Arduino Pro Micro (or compatible), and they're connected by a TRRS cable using the serial protocol.
+Support for the protocol using TWI (i2c®) is a work-in-progress.
+
+
+## Revisions
+
+- `Rev.1` Prototype GB version, supporting only Pro Micro in the corner footprint, and using PCB top- and bottom-plates.
+
+Note that the second number after the `Rev.` text is the pcb *order number.* The prototypes will say 1, and the next order of any revision will say 2 and so on.
+
+## Keymaps
+
+[The default layout can be unofficially referred to here.](http://www.keyboard-layout-editor.com/#/gists/f120e2703a22a6a69c7be9a65a9d1342)
+
+The thumb-clusters are an extension of row 2 and row 3 along columns 7, 8, and 9.
+Row 2 does not have a physical key in column 8, so when editing keymaps a placeholder constant (`XXXXXXX` or `KC_NO`) must be used in the row2-col8 position.
 
 ## Build Guide
 
-Coming soon!
+[Official build guide by /u/Deductivemonkee](http://imgur.com/a/9c0NP)
+
+For further reading on build- and flashing-procedures for split ortholinear skeleton-case keyboards, please refer to [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide), much of which can be applied to the Orthodox.
 
 ## First Time Setup
 
@@ -19,7 +40,7 @@ Download or clone the whole firmware and navigate to the keyboards/orthodox dire
 $ make rev1
 ```
 
-You will see a lot of output and if everything worked correctly you will see the built hex files:
+You will see a lot of output and if everything worked correctly you will see the built hex files in your *root qmk_firmware directory* two levels up:
 
 ```
 orthodox_rev1_serial.hex
@@ -61,19 +82,16 @@ Apart from diodes and key switches for the keyboard matrix in each half, you
 will need:
 
 * 2 Arduino Pro Micro's. You can find theses on aliexpress for ≈3.50USD each.
-* 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
-
-Alternatively, you can use any sort of cable and socket that has at least 3
-wires. 
+* 2 TRRS sockets and 1 TRRS cable
 
 
 Notes on Software Configuration
 -------------------------------
 
 Configuring the firmware is similar to any other QMK project. One thing
-to note is that `MATIX_ROWS` in `config.h` is the total number of rows between
-the two halves, i.e. if your split keyboard has 4 rows in each half, then
-`MATRIX_ROWS=8`.
+to note is that `MATRIX_ROWS` in `config.h` is the total number of rows between
+the two halves, i.e. if your split keyboard has 3 rows in each half, then
+`MATRIX_ROWS=6`.
 
 
 Flashing
