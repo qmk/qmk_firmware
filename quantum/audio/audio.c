@@ -442,6 +442,7 @@ ISR(TIMER3_COMPA_vect)
 }
 #endif
 
+#ifdef B5_AUDIO
 ISR(TIMER1_COMPA_vect)
 {
     #if defined(B5_AUDIO) && !defined(C6_AUDIO)
@@ -572,6 +573,7 @@ ISR(TIMER1_COMPA_vect)
     }
 #endif
 }
+#endif
 
 void play_note(float freq, int vol) {
 
