@@ -29,3 +29,4 @@
 ### Other topics
 * [General FAQ](faq.md)
 * [Differences from TMK](differences_from_tmk.md)
+* [Using Eclipse with QMK](eclipse.md)
