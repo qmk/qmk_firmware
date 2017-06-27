@@ -271,12 +271,13 @@ float vibrato(float average_freq) {
 #ifdef C6_AUDIO
 ISR(TIMER3_COMPA_vect)
 {
-    float freq, freq_alt = 0;
+    float freq;
 
     if (playing_note) {
         if (voices > 0) {
 
             #ifdef B5_AUDIO
+            float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
                         if (glissando) {
