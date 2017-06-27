@@ -75,6 +75,7 @@
 int voices = 0;
 int voice_place = 0;
 float frequency = 0;
+float frequency_alt = 0;
 int volume = 0;
 long position = 0;
 
@@ -193,6 +194,7 @@ void stop_all_notes()
     playing_notes = false;
     playing_note = false;
     frequency = 0;
+    frequency_alt = 0;
     volume = 0;
 
     for (uint8_t i = 0; i < 8; i++)
@@ -239,6 +241,7 @@ void stop_note(float freq)
                 DISABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
             frequency = 0;
+            frequency_alt = 0;
             volume = 0;
             playing_note = false;
         }
@@ -268,10 +271,52 @@ float vibrato(float average_freq) {
 #ifdef C6_AUDIO
 ISR(TIMER3_COMPA_vect)
 {
-    float freq;
+    float freq, freq_alt = 0;
 
     if (playing_note) {
         if (voices > 0) {
+
+            #ifdef B5_AUDIO
+                if (voices > 1) {
+                    if (polyphony_rate == 0) {
+                        if (glissando) {
+                            if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
+                                frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
+                            } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
+                                frequency_alt = frequency_alt * pow(2, -440/frequency_alt/12/2);
+                            } else {
+                                frequency_alt = frequencies[voices - 2];
+                            }
+                        } else {
+                            frequency_alt = frequencies[voices - 2];
+                        }
+
+                        #ifdef VIBRATO_ENABLE
+                            if (vibrato_strength > 0) {
+                                freq_alt = vibrato(frequency_alt);
+                            } else {
+                                freq_alt = frequency_alt;
+                            }
+                        #else
+                            freq_alt = frequency_alt;
+                        #endif
+                    }
+
+                    if (envelope_index < 65535) {
+                        envelope_index++;
+                    }
+
+                    freq_alt = voice_envelope(freq_alt);
+
+                    if (freq_alt < 30.517578125) {
+                        freq_alt = 30.52;
+                    }
+
+                    TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
+                    TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
+                }
+            #endif
+
             if (polyphony_rate > 0) {
                 if (voices > 1) {
                     voice_place %= voices;
@@ -396,10 +441,10 @@ ISR(TIMER3_COMPA_vect)
 }
 #endif
 
-#ifdef B5_AUDIO
 ISR(TIMER1_COMPA_vect)
 {
-    float freq;
+    #if defined(B5_AUDIO) && !defined(C6_AUDIO)
+    float freq = 0;
 
     if (playing_note) {
         if (voices > 0) {
@@ -524,8 +569,8 @@ ISR(TIMER1_COMPA_vect)
         playing_notes = false;
         playing_note = false;
     }
-}
 #endif
+}
 
 void play_note(float freq, int vol) {
 
@@ -562,8 +607,15 @@ void play_note(float freq, int vol) {
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
         #ifdef B5_AUDIO
+            #ifdef C6_AUDIO
+            if (voices > 1) {
+                ENABLE_AUDIO_COUNTER_1_ISR;
+                ENABLE_AUDIO_COUNTER_1_OUTPUT;
+            }
+            #else
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
+            #endif
         #endif
     }
 
@@ -609,8 +661,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
         #ifdef B5_AUDIO
+            #ifndef C6_AUDIO
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
+            #endif
         #endif
     }
 
