@@ -41,8 +41,8 @@ static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint
 }
 
 // TODO: Should be customizable per keyboard
-#define NUM_ROWS 7
-#define NUM_COLS 7
+#define NUM_ROWS LED_NUM_ROWS
+#define NUM_COLS LED_NUM_COLS
 
 static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
 static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
