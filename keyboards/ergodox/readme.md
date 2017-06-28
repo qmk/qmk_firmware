@@ -78,7 +78,6 @@ Linux page].  Some distributions provide a binary, maybe called
 To flash the firmware:
 
   - Build the firmware with `make keymapname`, for example `make default`
-
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
@@ -95,7 +94,7 @@ To flash with ´teensy-loader-cli´:
 
   - Build the firmware with `make keymapname`, for example `make default`
 
-  - Run ´<path/to/>teensy_loader_cli --mcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
+  - Run ´<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
 
   - Press the Reset button by inserting a paperclip gently into the reset hole
     in the top right corder.
@@ -153,7 +152,7 @@ The QMK firmware is open-source, so it would be wonderful to have your contribut
 1. All work goes inside your keymap subdirectory (`keymaps/german` in this example).
 2. `keymap.c` - this is your actual keymap file; please update the ASCII comments in the file so they correspond with what you did.
 3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
-4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link, just like I did with the default layout.
+4. Any graphics you wish to add must be hosted elsewhere (please don't include images in your PR). This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link (`![alt-text](url)`), just like I did with the default layout.
 
 # Finding the keycodes you need
 

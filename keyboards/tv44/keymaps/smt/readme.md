@@ -4,9 +4,9 @@ This keymap is based on a combination of my Planck keymap and [jeebak's TV44 lay
 
 I had been using something close to the default Minivan layout, but after spending a bit of time with the Planck and Preonic, I decided it would be better for me to try to standardize to some degree, where possible.
 
-Also, it's worth noting that my Minivan is one with the "arrows" layout, which has a 45th key, so I had to define a new KEYMAP_TV45 macro in config.h. In spite of this, the 45-key Minivan is still technically considered a "TV44" as far as I know.
+Also, it's worth noting that my Minivan is one with the "arrows" layout, which has a 45th key. In spite of this, the 45-key Minivan is still technically considered a "TV44" as far as I know.
 
-![smt's TV44 keymap](keyboard-layout-minivan.png)
+![smt's TV44 keymap](https://i.imgur.com/Y4n6eHj.png)
 
 ## Notable features (most of which can be found in my or jeebak's respective keymap file):
 
@@ -21,9 +21,9 @@ Also, it's worth noting that my Minivan is one with the "arrows" layout, which h
     This key modifies with "Hyper" (see [Brett Terpstra's post](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/) on this) when held, and outputs the code for Tab when tapped. On the Mac, I use KeyboardMaestro to remap my hyper-keys to do a lot of crazy things.
 
 3. **Ctrl/Escape**
-    
+
     I set up another mod-tap, this time for the Escape key that would act as a Control modifier when held.
-    
+
 4. **Alt/Backtick**
 
     I don't currently have LEDs on most of my keyboards, and I certainly don't want LED controls on the base layer of a 40%.

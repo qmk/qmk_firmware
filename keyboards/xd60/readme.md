@@ -1,6 +1,6 @@
 # QMK Firmware for XIUDI's 60% XD60 PCB
 
-![Top View of a pair of XD60 Keyboard](./xd60.JPG)
+![Top View of a pair of XD60 Keyboard](https://i.imgur.com/3Jq2743.jpg)
 
 ## Quantum MK Firmware
 For the full Quantum feature list, see [the parent readme.md](/readme.md).

@@ -53,11 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
 #endif
-static uint8_t debouncing = DEBOUNCE;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+
+// Debouncing: store for each key the number of scans until it's eligible to
+// change.  When scanning the matrix, ignore any changes in keys that have
+// already changed in the last DEBOUNCE scans.
+static uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
 
 static matrix_row_t read_cols(uint8_t row);
 static void init_cols(void);
@@ -113,7 +116,9 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_debouncing[i] = 0;
+        for (uint8_t j=0; j < MATRIX_COLS; ++j) {
+            debounce_matrix[i * MATRIX_COLS + j] = 0;
+        }
     }
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
@@ -134,14 +139,36 @@ void matrix_power_up(void) {
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_debouncing[i] = 0;
     }
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_timer = timer_read32();
     matrix_scan_count = 0;
 #endif
+}
 
+// Returns a matrix_row_t whose bits are set if the corresponding key should be
+// eligible to change in this scan.
+matrix_row_t debounce_mask(uint8_t row) {
+  matrix_row_t result = 0;
+  for (uint8_t j=0; j < MATRIX_COLS; ++j) {
+    if (debounce_matrix[row * MATRIX_COLS + j]) {
+      --debounce_matrix[row * MATRIX_COLS + j];
+    } else {
+      result |= (1 << j);
+    }
+  }
+  return result;
+}
+
+// Report changed keys in the given row.  Resets the debounce countdowns
+// corresponding to each set bit in 'change' to DEBOUNCE.
+void debounce_report(matrix_row_t change, uint8_t row) {
+  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
+    if (change & (1 << i)) {
+      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
+    }
+  }
 }
 
 uint8_t matrix_scan(void)
@@ -178,26 +205,12 @@ uint8_t matrix_scan(void)
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
         wait_us(30);  // without this wait read unstable value.
-        matrix_row_t cols = read_cols(i);
-        if (matrix_debouncing[i] != cols) {
-            matrix_debouncing[i] = cols;
-            if (debouncing) {
-                debug("bounce!: "); debug_hex(debouncing); debug("\n");
-            }
-            debouncing = DEBOUNCE;
-        }
-        unselect_rows();
-    }
+        matrix_row_t mask = debounce_mask(i);
+        matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
+        debounce_report(cols ^ matrix[i], i);
+        matrix[i] = cols;
 
-    if (debouncing) {
-        if (--debouncing) {
-            wait_us(1);
-            // this should be wait_ms(1) but has been left as-is at EZ's request
-        } else {
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = matrix_debouncing[i];
-            }
-        }
+        unselect_rows();
     }
 
     matrix_scan_quantum();
@@ -205,9 +218,8 @@ uint8_t matrix_scan(void)
     return 1;
 }
 
-bool matrix_is_modified(void)
+bool matrix_is_modified(void) // deprecated and evidently not called.
 {
-    if (debouncing) return false;
     return true;
 }
 

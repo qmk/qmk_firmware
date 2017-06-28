@@ -22,6 +22,7 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 .DS_STORE
+/util/wsl_downloaded
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
@@ -33,3 +34,8 @@ CMakeLists.txt
 util/Win_Check_Output.txt
 .vscode
 .stfolder
+
+# ignore image files
+*.png
+*.jpg
+*.gif

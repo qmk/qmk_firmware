@@ -7,11 +7,11 @@ endif
 include common.mk
 
 ifneq ($(SUBPROJECT),)
-	TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
-	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)_$(SUBPROJECT)
+    TARGET ?= $(KEYBOARD)_$(SUBPROJECT)_$(KEYMAP)
+    KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)_$(SUBPROJECT)
 else
-	TARGET ?= $(KEYBOARD)_$(KEYMAP)
-	KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
+    TARGET ?= $(KEYBOARD)_$(KEYMAP)
+    KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD)
 endif
 
 # Force expansion
@@ -20,18 +20,16 @@ TARGET := $(TARGET)
 
 MASTER ?= left
 ifdef master
-	MASTER = $(master)
+    MASTER = $(master)
 endif
 
 ifeq ($(MASTER),right)
-	OPT_DEFS += -DMASTER_IS_ON_RIGHT
+    OPT_DEFS += -DMASTER_IS_ON_RIGHT
 else
-	ifneq ($(MASTER),left)
+    ifneq ($(MASTER),left)
 $(error MASTER does not have a valid value(left/right))
-	endif
+    endif
 endif
-
-
 
 KEYBOARD_PATH := keyboards/$(KEYBOARD)
 KEYBOARD_C := $(KEYBOARD_PATH)/$(KEYBOARD).c
@@ -41,7 +39,6 @@ ifneq ("$(wildcard $(KEYBOARD_C))","")
 else
     $(error "$(KEYBOARD_C)" does not exist)
 endif
-
 
 ifneq ($(SUBPROJECT),)
     SUBPROJECT_PATH := keyboards/$(KEYBOARD)/$(SUBPROJECT)
@@ -56,31 +53,31 @@ endif
 
 # We can assume a ChibiOS target When MCU_FAMILY is defined, since it's not used for LUFA
 ifdef MCU_FAMILY
-	PLATFORM=CHIBIOS
+    PLATFORM=CHIBIOS
 else
-	PLATFORM=AVR
+    PLATFORM=AVR
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
-	include $(TMK_PATH)/protocol/chibios.mk
-	include $(TMK_PATH)/chibios.mk
-	OPT_OS = chibios
-	ifneq ("$(wildcard $(SUBPROJECT_PATH)/bootloader_defs.h)","")
-		OPT_DEFS += -include $(SUBPROJECT_PATH)/bootloader_defs.h
-	else ifneq ("$(wildcard $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
-		OPT_DEFS += -include $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h
-	else ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
-		OPT_DEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
-	else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
-		OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
-	endif
+    include $(TMK_PATH)/protocol/chibios.mk
+    include $(TMK_PATH)/chibios.mk
+    OPT_OS = chibios
+    ifneq ("$(wildcard $(SUBPROJECT_PATH)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(SUBPROJECT_PATH)/bootloader_defs.h
+    else ifneq ("$(wildcard $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(SUBPROJECT_PATH)/boards/$(BOARD)/bootloader_defs.h
+    else ifneq ("$(wildcard $(KEYBOARD_PATH)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(KEYBOARD_PATH)/bootloader_defs.h
+    else ifneq ("$(wildcard $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(KEYBOARD_PATH)/boards/$(BOARD)/bootloader_defs.h
+    endif
 endif
 
 CONFIG_H = $(KEYBOARD_PATH)/config.h
 ifneq ($(SUBPROJECT),)
-	ifneq ("$(wildcard $(SUBPROJECT_C))","")
-		CONFIG_H = $(SUBPROJECT_PATH)/config.h
-	endif
+    ifneq ("$(wildcard $(SUBPROJECT_C))","")
+        CONFIG_H = $(SUBPROJECT_PATH)/config.h
+    endif
 endif
 
 # Save the defines and includes here, so we don't include any keymap specific ones
@@ -112,115 +109,16 @@ KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
-	CONFIG_H = $(KEYMAP_PATH)/config.h
+    CONFIG_H = $(KEYMAP_PATH)/config.h
 endif
 
 # # project specific files
 SRC += $(KEYBOARD_C) \
-	$(KEYMAP_C) \
-	$(QUANTUM_DIR)/quantum.c \
-	$(QUANTUM_DIR)/keymap_common.c \
-	$(QUANTUM_DIR)/keycode_config.c \
-	$(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(KEYMAP_C) \
+    $(QUANTUM_SRC)
 
 ifneq ($(SUBPROJECT),)
-	SRC += $(SUBPROJECT_C)
-endif
-
-ifndef CUSTOM_MATRIX
-	SRC += $(QUANTUM_DIR)/matrix.c
-endif
-
-ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
-	OPT_DEFS += -DAPI_SYSEX_ENABLE
-	SRC += $(QUANTUM_DIR)/api/api_sysex.c
-	OPT_DEFS += -DAPI_ENABLE
-	SRC += $(QUANTUM_DIR)/api.c
-    MIDI_ENABLE=yes
-endif
-
-MUSIC_ENABLE := 0
-
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    OPT_DEFS += -DAUDIO_ENABLE
-    MUSIC_ENABLE := 1
-	SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
-	SRC += $(QUANTUM_DIR)/audio/audio.c
-	SRC += $(QUANTUM_DIR)/audio/voices.c
-	SRC += $(QUANTUM_DIR)/audio/luts.c
-endif
-
-ifeq ($(strip $(MIDI_ENABLE)), yes)
-    OPT_DEFS += -DMIDI_ENABLE
-	MUSIC_ENABLE := 1
-	SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
-endif
-
-ifeq ($(MUSIC_ENABLE), 1)
-	SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
-endif
-
-ifeq ($(strip $(COMBO_ENABLE)), yes)
-    OPT_DEFS += -DCOMBO_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
-endif
-
-ifeq ($(strip $(VIRTSER_ENABLE)), yes)
-    OPT_DEFS += -DVIRTSER_ENABLE
-endif
-
-ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
-    OPT_DEFS += -DFAUXCLICKY_ENABLE
-	SRC += $(QUANTUM_DIR)/fauxclicky.c
-endif
-
-ifeq ($(strip $(UCIS_ENABLE)), yes)
-	OPT_DEFS += -DUCIS_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
-	SRC += $(QUANTUM_DIR)/process_keycode/process_ucis.c
-endif
-
-ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
-	OPT_DEFS += -DUNICODEMAP_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
-	SRC += $(QUANTUM_DIR)/process_keycode/process_unicodemap.c
-endif
-
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-    OPT_DEFS += -DUNICODE_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode_common.c
-	SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
-endif
-
-ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-	OPT_DEFS += -DRGBLIGHT_ENABLE
-	SRC += $(QUANTUM_DIR)/light_ws2812.c
-	SRC += $(QUANTUM_DIR)/rgblight.c
-endif
-
-ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	OPT_DEFS += -DTAP_DANCE_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
-endif
-
-ifeq ($(strip $(PRINTING_ENABLE)), yes)
-	OPT_DEFS += -DPRINTING_ENABLE
-	SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
-	SRC += $(TMK_DIR)/protocol/serial_uart.c
-endif
-
-ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
-	SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
-	OPT_DEFS += $(SERIAL_DEFS)
-	VAPTH += $(SERIAL_PATH)
-endif
-
-ifneq ($(strip $(VARIABLE_TRACE)),)
-	SRC += $(QUANTUM_DIR)/variable_trace.c
-	OPT_DEFS += -DNUM_TRACED_VARIABLES=$(strip $(VARIABLE_TRACE))
-ifneq ($(strip $(MAX_VARIABLE_TRACE_SIZE)),)
-	OPT_DEFS += -DMAX_VARIABLE_TRACE_SIZE=$(strip $(MAX_VARIABLE_TRACE_SIZE))
-endif
+    SRC += $(SUBPROJECT_C)
 endif
 
 # Optimize size but this may cause error "relocation truncated to fit"
@@ -229,41 +127,42 @@ endif
 # Search Path
 VPATH += $(KEYMAP_PATH)
 ifneq ($(SUBPROJECT),)
-	VPATH += $(SUBPROJECT_PATH)
+    VPATH += $(SUBPROJECT_PATH)
 endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(COMMON_VPATH)
 
+include common_features.mk
 include $(TMK_PATH)/protocol.mk
-
 include $(TMK_PATH)/common.mk
+
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
 ifeq ($(PLATFORM),AVR)
 ifeq ($(strip $(PROTOCOL)), VUSB)
-	include $(TMK_PATH)/protocol/vusb.mk
+    include $(TMK_PATH)/protocol/vusb.mk
 else
-	include $(TMK_PATH)/protocol/lufa.mk
+    include $(TMK_PATH)/protocol/lufa.mk
 endif
-	include $(TMK_PATH)/avr.mk
+    include $(TMK_PATH)/avr.mk
 endif
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-	VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
-	VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
-	include $(VISUALIZER_PATH)/visualizer.mk
+    VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
+    VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
+    include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
-$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
-$(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC)
-$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS)
-$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
+$(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC) $(GFXSRC)
+$(KEYBOARD_OUTPUT)_DEFS := $(PROJECT_DEFS) $(GFXDEFS)
+$(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG  := $(PROJECT_CONFIG)
 
 # Default target.
