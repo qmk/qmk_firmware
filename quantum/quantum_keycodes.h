@@ -550,13 +550,13 @@ enum quantum_keycodes {
 #define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
 
 // One-shot mod
-#define OSM(mod) (mod | QK_ONE_SHOT_MOD)
+#define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
 
 // Layer tap-toggle
 #define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0x1F) << 8))
+#define MT(mod, kc) (kc | QK_MOD_TAP | (((mod) & 0x1F) << 8))
 
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define LCTL_T(kc) MT(MOD_LCTL, kc)

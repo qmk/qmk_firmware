@@ -56,6 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VISUALIZER_USER_DATA_SIZE 16
 
+#define LCD_DISPLAY_NUMBER 0
+#define LED_DISPLAY_NUMBER 1
+
+#define LED_NUM_ROWS 7
+#define LED_NUM_COLS 7
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

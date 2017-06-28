@@ -1,5 +1,9 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+This is the c configuration file for the keyboard
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Jack Humbert
+Copyright 2017 Art Ortenburger
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,12 +19,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define USE_I2C
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#define MASTER_LEFT
-// #define _MASTER_RIGHT
-// #define EE_HANDS
+#include "config_common.h"
 
 #ifdef SUBPROJECT_rev1
-    #include "../../rev1/config.h"
+    #include "rev1/config.h"
+#endif
+
 #endif
