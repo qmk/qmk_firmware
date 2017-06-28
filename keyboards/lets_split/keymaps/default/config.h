@@ -14,12 +14,4 @@
 // #define _MASTER_RIGHT
 // #define EE_HANDS
 
-
-#ifdef SUBPROJECT_rev2
-    /* RGB Underglow */
-    #undef RGBLED_NUM
-    #define RGBLIGHT_ANIMATIONS
-    #define RGBLED_NUM 8
-#endif
-
 #endif
