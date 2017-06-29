@@ -4,6 +4,7 @@
   * [Make instructions](make_instructions.md)
   * [FAQ: Creating a Keymap](faq_keymap.md)
   * [FAQ: Compiling QMK](faq_build.md)
+  * [How to Github](how_to_github.md)
 
 * [Features](features/README.md)
   * [Layer switching](key_functions.md)
