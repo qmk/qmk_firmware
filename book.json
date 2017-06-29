@@ -12,14 +12,6 @@
         "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
         "label": "Suggest an edit"
       },
-      "forkmegithub": {
-        "color": "darkblue",
-        "url": "https://github.com/qmk/qmk_firmware"
-      },
-      "etoc": {
-        "maxdepth": 3,
-        "notoc": true
-      },
       "toolbar": {
         "buttons": [
           {
