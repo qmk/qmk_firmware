@@ -2,22 +2,39 @@
     "structure": {
         "summary": "_summary.md"
     },
-    "plugins" : ["toolbar", "edit-link", "anchors"],
+    "plugins" : [
+      "anchors",
+      "toolbar",
+      "edit-link",
+      "forkmegithub",
+      "git-author",
+      "hints",
+      "numbered-headings",
+      "etoc",
+      "terminal",
+    ],
     "pluginsConfig": {
-            "edit-link": {
-                "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
-                "label": "Suggest an edit"
-            },
-        "toolbar": {
-            "buttons":
-            [
-                {
-                    "label": "QMK Firmware",
-                    "icon": "fa fa-github",
-                    "url": "https://github.com/qmk/qmk_firmware"
-                }
-            ]
-        }
+      "edit-link": {
+        "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
+        "label": "Suggest an edit"
+      },
+      "forkmegithub": {
+        "color": "darkblue",
+        "url": "https://github.com/qmk/qmk_firmware"
+      },
+      "etoc": {
+        "maxdepth": 3,
+        "notoc": true
+      }
+      "toolbar": {
+        "buttons": [
+          {
+            "label": "QMK Firmware",
+            "icon": "fa fa-github",
+            "url": "https://github.com/qmk/qmk_firmware"
+          }
+        ]
+      }
     },
     "root": "./docs/"
 }
