@@ -6,7 +6,7 @@
   * [FAQ: Creating a Keymap](faq_keymap.md)
   * [FAQ: Compiling QMK](faq_build.md)
 
-* Features
+* [Features](features/README.md)
   * [Layer switching](key_functions.md)
   * [Leader Key](leader_key.md)
   * [Macros](macros.md)
