@@ -4,14 +4,14 @@
     },
     "plugins" : [
       "anchors",
-      "toolbar",
       "edit-link",
+      "etoc",
       "forkmegithub",
       "git-author",
       "hints",
       "numbered-headings",
-      "etoc",
       "terminal",
+      "toolbar"
     ],
     "pluginsConfig": {
       "edit-link": {
