@@ -455,103 +455,29 @@ bool process_record_quantum(keyrecord_t *record) {
   return process_action_kb(record);
 }
 
-#ifdef JIS_KEYCODE
-static const uint16_t ascii_to_shift_lut[8] PROGMEM = {
-  0x0000, /*0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0,*/
-  0x0000, /*0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0,*/
-  0x7ff0, /*0, 1, 1, 1, 1, 1, 1, 1,
-            1, 1, 1, 1, 0, 0, 0, 0,*/
-  0x000f, /*0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 1, 1, 1, 1,*/
-  0x7fff, /*0, 1, 1, 1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1, 1, 1, 1,*/
-  0xffe1, /*1, 1, 1, 1, 1, 1, 1, 1,
-            1, 1, 1, 0, 0, 0, 0, 1,*/
-  0x8000, /*1, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0,*/
-  0x001e, /*0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 1, 1, 1, 1, 0*/
-};
-
-static const struct {
-  uint8_t controls_0[16],
-          controls_1[16],
-          numerics[16],
-          alphabets_0[16],
-          alphabets_1[16];
-} lower_to_keycode PROGMEM = {
-  .controls_0 = {
+#if defined SENDSTRING_JIS_KEYCODE
+/* for users with JIS keyboards */
+const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0, 
-  },
-  .controls_1 = {
     0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-  },
-  .numerics = {
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, KC_QUOT, KC_SCLN, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-  },
-  .alphabets_0 = {
-    KC_LBRC, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
-    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
-  },
-  .alphabets_1 = {
-    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_RBRC, KC_JYEN, KC_BSLS, KC_EQL, KC_RO,
-  },
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1, 1, 1, 1,
+    0, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 1, 1, 1, 0
 };
-static const uint8_t* ascii_to_keycode_lut[8] = {
-  lower_to_keycode.controls_0,
-  lower_to_keycode.controls_1,
-  lower_to_keycode.numerics,
-  lower_to_keycode.numerics,
-  lower_to_keycode.alphabets_0,
-  lower_to_keycode.alphabets_1,
-  lower_to_keycode.alphabets_0,
-  lower_to_keycode.alphabets_1
-};
-
-void send_string(const char *str) {
-    while (1) {
-        uint8_t keycode;
-        bool shift;
-        uint8_t ascii_code = pgm_read_byte(str);
-
-        if ( ascii_code == 0x00u ){ break; }
-        else if (ascii_code == 0x20u) {
-          keycode = KC_SPC;
-          shift = false;
-        }
-        else if (ascii_code == 0x7Fu) {
-          keycode = KC_DEL;
-          shift = false;
-        }
-        else {
-          int hi = ascii_code>>4 & 0x0f,
-              lo = ascii_code & 0x0f;
-          keycode = pgm_read_byte(&ascii_to_keycode_lut[hi][lo]);
-          shift = !!( pgm_read_word(&ascii_to_shift_lut[hi]) & (0x8000u>>lo) );
-        }
-
-        if (shift) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
-        }
-        ++str;
-    }
-}
-
 #else
-static const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+/* for standard keycodes */
+const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -569,72 +495,32 @@ static const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 0
 };
+#endif
 
-static const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+#if defined SENDSTRING_JIS_KEYCODE
+/* for users with JIS keyboards */
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, KC_ESC, 0, 0, 0, 0,
-    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
-    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_SPC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, KC_QUOT, KC_SCLN, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
     KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
-    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_8, KC_9, KC_QUOT, KC_SCLN, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_LBRC, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
     KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
     KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
-    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_X, KC_Y, KC_Z, KC_RBRC, KC_JYEN, KC_BSLS, KC_EQL, KC_RO,
+    KC_LBRC, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
     KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
     KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
-    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+    KC_X, KC_Y, KC_Z, KC_RBRC, KC_JYEN, KC_BSLS, KC_EQL, KC_DEL,
 };
-
-void send_string(const char *str) {
-    while (1) {
-        uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
-        if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
-        }
-        ++str;
-    }
-}
-
-#endif
-
+#elif defined SENDSTRING_COLEMAK_KEYCODE
 /* for users whose OSes are set to Colemak */
-#if 0
 #include "keymap_colemak.h"
-
-const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0,
-    1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0
-};
-
-const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -652,8 +538,74 @@ const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
     CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
     CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
-
+#elif defined SENDSTRING_DVORAK_KEYCODE
+/* for users whose OSes are set to Dvorak */
+#include "keymap_dvorak.h"
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, DV_1, DV_QUOT, DV_3, DV_4, DV_5, DV_7, DV_QUOT,
+    DV_9, DV_0, DV_8, DV_EQL, DV_COMM, DV_MINS, DV_DOT, DV_SLSH,
+    DV_0, DV_1, DV_2, DV_3, DV_4, DV_5, DV_6, DV_7,
+    DV_8, DV_9, DV_SCLN, DV_SCLN, DV_COMM, DV_EQL, DV_DOT, DV_SLSH,
+    DV_2, DV_A, DV_B, DV_C, DV_D, DV_E, DV_F, DV_G,
+    DV_H, DV_I, DV_J, DV_K, DV_L, DV_M, DV_N, DV_O,
+    DV_P, DV_Q, DV_R, DV_S, DV_T, DV_U, DV_V, DV_W,
+    DV_X, DV_Y, DV_Z, DV_LBRC, DV_BSLS, DV_RBRC, DV_6, DV_MINS,
+    DV_GRV, DV_A, DV_B, DV_C, DV_D, DV_E, DV_F, DV_G,
+    DV_H, DV_I, DV_J, DV_K, DV_L, DV_M, DV_N, DV_O,
+    DV_P, DV_Q, DV_R, DV_S, DV_T, DV_U, DV_V, DV_W,
+    DV_X, DV_Y, DV_Z, DV_LBRC, DV_BSLS, DV_RBRC, DV_GRV, KC_DEL
+};
+#else
+/* For users with default keyboard layout in OS */
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
+    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, KC_SCLN, KC_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
+    KC_2, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
+    KC_GRV, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
+};
 #endif
+
+void send_string(const char *str) {
+  send_string_with_delay(str, 0);
+}
+
+void send_string_with_delay(const char *str, uint8_t interval) {
+    while (1) {
+        uint8_t keycode;
+        uint8_t ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
+            register_code(KC_LSFT);
+            register_code(keycode);
+            unregister_code(keycode);
+            unregister_code(KC_LSFT);
+        }
+        else {
+            register_code(keycode);
+            unregister_code(keycode);
+        }
+        ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
+    }
+}
 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
