@@ -9,6 +9,8 @@
 * [Keymap overview](keymap.md)
 * [Custom Quantum Functions](custom_quantum_functions.md)
 * [Keycodes](keycodes.md)
+  * [Basic Keycodes](basic_keycodes.md)
+  * [Quantum Keycodes](quantum_keycodes.md)
 * [Layer switching](key_functions.md)
 * [Leader Key](leader_key.md)
 * [Macros](macros.md)
