@@ -1,6 +1,5 @@
 {
     "structure": {
-        "readme": "home.md",
         "summary": "_summary.md"
     },
     "plugins" : ["toolbar", "edit-link", "anchors"],
