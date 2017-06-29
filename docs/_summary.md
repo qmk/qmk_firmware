@@ -1,5 +1,4 @@
-* Getting started 
-  * [Introduction](home.md)
+* [Getting started](README.md) 
   * [QMK Overview](qmk_overview.md)
   * [Build Environment Setup](build_environment_setup.md)
   * [Make instructions](make_instructions.md)
