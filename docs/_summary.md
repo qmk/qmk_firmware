@@ -18,6 +18,7 @@
 * [Mouse keys](mouse_keys.md)
 * [FAQ: Creating a Keymap](faq_keymap.md)
 * [FAQ: Compiling QMK](faq_build.md)
+* [The Config File](config_options.md)
   
 ### For hardware makers and modders
 * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
