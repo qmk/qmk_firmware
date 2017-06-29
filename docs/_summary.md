@@ -20,7 +20,7 @@
     * [Basic Keycodes](basic_keycodes.md)
     * [Quantum Keycodes](quantum_keycodes.md)
   * [The Config File](config_options.md)
-  * [Custom Quantum Functions](custom_quantum_functions.md)
+  * [Customizing Functionality](custom_quantum_functions.md)
   
 * For makers and modders
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
