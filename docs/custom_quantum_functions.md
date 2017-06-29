@@ -1,6 +1,6 @@
-<!-- toc -->
-
 # How To Customize Your Keyboard's Behavior
+
+<!-- toc -->
 
 For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations. 
 
