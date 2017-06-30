@@ -2,7 +2,7 @@
 
 [Keyboard Layout Editor File]
 
-![Clueboard Layout Image](http://i.imgur.com/uShk3P9.png)
+![Clueboard Layout Image](http://i.imgur.com/eEwjLEj.png)
 My ClueBoard Layout as of 2017/06/30
 
 
@@ -24,9 +24,8 @@ It can be exited with the `ESC`-Key
 
 ## Space Cadet(ish) Shift Parentheses
 
-If the function layer is active, the `SHIFT`-Keys are configured (not quite) like the [Space Cadet Shift Parentheses]
+If the function layer is active, the `SHIFT`-Keys are configured like the [Space Cadet Shift Parentheses]
 as opened (left `SHIFT`) and closed (right `SHIFT`) parentheses if tapped and `SHIFT` if held.
-There are two more layers which enable angle brackets (`FN`+`CTRL`) and curly braces (`FN`+`ALT`) on the `SHIFT` keys
 
 ## Media layer
 
@@ -44,8 +43,6 @@ The different layers are signalled throug setting of the underlight:
 
 - Base layer: White
 - Function layer: Yellow
-- Angle bracket layer: Greenish yellow
-- Curly brace layer: more greenish yellow
 - Media layer: Green
 - Mouse layer: Blue
 - Control layer: Red

@@ -11,13 +11,11 @@
 // entirely and just use numbers.
 #define _BL 0 // BASE Layer
 #define _FL 1 // Function Layer
-#define _ABL 2 // Angle bracket Layer
-#define _CBL 3 // Curly bracket Layer
-#define _ME 4 // Media Layer
-#define _CL 5 // Control Layer
-#define _ML 6 // Mouse Layer
+#define _ME 2 // Media Layer
+#define _CL 3 // Control Layer
+#define _ML 4 // Mouse Layer
 #if defined(MIDI_ENABLE)
-  #define _MI 7 // MIDI Layer
+  #define _MI 5 // MIDI Layer
   #define TO_MIDI TO(_MI)
 #else
   #define TO_MIDI _______
@@ -35,12 +33,6 @@
 // switch to Control layer while helde
 #define  MO_CTL MO(_CL)
 
-// switch to angle bracket layer while helde
-#define  MO_ABL MO(_ABL)
-
-// switch to curly brace layer while helde
-#define  MO_CBL MO(_CBL)
-
 // switch to mouse layer if held, else space
 #define L_MOUSE LT(_ML, KC_SPC)
 
@@ -52,18 +44,6 @@
 
 // CTRL when held, ESC when tapped
 #define CTL_ESC CTL_T(KC_ESC)
-
-// open angle bracket
-#define KC_ABRO RALT(KC_8)
-
-// closed angle bracket
-#define KC_ABRC RALT(KC_9)
-
-// open curly brace
-#define KC_CBRO RALT(KC_7)
-
-// closed curly brace
-#define KC_CBRC RALT(KC_0)
 
 // ESC/Grave mode
 #define ESC_GRV F(0)
@@ -86,23 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______,  KC_PAUS, _______,  _______, _______,                   _______, \
     _______, _______,  MO_CTL, _______, _______, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,  _______, _______,  _______, _______,                            \
     KC_LSPO, _______, _______, _______, _______, _______, _______, _______,   MEDIA, _______,  _______, TO_MIDI,  _______, KC_RSPC,          KC_PGUP,          \
-     MO_ABL, _______,  MO_CBL, _______,                   _______, _______,                    _______,  MO_CBL,   MO_ABL, MO_FUNC, KC_HOME, KC_PGDN, KC_END),
-
-  /* Keymap _ABL: Angle bracket layer */
-  [_ABL] = KEYMAP(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______, _______,          _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                   _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                            \
-    KC_ABRO, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, KC_ABRC,          _______,          \
-    MO_ABL,  xxxxxxx, _______, _______,                   _______, _______,                    _______, xxxxxxx,   MO_ABL, _______, _______, _______, _______),
-
-  /* Keymap _CBL: Curly brace layer */
-  [_CBL] = KEYMAP(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______, _______,          _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                   _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                            \
-    KC_CBRO, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, KC_CBRC,          _______,          \
-    xxxxxxx, _______,  MO_CBL, _______,                   _______, _______,                    _______,  MO_CBL,  xxxxxxx, _______, _______, _______, _______),
+    _______, _______, _______, _______,                   _______, _______,                    _______, _______,  _______, MO_FUNC, KC_HOME, KC_PGDN, KC_END),
 
   /* Keymap _ME: Media layer */
   [_ME] = KEYMAP(
@@ -124,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ML] = KEYMAP(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______, _______,          _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                   _______, \
-    _______, _______, KC_BTN3, KC_BTN2, KC_BTN1, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  _______, _______,  _______, _______,                            \
+    _______, _______, KC_BTN2, KC_BTN3, KC_BTN1, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  _______, _______,  _______, _______,                            \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,          KC_MS_U,          \
-    _______, _______, _______, _______,                   L_MOUSE, L_MOUSE,                    _______, KC_BTN1,  KC_BTN2, KC_BTN3, KC_MS_L, KC_MS_D, KC_MS_R),
+    _______, _______, _______, _______,                   L_MOUSE, L_MOUSE,                    _______, KC_BTN1,  KC_BTN3, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R),
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
   /* Keymap _MI: MIDI layer (Advanced)*/
@@ -200,8 +164,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 enum layer_id {
   LAYER_BASE,
   LAYER_FUNCTION,
-  LAYER_ANGLE_BRACKET,
-  LAYER_CURLY_BRACKET,
   LAYER_MEDIA,
   LAYER_CONTROL,
   LAYER_MOUSE,
@@ -217,12 +179,6 @@ void clueboard_set_led(uint8_t id, uint8_t val) {
       break;
     case LAYER_FUNCTION:
       rgblight_sethsv_noeeprom(46, 255, val);
-      break;
-    case LAYER_ANGLE_BRACKET:
-      rgblight_sethsv_noeeprom(50, 255, val);
-      break;
-    case LAYER_CURLY_BRACKET:
-      rgblight_sethsv_noeeprom(55, 255, val);
       break;
     case LAYER_MEDIA:
       rgblight_sethsv_noeeprom(86, 255, val);
@@ -255,10 +211,6 @@ void matrix_scan_user(void) {
         clueboard_set_led(LAYER_MEDIA, val);
       } else if (layer & (1<<_CL)) {
         clueboard_set_led(LAYER_CONTROL, val);
-      } else if (layer & (1<<_ABL)) {
-        clueboard_set_led(LAYER_ANGLE_BRACKET, val);
-      } else if (layer & (1<<_CBL)) {
-        clueboard_set_led(LAYER_CURLY_BRACKET, val);
       } else {
         clueboard_set_led(LAYER_FUNCTION, val);
       }
