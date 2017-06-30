@@ -16,6 +16,7 @@
   * [Mouse keys](mouse_keys.md)
 
 * Reference
+  * [Glossary](glossary.md)
   * [Keymap overview](keymap.md)
   * [Keycodes](keycodes.md)
     * [Basic Keycodes](basic_keycodes.md)
