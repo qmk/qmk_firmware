@@ -20,9 +20,10 @@
 // Col2, Row 0 has to be KC_NO, because tests rely on it
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = {
-	    {KC_A,  KC_B,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
-	    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
-	    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
-	    {KC_C,  KC_D,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+		// 0    1      2      3        4        5        6      7      8      9
+	    {KC_A,  KC_B,  KC_NO, KC_LSFT, KC_RSFT, KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
+	    {KC_C,  KC_D,  KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO},
 	},
 };
