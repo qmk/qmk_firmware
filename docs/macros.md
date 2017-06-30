@@ -41,7 +41,7 @@ A macro can include the following commands:
 
 ## Sending strings
 
-Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string for you instead of having to build a `MACRO()`. Right now it assumes a US keymap with a QWERTY layout, so if you are using something else it may not behave as you expect.
+Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string for you instead of having to build a `MACRO()`.
 
 For example:
 
@@ -56,6 +56,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	}
 	return MACRO_NONE;
 };
+```
+
+By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
+
+```
+#include <sendstring_colemak.h>
 ```
 
 ## Mapping a Macro to a key
