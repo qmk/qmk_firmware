@@ -39,6 +39,9 @@ TEST_F(KeyPress, CorrectKeyIsReportedWhenPressed) {
     press_key(0, 0);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     keyboard_task();
+    release_key(0, 0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_task();
 }
 
 TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
@@ -50,12 +53,18 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B, KC_C)));
     keyboard_task();
+    release_key(1, 0);
+    release_key(0, 3);
+    //Note that the first key released is the first one in the matrix order
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_C)));
+    keyboard_task();
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_task();
 }
 
 TEST_F(KeyPress, ANonMappedKeyDoesNothing) {
     TestDriver driver;
     press_key(2, 0);
-    //Note that QMK only processes one key at a time
     EXPECT_CALL(driver, send_keyboard_mock(_)).Times(0);
     keyboard_task();
     keyboard_task();
