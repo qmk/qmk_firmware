@@ -5,7 +5,7 @@
     "plugins" : [
       "anchors",
       "edit-link",
-      "neo-navigator",
+      "navigator",
       "forkmegithub",
       "git-author",
       "hints",
