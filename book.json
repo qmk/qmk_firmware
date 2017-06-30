@@ -5,11 +5,11 @@
     "plugins" : [
       "anchors",
       "edit-link",
-      "navigator",
       "forkmegithub",
       "git-author",
       "hints",
       "numbered-headings",
+      "page-toc",
       "terminal",
       "toolbar"
     ],
