@@ -5,7 +5,7 @@
     "plugins" : [
       "anchors",
       "edit-link",
-      "etoc",
+      "neo-navigator",
       "forkmegithub",
       "git-author",
       "hints",
@@ -21,10 +21,6 @@
       "forkmegithub": {
         "color": "red",
         "url": "https://github.com/qmk/qmk_firmware"
-      },
-      "etoc": {
-        "maxdepth": 3,
-        "notoc": true
       },
       "toolbar": {
         "buttons": [
