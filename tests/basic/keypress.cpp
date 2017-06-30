@@ -86,3 +86,39 @@ TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
     keyboard_task();
 }
+
+TEST_F(KeyPress, PressLeftShiftAndControl) {
+    TestDriver driver;
+    press_key(3, 0);
+    press_key(5, 0);
+    // Unfortunately modifiers are also processed in the wrong order
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    keyboard_task();
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_LCTRL)));
+    keyboard_task();
+}
+
+TEST_F(KeyPress, LeftAndRightShiftCanBePressedAtTheSameTime) {
+    TestDriver driver;
+    press_key(3, 0);
+    press_key(4, 0);
+    // Unfortunately modifiers are also processed in the wrong order
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    keyboard_task();
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_RSFT)));
+    keyboard_task();
+}
+
+TEST_F(KeyPress, RightShiftLeftControlAndCharWithTheSameKey) {
+    TestDriver driver;
+    press_key(6, 0);
+    // BUG: The press is split into two reports
+    // BUG: It reports RSFT instead of LSFT
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL, KC_O)));
+    keyboard_task();
+    release_key(6, 0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_task();
+}
