@@ -16,11 +16,11 @@ Each of the functions described below can be defined with a `_kb()` suffix or a 
 
 When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` before executing anything else- otherwise the keymap level function will never be called.
 
-## Custom Keycodes
+# Custom Keycodes
 
 By far the most common task is to change the behavior of an existing keycode or to create a new keycode. From a code standpoint the mechanism for each is very similar.
 
-### Defining a New Keycode
+## Defining a New Keycode
 
 The first step to creating your own custom keycode(s) is to enumerate them. This means both naming them and assigning a unique number to that keycode. Rather than limit custom keycodes to a fixed range of numbers QMK provides the `SAFE_RANGE` macro. You can use `SAFE_RANGE` when enumerating your custom keycodes to guarantee that you get a unique number.
 
@@ -34,13 +34,13 @@ enum my_keycodes {
 };
 ```
 
-### Programming The Behavior Of A Keycode
+## Programming The Behavior Of A Keycode
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_{kb,user}()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send and key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 
-#### Example `process_record_user()` implementation
+### Example `process_record_user()` implementation
 
 This example does two things. It defines the behavior for a custom keycode called `FOO`, and it supplements our Enter key by playing a tone whenever it is pressed.
 
@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-#### `process_record_*` Function documentation
+### `process_record_*` Function documentation
 
 * Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` 
 * Keymap: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
@@ -86,7 +86,7 @@ keyrecord_t record {
 }
 ```
 
-### LED Control
+## LED Control
 
 This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.
 
@@ -96,7 +96,7 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-#### Example `led_set_kb()` implementation
+### Example `led_set_kb()` implementation
 
 ```
 void led_set_kb(uint8_t usb_led) {
@@ -128,12 +128,12 @@ void led_set_kb(uint8_t usb_led) {
 }
 ```
 
-#### `led_set_*` Function documentation
+### `led_set_*` Function documentation
 
 * Keyboard/Revision: `void led_set_kb(uint8_t usb_led)` 
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
-### Matrix Initialization Code
+## Matrix Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
@@ -153,20 +153,20 @@ void matrix_init_kb(void) {
 }
 ```
 
-#### `matrix_init_*` Function documentation
+### `matrix_init_*` Function documentation
 
 * Keyboard/Revision: `void matrix_init_kb(void)` 
 * Keymap: `void matrix_init_user(void)`
 
-### Matrix Scanning Code
+## Matrix Scanning Code
 
 Whenever possible you should customize your keyboard by using `process_record_*()` and hooking into events that way, to ensure that your code does not have a negative performance impact on your keyboard. However, in rare cases it is necessary to hook into the matrix scanning. Be extremely careful with the performance of code in these functions, as it will be called at least 10 times per second.
 
-#### Example `matrix_scan_*` implementation
+### Example `matrix_scan_*` implementation
 
 This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on gitter](https://gitter.im/qmk/qmk_firmware).
 
-#### `matrix_scan_*` Function documentation
+### `matrix_scan_*` Function documentation
 
 * Keyboard/Revision: `void matrix_scan_kb(void)`
 * Keymap: `void matrix_scan_user(void)`

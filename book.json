@@ -22,6 +22,9 @@
         "color": "red",
         "url": "https://github.com/qmk/qmk_firmware"
       },
+      "page-toc": {
+        "selector": ".markdown-section h1, .markdown-section h2, .markdown-section h3"
+      },
       "toolbar": {
         "buttons": [
           {
