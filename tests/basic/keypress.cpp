@@ -69,3 +69,20 @@ TEST_F(KeyPress, ANonMappedKeyDoesNothing) {
     keyboard_task();
     keyboard_task();
 }
+
+TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
+    TestDriver driver;
+    press_key(3, 0);
+    press_key(0, 0);
+    // Unfortunately modifiers are also processed in the wrong order
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+    keyboard_task();
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A, KC_LSFT)));
+    keyboard_task();
+    release_key(0, 0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+    keyboard_task();
+    release_key(3, 0);
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
+    keyboard_task();
+}
