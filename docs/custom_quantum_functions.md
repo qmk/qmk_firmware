@@ -86,7 +86,7 @@ keyrecord_t record {
 }
 ```
 
-## LED Control
+# LED Control
 
 This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.
 
@@ -133,11 +133,11 @@ void led_set_kb(uint8_t usb_led) {
 * Keyboard/Revision: `void led_set_kb(uint8_t usb_led)` 
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
-## Matrix Initialization Code
+# Matrix Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
-#### Example `matrix_init_kb()` implementation
+### Example `matrix_init_kb()` implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
@@ -158,7 +158,7 @@ void matrix_init_kb(void) {
 * Keyboard/Revision: `void matrix_init_kb(void)` 
 * Keymap: `void matrix_init_user(void)`
 
-## Matrix Scanning Code
+# Matrix Scanning Code
 
 Whenever possible you should customize your keyboard by using `process_record_*()` and hooking into events that way, to ensure that your code does not have a negative performance impact on your keyboard. However, in rare cases it is necessary to hook into the matrix scanning. Be extremely careful with the performance of code in these functions, as it will be called at least 10 times per second.
 
