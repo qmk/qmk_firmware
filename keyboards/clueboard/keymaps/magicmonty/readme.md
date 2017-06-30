@@ -2,7 +2,9 @@
 
 [Keyboard Layout Editor File]
 
-![Clueboard Layout Image](http://i.imgur.com/53oxbIq.png)
+![Clueboard Layout Image](http://i.imgur.com/uShk3P9.png)
+My ClueBoard Layout as of 2017/06/30
+
 
 This layout is a combination of the `mouse_keys` and the `win_optimized` layouts.
 This layout is optimized for an ISO layout.
@@ -23,7 +25,7 @@ It can be exited with the `ESC`-Key
 ## Space Cadet(ish) Shift Parentheses
 
 If the function layer is active, the `SHIFT`-Keys are configured (not quite) like the [Space Cadet Shift Parentheses]
-as opened (left `SHIFT`) and closed (right `SHIFT`) parentheses.
+as opened (left `SHIFT`) and closed (right `SHIFT`) parentheses if tapped and `SHIFT` if held.
 There are two more layers which enable angle brackets (`FN`+`CTRL`) and curly braces (`FN`+`ALT`) on the `SHIFT` keys
 
 ## Media layer
