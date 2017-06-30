@@ -95,6 +95,8 @@ extern uint32_t default_layer_state;
 #endif
 
 #define SEND_STRING(str) send_string(PSTR(str))
+extern const bool ascii_to_shift_lut[0x80];
+extern const uint8_t ascii_to_keycode_lut[0x80];
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
 
