@@ -14,14 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
-
-#include "quantum.h"
-#include "test_driver.h"
-#include "test_matrix.h"
-#include "keyboard_report_util.h"
-#include "test_fixture.h"
+#include "test_common.h"
 
 using testing::_;
 using testing::Return;
