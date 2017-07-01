@@ -14,17 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #pragma once
-
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
-class TestFixture : public testing::Test {
-public:
-    TestFixture();
-    ~TestFixture();
-    static void SetUpTestCase();
-    static void TearDownTestCase();
-
-    void run_one_scan_loop();
-    void idle_for(uint ms);
-};
+#include "quantum.h"
+#include "test_driver.h"
+#include "test_matrix.h"
+#include "keyboard_report_util.h"
+#include "test_fixture.h"
