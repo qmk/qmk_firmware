@@ -20,5 +20,4 @@
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 10
 
-
 #endif /* TESTS_BASIC_CONFIG_H_ */
