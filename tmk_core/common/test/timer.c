@@ -29,3 +29,7 @@ uint32_t timer_elapsed32(uint32_t last) { return TIMER_DIFF_32(timer_read32(), l
 
 void set_time(uint32_t t) { current_time = t; }
 void advance_time(uint32_t ms) { current_time += ms; }
+
+void wait_ms(uint32_t ms) {
+    advance_time(ms);
+}
