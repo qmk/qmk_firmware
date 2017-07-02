@@ -18,7 +18,7 @@
 #include "gmock/gmock.h"
 
 #include "quantum.h"
-#include "test_driver.h"
+#include "test_driver.hpp"
 #include "test_matrix.h"
-#include "keyboard_report_util.h"
-#include "test_fixture.h"
+#include "keyboard_report_util.hpp"
+#include "test_fixture.hpp"

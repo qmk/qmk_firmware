@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #include "keyboard_report_util.h"
+ #include "keyboard_report_util.hpp"
  #include <vector>
  #include <algorithm>
  using namespace testing;
