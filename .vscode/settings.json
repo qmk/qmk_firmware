@@ -4,5 +4,11 @@
     "files.exclude": {
         "**/.build": true,
         "**/*.hex": true
+    },
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp"
     }
 }

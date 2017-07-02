@@ -20,7 +20,7 @@
 #include "gmock/gmock.h"
 #include <stdint.h>
 #include "host.h"
-#include "keyboard_report_util.h"
+#include "keyboard_report_util.hpp"
 
 
 class TestDriver {
