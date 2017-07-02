@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_common.h"
+#include "test_common.hpp"
 #include "action_tapping.h"
 
 using testing::_;
