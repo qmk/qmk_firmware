@@ -7,9 +7,6 @@
 #ifdef SUBPROJECT_rev2
     #include "rev2.h"
 #endif
-#ifdef SUBPROJECT_rev2fliphalf
-	#include "rev2fliphalf.h"
-#endif
 
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \

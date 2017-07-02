@@ -27,4 +27,4 @@ If you really need the norwegian symbols in a program, you can access them using
 
 ## Layout
 
-![keyboard-layout](keyboard-layout.png)
+![keyboard-layout](https://i.imgur.com/Qz3E9po.png)

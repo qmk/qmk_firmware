@@ -43,8 +43,10 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Happy Hacking Keyboard](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
 * [Infinity 60%](/keyboards/infinity60) - &mdash; Compact community keyboard by Input Club.
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
+* [KBD75](/keyboards/kbd75) &mdash; A 75% keyboard made by made by KBDFans.
 * [KC60](/keyboards/kc60) &mdash; A programmable Chinese-made keyboard, lost in the mists of time.
 * [Kinesis Advantage](/keyboards/kinesis) &mdash; Contoured ergonomic keyboard by Kinesis Computer Ergonomics.
+* [KMAC](/keyboards/kmac) &mdash; Korean custom keyboard.
 * [The Kitten Paw](/keyboards/kitten_paw) &mdash; A replacement controller (2016 revision) for the Filco Majestouch by [Bathroom Epiphanies](https://github.com/BathroomEpiphanies).
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.

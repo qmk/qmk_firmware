@@ -1,5 +1,5 @@
 # ErgoDox Familiar Layout
-Familiar layout for those who regularly switch back and forth from ErgoDox to regular QWERTY.
+Familiar layout for those who regularly switch back and forth from ErgoDox to "normal" QWERTY.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](../../../../license_GPLv3.md../../../../license_GPLv3.md) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
@@ -23,12 +23,12 @@ Key features of the familiar layout:
 1. QWERTY default layout.
 1. International symbols layer, mapped in the US-International layout default positions, through [UCIS](https://github.com/qmk/qmk_firmware/wiki/Unicode-and-additional-language-support#ucis_enable).
 1. Numpad layer on right hand.
-1. Thumb cluster holds spacebar, ALT, and access to secondary layers.
+1. Thumb cluster holds spacebar and access to secondary layers.
 1. Function-layer arrow keys in both the first-person-shooter (actually ESDF instead of WASD) and vim (HJKL) locations.
 
 ## Install
 
-If you are on Windows or Mac, choose the proper line in [`keymap.c`](keymap.c) for [unicode/international character support](https://github.com/qmk/qmk_firmware/wiki/Unicode-and-additional-language-support#ucis_enable) (starts at line 235).
+If you are on Windows or Mac, choose the proper line in [`keymap.c`](keymap.c) for [unicode/international character support](https://github.com/qmk/qmk_firmware/wiki/Unicode-and-additional-language-support#ucis_enable) (starts at line 253).
 ```c
 void matrix_init_user(void) {
     set_unicode_input_mode(UC_LNX); // Linux
@@ -45,13 +45,13 @@ $ make ergodox-ez-familiar-teensy
 
 ## Usage
 
-[![Familiar Layout](familiar.png)](http://www.keyboard-layout-editor.com/#/gists/13508a9f99cff381d58b7be6f7dcc644)
+[![Familiar Layout](http://i.imgur.com/6nLN9UT.png)](https://gist.github.com/nstickney/13508a9f99cff381d58b7be6f7dcc644)
 
 ### Layers
 1. Base Layer: QWERTY, with arrow keys at bottom right.
-1. UCIS Layer: US-International symbols layer, plus —. Accessed by toggling the `INTL` layer using the UCIS key (bottom of left thumb cluster).
-1. UCIS-Shifted Layer: Making shift work for UCIS characters. An ugly workaround. Any ideas? Accessed through holding shift while the UCIS layer is active (toggles the `INSF` layer).
-1. Numpad Layer: Right hand number pad. Accessed by toggling the `NUMP` layer using the NPAD key (bottom of right thumb cluster).
+1. UCIS Layer: US-International symbols layer, plus —. Accessed by toggling the `SYMB` layer using the UCIS key (bottom of left thumb cluster).
+1. UCIS-Shifted Layer: Making shift work for UCIS characters. An ugly workaround. Any ideas? Accessed by holding shift while the `SYMB` layer is active (toggles the `CSYM` layer).
+1. Numpad Layer: Right hand number pad. Accessed by toggling the `NUMP` layer using the NUMP key (bottom of right thumb cluster).
 1. Function Layer: F1-F12, arrows on ESDF and HJKL, media player controls. Accessed by holding either FN key (center key of each thumb cluster), which toggles the `ARRW` layer. I know, I need to work on my naming conventions.
 
 ## Contribute
@@ -61,9 +61,9 @@ $ make ergodox-ez-familiar-teensy
 I'm terrible at this; I have no background in human-computer interaction, kinesiology, or keyboard-ology. Please send comments/issues/pull requests/angry tweets/etc. If you think there is a better way to take advantage of the ErgoDox/QMK comination without straying far from 84/101-key QWERTY, I want to know it.
 
 ### Issues
-1. The top two keys of the right thumb cluster are currently unused. I wanted them for screen brightness, but I haven't found a solution I like.
-1. The `'`, `"`, `[`, and `]` keys are terrible to access; I want to put them somewhere else but I haven't figured out where.
-1. The `INSF` layer is an ugly workaround. I should write a function for doing different things in the `INTL` layer depending on whether SHIFT is being held. Or something. Ideas?
+1. The `CSYM` layer is an ugly workaround. I should write a function for doing different things in the `SYMB` layer depending on whether SHIFT is being held. Or something. Ideas?
+1. Right now, the thumb cluster function keys double as slash and whack... this really isnt a great solution.
+1. `MENU` and `LEAD` are useless, at the moment.
 
 ## License
 QMK is licensed ([mostly](https://github.com/qmk/qmk_firmware/issues/1038)) under the [GPLv2](blob/master/license_GPLv2.md). Accordingly, to whatever extent applicable, this keymap is licensed under the [GPLv3](../../../../license_GPLv3.md).
