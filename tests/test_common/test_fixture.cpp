@@ -1,6 +1,6 @@
-#include "test_fixture.h"
+#include "test_fixture.hpp"
 #include "gmock/gmock.h"
-#include "test_driver.h"
+#include "test_driver.hpp"
 #include "test_matrix.h"
 #include "keyboard.h"
 #include "action.h"
