@@ -34,9 +34,9 @@ enum my_keycodes {
 };
 ```
 
-## Programming The Behavior Of A Keycode
+## Programming The Behavior Of Any Keycode
 
-When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_{kb,user}()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send and key up or down events that are required.
+When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()' and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send any key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_enter);
+        PLAY_NOTE_ARRAY(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
   }

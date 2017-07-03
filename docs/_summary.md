@@ -23,15 +23,16 @@
     * [Quantum Keycodes](quantum_keycodes.md)
   * [The Config File](config_options.md)
   * [Customizing Functionality](custom_quantum_functions.md)
+  * [Documentation Best Practices](documentation_best_practices.md)
   
 * For makers and modders
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
   * [Porting your keyboard to QMK](porting_your_keyboard_to_qmk.md)
   * [Modding your keyboard](modding_your_keyboard.md)
+  * [Understanding QMK](understanding_qmk.md)
   * [Adding features to QMK](adding_features_to_qmk.md)
   * [ISP flashing guide](isp_flashing_guide.md)
   
 * Other topics
   * [General FAQ](faq.md)
-  * [Differences from TMK](differences_from_tmk.md)
   * [Using Eclipse with QMK](eclipse.md)
