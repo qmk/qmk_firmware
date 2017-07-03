@@ -837,6 +837,7 @@ void backlight_set(uint8_t level)
 
 uint8_t backlight_tick = 0;
 
+__attribute__ ((weak))
 void backlight_task(void) {
   #ifdef NO_BACKLIGHT_CLOCK
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) { 

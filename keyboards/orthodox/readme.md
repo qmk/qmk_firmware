@@ -37,13 +37,13 @@ For further reading on build- and flashing-procedures for split ortholinear skel
 Download or clone the whole firmware and navigate to the keyboards/orthodox directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make rev1
+$ make rev1-default
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex files in your *root qmk_firmware directory* two levels up:
 
 ```
-orthodox_rev1_serial.hex
+orthodox_rev1_default.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
@@ -97,7 +97,7 @@ the two halves, i.e. if your split keyboard has 3 rows in each half, then
 Flashing
 -------
 From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make rev2-serial-avrdude`
+Example: `make rev2-default-avrdude`
 
 
 Choosing which board to plug the USB cable into (choosing Master)

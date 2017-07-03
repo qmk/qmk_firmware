@@ -93,6 +93,14 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     LED_BREATHING_TABLE = yes
 endif
 
+ifeq ($(strip $(RGBARRAY_ENABLE)), yes)
+    OPT_DEFS += -DRGBARRAY_ENABLE
+    SRC += $(DRIVER_DIR)/is31fl3731.c
+    SRC += $(DRIVER_DIR)/TWIlib.c
+    SRC += $(QUANTUM_DIR)/color.c
+    CIE1931_CURVE = yes
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c

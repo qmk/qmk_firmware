@@ -1,5 +1,9 @@
 /*
+This is the c configuration file for the keyboard
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Jack Humbert
+Copyright 2017 Art Ortenburger
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,10 +27,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_rev1
     #include "rev1/config.h"
 #endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
-#ifdef SUBPROJECT_rev2fliphalf
-	#include "../../rev2fliphalf/config.h"
-#endif
+
 #endif
