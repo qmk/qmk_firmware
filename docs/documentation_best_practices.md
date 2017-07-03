@@ -23,17 +23,17 @@ Your page should generally have multiple "H1" headings. Only H1 and H2 headings 
 You can have styled hint blocks drawn around text to draw attention to it.
 
 {% hint style='info' %}
-This uses \{% hint style='info' %\}
+This uses `hint style='info'`
 {% endhint %}
 
 {% hint style='tip' %}
-This uses \{% hint style='tip' %\}
+This uses `hint style='tip'`
 {% endhint %}
 
 {% hint style='danger' %}
-This uses \{% hint style='danger' %\}
+This uses `hint style='danger'`
 {% endhint %}
 
 {% hint style='working' %}
-This uses \{% hint style='working' %\}
+This uses `hint style='working'`
 {% endhint %}
