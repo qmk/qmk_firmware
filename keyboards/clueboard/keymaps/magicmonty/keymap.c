@@ -179,6 +179,47 @@ void clueboard_set_led(uint8_t id, uint8_t val) {
   }
 };
 
+const uint16_t oct_hues[10] = {
+  0,
+  30,
+  60,
+  90,
+  120,
+  150,
+  180,
+  210,
+  240,
+  300
+};
+
+#define MAX_OCT  9
+
+void clueboard_set_midi_led(uint8_t base_oct, uint8_t val)
+{
+  uint8_t sat = 255;
+
+  for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+    sethsv(oct_hues[base_oct], sat, val, (LED_TYPE *)&led[i]);
+  }
+
+  uint8_t next_oct = base_oct < MAX_OCT ? base_oct + 1 : base_oct;
+
+  uint16_t next_hue = base_oct < MAX_OCT ? oct_hues[next_oct] : 0;
+  uint8_t next_val = base_oct < MAX_OCT ? val : 0;
+  uint8_t next_sat = base_oct < MAX_OCT ? sat : 0;
+
+
+  for (uint8_t i = 0; i < 3; i++) {
+    sethsv(next_hue, next_sat, next_val, (LED_TYPE *)&led[i]);
+  }
+
+  for (uint8_t i = 11; i < 14; i++) {
+    sethsv(next_hue, next_sat, next_val, (LED_TYPE *)&led[i]);
+  }
+
+  rgblight_set();
+}
+
 void matrix_scan_user(void) {
     rgblight_config_t rgblight_config;
     rgblight_config.raw = eeconfig_read_rgblight();
@@ -197,10 +238,10 @@ void matrix_scan_user(void) {
         clueboard_set_led(LAYER_FUNCTION, val);
       }
     } else if (layer & (1<<_ML)) {
-        clueboard_set_led(LAYER_MOUSE, val);
+      clueboard_set_led(LAYER_MOUSE, val);
 #if defined(MIDI_ENABLE)
     } else if (layer & (1<<_MI)) {
-        clueboard_set_led(LAYER_MIDI, val);
+      clueboard_set_midi_led(midi_config.octave, val);
 #endif
     } else {
         clueboard_set_led(LAYER_BASE, val);
