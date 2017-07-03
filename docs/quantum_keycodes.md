@@ -4,7 +4,7 @@ All keycodes within quantum are numbers between `0x0000` and `0xFFFF`. Within yo
 
 On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are used to implement advanced quantum features. If you define your own custom keycodes they will be put into this range as well. Keycodes above `0x00FF` may not be used with any of the mod/layer-tap keys listed 
 
-# Quantum keycodes
+## QMK keycodes
 
 |Name|Description|
 |----|-----------|
@@ -18,7 +18,7 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`M(n)`|to call macro n|
 |`MACROTAP(n)`|to macro-tap n idk FIXME|
 
-# Bootmagic Keycodes
+## Bootmagic Keycodes
 
 Shortcuts for bootmagic options (these work even when bootmagic is off.)
 
@@ -44,7 +44,7 @@ Shortcuts for bootmagic options (these work even when bootmagic is off.)
 |`MAGIC_UNSWAP_ALT_GUI`/`AG_NORM`|Disable the Alt/GUI switching|
 |`MAGIC_TOGGLE_NKRO`|Turn NKRO on or off|
 
-# Audio
+## Audio
 
 ```c
 #ifdef AUDIO_ENABLE
@@ -69,7 +69,7 @@ Shortcuts for bootmagic options (these work even when bootmagic is off.)
 #endif
 ```
 
-## Midi
+### Midi
 
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     MI_ON,  // send midi notes when music mode is enabled
@@ -157,7 +157,7 @@ MI_MODSD, // decrease modulation speed
 MI_MODSU, // increase modulation speed
 #endif // MIDI_ADVANCED
 
-# Backlight
+## Backlight
 
 These keycodes control the backlight. Most keyboards use this for single color in-switch lighting.
 
@@ -171,7 +171,7 @@ These keycodes control the backlight. Most keyboards use this for single color i
 |`BL_TOGG`|Toggle the backlight on or off|
 |`BL_STEP`|Step through backlight levels, wrapping around to 0 when you reach the top.|
 
-# RGBLIGHT WS2818 LEDs
+## RGBLIGHT WS2818 LEDs
 
 This controls the `RGBLIGHT` functionality. Most keyboards use WS2812 (and compatible) LEDs for underlight or case lighting.
 
@@ -203,7 +203,7 @@ This is used when multiple keyboard outputs can be selected. Currently this only
 |`OUT_USB`|usb only|
 |`OUT_BT`|bluetooth (when `BLUETOOTH_ENABLE`)|
 
-# Modifiers
+## Modifiers
 
 These are special keycodes that simulate pressing several modifiers at once.
 
@@ -219,7 +219,7 @@ These are special keycodes that simulate pressing several modifiers at once.
  * |`KC_LCA`|`LCTL` + `LALT`|
  */
 
-## Modifiers with keys
+### Modifiers with keys
 
 |Name|Description|
 |----|-----------|
@@ -238,7 +238,7 @@ These are special keycodes that simulate pressing several modifiers at once.
 |`SCMD(kc)`/`SWIN(kc)`|`LGUI` + `LSFT` + `kc`|
 |`LCA(kc)`|`LCTL` + `LALT` + `kc`|
 
-## One Shot Keys
+### One Shot Keys
 
 Most modifiers work by being held down while you push another key. You can use `OSM()` to setup a "One Shot" modifier. When you tap a one shot mod it will remain is a pressed state until you press another key. 
 
@@ -249,7 +249,7 @@ To specify a your modifier you need to pass the `MOD` form of the key. For examp
 |`OSM(mod)`|use mod for one keypress|
 |`OSL(layer)`|switch to layer for one keypress|
 
-## Mod-tap keys
+### Mod-tap keys
 
 These keycodes will press the mod(s) when held, and the key when tapped. They only work with [basic keycodes](basic_keycodes.md). 
 
@@ -271,7 +271,7 @@ These keycodes will press the mod(s) when held, and the key when tapped. They on
 |`SCMD_T(kc)`/`SWIN_T(kc)`|`LGUI` + `LSFT` when held, `kc` when tapped|
 |`LCA_T(kc)`|`LCTL` + `LALT` when held, `kc` when tapped|
 
-# US ANSI Shifted symbols
+## US ANSI Shifted symbols
 
 These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboards. They do not have dedicated keycodes but are instead typed by holding down shift and then sending a keycode. 
 
@@ -301,7 +301,7 @@ It's important to remember that all of these keycodes send a left shift - this m
 |`KC_QUES`|`KC_QUESTION`|question mark `?`|
 |`KC_DQT`/`KC_DQUO`|`KC_DOUBLE_QUOTE`|double quote `"`|
 
-# Layer Changes
+## Layer Changes
 
 These are keycodes that can be used to change the current layer.
 
@@ -315,7 +315,7 @@ These are keycodes that can be used to change the current layer.
 |`TT(layer)`|tap toggle? idk FIXME|
 |`OSL(layer)`|switch to layer for one keycode|
 
-# Unicode
+## Unicode
 
 These keycodes can be used in conjuction with the [Unicode](unicode_and_additional_language_support.md) support.
 
