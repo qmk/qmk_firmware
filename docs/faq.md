@@ -10,7 +10,9 @@ TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk
 
 From a technical standpoint QMK builds upon TMK by adding several new features. Most notably QMK has expanded the number of available keycodes and uses these to implement advanced features like `S()`, `LCTL()`, and `MO()`. You can see a complete list of these keycodes in [Quantum Keycodes](quantum_keycodes.html).
 
-From a project and community management standpoint TMK prefers to have keyboards maintained in separate forks while QMK prefers to have keyboards maintained in one central repository. 
+From a project and community management standpoint TMK maintains all the officially supported keyboards by himself, with a bit of community support. Separate community maintained forks exist or can be created for other keyboards. Only a few keymaps are provided by default, so users typically don't share keymaps with each other. QMK encourages sharing of both keyboards and keymaps through a centrally managed repository, accepting all pull requests that follows the quality standards. These are mostly community maintained, but the QMK team also helps when necessary.
+
+Both approaches have their merits and their drawbacks, and code flows freely between TMK and QMK when it makes sense.
 
 # Debug Console
 ## hid_listen can't recognize device
