@@ -1,3 +1,5 @@
+# Setting Up Eclipse for QMK Development
+
 [Eclipse](https://en.wikipedia.org/wiki/Eclipse_(software)) is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) widely used for Java development, but with an extensible plugin system that allows to customize it for other languages and usages.
 
 Using an IDE such as Eclipse provides many advantages over a plain text editor, such as:
