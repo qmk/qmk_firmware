@@ -25,6 +25,8 @@ increment_version ()
   echo -e "${new// /.}"
 } 
 
+git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
+
 NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | wc -l)
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
@@ -44,7 +46,8 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
-	ssh-add ../qmk_firmware/qmk.fm
+	mv ../qmk_firmware/qmk.fm qmk.fm
+	ssh-add qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
 	#rm -rf keyboards
@@ -55,6 +58,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	#./generate.sh
 	rm -f _compiled/*.hex
 	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "_compiled/${file##*/}"; done
+	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*.hex; do mv -v "$file" "_compiled/${file##*/}"; done
 
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
