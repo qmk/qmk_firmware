@@ -1,6 +1,7 @@
 * [Getting started](README.md) 
   * [QMK Overview](qmk_overview.md)
   * [Build Environment Setup](build_environment_setup.md)
+    * [Vagrant Guide](vagrant_guide.md)
   * [Make instructions](make_instructions.md)
   * [FAQ: Creating a Keymap](faq_keymap.md)
   * [FAQ: Compiling QMK](faq_build.md)
@@ -29,9 +30,12 @@
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
   * [Porting your keyboard to QMK](porting_your_keyboard_to_qmk.md)
   * [Modding your keyboard](modding_your_keyboard.md)
-  * [Understanding QMK](understanding_qmk.md)
   * [Adding features to QMK](adding_features_to_qmk.md)
   * [ISP flashing guide](isp_flashing_guide.md)
+
+* For Deeper Understanding
+  * [How Keyboards Work](basic_how_keyboards_work.md)
+  * [Understanding QMK](understanding_qmk.md)
   
 * Other topics
   * [General FAQ](faq.md)
