@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nodebug.h"
 #endif
 
+int tp_buttons;
+
 #ifdef FAUXCLICKY_ENABLE
 #include <fauxclicky.h>
 #endif
@@ -65,8 +67,10 @@ void action_exec(keyevent_t event)
 
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
-        dprintf("Oneshot layer: timeout\n");
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+    }
+    if (has_oneshot_mods_timed_out()) {
+        clear_oneshot_mods();
     }
 #endif
 
@@ -311,9 +315,35 @@ void process_action(keyrecord_t *record, action_t action)
         /* Mouse key */
         case ACT_MOUSEKEY:
             if (event.pressed) {
+                switch (action.key.code) {
+                    case KC_MS_BTN1:
+                        tp_buttons |= (1<<0);
+                        break;
+                    case KC_MS_BTN2:
+                        tp_buttons |= (1<<1);
+                        break;
+                    case KC_MS_BTN3:
+                        tp_buttons |= (1<<2);
+                        break;
+                    default:
+                        break;
+                }
                 mousekey_on(action.key.code);
                 mousekey_send();
             } else {
+                switch (action.key.code) {
+                    case KC_MS_BTN1:
+                        tp_buttons &= ~(1<<0);
+                        break;
+                    case KC_MS_BTN2:
+                        tp_buttons &= ~(1<<1);
+                        break;
+                    case KC_MS_BTN3:
+                        tp_buttons &= ~(1<<2);
+                        break;
+                    default:
+                        break;
+                }
                 mousekey_off(action.key.code);
                 mousekey_send();
             }
