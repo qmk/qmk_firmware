@@ -42,9 +42,8 @@ SRC += $(VISUALIZER_DIR)/resources/lcd_logo.c
 OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
-ifeq ($(strip $(LED_ENABLE)), yes)
+ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/led_keyframes.c
-OPT_DEFS += -DLED_ENABLE
 endif
 
 include $(GFXLIB)/gfx.mk
@@ -52,17 +51,21 @@ GFXSRC := $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
 GFXDEFS := $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
-	SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
+    SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
 else 
-	ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
-		ifeq ("$(wildcard $(SUBPROJECT_PATH)/visualizer.c)","")
-$(error "$(KEYMAP_PATH)/visualizer.c" does not exist)
-		else
-			SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/visualizer.c
-		endif
-	else
-		SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
-	endif
+    ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
+        ifeq ("$(wildcard $(SUBPROJECT_PATH)/visualizer.c)","")
+            ifeq ("$(wildcard $(KEYBOARD_PATH)/visualizer.c)","")
+$(error "visualizer.c" not found")
+            else
+               SRC += keyboards/$(KEYBOARD)/visualizer.c
+            endif
+        else
+            SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/visualizer.c
+        endif
+    else
+        SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
+    endif
 endif
 
 ifdef EMULATOR

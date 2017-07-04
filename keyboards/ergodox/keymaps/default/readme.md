@@ -12,4 +12,4 @@
 
 This is what we ship with out of the factory. :) The image says it all:
 
-![Default](default_firmware_v1.2-2.png)
+![Default](https://i.imgur.com/Be53jH7.png)

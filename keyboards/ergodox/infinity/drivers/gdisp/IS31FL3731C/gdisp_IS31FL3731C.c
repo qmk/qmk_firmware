@@ -43,7 +43,7 @@ extern const uint8_t CIE1931_CURVE[];
 	#define GDISP_INITIAL_CONTRAST	0
 #endif
 #ifndef GDISP_INITIAL_BACKLIGHT
-	#define GDISP_INITIAL_BACKLIGHT	100
+	#define GDISP_INITIAL_BACKLIGHT	0
 #endif
 
 #define GDISP_FLG_NEEDFLUSH			(GDISP_FLG_DRIVER<<0)
@@ -173,7 +173,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
     }
 
     // software shutdown disable (i.e. turn stuff on)
-    write_register(g, IS31_FUNCTIONREG, IS31_REG_SHUTDOWN, IS31_REG_SHUTDOWN_ON);
+    write_register(g, IS31_FUNCTIONREG, IS31_REG_SHUTDOWN, IS31_REG_SHUTDOWN_OFF);
     gfxSleepMilliseconds(10);
 
     // Finish Init
@@ -183,7 +183,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	g->g.Width = GDISP_SCREEN_WIDTH;
 	g->g.Height = GDISP_SCREEN_HEIGHT;
 	g->g.Orientation = GDISP_ROTATE_0;
-	g->g.Powermode = powerOn;
+	g->g.Powermode = powerOff;
 	g->g.Backlight = GDISP_INITIAL_BACKLIGHT;
 	g->g.Contrast = GDISP_INITIAL_CONTRAST;
 	return TRUE;
@@ -204,7 +204,8 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 		uint8_t* src = PRIV(g)->frame_buffer;
 		for (int y=0;y<GDISP_SCREEN_HEIGHT;y++) {
 		    for (int x=0;x<GDISP_SCREEN_WIDTH;x++) {
-		        PRIV(g)->write_buffer[get_led_address(g, x, y)]=CIE1931_CURVE[*src];
+		        uint8_t val = (uint16_t)*src * g->g.Backlight / 100;
+		        PRIV(g)->write_buffer[get_led_address(g, x, y)]=CIE1931_CURVE[val];
 		        ++src;
 		    }
 		}
@@ -297,8 +298,13 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 			g->g.Orientation = (orientation_t)g->p.ptr;
 			return;
 
-		case GDISP_CONTROL_CONTRAST:
-			return;
+		case GDISP_CONTROL_BACKLIGHT:
+		    if (g->g.Backlight == (unsigned)g->p.ptr)
+                return;
+		    unsigned val = (unsigned)g->p.ptr;
+		    g->g.Backlight = val > 100 ? 100 : val;
+            g->flags |= GDISP_FLG_NEEDFLUSH;
+		    return;
 		}
 	}
 #endif // GDISP_NEED_CONTROL

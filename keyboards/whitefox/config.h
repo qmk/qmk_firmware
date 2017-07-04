@@ -35,6 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 3
+
+#define LED_BRIGHTNESS_LO       100
+#define LED_BRIGHTNESS_HI       255
+
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
@@ -76,3 +82,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #endif
+
+// The visualizer needs gfx thread priorities
+#define LED_DISPLAY_NUMBER 0
+
+#define LED_NUM_ROWS 5
+#define LED_NUM_COLS 16
+
+#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)

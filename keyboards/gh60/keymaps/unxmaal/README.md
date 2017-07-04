@@ -18,3 +18,5 @@ For the full Quantum feature list, see the parent readme.md.
 
 ### Additional Credits
 Keymap has been based on various keymaps available from the QMK Repo for the GH60-SATAN and KC60 keyboards.
+
+![wiring](https://i.imgur.com/8b8T1fQ.jpg)

@@ -1,7 +1,7 @@
 # Beginner's keymap for Ergodox-EZ
 Beginner's keymap emulates standard QWERTY keyboard for beginners. Once you get comfortable with the Ergodox-EZ, you may fork this keymap and customize it for your own needs or find a suitable one from the community contributed keymaps. 
 
-![Beginner's Keymap](keyboard-layout.png)
+![Beginner's Keymap](https://i.imgur.com/dAIocc8.png)
 
 #### Pros
 * Easier to switch between regular keyboards and Ergodox-EZ.
