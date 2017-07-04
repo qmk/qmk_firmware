@@ -3,7 +3,7 @@ Created by James Folkert: https://twitter.com/trekloFsemaJ
 Added several custom functions to the keymap from the "ab" map. Special thanks to "mollat" for demonstration of macros in their keymap.c
  
 
-![Layout](keyboard-layout.jpg "Practical Keymap")
+![Layout](https://i.imgur.com/PEI4eva.jpg "Practical Keymap")
 
 
 * Online keyboard layout editor: http://www.keyboard-layout-editor.com/

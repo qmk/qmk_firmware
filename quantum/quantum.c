@@ -437,6 +437,14 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       // break;
     }
+    case GRAVE_ESC: {
+      void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
+      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
+
+      method(shifted ? KC_GRAVE : KC_ESCAPE);
+      send_keyboard_report(); 
+    }
     default: {
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
@@ -447,7 +455,103 @@ bool process_record_quantum(keyrecord_t *record) {
   return process_action_kb(record);
 }
 
-const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+#ifdef JIS_KEYCODE
+static const uint16_t ascii_to_shift_lut[8] PROGMEM = {
+  0x0000, /*0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,*/
+  0x0000, /*0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,*/
+  0x7ff0, /*0, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 0, 0, 0, 0,*/
+  0x000f, /*0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 1, 1, 1, 1,*/
+  0x7fff, /*0, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1,*/
+  0xffe1, /*1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 0, 0, 0, 0, 1,*/
+  0x8000, /*1, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,*/
+  0x001e, /*0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1, 1, 1, 1, 0*/
+};
+
+static const struct {
+  uint8_t controls_0[16],
+          controls_1[16],
+          numerics[16],
+          alphabets_0[16],
+          alphabets_1[16];
+} lower_to_keycode PROGMEM = {
+  .controls_0 = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0, 
+  },
+  .controls_1 = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, KC_ESC, 0, 0, 0, 0,
+  },
+  .numerics = {
+    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
+    KC_8, KC_9, KC_QUOT, KC_SCLN, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
+  },
+  .alphabets_0 = {
+    KC_LBRC, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G,
+    KC_H, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_O,
+  },
+  .alphabets_1 = {
+    KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
+    KC_X, KC_Y, KC_Z, KC_RBRC, KC_JYEN, KC_BSLS, KC_EQL, KC_RO,
+  },
+};
+static const uint8_t* ascii_to_keycode_lut[8] = {
+  lower_to_keycode.controls_0,
+  lower_to_keycode.controls_1,
+  lower_to_keycode.numerics,
+  lower_to_keycode.numerics,
+  lower_to_keycode.alphabets_0,
+  lower_to_keycode.alphabets_1,
+  lower_to_keycode.alphabets_0,
+  lower_to_keycode.alphabets_1
+};
+
+void send_string(const char *str) {
+    while (1) {
+        uint8_t keycode;
+        bool shift;
+        uint8_t ascii_code = pgm_read_byte(str);
+
+        if ( ascii_code == 0x00u ){ break; }
+        else if (ascii_code == 0x20u) {
+          keycode = KC_SPC;
+          shift = false;
+        }
+        else if (ascii_code == 0x7Fu) {
+          keycode = KC_DEL;
+          shift = false;
+        }
+        else {
+          int hi = ascii_code>>4 & 0x0f,
+              lo = ascii_code & 0x0f;
+          keycode = pgm_read_byte(&ascii_to_keycode_lut[hi][lo]);
+          shift = !!( pgm_read_word(&ascii_to_shift_lut[hi]) & (0x8000u>>lo) );
+        }
+
+        if (shift) {
+            register_code(KC_LSFT);
+            register_code(keycode);
+            unregister_code(keycode);
+            unregister_code(KC_LSFT);
+        }
+        else {
+            register_code(keycode);
+            unregister_code(keycode);
+        }
+        ++str;
+    }
+}
+
+#else
+static const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -466,7 +570,7 @@ const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+static const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -484,6 +588,28 @@ const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
     KC_P, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_V, KC_W,
     KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
+
+void send_string(const char *str) {
+    while (1) {
+        uint8_t keycode;
+        uint8_t ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
+            register_code(KC_LSFT);
+            register_code(keycode);
+            unregister_code(keycode);
+            unregister_code(KC_LSFT);
+        }
+        else {
+            register_code(keycode);
+            unregister_code(keycode);
+        }
+        ++str;
+    }
+}
+
+#endif
 
 /* for users whose OSes are set to Colemak */
 #if 0
@@ -528,26 +654,6 @@ const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
 };
 
 #endif
-
-void send_string(const char *str) {
-    while (1) {
-        uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
-        if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
-        }
-        ++str;
-    }
-}
 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {

@@ -6,7 +6,7 @@ See [keymap.c](keymap.c) for details.
 
 ## Layers
 
-The keymap have two layers. To access the functions on the second layer, hold down caps lock and press the corresponding key.
+The keymap have two layers. To access the functions on the second layer, hold down `Fn` and press the corresponding key.
 
 ### Layer 1: Default Layer
      ,---.   ,---------------. ,---------------. ,---------------. ,-----------.

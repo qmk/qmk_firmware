@@ -1,3 +1,7 @@
+# Porting your keyboard to QMK
+
+This page describes the technical details of porting an existing keyboard to QMK. If you're looking to add your keyboard to QMK, please [look through these guidelines](adding_a_keyboard_to_qmk.md)!
+
 If your keyboard is running an Atmega chip (atmega32u4 and others), it's pretty easy to get things setup for compiling your own firmware to flash onto your board. There is a `/util/new_project.sh <keyboard>` script to help get you started - you can simply pass your keyboard's name into the script, and all of the necessary files will be created. The components of each are described below.
 
 ## `/keyboards/<keyboard>/config.h`
@@ -34,7 +38,7 @@ At the bottom of the file, you'll find lots of features to turn on and off - all
 
 ## `/keyboards/<keyboard>/readme.md`
 
-This is where you'll describe your keyboard - please write as much as you can about it! Talking about default functionality/features is useful here. Feel free to link to external pages/sites if necessary. Images can be included here as well. This file will be rendered into a webpage at qmk.fm/keyboards/<keyboard>/.
+This is where you'll describe your keyboard - please write as much as you can about it! Talking about default functionality/features is useful here. Feel free to link to external pages/sites if necessary. Images can be included here as well, as long as they're hosted elsewhere (imgur).
 
 ## `/keyboards/<keyboard>/<keyboard>.c`
 
