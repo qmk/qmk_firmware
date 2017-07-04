@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
-#define LED_BRIGHTNESS_LO       15
+#define LED_BRIGHTNESS_LO       100
 #define LED_BRIGHTNESS_HI       255
 
 /* define if matrix has ghost */
@@ -54,6 +54,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The visualizer needs gfx thread priorities
 #define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 
+#define VISUALIZER_USER_DATA_SIZE 16
+
+#define LCD_DISPLAY_NUMBER 0
+#define LED_DISPLAY_NUMBER 1
+
+#define LED_NUM_ROWS 7
+#define LED_NUM_COLS 7
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

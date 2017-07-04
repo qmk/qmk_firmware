@@ -209,7 +209,7 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -222,7 +222,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
@@ -230,7 +230,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
@@ -238,7 +238,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _LOWER:
