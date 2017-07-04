@@ -23,10 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1337
 #define PRODUCT_ID      0x6006
-#define DEVICE_VER      0x0001
 #define MANUFACTURER    Bishop Keyboards
 #define PRODUCT         The ECO Keyboard
 #define DESCRIPTION     An economical ortholinear keyboard
+
+/* key matrix size */
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 14
+
+#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -64,5 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#ifdef SUBPROJECT_rev1
+    #include "rev1/config.h"
+#endif
 
 #endif
