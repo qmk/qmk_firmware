@@ -58,12 +58,12 @@ OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 # Build Options
 #   comment out to disable the options.
 #
-CUSTOM_MATRIX ?= yes # Custom matrix file
+CUSTOM_MATRIX = yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
-VISUALIZER_ENABLE ?= yes
-LCD_ENABLE ?= yes
-BACKLIGHT_ENABLE ?= yes
-LCD_BACKLIGHT_ENABLE ?= yes
+VISUALIZER_ENABLE = yes
+LCD_ENABLE = yes
+BACKLIGHT_ENABLE = yes
+LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
