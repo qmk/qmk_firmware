@@ -1,7 +1,7 @@
 ECO
 ===
 
-![Planck](http://i.imgur.com/q2M3uEU.jpg)
+![ECO](http://i.imgur.com/YligKxr.jpg)
 
 An economical 4x14 ortholinear keyboard
 
