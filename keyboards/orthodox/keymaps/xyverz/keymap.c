@@ -49,54 +49,57 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define LS__SPC MT(MOD_LSFT, KC_SPC)
+// Aliases for functionality
+#define CTLSCLN CTL_T(KC_SCLN)	//Dvorak left side
+#define ALT__Q	ALT_T(KC_Q)	//Dvorak left side
+#define CTL_DZ	CTL_T(KC_Z)	//Dvorak right side
+#define ALT__V	ALT_T(KC_V)	//Dvorak right side
+#define CTL__Z	CTL_T(KC_Z)	//Qwerty & Colemak left side
+#define ALT__X  ALT_T(KC_X)	//Qwerty & Colemak left side
+#define CTLSLSH	CTL_T(KC_SLSH)	//Qwerty & Colemak right side
+#define ALT_DOT	ALT_T(KC_DOT)	//Qwerty & colemak right side
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_DVORAK] = KEYMAP( \
+[_DVORAK] = KEYMAP ( \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
   KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_LEFT, XXXXXXX, KC_RGHT,          KC_UP,   XXXXXXX, KC_DOWN, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  LS__SPC, RAISE,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT \
+  KC_LSFT, CTLSCLN, ALT__Q,  KC_J,    KC_K,    KC_X,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_B,    KC_M,    KC_W,    KC_V,    CTL_DZ,  KC_RSFT \
 ),
 
-[_QWERTY] = KEYMAP( \
+[_QWERTY] = KEYMAP ( \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LEFT, XXXXXXX, KC_RGHT,          KC_UP,   XXXXXXX, KC_DOWN, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  LS__SPC, RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT \
+  KC_LSFT, CTL__Z,  ALT__X,  KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  CTLSLSH, KC_RSFT \
 ),
 
-[_COLEMAK] = KEYMAP( \
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                  KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC}, \
-  {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_LEFT, XXXXXXX, KC_RGHT,          KC_UP,   XXXXXXX, KC_DOWN, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT}, \
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  LS__SPC, RAISE,   KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT} \
+[_COLEMAK] = KEYMAP ( \
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
+  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_LEFT, XXXXXXX, KC_RGHT,           KC_UP,   XXXXXXX, KC_DOWN, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LSFT, CTL__Z,  ALT__X,  KC_C,    KC_V,    KC_B,   LOWER,   KC_BSPC, KC_LGUI,           KC_ENT,  KC_SPC,  RAISE,   KC_K,    KC_M,    KC_COMM, KC_DOT,  CTLSLSH, KC_RSFT \
 ),
 
-[_LOWER] = KEYMAP( \
+[_LOWER] = KEYMAP ( \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
-  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_LCTL, XXXXXXX, _______,          _______, XXXXXXX, KC_RCTL, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_HOME, XXXXXXX, KC_END,           KC_PGUP, XXXXXXX, KC_PGDN, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_DEL,  _______,          _______, KC_INS,  _______, _______, _______, _______, _______, _______, _______ \
 ),
 
-[_RAISE] = KEYMAP( \
+[_RAISE] = KEYMAP ( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_LCTL, XXXXXXX, _______,          _______, XXXXXXX, KC_RCTL, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_HOME, XXXXXXX, KC_END,           KC_PGUP, XXXXXXX, KC_PGDN, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
+  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_DEL,  _______,          _______, KC_INS,  _______, _______, _______, _______, _______, _______, _______ \
 ),
 
-[_ADJUST] =  KEYMAP( \
-  KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                                  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,  \
-  _______, RESET,   _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY , COLEMAK, DVORAK,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
+[_ADJUST] = KEYMAP ( \
+  KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                                  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
+  _______, RESET,   _______, _______, _______, _______, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, _______, QWERTY , COLEMAK, DVORAK,  _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 
 };
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
