@@ -18,7 +18,7 @@ no rights reserved, use for any purposes, credit me if you are a nice person
 * The keys under pinky fingers and index fingers will *reverse* the keyboard layout.
 * *Escape* is red and it is always found in that location (*except* when the layout is reversed).
 
-![Ordinary base layout](ordinary-base.png)
+![Ordinary base layout](https://i.imgur.com/CA5t9dF.png)
 
 The four big orange keys are arranged differently than in the default Ergodox EZ layout. The Ordinary Layout here copies the design of the old Fingerworks TouchStream keyboard, but also reflects the natural presumptions of the author -- me! I type the space character with my right hand, and to me it makes sense for the two delete keys to be next to one another.
 
@@ -35,7 +35,7 @@ The Ordinary Layout can be used to perform one-handed chorded text input. If you
 * *Number pad* in dark green under the right hand includes all four arithmetic operations in the same order found on most number pads and features an Enter key. The keycodes emitted here are normal numeric keycodes, not the number-pad specific keycodes emitted by most number pads so that NumLock is not needed.
 * The dark gray keys do nothing in case you bump them by accident.
 
-![Ordinary symbol layout](ordinary-symbol.png)
+![Ordinary symbol layout](https://i.imgur.com/JnX3lV2.png)
 
 The Symbols Layer is based on the Coder Layer from the default Ergodox EZ layout. I slightly rearranged the symbols, added some symbols, expanded the number pad, and straightened out the F-Keys. It's very handy to have the symbols directly underneath the normal typing keys.
 
@@ -49,7 +49,7 @@ The Symbols Layer is based on the Coder Layer from the default Ergodox EZ layout
 * The light purple keys are various operating system keys such as NumLock and Mute and a button to navigate to My Computer (usually your home dir).
 * The dark gray keys do nothing in case you bump them by accident.
 
-![Ordinary media layout](ordinary-media.png)
+![Ordinary media layout](https://i.imgur.com/1jJnQrG.png)
 
 This layer is a substantial extension of the Media layer on the Ergodox EZ default layout. The Fingerworks TouchStream keyboard had a very useful feature for controlling the text cursor easily and this layer does something similar. The left hand can move the mouse, the right hand moves the text cursor, in all four directions, in small or large increments. This greatly enhances navigation in text documents.
 
@@ -65,7 +65,7 @@ Multiple layers can be turned on at once. The Capitals layer will affect charact
 
 ## Special Sequences ##
 
-![Ordinary special layout](ordinary-special.png)
+![Ordinary special layout](https://i.imgur.com/XHXELD5.png)
 
 The Special Shift layer is mostly used to lock the shift keys but in order to make this layout more _ordinary_ there are a few special sequences which put some keys near their most common traditional locations.
 

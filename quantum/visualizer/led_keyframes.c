@@ -41,14 +41,14 @@ static void keyframe_fade_all_leds_from_to(keyframe_animation_t* animation, uint
 }
 
 // TODO: Should be customizable per keyboard
-#define NUM_ROWS 7
-#define NUM_COLS 7
+#define NUM_ROWS LED_NUM_ROWS
+#define NUM_COLS LED_NUM_COLS
 
 static uint8_t crossfade_start_frame[NUM_ROWS][NUM_COLS];
 static uint8_t crossfade_end_frame[NUM_ROWS][NUM_COLS];
 
 static uint8_t compute_gradient_color(float t, float index, float num) {
-    const float two_pi = M_2_PI;
+    const float two_pi = M_PI * 2.0f;
     float normalized_index = (1.0f - index / (num - 1.0f)) * two_pi;
     float x = t * two_pi + normalized_index;
     float v = 0.5 * (cosf(x) + 1.0f);
@@ -125,5 +125,19 @@ bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer
     (void)state;
     (void)animation;
     gdispGSetOrientation(LED_DISPLAY, GDISP_ROTATE_0);
+    return false;
+}
+
+bool led_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetPowerMode(LED_DISPLAY, powerOff);
+    return false;
+}
+
+bool led_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    (void)animation;
+    gdispGSetPowerMode(LED_DISPLAY, powerOn);
     return false;
 }
