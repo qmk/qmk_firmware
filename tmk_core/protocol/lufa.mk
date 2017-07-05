@@ -3,11 +3,11 @@ LUFA_DIR = protocol/lufa
 # Path to the LUFA library
 LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
 
-
 # Create the LUFA source path variables by including the LUFA makefile
 ifneq (, $(wildcard $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
     # New build system from 20120730
     LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
+    DMBS_LUFA_PATH = $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/LUFA
     include $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk
 else
     include $(TMK_PATH)/$(LUFA_PATH)/LUFA/makefile
