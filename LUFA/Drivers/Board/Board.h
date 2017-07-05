@@ -81,6 +81,8 @@
 			#include "AVR8/EVK527/Board.h"
 		#elif ((BOARD == BOARD_TEENSY) || (BOARD == BOARD_TEENSY2))
 			#include "AVR8/TEENSY/Board.h"
+		#elif ((BOARD == BOARD_QMK))
+			#include "AVR8/QMK/Board.h"
 		#elif (BOARD == BOARD_USBTINYMKII)
 			#include "AVR8/USBTINYMKII/Board.h"
 		#elif (BOARD == BOARD_BENITO)

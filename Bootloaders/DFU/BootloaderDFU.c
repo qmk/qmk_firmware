@@ -136,8 +136,8 @@ void Application_Jump_Check(void)
 		if (boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS) & FUSE_BOOTRST)
 		{
 			/* If the reset source was not an external reset or the key is correct, clear it and jump to the application */
-			if (!(MCUSR & (1 << EXTRF)) || (MagicBootKey == MAGIC_BOOT_KEY))
-			  JumpToApplication = true;
+			//if (!(MCUSR & (1 << EXTRF)) || (MagicBootKey == MAGIC_BOOT_KEY))
+			//  JumpToApplication = true;
 
 			/* Clear reset source */
 			MCUSR &= ~(1 << EXTRF);
@@ -146,8 +146,8 @@ void Application_Jump_Check(void)
 		{
 			/* If the reset source was the bootloader and the key is correct, clear it and jump to the application;
 			 * this can happen in the HWBE fuse is set, and the HBE pin is low during the watchdog reset */
-			if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
-				JumpToApplication = true;
+			//if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
+			//	JumpToApplication = true;
 
 			/* Clear reset source */
 			MCUSR &= ~(1 << WDRF);
@@ -182,14 +182,32 @@ int main(void)
 	SetupHardware();
 
 	/* Turn on first LED on the board to indicate that the bootloader has started */
-	LEDs_SetAllLEDs(LEDS_LED1);
+	LEDs_SetAllLEDs(LEDS_LED1 | LEDS_LED2);
 
 	/* Enable global interrupts so that the USB stack can function */
 	GlobalInterruptEnable();
 
+
+	#if (BOARD == BOARD_QMK)
+		uint16_t keypress = 0;
+	#endif
+
 	/* Run the USB management task while the bootloader is supposed to be running */
-	while (RunBootloader || WaitForExit)
+	while (RunBootloader || WaitForExit) {
 	  USB_USBTask();
+	  #if (BOARD == BOARD_QMK)
+	  	bool pressed = (PIN(QMK_ESC_ROW) & NUM(QMK_ESC_ROW));
+		if ((DFU_State == dfuIDLE) && (keypress > 5000) && pressed) {
+			break;
+		}
+		if (pressed) {
+		  	keypress++;
+		} else {
+		  	keypress = 0;
+		}
+
+	  #endif
+	}
 
 	/* Reset configured hardware back to their original states for the user application */
 	ResetHardware();
@@ -212,6 +230,15 @@ static void SetupHardware(void)
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
 
+	#if (BOARD == BOARD_QMK)
+		// column setup
+		DDR(QMK_ESC_COL) |= NUM(QMK_ESC_COL);
+		PORT(QMK_ESC_COL) |= NUM(QMK_ESC_COL);
+
+		// row setup
+		DDR(QMK_ESC_ROW) |= NUM(QMK_ESC_ROW);
+	#endif
+
 	/* Initialize the USB and other board hardware drivers */
 	USB_Init();
 	LEDs_Init();
@@ -219,7 +246,8 @@ static void SetupHardware(void)
 	/* Bootloader active LED toggle timer initialization */
 	TIMSK1 = (1 << TOIE1);
 	TCCR1B = ((1 << CS11) | (1 << CS10));
-}
+
+}	
 
 /** Resets all configured hardware required for the bootloader back to their original states. */
 static void ResetHardware(void)
@@ -235,6 +263,10 @@ static void ResetHardware(void)
 	/* Relocate the interrupt vector table back to the application section */
 	MCUCR = (1 << IVCE);
 	MCUCR = 0;
+
+	#if (BOARD == BOARD_QMK)
+		DDR(QMK_ESC_COL) = PORT(QMK_ESC_COL) = DDR(QMK_ESC_ROW) = PORT(QMK_ESC_ROW) = 0;
+	#endif
 }
 
 /** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
