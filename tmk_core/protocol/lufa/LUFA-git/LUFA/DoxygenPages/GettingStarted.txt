@@ -1,0 +1,37 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \page Page_GettingStarted Getting Started
+ *
+ *  Getting started with LUFA is easy; read the content below to get on your way to your first LUFA powered application.
+ *
+ *  \section Sec_DemosOverview The LUFA Demo Applications
+ *
+ *  Out of the box, LUFA contains a large number of pre-made class demos for you to test, experiment with and
+ *  ultimately build upon for your own projects. All the demos (where possible) come pre-configured to build and
+ *  run correctly on the AT90USB1287 AVR microcontroller, mounted on the Atmel USBKEY board and running at an 8MHz
+ *  master clock. This is due to two reasons; one, it is the hardware the author possesses, and two, it is the most
+ *  popular Atmel USB demonstration board to date. To learn how to reconfigure, recompile and program the included
+ *  LUFA applications using different settings, see the subsections below.
+ *
+ *  \section Sec_ClassOrLowLevel Class Driver and Low Level Demos
+ *
+ *  Most of the included demos in the /Demos/ folder come in both ClassDriver and LowLevel varieties. If you are new
+ *  to LUFA, it is highly recommended that you look at the ClassDriver versions first, which use the pre-made USB
+ *  Class Drivers (\ref Group_USBClassDrivers) to simplify the use of the standard USB classes in user applications.
+ *  These demos give a basic but easy to use interface to the USB class used in the demo application, such as HID or
+ *  CDC.
+ *
+ *  Those needing absolute control over the class implementation can look at the LowLevel demos, which implement the
+ *  required USB class directly in the demo application using the lowest level LUFA APIs.
+ *
+ *
+ *  <b>Subsections:</b>
+ *  \li \subpage Page_ConfiguringApps - How to Configure the Included Demos, Projects and Bootloaders
+ *  \li \subpage Page_CompilingApps - How to Compile the Included Demos, Projects and Bootloaders
+ *  \li \subpage Page_ProgrammingApps - How to Program an AVR with the Included Demos, Projects and Bootloaders
+ */
+
