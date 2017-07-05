@@ -63,16 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BACKLIGHT_LEVELS 4
 
-/* Underlight configuration
- */
-
-#define RGB_DI_PIN F5    // See the readme for wiring your ws2812's
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 2     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
