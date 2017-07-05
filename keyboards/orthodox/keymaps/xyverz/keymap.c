@@ -64,32 +64,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_DVORAK] = KEYMAP ( \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
-  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_LEFT, XXXXXXX, KC_RGHT,          KC_UP,   XXXXXXX, KC_DOWN, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-  KC_LSFT, CTLSCLN, ALT__Q,  KC_J,    KC_K,    KC_X,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_B,    KC_M,    KC_W,    KC_V,    CTL_DZ,  KC_RSFT \
+  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_LCTL, XXXXXXX, KC_LALT,          KC_RGUI, XXXXXXX, KC_RCTL, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT \
 ),
 
 [_QWERTY] = KEYMAP ( \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LEFT, XXXXXXX, KC_RGHT,          KC_UP,   XXXXXXX, KC_DOWN, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, CTL__Z,  ALT__X,  KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  CTLSLSH, KC_RSFT \
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LCTL, XXXXXXX, KC_LALT,          KC_RGUI, XXXXXXX, KC_RCTL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT \
 ),
 
 [_COLEMAK] = KEYMAP ( \
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   KC_LEFT, XXXXXXX, KC_RGHT,           KC_UP,   XXXXXXX, KC_DOWN, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT, CTL__Z,  ALT__X,  KC_C,    KC_V,    KC_B,   LOWER,   KC_BSPC, KC_LGUI,           KC_ENT,  KC_SPC,  RAISE,   KC_K,    KC_M,    KC_COMM, KC_DOT,  CTLSLSH, KC_RSFT \
+  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_LCTL, XXXXXXX, KC_LALT,          KC_RGUI, XXXXXXX, KC_RCTL, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   KC_BSPC, KC_LGUI,          KC_ENT,  KC_SPC,  RAISE,   KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT \
 ),
 
 [_LOWER] = KEYMAP ( \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
-  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_HOME, XXXXXXX, KC_END,           KC_PGUP, XXXXXXX, KC_PGDN, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_DEL,  _______,          _______, KC_INS,  _______, _______, _______, _______, _______, _______, _______ \
+  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, XXXXXXX, KC_HOME,          KC_PGUP, XXXXXXX, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______, _______, _______, KC_LEFT, KC_RGHT, _______, _______, KC_DEL,  KC_END,           KC_PGDN, KC_INS,  _______, _______, KC_UP,   KC_DOWN, _______, _______, _______ \
 ),
 
 [_RAISE] = KEYMAP ( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_HOME, XXXXXXX, KC_END,           KC_PGUP, XXXXXXX, KC_PGDN, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_DEL,  _______,          _______, KC_INS,  _______, _______, _______, _______, _______, _______, _______ \
+  KC_CAPS, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, XXXXXXX, KC_HOME,          KC_PGUP, XXXXXXX, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
+  _______, _______, _______, KC_LEFT, KC_RGHT, _______, _______, KC_DEL,  KC_END,           KC_PGDN, KC_INS,  _______, _______, KC_UP,   KC_DOWN, _______, _______, _______ \
 ),
 
 [_ADJUST] = KEYMAP ( \
