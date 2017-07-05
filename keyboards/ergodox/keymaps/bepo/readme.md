@@ -1,3 +1,5 @@
+![bepo.png](https://i.imgur.com/TnO8ApW.png)
+
 # BEPO keymap for the ErgoDox
 
 This keymap has been made for the BEPO layout (http://bepo.fr), which is an ergonomic french keyboard layout based on Dvorak rules. As it's made for french people, the following of this readme will be in french.

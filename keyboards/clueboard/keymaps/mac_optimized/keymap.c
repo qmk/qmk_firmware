@@ -55,27 +55,23 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     case 0:
       /* Handle the combined Grave/Esc key
        */
-      mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
-
       if (record->event.pressed) {
         /* The key is being pressed.
          */
+        mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
         if (mods_pressed) {
-          add_key(KC_GRV);
-          send_keyboard_report();
+          register_code(KC_GRV);
         } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
+          register_code(KC_ESC);
         }
       } else {
         /* The key is being released.
          */
         if (mods_pressed) {
-          del_key(KC_GRV);
-          send_keyboard_report();
+          mods_pressed = false;
+          unregister_code(KC_GRV);
         } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
+          unregister_code(KC_ESC);
         }
       }
       break;

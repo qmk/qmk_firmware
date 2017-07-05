@@ -1,6 +1,30 @@
 #include "ez.h"
 #include "i2cmaster.h"
 
+
+extern inline void ergodox_board_led_on(void);
+extern inline void ergodox_right_led_1_on(void);
+extern inline void ergodox_right_led_2_on(void);
+extern inline void ergodox_right_led_3_on(void);
+extern inline void ergodox_right_led_on(uint8_t led);
+
+extern inline void ergodox_board_led_off(void);
+extern inline void ergodox_right_led_1_off(void);
+extern inline void ergodox_right_led_2_off(void);
+extern inline void ergodox_right_led_3_off(void);
+extern inline void ergodox_right_led_off(uint8_t led);
+
+extern inline void ergodox_led_all_on(void);
+extern inline void ergodox_led_all_off(void);
+
+extern inline void ergodox_right_led_1_set(uint8_t n);
+extern inline void ergodox_right_led_2_set(uint8_t n);
+extern inline void ergodox_right_led_3_set(uint8_t n);
+extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
+
+extern inline void ergodox_led_all_set(uint8_t n);
+
+
 bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 
@@ -57,7 +81,7 @@ uint8_t init_mcp23018(void) {
     // cli();
     if (i2c_initialized == 0) {
         i2c_init();  // on pins D(1,0)
-        i2c_initialized++;
+        i2c_initialized = true;
         _delay_ms(1000);
     }
 

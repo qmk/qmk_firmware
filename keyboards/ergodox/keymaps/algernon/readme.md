@@ -34,7 +34,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
 
 ## Base layer
 
-[![Base layer](images/base-layer.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
+[![Base layer](https://i.imgur.com/q1MDvq4.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
 
 At its core, this is a Dvorak layout, with some minor changes. The more interesting parts are how certain keys behave:
 
@@ -62,7 +62,7 @@ The symbols on the front in the image above have the same color as the key that 
 
 ## ADORE layer
 
-[![ADORE layer](images/adore-layer.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
+[![ADORE layer](https://i.imgur.com/r3LnQAA.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
 
 My experimental layout, that I keep tweaking. No full description here, because things are very much in flux.
 
@@ -70,7 +70,7 @@ Note that the **HUN** layer does not work well with ADORE: it still has the same
 
 ## Steno layer
 
-[![Steno layer for Plover](images/steno-layer.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
+[![Steno layer for Plover](https://i.imgur.com/PgifhBF.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
 
 This is to be used with [Plover](http://www.openstenoproject.org/plover/), nothing really fancy here. The **STENO** key toggles the layer on and off, and sends the toggle command to Plover too.
 
@@ -110,7 +110,7 @@ Included with the firmware is a small tool that can parse these logs, and create
 
 The generated heatmap looks somewhat like this:
 
- ![Heatmap](images/heatmap.png)
+ ![Heatmap](https://i.imgur.com/tly9XSy.png)
 
 ## Layer notification
 
@@ -144,3 +144,6 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 # License
 
 The layout, being a derivative of the original TMK firmware which is under the GPL-2+, this layout is under the GPL as well, but GPL-3+, rather than the older version.
+
+![nav-n-media-layer.png](https://i.imgur.com/AReX8C9.png)
+![hun-layer.png](https://i.imgur.com/uPGBl9J.png)
