@@ -1,6 +1,6 @@
 # Can I increase the speed of the mouse keys?
 
-**Q:** The default speed for controlling the mouse with the keyboard is slow. I've tried increasing the mouse's sensitivity at work using xset m and it worked, although sometimes it changes by itself for some reason. At home, on Arch Linux, this does not change ti. I've looked through the forums and resolved to use libinput using xinput but using that I only manage to change the speed of the mouse using the actual mouse. The speed of the mouse using the keyboard controls remained unchanged.
+**Q:** The default speed for controlling the mouse with the keyboard is slow. I've tried increasing the mouse's sensitivity at work using xset m and it worked, although sometimes it changes by itself for some reason. At home, on Arch Linux, this does not change it. I've looked through the forums and resolved to use libinput using xinput but using that I only manage to change the speed of the mouse using the actual mouse. The speed of the mouse using the keyboard controls remained unchanged.
 Is there perhaps something I can input in the keymap.c to change the sensitivity? Or some other surefire way of increasing the speed?
 Thanks!
 
