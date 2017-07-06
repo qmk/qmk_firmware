@@ -208,9 +208,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //    State: "e" keycode has already been registered... just don't disrupt it
   //      Space will not have been registered,
   //      Singular_key will be true,
-  //      Layer will be function
+  //      Layer will be function, but we want to unregsiter base layer
   // 2. what happens when spacebar overlaps the following key
-    if (record->event.pressed && keycode != FNSPC) {
+    if (record->event.pressed) {
       if(singular_key){
         spacefn_key = keycode;
         keycode = KC_NO;
