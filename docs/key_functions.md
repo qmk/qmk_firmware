@@ -2,19 +2,17 @@
 
 Your keymap can include shortcuts to common operations (called "function actions" in tmk).
 
-These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk `ACTION_*` functions, please see the [TMK documentation](keymap.md#2-action).
+These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the qmk `ACTION_*` functions, please see the [Keymap documentation](keymap.md#2-action).
 
 Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - the benefit here is being able to use more than 32 function actions (up to 4096), if you happen to need them.
 
-### Limits of these aliases
+## Limits of these aliases
 
-Currently, the keycodes able to used with these functions are limited to the TMK ones, meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used, [see this list](keycode.txt).
+Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes.html), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used, [see this list](keycodes.html).
 
-### Switching and toggling layers
+# Switching and toggling layers
 
 `MO(layer)` - momentary switch to *layer*. As soon as you let go of the key, the layer is deactivated and you pop back out to the previous layer. When you apply this to a key, that same key must be set as `KC_TRNS` on the destination layer. Otherwise, you won't make it back to the original layer when you release the key (and you'll get a keycode sent). You can only switch to layers *above* your current layer. If you're on layer 0 and you use `MO(1)`, that will switch to layer 1 just fine. But if you include `MO(3)` on layer 5, that won't do anything for you -- because layer 3 is lower than layer 5 on the stack.
-
-`OSL(layer)` - momentary switch to *layer*, as a one-shot operation. So if you have a key that's defined as `OSL(1)`, and you tap that key, then only the very next keystroke would come from layer 1. You would drop back to layer zero immediately after that one keystroke. That's handy if you have a layer full of custom shortcuts -- for example, a dedicated key for closing a window. So you tap your one-shot layer mod, then tap that magic 'close window' key, and keep typing like a boss. Layer 1 would remain active as long as you hold that key down, too (so you can use it like a momentary toggle-layer key with extra powers).
 
 `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped. Like `MO()`, this only works upwards in the layer stack (`layer` must be higher than the current layer).
 
@@ -25,7 +23,7 @@ Currently, the keycodes able to used with these functions are limited to the TMK
 `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 1` for just one tap.
 
 
-### Fun with modifier keys
+# Modifier keys
 
 * `LSFT(kc)` - applies left Shift to *kc* (keycode) - `S(kc)` is an alias
 * `RSFT(kc)` - applies right Shift to *kc*
@@ -42,6 +40,8 @@ Currently, the keycodes able to used with these functions are limited to the TMK
 You can also chain these, like this:
 
     LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
+
+# Shifted Keycodes
 
 The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols. Their long names are also available and documented in `quantum/quantum_keycodes.h`.
 
@@ -67,7 +67,14 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
     KC_PIPE  |
     KC_COLN  :
 
+# One Shot 
+
 `OSM(mod)` - this is a "one shot" modifier. So let's say you have your left Shift key defined as `OSM(MOD_LSFT)`. Tap it, let go, and Shift is "on" -- but only for the next character you'll type. So to write "The", you don't need to hold down Shift -- you tap it, tap t, and move on with life. And if you hold down the left Shift key, it just works as a left Shift key, as you would expect (so you could type THE). There's also a magical, secret way to "lock" a modifier by tapping it multiple times. If you want to learn more about that, open an issue. :)
+
+`OSL(layer)` - momentary switch to *layer*, as a one-shot operation. So if you have a key that's defined as `OSL(1)`, and you tap that key, then only the very next keystroke would come from layer 1. You would drop back to layer zero immediately after that one keystroke. That's handy if you have a layer full of custom shortcuts -- for example, a dedicated key for closing a window. So you tap your one-shot layer mod, then tap that magic 'close window' key, and keep typing like a boss. Layer 1 would remain active as long as you hold that key down, too (so you can use it like a momentary toggle-layer key with extra powers).
+
+
+# Mod Tap
 
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
 
@@ -97,7 +104,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
-##### Permissive Hold
+# Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
