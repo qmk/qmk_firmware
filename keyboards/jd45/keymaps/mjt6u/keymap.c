@@ -14,12 +14,7 @@ enum jd45_layers
 enum jd45_keycodes
 {
   NUMSYM = SAFE_RANGE,
-  FNSPC,
-  FKEYTAB,
   MACSLEEP,
-  NUMPAD,
-  FKEYNUMPAD,
-  FUNCTION,
   USEFNMODS,
   USENUMMODS,
   DYNAMIC_MACRO_RANGE,
@@ -89,15 +84,9 @@ const uint16_t PROGMEM fn_actions[] = {
   [2] = ACTION_LAYER_TAP_KEY(_FUNCTION, KC_TAB),
 };
 
-
-static uint16_t function_layer = _NUMSYM;
-static uint16_t spacefn_key = KC_NO;
-static uint16_t key_timer;
-
-void persistent_function_layer_set(uint16_t new_function_layer) {
-  // eeconfig_update_function_layer(new_function_layer);
-  function_layer = new_function_layer;
-  // should clear layers to avoid getting stuck.
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 static bool singular_key = false;
@@ -107,50 +96,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }
-  uint8_t layer;
-  layer = biton32(layer_state);  // get the current layer
   println(" ");
   print("process record");
 
   switch (keycode) {
-  case FNSPC:
-    if (record->event.pressed) {
-//      key_timer = timer_read();
-      singular_key = true;
-      // layer_on(_FUNCTION);
-      layer_on(function_layer);
-      print(" - fnspc down");
-    } else {
-      layer_off(function_layer);
-      if(singular_key) {
-        register_code(KC_SPC);
-        unregister_code(KC_SPC);
-        singular_key = false;
-        print(" - fnspc up");
-      }
-      /* remove hold-to-toggle for now
-      else if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-        layer_off(function_layer);
-      }*/
-    }
-    return false;
-    break;
-  case FKEYTAB:
-    if (record->event.pressed) {
-      key_timer = timer_read();
-      singular_key = true;
-      // layer_on(_FUNCTION);
-      layer_on(_FUNCTION);
-    } else {
-      if(singular_key) {
-        layer_off(_FUNCTION);
-        register_code(KC_TAB);
-        unregister_code(KC_TAB);
-        singular_key = false;
-      }
-    }
-  return false;
-  break;
   case MACSLEEP:
     if (record->event.pressed) {
       // ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT, KC_POWER);
@@ -163,86 +112,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case NUMSYM:
-    if (record->event.pressed) {
-      key_timer = timer_read();
-      singular_key = true;
-      // layer_on(_FUNCTION);
-      layer_on(function_layer);
-    } else {
-      if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-        layer_off(function_layer);
-      }
-    }
-    // update_tri_layer(function_layer, _SHIFTED, _FUNCSHIFT);
-    return false;
-    break;
-  //SHIFT is handled as LSHIFT in the general case
-  case NUMPAD:
-    if (record->event.pressed) {
-      key_timer = timer_read();
-      singular_key = true;
-      layer_on(_NUMPAD);
-    } else {
-      if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-        layer_off(_NUMPAD);
-      }
-    }
-    // update_tri_layer(function_layer, _SHIFTED, _FUNCSHIFT);
-    return false;
-    break;
   case USEFNMODS:
     if (record->event.pressed) {
-      persistent_function_layer_set(_QWERTY);
+      persistent_default_layer_set(1UL<<_QWERTY);
       #ifdef AUDIO_ENABLE
         PLAY_NOTE_ARRAY(tone_fnpc, false, 0);
       #endif
+      print("Space-FN");
     }
     return false;
     break;
   case USENUMMODS:
     if (record->event.pressed) {
-      persistent_function_layer_set(_QWERTYNUMMODS);
+      persistent_default_layer_set(1UL<<_QWERTYNUMMODS);
       #ifdef AUDIO_ENABLE
         PLAY_NOTE_ARRAY(tone_fnmac, false, 0);
       #endif
+      print("Space-Numpad");
     }
     return false;
     break;
-  //If any other key was pressed during the layer mod hold period,
-  //then the layer mod was used momentarily, and should block latching
   default:
-  // this block needs to handle a few things
-  // 1. what happens when preceeding keystroke overlaps tapped spacebar
-  //    Outcome: character 'e' should be rendered before the space
-  //    State: "e" keycode has already been registered... just don't disrupt it
-  //      Space will not have been registered,
-  //      Singular_key will be true,
-  //      Layer will be function, but we want to unregsiter base layer
-  // 2. what happens when spacebar overlaps the following key
-    if (record->event.pressed) {
-      print(" - otherkey down");
-      if(singular_key){
-        print(" - singular key");
-        spacefn_key = keycode;
-        keycode = KC_NO;
-        return false;
-      }
-    } else {
-      print(" - otherkey up");
-      if(layer == function_layer && spacefn_key != KC_NO){
-        print(" - reconstruct keycode");
-        // translate to base layer
-        // record->event->key->col
-        // record->event->key->row
-        uint16_t qwerty_keycode = keymaps[_QWERTY][record->event.key.row][record->event.key.col];
-        register_code(qwerty_keycode);
-        unregister_code(qwerty_keycode);
-        spacefn_key = KC_NO;
-        return false;
-      }
       singular_key = false;
-    }
     break;
   }
 
