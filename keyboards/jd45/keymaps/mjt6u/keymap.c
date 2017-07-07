@@ -103,20 +103,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   uint8_t layer;
   layer = biton32(layer_state);  // get the current layer
+  println(" ");
+  print("process record");
 
   switch (keycode) {
   case FNSPC:
     if (record->event.pressed) {
-      key_timer = timer_read();
+//      key_timer = timer_read();
       singular_key = true;
       // layer_on(_FUNCTION);
       layer_on(function_layer);
+      print(" - fnspc down");
     } else {
       layer_off(function_layer);
       if(singular_key) {
         register_code(KC_SPC);
         unregister_code(KC_SPC);
         singular_key = false;
+        print(" - fnspc up");
       }
       /* remove hold-to-toggle for now
       else if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
@@ -211,13 +215,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //      Layer will be function, but we want to unregsiter base layer
   // 2. what happens when spacebar overlaps the following key
     if (record->event.pressed) {
+      print(" - otherkey down");
       if(singular_key){
+        print(" - singular key");
         spacefn_key = keycode;
         keycode = KC_NO;
         return false;
       }
     } else {
+      print(" - otherkey up");
       if(layer == function_layer && spacefn_key != KC_NO){
+        print(" - reconstruct keycode");
         // translate to base layer
         // record->event->key->col
         // record->event->key->row
@@ -225,6 +233,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(qwerty_keycode);
         unregister_code(qwerty_keycode);
         spacefn_key = KC_NO;
+        return false;
       }
       singular_key = false;
     }
@@ -233,3 +242,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 };
+
+
+void matrix_init_user(void) {
+    #ifdef AUDIO_ENABLE
+        startup_user();
+    #endif
+    debug_enable = true;
+}
