@@ -60,13 +60,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
-   * |   | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|       |Prsc|
+   * |~` | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|       |Prsc|
    * |----------------------------------------------------------------|
    * |     |MbL|MsU|MbR|   |   |   |   |   |   |   |   |   |     |_LO |
    * |----------------------------------------------------------------|
    * |      |MsL|MsD|MsR|   |   |   |   |   |   |   |   |        |Hme |
    * |----------------------------------------------------------------|
-   * |    |   |   |   |   |   |   |   |   |   |   |   |      |MwU|End |
+   * |    |   |   |   |   |   |   |   |   |VoU|VoD|Mut|      |MwU|End |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |MwL|MwD|MwR |  
    * `----------------------------------------------------------------'
@@ -82,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |   |   |   |   |   |   |   |   |   |   |   |   |   |       |    |
    * |----------------------------------------------------------------|
-   * |     |   |   |   |   |   |   |   |   |   |   |   |   |     |_MA |
+   * |Lenny|   |   |   |   |   |   |   |   |   |   |   |   |     |    |
    * |----------------------------------------------------------------|
-   * |      |   |   |   |   |   |Lft|Dwn| Up|Rgt|   |   |        |    |
+   * |Dwnhrt|   |   |   |   |   |Lft|Dwn| Up|Rgt|   |   |        |    |
    * |----------------------------------------------------------------|
-   * |    |   |   |   |   |   |   |   |   |   |   |   |      |   |    |
+   * |Shrg|   |   |   |   |   |   |   |   |   |   |   |      |   |    |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |   |   |    |
    * `----------------------------------------------------------------'
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS, \
   LENNY,	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,		TRNS, \
   DWNHRT,	TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS, 		KC_LEFT, 	KC_DOWN, 	KC_UP,  	KC_RGHT,  	TRNS, 		TRNS, 	 				TRNS,		TRNS, \
-  SHRUG, 	RGB_TOG,    RGB_MOD,	RGB_HUI,	RGB_HUD,	RGB_SAI, 	RGB_SAD, 	RGB_VAI, 	RGB_VAD, 	TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
+  SHRUG, 	TRNS,   	TRNS,		TRNS,		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
   TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS),
 
   /* Keymap _UL: Unlock layer
