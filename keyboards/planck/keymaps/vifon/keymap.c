@@ -28,6 +28,7 @@ enum planck_keycodes {
     KM_LW = SAFE_RANGE,
     KM_RS,
     KM_SHLK,                    /* ShiftLock */
+    KM_HOLD,                    /* Any-key Lock */
     KM_RST,                     /* Reset */
     KM_NUM,                     /* Numeric layer */
     KM_SLP,                     /* Sleep 250 ms */
@@ -90,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, KC_LGUI, KC_LALT, _______, _______,     _______,        _______, _______, _______, _______, _______}
 },
 [_DYN]= { /* special */
-    {_______,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS},
+    {KM_HOLD,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS},
     {_______,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK},
     {KM_SHLK,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -106,9 +107,15 @@ const uint16_t PROGMEM fn_actions[] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer;
+    static uint8_t ignore_up_events = 0;
 
     uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
     if (!process_record_dynamic_macro(macro_kc, record)) {
+        return false;
+    }
+
+    if (ignore_up_events > 0 && keycode != MO(_DYN) && keycode != KM_HOLD && !record->event.pressed) {
+        ignore_up_events -= 1;
         return false;
     }
 
@@ -133,6 +140,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KM_SHLK:
         register_code(KC_LSFT);
+        break;
+    case KM_HOLD:
+        if (!record->event.pressed) {
+            ignore_up_events += 1;
+        }
         break;
     case KM_RST:
     {
