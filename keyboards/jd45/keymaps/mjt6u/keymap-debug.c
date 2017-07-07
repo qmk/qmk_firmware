@@ -4,10 +4,10 @@ enum jd45_layers
 {
   _QWERTY,
   _QWERTYNUMMODS,
-  _NUMSYM,
-  _FUNCTION,
   _NUMPAD,
   _FKEYNUMPAD,
+  _NUMSYM,
+  _FUNCTION,
   _ADJUST
 };
 
@@ -33,14 +33,14 @@ enum jd45_keycodes
 #define _______ KC_TRNS
 #define __MOD__ KC_TRNS
 #define XXXXXXX KC_NO
-#define F_FNSPC F(0)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = {
   {FKEYTAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS, KC_BSPC},
    {CTL_T(KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  LT(2, KC_QUOT)},
      {KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, SFT_T(KC_ENT)},
-  { XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX,  XXXXXXX,  XXXXXXX, F_FNSPC,  MO(_FUNCTION),  MO(_ADJUST),   XXXXXXX }
+  { XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX,  XXXXXXX,  XXXXXXX, FNSPC,  MO(_FUNCTION),  MO(_ADJUST),   XXXXXXX }
 },
 [_QWERTYNUMMODS] = {
 {  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
@@ -80,11 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  }
 };
 
-
 const uint16_t PROGMEM fn_actions[] = {
- [0] = ACTION_LAYER_TAP_KEY(_NUMSYM, KC_SPC)
- };
 
+};
 
 static uint16_t function_layer = _NUMSYM;
 static uint16_t spacefn_key = KC_NO;
@@ -250,5 +248,5 @@ void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
-    // debug_enable = true;
+    debug_enable = true;
 }
