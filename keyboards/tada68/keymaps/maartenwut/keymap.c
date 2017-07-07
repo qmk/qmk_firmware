@@ -1,4 +1,4 @@
-#include "maarten68.h"
+#include "tada68.h"
 #include "action_layer.h"
 #include "timer.h"
 #include "bootloader.h"
@@ -54,9 +54,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MA] = KEYMAP_ANSI(
   KC_ESC,	T1, 		T2, 		T3, 		T4, 		T5, 		T6, 		T7, 		T8, 		T9, 		T10, 		T11, 		T12,		KC_BSPC,	KC_MPLY, \
   KC_TAB,	KC_Q, 		KC_W, 		KC_E, 		KC_R, 		KC_T, 		KC_Y, 		KC_U, 		KC_I,  		KC_O,  		KC_P, 		KC_LBRC,	KC_RBRC,	KC_BSLS,	KC_DEL, \
-  KC_CAPS,	KC_A, 		KC_S,   	KC_D, 		KC_F, 		KC_G, 		KC_H, 		KC_J, 		KC_K,  		KC_L,  		KC_SCLN, 	KC_QUOT,  	KC_ENT,		KC_PGUP, \
+  KC_CAPS,	KC_A, 		KC_S,   	KC_D, 		KC_F, 		KC_G, 		KC_H, 		KC_J, 		KC_K,  		KC_L,  		KC_SCLN, 	KC_QUOT,  				KC_ENT,		KC_PGUP, \
   LSHIFT, 	END_HOME,	KC_Z, 		KC_X,   	KC_C, 		KC_V, 		KC_B, 		KC_N, 		KC_M, 		KC_COMM, 	KC_DOT,		KC_SLSH, 	KC_RSFT,    KC_UP,		KC_PGDN, \
-  KC_LCTL, 	KC_LGUI, 	KC_LALT,	SPACE,		KC_RALT,	KC_RCTRL, 	MO(_FL),	KC_LEFT, 	KC_DOWN, 	KC_RGHT),
+  KC_LCTL, 	KC_LGUI, 	KC_LALT,							SPACE,											KC_RALT,	KC_RCTRL, 	MO(_FL),	KC_LEFT, 	KC_DOWN, 	KC_RGHT),
 
   /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |      |MsL|MsD|MsR|   |   |   |   |   |   |   |   |        |Hme |
    * |----------------------------------------------------------------|
-   * |    |Gam|   |   |   |   |   |   |   |   |   |   |      |MwU|End |
+   * |    |   |   |   |   |   |   |   |   |   |   |   |      |MwU|End |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |MwL|MwD|MwR |  
    * `----------------------------------------------------------------'
@@ -74,29 +74,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
   KC_GRV,	KC_F1,		KC_F2,  	KC_F3,  	KC_F4,  	KC_F5,		KC_F6,		KC_F7, 		KC_F8,		KC_F9,		KC_F10,  	KC_F11,		KC_F12,		TRNS,		KC_PSCR, \
   TRNS, 	KC_BTN1,	KC_MS_U,  	KC_BTN2, 	TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS,		TO(_LO), \
-  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		KC_HOME, \
+  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,					TRNS,		KC_HOME, \
   TRNS, 	TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		KC_VOLD,	KC_VOLU,	KC_MUTE,	TRNS,		KC_WH_U,	KC_END, \
-  TRNS, 	TRNS, 		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,   	KC_WH_L,	KC_WH_D, 	KC_WH_R),
+  TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS,		TRNS,   	KC_WH_L,	KC_WH_D, 	KC_WH_R),
 
-  /* Keymap _AR: Arrow keys layer
+  /* Keymap _UL: Unlock layer
    * ,----------------------------------------------------------------.
-   * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |P/P |
-   * |----------------------------------------------------------------| 
-   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |Del |
+   * |   |   |   |   |   |   |   |   |   |   |   |   |   |       |    |
    * |----------------------------------------------------------------|
-   * |CAPS   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgUp|
+   * |     |   |   |   |   |   |   |   |   |   |   |   |   |     |_MA |
    * |----------------------------------------------------------------|
-   * |Shft|End|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
+   * |      |   |   |   |   |   |Lft|Dwn| Up|Rgt|   |   |        |    |
    * |----------------------------------------------------------------|
-   * |Ctrl|Win |Alt |        Space          |Alt|Ctrl| FN|Lef|Dow|Rig |
+   * |    |   |   |   |   |   |   |   |   |   |   |   |      |   |    |
+   * |----------------------------------------------------------------|
+   * |    |    |    |                       |   |   |    |   |   |    |
    * `----------------------------------------------------------------'
    */
 [_AR] = KEYMAP_ANSI(
-  TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,	TRNS, \
-  LENNY,	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,	TRNS, \
-  DWNHRT,	TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS, 		KC_LEFT, 	KC_DOWN, 	KC_UP,  	KC_RGHT,  	TRNS, 		TRNS, 	 	TRNS,		TRNS, \
-  SHRUG, 	RGB_TOG,    RGB_MOD,	RGB_HUI,	RGB_HUD,	RGB_SAI, 	RGB_SAD, 	RGB_VAI, 	RGB_VAD, 	TRNS, 		TRNS,		TRNS, 		TRNS,   	 TRNS,	TRNS, \
-  TRNS, 	TRNS, 		TRNS,		TRNS,		TRNS,		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS),
+  TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS, \
+  LENNY,	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,		TRNS, \
+  DWNHRT,	TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS, 		KC_LEFT, 	KC_DOWN, 	KC_UP,  	KC_RGHT,  	TRNS, 		TRNS, 	 				TRNS,		TRNS, \
+  SHRUG, 	RGB_TOG,    RGB_MOD,	RGB_HUI,	RGB_HUD,	RGB_SAI, 	RGB_SAD, 	RGB_VAI, 	RGB_VAD, 	TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
+  TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS),
 
   /* Keymap _UL: Unlock layer
    * ,----------------------------------------------------------------.
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |      |   |   |   |   |   |   |   |   |   |   |   |        |    |
    * |----------------------------------------------------------------|
-   * |        |   |   |   |   |   |   |   |   |   |   |      |   |    |
+   * |    |   |   |   |   |   |   |   |   |   |   |   |      |   |    |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |   |   |    |
    * `----------------------------------------------------------------'
@@ -114,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_UL] = KEYMAP_ANSI(
   KC_NO,	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
   KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO,  	KC_NO, 		TO(_MA), \
-  KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
+  KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 					KC_NO, 		KC_NO, \
   KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
-  KC_NO, 	KC_NO, 		KC_NO,    	KC_NO,		KC_NO, 		KC_NO, 		TRNS, 		KC_NO, 		KC_NO, 		KC_NO),
+  KC_NO, 	KC_NO, 		KC_NO,    							KC_NO,											KC_NO, 		KC_NO, 		TRNS, 		KC_NO, 		KC_NO, 		KC_NO),
 
   /* Keymap _LO: Lock layer
    * ,----------------------------------------------------------------.
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |      |   |   |   |   |   |   |   |   |   |   |   |        |    |
    * |----------------------------------------------------------------|
-   * |        |   |   |   |   |   |   |   |   |   |   |      |   |    |
+   * |    |   |   |   |   |   |   |   |   |   |   |   |      |   |    |
    * |----------------------------------------------------------------|
    * |    |    |    |                      |   |   | _UL |   |   |    |
    * `----------------------------------------------------------------'
@@ -134,9 +134,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LO] = KEYMAP_ANSI(
   KC_NO,	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
   KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO,  	KC_NO, 		KC_NO,  	KC_NO, 		KC_NO, \
-  KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
+  KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 					KC_NO, 		KC_NO, \
   KC_NO, 	KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, 		KC_NO, \
-  KC_NO, 	KC_NO, 		KC_NO,    	KC_NO,		KC_NO, 		KC_NO, 		MO(_UL), 	KC_NO, 		KC_NO, 		KC_NO),
+  KC_NO, 	KC_NO, 		KC_NO,    							KC_NO,											KC_NO, 		KC_NO, 		MO(_UL), 	KC_NO, 		KC_NO, 		KC_NO),
 };
 
 void tap(uint16_t keycode){
