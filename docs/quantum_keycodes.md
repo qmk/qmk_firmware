@@ -44,6 +44,8 @@ Shortcuts for bootmagic options (these work even when bootmagic is off.)
 |`MAGIC_UNSWAP_ALT_GUI`/`AG_NORM`|Disable the Alt/GUI switching|
 |`MAGIC_TOGGLE_NKRO`|Turn NKRO on or off|
 
+<!-- FIXME: this formatting needs work
+
 ## Audio
 
 ```c
@@ -156,6 +158,8 @@ MI_MOD, // modulation
 MI_MODSD, // decrease modulation speed
 MI_MODSU, // increase modulation speed
 #endif // MIDI_ADVANCED
+
+-->
 
 ## Backlight
 
