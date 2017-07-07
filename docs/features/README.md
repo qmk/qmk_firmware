@@ -1,19 +1,5 @@
-# Quantum Mechanical Keyboard Firmware
+# QMK Features
 
-You have found the QMK Firmware documentation site. This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) \([view differences](differences_from_tmk.md)\) with some useful features for Atmel AVR controllers, and more specifically, the [OLKB product line](http://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/). It has also been ported to ARM chips using ChibiOS. You can use it to power your own hand-wired or custom keyboard PCB.
-
-# Getting started
-
-Before you are able to compile, you'll need to install an environment for AVR or ARM development. You'll find the instructions for any OS below. If you find another/better way to set things up from scratch, please consider [making a pull request](https://github.com/qmk/qmk_firmware/pulls) with your changes!
-
-* [Build Environment Setup](build_environment_setup.md)
-* [QMK Overview](qmk_overview.md)
-
-# Configuring QMK Firmware
-
-The QMK Firmware can be configured via the `keymaps` array data. For simply generating a [basic keycode](keycodes.md), you add it as an element of your `keymaps` array data. For more complicated actions, there are more advanced keycodes that are organized carefully to represent common operations, some of which can be found on the [Key Functions](key_functions.md) page.
-
-For more details of the `keymaps` array, see [Keymap Overview](keymap.md) page.
 
 ## Space Cadet Shift: The future, built in
 
@@ -117,18 +103,3 @@ case MACRO_RAISED:
   }
   break;
 ```
-
-## Other firmware shortcut keycodes
-
-* `RESET` - puts the MCU in DFU mode for flashing new firmware \(with `make dfu`\)
-* `DEBUG` - the firmware into debug mode - you'll need hid\_listen to see things
-* `BL_ON` - turns the backlight on
-* `BL_OFF` - turns the backlight off
-* `BL_<n>` - sets the backlight to level _n_
-* `BL_INC` - increments the backlight level by one
-* `BL_DEC` - decrements the backlight level by one
-* `BL_TOGG` - toggles the backlight
-* `BL_STEP` - steps through the backlight levels
-
-Enable the backlight from the Makefile.
-
