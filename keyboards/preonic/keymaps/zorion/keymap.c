@@ -15,10 +15,10 @@ enum preonic_layers {
   _COLEMAK,
   _CLMK2,
   _DVORAK,
+  _NUMFUN,
   _LOWER,
   _RAISE,
   _ADJUST,
-  _NUMFUN,
   _FN
 };
 
@@ -27,10 +27,10 @@ enum preonic_keycodes {
   COLEMAK,
   CLMK2,
   DVORAK,
+  NUMFUN,
   LOWER,
   RAISE,
   BACKLIT,
-  NUMFUN,
   FN
 };
 
@@ -285,7 +285,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // persistent_default_layer_set(1UL<<_COLEMAK);
   switch (keycode) {
       case QWERTY:
         if (record->event.pressed) {
