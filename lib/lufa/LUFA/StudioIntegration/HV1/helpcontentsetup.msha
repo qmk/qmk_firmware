@@ -1,0 +1,27 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>LUFA Help</title>
+	</head>
+	<body class="vendor-book">
+		<div class="details">
+			<span class="vendor">FourWalledCubicle</span>
+			<span class="product">LUFA</span>
+			<span class="name">LUFA Help</span>
+			<span class="locale">en-us</span>
+		</div>
+		<div class="package-list">
+			<div class="package">
+				<span class="name">lufa_studio_help.mshc</span>
+				<a class="current-link" href="lufa_studio_help.mshc">lufa_studio_help.mshc</a>
+			</div>
+		</div>
+	</body>
+</html>
