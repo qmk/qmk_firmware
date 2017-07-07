@@ -21,24 +21,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    TADA
-#define PRODUCT         TADA68
-#define DESCRIPTION     QMK keyboard firmware for TADA68 with WS2812 support
+#define VENDOR_ID       0x1337
+#define PRODUCT_ID      0x6006
+#define MANUFACTURER    Bishop Keyboards
+#define PRODUCT         The ECO Keyboard
+#define DESCRIPTION     An economical ortholinear keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 14
 
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {D0,D1,F6,F7,D5}
-#define MATRIX_COL_PINS {F0,F1,E6,C7,C6,B7,D4,B1,B0,B5,B4,D7,D6,B3,F4}
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B6
+#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -59,10 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* Backlight configuration
- */
-#define BACKLIGHT_LEVELS 4
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -80,5 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#ifdef SUBPROJECT_rev1
+    #include "rev1/config.h"
+#endif
 
 #endif

@@ -1,7 +1,6 @@
 
 # MCU name
-#MCU = at90usb1287
-MCU = atmega32u4
+MCU = at90usb1286
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -46,21 +45,39 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=1024
 
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
-CONSOLE_ENABLE = yes	# Console for debug(+400)
-COMMAND_ENABLE = yes    # Commands for debug and configuration
-NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-RGBLIGHT_ENABLE = no   # Enable keyboard underlight functionality (+4870)
-BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality (+1150)
-MIDI_ENABLE = no 		# MIDI controls
-AUDIO_ENABLE = no
-UNICODE_ENABLE = no 		# Unicode
-BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+BOOTMAGIC_ENABLE ?= no      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE ?= yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
+CONSOLE_ENABLE ?= yes        # Console for debug(+400)
+COMMAND_ENABLE ?= yes        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE ?= no            # USB Nkey Rollover
+BACKLIGHT_ENABLE ?= no       # Enable keyboard backlight functionality on B7 by default
+MIDI_ENABLE ?= no            # MIDI controls
+UNICODE_ENABLE ?= no         # Unicode
+BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE ?= no           # Audio output on port C6
+
+ifndef QUANTUM_DIR
+	include ../../../Makefile
+endif
+
+avrdude: build
+	ls /dev/tty* > /tmp/1; \
+	echo "Reset your Pro Micro now"; \
+	while [[ -z $$USB ]]; do \
+	  sleep 1; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
+	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
+.PHONY: avrdude
