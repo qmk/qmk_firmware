@@ -1,0 +1,43 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/**
+ *  \page Page_LicenseInfo Source Code License
+ *
+ *  The LUFA library is currently released under the MIT license, included below.
+ *
+ *  \section Sec_LicenseForHumans License Summary for Human Beings
+ *  Everyone is free to use LUFA without payment - even in commercial applications
+ *  where the product source code is not publicly disclosed. However, use of the
+ *  library must be in accordance with the library license conditions.
+ *
+ *  If you wish to use LUFA without payment, you <b>must</b> include a copy of the
+ *  full license text below with your product or project - on your website, and in
+ *  an accompanying manual or other materials for the product. As long as the entire
+ *  license text is made available and obvious to the users of your product, you
+ *  are free to incorporate the LUFA library into your product without special
+ *  additional licensing.
+ *
+ *  \section Sec_CommercialLicenses Commercial Licensing
+ *  In some instances the small requirement for public disclosure of LUFA within a
+ *  product is unwanted; in these instances a commercial license is offered up as an
+ *  alternative to the standard LUFA license.
+ *
+ *  Commercial entities can opt out of the public disclosure clause in this license
+ *  for a one-time US$1500 payment. This provides a non-exclusive modified MIT
+ *  licensed which allows for the free use of the LUFA library, bootloaders and
+ *  (where the sole copyright is attributed to Dean Camera) demos without public
+ *  disclosure within an organization, in addition to three free hours of consultation
+ *  with the library author, and priority support.
+ *
+ *  Please visit the Commercial License link on \ref Page_Resources for more information on
+ *  ordering a commercial license for your company.
+ *
+ *  \section Sec_LicenseText LUFA License Text
+ *
+ *  \verbinclude License.txt
+ */
+
