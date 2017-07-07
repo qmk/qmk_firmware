@@ -1,31 +1,35 @@
-## READ FIRST
-- **README** of top directory : https://github.com/tmk/tmk_keyboard/blob/master/README.md
-- **README** of target project(keyboard/converter) directory.
+# Frequently Asked Questions
 
-Note that you'll need to read **both**.
+## What is QMK?
 
+[QMK](https://github.com/qmk), short for Quantum Mechanical Keyboard, is a group of people building tools for custom keyboards. We started with the [QMK firmware](https://github.com/qmk/qmk_firmware), a heavily modified fork of [TMK](https://github.com/tmk/tmk_keyboard).
 
-# Build
-- [[FAQ/Build]]
+## What Differences Are There Between QMK and TMK?
 
+TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert's](https://github.com/jackhumbert) fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.
 
-# Keymap
-- [[FAQ/Keymap]]
+From a technical standpoint QMK builds upon TMK by adding several new features. Most notably QMK has expanded the number of available keycodes and uses these to implement advanced features like `S()`, `LCTL()`, and `MO()`. You can see a complete list of these keycodes in [Quantum Keycodes](quantum_keycodes.html).
 
+From a project and community management standpoint TMK maintains all the officially supported keyboards by himself, with a bit of community support. Separate community maintained forks exist or can be created for other keyboards. Only a few keymaps are provided by default, so users typically don't share keymaps with each other. QMK encourages sharing of both keyboards and keymaps through a centrally managed repository, accepting all pull requests that follows the quality standards. These are mostly community maintained, but the QMK team also helps when necessary.
+
+Both approaches have their merits and their drawbacks, and code flows freely between TMK and QMK when it makes sense.
 
 # Debug Console
 ## hid_listen can't recognize device
 When debug console of your device is not ready you will see like this:
 
-    Waiting for device:.........
+```
+Waiting for device:.........
+```
 
 once the device is pluged in then *hid_listen* finds it you will get this message:
 
-    Waiting for new device:.........................
-    Listening:
+```
+Waiting for new device:.........................
+Listening:
+```
 
-Check if you can't get this 'Listening:' message:
-- build with `CONSOLE_ENABLE=yes` in **Makefile**.
+If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes` in [Makefile]
 
 You may need privilege to access the device on OS like Linux.
 - try `sudo hid_listen`
@@ -73,39 +77,11 @@ Without reset circuit you will have inconsistent reuslt due to improper initiali
 
 
 ## Can't read column of matrix beyond 16 
-Use `1UL<<16` instead of `1<<16` in `read_cols()` in **matrix.h** when your columns goes beyond 16.
+Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
 
-In C `1` means one of **int** type which is **16bit** in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use **unsigned long** type with `1UL`.
+In C `1` means one of [int] type which is [16bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
-
-
-
-## Pull-up Resistor
-In some case converters needed to have pull-up resistors to work correctly. Place the resistor between VCC and signal line in parallel.
-
-For example:
-```
-Keyboard       Conveter
-               ,------.
-5V------+------|VCC   |
-        |      |      |
-        R      |      |
-        |      |      |
-Signal--+------|PD0   |
-               |      |
-GND------------|GND   |
-               `------'
-R: 1K Ohm resistor
-```
-
-https://github.com/tmk/tmk_keyboard/issues/71
-
-
-## Arduino Micro's pin naming is confusing
-Note that Arduino Micro PCB marking is different from real AVR port name. D0 of Arduino Micro is not PD0, PD0 is D3. Check schematic yourself.
-http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
-
 
 
 ## Bootloader jump doesn't work
@@ -157,20 +133,20 @@ https://github.com/tmk/tmk_keyboard/issues/179
 
 
 ## Special Extra key doesn't work(System, Audio control keys)
-You need to define `EXTRAKEY_ENABLE` in **makefile** to use them in TMK.
+You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
+
 ```
 EXTRAKEY_ENABLE = yes          # Audio control and System control
 ```
-http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-60.html#p157919
-
 
 ## Wakeup from sleep doesn't work
+
 In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
 
 Pressing any key during sleep should wake host.
 
-
 ## Using Arduino?
+
 **Note that Arduino pin naming is different from actual chip.** For example, Arduino pin `D0` is not `PD0`. Check circuit with its schematics yourself.
 
 - http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
