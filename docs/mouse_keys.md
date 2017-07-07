@@ -1,5 +1,6 @@
 # Mousekeys
 
+
 Mousekeys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer around, click up to 5 buttons, and even scroll in all 4 directions. QMK uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 
 ## Adding Mousekeys To a Keymap
@@ -53,6 +54,7 @@ The default speed for controlling the mouse with the keyboard is intentionaly sl
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 ```
+
 
 ### `MOUSEKEY_DELAY`
 
