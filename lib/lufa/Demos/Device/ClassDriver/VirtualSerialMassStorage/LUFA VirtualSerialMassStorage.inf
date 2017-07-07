@@ -1,0 +1,66 @@
+;************************************************************
+; Windows USB CDC ACM Setup File
+; Copyright (c) 2000 Microsoft Corporation
+;************************************************************
+
+[DefaultInstall]
+CopyINF="LUFA VirtualSerialMassStorage.inf"
+
+[Version]
+Signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%MFGNAME%
+DriverVer=7/1/2012,10.0.0.0
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTx86, NTamd64, NTia64
+
+[SourceDisksNames]
+
+[SourceDisksFiles]
+
+[DestinationDirs]
+DefaultDestDir=12
+
+[DriverInstall]
+Include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection
+AddReg=DriverInstall.AddReg
+
+[DriverInstall.Services]
+Include=mdmcpq.inf
+AddService=usbser, 0x00000002, LowerFilter_Service_Inst
+
+[DriverInstall.AddReg]
+HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
+
+;------------------------------------------------------------------------------
+;  Vendor and Product ID Definitions
+;------------------------------------------------------------------------------
+; When developing your USB device, the VID and PID used in the PC side
+; application program and the firmware on the microcontroller must match.
+; Modify the below line to use your VID and PID.  Use the format as shown below.
+; Note: One INF file can be used for multiple devices with different VID and PIDs.
+; For each supported device, append ",USB\VID_xxxx&PID_yyyy" to the end of the line.
+;------------------------------------------------------------------------------
+[DeviceList]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_2068&MI_00
+
+[DeviceList.NTx86]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_2068&MI_00
+
+[DeviceList.NTamd64]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_2068&MI_00
+
+[DeviceList.NTia64]
+%DESCRIPTION%=DriverInstall, USB\VID_03EB&PID_2068&MI_00
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+;Modify these strings to customize your device
+;------------------------------------------------------------------------------
+[Strings]
+MFGNAME="http://www.lufa-lib.org"
+DESCRIPTION="LUFA CDC-ACM Virtual Serial Port"
