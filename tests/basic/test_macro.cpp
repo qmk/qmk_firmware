@@ -69,9 +69,11 @@ TEST_F(Macro, PlayASimpleMacro) {
         .AT_TIME(100);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_O)))
     // BUG: The timer should not really have advanced 10 ms here
+    // See issue #1477
         .AT_TIME(110);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()))
     // BUG: The timer should not advance on both keydown and key-up
+    // See issue #1477
         .AT_TIME(120);
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_R)))
         .AT_TIME(130);
