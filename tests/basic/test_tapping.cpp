@@ -51,6 +51,7 @@ TEST_F(Tapping, HoldA_SHFT_T_KeyReportsShift) {
 }
 
 TEST_F(Tapping, ANewTapWithinTappingTermIsBuggy) {
+    // See issue #1478 for more information
     TestDriver driver;
     InSequence s;
 
