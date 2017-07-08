@@ -111,6 +111,9 @@ TEST_F(KeyPress, RightShiftLeftControlAndCharWithTheSameKey) {
     press_key(6, 0);
     // BUG: The press is split into two reports
     // BUG: It reports RSFT instead of LSFT
+    // See issue #524 for more information
+    // The underlying cause is that we use only one bit to represent the right hand
+    // modifiers.
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL)));
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_RSFT, KC_RCTRL, KC_O)));
     keyboard_task();
