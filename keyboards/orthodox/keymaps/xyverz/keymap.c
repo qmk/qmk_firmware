@@ -49,17 +49,6 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-// Aliases for functionality
-#define CTLSCLN CTL_T(KC_SCLN)	//Dvorak left side
-#define ALT__Q	ALT_T(KC_Q)	//Dvorak left side
-#define CTL_DZ	CTL_T(KC_Z)	//Dvorak right side
-#define ALT__V	ALT_T(KC_V)	//Dvorak right side
-#define CTL__Z	CTL_T(KC_Z)	//Qwerty & Colemak left side
-#define ALT__X  ALT_T(KC_X)	//Qwerty & Colemak left side
-#define CTLSLSH	CTL_T(KC_SLSH)	//Qwerty & Colemak right side
-#define ALT_DOT	ALT_T(KC_DOT)	//Qwerty & colemak right side
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_DVORAK] = KEYMAP ( \
