@@ -256,6 +256,9 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
+    #ifdef BACKLIGHT_ENABLE
+        .backlight_level = 0,
+    #endif
     #ifdef VISUALIZER_USER_DATA_SIZE
         .user_data = {0},
     #endif
@@ -300,6 +303,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 else {
                     gdispGSetPowerMode(LED_DISPLAY, powerOff);
                 }
+                state.status.backlight_level = current_status.backlight_level;
             }
     #endif
             if (visualizer_enabled) {
