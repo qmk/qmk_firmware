@@ -42,6 +42,7 @@ TEST_F(KeyPress, CorrectKeysAreReportedWhenTwoKeysArePressed) {
     press_key(1, 0);
     press_key(0, 3);
     //Note that QMK only processes one key at a time
+    //See issue #1476 for more information
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_B, KC_C)));
@@ -68,6 +69,7 @@ TEST_F(KeyPress, LeftShiftIsReportedCorrectly) {
     press_key(3, 0);
     press_key(0, 0);
     // Unfortunately modifiers are also processed in the wrong order
+    // See issue #1476 for more information
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A, KC_LSFT)));
@@ -85,6 +87,7 @@ TEST_F(KeyPress, PressLeftShiftAndControl) {
     press_key(3, 0);
     press_key(5, 0);
     // Unfortunately modifiers are also processed in the wrong order
+    // See issue #1476 for more information
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_LCTRL)));
@@ -96,6 +99,7 @@ TEST_F(KeyPress, LeftAndRightShiftCanBePressedAtTheSameTime) {
     press_key(3, 0);
     press_key(4, 0);
     // Unfortunately modifiers are also processed in the wrong order
+    // See issue #1476 for more information
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
     keyboard_task();
     EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_RSFT)));
