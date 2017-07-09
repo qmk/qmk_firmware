@@ -51,8 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SERIAL_LINK_BAUD 562500
 #define SERIAL_LINK_THREAD_PRIORITY (NORMALPRIO - 1)
-// The visualizer needs gfx thread priorities
-#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 
 #define VISUALIZER_USER_DATA_SIZE 16
 
