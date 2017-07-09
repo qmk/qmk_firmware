@@ -9,7 +9,7 @@
 
 #if GFX_USE_GDISP
 
-#define GDISP_DRIVER_VMT			GDISPVMT_ST7565_ERGODOX
+#define GDISP_DRIVER_VMT			GDISPVMT_ST7565_QMK
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
