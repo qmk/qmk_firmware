@@ -46,6 +46,8 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
 SRC += $(VISUALIZER_DIR)/led_backlight_keyframes.c
 endif
 
+SRC += $(VISUALIZER_DIR)/default_animations.c
+
 include $(GFXLIB)/gfx.mk
 # For the common_gfxconf.h
 GFXINC += quantum/visualizer
