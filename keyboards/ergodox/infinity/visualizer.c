@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
-#include "animations.h"
+#include "default_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
