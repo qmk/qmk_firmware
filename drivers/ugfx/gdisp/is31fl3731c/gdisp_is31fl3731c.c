@@ -19,7 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if GFX_USE_GDISP
 
-#define GDISP_DRIVER_VMT            GDISPVMT_IS31FL3731C_QMK
+#define GDISP_DRIVER_VMT          GDISPVMT_IS31FL3731C_QMK
+#define GDISP_SCREEN_HEIGHT       LED_HEIGHT
+#define GDISP_SCREEN_WIDTH        LED_WIDTH
+
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
@@ -33,12 +36,6 @@ extern const uint8_t CIE1931_CURVE[];
 /* Driver local definitions.                                                 */
 /*===========================================================================*/
 
-#ifndef GDISP_SCREEN_HEIGHT
-    #define GDISP_SCREEN_HEIGHT       9
-#endif
-#ifndef GDISP_SCREEN_WIDTH
-    #define GDISP_SCREEN_WIDTH        16
-#endif
 #ifndef GDISP_INITIAL_CONTRAST
     #define GDISP_INITIAL_CONTRAST    0
 #endif
@@ -100,7 +97,6 @@ extern const uint8_t CIE1931_CURVE[];
 #define IS31_PWM_SIZE 0x90
 
 #define IS31_LED_MASK_SIZE 0x12
-#define IS31_SCREEN_WIDTH 16
 
 #define IS31
 

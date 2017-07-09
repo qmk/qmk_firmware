@@ -69,4 +69,6 @@ CUSTOM_MATRIX = yes # Custom matrix file
 BACKLIGHT_ENABLE = yes
 VISUALIZER_ENABLE = yes
 
-include $(TOP_DIR)/drivers/ugfx/gdisp/is31fl3731c/driver.mk
+LED_DRIVER = is31fl3731c
+LED_WIDTH = 16 
+LED_HEIGHT = 5
