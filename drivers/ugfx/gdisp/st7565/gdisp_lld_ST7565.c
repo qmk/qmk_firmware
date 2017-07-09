@@ -9,7 +9,7 @@
 
 #if GFX_USE_GDISP
 
-#define GDISP_DRIVER_VMT			GDISPVMT_ST7565_QMK
+#define GDISP_DRIVER_VMT            GDISPVMT_ST7565_QMK
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
@@ -20,24 +20,24 @@
 /*===========================================================================*/
 
 #ifndef GDISP_SCREEN_HEIGHT
-#define GDISP_SCREEN_HEIGHT		32
+#define GDISP_SCREEN_HEIGHT         32
 #endif
 #ifndef GDISP_SCREEN_WIDTH
-#define GDISP_SCREEN_WIDTH		128
+#define GDISP_SCREEN_WIDTH          128
 #endif
 #ifndef GDISP_INITIAL_CONTRAST
-#define GDISP_INITIAL_CONTRAST	35
+#define GDISP_INITIAL_CONTRAST      35
 #endif
 #ifndef GDISP_INITIAL_BACKLIGHT
-#define GDISP_INITIAL_BACKLIGHT	100
+#define GDISP_INITIAL_BACKLIGHT     100
 #endif
 
-#define GDISP_FLG_NEEDFLUSH			(GDISP_FLG_DRIVER<<0)
+#define GDISP_FLG_NEEDFLUSH         (GDISP_FLG_DRIVER<<0)
 
 #include "st7565.h"
 
 /*===========================================================================*/
-/* Driver config defaults for backward compatibility.               	     */
+/* Driver config defaults for backward compatibility.                        */
 /*===========================================================================*/
 #ifndef ST7565_LCD_BIAS
 #define ST7565_LCD_BIAS         ST7565_LCD_BIAS_7
@@ -65,7 +65,7 @@ typedef struct{
 
 // Some common routines and macros
 #define PRIV(g)                         ((PrivData*)g->priv)
-#define RAM(g)							(PRIV(g)->ram)
+#define RAM(g)                          (PRIV(g)->ram)
 
 static GFXINLINE void write_cmd(GDisplay* g, uint8_t cmd) {
     PRIV(g)->data[PRIV(g)->data_pos++] = cmd;
@@ -76,15 +76,15 @@ static GFXINLINE void flush_cmd(GDisplay* g) {
     PRIV(g)->data_pos = 0;
 }
 
-#define write_cmd2(g, cmd1, cmd2)		{ write_cmd(g, cmd1); write_cmd(g, cmd2); }
-#define write_cmd3(g, cmd1, cmd2, cmd3)	{ write_cmd(g, cmd1); write_cmd(g, cmd2); write_cmd(g, cmd3); }
+#define write_cmd2(g, cmd1, cmd2)        { write_cmd(g, cmd1); write_cmd(g, cmd2); }
+#define write_cmd3(g, cmd1, cmd2, cmd3)  { write_cmd(g, cmd1); write_cmd(g, cmd2); write_cmd(g, cmd3); }
 
 // Some common routines and macros
-#define delay(us)			gfxSleepMicroseconds(us)
-#define delay_ms(ms)		gfxSleepMilliseconds(ms)
+#define delay(us)           gfxSleepMicroseconds(us)
+#define delay_ms(ms)        gfxSleepMilliseconds(ms)
 
-#define xyaddr(x, y)		((x) + ((y)>>3)*GDISP_SCREEN_WIDTH)
-#define xybit(y)			(1<<((y)&7))
+#define xyaddr(x, y)        ((x) + ((y)>>3)*GDISP_SCREEN_WIDTH)
+#define xybit(y)            (1<<((y)&7))
 
 /*===========================================================================*/
 /* Driver exported functions.                                                */
@@ -150,7 +150,7 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 
 #if GDISP_HARDWARE_FLUSH
 LLDSPEC void gdisp_lld_flush(GDisplay *g) {
-    unsigned	p;
+    unsigned    p;
 
     // Don't flush if we don't need it.
     if (!(g->flags & GDISP_FLG_NEEDFLUSH))
@@ -181,7 +181,7 @@ LLDSPEC void gdisp_lld_flush(GDisplay *g) {
 
 #if GDISP_HARDWARE_DRAWPIXEL
 LLDSPEC void gdisp_lld_draw_pixel(GDisplay *g) {
-    coord_t		x, y;
+    coord_t        x, y;
 
     switch(g->g.Orientation) {
     default:
@@ -212,7 +212,7 @@ LLDSPEC void gdisp_lld_draw_pixel(GDisplay *g) {
 
 #if GDISP_HARDWARE_PIXELREAD
 LLDSPEC color_t gdisp_lld_get_pixel_color(GDisplay *g) {
-    coord_t		x, y;
+    coord_t        x, y;
 
     switch(g->g.Orientation) {
     default:
@@ -257,7 +257,7 @@ LLDSPEC void gdisp_lld_blit_area(GDisplay *g) {
             else {
                 *dst &= ~xybit(dsty);
             }
-			dstx++;
+            dstx++;
             srcbit++;
         }
     }
