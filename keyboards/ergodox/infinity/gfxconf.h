@@ -22,12 +22,6 @@
 #ifndef _GFXCONF_H
 #define _GFXCONF_H
 
-#ifndef EMULATOR
-#define GDISP_DRIVER_LIST                            GDISPVMT_ST7565_QMK, GDISPVMT_IS31FL3731C_QMK
-#else
-#define GDISP_DRIVER_LIST                            GDISPVMT_EMULATOR_LCD_ERGODOX, GDISPVMT_EMULATOR_LED_ERGODOX
-#endif
-
 #include "common_gfxconf.h"
 
 #endif /* _GFXCONF_H */

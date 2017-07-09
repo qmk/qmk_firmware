@@ -66,5 +66,10 @@ LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-include $(TOP_DIR)/drivers/ugfx/gdisp/st7565/driver.mk
-include $(TOP_DIR)/drivers/ugfx/gdisp/is31fl3731c/driver.mk
+LCD_DRIVER = st7565
+LCD_WIDTH = 128 
+LCD_HEIGHT = 32
+
+LED_DRIVER = is31fl3731c
+LED_WIDTH = 7 
+LED_HEIGHT = 7

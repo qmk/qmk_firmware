@@ -22,9 +22,6 @@ static const I2CConfig i2ccfg = {
   400000 // clock speed (Hz); 400kHz max for IS31
 };
 
-#define GDISP_SCREEN_WIDTH  7
-#define GDISP_SCREEN_HEIGHT 7
-
 static const uint8_t led_mask[] = {
 	0xFF, 0x00, /* C1-1 -> C1-16 */
 	0xFF, 0x00, /* C2-1 -> C2-16 */
