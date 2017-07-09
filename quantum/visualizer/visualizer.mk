@@ -43,7 +43,7 @@ OPT_DEFS += -DLCD_BACKLIGHT_ENABLE
 endif
 
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
-SRC += $(VISUALIZER_DIR)/led_keyframes.c
+SRC += $(VISUALIZER_DIR)/led_backlight_keyframes.c
 endif
 
 include $(GFXLIB)/gfx.mk
