@@ -34,7 +34,7 @@
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
 #include "led.h"
-#include "animations.h"
+#include "default_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
