@@ -52,7 +52,8 @@ SOFTWARE.
 
 // Define this in config.h
 #ifndef VISUALIZER_THREAD_PRIORITY
-#define "Visualizer thread priority not defined"
+// The visualizer needs gfx thread priorities
+#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 #endif
 
 static visualizer_keyboard_status_t current_status = {
