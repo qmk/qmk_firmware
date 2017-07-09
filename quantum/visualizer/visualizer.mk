@@ -47,6 +47,9 @@ SRC += $(VISUALIZER_DIR)/led_keyframes.c
 endif
 
 include $(GFXLIB)/gfx.mk
+# For the common_gfxconf.h
+GFXINC += quantum/visualizer
+
 GFXSRC := $(patsubst $(TOP_DIR)/%,%,$(GFXSRC))
 GFXDEFS := $(patsubst %,-D%,$(patsubst -D%,%,$(GFXDEFS)))
 
