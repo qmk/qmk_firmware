@@ -3,7 +3,6 @@
         "summary": "_summary.md"
     },
     "plugins" : [
-      "anchors",
       "edit-link",
       "forkmegithub",
       "hints",
