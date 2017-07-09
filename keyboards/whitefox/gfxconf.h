@@ -130,7 +130,7 @@
 //#define GDISP_TOTAL_DISPLAYS		                 2
 
 #ifndef EMULATOR
-#define GDISP_DRIVER_LIST                            GDISPVMT_IS31FL3731C_WHITEFOX
+#define GDISP_DRIVER_LIST                            GDISPVMT_IS31FL3731C_QMK
 #endif
 
     #ifdef GDISP_DRIVER_LIST
