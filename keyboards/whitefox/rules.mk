@@ -70,4 +70,4 @@ CUSTOM_MATRIX = yes # Custom matrix file
 BACKLIGHT_ENABLE = yes
 VISUALIZER_ENABLE = yes
 
-include $(KEYBOARD_PATH)/drivers/gdisp/IS31FL3731C/driver.mk
+include $(TOP_DIR)/drivers/ugfx/gdisp/IS31FL3731C/driver.mk

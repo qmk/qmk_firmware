@@ -67,5 +67,5 @@ LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
 
-include $(SUBPROJECT_PATH)/drivers/gdisp/st7565ergodox/driver.mk
-include $(SUBPROJECT_PATH)/drivers/gdisp/IS31FL3731C/driver.mk
+include $(TOP_DIR)/drivers/ugfx/gdisp/st7565ergodox/driver.mk
+include $(TOP_DIR)/drivers/ugfx/gdisp/IS31FL3731C/driver.mk
