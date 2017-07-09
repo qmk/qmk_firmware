@@ -6,10 +6,9 @@
       "anchors",
       "edit-link",
       "forkmegithub",
-      "git-author",
       "hints",
-      "numbered-headings",
       "page-toc",
+      "numbered-headings",
       "terminal",
       "toolbar"
     ],
@@ -24,6 +23,11 @@
       },
       "page-toc": {
         "selector": ".markdown-section h1, .markdown-section h2"
+      },
+      "terminal": {
+        "copyButtons": true,
+        "fade": false,
+        "style": "flat"
       },
       "toolbar": {
         "buttons": [
