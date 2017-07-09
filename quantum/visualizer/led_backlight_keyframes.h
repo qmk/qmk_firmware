@@ -22,21 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef LED_KEYFRAMES_H
-#define LED_KEYFRAMES_H
+#ifndef LED_BACKLIGHT_KEYFRAMES_H
+#define LED_BACKLIGHT_KEYFRAMES_H
 
 #include "visualizer.h"
 
-bool led_keyframe_fade_in_all(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_fade_out_all(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_fade_in_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_fade_out_all(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_top_to_bottom_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_crossfade(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_mirror_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_normal_orientation(keyframe_animation_t* animation, visualizer_state_t* state);
 
-bool led_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
 
 extern keyframe_animation_t led_test_animation;
 

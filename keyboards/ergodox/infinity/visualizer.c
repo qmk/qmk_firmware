@@ -79,7 +79,7 @@ static keyframe_animation_t one_led_color = {
     .num_frames = 1,
     .loop = false,
     .frame_lengths = {gfxMillisecondsToTicks(0)},
-    .frame_functions = {backlight_keyframe_set_color},
+    .frame_functions = {lcd_backlight_keyframe_set_color},
 };
 
 bool swap_led_target_color(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -94,7 +94,7 @@ static keyframe_animation_t two_led_colors = {
     .num_frames = 2,
     .loop = true,
     .frame_lengths = {gfxMillisecondsToTicks(1000), gfxMillisecondsToTicks(0)},
-    .frame_functions = {backlight_keyframe_set_color, swap_led_target_color},
+    .frame_functions = {lcd_backlight_keyframe_set_color, swap_led_target_color},
 };
 
 // The LCD animation alternates between the layer name display and a
