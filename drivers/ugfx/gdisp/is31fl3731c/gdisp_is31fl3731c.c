@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if GFX_USE_GDISP
 
-#define GDISP_DRIVER_VMT			GDISPVMT_IS31FL3731C_ERGODOX
+#define GDISP_DRIVER_VMT			GDISPVMT_IS31FL3731C_QMK
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
