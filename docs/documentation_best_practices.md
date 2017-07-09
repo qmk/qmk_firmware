@@ -22,6 +22,14 @@ Your page should generally have multiple "H1" headings. Only H1 and H2 headings 
 
 You can have styled hint blocks drawn around text to draw attention to it.
 
+```
+{% hint style='info' %}
+This uses `hint style='info'`
+{% endhint %}
+```
+
+### Examples:
+
 {% hint style='info' %}
 This uses `hint style='info'`
 {% endhint %}
@@ -37,3 +45,33 @@ This uses `hint style='danger'`
 {% hint style='working' %}
 This uses `hint style='working'`
 {% endhint %}
+
+# Styled Terminal Blocks
+
+You can present styled terminal blocks by including special tokens inside your text block.
+
+```
+\`\`\`
+**[terminal]
+**[prompt foo@joe]**[path ~]**[delimiter  $ ]**[command ./myscript]
+Normal output line. Nothing special here...
+But...
+You can add some colors. What about a warning message?
+**[warning [WARNING] The color depends on the theme. Could look normal too]
+What about an error message?
+**[error [ERROR] This is not the error you are looking for]
+\`\`\`
+```
+
+### Example
+
+```
+**[terminal]
+**[prompt foo@joe]**[path ~]**[delimiter  $ ]**[command ./myscript]
+Normal output line. Nothing special here...
+But...
+You can add some colors. What about a warning message?
+**[warning [WARNING] The color depends on the theme. Could look normal too]
+What about an error message?
+**[error [ERROR] This is not the error you are looking for]
+```
