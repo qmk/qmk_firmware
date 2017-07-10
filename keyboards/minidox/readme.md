@@ -3,7 +3,7 @@ ECO
 
 ![MimiDox](http://i.imgur.com/iWb3yO0.jpg)
 
-DESCRIPTION HERE
+A compact version of the ErgoDox
 
 Keyboard Maintainer: That-Canadian
 Hardware Supported: MiniDox PCB rev1 Pro Micro

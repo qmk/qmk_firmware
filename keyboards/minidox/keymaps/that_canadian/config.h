@@ -1,5 +1,8 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,24 +18,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-#include "../config.h"
-
-#define DEVICE_VER      0x0001
-
-// wiring of each half
-#define MATRIX_ROW_PINS { B2, B6, B4, B5 }
-#define MATRIX_COL_PINS { F4, D3, D2, D1, D4 }
-
-#define CATERINA_BOOTLOADER
+#include "../../config.h"
 
 #define USE_SERIAL
 
-// #define EE_HANDS
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D7
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 4   // Number of LEDs
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
 
-#define I2C_MASTER_LEFT
-//#define I2C_MASTER_RIGHT
- 
 #endif
