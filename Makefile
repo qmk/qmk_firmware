@@ -483,6 +483,8 @@ define RUN_TEST
 +error_occurred=0;\
 $($(TEST)_COMMAND)\
 if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
+
+
 endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
