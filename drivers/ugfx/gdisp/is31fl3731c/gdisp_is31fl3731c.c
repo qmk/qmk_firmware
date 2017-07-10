@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
-#include "board_IS31FL3731C.h"
+#include "board_is31fl3731c.h"
 
 
 // Can't include led_tables from here
