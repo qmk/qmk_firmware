@@ -34,7 +34,7 @@
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
 #include "led.h"
-#include "animations.h"
+#include "default_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
@@ -58,7 +58,7 @@ static keyframe_animation_t color_animation = {
     // this prevents the color from changing when activating the layer
     // momentarily
     .frame_lengths = {gfxMillisecondsToTicks(200), gfxMillisecondsToTicks(500)},
-    .frame_functions = {keyframe_no_operation, backlight_keyframe_animate_color},
+    .frame_functions = {keyframe_no_operation, lcd_backlight_keyframe_animate_color},
 };
 
 void initialize_user_visualizer(visualizer_state_t* state) {
