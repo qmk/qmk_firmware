@@ -115,11 +115,11 @@ dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
 	done
-ifneq (, $(findstring 0.7, $(shell $(DFU_PROGRAMMER) --version 2>&1)))
-	$(DFU_PROGRAMMER) $(MCU) erase --force
-else
-	$(DFU_PROGRAMMER) $(MCU) erase
-endif
+	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+	fi
 	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	$(DFU_PROGRAMMER) $(MCU) reset
 
@@ -135,11 +135,11 @@ flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
-else
-	$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
-endif
+	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep;\
+	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
 # Convert hex to bin.
