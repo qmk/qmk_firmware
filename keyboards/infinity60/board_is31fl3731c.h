@@ -30,28 +30,39 @@ static const uint8_t led_mask[] = {
 	0xFF, 0x00, /* C5-1 -> C5-16 */
 	0xFF, 0x00, /* C6-1 -> C6-16 */
 	0xFF, 0x00, /* C7-1 -> C7-16 */
-	0xFF, 0x00, /* C8-1 -> C8-16 */
-	0xFE, 0x00, /* C9-1 -> C9-16 */
+	0x7F, 0x00, /* C8-1 -> C8-16 */
+	0x00, 0x00, /* C9-1 -> C9-16 */
 };
+
+/* Infinity60 LED MAP
+    - digits mean "row" and "col", i.e. 45 means C4-5 in the IS31 datasheet, matrix A
+
+  11 12 13 14 15 16 17 18 21 22 23 24 25  26 27*
+   28 31 32 33 34 35 36 37 38 41 42 43 44 45
+   46 47 48 51 52 53 54 55 56 57 58 61    62
+    63 64 65 66 67 68 71 72 73 74 75      76 77*
+  78  81  82       83         84  85  86  87
+
+The led screen is 15x5 and has the following pixel layeout
+Empty slots don't do anything
+0 1 2 3 4 5 6 7 8 9 A B C D E
+0 1 2 3 4 5 6 7 8 9 A B C   E
+0   2 3 4 5 6 7 8 9 A B C   E
+0   2 3 4 5 6 7 8 9 A B   D E
+0   2 3       7     A B C   E
+*/
 
 // The address of the LED
 #define LA(c, r) (c + r * 16 )
 // Need to be an address that is not mapped, but inside the range of the controller matrix
 #define NA LA(8, 8)
 
-// The numbers in the comments are the led numbers DXX on the PCB
-// The mapping is taken from the schematic of left hand side
 static const uint8_t led_mapping[GDISP_SCREEN_HEIGHT][GDISP_SCREEN_WIDTH] = {
-//   1         2         3         4         5         6         7         8         9         10        11        12        13        14        15        16
-   { LA(0, 0), LA(1, 0), LA(2, 0), LA(3, 0), LA(4, 0), LA(5, 0), LA(6, 0), LA(7, 0), LA(0, 1), LA(1, 1), LA(2, 1), LA(3, 1), LA(4, 1), LA(5, 1), LA(6, 1), LA(7, 1)},
-//   17        18        19        20        21        22        23        24        25        26                  27        28        29        30        31
-   { LA(0, 2), LA(1, 2), LA(2, 2), LA(3, 2), LA(4, 2), LA(5, 2), LA(6, 2), LA(7, 2), LA(0, 3), LA(1, 3), NA,       LA(2, 3), LA(3, 3), LA(4, 3), LA(5, 3), LA(6, 3)},
-//   32        33        34        35        36        37        38        39        40        41                  42        43        44        45        46
-   { LA(7, 3), LA(0, 4), LA(1, 4), LA(2, 4), LA(3, 4), LA(4, 4), LA(5, 4), LA(6, 4), LA(7, 4), LA(0, 5), NA,       LA(1, 5), LA(2, 5), LA(3, 5), LA(4, 5), LA(5, 5)},
-//   47        48        49        50        51        52        53        54        55        56                  57        58        59        60        61
-   { LA(6, 5), LA(7, 5), LA(0, 6), LA(1, 6), LA(2, 6), LA(3, 6), LA(4, 6), LA(5, 6), LA(6, 6), LA(7, 6), NA,       LA(0, 7), LA(1, 7), LA(2, 7), LA(3, 7), LA(4, 7)},
-//   62        63        64                                      65                                      66        67        68        69        70        71
-   { LA(5, 7), LA(6, 7), LA(7, 7), NA,       NA,       NA,       LA(0, 8), NA,       NA,       NA,       LA(1, 8), LA(2, 8), LA(3, 8), LA(4, 8), LA(5, 8), LA(6, 8)},
+   { LA(0, 0), LA(1, 0), LA(2, 0), LA(3, 0), LA(4, 0), LA(5, 0), LA(6, 0), LA(7, 0), LA(0, 1), LA(1, 1), LA(2, 1), LA(3, 1), LA(4, 1), LA(5, 1), LA(6, 1) },
+   { LA(7, 1), LA(0, 2), LA(1, 2), LA(2, 2), LA(3, 2), LA(4, 2), LA(5, 2), LA(6, 2), LA(7, 2), LA(0, 3), LA(1, 3), LA(2, 3), LA(3, 3), NA,       LA(4, 3) },
+   { LA(5, 3), NA,       LA(6, 3), LA(7, 3), LA(0, 4), LA(1, 4), LA(2, 4), LA(3, 4), LA(4, 4), LA(5, 4), LA(6, 4), LA(7, 4), LA(0, 5), NA,       LA(1, 5) },
+   { LA(2, 5), NA,       LA(3, 5), LA(4, 5), LA(5, 5), LA(6, 5), LA(7, 5), LA(0, 6), LA(1, 6), LA(2, 6), LA(3, 6), LA(4, 6), NA,       LA(5, 6), LA(6, 6) },
+   { LA(7, 6), NA,       LA(0, 7), LA(1, 7), NA,       NA,       NA,       LA(2, 7), NA,       NA,       LA(3, 7), LA(4, 7), LA(5, 7), NA,       LA(6, 7) },
 };
 
 
