@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * In particular, I2C functions (interrupt-driven) should NOT be called from here.
  */
 void led_set(uint8_t usb_led) {
+#if LED_CONTROLLER_ENABLE
     msg_t msg;
 
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
@@ -50,4 +51,7 @@ void led_set(uint8_t usb_led) {
         chMBPostI(&led_mailbox, msg);
         chSysUnconditionalUnlock();
     }
+#else
+    (void)usb_led;
+#endif
 }

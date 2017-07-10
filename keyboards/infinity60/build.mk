@@ -13,4 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SRC += led_controller.c
+ifeq ($(strip $(LED_CONTROLLER_ENABLE)), yes)
+	ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+		$(error The LED controller is incompatible with the visualizer)
+	endif
+	SRC += led_controller.c
+endif
