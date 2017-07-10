@@ -61,7 +61,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "eeconfig.h"
-#include "light_ws2812.h"
+#include "ws2812.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
