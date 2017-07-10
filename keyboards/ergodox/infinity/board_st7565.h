@@ -83,7 +83,7 @@ static GFXINLINE void init_board(GDisplay *g) {
 }
 
 static GFXINLINE void post_init_board(GDisplay *g) {
-	(void) g;
+    (void) g;
 }
 
 static GFXINLINE void setpin_reset(GDisplay *g, bool_t state) {
@@ -106,8 +106,8 @@ static GFXINLINE void enter_cmd_mode(GDisplay *g) {
 
 
 static GFXINLINE void write_data(GDisplay *g, uint8_t* data, uint16_t length) {
-	(void) g;
-	spiSend(&SPID1, length, data);
+    (void) g;
+    spiSend(&SPID1, length, data);
 }
 
 #endif /* _GDISP_LLD_BOARD_H */
