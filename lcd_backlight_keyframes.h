@@ -14,17 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KEYBOARDS_ERGODOX_INFINITY_ANIMATIONS_H_
-#define KEYBOARDS_ERGODOX_INFINITY_ANIMATIONS_H_
+#ifndef QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_
+#define QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_
 
 #include "visualizer.h"
 
-// You can use these default animations, but of course you can also write your own custom ones instead
-extern keyframe_animation_t default_startup_animation;
-extern keyframe_animation_t default_suspend_animation;
+// Animates the LCD backlight color between the current color and the target color (of the state)
+bool lcd_backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state);
+// Sets the backlight color to the target color
+bool lcd_backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state);
 
-// An animation for testing and demonstrating the led support, should probably not be used for real world
-// cases
-extern keyframe_animation_t led_test_animation;
+bool lcd_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
 
-#endif /* KEYBOARDS_ERGODOX_INFINITY_ANIMATIONS_H_ */
+#endif /* QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_ */

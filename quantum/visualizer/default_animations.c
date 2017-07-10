@@ -16,7 +16,7 @@
 
 #if defined(VISUALIZER_ENABLE)
 
-#include "animations.h"
+#include "default_animations.h"
 #include "visualizer.h"
 #ifdef LCD_ENABLE
 #include "lcd_keyframes.h"
@@ -26,7 +26,7 @@
 #endif
 
 #ifdef BACKLIGHT_ENABLE
-#include "led_keyframes.h"
+#include "led_backlight_keyframes.h"
 #endif
 
 #include "visualizer_keyframes.h"
@@ -39,10 +39,10 @@ static bool keyframe_enable(keyframe_animation_t* animation, visualizer_state_t*
     lcd_keyframe_enable(animation, state);
 #endif
 #ifdef LCD_BACKLIGHT_ENABLE
-    backlight_keyframe_enable(animation, state);
+    lcd_backlight_keyframe_enable(animation, state);
 #endif
 #ifdef BACKLIGHT_ENABLE
-    led_keyframe_enable(animation, state);
+    led_backlight_keyframe_enable(animation, state);
 #endif
     return false;
 }
@@ -52,10 +52,10 @@ static bool keyframe_disable(keyframe_animation_t* animation, visualizer_state_t
     lcd_keyframe_disable(animation, state);
 #endif
 #ifdef LCD_BACKLIGHT_ENABLE
-    backlight_keyframe_disable(animation, state);
+    lcd_backlight_keyframe_disable(animation, state);
 #endif
 #ifdef BACKLIGHT_ENABLE
-    led_keyframe_disable(animation, state);
+    led_backlight_keyframe_disable(animation, state);
 #endif
     return false;
 }
@@ -63,10 +63,10 @@ static bool keyframe_disable(keyframe_animation_t* animation, visualizer_state_t
 static bool keyframe_fade_in(keyframe_animation_t* animation, visualizer_state_t* state) {
     bool ret = false;
 #ifdef LCD_BACKLIGHT_ENABLE
-    ret |= backlight_keyframe_animate_color(animation, state);
+    ret |= lcd_backlight_keyframe_animate_color(animation, state);
 #endif
 #ifdef BACKLIGHT_ENABLE
-    ret |= led_keyframe_fade_in_all(animation, state);
+    ret |= led_backlight_keyframe_fade_in_all(animation, state);
 #endif
     return ret;
 }
@@ -74,10 +74,10 @@ static bool keyframe_fade_in(keyframe_animation_t* animation, visualizer_state_t
 static bool keyframe_fade_out(keyframe_animation_t* animation, visualizer_state_t* state) {
     bool ret = false;
 #ifdef LCD_BACKLIGHT_ENABLE
-    ret |= backlight_keyframe_animate_color(animation, state);
+    ret |= lcd_backlight_keyframe_animate_color(animation, state);
 #endif
 #ifdef BACKLIGHT_ENABLE
-    ret |= led_keyframe_fade_out_all(animation, state);
+    ret |= led_backlight_keyframe_fade_out_all(animation, state);
 #endif
     return ret;
 }
@@ -86,22 +86,44 @@ static bool keyframe_fade_out(keyframe_animation_t* animation, visualizer_state_
 // Don't worry, if the startup animation is long, you can use the keyboard like normal
 // during that time
 keyframe_animation_t default_startup_animation = {
+#if LCD_ENABLE
     .num_frames = 3,
+#else
+    .num_frames = 2,
+#endif
     .loop = false,
-    .frame_lengths = {0, 0, gfxMillisecondsToTicks(5000)},
+    .frame_lengths = {
+        0, 
+#if LCD_ENABLE
+        0, 
+#endif
+        gfxMillisecondsToTicks(5000)},
     .frame_functions = {
             keyframe_enable,
+#if LCD_ENABLE
             lcd_keyframe_draw_logo,
+#endif
             keyframe_fade_in,
     },
 };
 
 keyframe_animation_t default_suspend_animation = {
+#if LCD_ENABLE
     .num_frames = 3,
+#else
+    .num_frames = 2,
+#endif
     .loop = false,
-    .frame_lengths = {0, gfxMillisecondsToTicks(1000), 0},
+    .frame_lengths = {
+#if LCD_ENABLE
+        0, 
+#endif
+        gfxMillisecondsToTicks(1000), 
+        0},
     .frame_functions = {
+#if LCD_ENABLE
             lcd_keyframe_display_layer_text,
+#endif
             keyframe_fade_out,
             keyframe_disable,
     },
@@ -133,20 +155,20 @@ keyframe_animation_t led_test_animation = {
 
     },
     .frame_functions = {
-        led_keyframe_fade_in_all,
+        led_backlight_keyframe_fade_in_all,
         keyframe_no_operation,
-        led_keyframe_fade_out_all,
-        led_keyframe_crossfade,
-        led_keyframe_left_to_right_gradient,
-        led_keyframe_crossfade,
-        led_keyframe_top_to_bottom_gradient,
-        led_keyframe_mirror_orientation,
-        led_keyframe_crossfade,
-        led_keyframe_left_to_right_gradient,
-        led_keyframe_crossfade,
-        led_keyframe_top_to_bottom_gradient,
-        led_keyframe_normal_orientation,
-        led_keyframe_crossfade,
+        led_backlight_keyframe_fade_out_all,
+        led_backlight_keyframe_crossfade,
+        led_backlight_keyframe_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,
+        led_backlight_keyframe_top_to_bottom_gradient,
+        led_backlight_keyframe_mirror_orientation,
+        led_backlight_keyframe_crossfade,
+        led_backlight_keyframe_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,
+        led_backlight_keyframe_top_to_bottom_gradient,
+        led_backlight_keyframe_normal_orientation,
+        led_backlight_keyframe_crossfade,
     },
 };
 #endif
