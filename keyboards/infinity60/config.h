@@ -56,6 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Keymap for Infinity 1.1a (first revision with LED support) */
 #define INFINITY_LED
 
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 3
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

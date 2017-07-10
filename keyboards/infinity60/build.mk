@@ -14,8 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ifeq ($(strip $(LED_CONTROLLER_ENABLE)), yes)
-	ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
-		$(error The LED controller is incompatible with the visualizer)
-	endif
-	SRC += led_controller.c
+    ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
+        $(error The LED controller is incompatible with the visualizer, enable only one of them in the makefile)
+    endif
+    SRC += led_controller.c
 endif
