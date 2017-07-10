@@ -87,11 +87,13 @@ DEBUG_PORT = 4242
 DEBUG_HOST = localhost
 
 #============================================================================
-# Autodecct teensy loader
-ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-  TEENSY_LOADER_CLI ?= teensy-loader-cli
-else
-  TEENSY_LOADER_CLI ?= teensy_loader_cli
+# Autodetect teensy loader
+ifndef TEENSY_LOADER_CLI
+    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
+    else
+        TEENSY_LOADER_CLI ?= teensy_loader_cli
+    endif
 endif
 
 # Program the device.
