@@ -155,6 +155,14 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
+ifneq ("$(wildcard $(SUBPROJECT_PATH)/build.mk)","")
+    include $(SUBPROJECT_PATH)/build.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH)/build.mk)","")
+    include $(KEYBOARD_PATH)/build.mk
+endif
+
+
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
