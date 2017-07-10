@@ -13,7 +13,7 @@
 #include "gdisp_lld_config.h"
 #include "src/gdisp/gdisp_driver.h"
 
-#include "board_ST7565.h"
+#include "board_st7565.h"
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
