@@ -164,3 +164,7 @@ Universal Serial Bus, the most common wired interface for a keyboard.
 
 ## USB Host (or simply Host)
 The USB Host is your computer, or whatever device your keyboard is plugged into.
+
+# Couldn't find the term you're looking for?
+
+[Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)  
