@@ -28,6 +28,9 @@ done
 echo "Installing dependencies needed for the installation (unzip, wget)"
 echo "This will ask for the sudo password"
 sudo apt-get install unzip wget
+
+download_dir=wsl_downloaded
+
 source "$dir/win_shared_install.sh"
 
 echo 
