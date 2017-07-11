@@ -36,6 +36,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+Or for Infinity Ergodox:
+
+```
+# Infinity Ergodox
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
