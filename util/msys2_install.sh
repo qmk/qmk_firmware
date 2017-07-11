@@ -88,8 +88,30 @@ else
 fi
 popd
 
+cp -f "$dir/activate_msys2.sh" "$download_dir/"
+
+if grep "^source ~/qmk_utils/activate_msys2.sh$" ~/.bashrc
+then
+    echo
+    echo "The line source ~/qmk_utils/activate_msys2.sh is already added to your /.bashrc"
+    echo "Not adding it twice!"
+else
+    while true; do
+        echo
+        echo "Do you want to add 'source ~/qmk_utils/activate_msys2.sh' to the end of your"
+        echo ".bashrc file? Without this make won't find the needed utils, so if you don't"
+        echo "want to do it automatically, then you have to do it manually later."
+        read -p "(Y/N)? " res
+        case $res in
+            [Yy]* ) echo "source ~/qmk_utils/activate_msys2.sh" >> ~/.bashrc; break;;
+            [Nn]* ) break;;
+            * ) echo "Invalid answer";;
+        esac
+    done
+fi
+
 echo
 echo "******************************************************************************"
 echo "Installation completed!"
-echo "You need to open a new batch command prompt for all the utils to work properly"
+echo "Please close this Window and restart MSYS2 MinGW"
 echo "******************************************************************************"
