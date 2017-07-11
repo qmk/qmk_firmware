@@ -45,7 +45,8 @@ if [ ! -d "$download_dir" ]; then
 else
     while true; do
         echo
-        read -p "The utils seem to already be downloaded, do you want to re-download them and update to the newest version (Y/N) " res
+        echo "The utils seem to already be downloaded."
+        read -p "Do you want to re-download them and update to the newest version (Y/N) " res
         case $res in
             [Yy]* ) install_utils; break;;
             [Nn]* ) break;;
@@ -57,7 +58,9 @@ fi
 pushd "$download_dir"
 while true; do
     echo
-    read -p "Flip need to be installed if you want to use that for programming, do you want to install it now? (Y/N) " res
+    echo "Flip need to be installed if you want to use that for programming."
+    echo "Please install it to the default location!"
+    read -p "Do you want to install it now? (Y/N) " res
     case $res in
         [Yy]* ) cmd.exe /c FlipInstaller.exe; break;;
         [Nn]* ) break;;
@@ -71,9 +74,12 @@ while true; do
     echo
     echo "Which USB drivers do you want to install?"
     echo "(A)all - All supported drivers will be installed"
-    echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode) will be installed"
-    echo "(F)force - Like all, but will also override existing drivers for connected keyboards"
-    echo "(N)one - No drivers will be installed, flashing your keyboard will most likely not work"
+    echo "(C)onnected - Only drivers for connected keyboards (in bootloader/flashing mode)"
+    echo "              will be installed"
+    echo "(F)force - Like all, but will also override existing drivers for connected"
+    echo "           keyboards"
+    echo "(N)one - No drivers will be installed,"
+    echo "         flashing your keyboard will most likely not work"
     read -p "(A/C/F/N)? " res
     case $res in
         [Aa]* ) install_drivers --all; break;;
