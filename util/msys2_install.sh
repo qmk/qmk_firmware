@@ -7,7 +7,7 @@ armtools=gcc-arm-none-eabi
 installflip=false
 
 echo "Installing dependencies needed for the installation (quazip)"
-pacman --needed -S msys/unzip msys/p7zip
+pacman --needed -S msys/unzip msys/p7zip base-devel msys/git mingw-w64-x86_64-toolchain
 
 source "$dir/win_shared_install.sh"
 
