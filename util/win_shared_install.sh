@@ -55,21 +55,6 @@ else
     done
 fi
 
-pushd "$download_dir"
-while true; do
-    echo
-    echo "Flip need to be installed if you want to use that for programming."
-    echo "Please install it to the default location!"
-    read -p "Do you want to install it now? (Y/N) " res
-    case $res in
-        [Yy]* ) cmd.exe /c FlipInstaller.exe; break;;
-        [Nn]* ) break;;
-        * ) echo "Invalid answer";;
-    esac
-done
-popd
-
-
 while true; do
     echo
     echo "Which USB drivers do you want to install?"
