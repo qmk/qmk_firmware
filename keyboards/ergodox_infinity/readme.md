@@ -1,5 +1,15 @@
 # ErgoDox Infinity
 
+## Linux udev rules
+On Linux your user needs the proper privileges to access the device file of an MCU, or you'll have to use `sudo` when flashing firmware. You can provide the needed access by placing this file in `/etc/udev/rules.d/`.
+
+ **/etc/udev/rules.d/52-tmk-keyboard.rules:**
+
+ ```
+ # Infinity Ergodox
+ SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+ ```
+
 The Infinity is two completely independent keyboards, and needs to be flashed
 for the left and right halves seperately.  To flash them:
 
