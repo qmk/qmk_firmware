@@ -60,7 +60,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+Or for Infinity Ergodox:
 
+```
+# Infinity Ergodox
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
 
 ## Cortex: cstddef: No such file or directory
 GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
