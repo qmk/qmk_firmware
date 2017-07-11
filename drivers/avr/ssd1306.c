@@ -5,7 +5,6 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#include "lets_split.h"
 #include "glcdfont.c"
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
