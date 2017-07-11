@@ -101,6 +101,16 @@ To flash with ´teensy-loader-cli´:
 
 ## ErgoDox Infinity
 
+## Linux udev rules
+On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
+
+**/etc/udev/rules.d/52-tmk-keyboard.rules:**
+
+```
+# Infinity Ergodox
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
+
 The Infinity is two completely independent keyboards, and needs to be flashed
 for the left and right halves seperately.  To flash them:
 
