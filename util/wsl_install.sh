@@ -47,9 +47,9 @@ then
 else
     while true; do
         echo
-        echo "Do you want to add 'source ~/qmk_utils/activate_wsl.sh' to the end of you .bashrc file?"
-        echo "Without this make won't find the needed utils, so if you don't want to do it automatically,"
-        echo "then you have to do it manually."
+        echo "Do you want to add 'source ~/qmk_utils/activate_wsl.sh' to the end of your"
+        echo ".bashrc file? Without this make won't find the needed utils, so if you don't"
+        echo "want to do it automatically, then you have to do it manually later."
         read -p "(Y/N)? " res
         case $res in
             [Yy]* ) echo "source ~/qmk_utils/activate_wsl.sh" >> ~/.bashrc; break;;
@@ -61,9 +61,10 @@ fi
 
 while true; do
     echo
-    echo "Do you want to add a symlink to the QMK repository in your home directory for convenience?"
-    echo "This will create a folder 'qmk_firmware' in your home directory."
-    echo "In the future you can use this folder instead of the full path on your windows file system"
+    echo "Do you want to add a symlink to the QMK repository in your home directory for"
+    echo "convenience? This will create a folder 'qmk_firmware' in your home directory."
+    echo "In the future you can use this folder instead of the full path on your Windows"
+    echo "file system."
     read -p "(Y/N)? " res
     case $res in
         [Yy]* ) ln -sfn "$dir/.." ~/qmk_firmware; break;;
