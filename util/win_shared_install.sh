@@ -1,13 +1,10 @@
 #!/bin/bash
 
-download_dir=win_downloaded
-wsl_download_dir=wsl_downloaded
-
 function install_utils {
-    rm -f -r $download_dir
-    mkdir $download_dir
+    rm -f -r "$download_dir"
+    mkdir "$download_dir"
 
-    pushd $download_dir
+    pushd "$download_dir"
 
     echo "Installing dfu-programmer"
     wget 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip'
@@ -34,18 +31,14 @@ function install_utils {
 }
 
 function install_drivers {
-    pushd $download_dir
+    pushd "$download_dir"
+    cp -f "$dir/drivers.txt" .
     echo 
-    cmd.exe /c "qmk_driver_installer.exe $1 $2 ..\\drivers.txt"
+    cmd.exe /c "qmk_driver_installer.exe $1 $2 drivers.txt"
     popd > /dev/null
 }
 
 pushd "$dir"
-
-if [ -d "$wsl_download_dir" ]; then
-    echo "Renaming existing wsl_download_dir to win_download"
-    mv -f "$wsl_download_dir" "$download_dir"
-fi
 
 if [ ! -d "$download_dir" ]; then
     install_utils
@@ -61,15 +54,17 @@ else
     done
 fi
 
+pushd "$download_dir"
 while true; do
     echo
     read -p "Flip need to be installed if you want to use that for programming, do you want to install it now? (Y/N) " res
     case $res in
-        [Yy]* ) cmd.exe /c $download_dir\\FlipInstaller.exe; break;;
+        [Yy]* ) cmd.exe /c FlipInstaller.exe; break;;
         [Nn]* ) break;;
         * ) echo "Invalid answer";;
     esac
 done
+popd
 
 
 while true; do
