@@ -5,10 +5,11 @@
 #include "command.h"
 
 #define _MA 0
-#define _FL 1
-#define _AR 2
-#define _LO 3
-#define _UL 4
+#define _GA 1
+#define _FL 2
+#define _AR 3
+#define _LO 4
+#define _UL 5
 
 #define TRNS KC_TRNS
 #define trigger_time 400
@@ -28,6 +29,15 @@
 #define END_HOME M(0)
 #define LSHIFT OSM(MOD_LSFT)
 #define SPACE LT(_AR, KC_SPC)
+
+#define MACRO_BREATH_TOGGLE             13
+#define MACRO_BREATH_SPEED_INC          14
+#define MACRO_BREATH_SPEED_DEC          15
+#define MACRO_BREATH_DEFAULT            16
+#define M_BRTOG             M(MACRO_BREATH_TOGGLE)
+#define M_BSPDU             M(MACRO_BREATH_SPEED_INC)
+#define M_BSPDD             M(MACRO_BREATH_SPEED_DEC)
+#define M_BDFLT             M(MACRO_BREATH_DEFAULT)
 
 static uint16_t key_timer;
 
@@ -57,28 +67,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_CAPS,	KC_A, 		KC_S,   	KC_D, 		KC_F, 		KC_G, 		KC_H, 		KC_J, 		KC_K,  		KC_L,  		KC_SCLN, 	KC_QUOT,  				KC_ENT,		KC_PGUP, \
   LSHIFT, 	END_HOME,	KC_Z, 		KC_X,   	KC_C, 		KC_V, 		KC_B, 		KC_N, 		KC_M, 		KC_COMM, 	KC_DOT,		KC_SLSH, 	KC_RSFT,    KC_UP,		KC_PGDN, \
   KC_LCTL, 	KC_LGUI, 	KC_LALT,							SPACE,											KC_RALT,	KC_RCTRL, 	MO(_FL),	KC_LEFT, 	KC_DOWN, 	KC_RGHT),
-
+  
   /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
-   * |~` | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|       |Prsc|
+   * |~` | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|Reset  |Prsc|
    * |----------------------------------------------------------------|
    * |     |MbL|MsU|MbR|   |   |   |   |   |   |   |   |   |     |_LO |
    * |----------------------------------------------------------------|
-   * |      |MsL|MsD|MsR|   |   |   |   |   |   |   |   |        |Hme |
+   * |      |MsL|MsD|MsR|   |_GA|   |   |   |   |   |   |        |Hme |
    * |----------------------------------------------------------------|
-   * |    |   |   |   |   |   |   |   |   |VoU|VoD|Mut|      |MwU|End |
+   * |    |   |BL-|BL+|BL |BR-|BR+|BR |   |VoU|VoD|Mut|      |MwU|End |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |MwL|MwD|MwR |  
    * `----------------------------------------------------------------'
    */
 [_FL] = KEYMAP_ANSI(
-  KC_GRV,	KC_F1,		KC_F2,  	KC_F3,  	KC_F4,  	KC_F5,		KC_F6,		KC_F7, 		KC_F8,		KC_F9,		KC_F10,  	KC_F11,		KC_F12,		TRNS,		KC_PSCR, \
+  KC_GRV,	KC_F1,		KC_F2,  	KC_F3,  	KC_F4,  	KC_F5,		KC_F6,		KC_F7, 		KC_F8,		KC_F9,		KC_F10,  	KC_F11,		KC_F12,		RESET,		KC_PSCR, \
   TRNS, 	KC_BTN1,	KC_MS_U,  	KC_BTN2, 	TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS,		TO(_LO), \
-  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,					TRNS,		KC_HOME, \
-  TRNS, 	TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		KC_VOLD,	KC_VOLU,	KC_MUTE,	TRNS,		KC_WH_U,	KC_END, \
+  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TG(_GA),		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,					TRNS,		KC_HOME, \
+  TRNS, 	TRNS,		BL_DEC,		BL_INC,		BL_TOGG, 	M_BSPDD, 	M_BSPDU, 	M_BRTOG,	TRNS,		KC_VOLD,	KC_VOLU,	KC_MUTE,	TRNS,		KC_WH_U,	KC_END, \
   TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS,		TRNS,   	KC_WH_L,	KC_WH_D, 	KC_WH_R),
 
-  /* Keymap _UL: Unlock layer
+  /* Keymap _AR: Arrow layer
    * ,----------------------------------------------------------------.
    * |   |   |   |   |   |   |   |   |   |   |   |   |   |       |    |
    * |----------------------------------------------------------------|
@@ -95,8 +105,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS, \
   LENNY,	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,		TRNS, \
   DWNHRT,	TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS, 		KC_LEFT, 	KC_DOWN, 	KC_UP,  	KC_RGHT,  	TRNS, 		TRNS, 	 				TRNS,		TRNS, \
-  SHRUG, 	TRNS,   	TRNS,		TRNS,		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
+  SHRUG, 	TRNS,   	TRNS,		TRNS,		TRNS,		TRNS,	 	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
   TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS),
+
+  /* Keymap _GA: Game layer
+   * ,----------------------------------------------------------------.
+   * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |P/P |
+   * |----------------------------------------------------------------| 
+   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |Del |
+   * |----------------------------------------------------------------|
+   * |CAPS   |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgUp|
+   * |----------------------------------------------------------------|
+   * |Shft|End|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
+   * |----------------------------------------------------------------|
+   * |Ctrl|Win |Alt |        Space          |Alt|Ctrl| FN|Lef|Dow|Rig |
+   * `----------------------------------------------------------------'
+   */
+[_GA] = KEYMAP_ANSI(
+  KC_ESC,	T1, 		T2, 		T3, 		T4, 		T5, 		T6, 		T7, 		T8, 		T9, 		T10, 		T11, 		T12,		KC_BSPC,	KC_MPLY, \
+  KC_TAB,	KC_Q, 		KC_W, 		KC_E, 		KC_R, 		KC_T, 		KC_Y, 		KC_U, 		KC_I,  		KC_O,  		KC_P, 		KC_LBRC,	KC_RBRC,	KC_BSLS,	KC_DEL, \
+  KC_CAPS,	KC_A, 		KC_S,   	KC_D, 		KC_F, 		KC_G, 		KC_H, 		KC_J, 		KC_K,  		KC_L,  		KC_SCLN, 	KC_QUOT,  				KC_ENT,		KC_PGUP, \
+  KC_LSFT, 	END_HOME,	KC_Z, 		KC_X,   	KC_C, 		KC_V, 		KC_B, 		KC_N, 		KC_M, 		KC_COMM, 	KC_DOT,		KC_SLSH, 	KC_RSFT,    KC_UP,		KC_PGDN, \
+  KC_LCTL, 	KC_LGUI, 	KC_LALT,							KC_SPC,											KC_RALT,	KC_RCTRL, 	MO(_FL),	KC_LEFT, 	KC_DOWN, 	KC_RGHT),
 
   /* Keymap _UL: Unlock layer
    * ,----------------------------------------------------------------.
@@ -376,6 +406,29 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				else {
 					return MACRO( T(EQL), END );
 				}
+			}
+			break;
+		case MACRO_BREATH_TOGGLE:
+			if (record->event.pressed) {
+				breathing_toggle();
+			}
+			break;
+
+		case MACRO_BREATH_SPEED_INC:
+			if (record->event.pressed) {
+				breathing_speed_inc(1);
+			}
+			break;
+
+		case MACRO_BREATH_SPEED_DEC:
+			if (record->event.pressed) {
+				breathing_speed_dec(1);
+			}
+			break;
+
+		case MACRO_BREATH_DEFAULT:
+			if (record->event.pressed) {
+				breathing_defaults();
 			}
 			break;
 	}
