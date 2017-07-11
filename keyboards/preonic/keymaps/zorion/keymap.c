@@ -34,14 +34,12 @@ enum preonic_keycodes {
   FN
 };
 
-/*
 enum {
   TD_LLCK = 0,
   TD_RLCK,
   TD_FLCK,
   TD_CLCK
 };
-*/
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -87,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {MO(_FN), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(TD_CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+  {TD(TD_FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(TD_LLCK),   KC_SPC,  KC_BSPC, TD(TD_RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak 2
@@ -263,26 +261,70 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-/*
-void lowlock(qk_tap_dance_state_t *state, void *user_data) {
-  ACTION_LAYER_TOGGLE(_LOWER);
+void low_press(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_on(_LOWER);
+    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+  }
 }
 
-void railock(qk_tap_dance_state_t *state, void *user_data) {
-  ACTION_LAYER_TOGGLE(_RAISE);
+void low_done(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 2) {
+    layer_on(_LOWER);
+  }
 }
 
-void fnlock(qk_tap_dance_state_t *state, void *user_data) {
-  ACTION_LAYER_TOGGLE(_FN);
+void low_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_off(_LOWER);
+    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+  }
+}
+
+void rai_press(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_on(_RAISE);
+    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+  }
+}
+
+void rai_done(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 2) {
+    layer_on(_RAISE);
+  }
+}
+
+void rai_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_off(_RAISE);
+    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+  }
+}
+
+void fn_press(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_on(_FN);
+  }
+}
+
+void fn_done(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 2) {
+    layer_on(_FN);
+  }
+}
+
+void fn_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if(state->count == 1) {
+    layer_off(_FN);
+  }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_LLCK] = ACTION_TAP_DANCE_FN(lowlock),
-  [TD_RLCK] = ACTION_TAP_DANCE_FN(railock),
-  [TD_FLCK] = ACTION_TAP_DANCE_FN(fnlock),
+  [TD_LLCK] = ACTION_TAP_DANCE_FN_ADVANCED(low_press, low_done, low_reset),
+  [TD_RLCK] = ACTION_TAP_DANCE_FN_ADVANCED(rai_press, rai_done, rai_reset),
+  [TD_FLCK] = ACTION_TAP_DANCE_FN_ADVANCED(fn_press, fn_done, fn_reset),
   [TD_CLCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
-*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

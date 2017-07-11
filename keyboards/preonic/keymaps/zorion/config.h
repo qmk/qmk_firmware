@@ -32,7 +32,7 @@
 #define MATRIX_ROW_PINS { B2, E6, B3, B7, D0 }
 #define MATRIX_COL_PINS { D1, D2, D3, C6, D7, B4, B5, B6, F7, F6, F5, F4 }
 
-//#define TAPPING_TERM 200
+#define TAPPING_TERM 200
 //#define TAPPING_TOGGLE 2
 
 #endif
