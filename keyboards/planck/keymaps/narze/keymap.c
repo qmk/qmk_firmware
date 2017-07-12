@@ -218,7 +218,7 @@ float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-float tone_coin[][2] = SONG(COIN_SOUND);
+float tone_superduper[][2] = SONG(SUPER_DUPER_SOUND);
 #endif
 
 
@@ -361,7 +361,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           layer_on(_SUPERDUPER);
 
           #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_coin, false, 0);
+            PLAY_NOTE_ARRAY(tone_superduper, false, 0);
           #endif
         } else {
           layer_off(_SUPERDUPER);
