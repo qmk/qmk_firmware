@@ -14,19 +14,24 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _PLOVER 5
-#define _ADJUST 16
+
+enum planck_layers {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _PLOVER,
+  _SUPERDUPER,
+  _ADJUST
+};
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
   PLOVER,
+  SUPERDUPER,
   LOWER,
   RAISE,
   BACKLIT,
@@ -40,6 +45,17 @@ enum planck_keycodes {
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)
+
+// Combo : SuperDuper layer from S+D
+enum process_combo_event {
+  CB_SUPERDUPER,
+};
+
+const uint16_t PROGMEM superduper_combo[] = {KC_S, KC_D, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    [CB_SUPERDUPER] = COMBO_ACTION(superduper_combo),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -152,6 +168,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 
+/* SuperDuper
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Hp/Ec|   A  |   R  |   S  |   T  |   D  |  Left | Down |  Up  |Right |   O  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   / |Sft/Ent|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_SUPERDUPER] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______,   _______,  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,  _______,  _______},
+  {_______, _______,  _______,  _______,   _______,  _______,   _______,  _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
@@ -184,6 +218,7 @@ float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+float tone_coin[][2] = SONG(COIN_SOUND);
 #endif
 
 
@@ -316,3 +351,21 @@ void music_scale_user(void)
 }
 
 #endif
+
+// Combos
+
+void process_combo_event(uint8_t combo_index, bool pressed) {
+    switch(combo_index) {
+    case CB_SUPERDUPER:
+        if (pressed) {
+          layer_on(_SUPERDUPER);
+
+          #ifdef AUDIO_ENABLE
+            PLAY_NOTE_ARRAY(tone_coin, false, 0);
+          #endif
+        } else {
+          layer_off(_SUPERDUPER);
+        }
+        break;
+    }
+}
