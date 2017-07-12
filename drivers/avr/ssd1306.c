@@ -307,10 +307,9 @@ void iota_gfx_flush(void) {
   matrix_render(&display);
 }
 
-//__attribute__((weak))
-//void iota_gfx_task_user(void) {
-
-//}
+__attribute__ ((weak))
+void iota_gfx_task_user(void) {
+}
 
 void iota_gfx_task(void) {
   iota_gfx_task_user();
