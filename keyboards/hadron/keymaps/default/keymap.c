@@ -417,6 +417,9 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
+#define L_QWERTY 1
+#define L_COLEMAK 2
+#define L_DVORAK 3
 #define L_LOWER 8
 #define L_RAISE 16
 #define L_FNLAYER 64
