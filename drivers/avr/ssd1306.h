@@ -79,7 +79,6 @@ void iota_gfx_write(const char *data);
 void iota_gfx_write_P(const char *data);
 void iota_gfx_clear_screen(void);
 
-__attribute__((weak))
 void iota_gfx_task_user(void);
 
 void matrix_clear(struct CharacterMatrix *matrix);
