@@ -9,6 +9,7 @@
 
 #define USE_I2C
 #define SSD1306OLED
+#define OLED_ROTATE180
 
 /* ws2812 RGB LED*/
 #define RGB_DI_PIN D4
