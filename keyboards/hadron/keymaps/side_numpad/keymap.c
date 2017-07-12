@@ -427,9 +427,6 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
-#define L_QWERTY 1
-#define L_COLEMAK 2
-#define L_DVORAK 3
 #define L_LOWER 8
 #define L_RAISE 16
 #define L_FNLAYER 64
@@ -481,9 +478,7 @@ void iota_gfx_task_user(void) {
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
   matrix_write_P(&matrix, PSTR("\n\nLayer: "));
     switch (layer_state) {
-        case L_QWERTY:
-        case L_COLEMAK:
-        case L_DVORAK:
+        case L_BASE:
            matrix_write_P(&matrix, PSTR("Default"));
            break;
         case L_RAISE:
