@@ -134,14 +134,17 @@ bool iota_gfx_init(void) {
   send_cmd2(SetChargePump, 0x14 /* Enable */);
   send_cmd2(SetMemoryMode, 0 /* horizontal addressing */);
 
-/// Flips the display orientation 0 degrees
-  send_cmd1(SegRemap | 0x1);
-  send_cmd1(ComScanDec);
-/*
+#ifdef OLED_ROTATE180
 // the following Flip the display orientation 180 degrees
   send_cmd1(SegRemap);
   send_cmd1(ComScanInc);
-// end flip */
+#endif
+#ifndef OLED_ROTATE180
+// Flips the display orientation 0 degrees
+  send_cmd1(SegRemap | 0x1);
+  send_cmd1(ComScanDec);
+#endif
+  
   send_cmd2(SetComPins, 0x2);
   send_cmd2(SetContrast, 0x8f);
   send_cmd2(SetPreCharge, 0xf1);
@@ -304,9 +307,8 @@ void iota_gfx_flush(void) {
   matrix_render(&display);
 }
 
-__attribute__((weak))
+__attribute__ ((weak))
 void iota_gfx_task_user(void) {
-
 }
 
 void iota_gfx_task(void) {
