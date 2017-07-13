@@ -28,17 +28,13 @@ enum preonic_keycodes {
   CLMK2,
   DVORAK,
   NUMFUN,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  FN
 };
 
-enum {
-  TD_LLCK = 0,
-  TD_RLCK,
-  TD_FLCK,
-  TD_CLCK
+enum tap_dance_action_names {
+  LLCK = 0,
+  RLCK,
+  FLCK,
+  CLCK
 };
 
 // Fillers to make layering more clear
@@ -64,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {MO(_FN), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_SPC,  TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -85,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {TD(TD_CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {TD(TD_FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(TD_LLCK),   KC_SPC,  KC_BSPC, TD(TD_RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak 2
@@ -106,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
-  {MO(_FN), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -127,8 +123,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL},
   {KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {MO(_FN), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(CLCK), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_SPC,  TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Numpad + Function keys = NUMFUN!!!
@@ -148,8 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  _______, _______, _______, _______, _______, KC_HOME, KC_P7,   KC_P8,   KC_P9,   KC_PSLS, KC_BSPC},
   {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PAST, KC_DEL},
   {KC_TAB,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, KC_PGUP, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, KC_TAB},
-  {KC_LSFT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_END,  KC_P0,   KC_PDOT, KC_PENT, KC_PPLS, KC_ENT},
-  {MO(_FN), KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_BSPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {TD(CLCK), KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_END,  KC_P0,   KC_PDOT, KC_PENT, KC_PPLS, KC_ENT},
+  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -261,16 +257,68 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+void lower_led_on(void) {
+  PORTD |= (1<<4);
+}
+
+void lower_led_off(void) {
+  PORTD &= ~(1<<4);
+}
+
+void raise_led_on(void) {
+  PORTD |= (1<<6);
+}
+
+void raise_led_off(void) {
+  PORTD &= ~(1<<6);
+}
+
+void fn_led_on(void) {
+  PORTC |= (1<<7);
+}
+
+void fn_led_off(void) {
+  PORTC &= ~(1<<7);
+}
+
+void lock_low(void) {
+  layer_off(_FN);
+  layer_off(_RAISE);
+  layer_on(_LOWER);
+  fn_led_off();
+  raise_led_off();
+  lower_led_on();
+}
+
+void lock_rai(void) {
+  layer_off(_FN);
+  layer_off(_LOWER);
+  layer_on(_RAISE);
+  fn_led_off();
+  lower_led_off();
+  raise_led_on();
+}
+
+void lock_fn(void) {
+  layer_off(_LOWER);
+  layer_off(_RAISE);
+  layer_on(_FN);
+  lower_led_off();
+  raise_led_off();
+  fn_led_on();
+}
+
 void low_press(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_on(_LOWER);
     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    lower_led_on();
   }
 }
 
 void low_done(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 2) {
-    layer_on(_LOWER);
+    lock_low();
   }
 }
 
@@ -278,6 +326,7 @@ void low_reset(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_off(_LOWER);
     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    lower_led_off();
   }
 }
 
@@ -285,12 +334,13 @@ void rai_press(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_on(_RAISE);
     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    raise_led_on();
   }
 }
 
 void rai_done(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 2) {
-    layer_on(_RAISE);
+    lock_rai();
   }
 }
 
@@ -298,32 +348,35 @@ void rai_reset(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_off(_RAISE);
     update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    raise_led_off();
   }
 }
 
 void fn_press(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_on(_FN);
+    fn_led_on();
   }
 }
 
 void fn_done(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 2) {
-    layer_on(_FN);
+    lock_fn();
   }
 }
 
 void fn_reset(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     layer_off(_FN);
+    fn_led_off();
   }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_LLCK] = ACTION_TAP_DANCE_FN_ADVANCED(low_press, low_done, low_reset),
-  [TD_RLCK] = ACTION_TAP_DANCE_FN_ADVANCED(rai_press, rai_done, rai_reset),
-  [TD_FLCK] = ACTION_TAP_DANCE_FN_ADVANCED(fn_press, fn_done, fn_reset),
-  [TD_CLCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+  [LLCK] = ACTION_TAP_DANCE_FN_ADVANCED(low_press, low_done, low_reset),
+  [RLCK] = ACTION_TAP_DANCE_FN_ADVANCED(rai_press, rai_done, rai_reset),
+  [FLCK] = ACTION_TAP_DANCE_FN_ADVANCED(fn_press, fn_done, fn_reset),
+  [CLCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -373,26 +426,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-      case LOWER:
-        if (record->event.pressed) {
-          layer_on(_LOWER);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
-          layer_off(_LOWER);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
-      case RAISE:
-        if (record->event.pressed) {
-          layer_on(_RAISE);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
-          layer_off(_RAISE);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
       case BACKLIT:
         if (record->event.pressed) {
           register_code(KC_RSFT);
@@ -409,9 +442,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
+  // set lower LED to output and low
+  DDRD |= (1<<4);
+  PORTD &= ~(1<<4);
+
+  // set raise LED to output and low
+  DDRD |= (1<<6);
+  PORTD &= ~(1<<6);
+
+  // set FN LED to output and low
+  DDRC |= (1<<7);
+  PORTC &= ~(1<<7);
+
+  #ifdef AUDIO_ENABLE
+    startup_user();
+  #endif
 }
 
 #ifdef AUDIO_ENABLE
