@@ -13,7 +13,6 @@
 enum preonic_layers {
   _QWERTY,
   _COLEMAK,
-  _CLMK2,
   _DVORAK,
   _NUMFUN,
   _LOWER,
@@ -25,9 +24,8 @@ enum preonic_layers {
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
-  CLMK2,
   DVORAK,
-  NUMFUN,
+  NUMFUN
 };
 
 enum tap_dance_action_names {
@@ -82,27 +80,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
-
-/* Colemak 2
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Adj  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Del  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Tab  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  | Enter|
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |   '  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  FN  | Ctrl | GUI  | Alt  |Lower |Space | Bksp |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_CLMK2] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL},
-  {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT},
-  {TD(CLCK), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
   {TD(FLCK), KC_LCTL, KC_LGUI, KC_LALT, TD(LLCK),   KC_SPC,  KC_BSPC, TD(RLCK),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -396,15 +373,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             PLAY_NOTE_ARRAY(tone_colemak, false, 0);
           #endif
           persistent_default_layer_set(1UL<<_COLEMAK);
-        }
-        return false;
-        break;
-      case CLMK2:
-        if (record->event.pressed) {
-          #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-          #endif
-          persistent_default_layer_set(1UL<<_CLMK2);
         }
         return false;
         break;
