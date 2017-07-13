@@ -38,6 +38,10 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+enum functions {
+  LGUI_UNDS
+};
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -50,6 +54,11 @@ enum planck_keycodes {
 enum process_combo_event {
   CB_SUPERDUPER,
 };
+
+// Sends macro when key is tapped, presses mod when key is held
+#define tap_mod_macro(record, mod, macro) ( ((record)->event.pressed) ? \
+     ( ((record)->tap.count <= 0 || (record)->tap.interrupted) ? MACRO(D(mod), END) : MACRO_NONE ) : \
+     ( ((record)->tap.count > 0 && !((record)->tap.interrupted)) ? (macro) : MACRO(U(mod), END) ) )
 
 const uint16_t PROGMEM superduper_combo[] = {KC_S, KC_D, COMBO_END};
 
@@ -74,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSPO, LT(_SUPERDUPER, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
-  {RAISE,   KC_LCTL, KC_LALT, LGUI_T(KC_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {RAISE,   KC_LCTL, KC_LALT, F(LGUI_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Colemak
@@ -92,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, LGUI_T(KC_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {BACKLIT, KC_LCTL, KC_LALT, F(LGUI_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Dvorak
@@ -110,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
   {KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, LGUI_T(KC_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {BACKLIT, KC_LCTL, KC_LALT, F(LGUI_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -181,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SUPERDUPER] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, S(LGUI(KC_LBRC)), S(LGUI(KC_RBRC)), _______, _______},
-  {_______, KC_LALT, _______, _______, KC_BSPC, KC_LGUI, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_DEL, _______},
+  {_______, KC_LALT, XXXXXXX, XXXXXXX, KC_BSPC, KC_LGUI, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_DEL, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, KC_LSFT, KC_LSFT, _______, _______, _______, _______, _______}
 },
@@ -368,3 +377,21 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         break;
     }
 }
+
+// Macros
+
+const uint16_t PROGMEM fn_actions[] = {
+    // Make FN10 run a tap macro
+    [LGUI_UNDS] = ACTION_MACRO_TAP(LGUI_UNDS)
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  switch(id) {
+    case LGUI_UNDS:
+      // Hold for LGUI, tap for Underscore
+      return tap_mod_macro(record, LGUI, MACRO( D(LSFT), T(MINS), U(LSFT), END));
+      break;
+  }
+  return MACRO_NONE;
+};
