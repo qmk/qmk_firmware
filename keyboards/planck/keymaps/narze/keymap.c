@@ -23,6 +23,7 @@ enum planck_layers {
   _RAISE,
   _PLOVER,
   _SUPERDUPER,
+  _MOUSE,
   _ADJUST
 };
 
@@ -32,6 +33,7 @@ enum planck_keycodes {
   DVORAK,
   PLOVER,
   SUPERDUPER,
+  MOUSE,
   LOWER,
   RAISE,
   BACKLIT,
@@ -82,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSPO, LT(_SUPERDUPER, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
+  {KC_LSPO, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
   {RAISE,   KC_LCTL, KC_LALT, F(LGUI_UNDS), LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -193,6 +195,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_LALT, XXXXXXX, XXXXXXX, KC_BSPC, KC_LGUI, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_DEL, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, KC_LSFT, KC_LSFT, _______, _______, _______, _______, _______}
+},
+
+/* Mouse
+ * /-----------------------------------------------------------------------------------\
+ * |      |      |  S↑  |  M↑  |  S↓  |      |      |      |  S↑  |  S↓  |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |  M←  |  M↓  |  M→  |      |  M←  |  M↓  |  M↑  |  M→  |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |[Mouse|      |      |      |  M3  |  M3  |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |  M2  |  LeftClick  |  M2  |      |      |      |      |
+ * \-----------------------------------------------------------------------------------/
+ */
+[_MOUSE] = {
+  {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______, _______, _______, KC_WH_U, KC_WH_D, _______, _______},
+  {_______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______},
+  {_______, _______, _______, _______, _______, KC_BTN3, KC_BTN3, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, KC_BTN2, KC_BTN1, KC_BTN1, KC_BTN2, _______, _______, _______, _______}
 },
 
 /* Adjust (Lower + Raise)

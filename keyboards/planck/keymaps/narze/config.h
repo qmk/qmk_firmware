@@ -31,4 +31,6 @@
 
 #define SUPER_DUPER_SOUND S__NOTE(_B1)
 
+#define MOUSEKEY_DELAY 100
+
 #endif
