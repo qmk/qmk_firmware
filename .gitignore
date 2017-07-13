@@ -23,6 +23,7 @@ quantum/version.h
 CMakeLists.txt
 .DS_STORE
 /util/wsl_downloaded
+/util/win_downloaded
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
