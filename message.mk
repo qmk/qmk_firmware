@@ -21,8 +21,8 @@ OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)\n
 ERROR_STRING=$(ERROR_COLOR)[ERRORS]$(NO_COLOR)\n
 WARN_STRING=$(WARN_COLOR)[WARNINGS]$(NO_COLOR)\n
 
-TAB_LOG = printf "\n$$LOG\n\n" | $(AWK) '{ sub(/^/," | "); print }'
-TAB_LOG_PLAIN = printf "$$LOG\n"
+TAB_LOG = printf "\n%s\n\n" "$$LOG" | $(AWK) '{ sub(/^/," | "); print }'
+TAB_LOG_PLAIN = printf "%s\n" "$$LOG"
 AWK_STATUS = $(AWK) '{ printf " %-10s\n", $$1; }'
 AWK_CMD = $(AWK) '{ printf "%-99s", $$0; }'
 PRINT_ERROR = ($(SILENT) ||printf " $(ERROR_STRING)" | $(AWK_STATUS)) && $(TAB_LOG) && $(ON_ERROR)

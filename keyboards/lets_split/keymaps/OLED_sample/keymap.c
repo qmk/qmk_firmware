@@ -357,3 +357,91 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
     return MACRO_NONE;
 }
+
+
+void matrix_update(struct CharacterMatrix *dest,
+                          const struct CharacterMatrix *source) {
+  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
+    memcpy(dest->display, source->display, sizeof(dest->display));
+    dest->dirty = true;
+  }
+}
+
+//assign the right code to your layers for OLED display
+#define L_BASE 0
+#define L_LOWER 8
+#define L_RAISE 16
+#define L_FNLAYER 64
+#define L_NUMLAY 128
+#define L_NLOWER 136
+#define L_NFNLAYER 192
+#define L_MOUSECURSOR 256
+#define L_ADJUST 65560
+
+void iota_gfx_task_user(void) {
+#if DEBUG_TO_SCREEN
+  if (debug_enable) {
+    return;
+  }
+#endif
+
+  struct CharacterMatrix matrix;
+
+  matrix_clear(&matrix);
+  matrix_write_P(&matrix, PSTR("USB: "));
+#ifdef PROTOCOL_LUFA
+  switch (USB_DeviceState) {
+    case DEVICE_STATE_Unattached:
+      matrix_write_P(&matrix, PSTR("Unattached"));
+      break;
+    case DEVICE_STATE_Suspended:
+      matrix_write_P(&matrix, PSTR("Suspended"));
+      break;
+    case DEVICE_STATE_Configured:
+      matrix_write_P(&matrix, PSTR("Connected"));
+      break;
+    case DEVICE_STATE_Powered:
+      matrix_write_P(&matrix, PSTR("Powered"));
+      break;
+    case DEVICE_STATE_Default:
+      matrix_write_P(&matrix, PSTR("Default"));
+      break;
+    case DEVICE_STATE_Addressed:
+      matrix_write_P(&matrix, PSTR("Addressed"));
+      break;
+    default:
+      matrix_write_P(&matrix, PSTR("Invalid"));
+  }
+#endif
+
+// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+
+  char buf[40];
+  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
+  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
+    switch (layer_state) {
+        case L_BASE:
+           matrix_write_P(&matrix, PSTR("Default"));
+           break;
+        case L_RAISE:
+           matrix_write_P(&matrix, PSTR("Raise"));
+           break;
+        case L_LOWER:
+           matrix_write_P(&matrix, PSTR("Lower"));
+           break;
+        case L_ADJUST:
+           matrix_write_P(&matrix, PSTR("ADJUST"));
+           break;
+        default:
+           matrix_write(&matrix, buf);
+ }
+  
+  // Host Keyboard LED Status
+  char led[40];
+    snprintf(led, sizeof(led), "\n%s  %s  %s",
+            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+  matrix_write(&matrix, led);
+  matrix_update(&display, &matrix);
+}
