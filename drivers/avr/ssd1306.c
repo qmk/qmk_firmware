@@ -1,11 +1,9 @@
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
-#include "config.h"
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#include "lets_split.h"
 #include "glcdfont.c"
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
@@ -14,18 +12,7 @@
 #include "lufa.h"
 #endif
 #include "sendchar.h"
-#include "pincontrol.h"
-
-//assign the right code to your layers
-#define _BASE 0
-#define _LOWER 8
-#define _RAISE 16
-#define _FNLAYER 64
-#define _NUMLAY 128
-#define _NLOWER 136
-#define _NFNLAYER 192
-#define _MOUSECURSOR 256
-#define _ADJUST 65560
+#include "timer.h"
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
@@ -33,26 +20,6 @@
 // with the matrix scan, causing keys to drop.
 #define DEBUG_TO_SCREEN 0
 
-// Controls the SSD1306 128x32 OLED display via i2c
-
-#define i2cAddress 0x3C
-
-#define DisplayHeight 32
-#define DisplayWidth 128
-
-#define FontHeight 8
-#define FontWidth 6
-
-#define MatrixRows (DisplayHeight / FontHeight)
-#define MatrixCols (DisplayWidth / FontWidth)
-
-struct CharacterMatrix {
-  uint8_t display[MatrixRows][MatrixCols];
-  uint8_t *cursor;
-  bool dirty;
-};
-
-static struct CharacterMatrix display;
 //static uint16_t last_battery_update;
 //static uint32_t vbat;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
@@ -62,54 +29,13 @@ static uint8_t displaying;
 #endif
 static uint16_t last_flush;
 
-enum ssd1306_cmds {
-  DisplayOff = 0xAE,
-  DisplayOn = 0xAF,
-
-  SetContrast = 0x81,
-  DisplayAllOnResume = 0xA4,
-
-  DisplayAllOn = 0xA5,
-  NormalDisplay = 0xA6,
-  InvertDisplay = 0xA7,
-  SetDisplayOffset = 0xD3,
-  SetComPins = 0xda,
-  SetVComDetect = 0xdb,
-  SetDisplayClockDiv = 0xD5,
-  SetPreCharge = 0xd9,
-  SetMultiPlex = 0xa8,
-  SetLowColumn = 0x00,
-  SetHighColumn = 0x10,
-  SetStartLine = 0x40,
-
-  SetMemoryMode = 0x20,
-  ColumnAddr = 0x21,
-  PageAddr = 0x22,
-
-  ComScanInc = 0xc0,
-  ComScanDec = 0xc8,
-  SegRemap = 0xa0,
-  SetChargePump = 0x8d,
-  ExternalVcc = 0x01,
-  SwitchCapVcc = 0x02,
-
-  ActivateScroll = 0x2f,
-  DeActivateScroll = 0x2e,
-  SetVerticalScrollArea = 0xa3,
-  RightHorizontalScroll = 0x26,
-  LeftHorizontalScroll = 0x27,
-  VerticalAndRightHorizontalScroll = 0x29,
-  VerticalAndLeftHorizontalScroll = 0x2a,
-};
-
-
 // Write command sequence.
 // Returns true on success.
 static inline bool _send_cmd1(uint8_t cmd) {
   bool res = false;
 
-  if (i2c_start_write(i2cAddress)) {
-    xprintf("failed to start write to %d\n", i2cAddress);
+  if (i2c_start_write(SSD1306_ADDRESS)) {
+    xprintf("failed to start write to %d\n", SSD1306_ADDRESS);
     goto done;
   }
 
@@ -154,8 +80,6 @@ static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
 #define send_cmd2(c,o) if (!_send_cmd2(c,o)) {goto done;}
 #define send_cmd3(c,o1,o2) if (!_send_cmd3(c,o1,o2)) {goto done;}
 
-static void matrix_clear(struct CharacterMatrix *matrix);
-
 static void clear_display(void) {
   matrix_clear(&display);
 
@@ -164,7 +88,7 @@ static void clear_display(void) {
   send_cmd3(PageAddr, 0, (DisplayHeight / 8) - 1);
   send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
 
-  if (i2c_start_write(i2cAddress)) {
+  if (i2c_start_write(SSD1306_ADDRESS)) {
     goto done;
   }
   if (i2c_master_write(0x40)) {
@@ -210,14 +134,17 @@ bool iota_gfx_init(void) {
   send_cmd2(SetChargePump, 0x14 /* Enable */);
   send_cmd2(SetMemoryMode, 0 /* horizontal addressing */);
 
-/// Flips the display orientation 0 degrees
-  send_cmd1(SegRemap | 0x1);
-  send_cmd1(ComScanDec);
-/*
+#ifdef OLED_ROTATE180
 // the following Flip the display orientation 180 degrees
   send_cmd1(SegRemap);
   send_cmd1(ComScanInc);
-// end flip */
+#endif
+#ifndef OLED_ROTATE180
+// Flips the display orientation 0 degrees
+  send_cmd1(SegRemap | 0x1);
+  send_cmd1(ComScanDec);
+#endif
+  
   send_cmd2(SetComPins, 0x2);
   send_cmd2(SetContrast, 0x8f);
   send_cmd2(SetPreCharge, 0xf1);
@@ -263,7 +190,7 @@ done:
   return success;
 }
 
-static void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
+void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
   *matrix->cursor = c;
   ++matrix->cursor;
 
@@ -276,7 +203,7 @@ static void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
   }
 }
 
-static void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
+void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
   matrix->dirty = true;
 
   if (c == '\n') {
@@ -297,7 +224,7 @@ void iota_gfx_write_char(uint8_t c) {
   matrix_write_char(&display, c);
 }
 
-static void matrix_write(struct CharacterMatrix *matrix, const char *data) {
+void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   const char *end = data + strlen(data);
   while (data < end) {
     matrix_write_char(matrix, *data);
@@ -309,7 +236,7 @@ void iota_gfx_write(const char *data) {
   matrix_write(&display, data);
 }
 
-static void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
+void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
   while (true) {
     uint8_t c = pgm_read_byte(data);
     if (c == 0) {
@@ -324,7 +251,7 @@ void iota_gfx_write_P(const char *data) {
   matrix_write_P(&display, data);
 }
 
-static void matrix_clear(struct CharacterMatrix *matrix) {
+void matrix_clear(struct CharacterMatrix *matrix) {
   memset(matrix->display, ' ', sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
   matrix->dirty = true;
@@ -334,7 +261,7 @@ void iota_gfx_clear_screen(void) {
   matrix_clear(&display);
 }
 
-static void matrix_render(struct CharacterMatrix *matrix) {
+void matrix_render(struct CharacterMatrix *matrix) {
   last_flush = timer_read();
   iota_gfx_on();
 #if DEBUG_TO_SCREEN
@@ -345,7 +272,7 @@ static void matrix_render(struct CharacterMatrix *matrix) {
   send_cmd3(PageAddr, 0, MatrixRows - 1);
   send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
 
-  if (i2c_start_write(i2cAddress)) {
+  if (i2c_start_write(SSD1306_ADDRESS)) {
     goto done;
   }
   if (i2c_master_write(0x40)) {
@@ -380,84 +307,12 @@ void iota_gfx_flush(void) {
   matrix_render(&display);
 }
 
-static void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-static void render_status_info(void) {
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("USB: "));
-#ifdef PROTOCOL_LUFA
-  switch (USB_DeviceState) {
-    case DEVICE_STATE_Unattached:
-      matrix_write_P(&matrix, PSTR("Unattached"));
-      break;
-    case DEVICE_STATE_Suspended:
-      matrix_write_P(&matrix, PSTR("Suspended"));
-      break;
-    case DEVICE_STATE_Configured:
-      matrix_write_P(&matrix, PSTR("Connected"));
-      break;
-    case DEVICE_STATE_Powered:
-      matrix_write_P(&matrix, PSTR("Powered"));
-      break;
-    case DEVICE_STATE_Default:
-      matrix_write_P(&matrix, PSTR("Default"));
-      break;
-    case DEVICE_STATE_Addressed:
-      matrix_write_P(&matrix, PSTR("Addressed"));
-      break;
-    default:
-      matrix_write_P(&matrix, PSTR("Invalid"));
-  }
-#endif
-
-// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
-    switch (layer_state) {
-        case _BASE:
-           matrix_write_P(&matrix, PSTR("Default"));
-           break;
-        case _RAISE:
-           matrix_write_P(&matrix, PSTR("Raise"));
-           break;
-        case _LOWER:
-           matrix_write_P(&matrix, PSTR("Lower"));
-           break;
-        case _ADJUST:
-           matrix_write_P(&matrix, PSTR("ADJUST"));
-           break;
-        default:
-           matrix_write(&matrix, buf);
- }
-  
-  // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+__attribute__ ((weak))
+void iota_gfx_task_user(void) {
 }
 
 void iota_gfx_task(void) {
-  render_status_info();
+  iota_gfx_task_user();
 
   if (display.dirty) {
     iota_gfx_flush();
