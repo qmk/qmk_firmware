@@ -44,8 +44,8 @@ void TestFixture::run_one_scan_loop() {
     advance_time(1);
 }
 
-void TestFixture::idle_for(uint time) {
-    for (uint i=0; i<time; i++) {
+void TestFixture::idle_for(unsigned time) {
+    for (unsigned i=0; i<time; i++) {
         run_one_scan_loop();
     }
 }
