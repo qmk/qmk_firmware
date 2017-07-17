@@ -7,7 +7,7 @@
   * [FAQ: Compiling QMK](faq_build.md)
   * [How to Github](how_to_github.md)
 
-* [Features](features/README.md)
+* [Features](features.md)
   * [Layer switching](key_functions.md)
   * [Leader Key](leader_key.md)
   * [Macros](macros.md)
