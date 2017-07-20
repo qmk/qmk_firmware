@@ -2,23 +2,42 @@
 
 [Keyboard Layout Editor File]
 
-![Clueboard Layout Image](http://i.imgur.com/WFfJ15k.png)
+![Clueboard Layout Image](http://i.imgur.com/eEwjLEj.png)
+My ClueBoard Layout as of 2017/06/30
+
 
 This layout is a combination of the `mouse_keys` and the `win_optimized` layouts.
 This layout is optimized for an ISO layout.
+The CapsLock is disabled and works as ESC when tapped and FN when held.
+The `TAB` key works as `TAB` when tapped, and [HYPER] (`CTRL` + `ALT` + `SHIFT` + `CMD`) when held.
 
-It adds a mouse layer. When you hold down the spacebar the arrow keys
-will move your mouse cursor. You can click using the 3 mods to the left of the
-arrow keys, or the 3 keys under your primary fingers on the home row.
+## Mouse Layer
+
+When you hold down the spacebar the arrow keys will move your mouse cursor.
+You can click using the 3 mods to the left of the arrow keys, or the 3 keys under your primary fingers on the home row.
 The Left, Down, Up and Right for the mouse movement are also VIM-Like on the HJKL keys
 
-There is also a MIDI layer included.
+## MIDI layer
 
-The CapsLock is disabled and works as Escape when tapped and Fn when Hold.
-The Tab key works as Tab when tapped, and [Hyper] (Ctrl + Alt + Shift + Cmd) when hold
-The Shift-Keys are configured as [Space Cadet Shift Parentheses]
+The MIDI layer is permanently enabled by pressing `FN` + `/`.
+It can be exited with the `ESC`-Key
 
-There is also a separate media layer with Volume/Play controls
+## Space Cadet(ish) Shift Parentheses
+
+If the function layer is active, the `SHIFT`-Keys are configured like the [Space Cadet Shift Parentheses]
+as opened (left `SHIFT`) and closed (right `SHIFT`) parentheses if tapped and `SHIFT` if held.
+
+## Media layer
+
+The media layer with Volume/Play controls, can be accessed via `FN` + `m`
+
+## Control layer
+
+The control layer is accessed via `FN` + `s`.
+Here one can control the behavior of the RGB underlight.
+`FN` + `s` + `1` resets the RGB underlight to the Layer signalling mode
+
+## Layer signalling through underlight
 
 The different layers are signalled throug setting of the underlight:
 
@@ -29,6 +48,6 @@ The different layers are signalled throug setting of the underlight:
 - Control layer: Red
 - Midi layer: Purple
 
-[Hyper]: http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
+[HYPER]: http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 [Space Cadet Shift Parentheses]: http://stevelosh.com/blog/2012/10/a-modern-space-cadet/#shift-parentheses
 [Keyboard Layout Editor File]: http://www.keyboard-layout-editor.com/#/gists/f869b8789242a712e0f46eabbd550056

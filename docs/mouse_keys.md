@@ -1,17 +1,81 @@
-# Can I increase the speed of the mouse keys?
+# Mousekeys
 
-**Q:** The default speed for controlling the mouse with the keyboard is slow. I've tried increasing the mouse's sensitivity at work using xset m and it worked, although sometimes it changes by itself for some reason. At home, on Arch Linux, this does not change ti. I've looked through the forums and resolved to use libinput using xinput but using that I only manage to change the speed of the mouse using the actual mouse. The speed of the mouse using the keyboard controls remained unchanged.
-Is there perhaps something I can input in the keymap.c to change the sensitivity? Or some other surefire way of increasing the speed?
-Thanks!
 
-**A:**  In your keymap's config.h:
+Mousekeys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer around, click up to 5 buttons, and even scroll in all 4 directions. QMK uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
+
+## Adding Mousekeys To a Keymap
+
+There are two steps to adding Mousekeys support to your keyboard. You must enable support in the Makefile and you must map mouse actions to keys on your keyboard.
+
+### Adding Mousekeys support in the `Makefile`
+
+To add support for Mousekeys you simply need to add a single line to your keymap's `Makefile`:
 
 ```
-#define MOUSEKEY_INTERVAL       20
-#define MOUSEKEY_DELAY          0
-#define MOUSEKEY_TIME_TO_MAX    60
-#define MOUSEKEY_MAX_SPEED      7
-#define MOUSEKEY_WHEEL_DELAY 0
+MOUSEKEY_ENABLE = yes
 ```
 
-Tweak away. A lower interval or higher max speed will effectively make the mouse move faster. Time-to-max controls acceleration. (See [this Reddit thread for the original discussion](https://www.reddit.com/r/ErgoDoxEZ/comments/61fwr2/a_reliable_way_to_increase_the_speed_of_the_mouse/)).
+You can see an example here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/Makefile
+
+### Mapping Mouse Actions To Keyboard Keys
+
+You can use these keycodes within your keymap to map button presses to mouse actions:
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_MS_UP|KC_MS_U|Mouse Cursor Up|
+|KC_MS_DOWN|KC_MS_D|Mouse Cursor Down|
+|KC_MS_LEFT|KC_MS_L|Mouse Cursor Left|
+|KC_MS_RIGHT|KC_MS_R|Mouse Cursor Right|
+|KC_MS_BTN1|KC_BTN1|Mouse Button 1|
+|KC_MS_BTN2|KC_BTN2|Mouse Button 2|
+|KC_MS_BTN3|KC_BTN3|Mouse Button 3|
+|KC_MS_BTN4|KC_BTN4|Mouse Button 4|
+|KC_MS_BTN5|KC_BTN5|Mouse Button 5|
+|KC_MS_WH_UP|KC_WH_U|Mouse Wheel Up|
+|KC_MS_WH_DOWN|KC_WH_D|Mouse Wheel Down|
+|KC_MS_WH_LEFT|KC_WH_L|Mouse Wheel Left|
+|KC_MS_WH_RIGHT|KC_WH_R|Mouse Wheel Right|
+|KC_MS_ACCEL0|KC_ACL0|Set Mouse Acceleration Speed to 0|
+|KC_MS_ACCEL1|KC_ACL1|Set Mouse Acceleration Speed to 1|
+|KC_MS_ACCEL2|KC_ACL2|Set Mouse Acceleration Speed to 2|
+
+You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/keymap.c#L46
+
+## Configuring the behavior of Mousekeys
+
+The default speed for controlling the mouse with the keyboard is intentionaly slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in miliseconds (ms).
+
+```
+#define MOUSEKEY_DELAY             300
+#define MOUSEKEY_INTERVAL          50
+#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_TIME_TO_MAX       20
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+```
+
+
+### `MOUSEKEY_DELAY`
+
+When one of the mouse movement buttons is pressed this setting is used to define the delay between that button press and the mouse cursor moving. Some people find that small movements are impossible if this setting is too low, while settings that are too high feel sluggish.
+
+### `MOUSEKEY_INTERVAL`
+
+When a movement key is held down this specifies how long to wait between each movement report. Lower settings will translate into an effectively higher mouse speed.
+
+### `MOUSEKEY_MAX_SPEED`
+
+As a movement key is held down the speed of the mouse cursor will increase until it reaches `MOUSEKEY_MAX_SPEED`.
+
+### `MOUSEKEY_TIME_TO_MAX`
+
+How long you want to hold down a movement key for until `MOUSEKEY_MAX_SPEED` is reached. This controls how quickly your cursor will accelerate.
+
+### `MOUSEKEY_WHEEL_MAX_SPEED`
+
+The top speed for scrolling movements.
+
+### `MOUSEKEY_WHEEL_TIME_TO_MAX`
+
+How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickling your scrolling will accelerate.

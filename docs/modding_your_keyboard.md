@@ -1,7 +1,7 @@
 
 ## Audio output from a speaker
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 port, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 The audio code lives in [quantum/audio/audio.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/default/keymap.c). Here are the important bits:
 

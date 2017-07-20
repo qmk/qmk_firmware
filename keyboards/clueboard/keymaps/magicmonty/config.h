@@ -26,13 +26,8 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 #define MIDI_TONE_KEYCODE_OCTAVES 2
 
-/* Disabling rollover allows you to use the opposite shift key to cancel the space cadet state in the event
-   of an erroneous press instead of emitting a pair of parentheses when the keys are released.
-*/
-#define DISABLE_SPACE_CADET_ROLLOVER
-
 /*
-  Setting the Space Cadet Parens for German layout
+  Setting the modified Space Cadet Parens for German layout
 
   Default is
   #define LSPO_KEY KC_9
@@ -40,5 +35,6 @@
 */
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
+#define PERMISSIVE_HOLD
 
 #endif
