@@ -25,8 +25,7 @@ extern keymap_config_t keymap_config;
 #define XXXXXXX KC_NO
 
 void matrix_init_user(void) {
-	backlight_init();
-	backlight_set(3);
+	backlight_level(4);
 }
 
 
@@ -148,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */
   [_NP] = /* Numpad */
-    SINGLES_KEYMAP(KC_7,        KC_8,          KC_9,              KC_SLASH,  \
+    SINGLES_KEYMAP(KC_7,        BL_STEP,          KC_9,              KC_SLASH,  \
                    KC_4,        KC_5,          KC_6,              KC_KP_ASTERISK, \
                    KC_1,        KC_2,          KC_3,              KC_MINUS, \
                    TD(TD_0_L3), TD(TD_DOT_L2), TD(TD_KP_PLUS_L1), TD(TD_EQUAL_NP)),
