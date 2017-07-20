@@ -1,9 +1,6 @@
 #include "roadkit.h"
 #include "action_layer.h"
 #include "eeconfig.h"
-//#ifdef BACKLIGHT_ENABLE
-//  #include "backlight.h"
-//#endif
 
 extern keymap_config_t keymap_config;
 
@@ -26,6 +23,13 @@ extern keymap_config_t keymap_config;
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+void matrix_init_user(void) {
+	backlight_init();
+	backlight_set(3);
+}
+
+
 
 //Tap Dance Declarations
 
@@ -144,9 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */
   [_NP] = /* Numpad */
-    SINGLES_KEYMAP(KC_7,        KC_8,          KC_9,           KC_SLASH,  \
-                   KC_4,        KC_5,          KC_6,           KC_KP_ASTERISK, \
-                   KC_1,        KC_2,          KC_3,           KC_MINUS, \
+    SINGLES_KEYMAP(KC_7,        KC_8,          KC_9,              KC_SLASH,  \
+                   KC_4,        KC_5,          KC_6,              KC_KP_ASTERISK, \
+                   KC_1,        KC_2,          KC_3,              KC_MINUS, \
                    TD(TD_0_L3), TD(TD_DOT_L2), TD(TD_KP_PLUS_L1), TD(TD_EQUAL_NP)),
 
 /* L1
@@ -162,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_L1] = /* LAYER 1 */
     SINGLES_KEYMAP(KC_ESCAPE, KC_BSPACE, KC_HOME,  KC_PGUP, \
-                   KC_TAB,    KC_UP,       KC_END,   KC_PGDOWN, \
-                   KC_LEFT,   KC_DOWN,     KC_RIGHT, KC_KP_ENTER, \
-                   KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS),
+                   KC_TAB,    KC_UP,     KC_END,   KC_PGDOWN, \
+                   KC_LEFT,   KC_DOWN,   KC_RIGHT, KC_KP_ENTER, \
+                   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS),
 
 /* L2
  * ,-----------------------.
