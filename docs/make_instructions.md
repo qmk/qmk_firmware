@@ -48,7 +48,7 @@ Here are some examples commands
 * `make ergodox-infinity-algernon-clean` will clean the build output of the Ergodox Infinity keyboard. This example uses the full syntax and can be run from any folder with a `Makefile`
 * `make dfu COLOR=false` from within a keymap folder, builds and uploads the keymap, but without color output.
 
-## The `Makefile`
+# The `Makefile`
 
 There are 5 different `make` and `Makefile` locations:
 
@@ -62,7 +62,7 @@ The root contains the code used to automatically figure out which keymap or keym
 
 For keyboards and subprojects, the make files are split in two parts `Makefile` and `rules.mk`. All settings can be found in the `rules.mk` file, while the `Makefile` is just there for support and including the root `Makefile`. Keymaps contain just one `Makefile` for simplicity.
 
-### Makefile options
+## Makefile options
 
 Set these variables to `no` to disable them, and `yes` to enable them.
 
@@ -158,7 +158,7 @@ This enables using the Quantum SYSEX API to send strings (somewhere?)
 
 This consumes about 5390 bytes.
 
-### Customizing Makefile options on a per-keymap basis
+## Customizing Makefile options on a per-keymap basis
 
 If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options for your particular keyboard.
 
