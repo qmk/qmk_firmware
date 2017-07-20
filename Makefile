@@ -419,7 +419,7 @@ define BUILD_TEST
     MAKE_TARGET := $2
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
-    MAKE_VARS := TEST=$$(TEST_NAME)
+    MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS=$$(FULL_TESTS)
     MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
@@ -483,6 +483,8 @@ define RUN_TEST
 +error_occurred=0;\
 $($(TEST)_COMMAND)\
 if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
+
+
 endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps

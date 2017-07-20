@@ -123,7 +123,8 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
             break;
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0x1F, keycode & 0xFF);
+            mod = mod_config((keycode >> 0x8) & 0x1F);
+            action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_0 ... BL_15:
@@ -168,7 +169,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 // translates key to keycode
-__attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     // Read entire word (16bits)

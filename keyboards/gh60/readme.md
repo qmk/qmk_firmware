@@ -1,6 +1,6 @@
 ## gh60 Rev C keyboard firmware
 
-![gh60 Rev C PCB](gh60revc.jpg)
+![gh60 Rev C PCB](https://i.imgur.com/FejpoNF.jpg)
 
     /* Column pin configuration
     * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13

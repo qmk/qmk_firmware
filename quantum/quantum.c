@@ -437,6 +437,14 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       // break;
     }
+    case GRAVE_ESC: {
+      void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
+      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
+
+      method(shifted ? KC_GRAVE : KC_ESCAPE);
+      send_keyboard_report(); 
+    }
     default: {
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
@@ -447,7 +455,8 @@ bool process_record_quantum(keyrecord_t *record) {
   return process_action_kb(record);
 }
 
-const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+__attribute__ ((weak))
+const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -466,7 +475,8 @@ const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+__attribute__ ((weak))
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -485,57 +495,17 @@ const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
     KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
 
-/* for users whose OSes are set to Colemak */
-#if 0
-#include "keymap_colemak.h"
-
-const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0,
-    1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0
-};
-
-const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
-    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, CM_SCLN, CM_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
-    KC_2, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
-    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
-    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
-    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
-    KC_GRV, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
-    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
-    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
-    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
-};
-
-#endif
-
 void send_string(const char *str) {
+  send_string_with_delay(str, 0);
+}
+
+void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         uint8_t keycode;
         uint8_t ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
+        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
             register_code(KC_LSFT);
             register_code(keycode);
             unregister_code(keycode);
@@ -546,6 +516,8 @@ void send_string(const char *str) {
             unregister_code(keycode);
         }
         ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
     }
 }
 

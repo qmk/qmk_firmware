@@ -41,7 +41,7 @@ Feel free to modify the gaming layer to your personal taste.
 
 ## Base layer
 
-[![Base layer](images/base-layer.png)](http://www.keyboard-layout-editor.com/#/gists/8fd9bbdd3a23bbb5a8779de3624a3be1)
+[![Base layer](https://i.imgur.com/1PTR0SG.png)](http://www.keyboard-layout-editor.com/#/gists/8fd9bbdd3a23bbb5a8779de3624a3be1)
 
 This is a QWERTY layout with some quirks. 
 
@@ -59,7 +59,7 @@ This is a QWERTY layout with some quirks.
 
 ## Symbol layer
 
-[![Symbol layer](images/symbol-layer.png)](http://www.keyboard-layout-editor.com/#/gists/04eb6458b8b17882e472f64d482f12b4)
+[![Symbol layer](https://i.imgur.com/8nEzpcp.png)](http://www.keyboard-layout-editor.com/#/gists/04eb6458b8b17882e472f64d482f12b4)
 
 Your standard Ergodox EZ symbol + numpad layout, minus the Version and EEPROM keys.
 
@@ -68,7 +68,7 @@ Your standard Ergodox EZ symbol + numpad layout, minus the Version and EEPROM ke
 
 ## Rimworld layer
 
-[![Rimworld / Gaming Layer](images/rimworld-layer.png)](http://www.keyboard-layout-editor.com/#/gists/d53af8391e6e443ed0a98ccfbdb4eace)
+[![Rimworld / Gaming Layer](https://i.imgur.com/Yh3eBjJ.png)](http://www.keyboard-layout-editor.com/#/gists/d53af8391e6e443ed0a98ccfbdb4eace)
 
 This layer was made to play RimWorld, a Sci-Fi Colony Survival Game by Tynan Sylvester and Ludeon Studios, available on Steam. 
 
@@ -76,7 +76,7 @@ This layer was made to play RimWorld, a Sci-Fi Colony Survival Game by Tynan Syl
 
 ## Media layer
 
-[![Media layer](images/media-layer.png)](http://www.keyboard-layout-editor.com/#/gists/3209d09ed4bd997e4f49f28c6ada2ab3)
+[![Media layer](https://i.imgur.com/r5ysFy1.png)](http://www.keyboard-layout-editor.com/#/gists/3209d09ed4bd997e4f49f28c6ada2ab3)
 
 This is the standard Ergodox EZ media layout with more options for mouseclick buttons. 
 
