@@ -1,0 +1,14 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Configure glob patterns for excluding files and folders.
+    "files.exclude": {
+        "**/.build": true,
+        "**/*.hex": true
+    },
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp"
+    }
+}

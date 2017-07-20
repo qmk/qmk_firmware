@@ -17,8 +17,7 @@
 #ifndef TESTS_BASIC_CONFIG_H_
 #define TESTS_BASIC_CONFIG_H_
 
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 2
-
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 10
 
 #endif /* TESTS_BASIC_CONFIG_H_ */

@@ -19,14 +19,13 @@ There is additional information there about flashing and adding RGB underglow.
 Download or clone the whole firmware and navigate to the keyboards/lets_split directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make rev2
+$ make rev2-default
 ```
 
-You will see a lot of output and if everything worked correctly you will see the built hex files:
+You will see a lot of output and if everything worked correctly you will see the built hex file:
 
 ```
-lets_split_rev2_serial.hex
-lets_split_rev2_i2c.hex
+lets_split_rev2_default.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
@@ -101,6 +100,8 @@ The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
 unnecessary in simple use cases.
 
+You can change your configuration between serial and i2c by modifying your `config.h` file.
+
 Notes on Software Configuration
 -------------------------------
 
@@ -115,7 +116,7 @@ not be very difficult to adapt it to support more if required.
 Flashing
 -------
 From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make rev2-serial-avrdude`
+Example: `make rev2-default-avrdude`
 
 
 Choosing which board to plug the USB cable into (choosing Master)

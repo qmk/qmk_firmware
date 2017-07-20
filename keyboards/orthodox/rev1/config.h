@@ -1,5 +1,9 @@
 /*
+This is the c configuration file for the subproject
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
+Copyright 2017 Art Ortenburger
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,10 +19,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef REV1_CONFIG_H
+#define REV1_CONFIG_H
 
-#include "config_common.h"
+#include "../config.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
