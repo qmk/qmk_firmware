@@ -1,12 +1,23 @@
 
 ## Audio output from a speaker
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and/or `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
-The audio code lives in [quantum/audio/audio.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/default/keymap.c). Here are the important bits:
+If you add this to your `rules.mk`:
 
 ```
-#include "audio.h"
+AUDIO_ENABLE = yes
+```
+
+there's a couple different sounds that will automatically be enabled without any other configuration:
+
+
+If you want to implement something custom, you can 
+
+```
+#ifdef AUDIO_ENABLE
+  #include "audio.h"
+#endif
 ```
 
 Then, lower down the file:
@@ -41,13 +52,10 @@ Wherein we bind predefined songs (from [quantum/audio/song_list.h](https://githu
 So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
 
 ```
-PLAY_NOTE_ARRAY(tone_plover, false, LEGATO); // song name, repeat, rest style
-PLAY_SONG(tone_plover);                      // song name (repeat is false, rest is STACCATO)
+PLAY_SONG(tone_plover);                      // song name
 ```
 
 This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
-
-"Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
 
 ## Music mode
 
