@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include <stdio.h>
 #include <string.h>
 //#include <math.h>
@@ -119,8 +120,16 @@ audio_config_t audio_config;
 uint16_t envelope_index = 0;
 bool glissando = true;
 
+#ifndef STARTUP_SONG
+    #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+float startup_song[][2] = STARTUP_SONG;
+
 void audio_init()
 {
+
+    if (audio_initialized)
+        return;
 
     // Check EEPROM
     if (!eeconfig_is_enabled())
@@ -169,6 +178,11 @@ void audio_init()
     #endif
 
     audio_initialized = true;
+
+    if (audio_config.enable) {
+        PLAY_NOTE_ARRAY(startup_song, false, LEGATO);
+    }
+
 }
 
 void stop_all_notes()

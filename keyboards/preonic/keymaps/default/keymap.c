@@ -1,14 +1,25 @@
+/* Copyright 2015-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "preonic.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
 enum preonic_layers {
   _QWERTY,
@@ -27,10 +38,6 @@ enum preonic_keycodes {
   RAISE,
   BACKLIT
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -163,54 +170,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {NOTE_B5, 20},
-  {NOTE_B6, 8},
-  {NOTE_DS6, 20},
-  {NOTE_B6, 8}
-};
-
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-            #endif
-            persistent_default_layer_set(1UL<<_QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;
         case COLEMAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-            #endif
-            persistent_default_layer_set(1UL<<_COLEMAK);
+            set_single_persistent_default_layer(_COLEMAK);
           }
           return false;
           break;
         case DVORAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-            #endif
-            persistent_default_layer_set(1UL<<_DVORAK);
+            set_single_persistent_default_layer(_DVORAK);
           }
           return false;
           break;
@@ -248,36 +224,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     return true;
 };
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-}
-
-void shutdown_user()
-{
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
-}
-
-#endif
