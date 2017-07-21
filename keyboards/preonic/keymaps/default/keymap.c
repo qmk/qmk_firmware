@@ -16,10 +16,6 @@
 
 #include "preonic.h"
 #include "action_layer.h"
-#include "eeconfig.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 
 enum preonic_layers {
   _QWERTY,
