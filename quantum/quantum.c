@@ -41,10 +41,7 @@ extern backlight_config_t backlight_config;
     #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
   #endif
   #ifndef DEFAULT_LAYER_SONGS
-        #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND) \
-                                  SONG(DVORAK_SOUND) \
-                                }
+    #define DEFAULT_LAYER_SONGS { }
   #endif
   float goodbye_song[][2] = GOODBYE_SONG;
   float ag_norm_song[][2] = AG_NORM_SONG;
