@@ -26,6 +26,10 @@
 #endif
 #endif
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 enum quantum_keycodes {
     // Ranges used in shortucuts - not to be used directly
     QK_TMK                = 0x0000,
