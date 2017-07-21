@@ -39,6 +39,15 @@ static uint8_t music_sequence_position = 0;
 static uint16_t music_sequence_timer = 0;
 static uint16_t music_sequence_interval = 100;
 
+#ifndef MUSIC_ON_SONG
+  #define MUSIC_ON_SONG SONG(MUSIC_ON_SOUND)
+#endif
+#ifndef MUSIC_OFF_SONG
+  #define MUSIC_OFF_SONG SONG(MUSIC_OFF_SOUND)
+#endif
+float music_on_song[][2] = MUSIC_ON_SONG;
+float music_off_song[][2] = MUSIC_OFF_SONG;
+
 static void music_noteon(uint8_t note) {
     #ifdef AUDIO_ENABLE
     process_audio_noteon(note);
@@ -79,12 +88,9 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
-        if (music_activated)
-        {
+        if (music_activated) {
             music_off();
-        }
-        else
-        {
+        } else {
             music_on();
         }
         return false;
@@ -175,12 +181,14 @@ void music_toggle(void) {
 
 void music_on(void) {
     music_activated = 1;
+    PLAY_SONG(music_on_song);
     music_on_user();
 }
 
 void music_off(void) {
-    music_activated = 0;
     music_all_notes_off();
+    music_activated = 0;
+    PLAY_SONG(music_off_song);
 }
 
 void matrix_scan_music(void) {
