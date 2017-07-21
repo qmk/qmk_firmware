@@ -555,7 +555,10 @@ ISR(TIMER1_COMPA_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_1_PERIOD > 0) {
-            end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
+            if (!note_resting) 
+                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
+            else
+                end_of_note = (note_position >= (note_length));
         } else {
             end_of_note = (note_position >= (note_length));
         }

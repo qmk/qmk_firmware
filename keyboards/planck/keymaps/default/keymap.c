@@ -16,10 +16,6 @@
 
 #include "planck.h"
 #include "action_layer.h"
-#include "eeconfig.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 
 extern keymap_config_t keymap_config;
 
