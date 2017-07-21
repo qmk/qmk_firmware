@@ -41,7 +41,8 @@ Wherein we bind predefined songs (from [quantum/audio/song_list.h](https://githu
 So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
 
 ```
-PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest style
+PLAY_NOTE_ARRAY(tone_plover, false, LEGATO); // song name, repeat, rest style
+PLAY_SONG(tone_plover);                      // song name (repeat is false, rest is STACCATO)
 ```
 
 This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
