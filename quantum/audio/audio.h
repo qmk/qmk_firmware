@@ -99,7 +99,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 // The global float array for the song must be used here.
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
 #define PLAY_NOTE_ARRAY(note_array, note_repeat, note_rest_style) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat), (note_rest_style));
-
+#define PLAY_SONG(song) PLAY_NOTE_ARRAY(song, false, STACCATO)
 
 bool is_playing_notes(void);
 
