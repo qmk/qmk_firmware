@@ -84,6 +84,7 @@ extern uint32_t default_layer_state;
 	#include "process_unicodemap.h"
 #endif
 
+#include "process_dual_role.h"
 #include "process_tap_dance.h"
 
 #ifdef PRINTING_ENABLE
