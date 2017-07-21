@@ -1,61 +1,48 @@
 
 ## Audio output from a speaker
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and/or `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and/or `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
-If you add this to your `rules.mk`:
-
-```
-AUDIO_ENABLE = yes
-```
-
-there's a couple different sounds that will automatically be enabled without any other configuration:
-
-
-If you want to implement something custom, you can 
+If you add `AUDIO_ENABLE = yes` to your `rules.mk`, there's a couple different sounds that will automatically be enabled without any other configuration:
 
 ```
+STARTUP_SONG // plays when the keyboard starts up (audio.c)
+GOODBYE_SONG // plays when you press the RESET key (quantum.c)
+AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
+AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
+MUSIC_ON_SONG // plays when music mode is activated (process_music.c)
+MUSIC_OFF_SONG // plays when music mode is deactivated (process_music.c)
+```
+
+You can override the default songs by doing something like this in your `config.h`:
+
+```c
 #ifdef AUDIO_ENABLE
-  #include "audio.h"
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 ```
 
-Then, lower down the file:
+A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
 
-```
-float tone_startup[][2] = {
-    ED_NOTE(_E7 ),
-    E__NOTE(_CS7),
-    E__NOTE(_E6 ),
-    E__NOTE(_A6 ),
-    M__NOTE(_CS7, 20)
-};
+To play a custom sound at a particular time, you can define a song like this (near the top of the file):
+
+```c
+float my_song[][2] = SONG(QWERTY_SOUND);
 ```
 
-This is how you write a song. Each of these lines is a note, so we have a little ditty composed of five notes here.
+And then play your song like this:
 
-Then, we have this chunk:
-
-```
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-float goodbye[][2] = SONG(GOODBYE_SOUND);
+```c
+PLAY_SONG(my_song);
 ```
 
-Wherein we bind predefined songs (from [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
+Alternatively, you can play it in a loop like this:
 
-So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
-
-```
-PLAY_SONG(tone_plover);                      // song name
+```c
+PLAY_LOOP(my_song);
 ```
 
-This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
+It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
 ## Music mode
 
