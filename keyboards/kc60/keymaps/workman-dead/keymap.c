@@ -6,9 +6,6 @@
 #define _FUN 3
 #define _MS 4
 
-#define _______ KC_NO
-#define XXXXXXX KC_TRNS
-
 #define _DK_ACT 0
 #define _DK_REL 1
 #define _KC_COMS 2
