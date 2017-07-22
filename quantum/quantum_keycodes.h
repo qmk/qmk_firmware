@@ -132,6 +132,9 @@ enum quantum_keycodes {
     MU_OFF,
     MU_TOG,
 
+    // Music mode cycle
+    MU_MOD,
+
     // Music voice iterate
     MUV_IN,
     MUV_DE,
