@@ -12,6 +12,10 @@ AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
 AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
 MUSIC_ON_SONG // plays when music mode is activated (process_music.c)
 MUSIC_OFF_SONG // plays when music mode is deactivated (process_music.c)
+CHROMATIC_SONG // plays when the chromatic music mode is selected (process_music.c)
+GUITAR_SONG // plays when the guitar music mode is selected (process_music.c)
+VIOLIN_SONG // plays when the violin music mode is selected (process_music.c)
+MAJOR_SONG // plays when the major music mode is selected (process_music.c)
 ```
 
 You can override the default songs by doing something like this in your `config.h`:
@@ -55,6 +59,11 @@ Keycodes available:
 * `MU_ON` - Turn music mode on
 * `MU_OFF` - Turn music mode off
 * `MU_TOG` - Toggle music mode
+* `MU_MOD` - Cycle through the music modes:
+  * `CHROMATIC_MODE` - Chromatic scale, row changes the octave
+  * `GUITAR_MODE` - Chromatic scale, but the row changes the string (+5 st)
+  * `VIOLIN_MODE` - Chromatic scale, but the row changes the string (+7 st)
+  * `MAJOR_MODE` - Major scale
 
 In music mode, the following keycodes work differently, and don't pass through:
 
@@ -63,6 +72,12 @@ In music mode, the following keycodes work differently, and don't pass through:
 * `LGUI` - play recording
 * `KC_UP` - speed-up playback
 * `KC_DOWN` - slow-down playback
+
+By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
+
+    #define MUSIC_MASK keycode != KC_NO
+
+Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
 
 ## MIDI functionalty
 
