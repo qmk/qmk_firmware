@@ -139,6 +139,38 @@
     E__NOTE(_B5),        \
     E__NOTE(_A5 ),
 
+#define VOICE_CHANGE_SOUND \
+    Q__NOTE(_A5 ),        \
+    Q__NOTE(_CS6),        \
+    Q__NOTE(_E6 ),        \
+    Q__NOTE(_A6 ),
+
+#define CHROMATIC_SOUND \
+    Q__NOTE(_A5 ),        \
+    Q__NOTE(_AS5 ),        \
+    Q__NOTE(_B5),        \
+    Q__NOTE(_C6 ),        \
+    Q__NOTE(_CS6 ),        
+
+#define MAJOR_SOUND \
+    Q__NOTE(_A5 ),        \
+    Q__NOTE(_B5 ),        \
+    Q__NOTE(_CS6),        \
+    Q__NOTE(_D6 ),        \
+    Q__NOTE(_E6 ),        
+
+#define GUITAR_SOUND \
+    Q__NOTE(_E5 ),        \
+    Q__NOTE(_A5),        \
+    Q__NOTE(_D6 ),        \
+    Q__NOTE(_G6 ),
+
+#define VIOLIN_SOUND \
+    Q__NOTE(_G5 ),        \
+    Q__NOTE(_D6),        \
+    Q__NOTE(_A6 ),        \
+    Q__NOTE(_E7 ),
+
 #define CAPS_LOCK_ON_SOUND \
     E__NOTE(_A3),          \
     E__NOTE(_B3),
