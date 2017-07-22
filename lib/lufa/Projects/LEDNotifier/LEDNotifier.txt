@@ -1,0 +1,63 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage USB LED Notifier Project
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li AT90USB646
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Abstract Control Model (ACM)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  USB LED Notifier Project. This project is designed for the Busware BUI board, however it can run easily on any
+ *  USB AVR. It is a generic RGB LED controller (via a three channel software PWM) which listens for commands from the
+ *  host on a CDC virtual serial port. When new commands are received, it updates the board LEDs.
+ *
+ *  This can be controlled with any host application that can write to the virtual serial port, allowing it to become
+ *  a visual notification system for any number of custom host applications, such as a new unread email notifier.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
+

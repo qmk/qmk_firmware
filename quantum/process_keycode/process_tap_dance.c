@@ -1,5 +1,22 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "quantum.h"
 #include "action_tapping.h"
+
+uint8_t get_oneshot_mods(void);
 
 static uint16_t last_td;
 static int8_t highest_td = -1;
@@ -43,12 +60,16 @@ static inline void process_tap_dance_action_on_dance_finished (qk_tap_dance_acti
   if (action->state.finished)
     return;
   action->state.finished = true;
+  add_mods(action->state.oneshot_mods);
+  send_keyboard_report();
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_dance_finished);
 }
 
 static inline void process_tap_dance_action_on_reset (qk_tap_dance_action_t *action)
 {
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_reset);
+  del_mods(action->state.oneshot_mods);
+  send_keyboard_report();
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
@@ -70,6 +91,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+      action->state.oneshot_mods = get_oneshot_mods();
       process_tap_dance_action_on_each_tap (action);
 
       if (last_td && last_td != keycode) {
@@ -105,14 +127,22 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
+
 void matrix_scan_tap_dance () {
   if (highest_td == -1)
     return;
+  uint16_t tap_user_defined;
 
-  for (int i = 0; i <= highest_td; i++) {
+for (uint8_t i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
-
-    if (action->state.count && timer_elapsed (action->state.timer) > TAPPING_TERM) {
+    if(action->custom_tapping_term > 0 ) {
+      tap_user_defined = action->custom_tapping_term;
+    }
+    else{
+      tap_user_defined = TAPPING_TERM;
+    }
+    if (action->state.count && timer_elapsed (action->state.timer) > tap_user_defined) {
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
     }

@@ -8,7 +8,7 @@ The system I created this on is a Chromebook, and uses a Japanese keymap, so som
 #### English layer - layer 0
 The English layout is a modified Workman layout, and is pictured below:
 
-![English layout](img/keyboard-layout-enL.png)
+![English layout](https://i.imgur.com/X1j2Mya.png)
 
 Some of the punctuation keys have been moved to a separate number/symbol layer.
 
@@ -16,7 +16,7 @@ Some of the punctuation keys have been moved to a separate number/symbol layer.
 
 The Number / Symbol layer is reachable through a ACTION_LAYER_MOMENTARY function. The blue LED is illuminated when this layer is active. It is accessible from the English or Japanese layers.
 
-![Number layout](img/keyboard-layout-numL.png)
+![Number layout](https://i.imgur.com/oNSNXPU.png)
 
 #### Japanese layers - layers 1-5
 
@@ -24,7 +24,7 @@ There are 5 layers involved in Japanese input. The TOJPLOUT macro is mapped to t
 
 On keypress, strings of romaji characters are output by the keyboard using macros, and these simulate the input of individual keys on a latin keyboard.
 
-![Japanese layout](img/keyboard-layout-jpL.png)
+![Japanese layout](https://i.imgur.com/qMvt92j.png)
 
 Layer 1 is the JP layer. Keys on this layer correspond to singleton keys, or keys on the bottom row where a key is shared. For example, pressing the "ふ や" key outputs `ふ` (or "fu").
 

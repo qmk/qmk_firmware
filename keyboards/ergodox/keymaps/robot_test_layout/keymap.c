@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_FF0000:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
-          EZ_RGB(0xff0000);
+          EZ_RGB(0xff0000UL);
           register_code(KC_1); unregister_code(KC_1);
         #endif
       }
@@ -77,7 +77,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_00FF00:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
-          EZ_RGB(0x00ff00);
+          EZ_RGB(0x00ff00UL);
           register_code(KC_2); unregister_code(KC_2);
         #endif
       }
@@ -86,7 +86,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_0000FF:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
-          EZ_RGB(0x0000ff);
+          EZ_RGB(0x0000ffUL);
           register_code(KC_3); unregister_code(KC_3);
         #endif
       }
@@ -95,7 +95,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_FFFFFF:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
-          EZ_RGB(0xffffff);
+          EZ_RGB(0xffffffUL);
           register_code(KC_4); unregister_code(KC_4);
         #endif
       }

@@ -195,25 +195,21 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {440.0*pow(2.0,(31)/12.0), 12},
-  {440.0*pow(2.0,(28)/12.0), 8},
-  {440.0*pow(2.0,(19)/12.0), 8},
-  {440.0*pow(2.0,(24)/12.0), 8},
-  {440.0*pow(2.0,(28)/12.0), 20}
-};
 
+float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
-float goodbye[][2] = SONG(GOODBYE_SOUND);
+float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -226,7 +222,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
@@ -234,7 +230,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
@@ -242,7 +238,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _LOWER:
@@ -309,18 +305,35 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 void matrix_init_user(void) {
-  #ifdef AUDIO_ENABLE
-    _delay_ms(20); // stops the tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
-  #endif
+    #ifdef AUDIO_ENABLE
+        startup_user();
+    #endif
 }
 
 #ifdef AUDIO_ENABLE
-void play_goodbye_tone()
-{
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
-  _delay_ms(150);
-}
-#endif
 
+void startup_user()
+{
+    _delay_ms(20); // gets rid of tick
+    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+}
+
+void shutdown_user()
+{
+    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    _delay_ms(150);
+    stop_all_notes();
+}
+
+void music_on_user(void)
+{
+    music_scale_user();
+}
+
+void music_scale_user(void)
+{
+    PLAY_NOTE_ARRAY(music_scale, false, 0);
+}
+
+#endif
 

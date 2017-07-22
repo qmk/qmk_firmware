@@ -25,8 +25,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    XIUDI
-#define PRODUCT         XD60
-#define DESCRIPTION     XD60 Keyboard by XIUDI
+#define PRODUCT         XD60v2
+#define DESCRIPTION     XD60 v2 Keyboard PCB by XIUDI
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -46,14 +46,25 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, B5, B4, D7, D6, B3 }
 #define UNUSED_PINS
 
+/* Backlight Setup */
+#define BACKLIGHT_PIN F5
+#define BACKLIGHT_LEVELS 6
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+/* RGB Underglow
+ * F6 PIN for XD60v2 that has pre-soldered WS2812 LEDs
+ */
+#define RGB_DI_PIN F6
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 6     // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

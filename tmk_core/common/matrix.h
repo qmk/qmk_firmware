@@ -50,7 +50,7 @@ void matrix_init(void);
 uint8_t matrix_scan(void);
 /* whether modified from previous scan. used after matrix_scan. */
 bool matrix_is_modified(void) __attribute__ ((deprecated));
-/* whether a swtich is on */
+/* whether a switch is on */
 bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */
 matrix_row_t matrix_get_row(uint8_t row);

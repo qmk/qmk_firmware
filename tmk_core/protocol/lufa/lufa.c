@@ -53,6 +53,7 @@
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
+#include "outputselect.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -66,10 +67,11 @@
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    #include "bluetooth.h"
-#endif
-#ifdef ADAFRUIT_BLE_ENABLE
+  #ifdef MODULE_ADAFRUIT_BLE
     #include "adafruit_ble.h"
+  #else
+    #include "bluetooth.h"
+  #endif
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -589,59 +591,38 @@ void EVENT_USB_Device_ControlRequest(void)
 
 /*******************************************************************************
  * Host driver
-p
  ******************************************************************************/
 static uint8_t keyboard_leds(void)
 {
     return keyboard_led_stats;
 }
 
-#define SendToUSB 1
-#define SendToBT  2
-#define SendToBLE 4
-
-static inline uint8_t where_to_send(void) {
-#ifdef ADAFRUIT_BLE_ENABLE
-#if 0
-  if (adafruit_ble_is_connected()) {
-    // For testing, send to BLE as a priority
-    return SendToBLE;
-  }
-#endif
-
-  // This is the real policy
-  if (USB_DeviceState != DEVICE_STATE_Configured) {
-    if (adafruit_ble_is_connected()) {
-      return SendToBLE;
-    }
-  }
-#endif
-  return ((USB_DeviceState == DEVICE_STATE_Configured) ? SendToUSB : 0)
-#ifdef BLUETOOTH_ENABLE
-    || SendToBT
-#endif
-    ;
-}
-
 static void send_keyboard(report_keyboard_t *report)
 {
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-        bluefruit_serial_send(report->raw[i]);
-    }
-#endif
-
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
+#ifdef BLUETOOTH_ENABLE
+  if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    #ifdef MODULE_ADAFRUIT_BLE
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-    }
+    #elif MODULE_RN42
+       bluefruit_serial_send(0xFD);
+       bluefruit_serial_send(0x09);
+       bluefruit_serial_send(0x01);
+       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+         bluefruit_serial_send(report->raw[i]);
+       }
+    #else
+      bluefruit_serial_send(0xFD);
+      for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+        bluefruit_serial_send(report->raw[i]);
+      }
+    #endif
+  }
 #endif
 
-    if (!(where & SendToUSB)) {
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -681,30 +662,29 @@ static void send_keyboard(report_keyboard_t *report)
 static void send_mouse(report_mouse_t *report)
 {
 #ifdef MOUSE_ENABLE
-
-#ifdef BLUETOOTH_ENABLE
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x03);
-    bluefruit_serial_send(report->buttons);
-    bluefruit_serial_send(report->x);
-    bluefruit_serial_send(report->y);
-    bluefruit_serial_send(report->v); // should try sending the wheel v here
-    bluefruit_serial_send(report->h); // should try sending the wheel h here
-    bluefruit_serial_send(0x00);
-#endif
-
     uint8_t timeout = 255;
-
     uint8_t where = where_to_send();
 
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
+#ifdef BLUETOOTH_ENABLE
+  if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    #ifdef MODULE_ADAFRUIT_BLE
       // FIXME: mouse buttons
-      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
-    }
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+    #else
+      bluefruit_serial_send(0xFD);
+      bluefruit_serial_send(0x00);
+      bluefruit_serial_send(0x03);
+      bluefruit_serial_send(report->buttons);
+      bluefruit_serial_send(report->x);
+      bluefruit_serial_send(report->y);
+      bluefruit_serial_send(report->v); // should try sending the wheel v here
+      bluefruit_serial_send(report->h); // should try sending the wheel h here
+      bluefruit_serial_send(0x00);
+    #endif
+  }
 #endif
-    if (!(where & SendToUSB)) {
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -746,32 +726,42 @@ static void send_system(uint16_t data)
 
 static void send_consumer(uint16_t data)
 {
-
-#ifdef BLUETOOTH_ENABLE
-    static uint16_t last_data = 0;
-    if (data == last_data) return;
-    last_data = data;
-    uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
-    bluefruit_serial_send(0xFD);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x02);
-    bluefruit_serial_send((bitmap>>8)&0xFF);
-    bluefruit_serial_send(bitmap&0xFF);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-    bluefruit_serial_send(0x00);
-#endif
-
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where & SendToBLE) {
-      adafruit_ble_send_consumer_key(data, 0);
+#ifdef BLUETOOTH_ENABLE
+    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+      #ifdef MODULE_ADAFRUIT_BLE
+        adafruit_ble_send_consumer_key(data, 0);
+      #elif MODULE_RN42
+        static uint16_t last_data = 0;
+        if (data == last_data) return;
+        last_data = data;
+        uint16_t bitmap = CONSUMER2RN42(data);
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(bitmap&0xFF);
+        bluefruit_serial_send((bitmap>>8)&0xFF);
+      #else
+        static uint16_t last_data = 0;
+        if (data == last_data) return;
+        last_data = data;
+        uint16_t bitmap = CONSUMER2BLUEFRUIT(data);
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x02);
+        bluefruit_serial_send((bitmap>>8)&0xFF);
+        bluefruit_serial_send(bitmap&0xFF);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+        bluefruit_serial_send(0x00);
+      #endif
     }
 #endif
-    if (!(where & SendToUSB)) {
+
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
       return;
     }
 
@@ -1123,16 +1113,23 @@ void cc_callback(MidiDevice * device,
     uint8_t chan, uint8_t num, uint8_t val);
 void sysex_callback(MidiDevice * device,
     uint16_t start, uint8_t length, uint8_t * data);
+
+void setup_midi(void)
+{
+#ifdef MIDI_ADVANCED
+	midi_init();
+#endif
+	midi_device_init(&midi_device);
+    midi_device_set_send_func(&midi_device, usb_send_func);
+    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+}
 #endif
 
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
-
 #ifdef MIDI_ENABLE
-    midi_device_init(&midi_device);
-    midi_device_set_send_func(&midi_device, usb_send_func);
-    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+    setup_midi();
 #endif
 
     setup_mcu();
@@ -1152,7 +1149,7 @@ int main(void)
     // midi_send_noteoff(&midi_device, 0, 64, 127);
 #endif
 
-#ifdef BLUETOOTH_ENABLE
+#if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
     serial_init();
 #endif
 
@@ -1183,7 +1180,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #if !defined(BLUETOOTH_ENABLE) && !defined(ADAFRUIT_BLE_ENABLE)
+        #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
@@ -1197,14 +1194,16 @@ int main(void)
 
 #ifdef MIDI_ENABLE
         midi_device_process(&midi_device);
-        // MIDI_Task();
+#ifdef MIDI_ADVANCED
+        midi_task();
+#endif
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();
 #endif
 
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_task();
 #endif
 
