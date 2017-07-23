@@ -411,14 +411,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     case M_GUI_UNDS:
       if (record->event.pressed) {
         m_gui_unds_timer = timer_read();
-        register_mods(MOD_BIT(KC_LGUI));
+
+        if (record->tap.count > 0 && !record->tap.interrupted) {
+          // if (record->tap.interrupted) {
+            // dprint("tap interrupted\n");
+            // register_mods(MOD_BIT(KC_LGUI));
+          // }
+        } else {
+          register_mods(MOD_BIT(KC_LGUI));
+        }
       } else {
-        unregister_mods(MOD_BIT(KC_LGUI));
-        if (timer_elapsed(m_gui_unds_timer) < TAPPING_TERM && !(record->tap.interrupted)) {
-          register_mods(MOD_BIT(KC_LSFT));
+        if (record->tap.count > 0 && !record->tap.interrupted && timer_elapsed(m_gui_unds_timer) < TAPPING_TERM) {
+          add_weak_mods(MOD_BIT(KC_LSFT));
+          send_keyboard_report();
           register_code(KC_MINS);
           unregister_code(KC_MINS);
-          unregister_mods(MOD_BIT(KC_LSFT));
+          del_weak_mods(MOD_BIT(KC_LSFT));
+          send_keyboard_report();
+          record->tap.count = 0;  // ad hoc: cancel tap
+        } else {
+          unregister_mods(MOD_BIT(KC_LGUI));
         }
       }
       break;
