@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 
-#ifdef SUBPROJECT_v2
-    #include "../../v2/config.h"
+#ifdef SUBPROJECT_V2
+    #include "../../V2/config.h"
 #endif
 #ifdef SUBPROJECT_ProtoSplit
     #include "../../ProtoSplit/config.h"
