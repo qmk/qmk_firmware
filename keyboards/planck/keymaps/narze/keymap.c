@@ -42,10 +42,12 @@ enum planck_keycodes {
 
 enum functions {
   M_GUI_UNDS, // Simulate GUI_T(KC_UNDS)
+  M_SFT_PO, // SFT_T(KC_LPRN)
 };
 
-// Timer for M_GUI_UNDS
+// Timer for custom mod tap
 static uint16_t m_gui_unds_timer;
+static uint16_t m_sft_po_timer;
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -54,6 +56,7 @@ static uint16_t m_gui_unds_timer;
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)
+#define SFT_PO F(M_SFT_PO)
 #define GUI_MINS GUI_T(KC_MINS)
 #define GUI_UNDS F(M_GUI_UNDS)
 
@@ -76,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   / |Sft/Ent|
+ * | Sft/(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   / |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    |Raise | GUI/-| Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
@@ -84,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSPO, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
+  {SFT_PO, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
   {LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_RAISE, KC_RBRC)}
 },
 
@@ -94,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   / |Sft/Ent|
+ * | Sft/(|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   / |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -102,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
+  {SFT_PO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
   {BACKLIT, KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -112,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Hp/Ec|   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z |Sft/Ent|
+ * | Sft/(|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -120,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = {
   {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-  {KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
+  {SFT_PO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
   {BACKLIT, KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -402,26 +405,28 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 
 const uint16_t PROGMEM fn_actions[] = {
   [M_GUI_UNDS] = ACTION_MACRO_TAP(M_GUI_UNDS),
+  [M_SFT_PO] = ACTION_MACRO_TAP(M_SFT_PO),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+  bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
+
   switch(id) {
     // Hold for LGUI, tap for Underscore
     case M_GUI_UNDS:
       if (record->event.pressed) {
         m_gui_unds_timer = timer_read();
 
-        if (record->tap.count > 0 && !record->tap.interrupted) {
-          // if (record->tap.interrupted) {
-            // dprint("tap interrupted\n");
-            // register_mods(MOD_BIT(KC_LGUI));
-          // }
-        } else {
+        if (!tap_not_interrupted) {
           register_mods(MOD_BIT(KC_LGUI));
         }
       } else {
-        if (record->tap.count > 0 && !record->tap.interrupted && timer_elapsed(m_gui_unds_timer) < TAPPING_TERM) {
+        if (tap_not_interrupted && timer_elapsed(m_gui_unds_timer) < TAPPING_TERM) {
+          #ifdef AUDIO_ENABLE
+            PLAY_NOTE_ARRAY(tone_superduper, false, 0);
+          #endif
+
           add_weak_mods(MOD_BIT(KC_LSFT));
           send_keyboard_report();
           register_code(KC_MINS);
@@ -431,6 +436,27 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           record->tap.count = 0;  // ad hoc: cancel tap
         } else {
           unregister_mods(MOD_BIT(KC_LGUI));
+        }
+      }
+      break;
+    // Hold for LSHIFT, tap for Parens open
+    case M_SFT_PO:
+      if (record->event.pressed) {
+        m_sft_po_timer = timer_read();
+
+        if (!tap_not_interrupted) {
+          register_mods(MOD_BIT(KC_LSFT));
+        }
+      } else {
+        if (tap_not_interrupted && timer_elapsed(m_sft_po_timer) < TAPPING_TERM) {
+          #ifdef AUDIO_ENABLE
+            PLAY_NOTE_ARRAY(tone_superduper, false, 0);
+          #endif
+
+          return MACRO(D(RSFT), T(9), U(RSFT), END);
+          record->tap.count = 0;
+        } else {
+          unregister_mods(MOD_BIT(KC_LSFT));
         }
       }
       break;
