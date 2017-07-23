@@ -15,17 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#define USE_SERIAL
+#include "config_common.h"
 
-#define MASTER_LEFT
-// #define _MASTER_RIGHT
-// #define EE_HANDS
-
-
-#ifdef SUBPROJECT_v2
-    #include "../../v2/config.h"
+#ifdef SUBPROJECT_RightB
+    #include "RightB/config.h"
 #endif
-#ifdef SUBPROJECT_ProtoSplit
-    #include "../../ProtoSplit/config.h"
+#ifdef SUBPROJECT_V2
+    #include "v2/config.h"
+#endif
 #endif
