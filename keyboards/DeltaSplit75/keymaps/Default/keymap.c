@@ -1,4 +1,4 @@
-#include "DeltaSplit75.h"
+#include "deltasplit75.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 
