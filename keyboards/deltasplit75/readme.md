@@ -17,21 +17,21 @@ Files are available here: https://github.com/xyxjj/DeltaSplit75-Case-files
 Download or clone the whole firmware and navigate to the keyboards/DeltaSplit75 directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-make V2
+make v2
 
 or
 
-make ProtoSplit-ProtoSplit (if you have one of the prototype PCBs)
+make protosplit-protosplit (if you have one of the prototype PCBs)
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex files:
 
 ```
-DeltaSplit75_ProtoSplit_ProtoSplit.hex
+deltasplit75_protosplit_protosplit.hex
 
 or
 
-DeltaSplit75_V2_Default.hex
+deltasplit75_v2_default.hex
 
 ```
 
