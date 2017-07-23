@@ -1,4 +1,4 @@
-#include "DeltaSplit75.h"
+#include "deltasplit75.h"
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

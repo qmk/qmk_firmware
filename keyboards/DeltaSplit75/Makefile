@@ -1,4 +1,4 @@
-SUBPROJECT_DEFAULT = V2
+SUBPROJECT_DEFAULT = v2
 
 ifndef MAKEFILE_INCLUDED
 	include ../../Makefile
