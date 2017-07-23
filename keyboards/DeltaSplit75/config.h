@@ -24,6 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "RightB/config.h"
 #endif
 #ifdef SUBPROJECT_V2
-    #include "V2/config.h"
+    #include "v2/config.h"
 #endif
 #endif
