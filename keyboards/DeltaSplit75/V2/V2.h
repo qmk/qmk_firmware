@@ -1,7 +1,7 @@
-#ifndef V2_H
-#define V2_H
+#ifndef v2_H
+#define v2_H
 
-#include "../DeltaSplit75.h"
+#include "../deltasplit75.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
