@@ -1,5 +1,5 @@
-#ifndef v2_H
-#define v2_H
+#ifndef V2_H
+#define V2_H
 
 #include "../deltasplit75.h"
 
