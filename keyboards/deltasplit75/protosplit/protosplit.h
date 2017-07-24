@@ -1,5 +1,5 @@
-#ifndef protosplit_H
-#define protosplit_H
+#ifndef PROTOSPLIT_H
+#define PROTOSPLIT_H
 
 #include "../deltasplit75.h"
 
