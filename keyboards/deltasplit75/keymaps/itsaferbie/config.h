@@ -27,5 +27,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "../../v2/config.h"
 #endif
 #ifdef SUBPROJECT_ProtoSplit
-    #include "../../ProtoSplit/config.h"
+    #include "../../protosplit/config.h"
 #endif
