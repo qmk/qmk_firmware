@@ -98,6 +98,11 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
 endif
 
+ifeq ($(strip $(DUAL_ROLE_ENABLE)), yes)
+    OPT_DEFS += -DDUAL_ROLE_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_dual_role.c
+endif
+
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
