@@ -79,6 +79,10 @@ By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less th
 
 Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
 
+The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+
+    #define PITCH_STANDARD_A 432.0f
+
 ## MIDI functionalty
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
