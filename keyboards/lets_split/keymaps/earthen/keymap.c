@@ -34,6 +34,12 @@ extern keymap_config_t keymap_config;
 #define DELETEMARK M(5)
 #define SELECTOMARK M(6)
 
+// Tap Dance declarations
+enum {
+  TD_Y_COPY = 0,
+  TD_F_PASTE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -67,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------------------------'
  */
 [JOAN] = KEYMAP( \
-  LT(CODE,KC_ESC),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               CH_Y,               CH_F,               CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
+  LT(CODE,KC_ESC),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               TD(TD_Y_COPY),      TD(TD_F_PASTE),     CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
   LT(SYMB, KC_TAB),  SFT_T(CH_A),    CH_O,    CH_E,    CH_I,               CH_U,               CH_H,               CH_D,               CH_R,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
   SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_Z,    KC_LSFT , \
   KC_LCTL,           KC_LCTL,        KC_LALT, KC_LGUI, LT(LOWER,KC_SPC),   LT(RAISE,KC_BSPC),  LT(LOWER,KC_DELT),  LT(RAISE,KC_ENT),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
@@ -215,6 +221,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_Y_COPY] = ACTION_TAP_DANCE_DOUBLE(CH_Y, LCTL(CH_C)),
+  [TD_F_PASTE] = ACTION_TAP_DANCE_DOUBLE(CH_F, LCTL(CH_V))
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
