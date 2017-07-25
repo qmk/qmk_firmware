@@ -56,6 +56,7 @@ extern uint32_t default_layer_state;
 #endif // MIDI_ENABLE
 
 #ifdef AUDIO_ENABLE
+	#include "audio.h"
  	#include "process_audio.h"
 #endif
 
@@ -102,6 +103,8 @@ void send_string_with_delay(const char *str, uint8_t interval);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+
+void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 

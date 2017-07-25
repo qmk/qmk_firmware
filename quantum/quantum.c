@@ -30,6 +30,25 @@ extern backlight_config_t backlight_config;
 #include "fauxclicky.h"
 #endif
 
+#ifdef AUDIO_ENABLE
+  #ifndef GOODBYE_SONG
+    #define GOODBYE_SONG SONG(GOODBYE_SOUND)
+  #endif
+  #ifndef AG_NORM_SONG
+    #define AG_NORM_SONG SONG(AG_NORM_SOUND)
+  #endif
+  #ifndef AG_SWAP_SONG
+    #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
+  #endif
+  #ifndef DEFAULT_LAYER_SONGS
+    #define DEFAULT_LAYER_SONGS { }
+  #endif
+  float goodbye_song[][2] = GOODBYE_SONG;
+  float ag_norm_song[][2] = AG_NORM_SONG;
+  float ag_swap_song[][2] = AG_SWAP_SONG;
+  float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
@@ -116,9 +135,15 @@ void reset_keyboard(void) {
   clear_keyboard();
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
   music_all_notes_off();
+  uint16_t timer_start = timer_read();
+  PLAY_SONG(goodbye_song);
   shutdown_user();
-#endif
+  while(timer_elapsed(timer_start) < 250) 
+    wait_ms(1);
+  stop_all_notes();
+#else
   wait_ms(250);
+#endif
 #ifdef CATERINA_BOOTLOADER
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
 #endif
@@ -351,6 +376,9 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_SWAP_ALT_GUI:
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_ralt_rgui = true;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(ag_swap_song);
+            #endif
             break;
           case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
             keymap_config.swap_control_capslock = false;
@@ -379,6 +407,9 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_UNSWAP_ALT_GUI:
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_ralt_rgui = false;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(ag_norm_song);
+            #endif
             break;
           case MAGIC_TOGGLE_NKRO:
             keymap_config.nkro = !keymap_config.nkro;
@@ -521,6 +552,14 @@ void send_string_with_delay(const char *str, uint8_t interval) {
     }
 }
 
+void set_single_persistent_default_layer(uint8_t default_layer) {
+  #ifdef AUDIO_ENABLE
+    PLAY_SONG(default_layer_songs[default_layer]);
+  #endif
+  eeconfig_update_default_layer(1U<<default_layer);
+  default_layer_set(1U<<default_layer);
+}
+
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     layer_on(layer3);
@@ -570,6 +609,9 @@ void tap_random_base64(void) {
 void matrix_init_quantum() {
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
+  #endif
+  #ifdef AUDIO_ENABLE
+    audio_init();
   #endif
   matrix_init_kb();
 }
