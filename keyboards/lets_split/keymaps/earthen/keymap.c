@@ -145,28 +145,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [LOWER] = KEYMAP( \
-  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   _______, _______, KC_7,    KC_8,    KC_9,    KC_PAST,    _______, \
-  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   _______, _______, KC_4, KC_5,  KC_6, KC_PPLS, _______, \
-  _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   _______,    KC_0, KC_1, KC_2, KC_3, KC_PSLS, _______, \
+  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PAST,    _______, \
+  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   XXXXXXX, XXXXXXX, KC_4, KC_5,  KC_6, KC_PPLS, _______, \
+  _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   XXXXXXX,    KC_0, KC_1, KC_2, KC_3, KC_PSLS, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_DOT, CH_EQL, KC_MPLY \
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |ADJUST|  F4 |  F3  |   F2 |  F1   |      |      | HOME |  UP  |  END |  *   |      |
+ * |ADJUST| Lock|      |      |WinCls |      |INSERT| HOME |  UP  |  END |      |      |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
- * |      |  F8 |   F7 |   F6 |   F5  |      |      | LEFT | DOWN | RIGHT|   +  |  \   |
+ * |      |     |      |WinExp|AdrBar |      |TaskVw| LEFT | DOWN | RIGHT|      |      |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
- * |      |  12  | F11  |  F10 |  F9  |      |      |   1  |   2  |   3  |   /  |      |
+ * |      |      |      |PrvTab|NexTab|      |NexWin| Undo | Redo |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [RAISE] = KEYMAP( \
-  TG(ADJUST),  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_INS,    KC_HOME,    KC_UP,    KC_END,    KC_0,    KC_BSPC, \
-  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_RBRC, KC_BSLS, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  TG(ADJUST), LGUI(CH_L), XXXXXXX, XXXXXXX,            LALT(KC_F4),  XXXXXXX, KC_INS,       KC_HOME,    KC_UP,      KC_END,   XXXXXXX, _______, \
+  _______,    XXXXXXX,    XXXXXXX, KC_MYCM,            LCTL(CH_L),   XXXXXXX, LGUI(KC_TAB), KC_LEFT,    KC_DOWN,    KC_RIGHT, XXXXXXX, _______, \
+  _______,    XXXXXXX,    XXXXXXX, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), XXXXXXX, LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), XXXXXXX,  XXXXXXX, _______, \
+  _______,    _______,    _______,            _______, _______,      _______, _______,      _______,    KC_MNXT,    KC_VOLD,  KC_VOLU, KC_MPLY \
 ),
 
 /* Adjust (Lower + Raise)
@@ -181,9 +181,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [CODE] =  KEYMAP( \
-  _______, LCTL(LSFT(LALT(KC_A))),   LCTL(LSFT(LALT(KC_O))), LCTL(LSFT(LALT(KC_E))), LCTL(LSFT(LALT(KC_I))), CLOSEFILE, LCTL(CH_PARA), LSFT(KC_F3), LCTL(CH_F), KC_F3, _______, _______, \
-  _______, _______, SELECTOMARK, DELETEMARK,   MARK,  LCTL(CH_M), LCTL(LALT(CH_P)),    LCTL(CH_R),          LCTL(KC_P),    WORKINGFILES,  LCTL(KC_G),      LALT(KC_F12), \
-  _______, _______, _______, REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)), LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R), _______, \
+  _______, LCTL(LSFT(LALT(KC_A))),   LCTL(LSFT(LALT(KC_O))), LCTL(LSFT(LALT(KC_E))), LCTL(LSFT(LALT(KC_I))), CLOSEFILE, LCTL(CH_PARA), LSFT(KC_F3), LCTL(CH_F), KC_F3, XXXXXXX, _______, \
+  _______, XXXXXXX, SELECTOMARK, DELETEMARK,   MARK,  LCTL(CH_M), LCTL(LALT(CH_P)),    LCTL(CH_R),          LCTL(KC_P),    WORKINGFILES,  LCTL(KC_G),      LALT(KC_F12), \
+  _______, XXXXXXX, XXXXXXX, REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)), LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 /*
@@ -209,9 +209,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [ADJUST] =  KEYMAP( \
-  _______, RESET , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, TO(QWERTY),  TO(JOAN), TO(MARC),  _______, _______, \
-  _______, _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, \
+  _______, RESET , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, KC_DEL, \
+  _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, TO(QWERTY),  TO(JOAN), TO(MARC),  XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
