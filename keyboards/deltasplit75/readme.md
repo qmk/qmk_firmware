@@ -14,10 +14,14 @@ Files are available here: https://github.com/xyxjj/DeltaSplit75-Case-files
 
 ## First Time Setup
 
-Download or clone the whole firmware and navigate to the keyboards/DeltaSplit75 directory. Once your dev env is setup, you'll be able to generate the default .hex using:
+Download or clone the whole firmware and navigate to the keyboards/deltasplit75 directory. Once your dev env is setup, you'll be able to generate the default .hex using:
 
 ```
-make v2
+make v2-default
+
+or
+
+make v2-YOUR_KEYMAP_NAME
 
 or
 
@@ -28,6 +32,10 @@ You will see a lot of output and if everything worked correctly you will see the
 
 ```
 deltasplit75_protosplit_protosplit.hex
+
+or
+
+deltasplit74_v2_YOUR_KEYMAP_NAME.hex
 
 or
 
