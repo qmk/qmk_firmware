@@ -25,6 +25,15 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// Macros
+#define CLOSEFILE M(0)
+#define COPYPATH M(1)
+#define REVEAL M(2)
+#define WORKINGFILES M(3)
+#define MARK M(4)
+#define DELETEMARK M(5)
+#define SELECTOMARK M(6)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -47,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* JOAN
  * ,---------------------------------------------------------------------------------------.
- * |Tab/CODE|   ü  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   T  |   Z  |PtS/Code|
+ * |Esc/CODE|   ü  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   T  |   Z  |PtS/Code|
  * |--------+------+------+------+------+-------------+------+------+------+------+--------|
- * |Esc/SYMB|   A  |   O  |   E  |   I  |   U  |   H  |   D  |   R  |   N  |   S  |L/SYMB  |
+ * |Tab/SYMB|   A  |   O  |   E  |   I  |   U  |   H  |   D  |   R  |   N  |   S  |L/SYMB  |
  * |--------+------+------+------+------+------|------+------+------+------+------+--------|
  * |ä/Shift |   ö  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   -  | Shift  |
  * |--------+------+------+------+------+------+------+------+------+------+------+--------|
@@ -58,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------------------------------------------------------------------------------'
  */
 [JOAN] = KEYMAP( \
-  LT(CODE,KC_TAB),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               CH_Y,               CH_F,               CH_G,               CH_C,    CH_R,    CH_Z,    LT(CODE,KC_PSCR), \
-  LT(SYMB, KC_ESC),  SFT_T(CH_A),    CH_O,    CH_E,    CH_U,               CH_I,               CH_D,               CH_H,               CH_T,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
+  LT(CODE,KC_ESC),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               CH_Y,               CH_F,               CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
+  LT(SYMB, KC_TAB),  SFT_T(CH_A),    CH_O,    CH_E,    CH_I,               CH_U,               CH_H,               CH_D,               CH_R,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
   SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_Z,    KC_LSFT , \
   KC_LCTL,           KC_LCTL,        KC_LALT, KC_LGUI, LT(LOWER,KC_SPC),   LT(RAISE,KC_BSPC),  LT(LOWER,KC_DELT),  LT(RAISE,KC_ENT),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
@@ -102,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Symbol
  * ,-----------------------------------------------------------------------------------.
- * |      |   !  |   @  |   {  |   }  |   |  |   ç |   "  |   '  |   &   |  *   | Bksp |
+ * |      |   !  |   @  |   {  |   }  |   |  |   ç |   "  |   '  |   &   |  *   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   #  |   $  |   (  |   )  |   `  |  ´   |   \  |   /  |   ?  |   +  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -112,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [SYMB] = KEYMAP( \
-  _______, CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_QST, KC_BSPC, \
+  _______, CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_QST, _______, \
   _______,  CH_HASH,CH_DLR, CH_LPRN,CH_RPRN,CH_GRV,  CH_ACUT, CH_BSLS,   CH_SLSH,    CH_PAST,    CH_EQL,  _______, \
   _______, CH_PERC,CH_CARR,CH_LBRC,CH_RBRC,CH_TILD, CH_PARA, CH_LESS,   CH_MORE,    CH_PLUS,    KC_AMPR,  _______, \
   _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY \
@@ -130,16 +139,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
  * |      |  F8 |   F7 |   F6 |   F5  |      |      |   4  |   5  |   6  |   +  |      |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
- * |      |  12  | F11  |  F10 |  F9  |      |      |   1  |   2  |   3  |   /  |      |
+ * |      |  12  | F11  |  F10 |  F9  |      |   0  |   1  |   2  |   3  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |             |      | Next |   .  |   =  | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [LOWER] = KEYMAP( \
-  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   _______, _______, KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   _______, _______, KC_4, KC_5,  KC_6, KC_EQL, _______, \
-  _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   _______,    KC_0, KC_1, KC_2, KC_3, KC_PGDN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   _______, _______, KC_7,    KC_8,    KC_9,    KC_PAST,    _______, \
+  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   _______, _______, KC_4, KC_5,  KC_6, KC_PPLS, _______, \
+  _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   _______,    KC_0, KC_1, KC_2, KC_3, KC_PSLS, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_DOT, CH_EQL, KC_MPLY \
 ),
 
 /* Raise
@@ -162,19 +171,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
+ * |      |UnfolA|FoldA |UnfolS|FoldS |CloseF|Coment|F_Prev| Find |F_Next|      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |SeltoM|DelMark| Mark |JFunc| LProj|G_Symb|G_File|LWorkF|G_Line|PeekDef|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |Reveal|CopyPh|DeLine|S_Srnk|S_Expd| MCase| MWord|MRegex|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [CODE] =  KEYMAP( \
-  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, LCTL(LSFT(LALT(KC_A))),   LCTL(LSFT(LALT(KC_O))), LCTL(LSFT(LALT(KC_E))), LCTL(LSFT(LALT(KC_I))), CLOSEFILE, LCTL(CH_PARA), LSFT(KC_F3), LCTL(CH_F), KC_F3, _______, _______, \
+  _______, _______, SELECTOMARK, DELETEMARK,   MARK,  LCTL(CH_M), LCTL(LALT(CH_P)),    LCTL(CH_R),          LCTL(KC_P),    WORKINGFILES,  LCTL(KC_G),      LALT(KC_F12), \
+  _______, _______, _______, REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)), LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 /*
@@ -208,3 +217,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  switch(id) {
+    case 0: { // CLOSEFILE
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), U(LCTL), T(W), END);
+      }
+      break;
+    }
+    case 1: { // Copy Path of Active File
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), U(LCTL), T(P), END);
+      }
+      break;
+    }
+    case 2: { // Reveal Active File in Windows
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), U(LCTL), T(R), END);
+      }
+      break;
+    }
+    case 3: { // List Working Files
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), T(P), U(LCTL), END);
+      }
+      break;
+    }
+    case 4: { // Set Mark
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), T(SPC), U(LCTL), END);
+      }
+      break;
+    }
+    case 5: { // Remove Mark
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), T(G), U(LCTL), END);
+      }
+      break;
+    }
+    case 6: { // Mark til mark
+      if (record->event.pressed){
+        return MACRO( D(LCTL), T(K), T(A), U(LCTL), END);
+      }
+      break;
+    }
+  }
+  return MACRO_NONE;
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+
+  uint8_t layer = biton32(layer_state);
+
+  switch (layer) {
+    case LOWER:
+      //COLOR 1
+      break;
+    case SYMB:
+    case SYMBUS:
+      //COLOR 2
+      break;
+    case RAISE:
+      //COLOR 3
+      break;
+    case CODE:
+      //COLOR 4
+      break;
+    default:
+      // none
+      break;
+  }
+  
+};
