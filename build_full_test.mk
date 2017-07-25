@@ -21,12 +21,13 @@ $(TEST)_SRC= \
 	$(TEST_PATH)/keymap.c \
 	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
+	$(SRC) \
 	tests/test_common/matrix.c \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
 	tests/test_common/test_fixture.cpp
 $(TEST)_SRC += $(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
 
-$(TEST)_DEFS=$(TMK_COMMON_DEFS)
+$(TEST)_DEFS=$(TMK_COMMON_DEFS) $(OPT_DEFS)
 $(TEST)_CONFIG=$(TEST_PATH)/config.h
 VPATH+=$(TOP_DIR)/tests/test_common
