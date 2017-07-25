@@ -1,52 +1,52 @@
 
 ## Audio output from a speaker
 
-Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
+Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to the C6 or B5 port (`#define C6_AUDIO` and/or `#define B5_AUDIO`), you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
-The audio code lives in [quantum/audio/audio.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/audio.h) and in the other files in the audio directory. It's enabled by default on the Planck [stock keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/planck/keymaps/default/keymap.c). Here are the important bits:
-
-```
-#include "audio.h"
-```
-
-Then, lower down the file:
+If you add `AUDIO_ENABLE = yes` to your `rules.mk`, there's a couple different sounds that will automatically be enabled without any other configuration:
 
 ```
-float tone_startup[][2] = {
-    ED_NOTE(_E7 ),
-    E__NOTE(_CS7),
-    E__NOTE(_E6 ),
-    E__NOTE(_A6 ),
-    M__NOTE(_CS7, 20)
-};
+STARTUP_SONG // plays when the keyboard starts up (audio.c)
+GOODBYE_SONG // plays when you press the RESET key (quantum.c)
+AG_NORM_SONG // plays when you press AG_NORM (quantum.c)
+AG_SWAP_SONG // plays when you press AG_SWAP (quantum.c)
+MUSIC_ON_SONG // plays when music mode is activated (process_music.c)
+MUSIC_OFF_SONG // plays when music mode is deactivated (process_music.c)
+CHROMATIC_SONG // plays when the chromatic music mode is selected (process_music.c)
+GUITAR_SONG // plays when the guitar music mode is selected (process_music.c)
+VIOLIN_SONG // plays when the violin music mode is selected (process_music.c)
+MAJOR_SONG // plays when the major music mode is selected (process_music.c)
 ```
 
-This is how you write a song. Each of these lines is a note, so we have a little ditty composed of five notes here.
+You can override the default songs by doing something like this in your `config.h`:
 
-Then, we have this chunk:
-
-```
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-
-float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
-float goodbye[][2] = SONG(GOODBYE_SOUND);
+```c
+#ifdef AUDIO_ENABLE
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
 ```
 
-Wherein we bind predefined songs (from [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h)) into named variables. This is one optimization that helps save on memory: These songs only take up memory when you reference them in your keymap, because they're essentially all preprocessor directives.
+A full list of sounds can be found in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) - feel free to add your own to this list! All available notes can be seen in [quantum/audio/musical_notes.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/musical_notes.h).
 
-So now you have something called `tone_plover` for example. How do you make it play the Plover tune, then? If you look further down the keymap, you'll see this:
+To play a custom sound at a particular time, you can define a song like this (near the top of the file):
 
+```c
+float my_song[][2] = SONG(QWERTY_SOUND);
 ```
-PLAY_NOTE_ARRAY(tone_plover, false, 0); // Signature is: Song name, repeat, rest style
+
+And then play your song like this:
+
+```c
+PLAY_SONG(my_song);
 ```
 
-This is inside one of the macros. So when that macro executes, your keyboard plays that particular chime.
+Alternatively, you can play it in a loop like this:
 
-"Rest style" in the method signature above (the last parameter) specifies if there's a rest (a moment of silence) between the notes.
+```c
+PLAY_LOOP(my_song);
+```
+
+It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
 ## Music mode
 
@@ -59,6 +59,11 @@ Keycodes available:
 * `MU_ON` - Turn music mode on
 * `MU_OFF` - Turn music mode off
 * `MU_TOG` - Toggle music mode
+* `MU_MOD` - Cycle through the music modes:
+  * `CHROMATIC_MODE` - Chromatic scale, row changes the octave
+  * `GUITAR_MODE` - Chromatic scale, but the row changes the string (+5 st)
+  * `VIOLIN_MODE` - Chromatic scale, but the row changes the string (+7 st)
+  * `MAJOR_MODE` - Major scale
 
 In music mode, the following keycodes work differently, and don't pass through:
 
@@ -67,6 +72,16 @@ In music mode, the following keycodes work differently, and don't pass through:
 * `LGUI` - play recording
 * `KC_UP` - speed-up playback
 * `KC_DOWN` - slow-down playback
+
+By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less than `0xFF` are turned into notes, and don't output anything. You can change this by defining this in your `config.h` like this:
+
+    #define MUSIC_MASK keycode != KC_NO
+
+Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
+
+The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
+
+    #define PITCH_STANDARD_A 432.0f
 
 ## MIDI functionalty
 
