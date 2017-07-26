@@ -62,21 +62,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* JOAN
  * ,---------------------------------------------------------------------------------------.
- * |Esc/CODE|   ü  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   T  |   Z  |PtS/Code|
+ * | § /CODE|   ü  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   T  |   Z  |PtS/Code|
  * |--------+------+------+------+------+-------------+------+------+------+------+--------|
  * |Tab/SYMB|   A  |   O  |   E  |   I  |   U  |   H  |   D  |   R  |   N  |   S  |L/SYMB  |
  * |--------+------+------+------+------+------|------+------+------+------+------+--------|
- * |ä/Shift |   ö  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   -  | Shift  |
+ * |ä/Shift |   ö  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   -  |Shift/ESC|
  * |--------+------+------+------+------+------+------+------+------+------+------+--------|
- * | Ctrl   | Ctrl | Alt  | GUI  |Space/| Bksp/| Del/ |Enter/| Left | Down |  Up  |Right   |
+ * | Ctrl   | Alt  | GUI  |MOUSE |Space/| Bksp/| Del/ |Enter/| Up   | Down | Left |Right   |
  * |        |      |      |      | RAISE| LOWER| RAISE| LOWER|      |      |      |        |
  * `---------------------------------------------------------------------------------------'
  */
 [JOAN] = KEYMAP( \
-  LT(CODE,KC_ESC),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               TD(TD_Y_COPY),      TD(TD_F_PASTE),     CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
+  LT(CODE,CH_PARA),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               TD(TD_Y_COPY),      TD(TD_F_PASTE),     CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
   LT(SYMB, KC_TAB),  SFT_T(CH_A),    CH_O,    CH_E,    CH_I,               CH_U,               CH_H,               CH_D,               CH_R,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
-  SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_Z,    KC_LSFT , \
-  KC_LCTL,           KC_LCTL,        KC_LALT, KC_LGUI, LT(LOWER,KC_SPC),   LT(RAISE,KC_BSPC),  LT(LOWER,KC_DELT),  LT(RAISE,KC_ENT),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+  SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_MINS, SFT_T(KC_ESC) , \
+  KC_LCTL,           KC_LALT,        KC_LGUI, TT(MOUSE), LT(RAISE,KC_BSPC),  LT(LOWER,KC_SPC),  LT(RAISE,KC_ENT),  LT(LOWER,KC_DELT),   KC_UP, KC_DOWN, KC_LEFT,   KC_RGHT \
 ),
 /* Marc
  * ,-----------------------------------------------------------------------------------.
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Enter |
+ * | Ctrl | Alt  | GUI  |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -94,24 +94,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,             KC_G,              KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
   LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,             KC_H,              KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
   KC_LSFT,           KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,           KC_LALT, KC_RGUI, LT(MOUSE, KC_LEFT), LT(LOWER,KC_BSPC), LT(RAISE,KC_ENT), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_DOWN, KC_RGUI, KC_ENT \
+  KC_LCTL,           KC_LALT, KC_RGUI, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_ENT), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_DOWN, KC_RGUI, KC_LCTL \
                   ),
 
-/* Raise
+/* Mouse
  * ,-----------------------------------------------------------------------------------.
- * |ADJUST|  F4 |  F3  |   F2 |  F1   |      |      | HOME |  UP  |  END |  *   |      |
+ * |ADJUST|     |      |      |  ESC  |COPY  |      | HOME |  UP  |  END |  *   |      |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
- * |      |  F8 |   F7 |   F6 |   F5  |      |      | LEFT | DOWN | RIGHT|   +  |  \   |
+ * |      |     |      |MOUSE2| MOUSE1|CUT   |      | LEFT | DOWN | RIGHT|   +  |      |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
- * |      |  12  | F11  |  F10 |  F9  |      |      |   1  |   2  |   3  |   /  |      |
+ * |      |      |      |DELETE| ENTER| PASTE|      |   1  |   2  |   3  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [MOUSE] = KEYMAP( \
-  TG(ADJUST),  _______, _______, _______, _______, _______, _______, KC_BTN1,    KC_MS_UP, KC_BTN2,_______,_______, \
-  _______, _______, _______, _______, _______, _______, _______, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, \
+  TG(ADJUST),  XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, LCTL(KC_C), XXXXXXX, KC_WH_U,    KC_MS_UP, KC_WH_D,XXXXXXX,_______, \
+  _______, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, LCTL(KC_X), KC_WH_L, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_WH_R, _______, \
+  _______, XXXXXXX, XXXXXXX, KC_DELT, KC_ENT, LCTL(KC_P), XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______,_______, _______, _______, _______ \
 ),
 
@@ -123,56 +123,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   %  |   ^  |   [  |   ]  |   ~  |   §  |   <  |   >  |      |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [SYMB] = KEYMAP( \
-  _______, CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_QST, _______, \
-  _______,  CH_HASH,CH_DLR, CH_LPRN,CH_RPRN,CH_GRV,  CH_ACUT, CH_BSLS,   CH_SLSH,    CH_PAST,    CH_EQL,  _______, \
-  _______, CH_PERC,CH_CARR,CH_LBRC,CH_RBRC,CH_TILD, CH_PARA, CH_LESS,   CH_MORE,    CH_PLUS,    KC_AMPR,  _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY \
+  _______, CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, _______, \
+  _______,  CH_HASH,CH_DLR, CH_LPRN,CH_RPRN,CH_GRV,  CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS,  _______, \
+  _______, CH_PERC,CH_CARR,CH_LBRC,CH_RBRC,CH_TILD, CH_PARA, CH_LESS,   CH_MORE,    CH_PLUS,    KC_PSLS,  _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______ \
 ),
 
 [SYMBUS] = KEYMAP( \
   _______, KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE, LSFT(KC_4),   LSFT(KC_2),   KC_QUOT,    KC_AMPR,    KC_ASTR, KC_BSPC, \
-  _______,  KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV, ALGR(KC_MINS), KC_BSLS,   KC_SLSH,    KC_PAST,    KC_EQL,  _______, \
-  _______, KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD, LSFT(KC_DOT), LSFT(KC_COMMA), LSFT(KC_DOT) ,    KC_PLUS,    KC_AMPR,  _______, \
+  _______,  KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV, ALGR(KC_MINS), KC_BSLS,   KC_SLSH,    KC_PAST,    KC_PPLS,  _______, \
+  _______, KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD, LSFT(KC_DOT), LSFT(KC_COMMA), LSFT(KC_DOT) ,    KC_PLUS,    KC_PSLS,  _______, \
   _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY \
 ),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |  F4 |  F3  |   F2 |  F1   |      |      |   7  |   8  |   9  |  *   |      |
+ * |      |  F4 |  F3  |   F2 |  F1   |      |  DEL |   7  |   8  |   9  |  *   |      |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
- * |      |  F8 |   F7 |   F6 |   F5  |      |      |   4  |   5  |   6  |   +  |      |
+ * |      |  F8 |   F7 |   F6 |   F5  |      |      |   4  |   5  |   6  |   +  |  -   |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
  * |      |  12  | F11  |  F10 |  F9  |      |   0  |   1  |   2  |   3  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next |   .  |   =  | Play |
+ * |      |      |      |      |      |             |      |  ,   |   .  |   =  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [LOWER] = KEYMAP( \
-  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_PAST,    _______, \
-  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   XXXXXXX, XXXXXXX, KC_4, KC_5,  KC_6, KC_PPLS, _______, \
+  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   XXXXXXX, KC_DELT, KC_7,    KC_8,    KC_9,    KC_PAST,    _______, \
+  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   XXXXXXX, XXXXXXX, KC_4, KC_5,  KC_6, KC_PPLS, KC_PMNS, \
   _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   XXXXXXX,    KC_0, KC_1, KC_2, KC_3, KC_PSLS, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_DOT, CH_EQL, KC_MPLY \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_PCMM, KC_DOT, CH_EQL, _______ \
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |ADJUST| Lock|      |      |WinCls |      |INSERT| HOME |  UP  |  END |      |      |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
- * |      |     |      |WinExp|AdrBar |      |TaskVw| LEFT | DOWN | RIGHT|      |      |
+ * |      |     | Run  |WinExp|AdrBar |      |TaskVw| LEFT | DOWN | RIGHT|      |      |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
  * |      |      |      |PrvTab|NexTab|      |NexWin| Undo | Redo |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [RAISE] = KEYMAP( \
   TG(ADJUST), LGUI(CH_L), XXXXXXX, XXXXXXX,            LALT(KC_F4),  XXXXXXX, KC_INS,       KC_HOME,    KC_UP,      KC_END,   XXXXXXX, _______, \
-  _______,    XXXXXXX,    XXXXXXX, KC_MYCM,            LCTL(CH_L),   XXXXXXX, LGUI(KC_TAB), KC_LEFT,    KC_DOWN,    KC_RIGHT, XXXXXXX, _______, \
+  _______,    XXXXXXX,    LGUI(KC_R), KC_MYCM,            LCTL(CH_L),   XXXXXXX, LGUI(KC_TAB), KC_LEFT,    KC_DOWN,    KC_RIGHT, XXXXXXX, _______, \
   _______,    XXXXXXX,    XXXXXXX, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), XXXXXXX, LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), XXXXXXX,  XXXXXXX, _______, \
-  _______,    _______,    _______,            _______, _______,      _______, _______,      _______,    KC_MNXT,    KC_VOLD,  KC_VOLU, KC_MPLY \
+  _______,    _______,    _______,            _______, _______,      _______, _______,      _______,    _______,    _______,  _______, _______ \
 ),
 
 /* Adjust (Lower + Raise)

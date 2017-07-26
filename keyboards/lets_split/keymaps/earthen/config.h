@@ -41,9 +41,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_DELAY 0
 /* Select hand configuration */
 
+// Tap Toogle layer
+#define TAPPING_TOGGLE 1
+
 #define MASTER_LEFT
 // #define _MASTER_RIGHT
 // #define EE_HANDS
 
 #define TAPPING_TERM    175
+
+#define PERMISSIVE_HOLD
 #endif
