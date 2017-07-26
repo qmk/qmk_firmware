@@ -2,6 +2,7 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "keymap_extras/keymap_german_ch.h"
+#include "ws2812.h"
 
 extern keymap_config_t keymap_config;
 
@@ -111,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MOUSE] = KEYMAP( \
   TG(ADJUST),  XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, LCTL(KC_C), XXXXXXX, KC_WH_U,    KC_MS_UP, KC_WH_D,XXXXXXX,_______, \
   _______, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, LCTL(KC_X), KC_WH_L, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_WH_R, _______, \
-  _______, XXXXXXX, XXXXXXX, KC_DELT, KC_ENT, LCTL(KC_P), XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, KC_DELT, KC_ENT, LCTL(KC_V), XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______,_______, _______, _______, _______ \
 ),
 
@@ -205,9 +206,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|LOnOff|LedMod|      |      |      |      | led- | led+ |      | Del  |
+ * |      | Reset|      |      |      |      |      |      | led- | led+ |      | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |      |      |      |      |Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -216,8 +217,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADJUST] =  KEYMAP( \
   _______, RESET , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, KC_DEL, \
-  _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, TO(QWERTY),  TO(JOAN), TO(MARC),  XXXXXXX, _______, \
-  _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, TO(QWERTY),  XXXXXXX, TO(MARC),  XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(JOAN), XXXXXXX, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
@@ -277,6 +278,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
+
+struct cRGB led[RGBLED_NUM];
+void rgbsps_set(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
+  led[index].r = r;
+  led[index].g = g;
+  led[index].b = b;
+}
+void rgbsps_setall(uint8_t r, uint8_t g, uint8_t b) {
+  for (uint16_t i = 0; i < RGBLED_NUM; i++) {
+    rgbsps_set(i, r, g, b);
+  }
+}
+
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
@@ -284,21 +299,29 @@ void matrix_scan_user(void) {
 
   switch (layer) {
     case LOWER:
-      //COLOR 1
+    rgbsps_setall(0,255,0);
       break;
     case SYMB:
     case SYMBUS:
-      //COLOR 2
+      rgbsps_setall(255,165,0); // yellow
       break;
     case RAISE:
-      //COLOR 3
+      rgbsps_setall(0,0,255); //blue
       break;
     case CODE:
-      //COLOR 4
+      rgbsps_setall(255,0,255); // lila
+      break;
+    case MOUSE:
+      rgbsps_setall(160,50,0); //orange
+      break;
+    case ADJUST:
+      rgbsps_setall(255,0,0); // red
       break;
     default:
+      rgbsps_setall(255,255,255); // white
       // none
       break;
   }
+      ws2812_setleds(led, RGBLED_NUM);
   
 };
