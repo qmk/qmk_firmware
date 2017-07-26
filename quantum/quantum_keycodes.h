@@ -71,6 +71,10 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
+#ifdef STENO_ENABLE
+    QK_STENO              = 0x5900,
+    QK_STENO_MAX          = 0x593F,
+#endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
