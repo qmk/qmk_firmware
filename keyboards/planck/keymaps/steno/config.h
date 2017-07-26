@@ -3,17 +3,19 @@
 
 #include "../../config.h"
 
-#define LEADER_TIMEOUT 300
-#define BACKLIGHT_BREATHING
+#ifdef AUDIO_ENABLE
+    #define STARTUP_SONG SONG(PLANCK_SOUND)
+    // #define STARTUP_SONG SONG(NO_SOUND)
+
+    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                  SONG(COLEMAK_SOUND), \
+                                  SONG(DVORAK_SOUND) \
+                                }
+#endif
+
+#define MUSIC_MASK (keycode != KC_NO)
+
 #define PREVENT_STUCK_MODIFIERS
-
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B1
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 /*
  * MIDI options
@@ -25,6 +27,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
+
 #define MIDI_BASIC
 
 /* enable advanced MIDI features:
