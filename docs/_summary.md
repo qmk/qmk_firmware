@@ -1,4 +1,4 @@
-* [Getting started](README.md) 
+* [Getting started](README.md)
   * [QMK Overview](qmk_overview.md)
   * [Build Environment Setup](build_environment_setup.md)
     * [Vagrant Guide](vagrant_guide.md)
@@ -16,6 +16,7 @@
   * [Tap Dance](tap_dance.md)
   * [Mouse keys](mouse_keys.md)
   * [Unicode](unicode.md)
+  * [Stenography](stenography.md)
 
 * Reference
   * [Glossary](glossary.md)
@@ -27,7 +28,7 @@
   * [Customizing Functionality](custom_quantum_functions.md)
   * [Documentation Best Practices](documentation_best_practices.md)
   * [Unit Testing](unit_testing.md)
-  
+
 * For Makers and Modders
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
   * [Adding features to QMK](adding_features_to_qmk.md)
@@ -39,7 +40,7 @@
 * For a Deeper Understanding
   * [How Keyboards Work](basic_how_keyboards_work.md)
   * [Understanding QMK](understanding_qmk.md)
-  
+
 * Other Topics
   * [General FAQ](faq.md)
   * [Using Eclipse with QMK](eclipse.md)
