@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#ifdef SUBPROJECT_RightB
-    #include "RightB/config.h"
+#ifdef SUBPROJECT_protosplit
+    #include "protosplit/config.h"
 #endif
-#ifdef SUBPROJECT_V2
+#ifdef SUBPROJECT_v2
     #include "v2/config.h"
 #endif
 #endif
