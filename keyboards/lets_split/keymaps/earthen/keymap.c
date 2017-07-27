@@ -26,6 +26,9 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// leds status
+bool RGB_LIGHT_STATUS = true;
+
 // Macros
 #define CLOSEFILE M(0)
 #define COPYPATH M(1)
@@ -77,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(CODE,CH_PARA),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               TD(TD_Y_COPY),      TD(TD_F_PASTE),     CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
   LT(SYMB, KC_TAB),  SFT_T(CH_A),    CH_O,    CH_E,    CH_I,               CH_U,               CH_H,               CH_D,               CH_R,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
   SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_MINS, SFT_T(KC_ESC) , \
-  KC_LCTL,           KC_LALT,        KC_LGUI, TT(MOUSE), LT(RAISE,KC_BSPC),  LT(LOWER,KC_SPC),  LT(RAISE,KC_ENT),  LT(LOWER,KC_DELT),   KC_UP, KC_DOWN, KC_LEFT,   KC_RGHT \
+  KC_LCTL,           KC_LALT,        KC_LGUI, TT(MOUSE), LT(RAISE,KC_BSPC),  LT(LOWER,KC_SPC),  LT(RAISE,KC_ENT),  LT(LOWER,KC_DELT),   LT(MOUSE,KC_UP), KC_DOWN, RGB_TOG,   RCTL_T(KC_CAPS) \
 ),
 /* Marc
  * ,-----------------------------------------------------------------------------------.
@@ -95,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,             KC_G,              KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
   LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,             KC_H,              KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
   KC_LSFT,           KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,           KC_LALT, KC_RGUI, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_ENT), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_DOWN, KC_RGUI, KC_LCTL \
+  KC_LCTL,           KC_LALT, KC_RGUI, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_ENT), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_DOWN, KC_RGUI, RCTL_T(KC_CAPS) \
                   ),
 
 /* Mouse
@@ -278,6 +281,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
+// this runs on key pressed
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RGB_TOG: {
+      // capture one press, otherway it will enter here multiple times
+      if (record->event.pressed) {
+        RGB_LIGHT_STATUS = RGB_LIGHT_STATUS ? false : true;
+      }
+      break;
+    }
+  }
+  return true;
+}
 
 struct cRGB led[RGBLED_NUM];
 void rgbsps_set(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
@@ -318,10 +334,14 @@ void matrix_scan_user(void) {
       rgbsps_setall(255,0,0); // red
       break;
     default:
-      rgbsps_setall(255,255,255); // white
-      // none
+      if (RGB_LIGHT_STATUS)
+      {
+        rgbsps_setall(255,255,255); // white
+      }
+      else {
+        rgbsps_setall(0,0,0); // none
+      }
       break;
   }
-      ws2812_setleds(led, RGBLED_NUM);
-  
+  ws2812_setleds(led, RGBLED_NUM);
 };
