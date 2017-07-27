@@ -1,5 +1,5 @@
-#ifndef deltasplit75_H
-#define deltasplit75_H
+#ifndef DELTASPLIT75_H
+#define DELTASPLIT75_H
 
 #ifdef SUBPROJECT_v2
     #include "v2.h"
