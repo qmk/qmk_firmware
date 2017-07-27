@@ -47,7 +47,7 @@ void matrix_init_user() {
 
 Once you have your keyboard flashed launch Plover. Click the 'Configure...' button. In the 'Machine' tab select the Stenotype Machine that corresponds to your desired protocol. Click the 'Configure...' button on this tab and enter the serial port or click 'Scan'. Baud rate is fine at 9600 (although you should be able to set as high as 115200 with no issues). Use the default settings for everything else (Data Bits: 8, Stop Bits: 1, Parity: N, no flow control).
 
-On the display tab click 'Open stroke display'. With Plover disables you should be able to hit keys on your keyboard and see them show up in the stroke display window. Use this to make sure you have set up your keymap correctly. You are now ready to steno!
+On the display tab click 'Open stroke display'. With Plover disabled you should be able to hit keys on your keyboard and see them show up in the stroke display window. Use this to make sure you have set up your keymap correctly. You are now ready to steno!
 
 ## Learning Stenography
 
