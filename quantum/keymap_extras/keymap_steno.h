@@ -18,8 +18,12 @@
 
 #include "keymap.h"
 
+// List of keycodes for the steno keyboard. To prevent
+// errors, this must be <= 42 total entries in order to
+// support the GeminiPR protocol.
 enum steno_keycodes {
-  STN_FN  = QK_STENO,
+  STN__MIN = QK_STENO,
+  STN_FN  = STN__MIN,
   STN_NUM,
   STN_N1 = STN_NUM,
   STN_N2,
@@ -65,7 +69,8 @@ enum steno_keycodes {
   STN_NA,
   STN_NB,
   STN_NC,
-  STN_ZR
+  STN_ZR,
+  STN__MAX = STN_ZR, // must be less than QK_STENO_BOLT
 };
 
 #endif
