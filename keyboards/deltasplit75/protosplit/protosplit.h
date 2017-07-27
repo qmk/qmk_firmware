@@ -1,7 +1,7 @@
 #ifndef PROTOSPLIT_H
 #define PROTOSPLIT_H
 
-#include "../deltasplit75.h"
+#include "deltasplit75.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
