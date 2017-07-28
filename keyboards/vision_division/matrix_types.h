@@ -139,28 +139,29 @@
 
 // Changable Row Macro
 
-#define KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, \
+#define _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, \
   k001, k002, k003, k004, k005, k006, k007, k008, k009, k00A, k00B, k00C, k011, k012, k013, k014, k015, k016, k017, k018, k019, k01A, k01B, k01C \
 ) \
-KEYMAP_ROW_LEFT_ ## LEFT_TYPE(k001, k002, k003, k004, k005, k006, k007, k008, k009, k00A, k00B, k00C), KEYMAP_ROW_RIGHT_ ## RIGHT_TYPE(k011, k012, k013, k014, k015, k016, k017, k018, k019, k01A, k01B, k01C)
+KEYMAP_ROW_LEFT_ ## _LEFT_TYPE(   k001, k002, k003, k004, k005, k006, k007, k008, k009, k00A, k00B, k00C ), \
+KEYMAP_ROW_RIGHT_ ## _RIGHT_TYPE( k011, k012, k013, k014, k015, k016, k017, k018, k019, k01A, k01B, k01C )
 
 // Changable Master Macro
 
-#define KEYMAP_MASTER(LEFT_TYPE, RIGHT_TYPE, \
-      k001, k002, k003, k004,       k005, k006, k007, k008, k009, k00A, k00B, k00C, k011, k012, k013, k014, k015, k016, k017, k018,       k019, k01A, k01B, k01C, \
-      k101, k102, k103, k104,       k105, k106, k107, k108, k109, k10A, k10B, k10C, k111, k112, k113, k114, k115, k116, k117, k118,       k119, k11A, k11B, k11C, \
-      k201, k202, k203, k204,       k205, k206, k207, k208, k209, k20A, k20B, k20C, k211, k212, k213, k214, k215, k216, k217, k218,       k219, k21A, k21B, k21C, \
-      k301, k302, k303, k304,       k305, k306, k307, k308, k309, k30A, k30B, k30C, k311, k312, k313, k314, k315, k316, k317, k318,       k319, k31A, k31B, k31C, \
-      k401, k402, k403, k404,       k405, k406, k407, k408, k409, k40A, k40B, k40C, k411, k412, k413, k414, k415, k416, k417, k418,       k419, k41A, k41B, k41C, \
-      k501, k502, k503, k504,       k505, k506, k507, k508, k509, k50A, k50B, k50C, k511, k512, k513, k514, k515, k516, k517, k518,       k519, k51A, k51B, k51C  \
+#define KEYMAP_MASTER(_MATRIX_LAYER, _LEFT_TYPE, _RIGHT_TYPE, \
+                                            k001, k002, k003, k004,       k005, k006, k007, k008, k009, k00A, k00B, k00C,       k011, k012, k013, k014, k015, k016, k017, k018,       k019, k01A, k01B, k01C, \
+                                            k101, k102, k103, k104,       k105, k106, k107, k108, k109, k10A, k10B, k10C,       k111, k112, k113, k114, k115, k116, k117, k118,       k119, k11A, k11B, k11C, \
+                                            k201, k202, k203, k204,       k205, k206, k207, k208, k209, k20A, k20B, k20C,       k211, k212, k213, k214, k215, k216, k217, k218,       k219, k21A, k21B, k21C, \
+                                            k301, k302, k303, k304,       k305, k306, k307, k308, k309, k30A, k30B, k30C,       k311, k312, k313, k314, k315, k316, k317, k318,       k319, k31A, k31B, k31C, \
+                                            k401, k402, k403, k404,       k405, k406, k407, k408, k409, k40A, k40B, k40C,       k411, k412, k413, k414, k415, k416, k417, k418,       k419, k41A, k41B, k41C, \
+                                            k501, k502, k503, k504,       k505, k506, k507, k508, k509, k50A, k50B, k50C,       k511, k512, k513, k514, k515, k516, k517, k518,       k519, k51A, k51B, k51C  \
 ) \
-{ \
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k001, k002, k003, k004, k005, k006, k007, k008, k009, k00A, k00B, k00C, k011, k012, k013, k014, k015, k016, k017, k018, k019, k01A, k01B, k01C ) },\
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k101, k102, k103, k104, k105, k106, k107, k108, k109, k10A, k10B, k10C, k111, k112, k113, k114, k115, k116, k117, k118, k119, k11A, k11B, k11C ) },\
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k201, k202, k203, k204, k205, k206, k207, k208, k209, k20A, k20B, k20C, k211, k212, k213, k214, k215, k216, k217, k218, k219, k21A, k21B, k21C ) },\
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k301, k302, k303, k304, k305, k306, k307, k308, k309, k30A, k30B, k30C, k311, k312, k313, k314, k315, k316, k317, k318, k319, k31A, k31B, k31C ) },\
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k401, k402, k403, k404, k405, k406, k407, k408, k409, k40A, k40B, k40C, k411, k412, k413, k414, k415, k416, k417, k418, k419, k41A, k41B, k41C ) },\
-    { KEYMAP_ROW(LEFT_TYPE, RIGHT_TYPE, k501, k502, k503, k504, k505, k506, k507, k508, k509, k50A, k50B, k50C, k511, k512, k513, k514, k515, k516, k517, k518, k519, k51A, k51B, k51C ) },\
+[_MATRIX_LAYER] = { \
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k001, k002, k003, k004,       k005, k006, k007, k008, k009, k00A, k00B, k00C,       k011, k012, k013, k014, k015, k016, k017, k018,       k019, k01A, k01B, k01C ) },\
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k101, k102, k103, k104,       k105, k106, k107, k108, k109, k10A, k10B, k10C,       k111, k112, k113, k114, k115, k116, k117, k118,       k119, k11A, k11B, k11C ) },\
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k201, k202, k203, k204,       k205, k206, k207, k208, k209, k20A, k20B, k20C,       k211, k212, k213, k214, k215, k216, k217, k218,       k219, k21A, k21B, k21C ) },\
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k301, k302, k303, k304,       k305, k306, k307, k308, k309, k30A, k30B, k30C,       k311, k312, k313, k314, k315, k316, k317, k318,       k319, k31A, k31B, k31C ) },\
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k401, k402, k403, k404,       k405, k406, k407, k408, k409, k40A, k40B, k40C,       k411, k412, k413, k414, k415, k416, k417, k418,       k419, k41A, k41B, k41C ) },\
+    { _KEYMAP_ROW( _LEFT_TYPE, _RIGHT_TYPE, k501, k502, k503, k504,       k505, k506, k507, k508, k509, k50A, k50B, k50C,       k511, k512, k513, k514, k515, k516, k517, k518,       k519, k51A, k51B, k51C ) },\
 }
 
 

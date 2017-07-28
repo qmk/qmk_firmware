@@ -2,42 +2,70 @@
 
 This is a layout for the grid planck, built with a few ideals in mind:
 
-- Minimal response times should be maintained. i.e. keys that react differently depending on whether they are tapped or held, keys that react differently if they are double tapped, etc. should be avoided — they inevitably send their keycode later than a normal key, interrupting the immediate feedback from the screen. Therefore we restrict ourselves to chording.
+- Consistent and minimal response times should be maintained. Keys that react differently depending on whether they are tapped or held, keys that react differently if they are double tapped, etc. should be avoided – they inevitably send their keycode later than a normal key – interrupting the immediate feedback from the screen. Therefore we restrict ourselves to chording as our only means of getting more than one symbol out of a single physical key.
 - The hands should never need to leave the home position. The usual culprit for this is the arrow cluster, so the arrow cluster should be as close to home as possible.
 - There should be two of every modifier (one on each side), otherwise certain long key combinations become hard to make.
-- Backspace should be in the “capslock position” in the colemak tradition.
 
-We have four layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow cluster etc, a `SYMB` layer, with numbers and symbols; and a `FUNC` layer, with function keys and media keys.
+We have five layers. A `BASE` layer, in colemak; a `MOVE` layer, with an arrow cluster, other movement keys, and hotkeys; a `SYMB` layer, with numbers and symbols; a `FUNC` layer, with function keys and media keys; and a `MOUSE` layer, with mouse emulation. The `MOUSE` layer is activated by holding the Move and Symb keys simultaniously.
 
-## The `BASE` layer
-![](http://i.imgur.com/tVNI3SE.png)
+```
+/* BASE
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Bksp |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Shift|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Func | Ctrl |  Alt |  Cmd | Symb | Enter| Space| Move |  Cmd |  Alt | Ctrl | Func |
+ * `-----------------------------------------------------------------------------------'
+ */
 
-This is the default layer; in [colemak](https://colemak.com). `esc` and `del` are conspicuously absent but are especially easy to reach from either of the other main layers (see below). The `backspace` location is standard colemak. The `caps` key is still on the `BASE` layer but only because I  don’t really use the bottom corners so there’s nothing else I would rather put there. Having `enter` on a thumb means I can still have `quote` immediately to the right of `O`, something that would have annoyed me endlessly otherwise. `minus` is in the upper right because I had an extra space and it’s probably my next most used key that didn’t yet have a home.
+/* MOVE
+ * ,-----------------------------------------------------------------------------------.
+ * | H(3) | H(F1)| H(F2)| H(F3)| H(F4)| H(F5)| H(8) | Home |  Up  |  End | H(7) |  Esc |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | H(4) | H(F6)| H(F7)| H(F8)| H(F9)|H(F10)| H(9) | Left | Down | Right| Caps |  Del |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |H(F11)|H(F12)| H(0) | H(1) | H(2) | H(A) | Pg Dn| Pg Up| H(5) | H(6) |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
 
-The `MOVE` and `SYMB` layers are reached by holding down the `move` and `symb` keys respectively. The `FUNC` layer is reached by holding down both the `move` and `symb` keys simultaneously, *or* by holding down the `fn` key. The intended use is that whenever both hands are on the keyboard, the former method is used, and the latter is only used when, for example, reaching over to the keyboard with one hand to access the media controls.
+/* SYMB
+ * ,-----------------------------------------------------------------------------------.
+ * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   –  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   £  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |   ~  |   `  |   +  |   =  |   |  |   \  |   [  |   ]  |   {  |   }  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
 
-## The `MOVE` layer
-![](http://i.imgur.com/KXRSuHT.png)
+/* MOUSE
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      | ACC-2| ACC-1| ACC-0|      |      | SW-L |  M-U | SW-R |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      | MB-3 | MB-2 | MB-1 |      |      |  M-L |  M-D |  M-R |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | SW-D | SW-U |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
 
-This is fairly self explanatory. I almost exclusively use the right hand cluster so that movement is a one handed affair, but the left hand cluster is there if it’s needed.
-
-On *macOS* I recommend using [Karabiner](https://pqrs.org/osx/karabiner/) and ticking *Use PC Style Home/End #2* and *Use PC Style PageUp/PageDown* so that `home` and `end` jump you to the beginning and end of the line respectively and so that `pg up` and `pg dn` move the cursor instead of just scrolling.
-
-None of the modifiers are overwritten so that `shift-alt-arrows` etc work as expected.
-
-## The `SYMB` layer
-![](http://i.imgur.com/thh1ne2.png)
-
-The symbol layer has all the numbers and their usual corresponding symbols in the first two rows, with the symbols on the home row since I use them more frequently than the numbers. The third row contains all the remaining symbols, arranged roughly so that the most used symbols are accessible with the strongest fingers.
-
-`esc` and `del` are repeated here since I wanted to be able to reach either, one handed, with either hand.
-
-Again none of the modifiers are overwritten so that shortcuts involving numbers or symbols work as expected.
-
-## The `FUNC` layer
-![](http://i.imgur.com/1VKFBBU.png)
-
-The only things of note here are that `bl+` and `bl-` are short for *backlight up* and *backlight down*, and in firmware are actually `KC_PAUS` and `KC_SLCK` respectively, since *macOS* interprets these as the backlight keys. And that `lock` is currently a macro hard coded to turn off the screen on *macOS*. (By activating the shortcut `shift-ctrl-power`.)
-
-## Other changes from the default
-I have LEDs and sound disabled, simply because I have no need of them.
+/* FUNC
+ * ,-----------------------------------------------------------------------------------.
+ * | Reset|  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | Vol+ |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 | Vol- |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  F21 |  F22 |  F23 |  F24 |      |      | Power|      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      | Prev | Mute | Play | Next |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+```

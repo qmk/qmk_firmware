@@ -42,3 +42,5 @@ Open the `Makefile` and set `TAP_DANCE_ENABLE = no`. I wrote the layout to compe
 * `ALT` and `GUI` are reversed compared to the normal US layout. I will also be using my Planck on my mac, and that's the standard in the Apple ecosystem. I may add a special compiler flag in the future to swap the two.
 * The DVORAK `Z` key is to the right of the `S` key instead of under it as part of a compromise I made to keep the ARROW keys available on the default layer. I prioritize the ARROW keys, so the DVORAK layout is the one to suffer.
 * I also support the little tones that the default Planck layout features, identical to them too, (minus those for layouts I don't support). To enable it, open the `Makefile` and set `AUDIO_ENABLE = yes`.
+
+![keyboard-layout](https://i.imgur.com/HHSZSQq.png)

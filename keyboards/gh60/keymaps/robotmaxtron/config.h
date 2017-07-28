@@ -182,7 +182,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_pin PF4
 */ 
 #define RGB_DI_PIN F4
-#define RGBLIGHT_TIMER
+#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8         // Number of LEDs
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

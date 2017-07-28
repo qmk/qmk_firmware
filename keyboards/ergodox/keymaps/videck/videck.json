@@ -1,0 +1,443 @@
+[
+  {
+    "backcolor": "#333333",
+    "background": {
+      "name": "PBT Black",
+      "style": "background-image: url('/bg/plastic/pbt-black.png');"
+    },
+    "switchMount": "cherry",
+    "switchBrand": "gateron",
+    "switchType": "KS-3-Red"
+  },
+  [
+    {
+      "x": 3.5,
+      "c": "#323232",
+      "t": "#ffffff\n\n\n#ac97d8"
+    },
+    "#\n3\n\nF3",
+    {
+      "x": 10.5
+    },
+    "*\n8\n\nF8"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "@\n2\n\nF2",
+    {
+      "x": 1
+    },
+    "$\n4\n\nF4",
+    {
+      "x": 8.5
+    },
+    "&\n7\n\nF7",
+    {
+      "x": 1,
+      "t": "#ffffff\n\n\n#ac97d8\n\n\n\n#555454"
+    },
+    "(\n9\n\nF9"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5,
+      "t": "#ffffff\n\n\n#ac97d8"
+    },
+    "%\n5\n\nF5",
+    {
+      "t": "#ffffff"
+    },
+    "home",
+    {
+      "x": 4.5
+    },
+    "pgup",
+    {
+      "t": "#ffffff\n\n\n#ac97d8"
+    },
+    "^\n6\n\nF6"
+  ],
+  [
+    {
+      "y": -0.875,
+      "t": "#ffffff",
+      "w": 1.5
+    },
+    "~\n`",
+    {
+      "t": "#ffffff\n\n\n#ac97d8"
+    },
+    "!\n1\n\nF1",
+    {
+      "x": 14.5
+    },
+    ")\n0\n\nF10",
+    {
+      "w": 1.5
+    },
+    "_\n-\n\nF11"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "t": "#ffffff"
+    },
+    "E",
+    {
+      "x": 10.5
+    },
+    "I"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "W",
+    {
+      "x": 1
+    },
+    "R",
+    {
+      "x": 8.5
+    },
+    "U",
+    {
+      "x": 1,
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n#f8d615"
+    },
+    "O\n\n\n\n\n\n\n\n\n{"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5,
+      "t": "#ffffff"
+    },
+    "T",
+    {
+      "h": 1.5
+    },
+    "end",
+    {
+      "x": 4.5,
+      "h": 1.5
+    },
+    "pgdn",
+    "Y"
+  ],
+  [
+    {
+      "y": -0.875,
+      "w": 1.5
+    },
+    "+\n=",
+    "Q",
+    {
+      "x": 14.5,
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n#f8d615"
+    },
+    "P\n\n\n\n\n\n\n\n\n}",
+    {
+      "t": "#ffffff\n\n\n#ac97d8",
+      "w": 1.5
+    },
+    "|\n\\\n\nF12"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "t": "#ffffff"
+    },
+    "D",
+    {
+      "x": 10.5,
+      "t": "#ffffff\n\n#5eb1e7\n#ac97d8"
+    },
+    "K\n\n<i class='fa fa-caret-up'></i>\n<i class='kb kb-Arrows-Up'></i>"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5,
+      "t": "#ffffff"
+    },
+    "S",
+    {
+      "x": 1,
+      "n": true
+    },
+    "F",
+    {
+      "x": 8.5,
+      "t": "#ffffff\n\n#5eb1e7\n#ac97d8",
+      "n": true
+    },
+    "J\n\n<i class='fa fa-caret-down'></i>\n<i class='kb kb-Arrows-Down'></i>",
+    {
+      "x": 1,
+      "t": "#ffffff\n\n#5eb1e7\n#ac97d8\n\n\n\n\n\n#f8d615"
+    },
+    "L\n\n<i class='fa fa-caret-right'></i>\n<i class='kb kb-Arrows-Right'></i>\n\n\n\n\n\n("
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5,
+      "t": "#ffffff"
+    },
+    "G",
+    {
+      "x": 6.5,
+      "t": "#ffffff\n\n#5eb1e7\n#ac97d8"
+    },
+    "H\n\n<i class='fa fa-caret-left'></i>\n<i class='kb kb-Arrows-Left'></i>"
+  ],
+  [
+    {
+      "y": -0.875,
+      "t": "#f8d615",
+      "a": 6,
+      "w": 1.5
+    },
+    "( ) [ ] { }",
+    {
+      "t": "#ffffff",
+      "a": 4
+    },
+    "A",
+    {
+      "x": 14.5,
+      "t": "#ffffff\n\n\n\n\n\n\n#60605b\n\n#f8d615"
+    },
+    ":\n;\n\n\n\n\n\n&Ouml;\n\n)",
+    {
+      "t": "#ffffff\n\n\n\n\n\n\n#60605b",
+      "w": 1.5
+    },
+    "\"\n'\n\n\n\n\n\n&Auml;"
+  ],
+  [
+    {
+      "y": -0.625,
+      "x": 6.5,
+      "t": "#ffffff",
+      "h": 1.5
+    },
+    "<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>",
+    {
+      "x": 4.5,
+      "h": 1.5
+    },
+    "<i class='kb kb-Unicode-DeleteRight-Big'></i>"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 3.5
+    },
+    "C",
+    {
+      "x": 10.5
+    },
+    "<\n,"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "X",
+    {
+      "x": 1
+    },
+    "V",
+    {
+      "x": 8.5
+    },
+    "M",
+    {
+      "x": 1,
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n#f8d615"
+    },
+    ">\n.\n\n\n\n\n\n\n\n["
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5,
+      "t": "#ffffff"
+    },
+    "B",
+    {
+      "x": 6.5
+    },
+    "N"
+  ],
+  [
+    {
+      "y": -0.875,
+      "t": "#ffffff\n\n#f67f00",
+      "a": 6,
+      "fa": [
+        5
+      ],
+      "w": 1.5
+    },
+    "&uArr;\n\n2-tap<br/>locks",
+    {
+      "t": "#ffffff",
+      "a": 4,
+      "f": 3
+    },
+    "Z",
+    {
+      "x": 14.5,
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n#f8d615",
+      "f": 3
+    },
+    "?\n/\n\n\n\n\n\n\n\n]",
+    {
+      "t": "#ffffff\n\n#f67f00",
+      "a": 6,
+      "f": 3,
+      "w": 1.5
+    },
+    "&uArr;\n\n2-tap<br/>locks"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "t": "#ffffff",
+      "a": 4
+    },
+    "\n<i class='kb kb-Multimedia-Volume-Up-2'></i>",
+    {
+      "x": 10.5,
+      "f": 3
+    },
+    "}\n]"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "\n<i class='kb kb-Multimedia-Volume-Down-1'></i>",
+    {
+      "x": 1
+    },
+    "\n<i class='kb kb-Multimedia-Mute-1'></i>",
+    {
+      "x": 8.5,
+      "t": "#ffffff\n\n\n\n\n\n\n#60605b",
+      "f": 3
+    },
+    "{\n[\n\n\n\n\n\n&Aring;",
+    {
+      "x": 1,
+      "t": "#ffffff",
+      "f": 3
+    },
+    "+\n="
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.5,
+      "f": 3
+    },
+    "ctrl",
+    {
+      "f": 3
+    },
+    "alt",
+    {
+      "x": 14.5,
+      "f": 3
+    },
+    "altgr",
+    {
+      "f": 3
+    },
+    "ctrl"
+  ],
+  [
+    {
+      "r": 30,
+      "rx": 6.5,
+      "ry": 4.25,
+      "y": -1,
+      "x": 1,
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n\n#5eb1e7",
+      "f": 3
+    },
+    "esc\n\n\n\n\n\n\n\n\n\n<i class='fa fa-mouse-pointer'></i>M",
+    {
+      "t": "#ffffff",
+      "f": 7
+    },
+    "<i class='kb kb-logo-linux-tux'></i>"
+  ],
+  [
+    {
+      "t": "#ffffff\n\n\n\n\n\n\n\n\n\n#5eb1e7",
+      "f": 3,
+      "h": 2
+    },
+    "space\n\n\n\n\n\n\n\n\n\n<i class='fa fa-mouse-pointer'></i>L",
+    {
+      "h": 2
+    },
+    "<i class='kb kb-Tab-1'></i>\n\n\n\n\n\n\n\n\n\n<i class='fa fa-mouse-pointer'></i>R",
+    {
+      "t": "#5eb1e7"
+    },
+    "<i class='fa fa-mouse-pointer'></i>"
+  ],
+  [
+    {
+      "x": 2,
+      "t": "#ac97d8"
+    },
+    "<i class='fa fa-arrows'></i>"
+  ],
+  [
+    {
+      "r": -30,
+      "rx": 13,
+      "y": -1,
+      "x": -3,
+      "t": "#ffffff"
+    },
+    "<i class='kb kb-Hamburger-Menu'></i>",
+    "esc"
+  ],
+  [
+    {
+      "x": -3
+    },
+    "ins",
+    {
+      "h": 2
+    },
+    "<i class='kb kb-Return-2'></i>",
+    {
+      "h": 2
+    },
+    "space"
+  ],
+  [
+    {
+      "x": -3
+    },
+    "scroll<br/>lock"
+  ]
+]

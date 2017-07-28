@@ -49,6 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
 
+#define C6_AUDIO
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -150,10 +152,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-//#define NO_DEBUG
+#ifndef NO_DEBUG
+#  define NO_DEBUG
+#endif
 
 /* disable print */
-//#define NO_PRINT
+// #ifndef NO_PRINT
+// #  define NO_PRINT
+// #endif
+
+/* Only print user print statements */
+#define USER_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER

@@ -5,7 +5,7 @@ There are two layers:
 - **BASE** is [Norman layout](https://normanlayout.info/).
 - **QWRT** is QWERTY.
 
-[![keyboard-layout](romanzolotarev-norman-qwerty-osx.png)](http://www.keyboard-layout-editor.com/#/gists/3b236f450da474dc506a5a80390c3cc7)
+[![keyboard-layout](https://i.imgur.com/jfKBznw.png)](http://www.keyboard-layout-editor.com/#/gists/3b236f450da474dc506a5a80390c3cc7)
 
 ## Switching
 

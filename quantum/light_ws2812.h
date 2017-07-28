@@ -6,8 +6,18 @@
  *
  * Please do not change this file! All configuration is handled in "ws2812_config.h"
  *
- * License: GNU GPL v2 (see License.txt)
- +
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef LIGHT_WS2812_H_
@@ -16,6 +26,14 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 //#include "ws2812_config.h"
+//#include "i2cmaster.h"
+
+#ifdef RGBW
+  #define LED_TYPE struct cRGBW
+#else
+  #define LED_TYPE struct cRGB
+#endif
+
 
 /*
  *  Structure of the LED array
@@ -42,9 +60,9 @@ struct cRGBW { uint8_t g; uint8_t r; uint8_t b; uint8_t w;};
  *         - Wait 50�s to reset the LEDs
  */
 
-void ws2812_setleds     (struct cRGB  *ledarray, uint16_t number_of_leds);
-void ws2812_setleds_pin (struct cRGB  *ledarray, uint16_t number_of_leds,uint8_t pinmask);
-void ws2812_setleds_rgbw(struct cRGBW *ledarray, uint16_t number_of_leds);
+void ws2812_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
+void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
 /*
  * Old interface / Internal functions

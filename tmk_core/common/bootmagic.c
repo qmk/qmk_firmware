@@ -83,10 +83,6 @@ void bootmagic(void)
     }
     eeconfig_update_keymap(keymap_config.raw);
 
-#ifdef NKRO_ENABLE
-    keyboard_nkro = keymap_config.nkro;
-#endif
-
     /* default layer */
     uint8_t default_layer = 0;
     if (bootmagic_scan_keycode(BOOTMAGIC_KEY_DEFAULT_LAYER_0)) { default_layer |= (1<<0); }

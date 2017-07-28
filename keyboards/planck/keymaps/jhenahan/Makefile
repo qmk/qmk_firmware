@@ -1,4 +1,6 @@
-
+# Please remove if no longer applicable
+$(warning THIS FILE MAY BE TOO LARGE FOR YOUR KEYBOARD)
+$(warning Please disable some options in the Makefile to resolve)
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in 

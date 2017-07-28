@@ -56,8 +56,8 @@ void xitoa(long value, char radix, char width);
 #define xfprintf(func, format, ...)     __xfprintf(func, PSTR(format), ##__VA_ARGS__)
 
 void __xprintf(const char *format_p, ...);	/* Send formatted string to the registered device */
-void __xsprintf(char*, const char *format_p, ...);	/* Put formatted string to the memory */
-void __xfprintf(void(*func)(uint8_t), const char *format_p, ...); /* Send formatted string to the specified device */
+// void __xsprintf(char*, const char *format_p, ...);	/* Put formatted string to the memory */
+// void __xfprintf(void(*func)(uint8_t), const char *format_p, ...); /* Send formatted string to the specified device */
 
 /* Format string is placed in the ROM. The format flags is similar to printf().
 
@@ -88,7 +88,7 @@ void __xfprintf(void(*func)(uint8_t), const char *format_p, ...); /* Send format
 /*-----------------------------------------------------------------------------*/
 char xatoi(char **str, long *ret);
 
-/* Get value of the numeral string. 
+/* Get value of the numeral string.
 
   str
     Pointer to pointer to source string

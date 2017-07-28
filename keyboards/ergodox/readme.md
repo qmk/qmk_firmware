@@ -1,5 +1,7 @@
 # The Easy Way
 
+If you have an ErgoDox EZ, the absolute easiest way for you to customize your firmware is using the [graphical configurator](http://configure.ergodox-ez.com), which uses QMK under the hood.
+
 If you can find firmware someone else has made that does what you want, that
 is the easiest way to customize your ErgoDox.  It requires no programming
 experience or the setup of a build environment.
@@ -23,7 +25,7 @@ If none of the existing keymaps suit you, you can create your own custom
 keymap.  This will require some experience with coding.  Follow these steps
 to customize a keymap:
 
-  - Read the [qmk firmware README](https://github.com/jackhumbert/qmk_firmware) from top to bottom.  Then come back here.  :)
+  - Read the [qmk firmware README](https://github.com/qmk/qmk_firmware) from top to bottom.  Then come back here.  :)
 
   - Clone the qmk_firmware repository
 
@@ -63,16 +65,19 @@ files.  Check them out with:
 
 # Flashing Firmware
 
-## ErgoDox Ez
+## ErgoDox EZ
 
 The Ez uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
-Linux users need to modify udev rules as described on the Teensy Linux page.
-Some distributions provide a binary, maybe called `teensy-loader-cli`).
+Linux users need to modify udev rules as described on the [Teensy
+Linux page].  Some distributions provide a binary, maybe called
+`teensy-loader-cli`.
+
+[Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
 
 To flash the firmware:
 
-  - Build the firmware with `make keymapname`, for example `make default` 
+  - Build the firmware with `make keymapname`, for example `make default`
   - This will result in a hex file called `ergodox_ez_keymapname.hex`, e.g.
     `ergodox_ez_default.hex`
 
@@ -84,6 +89,15 @@ To flash the firmware:
     in the top right corder.
 
   - Click the button in the Teensy app to download the firmware.
+
+To flash with ´teensy-loader-cli´:
+
+  - Build the firmware with `make keymapname`, for example `make default`
+
+  - Run ´<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_<keymap>.hex´
+
+  - Press the Reset button by inserting a paperclip gently into the reset hole
+    in the top right corder.
 
 ## ErgoDox Infinity
 
@@ -98,7 +112,7 @@ for the left and right halves seperately.  To flash them:
 
   - Install the firmware with `sudo make infinity-keymapname-dfu-util`
 
-  - Build left hand firmware with `make infinity-keymapname MASTER=right`
+  - Build right hand firmware with `make infinity-keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 
@@ -138,7 +152,7 @@ The QMK firmware is open-source, so it would be wonderful to have your contribut
 1. All work goes inside your keymap subdirectory (`keymaps/german` in this example).
 2. `keymap.c` - this is your actual keymap file; please update the ASCII comments in the file so they correspond with what you did.
 3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
-4. Any graphics you wish to add. This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link, just like I did with the default layout.
+4. Any graphics you wish to add must be hosted elsewhere (please don't include images in your PR). This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link (`![alt-text](url)`), just like I did with the default layout.
 
 # Finding the keycodes you need
 
@@ -153,13 +167,10 @@ If you want to send a plain vanilla key, you can look up its code under `doc/key
 There are external tools for customizing the layout, but those do not use
 the featurs of this qmk firmware.  These sites include:
 
-  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for Ez
+  - The official [ErgoDox EZ configurator](http://configure.ergodox-ez.com)
+  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for EZ, works but not officially supported
   - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
 
 You can also find an existing firmware that you like, for example from:
 
   - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
-
-This qmk firmware also provides the ability to customize keymaps, but requires
-a toolchain to build the firmware.  See below for instructions on building
-firmware and customizing keymaps.

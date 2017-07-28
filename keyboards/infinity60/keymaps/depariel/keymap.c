@@ -80,3 +80,12 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+
+};
