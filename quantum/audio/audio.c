@@ -44,6 +44,16 @@
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
 #endif
 
+#ifdef B6_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1B)
+    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1B)
+#endif
+
+#ifdef B7_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
+    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
+#endif
+
 // TCCR3A: Timer/Counter #3 Control Register
 // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
 
@@ -57,6 +67,16 @@
     #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
 #endif
 
+#ifdef B6_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1B1);
+    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1B1) | _BV(COM1B0));
+#endif
+
+#ifdef B7_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1C1);
+    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1C1) | _BV(COM1C0));
+#endif
+
 // Fast PWM Mode Controls
 
 #ifdef C6_AUDIO
@@ -67,6 +87,16 @@
 #ifdef B5_AUDIO
     #define TIMER_1_PERIOD     ICR1
     #define TIMER_1_DUTY_CYCLE OCR1A
+#endif
+
+#ifdef B6_AUDIO
+    #define TIMER_1_PERIOD     ICR1
+    #define TIMER_1_DUTY_CYCLE OCR1B
+#endif
+
+#ifdef B7_AUDIO
+    #define TIMER_1_PERIOD     ICR1
+    #define TIMER_1_DUTY_CYCLE OCR1C
 #endif
 
 
@@ -153,11 +183,25 @@ void audio_init()
         PORTB &= ~_BV(PORTB5);
     #endif
 
+    #ifdef B6_AUDIO
+        DDRB |= _BV(PORTB6);
+    #else
+        DDRB |= _BV(PORTB6);
+        PORTB &= ~_BV(PORTB6);
+    #endif
+
+    #ifdef B7_AUDIO
+        DDRB |= _BV(PORTB7);
+    #else
+        DDRB |= _BV(PORTB7);
+        PORTB &= ~_BV(PORTB7);
+    #endif
+
     #ifdef C6_AUDIO
         DISABLE_AUDIO_COUNTER_3_ISR;
     #endif
     
-    #ifdef B5_AUDIO
+    #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
         DISABLE_AUDIO_COUNTER_1_ISR;
     #endif
 
@@ -171,7 +215,7 @@ void audio_init()
         TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
     #endif
 
-    #ifdef B5_AUDIO
+    #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
         TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
         TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
     #endif
@@ -199,7 +243,7 @@ void stop_all_notes()
         DISABLE_AUDIO_COUNTER_3_OUTPUT;
     #endif
 
-    #ifdef B5_AUDIO
+    #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
         DISABLE_AUDIO_COUNTER_1_ISR;
         DISABLE_AUDIO_COUNTER_1_OUTPUT;
     #endif
@@ -249,7 +293,7 @@ void stop_note(float freq)
                 DISABLE_AUDIO_COUNTER_3_ISR;
                 DISABLE_AUDIO_COUNTER_3_OUTPUT;
             #endif
-            #ifdef B5_AUDIO
+            #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
                 DISABLE_AUDIO_COUNTER_1_ISR;
                 DISABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
@@ -289,7 +333,7 @@ ISR(TIMER3_COMPA_vect)
     if (playing_note) {
         if (voices > 0) {
 
-            #ifdef B5_AUDIO
+            #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
             float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
@@ -463,10 +507,10 @@ ISR(TIMER3_COMPA_vect)
 }
 #endif
 
-#ifdef B5_AUDIO
+#if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
 ISR(TIMER1_COMPA_vect)
 {
-    #if defined(B5_AUDIO) && !defined(C6_AUDIO)
+    #if (defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)) && !defined(C6_AUDIO)
     float freq = 0;
 
     if (playing_note) {
@@ -616,7 +660,7 @@ void play_note(float freq, int vol) {
         #ifdef C6_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #ifdef B5_AUDIO
+        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -638,7 +682,7 @@ void play_note(float freq, int vol) {
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #ifdef B5_AUDIO
+        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
             #ifdef C6_AUDIO
             if (voices > 1) {
                 ENABLE_AUDIO_COUNTER_1_ISR;
@@ -665,7 +709,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
         #ifdef C6_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #ifdef B5_AUDIO
+        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -691,7 +735,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #ifdef B5_AUDIO
+        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
             #ifndef C6_AUDIO
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
