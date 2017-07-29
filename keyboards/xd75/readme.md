@@ -1,9 +1,11 @@
 xd75 keyboard firmware
 ======================
 
+The XD75Re is a 15x5 full-grid ortholinear keyboard manufactured by XIUDI. This port of the QMK firmware is my first shot at using QMK, so if you see any features done wrong (or just plain missing), feel free to fix them and put in a pull request!
+
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent readme](/).
+For more info on this firmware (and how to make it your own), head over to [qmk.fm](http://qmk.fm).
 
 ## Building
 
@@ -17,7 +19,7 @@ To build with the default keymap, simply run `make default`.
 
 ### Other Keymaps
 
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
+The "default" keymap included is basically the OLKB Atomic keymap with a few buttons added for RGB underglow control. This should be usable as a starting point, but most people will be best served creating their own keymap and flashing it - more info on creating your own keymap is available in [the official QMK documentation](https://docs.qmk.fm).
 
 To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
 
