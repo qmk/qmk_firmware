@@ -140,8 +140,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMBUS] = KEYMAP( \
   _______, KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE, LSFT(KC_4),   LSFT(KC_2),   KC_QUOT,    KC_AMPR,    KC_ASTR, KC_BSPC, \
   _______,  KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV, ALGR(KC_MINS), KC_BSLS,   KC_SLSH,    KC_PAST,    KC_PPLS,  _______, \
-  _______, KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD, LSFT(KC_DOT), LSFT(KC_COMMA), LSFT(KC_DOT) ,    KC_PLUS,    KC_PSLS,  _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY \
+  _______, KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD, KC_EQL, LSFT(KC_COMMA), LSFT(KC_DOT) ,    KC_EQL,    KC_PSLS,  _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______ \
 ),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,    _______,    _______,            _______, _______,      _______, _______,      _______,    _______,    _______,  _______, _______ \
 ),
 
-/* Adjust (Lower + Raise)
+/* CODE	 
  * ,-----------------------------------------------------------------------------------.
  * |      |UnfolA|FoldA |UnfolS|FoldS |CloseF|Coment|F_Prev| Find |F_Next|      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
