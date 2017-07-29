@@ -11,7 +11,7 @@ based boards.
 ## Case Files
 Files are available here: https://github.com/xyxjj/DeltaSplit75-Case-files
 
-#Build Guide
+## Build Guide
 The build guide should be found at https://qmk.fm/deltasplit75
 
 
