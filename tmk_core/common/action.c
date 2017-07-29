@@ -40,6 +40,8 @@ int tp_buttons;
 #include <fauxclicky.h>
 #endif
 
+#include "quantum.h"
+
 void action_exec(keyevent_t event)
 {
     if (!IS_NOEVENT(event)) {
@@ -120,24 +122,21 @@ void process_record_nocache(keyrecord_t *record)
 }
 #endif
 
-__attribute__ ((weak))
-bool process_record_quantum(keyrecord_t *record) {
-    return true;
-}
-
 void process_record(keyrecord_t *record)
 {
     if (IS_NOEVENT(record->event)) { return; }
 
-    if(!process_record_quantum(record))
+    uint8_t level = process_quantum(record);
+
+    if (level & STOP_SYSTEM)
         return;
 
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: "); debug_action(action);
-#ifndef NO_ACTION_LAYER
-    dprint(" layer_state: "); layer_debug();
-    dprint(" default_layer_state: "); default_layer_debug();
-#endif
+    #ifndef NO_ACTION_LAYER
+        dprint(" layer_state: "); layer_debug();
+        dprint(" default_layer_state: "); default_layer_debug();
+    #endif
     dprintln();
 
     process_action(record, action);
