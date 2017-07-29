@@ -74,14 +74,14 @@ void print_box_string(const char text[]) {
 	print_string(out); 
 }
 
-bool process_printer(uint16_t keycode, keyrecord_t *record) {
+level_t process_printer(uint16_t keycode, keyrecord_t *record) {
 	if (keycode == PRINT_ON) {
 		enable_printing();
-		return false;
+		return STOP_PROCESSING;
 	}
 	if (keycode == PRINT_OFF) {
 		disable_printing();
-		return false;
+		return STOP_PROCESSING;
 	}
 
 	if (printing_enabled) {
@@ -101,7 +101,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 				} else {
 					character_shift--;
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 		}
 
@@ -110,18 +110,18 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 				if (record->event.pressed) {
 					print_box_string("This is a line of text!");
 				}
-				return false;
+				return STOP_PROCESSING;
 			case KC_ESC:
 				if (record->event.pressed) {
 					print_char(0x1B);
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_SPC:
 				if (record->event.pressed) {
 					print_char(0x20);
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_A ... KC_Z:
 				if (record->event.pressed) {
@@ -131,7 +131,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x61 + (keycode - KC_A));
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_1 ... KC_0:
 				if (record->event.pressed) {
@@ -141,7 +141,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 							print_char(0x30 + ((keycode - KC_1 + 1) % 10));
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_ENT:
 				if (record->event.pressed) {
@@ -151,7 +151,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x0A);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_BSPC:
 				if (record->event.pressed) {
@@ -161,7 +161,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x1A);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_DOT:
 				if (record->event.pressed) {
@@ -171,7 +171,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x2E);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_COMM:
 				if (record->event.pressed) {
@@ -181,7 +181,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x2C);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_SLSH:
 				if (record->event.pressed) {
@@ -191,7 +191,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x2F);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_QUOT:
 				if (record->event.pressed) {
@@ -201,7 +201,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x27);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_GRV:
 				if (record->event.pressed) {
@@ -211,7 +211,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x60);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_MINS:
 				if (record->event.pressed) {
@@ -221,7 +221,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x2D);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_EQL:
 				if (record->event.pressed) {
@@ -231,7 +231,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x3D);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_LBRC:
 				if (record->event.pressed) {
@@ -241,7 +241,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x5B);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_RBRC:
 				if (record->event.pressed) {
@@ -251,7 +251,7 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x5D);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 			case KC_BSLS:
 				if (record->event.pressed) {
@@ -261,10 +261,10 @@ bool process_printer(uint16_t keycode, keyrecord_t *record) {
 						print_char(0x5C);
 					}
 				}
-				return false;
+				return STOP_PROCESSING;
 			break;
 		}
 	}
-	return true;
+	return CONTINUE_PROCESSING;
 
 }

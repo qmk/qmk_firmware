@@ -267,7 +267,7 @@ void send_chord(void)
   virtser_send(0);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
+level_t process_user(uint16_t keycode, keyrecord_t *record)
 {
   // We need to track keypresses in all modes, in case the user
   // changes mode whilst pressing other keys.
@@ -275,7 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     pressed_count++;
   else
     pressed_count--;
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

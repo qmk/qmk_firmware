@@ -78,7 +78,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 static uint8_t qw_dv_swap_state = 0;
 
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+level_t process_user (uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_LGUI) {
         if (record->event.pressed)
             qw_dv_swap_state |= 0b00000001;
@@ -95,5 +95,5 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
     if (qw_dv_swap_state == 0b00000011) {
         layer_invert(DVORAK);
     }
-    return true;
+    return CONTINUE_PROCESSING;
 }

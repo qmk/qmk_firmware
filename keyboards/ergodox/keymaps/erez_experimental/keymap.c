@@ -159,7 +159,7 @@ void matrix_init_user(void) {
 };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
     case RGB_FF00BB:
@@ -170,10 +170,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgblight_setrgb(0xff,0x00,0xbb);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 LEADER_EXTERNS();

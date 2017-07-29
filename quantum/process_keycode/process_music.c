@@ -100,16 +100,16 @@ void music_all_notes_off(void) {
     #endif
 }
 
-bool process_music(uint16_t keycode, keyrecord_t *record) {
+level_t process_music(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == MU_ON && record->event.pressed) {
         music_on();
-        return false;
+        return STOP_PROCESSING;
     }
 
     if (keycode == MU_OFF && record->event.pressed) {
         music_off();
-        return false;
+        return STOP_PROCESSING;
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
@@ -118,12 +118,12 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         } else {
             music_on();
         }
-        return false;
+        return STOP_PROCESSING;
     }
 
     if (keycode == MU_MOD && record->event.pressed) {
       music_mode_cycle();
-      return false;
+      return STOP_PROCESSING;
     }
 
     if (music_activated) {
@@ -134,7 +134,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
           music_sequence_recorded = false;
           music_sequence_playing = false;
           music_sequence_count = 0;
-          return false;
+          return STOP_PROCESSING;
         }
 
         if (keycode == KC_LALT) { // Stop recording/playing
@@ -144,7 +144,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
           }
           music_sequence_recording = false;
           music_sequence_playing = false;
-          return false;
+          return STOP_PROCESSING;
         }
 
         if (keycode == KC_LGUI && music_sequence_recorded) { // Start playing
@@ -153,17 +153,17 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
           music_sequence_playing = true;
           music_sequence_position = 0;
           music_sequence_timer = 0;
-          return false;
+          return STOP_PROCESSING;
         }
 
         if (keycode == KC_UP) {
           music_sequence_interval-=10;
-          return false;
+          return STOP_PROCESSING;
         }
 
         if (keycode == KC_DOWN) {
           music_sequence_interval+=10;
-          return false;
+          return STOP_PROCESSING;
         }
       }
 
@@ -190,10 +190,10 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       }
 
       if (MUSIC_MASK)
-        return false;
+        return STOP_PROCESSING;
     }
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 bool is_music_on(void) {

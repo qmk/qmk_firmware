@@ -196,7 +196,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 static uint16_t key_timer;
 static uint8_t  caps_status = 0;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case COLEMAK:
         if(record->event.pressed){
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case SWCOLE:
         if(record->event.pressed){
@@ -214,7 +214,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               PLAY_NOTE_ARRAY(tone_swcole, false, 0);
             #endif
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case RAISE:
         if(record->event.pressed){
@@ -224,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case LOWER:
         if(record->event.pressed){
@@ -234,7 +234,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case SHFT_CAP: 
         if(record->event.pressed){
@@ -257,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             unregister_code(KC_LSHIFT);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case CTRLB:                                     // Control-B on tap (bold)
         if(record->event.pressed){
@@ -276,7 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             unregister_code(KC_LCTL);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case CPYPST:                                    // One key copy/paste
         if(record->event.pressed){
@@ -298,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 #endif
             }
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     #ifdef UNICODE_ENABLE
     case UNIWIN:
@@ -308,7 +308,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               PLAY_NOTE_ARRAY(uniwin, false, 0);
             #endif
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case UNILIN:
         if(record->event.pressed){
@@ -317,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               PLAY_NOTE_ARRAY(unilin, false, 0);
             #endif
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case DISFACE:       // ಠ_ಠ
         if(record->event.pressed){
@@ -327,7 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
             process_unicode((0x0CA0|QK_UNICODE), record);   // Eye
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case TFLIP:         // (╯°□°)╯ ︵ ┻━┻
         if(record->event.pressed){
@@ -349,7 +349,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             process_unicode((0x2501|QK_UNICODE), record);   // Table
             process_unicode((0x253B|QK_UNICODE), record);   // Table
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case TPUT:          // ┬──┬ ノ( ゜-゜ノ)
         if(record->event.pressed){
@@ -371,7 +371,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap(KC_0);
             unregister_code(KC_RSFT);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case SHRUG:         // ¯\_(ツ)_/¯
         if(record->event.pressed){
@@ -389,7 +389,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap(KC_SLSH);                                   // Arm
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     #endif
     case FACE:          // (o_O)
@@ -404,16 +404,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap(KC_RPRN);
             unregister_code(KC_RSFT);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case RANDIG:
         if (record->event.pressed) {
             tap_random_base64();
         }
-        return false;
+        return STOP_PROCESSING;
         break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 };
 
 void matrix_init_user(void){        // Run once at startup

@@ -51,7 +51,7 @@ bool process_chording(uint16_t keycode, keyrecord_t *record) {
       chord_keys[chord_key_count] = (keycode & 0xFF);
       chord_key_count++;
       chord_key_down++;
-      return false;
+      return STOP_PROCESSING;
     } else {
       if (chording) {
         chord_key_down--;
@@ -61,16 +61,16 @@ bool process_chording(uint16_t keycode, keyrecord_t *record) {
           if (keys_chord((uint8_t[]){KC_ENTER, KC_SPACE})) {
             register_code(KC_A);
             unregister_code(KC_A);
-            return false;
+            return STOP_PROCESSING;
           }
           for (uint8_t i = 0; i < chord_key_count; i++) {
             register_code(chord_keys[i]);
             unregister_code(chord_keys[i]);
-            return false;
+            return STOP_PROCESSING;
           }
         }
       }
     }
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

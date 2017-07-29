@@ -21,6 +21,6 @@
 
 #include "protocol/serial.h"
 
-bool process_printer(uint16_t keycode, keyrecord_t *record);
+level_t process_printer(uint16_t keycode, keyrecord_t *record);
 
 #endif

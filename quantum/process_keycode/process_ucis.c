@@ -88,19 +88,19 @@ void register_ucis(const char *hex) {
   }
 }
 
-bool process_ucis (uint16_t keycode, keyrecord_t *record) {
+level_t process_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
   if (!qk_ucis_state.in_progress)
-    return true;
+    return CONTINUE_PROCESSING;
 
   if (qk_ucis_state.count >= UCIS_MAX_SYMBOL_LENGTH &&
       !(keycode == KC_BSPC || keycode == KC_ESC || keycode == KC_SPC || keycode == KC_ENT)) {
-    return false;
+    return STOP_PROCESSING;
   }
 
   if (!record->event.pressed)
-    return true;
+    return CONTINUE_PROCESSING;
 
   qk_ucis_state.codes[qk_ucis_state.count] = keycode;
   qk_ucis_state.count++;
@@ -108,10 +108,10 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   if (keycode == KC_BSPC) {
     if (qk_ucis_state.count >= 2) {
       qk_ucis_state.count -= 2;
-      return true;
+      return CONTINUE_PROCESSING;
     } else {
       qk_ucis_state.count--;
-      return false;
+      return STOP_PROCESSING;
     }
   }
 
@@ -126,7 +126,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == KC_ESC) {
       qk_ucis_state.in_progress = false;
-      return false;
+      return STOP_PROCESSING;
     }
 
     unicode_input_start();
@@ -143,7 +143,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
     unicode_input_finish();
 
     qk_ucis_state.in_progress = false;
-    return false;
+    return STOP_PROCESSING;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

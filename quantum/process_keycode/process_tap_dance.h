@@ -20,6 +20,7 @@
 
 #include <stdbool.h>
 #include <inttypes.h>
+#include "quantum.h"
 
 typedef struct
 {
@@ -79,7 +80,7 @@ extern qk_tap_dance_action_t tap_dance_actions[];
 
 /* To be used internally */
 
-bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
+level_t process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_tap_dance (void);
 void reset_tap_dance (qk_tap_dance_state_t *state);
 

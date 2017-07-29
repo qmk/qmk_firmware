@@ -180,14 +180,14 @@ void dynamic_macro_record_end(
 /* Handle the key events related to the dynamic macros. Should be
  * called from process_record_user() like this:
  *
- *   bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+ *   level_t process_user(uint16_t keycode, keyrecord_t *record) {
  *       if (!process_record_dynamic_macro(keycode, record)) {
  *           return false;
  *       }
  *       <...THE REST OF THE FUNCTION...>
  *   }
  */
-bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
+level_t process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
 {
     /* Both macros use the same buffer but read/write on different
      * ends of it.
@@ -242,17 +242,17 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
             case DYN_REC_START1:
                 dynamic_macro_record_start(&macro_pointer, macro_buffer);
                 macro_id = 1;
-                return false;
+                return STOP_PROCESSING;
             case DYN_REC_START2:
                 dynamic_macro_record_start(&macro_pointer, r_macro_buffer);
                 macro_id = 2;
-                return false;
+                return STOP_PROCESSING;
             case DYN_MACRO_PLAY1:
                 dynamic_macro_play(macro_buffer, macro_end, +1);
-                return false;
+                return STOP_PROCESSING;
             case DYN_MACRO_PLAY2:
                 dynamic_macro_play(r_macro_buffer, r_macro_end, -1);
-                return false;
+                return STOP_PROCESSING;
             }
         }
     } else {
@@ -273,11 +273,11 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
                 }
                 macro_id = 0;
             }
-            return false;
+            return STOP_PROCESSING;
         case DYN_MACRO_PLAY1:
         case DYN_MACRO_PLAY2:
             dprintln("dynamic macro: ignoring macro play key while recording");
-            return false;
+            return STOP_PROCESSING;
         default:
             /* Store the key in the macro buffer and process it normally. */
             switch (macro_id) {
@@ -288,12 +288,12 @@ bool process_record_dynamic_macro(uint16_t keycode, keyrecord_t *record)
                 dynamic_macro_record_key(r_macro_buffer, &macro_pointer, macro_end, -1, record);
                 break;
             }
-            return true;
+            return CONTINUE_PROCESSING;
             break;
         }
     }
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 #undef DYNAMIC_MACRO_CURRENT_SLOT

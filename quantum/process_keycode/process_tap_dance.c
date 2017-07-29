@@ -72,7 +72,7 @@ static inline void process_tap_dance_action_on_reset (qk_tap_dance_action_t *act
   send_keyboard_report();
 }
 
-bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
+level_t process_tap_dance(uint16_t keycode, keyrecord_t *record) {
   uint16_t idx = keycode - QK_TAP_DANCE;
   qk_tap_dance_action_t *action;
 
@@ -108,10 +108,10 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
   default:
     if (!record->event.pressed)
-      return true;
+      return CONTINUE_PROCESSING;
 
     if (highest_td == -1)
-      return true;
+      return CONTINUE_PROCESSING;
 
     for (int i = 0; i <= highest_td; i++) {
       action = &tap_dance_actions[i];
@@ -124,7 +124,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     break;
   }
 
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 

@@ -36,16 +36,16 @@ enum my_keycodes {
 
 ## Programming The Behavior Of Any Keycode
 
-When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send any key up or down events that are required.
+When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_keyboard()` and `process_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send any key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 
-### Example `process_record_user()` implementation
+### Example `process_user()` implementation
 
 This example does two things. It defines the behavior for a custom keycode called `FOO`, and it supplements our Enter key by playing a tone whenever it is pressed.
 
 ```
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case FOO:
       if (record->event.pressed) {
@@ -53,21 +53,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         // Do something else when release
       }
-      return false; // Skip all further processing of this key
+      return STOP_FEATURE; // Skip all further processing of this key
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {
         PLAY_NOTE_ARRAY(tone_qwerty);
       }
-      return true; // Let QMK send the enter press/release events
+      return CONTINUE_PROCESSING; // Let QMK send the enter press/release events
   }
 }
 ```
 
 ### `process_record_*` Function documentation
 
-* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` 
-* Keymap: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
+* Keyboard/Revision: `level_t process_kb(uint16_t keycode, keyrecord_t *record)` 
+* Keymap: `level_t process_user(uint16_t keycode, keyrecord_t *record)`
 
 The `keycode` argument is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. You should use a `switch...case` block to handle these events.
 

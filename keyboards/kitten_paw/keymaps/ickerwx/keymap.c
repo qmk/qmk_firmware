@@ -219,7 +219,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t layer;
     layer = biton32(layer_state);
     if (layer == PROG2) {
@@ -238,5 +238,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
          }
     }
-    return true;
+    return CONTINUE_PROCESSING;
 }

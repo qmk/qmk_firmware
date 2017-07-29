@@ -165,20 +165,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_SLD:
       if (record->event.pressed) {
@@ -186,10 +186,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgblight_mode(1);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 // Runs just one time when the keyboard initializes.

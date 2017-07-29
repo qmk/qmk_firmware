@@ -29,7 +29,7 @@ enum music_modes {
   NUMBER_OF_MODES
 };
 
-bool process_music(uint16_t keycode, keyrecord_t *record);
+level_t process_music(uint16_t keycode, keyrecord_t *record);
 
 bool is_music_on(void);
 void music_toggle(void);

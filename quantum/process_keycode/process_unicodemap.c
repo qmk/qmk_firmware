@@ -44,7 +44,7 @@ void register_hex32(uint32_t hex) {
 __attribute__((weak))
 void unicode_map_input_error() {}
 
-bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
+level_t process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   uint8_t input_mode = get_unicode_input_mode();
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
@@ -68,5 +68,5 @@ bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
       unicode_input_finish();
     }
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

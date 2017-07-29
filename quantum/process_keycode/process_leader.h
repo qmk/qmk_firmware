@@ -19,7 +19,7 @@
 
 #include "quantum.h"
 
-bool process_leader(uint16_t keycode, keyrecord_t *record);
+level_t process_leader(uint16_t keycode, keyrecord_t *record);
 
 void leader_start(void);
 void leader_end(void);

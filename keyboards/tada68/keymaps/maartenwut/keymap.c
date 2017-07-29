@@ -165,7 +165,7 @@ void tap(uint16_t keycode){
     unregister_code(keycode);
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		case LENNY:			// ( ͡° ͜ʖ ͡°)
 			if(record->event.pressed){
@@ -186,7 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap(KC_0);										// Head
 				unregister_code(KC_LSFT);
 			}
-			return false;
+			return STOP_PROCESSING;
 			break;
 		case DWNHRT:		// (´・ω・`)
 			if(record->event.pressed){
@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap(KC_0);										// Head
 				unregister_code(KC_LSFT);
 			}
-			return false;
+			return STOP_PROCESSING;
 			break;
 		case SHRUG:			// ¯\_(ツ)_/¯
 			if(record->event.pressed){
@@ -222,10 +222,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				tap(KC_SLSH);									// Arm
 				process_unicode((0x00AF|QK_UNICODE), record);	// Hand
 			}
-			return false;
+			return STOP_PROCESSING;
 			break;
 	}
-	return true;
+	return CONTINUE_PROCESSING;
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

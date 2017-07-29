@@ -632,7 +632,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 // Custom Keys
 
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+level_t process_user (uint16_t keycode, keyrecord_t *record) {
 
   uint16_t root_note = MIDI_INVALID_NOTE; // Starting value for the root note of each chord
   
@@ -691,5 +691,5 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 	process_midi(root_note - 3, record); // Diminished 7th Note
 	break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

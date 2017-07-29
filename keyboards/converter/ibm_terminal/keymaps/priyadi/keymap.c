@@ -261,50 +261,50 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* layout switcher */
     case LAY_QWE:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<QWE);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LAY_COL:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<COL);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LAY_WOR:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<WOR);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LAY_DVO:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<DVO);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 
     /* os switcher */
     case OS_LIN:
       set_unicode_input_mode(UC_LNX);
-      return false;
+      return STOP_PROCESSING;
       break;
     case OS_WIN:
       set_unicode_input_mode(UC_WINC);
-      return false;
+      return STOP_PROCESSING;
       break;
     case OS_MAC:
       set_unicode_input_mode(UC_OSX);
-      return false;
+      return STOP_PROCESSING;
       break;
 
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void matrix_init_user() {

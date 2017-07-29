@@ -43,7 +43,7 @@ midi_config_t midi_config;
 
 void midi_init(void);
 void midi_task(void);
-bool process_midi(uint16_t keycode, keyrecord_t *record);
+level_t process_midi(uint16_t keycode, keyrecord_t *record);
 
 #define MIDI_INVALID_NOTE 0xFF
 #define MIDI_TONE_COUNT (MIDI_TONE_MAX - MIDI_TONE_MIN + 1)

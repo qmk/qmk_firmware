@@ -48,6 +48,17 @@ extern uint32_t default_layer_state;
 	extern uint32_t layer_state;
 #endif
 
+typedef enum {
+	PL_STOP_PROCESSING
+} process_level_t;
+
+#define CONTINUE_PROCESSING (0)
+#define STOP_PROCESSING (1<<PL_STOP_PROCESSING)
+
+// uint8_t supports up to 8 stops
+#define level_t uint8_t
+
+
 #ifdef MIDI_ENABLE
 	#include <lufa.h>
 #ifdef MIDI_ADVANCED
@@ -120,28 +131,22 @@ void matrix_scan_kb(void);
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
-
-bool process_action_kb(keyrecord_t *record);
-
-typedef enum {
-	PL_STOP_SYSTEM,
-	PL_STOP_FEATURES,
-	PL_STOP_KEYBOARD
-} process_level_t;
-
-#define CONTINUE (0)
-#define STOP_SYSTEM (1<<PL_STOP_SYSTEM)
-#define STOP_FEAUTRES (1<<PL_STOP_FEAUTRES)
-#define STOP_KEYBOARD (1<<PL_STOP_KEYBOARD)
-#define STOP_ALL (STOP_SYSTEM|STOP_FEAUTRES|STOP_KEYBOARD)
-
-// uint8_t supports up to 8 stops
-#define level_t uint8_t
-
 /* keyboard-specific key event (pre)processing */
 level_t process_quantum(keyrecord_t *record);
 level_t process_kb(uint16_t keycode, keyrecord_t *record);
 level_t process_user(uint16_t keycode, keyrecord_t *record);
+
+bool process_record_kb_deprecated(uint16_t keycode, keyrecord_t *record);
+
+#define process_record_kb dummy_var_kb; \
+    _Pragma ("GCC warning \"'bool process_record_kb' is deprecated - use 'level_t process_kb' instead\"") \
+	bool process_record_kb_deprecated
+
+bool process_record_user_deprecated(uint16_t keycode, keyrecord_t *record);
+
+#define process_record_user dummy_var_user; \
+    _Pragma ("GCC warning \"'bool process_record_user' is deprecated - use 'level_t process_user' instead\"") \
+	bool process_record_user_deprecated
 
 void reset_keyboard(void);
 

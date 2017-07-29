@@ -150,7 +150,7 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWR:
       if (record->event.pressed) {
@@ -159,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_off(_CDH);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
       
     case CDH:
@@ -169,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         layer_on(_CDH);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
       
     case SYM:
@@ -178,11 +178,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
 		layer_off(_SYM);
       }
-     return false;
+     return STOP_PROCESSING;
      break;
      
    }
- return true;
+ return CONTINUE_PROCESSING;
 
 }
  

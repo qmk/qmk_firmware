@@ -117,13 +117,23 @@ void unregister_code16 (uint16_t code) {
 }
 
 __attribute__ ((weak))
+bool process_record_kb_deprecated(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+__attribute__ ((weak))
 level_t process_kb(uint16_t keycode, keyrecord_t *record) {
-  return CONTINUE;
+  return process_record_kb_deprecated(keycode, record) ? CONTINUE_PROCESSING : STOP_PROCESSING;
+}
+
+__attribute__ ((weak))
+bool process_record_user_deprecated(uint16_t keycode, keyrecord_t *record) {
+  return true;
 }
 
 __attribute__ ((weak))
 level_t process_user(uint16_t keycode, keyrecord_t *record) {
-  return CONTINUE;
+  return process_record_user_deprecated(keycode, record) ? CONTINUE_PROCESSING : STOP_PROCESSING;
 }
 
 void reset_keyboard(void) {
@@ -158,7 +168,7 @@ static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
 
 level_t process_quantum(keyrecord_t *record) {
-  level_t level = CONTINUE;
+  level_t level = CONTINUE_PROCESSING;
 
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
@@ -185,58 +195,58 @@ level_t process_quantum(keyrecord_t *record) {
     //   action_t action;
     //   action.code = ACTION_DEFAULT_LAYER_SET(0);
     //   process_action(record, action);
-    //   return false;
+    //   level |= STOP_PROCESSING;
     // }
 
   level |= process_user(keycode, record);
-  if (!(level & STOP_KEYBOARD))
+  if (!(level & STOP_PROCESSING))
     level |= process_kb(keycode, record);
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_midi(keycode, record);
   #endif
   #ifdef AUDIO_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_audio(keycode, record);
   #endif
   #ifdef STENO_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_steno(keycode, record);
   #endif
   #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_music(keycode, record);
   #endif
   #ifdef TAP_DANCE_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_tap_dance(keycode, record);
   #endif
   #ifndef DISABLE_LEADER
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_leader(keycode, record);
   #endif
   #ifndef DISABLE_CHORDING
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_chording(keycode, record)
   #endif
   #ifdef COMBO_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_combo(keycode, record);
   #endif
   #ifdef UNICODE_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_unicode(keycode, record);
   #endif
   #ifdef UCIS_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_ucis(keycode, record);
   #endif
   #ifdef PRINTING_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_printer(keycode, record);
   #endif
   #ifdef UNICODEMAP_ENABLE
-    if (!(level & STOP_FEATURES))
+    if (!(level & STOP_PROCESSING))
       level |= process_unicode_map(keycode, record);
   #endif
 
@@ -247,33 +257,33 @@ level_t process_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
         reset_keyboard();
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       break;
     case DEBUG:
       if (record->event.pressed) {
           print("\nDEBUG: enabled.\n");
           debug_enable = true;
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       break;
   #ifdef FAUXCLICKY_ENABLE
   case FC_TOG:
     if (record->event.pressed) {
       FAUXCLICKY_TOGGLE;
     }
-    return (level | STOP_ALL);
+    return (level | STOP_PROCESSING);
     break;
   case FC_ON:
     if (record->event.pressed) {
       FAUXCLICKY_ON;
     }
-    return (level | STOP_ALL);
+    return (level | STOP_PROCESSING);
     break;
   case FC_OFF:
     if (record->event.pressed) {
       FAUXCLICKY_OFF;
     }
-    return (level | STOP_ALL);
+    return (level | STOP_PROCESSING);
     break;
   #endif
 	#ifdef RGBLIGHT_ENABLE
@@ -281,49 +291,49 @@ level_t process_quantum(keyrecord_t *record) {
 		if (record->event.pressed) {
 			rgblight_toggle();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_MOD:
 		if (record->event.pressed) {
 			rgblight_step();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_HUI:
 		if (record->event.pressed) {
 			rgblight_increase_hue();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_HUD:
 		if (record->event.pressed) {
 			rgblight_decrease_hue();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_SAI:
 		if (record->event.pressed) {
 			rgblight_increase_sat();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_SAD:
 		if (record->event.pressed) {
 			rgblight_decrease_sat();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_VAI:
 		if (record->event.pressed) {
 			rgblight_increase_val();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	case RGB_VAD:
 		if (record->event.pressed) {
 			rgblight_decrease_val();
       }
-	  return (level | STOP_ALL);
+	  return (level | STOP_PROCESSING);
       break;
 	#endif
     #ifdef PROTOCOL_LUFA
@@ -331,20 +341,20 @@ level_t process_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       break;
     case OUT_USB:
       if (record->event.pressed) {
         set_output(OUTPUT_USB);
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       break;
     #ifdef BLUETOOTH_ENABLE
     case OUT_BT:
       if (record->event.pressed) {
         set_output(OUTPUT_BLUETOOTH);
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       break;
     #endif
     #endif
@@ -429,7 +439,7 @@ level_t process_quantum(keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
         clear_keyboard(); // clear to prevent stuck keys
 
-        return (level | STOP_ALL);
+        return (level | STOP_PROCESSING);
       }
       break;
     case KC_LSPO: {
@@ -451,7 +461,7 @@ level_t process_quantum(keyrecord_t *record) {
         }
         unregister_mods(MOD_BIT(KC_LSFT));
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       // break;
     }
 
@@ -474,7 +484,7 @@ level_t process_quantum(keyrecord_t *record) {
         }
         unregister_mods(MOD_BIT(KC_RSFT));
       }
-      return (level | STOP_ALL);
+      return (level | STOP_PROCESSING);
       // break;
     }
     case GRAVE_ESC: {

@@ -98,15 +98,15 @@ void matrix_scan_user(void)
 }
 
 /* Mixes in KM_HAXHAX via RALT modifier without shadowing the RALT key combinations. */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
 	uint8_t modifiers = get_mods();
 	if (modifiers & MOD_BIT(KC_RALT) && record->event.pressed) {
 		uint16_t kc = keymap_key_to_keycode(KM_HAXHAX, record->event.key);
 		if (kc != KC_TRNS) {
 			register_code(kc);
 			unregister_code(kc);
-			return false;
+			return STOP_PROCESSING;
 		}
 	}
-	return true;
+	return CONTINUE_PROCESSING;
 }

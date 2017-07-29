@@ -135,8 +135,8 @@ The `process_record()` function itself is deceptively simple, but hidden within 
 * [`void process_record(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L128)
   * [`bool process_record_quantum(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c#L140)
     * [Map this record to a keycode](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c#L143)
-    * [`bool process_record_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cluecard/cluecard.c#L20)
-      * [`bool process_record_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cluecard/keymaps/default/keymap.c#L58)
+    * [`level_t process_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cluecard/cluecard.c#L20)
+      * [`level_t process_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/keyboards/cluecard/keymaps/default/keymap.c#L58)
     * [`bool process_midi(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_midi.c#L102)
     * [`bool process_audio(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_audio.c#L10)
     * [`bool process_music(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_music.c#L69)
@@ -150,7 +150,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_unicode_map(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicodemap.c#L47)
     * [Identify and process quantum specific keycodes](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c#L211)
   
-At any step during this chain of events a function (such as `process_record_kb()`) can `return false` to halt all further processing.
+At any step during this chain of events a function (such as `process_kb()`) can `return false` to halt all further processing.
 
 <!--
 #### Mouse Handling

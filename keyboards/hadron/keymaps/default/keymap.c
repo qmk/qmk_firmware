@@ -250,7 +250,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -259,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case COLEMAK:
       if (record->event.pressed) {
@@ -268,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LOWER:
       if (record->event.pressed) {
@@ -291,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RAISE:
       if (record->event.pressed) {
@@ -314,7 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         TOG_STATUS = false;
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case BACKLIT:
       if (record->event.pressed) {
@@ -325,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_RSFT);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_MOD:
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
@@ -334,10 +334,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_step();
         RGB_current_mode = rgblight_config.mode;
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void matrix_init_user(void) {

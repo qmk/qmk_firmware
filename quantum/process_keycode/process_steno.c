@@ -120,19 +120,19 @@ bool send_state_gemini(void) {
   return false;
 }
 
-bool process_steno(uint16_t keycode, keyrecord_t *record) {
+level_t process_steno(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QK_STENO_BOLT:
       if (IS_PRESSED(record->event)) {
         steno_set_mode(STENO_MODE_BOLT);
       }
-      return false;
+      return STOP_PROCESSING;
 
     case QK_STENO_GEMINI:
       if (IS_PRESSED(record->event)) {
         steno_set_mode(STENO_MODE_GEMINI);
       }
-      return false;
+      return STOP_PROCESSING;
 
     case STN__MIN...STN__MAX:
       if (IS_PRESSED(record->event)) {
@@ -144,7 +144,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
           case STENO_MODE_GEMINI:
             return update_state_gemini(key);
           default:
-            return false;
+            return STOP_PROCESSING;
         }
       } else {
         --pressed;
@@ -156,11 +156,11 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             case STENO_MODE_GEMINI:
               return send_state_gemini();
             default:
-              return false;
+              return STOP_PROCESSING;
           }
         }
       }
 
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

@@ -16,16 +16,16 @@ static float compute_freq_for_midi_note(uint8_t note)
     return pow(2.0, (note - 69) / 12.0) * PITCH_STANDARD_A;
 }
 
-bool process_audio(uint16_t keycode, keyrecord_t *record) {
+level_t process_audio(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == AU_ON && record->event.pressed) {
       audio_on();
-      return false;
+      return STOP_PROCESSING;
     }
 
     if (keycode == AU_OFF && record->event.pressed) {
       audio_off();
-      return false;
+      return STOP_PROCESSING;
     }
 
     if (keycode == AU_TOG && record->event.pressed) {
@@ -34,22 +34,22 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
         } else {
             audio_on();
         }
-        return false;
+        return STOP_PROCESSING;
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
         voice_iterate();
         PLAY_SONG(voice_change_song);
-        return false;
+        return STOP_PROCESSING;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
         voice_deiterate();
         PLAY_SONG(voice_change_song);
-        return false;
+        return STOP_PROCESSING;
     }
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 void process_audio_noteon(uint8_t note) {

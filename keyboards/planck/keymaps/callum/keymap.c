@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MOVE:
       if (record->event.pressed) {
@@ -130,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MOVE);
         update_tri_layer(_MOVE, _SYMB, _MOUSE);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case SYMB:
       if (record->event.pressed) {
@@ -140,7 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_SYMB);
         update_tri_layer(_MOVE, _SYMB, _MOUSE);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case FUNC:
       if (record->event.pressed) {
@@ -148,8 +148,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_FUNC);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
