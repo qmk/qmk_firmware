@@ -53,7 +53,7 @@ level_t process_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         // Do something else when release
       }
-      return STOP_FEATURE; // Skip all further processing of this key
+      return STOP_PROCESSING; // Skip all further processing of this key
     case KC_ENTER:
       // Play a tone when enter is pressed
       if (record->event.pressed) {

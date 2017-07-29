@@ -162,19 +162,19 @@ level_t process_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
-      return STOP_FEATURE;
+      return STOP_PROCESSING;
       break;
     case COLEMAK:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
-      return STOP_FEATURE;
+      return STOP_PROCESSING;
       break;
     case DVORAK:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_DVORAK);
       }
-      return STOP_FEATURE;
+      return STOP_PROCESSING;
       break;
   }
   return CONTINUE_PROCESSING;
