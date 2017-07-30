@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |ESC/SYMB|A/Shift|   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S/LShift| L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
- * |ä/CrlShf|  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  Enter |
+ * |ä/CrlShf|  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  SYMB  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |</Ctrl|'/LGui|  Alt |~SYMB|   \   |                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
+ *   |  Ctrl| Alt  | LGui |~SYMB|AltShf\|                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | GAME |  App |
@@ -65,15 +65,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
         LT(SYMB, KC_ESC),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
         MT(MOD_LCTL | MOD_LSFT, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
-        CTL_T(CH_LESS),GUI_T(CH_QUOT),      KC_LALT, KC_FN4, CH_BSLS,
+        KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, MT(MOD_LALT | MOD_LSFT, CH_BSLS),
                                               KC_ENT,  KC_LGUI,
                                                               KC_PGUP,
-                                               LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),LT(WORK,KC_HOME),
+                                               LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),MEH_T(KC_HOME),
         // right hand
              TG(NUMB),     CH_6,   CH_7,   CH_8,   CH_9,   CH_0,             KC_PSCR,
              KC_FN1,    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
                           TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   SFT_T(CH_S),             LT(SYMB,CH_L),
-             LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   KC_ENT,
+             LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   OSL(SYMB),
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
              KC_TRNS,        ALT_T(KC_APP),
              KC_PGDN,
@@ -125,11 +125,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |  F11   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   F4 |  F3  |   F2  |  F1 |      |      |           |      |  "   |   7  |   8  |   9  |  *   |  F12   |
+ * |        |   F4 |  F3  |   F2  |  F1 |   0  |      |           |      |  "   |   7  |   8  |   9  |  *   |  F12   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   F8 |   F7 |   F6 |   F5 |   `  |------|           |------|      |   4  |   5  |   6  |   +  |        |
+ * |        |   F8 |   F7 |   F6 |   F5 |   5  |------|           |------|      |   4  |   5  |   6  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |  F12 | F11  |  F10 |  F9  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   /  |NumLock |
+ * |        |  F12 | F11  |  F10 |  F9  |   1  |      |           |      |   &  |   1  |   2  |   3  |   /  |NumLock |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |   0  |  00  |   .  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -144,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NUMB] = KEYMAP(
        // left hand
         KC_TRNS,     KC_F1,     KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,     
-        KC_TRNS,     KC_F4,      KC_F3,    KC_F2,    KC_F1,    KC_TRNS,    KC_TRNS,     
-        KC_TRNS,     KC_F8,   KC_F7,     KC_F6,    KC_F5,    KC_TRNS,     
-        KC_TRNS,     KC_F12,   KC_F11,    KC_F10,    KC_F9,    KC_TRNS,    KC_TRNS,     
+        KC_TRNS,     KC_F4,      KC_F3,    KC_F2,    KC_F1,    CH_0,    KC_TRNS,     
+        KC_TRNS,     KC_F8,   KC_F7,     KC_F6,    KC_F5,    CH_5,     
+        KC_TRNS,     KC_F12,   KC_F11,    KC_F10,    KC_F9,    CH_1,    KC_TRNS,     
         KC_TRNS,     KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     
                                                                     KC_TRNS,    KC_TRNS,    
                                                                                 KC_TRNS,     
