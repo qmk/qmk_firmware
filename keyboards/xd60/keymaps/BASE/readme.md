@@ -1,6 +1,6 @@
 # Default Keymap for XIUDI's 60% XD60 PCB
 
-![Default Keymap for XD60](https://img.alicdn.com/imgextra/i1/1713761720/TB2K0gTalPxQeBjy1XcXXXHzVXa_!!1713761720.png)
+![Uses this layout](https://i.redd.it/v64eqwsrk8jx.jpg)
 
 ## Additional Notes
 Default Keymap for XD60 as indicated on the original sale page.
