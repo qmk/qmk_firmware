@@ -17,6 +17,16 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-SPLIT_KEYBOARD = yes
+CUSTOM_MATRIX = yes
+
+avrdude: build
+	ls /dev/tty* > /tmp/1; \
+	echo "Reset your Pro Micro now"; \
+	while [ -z $$USB ]; do \
+	  sleep 1; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
+	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 
 DEFAULT_FOLDER = orthodox/rev3
