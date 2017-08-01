@@ -21,8 +21,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+#define EEPROM_CONFIG_VERSION	1
+#define EEPROM_HEADER_SIZE		4
 
-#define EECONFIG_MAGIC_NUMBER                       (uint16_t)0xFEED
+#define EEPROM_SIGNATURE		(0xFEED - EEPROM_CONFIG_VERSION)
+#define EEPROM_SIGNATURE_ADDR	(uint16_t *)0
+
+#define EEPROM_ENABLED_FEATURES			eeprom_enabled_features
+#define EEPROM_ENABLED_FEATURES_ADDR	(uint16_t *)2
+
+enum eeprom_optional_features {
+	eeprom_backlight_option,
+	eeprom_audio_option,
+	eeprom_rgblight_option,
+	eeprom_stenomode_option,
+	eeprom_free_range_option
+};
+
+static const uint16_t eeprom_enabled_features =
+	#ifdef BACKLIGHT_ENABLE
+		(1 << eeprom_backlight_option) |
+	#endif
+	#ifdef AUDIO_ENABLE
+		(1 << eeprom_audio_option) |
+	#endif
+	#ifdef RGBLIGHT_ENABLE
+		(1 << eeprom_rgblight_option) |
+	#endif
+	#ifdef STENO_ENABLE
+		(1 << eeprom_stenomode_option) |
+	#endif
+	0;
+
+typedef enum eeprom_features {
+	eeprom_debug,
+	eeprom_default_layer,
+	eeprom_keymap,
+	eeprom_mousekey_accel,
+	eeprom_backlight,
+	eeprom_audio,
+	eeprom_rgblight,
+	eeprom_unicodemode,
+	eeprom_stenomode,
+	eeprom_free_range
+} eeprom_feature_t;
+
+typedef uint8_t eeprom_debug_t;
+typedef uint8_t eeprom_default_layer_t;
+typedef uint8_t eeprom_keymap_t;
+typedef uint8_t eeprom_mousekey_accel_t;
+typedef uint8_t eeprom_backlight_t;
+typedef uint8_t eeprom_audio_t;
+typedef uint32_t eeprom_rgblight_t;
+typedef uint8_t eeprom_unicodemode_t;
+typedef uint8_t eeprom_stenomode_t;
+
+#define typeof(n) n ## _t
 
 /* eeprom parameteter address */
 #define EECONFIG_MAGIC                              (uint16_t *)0

@@ -5,7 +5,7 @@
 
 void eeconfig_init(void)
 {
-    eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
+    eeprom_update_word(EEPROM_SIGNATURE_ADDR,          EEPROM_SIGNATURE);
     eeprom_update_byte(EECONFIG_DEBUG,          0);
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
     eeprom_update_byte(EECONFIG_KEYMAP,         0);
@@ -24,19 +24,59 @@ void eeconfig_init(void)
 #endif
 }
 
+uint8_t eeprom_feature_location(eeprom_feature_t feature) {
+    uint8_t location = EEPROM_HEADER_SIZE;
+    if (feature == eeprom_debug)
+        return location;
+    location += sizeof(typeof(eeprom_debug));
+    if (feature == eeprom_default_layer)
+        return location;
+    location += sizeof(typeof(eeprom_default_layer));
+    if (feature == eeprom_keymap)
+        return location;
+    location += sizeof(typeof(eeprom_keymap));
+    if (feature == eeprom_mousekey_accel)
+        return location;
+    location += sizeof(typeof(eeprom_mousekey_accel));
+    #ifdef BACKLIGHT_ENABLE
+        if (feature == eeprom_backlight)
+            return location;
+        location += sizeof(typeof(eeprom_backlight));
+    #endif
+    #ifdef AUDIO_ENABLE
+        if (feature == eeprom_audio)
+            return location;
+        location += sizeof(typeof(eeprom_audio));
+    #endif
+    #ifdef RGBLIGHT_ENABLE
+        if (feature == eeprom_rgblight)
+            return location;
+        location += sizeof(typeof(eeprom_rgblight));
+    #endif
+    if (feature == eeprom_unicodemode)
+        return location;
+    location += sizeof(typeof(eeprom_unicodemode));
+    #ifdef STENO_ENABLE
+        if (feature == eeprom_stenomode)
+            return location;
+        location += sizeof(typeof(eeprom_stenomode));
+    #endif
+    return location;
+}
+
 void eeconfig_enable(void)
 {
-    eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
+    eeprom_update_word(EEPROM_SIGNATURE_ADDR, EEPROM_SIGNATURE);
 }
 
 void eeconfig_disable(void)
 {
-    eeprom_update_word(EECONFIG_MAGIC, 0xFFFF);
+    eeprom_update_word(EEPROM_SIGNATURE_ADDR, 0xFFFF);
 }
 
 bool eeconfig_is_enabled(void)
 {
-    return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
+    return (eeprom_read_word(EEPROM_SIGNATURE_ADDR) == EEPROM_SIGNATURE);
 }
 
 uint8_t eeconfig_read_debug(void)      { return eeprom_read_byte(EECONFIG_DEBUG); }
