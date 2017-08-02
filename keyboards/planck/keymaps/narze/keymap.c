@@ -60,16 +60,21 @@ static uint16_t m_sft_po_timer;
 #define GUI_MINS GUI_T(KC_MINS)
 #define GUI_UNDS F(M_GUI_UNDS)
 
-// Combo : SuperDuper layer from S+D
+// Combo : SuperDuper layer from S+D (R+S in Colemak)
 enum process_combo_event {
   CB_SUPERDUPER,
+  CB_SUPERDUPER_COLEMAK,
 };
 
-const uint16_t PROGMEM superduper_combo[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM superduper_combo[]         = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM superduper_combo_colemak[] = {KC_R, KC_S, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    [CB_SUPERDUPER] = COMBO_ACTION(superduper_combo),
+  [CB_SUPERDUPER]         = COMBO_ACTION(superduper_combo),
+  [CB_SUPERDUPER_COLEMAK] = COMBO_ACTION(superduper_combo_colemak),
 };
+
+void superduper_toggle(bool pressed);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {HPR_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {SFT_PO, LT(_MOUSE, KC_Z),    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
-  {LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_RAISE, KC_RBRC)}
+  {LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)}
 },
 
 /* Colemak
@@ -239,19 +244,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
+  float tone_startup[][2]    = SONG(STARTUP_SOUND);
+  float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+  float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+  float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+  float tone_plover[][2]     = SONG(PLOVER_SOUND);
+  float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+  float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-float tone_superduper[][2] = SONG(SUPER_DUPER_SOUND);
+  float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
+  float tone_superduper[][2] = SONG(SUPER_DUPER_SOUND);
 #endif
-
 
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -386,19 +389,32 @@ void music_scale_user(void)
 // Combos
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
-    switch(combo_index) {
-    case CB_SUPERDUPER:
-        if (pressed) {
-          layer_on(_SUPERDUPER);
+  uint8_t layer = biton32(layer_state);
 
-          #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_superduper, false, 0);
-          #endif
-        } else {
-          layer_off(_SUPERDUPER);
-        }
-        break;
-    }
+  switch(combo_index) {
+    case CB_SUPERDUPER:
+      if (layer == _QWERTY) {
+        superduper_toggle(pressed);
+      }
+      break;
+    case CB_SUPERDUPER_COLEMAK:
+      if (layer == _COLEMAK) {
+        superduper_toggle(pressed);
+      }
+      break;
+  }
+}
+
+void superduper_toggle(bool pressed) {
+  if (pressed) {
+    layer_on(_SUPERDUPER);
+
+    #ifdef AUDIO_ENABLE
+      PLAY_NOTE_ARRAY(tone_superduper, false, 0);
+    #endif
+  } else {
+    layer_off(_SUPERDUPER);
+  }
 }
 
 // Macros
@@ -435,7 +451,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           send_keyboard_report();
           record->tap.count = 0;  // ad hoc: cancel tap
         } else {
-          unregister_mods(MOD_BIT(KC_LGUI));
+          unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
         }
       }
       break;
