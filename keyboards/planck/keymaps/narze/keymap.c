@@ -38,7 +38,8 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
-  EXT_PLV
+  EXT_PLV,
+  SDTOGG,
 };
 
 enum functions {
@@ -63,6 +64,7 @@ static uint16_t m_sft_po_timer;
 
 // Combo : SuperDuper layer from S+D (R+S in Colemak)
 #define SUPERDUPER_COMBO_COUNT 3
+#define EECONFIG_SUPERDUPER_INDEX (uint8_t *) 19
 
 enum process_combo_event {
   CB_SUPERDUPER,
@@ -78,7 +80,12 @@ combo_t key_combos[COMBO_COUNT] = {
   [CB_SUPERDUPER] = COMBO_ACTION(superduper_combos[_QWERTY]),
 };
 
-bool first_scan = true;
+volatile bool superduper_enabled = true;
+
+const uint16_t empty_combo[] = {COMBO_END};
+
+void set_superduper_key_combos(void);
+void clear_superduper_key_combos(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -223,15 +230,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|QwOnCo|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|SDtogg|      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, QWOC,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, QWOC,    PLOVER,  _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  SDTOGG,  _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -245,6 +252,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float tone_plover[][2]     = SONG(PLOVER_SOUND);
   float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
   float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
+  float tone_coin[][2]       = SONG(COIN_SOUND);
+  float tone_sonic_ring[][2] = SONG(SONIC_RING);
 
   float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
   float tone_superduper[][2] = SONG(SUPER_DUPER_SOUND);
@@ -265,6 +274,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         persistant_default_layer_set(1UL<<_QWERTY);
 
         key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWERTY];
+        eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWERTY);
       }
       return false;
       break;
@@ -274,8 +284,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_colemak, false, 0);
         #endif
         persistant_default_layer_set(1UL<<_COLEMAK);
-    
+
         key_combos[CB_SUPERDUPER].keys = superduper_combos[_COLEMAK];
+        eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _COLEMAK);
       }
       return false;
       break;
@@ -285,8 +296,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_qwoc, false, 0);
         #endif
         persistant_default_layer_set(1UL<<_QWOC);
-        
+
         key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWOC];
+        eeprom_update_byte(EECONFIG_SUPERDUPER_INDEX, _QWOC);
       }
       return false;
       break;
@@ -349,6 +361,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case SDTOGG:
+      if (record->event.pressed) {
+        superduper_enabled = !superduper_enabled;
+
+        if (superduper_enabled) {
+          set_superduper_key_combos();
+
+          #ifdef AUDIO_ENABLE
+            PLAY_NOTE_ARRAY(tone_sonic_ring, false, 0);
+          #endif
+        } else {
+          clear_superduper_key_combos();
+
+          #ifdef AUDIO_ENABLE
+            PLAY_NOTE_ARRAY(tone_coin, false, 0);
+          #endif
+        }
+      }
+      return false;
+      break;
   }
   return true;
 }
@@ -359,19 +391,27 @@ void matrix_init_user(void) {
   #endif
 }
 
-void matrix_scan_user(void) {
-  // FIXME: Not working (always boot on _QWERTY)
-  if (first_scan) {
-    uint8_t layer = biton32(layer_state);
+void matrix_setup(void) {
+  set_superduper_key_combos();
+}
 
-    switch (layer) {
-      case _QWERTY:
-      case _COLEMAK:
-      case _QWOC:
-        key_combos[CB_SUPERDUPER].keys = superduper_combos[layer];
-    }
-    first_scan = false;
+void set_superduper_key_combos(void) {
+  uint8_t layer = eeprom_read_byte(EECONFIG_SUPERDUPER_INDEX);
+
+  switch (layer) {
+    case _QWERTY:
+    case _COLEMAK:
+    case _QWOC:
+      key_combos[CB_SUPERDUPER].keys = superduper_combos[layer];
+      break;
   }
+}
+
+void clear_superduper_key_combos(void) {
+  key_combos[CB_SUPERDUPER].keys = empty_combo;
+}
+
+void matrix_scan_user(void) {
 }
 
 #ifdef AUDIO_ENABLE
