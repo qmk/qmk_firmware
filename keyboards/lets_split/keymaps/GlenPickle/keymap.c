@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
      LSFT,    ,    ,    ,    ,    ,         ,  1 ,  2 ,  3 ,ASTR, EQL,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-         ,    ,    ,    ,DNCD,BSPC,     SPC ,  0 ,  0 , DOT,SLSH,RGUI
+         ,    ,    ,    ,    ,BSPC,     SPC ,  0 ,  0 , DOT,SLSH,RGUI
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
@@ -260,7 +260,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
       break;
     case 8:
       if (record->event.pressed){
-        SEND_STRING("asdf1234ASDF!@#$");
+        SEND_STRING("password");
         return MACRO ( T(ENT), END );
       }
       break;
@@ -270,7 +270,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
 	#ifdef RGBLIGHT_ENABLE
         rgblight_setrgb(0x00,0x00,0xff);
 	#endif
-        return false;
+      }
+      else {
+         layer_off(_NUMPAD);
+         #ifdef RGBLIGHT_ENABLE
+         rgblight_setrgb(0x00,0xff,0x00);
+         #endif
+         return false;
       }
       break;
     case 10:
