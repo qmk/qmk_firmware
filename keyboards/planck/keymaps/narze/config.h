@@ -29,7 +29,7 @@
 #define TAPPING_TERM 200
 
 #define COMBO_TERM 20
-#define COMBO_COUNT 2
+#define COMBO_COUNT 1
 
 #define SUPER_DUPER_SOUND S__NOTE(_B1)
 

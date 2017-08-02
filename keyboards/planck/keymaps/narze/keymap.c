@@ -7,6 +7,7 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
+#include "keymap_colemak.h"
 
 extern keymap_config_t keymap_config;
 
@@ -18,7 +19,7 @@ extern keymap_config_t keymap_config;
 enum planck_layers {
   _QWERTY,
   _COLEMAK,
-  _DVORAK,
+  _QWOC,
   _LOWER,
   _RAISE,
   _PLOVER,
@@ -30,7 +31,7 @@ enum planck_layers {
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
-  DVORAK,
+  QWOC,
   PLOVER,
   SUPERDUPER,
   MOUSE,
@@ -61,20 +62,23 @@ static uint16_t m_sft_po_timer;
 #define GUI_UNDS F(M_GUI_UNDS)
 
 // Combo : SuperDuper layer from S+D (R+S in Colemak)
+#define SUPERDUPER_COMBO_COUNT 3
+
 enum process_combo_event {
   CB_SUPERDUPER,
-  CB_SUPERDUPER_COLEMAK,
 };
 
-const uint16_t PROGMEM superduper_combo[]         = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM superduper_combo_colemak[] = {KC_R, KC_S, COMBO_END};
+const uint16_t PROGMEM superduper_combos[SUPERDUPER_COMBO_COUNT][3] = {
+  [_QWERTY] = {KC_S, KC_D, COMBO_END},
+  [_COLEMAK] = {KC_R, KC_S, COMBO_END},
+  [_QWOC] = {CM_S, CM_D, COMBO_END},
+};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [CB_SUPERDUPER]         = COMBO_ACTION(superduper_combo),
-  [CB_SUPERDUPER_COLEMAK] = COMBO_ACTION(superduper_combo_colemak),
+  [CB_SUPERDUPER] = COMBO_ACTION(superduper_combos[_QWERTY]),
 };
 
-void superduper_toggle(bool pressed);
+bool first_scan = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -108,28 +112,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {SFT_PO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,    KC_BSPC},
+  {HPR_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,       KC_QUOT},
+  {SFT_PO, LT(_MOUSE, KC_Z),  KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  LT(_SUPERDUPER, KC_SLSH), SFT_ENT},
+  {LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)}
 },
 
-/* Dvorak
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Hp/Ec|   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Sft/(|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z |Sft/Ent|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_DVORAK] = {
-  {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
-  {HPR_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-  {SFT_PO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
-  {BACKLIT, KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+/* Qwerty on software Colemak : Useful for gaming with qwerty keymaps! */
+[_QWOC] = {
+  {KC_TAB,  CM_Q,    CM_W,    CM_E,    CM_R,    CM_T,    CM_Y,    CM_U,    CM_I,    CM_O,    CM_P,    KC_BSPC},
+  {HPR_ESC, CM_A,    CM_S,    CM_D,    CM_F,    CM_G,    CM_H,    CM_J,    CM_K,    CM_L,    CM_SCLN, KC_QUOT},
+  {SFT_PO, LT(_MOUSE, CM_Z),    CM_X,    CM_C,    CM_V,    CM_B,    CM_N,    CM_M,    CM_COMM, CM_DOT,  LT(_SUPERDUPER, CM_SLSH), SFT_ENT},
+  {LT(_RAISE, KC_LBRC), KC_LCTL, KC_LALT, GUI_UNDS, LOWER,   KC_SPC,  KC_SPC,  RAISE,   GUI_MINS, KC_RALT, KC_RCTL,   LT(_LOWER, KC_RBRC)}
 },
 
 /* Lower
@@ -227,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|QwOnCo|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -236,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, QWOC,  PLOVER,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -246,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
   float tone_startup[][2]    = SONG(STARTUP_SOUND);
   float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-  float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+  float tone_qwoc[][2]       = SONG(DVORAK_SOUND);
   float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
   float tone_plover[][2]     = SONG(PLOVER_SOUND);
   float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
@@ -269,6 +263,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
+
+        key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWERTY];
       }
       return false;
       break;
@@ -278,15 +274,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_NOTE_ARRAY(tone_colemak, false, 0);
         #endif
         persistant_default_layer_set(1UL<<_COLEMAK);
+    
+        key_combos[CB_SUPERDUPER].keys = superduper_combos[_COLEMAK];
       }
       return false;
       break;
-    case DVORAK:
+    case QWOC:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+          PLAY_NOTE_ARRAY(tone_qwoc, false, 0);
         #endif
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistant_default_layer_set(1UL<<_QWOC);
+        
+        key_combos[CB_SUPERDUPER].keys = superduper_combos[_QWOC];
       }
       return false;
       break;
@@ -354,9 +354,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
+  #ifdef AUDIO_ENABLE
+    startup_user();
+  #endif
+}
+
+void matrix_scan_user(void) {
+  // FIXME: Not working (always boot on _QWERTY)
+  if (first_scan) {
+    uint8_t layer = biton32(layer_state);
+
+    switch (layer) {
+      case _QWERTY:
+      case _COLEMAK:
+      case _QWOC:
+        key_combos[CB_SUPERDUPER].keys = superduper_combos[layer];
+    }
+    first_scan = false;
+  }
 }
 
 #ifdef AUDIO_ENABLE
@@ -389,29 +404,16 @@ void music_scale_user(void)
 // Combos
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
-  uint8_t layer = biton32(layer_state);
-
-  switch(combo_index) {
-    case CB_SUPERDUPER:
-      if (layer == _QWERTY) {
-        superduper_toggle(pressed);
-      }
-      break;
-    case CB_SUPERDUPER_COLEMAK:
-      if (layer == _COLEMAK) {
-        superduper_toggle(pressed);
-      }
-      break;
-  }
-}
-
-void superduper_toggle(bool pressed) {
   if (pressed) {
-    layer_on(_SUPERDUPER);
+    switch(combo_index) {
+      case CB_SUPERDUPER:
+        layer_on(_SUPERDUPER);
 
-    #ifdef AUDIO_ENABLE
-      PLAY_NOTE_ARRAY(tone_superduper, false, 0);
-    #endif
+        #ifdef AUDIO_ENABLE
+          PLAY_NOTE_ARRAY(tone_superduper, false, 0);
+        #endif
+        break;
+    }
   } else {
     layer_off(_SUPERDUPER);
   }
