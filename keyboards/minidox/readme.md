@@ -1,7 +1,7 @@
 MiniDox
 =====
 
-![MimiDox](http://i.imgur.com/iWb3yO0.jpg)
+![MiniDox](http://i.imgur.com/iWb3yO0.jpg)
 
 A compact version of the ErgoDox
 
@@ -22,7 +22,7 @@ Flashing
 -------
 Note: Most of this is copied from the Let's Split readme, because it is awesome
 
-From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
+From the `minidox` directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
 Example: `make rev1-default-avrdude`
 
 Choosing which board to plug the USB cable into (choosing Master)
