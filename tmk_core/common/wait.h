@@ -1,6 +1,8 @@
 #ifndef WAIT_H
 #define WAIT_H
 
+#include <inttypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -16,8 +18,8 @@ extern "C" {
 #elif defined(__arm__)
 #   include "wait_api.h"
 #else  // Unit tests
-#define wait_ms(ms)
-#define wait_us(us)
+void wait_ms(uint32_t ms);
+#define wait_us(us) wait_ms(us / 1000)
 #endif
 
 #ifdef __cplusplus
