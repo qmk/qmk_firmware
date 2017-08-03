@@ -86,7 +86,7 @@ void play_sample(uint8_t * s, uint16_t l, bool r);
 void play_note(float freq, int vol);
 void stop_note(float freq);
 void stop_all_notes(void);
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest);
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat);
 
 #define SCALE (int8_t []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
                            0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \
@@ -98,8 +98,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
 // length. This works around the limitation of C's sizeof operation on pointers.
 // The global float array for the song must be used here.
 #define NOTE_ARRAY_SIZE(x) ((int16_t)(sizeof(x) / (sizeof(x[0]))))
-#define PLAY_NOTE_ARRAY(note_array, note_repeat, note_rest_style) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat), (note_rest_style));
-
+#define PLAY_NOTE_ARRAY(note_array, note_repeat, deprecated_arg) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), (note_repeat)); \
+	_Pragma ("message \"'PLAY_NOTE_ARRAY' macro is deprecated\"")
+#define PLAY_SONG(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), false)
+#define PLAY_LOOP(note_array) play_notes(&note_array, NOTE_ARRAY_SIZE((note_array)), true)
 
 bool is_playing_notes(void);
 
