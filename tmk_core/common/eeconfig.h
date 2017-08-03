@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_AUDIO                              (uint8_t *)7
 #define EECONFIG_RGBLIGHT                           (uint32_t *)8
 #define EECONFIG_UNICODEMODE                        (uint8_t *)12
+#define EECONFIG_STENOMODE                          (uint8_t *)13
 
 
 /* debug bit */
