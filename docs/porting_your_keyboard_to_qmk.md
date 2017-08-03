@@ -20,7 +20,7 @@ For the `DIODE_DIRECTION`, most hand-wiring guides will instruct you to wire the
 
 `BACKLIGHT_LEVELS` is how many levels exist for your backlight - max is 15, and they are computed automatically from this number.
 
-## `/keyboards/<keyboard>/Makefile`
+## `/keyboards/<keyboard>/rules.mk`
 
 The values at the top likely won't need to be changed, since most boards use the `atmega32u4` chip. The `BOOTLOADER_SIZE` will need to be adjusted based on your MCU type. It's defaulted to the Teensy, since that's the most common controller. Below is quoted from the `Makefile`.
 
