@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 -------------------------------------------------------------------------------------------
 |   Fn1   |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
 -------------------------------------------------------------------------------------------
-|    Shift    |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |     Shift     |
+|    Shift    |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |  Shift  |M(0) |
 -------------------------------------------------------------------------------------------
 | Ctrl  |  GUI  |  Alt  |   Space    |  Fn1  |   Space    |  Alt  |  GUI  |  App  | Ctrl  |
 -------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC, KC_1,    KC_2,    KC_3, KC_4,   KC_5,  KC_6,   KC_7, KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
     KC_TAB,  KC_Q,    KC_W,    KC_E, KC_R,   KC_T,  KC_Y,   KC_U, KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
     MO(1),   KC_A,    KC_S,    KC_D, KC_F,   KC_G,  KC_H,   KC_J, KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT, \
-    KC_LSFT,          KC_Z,    KC_X, KC_C,   KC_V,  KC_B,   KC_N, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_NO,\
+    KC_LSFT,          KC_Z,    KC_X, KC_C,   KC_V,  KC_B,   KC_N, KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, M(0),\
     KC_LCTL, KC_LGUI, KC_LALT,       KC_SPC, MO(1), KC_SPC,       KC_RALT, KC_RGUI, KC_NO,   KC_APP,  KC_RCTL \
 ),
 /*
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 -------------------------------------------------------------------------------------------
 |  TRNS   |Mute |Vol- |Play |PgDn | Del |Left |Down | Up  |Right|     |     |             |
 -------------------------------------------------------------------------------------------
-|             |     |     |     |     |     |DelWL|DelWR|     |     |     |               |
+|             |     |     |     |     |     |DelWL|DelWR|     |     |     |         |     |
 -------------------------------------------------------------------------------------------
 |       |       |       |            | TRNS  |            |       |       |       | Reset |
 -------------------------------------------------------------------------------------------
@@ -64,19 +64,18 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  switch(id) {
+      case 0:
+        // Sends Alt+Shift on both key down and key up. 
+        // Fesigned to switch between two keyboard layouts on Windows using a locking switch.
+        // Does nothing if right shift is pressed for easier resync.
+        if (!(get_mods() & MOD_BIT(KC_RSFT)))
+          return MACRO(D(LALT), T(LSFT), U(LALT), END);
+        else
+          return MACRO_NONE;
+  }
+  return MACRO_NONE;
 };
 
 
