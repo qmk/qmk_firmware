@@ -31,4 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define _MASTER_RIGHT
 // #define EE_HANDS
 
+#undef  TAPPING_TERM
+#define TAPPING_TERM 150
+
+#define PERMISSIVE_HOLD
+
 #endif
