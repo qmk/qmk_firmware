@@ -45,7 +45,6 @@
 #define SET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code) | SHIFT(GET_CODE_INDEX(code))))
 #define UNSET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code)) & ~(SHIFT(GET_CODE_INDEX(code))))
 #define IS_STANDARD_KEYCODE(code) ((code) <= 0xFF)
-#define print_hex64(num) do { print_hex32((num & 0xFFFFFFFF00000000) >> 32); print_hex32(num & 0x00000000FFFFFFFF); } while (0)
 
 // Locked key state. This is an array of 256 bits, one for each of the standard keys supported qmk.
 uint64_t key_state[4] = { 0x0, 0x0, 0x0, 0x0 };
