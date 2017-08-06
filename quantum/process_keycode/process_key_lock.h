@@ -19,6 +19,6 @@
 
 #include "quantum.h"
 
-bool process_key_lock(uint16_t keycode, keyrecord_t *record);
+bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
 
 #endif // PROCESS_KEY_LOCK_H

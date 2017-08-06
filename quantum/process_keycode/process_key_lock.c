@@ -50,7 +50,16 @@
 uint64_t key_state[4] = { 0x0, 0x0, 0x0, 0x0 };
 bool watching = false;
 
-bool process_key_lock(uint16_t keycode, keyrecord_t *record) {
+// Translate any OSM keycodes back to their unmasked versions.
+uint16_t inline translate_keycode(uint16_t keycode) {
+    if (keycode > QK_ONE_SHOT_MOD && keycode <= QK_ONE_SHOT_MOD_MAX) {
+        return keycode ^ QK_ONE_SHOT_MOD;
+    } else {
+        return keycode;
+    }
+}
+
+bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
     // We start by categorizing the keypress event. In the event of a down
     // event, there are several possibilities:
     // 1. The key is not being locked, and we are not watching for new keys.
@@ -76,44 +85,54 @@ bool process_key_lock(uint16_t keycode, keyrecord_t *record) {
     // 2. The key is being locked. In this case, we will mask the up event
     //    by returning false, so the OS never sees that the key was released
     //    until the user pressed the key again.
+
+    // We translate any OSM keycodes back to their original keycodes, so that if the key being
+    // one-shot modded is a standard keycode, we can handle it. This is the only set of special
+    // keys that we handle
+    uint16_t translated_keycode = translate_keycode(*keycode);
+
     if (record->event.pressed) {
         // Non-standard keycode, reset and return
-        if (!(IS_STANDARD_KEYCODE(keycode) || keycode == KC_LOCK)) {
+        if (!(IS_STANDARD_KEYCODE(translated_keycode) || translated_keycode == KC_LOCK)) {
             watching = false;
             return true;
         }
 
         // If we're already watching, turn off the watch.
-        if (keycode == KC_LOCK) {
+        if (translated_keycode == KC_LOCK) {
             watching = !watching;
             return false;
         }
-        
-        if (IS_STANDARD_KEYCODE(keycode)) {
+
+        if (IS_STANDARD_KEYCODE(translated_keycode)) {
             // We check watching first. This is so that in the following scenario, we continue to
             // hold the key: KC_LOCK, KC_F, KC_LOCK, KC_F
             // If we checked in reverse order, we'd end up holding the key pressed after the second
             // KC_F press is registered, when the user likely meant to hold F
             if (watching) {
                 watching = false;
-                SET_KEY_STATE(keycode);
+                SET_KEY_STATE(translated_keycode);
+                // We need to set the keycode passed in to be the translated keycode, in case we
+                // translated a OSM back to the original keycode.
+                *keycode = translated_keycode;
                 // Let the standard keymap send the keycode down event. The up event will be masked.
                 return true;
             }
-            
-            if (KEY_STATE(keycode)) {
-                UNSET_KEY_STATE(keycode);
+
+            if (KEY_STATE(translated_keycode)) {
+                UNSET_KEY_STATE(translated_keycode);
                 // The key is already held, stop this process. The up event will be sent when the user
                 // releases the key.
                 return false;
             }
         }
-        
+
         // Either the key isn't a standard key, or we need to send the down event. Continue standard
         // processing
         return true;
     } else {
         // Stop processing if it's a standard key and we're masking up.
-        return !(IS_STANDARD_KEYCODE(keycode) && KEY_STATE(keycode));
+        return !(IS_STANDARD_KEYCODE(translated_keycode) && KEY_STATE(translated_keycode));
     }
 }
+
