@@ -1,4 +1,4 @@
-# Frequently Asked Keymap Questions
+# Keymap FAQ
 
 This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.html) first.
 
