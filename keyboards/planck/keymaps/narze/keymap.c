@@ -456,6 +456,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     }
   } else {
     layer_off(_SUPERDUPER);
+    unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT)); // Sometimes mods are held, unregister them
   }
 }
 
@@ -493,7 +494,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           send_keyboard_report();
           record->tap.count = 0;  // ad hoc: cancel tap
         } else {
-          unregister_mods(MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT));
+          unregister_mods(MOD_BIT(KC_LGUI));
         }
       }
       break;
