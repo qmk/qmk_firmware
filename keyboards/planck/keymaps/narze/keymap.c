@@ -39,7 +39,7 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   EXT_PLV,
-  SDTOGG,
+  SDTOGG, // Toggle SuperDuper
 };
 
 enum functions {
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Hp/Ec|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * | Hp/Ec|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Sft/(|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   / |Sft/Ent|
+ * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Rse/[| Ctrl | Alt  | GUI/_|Lower |    Space    |Raise | GUI/-| Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
@@ -111,11 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Hp/Ec|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * | Hp/Ec|   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Sft/(|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   / |Sft/Ent|
+ * | Sft/(| Z/Mo |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  | SD-/ |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Brite| Ctrl | Alt  | GUI/_|Lower |    Space    |Raise | GUI/-| Alt  | Ctrl | Low/]|
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
@@ -512,8 +512,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             PLAY_NOTE_ARRAY(tone_superduper, false, 0);
           #endif
 
-          return MACRO(D(RSFT), T(9), U(RSFT), END);
           record->tap.count = 0;
+          return MACRO(D(RSFT), T(9), U(RSFT), END);
         } else {
           unregister_mods(MOD_BIT(KC_LSFT));
         }
