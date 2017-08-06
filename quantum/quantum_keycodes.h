@@ -419,6 +419,10 @@ enum quantum_keycodes {
     OUT_BT,
 #endif
 
+#ifdef KEY_LOCK_ENABLE
+    KC_LOCK,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };
