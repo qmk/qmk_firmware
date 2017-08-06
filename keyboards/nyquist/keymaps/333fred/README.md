@@ -18,7 +18,7 @@ Qwerty
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |/ Ctrl| Shift|
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Ctrl |  Alt |  F4  | GUI  |Lower | Bksp | Spc  | Ent  |  Alt |   =  | Game | Del  r
+| Ctrl |  Alt |  F4  | GUI  |Lower | Bksp | Spc  | Ent  | Lock |   =  | Game | Del  |
 `-----------------------------------------------------------------------------------'
 ```
 
@@ -61,7 +61,6 @@ Vim Movement (Hold down F)
 This layer is designed for playing games. All one-shot modification has been turned off, and the common game controls keys have been moved around for easier access.
 ```
 Gaming mode (Raise)
-All one-shot mods are disabled on this layer
 ,-----------------------------------------------------------------------------------.
 | ESC  |      |      |      |      |      |      |      |      |      |      |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -71,6 +70,6 @@ All one-shot mods are disabled on this layer
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | Shift|   Z  |      |      |      |      |      |      |      |      |      |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Enter|      |      |      | Alt  |  Spc | Left | Up   | Down | Right|      |      |
+| Enter|      | Lock |      | Alt  |  Spc | Left | Up   | Down | Right|      |      |
 `-----------------------------------------------------------------------------------'
 ```
