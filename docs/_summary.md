@@ -12,7 +12,12 @@
   * [Keymap](faq_keymap.md)
 
 * [Features](features.md)
-  * [Layer switching](key_functions.md)
+  * [Common Shortcuts](feature_common_shortcuts.md)
+    * [Layer Switching](feature_common_shortcuts.md#switching-and-toggling-layers)
+    * [Modifier Keys](feature_common_shortcuts.md#modifier-keys)
+    * [Shifted Keycodes](feature_common_shortcuts.md#shifted-keycodes)
+    * [One Shot Keys](feature_common_shortcuts.md#one-shot-keys)
+    * [Mod Tap](feature_common_shortcuts.md#mod-tap)
   * [Leader Key](leader_key.md)
   * [Macros](macros.md)
   * [Dynamic Macros](dynamic_macros.md)
