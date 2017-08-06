@@ -19,15 +19,31 @@ Currently, the keycodes able to used with these functions are limited to the [Ba
 
 These functions allow you to activate layers in various ways.
 
-Care must be taken when switching layers, it's possible to lock yourself in a layer with no way to deactivate that layer (without unplugging your keyboard.) Always make sure that the layer you're switching into has the same key set to `KC_TRNS`.
-
-Layers stack on top of each other in numerical order, and as a result you can only activate a layer that is "above" your current layer. For example, on layer 2 you can't use `MO(1)`, the behavior will be undefined.
-
 * `MO(layer)` - momentary switch to *layer*. As soon as you let go of the key, the layer is deactivated and you pop back out to the previous layer.
 * `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped.
 * `TG(layer)` - toggles a layer on or off.
 * `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+
+Care must be taken when switching layers, it's possible to lock yourself in a layer with no way to deactivate that layer (without unplugging your keyboard.) We've created some guidelines to help users avoid the most common problems.
+
+### Beginners
+
+If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
+
+* Setup layer 0 as your "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.)
+* Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
+* Never try to stack a higher numbered layer on top of a lower numbered layer. Doing so is tricky and error prone.
+
+### Intermediate Users
+
+Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as multually exclusive. When one base layer is on the others are off. 
+
+### Advanced Users
+
+Once you have a good feel for how layers work and what you can do, you can get more creative. The rules listed in the beginner section will help you be successful by avoiding some of the tricker details but they can be constraining, especially for ultra-compact keyboard users. Understanding how layers work will allow you to use them in more advanced ways.
+
+Layers stack on top of each other in numerical order. When determining what a keypress does, QMK scans the layers from the top down, stopping when it reaches the first active layer that is not set to `KC_TRNS`. As a result if you activate a layer that is numerically lower than your current layer, and your current layer (or another layer that is active and higher than your target layer) has something other than `KC_TRNS`, that is the key that will be sent, not the key on the layer you just activated. This is the cause of most people's "why doesn't my layer get switched" problem.
 
 ## Modifier keys
 
@@ -115,9 +131,15 @@ For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A ch
 
 One shot keys also work as normal modifiers. If you hold down a one shot key and type other keys, your one shot will be released immediately after you let go of the key.
 
+You can control the behavior of one shot keys by defining these in `config.h`:
+
+```c
+#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
+#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+```
+
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
-
 
 ## Permissive Hold
 
