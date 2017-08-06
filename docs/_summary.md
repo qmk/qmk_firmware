@@ -1,11 +1,15 @@
 * [Getting started](README.md)
-  * [QMK Overview](qmk_overview.md)
-  * [Build Environment Setup](build_environment_setup.md)
-    * [Vagrant Guide](vagrant_guide.md)
-  * [Make instructions](make_instructions.md)
-  * [FAQ: Creating a Keymap](faq_keymap.md)
-  * [FAQ: Compiling QMK](faq_build.md)
-  * [How to Github](how_to_github.md)
+  * [QMK Introduction](getting_started_introduction.md)
+  * [Install Build Tools](getting_started_build_tools.md)
+    * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
+  * [Build/Compile instructions](getting_started_make_guide.md)
+  * [How to Use Github](getting_started_github.md)
+
+* [FAQ](faq.md)
+  * [General FAQ](faq_general.md)
+  * [Build/Compile QMK](faq_build.md)
+  * [Debugging/Troubleshooting QMK](faq_debug.md)
+  * [Keymap](faq_keymap.md)
 
 * [Features](features.md)
   * [Layer switching](key_functions.md)
@@ -43,5 +47,4 @@
   * [Understanding QMK](understanding_qmk.md)
 
 * Other Topics
-  * [General FAQ](faq.md)
   * [Using Eclipse with QMK](eclipse.md)
