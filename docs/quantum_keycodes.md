@@ -17,6 +17,7 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`FUNC(n)`/`F(n)`|Call `fn_action(n)`|
 |`M(n)`|to call macro n|
 |`MACROTAP(n)`|to macro-tap n idk FIXME|
+|`KC_LOCK`|The [lock key](key_lock.md)|
 
 ## Bootmagic Keycodes
 

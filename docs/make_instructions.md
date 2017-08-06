@@ -158,6 +158,10 @@ This enables using the Quantum SYSEX API to send strings (somewhere?)
 
 This consumes about 5390 bytes.
 
+`KEY_LOCK_ENABLE`
+
+This enables [key lock](key_lock.md). This consumes an additional 260 bytes.
+
 ## Customizing Makefile options on a per-keymap basis
 
 If your keymap directory has a file called `Makefile` (note the filename), any Makefile options you set in that file will take precedence over other Makefile options for your particular keyboard.
