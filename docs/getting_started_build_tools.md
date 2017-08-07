@@ -86,7 +86,7 @@ The Toolchain setup is done through the Windows Subsystem for Linux, and the pro
 * The WSL Git is **not** compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations
 * You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
 
-## Windows (Vista and later)
+## Windows (Vista and later) (Deprecated)
 
 These are the old instructions for Windows Vista and later. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
 

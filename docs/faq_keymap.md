@@ -1,9 +1,9 @@
 # Keymap FAQ
 
-This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.html) first.
+This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.md) first.
 
 ## What Keycodes Can I Use?
-See [Basic Keycodes](keycodes.html) and [Quantum Keycodes](quantum_keycodes.html) for most of the keys you can define.
+See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
 Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
 
