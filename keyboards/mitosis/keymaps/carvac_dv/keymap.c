@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Fn layout, for typing purposes (Dvorak result in parens)
  * .--------------------------------------------..--------------------------------------------.
- * | `      |        | MS_U   |        |        || BTN4   |        | BTN3   |        | [ (/?) |
+ * | `      |        | MS_U   |        |        || WH_U   | WH_L   | BTN3   | WH_R   | [ (/?) |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
- * | ESC    | MS_L   | MS_D   | MS_R   |        || BTN5   | BTN1   | BTN2   |        | ' (-_) |
+ * | ESC    | MS_L   | MS_D   | MS_R   |        || WH_D   | BTN1   | BTN2   |        | ' (-_) |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
  * | APP    | MPRV   | MPLY   | MSTP   | MNXT   ||        | BSPC   | DEL    | INS    | \      |
  * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = { /* Function Layer, primary alternative layer featuring numpad on right hand,
                                    cursor keys on left hand, and all symbols*/
-  {KC_GRV,  _______, KC_MS_U, _______, _______,       KC_BTN4, _______, KC_BTN3, _______, KC_LBRC },
-  {KC_ESC,  KC_MS_L, KC_MS_D, KC_MS_R, _______,       KC_BTN5, KC_BTN1, KC_BTN2, _______, KC_QUOT },
+  {KC_GRV,  _______, KC_MS_U, _______, _______,       KC_WH_U, KC_WH_L, KC_BTN3, KC_WH_R, KC_LBRC },
+  {KC_ESC,  KC_MS_L, KC_MS_D, KC_MS_R, _______,       KC_WH_D, KC_BTN1, KC_BTN2, _______, KC_QUOT },
   {KC_APP,  KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT,       _______, KC_BSPC, KC_DEL,  KC_INS,  KC_BSLS },
   {XXXXXXX, KC_VOLU, _______, _______, _______,       _______, _______, KC_PGUP, _______, XXXXXXX },
   {XXXXXXX, KC_VOLD, _______, _______, _______,       _______, KC_HOME, KC_PGDN, KC_END,  XXXXXXX }
