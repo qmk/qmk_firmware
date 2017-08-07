@@ -24,7 +24,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 ```
 
-This defines two macros which will be run when the key they are assigned to is pressed. If you'd like them to run when the release is released instead you can change the if statement:
+This defines two macros which will be run when the key they are assigned to is pressed. If instead you'd like them to run when the key is released you can change the if statement:
 
 ```c
 	if (!record->event.pressed) {
