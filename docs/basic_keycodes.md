@@ -1,5 +1,11 @@
 # Basic keycodes
 
+Basic keycodes are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) with following exceptions:
+
+* `KC_NO` = 0 for no action
+* `KC_TRNS` = 1 for layer transparency
+* internal special keycodes in the `0xA5-DF` range (tmk heritage).
+
 ## Letters and Numbers
 
 |KC_1|KC_2|KC_3|KC_4|KC_5|KC_6|KC_7|KC_8|
