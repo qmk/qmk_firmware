@@ -26,6 +26,14 @@ enum mitosis_keycodes
 #define LAYER_TOGGLE_DELAY 300
 #define TAPPING_TOGGLE 1
 
+//Mousekeys
+#define MOUSEKEY_DELAY 300
+#define MOUSEKEY_INTERNAL 50
+#define MOUSEKEY_MAX_SPEED 20
+#define MOUSEKEY_TIME_TO_MAX 30
+#define MOUSEKEY_WHEEL_MAX_SPEED 8
+#define MOUSEKEY WHEEL TIME TO MAX 40
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -80,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Fn layout, for typing purposes (Dvorak result in parens)
  * .--------------------------------------------..--------------------------------------------.
- * | `      |        |        |        |        ||        |        |        |        | [ (/?) |
+ * | `      |        | MS_U   |        |        || BTN4   |        | BTN3   |        | [ (/?) |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
- * | ESC    |        |        |        |        ||        |        |        |        | ' (-_) |
+ * | ESC    | MS_L   | MS_D   | MS_R   |        || BTN5   | BTN1   | BTN2   |        | ' (-_) |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
  * | APP    | MPRV   | MPLY   | MSTP   | MNXT   || BSPC   | DEL    | INS    |        | \      |
  * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
@@ -94,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = { /* Function Layer, primary alternative layer featuring numpad on right hand,
                                    cursor keys on left hand, and all symbols*/
-  {KC_GRV,  _______, _______, _______, _______,       _______, _______, _______, _______, KC_LBRC },
-  {KC_ESC,  _______, _______, _______, _______,       _______, _______, _______, _______, KC_QUOT },
+  {KC_GRV,  _______, KC_MS_U, _______, _______,       KC_BTN4, _______, KC_BTN3, _______, KC_LBRC },
+  {KC_ESC,  KC_MS_L, KC_MS_D, KC_MS_R, _______,       KC_BTN5, KC_BTN1, KC_BTN2, _______, KC_QUOT },
   {KC_APP,  KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT,       KC_BSPC, KC_DEL,  KC_INS,  _______, KC_BSLS },
   {XXXXXXX, KC_VOLU, _______, _______, _______,       _______, _______, KC_PGUP, _______, XXXXXXX },
   {XXXXXXX, KC_VOLD, _______, _______, _______,       _______, KC_HOME, KC_PGDN, KC_END,  XXXXXXX }
