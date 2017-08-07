@@ -1,11 +1,10 @@
 // This is the Dvorak-friendly layout for the Mitosis by CarVac (/u/CarVac)
+// It features space on the left thumb, shift on the right thumb, a
+//  number layer with all the numbers on the home row, and a function layer
+//  that provides mouse keys among other things.
 
 #include "mitosis.h"
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 enum mitosis_layers
 {
 	_STD,
@@ -13,18 +12,6 @@ enum mitosis_layers
 	_FN
 };
 
-/*
-enum mitosis_keycodes 
-{
-  FNKEY = SAFE_RANGE,
-  SHIFT
-};
-*/
-
-
-#define LONGPRESS_DELAY 150
-#define LAYER_TOGGLE_DELAY 300
-#define TAPPING_TOGGLE 1
 
 //Mousekeys
 #define MOUSEKEY_DELAY 300
@@ -52,7 +39,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *          |--------+--------+--------+--------||--------+--------+--------+--------|
  *          | PGDN   | LGUI   | LALT   | FN     || NUM    | LEFT   | DOWN   | RIGHT  |
  *          '-----------------------------------''-----------------------------------'
- *                                       FN is momentary, NUM is tap-toggle.
  */
 
 [_STD] = { /* Standard; as compatible with dvorak and qwerty as possible */
@@ -60,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN },
   {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH },
   {XXXXXXX, KC_PGUP, KC_PSCR, KC_LCTL, KC_SPC,         KC_LSFT, KC_ENT,  KC_UP,   KC_BSPC, XXXXXXX },
-  {XXXXXXX, KC_PGDN, KC_LGUI, KC_LALT, MO(_FN),       TT(_NUM), KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX }
+  {XXXXXXX, KC_PGDN, KC_LGUI, KC_LALT, MO(_FN),       MO(_NUM), KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX }
 },
 
 /* Number layout, for data entry and programming purposes (Dvorak result in parens)
@@ -109,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {XXXXXXX, KC_VOLD, _______, _______, _______,       _______, KC_HOME, KC_PGDN, KC_END,  XXXXXXX }
 },
 
-/* 
+/* blank key layout template
  * .--------------------------------------------..--------------------------------------------.
  * |        |        |        |        |        ||        |        |        |        |        |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
