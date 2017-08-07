@@ -19,7 +19,7 @@ enum mitosis_layers
 #define MOUSEKEY_MAX_SPEED 20
 #define MOUSEKEY_TIME_TO_MAX 30
 #define MOUSEKEY_WHEEL_MAX_SPEED 8
-#define MOUSEKEY WHEEL TIME TO MAX 40
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
