@@ -42,3 +42,6 @@ util/Win_Check_Output.txt
 *.png
 *.jpg
 *.gif
+
+# Do not ignore MiniDox left/right hand eeprom files
+!keyboards/minidox/*.eep 
