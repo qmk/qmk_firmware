@@ -144,6 +144,20 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+avrdude: $(BUILD_DIR)/$(TARGET).hex
+	ls /dev/tty* > /tmp/1; \
+	echo "Detecting Pro Micro port, reset your Pro Micro now.\c"; \
+	while [ -z $$USB ]; do \
+	  sleep 1; \
+	  echo ".\c"; \
+	  ls /dev/tty* > /tmp/2; \
+	  USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+	done; \
+	echo ""; \
+	echo "Detected Pro Micro port at $$USB"; \
+	sleep 1; \
+	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+
 # Convert hex to bin.
 flashbin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
