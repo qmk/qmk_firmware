@@ -66,8 +66,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_X`||||
 |`KC_Y`||||
 |`KC_Z`||||
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_ENTER`|`KC_ENT`|`Return (ENTER)`|
 |`KC_ESCAPE`|`KC_ESC`|`ESCAPE`|
 |`KC_BSPACE`|`KC_BSPC`|`DELETE (Backspace)`|
@@ -90,8 +88,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_DOT`||`.` and `>`|
 |`KC_SLASH`|`KC_SLSH`|`/` and `?`|
 |`KC_CAPSLOCK`|`KC_CAPS`|Caps Lock|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_LCTRL`|`KC_LCTL`|LeftControl|
 |`KC_LSHIFT`|`KC_LSFT`|LeftShift|
 |`KC_LALT`||LeftAlt|
@@ -105,8 +101,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_LOCKING_SCROLL`|`KC_LSCR`|Locking Scroll Lock|
 |`KC_INT4`|`KC_HENK`|JIS Henken|
 |`KC_INT5`|`KC_MHEN`|JIS Muhenken|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_PSCREEN`|`KC_PSCR`|PrintScreen|
 |`KC_SCROLLLOCK`|`KC_SLCK`|Scroll Lock|
 |`KC_PAUSE`|`KC_PAUS`|Pause|
@@ -157,8 +151,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_WWW_STOP`|`KC_WSTP`||
 |`KC_WWW_REFRESH`|`KC_WREF`||
 |`KC_WWW_FAVORITES`|`KC_WFAV`||
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_STOP`||Stop|
 |`KC__MUTE`||Mute|
 |`KC__VOLUP`||Volume Up|
@@ -173,8 +165,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_MEDIA_STOP`|`KC_MSTP`||
 |`KC_MEDIA_PLAY_PAUSE`|`KC_MPLY`||
 |`KC_MEDIA_SELECT`|`KC_MSEL`||
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_NUMLOCK`|`KC_NLCK`|Keypad Num Lock and Clear|
 |`KC_KP_SLASH`|`KC_PSLS`|Keypad /|
 |`KC_KP_ASTERISK`|`KC_PAST`|Keypad *|
@@ -195,12 +185,8 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_KP_EQUAL`|`KC_PEQL`|Keypad =|
 |`KC_KP_COMMA`|`KC_PCMM`|Keypad Comma|
 |`KC_KP_EQUAL_AS400`||Keypad Equal Sign|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |`KC_NO`||Ignore this key. (NOOP) |
 |`KC_TRNS`||Make this key transparent to find the key on a lower layer.|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`KC_MS_UP`](mouse_keys.md)|`KC_MS_U`|Mouse Cursor Up|
 |[`KC_MS_DOWN`](mouse_keys.md)|`KC_MS_D`|Mouse Cursor Down|
 |[`KC_MS_LEFT`](mouse_keys.md)|`KC_MS_L`|Mouse Cursor Left|
@@ -217,19 +203,15 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`KC_MS_ACCEL0`](mouse_keys.md)|`KC_ACL0`|Mouse Acceleration 0|
 |[`KC_MS_ACCEL1`](mouse_keys.md)|`KC_ACL1`|Mouse Acceleration 1|
 |[`KC_MS_ACCEL2`](mouse_keys.md)|`KC_ACL2`|Mouse Acceleration 2|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`RESET`](quantum_keycodes.md#qmk-keycodes)||Put the keyboard into DFU mode for flashing|
 |[`DEBUG`](quantum_keycodes.md#qmk-keycodes)||Toggles debug mode|
 |[`KC_GESC`](quantum_keycodes.md#qmk-keycodes)|`GRAVE_ESC`|Acts as escape when pressed normally but when pressed with Shift or GUI will send a `~`|
 |[`KC_LSPO`](quantum_keycodes.md#qmk-keycodes)||Left shift when held, open paranthesis when tapped|
 |[`KC_RSPC`](quantum_keycodes.md#qmk-keycodes)||Right shift when held, close paranthesis when tapped|
-|[`KC_LEAD`](quantum_keycodes.md#qmk-keycodes)||The [leader key](leader_key.md)|
+|[`KC_LEAD`](feature_leader_key.md)||The leader key|
 |[`FUNC(n)`](quantum_keycodes.md#qmk-keycodes)|`F(n)`|Call `fn_action(n)`|
 |[`M(n)`](quantum_keycodes.md#qmk-keycodes)||to call macro n|
 |[`MACROTAP(n)`](quantum_keycodes.md#qmk-keycodes)||to macro-tap n idk FIXME`|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`MAGIC_SWAP_CONTROL_CAPSLOCK`](feature_bootmagic.md)||Swap Capslock and Left Control|
 |[`MAGIC_CAPSLOCK_TO_CONTROL`](feature_bootmagic.md)||Treat Capslock like a Control Key|
 |[`MAGIC_SWAP_LALT_LGUI`](feature_bootmagic.md)||Swap the left Alt and GUI keys|
@@ -249,8 +231,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`MAGIC_UNHOST_NKRO`](feature_bootmagic.md)||Force NKRO off|
 |[`MAGIC_UNSWAP_ALT_GUI`/`AG_NORM`](feature_bootmagic.md)||Disable the Alt/GUI switching|
 |[`MAGIC_TOGGLE_NKRO`](feature_bootmagic.md)||Turn NKRO on or off|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`BL_x`](feature_backlight.md)||Set a specific backlight level between 0-9|
 |[`BL_ON`](feature_backlight.md)||An alias for `BL_9`|
 |[`BL_OFF`](feature_backlight.md)||An alias for `BL_0`|
@@ -258,8 +238,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`BL_INC`](feature_backlight.md)||Turn the backlight level up by 1|
 |[`BL_TOGG`](feature_backlight.md)||Toggle the backlight on or off|
 |[`BL_STEP`](feature_backlight.md)||Step through backlight levels, wrapping around to 0 when you reach the top.|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`RGB_TOG`](feature_rgblight.md)||toggle on/off|
 |[`RGB_MOD`](feature_rgblight.md)||cycle through modes|
 |[`RGB_HUI`](feature_rgblight.md)||hue increase|
@@ -268,17 +246,11 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`RGB_SAD`](feature_rgblight.md)||saturation decrease|
 |[`RGB_VAI`](feature_rgblight.md)||value increase|
 |[`RGB_VAD`](feature_rgblight.md)||value decrease|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`PRINT_ON`](feature_thermal_printer.md)||Start printing everything the user types|
 |[`PRINT_OFF`](feature_thermal_printer.md)||Stop printing everything the user types|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`OUT_AUTO`](feature_bluetooth.md)||auto mode|
 |[`OUT_USB`](feature_bluetooth.md)||usb only|
 |[`OUT_BT`](feature_bluetooth.md)||bluetooth (when `BLUETOOTH_ENABLE`)|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`KC_HYPR`](quantum_keycodes.md#modifiers)||Hold down LCTL + LSFT + LALT + LGUI`|
 |[`KC_MEH`](quantum_keycodes.md#modifiers)||Hold down LCTL + LSFT + LALT`|
 |[`LCTL(kc)`](quantum_keycodes.md#modifiers)||`LCTL` + `kc`|
@@ -295,8 +267,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`ALTG(kc)`](quantum_keycodes.md#modifiers)||`RCTL` + `RALT` + `kc`|
 |[`SCMD(kc)`](quantum_keycodes.md#modifiers)|[`SWIN(kc)`](quantum_keycodes.md#modifiers)|`LGUI` + `LSFT` + `kc`|
 |[`LCA(kc)`](quantum_keycodes.md#modifiers)||`LCTL` + `LALT` + `kc`|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`CTL_T(kc)`](quantum_keycodes.md#mod-tap-keys)|[`LCTL_T(kc)`](quantum_keycodes.md#mod-tap-keys)|`LCTL` when held, `kc` when tapped|
 |[`RCTL_T(kc)`](quantum_keycodes.md#mod-tap-keys)||[`RCTL` when held, `kc` when tapped|
 |[`SFT_T(kc)`](quantum_keycodes.md#mod-tap-keys)|[`LSFT_T(kc)`](quantum_keycodes.md#mod-tap-keys)|`LSFT` when held, `kc` when tapped|
@@ -312,8 +282,6 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`ALL_T(kc)`](quantum_keycodes.md#mod-tap-keys)||`LCTL` + `LSFT` + `LALT` + `LGUI` when held, `kc` when tapped [more info](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 |[`SCMD_T(kc)`](quantum_keycodes.md#mod-tap-keys)|[`SWIN_T(kc)`](quantum_keycodes.md#mod-tap-keys)|`LGUI` + `LSFT` when held, `kc` when tapped|
 |[`LCA_T(kc)`](quantum_keycodes.md#mod-tap-keys)||`LCTL` + `LALT` when held, `kc` when tapped|
-|Short Name|Long Name|Description|
-|----------|---------|-----------|
 |[`KC_TILD`](keycodes_us_ansi_shifted.md)|`KC_TILDE`|tilde `~`|
 |[`KC_EXLM`](keycodes_us_ansi_shifted.md)|`KC_EXCLAIM`|exclamation mark `!`|
 |[`KC_AT`](keycodes_us_ansi_shifted.md)||at sign `@`|
@@ -335,17 +303,13 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`KC_PIPE`](keycodes_us_ansi_shifted.md)||pipe `\|`|
 |[`KC_QUES`](keycodes_us_ansi_shifted.md)|`KC_QUESTION`|question mark `?`|
 |[`KC_DQT`/`KC_DQUO`](keycodes_us_ansi_shifted.md)|`KC_DOUBLE_QUOTE`|double quote `"`|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
-|[`LT(layer, kc)`](feature_common_shortcuts.md#switching-and-toggling-layers)||turn on layer (0-15) when held, kc ([basic keycodes](basic_keycodes.md)) when tapped|
+|[`LT(layer, kc)`](feature_common_shortcuts.md#switching-and-toggling-layers)||turn on layer (0-15) when held, kc ([basic keycodes](keycodes_basic.md)) when tapped|
 |[`TO(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||turn on layer when depressed|
 |[`MO(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||momentarily turn on layer when depressed (requires `KC_TRNS` on destination layer)|
 |[`DF(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||sets the base (default) layer|
 |[`TG(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||toggle layer on/off|
-|[`TT(layer)](feature_common_shortcuts.md#switching-and-toggling-layers)`||tap toggle? idk FIXME`|
+|[`TT(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||tap toggle? idk FIXME`|
 |[`OSM(mod)`](quantum_keycodes.md#one-shot-keys)||hold mod for one keypress|
 |[`OSL(layer)`](quantum_keycodes.md#one-shot-keys)||switch to layer for one keypress|
-|Long Name|Short Name|Description|
-|---------|----------|-----------|
 |[`UNICODE(n)`](unicode.md)|[`UC(n)`](unicode.md)|if `UNICODE_ENABLE`, this will send characters up to `0x7FFF`|
 |[`X(n)`](unicode.md)||if `UNICODEMAP_ENABLE`, also sends unicode via a different method|
