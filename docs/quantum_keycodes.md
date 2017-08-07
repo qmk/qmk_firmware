@@ -15,8 +15,8 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 |`KC_GESC`/`GRAVE_ESC`|Acts as escape when pressed normally but when pressed with Shift or GUI will send a ```|
 |`KC_LSPO`|Left shift when held, open paranthesis when tapped|
 |`KC_RSPC`|Right shift when held, close paranthesis when tapped|
-|`KC_LEAD`|The [leader key](leader_key.md)|
+|`KC_LEAD`|The [leader key](feature_leader_key.md)|
 |`KC_LOCK`|The [lock key](key_lock.md)|
-|`FUNC(n)`/`F(n)`|Call `fn_action(n)`|
+|`FUNC(n)`/`F(n)`|Call `fn_action(n)` (deprecated)|
 |`M(n)`|to call macro n|
 |`MACROTAP(n)`|to macro-tap n idk FIXME|

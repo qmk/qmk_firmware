@@ -21,7 +21,7 @@ As mentioned above, there are some shortcuts, when you are in a:
 * `keyboard` folder, the command will automatically fill the `<keyboard>` part. So you only need to type `<subproject>-<keymap>-<target>`
 * `subproject` folder, it will fill in both `<keyboard>` and `<subproject>`
 * `keymap` folder, then `<keyboard>` and `<keymap>` will be filled in. If you need to specify the `<subproject>` use the following syntax `<subproject>-<target>`
-  * Note in order to support this shortcut, the keymap needs its own Makefile (see the example [here](https://github.com/qmk/qmk_firmware/blob/master/doc/keymap_makefile_example.mk))
+  * Note in order to support this shortcut, the keymap needs its own Makefile
 * `keymap` folder of a `subproject`, then everything except the `<target>` will be filled in
 
 The `<target>` means the following
@@ -142,7 +142,7 @@ This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly
 
 `AUDIO_ENABLE`
 
-This allows you output audio on the C6 pin (needs abstracting). See the [audio section](#audio-output-from-a-speaker) for more information.
+This allows you output audio on the C6 pin (needs abstracting). See the [audio page](feature_audio.md) for more information.
 
 `FAUXCLICKY_ENABLE`
 
@@ -150,7 +150,7 @@ Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue swi
 
 `VARIABLE_TRACE`
 
-Use this to debug changes to variable values, see the [tracing variables](#tracing-variables) section for more information.
+Use this to debug changes to variable values, see the [tracing variables](unit_testing.md#tracing-variables) section of the Unit Testing page for more information.
 
 `API_SYSEX_ENABLE`
 

@@ -1,6 +1,10 @@
 # Bluetooth
 
-<!-- FIXME: Document bluetooth support. -->
+## Bluetooth functionality
+
+This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboards/comments/3psx0q/the_planck_keyboard_with_bluetooth_guide_and/?ref=search_posts), but can be enabled via the Makefile. The firmware will still output characters via USB, so be aware of this when charging via a computer. It would make sense to have a switch on the Bluefruit to turn it off at will.
+
+<!-- FIXME: Document bluetooth support more completely. -->
 
 ## Bluetooth Keycodes
 
