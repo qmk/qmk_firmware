@@ -51,9 +51,9 @@
 |KC_RSHIFT|KC_RSFT|RightShift|
 |KC_RALT||RightAlt|
 |KC_RGUI||Right GUI(Windows/Apple/Meta key)|
-|KC_LOCKING_CAPS||Locking Caps Lock|
-|KC_LOCKING_NUM||Locking Num Lock|
-|KC_LOCKING_SCROLL||Locking Scroll Lock|
+|KC_LOCKING_CAPS|KC_LCAP|Locking Caps Lock|
+|KC_LOCKING_NUM|KC_LNUM|Locking Num Lock|
+|KC_LOCKING_SCROLL|KC_LSCR|Locking Scroll Lock|
 |KC_INT4|KC_HENK|JIS Henken|
 |KC_INT5|KC_MHEN|JIS Muhenken|
 
