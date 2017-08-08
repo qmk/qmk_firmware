@@ -18,14 +18,14 @@
 #include "stdint.h"
 #include "process_key_lock.h"
 
-#define SHIFT(shift) (((uint64_t)1) << (shift))
+#define BV_64(shift) (((uint64_t)1) << (shift))
 #define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : \
                              ((code) < 0x80) ? key_state[1] : \
                              ((code) < 0xC0) ? key_state[2] : key_state[3])
 #define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : \
                               ((code) < 0x80) ? (code) - 0x40 : \
                               ((code) < 0xC0) ? (code) - 0x80 : (code) - 0xC0)
-#define KEY_STATE(code)  (GET_KEY_ARRAY(code) & SHIFT(GET_CODE_INDEX(code))) == SHIFT(GET_CODE_INDEX(code))
+#define KEY_STATE(code)  (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
 #define SET_KEY_ARRAY_STATE(code, val) do { \
     switch (code) { \
         case 0x00 ... 0x3F: \
@@ -42,8 +42,8 @@
             break; \
     } \
 } while(0)
-#define SET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code) | SHIFT(GET_CODE_INDEX(code))))
-#define UNSET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code)) & ~(SHIFT(GET_CODE_INDEX(code))))
+#define SET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code) | BV_64(GET_CODE_INDEX(code))))
+#define UNSET_KEY_STATE(code) SET_KEY_ARRAY_STATE(code, (GET_KEY_ARRAY(code)) & ~(BV_64(GET_CODE_INDEX(code))))
 #define IS_STANDARD_KEYCODE(code) ((code) <= 0xFF)
 
 // Locked key state. This is an array of 256 bits, one for each of the standard keys supported qmk.
