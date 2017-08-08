@@ -22,4 +22,10 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_1, KC_2,       KC_3, KC_4, KC_5, \
         KC_C, KC_D, KC_E, KC_F, KC_G, KC_A, KC_B \
     )
+/*
+    KEYMAP(
+           KC_NO, KC_NO,       KC_NO, KC_NO, KC_NO, \
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
+    )
+*/
 };
