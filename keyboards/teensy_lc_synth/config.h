@@ -19,16 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6464
+#define VENDOR_ID       0xC1ED
+#define PRODUCT_ID      0x2370
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER "QMK"
-#define USBSTR_MANUFACTURER    'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
-#define PRODUCT "ChibiOS QMK test"
-#define USBSTR_PRODUCT         'C', '\x00', 'h', '\x00', 'i', '\x00', 'b', '\x00', 'i', '\x00', 'O', '\x00', 'S', '\x00', ' ', '\x00', 'Q', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', 't', '\x00', 'e', '\x00', 's', '\x00', 't', '\x00'
-#define DESCRIPTION "QMK keyboard firmware test for ChibiOS"
+#define MANUFACTURER "Clueboard"
+#define USBSTR_MANUFACTURER    'C', '\x00', 'l', '\x00', 'u', '\x00', 'e', '\x00', 'b', '\x00', 'o', '\x00', 'a', '\x00', 'r', '\x00', 'd', '\x00'
+#define PRODUCT "Teensy LC Synth"
+#define USBSTR_PRODUCT         'T', '\x00', 'e', '\x00', 'e', '\x00', 'n', '\x00', 's', '\x00', 'y', '\x00', ' ', '\x00', 'L', '\x00', 'C', '\x00', ' ', '\x00', 'S', '\x00', 'y', '\x00', 'n', '\x00', 't', '\x00', 'h', '\x00'
+#define DESCRIPTION "Mini synth board by Clueboard."
 
 /* key matrix size */
 #define MATRIX_ROWS 3
