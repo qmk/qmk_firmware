@@ -99,7 +99,7 @@ uint8_t midi_compute_note(uint16_t keycode)
     return 12 * midi_config.octave + (keycode - MIDI_TONE_MIN) + midi_config.transpose;
 }
 
-bool process_midi(uint16_t keycode, keyrecord_t *record)
+level_t process_midi(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
         case MIDI_TONE_MIN ... MIDI_TONE_MAX:
@@ -122,38 +122,38 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                 }
                 tone_status[tone] = MIDI_INVALID_NOTE;
             }
-            return false;
+            return STOP_PROCESSING;
         }
         case MIDI_OCTAVE_MIN ... MIDI_OCTAVE_MAX:
             if (record->event.pressed) {
                 midi_config.octave = keycode - MIDI_OCTAVE_MIN;
                 dprintf("midi octave %d\n", midi_config.octave);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_OCTD:
             if (record->event.pressed && midi_config.octave > 0) {
                 midi_config.octave--;
                 dprintf("midi octave %d\n", midi_config.octave);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_OCTU:
             if (record->event.pressed && midi_config.octave < (MIDI_OCTAVE_MAX - MIDI_OCTAVE_MIN)) {
                 midi_config.octave++;
                 dprintf("midi octave %d\n", midi_config.octave);
             }
-            return false;
+            return STOP_PROCESSING;
         case MIDI_TRANSPOSE_MIN ... MIDI_TRANSPOSE_MAX:
             if (record->event.pressed) {
                 midi_config.transpose = keycode - MI_TRNS_0;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_TRNSD:
             if (record->event.pressed && midi_config.transpose > (MIDI_TRANSPOSE_MIN - MI_TRNS_0)) {
                 midi_config.transpose--;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_TRNSU:
             if (record->event.pressed && midi_config.transpose < (MIDI_TRANSPOSE_MAX - MI_TRNS_0)) {
                 const bool positive = midi_config.transpose > 0;
@@ -162,72 +162,72 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                     midi_config.transpose--;
                 dprintf("midi transpose %d\n", midi_config.transpose);
             }
-            return false;
+            return STOP_PROCESSING;
         case MIDI_VELOCITY_MIN ... MIDI_VELOCITY_MAX:
             if (record->event.pressed) {
                 midi_config.velocity = keycode - MIDI_VELOCITY_MIN;
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_VELD:
             if (record->event.pressed && midi_config.velocity > 0) {
                 midi_config.velocity--;
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_VELU:
             if (record->event.pressed) {
                 midi_config.velocity++;
                 dprintf("midi velocity %d\n", midi_config.velocity);
             }
-            return false;
+            return STOP_PROCESSING;
         case MIDI_CHANNEL_MIN ... MIDI_CHANNEL_MAX:
             if (record->event.pressed) {
                 midi_config.channel = keycode - MIDI_CHANNEL_MIN;
                 dprintf("midi channel %d\n", midi_config.channel);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_CHD:
             if (record->event.pressed) {
                 midi_config.channel--;
                 dprintf("midi channel %d\n", midi_config.channel);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_CHU:
             if (record->event.pressed) {
                 midi_config.channel++;
                 dprintf("midi channel %d\n", midi_config.channel);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_ALLOFF:
             if (record->event.pressed) {
                 midi_send_cc(&midi_device, midi_config.channel, 0x7B, 0);
                 dprintf("midi all notes off\n");
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_SUS:
             midi_send_cc(&midi_device, midi_config.channel, 0x40, record->event.pressed ? 127 : 0);
             dprintf("midi sustain %d\n", record->event.pressed);
-            return false;
+            return STOP_PROCESSING;
         case MI_PORT:
             midi_send_cc(&midi_device, midi_config.channel, 0x41, record->event.pressed ? 127 : 0);
             dprintf("midi portamento %d\n", record->event.pressed);
-            return false;
+            return STOP_PROCESSING;
         case MI_SOST:
             midi_send_cc(&midi_device, midi_config.channel, 0x42, record->event.pressed ? 127 : 0);
             dprintf("midi sostenuto %d\n", record->event.pressed);
-            return false;
+            return STOP_PROCESSING;
         case MI_SOFT:
             midi_send_cc(&midi_device, midi_config.channel, 0x43, record->event.pressed ? 127 : 0);
             dprintf("midi soft %d\n", record->event.pressed);
-            return false;
+            return STOP_PROCESSING;
         case MI_LEG:
             midi_send_cc(&midi_device, midi_config.channel, 0x43, record->event.pressed ? 127 : 0);
             dprintf("midi legato %d\n", record->event.pressed);
-            return false;
+            return STOP_PROCESSING;
         case MI_MOD:
             midi_modulation_step = record->event.pressed ? 1 : -1;
-            return false;
+            return STOP_PROCESSING;
         case MI_MODSD:
             if (record->event.pressed) {
                 midi_config.modulation_interval++;
@@ -236,16 +236,16 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
                     midi_config.modulation_interval--;
                 dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
             }
-            return false;
+            return STOP_PROCESSING;
         case MI_MODSU:
             if (record->event.pressed && midi_config.modulation_interval > 0) {
                 midi_config.modulation_interval--;
                 dprintf("midi modulation interval %d\n", midi_config.modulation_interval);
             }
-            return false;
+            return STOP_PROCESSING;
     };
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 #endif // MIDI_ADVANCED

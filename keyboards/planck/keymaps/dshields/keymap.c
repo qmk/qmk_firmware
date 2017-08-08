@@ -110,10 +110,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TDK_SLSH]  = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_SLSH)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
+        return STOP_PROCESSING;
     }
-    return true;
+    return CONTINUE_PROCESSING;
 }
 

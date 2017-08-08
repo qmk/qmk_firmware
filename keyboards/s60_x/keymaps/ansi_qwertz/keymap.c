@@ -207,7 +207,7 @@ bool process_german(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
     //revive dead keys
 #ifndef DONT_REVIVE_DEADKEYS
     bool shift_active = keyboard_report->mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LSFT));
@@ -222,13 +222,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(KC_SPACE);
             unregister_code(KC_SPACE);
         }
-        return false;
+        return STOP_PROCESSING;
     }
 #endif
 #if LANGUAGE == GERMAN
     return process_german(keycode, record);
 #else
-    return true;
+    return CONTINUE_PROCESSING;
 #endif
 }
 

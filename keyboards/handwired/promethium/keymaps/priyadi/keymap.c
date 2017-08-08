@@ -1012,7 +1012,7 @@ uint32_t layer_state_set_kb(uint32_t state)
   return state;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   static bool lshift = false;
   static bool rshift = false;
   static uint8_t layer = 0;
@@ -1059,11 +1059,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // double-space enter space layer
     case LSPACE:
       process_doublespace(record->event.pressed, &lspace_active, &rspace_active, &lspace_emitted);
-      return false;
+      return STOP_PROCESSING;
       break;
     case RSPACE:
       process_doublespace(record->event.pressed, &rspace_active, &lspace_active, &rspace_emitted);
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 
@@ -1116,7 +1116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_COMM);
         }
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case KC_DOT:
       if (record->event.pressed) {
@@ -1128,7 +1128,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_DOT);
         }
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 
     // layout switchers
@@ -1136,14 +1136,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_QWERTY);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_DVORAK);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 #ifdef LAYOUT_COLEMAK
@@ -1151,7 +1151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 #ifdef LAYOUT_WORKMAN
@@ -1159,7 +1159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_WORKMAN);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 #ifdef LAYOUT_NORMAN
@@ -1167,7 +1167,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         persistent_default_layer_set(1UL<<_NORMAN);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 
@@ -1181,7 +1181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(keycode);
           unregister_code(keycode);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 
     // layer switcher
@@ -1199,7 +1199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_GREEKU);
         layer_off(_GREEKL);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 
     // OS switchers
@@ -1208,21 +1208,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
-      return false;
+      return STOP_PROCESSING;
       break;
     case WIN:
       set_unicode_input_mode(UC_WINC);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
-      return false;
+      return STOP_PROCESSING;
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
-      return false;
+      return STOP_PROCESSING;
       break;
 
     // glow mode changer
@@ -1236,7 +1236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         led_reset();
         rgbsps_send();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
 
@@ -1258,11 +1258,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBSPS_DEMO_ENABLE
     case RGBDEMO:
       led_demo();
-      return false;
+      return STOP_PROCESSING;
       break;
 #endif
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void set_output_user(uint8_t output) {

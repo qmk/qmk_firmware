@@ -258,10 +258,10 @@ void matrix_scan_user(void) {
     }
 };
 
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//level_t process_user(uint16_t keycode, keyrecord_t *record) {
 //  switch (keycode) {
 //    case QWERTY:
-//    return false
+//    return STOP_PROCESSING
 //    break;
 //    case LOWER:
 //      if (record->event.pressed) {
@@ -271,7 +271,7 @@ void matrix_scan_user(void) {
 //        layer_off(_LOWER);
 //        update_tri_layer(_LOWER, _RAISE, _ADJUST);
 //      }
-//      return false;
+//      return STOP_PROCESSING;
 //      break;
 //    case RAISE:
 //      if (record->event.pressed) {
@@ -281,9 +281,9 @@ void matrix_scan_user(void) {
 //        layer_off(_RAISE);
 //        update_tri_layer(_LOWER, _RAISE, _ADJUST);
 //      }
-//      return false;
+//      return STOP_PROCESSING;
 //      break;
 //  }
-//  return true;
+//  return CONTINUE_PROCESSING;
 //}
 

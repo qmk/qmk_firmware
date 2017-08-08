@@ -112,7 +112,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     return is_combo_active;
 }
 
-bool process_combo(uint16_t keycode, keyrecord_t *record)
+level_t process_combo(uint16_t keycode, keyrecord_t *record)
 {
     bool is_combo_key = false;
 
@@ -121,7 +121,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
         is_combo_key |= process_single_combo(combo, keycode, record);
     }    
 
-    return !is_combo_key;
+    return is_combo_key ? STOP_PROCESSING : CONTINUE_PROCESSING;
 }
 
 void matrix_scan_combo(void)

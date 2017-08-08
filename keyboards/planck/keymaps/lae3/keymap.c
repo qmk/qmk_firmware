@@ -186,7 +186,7 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
+level_t process_user(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
         case LOWER:
@@ -196,7 +196,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
                 layer_off(_LOWER);
             }
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            return false;
+            return STOP_PROCESSING;
         case RAISE:
             if (record->event.pressed) {
                 layer_on(_RAISE);
@@ -204,27 +204,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
                 layer_off(_RAISE);
             }
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            return false;
+            return STOP_PROCESSING;
         case QWERTY:
             if (record->event.pressed) {
                 layer_off(_ARROW);
                 layer_off(_NUMPAD);
             }
-            return false;
+            return STOP_PROCESSING;
         case ARROW:
             if (record->event.pressed) {
                 layer_off(_NUMPAD);
                 layer_on(_ARROW);
             }
-            return false;
+            return STOP_PROCESSING;
         case NUMPAD:
             if (record->event.pressed) {
                 layer_off(_ARROW);
                 layer_on(_NUMPAD);
             }
-            return false;
+            return STOP_PROCESSING;
     }
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 void matrix_init_user(void)

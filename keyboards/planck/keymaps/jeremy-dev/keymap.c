@@ -85,7 +85,7 @@ void press_three_keys(uint16_t key1, uint16_t key2, uint16_t key3) {
   unregister_code(key1);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MY_BELW:
       if (record->event.pressed) {
@@ -93,7 +93,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_ENT);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_ABVE:
       if (record->event.pressed) {
@@ -102,14 +102,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_UP);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_TERM:
       if (record->event.pressed) {
         press_three_keys(KC_LGUI, KC_LSFT, KC_ENT);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_DEQL: // /=
       if (record->event.pressed) {
@@ -117,7 +117,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_EQL);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_MEQL: // *=
       if (record->event.pressed) {
@@ -125,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_EQL);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_SEQL: // -=
       if (record->event.pressed) {
@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_EQL);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_PEQL: // +=
       if (record->event.pressed) {
@@ -141,7 +141,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_EQL);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_NEQL: // !=
       if (record->event.pressed) {
@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_key(KC_EQL);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_LTGT: // <>
       if (record->event.pressed) {
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_two_keys(KC_LSFT, KC_RABK);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_DPIP: // ||
       if (record->event.pressed) {
@@ -165,7 +165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_two_keys(KC_LSFT, KC_PIPE);
       }
 
-      return false;
+      return STOP_PROCESSING;
 
     case MY_DAMP: // &&
       if (record->event.pressed) {
@@ -173,8 +173,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         press_two_keys(KC_LSFT, KC_AMPR);
       }
 
-      return false;
+      return STOP_PROCESSING;
   }
 
-  return true;
+  return CONTINUE_PROCESSING;
 }

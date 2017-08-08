@@ -337,10 +337,10 @@ enum my_keycodes {
 };
 ```
 
-You can then use `process_record_user()` to do something with your keycode:
+You can then use `process_user()` to do something with your keycode:
 
 ```
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case FOO:
       // Do something here

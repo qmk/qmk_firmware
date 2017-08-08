@@ -211,7 +211,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
@@ -221,7 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
-      return false;
+      return STOP_PROCESSING;
         case COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -230,7 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
-      return false;
+      return STOP_PROCESSING;
         case DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -239,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
-      return false;
+      return STOP_PROCESSING;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           break;
-      return false;
+      return STOP_PROCESSING;
         case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
@@ -267,7 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           break;
-      return false;
+      return STOP_PROCESSING;
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
@@ -278,7 +278,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_RSFT);
           }
         break;
-      return false;
+      return STOP_PROCESSING;
         case PLOVER:
           if (!record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -288,7 +288,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_on(_PLOVER);
           }
         break;
-      return false;
+      return STOP_PROCESSING;
         case EXT_PLV:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
@@ -297,61 +297,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_PLOVER);
           }
         break;
-      return false;
+      return STOP_PROCESSING;
 
     case RGBLED_TOGGLE:
       //led operations
       if (record->event.pressed) {
         rgblight_toggle();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_INCREASE_HUE:
       if (record->event.pressed) {
         rgblight_increase_hue();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_DECREASE_HUE:
       if (record->event.pressed) {
         rgblight_decrease_hue();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_INCREASE_SAT:
       if (record->event.pressed) {
         rgblight_increase_sat();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_DECREASE_SAT:
       if (record->event.pressed) {
         rgblight_decrease_sat();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_INCREASE_VAL:
       if (record->event.pressed) {
         rgblight_increase_val();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_DECREASE_VAL:
       if (record->event.pressed) {
         rgblight_decrease_val();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGBLED_STEP_MODE:
       if (record->event.pressed) {
         rgblight_step();
       }
-      return false;
+      return STOP_PROCESSING;
       break;
 
 
       }
-  return true;
+  return CONTINUE_PROCESSING;
 };
 
 void matrix_init_user(void) {

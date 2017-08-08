@@ -46,6 +46,6 @@ void qk_ucis_start(void);
 void qk_ucis_start_user(void);
 void qk_ucis_symbol_fallback (void);
 void register_ucis(const char *hex);
-bool process_ucis (uint16_t keycode, keyrecord_t *record);
+level_t process_ucis (uint16_t keycode, keyrecord_t *record);
 
 #endif

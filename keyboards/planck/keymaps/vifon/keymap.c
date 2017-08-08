@@ -104,12 +104,12 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer;
 
     uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
     if (!process_record_dynamic_macro(macro_kc, record)) {
-        return false;
+        return STOP_PROCESSING;
     }
 
     switch (keycode) {
@@ -120,7 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_LW);
         }
         update_tri_layer(_LW, _RS, _DL);
-        return false;
+        return STOP_PROCESSING;
         break;
     case KM_RS:
         if (record->event.pressed) {
@@ -129,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(_RS);
         }
         update_tri_layer(_LW, _RS, _DL);
-        return false;
+        return STOP_PROCESSING;
         break;
     case KM_SHLK:
         register_code(KC_LSFT);
@@ -179,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_NM);
     }
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

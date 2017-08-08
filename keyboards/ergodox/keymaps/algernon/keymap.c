@@ -1043,7 +1043,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
  UCIS_SYM("tm", 0x2122)
 );
 
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+level_t process_user (uint16_t keycode, keyrecord_t *record) {
 #if KEYLOGGER_ENABLE
   if (log_enable) {
     uint8_t layer = biton32(layer_state);
@@ -1086,11 +1086,11 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 
       ang_tap (KC_4, KC_SPC, KC_D, KC_A, KC_Y, KC_S, KC_QUOT, 0);
 
-      return false;
+      return STOP_PROCESSING;
     }
   }
 
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void qk_ucis_symbol_fallback (void) {

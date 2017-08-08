@@ -87,7 +87,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-/*bool process_record_user(uint16_t keycode, keyrecord_t *record) {*/
+/*level_t process_user(uint16_t keycode, keyrecord_t *record) {*/
   /*return true;*/
   /*[>switch (keycode) {<]*/
     /*[>case QWERTY:<]*/

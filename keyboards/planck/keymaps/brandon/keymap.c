@@ -339,18 +339,18 @@ void plover_lookup(void) {
   unregister_code(PV_RG);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<BASE_QWERTY_LAYER);
       }
-      return false;
+      return STOP_PROCESSING;
     case COLEMAK:
       if (record->event.pressed) {
         persistant_default_layer_set(1UL<<BASE_COLEMAK_LAYER);
       }
-      return false;
+      return STOP_PROCESSING;
     case LOWER:
       if (record->event.pressed) {
         layer_on(LOWER_LAYER);
@@ -359,7 +359,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(LOWER_LAYER);
         update_tri_layer(LOWER_LAYER, RAISE_LAYER, KEYBOARD_LAYER);
       }
-      return false;
+      return STOP_PROCESSING;
     case RAISE:
       if (record->event.pressed) {
         layer_on(RAISE_LAYER);
@@ -368,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(RAISE_LAYER);
         update_tri_layer(LOWER_LAYER, RAISE_LAYER, KEYBOARD_LAYER);
       }
-      return false;
+      return STOP_PROCESSING;
     case STENO:
       if (record->event.pressed) {
         layer_off(RAISE_LAYER);
@@ -383,20 +383,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
         plover_resume();
       }
-      return false;
+      return STOP_PROCESSING;
     case PV_EXIT:
       if (record->event.pressed) {
         plover_suspend();
         layer_off(BASE_STENO_LAYER);
       }
-      return false;
+      return STOP_PROCESSING;
     case PV_LOOK:
       if (record->event.pressed) {
         plover_lookup();
       }
-      return false;
+      return STOP_PROCESSING;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void matrix_init_user(void) {

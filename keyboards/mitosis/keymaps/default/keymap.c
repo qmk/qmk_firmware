@@ -137,7 +137,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 static bool singular_key = false;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
 
 	uint8_t layer;
   layer = biton32(layer_state);  // get the current layer
@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
   	}
     update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
+  	return STOP_PROCESSING;
   	break;
   //SHIFT is handled as LSHIFT in the general case
   case SHIFT:
@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
     update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
+  	return STOP_PROCESSING;
   	break;
 
   //If any other key was pressed during the layer mod hold period,
@@ -195,7 +195,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   	}
   }
 
-  return true;
+  return CONTINUE_PROCESSING;
 };
 
 void matrix_scan_user(void) {

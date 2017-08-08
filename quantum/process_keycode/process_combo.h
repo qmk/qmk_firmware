@@ -52,7 +52,7 @@ typedef struct
 #define COMBO_TERM TAPPING_TERM
 #endif
 
-bool process_combo(uint16_t keycode, keyrecord_t *record);
+level_t process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
 void process_combo_event(uint8_t combo_index, bool pressed);
 

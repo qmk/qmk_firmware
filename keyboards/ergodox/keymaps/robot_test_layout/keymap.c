@@ -62,7 +62,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool status_led1_on = false, status_led2_on = false, status_led3_on = false;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
     case RGB_FF0000:
@@ -72,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_1); unregister_code(KC_1);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_00FF00:
       if (record->event.pressed) {
@@ -81,7 +81,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_2); unregister_code(KC_2);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_0000FF:
       if (record->event.pressed) {
@@ -90,7 +90,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_3); unregister_code(KC_3);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_FFFFFF:
       if (record->event.pressed) {
@@ -99,7 +99,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_4); unregister_code(KC_4);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case RGB_TOGGLE:
       if (record->event.pressed) {
@@ -108,7 +108,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           register_code(KC_EQL); unregister_code(KC_EQL);
         #endif
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LED1:
       if (record->event.pressed) {
@@ -120,7 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led1_on = true;
         }
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LED2:
       if (record->event.pressed) {
@@ -132,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led2_on = true;
         }
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case LED3:
       if (record->event.pressed) {
@@ -144,8 +144,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         status_led3_on = true;
         }
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }

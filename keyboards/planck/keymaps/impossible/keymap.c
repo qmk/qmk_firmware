@@ -169,7 +169,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case WORKMAN:
       if (record->event.pressed) {
@@ -178,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         persistent_default_layer_set(1UL<<_WORKMAN);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case QWERTY:
       if (record->event.pressed) {
@@ -187,7 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
     case PLOVER:
       if (record->event.pressed) {
@@ -202,10 +202,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         eeconfig_update_keymap(keymap_config.raw);
         persistent_default_layer_set(1UL<<_PLOVER);
       }
-      return false;
+      return STOP_PROCESSING;
       break;
   }
-  return true;
+  return CONTINUE_PROCESSING;
 }
 
 void matrix_init_user(void) {

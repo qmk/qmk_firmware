@@ -247,7 +247,7 @@ void matrix_scan_user(void) {
     }
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+level_t process_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case BEL_F0:
         if(record->event.pressed){
@@ -260,7 +260,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(SWPH);
             }
 
-            return false;
+            return STOP_PROCESSING;
         }
         break;
     case BEL_F1:
@@ -268,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(SYMB);
             layer_off(NUMP);
 
-            return false;
+            return STOP_PROCESSING;
         }
         break;
     case E_SHRUG: // ¯\_(ツ)_/¯
@@ -287,7 +287,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap(KC_SLSH);                                   // Arm
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case E_TFLIP: // (╯°□°)╯ ︵ ┻━┻
         if (record->event.pressed) {
@@ -309,7 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             process_unicode((0x2501|QK_UNICODE), record);   // Table
             process_unicode((0x253B|QK_UNICODE), record);   // Table
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     case E_TSET: // ┬──┬ ノ( ゜-゜ノ)
         if (record->event.pressed) {
@@ -331,11 +331,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap(KC_0);
             unregister_code(KC_RSFT);
         }
-        return false;
+        return STOP_PROCESSING;
         break;
     }
 
-    return true;
+    return CONTINUE_PROCESSING;
 }
 
 void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
