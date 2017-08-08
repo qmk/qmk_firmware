@@ -237,10 +237,6 @@ sizeafter: $(BUILD_DIR)/$(TARGET).hex
 	# test file sizes eventually
 	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | $(AWK) 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
-# Display qmk version information.
-qmkversion :
-	@$(SILENT) || printf "QMK Firmware v$(shell git describe --abbrev=0 --tags 2>/dev/null)\n\n"
-
 # Display compiler version information.
 gccversion :
 	@$(SILENT) || $(CC) --version
@@ -279,7 +275,7 @@ gccversion :
 	$(eval CMD=$(BIN) $< $@ || exit 0)
 	@$(BUILD_CMD)
 
-BEGIN = qmkversion gccversion sizebefore
+BEGIN = gccversion sizebefore
 
 # Link: create ELF output file from object files.
 .SECONDARY : $(BUILD_DIR)/$(TARGET).elf
