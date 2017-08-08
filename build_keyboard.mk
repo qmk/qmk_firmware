@@ -101,6 +101,9 @@ else
     $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
 endif
 
+# User space stuff
+USER_PATH := users/$(KEYMAP)
+-include $(USER_PATH)/rules.mk
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
@@ -131,6 +134,7 @@ ifneq ($(SUBPROJECT),)
 endif
 VPATH += $(KEYBOARD_PATH)
 VPATH += $(COMMON_VPATH)
+VPATH += $(USER_PATH)
 
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
