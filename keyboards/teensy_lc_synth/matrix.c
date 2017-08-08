@@ -144,9 +144,9 @@ static matrix_row_t read_cols(void) {
     printf("pin16:%d, ", (palReadPad(TEENSY_PIN16_IOPORT, TEENSY_PIN16)==PAL_LOW)<<2);
     printf("pin11:%d\n", (palReadPad(TEENSY_PIN11_IOPORT, TEENSY_PIN11)==PAL_LOW)<<3);
     
-    return (palReadPad(TEENSY_PIN14_IOPORT, TEENSY_PIN14)==PAL_LOW) ? 0 : (1<<0) && \
-        (palReadPad(TEENSY_PIN15_IOPORT, TEENSY_PIN15)==PAL_LOW) ? 0 : (1<<1) && \
-        (palReadPad(TEENSY_PIN16_IOPORT, TEENSY_PIN16)==PAL_LOW) ? 0 : (1<<2) && \
+    return (palReadPad(TEENSY_PIN14_IOPORT, TEENSY_PIN14)==PAL_LOW) ? 0 : (1<<0) ||
+        (palReadPad(TEENSY_PIN15_IOPORT, TEENSY_PIN15)==PAL_LOW) ? 0 : (1<<1) ||
+        (palReadPad(TEENSY_PIN16_IOPORT, TEENSY_PIN16)==PAL_LOW) ? 0 : (1<<2) ||
         (palReadPad(TEENSY_PIN11_IOPORT, TEENSY_PIN11)==PAL_LOW) ? 0 : (1<<3);
 }
 
