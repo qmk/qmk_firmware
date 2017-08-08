@@ -31,9 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION "QMK keyboard firmware test for ChibiOS"
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 3
-#define DIODE_DIRECTION ROW2COL
+#define MATRIX_ROWS 3
+#define MATRIX_COLS 4
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
