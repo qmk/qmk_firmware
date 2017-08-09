@@ -8,8 +8,8 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum custom_keycodes {
-  _L0 = SAFE_RANGE,
+enum layers {
+  _L0 = 0,
   _L1,
   _L2,
 };
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN, KC_NO,   KC_NO,   KC_DOWN, KC_F4,    KC_F5,   KC_F6,   KC_F11, \
   KC_TRNS, KC_VOLU, KC_TRNS, KC_TRNS, RESET,   KC_LCTL, KC_NO,   KC_TRNS, KC_F1,    KC_F2,   KC_F3,   KC_F12, \
   KC_TRNS, KC_VOLD, KC_LGUI, KC_LSFT, KC_NO,   KC_BSPC, KC_LALT, KC_SPC,  DF(_L0),  KC_PSCR, KC_SLCK, KC_PAUS \
-),
+)
 
 };
 
