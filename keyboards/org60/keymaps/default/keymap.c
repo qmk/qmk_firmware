@@ -1,4 +1,4 @@
-#include "xd60.h"
+#include "org60.h"
 #include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
