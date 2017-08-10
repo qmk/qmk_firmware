@@ -17,6 +17,7 @@
   * [Mouse keys](mouse_keys.md)
   * [Unicode](unicode.md)
   * [Stenography](stenography.md)
+  * [Key Lock](key_lock.md)
 
 * Reference
   * [Glossary](glossary.md)
