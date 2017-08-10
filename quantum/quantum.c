@@ -40,13 +40,12 @@ extern backlight_config_t backlight_config;
   #ifndef AG_SWAP_SONG
     #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
   #endif
-  #ifndef DEFAULT_LAYER_SONGS
-    #define DEFAULT_LAYER_SONGS { }
-  #endif
   float goodbye_song[][2] = GOODBYE_SONG;
   float ag_norm_song[][2] = AG_NORM_SONG;
   float ag_swap_song[][2] = AG_SWAP_SONG;
-  float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
+  #ifdef DEFAULT_LAYER_SONGS
+    float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
+  #endif
 #endif
 
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
@@ -560,7 +559,7 @@ void send_string_with_delay(const char *str, uint8_t interval) {
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
-  #ifdef AUDIO_ENABLE
+  #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
   #endif
   eeconfig_update_default_layer(1U<<default_layer);
