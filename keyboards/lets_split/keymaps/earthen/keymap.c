@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MARC] = KEYMAP ( \
   LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,             KC_G,              KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
   LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,             KC_H,              KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
-  KC_LSFT,           KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,           KC_RGUI, KC_LALT, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_DELT), LT(RAISE,KC_ENT), LT(LOWER,KC_SPC), KC_UP,   KC_LALT, KC_RGUI, RCTL_T(KC_CAPS) \
+  KC_LSFT, KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    RSFT_T(KC_ENT), \
+  LCTL_T(KC_CAPS),   KC_RGUI, KC_LALT, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_SPC), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_LALT, KC_RGUI, RCTL_T(KC_ENT) \
 ),
 
 /* Mouse
