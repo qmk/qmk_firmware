@@ -193,6 +193,10 @@ bool process_record_quantum(keyrecord_t *record) {
     // }
 
   if (!(
+  #if defined(KEY_LOCK_ENABLE)
+    // Must run first to be able to mask key_up events.
+    process_key_lock(&keycode, record) &&
+  #endif
     process_record_kb(keycode, record) &&
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
