@@ -3,7 +3,7 @@ LCD_BACKLIGHT_ENABLE = yes
 LCD_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 NKRO_ENABLE = yes
-TAP_DANCE_ENABLE = yes
+KEY_LOCK_ENABLE = yes
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
