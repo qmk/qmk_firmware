@@ -390,6 +390,7 @@ endef
 define BUILD
     MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
     COMMANDS += $$(COMMAND)
+    MAKE_MSG = QMK Firmware v$$(shell git describe --abbrev=0 --tags 2>/dev/null)\n\n$(MAKE_MSG)
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
         $$(MAKE_MSG_FORMAT); \
@@ -420,7 +421,7 @@ define BUILD_TEST
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
     MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS="$$(FULL_TESTS)"
-    MAKE_MSG := $$(MSG_MAKE_TEST)
+    MAKE_MSG := QMK Firmware v$$(shell git describe --abbrev=0 --tags 2>/dev/null)\n\n$$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
         TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf

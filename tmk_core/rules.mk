@@ -382,7 +382,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter gccversion \
-build elf hex eep lss sym coff extcoff \
+.PHONY : all finish sizebefore sizeafter qmkversion \
+gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start 
