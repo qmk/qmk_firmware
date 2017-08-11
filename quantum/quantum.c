@@ -478,6 +478,11 @@ bool process_record_quantum(keyrecord_t *record) {
       void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
+      
+#ifdef GRAVE_ESC_CTRL_OVERRIDE
+      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
+        shifted = 0;
+#endif
 
       method(shifted ? KC_GRAVE : KC_ESCAPE);
       send_keyboard_report(); 
