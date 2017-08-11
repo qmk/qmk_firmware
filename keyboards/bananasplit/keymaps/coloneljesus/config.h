@@ -20,5 +20,6 @@
 #include "../../config.h"
 
 // place overrides here
+#define GRAVE_ESC_CTRL_OVERRIDE
 
 #endif
