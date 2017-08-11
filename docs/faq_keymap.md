@@ -116,7 +116,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and `~ on a key
 
-Use `GRAVE_ESC` or `KC_GESC` in your keymap. `GUI`+`GRAVE_ESC` results in `\`` and `SHIFT`+`GRAVE_ESC` results in `~`.
+Use `GRAVE_ESC` or `KC_GESC` in your keymap. `GUI`+`GRAVE_ESC` results in `` ` `` and `SHIFT`+`GRAVE_ESC` results in `~`.
 
 Note that this will break the CTRL+SHIFT+ESC shortcut to the Windows task manager. Use `#define GRAVE_ESC_CTRL_OVERRIDE` in your `config.h` to get the shortcut back. With this option, `ESC_GRAVE` results in `ESC` if `CTRL` is held, even if `SHIFT` or `GUI` are also held.
 
