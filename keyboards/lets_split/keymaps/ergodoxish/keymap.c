@@ -13,6 +13,7 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
+#define _MOUSE 4
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -21,6 +22,7 @@ enum custom_keycodes {
   DVORAK,
   LOWER,
   RAISE,
+  MOUSE,
   ADJUST,
 };
 
@@ -120,22 +122,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
 
+/* Mouse
+ * ,-----------------------------------------.    ,-----------------------------------------.
+ * |      |      |      |      |      |      |    |      | ACL0 | ACL1 | ACL2 |      |      |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      | MB1  | MB2  |      |    | MoLt | MoDn | MoUp | MoRt |      |      |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * `-----------------------------------------'    `-----------------------------------------'
+ */
+[_MOUSE] = KEYMAP( \
+  _______,  _______,  _______,  _______,    _______,    _______,   _______,   KC_ACL0,   KC_ACL1,  KC_ACL2,   _______, _______, \
+  _______,  _______,  _______,  KC_BTN1,    KC_BTN2,    _______,   KC_MS_L,   KC_MS_D,   KC_MS_U,  KC_MS_R,   _______, _______, \
+  _______,  _______,  _______,  _______,    _______,    _______,   _______,   _______,   _______,  _______,   _______, _______, \
+  _______,  _______,  _______,  _______,    _______,    _______,   _______,   _______,   _______,  _______,   _______, _______ \
+),
+
 /* Adjust (Lower + Raise)
- * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
+ * ,-----------------------------------------.    ,-----------------------------------------.
+ * |      | Reset|      |      |      |      |    |      |      |      |      |      |  Del |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      |Aud on|Audoff|AGnorm|    |AGswap|Qwerty|Colemk|Dvorak|Mouse |      |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * `-----------------------------------------'    `-----------------------------------------'
  */
 [_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    KC_DEL, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  TG(_MOUSE), _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______ \
 )
 
 
@@ -154,61 +174,67 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
+  case QWERTY:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+#endif
+      persistent_default_layer_set(1UL<<_QWERTY);
+    }
+    return false;
+    break;
+  case COLEMAK:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+#endif
+      persistent_default_layer_set(1UL<<_COLEMAK);
+    }
+    return false;
+    break;
+  case DVORAK:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+#endif
+      persistent_default_layer_set(1UL<<_DVORAK);
+    }
+    return false;
+    break;
+  case LOWER:
+    if (record->event.pressed) {
+      layer_on(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    } else {
+      layer_off(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    return false;
+    break;
+  case RAISE:
+    if (record->event.pressed) {
+      layer_on(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    } else {
+      layer_off(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    return false;
+    break;
+  case MOUSE:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL<<_MOUSE);
+    }
+    return false;
+    break;
+  case ADJUST:
+    if (record->event.pressed) {
+      layer_on(_ADJUST);
+    } else {
+      layer_off(_ADJUST);
+    }
+    return false;
+    break;
   }
   return true;
 }
