@@ -9,17 +9,17 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _MOUSE 4
+//#define _COLEMAK 1
+//#define _DVORAK 2
+#define _LOWER 1
+#define _RAISE 2
+#define _MOUSE 3
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  //COLEMAK,
+  //DVORAK,
   LOWER,
   RAISE,
   MOUSE,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   	   KC_Q,    KC_W,    KC_E,    KC_R,                  KC_T,   KC_Y,   KC_U,               KC_I,    KC_O,    KC_P,    KC_MINS, \
   KC_ESC,   	   KC_A,    KC_S,    KC_D,    KC_F,                  KC_G,   KC_H,   KC_J,               KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,    KC_V,                  KC_B,   KC_N,   KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-  ADJUST,  	     KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSPC),   KC_DEL, KC_ENT, LT(_RAISE, KC_SPC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+  ADJUST,  	     KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSPC),   KC_DEL, KC_ENT,  LT(_RAISE, KC_SPC),  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 /* Colemak
@@ -61,12 +61,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = KEYMAP( \
+/*[_COLEMAK] = KEYMAP(                                                  \
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
   KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
   ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-),
+),*/
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
@@ -79,12 +79,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_DVORAK] = KEYMAP( \
+/*[_DVORAK] = KEYMAP(                                                   \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
   KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
   ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-),
+  ),*/
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  KEYMAP( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  TG(_MOUSE), _______, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  TG(_MOUSE), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______ \
 )
@@ -183,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case COLEMAK:
+    /*  case COLEMAK:
     if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
       PLAY_NOTE_ARRAY(tone_colemak, false, 0);
@@ -200,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       persistent_default_layer_set(1UL<<_DVORAK);
     }
     return false;
-    break;
+    break;*/
   case LOWER:
     if (record->event.pressed) {
       layer_on(_LOWER);
