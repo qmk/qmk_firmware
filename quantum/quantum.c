@@ -161,6 +161,11 @@ void reset_keyboard(void) {
 static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
 
+/* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+ * Used to ensure that the correct keycode is released if the key is released.
+ */
+static bool grave_esc_was_shifted = false;
+
 bool process_record_quantum(keyrecord_t *record) {
 
   /* This gets the keycode from the key pressed */
@@ -475,10 +480,9 @@ bool process_record_quantum(keyrecord_t *record) {
       // break;
     }
     case GRAVE_ESC: {
-      void (*method)(uint8_t) = (record->event.pressed) ? &add_key : &del_key;
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
-      
+
 #ifdef GRAVE_ESC_CTRL_OVERRIDE
       // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.
       // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
@@ -486,8 +490,15 @@ bool process_record_quantum(keyrecord_t *record) {
         shifted = 0;
 #endif
 
-      method(shifted ? KC_GRAVE : KC_ESCAPE);
-      send_keyboard_report(); 
+      if (record->event.pressed) {
+        grave_esc_was_shifted = shifted;
+        add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+      else {
+        del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+
+      send_keyboard_report();
     }
     default: {
       shift_interrupted[0] = true;
