@@ -146,7 +146,7 @@ SRC = matrix.cpp
 
 
 
-# include $(TMK_DIR)/protocol/usb_hid.mk
+include $(TMK_DIR)/protocol/usb_hid.mk
 # include $(TMK_DIR)/protocol/lufa.mk
 # include $(TMK_DIR)/common.mk
 # include $(TMK_DIR)/rules.mk
