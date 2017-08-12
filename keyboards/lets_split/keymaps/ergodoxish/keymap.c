@@ -16,6 +16,8 @@ extern keymap_config_t keymap_config;
 #define _MOUSE 3
 #define _ADJUST 16
 
+#define M_START_CMDER M(0)
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   //COLEMAK,
@@ -38,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |Adjust| Ctrl | Alt  | GUI  |Lw/Bk |Del   |    |Enter |Ris/Sp| Left | Down |  Up  |Right |
  * `-----------------------------------------'    `-----------------------------------------'
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = KEYMAP( \
   KC_TAB,   	   KC_Q,    KC_W,    KC_E,    KC_R,                  KC_T,   KC_Y,   KC_U,               KC_I,    KC_O,    KC_P,    KC_MINS, \
   KC_ESC,   	   KC_A,    KC_S,    KC_D,    KC_F,                  KC_G,   KC_H,   KC_J,               KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,    KC_V,                  KC_B,   KC_N,   KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
+  OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,    KC_V,                  KC_B,   KC_N,   KC_M,               KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT , \
   ADJUST,  	     KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSPC),   KC_DEL, KC_ENT,  LT(_RAISE, KC_SPC),  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
@@ -128,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |      |      |      | MB1  | MB2  |      |    | MoLt | MoDn | MoUp | MoRt |      |      |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |    |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |    |      |Mcr1  |Mcr2  |      |      |      |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
@@ -136,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MOUSE] = KEYMAP( \
   _______,  _______,  _______,  _______,    _______,    _______,   _______,   KC_ACL0,   KC_ACL1,  KC_ACL2,   _______, _______, \
   _______,  _______,  _______,  KC_BTN1,    KC_BTN2,    _______,   KC_MS_L,   KC_MS_D,   KC_MS_U,  KC_MS_R,   _______, _______, \
-  _______,  _______,  _______,  _______,    _______,    _______,   _______,   _______,   _______,  _______,   _______, _______, \
+  _______,  _______,  _______,  _______,    _______,    _______,   M_START_CMDER,      M(1),      _______,  _______,   _______, _______, \
   _______,  _______,  _______,  _______,    _______,    _______,   _______,   _______,   _______,  _______,   _______, _______ \
 ),
 
@@ -238,3 +240,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt){
+  if(record->event.pressed){
+    switch(id){
+    case 0:
+      return MACRO(D(LGUI), U(LGUI), T(C), D(LSFT), T(SCLN), U(LSFT), T(BSLS), T(T), T(O), T(O), T(L), T(S), T(BSLS), T(C), T(M), T(D), T(E), T(R), T(BSLS), T(C), T(M), T(D), T(E), T(R), T(DOT), T(E), T(X), T(E), D(ENT), U(ENT), END);
+      break;
+    case 1:
+      return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
+      break;
+    }
+  }
+
+  return MACRO_NONE;
+};
