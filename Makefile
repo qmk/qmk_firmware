@@ -19,6 +19,11 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
+ifneq ($(QMK_VERSION),)
+$(info QMK Firmware v$(QMK_VERSION))
+endif
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
@@ -390,7 +395,6 @@ endef
 define BUILD
     MAKE_VARS += VERBOSE=$(VERBOSE) COLOR=$(COLOR)
     COMMANDS += $$(COMMAND)
-    MAKE_MSG = QMK Firmware v$$(shell git describe --abbrev=0 --tags 2>/dev/null)\n\n$(MAKE_MSG)
     COMMAND_true_$$(COMMAND) := \
         printf "$$(MAKE_MSG)" | \
         $$(MAKE_MSG_FORMAT); \
@@ -421,7 +425,7 @@ define BUILD_TEST
     COMMAND := $1
     MAKE_CMD := $$(MAKE) -r -R -C $(ROOT_DIR) -f build_test.mk $$(MAKE_TARGET)
     MAKE_VARS := TEST=$$(TEST_NAME) FULL_TESTS="$$(FULL_TESTS)"
-    MAKE_MSG := QMK Firmware v$$(shell git describe --abbrev=0 --tags 2>/dev/null)\n\n$$(MSG_MAKE_TEST)
+    MAKE_MSG := $$(MSG_MAKE_TEST)
     $$(eval $$(call BUILD))
     ifneq ($$(MAKE_TARGET),clean)
         TEST_EXECUTABLE := $$(TEST_DIR)/$$(TEST_NAME).elf
