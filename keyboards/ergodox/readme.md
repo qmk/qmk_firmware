@@ -145,6 +145,16 @@ You have a few options in how you flash the firmware:
   any part of the firmware code itself, you can program only the MASTER half.
   It is safest to program both halves though.
 
+## ErgoDone
+
+The ErgoDone uses its own HID bootloader and needs to be flashed using the [TKG Toolkit](https://github.com/kairyu/tkg-toolkit).
+
+  - Build the firmware with `make ergodone-keymapname`
+
+  - While plugging in the USB cable, hold the two right-most keys on the left half of the ErgoDone to enter FLASH mode.
+
+  - Use the utility from [TKG Toolkit](https://github.com/kairyu/tkg-toolkit) to flash the keyboard: `hid_bootloader_cli -mmcu=atmega32u4 ergodox_ergodone_keymapname.hex`
+
 # Contributing your keymap
 
 The QMK firmware is open-source, so it would be wonderful to have your contribution! Within a very short time after launching we already amassed dozens of user-contributed keymaps, with all sorts of creative improvements and tweaks. This is very valuable for people who aren't comfortable coding, but do want to customize their ErgoDox. To make it easy for these people to use your layout, I recommend submitting your PR in the following format.
