@@ -17,6 +17,12 @@
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 14
 
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 3
+
+#define LED_BRIGHTNESS_LO       15
+#define LED_BRIGHTNESS_HI       255
+
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 

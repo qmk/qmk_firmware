@@ -10,14 +10,23 @@
 
 void init_ergodox(void);
 
-inline void ergodox_right_led_1_off(void) {}
-inline void ergodox_right_led_1_on(void)  {}
-inline void ergodox_right_led_2_off(void) {}
-inline void ergodox_right_led_2_on(void)  {}
-inline void ergodox_right_led_3_off(void) {}
-inline void ergodox_right_led_3_on(void)  {}
-inline void ergodox_board_led_off(void)   {}
-inline void ergodox_board_led_on(void)    {}
+inline void ergodox_right_led_1_off(void)               {}
+inline void ergodox_right_led_1_on(void)                {}
+inline void ergodox_right_led_2_off(void)               {}
+inline void ergodox_right_led_2_on(void)                {}
+inline void ergodox_right_led_3_off(void)               {}
+inline void ergodox_right_led_3_on(void)                {}
+inline void ergodox_right_led_on(uint8_t l)             {}
+inline void ergodox_right_led_off(uint8_t l)            {}
+inline void ergodox_board_led_off(void)                 {}
+inline void ergodox_board_led_on(void)                  {}
+inline void ergodox_led_all_on(void)                    {}
+inline void ergodox_led_all_off(void)                   {}
+inline void ergodox_right_led_1_set(uint8_t n)          {}
+inline void ergodox_right_led_2_set(uint8_t n)          {}
+inline void ergodox_right_led_3_set(uint8_t n)          {}
+inline void ergodox_right_led_set(uint8_t l, uint8_t n) {}
+inline void ergodox_led_all_set(uint8_t n)              {}
 
 #define KEYMAP(                                                 \
                                                                 \
