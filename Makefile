@@ -19,6 +19,11 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
+ifneq ($(QMK_VERSION),)
+$(info QMK Firmware v$(QMK_VERSION))
+endif
+
 ON_ERROR := error_occurred=1
 
 BREAK_ON_ERRORS = no
