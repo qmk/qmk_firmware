@@ -111,7 +111,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 CUSTOM_MATRIX = yes
 
-SRC = matrix.cpp
+SRC = custom_matrix.cpp
 
 #
 # Keymap file
