@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "usb_usb.h"
 
 
-const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     /* 0: plain Qwerty without layer switching
      *         ,---------------. ,---------------. ,---------------.
      *         |F13|F14|F15|F16| |F17|F18|F19|F20| |F21|F22|F23|F24|
