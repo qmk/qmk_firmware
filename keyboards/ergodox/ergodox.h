@@ -6,5 +6,8 @@
 #ifdef SUBPROJECT_infinity
     #include "infinity.h"
 #endif
+#ifdef SUBPROJECT_ergodone
+    #include "ergodone.h"
+#endif
 
 #endif /* KEYBOARDS_ERGODOX_ERGODOX_H_ */
