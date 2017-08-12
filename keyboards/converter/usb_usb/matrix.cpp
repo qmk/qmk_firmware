@@ -83,152 +83,156 @@ KBDReportParser kbd_parser3;
 KBDReportParser kbd_parser4;
 
 
-uint8_t matrix_rows(void) { return MATRIX_ROWS; }
-uint8_t matrix_cols(void) { return MATRIX_COLS; }
-bool matrix_has_ghost(void) { return false; }
-void matrix_init(void) {
-    // USB Host Shield setup
-    usb_host.Init();
-    kbd1.SetReportParser(0, (HIDReportParser*)&kbd_parser1);
-    kbd2.SetReportParser(0, (HIDReportParser*)&kbd_parser2);
-    kbd3.SetReportParser(0, (HIDReportParser*)&kbd_parser3);
-    kbd4.SetReportParser(0, (HIDReportParser*)&kbd_parser4);
-}
+extern "C"
+{
+    uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+    uint8_t matrix_cols(void) { return MATRIX_COLS; }
+    bool matrix_has_ghost(void) { return false; }
+    void matrix_init(void) {
+        // USB Host Shield setup
+        usb_host.Init();
+        kbd1.SetReportParser(0, (HIDReportParser*)&kbd_parser1);
+        kbd2.SetReportParser(0, (HIDReportParser*)&kbd_parser2);
+        kbd3.SetReportParser(0, (HIDReportParser*)&kbd_parser3);
+        kbd4.SetReportParser(0, (HIDReportParser*)&kbd_parser4);
+    }
 
-static void or_report(report_keyboard_t report) {
-    // integrate reports into keyboard_report
-    keyboard_report.mods |= report.mods;
-    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (IS_ANY(report.keys[i])) {
-            for (uint8_t j = 0; j < KEYBOARD_REPORT_KEYS; j++) {
-                if (! keyboard_report.keys[j]) {
-                    keyboard_report.keys[j] = report.keys[i];
-                    break;
+    static void or_report(report_keyboard_t report) {
+        // integrate reports into keyboard_report
+        keyboard_report.mods |= report.mods;
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            if (IS_ANY(report.keys[i])) {
+                for (uint8_t j = 0; j < KEYBOARD_REPORT_KEYS; j++) {
+                    if (! keyboard_report.keys[j]) {
+                        keyboard_report.keys[j] = report.keys[i];
+                        break;
+                    }
                 }
             }
         }
     }
-}
 
-uint8_t matrix_scan(void) {
-    static uint16_t last_time_stamp1 = 0;
-    static uint16_t last_time_stamp2 = 0;
-    static uint16_t last_time_stamp3 = 0;
-    static uint16_t last_time_stamp4 = 0;
+    uint8_t matrix_scan(void) {
+        static uint16_t last_time_stamp1 = 0;
+        static uint16_t last_time_stamp2 = 0;
+        static uint16_t last_time_stamp3 = 0;
+        static uint16_t last_time_stamp4 = 0;
 
-    // check report came from keyboards
-    if (kbd_parser1.time_stamp != last_time_stamp1 ||
-        kbd_parser2.time_stamp != last_time_stamp2 ||
-        kbd_parser3.time_stamp != last_time_stamp3 ||
-        kbd_parser4.time_stamp != last_time_stamp4) {
+        // check report came from keyboards
+        if (kbd_parser1.time_stamp != last_time_stamp1 ||
+            kbd_parser2.time_stamp != last_time_stamp2 ||
+            kbd_parser3.time_stamp != last_time_stamp3 ||
+            kbd_parser4.time_stamp != last_time_stamp4) {
 
-        last_time_stamp1 = kbd_parser1.time_stamp;
-        last_time_stamp2 = kbd_parser2.time_stamp;
-        last_time_stamp3 = kbd_parser3.time_stamp;
-        last_time_stamp4 = kbd_parser4.time_stamp;
+            last_time_stamp1 = kbd_parser1.time_stamp;
+            last_time_stamp2 = kbd_parser2.time_stamp;
+            last_time_stamp3 = kbd_parser3.time_stamp;
+            last_time_stamp4 = kbd_parser4.time_stamp;
 
-        // clear and integrate all reports
-        keyboard_report = {};
-        or_report(kbd_parser1.report);
-        or_report(kbd_parser2.report);
-        or_report(kbd_parser3.report);
-        or_report(kbd_parser4.report);
+            // clear and integrate all reports
+            keyboard_report = {};
+            or_report(kbd_parser1.report);
+            or_report(kbd_parser2.report);
+            or_report(kbd_parser3.report);
+            or_report(kbd_parser4.report);
 
-        matrix_is_mod = true;
+            matrix_is_mod = true;
 
-        dprintf("state:  %02X %02X", keyboard_report.mods, keyboard_report.reserved);
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            dprintf(" %02X", keyboard_report.keys[i]);
+            dprintf("state:  %02X %02X", keyboard_report.mods, keyboard_report.reserved);
+            for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+                dprintf(" %02X", keyboard_report.keys[i]);
+            }
+            dprint("\r\n");
+        } else {
+            matrix_is_mod = false;
         }
-        dprint("\r\n");
-    } else {
-        matrix_is_mod = false;
-    }
 
-    uint16_t timer;
-    timer = timer_read();
-    usb_host.Task();
-    timer = timer_elapsed(timer);
-    if (timer > 100) {
-        dprintf("host.Task: %d\n", timer);
-    }
-
-    static uint8_t usb_state = 0;
-    if (usb_state != usb_host.getUsbTaskState()) {
-        usb_state = usb_host.getUsbTaskState();
-        dprintf("usb_state: %02X\n", usb_state);
-
-        // restore LED state when keyboard comes up
-        if (usb_state == USB_STATE_RUNNING) {
-            dprintf("speed: %s\n", usb_host.getVbusState()==FSHOST ? "full" : "low");
-            keyboard_set_leds(host_keyboard_leds());
+        uint16_t timer;
+        timer = timer_read();
+        usb_host.Task();
+        timer = timer_elapsed(timer);
+        if (timer > 100) {
+            dprintf("host.Task: %d\n", timer);
         }
-    }
-    return 1;
-}
 
-bool matrix_is_modified(void) {
-    return matrix_is_mod;
-}
+        static uint8_t usb_state = 0;
+        if (usb_state != usb_host.getUsbTaskState()) {
+            usb_state = usb_host.getUsbTaskState();
+            dprintf("usb_state: %02X\n", usb_state);
 
-bool matrix_is_on(uint8_t row, uint8_t col) {
-    uint8_t code = CODE(row, col);
-
-    if (IS_MOD(code)) {
-        if (keyboard_report.mods & ROW_BITS(code)) {
-            return true;
-        }
-    }
-    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (keyboard_report.keys[i] == code) {
-            return true;
-        }
-    }
-    return false;
-}
-
-matrix_row_t matrix_get_row(uint8_t row) {
-    uint16_t row_bits = 0;
-
-    if (IS_MOD(CODE(row, 0)) && keyboard_report.mods) {
-        row_bits |= keyboard_report.mods;
-    }
-
-    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (IS_ANY(keyboard_report.keys[i])) {
-            if (row == ROW(keyboard_report.keys[i])) {
-                row_bits |= ROW_BITS(keyboard_report.keys[i]);
+            // restore LED state when keyboard comes up
+            if (usb_state == USB_STATE_RUNNING) {
+                dprintf("speed: %s\n", usb_host.getVbusState()==FSHOST ? "full" : "low");
+                keyboard_set_leds(host_keyboard_leds());
             }
         }
+        return 1;
     }
-    return row_bits;
-}
 
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
+    bool matrix_is_modified(void) {
+        return matrix_is_mod;
+    }
 
-    count += bitpop(keyboard_report.mods);
-    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-        if (IS_ANY(keyboard_report.keys[i])) {
-            count++;
+    bool matrix_is_on(uint8_t row, uint8_t col) {
+        uint8_t code = CODE(row, col);
+
+        if (IS_MOD(code)) {
+            if (keyboard_report.mods & ROW_BITS(code)) {
+                return true;
+            }
+        }
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            if (keyboard_report.keys[i] == code) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    matrix_row_t matrix_get_row(uint8_t row) {
+        uint16_t row_bits = 0;
+
+        if (IS_MOD(CODE(row, 0)) && keyboard_report.mods) {
+            row_bits |= keyboard_report.mods;
+        }
+
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            if (IS_ANY(keyboard_report.keys[i])) {
+                if (row == ROW(keyboard_report.keys[i])) {
+                    row_bits |= ROW_BITS(keyboard_report.keys[i]);
+                }
+            }
+        }
+        return row_bits;
+    }
+
+    uint8_t matrix_key_count(void) {
+        uint8_t count = 0;
+
+        count += bitpop(keyboard_report.mods);
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            if (IS_ANY(keyboard_report.keys[i])) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    void matrix_print(void) {
+        print("\nr/c 0123456789ABCDEF\n");
+        for (uint8_t row = 0; row < matrix_rows(); row++) {
+            xprintf("%02d: ", row);
+            print_bin_reverse16(matrix_get_row(row));
+            print("\n");
         }
     }
-    return count;
-}
 
-void matrix_print(void) {
-    print("\nr/c 0123456789ABCDEF\n");
-    for (uint8_t row = 0; row < matrix_rows(); row++) {
-        xprintf("%02d: ", row);
-        print_bin_reverse16(matrix_get_row(row));
-        print("\n");
+    void led_set(uint8_t usb_led)
+    {
+        kbd1.SetReport(0, 0, 2, 0, 1, &usb_led);
+        kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
+        kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
+        kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
     }
-}
 
-void led_set(uint8_t usb_led)
-{
-    kbd1.SetReport(0, 0, 2, 0, 1, &usb_led);
-    kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
-    kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
-    kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
-}
+};
