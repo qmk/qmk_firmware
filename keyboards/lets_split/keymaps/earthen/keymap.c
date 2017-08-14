@@ -20,6 +20,7 @@ extern keymap_config_t keymap_config;
 #define CODE 7
 #define ADJUST 8
 #define MOUSE 9
+#define DESKTOP 10
 
 
 // Fillers to make layering more clear
@@ -42,6 +43,15 @@ bool RGB_LIGHT_STATUS = true;
 enum {
   TD_Y_COPY = 0,
   TD_F_PASTE,
+  TD_M_WIN1,
+  TD_W_WIN2,
+  TD_V_WIN3,
+  TD_H_WIN4,
+  TD_T_WIN5,
+  TD_N_WIN6,
+  TD_G_WIN7,
+  TD_C_WIN8,
+  TD_R_WIN9
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -96,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [MARC] = KEYMAP ( \
-  LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,             KC_G,              KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
-  LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,             KC_H,              KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    RSFT_T(KC_ENT), \
+  LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,         KC_G,         KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
+  LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,         KC_H,         KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
+  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,         KC_W,    KC_V,    KC_Z,   OSM(MOD_LSFT), \
   LCTL_T(KC_CAPS),   KC_RGUI, KC_LALT, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_SPC), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_LALT, KC_RGUI, RCTL_T(KC_ENT) \
 ),
 
@@ -208,6 +218,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, XXXXXXX, XXXXXXX, REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)), LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
+/* Adjust (Lower + Raise)
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[DESKTOP] =  KEYMAP( \
+                    _______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_7), TD(TD_C_WIN8), LGUI(KC_9), _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, TD(TD_H_WIN4), TD(TD_T_WIN5), TD(TD_N_WIN6), _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+                     ),
+
 /*
   Name 	Description
   RGB_TOG 	toggle on/off
@@ -218,6 +247,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_SAD 	saturation decrease
   RGB_VAI 	value increase
   RGB_VAD 	value decrease
+  TD(TD_G_WIN7),   TD(TD_C_WIN8),  TD(TD_R_WIN9), 
+  TD(TD_H_WIN4),   TD(TD_T_WIN5),  TD(TD_N_WIN6), 
+  TD(TD_M_WIN1),   TD(TD_W_WIN2),  TD(TD_V_WIN3), 
 */
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -232,14 +264,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADJUST] =  KEYMAP( \
   _______, RESET , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, KC_DEL, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, TO(QWERTY),  XXXXXXX, TO(MARC),  XXXXXXX, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(JOAN), XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, TO(QWERTY),  XXXXXXX, DF(MARC),  XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(JOAN), XXXXXXX, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_M_WIN1] = ACTION_TAP_DANCE_DOUBLE(KC_M, LGUI(KC_1)),
+  [TD_W_WIN2] = ACTION_TAP_DANCE_DOUBLE(KC_W, LGUI(KC_2)),
+  [TD_V_WIN3] = ACTION_TAP_DANCE_DOUBLE(KC_V, LGUI(KC_3)),
+  [TD_H_WIN4] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_4), LGUI(KC_LEFT)),
+  [TD_T_WIN5] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), LGUI(KC_DOWN)),
+  [TD_N_WIN6] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), LGUI(KC_RIGHT)),
+  [TD_G_WIN7] = ACTION_TAP_DANCE_DOUBLE(KC_G, LGUI(KC_7)),
+  [TD_C_WIN8] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(KC_UP)),
+  [TD_R_WIN9] = ACTION_TAP_DANCE_DOUBLE(KC_R, LGUI(KC_9)),
+
+  [TD_M_WIN1] = ACTION_TAP_DANCE_DOUBLE(CH_Y, LCTL(CH_C)),
   [TD_Y_COPY] = ACTION_TAP_DANCE_DOUBLE(CH_Y, LCTL(CH_C)),
   [TD_F_PASTE] = ACTION_TAP_DANCE_DOUBLE(CH_F, LCTL(CH_V))
 };
