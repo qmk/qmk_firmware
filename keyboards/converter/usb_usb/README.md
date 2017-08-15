@@ -1,5 +1,9 @@
 USB to USB keyboard protocol converter
 ======================================
+Original code from Hasu's TMK firmware. Ported to QMK by Coloneljesus.
+
+This port has been tested only on the Pro Micro variant described in the next section.
+
 See for detail and discussion.
 https://geekhack.org/index.php?topic=69169.0
 
@@ -34,27 +38,7 @@ Also Pro Micro 3.3V(not Mini) or Teensy with mini host shield will work with som
 
 Build firmware
 --------------
-Build.
-
-    $ git clone git://github.com/tmk/tmk_keyboard.git
-    $ cd tmk_keyboard
-    $ git submodule init
-    $ git submodule update
-    $ cd converter/usb_usb
-    $ make
-
-And Program converter. Push button on TMK converter and just run this.
-
-    $ make dfu
-
-
-In case of Leonardo push reset button then run command. Serial port name(COM17) depends your system. On Linux I got /dev/ttyACM0.
-
-    $ DEV=COM17 make program
-    or
-    $ avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:usb_usb.hex -PCOM17
-
-
+Follow normal QMK build instructions to get a binary file. Flashing depends on you hardware.
 
 Limitation
 ----------
@@ -77,7 +61,7 @@ Update
 2014/12/11  Added Hub support(confirmed with HHKB pro2)
 2016/09/10  Unimap editor support
 2016/10/18  Fix LED state at startup
-
+2017/08/16  Port to QMK
 
 
 Resource
