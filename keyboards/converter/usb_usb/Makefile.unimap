@@ -1,5 +1,0 @@
-TARGET = usb_usb_unimap
-UNIMAP_ENABLE = yes
-KEYMAP_SECTION_ENABLE = yes
-#LUFA_DEBUG = yes
-include Makefile
