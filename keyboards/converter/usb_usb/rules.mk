@@ -1,51 +1,3 @@
-#----------------------------------------------------------------------------
-# On command line:
-#
-# make all = Make software.
-#
-# make clean = Clean out built project files.
-#
-# make coff = Convert ELF to AVR COFF.
-#
-# make extcoff = Convert ELF to AVR Extended COFF.
-#
-# make program = Download the hex file to the device.
-#                Please customize your programmer settings(PROGRAM_CMD)
-#
-# make teensy = Download the hex file to the device, using teensy_loader_cli.
-#               (must have teensy_loader_cli installed).
-#
-# make dfu = Download the hex file to the device, using dfu-programmer (must
-#            have dfu-programmer installed).
-#
-# make flip = Download the hex file to the device, using Atmel FLIP (must
-#             have Atmel FLIP installed).
-#
-# make dfu-ee = Download the eeprom file to the device, using dfu-programmer
-#               (must have dfu-programmer installed).
-#
-# make flip-ee = Download the eeprom file to the device, using Atmel FLIP
-#                (must have Atmel FLIP installed).
-#
-# make debug = Start either simulavr or avarice as specified for debugging,
-#              with avr-gdb or avr-insight as the front end for debugging.
-#
-# make filename.s = Just compile filename.c into the assembler code only.
-#
-# make filename.i = Create a preprocessed source file for use in submitting
-#                   bug reports to the GCC project.
-#
-# To rebuild project do "make clean" then "make all".
-#----------------------------------------------------------------------------
-
-# Target file name (without extension).
-# TARGET ?= usb_usb
-
-# TMK_DIR ?= ../../tmk_core
-
-# Directory keyboard dependent files exist
-# TARGET_DIR ?= .
-
 # MCU name
 MCU ?= atmega32u4
 
@@ -64,12 +16,12 @@ MCU ?= atmega32u4
 F_CPU ?= 8000000
 
 
-
 #
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
 ARCH ?= AVR8
+
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
 #     input clock frequency (before any prescaling is performed) in Hz. This value may
@@ -82,71 +34,33 @@ ARCH ?= AVR8
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB ?= $(F_CPU)
+
 # Interrupt driven control endpoint task
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 1024
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
 #   comment out to disable the options.
 #
-#MOUSEKEY_ENABLE ?= yes	# Mouse keys
-EXTRAKEY_ENABLE ?= yes	# Media control and System control
-# CONSOLE_ENABLE ?= yes	# Console for debug
-CONSOLE_ENABLE ?= no	# Console for debug
-#COMMAND_ENABLE ?= yes    # Commands for debug and configuration
-#NKRO_ENABLE ?= yes	# USB Nkey Rollover
+# BOOTMAGIC_ENABLE	?= yes	# Virtual DIP switch configuration(+1000)
+# MOUSEKEY_ENABLE		?= yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE		?= yes	# Audio control and System control(+450)
+# CONSOLE_ENABLE		?= yes	# Console for debug(+400)
+# COMMAND_ENABLE		?= yes  # Commands for debug and configuration
+# SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE ?= yes	# USB Nkey Rollover - not yet supported in LUFA
+# BACKLIGHT_ENABLE ?= yes
 
-# Boot Section Size in bytes
-#   Teensy halfKay   512
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-#LDFLAGS += -Wl,--relax
-
-#OPT_DEFS += -DNO_ACTION_TAPPING
-#OPT_DEFS += -DNO_ACTION_LAYER
-#OPT_DEFS += -DNO_ACTION_MACRO
 
 CUSTOM_MATRIX = yes
-
 SRC = custom_matrix.cpp
-
-#
-# Keymap file
-#
-# ifeq (yes,$(strip $(UNIMAP_ENABLE)))
-#     KEYMAP_FILE = unimap
-# else
-#     ifeq (yes,$(strip $(ACTIONMAP_ENABLE)))
-#         KEYMAP_FILE = actionmap
-#     else
-#         KEYMAP_FILE = keymap
-#     endif
-# endif
-# ifdef KEYMAP
-#     SRC := $(KEYMAP_FILE)_$(KEYMAP).c $(SRC)
-# else
-#     SRC := $(KEYMAP_FILE).c $(SRC)
-# endif
-
-# CONFIG_H ?= config.h
-
-
-
-# Search Path
-# VPATH += $(TARGET_DIR)
-# VPATH += $(TMK_DIR)
-
-
-
-# program Leonardo
-# PROGRAM_CMD = avrdude -p$(MCU) -cavr109 -b57600 -Uflash:w:$(TARGET).hex -P$(DEV)
-
-
-
 include $(TMK_DIR)/protocol/usb_hid.mk
-# include $(TMK_DIR)/protocol/lufa.mk
-# include $(TMK_DIR)/common.mk
-# include $(TMK_DIR)/rules.mk
