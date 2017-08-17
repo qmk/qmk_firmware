@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Exit |Restart|Reload|workSl|workSr|fullsc|  7   | 8-UP |  9   |resize|      |
  * |------+------+-------+------+------+-------------+------+------+------+------+------|
- * |      |      |stackin|togSpl|tabbed|      | menu |4-LEFT|5-DOWN|6-RIGH|horitz|vertic|
+ * |      |      |stackin|togSpl|tabbed|      | menu |4-LEFT|5-DOWN|6-RIGH|vertic|horitz|
  * |------+------+-------+------+------+------|------+------+------+------+------+------|
  * |      | KILL |       |      |      | LOCK |  0   |  1   |  2   |  3   |      |      |
  * |------+------+-------+------+------+------+------+------+------+------+------+------|
@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [DESKTOP] =  KEYMAP( \
                     _______, LGUI(LSFT(KC_E)), LGUI(LSFT(KC_R)), LGUI(LSFT(KC_C)), LGUI(LALT(KC_LEFT)), LGUI(LALT(KC_RIGHT)), LGUI(KC_F), LGUI(KC_7), TD(TD_WIN8_UP), LGUI(KC_9), LGUI(KC_R), _______, \
-                    _______, _______, LGUI(KC_O), LGUI(KC_E), LGUI(KC_U), _______, LGUI(KC_D), TD(TD_WIN4_LEFT), TD(TD_WIN5_DOWN), TD(TD_WIN6_RIGHT), LGUI(KC_H), LGUI(KC_V), \
+                    _______, _______, LGUI(KC_S), LGUI(KC_E), LGUI(KC_W), _______, LGUI(KC_D), TD(TD_WIN4_LEFT), TD(TD_WIN5_DOWN), TD(TD_WIN6_RIGHT), LGUI(KC_V), LGUI(KC_H), \
                     _______, LGUI(LSFT(KC_Q)), _______, _______, _______, LGUI(LSFT(KC_X)), LGUI(KC_0), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), _______, _______, \
                     _______, _______, _______, _______, _______, LGUI(LSFT(KC_SPC)), LGUI(KC_SPC), _______, _______, _______, _______, LGUI(KC_ENT) \
                      ),
