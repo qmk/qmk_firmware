@@ -319,6 +319,9 @@ define PARSE_SUBPROJECT
             SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
             KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
         endif
+
+        LAYOUT_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/*/.)))
+        KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
         # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
         # compile all the keymaps
         ifeq ($$(RULE),)

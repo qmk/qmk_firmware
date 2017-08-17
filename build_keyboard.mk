@@ -97,10 +97,12 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_C))","")
     -include $(MAIN_KEYMAP_PATH)/Makefile
     KEYMAP_C := $(MAIN_KEYMAP_C)
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH)
+else ifneq ($(LAYOUTS),)
+    include build_layout.mk
 else
-    $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
+    $(error Could not find keymap)
+    # this state should never be reached
 endif
-
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
