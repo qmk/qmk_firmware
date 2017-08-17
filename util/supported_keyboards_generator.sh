@@ -1,7 +1,8 @@
 #/bin/bash
 # {
 #     "name": "Planck",
-#     "shortname": "planck"
+#     "shortname": "planck",
+#     "date_added": "2016-06-21T22:39:54-04:00"
 # }
 printf "[" > keyboards.json
 for project in $(find . -regex '\./keyboards/[a-z0-9_\-]+/config.h')
