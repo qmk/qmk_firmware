@@ -552,7 +552,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 5:
             if (record->event.pressed) {
                 //super secret hash
-                SEND_STRING("supersecrethash");
+                SEND_STRING("L\\gJ^L-Y<`BtwGOJoF4C'QJ'F|S(`eS^XKY$wPJ-2|S.ZxN)z?xxFOUE#KBGc;4");
                 return MACRO_NONE;
             }
         case 6:
