@@ -10,16 +10,19 @@
 
 // Define layer names 
 #define BASE 0
-#define SYMB 1
-#define OVERWATCH 2
-#define DIABLO 3
-#define MOUS 4
+#define COLEMAK 1
+#define DVORAK 2
+#define SYMB 3
+#define OVERWATCH 4
+#define DIABLO 5
+#define MOUS 6
 
+//define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
-
+//define macro keycodes
 #define M_VERSION M(0)
 #define M_SYMM M(1)
 #define M_SALT M(2)
@@ -30,14 +33,15 @@
 #define M_DOOMFIST M(7)
 
 
-
+//define layer change stuff for underglow indicator
 bool skip_leds = false;
 bool has_layer_changed = false;
 static uint8_t current_layer;
 
 static uint16_t key_timer;
+//define diablo macro timer variables
 static uint16_t diablo_timer[4];
-static uint8_t diablo_times[] = {0, 1, 3, 5, 10};
+static uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
 static uint8_t diablo_key_time[4];
 
 bool check_dtimer(uint8_t dtimer) {
@@ -65,8 +69,7 @@ enum custom_keycodes {
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-	TD_ESC_CAPS = 0,
-	TD_SPACE,
+	SFT_CAP = 0,
 	TD_DIABLO_J,
 	TD_CLN,
 	TD_EGG,
@@ -148,7 +151,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void diablo_tapdance_master (qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-    if (state->count >= 6) {
+    if (state->count >= 7) {
         diablo_key_time[diablo_key] = diablo_times[0];
         reset_tap_dance(state);
     } else {
@@ -187,10 +190,8 @@ void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-	//Tap once for Esc, twice for Caps Lock
-	[TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
 	//Tap one for Space, and twice for Enter
-	[TD_SPACE]     = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENTER),
+	[SFT_CAP]     = ACTION_TAP_DANCE_DOUBLE(KC_LSHIFT, KC_CAPS),
 	// Special Z
 	[TD_DIABLO_J]  = ACTION_TAP_DANCE_DOUBLE(KC_J, S(KC_J)),
 	// Once for colin, twice for semi-colin
@@ -209,93 +210,286 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/* Keymap 0: Basic layer
+ * 
+ * 
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   = +  |  1 ! | 2 @  | 3 #  | 4 $  | 5 %  | TG(4)|           | TG(4)| 6 ^  | 7 &  |  8 * | 9 (  |  0 ) |  - _   |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |   TAB  |   Q  |   W  |   E  |   R  |   T  | TG(3)|           |TG(3) |   Y  |   U  |   I  |   O  |   P  |  \ |   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  Bksp  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |  ' "   |
+ * |--------+------+------+------+------+------| TG(2)|           | TG(2)|------+------+------+------+------+--------|
+ * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  UP  | Shift  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | `/SYM|  ' " | LGUI |  [ { | ] }  |                                       | SYMB |  ? / | LEFT | DOWN |RIGHT |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,--------------.       ,--------------.
+ *                                        |Alt/Ap|  Win  |       | Alt  |Ctl/Esc|
+ *                                 ,------|------|-------|       |------+-------+------.
+ *                                 |      |      | Home  |       | PgUp |       |      |
+ *                                 | Space| Bksp |-------|       |------|  DEL  |Enter |
+ *                                 |      |      | End   |       | PgDn |       |      |
+ *                                 `---------------------'       `---------------------'
+ */
   [BASE] = KEYMAP(
-				KC_EQUAL,KC_1,KC_2,KC_3,KC_4,KC_5,TG(MOUS),
-				KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,TG(DIABLO),
-				KC_BSPACE,KC_A,KC_S,KC_D,KC_F,KC_G,
-				KC_LSHIFT,CTL_T(KC_Z),KC_X,KC_C,KC_V,KC_B,TG(OVERWATCH),
-				LT(SYMB,KC_GRAVE),KC_QUOTE,KC_LGUI,KC_LEFT,KC_RIGHT,
-									ALT_T(KC_APPLICATION),KC_LGUI,
-									KC_HOME,
-									KC_SPACE,KC_BSPACE,KC_LBRACKET,
+				KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
+				KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
+				KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
+                KC_LSHIFT,      CTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
+				LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
+                
+									ALT_T(KC_APPLICATION),  KC_LGUI,
+                                                            KC_HOME,
+									KC_SPACE,   KC_BSPACE,  KC_END,
 									
-				TG(MOUS),KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINUS,
-				TG(DIABLO),KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLASH,
-				KC_H,KC_J,KC_K,KC_L,KC_SCOLON,GUI_T(KC_QUOTE),
-				TG(OVERWATCH),KC_N,KC_M,KC_COMMA,KC_DOT,CTL_T(KC_SLASH),KC_RSHIFT,
-				KC_PGDOWN,KC_PGUP,KC_DOWN,KC_UP,MO(SYMB),
-				KC_LALT,CTL_T(KC_ESCAPE),
-				KC_END,
-				KC_RBRACKET,KC_DELETE,KC_ENTER
+				TG(SYMB),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
+				TG(DVORAK),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
+                                KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
+				TG(COLEMAK),    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
+                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+				KC_LALT,    CTL_T(KC_ESCAPE),
+				KC_PGUP,
+				KC_PGDOWN,  KC_DELETE,  KC_ENTER
 			),
+/* Keymap 1: Basic layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Del    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | BkSp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
+ * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
+ * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
+ *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[COLEMAK] = KEYMAP(  
+        // left hand
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
+        KC_DELT,        KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
+        KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
+        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
+        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LBRACKET,KC_RBRACKET,
+                                              ALT_T(KC_APP),  KC_LGUI,
+                                                              KC_HOME,
+                                               KC_SPC,KC_BSPC,KC_END,
+        // right hand
+             KC_TRANSPARENT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             KC_NO,    KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
+                          KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
+             KC_TRANSPARENT,KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
+                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+             KC_LALT,        CTL_T(KC_ESC),
+             KC_PGUP,
+             KC_PGDN,KC_TAB, KC_ENT
+    ),
+/* Keymap 2: Basic layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Del    |   '  |   ,  |   .  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |S / L2|   -    |
+ * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+ * | LShift |:/Ctrl|   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |Z/Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
+ *                                 |      |ace   | End  |       | PgDn |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[DVORAK] = KEYMAP(  
+        // left hand
+        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(MOUS),
+        KC_DELT,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(DIABLO),
+        KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
+        KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
+        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LBRACKET,KC_RBRACKET,
+                                              ALT_T(KC_APP),  KC_LGUI,
+                                                              KC_HOME,
+                                               KC_SPC,KC_BSPC,KC_END,
+        // right hand
+             KC_TRANSPARENT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
+             KC_TRANSPARENT,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
+                          KC_D,   KC_H,   KC_T,   KC_N,   LT(MOUS, KC_S),   KC_MINS,
+             KC_NO,KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
+                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+             KC_LALT,        CTL_T(KC_ESC),
+             KC_PGUP,
+             KC_PGDN,KC_TAB, KC_ENT
+    ),
 
+    /* Keymap 3: Symbol Layer
+*
+* ,--------------------------------------------------.           ,--------------------------------------------------.
+* |   ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |   F11  |
+* |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+* | VERSION|   !  |   @  |  {   |   }  |  |   |      |           |      |  +   |   7  |   8  |   9  |  *   |   F12  |
+* |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+* |  MAKE  |   #  |   $  |  (   |   )  |  `   |------|           |------|  -   |   4  |   5  |   6  |  /   | PrtSc  |
+* |--------+------+------+------+------+------| COVE |           |      |------+------+------+------+------+--------|
+* |  RESET |   %  |   ^  |  [   |   ]  |  ~   | CUBE |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
+* `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+*   |  LT0 |   &  |   *  |  :   |   ;  |                                       |   0  |   0  | NUM. | ENT  |  ENT |
+*   `----------------------------------'                                       `----------------------------------'
+*                                        ,-------------.       ,-------------.
+*                                        | RGBM | RED  |       | OFF  | SOLID|
+*                                 ,------|------|------|       |------+------+------.
+*                                 |      |      | GREEN|       |      |      |      |
+*                                 | RGB  | RGB  |------|       |------| NUM. | NUM0 |
+*                                 | DARK |BRITE | BLUE |       |      |      |      |
+*                                 `--------------------'       `--------------------'
+*/
   [SYMB] = KEYMAP(
-				TD(TD_ESC_CAPS),KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_TRANSPARENT,
-				M_VERSION,KC_EXLM,KC_AT,KC_LCBR,KC_RCBR,KC_PIPE,KC_TRANSPARENT,
-				M_MAKE,KC_HASH,KC_DLR,KC_LPRN,KC_RPRN,KC_GRAVE,
-				TD(TD_FLSH),KC_PERC,KC_CIRC,KC_LBRACKET,KC_RBRACKET,KC_TILD,M_COVECUBE,
-				KC_NO,KC_AMPR,KC_ASTR,KC_COLN,KC_SCOLON,
-									RGB_MOD,RGB_0000FF,
-									RGB_008000,
-									RGB_VAD,RGB_VAI,RGB_FF0000,
+				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRANSPARENT,
+				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRANSPARENT,
+				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
+				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    M_COVECUBE,
+				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+                                        RGB_MOD,    RGB_0000FF,
+                                                    RGB_008000,
+							RGB_VAD,    RGB_VAI,    RGB_FF0000,
 				
-				KC_TRANSPARENT,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,
-				KC_TRANSPARENT,KC_KP_PLUS,KC_KP_7,KC_KP_8,KC_KP_9,KC_KP_ASTERISK,KC_F12,
-				KC_KP_MINUS,KC_KP_4,KC_KP_5,KC_KP_6,KC_KP_SLASH,KC_PSCREEN,
-				KC_TRANSPARENT,KC_NUMLOCK,KC_KP_1,KC_KP_2,KC_KP_3,KC_EQUAL,KC_PAUSE,
-				KC_KP_0,KC_KP_0,KC_KP_DOT,KC_KP_ENTER,KC_KP_ENTER,
-				RGB_TOG,RGB_SLD,
+				KC_TRANSPARENT, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
+				KC_TRANSPARENT, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
+				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
+				KC_TRANSPARENT, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
+                                            KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_KP_ENTER,
+				RGB_TOG,    RGB_SLD,
 				RGB_HUI,
-				RGB_HUD,KC_KP_DOT,KC_KP_0
+				RGB_HUD,    KC_KP_DOT,  KC_KP_0
 			),
 
+/* Keymap 4: Customized Overwatch Layout
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   ESC  | SALT | SYMM | MORE | DOOM |      |      |           |      |  F9  | F10  | F11  |  F12 |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |   F1   |  K   |  Q   |  W   |  E   |  R   |  T   |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |   TAB  |  G   |  A   |  S   |  D   |  F   |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  LCTR  | LSHFT|  Z   |  X   |  C   |  M   |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |   J  |  U   |  I   |  Y   |  T   |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |  O   |  P   |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      | LGUI |       |      |      |      |
+ *                                 |  V   | SPACE|------        |------|      | Enter|
+ *                                 |      |      |  H   |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
   [OVERWATCH] = KEYMAP(
-				KC_ESCAPE,KC_1,KC_2,KC_3,KC_4,M_MORESALT,M_SYMM,
-				KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_BSPACE,
-				KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,
-				KC_LSHIFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_TRANSPARENT,
-				KC_LCTL,M_SALT,KC_LGUI,KC_Y,KC_LALT,
-									KC_ESCAPE,KC_LGUI,
-									M_DOOMFIST,
-									KC_SPACE,KC_V,KC_H,
+				KC_ESCAPE,      M_SALT,     M_SYMM,     M_MORESALT, M_DOOMFIST, KC_NO,      KC_NO,
+				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
+				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
+				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRANSPARENT,
+				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
+                                            KC_O,   KC_P,
+                                                    KC_LGUI,
+                                KC_V,   KC_SPACE,   KC_H,
 									
-				M_HARD,KC_F9,KC_F10,KC_F11,KC_F12,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,
+				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO, KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+                                            KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,  KC_NO,
 				KC_NO,
-				KC_NO,KC_NO,KC_NO
+				KC_NO,  KC_NO,  KC_ENTER
 			),
 
+/* Keymap 3:
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   ESC  |  V   |  D   | ALT  |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |   TAB  |  S   |  I   |  F   |  M   |  T   |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |    Q   |  1   |  2   |  3   |  4   |  G   |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | NUMLOCK| NUM1 | NUM2 | NUM3 | NUM4 |  Z   |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | LCTL | MAC1 | MAC2 | MAC3 | MAC4 |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |   L  |  J   |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |  G   |       |      |      |      |
+ *                                 | SPACE|  Q   |------        |------|      |      |
+ *                                 | SHIFT| ALT  | 0MAC |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
   [DIABLO] = KEYMAP(
-				KC_ESCAPE,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_TRANSPARENT,
-				KC_TAB,KC_S,KC_I,KC_F,KC_M,KC_T,KC_TRANSPARENT,
-				KC_Q,KC_1,KC_2,KC_3,KC_4,KC_G,
-				KC_NUMLOCK,KC_KP_1,KC_KP_2,KC_KP_3,KC_KP_4,KC_Z,TO(BASE),
-				KC_LCTL,TD(TD_DIABLO_1),TD(TD_DIABLO_2),TD(TD_DIABLO_3),TD(TD_DIABLO_4),
-									KC_L,LSFT(KC_J),
-									KC_F,
-									SFT_T(KC_SPACE),ALT_T(KC_Q),KC_DIABLO_CLEAR,
+				KC_ESCAPE,  KC_V,       KC_D,       KC_LALT,    KC_NO,      KC_NO,      KC_NO,
+				KC_TAB,     KC_S,       KC_I,       KC_F,       KC_M,       KC_T,       KC_TRANSPARENT,
+				KC_Q,       KC_1,       KC_2,       KC_3,       KC_4,       KC_G,
+				KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_KP_4,    KC_Z,       KC_NO,
+				KC_LCTL,    TD(TD_DIABLO_1),    TD(TD_DIABLO_2),    TD(TD_DIABLO_3),    TD(TD_DIABLO_4),
+                                                KC_L,   KC_J,
+                                                        KC_F,
+                    SFT_T(KC_SPACE),    ALT_T(KC_Q),    KC_DIABLO_CLEAR,
 									
 									
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_NO,KC_NO,
+				KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+				KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+				KC_NO,          KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+				KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+				KC_NO,          KC_NO,  KC_NO,  KC_NO,  KC_NO,
+				KC_NO,  KC_NO,
 				KC_NO,
-				KC_NO,KC_NO,KC_NO
+				KC_NO,  KC_NO,  KC_NO
 			),
 
+/* Keymap 4: Media and mouse keys
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      | MsUp |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |MsLeft|MsDown|MsRght|      |      |------|           |------|      |      | Acc0 | Acc1 | Acc2 |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        | Acc0 | Acc1 | Acc2 |      |      |      |           |      | Play | Stop | Mute |VolDn |VolUp |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      | MWUp |       |      |      |      |
+ *                                 | Lclk | Rclk |------|       |------| MBn4 | MBn4 |
+ *                                 |      |      | MWDn |       | Mclk |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
   [MOUS] = KEYMAP(
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_TRANSPARENT,
-				KC_NO,KC_NO,KC_MS_UP,KC_NO,KC_NO,KC_NO,KC_TRANSPARENT,
-				KC_NO,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_NO,KC_NO,
-				KC_NO,KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,KC_NO,KC_TRANSPARENT,
-				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+				KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRANSPARENT,
+				KC_NO,      KC_NO,      KC_MS_UP,   KC_NO,      KC_NO,      KC_NO,      KC_TRANSPARENT,
+				KC_NO,      KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,KC_NO,      KC_NO,
+				KC_NO,      KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,   KC_NO,      KC_TRANSPARENT,
+                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 									KC_NO,KC_NO,
 									KC_MS_WH_UP,
 									KC_MS_BTN1,KC_MS_BTN2,KC_MS_WH_DOWN,
@@ -313,7 +507,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(SYMB) // FN1 - Momentary Layer 1 (Symbols)
+    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),
+    // FN1 - Momentary Layer 1 (Symbols)
+    [2] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_UP),
+    [3] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_LEFT),
+    [4] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_DOWN),
+    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_RIGHT),  
 };
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
@@ -546,7 +745,6 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef LAYER_UNDERGLOW_LIGHTING
 	rgblight_enable();
 	rgblight_sethsv(195,255,255);
-	rgblight_mode(5);
 #endif 
     has_layer_changed = false;
     
@@ -616,20 +814,20 @@ void matrix_scan_user(void) {  // runs frequently to update info
             ergodox_right_led_2_on();
             #endif
             break;
-        case 5:
+        case COLEMAK:
             #ifdef LAYER_UNDERGLOW_LIGHTING
             if (has_layer_changed) {
-                rgblight_sethsv (255,255,255);
+                rgblight_sethsv (300,255,255);
             }
             #else
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             #endif
             break;
-        case 6:
+        case DVORAK:
             #ifdef LAYER_UNDERGLOW_LIGHTING
             if (has_layer_changed) {
-                rgblight_sethsv (255,255,255);
+                rgblight_sethsv (120,255,255);
             }
             #else
             ergodox_right_led_2_on();
