@@ -18,7 +18,7 @@ digits mean "row" and "col", i.e. 45 means pin 4, column 5 in the IS31 datasheet
 
 The IS31 includes 8 led pages (or frames) 0-7 than can be displayed, and each page consists of 144 bytes.
 - **bytes 0 - 17** - LED control (on/off).
-    * 18 pins which alternate between A and B matrices (A1, B1, A2, B2, ..).
+    * 18 bytes which alternate between A and B matrices (A1, B1, A2, B2, ..).
     * Each byte controls the 8 leds on that pin with bits (8 to 1).
 - **bytes 8 - 35** - Blink control.
     * Same as LED control above, but sets blink on/off.
@@ -67,7 +67,7 @@ chMBPost(&led_mailbox, message, timeout);
 
 An example:
 ```c
-//set the message to be sent. First byte (LSB) is the led address, and second is the message type
+//set the message to be sent. First byte (LSB) is the message type, and second is the led address
 msg=(42 << 8) | ON_LED;
 
 //send msg to the led mailbox
