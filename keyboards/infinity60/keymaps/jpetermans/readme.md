@@ -47,7 +47,7 @@ write_led_page(5, led_numpad, 16);
 Remaining led control is done through the led mailbox using these message types:
 - **SET_FULL_ROW** (3 bytes) - message type, 8-bit mask, and row#. Sets all leds on one pin per the bit mask.
 - **OFF_LED, ON_LED, TOGGLE_LED** (3 bytes) - message type, led address, and page#. Off/on/toggle specific led.
-- **BLINK_OFF_LED, BLINK_ON_LED, BLINK_OFF_LED** (3 bytes) - message type, led address, and page#. Set blink Off/on/toggle for specific led.
+- **BLINK_OFF_LED, BLINK_ON_LED, BLINK_TOGGLE_LED** (3 bytes) - message type, led address, and page#. Set blink Off/on/toggle for specific led.
 - **TOGGLE_ALL** (1 byte) - Turn on/off full backlight.
 - **TOGGLE_BACKLIGHT** (2 bytes) - message type, on/off. Sets backlight completely off, no leds will display.
 - **DISPLAY_PAGE** (2 bytes) - message type, page to display. Switch to specific pre-set page.
