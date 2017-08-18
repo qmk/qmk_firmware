@@ -317,7 +317,6 @@ define PARSE_SUBPROJECT
     	LAYOUTS :=
         ifneq ("$(wildcard $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk)","")
 	        LAYOUTS += $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk | sed -e 's/.*= //g')
-        else
         endif
         ifneq ($$(CURRENT_SP),)
             # if the subproject is defined, then also look for keymaps inside the subproject folder
@@ -327,7 +326,7 @@ define PARSE_SUBPROJECT
 	        	LAYOUTS += $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/$(CURRENT_SP)/rules.mk | sed -e 's/.*= //g')
         	endif
         endif
-
+        LAYOUT_KEYMAPS :=
         $(foreach LAYOUT,$(LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/$(LAYOUT)/*/.)))))
         
         KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
