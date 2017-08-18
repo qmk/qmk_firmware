@@ -44,5 +44,5 @@ USB = /dev/cu.usbmodem14141
 
  
 
-upload: build
-	$(SCULPT_UPLOAD_COMMAND)
+# upload: build
+# 	$(SCULPT_UPLOAD_COMMAND)
