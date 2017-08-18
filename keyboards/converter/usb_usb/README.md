@@ -13,6 +13,14 @@ Make example for this keyboard (after setting up your build environment):
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
+Troubleshooting & Known Issues
+------------------------------
+The Pro Micro variant runs at 8MHz, hence the following line in `usb_usb/rules.mk`:
+`F_CPU ?= 8000000`
+If the firmware doesn't work, try changing that line to
+`F_CPU ?= 16000000`
+or override the `F_CPU` variable in the `rules.mk` of your keymap.
+
 Getting the Hardware
 --------------------
 There are two options to get a converter: You can buy one from Hasu or build one yourself.
@@ -23,8 +31,8 @@ https://geekhack.org/index.php?topic=69169.0
 
 ### Build one yourself using Arduino Leonardo + Circuit@Home USB Host Shield 2.0
 Buying Arduino Leonardo and USB Host Shield 2.0(from Circuit@home) will be better, you won't need even soldering iron.
-http://arduino.cc/en/Main/ArduinoBoardLeonardo 
-https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino-assembled/
+http://arduino.cc/en/Main/ArduinoBoardLeonardo
+https://www.circuitsathome.com/arduino_usb_host_shield_projects/
 
 Other compatible boards like Arduino's Shield will also work well but I think Sparkfun's needs to be modified.
 http://arduino.cc/en/Main/ArduinoUSBHostShield
@@ -32,7 +40,7 @@ https://www.sparkfun.com/products/9947
 
 Also Pro Micro 3.3V(not Mini) or Teensy with mini host shield will work with some fixes on signal/power routing.
 [Build guide](https://geekhack.org/index.php?topic=80421.0)
-https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-for-arduino-pro-mini
+https://www.circuitsathome.com/arduino_usb_host_shield_projects/
 https://www.sparkfun.com/products/12587
 https://www.pjrc.com/teensy/td_libs_USBHostShield.html
 
@@ -50,14 +58,13 @@ Build guide for the Pro Micro variant
 Original TMK version of the converter
     https://github.com/tmk/tmk_keyboard/tree/master/converter/usb_usb
 USB Host Shield 2.0
-    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-2-0-for-arduino
-    https://www.circuitsathome.com/products-page/arduino-shields/usb-host-shield-for-arduino-pro-mini
+    https://www.circuitsathome.com/arduino_usb_host_shield_projects/
 USB Host Shield 2.0 source
     https://github.com/felis/USB_Host_Shield_2.0
 Arduino USB Host Shield (with bootst converter)
     http://arduino.cc/en/Main/ArduinoUSBHostShield
 Arduino source
-    https://github.com/arduino/Arduino/hardware/arduino/{cores,variants}
+    https://github.com/arduino/Arduino
 Initial release of TMK USB-USB converter
     https://geekhack.org/index.php?topic=33057.msg653549#msg653549
     http://deskthority.net/workshop-f7/is-remapping-a-usb-keyboard-using-teensy-possible-t2841-30.html#p74854
