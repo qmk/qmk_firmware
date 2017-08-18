@@ -23,6 +23,7 @@
   * [PS2 Mouse](feature_ps2_mouse.md)
   * [Space Cadet](space_cadet_shift.md)
   * [Tap Dance](tap_dance.md)
+  * [Audio](feature_audio.md)
   * [Thermal Printer](feature_thermal_printer.md)
   * [Stenography](stenography.md)
   * [Unicode](unicode.md)
