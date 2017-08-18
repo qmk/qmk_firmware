@@ -314,17 +314,13 @@ define PARSE_SUBPROJECT
     ifneq ($$(CURRENT_SP),allsp)
         # get a list of all keymaps
         KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
-    	LAYOUTS :=
-        ifneq ("$(wildcard $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk)","")
-	        LAYOUTS += $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk | sed -e 's/.*= //g')
-        endif
+        -include $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk
+
         ifneq ($$(CURRENT_SP),)
             # if the subproject is defined, then also look for keymaps inside the subproject folder
             SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
             KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
-	        ifneq ("$(wildcard $(ROOT_DIR)/keyboards/$(CURRENT_KB)/$(CURRENT_SP)/rules.mk)","")
-	        	LAYOUTS += $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/$(CURRENT_SP)/rules.mk | sed -e 's/.*= //g')
-        	endif
+	        -include $(ROOT_DIR)/keyboards/$(CURRENT_KB)/$(CURRENT_SP)/rules.mk
         endif
         LAYOUT_KEYMAPS :=
         $(foreach LAYOUT,$(LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/$(LAYOUT)/*/.)))))
