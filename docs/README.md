@@ -12,7 +12,7 @@ Otherwise, you can either download it directly ([zip](https://github.com/qmk/qmk
 
 ## How to compile {#how-to-compile}
 
-Before you are able to compile, you'll need to [install an environment](build_environment_setup.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
+Before you are able to compile, you'll need to [install an environment](getting_started_build_tools.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
 
     make planck-rev4-default
 
