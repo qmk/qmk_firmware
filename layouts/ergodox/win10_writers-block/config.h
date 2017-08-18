@@ -1,6 +1,13 @@
 #ifndef KEYBOARDS_ERGODOX_CONFIG_H_
 #define KEYBOARDS_ERGODOX_CONFIG_H_
 
+#include QMK_KEYBOARD_CONFIG_H
+
+#undef MOUSEKEY_DELAY          
+#undef MOUSEKEY_INTERVAL       
+#undef MOUSEKEY_MAX_SPEED      
+#undef MOUSEKEY_TIME_TO_MAX    
+
 #define MOUSEKEY_DELAY          100
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_MAX_SPEED      3
@@ -10,7 +17,7 @@
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
+#undef TAPPING_TERM
 #define TAPPING_TERM    300
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
@@ -24,16 +31,5 @@
     keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
     keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-#ifdef SUBPROJECT_ez
-    #include "ez/config.h"
-#endif
-#ifdef SUBPROJECT_infinity
-    #include "infinity/config.h"
-#endif
-#ifdef SUBPROJECT_ergodone
-    #include "ergodone/config.h"
-#endif
-
 
 #endif /* KEYBOARDS_ERGODOX_CONFIG_H_ */

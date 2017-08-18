@@ -314,8 +314,10 @@ define PARSE_SUBPROJECT
     ifneq ($$(CURRENT_SP),allsp)
         # get a list of all keymaps
         KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
+    	LAYOUTS :=
         ifneq ("$(wildcard $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk)","")
-	        LAYOUTS := $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk | sed -e 's/.*= //g')
+	        LAYOUTS += $$(shell grep LAYOUTS $(ROOT_DIR)/keyboards/$(CURRENT_KB)/rules.mk | sed -e 's/.*= //g')
+        else
         endif
         ifneq ($$(CURRENT_SP),)
             # if the subproject is defined, then also look for keymaps inside the subproject folder
