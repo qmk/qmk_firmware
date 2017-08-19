@@ -15,7 +15,7 @@ enum {
 
 // See the videck.png image for a visualization of the layout.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_ERGODOX(
+  [BASE] = LAYOUT_ergodox(
     // left hand
     KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_HOME,
     KC_EQL,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_END,
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_INS,
     KC_SLCK, KC_ENT, KC_SPC
   ),
-  [ARROWS] = LAYOUT_ERGODOX(
+  [ARROWS] = LAYOUT_ergodox(
     // left hand
     KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
   ),
-  [MOUSE] = LAYOUT_ERGODOX(
+  [MOUSE] = LAYOUT_ergodox(
     // left hand
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS
   ),
-  [PARENS] = LAYOUT_ERGODOX(
+  [PARENS] = LAYOUT_ergodox(
     // left hand
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,

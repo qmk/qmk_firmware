@@ -5,7 +5,7 @@
 #define BASE 0
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_ERGODOX(
+  [BASE] = LAYOUT_ergodox(
     KC_GRV,   KC_1,    KC_2,  KC_3,    KC_4,    KC_5,    KC_F5,
     KC_TAB,   KC_Q,    KC_W,  KC_D,    KC_F,    KC_K,    KC_BSLS,
     KC_LCTRL, KC_A,    KC_S,  KC_E,    KC_T,    KC_G,

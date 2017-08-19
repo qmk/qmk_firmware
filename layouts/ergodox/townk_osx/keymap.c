@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * M(2) = Cmd+C
  * M(3) = Cmd+V
  */
-[BASE]=LAYOUT_ERGODOX(//left half
+[BASE]=LAYOUT_ergodox(//left half
               KC_GRV,         KC_1,       KC_2,     KC_3,           KC_4,       KC_5,     KC_ESC,
               KC_TAB,         KC_Q,       KC_W,     KC_E,           KC_R,       KC_T,     MEH_T(KC_F16),
               CTL_T(KC_BSLS), KC_A,       KC_S,     KC_D,           KC_F,       KC_G,
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                  |      |      |      |           |      | XXXX |      |
  *                                  `--------------------'           `--------------------'
  */
-[KEYPAD]=LAYOUT_ERGODOX(//left half
+[KEYPAD]=LAYOUT_ergodox(//left half
                 KC_NO,        KC_NO,    KC_MS_BTN1,    KC_MS_BTN2,     KC_MS_BTN3,     KC_NO,   KC_NO,
                 KC_MS_ACCEL2, KC_NO,    KC_MS_WH_UP,   KC_MS_U,        KC_MS_WH_DOWN,  KC_NO,   KC_NO,
                 KC_MS_ACCEL1, KC_NO,    KC_MS_L,       KC_MS_D,        KC_MS_R,        KC_NO,
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  * XXX = These keys are transparent keys that, when pressed, they issue the key from the previous layer.
  */
-[FN]=LAYOUT_ERGODOX(//left half
+[FN]=LAYOUT_ergodox(//left half
             KC_NO,   KC_F1,          KC_F2,               KC_F3,               KC_F4,                 KC_F5,  KC_F6,
             KC_NO,   KC_MEDIA_STOP,  KC_MEDIA_REWIND,     KC_MEDIA_SELECT,     KC_MEDIA_FAST_FORWARD, KC_NO,  KC_TRNS,
             KC_CAPS, KC_MEDIA_EJECT, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK,   KC_NO,

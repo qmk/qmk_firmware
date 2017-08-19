@@ -17,7 +17,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[0] = LAYOUT_ERGODOX(
+[0] = LAYOUT_ergodox(
         RGB_TOGGLE, RGB_FF0000, RGB_00FF00, RGB_0000FF, RGB_FFFFFF, KC_5, KC_LPRN,
         KC_GRAVE,   KC_A,       KC_B,       KC_C,       KC_D,       KC_E, KC_EXLM,
         KC_HASH,    KC_J,       KC_K,       KC_L,       KC_M,       KC_N,

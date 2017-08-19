@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | SPACE|      | ALT  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[0] = LAYOUT_ERGODOX(
+[0] = LAYOUT_ergodox(
 	TG(1),     KC_1,       KC_2,       KC_3,       KC_4,  KC_5, LALT(KC_LSHIFT),
 	KC_TAB,    KC_QUOTE,   KC_COMMA,   KC_DOT,     KC_P,  KC_Y, TG(3),
 	KC_ESCAPE, KC_A,       KC_O,       KC_E,       KC_U,  KC_I,
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[1] = LAYOUT_ERGODOX(
+[1] = LAYOUT_ergodox(
 	KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_W,    KC_QUOTE, KC_SLASH, KC_R,    KC_T,    KC_TRNS,
 	KC_TRNS, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[2] = LAYOUT_ERGODOX(
+[2] = LAYOUT_ergodox(
 	KC_TRNS, KC_F1,   KC_F2,      KC_F3,      KC_F4,       KC_F5,   KC_TRNS, 
 	KC_TRNS, KC_TRNS, KC_TRNS,    KC_MS_UP,   KC_TRNS,     KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_TRNS, 
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[3] = LAYOUT_ERGODOX(
+[3] = LAYOUT_ergodox(
 	// Left Hand
 	KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_TRNS,

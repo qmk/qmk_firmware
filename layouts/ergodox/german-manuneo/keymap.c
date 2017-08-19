@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |BSPC |LSFT | ESC | ! PGDN|ENTER|SPACE|
  *                   '-----------------' '-----------------'
  */
-[L0] = LAYOUT_ERGODOX(
+[L0] = LAYOUT_ergodox(
  MO(5),   DE_1,     DE_2,     DE_3,    DE_4,    DE_5,    DE_ACUT,
  MO(4),   DE_X,     DE_P,     DE_F,    DE_W,    DE_G,    KC_HOME,
  MO(1),   DE_U,     DE_I,     DE_A,    DE_E,    DE_O,
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L1] = LAYOUT_ERGODOX(
+[L1] = LAYOUT_ergodox(
  KC_TRNS, DE_EXLM, DE_DQOT, DE_PARA, KC_TRNS,               KC_TRNS,               KC_TRNS,
  KC_TRNS, DE_ASTR, DE_PIPE, DE_SLSH, DE_LCBR,               DE_RCBR,               KC_TRNS,
  KC_TRNS, DE_UNDS, DE_MINS, DE_AMPR, DE_LBRC,               DE_RBRC,
@@ -204,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L2] = LAYOUT_ERGODOX(
+[L2] = LAYOUT_ergodox(
  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -242,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L3] = LAYOUT_ERGODOX(
+[L3] = LAYOUT_ergodox(
  KC_TRNS, M(UC_SUPERSCRIPT_ONE),           M(UC_SUPERSCRIPT_TWO),                  M(UC_SUPERSCRIPT_THREE),          M(UC_SUPERSCRIPT_FOUR),               M(UC_SUPERSCRIPT_FIVE),          M(UC_FOR_ALL),
  KC_TRNS, M(UC_MULTIPLICATION_SIGN),       M(UC_VULGAR_FRACTION_ONE_HALF),         M(UC_DIVISION_SIGN),              M(UC_VULGAR_FRACTION_ONE_QUARTER),    M(UC_VULGAR_FRACTION_ONE_FIFTH), KC_TRNS,
  KC_TRNS, KC_TRNS,                         M(UC_PLUS_MINUS_SIGN),                  DE_AT,                            DE_EURO,                              M(UC_EMPTY_SET),
@@ -280,7 +280,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L4] = LAYOUT_ERGODOX(
+[L4] = LAYOUT_ergodox(
  KC_TRNS, M(UC_SUBSCRIPT_ONE),              M(UC_SUBSCRIPT_TWO),            M(UC_SUBSCRIPT_THREE),          M(UC_SUBSCRIPT_FOUR),             M(UC_SUBSCRIPT_FIVE),             KC_TRNS,
  KC_TRNS, M(UC_GREEK_SMALL_LETTER_CHI),     M(UC_GREEK_SMALL_LETTER_PI),    M(UC_GREEK_SMALL_LETTER_PHI),   M(UC_GREEK_SMALL_LETTER_OMEGA),   M(UC_GREEK_SMALL_LETTER_GAMMA),   KC_TRNS,
  KC_TRNS, M(UC_GREEK_SMALL_LETTER_UPSILON), M(UC_GREEK_SMALL_LETTER_IOTA),  M(UC_GREEK_SMALL_LETTER_ALPHA), M(UC_GREEK_SMALL_LETTER_EPSILON), M(UC_GREEK_SMALL_LETTER_OMICRON),
@@ -318,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L5] = LAYOUT_ERGODOX(
+[L5] = LAYOUT_ergodox(
  KC_TRNS, KC_TRNS,                            KC_TRNS,                          KC_TRNS,                          KC_TRNS,                            KC_TRNS,                            KC_TRNS,
  KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_CHI),     M(UC_GREEK_CAPITAL_LETTER_PI),    M(UC_GREEK_CAPITAL_LETTER_PHI),   M(UC_GREEK_CAPITAL_LETTER_OMEGA),   M(UC_GREEK_CAPITAL_LETTER_GAMMA),   KC_TRNS,
  KC_TRNS, M(UC_GREEK_CAPITAL_LETTER_UPSILON), M(UC_GREEK_CAPITAL_LETTER_IOTA),  M(UC_GREEK_CAPITAL_LETTER_ALPHA), M(UC_GREEK_CAPITAL_LETTER_EPSILON), M(UC_GREEK_CAPITAL_LETTER_OMICRON),
@@ -356,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |     |     |     | !     |     |     |
  *                   '-----------------' '-----------------'
  */
-[L6] = LAYOUT_ERGODOX(
+[L6] = LAYOUT_ergodox(
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,

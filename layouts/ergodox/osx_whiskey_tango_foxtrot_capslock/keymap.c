@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 
-    [BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+    [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,     KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
         KC_TAB,     M(KC_Q),  M(KC_W), M(KC_E), M(KC_R), M(KC_T), KC_LBRC,
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-    [SYMB] = LAYOUT_ERGODOX(
+    [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_GRV ,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
     // MEDIA AND TENKEY
-    [MDIA] = LAYOUT_ERGODOX(
+    [MDIA] = LAYOUT_ergodox(
        KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  KC_F15,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,

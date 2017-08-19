@@ -27,17 +27,17 @@ endif
 
 OPT_DEFS += -DUSER_PRINT
 
-LAYOUT_ERGODOX_VERSION = $(shell \
- if [ -d "${LAYOUT_ERGODOX_PATH}/.git" ]; then \
-  cd "${LAYOUT_ERGODOX_PATH}" && git describe --abbrev=6 --dirty --always --tags --match 'v*' 2>/dev/null; \
+LAYOUT_ergodox_VERSION = $(shell \
+ if [ -d "${LAYOUT_ergodox_PATH}/.git" ]; then \
+  cd "${LAYOUT_ergodox_PATH}" && git describe --abbrev=6 --dirty --always --tags --match 'v*' 2>/dev/null; \
  else echo QMK; fi)
 
-LAYOUT_ERGODOX_BRANCH = $(shell \
- if [ -d "${LAYOUT_ERGODOX_PATH}/.git" ]; then \
-  cd "${LAYOUT_ERGODOX_PATH}"; \
+LAYOUT_ergodox_BRANCH = $(shell \
+ if [ -d "${LAYOUT_ergodox_PATH}/.git" ]; then \
+  cd "${LAYOUT_ergodox_PATH}"; \
  fi; \
  git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
-OPT_DEFS += -DLAYOUT_ERGODOX_VERSION=\"$(LAYOUT_ERGODOX_VERSION)\\\#$(LAYOUT_ERGODOX_BRANCH)\"
+OPT_DEFS += -DLAYOUT_ergodox_VERSION=\"$(LAYOUT_ergodox_VERSION)\\\#$(LAYOUT_ergodox_BRANCH)\"
 
 

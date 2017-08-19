@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  *
  */
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
         // left hand
         KC_NO,          KC_1,     KC_2,   KC_3,   KC_4,          KC_5,           KC_ESC,
         KC_TILD,        DV_QUOT,  DV_COMM,DV_DOT, DV_P,          DV_Y,           DV_LBRC,
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | TRANS|       | TRANS|      |      |
  *                                 `--------------------'       `--------------------'
  */
-[AUX] = LAYOUT_ERGODOX(
+[AUX] = LAYOUT_ergodox(
        // left hand
        KC_VOLU, KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_SLEP,
        KC_VOLD, KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_NO,   KC_NO,

@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(SYMB),
         KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(SYMB),
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = LAYOUT_ERGODOX(
+[SYMB] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        KC_TRNS,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_DQT ,KC_TRNS,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = LAYOUT_ERGODOX(
+[MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_F14 , KC_F15 , KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS,  /* F14 dims screen, F15 brightens */
        KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, M(SGWF), M(TMNL), KC_TRNS,
        KC_TRNS, KC_TRNS, M(SAFA), KC_PGDN, KC_TRNS, KC_TRNS,

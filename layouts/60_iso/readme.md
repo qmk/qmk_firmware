@@ -1,3 +1,3 @@
 # 60_iso
 
-    LAYOUT_60_ISO
+    LAYOUT_60_iso

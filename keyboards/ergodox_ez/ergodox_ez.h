@@ -160,6 +160,6 @@ inline void ergodox_led_all_set(uint8_t n)
     { k0D, k1D, k2D, k3D, k4D, KC_NO }    \
    }
 
-#define LAYOUT_ERGODOX KEYMAP
+#define LAYOUT_ergodox KEYMAP
 
 #endif

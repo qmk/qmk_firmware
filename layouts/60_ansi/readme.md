@@ -1,3 +1,3 @@
 # 60_ansi
 
-    LAYOUT_60_ANSI
+    LAYOUT_60_ansi

@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	// If it accepts an argument (i.e, is a function), it doesn't need KC_.
 	// Otherwise, it needs KC_*
-	[COLEMAK] = LAYOUT_ERGODOX(  // layer 0 : Colemak layout default layer
+	[COLEMAK] = LAYOUT_ergodox(  // layer 0 : Colemak layout default layer
 	    // left hand
             KC_TRNS,        KC_1,         KC_2,   KC_3,   KC_4,    KC_5,   KC_LEFT,
             KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,    KC_G,   KC_TRNS,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 	// If it accepts an argument (i.e, is a function), it doesn't need KC_.
 	// Otherwise, it needs KC_*
-	[QWERTY] = LAYOUT_ERGODOX(  // layer 1
+	[QWERTY] = LAYOUT_ergodox(  // layer 1
 	    // left hand
 	    KC_BSPC,           KC_1,         KC_2,   KC_3,   KC_4,    KC_5,   KC_LEFT,
 	    KC_TAB,            KC_Q,         KC_W,   KC_E,   KC_R,    KC_T,   KC_TRNS,
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                                 `--------------------'       `--------------------'
 	 */
 	// SYMBOL
-	[SYMB] = LAYOUT_ERGODOX(
+	[SYMB] = LAYOUT_ergodox(
 	    // left hand
 	    KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
 	    KC_TRNS, KC_TRNS, KC_AT,   KC_ASTR, KC_EQL,  KC_UNDS, KC_TRNS,
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                                 `--------------------'       `--------------------'
 	 */
 	// Numpad
-	[NUMPAD] = LAYOUT_ERGODOX(
+	[NUMPAD] = LAYOUT_ergodox(
 	    // left hand
 	    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 	    KC_TRNS,KC_TRNS,KC_TRNS,KC_UP,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -204,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 *                                 `--------------------'       `--------------------'
 	 */
 	// MEDIA AND MOUSE
-	LAYOUT_ERGODOX(
+	LAYOUT_ergodox(
 	    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	    KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
 	    KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,

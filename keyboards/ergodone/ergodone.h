@@ -60,6 +60,6 @@ inline void ergodox_led_all_set(uint8_t n)              {}
     { KC_NO, k51, k52, k53, k54, k55,   k56,      k57,   k58,   k59, k5A, k5B, k5C, KC_NO  } \
    }
 
-#define LAYOUT_ERGODOX KEYMAP
+#define LAYOUT_ergodox KEYMAP
 
 #endif

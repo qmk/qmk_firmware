@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | Mute |       | Prev |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_UNDS,         KC_1,          KC_1,          KC_UNDS,         KC_ESC,   ALL_T(KC_NO),      KC_HOME,
         CTL_T(KC_TAB),   KC_Q,          KC_W,          KC_E,            KC_R,     KC_T,              KC_UP,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = LAYOUT_ERGODOX(
+[SYMB] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_TRNS,
        KC_TRNS,  KC_EXLM,  KC_CIRC,  KC_LBRC,  KC_LPRN,  KC_LCBR,  KC_TRNS,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = LAYOUT_ERGODOX(
+[MDIA] = LAYOUT_ergodox(
        M(0),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN1, KC_TRNS,

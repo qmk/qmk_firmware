@@ -12,7 +12,7 @@ enum macro_id {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
     KC_NO,          KC_NO,         KC_NO,   KC_NO,    KC_NO,          KC_NO,  KC_NO,
     KC_TAB,         KC_Q,          KC_W,    KC_D,     KC_F,           KC_K,   KC_PGUP,
     CTL_T(KC_ESC),  LT(ETC,KC_A),  KC_S,    KC_E,     KC_T,           KC_G,
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,  SFT_T(KC_ENT),  LT(SYMB,KC_SPC)
 ),
 
-[SYMB] = LAYOUT_ERGODOX(
+[SYMB] = LAYOUT_ergodox(
     KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
     KC_TRNS,  KC_EXLM,  KC_AT,    KC_LCBR,  KC_RCBR,  KC_PIPE,  KC_TRNS,
     KC_TRNS,  KC_HASH,  KC_DLR,   KC_LPRN,  KC_RPRN,  KC_BSLS,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 
-[ETC] = LAYOUT_ERGODOX(
+[ETC] = LAYOUT_ergodox(
     RESET,    KC_NO,         KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,
     KC_TRNS,  KC_NO,         KC_NO,  KC_NO,    KC_NO,    KC_PGUP,  KC_TRNS,
     KC_TRNS,  LT(ETC,KC_A),  KC_NO,  KC_NO,    KC_NO,    KC_PGDN,

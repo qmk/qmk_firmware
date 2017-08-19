@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   SA = SHIFT-ALT
  *
  */
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
         // left hand
         KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NONUS_BSLASH,
         LT(AUX, KC_F1), KC_DOT, KC_COMM,KC_SCLN,KC_P,   KC_Y,   MEH_T(KC_DEL),
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |  L2  |       | VolDn|      |      |
  *                                 `--------------------'       `--------------------'
  */
-[AUX] = LAYOUT_ERGODOX(
+[AUX] = LAYOUT_ergodox(
        // left hand
        KC_NO  , KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_SLEP,
        KC_TRNS, KC_NONUS_BSLASH, LSFT(KC_NONUS_BSLASH), KC_MS_U, KC_NO, KC_NO, KC_NO,
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   SA = SHIFT-ALT
  *
  */
-[QWERTY] = LAYOUT_ERGODOX(
+[QWERTY] = LAYOUT_ergodox(
         // left hand
         KC_GRAVE,       KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_NONUS_BSLASH,
         KC_TRNS,        KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   MEH_T(KC_DEL),

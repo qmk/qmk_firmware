@@ -19,7 +19,7 @@
         KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35 \
     )
 
-#define LAYOUT_ORTHO_4x12 KEYMAP
-#define KC_LAYOUT_ORTHO_4x12 KC_KEYMAP
+#define LAYOUT_ortho_4x12 KEYMAP
+#define KC_LAYOUT_ortho_4x12 KC_KEYMAP
 
 #endif

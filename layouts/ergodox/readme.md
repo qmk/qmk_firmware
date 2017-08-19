@@ -1,3 +1,3 @@
 # ergodox
 
-    LAYOUT_ERGODOX
+    LAYOUT_ergodox

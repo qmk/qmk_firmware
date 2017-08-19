@@ -63,7 +63,7 @@
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, XXX, k4a, k4b, k4c, k4d}  \
 }
 
-#define LAYOUT_60_ANSI KEYMAP_ANSI
+#define LAYOUT_60_ansi KEYMAP_ANSI
 
 /* AMJ60 HHKB matrix layout
    * ,------------------------------------------------------------.

@@ -8,7 +8,7 @@
 #define ARRW 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_ERGODOX(
+  [BASE] = LAYOUT_ergodox(
     KC_GRV,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_F14,
     KC_TAB,        KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    TG(PLVR),
     CTL_T(KC_ESC), KC_A,    KC_S,    KC_E,    KC_T,    KC_G,
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MPRV,
     KC_FN3,        KC_QUOT, KC_SPC
   ),
-  [SYMB] = LAYOUT_ERGODOX(
+  [SYMB] = LAYOUT_ergodox(
     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
     KC_TRNS,       KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS,       KC_TRNS, KC_TRNS
   ),
-  [PLVR] = LAYOUT_ERGODOX(
+  [PLVR] = LAYOUT_ergodox(
     KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
     KC_NO,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
     KC_NO,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_NO,         KC_N,    KC_M
   ),
-  [ARRW] = LAYOUT_ERGODOX(
+  [ARRW] = LAYOUT_ergodox(
     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,       KC_TRNS, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R,

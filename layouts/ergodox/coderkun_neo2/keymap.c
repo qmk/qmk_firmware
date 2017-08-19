@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                             │     │     │ HYP │ │ MEH │     │     │
  *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
  */
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
         // left hand
         KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   NEO_GRV,
         NEO_Y,      NEO_X,  NEO_V,  NEO_L,  NEO_C,  NEO_W,  KC_HOME,
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                             │     │     │ HYP │ │ MEH │     │     │
  *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
  */
-[PMQ] = LAYOUT_ERGODOX(
+[PMQ] = LAYOUT_ergodox(
         // left hand
         KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_EQL,
         DE_C,       DE_P,   DE_T,   DE_F,   DE_K,   DE_L,   KC_HOME,
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                             │     │     │ HYP │ │ MEH │     │     │
  *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
  */
-[PMN] = LAYOUT_ERGODOX(
+[PMN] = LAYOUT_ergodox(
         KC_TAB,     KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_EQL,
         DE_Y,       DE_X,   DE_V,   DE_L,   DE_C,   DE_W,   KC_HOME,
         KC_NO,      DE_U,   DE_I,   DE_A,   DE_E,   DE_O,
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                             │     │     │     │ │     │     │     │
  *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
  */
-[FMU] = LAYOUT_ERGODOX(
+[FMU] = LAYOUT_ergodox(
         // left hand
         KC_TRNS,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,
         KC_TRNS,    UC(0x250C),UC(0x252C),UC(0x2510),UC(0x2500),UC(0x2502),KC_TRNS,
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                             │     │     │     │ │     │     │     │
  *                             └─────┴─────┴─────┘ └─────┴─────┴─────┘
  */
-[NHL] = LAYOUT_ERGODOX(
+[NHL] = LAYOUT_ergodox(
         // left hand
         KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
         KC_NO,      KC_PGUP,KC_BSPC,KC_UP,  KC_DELT,KC_PGDN,KC_NO,

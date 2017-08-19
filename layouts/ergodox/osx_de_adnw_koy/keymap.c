@@ -25,7 +25,7 @@
 
 //Layout keymap.c generated with ErgodoxLayoutGenerator V1.0BETA1
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[BASE]=LAYOUT_ERGODOX(
+[BASE]=LAYOUT_ergodox(
 //left half
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_LCTL, 
     KC_TAB, KC_K, KC_DOT, KC_O, KC_COMM, KC_Z, KC_LGUI, 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ALL_T(DE_ACUT), TG(NUMB), 
     KC_PGUP, 
     KC_PGDN, KC_ENT, KC_SPC),
-[SYMB]=LAYOUT_ERGODOX(
+[SYMB]=LAYOUT_ergodox(
 //left half
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_TRNS, 
     KC_TRNS, KC_GRV, LSFT(KC_GRV), DE_EXLM, DE_QST, KC_TRNS, KC_TRNS, 
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, 
     KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS),
-[MDIA]=LAYOUT_ERGODOX(
+[MDIA]=LAYOUT_ergodox(
 //left half
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, 
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, 
     KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_WBAK),
-[QWERTZ]=LAYOUT_ERGODOX(
+[QWERTZ]=LAYOUT_ergodox(
 //left half
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, LGUI(KC_V), 
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_LGUI, 
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ALL_T(DE_ACUT), KC_TRNS, 
     KC_PGUP, 
     KC_PGDN, KC_ENT, KC_SPC),
-[NUMB]=LAYOUT_ERGODOX(
+[NUMB]=LAYOUT_ergodox(
 //left half
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
     KC_TRNS, KC_TRNS, KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS, 

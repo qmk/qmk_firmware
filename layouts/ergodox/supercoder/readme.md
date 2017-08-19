@@ -25,5 +25,5 @@ your own:
 $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware/keyboards/ergodox
 $ git clone https://github.com/algernon/ergodox-supercoder.git keymaps/supercoder
-$ make LAYOUT_ERGODOX=supercoder
+$ make LAYOUT_ergodox=supercoder
 ```

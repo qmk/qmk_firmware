@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_LPRN,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LSFT(KC_QUOTE),
         KC_RPRN,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_BSPACE,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // FKEYS + MACROS
-[FKEYS] = LAYOUT_ERGODOX(
+[FKEYS] = LAYOUT_ergodox(
        // left hand
        KC_ESCAPE,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_GRAVE,
        KC_TAB,M(MACRO_PUBLIC),M(MACRO_STATIC),  M(MACRO_STRING),M(MACRO_INT),M(MACRO_RETURN),KC_TRNS,

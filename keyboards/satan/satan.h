@@ -125,7 +125,7 @@
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
-#define LAYOUT_60_ANSI KEYMAP_ANSI
-#define LAYOUT_60_ISO KEYMAP
+#define LAYOUT_60_ansi KEYMAP_ANSI
+#define LAYOUT_60_iso KEYMAP
 
 #endif

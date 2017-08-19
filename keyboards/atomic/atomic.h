@@ -38,6 +38,6 @@
     { K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K4C, K4D, K4E }  \
 }
 
-#define LAYOUT_ORTHO_5x15 KEYMAP_GRID
+#define LAYOUT_ortho_5x15 KEYMAP_GRID
 
 #endif

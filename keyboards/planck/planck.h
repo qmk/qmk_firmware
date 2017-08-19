@@ -32,6 +32,6 @@
 }
 
 #define KEYMAP PLANCK_GRID
-#define LAYOUT_ORTHO_4x12 PLANCK_GRID
+#define LAYOUT_ortho_4x12 PLANCK_GRID
 
 #endif

@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |SYSCTL|       |Msngr |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
  TD(TD_FLSH)    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO          ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[BEGIN] = LAYOUT_ERGODOX(
+[BEGIN] = LAYOUT_ergodox(
  KC_TRNS          ,KC_1    ,KC_2     ,KC_3     ,KC_4      ,KC_5    ,KC_LALT
 ,KC_TAB           ,KC_Q    ,KC_W     ,KC_E     ,KC_R      ,KC_T    ,KC_LBRC
 ,CTL_T(KC_ESC)    ,KC_A    ,KC_S     ,KC_D     ,KC_F      ,KC_G
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[QWERTY] = LAYOUT_ERGODOX(
+[QWERTY] = LAYOUT_ergodox(
  KC_TRNS    ,KC_1     ,KC_2     ,KC_3     ,KC_4     ,KC_5    ,KC_TRNS
 ,KC_TRNS    ,KC_Q     ,KC_W     ,KC_E     ,KC_R     ,KC_T    ,KC_TRNS
 ,KC_TRNS    ,KC_A     ,KC_S     ,KC_D     ,KC_F     ,KC_G
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[CARPALX] = LAYOUT_ERGODOX(
+[CARPALX] = LAYOUT_ergodox(
  KC_TRNS    ,KC_1     ,KC_2     ,KC_3     ,KC_4     ,KC_5    ,KC_TRNS
 ,KC_TRNS    ,KC_Q     ,KC_G     ,KC_M     ,KC_L     ,KC_W    ,KC_TRNS
 ,KC_TRNS    ,KC_D     ,KC_S     ,KC_T     ,KC_N     ,KC_R
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |  ^   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[SYSCTL] = LAYOUT_ERGODOX(
+[SYSCTL] = LAYOUT_ergodox(
  KC_TRNS    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
@@ -275,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |  ^   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[MOUSE] = LAYOUT_ERGODOX(
+[MOUSE] = LAYOUT_ergodox(
  KC_TRNS    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO      ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO
@@ -320,7 +320,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `----------------------'
  */
 /*
-[TEMPLATE] = LAYOUT_ERGODOX(
+[TEMPLATE] = LAYOUT_ergodox(
  KC_TRNS    ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS    ,KC_TRNS
 ,KC_TRNS    ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS    ,KC_TRNS
 ,KC_TRNS    ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS  ,KC_TRNS
@@ -341,7 +341,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ,KC_TRNS
       ,KC_TRNS  ,KC_TRNS  ,KC_TRNS
 ),
-[TEMPLATE] = LAYOUT_ERGODOX(
+[TEMPLATE] = LAYOUT_ergodox(
  KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO    ,KC_NO
 ,KC_NO    ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO

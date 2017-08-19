@@ -37,5 +37,5 @@ Then you can clone this repository, make and flash your ErgoDox.
 git clone https://github.com/romanzolotarev/qmk_firmware
 cd qmk_firmware/keyboards/ergodox
 # Optionally tweak ./keymaps/romanzolotarev-norman-osx/keymap.c
-SLEEP_LED_ENABLED=no LAYOUT_ERGODOX=romanzolotarev-norman-osx make teensy
+SLEEP_LED_ENABLED=no LAYOUT_ergodox=romanzolotarev-norman-osx make teensy
 ```

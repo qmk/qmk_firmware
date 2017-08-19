@@ -6,7 +6,7 @@
 #define QWRT 1
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_ERGODOX(
+  [BASE] = LAYOUT_ergodox(
     KC_GRV,  KC_1,     KC_2,  KC_3,    KC_4,    KC_5,    KC_F5,
     KC_TAB,  KC_Q,     KC_W,  KC_D,    KC_F,    KC_K,    KC_BSLS,
     KC_LCTL, KC_A,     KC_S,  KC_E,    KC_T,    KC_G,
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MPRV,
     KC_RALT, KC_QUOT,  KC_SPC
   ),
-  [QWRT] = LAYOUT_ERGODOX(
+  [QWRT] = LAYOUT_ergodox(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_E,    KC_R,    KC_T,    KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_D,    KC_F,    KC_TRNS,

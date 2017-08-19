@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-        [BASE] = LAYOUT_ERGODOX(
+        [BASE] = LAYOUT_ergodox(
                 // left hand
                 GUI_T(KC_ESC), KC_1, KC_2, KC_3, KC_4, KC_5, KC_MINS,
                 _______, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_TAB,
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,
                 _______,_______, KC_ENT
         ),
-        [FLOCK] = LAYOUT_ERGODOX(
+        [FLOCK] = LAYOUT_ergodox(
                 // left hand
                 XXXXXXX,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F11,
                 XXXXXXX,KC_LBRC,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 XXXXXXX,
                 XXXXXXX, XXXXXXX, XXXXXXX
         ),
-        [JLOCK] = LAYOUT_ERGODOX(
+        [JLOCK] = LAYOUT_ergodox(
                 // left hand
                 XXXXXXX,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F11,
                 XXXXXXX,KC_LBRC,KC_GRV,  KC_TILD,XXXXXXX,XXXXXXX,XXXXXXX,
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 XXXXXXX,
                 XXXXXXX, XXXXXXX, XXXXXXX
         ),
-        [CAPLOCK] = LAYOUT_ERGODOX(
+        [CAPLOCK] = LAYOUT_ergodox(
                 // left hand
                 TO(BASE), _______, _______, _______, _______, _______, _______,
                 _______, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T), _______,

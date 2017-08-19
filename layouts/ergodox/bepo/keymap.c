@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[BEPO] = LAYOUT_ERGODOX(
+[BEPO] = LAYOUT_ergodox(
 // Left hand
 BP_DOLLAR,	BP_DQOT,	BP_LGIL,	BP_RGIL,	BP_LPRN,	BP_RPRN,	KC_DEL,
 BP_PERCENT,	BP_B,		BP_E_ACUTE,	BP_P,		BP_O,		BP_E_GRAVE,	KC_BSPC,
@@ -72,7 +72,7 @@ MO(FNAV),	KC_RSHIFT,	KC_ENTER),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[QW_B] = LAYOUT_ERGODOX(
+[QW_B] = LAYOUT_ergodox(
 // Left hand
 KC_DOLLAR,	S(KC_QUOT),	S(KC_COMM),	S(KC_DOT),	KC_LPRN,	KC_RPRN,	KC_DEL,
 KC_PERCENT,	KC_B,		KC_E,		KC_P,		KC_O,		KC_E,		KC_BSPC,
@@ -109,7 +109,7 @@ KC_TRNS,	MO(QW_S),	KC_ENTER),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[QW_A] = LAYOUT_ERGODOX(
+[QW_A] = LAYOUT_ergodox(
 // Left hand
 KC_DOLLAR,	S(KC_QUOT),	S(KC_COMM),	S(KC_DOT),	KC_LBRC,	KC_RBRC,	KC_DEL,
 KC_PERCENT,	KC_PIPE,	KC_E,		KC_AMPR,	KC_O,		KC_E,		KC_BSPC,
@@ -146,7 +146,7 @@ KC_TRNS,	MO(QW_S),	KC_ENTER),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[QW_S] = LAYOUT_ERGODOX(
+[QW_S] = LAYOUT_ergodox(
 // Left hand
 KC_HASH,	KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_TRNS,
 KC_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
@@ -183,7 +183,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[AZ_B] = LAYOUT_ERGODOX(
+[AZ_B] = LAYOUT_ergodox(
 // Left hand
 FR_DLR,		FR_QUOT,	FR_LESS,	FR_GRTR,	FR_LPRN,	FR_RPRN,	KC_DEL,
 FR_PERC,	KC_B,		FR_EACU,	KC_P,		KC_O,		FR_EGRV,	KC_BSPC,
@@ -220,7 +220,7 @@ KC_TRNS,	MO(AZ_S),	KC_ENTER),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[AZ_A] = LAYOUT_ERGODOX(
+[AZ_A] = LAYOUT_ergodox(
 // Left hand
 FR_DLR,		FR_QUOT,	FR_LESS,	FR_GRTR,	FR_LBRC,	FR_RBRC,	KC_DEL,
 FR_PERC,	FR_PIPE,	FR_EACU,	FR_AMP,		KC_O,		FR_EGRV,	KC_BSPC,
@@ -257,7 +257,7 @@ KC_TRNS,	MO(AZ_S),	KC_ENTER),
  *                                             |      |      |L_FNav|      |L_FNav|      |      |
  *                                             `--------------------'      `--------------------'
  */
-[AZ_S] = LAYOUT_ERGODOX(
+[AZ_S] = LAYOUT_ergodox(
 // Left hand
 FR_HASH,	FR_1,		FR_2,		FR_3,		FR_4,		FR_5,		KC_TRNS,
 FR_GRV,		S(KC_B),	S(KC_E),	S(KC_P),	S(KC_O),	S(KC_E),	KC_TRNS,
@@ -294,7 +294,7 @@ KC_TRNS,	KC_TRNS,	KC_TRNS),
  *                                             |      |      |      |      |      |      |      |
  *                                             `--------------------'      `--------------------'
  */
-[FNAV] = LAYOUT_ERGODOX(
+[FNAV] = LAYOUT_ergodox(
 // Left hand
 KC_NO,		KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		KC_MUTE,
 KC_NO,		KC_MS_BTN5,	KC_MS_BTN1,	KC_MS_UP,	KC_MS_BTN2,	KC_MS_WH_UP,	KC_VOLU,
@@ -331,7 +331,7 @@ KC_TRNS,	KC_TRNS,	KC_NO),
  *                                             |      |      |      |      |      |      |      |
  *                                             `--------------------'      `--------------------'
  */
-[NUMK] = LAYOUT_ERGODOX(
+[NUMK] = LAYOUT_ergodox(
 // Left hand
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,
 KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,

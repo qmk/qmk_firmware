@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 |      |      | _NU  |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      */
-[_CO] = LAYOUT_ERGODOX(
+[_CO] = LAYOUT_ergodox(
         // left hand
         KC_GRV, KC_1,   KC_2,      KC_3,            KC_4,   KC_5,   KC_ESC,
         KC_LCTL,KC_Q,   KC_W,      KC_F,            KC_P,   KC_B,   KC_HOME,
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 |      |      | _NU  |       | Down |      |      |
      *                                 `--------------------'       `--------------------'
      */
-[_QW] = LAYOUT_ERGODOX(  // Layer1: QWERTY
+[_QW] = LAYOUT_ergodox(  // Layer1: QWERTY
         // left hand
         KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
         KC_LCTL,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 |      |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      */
-[_NU] = LAYOUT_ERGODOX(
+[_NU] = LAYOUT_ergodox(
         // left hand
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,
         _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_AMPR, _______,
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Ctrl+` is a keyboard shortcut for the program ConEmu, which provides a Quake-style drop-down command prompt.
      *
      */
-[_EX] = LAYOUT_ERGODOX(
+[_EX] = LAYOUT_ergodox(
         // left hand
         _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_MUTE,
         _______, _______, _______, _______, _______, KCX_CGR, KC_VOLU,
@@ -256,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 |      |      |      |       |      |      |      |
      *                                 `--------------------'       `--------------------'
      */
-[_GA] = LAYOUT_ERGODOX(
+[_GA] = LAYOUT_ergodox(
         // left hand
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,

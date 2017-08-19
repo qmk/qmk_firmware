@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         M(TOJPLOUT),   KC_NO,   KC_EQL, LSFT(KC_5), KC_NO,   KC_NO,   LCTL(KC_A),
         KC_TAB,        KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   M(CUTCOPY),
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  * 
  */
-[JP] = LAYOUT_ERGODOX(
+[JP] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, M(JPNU), M(JPKO), M(JPSA), M(JPHE), M(JPKE), KC_TRNS,
        KC_TRNS, M(JPTO), M(JPSHI), M(JPKA), M(JPKI), M(JPSU),
@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  * 
  */
-[JPXON] = LAYOUT_ERGODOX(
+[JPXON] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    M(JPXE),        KC_NO,    M(JPXKE),   KC_NO, KC_NO,
        KC_NO, KC_NO,    KC_NO,          M(JPXKA),      KC_NO, KC_NO, 
@@ -265,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  * 
  */
-[JPKAZARI] = LAYOUT_ERGODOX(
+[JPKAZARI] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    M(JPGO),        M(JPZA),    M(JPBE), M(JPGE), KC_NO,
        KC_NO, M(JPDO),    M(JPJI),        M(JPGA),    M(JPGI), M(JPZU), 
@@ -308,7 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  * 
  */
-[JPTOPROW] = LAYOUT_ERGODOX(
+[JPTOPROW] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO,   KC_NO, KC_NO,
 	   KC_NO, KC_NO,    KC_E,       KC_MINS,  M(JPRE), KC_NO, KC_NO,
        KC_NO, M(JPRA),  M(JPRI),       M(JPNA),  M(JPNO), M(JPMI), 
@@ -352,7 +352,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  * 
  */
-[JPTRKZ] = LAYOUT_ERGODOX(
+[JPTRKZ] = LAYOUT_ergodox(
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, KC_NO,
 	   KC_NO, KC_NO,    KC_NO,        KC_NO,    M(JPPE),KC_NO,  KC_NO,
        KC_NO, KC_NO,    KC_NO,        KC_NO,    KC_NO, KC_NO, 
@@ -393,7 +393,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // Numbers
-[NUM] = LAYOUT_ERGODOX(
+[NUM] = LAYOUT_ergodox(
        // left hand
 	   KC_NO, KC_F1,      KC_F2,          KC_F3,      KC_F4,   KC_F5,   KC_NO,
 	   KC_NO, KC_NO,    KC_NO,        JP_DQT,    KC_RBRACKET,   KC_BSPC, KC_SCLN,

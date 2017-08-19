@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[LR_BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[LR_BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         BP_DLR,     KC_1,      KC_2,    KC_3,      KC_4,     KC_5,    KC_DELT,
         KC_TAB,     BP_B,      BP_ECUT, BP_P,      BP_O,     BP_EGRV, KC_BSPC,
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /**
  * Same as default but for use with Canadian Multilingual on OS side
  */
-[LR_CSA] = LAYOUT_ERGODOX(
+[LR_CSA] = LAYOUT_ergodox(
         // left hand
         KC_DLR,      CSA_DQOT,   CSA_LGIL,  CSA_RGIL,  KC_LPRN,  KC_RPRN,   KC_TRNS,
         KC_TRNS,     KC_B,       CSA_ECUT,  KC_P,      KC_O,     CSA_EGRV,  KC_TRNS,
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[LR_CSA_SFT] = LAYOUT_ERGODOX(
+[LR_CSA_SFT] = LAYOUT_ergodox(
         // left hand
         KC_HASH,  M(M_1),   M(M_2),   M(M_3),  M(M_4),   M(M_5),   KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[LR_CSA_AGR] = LAYOUT_ERGODOX(
+[LR_CSA_AGR] = LAYOUT_ergodox(
         // left hand
         MUC(NDSH),    MUC(MDSH),  CSA_LESS,  CSA_GRTR,  CSA_LBRC,   CSA_RBRC,  KC_TRNS,
         KC_TRNS,      CSA_PIPE,   CSA_DACT,  KC_AMPR,   CSA_OE,     CSA_DGRV,  KC_TRNS,
@@ -248,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[LR_CSA_AGR_SFT] = LAYOUT_ERGODOX(
+[LR_CSA_AGR_SFT] = LAYOUT_ergodox(
         // left hand
         CSA_PARG,      KC_NO,     CSA_LDQT,    CSA_RDQT,  KC_NO,     KC_NO,     KC_TRNS,
         KC_TRNS,       CSA_BPIP,  CSA_DDCT,    CSA_SECT,  S(CSA_OE), M(M_GRV),  KC_TRNS,
@@ -293,7 +293,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[LR_NUMR] = LAYOUT_ERGODOX(
+[LR_NUMR] = LAYOUT_ergodox(
        // left hand
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
@@ -338,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[LR_FN] = LAYOUT_ERGODOX(
+[LR_FN] = LAYOUT_ergodox(
        TG(LR_CSA), KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_INS,
        KC_TRNS,    KC_TRNS, KC_TRNS,      KC_TRNS,     KC_TRNS,      KC_TRNS, KC_VOLU,
        RESET,      KC_TRNS, KC_TRNS,      KC_CALC,     KC_MAIL,      KC_WHOM,

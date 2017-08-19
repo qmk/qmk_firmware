@@ -23,7 +23,7 @@ xkbcomp $DISPLAY $HOME/.xkbmap
 * automatic startup each time you startup x
 echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
 
-    LAYOUT_ERGODOX(  // layer 0 : default
+    LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL  ,  KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_LBRC,
 	KC_FN25 ,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_HOME,
@@ -44,7 +44,7 @@ echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
         KC_FN29,KC_ENT ,KC_SPC 
     ),
 
-    LAYOUT_ERGODOX(  // layer 1 : function and symbol keys
+    LAYOUT_ergodox(  // layer 1 : function and symbol keys
         // left hand
         KC_TRNS,KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F11,
         KC_TRNS,KC_AT,KC_UNDS ,KC_LBRC,KC_RBRC,KC_CIRC ,KC_TRNS,
@@ -65,7 +65,7 @@ echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
         KC_TRNS,KC_TRNS,KC_TRNS
     ),
 
-    LAYOUT_ERGODOX(  // layer 2: navigation 
+    LAYOUT_ergodox(  // layer 2: navigation 
         // left hand
         KC_NO,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_PGUP,KC_HOME,KC_UP ,KC_END,KC_NO ,KC_TRNS,
@@ -85,7 +85,7 @@ echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
         KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS
     ),
-    LAYOUT_ERGODOX(  // layer 3 : teensy bootloader functions
+    LAYOUT_ergodox(  // layer 3 : teensy bootloader functions
         // left hand
         KC_FN0, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -107,7 +107,7 @@ echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
     ),
 
 
-    LAYOUT_ERGODOX(  // layer 4: numpad
+    LAYOUT_ergodox(  // layer 4: numpad
         // left hand
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,

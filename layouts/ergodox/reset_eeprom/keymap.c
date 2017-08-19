@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ERGODOX(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         EPRM,         EPRM,         EPRM,   EPRM,   EPRM,   EPRM,   EPRM,
         EPRM,        EPRM,         EPRM,   EPRM,   EPRM,   EPRM,   EPRM,

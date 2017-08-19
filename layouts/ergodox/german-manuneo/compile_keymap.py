@@ -30,7 +30,7 @@ if PY2:
 
 KEYBOARD_LAYOUTS = {
     # These map positions in the parsed layout to
-    # positions in the LAYOUT_ERGODOX MATRIX
+    # positions in the LAYOUT_ergodox MATRIX
     'ergodox_ez': [
         [ 0,  1,  2,  3,  4,  5,  6],  [38, 39, 40, 41, 42, 43, 44],
         [ 7,  8,  9, 10, 11, 12, 13],  [45, 46, 47, 48, 49, 50, 51],
@@ -664,7 +664,7 @@ def iter_keymap_parts(config, keymaps):
         keymap = keymaps[layer_name]
         row_indents = ROW_INDENTS.get(config['layout'])
         keymap_lines = "".join(iter_keymap_lines(keymap, row_indents))
-        yield "[L{0}] = LAYOUT_ERGODOX({1}\n),\n".format(i, keymap_lines)
+        yield "[L{0}] = LAYOUT_ergodox({1}\n),\n".format(i, keymap_lines)
 
     yield "};\n\n"
 

@@ -50,6 +50,6 @@
     { KC_##K40, KC_##K41, KC_##K42, KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_##K47, KC_##K48, KC_##K49, KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E }  \
 }
 
-#define LAYOUT_ORTHO_5x15 KEYMAP
+#define LAYOUT_ortho_5x15 KEYMAP
 
 #endif

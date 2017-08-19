@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                  |      |      | DONE |           | DONE |      |      |
    *                                  `--------------------'           `--------------------'
    */
-[SC2K] = LAYOUT_ERGODOX(
+[SC2K] = LAYOUT_ergodox(
  // left hand
  KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0
 ,KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0    ,KC_0

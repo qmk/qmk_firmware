@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | TO(1)|       |TO(3) |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[BASE] = LAYOUT_ERGODOX(
+[BASE] = LAYOUT_ergodox(
         // left hand
         KC_GRV,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_HOME,
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[SYMB] = LAYOUT_ERGODOX(
+[SYMB] = LAYOUT_ergodox(
         // left hand
         _______,    UC(0x00A1), UC(0x00B2), UC(0x00B3), UC(0x00A4), UC(0x20AC), UC(0x00BC),
         _______,    UC(0x00E4), UC(0x00E5), UC(0x00E9), UC(0x00AE), UC(0x00FE), _______,
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[CSYM] = LAYOUT_ERGODOX(
+[CSYM] = LAYOUT_ergodox(
         // left hand
         _______,    UC(0x00B9), _______,    _______,    UC(0x00A3), _______,    _______,
         _______,    UC(0x00C4), UC(0x00C5), UC(0x00C9), S(KC_R),    UC(0x00DE), _______,
@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[NUMP] = LAYOUT_ERGODOX(
+[NUMP] = LAYOUT_ergodox(
         // left hand
         _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,
@@ -227,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[ARRW] = LAYOUT_ERGODOX(
+[ARRW] = LAYOUT_ergodox(
         // left hand
         KC_ESC,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
         _______,    _______,    _______,    KC_UP,      _______,    _______,    _______,
