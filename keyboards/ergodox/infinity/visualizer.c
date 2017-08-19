@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
 #include "system/serial_link.h"
-#include "animations.h"
+#include "default_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
@@ -79,7 +79,7 @@ static keyframe_animation_t one_led_color = {
     .num_frames = 1,
     .loop = false,
     .frame_lengths = {gfxMillisecondsToTicks(0)},
-    .frame_functions = {backlight_keyframe_set_color},
+    .frame_functions = {lcd_backlight_keyframe_set_color},
 };
 
 bool swap_led_target_color(keyframe_animation_t* animation, visualizer_state_t* state) {
@@ -94,7 +94,7 @@ static keyframe_animation_t two_led_colors = {
     .num_frames = 2,
     .loop = true,
     .frame_lengths = {gfxMillisecondsToTicks(1000), gfxMillisecondsToTicks(0)},
-    .frame_functions = {backlight_keyframe_set_color, swap_led_target_color},
+    .frame_functions = {lcd_backlight_keyframe_set_color, swap_led_target_color},
 };
 
 // The LCD animation alternates between the layer name display and a
@@ -123,7 +123,7 @@ void initialize_user_visualizer(visualizer_state_t* state) {
     start_keyframe_animation(&default_startup_animation);
 }
 
-inline bool is_led_on(visualizer_user_data_t* user_data, uint8_t num) {
+static inline bool is_led_on(visualizer_user_data_t* user_data, uint8_t num) {
     return user_data->led_on & (1u << num);
 }
 

@@ -125,8 +125,8 @@ static void get_led_state_string(char* output, visualizer_state_t* state) {
        pos += 5;
     }
     if (state->status.leds & (1u << USB_LED_KANA)) {
-       memcpy(output + pos, "KANA ", 5);
-       pos += 5;
+       memcpy(output + pos, "KANA", 4);
+       pos += 4;
     }
     output[pos] = 0;
 }
@@ -166,8 +166,8 @@ bool lcd_keyframe_draw_logo(keyframe_animation_t* animation, visualizer_state_t*
     // or state structs, here we use the image
 
     //gdispGBlitArea is a tricky function to use since it supports blitting part of the image
-    // if you have full screen image, then just use 128 and 32 for both source and target dimensions
-    gdispGBlitArea(GDISP, 0, 0, 128, 32, 0, 0, 128, (pixel_t*)resource_lcd_logo);
+    // if you have full screen image, then just use LCD_WIDTH and LCD_HEIGHT for both source and target dimensions
+    gdispGBlitArea(GDISP, 0, 0, LCD_WIDTH, LCD_HEIGHT, 0, 0, LCD_WIDTH, (pixel_t*)resource_lcd_logo);
 
     return false;
 }

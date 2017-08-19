@@ -1,6 +1,7 @@
 os: linux
 dist: trusty
 sudo: required
+group: edge
 language: c
 branches:
   except:
@@ -33,7 +34,7 @@ after_success:
 notifications:
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/cca31de3d44b9adb617b
-    on_success: change  # options: [always|never|change] default: always
+      - https://webhooks.gitter.im/e/afce403d65f143dfac09
+    on_success: always  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always

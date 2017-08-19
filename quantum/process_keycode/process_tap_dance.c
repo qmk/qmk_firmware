@@ -41,6 +41,24 @@ void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    register_code16 (pair->kc);
+  } else if (state->count == 2) {
+    layer_invert (pair->layer);
+  }
+}
+
+void qk_tap_dance_dual_role_reset (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    unregister_code16 (pair->kc);
+  }
+}
+
 static inline void _process_tap_dance_action_fn (qk_tap_dance_state_t *state,
                                                  void *user_data,
                                                  qk_tap_dance_user_fn_t fn)
@@ -127,14 +145,22 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
+
 void matrix_scan_tap_dance () {
   if (highest_td == -1)
     return;
+  uint16_t tap_user_defined;
 
-for (int i = 0; i <= highest_td; i++) {
+for (uint8_t i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
-
-    if (action->state.count && timer_elapsed (action->state.timer) > TAPPING_TERM) {
+    if(action->custom_tapping_term > 0 ) {
+      tap_user_defined = action->custom_tapping_term;
+    }
+    else{
+      tap_user_defined = TAPPING_TERM;
+    }
+    if (action->state.count && timer_elapsed (action->state.timer) > tap_user_defined) {
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
     }

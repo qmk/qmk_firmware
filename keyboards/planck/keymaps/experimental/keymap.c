@@ -3,6 +3,7 @@
 
 #include "planck.h"
 #include "action_layer.h"
+#include "keymap_steno.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -49,7 +50,7 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = {
-  {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
+  {QWERTY, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
   {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
   {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL},
   {KC_NO, KC_NO, KC_NO, KC_NO, RGBLED_TOGGLE, RGBLED_STEP_MODE, RGBLED_INCREASE_HUE, RGBLED_DECREASE_HUE, RGBLED_INCREASE_SAT, RGBLED_DECREASE_SAT, RGBLED_INCREASE_VAL, RGBLED_DECREASE_VAL}
@@ -158,10 +159,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_PLOVER] = {
-  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+  {STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC },
+  {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
+  {XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
+  {EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, XXXXXXX, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
 },
 
 /* Adjust (Lower + Raise)
@@ -204,7 +205,7 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -217,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
       return false;
@@ -226,7 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
       return false;
@@ -235,7 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
       return false;
@@ -279,21 +280,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
       return false;
         case PLOVER:
-          if (record->event.pressed) {
+          if (!record->event.pressed) {
             #ifdef AUDIO_ENABLE
               stop_all_notes();
               PLAY_NOTE_ARRAY(tone_plover, false, 0);
             #endif
-            layer_off(_RAISE);
-            layer_off(_LOWER);
-            layer_off(_ADJUST);
             layer_on(_PLOVER);
-            if (!eeconfig_is_enabled()) {
-                eeconfig_init();
-            }
-            keymap_config.raw = eeconfig_read_keymap();
-            keymap_config.nkro = 1;
-            eeconfig_update_keymap(keymap_config.raw);
           }
         break;
       return false;
@@ -397,9 +389,9 @@ void music_scale_user(void)
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
-  LEADER_DICTIONARY() { 
+  LEADER_DICTIONARY() {
     leading = false;
-    leader_end(); 
+    leader_end();
 
     SEQ_ONE_KEY (KC_R) {
       tap_random_base64();

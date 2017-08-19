@@ -13,7 +13,7 @@ All layer images created using [keyboard-layout-editor](http://www.keyboard-layo
 
 ## Base layer
 
-[![Base layer](images/deadcyclo-base-layout.png)](http://www.keyboard-layout-editor.com/#/gists/0321b18620180a3e46c498206eb65366)
+[![Base layer](https://i.imgur.com/PGhP2jZ.png)](http://www.keyboard-layout-editor.com/#/gists/0321b18620180a3e46c498206eb65366)
 
 The base layer here is marked with the us international alt-gr layout,
 including characters bound to what on an iso keyboard would be alt-gr
@@ -34,7 +34,7 @@ type in the unicode hex value, and hit enter.
 
 ## Layer 1 - Symbols and RGB
 
-[![Layer 1 - Symbols and RGB](images/deadcyclo-layer-1-symbols.png)](http://www.keyboard-layout-editor.com/#/gists/96714e198054c9115bafb5267cc6bc73)
+[![Layer 1 - Symbols and RGB](https://i.imgur.com/SfkkU5D.png)](http://www.keyboard-layout-editor.com/#/gists/96714e198054c9115bafb5267cc6bc73)
 
 The Symbols and RGB layer contains function keys, commonly used
 symbols, a numpad and if you have the new Ergodox Ez shine keys for
@@ -43,7 +43,7 @@ and a down key for easy scrolling. RGB controller keys are yellow.
 
 ## Layer 2 - Media, Mouse and Navigation
 
-[![Layer 2 - Media, Mouse and Navigation](images/deadcyclo-layer-2-media-and-mouse.png)](http://www.keyboard-layout-editor.com/#/gists/824759486e378bcec30784309a7e5731)
+[![Layer 2 - Media, Mouse and Navigation](https://i.imgur.com/UwPHjCO.png)](http://www.keyboard-layout-editor.com/#/gists/824759486e378bcec30784309a7e5731)
 
 The Media, Mouse and unicode layer contains special keys for moving
 the mouse and clicking on it with the keyboard. In addition it
@@ -51,13 +51,13 @@ provides standard media control keys, and default arrow keys.
 
 ## Layer 3 - Unicode
 
-[![Layer 3 - Unicode](images/deadcyclo-layer-3-unicode.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
+[![Layer 3 - Unicode](https://i.imgur.com/HRkeY8j.png)](http://www.keyboard-layout-editor.com/#/gists/67d9613dcd873c68693d11863d0fd289)
 
 The unicode layer provides keys for directly typing unicode (utf-8)
 
 ## Layer 4 - Unicode 2
 
-[![Layer 43 - Unicode](images/deadcyclo-layer-4-unicode-2.png)](http://www.keyboard-layout-editor.com/#/gists/7b2241110ab8311d9668a0798f3baf4a)
+[![Layer 43 - Unicode](https://i.imgur.com/dyB459q.png)](http://www.keyboard-layout-editor.com/#/gists/7b2241110ab8311d9668a0798f3baf4a)
 
 The unicode 2 layer provides keys for directly typing unicode (utf-8)
 

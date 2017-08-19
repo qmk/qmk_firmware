@@ -30,6 +30,24 @@ extern backlight_config_t backlight_config;
 #include "fauxclicky.h"
 #endif
 
+#ifdef AUDIO_ENABLE
+  #ifndef GOODBYE_SONG
+    #define GOODBYE_SONG SONG(GOODBYE_SOUND)
+  #endif
+  #ifndef AG_NORM_SONG
+    #define AG_NORM_SONG SONG(AG_NORM_SOUND)
+  #endif
+  #ifndef AG_SWAP_SONG
+    #define AG_SWAP_SONG SONG(AG_SWAP_SOUND)
+  #endif
+  float goodbye_song[][2] = GOODBYE_SONG;
+  float ag_norm_song[][2] = AG_NORM_SONG;
+  float ag_swap_song[][2] = AG_SWAP_SONG;
+  #ifdef DEFAULT_LAYER_SONGS
+    float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
+  #endif
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
@@ -116,9 +134,15 @@ void reset_keyboard(void) {
   clear_keyboard();
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
   music_all_notes_off();
+  uint16_t timer_start = timer_read();
+  PLAY_SONG(goodbye_song);
   shutdown_user();
-#endif
+  while(timer_elapsed(timer_start) < 250) 
+    wait_ms(1);
+  stop_all_notes();
+#else
   wait_ms(250);
+#endif
 #ifdef CATERINA_BOOTLOADER
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
 #endif
@@ -136,6 +160,11 @@ void reset_keyboard(void) {
 
 static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
+
+/* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+ * Used to ensure that the correct keycode is released if the key is released.
+ */
+static bool grave_esc_was_shifted = false;
 
 bool process_record_quantum(keyrecord_t *record) {
 
@@ -168,12 +197,19 @@ bool process_record_quantum(keyrecord_t *record) {
     // }
 
   if (!(
+  #if defined(KEY_LOCK_ENABLE)
+    // Must run first to be able to mask key_up events.
+    process_key_lock(&keycode, record) &&
+  #endif
     process_record_kb(keycode, record) &&
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
   #ifdef AUDIO_ENABLE
     process_audio(keycode, record) &&
+  #endif
+  #ifdef STENO_ENABLE
+    process_steno(keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
     process_music(keycode, record) &&
@@ -351,6 +387,9 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_SWAP_ALT_GUI:
             keymap_config.swap_lalt_lgui = true;
             keymap_config.swap_ralt_rgui = true;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(ag_swap_song);
+            #endif
             break;
           case MAGIC_UNSWAP_CONTROL_CAPSLOCK:
             keymap_config.swap_control_capslock = false;
@@ -379,6 +418,9 @@ bool process_record_quantum(keyrecord_t *record) {
           case MAGIC_UNSWAP_ALT_GUI:
             keymap_config.swap_lalt_lgui = false;
             keymap_config.swap_ralt_rgui = false;
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(ag_norm_song);
+            #endif
             break;
           case MAGIC_TOGGLE_NKRO:
             keymap_config.nkro = !keymap_config.nkro;
@@ -437,6 +479,27 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
       // break;
     }
+    case GRAVE_ESC: {
+      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
+
+#ifdef GRAVE_ESC_CTRL_OVERRIDE
+      // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.
+      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
+        shifted = 0;
+#endif
+
+      if (record->event.pressed) {
+        grave_esc_was_shifted = shifted;
+        add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+      else {
+        del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+
+      send_keyboard_report();
+    }
     default: {
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
@@ -447,7 +510,8 @@ bool process_record_quantum(keyrecord_t *record) {
   return process_action_kb(record);
 }
 
-const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
+__attribute__ ((weak))
+const bool ascii_to_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -466,7 +530,8 @@ const bool ascii_to_qwerty_shift_lut[0x80] PROGMEM = {
     0, 0, 0, 1, 1, 1, 1, 0
 };
 
-const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
+__attribute__ ((weak))
+const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -485,57 +550,17 @@ const uint8_t ascii_to_qwerty_keycode_lut[0x80] PROGMEM = {
     KC_X, KC_Y, KC_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
 };
 
-/* for users whose OSes are set to Colemak */
-#if 0
-#include "keymap_colemak.h"
-
-const bool ascii_to_colemak_shift_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0,
-    1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 1, 1, 1,
-    1, 1, 1, 0, 0, 0, 1, 1,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 1, 0
-};
-
-const uint8_t ascii_to_colemak_keycode_lut[0x80] PROGMEM = {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, KC_ESC, 0, 0, 0, 0,
-    KC_SPC, KC_1, KC_QUOT, KC_3, KC_4, KC_5, KC_7, KC_QUOT,
-    KC_9, KC_0, KC_8, KC_EQL, KC_COMM, KC_MINS, KC_DOT, KC_SLSH,
-    KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,
-    KC_8, KC_9, CM_SCLN, CM_SCLN, KC_COMM, KC_EQL, KC_DOT, KC_SLSH,
-    KC_2, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
-    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
-    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
-    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_6, KC_MINS,
-    KC_GRV, CM_A, CM_B, CM_C, CM_D, CM_E, CM_F, CM_G,
-    CM_H, CM_I, CM_J, CM_K, CM_L, CM_M, CM_N, CM_O,
-    CM_P, CM_Q, CM_R, CM_S, CM_T, CM_U, CM_V, CM_W,
-    CM_X, CM_Y, CM_Z, KC_LBRC, KC_BSLS, KC_RBRC, KC_GRV, KC_DEL
-};
-
-#endif
-
 void send_string(const char *str) {
+  send_string_with_delay(str, 0);
+}
+
+void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
         uint8_t keycode;
         uint8_t ascii_code = pgm_read_byte(str);
         if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_qwerty_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_qwerty_shift_lut[ascii_code])) {
+        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
+        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
             register_code(KC_LSFT);
             register_code(keycode);
             unregister_code(keycode);
@@ -546,7 +571,17 @@ void send_string(const char *str) {
             unregister_code(keycode);
         }
         ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
     }
+}
+
+void set_single_persistent_default_layer(uint8_t default_layer) {
+  #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
+    PLAY_SONG(default_layer_songs[default_layer]);
+  #endif
+  eeconfig_update_default_layer(1U<<default_layer);
+  default_layer_set(1U<<default_layer);
 }
 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -598,6 +633,9 @@ void tap_random_base64(void) {
 void matrix_init_quantum() {
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
+  #endif
+  #ifdef AUDIO_ENABLE
+    audio_init();
   #endif
   matrix_init_kb();
 }
@@ -708,14 +746,14 @@ void backlight_set(uint8_t level)
       //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
       // #endif
     #endif
-  } 
+  }
   #ifndef NO_BACKLIGHT_CLOCK
     else if ( level == BACKLIGHT_LEVELS ) {
       // Turn on PWM control of backlight pin
       TCCR1A |= _BV(COM1x1);
       // Set the brightness
       OCR1x = 0xFFFF;
-    } 
+    }
     else {
       // Turn on PWM control of backlight pin
       TCCR1A |= _BV(COM1x1);
@@ -733,7 +771,7 @@ uint8_t backlight_tick = 0;
 
 void backlight_task(void) {
   #ifdef NO_BACKLIGHT_CLOCK
-  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) { 
+  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
       // PORTx &= ~n
       _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);

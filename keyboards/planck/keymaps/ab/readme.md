@@ -1,10 +1,10 @@
 # Practical keymap for Planck Ortholinear 40% Mechanical Keyboard
 A practical keymap that emulates standard QWERTY keyboard for Planck. Once you get comfortable with this keymap, you may fork and customize it for your own needs. 
 
-![Layout](keyboard-layout.png "Practical Keymap")
-![Photo](keyboard-photo.jpg "Planck Keyboard")
+![Layout](https://i.imgur.com/xnlaiZd.png "Practical Keymap")
+![Photo](https://i.imgur.com/1kQPbLv.jpg "Planck Keyboard")
 
-* Online keyboard layout editor: http://goo.gl/mlLAFZ
+* Online keyboard layout editor: http://www.keyboard-layout-editor.com/#/gists/bda299020baaafe6a2a4a82e615e3cfc
 
 # Programming Instructions:
 Enter into programming mode and run the following command.
