@@ -11,7 +11,7 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x04
+#define EEPROM_VERSION 0x05
 #define EEPROM_VERSION_ADDR ((void*)34)
 
 #define EEPROM_BACKLIGHT_CONFIG_ADDR ((void*)35)

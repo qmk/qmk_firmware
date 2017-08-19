@@ -21,7 +21,7 @@ typedef struct
 	bool use_7u_spacebar:1;             // |
 	bool use_iso_enter:1;               // |
 	bool disable_when_usb_suspended:1;  // |
-	bool __pad6:1;                      // |
+	bool disable_hhkb_blocker_leds:1;   // |
 	bool __pad7:1;                      // 1 byte
 	uint8_t disable_after_timeout;      // 1 byte
 	uint8_t brightness;                 // 1 byte

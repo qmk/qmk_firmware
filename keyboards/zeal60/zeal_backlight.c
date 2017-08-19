@@ -19,6 +19,7 @@ zeal_backlight_config g_config = {
 	.use_split_right_shift = BACKLIGHT_USE_SPLIT_RIGHT_SHIFT,
 	.use_7u_spacebar = BACKLIGHT_USE_7U_SPACEBAR,
 	.use_iso_enter = BACKLIGHT_USE_ISO_ENTER,
+	.disable_hhkb_blocker_leds = BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS,
 	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
 	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
 	.brightness = 255,
@@ -746,6 +747,8 @@ void backlight_config_set_values(msg_backlight_config_set_values *values)
 	g_config.use_split_right_shift = values->use_split_right_shift;
 	g_config.use_7u_spacebar = values->use_7u_spacebar;
 	g_config.use_iso_enter = values->use_iso_enter;
+	g_config.disable_hhkb_blocker_leds = values->disable_hhkb_blocker_leds;
+
 	g_config.disable_when_usb_suspended = values->disable_when_usb_suspended;
 	g_config.disable_after_timeout = values->disable_after_timeout;
 
@@ -792,14 +795,6 @@ void backlight_init_drivers(void)
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
 
-#ifdef CONFIG_ZEAL65
-#else
-	keypos_t lctrl_key = { .col = 0, .row = 4 };
-	bool lctrl_enabled = keymap_key_to_keycode(0, lctrl_key) != KC_NO;
-	keypos_t rctrl_key = { .col = 13, .row = 4 };
-	bool rctrl_enabled = keymap_key_to_keycode(0, rctrl_key) != KC_NO;
-#endif
-
 	for ( int index = 0; index < 72; index++ )
 	{
 		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
@@ -817,8 +812,8 @@ void backlight_init_drivers(void)
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
 						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
 						  ( index == 54+13 && g_config.use_7u_spacebar ) || // LD13
-						  ( index == 36+17 && !lctrl_enabled ) || // LC17
-						  ( index == 54+17 && !rctrl_enabled ) ||  // LD17
+						  ( index == 36+17 && g_config.disable_hhkb_blocker_leds ) || // LC17
+						  ( index == 54+17 && g_config.disable_hhkb_blocker_leds ) ||  // LD17
 						  ( index == 18+6 ) || // LB6
 						  ( index == 18+7 ) || // LB7
 						  ( index == 18+8 ) || // LB8

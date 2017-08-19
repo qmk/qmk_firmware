@@ -19,6 +19,9 @@
 #undef USE_ISO_ENTER
 #define USE_ISO_ENTER 0
 
+#undef BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS
+#define BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
+
 // Set up RGB underglow.
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
