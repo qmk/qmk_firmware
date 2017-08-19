@@ -3,6 +3,8 @@
 #include "planck.h"
 #include "version.h"
 
+#include "sendstring_jis.h"
+
 // Keycode defines
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO

@@ -1,8 +1,10 @@
-# Macros - Send multiple keystrokes when pressing just one key
+# Macros
 
-QMK has a number of ways to define and use macros. These can do anything you want- type common phrases for you, copypasta, repetitive game movements, or even help you code. 
+Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want- type common phrases for you, copypasta, repetitive game movements, or even help you code. 
 
+{% hint style='danger' %}
 **Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets ahold of your keyboard will be able to access that information by opening a text editor.
+{% endhint %}
 
 # Macro Definitions
 
@@ -22,7 +24,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 ```
 
-This defines two macros which will be run when the key they are assigned to is pressed. If you'd like them to run when the release is released instead you can change the if statement:
+This defines two macros which will be run when the key they are assigned to is pressed. If instead you'd like them to run when the key is released you can change the if statement:
 
 ```c
 	if (!record->event.pressed) {
@@ -41,7 +43,7 @@ A macro can include the following commands:
 
 ## Sending strings
 
-Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string for you instead of having to build a `MACRO()`. Right now it assumes a US keymap with a QWERTY layout, so if you are using something else it may not behave as you expect.
+Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string for you instead of having to build a `MACRO()`.
 
 For example:
 
@@ -56,6 +58,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	}
 	return MACRO_NONE;
 };
+```
+
+By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
+
+```
+#include <sendstring_colemak.h>
 ```
 
 ## Mapping a Macro to a key
@@ -135,7 +143,7 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
-# Advanced Example: Single-key copy/paste (hold to copy, tap to paste)
+# Advanced Example: Single-key copy/paste
 
 This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released. 
 
