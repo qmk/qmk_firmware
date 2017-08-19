@@ -122,8 +122,6 @@
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, XXX, k4a, k4b, k4c, k4d}  \
 }
 
-#define LAYOUT_60_ISO KEYMAP_ISO
-
 /* ISO w/ split right shift key matrix layout
    * ,-----------------------------------------------------------.
    * | 00 |01| 02| 03| 04| 05| 06| 07| 08| 09| 0a| 0b| 0c| 0d    |

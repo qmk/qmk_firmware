@@ -20,11 +20,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#define RGB_DI_PIN F4
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8         // Number of LEDs
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+#ifndef RGB_DI_PIN
+    #define RGB_DI_PIN F4
+    #define RGBLIGHT_ANIMATIONS
+    #define RGBLED_NUM 8         // Number of LEDs
+    #define RGBLIGHT_HUE_STEP 8
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+#endif
 
 #endif

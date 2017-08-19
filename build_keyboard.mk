@@ -39,6 +39,7 @@ ifneq ("$(wildcard $(KEYBOARD_C))","")
 else
     $(error "$(KEYBOARD_C)" does not exist)
 endif
+OPT_DEFS += -DKEYBOARD_$(KEYBOARD)
 
 ifneq ($(SUBPROJECT),)
     SUBPROJECT_PATH := keyboards/$(KEYBOARD)/$(SUBPROJECT)

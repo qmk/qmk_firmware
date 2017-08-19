@@ -143,6 +143,7 @@ void matrix_scan_user(void) {
 
 // Layer LED indicators
 // ESC led on when in function layer, WASD cluster leds enabled when on arrow cluster
+  #ifdef KEYBOARD_gh60
     uint32_t layer = layer_state;
     if (layer & (1<<1)) {
         gh60_wasd_leds_on();
@@ -155,6 +156,7 @@ void matrix_scan_user(void) {
     } else {
         gh60_esc_led_off();
     }
+  #endif
 };
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
