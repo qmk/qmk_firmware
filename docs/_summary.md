@@ -12,6 +12,7 @@
   * [Keymap](faq_keymap.md)
 
 * [Features](features.md)
+  * [Layouts](feature_layouts.md)
   * [Common Shortcuts](feature_common_shortcuts.md)
   * [Backlight](feature_backlight.md)
   * [Bootmagic](feature_bootmagic.md)
