@@ -6,6 +6,7 @@
 #define KC_HOME LCTL(KC_A) // Home, or ctrl-a
 #define KC_END LCTL(KC_E) // End, or ctrl-e
 #define KC_SLP LGUI(LALT(KC_POWER)) // sleep, or cmd-option-power
+#define KC_SCLK LCTL(LSFT(KC_POWER)) // lock screen, or ctrl-shift-power
 
 // When using this split right shift layout, k3c and k3d are no longer reversed
 // as in other layouts
@@ -39,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,____,
         ____,VOLU,____,____,____,____,____,HOME,UP  ,END ,PGUP,____,____,____,
         ____,VOLD,MRWD,MPLY,MFFD,____,____,LEFT,DOWN,RGHT,PGDN,____,____,____,
-        ____,____,MUTE,____,____,____,____,____,____,____,SLP ,____,____,____,
+        ____,____,MUTE,____,____,____,____,____,____,SCLK,SLP ,____,____,____,
         ____,____,____,          ____,                    ____,____,____,____
     )
 };
