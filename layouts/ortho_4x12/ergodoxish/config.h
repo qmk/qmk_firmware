@@ -1,5 +1,8 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+This is the c configuration file for the keymap
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +18,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
-#include QMK_SUBPROJECT_CONFIG_H
+/* Use I2C or Serial, not both */
 
-#endif  // CONFIG_H
+#define USE_SERIAL
+// #define USE_I2C
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+// #define _MASTER_RIGHT
+// #define EE_HANDS
+
+#endif
