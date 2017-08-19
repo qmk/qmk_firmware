@@ -40,15 +40,6 @@ enum custom_macros {
   KEEPASS_TYPE,
 };
 
-// Tap Dance Definitions
-enum tap_dance_custom_keys {
-  TD_SEMICOLON_COLON = 0
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLON)
-};
-
 // NOTE: Cells marked with ACCESS must remain transparent, they're the keys that actually get to that layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,14 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  |   D  |LT 3,F|   G  |------|           |------|   H  |   J  |   K  |   L  |; / : |   '    |
+ * | Esc    |   A  |   S  |   D  |LT 3,F|   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------|  L1  |           |MO(3) |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |LCTRL |  F4  |  F5  | LGUI | LALT |                                       | Left | Down |  Up  | Right| RGUI |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Copy | Paste|       | Alt  |Ctrl/Esc|
+ *                                        | Copy | Paste|       | Alt  | Lock |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | PgUp |       | PgDn |        |      |
  *                                 | Bcksp|OSL(2)|------|       |------|  Ent   |Space |
@@ -86,12 +77,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                         KC_PGUP,
                                                                      KC_BSPC,OSL(SYMB), KC_DEL,
         // right hand
-             TG(CODE),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,                  KC_MINS,
-             TG(SYMB),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,                  KC_BSLS,
-                          KC_H,   KC_J,   KC_K,   KC_L,   TD(TD_SEMICOLON_COLON),KC_QUOT,
-             MO(MDIA),    KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),        OSM(MOD_RSFT),
-                                  KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,          KC_RGUI,
-             KC_RALT, CTL_T(KC_ESC),
+             TG(CODE), KC_6,   KC_7,   KC_8,   KC_9,   KC_0,           KC_MINS,
+             TG(SYMB), KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,           KC_BSLS,
+                       KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,        KC_QUOT,
+             MO(MDIA), KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH), OSM(MOD_RSFT),
+                                  KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,       KC_RGUI,
+             KC_RALT, KC_LOCK,
              KC_PGDN,
              KC_RCTL, KC_ENT, KC_SPC
     ),

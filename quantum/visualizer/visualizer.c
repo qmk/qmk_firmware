@@ -52,7 +52,8 @@ SOFTWARE.
 
 // Define this in config.h
 #ifndef VISUALIZER_THREAD_PRIORITY
-#define "Visualizer thread priority not defined"
+// The visualizer needs gfx thread priorities
+#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 #endif
 
 static visualizer_keyboard_status_t current_status = {
@@ -255,6 +256,9 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
+    #ifdef BACKLIGHT_ENABLE
+        .backlight_level = 0,
+    #endif
     #ifdef VISUALIZER_USER_DATA_SIZE
         .user_data = {0},
     #endif
@@ -299,6 +303,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 else {
                     gdispGSetPowerMode(LED_DISPLAY, powerOff);
                 }
+                state.status.backlight_level = current_status.backlight_level;
             }
     #endif
             if (visualizer_enabled) {
