@@ -509,10 +509,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),
     // FN1 - Momentary Layer 1 (Symbols)
-    [2] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_UP),
-    [3] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_LEFT),
-    [4] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_DOWN),
-    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_RIGHT),  
 };
 
 void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
