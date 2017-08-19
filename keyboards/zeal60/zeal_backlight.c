@@ -792,6 +792,14 @@ void backlight_init_drivers(void)
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
 
+#ifdef CONFIG_ZEAL65
+#else
+	keypos_t lctrl_key = { .col = 0, .row = 4 };
+	bool lctrl_enabled = keymap_key_to_keycode(0, lctrl_key) != KC_NO;
+	keypos_t rctrl_key = { .col = 13, .row = 4 };
+	bool rctrl_enabled = keymap_key_to_keycode(0, rctrl_key) != KC_NO;
+#endif
+
 	for ( int index = 0; index < 72; index++ )
 	{
 		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
@@ -809,6 +817,8 @@ void backlight_init_drivers(void)
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
 						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
 						  ( index == 54+13 && g_config.use_7u_spacebar ) || // LD13
+						  ( index == 36+17 && !lctrl_enabled ) || // LC17
+						  ( index == 54+17 && !rctrl_enabled ) ||  // LD17
 						  ( index == 18+6 ) || // LB6
 						  ( index == 18+7 ) || // LB7
 						  ( index == 18+8 ) || // LB8
