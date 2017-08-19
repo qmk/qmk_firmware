@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include <stdio.h>
 #include <string.h>
 //#include <math.h>
@@ -98,7 +99,6 @@ uint16_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
-float    notes_rest;
 bool     note_resting = false;
 
 uint8_t current_note = 0;
@@ -119,8 +119,16 @@ audio_config_t audio_config;
 uint16_t envelope_index = 0;
 bool glissando = true;
 
+#ifndef STARTUP_SONG
+    #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+float startup_song[][2] = STARTUP_SONG;
+
 void audio_init()
 {
+
+    if (audio_initialized)
+        return;
 
     // Check EEPROM
     if (!eeconfig_is_enabled())
@@ -169,6 +177,11 @@ void audio_init()
     #endif
 
     audio_initialized = true;
+
+    if (audio_config.enable) {
+        PLAY_SONG(startup_song);
+    }
+
 }
 
 void stop_all_notes()
@@ -402,9 +415,12 @@ ISR(TIMER3_COMPA_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_3_PERIOD > 0) {
-            end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF));
+            if (!note_resting) 
+                end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
+            else
+                end_of_note = (note_position >= (note_length));
         } else {
-            end_of_note = (note_position >= (note_length * 0x7FF));
+            end_of_note = (note_position >= (note_length));
         }
 
         if (end_of_note) {
@@ -419,11 +435,16 @@ ISR(TIMER3_COMPA_vect)
                     return;
                 }
             }
-            if (!note_resting && (notes_rest > 0)) {
+            if (!note_resting) {
                 note_resting = true;
-                note_frequency = 0;
-                note_length = notes_rest;
                 current_note--;
+                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+                    note_frequency = 0;
+                    note_length = 1;
+                } else {
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = 1;
+                }
             } else {
                 note_resting = false;
                 envelope_index = 0;
@@ -534,9 +555,12 @@ ISR(TIMER1_COMPA_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_1_PERIOD > 0) {
-            end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF));
+            if (!note_resting) 
+                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
+            else
+                end_of_note = (note_position >= (note_length));
         } else {
-            end_of_note = (note_position >= (note_length * 0x7FF));
+            end_of_note = (note_position >= (note_length));
         }
 
         if (end_of_note) {
@@ -551,11 +575,16 @@ ISR(TIMER1_COMPA_vect)
                     return;
                 }
             }
-            if (!note_resting && (notes_rest > 0)) {
+            if (!note_resting) {
                 note_resting = true;
-                note_frequency = 0;
-                note_length = notes_rest;
                 current_note--;
+                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+                    note_frequency = 0;
+                    note_length = 1;
+                } else {
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = 1;
+                }
             } else {
                 note_resting = false;
                 envelope_index = 0;
@@ -624,7 +653,7 @@ void play_note(float freq, int vol) {
 
 }
 
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
 {
 
     if (!audio_initialized) {
@@ -649,7 +678,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
         notes_pointer = np;
         notes_count = n_count;
         notes_repeat = n_repeat;
-        notes_rest = n_rest;
 
         place = 0;
         current_note = 0;

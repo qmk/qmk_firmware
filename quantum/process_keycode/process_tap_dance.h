@@ -54,9 +54,20 @@ typedef struct
   uint16_t kc2;
 } qk_tap_dance_pair_t;
 
+typedef struct
+{
+  uint16_t kc;
+  uint8_t layer;
+} qk_tap_dance_dual_role_t;
+
 #define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) { \
     .fn = { NULL, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset }, \
     .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }),  \
+  }
+
+#define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) { \
+    .fn = { NULL, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset }, \
+    .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer }), \
   }
 
 #define ACTION_TAP_DANCE_FN(user_fn) {  \
@@ -85,6 +96,9 @@ void reset_tap_dance (qk_tap_dance_state_t *state);
 
 void qk_tap_dance_pair_finished (qk_tap_dance_state_t *state, void *user_data);
 void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data);
+
+void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_data);
+void qk_tap_dance_dual_role_reset (qk_tap_dance_state_t *state, void *user_data);
 
 #else
 

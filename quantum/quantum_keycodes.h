@@ -26,6 +26,10 @@
 #endif
 #endif
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 enum quantum_keycodes {
     // Ranges used in shortucuts - not to be used directly
     QK_TMK                = 0x0000,
@@ -67,6 +71,12 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
+#ifdef STENO_ENABLE
+    QK_STENO              = 0x5A00,
+    QK_STENO_BOLT         = 0x5A30,
+    QK_STENO_GEMINI       = 0x5A31,
+    QK_STENO_MAX          = 0x5A3F,
+#endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
@@ -127,6 +137,9 @@ enum quantum_keycodes {
     MU_ON,
     MU_OFF,
     MU_TOG,
+
+    // Music mode cycle
+    MU_MOD,
 
     // Music voice iterate
     MUV_IN,
@@ -404,6 +417,10 @@ enum quantum_keycodes {
     OUT_USB,
 #ifdef BLUETOOTH_ENABLE
     OUT_BT,
+#endif
+
+#ifdef KEY_LOCK_ENABLE
+    KC_LOCK,
 #endif
 
     // always leave at the end
