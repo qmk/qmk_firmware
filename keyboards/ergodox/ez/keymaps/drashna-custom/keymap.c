@@ -286,10 +286,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             KC_TRANSPARENT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_NO,    KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
-             KC_TRANSPARENT,KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
+             KC_TRNS,KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
                                             MO(SYMB),     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -329,8 +329,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             KC_TRANSPARENT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-             KC_TRANSPARENT,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
+             KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
+             KC_TRNS,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   LT(MOUS, KC_S),   KC_MINS,
              KC_NO,KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
                                             KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
@@ -361,8 +361,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 `--------------------'       `--------------------'
 */
   [SYMB] = KEYMAP(
-				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRANSPARENT,
-				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRANSPARENT,
+				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,
+				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRNS,
 				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
 				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    M_COVECUBE,
 				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
@@ -370,11 +370,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     RGB_008000,
 							RGB_VAD,    RGB_VAI,    RGB_FF0000,
 				
-				KC_TRANSPARENT, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
-				KC_TRANSPARENT, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
+				KC_TRNS, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
+				KC_TRNS, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
 				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
-				KC_TRANSPARENT, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
-                                            KC_TRANSPARENT,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_KP_ENTER,
+				KC_TRNS, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
+                                            KC_TRNS,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_KP_ENTER,
 				RGB_TOG,    RGB_SLD,
 				RGB_HUI,
 				RGB_HUD,    KC_KP_DOT,  KC_KP_0
@@ -405,7 +405,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_ESCAPE,      M_SALT,     M_SYMM,     M_MORESALT, M_DOOMFIST, KC_NO,      KC_NO,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRANSPARENT,
+				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
 				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
                                             KC_O,   KC_P,
                                                     KC_LGUI,
@@ -444,10 +444,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [DIABLO] = KEYMAP(
 				KC_ESCAPE,  KC_V,       KC_D,       KC_LALT,    KC_NO,      KC_NO,      KC_NO,
-				KC_TAB,     KC_S,       KC_I,       KC_F,       KC_M,       KC_T,       KC_TRANSPARENT,
+				KC_TAB,     KC_S,       KC_I,       KC_F,       KC_M,       KC_T,       KC_TRNS,
 				KC_Q,       KC_1,       KC_2,       KC_3,       KC_4,       KC_G,
-				KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_KP_4,    KC_Z,       KC_NO,
-				KC_LCTL,    TD(TD_DIABLO_1),    TD(TD_DIABLO_2),    TD(TD_DIABLO_3),    TD(TD_DIABLO_4),
+				KC_LCTL, TD(TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), KC_Z,       KC_NO,
+				KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                                                 KC_L,   KC_J,
                                                         KC_F,
                     SFT_T(KC_SPACE),    ALT_T(KC_Q),    KC_DIABLO_CLEAR,
@@ -485,16 +485,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [MOUS] = KEYMAP(
-				KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRANSPARENT,
-				KC_NO,      KC_NO,      KC_MS_UP,   KC_NO,      KC_NO,      KC_NO,      KC_TRANSPARENT,
+				KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
+				KC_NO,      KC_NO,      KC_MS_UP,   KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
 				KC_NO,      KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,KC_NO,      KC_NO,
-				KC_NO,      KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,   KC_NO,      KC_TRANSPARENT,
+				KC_NO,      KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,   KC_NO,      KC_TRNS,
                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 									KC_NO,KC_NO,
 									KC_MS_WH_UP,
 									KC_MS_BTN1,KC_MS_BTN2,KC_MS_WH_DOWN,
 				
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+				KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
 				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
 				KC_NO,KC_NO,KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,KC_NO,
 				KC_TRANSPARENT,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,KC_AUDIO_MUTE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_NO,
