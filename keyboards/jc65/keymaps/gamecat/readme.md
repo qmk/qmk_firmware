@@ -1,11 +1,9 @@
 Keymap Maintainer: Gam3cat
 ==============================================================================
     _BL: Base layer, mostly standard 65% layout.
-    GRAVE_ESC information:
-        GUI + GRAVE_ESC results in: `
-        SHIFT + GRAVE_ESC results in: ~
-        GRAVE_ESC requires "#define GRAVE_ESC_CTRL_OVERRIDE" in config.h to
-        avoid breaking CTRL+SHIFT+ESC shortcut to Windows task manager.
+    FN_CAPS = CAPS when tapped, Fn_FL when held.
+    GRAVE_ESC + GUI = `
+    GRAVE_ESC + SHIFT = ~
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|

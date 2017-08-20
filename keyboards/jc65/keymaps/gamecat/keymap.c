@@ -12,13 +12,10 @@ enum jc65_keycodes {
 #include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-    *  _BL: Base layer, mostly standard 65% layout.
-    *  GRAVE_ESC information:
-    *      GUI + GRAVE_ESC results in: `
-    *      SHIFT + GRAVE_ESC results in: ~
-    *      GRAVE_ESC requires "#define GRAVE_ESC_CTRL_OVERRIDE" in config.h to
-    *      avoid breaking CTRL+SHIFT+ESC shortcut to Windows task manager.
+    /* _BL: Base Layer, mostly standard 65% layout.
+    *  FN_CAPS = CAPS when tapped, Fn_FL when held.
+    *  GRAVE_ESC + GUI = `
+    *  GRAVE_ESC + SHIFT = ~
     *  .---------------------------------------------------------------.
     *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     *  |---------------------------------------------------------------|
@@ -39,8 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI,          KC_LALT, KC_SPC,           KC_SPC,           KC_SPC,           KC_RALT, _______, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    /*
-    *  _FL: Function layer.
+    /* _FL: Function Layer.
     *  Fn0 *should* open Chrome
     *  .---------------------------------------------------------------.
     *  |Fn0| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
@@ -62,9 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,          KC_MENU, _______,          _______,          _______,          _______, _______, _______, KC_WBAK, KC_VOLD, KC_WFWD
     ),
 
-    /*
-    *  _CL: Control layer.
-    *  RGB ungerglow and Dynamic Macro controls.
+    /* _CL: Control Layer.
+    *  RGB Underglow and Dynamic Macro controls.
     *  .---------------------------------------------------------------.
     *  |   |Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
     *  |---------------------------------------------------------------|
@@ -107,13 +102,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         case 0:
             if (record->event.pressed) {
                 MACRO(D(LGUI), T(R), U(LGUI), END);
-                SEND_STRING("chrome.exe");
-                MACRO(T(ENT), END);
-                MACRO(D(LCTL), T(L), U(LCTL), END);
-                SEND_STRING("https://geekhack.org/index.php?topic=86756.0");
-                MACRO(T(ENT), END);
-                MACRO(D(LCTL), T(T), U(LCTL), END);
-                SEND_STRING("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0");
                 MACRO(T(ENT), END);
             }
         break;
