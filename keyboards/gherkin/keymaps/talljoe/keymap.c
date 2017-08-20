@@ -33,12 +33,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = KEYMAP(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_7,    KC_9,    KC_0,
-    KC_ESC , KC_MINS, KC_EQL , _______, KC_LBRC, KC_RBRC, _______, KC_QUOT, KC_SCLN, KC_RSFT,
+    KC_ESC , KC_MINS, KC_EQL , _______, KC_LBRC, KC_RBRC, _______, KC_QUOT, KC_SCLN, _______,
     OS_LCTL, OS_LGUI, OS_LALT, KC_GRV , _______, KC_TAB , KC_BSLS, KC_COMM, KC_DOT , KC_SLSH),
 
   [_LOWER] = KEYMAP(
     KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX, KC_PGUP, KC_HOME, KC_UP  , KC_END , XXXXXXX,
-    KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,
+    KC_F5  , KC_F6  , KC_F7  , KC_F8  , XXXXXXX, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______,
     KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_DEL , _______, OS_LALT, OS_LGUI, OS_LCTL, KC_CAPS),
 
   [_PLOVER] = KEYMAP(
