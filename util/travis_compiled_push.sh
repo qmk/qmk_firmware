@@ -17,6 +17,12 @@ chmod 600 qmk.fm
 eval `ssh-agent -s`
 ssh-add id_rsa_qmk_firmware
 
+# convert to unix line-endings
+git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
+git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
+git commit -m "convert to unix line-endings [skip ci]"
+git push git@github.com:qmk/qmk_firmware.git
+
 increment_version ()
 {
   declare -a part=( ${1//\./ } )
@@ -42,12 +48,12 @@ fi
 
 if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
-	make ergodox-ez AUTOGEN=true
-
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
 	mv ../qmk_firmware/qmk.fm qmk.fm
+	ssh-add -D
+	eval `ssh-agent -s`
 	ssh-add qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
