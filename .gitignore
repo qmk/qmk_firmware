@@ -45,3 +45,8 @@ util/Win_Check_Output.txt
 
 # Do not ignore MiniDox left/right hand eeprom files
 !keyboards/minidox/*.eep 
+
+# things travis sees
+secrets.tar
+qmk.fm
+id_rsa_qmk_firmware
