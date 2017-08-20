@@ -34,11 +34,12 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK,
   PLOVER,
-  LOWER,
-  RAISE,
   BACKLIT,
   EXT_PLV
 };
+
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -177,6 +178,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
+#define LOWER_AND_RAISE ((1UL << _LOWER) | (1UL << _RAISE))
+
+uint32_t layer_state_set_kb(uint32_t state) {
+  if ((state & LOWER_AND_RAISE) == LOWER_AND_RAISE) {
+    state |= 1UL << _ADJUST;
+  } else {
+    state &= ~(1UL << _ADJUST);
+  }
+  return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -195,26 +207,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
