@@ -7,7 +7,7 @@
 #define FN_CAPS LT(_FL, KC_CAPS)
 
 enum jc65_keycodes {
-  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
 };
 
 #include "dynamic_macro.h"
