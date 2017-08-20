@@ -1,4 +1,4 @@
-// Can't Remember Sh*t Keymap for Let's Split 
+// Can't Remember Sh*t Keymap for Let's Split
 // Trying to fit as many characters as possible on the default layer
 // 	as its easier for me to remember logical functions than characters
 // Also, I like me some numpad
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Lower   (switched to # because KP# were weird in terminal emulators) 
+/* Lower   (switched to # because KP# were weird in terminal emulators)
  * ,-----------------------------------------------------------------------------------.
  * |  Del |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC, _______, _______, _______, _______, _______,    KC_0, _______,  _______, _______, KC_PLUS, _______ \
 ),
 
-/* Raise 
+/* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -164,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
@@ -173,14 +173,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case GAME:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(music_scale, false, 0);
+          PLAY_SONG(music_scale);
         #endif
         persistant_default_layer_set(1UL<<_GAME);
       }
       return false;
       break;
-   
-  
+
+
       case LOWER:
         if (record->event.pressed) {
           layer_on(_LOWER);
@@ -227,12 +227,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -244,7 +244,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
