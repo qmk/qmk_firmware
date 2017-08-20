@@ -140,11 +140,9 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 // on the fourth tap, set the keyboard on flash state
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count >= 4) {
-#ifdef LAYER_UNDERGLOW_LIGHTING
         rgblight_enable();
         rgblight_mode(1);
         rgblight_setrgb(0xff,0x00,0x00);
-#endif
 		reset_keyboard();
 		reset_tap_dance(state);
 	}
