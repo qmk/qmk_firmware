@@ -42,12 +42,12 @@ fi
 
 if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
-	make ergodox-ez AUTOGEN=true
-
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
 	mv ../qmk_firmware/qmk.fm qmk.fm
+	ssh-add -D
+	eval `ssh-agent -s`
 	ssh-add qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
