@@ -350,13 +350,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |--------+------+------+------+------+------| COVE |           |      |------+------+------+------+------+--------|
 * |  RESET |   %  |   ^  |  [   |   ]  |  ~   | CUBE |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
 * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-*   |  LT0 |   &  |   *  |  :   |   ;  |                                       |   0  |   0  | NUM. | ENT  |  ENT |
+*   |  LT0 |   &  |   *  |  :   |   ;  |                                       |      |   0  | NUM. | ENT  |  ENT |
 *   `----------------------------------'                                       `----------------------------------'
 *                                        ,-------------.       ,-------------.
 *                                        | RGBM | RED  |       | OFF  | SOLID|
 *                                 ,------|------|------|       |------+------+------.
 *                                 |      |      | GREEN|       |      |      |      |
-*                                 | RGB  | RGB  |------|       |------| NUM. | NUM0 |
+*                                 | RGB  | RGB  |------|       |------| NUM0 | NUME |
 *                                 | DARK |BRITE | BLUE |       |      |      |      |
 *                                 `--------------------'       `--------------------'
 */
@@ -376,8 +376,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_TRNS, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
                                             KC_TRNS,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_KP_ENTER,
 				RGB_TOG,    RGB_SLD,
-				RGB_HUI,
-				RGB_HUD,    KC_KP_DOT,  KC_KP_0
+				KC_NO,
+				KC_KP_DOT, KC_KP_0, KC_KP_ENTER
 			),
 
 /* Keymap 4: Customized Overwatch Layout
@@ -738,14 +738,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
     ergodox_right_led_3_off();
 
     
-#ifdef LAYER_UNDERGLOW_LIGHTING
-	rgblight_enable();
-	rgblight_sethsv(195,255,255);
-#endif 
-    has_layer_changed = false;
-    
-    
-    
+    has_layer_changed = true;
 };
 
 
@@ -774,80 +767,45 @@ void matrix_scan_user(void) {  // runs frequently to update info
         
     switch (layer) {
         case SYMB:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (240,255,255);
-            }
-            #else
-            ergodox_right_led_3_on();
-            #endif
-            break;
-        case OVERWATCH:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (30,255,255);
-            }
-            #else
-            ergodox_right_led_2_on();
-            #endif
-            break;
-        case DIABLO:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (0,255,255);
-            }
-            #else
-            ergodox_right_led_1_on();
-            #endif
-            break;
-        case MOUS:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (60,255,255);
-            }
-            #else
-            ergodox_right_led_3_on();
-            ergodox_right_led_2_on();
-            #endif
-            break;
-        case COLEMAK:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (300,255,255);
-            }
-            #else
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            #endif
-            break;
-        case DVORAK:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
-            if (has_layer_changed) {
-                rgblight_sethsv (120,255,255);
-            }
-            #else
-            ergodox_right_led_2_on();
-            ergodox_right_led_1_on();
-            #endif
-            break;
-        case 7:
-            #ifdef LAYER_UNDERGLOW_LIGHTING
             if (has_layer_changed) {
                 rgblight_sethsv (255,255,255);
             }
-            #else
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            #endif
+            break;
+        case OVERWATCH:
+            if (has_layer_changed) {
+                rgblight_sethsv (30,255,255);
+            }
+            break;
+        case DIABLO:
+            if (has_layer_changed) {
+                rgblight_sethsv (0,255,255);
+            }
+            break;
+        case MOUS:
+            if (has_layer_changed) {
+                rgblight_sethsv (60,255,255);
+            }
+            break;
+        case COLEMAK:
+            if (has_layer_changed) {
+                rgblight_sethsv (300,255,255);
+            }
+            break;
+        case DVORAK:
+            if (has_layer_changed) {
+                rgblight_sethsv (120,255,255);
+            }
+            break;
+        case 7:
+            if (has_layer_changed) {
+                rgblight_sethsv (255,255,255);
+            }
             break;
         default:
             // Do not add anything here, as this will be ran EVERY check, and can cause a significant slowdown
-            #ifdef LAYER_UNDERGLOW_LIGHTING
             if (has_layer_changed) {
                 rgblight_sethsv (195,255,255);
             }
-            #endif
             break;
     }
         
