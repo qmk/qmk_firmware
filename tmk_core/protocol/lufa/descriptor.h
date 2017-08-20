@@ -238,7 +238,8 @@ typedef struct
 #   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
-#if defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4
+#if (defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4) || \
+    (defined(__AVR_ATmega32U4__) && CDC_OUT_EPNUM > 6)
 # error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
 #endif
 
