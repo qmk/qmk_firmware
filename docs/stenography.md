@@ -30,7 +30,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 
 ## Configuring QMK for Steno
 
-Firstly, enable steno in your keymap's Makefile. You should also diable mousekeys to prevent conflicts.
+Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
 ```Makefile
 STENO_ENABLE = yes
