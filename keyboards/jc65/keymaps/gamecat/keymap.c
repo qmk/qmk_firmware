@@ -1,4 +1,5 @@
 #include "jc65.h"
+#include "version.h"
 #define _BL 0    // Base Layer
 #define _FL 1    // Function Layer
 #define _CL 2    // Control Layer
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _CL: Control Layer.
     *  RGB Underglow and Dynamic Macro controls.
     *  .---------------------------------------------------------------.
-    *  |   |Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
+    *  |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
     *  |---------------------------------------------------------------|
     *  |     |   |   |   |   |   |   |   |   |   |   |   |   |     |MR1|
     *  |---------------------------------------------------------------|
@@ -73,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_CL] = KEYMAP(
-        _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1,
+        M(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          DYN_REC_STOP,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, DYN_REC_START2,
@@ -82,6 +83,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+        break;
+    }
     return MACRO_NONE;
 };
 
