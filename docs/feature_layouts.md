@@ -4,20 +4,26 @@ The `layouts/` folder contains different physical key layouts that can apply to 
 
 ```
 layouts/
-+ 60_ansi/
-| + readme.md
-| + a_good_keymap/
-| | + keymap.c
++ default/
+| + 60_ansi/
 | | + readme.md
-| | + config.h
-| | + rules.mk
-| + <keymap folder>/
+| | + layout.json
+| | + a_good_keymap/
+| | | + keymap.c
+| | | + readme.md
+| | | + config.h
+| | | + rules.mk
+| | + <keymap folder>/
+| | + ...
+| + <layout folder>/
++ community/
+| + <layout folder>/
 | + ...
-+ <layout folder>/
-+ ...
 ```
 
-Each folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
+The `layouts/default/` and `layouts/community/` are two examples of layout "repositories" - currently `default` will contain all of the information concerning the layout, and one default keymap named `default_<layout>`, for users to use as a reference. `community` contains all of the community keymaps, with the eventual goal of being split-off into a separate repo for users to clone into `layouts/`. QMK searches through all folders in `layouts/`, so it's possible to have multiple reposistories here. 
+
+Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
 
 ```md
 # 60_ansi
