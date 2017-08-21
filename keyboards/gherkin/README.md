@@ -11,7 +11,7 @@ Hardware Availability: [Gherkin project on 40% Keyboards](http://www.40percent.c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make atreus-default
+    make gherkin-default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 First pass at adding support for the gherkin keyboard. Compiles but completely
