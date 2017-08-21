@@ -3,8 +3,8 @@
 #define KC_____ KC_TRNS
 #define KC_FN MO(1) // Fn
 #define KC_FNLK TG(1) // Fn lock
-#define KC_HOME LCTL(KC_A) // Home, or ctrl-a
-#define KC_END LCTL(KC_E) // End, or ctrl-e
+#define KC_HOME LGUI(KC_LEFT) // Home, or cmd-left
+#define KC_END LGUI(KC_RGHT) // End, or cmd-right
 #define KC_SLP LGUI(LALT(KC_POWER)) // sleep, or cmd-option-power
 #define KC_SCLK LCTL(LSFT(KC_POWER)) // lock screen, or ctrl-shift-power
 
