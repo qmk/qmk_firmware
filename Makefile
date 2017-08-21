@@ -326,7 +326,7 @@ define PARSE_SUBPROJECT
         endif
 
         LAYOUT_KEYMAPS :=
-        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/$$(LAYOUT)/*/.)))))
+        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
         
         KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
         # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
