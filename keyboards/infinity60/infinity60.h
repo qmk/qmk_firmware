@@ -63,6 +63,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-#define LAYOUT_60_ansi_split_bs KEYMAP
-
 #endif
