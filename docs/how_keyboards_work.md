@@ -51,7 +51,7 @@ layout is set to QWERTY, a sample of the matching table is as follow:
 
 ## Back to the firmware
 
-As the layout is generally fixed (unless you create your own), the firmware can actually call a keycode by its layout name directly to ease things for you. This is exactly what is done here with `KC_A` actually representing `0x04` in QWERTY. The full list can be found in `keycode.txt`.
+As the layout is generally fixed (unless you create your own), the firmware can actually call a keycode by its layout name directly to ease things for you. This is exactly what is done here with `KC_A` actually representing `0x04` in QWERTY. The full list can be found in [keycodes](keycodes.md).
 
 ## List of Characters You Can Send
 

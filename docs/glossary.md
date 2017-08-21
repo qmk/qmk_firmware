@@ -62,7 +62,7 @@ In-system programming, a method of programming an AVR chip using external hardwa
 An interface for receiving debugging messages from your keyboard. You can view these messages using [QMK Flasher](https://github.com/qmk/qmk_flasher) or [PJRC's hid_listen](https://www.pjrc.com/teensy/hid_listen.html)
 
 ## Keycode
-A 2-byte number that represents a particular key. `0x00`-`0xFF` are used for [Basic Keycodes](keycodes.html) while `0x100`-`0xFFFF` are used for [Quantum Keycodes](quantum_keycodes.html).
+A 2-byte number that represents a particular key. `0x00`-`0xFF` are used for [Basic Keycodes](keycodes_basic.html) while `0x100`-`0xFFFF` are used for [Quantum Keycodes](quantum_keycodes.html).
 
 ## Key Down
 An event that happens when a key is pressed down, but is completed before a key is released.
@@ -79,7 +79,7 @@ An abstraction used to allow a key to serve multiple purposes. The highest activ
 ## Leader Key
 A feature that allows you to tap the leader key followed by a sequence of 1, 2, or 3 keys to activate key presses or other quantum features.
 
-* [Leader Key Documentation](leader_key.html)
+* [Leader Key Documentation](feature_leader_key.html)
 
 ## LED
 Light Emitting Diode, the most common device used for indicators on a keyboard.
@@ -141,7 +141,7 @@ Pressing and releasing a key. In some situations you will need to distinguish be
 ## Tap Dance
 A feature that lets you assign muiltple keycodes to the same key based on how many times you press it.
 
-* [Tap Dance Documentation](tap_dance.html)
+* [Tap Dance Documentation](tap_dance.md)
 
 ## Teensy
 A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollors more due to its halfkay bootloader, which makes flashing very simple.
@@ -152,12 +152,12 @@ A generic term for LEDs that light the underside of the board. These LED's typic
 ## Unicode
 In the larger computer world Unicode is a set of encoding schemes for representing characters in any language. As it relates to QMK it means using various OS schemes to send unicode codepoints instead of scancodes.
 
-* [Unicode Documentation](unicode.html)
+* [Unicode Documentation](unicode.md)
 
 ## Unit Testing
 A framework for running automated tests against QMK. Unit testing helps us be confident that our changes do not break anything.
 
-* [Unit Testing Documentation](unit_testing.html)
+* [Unit Testing Documentation](unit_testing.md)
 
 ## USB
 Universal Serial Bus, the most common wired interface for a keyboard.
