@@ -8,39 +8,23 @@
 #define KC_SLP LGUI(LALT(KC_POWER)) // sleep, or cmd-option-power
 #define KC_SCLK LCTL(LSFT(KC_POWER)) // lock screen, or ctrl-shift-power
 
-// When using this split right shift layout, k3c and k3d are no longer reversed
-// as in other layouts
-#define COMPACT_KEYMAP_SPLIT_RSHIFT( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k49,\
-	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
-	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
-	k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, \
-	k40, k41, k42,           k45,                     k4a, k4b, k4c, k4d  \
-) COMPACT_KEYMAP ( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k49,\
-	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
-	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
-	k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3d, k3c, \
-	k40, k41, k42,           k45,                     k4a, k4b, k4c, k4d  \
-)
-
 // Mark I keyboard layout for GH60 Satan
 // http://www.keyboard-layout-editor.com/#/gists/e1cde292bd2094cc3b763206d4d2cfb5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // 0: qwerty
-    COMPACT_KEYMAP_SPLIT_RSHIFT(
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSPC, NO,
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS,
-        CAPS,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,NO,  ENT ,
-        LSFT,FN , Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,FN,
-        LCTL,LALT,LGUI,          SPC,                     RGUI,RALT,RCTL,FNLK
+    KEYMAP(
+        KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL ,KC_BSPC,  KC_NO,
+        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSLS,
+        KC_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NO,  KC_ENT ,
+        KC_LSFT,KC_FN , KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_FN  ,
+        KC_LCTL,KC_LALT,KC_LGUI,                        KC_SPC,                         KC_RGUI,KC_RALT,KC_RCTL,KC_FNLK
     ),
     // 1: fn layer
-    COMPACT_KEYMAP(
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, DEL,____,
-        ____,VOLU,____,____,____,____,____,HOME,UP  ,END ,PGUP,____,____,____,
-        ____,VOLD,MRWD,MPLY,MFFD,____,____,LEFT,DOWN,RGHT,PGDN,____,____,____,
-        ____,____,MUTE,____,____,____,____,____,____,SCLK,SLP ,____,____,____,
-        ____,____,____,          ____,                    ____,____,____,____
+    KEYMAP(
+        KC_GRV, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL ,_______,
+        _______,KC_VOLU,_______,_______,_______,_______,_______,KC_HOME,KC_UP  ,KC_END ,KC_PGUP,_______,_______,_______,
+        _______,KC_VOLD,KC_MRWD,KC_MPLY,KC_MFFD,_______,_______,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGDN,_______,_______,_______,
+        _______,_______,KC_MUTE,_______,_______,_______,_______,_______,_______,KC_SCLK,KC_SLP ,_______,_______,_______,
+        _______,_______,_______,                        _______,                        _______,_______,_______,_______
     )
 };
