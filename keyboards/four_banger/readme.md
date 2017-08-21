@@ -3,8 +3,8 @@ Four Banger
 
 A 2x2 macro pad sold by 1up Keyboards - designed by Bishop Keyboards
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Four Banger Keyboard PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Four Banger Keyboard PCB  
 Hardware Availability: [1up Keyboards](https://1upkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
