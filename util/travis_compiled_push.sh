@@ -63,9 +63,9 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	#cp ../qmk_firmware/util/ergodox_ez.html keyboards/ergodox_ez/index.html
 	#cp ../qmk_firmware/readme.md qmk_readme.md
 	#./generate.sh
-	rm -f _compiled/*.hex
-	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "_compiled/${file##*/}"; done
-	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*.hex; do mv -v "$file" "_compiled/${file##*/}"; done
+	rm -f compiled/*.hex
+	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}"; done
+	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}"; done
 
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
