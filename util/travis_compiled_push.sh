@@ -18,10 +18,11 @@ eval `ssh-agent -s`
 ssh-add id_rsa_qmk_firmware
 
 # convert to unix line-endings
+git checkout master
 git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
 git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
 git commit -m "convert to unix line-endings [skip ci]"
-git push git@github.com:qmk/qmk_firmware.git
+git push git@github.com:qmk/qmk_firmware.git master
 
 increment_version ()
 {
