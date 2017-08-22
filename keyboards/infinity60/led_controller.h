@@ -1,4 +1,5 @@
 /*
+Copyright 2016 flabbergast <s3+flabbergast@sdfeu.org>
 Copyright 2017 jpetermans <tibcmhhm@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
