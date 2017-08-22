@@ -28,7 +28,7 @@
 #define M_SALT M(2)
 #define M_HARD M(3)
 #define M_MAKE M(4)
-#define M_COVECUBE M(5)
+#define M_GOODGAME M(5)
 #define M_MORESALT M(6)
 #define M_DOOMFIST M(7)
 
@@ -38,7 +38,6 @@ bool skip_leds = false;
 bool has_layer_changed = false;
 static uint8_t current_layer;
 
-static uint16_t key_timer;
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
 static uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
@@ -47,10 +46,6 @@ static uint8_t diablo_key_time[4];
 bool check_dtimer(uint8_t dtimer) {
     // has the correct number of seconds elapsed (as defined by diablo_times)
     return (timer_elapsed(diablo_timer[dtimer]) < ( diablo_key_time[dtimer] * 1000 ) ) ? false : true;
-};
-
-bool checktime(void){
-    return (timer_elapsed(key_timer) < 150) ? true : false;
 };
 
 
@@ -69,11 +64,7 @@ enum custom_keycodes {
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-	SFT_CAP = 0,
-	TD_DIABLO_J,
-	TD_CLN,
-	TD_EGG,
-	TD_FLSH,
+	TD_FLSH = 0,
 	TD_DIABLO_1,
 	TD_DIABLO_2,
 	TD_DIABLO_3,
@@ -82,33 +73,10 @@ enum {
 
 
 
-void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count == 1) {
-		register_code (KC_RSFT);
-		register_code (KC_SCLN);
-	} else {
-		register_code (KC_SCLN);
-	}
-}
-
-void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count == 1) {
-		unregister_code (KC_RSFT);
-		unregister_code (KC_SCLN);
-	} else {
-		unregister_code (KC_SCLN);
-	}
-}
-
-void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count >= 10) {
-		SEND_STRING ("Safety dance!");
-		reset_tap_dance (state);
-	}
-}
 
 // on each tap, light up one led, from right to left
-// on the forth tap, turn them off from right to left
+// on the forth tap, turn them off from right to leftmake ergodox-ez-drashna-custom-teensy
+
 void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 	if (!skip_leds) {
 		ergodox_board_led_off();
@@ -119,25 +87,26 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 	}
 	switch (state->count) {
 		case 1:
-			ergodox_right_led_3_on();
+			ergodox_right_led_1_on();
             break;
         case 2:
 			ergodox_right_led_2_on();
 			break;
 		case 3:
-			ergodox_right_led_1_on();
+			ergodox_right_led_3_on();
 			break;
 		case 4:
-			ergodox_right_led_3_off();
+			ergodox_right_led_1_off();
 			_delay_ms(50);
 			ergodox_right_led_2_off();
 			_delay_ms(50);
-			ergodox_right_led_1_off();
+			ergodox_right_led_3_off();
 
 	}
 }
 
 // on the fourth tap, set the keyboard on flash state
+// and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 	if (state->count >= 4) {
         rgblight_enable();
@@ -148,6 +117,8 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
+// Cycle through the times for the macro, starting at 0, for disabled.
+// Max of six values, so don't exceed
 void diablo_tapdance_master (qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
     if (state->count >= 7) {
         diablo_key_time[diablo_key] = diablo_times[0];
@@ -157,6 +128,8 @@ void diablo_tapdance_master (qk_tap_dance_state_t *state, void *user_data, uint8
     }
 }
 
+
+// Would rather have one function for all of this, but no idea how to do that...
 void diablo_tapdance1 (qk_tap_dance_state_t *state, void *user_data) {
     diablo_tapdance_master (state, user_data, 0);
 }
@@ -177,28 +150,20 @@ void diablo_tapdance4 (qk_tap_dance_state_t *state, void *user_data) {
 // if the flash state didnt happen, then turn off leds, left to right
 void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
 	_delay_ms(200);
-	ergodox_right_led_1_off();
+	ergodox_right_led_3_off();
 	_delay_ms(200);
 	ergodox_right_led_2_off();
 	_delay_ms(200);
-	ergodox_right_led_3_off();
+	ergodox_right_led_1_off();
 	_delay_ms(500);
 	skip_leds = false;
 }
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-	//Tap one for Space, and twice for Enter
-	[SFT_CAP]     = ACTION_TAP_DANCE_DOUBLE(KC_LSHIFT, KC_CAPS),
-	// Special Z
-	[TD_DIABLO_J]  = ACTION_TAP_DANCE_DOUBLE(KC_J, S(KC_J)),
-	// Once for colin, twice for semi-colin
-	[TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
-	// Tap until you get a surprise
-	[TD_EGG] = ACTION_TAP_DANCE_FN (dance_egg),
 	//Once for Blue, Twice for Green, Thrice for Red, and four to flash
 	[TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-    
+    // tap once to disable, and more to enable timed micros
     [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
     [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
     [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
@@ -345,8 +310,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | VERSION|   !  |   @  |  {   |   }  |  |   |      |           |      |  +   |   7  |   8  |   9  |  *   |   F12  |
 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 * |  MAKE  |   #  |   $  |  (   |   )  |  `   |------|           |------|  -   |   4  |   5  |   6  |  /   | PrtSc  |
-* |--------+------+------+------+------+------| COVE |           |      |------+------+------+------+------+--------|
-* |  RESET |   %  |   ^  |  [   |   ]  |  ~   | CUBE |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
+* |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+* |  RESET |   %  |   ^  |  [   |   ]  |  ~   |      |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
 * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
 *   |  LT0 |   &  |   *  |  :   |   ;  |                                       |      |   0  | NUM. | ENT  |  ENT |
 *   `----------------------------------'                                       `----------------------------------'
@@ -362,7 +327,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,
 				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRNS,
 				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
-				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    M_COVECUBE,
+				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_TRNS,
 				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
                                         RGB_MOD,    RGB_0000FF,
                                                     RGB_008000,
@@ -400,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [OVERWATCH] = KEYMAP(
-				KC_ESCAPE,      M_SALT,     M_SYMM,     M_MORESALT, M_DOOMFIST, KC_NO,      KC_NO,
+				KC_ESCAPE,      M_SALT,		M_MORESALT, M_GOODGAME, M_SYMM,     M_DOOMFIST, KC_NO,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
 				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
@@ -545,9 +510,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         case 5:
             if (record->event.pressed) {
-                //super secret hash
-                SEND_STRING("supersecrethash");
-                return MACRO_NONE;
+                //gg
+                return MACRO(I(5), T(ENTER), T(G), T(G), T(ENTER), END);
             }
         case 6:
             if (record->event.pressed) {
@@ -556,40 +520,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
         case 7:
-        if (record->event.pressed) {
-                // DoomFisted
-                // Hey, look at me.  I'm Doomfist, and I'm overpowered!  
-                // All I do is spam punches all day!   I'm DPS, tank and 
-                // defense, rolled into one! All I need is team healing to be complete!
-                return MACRO( I(50), T(ENTER), I(5), D(LSFT), T(H), U(LSFT), T(E), T(Y), T(COMMA), T(SPACE), T(L), T(O), T(O), T(K), T(SPACE), T(A), T(T), T(SPACE), T(M), T(E), T(DOT), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), T(O), T(O), T(M), T(F), T(I), T(S), T(T), T(COMMA), T(SPACE), T(A), T(N), T(D), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), T(O), T(V), T(E), T(R), T(P), T(O), T(W), T(E), T(R), T(E), T(D), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(D), T(O), T(SPACE), T(I), T(S), T(SPACE), T(S), T(P), T(A), T(M), T(SPACE), T(P), T(U), T(N), T(C), T(H), T(E), T(S), T(SPACE), T(A), T(L), T(L), T(SPACE), T(D), T(A), T(Y), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), D(LSFT), T(P), U(LSFT), D(LSFT), T(S), U(LSFT), T(COMMA), T(SPACE), T(T), T(A), T(N), T(K), T(SPACE), T(A), T(N), T(D), T(SPACE), T(D), T(E), T(F), T(E), T(N), T(S), T(E), T(COMMA), T(SPACE), T(R), T(O), T(L), T(L), T(E), T(D), T(SPACE), T(I), T(N), T(T), T(O), T(SPACE), T(O), T(N), T(E), D(LSFT), T(1), U(LSFT), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(N), T(E), T(E), T(D), T(SPACE), T(I), T(S), T(SPACE), T(T), T(E), T(A), T(M), T(SPACE), T(H), T(E), T(A), T(L), T(I), T(N), T(G), T(SPACE), T(T), T(O), T(SPACE), T(B), T(E), T(SPACE), T(C), T(O), T(M), T(P), T(L), T(E), T(T), T(E), D(LSFT), T(1), U(LSFT), T(ENTER), END );
-            }
-        case 8: //MAC1 - Hold for rshift and } on tap
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                return MACRO(D(LSFT), END );
-            } else {
-                return checktime() ? MACRO(U(LSFT),D(RALT),T(7),U(RALT),END): MACRO(U(LSFT),END);
-            }; break;
-        case 9:	//MAC1 - Hold for rshift and } on tap
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                return MACRO(D(RSFT), END );
-            } else {
-                return checktime()  ? MACRO(U(RSFT),D(RALT),T(0),U(RALT),END): MACRO(U(RSFT),END);
-            }; break;
-        case 10: //MAC2 - Hold for lctrl and [ on tap
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                return MACRO(D(LCTL), END );
-            } else {return checktime() ? MACRO(U(LCTL),D(RALT),T(8),U(RALT),END):MACRO(U(LCTL),END);
-            }; break;
-        case 11: //MAC3 - Hold for rctrl and ] on tap
-            if (record->event.pressed) {
-                key_timer = timer_read();
-                return MACRO(D(RCTL), END );
-            } else {
-                return checktime() ? MACRO(U(RCTL),D(RALT),T(9),U(RALT),END):MACRO(U(RCTL),END);
-            }; break;
+			if (record->event.pressed) {
+				// DoomFisted
+				// Hey, look at me.  I'm Doomfist, and I'm overpowered!  
+				// All I do is spam punches all day!   I'm DPS, tank and 
+				// defense, rolled into one! All I need is team healing to be complete!
+				return MACRO( I(50), T(ENTER), I(5), D(LSFT), T(H), U(LSFT), T(E), T(Y), T(COMMA), T(SPACE), T(L), T(O), T(O), T(K), T(SPACE), T(A), T(T), T(SPACE), T(M), T(E), T(DOT), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), T(O), T(O), T(M), T(F), T(I), T(S), T(T), T(COMMA), T(SPACE), T(A), T(N), T(D), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), T(O), T(V), T(E), T(R), T(P), T(O), T(W), T(E), T(R), T(E), T(D), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(D), T(O), T(SPACE), T(I), T(S), T(SPACE), T(S), T(P), T(A), T(M), T(SPACE), T(P), T(U), T(N), T(C), T(H), T(E), T(S), T(SPACE), T(A), T(L), T(L), T(SPACE), T(D), T(A), T(Y), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), D(LSFT), T(P), U(LSFT), D(LSFT), T(S), U(LSFT), T(COMMA), T(SPACE), T(T), T(A), T(N), T(K), T(SPACE), T(A), T(N), T(D), T(SPACE), T(D), T(E), T(F), T(E), T(N), T(S), T(E), T(COMMA), T(SPACE), T(R), T(O), T(L), T(L), T(E), T(D), T(SPACE), T(I), T(N), T(T), T(O), T(SPACE), T(O), T(N), T(E), D(LSFT), T(1), U(LSFT), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(N), T(E), T(E), T(D), T(SPACE), T(I), T(S), T(SPACE), T(T), T(E), T(A), T(M), T(SPACE), T(H), T(E), T(A), T(L), T(I), T(N), T(G), T(SPACE), T(T), T(O), T(SPACE), T(B), T(E), T(SPACE), T(C), T(O), T(M), T(P), T(L), T(E), T(T), T(E), D(LSFT), T(1), U(LSFT), T(ENTER), END );
+			}
+			break;
+				
     }
     return MACRO_NONE;
 };
@@ -671,7 +610,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
-        case KC_DIABLO_CLEAR:
+        case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
             if (record->event.pressed) {
                 uint8_t dtime;
                 
@@ -686,6 +625,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 }
 
+
+// Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke (uint8_t diablo_key) {
     if (current_layer == DIABLO) {
         switch (diablo_key) {
@@ -705,6 +646,8 @@ void send_diablo_keystroke (uint8_t diablo_key) {
     }
 }
 
+// Checks each of the 4 timers/keys to see if enough time has elapsed
+// Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
     uint8_t dtime;
     
@@ -718,24 +661,6 @@ void run_diablo_macro_check(void) {
 }
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
-    wait_ms(500);
-    ergodox_board_led_on();
-    wait_ms(200);
-    ergodox_right_led_1_on();
-    wait_ms(200);
-    ergodox_right_led_2_on();
-    wait_ms(200);
-    ergodox_right_led_3_on();
-    wait_ms(200);
-    ergodox_board_led_off();
-    wait_ms(200);
-    ergodox_right_led_1_off();
-    wait_ms(200);
-    ergodox_right_led_2_off();
-    wait_ms(200);
-    ergodox_right_led_3_off();
-
-    
     has_layer_changed = true;
 };
 
@@ -751,6 +676,9 @@ void matrix_scan_user(void) {  // runs frequently to update info
 		ergodox_right_led_2_off();
 		ergodox_right_led_3_off();
         
+		// Since we're not using the LEDs here for layer indication anymore,
+		// then lets use them for modifier indicators.  Shame we don't have 4...
+		// Also, no "else", since we want to know each, independantly. 
         if ( modifiders & MODS_SHIFT_MASK) {
                 ergodox_right_led_1_on();
         }
@@ -762,7 +690,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
         }
         
     }
-        
+    // Check layer, and apply color if its changed since last check
     switch (layer) {
         case SYMB:
             if (has_layer_changed) {
@@ -800,19 +728,23 @@ void matrix_scan_user(void) {  // runs frequently to update info
             }
             break;
         default:
-            // Do not add anything here, as this will be ran EVERY check, and can cause a significant slowdown
             if (has_layer_changed) {
                 rgblight_sethsv (195,255,255);
             }
             break;
     }
-        
+    
+	// Update layer status at the end, so this sets the default color
+	// rather than relying on the init, which was unreliably...
+	// Probably due to a timing issue, but this requires no additional code
     if (current_layer == layer) {
         has_layer_changed = false;
     } else {
         has_layer_changed = true;
         current_layer = layer;
     }
+
+	// Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 };
 
