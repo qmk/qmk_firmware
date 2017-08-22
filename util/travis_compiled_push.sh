@@ -13,7 +13,7 @@ openssl aes-256-cbc -K $encrypted_b0ee987fd0fc_key -iv $encrypted_b0ee987fd0fc_i
 tar xvf secrets.tar
 
 chmod 600 id_rsa_qmk_firmware
-chmod 600 qmk.fm
+chmod 600 id_rsa_qmk.fm
 eval `ssh-agent -s`
 ssh-add id_rsa_qmk_firmware
 
@@ -51,10 +51,10 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
-	mv ../qmk_firmware/qmk.fm qmk.fm
+	mv ../qmk_firmware/id_rsa_qmk.fm id_rsa_qmk.fm
 	ssh-add -D
 	eval `ssh-agent -s`
-	ssh-add qmk.fm
+	ssh-add id_rsa_qmk.fm
 	#git submodule update --init --recursive
 	#rm -rf keyboard
 	#rm -rf keyboards
