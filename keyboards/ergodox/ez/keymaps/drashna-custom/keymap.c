@@ -346,7 +346,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Customized Overwatch Layout
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ESC  | SALT | SYMM | MORE | DOOM |      |      |           |      |  F9  | F10  | F11  |  F12 |      |        |
+ * |   ESC  | SALT | MORE |  GG  | SYMM | DOOM | HARD |           |      |  F9  | F10  | F11  |  F12 |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   F1   |  K   |  Q   |  W   |  E   |  R   |  T   |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -365,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [OVERWATCH] = KEYMAP(
-				KC_ESCAPE,      M_SALT,		M_MORESALT, M_GOODGAME, M_SYMM,     M_DOOMFIST, KC_NO,
+				KC_ESCAPE,      M_SALT,		M_MORESALT, M_GOODGAME, M_SYMM,     M_DOOMFIST, M_HARD,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
 				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
@@ -511,7 +511,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 5:
             if (record->event.pressed) {
                 //gg
-                return MACRO(I(5), T(ENTER), T(G), T(G), T(ENTER), END);
+                return MACRO(I(50), T(ENTER), I(5), T(G), T(G), T(ENTER), END);
             }
         case 6:
             if (record->event.pressed) {
