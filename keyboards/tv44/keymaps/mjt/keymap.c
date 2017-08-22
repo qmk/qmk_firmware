@@ -9,11 +9,10 @@
 
 enum minivan_layers {
   _QWERTY,
-  _LOWER,
-  _RAISE,
+  _NUMSYM,
+  _FKEYS,
   _PLOVER,
-  _ADJUST,
-  _DYN
+  _ADJUST
 };
 
 enum planck_keycodes {
@@ -24,54 +23,47 @@ enum planck_keycodes {
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
-#define LOWER F(_LOWER)
-#define RAISE F(_RAISE)
+#define FKEYS F(_FKEYS)
+#define NUMSYM F(_NUMSYM)
 #define MACSLEEP M(5)
 #define PLOVER M(6)
-#define EXT_PLV M(7)
+#define LAYERRESET M(7)
 #define BACKLIT M(8)
-#define ADJUST M(6)
-#define GO_DEFT M(99)
+#define ADJUST M(9)
 #define XXXXXXX KC_NO
 
 #include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = {
-  {KC_TAB, KC_Q,   KC_W,   KC_E, KC_R,   KC_T,   KC_Y,   KC_U, KC_I,   KC_O,  KC_P,   KC_BSPC},
+  {FKEYS, KC_Q,   KC_W,   KC_E, KC_R,   KC_T,   KC_Y,   KC_U, KC_I,   KC_O,  KC_P,   KC_BSPC},
   {KC_ESC, KC_A,   KC_S,   KC_D, KC_F,   KC_G,   KC_H,   KC_J, KC_K,   KC_L,  KC_SCLN,KC_QUOT},
   {KC_LSFT,KC_Z,   KC_X,   KC_C, KC_V,   KC_B,   KC_N,   KC_M, KC_COMM,KC_DOT,KC_SLSH,SFT_T(KC_ENT) },
-  {KC_LCTL,KC_LALT,KC_LGUI,LOWER,XXXXXXX,XXXXXXX,XXXXXXX,RAISE,KC_LEFT,KC_DOWN,KC_UP ,KC_RIGHT}
+  {KC_LCTL,KC_LALT,KC_LGUI, KC_SPC,XXXXXXX,XXXXXXX,XXXXXXX,NUMSYM,KC_LEFT,KC_DOWN,KC_UP ,KC_RIGHT}
 },
-[_LOWER] = {
-  {KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______ },
-  {KC_DEL ,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_UNDS,KC_PLUS, KC_LCBR,KC_RCBR,KC_PIPE },
-  {_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, MO(_DYN),_______,_______, MO(_ADJUST) ,_______ },
-  {_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_MNXT , KC_VOLD, KC_VOLU, KC_MPLY}
+[_NUMSYM] = {
+  {KC_GRV,  KC_1,  KC_2,    KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,  _______},
+  { KC_DEL,KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, ADJUST },
+  { _______,  KC_UNDS,KC_PLUS, KC_LCBR,KC_RCBR,KC_PIPE , KC_MINS,KC_EQL,KC_LBRC, KC_RBRC, KC_BSLS, _______},
+  {_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,_______,    KC_HOME, KC_PGDN, KC_PGUP, KC_END}
 },
-[_RAISE] ={
-  {KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,  _______},
-  {KC_DEL, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_MINS,KC_EQL,KC_LBRC,KC_RBRC, KC_BSLS },
-  {_______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, MO(_DYN),_______, _______, MO(_ADJUST), _______},
-  {_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,KC_HOME, KC_PGDN, KC_PGUP, KC_END}
+[_FKEYS] ={
+  {_______, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_F7,  KC_F8,  KC_F9,  KC_F10, _______},
+  {KC_DEL, KC_F11, KC_F12,  KC_F13,  KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20, _______ },
+  {_______,  KC_F21, KC_F22,  KC_F23,  KC_F24, _______, _______, _______, _______,_______,_______,_______},
+  {_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,_______,    KC_MNXT, KC_VOLU, KC_VOLD, KC_MPLY}
 },
 [_PLOVER] = {
   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
   {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, XXXXXXX, KC_C,    KC_V,   XXXXXXX ,  XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+  {LAYERRESET, XXXXXXX, KC_C,    KC_V,   XXXXXXX ,  XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 [_ADJUST] = {
- {_______ , RESET,   _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL },
+ {_______ , RESET,   _______, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL },
  {_______ , _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______},
- {_______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
- {BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-[_DYN] = {
-  {_______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP },
-  {_______ , _______, _______, _______, _______, _______, _______, _______, _______, _______       , _______       , _______ },
-  {_______ , _______, _______, _______, _______, _______, _______, _______, _______, _______       , _______       , _______ },
-  {_______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______}
+ {_______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______},
+ {BACKLIT, _______, _______, LAYERRESET, XXXXXXX, XXXXXXX, XXXXXXX, LAYERRESET, _______, _______, _______, _______}
 }
 };
 
@@ -82,7 +74,7 @@ float tone_qwerty[][2]            = SONG(QWERTY_SOUND);
 float tone_dyn_macro_rec[][2]     = SONG(DVORAK_SOUND);
 float tone_dyn_macro_play[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]            = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]         = SONG(PLOVER_GOODBYE_SOUND);
+float tone_adjust[][2]            = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]            = SONG(MUSIC_SCALE_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -94,15 +86,14 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 const uint16_t PROGMEM fn_actions[] = {
- [_LOWER] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
- [_RAISE] = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC),
- [_DYN] = ACTION_LAYER_TAP_KEY(_DYN, KC_QUOT),
+ [_FKEYS] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_TAB),
+ [_NUMSYM] = ACTION_LAYER_TAP_TOGGLE(_NUMSYM, KC_SPC),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case 5:
+        case 5: // MACSLEEP
             if (record->event.pressed) {
               register_code(KC_RSFT);
               register_code(KC_RCTL);
@@ -112,27 +103,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
               unregister_code(KC_RSFT);
             }
         break;
-        case 6:
+        case 6: // PLOVER
               if (record->event.pressed) {
               #ifdef AUDIO_ENABLE
                 stop_all_notes();
                 PLAY_NOTE_ARRAY(tone_plover, false, 0);
               #endif
-              layer_off(_RAISE);
-              layer_off(_LOWER);
+              layer_off(_NUMSYM);
+              layer_off(_FKEYS);
               layer_off(_ADJUST);
               layer_on(_PLOVER);
             }
         break;
-        case 7:
+        case 7: // LAYERRESET
               if (record->event.pressed) {
               #ifdef AUDIO_ENABLE
-                PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+                PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
               #endif
+              layer_off(_NUMSYM);
+              layer_off(_FKEYS);
               layer_off(_PLOVER);
+              layer_off(_ADJUST);
             }
         break;
-        case 8:
+        case 8: // BACKLIT
           if (record->event.pressed) {
             register_code(KC_RSFT);
             #ifdef BACKLIGHT_ENABLE
@@ -142,17 +136,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RSFT);
           }
         break;
-        case 10:
-            if (record->event.pressed) {
-                layer_on(10);
-            }
-        break;
-        case 99:
-            if (record->event.pressed) {
-                layer_off(10);
-                layer_off(4);
-            }
-        break;
+        case 9: // ADJUST
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              stop_all_notes();
+              PLAY_NOTE_ARRAY(tone_adjust, false, 0);
+            #endif
+            layer_off(_NUMSYM);
+            layer_off(_FKEYS);
+            layer_off(_PLOVER);
+            layer_on(_ADJUST);
+            // go ahead and stop recording macros... does this work?
+            register_code(DYN_REC_STOP);
+            unregister_code(DYN_REC_STOP);
+          }
       }
     return MACRO_NONE;
 };
@@ -162,7 +159,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }
-  
+
   return true;
 }
 
