@@ -482,6 +482,13 @@ bool process_record_quantum(keyrecord_t *record) {
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
+      
+#ifdef GRAVE_ESC_CTRL_OVERRIDE
+      // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.
+      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
+        shifted = 0;
+#endif
 
 #ifdef GRAVE_ESC_CTRL_OVERRIDE
       // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.

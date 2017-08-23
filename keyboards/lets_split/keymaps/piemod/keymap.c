@@ -10,17 +10,17 @@ extern keymap_config_t keymap_config;
 #define _NUMBER 3 // F(3)
 #define _FUNCTION 4 // F(4)
 #define _EMACS 5 // F(5)
-#define _MACROS 6 // F(6)
+#define _MACRO 6 // F(6)
 #define _MOUSE 7 // F(7)
 
 enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
+  DVORAjK = SAFE_RANGE,
   ARROW,
   SYMBOL,
   NUMBER,
   FUNCTION,
   EMACS,
-  MACROS,
+  MACRO,
   MOUSE,
 };
 
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO \
 ),
 
-[_MACROS] = KEYMAP( \
+[_MACRO] = KEYMAP( \
   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
