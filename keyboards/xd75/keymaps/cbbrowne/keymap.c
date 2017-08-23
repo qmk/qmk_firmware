@@ -24,6 +24,7 @@
 
 enum layers {
   _QWERTY = 0,  /* Qwerty mapping */
+  _QCENT, /* QWERTY with keypad in the centre */
   _LOWER, /* Lower layer, where top line has symbols !@#$%^&*() */
   _RAISE, /* Raised layer, where top line has digits 1234567890 */
   _ADJUST, /* Special Adjust layer coming via tri-placement */
@@ -77,19 +78,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_RAISE), KC_SPC,  KC_SPC,  MO(_LOWER), KC_RGUI, KC_RALT, KC_RCTL, MO(_FUNCTION), KC_LEFT, KC_DOWN, KC_RGHT  },
  },
 
-/* COLEMAK - MIT ENHANCED / GRID COMPATIBLE
- * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
- * | `      | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | -      | =      | XXXXXX . BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
- * | TAB    | Q      | W      | F      | P      | G      | J      | L      | U      | Y      | ;      | [      | ]      | \      | DEL    |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
- * | ESC    | A      | R      | S      | T      | D      | H      | N      | E      | I      | O      | '      | XXXXXX . ENTER  | PG UP  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | LSHIFT | Z      | X      | C      | V      | B      | K      | M      | ,      | .      | /      | XXXXXX . RSHIFT | UP     | PG DN  |
- * |--------+--------+--------+--------+--------+- 2u ------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | BRITE  | LCTRL  | LALT   | LGUI   | RAISE  | XXXXXX . SPACE  | LOWER  | RGUI   | RALT   | RCTRL  | FN     | LEFT   | DOWN   | RIGHT  |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
+  [_QCENT] = { /* QWERTY, with keypad in the centre */
+  { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
+  { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
+  { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_RAISE), KC_SPC,  KC_SPC,  MO(_LOWER), KC_RGUI, KC_RALT, KC_RCTL, MO(_FUNCTION), KC_LEFT, KC_DOWN, KC_RGHT  },
+ },
+
+ /* layout for centred keypad + qwerty...
+
+  | 1 | 2 | 3 | 4 | 5 | ? | ? | ? | ? | ? | 6 | 7 | 8 | 9 | 0 |
+  | q | w | e | r | t | ? | ? | ? | ? | ? | y | u | i | o | p |
+  | a | s | d | f | g | ? | ? | ? | ? | ? | h | j | k | l | ; |
+  | z | x | c | v | b | ? | ? | ? | ? | ? | n | m | , | . | / |
+  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+
+special things...
+  - q and p double up as ctrl modifier
+  - a and ; double up as shift modifier
+  - z and / double up as alt modifier
+  */  
+
 	
 /* LOWERED
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
@@ -154,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
   { KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, ___T___, ___T___, KC_WH_U  },
   { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  },
-  { RESET  , _______, DF(_QWERTY), _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
+  { RESET  , _______, DF(_QWERTY), DF(_QCENT), _______, KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
  },
 };
 
