@@ -39,9 +39,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MO(_FL), _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  MO(_FL),          RGB_SAI,          \
   _______, _______, _______,_______,        RGB_MOD,   RGB_MOD,                            _______,  _______,  _______,  _______, RGB_HUD,    RGB_SAD,    RGB_HUI),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-};

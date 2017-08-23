@@ -22,4 +22,4 @@ This would build the `rev4` revision of the `planck` with the `default` keymap. 
 
 ## How to customize {#how-to-customize}
 
-QMK has lots of [features](features/README.md) to explore, and a good deal of [reference documentation](reference/README.md) to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
+QMK has lots of [features](features.md) to explore, and a good deal of [reference documentation](http://docs.qmk.fm) to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).

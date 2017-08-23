@@ -1,17 +1,9 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you have not yet you should read the [Build Guide](https://github.com/qmk/qmk_firmware/blob/master/docs/build_guide.md).
-
-In short,
-
-    $ make [-f Makefile.<variant>] [KEYMAP=...] clean
-    $ make [-f Makefile.<variant>] [KEYMAP=...]
-    $ make [-f Makefile.<variant>] [KEYMAP=...] dfu
-
+This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](build_environment_setup.md) and [Make Instructions](make_instructions.md) guides.
 
 ## Can't program on Linux
-You will need proper permission to operate a device. For Linux users see udev rules below.
-Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
+You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
 
 In short when your controller is ATMega32u4,
     
@@ -21,16 +13,16 @@ In short when your controller is ATMega32u4,
 
 or just
 
-    $ sudo make dfu
+    $ sudo make <keyboard>-<keymap>-dfu
 
-But to run `make` with root privilege is not good idea. Use former method as possible.
+But to run `make` with root privilege is not good idea. Use former method if possible.
 
 ## WINAVR is obsolete
 It is no longer recommended and may cause some problem.
-See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
 ## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very least chance of collision with other product.
+You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
 
 Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
 
@@ -40,7 +32,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
 
 ## Linux udev rules
 On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
