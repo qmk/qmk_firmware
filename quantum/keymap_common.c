@@ -169,6 +169,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 // translates key to keycode
+__attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     // Read entire word (16bits)

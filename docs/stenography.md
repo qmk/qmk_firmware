@@ -12,11 +12,11 @@ To use Plover with QMK just enable NKRO and optionally adjust your layout if you
 
 ## Plover with Steno Protocol
 
-Plover also understands the language of several steno machines. QMK can speak a couple of these languages, TX Bolt and GeminiRP. An example layout can be found in `planck/keymaps/steno`.
+Plover also understands the language of several steno machines. QMK can speak a couple of these languages, TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
 
 When QMK speaks to Plover over a steno protocol Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactive Plover.
 
-In this mode Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard. By default QMK will speak the TX Bolt protocol but can be switched to GeminiRP; the last protocol used is stored in non-volatile memory so QMK will use the same protocol on restart.
+In this mode Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard. By default QMK will speak the TX Bolt protocol but can be switched to GeminiPR; the last protocol used is stored in non-volatile memory so QMK will use the same protocol on restart.
 
 > Note: Due to hardware limitations you may not be able to run both a virtual serial port and mouse emulation at the same time.
 
@@ -24,13 +24,13 @@ In this mode Plover expects to speak with a steno machine over a serial port so 
 
 TX Bolt communicates the status of 24 keys over a very simple protocol in variable-sized (1-5 byte) packets.
 
-### GeminiRP
+### GeminiPR
 
-GeminiRP encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiRP opens up many more options, including supporting non-English theories.
+GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including supporting non-English theories.
 
 ## Configuring QMK for Steno
 
-Firstly, enable steno in your keymap's Makefile. You should also diable mousekeys to prevent conflicts.
+Firstly, enable steno in your keymap's Makefile. You may also need disable mousekeys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
 ```Makefile
 STENO_ENABLE = yes
@@ -60,9 +60,9 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 
 As defined in `keymap_steno.h`.
 
-> Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiRP keys to the nearest TX Bolt key so that one key map will work for both.
+> Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
 
-|GeminiRP|TX Bolt|Steno Key|
+|GeminiPR|TX Bolt|Steno Key|
 |--------|-------|-----------|
 |`STN_N1`|`STN_NUM`|Number bar #1|
 |`STN_N2`|`STN_NUM`|Number bar #2|
@@ -102,7 +102,7 @@ As defined in `keymap_steno.h`.
 |`STN_SR`|`STN_SR`| `-S`|
 |`STN_DR`|`STN_DR`| `-D`|
 |`STN_ZR`|`STN_ZR`| `-Z`|
-|`STN_FN`|| (GeminiRP only)|
-|`STN_RES1`||(GeminiRP only)|
-|`STN_RES2`||(GeminiRP only)|
-|`STN_PWR`||(GeminiRP only)|
+|`STN_FN`|| (GeminiPR only)|
+|`STN_RES1`||(GeminiPR only)|
+|`STN_RES2`||(GeminiPR only)|
+|`STN_PWR`||(GeminiPR only)|

@@ -1,6 +1,6 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](build_environment_setup.md) and [Make Instructions](make_instructions.md) guides.
+This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](make_instructions.md) guides.
 
 ## Can't program on Linux
 You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
