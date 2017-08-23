@@ -43,15 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 [_NUMSYM] = {
   {KC_GRV,  KC_1,  KC_2,    KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,  _______},
-  { KC_DEL,KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, ADJUST },
+  {KC_DEL,KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, ADJUST },
   { _______,  KC_UNDS,KC_PLUS, KC_LCBR,KC_RCBR,KC_PIPE , KC_MINS,KC_EQL,KC_LBRC, KC_RBRC, KC_BSLS, _______},
   {_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,_______,    KC_HOME, KC_PGDN, KC_PGUP, KC_END}
 },
 [_FKEYS] ={
   {_______, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_F6, KC_F7,  KC_F8,  KC_F9,  KC_F10, _______},
   {KC_DEL, KC_F11, KC_F12,  KC_F13,  KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20, _______ },
-  {_______,  KC_F21, KC_F22,  KC_F23,  KC_F24, _______, _______, _______, _______,_______,_______,_______},
-  {_______,_______,_______,_______,XXXXXXX,XXXXXXX,XXXXXXX,_______,    KC_MNXT, KC_VOLU, KC_VOLD, KC_MPLY}
+  {KC_CAPS,  KC_F21, KC_F22,  KC_F23,  KC_F24, _______, _______, _______, _______,_______,_______,_______},
+  {_______,_______,_______,LAYERRESET,XXXXXXX,XXXXXXX,XXXXXXX,LAYERRESET,    KC_MNXT, KC_VOLU, KC_VOLD, KC_MPLY}
 },
 [_PLOVER] = {
   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {LAYERRESET, XXXXXXX, KC_C,    KC_V,   XXXXXXX ,  XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 [_ADJUST] = {
- {_______ , RESET,   _______, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP _______, _______, _______, KC_PAUS, KC_PSCR, KC_DEL },
+ {_______ , RESET,   _______, DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP, _______, _______, KC_SLCK, KC_PAUS, KC_PSCR, KC_DEL },
  {_______ , _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______},
  {_______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______},
  {BACKLIT, _______, _______, LAYERRESET, XXXXXXX, XXXXXXX, XXXXXXX, LAYERRESET, _______, _______, _______, _______}
@@ -87,7 +87,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 const uint16_t PROGMEM fn_actions[] = {
  [_FKEYS] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_TAB),
- [_NUMSYM] = ACTION_LAYER_TAP_TOGGLE(_NUMSYM, KC_SPC),
+ [_NUMSYM] = ACTION_LAYER_TAP_TOGGLE(_NUMSYM),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -146,16 +146,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(_FKEYS);
             layer_off(_PLOVER);
             layer_on(_ADJUST);
-            // go ahead and stop recording macros... does this work?
-            register_code(DYN_REC_STOP);
-            unregister_code(DYN_REC_STOP);
           }
       }
     return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == MO(_ADJUST) ? DYN_REC_STOP : keycode);
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }
