@@ -78,5 +78,5 @@ UNICODE_ENABLE = YES 		# Unicode
 
 USB = /dev/cu.usbmodem1411
 
-upload: build
-	$(ATREUS_UPLOAD_COMMAND)
+# upload: build
+# 	$(ATREUS_UPLOAD_COMMAND)
