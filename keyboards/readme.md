@@ -17,7 +17,7 @@ What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and
 
 Made in Taiwan using advanced robotic manufacturing, the ErgoDox EZ is a fully-assembled, premium ergonomic keyboard. Its split design allows you to place both halves shoulder width, and its custom-made wrist rests and tilt/tent kit make for incredibly comfortable typing. Available on [ergodox-ez.com](https://ergodox-ez.com).
 
-* [ErgoDox EZ](/keyboards/ergodox/) &mdash; Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
+* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; Our one and only product. Yes, it's that awesome. Comes with either printed or blank keycaps, and 7 different keyswitch types.
 
 ### Clueboard - Zach White
 
@@ -37,7 +37,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
-* [Ergodox Infinity](/keyboards/ergodox) - Ergonomic Split Keyboard by Input Club.
+* [Ergodox Infinity](/keyboards/ergodox_infinity) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
 * [Happy Hacking Keyboard](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
