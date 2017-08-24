@@ -56,7 +56,8 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
 	
-	rm -f compiled/*.hex
+	# not sure this is needed now
+	# rm -f compiled/*.hex
 
 	# ignore errors here
 	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
