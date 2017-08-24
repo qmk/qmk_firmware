@@ -31,6 +31,9 @@
 #ifdef SUBPROJECT_infinity
     #include "infinity/config.h"
 #endif
+#ifdef SUBPROJECT_ergodone
+    #include "ergodone/config.h"
+#endif
 
 
 #endif /* KEYBOARDS_ERGODOX_CONFIG_H_ */

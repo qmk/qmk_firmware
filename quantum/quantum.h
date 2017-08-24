@@ -99,6 +99,10 @@ extern uint32_t default_layer_state;
 	#include "process_combo.h"
 #endif
 
+#ifdef KEY_LOCK_ENABLE
+	#include "process_key_lock.h"
+#endif
+
 #define SEND_STRING(str) send_string(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];

@@ -1,67 +1,22 @@
-# The Easy Way
+ErgoDox
+==
 
-If you have an ErgoDox EZ, the absolute easiest way for you to customize your firmware is using the [graphical configurator](http://configure.ergodox-ez.com), which uses QMK under the hood.
+The ErgoDox is a split ergonomic keyboard originally developed by Dominic "Dox" Beauchamp.
 
-If you can find firmware someone else has made that does what you want, that
-is the easiest way to customize your ErgoDox.  It requires no programming
-experience or the setup of a build environment.
+* The **ErgoDox EZ** is a Teensy-based split mechanical keyboard, sold assembled and with warranty at [ErgoDox-EZ.com](https://ergodox-ez.com).
+* The **ErgoDox Infinity** is an ARM-based split mechanical keyboard, sold from time to time in kit form at [MassDrop.com](https://www.massdrop.com/buy/infinity-ergodox)
 
-Quickstart:
+The ErgoDox EZ code is maintained by Erez Zukerman and is officially supported by the EZ -- the keyboard ships running QMK from the factory.
 
-  - Find and download an existing firmware
-    [from Other Firmware Options](#other-firmware-options)
+The ErgoDox Infinity code is maintained by Fredizzimo, as a community contribution.
 
-  - Then flash the firmware to your [ErgoDox Ez](#ergodox-ez)
-    or [ErgoDox Infinity](#ergodox-infinity)
+## Standard Build Instructions
 
-# Customizing Keymaps
+To build QMK for the ErgoDox, see the official [build guide](/docs/build_guide.md).
 
-There are many existing keymaps in the "keymaps" directory.  If you just want
-to use one of them, you don't need to modify keymaps and can just build and
-flash the firmware as described below.  These directories each have a
-"readme.md" file which describe them.
+## Additional resources
 
-If none of the existing keymaps suit you, you can create your own custom
-keymap.  This will require some experience with coding.  Follow these steps
-to customize a keymap:
-
-  - Read the [qmk firmware README](https://github.com/qmk/qmk_firmware) from top to bottom.  Then come back here.  :)
-
-  - Clone the qmk_firmware repository
-
-  - Set up your build environment (see below).
-
-  - Make a new directory under "keymaps" to hold your customizations.
-
-  - Copy an existing keymap that is close to what you want, such as
-    "keymaps/default/keymap.c".
-
-  - Use an editor to modify the new "keymap.c".  See "Finding the keycodes you
-    need" below).  Try to edit the comments as well, so the "text graphics"
-    represent your layout correctly.
-
-  - Compile your new firmware (see below)
-
-  - Flash your firmware (see below)
-
-  - Test the changes.
-
-  - Submit your keymap as a pull request to the qmk_firmware repository so
-    others can use it.  You will want to add a "readme.md" that describes the
-    keymap.
-
-# Build Dependencies
-
-Before you can build, you will need the build dependencies.  There is a script
-to try to do this for Linux:
-
-  - Run the `util/install_dependencies.sh` script as root.
-
-For the Infinity, you need the chibios submodules to be checked out or you
-will receive errors about the build process being unable to find the chibios
-files.  Check them out with:
-
-  - Go to the top level repo directory and run: `git submodule update --init --recursive`
+A graphical configurator for the ErgoDox EZ is available at [configure.ergodox-ez.com](http://configure.ergodox-ez.com). It outputs QMK-compiled binaries, as well as source code for your layout, which you can use as a jumping-off point to further customize in QMK.
 
 # Flashing Firmware
 
@@ -145,32 +100,12 @@ You have a few options in how you flash the firmware:
   any part of the firmware code itself, you can program only the MASTER half.
   It is safest to program both halves though.
 
-# Contributing your keymap
+## ErgoDone
 
-The QMK firmware is open-source, so it would be wonderful to have your contribution! Within a very short time after launching we already amassed dozens of user-contributed keymaps, with all sorts of creative improvements and tweaks. This is very valuable for people who aren't comfortable coding, but do want to customize their ErgoDox. To make it easy for these people to use your layout, I recommend submitting your PR in the following format.
+The ErgoDone uses its own HID bootloader and needs to be flashed using the [TKG Toolkit](https://github.com/kairyu/tkg-toolkit).
 
-1. All work goes inside your keymap subdirectory (`keymaps/german` in this example).
-2. `keymap.c` - this is your actual keymap file; please update the ASCII comments in the file so they correspond with what you did.
-3. `readme.md` - a readme file, which GitHub would display by default when people go to your directory. Explain what's different about your keymap, what you tweaked or how it works. No specific format to follow, just communicate what you did. :)
-4. Any graphics you wish to add must be hosted elsewhere (please don't include images in your PR). This is absolutely not a must. If you feel like it, you can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to make something and grab a screenshot, but it's really not a must. If you do have graphics, your readme can just embed the graphic as a link (`![alt-text](url)`), just like I did with the default layout.
+  - Build the firmware with `make ergodone-keymapname`
 
-# Finding the keycodes you need
+  - While plugging in the USB cable, hold the two right-most keys on the left half of the ErgoDone to enter FLASH mode.
 
-Let's say you want a certain key in your layout to send a colon; to figure out what keycode to use to make it do that, you're going to need `quantum/keymap_common.h`.
-
-That file contains a big list of all of the special, fancy keys (like, being able to send % on its own and whatnot).
-
-If you want to send a plain vanilla key, you can look up its code under `doc/keycode.txt`. That's where all the boring keys hang out.
-
-# Other Firmware Options
-
-There are external tools for customizing the layout, but those do not use
-the featurs of this qmk firmware.  These sites include:
-
-  - The official [ErgoDox EZ configurator](http://configure.ergodox-ez.com)
-  - [Massdrop configurator](https://keyboard-configurator.massdrop.com/ext/ergodox) for EZ, works but not officially supported
-  - [Input Club configurator](https://input.club/configurator-ergodox) for Infinity, provides left and right files
-
-You can also find an existing firmware that you like, for example from:
-
-  - [Dozens of community-contributed keymaps](http://qmk.fm/keyboards/ergodox/)
+  - Use the utility from [TKG Toolkit](https://github.com/kairyu/tkg-toolkit) to flash the keyboard: `hid_bootloader_cli -mmcu=atmega32u4 ergodox_ergodone_keymapname.hex`
