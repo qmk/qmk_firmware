@@ -57,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT) },
-  {MO(_DYN), KC_LCTL, KC_LALT, KC_LGUI, FKEYS,   KC_SPC,  KC_SPC,  NUMSYM,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LCTL, KC_LCTL, KC_LALT, KC_LGUI, FKEYS,   KC_SPC,  KC_SPC,  NUMSYM,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* FKEYS
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  | F11  | F12  | F13  | F14  | F15  |      |      |      |      | Rec1 | Rec2 |
+ * | Del  | F11  | F12  | F13  | F14  | F15  |      |      |Sleep |      | Rec1 | Rec2 |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Mac1 | Mac2 |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -73,8 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FKEYS] = {
   {KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______},
-  {KC_DEL,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F6,   _______, _______, _______, DYN_REC_START1, DYN_REC_START2},
-  {_______, _______, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______},
+  {KC_DEL,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F6,   _______, _______, MACSLEEP, DYN_REC_START1, DYN_REC_START2},
+  {_______, _______, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, DYN_REC_STOP},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
@@ -131,13 +131,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______ , _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, MACSLEEP,  PLOVER, _______},
   {_______ , MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
   {BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
+} /*,
 [_DYN] = {
   {_______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2, _______ },
   {_______ , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______ , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______ , _______, _______, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______}
-}
+}*/
 
 };
 
@@ -160,7 +160,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == FKEYS ? DYN_REC_STOP : keycode);
   if (!process_record_dynamic_macro(macro_kc, record)) {
     return false;
   }
