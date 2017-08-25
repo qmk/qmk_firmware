@@ -1,3 +1,18 @@
+/* Copyright 2016-2017 Erez Zukerman, Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
@@ -41,7 +56,12 @@ extern uint32_t default_layer_state;
 #endif // MIDI_ENABLE
 
 #ifdef AUDIO_ENABLE
+	#include "audio.h"
  	#include "process_audio.h"
+#endif
+
+#ifdef STENO_ENABLE
+	#include "process_steno.h"
 #endif
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
@@ -79,11 +99,20 @@ extern uint32_t default_layer_state;
 	#include "process_combo.h"
 #endif
 
+#ifdef KEY_LOCK_ENABLE
+	#include "process_key_lock.h"
+#endif
+
 #define SEND_STRING(str) send_string(PSTR(str))
+extern const bool ascii_to_shift_lut[0x80];
+extern const uint8_t ascii_to_keycode_lut[0x80];
 void send_string(const char *str);
+void send_string_with_delay(const char *str, uint8_t interval);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+
+void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 

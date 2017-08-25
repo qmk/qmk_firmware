@@ -1,3 +1,19 @@
+/* Copyright 2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "process_unicodemap.h"
 #include "process_unicode_common.h"
 
@@ -33,7 +49,7 @@ bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
     uint16_t index = keycode - QK_UNICODE_MAP;
-    uint32_t code = pgm_read_dword_far(&map[index]);
+    uint32_t code = pgm_read_dword(&map[index]);
     if (code > 0xFFFF && code <= 0x10ffff && input_mode == UC_OSX) {
       // Convert to UTF-16 surrogate pair
       code -= 0x10000;

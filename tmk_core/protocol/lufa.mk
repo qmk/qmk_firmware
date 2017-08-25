@@ -1,16 +1,17 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
+LUFA_PATH = $(LIB_PATH)/lufa
 
 
 # Create the LUFA source path variables by including the LUFA makefile
-ifneq (, $(wildcard $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
+ifneq (, $(wildcard $(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
     # New build system from 20120730
     LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
-    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk
+    DMBS_LUFA_PATH = $(LUFA_PATH)/LUFA/Build/LUFA
+    include $(LUFA_PATH)/LUFA/Build/lufa_sources.mk
 else
-    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/makefile
+    include $(LUFA_PATH)/LUFA/makefile
 endif
 
 LUFA_SRC = lufa.c \
@@ -36,6 +37,11 @@ ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
 	$(TMK_DIR)/protocol/serial_uart.c
 endif
 
+ifeq ($(strip $(BLUETOOTH)), RN42)
+	LUFA_SRC += $(LUFA_DIR)/bluetooth.c \
+	$(TMK_DIR)/protocol/serial_uart.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
 	LUFA_SRC += $(LUFA_ROOT_PATH)/Drivers/USB/Class/Device/CDCClassDevice.c
 endif
@@ -44,7 +50,7 @@ SRC += $(LUFA_SRC)
 
 # Search Path
 VPATH += $(TMK_PATH)/$(LUFA_DIR)
-VPATH += $(TMK_PATH)/$(LUFA_PATH)
+VPATH += $(LUFA_PATH)
 
 # Option modules
 #ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)

@@ -1,5 +1,22 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "quantum.h"
 #include "action_tapping.h"
+
+uint8_t get_oneshot_mods(void);
 
 static uint16_t last_td;
 static int8_t highest_td = -1;
@@ -21,6 +38,24 @@ void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code16 (pair->kc1);
   } else if (state->count == 2) {
     unregister_code16 (pair->kc2);
+  }
+}
+
+void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    register_code16 (pair->kc);
+  } else if (state->count == 2) {
+    layer_invert (pair->layer);
+  }
+}
+
+void qk_tap_dance_dual_role_reset (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    unregister_code16 (pair->kc);
   }
 }
 
@@ -110,14 +145,22 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
+
 void matrix_scan_tap_dance () {
   if (highest_td == -1)
     return;
+  uint16_t tap_user_defined;
 
-for (int i = 0; i <= highest_td; i++) {
+for (uint8_t i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
-
-    if (action->state.count && timer_elapsed (action->state.timer) > TAPPING_TERM) {
+    if(action->custom_tapping_term > 0 ) {
+      tap_user_defined = action->custom_tapping_term;
+    }
+    else{
+      tap_user_defined = TAPPING_TERM;
+    }
+    if (action->state.count && timer_elapsed (action->state.timer) > tap_user_defined) {
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
     }

@@ -1,9 +1,33 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef PROCESS_MUSIC_H
 #define PROCESS_MUSIC_H
 
 #include "quantum.h"
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+
+enum music_modes {
+  MUSIC_MODE_CHROMATIC,
+  MUSIC_MODE_GUITAR,
+  MUSIC_MODE_VIOLIN,
+  MUSIC_MODE_MAJOR,
+  NUMBER_OF_MODES
+};
 
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
@@ -15,6 +39,7 @@ void music_off(void);
 void music_on_user(void);
 void music_scale_user(void);
 void music_all_notes_off(void);
+void music_mode_cycle(void);
 
 void matrix_scan_music(void);
 

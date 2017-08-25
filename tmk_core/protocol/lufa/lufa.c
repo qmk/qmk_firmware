@@ -606,6 +606,13 @@ static void send_keyboard(report_keyboard_t *report)
   if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
     #ifdef MODULE_ADAFRUIT_BLE
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
+    #elif MODULE_RN42
+       bluefruit_serial_send(0xFD);
+       bluefruit_serial_send(0x09);
+       bluefruit_serial_send(0x01);
+       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+         bluefruit_serial_send(report->raw[i]);
+       }
     #else
       bluefruit_serial_send(0xFD);
       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
@@ -662,7 +669,7 @@ static void send_mouse(report_mouse_t *report)
   if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
     #ifdef MODULE_ADAFRUIT_BLE
       // FIXME: mouse buttons
-      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
     #else
       bluefruit_serial_send(0xFD);
       bluefruit_serial_send(0x00);
@@ -726,6 +733,16 @@ static void send_consumer(uint16_t data)
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
       #ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_send_consumer_key(data, 0);
+      #elif MODULE_RN42
+        static uint16_t last_data = 0;
+        if (data == last_data) return;
+        last_data = data;
+        uint16_t bitmap = CONSUMER2RN42(data);
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(bitmap&0xFF);
+        bluefruit_serial_send((bitmap>>8)&0xFF);
       #else
         static uint16_t last_data = 0;
         if (data == last_data) return;
@@ -1132,7 +1149,7 @@ int main(void)
     // midi_send_noteoff(&midi_device, 0, 64, 127);
 #endif
 
-#ifdef MODULE_ADAFRUIT_EZKEY
+#if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
     serial_init();
 #endif
 
@@ -1163,7 +1180,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #if !defined(BLUETOOTH_ENABLE)
+        #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
