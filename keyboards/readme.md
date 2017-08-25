@@ -32,6 +32,7 @@ Designed and built in Felton, CA, Clueboards keyboard emphasize quality and loca
 
 These keyboards are part of the QMK repository, but their manufacturers are not official maintainers of the repository.
 
+* [9key](/keyboards/9key) &mdash; A 9-key minipad sold by Bishop Keyboards.
 * [Alps64](/keyboards/alps64) &mdash; A 60% keyboard for Alps keyswitches.
 * [AMJ60](/keyboards/amj60) &mdash; DIY/Assembled compact 60% keyboard.
 * [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
