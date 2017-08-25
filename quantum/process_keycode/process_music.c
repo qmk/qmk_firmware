@@ -27,6 +27,7 @@
 bool music_activated = false;
 uint8_t music_starting_note = 0x0C;
 int music_offset = 7;
+uint8_t music_mode = MUSIC_MODE_CHROMATIC;
 
 // music sequencer
 static bool music_sequence_recording = false;
@@ -38,6 +39,39 @@ static uint8_t music_sequence_position = 0;
 
 static uint16_t music_sequence_timer = 0;
 static uint16_t music_sequence_interval = 100;
+
+#ifdef AUDIO_ENABLE
+  #ifndef MUSIC_ON_SONG
+    #define MUSIC_ON_SONG SONG(MUSIC_ON_SOUND)
+  #endif
+  #ifndef MUSIC_OFF_SONG
+    #define MUSIC_OFF_SONG SONG(MUSIC_OFF_SOUND)
+  #endif
+  #ifndef CHROMATIC_SONG
+    #define CHROMATIC_SONG SONG(CHROMATIC_SOUND)
+  #endif
+  #ifndef GUITAR_SONG
+    #define GUITAR_SONG SONG(GUITAR_SOUND)
+  #endif
+  #ifndef VIOLIN_SONG
+    #define VIOLIN_SONG SONG(VIOLIN_SOUND)
+  #endif
+  #ifndef MAJOR_SONG
+    #define MAJOR_SONG SONG(MAJOR_SOUND)
+  #endif
+  float music_mode_songs[NUMBER_OF_MODES][5][2] = {
+    CHROMATIC_SONG,
+    GUITAR_SONG,
+    VIOLIN_SONG,
+    MAJOR_SONG
+  };
+  float music_on_song[][2] = MUSIC_ON_SONG;
+  float music_off_song[][2] = MUSIC_OFF_SONG;
+#endif
+
+#ifndef MUSIC_MASK
+  #define MUSIC_MASK keycode < 0xFF
+#endif
 
 static void music_noteon(uint8_t note) {
     #ifdef AUDIO_ENABLE
@@ -79,70 +113,71 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (keycode == MU_TOG && record->event.pressed) {
-        if (music_activated)
-        {
+        if (music_activated) {
             music_off();
-        }
-        else
-        {
+        } else {
             music_on();
         }
         return false;
     }
 
+    if (keycode == MU_MOD && record->event.pressed) {
+      music_mode_cycle();
+      return false;
+    }
+
     if (music_activated) {
-
-      if (keycode == KC_LCTL && record->event.pressed) { // Start recording
-        music_all_notes_off();
-        music_sequence_recording = true;
-        music_sequence_recorded = false;
-        music_sequence_playing = false;
-        music_sequence_count = 0;
-        return false;
-      }
-
-      if (keycode == KC_LALT && record->event.pressed) { // Stop recording/playing
-        music_all_notes_off();
-        if (music_sequence_recording) { // was recording
-          music_sequence_recorded = true;
+      if (record->event.pressed) {
+        if (keycode == KC_LCTL) { // Start recording
+          music_all_notes_off();
+          music_sequence_recording = true;
+          music_sequence_recorded = false;
+          music_sequence_playing = false;
+          music_sequence_count = 0;
+          return false;
         }
-        music_sequence_recording = false;
-        music_sequence_playing = false;
-        return false;
+
+        if (keycode == KC_LALT) { // Stop recording/playing
+          music_all_notes_off();
+          if (music_sequence_recording) { // was recording
+            music_sequence_recorded = true;
+          }
+          music_sequence_recording = false;
+          music_sequence_playing = false;
+          return false;
+        }
+
+        if (keycode == KC_LGUI && music_sequence_recorded) { // Start playing
+          music_all_notes_off();
+          music_sequence_recording = false;
+          music_sequence_playing = true;
+          music_sequence_position = 0;
+          music_sequence_timer = 0;
+          return false;
+        }
+
+        if (keycode == KC_UP) {
+          music_sequence_interval-=10;
+          return false;
+        }
+
+        if (keycode == KC_DOWN) {
+          music_sequence_interval+=10;
+          return false;
+        }
       }
 
-      if (keycode == KC_LGUI && record->event.pressed && music_sequence_recorded) { // Start playing
-        music_all_notes_off();
-        music_sequence_recording = false;
-        music_sequence_playing = true;
-        music_sequence_position = 0;
-        music_sequence_timer = 0;
-        return false;
-      }
-
-      if (keycode == KC_UP) {
-        if (record->event.pressed)
-            music_sequence_interval-=10;
-        return false;
-      }
-
-      if (keycode == KC_DOWN) {
-        if (record->event.pressed)
-            music_sequence_interval+=10;
-        return false;
-      }
-
-      #define MUSIC_MODE_GUITAR
-
-      #ifdef MUSIC_MODE_CHROMATIC
-      uint8_t note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
-      #elif defined(MUSIC_MODE_GUITAR)
-      uint8_t note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
-      #elif defined(MUSIC_MODE_VIOLIN)
-      uint8_t note = (music_starting_note + record->event.key.col + music_offset + 32)+7*(MATRIX_ROWS - record->event.key.row);
-      #else
-      uint8_t note = (music_starting_note + SCALE[record->event.key.col + music_offset] - 3)+12*(MATRIX_ROWS - record->event.key.row);
-      #endif
+      uint8_t note;
+      if (music_mode == MUSIC_MODE_CHROMATIC) 
+        note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_GUITAR)
+        note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_VIOLIN)
+        note = (music_starting_note + record->event.key.col + music_offset + 32)+7*(MATRIX_ROWS - record->event.key.row);
+      else if (music_mode == MUSIC_MODE_MAJOR)
+        note = (music_starting_note + SCALE[record->event.key.col + music_offset] - 3)+12*(MATRIX_ROWS - record->event.key.row);
+      else
+        note = music_starting_note;
 
       if (record->event.pressed) {
         music_noteon(note);
@@ -154,7 +189,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         music_noteoff(note);
       }
 
-      if (keycode < 0xFF) // ignores all normal keycodes, but lets RAISE, LOWER, etc through
+      if (MUSIC_MASK)
         return false;
     }
 
@@ -175,12 +210,26 @@ void music_toggle(void) {
 
 void music_on(void) {
     music_activated = 1;
+    #ifdef AUDIO_ENABLE
+      PLAY_SONG(music_on_song);
+    #endif
     music_on_user();
 }
 
 void music_off(void) {
-    music_activated = 0;
     music_all_notes_off();
+    music_activated = 0;
+    #ifdef AUDIO_ENABLE
+      PLAY_SONG(music_off_song);
+    #endif
+}
+
+void music_mode_cycle(void) {
+  music_all_notes_off();
+  music_mode = (music_mode + 1) % NUMBER_OF_MODES;
+  #ifdef AUDIO_ENABLE
+    PLAY_SONG(music_mode_songs[music_mode]);
+  #endif
 }
 
 void matrix_scan_music(void) {

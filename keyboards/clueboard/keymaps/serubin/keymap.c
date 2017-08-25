@@ -1,7 +1,6 @@
 #include "clueboard.h"
 
 // Helpful defines
-#define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define _______ KC_TRNS
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -51,53 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MO(_FL), _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  MO(_FL),  _______,          RGB_SAI,          \
   _______, _______, _______,_______,        RGB_MOD,   RGB_MOD,                            _______,  _______,  _______,  _______, RGB_HUD,    RGB_SAD,    RGB_HUI),
 };
-
-/* This is a list of user defined functions. F(N) corresponds to item N
-   of this list.
- */
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_FUNCTION(0),  // Calls action_function()
-  [1] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t mods_pressed;
-  static bool mod_flag;
-
-  switch (id) {
-    case 0:
-      /* Handle the combined Grave/Esc key
-       */
-      mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
-
-      if (record->event.pressed) {
-        /* The key is being pressed.
-         */
-        if (mods_pressed) {
-          mod_flag = true;
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        /* The key is being released.
-         */
-        if (mod_flag) {
-          mod_flag = false;
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-    case 1:
-      if(record->event.pressed) {
-        del_key(KC_ESC);
-      }
-    break;
-  }
-}

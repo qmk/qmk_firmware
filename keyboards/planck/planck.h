@@ -1,12 +1,7 @@
 #ifndef PLANCK_H
 #define PLANCK_H
 
-#ifdef SUBPROJECT_rev3
-    #include "rev3.h"
-#endif
-#ifdef SUBPROJECT_rev4
-    #include "rev4.h"
-#endif
+#include QMK_SUBPROJECT_H
 
 #include "quantum.h"
 
@@ -35,5 +30,8 @@
 	{ k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b }, \
 	{ k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b } \
 }
+
+#define KEYMAP PLANCK_GRID
+#define LAYOUT_ortho_4x12 PLANCK_GRID
 
 #endif

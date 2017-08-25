@@ -54,6 +54,12 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
 endif
 
+ifeq ($(strip $(STENO_ENABLE)), yes)
+    OPT_DEFS += -DSTENO_ENABLE
+	VIRTSER_ENABLE := yes
+	SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
@@ -87,7 +93,7 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/light_ws2812.c
+    SRC += ws2812.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
@@ -96,6 +102,11 @@ endif
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
+endif
+
+ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
+    OPT_DEFS += -DKEY_LOCK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
 endif
 
 ifeq ($(strip $(PRINTING_ENABLE)), yes)

@@ -36,6 +36,3 @@ ARMV = 6
 # Build Options
 #   comment out to disable the options.
 #
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
