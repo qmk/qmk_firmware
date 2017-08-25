@@ -48,7 +48,7 @@ static const uint16_t VIM_KEYS[VIM_KEYS_LENGTH] = {
 };
 
 static const uint16_t VIM_LEADERS[VIM_LEADERS_LENGTH] = {
-  VIM_D, VIM_V, KC_LSFT, KC_RSFT
+  VIM_D, VIM_V, KC_LSHIFT, KC_RSHIFT
 };
 
 /**
@@ -120,7 +120,7 @@ void VIM_COMMAND_B(void) {
  */
 void VIM_COMMAND_E(void) {
   PRESS(KC_LALT);
-    TAP(KC_RGHT);
+    TAP(KC_RIGHT);
   RELEASE(KC_LALT);
 }
 
@@ -153,9 +153,9 @@ void VIM_COMMAND_P(void) {
  * ⌘X to cut it, then entering insert mode.
  */
 void VIM_COMMAND_S(void) {
-  PRESS(KC_LSFT);
+  PRESS(KC_LSHIFT);
     TAP(KC_X);
-  RELEASE(KC_LSFT);
+  RELEASE(KC_LSHIFT);
   TO(INSERT_MODE);
 }
 
@@ -221,9 +221,9 @@ void VIM_COMMAND_SHIFT_A(void) {
  * Simulates vim's `D` command by sending ⌃K to kill the line
  */
 void VIM_COMMAND_SHIFT_D(void) {
-  PRESS(KC_LCTL);
+  PRESS(KC_LCTRL);
     TAP(KC_K);
-  RELEASE(KC_LCTL);
+  RELEASE(KC_LCTRL);
   ENQUEUE_VIM_LEADER(KC_NO);
 }
 
@@ -262,12 +262,12 @@ void VIM_COMMAND_SHIFT_O(void) {
  * alternate method: ⌘⌫, ⌃K
  */
 void VIM_COMMAND_DD(void) {
-  PRESS(KC_LCTL);
+  PRESS(KC_LCTRL);
     TAP(KC_A);
-  RELEASE(KC_LCTL);
-  PRESS(KC_LCTL);
+  RELEASE(KC_LCTRL);
+  PRESS(KC_LCTRL);
     TAP(KC_K);
-  RELEASE(KC_LCTL);
+  RELEASE(KC_LCTRL);
   ENQUEUE_VIM_LEADER(KC_NO);
 }
 
