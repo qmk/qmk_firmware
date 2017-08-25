@@ -1,9 +1,9 @@
 #ifndef NYQUIST_H
 #define NYQUIST_H
 
-#ifdef SUBPROJECT_rev1
-    #include "rev1.h"
-#endif
+#include QMK_SUBPROJECT_H
+
+#include "quantum.h"
 
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \
@@ -21,6 +21,6 @@
         KC_##L40, KC_##L41, KC_##L42, KC_##L43, KC_##L44, KC_##L45, KC_##R40, KC_##R41, KC_##R42, KC_##R43, KC_##R44, KC_##R45 \
     )
 
-#include "quantum.h"
+#define LAYOUT_ortho_5x12 KEYMAP
 
 #endif
