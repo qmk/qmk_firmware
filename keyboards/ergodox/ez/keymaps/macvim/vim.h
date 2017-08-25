@@ -228,6 +228,19 @@ void VIM_COMMAND_SHIFT_D(void) {
 }
 
 /**
+ * Vim-like 'join lines' command
+ * Simulates vim's `J` command by sending ⌘→ to go to the end of the line, then
+ * DELETE to join the lines
+ */
+void VIM_COMMAND_SHIFT_J(void) {
+  PRESS(KC_LGUI);
+    TAP(KC_RIGHT);
+  RELEASE(KC_LGUI);
+  TAP(KC_DELETE);
+  ENQUEUE_VIM_LEADER(KC_NO);
+}
+
+/**
  * Vim-like 'open above' command
  * Simulates vim's `O` command by sending ⌘→ to go to the start of the line,
  * enter to move the line down, ↑ to move up to the new line, then switching to
@@ -327,6 +340,28 @@ void VIM_COMMAND_DIW(void) {
   TAP(KC_DEL); // delete selection
   ENQUEUE_VIM_LEADER(KC_NO);
 }
+
+/***
+ *      #####        ######   ######   #######  #######  ###  #     #  #######  ######
+ *     #     #       #     #  #     #  #        #         #    #   #   #        #     #
+ *     #             #     #  #     #  #        #         #     # #    #        #     #
+ *     #             ######   ######   #####    #####     #      #     #####    #     #
+ *     #             #        #   #    #        #         #     # #    #        #     #
+ *     #     #       #        #    #   #        #         #    #   #   #        #     #
+ *      #####        #        #     #  #######  #        ###  #     #  #######  ######
+ *
+ */
+
+/***
+ *      #####   ###      ######   ######   #######  #######  ###  #     #  #######  ######
+ *     #     #   #       #     #  #     #  #        #         #    #   #   #        #     #
+ *     #         #       #     #  #     #  #        #         #     # #    #        #     #
+ *     #         #       ######   ######   #####    #####     #      #     #####    #     #
+ *     #         #       #        #   #    #        #         #     # #    #        #     #
+ *     #     #   #       #        #    #   #        #         #    #   #   #        #     #
+ *      #####   ###      #        #     #  #######  #        ###  #     #  #######  ######
+ *
+ */
 
 /**
  * Vim-like `change inner word` command

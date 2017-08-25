@@ -187,6 +187,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }
                 return false;
 
+            case KC_DOWN: print("|vim J|");
+                if (record->event.pressed) { VIM_COMMAND_SHIFT_J(); }
+                return false;
+
             case VIM_O: print("|vim O|");
                 if (record->event.pressed) { VIM_COMMAND_SHIFT_O(); }
                 return false;
