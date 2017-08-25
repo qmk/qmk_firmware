@@ -120,23 +120,49 @@ return MACRO_NONE;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint8_t layer = biton32(layer_state);
+  bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) | (keyboard_report->mods & MOD_BIT(KC_LSFT));
 
+  // START switch(layer)
   switch (layer) {
+
     case NORMAL_MODE:
 
+      // START switch(vim_queue)
       switch (vim_queue) {
 
-        case KC_NO: print("|NO VIM QUEUE|");
+        case KC_NO: print("⍉");
+
+          // START switch(is_vim_leader(keycode))
           switch (is_vim_leader(keycode)) {
 
-            case true: print("|vim leader|");
-              if (record->event.pressed) { ENQUEUE_VIM_LEADER(keycode); }
-              return false;
+            case true:
+              switch (SHIFTED) {
+                case true:
+                  // START switch keycode when leader and shifted
+                  switch (keycode) {
+
+                    case VIM_D:
+                      if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }
+                      return false;
+
+                    case VIM_C:
+                      if (record->event.pressed) { VIM_COMMAND_SHIFT_C(); }
+                      return false;
+
+                  }
+                  // END switch keycode when leader and shifted
+                case false: print("☞");
+                  if (record->event.pressed) { ENQUEUE_VIM_LEADER(keycode); }
+                  return false;
+              }
 
             case false:
+
+              // START switch(keycode) when no vim leader
               switch (keycode) {
                 case VIM_A:
-                  if (record->event.pressed) { VIM_COMMAND_A(); }
+                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_A() : VIM_COMMAND_A(); }
+                  return false;
 
                 case VIM_B:
                   if (record->event.pressed) { VIM_COMMAND_B(); }
@@ -147,7 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   return false;
 
                 case VIM_O:
-                  if (record->event.pressed) { VIM_COMMAND_O(); }
+                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_O() : VIM_COMMAND_O(); }
                   return false;
 
                 case VIM_P:
@@ -155,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   return false;
 
                 case VIM_S:
-                  if (record->event.pressed) { VIM_COMMAND_S(); }
+                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_S() : VIM_COMMAND_S(); }
                   return false;
 
                 case VIM_U:
@@ -170,7 +196,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   if (record->event.pressed) { VIM_COMMAND_Y(); }
                   return false;
 
-              } // END switch(keycode) for case vim_queue == KC_NO
+                case KC_DOWN:
+                  if (SHIFTED & record->event.pressed) {
+                    VIM_COMMAND_SHIFT_J();
+                    return false;
+                  }
+                  else {
+                    return true;
+                  }
 
               return true;
           } // END switch(is_vim_leader(keycode))
@@ -187,55 +220,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }
                 return false;
 
-            case KC_DOWN: print("|vim J|");
-                if (record->event.pressed) { VIM_COMMAND_SHIFT_J(); }
-                return false;
-
-            case VIM_O: print("|vim O|");
-                if (record->event.pressed) { VIM_COMMAND_SHIFT_O(); }
-                return false;
-
-          }
-
-        case VIM_D: print("|found d-|");
+        case VIM_D:
+          // START switch(keycode) for case vim_queue != VIM_QUEUE_D
           switch (keycode) {
 
-            case VIM_D: print("|vim dd|");
+            case VIM_D:
                 if (record->event.pressed) { VIM_COMMAND_DD(); }
                 return false;
 
-            case VIM_W: print("|vim dw|");
+            case VIM_W:
                 if (record->event.pressed) { VIM_COMMAND_DW(); }
                 return false;
 
-            case VIM_B: print("|vim db|");
+            case VIM_B:
                 if (record->event.pressed) { VIM_COMMAND_DB(); }
                 return false;
 
-              // print("|vim diw|");
-
             default:
               return true;
-          } // END switch(keycode) for case vim_queue != VIM_QUEUE_D
+          }
+          // END switch(keycode) for case vim_queue != VIM_QUEUE_D
 
-        case VIM_V: print("|found v-|");
+        case VIM_V:
+          // START switch(keycode) for vim_queue == VIM_QUEUE_V
           switch (keycode) {
 
-            case VIM_W: print("|vim vw|");
+            case VIM_W:
                 if (record->event.pressed) { VIM_COMMAND_VW(); }
                 return false;
 
-            case VIM_B: print("|vim vb|");
+            case VIM_B:
                 if (record->event.pressed) { VIM_COMMAND_VB(); }
                 return false;
-          } // END switch(keycode) for vim_queue == VIM_QUEUE_V
 
-        // case VIM_QUEUE_C:
-        //   print("|vim ciw|");
+          }
+          // END switch(keycode) for vim_queue == VIM_QUEUE_V
 
-      } // END switch (vim_queue)
+        case VIM_C:
+            ENQUEUE_VIM_LEADER(KC_NO);
+            return true; // placeholder until VIM_C queue is implemented
+
+      }
+      // END switch (vim_queue)
 
     case INSERT_MODE:
+      // START switch(keycode) for case INSERT_MODE
       switch (keycode) {
         // dynamically generate these.
         case EPRM:
@@ -248,8 +277,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) { rgblight_mode(1); }
           return false;
       }
-    }
-    return true;
+      // END switch(keycode) for case INSERT_MODE
+
+  }
+  // END switch(layer)
+
+  return true;
 };
 
 void matrix_init_user(void) {

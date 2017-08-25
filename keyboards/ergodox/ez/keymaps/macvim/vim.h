@@ -39,8 +39,8 @@ void TAP(uint16_t keycode) {
     RELEASE(keycode);
 }
 
-#define VIM_KEYS_LENGTH 11
-#define VIM_LEADERS_LENGTH 4
+#define VIM_KEYS_LENGTH 12
+#define VIM_LEADERS_LENGTH 3
 
 static const uint16_t VIM_KEYS[VIM_KEYS_LENGTH] = {
   VIM_D, VIM_W, VIM_V,    VIM_B, KC_H,  KC_J,
@@ -48,7 +48,9 @@ static const uint16_t VIM_KEYS[VIM_KEYS_LENGTH] = {
 };
 
 static const uint16_t VIM_LEADERS[VIM_LEADERS_LENGTH] = {
-  VIM_D, VIM_V, KC_LSHIFT, KC_RSHIFT
+  VIM_C,
+  VIM_D,
+  VIM_V,
 };
 
 /**
@@ -82,6 +84,11 @@ bool is_vim_leader(uint16_t keycode) {
  */
 void ENQUEUE_VIM_LEADER(uint16_t keycode) {
   vim_queue = keycode;
+  switch(keycode) {
+    case VIM_C: print("⌨️c-…"); break;
+    case VIM_D: print("⌨️d-…"); break;
+    case VIM_V: print("⌨️v-…"); break;
+  }
 }
 
 /***
@@ -100,6 +107,7 @@ void ENQUEUE_VIM_LEADER(uint16_t keycode) {
  * Works by sending →.
  */
 void VIM_COMMAND_A(void) {
+  print("⌨️a🍻");
   TAP(KC_RIGHT);
   TO(INSERT_MODE);
 }
@@ -109,6 +117,7 @@ void VIM_COMMAND_A(void) {
  * Simulates vim's `b` command by sending ⌥←
  */
 void VIM_COMMAND_B(void) {
+  print("⌨️b🍻");
   PRESS(KC_LALT);
     TAP(KC_LEFT);
   RELEASE(KC_LALT);
@@ -119,6 +128,7 @@ void VIM_COMMAND_B(void) {
  * Simulates vim's `e` command by sending ⌥→
  */
 void VIM_COMMAND_E(void) {
+  print("⌨️e🍻");
   PRESS(KC_LALT);
     TAP(KC_RIGHT);
   RELEASE(KC_LALT);
@@ -130,6 +140,7 @@ void VIM_COMMAND_E(void) {
  * then switching to insert mode.
  */
 void VIM_COMMAND_O(void) {
+  print("⌨️o🍻");
   PRESS(KC_LGUI);
     TAP(KC_RIGHT);
   RELEASE(KC_LGUI);
@@ -142,6 +153,7 @@ void VIM_COMMAND_O(void) {
  * Simulates vim's `p` command by sending ⌘V
  */
 void VIM_COMMAND_P(void) {
+  print("⌨️p🍻");
   PRESS(KC_LGUI);
     TAP(KC_V);
   RELEASE(KC_LGUI);
@@ -153,6 +165,7 @@ void VIM_COMMAND_P(void) {
  * ⌘X to cut it, then entering insert mode.
  */
 void VIM_COMMAND_S(void) {
+  print("⌨️s🍻");
   PRESS(KC_LSHIFT);
     TAP(KC_X);
   RELEASE(KC_LSHIFT);
@@ -164,6 +177,7 @@ void VIM_COMMAND_S(void) {
  * Simulates vim's `u` command by sending ⌘Z
  */
 void VIM_COMMAND_U(void) {
+  print("⌨️u🍻");
   PRESS(KC_LGUI);
     TAP(KC_Z);
   RELEASE(KC_LGUI);
@@ -176,6 +190,7 @@ void VIM_COMMAND_U(void) {
  * then to the beginning of that word.
  */
 void VIM_COMMAND_W(void) {
+  print("⌨️w🍻");
   PRESS(KC_LALT);
     TAP(KC_RIGHT);
     TAP(KC_RIGHT);
@@ -188,6 +203,7 @@ void VIM_COMMAND_W(void) {
  * Simulates vim's `y` command by sending ⌘C
  */
 void VIM_COMMAND_Y(void) {
+  print("⌨️y🍻");
   PRESS(KC_LGUI);
     TAP(KC_C);
   RELEASE(KC_LGUI);
@@ -209,10 +225,20 @@ void VIM_COMMAND_Y(void) {
  * Simulates vim's `A` command by sending ⌘→ then switching to insert mode.
  */
 void VIM_COMMAND_SHIFT_A(void) {
+  print("⌨️A🍻");
+  ENQUEUE_VIM_LEADER(KC_NO);
   PRESS(KC_LGUI);
     TAP(KC_RIGHT);
   RELEASE(KC_LGUI);
-  TO(INSERT_MODE);
+  layer_on(INSERT_MODE);
+}
+
+/**
+ * Vim-like `change line` command
+ * Simulates vim's `C` command by sending ⌃K then switching to insert mode.
+ */
+void VIM_COMMAND_SHIFT_C(void) {
+  print("⌨️C🍻");
   ENQUEUE_VIM_LEADER(KC_NO);
 }
 
@@ -221,6 +247,8 @@ void VIM_COMMAND_SHIFT_A(void) {
  * Simulates vim's `D` command by sending ⌃K to kill the line
  */
 void VIM_COMMAND_SHIFT_D(void) {
+  print("⌨️D🍻");
+  ENQUEUE_VIM_LEADER(KC_NO);
   PRESS(KC_LCTRL);
     TAP(KC_K);
   RELEASE(KC_LCTRL);
@@ -233,6 +261,8 @@ void VIM_COMMAND_SHIFT_D(void) {
  * DELETE to join the lines
  */
 void VIM_COMMAND_SHIFT_J(void) {
+  print("⌨️J🍻");
+  ENQUEUE_VIM_LEADER(KC_NO);
   PRESS(KC_LGUI);
     TAP(KC_RIGHT);
   RELEASE(KC_LGUI);
@@ -247,12 +277,23 @@ void VIM_COMMAND_SHIFT_J(void) {
  * insert mode.
  */
 void VIM_COMMAND_SHIFT_O(void) {
+  print("⌨️O🍻");
+  ENQUEUE_VIM_LEADER(KC_NO);
   PRESS(KC_LGUI);
     TAP(KC_RIGHT);
   RELEASE(KC_LGUI);
   TAP(KC_ENTER);
   TAP(KC_UP);
-  TO(INSERT_MODE);
+  layer_on(INSERT_MODE);
+}
+
+/**
+ * Vim-like 'substitute line' command
+ * Simulates vim's `S` command by sending ⌘← to go to the start of the line,
+ * ⌃K to kill the line, then switching to insert mode.
+ */
+void VIM_COMMAND_SHIFT_S(void) {
+  print("⌨️S🍻");
   ENQUEUE_VIM_LEADER(KC_NO);
 }
 
@@ -275,6 +316,7 @@ void VIM_COMMAND_SHIFT_O(void) {
  * alternate method: ⌘⌫, ⌃K
  */
 void VIM_COMMAND_DD(void) {
+  print("⌨️dd🍻");
   PRESS(KC_LCTRL);
     TAP(KC_A);
   RELEASE(KC_LCTRL);
@@ -290,6 +332,7 @@ void VIM_COMMAND_DD(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_DW(void) {
+  print("⌨️dw🍻");
   PRESS(KC_LALT);
     PRESS(KC_LSHIFT);
       TAP(KC_RIGHT); // select to end of word
@@ -305,6 +348,7 @@ void VIM_COMMAND_DW(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_DB(void) {
+  print("⌨️db🍻");
   PRESS(KC_LALT);
     PRESS(KC_LSHIFT);
       TAP(KC_LEFT); // select to start of word
@@ -332,6 +376,7 @@ void VIM_COMMAND_DB(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_DIW(void) {
+  print("⌨️diw🍻");
   VIM_COMMAND_B();
   PRESS(KC_LSHIFT);
     VIM_COMMAND_E(); // select inner word
@@ -371,6 +416,7 @@ void VIM_COMMAND_DIW(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_CIW(void) {
+  print("⌨️ciw🍻");
   VIM_COMMAND_B();
   PRESS(KC_LSHIFT);
     VIM_COMMAND_E(); // select inner word
@@ -398,6 +444,7 @@ void VIM_COMMAND_CIW(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_VW(void) {
+  print("⌨️vw🍻");
   PRESS(KC_LALT);
     PRESS(KC_LSHIFT);
       TAP(KC_RIGHT); // select to end of word
@@ -412,6 +459,7 @@ void VIM_COMMAND_VW(void) {
  * Finally, cancels the vim command queue.
  */
 void VIM_COMMAND_VB(void) {
+  print("⌨️vb🍻");
   PRESS(KC_LALT);
     PRESS(KC_LSHIFT);
       TAP(KC_LEFT); // select to start of word
