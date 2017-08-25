@@ -1,5 +1,7 @@
 # Flip Phone layout for Roadkit
 
+BEWARE, THIS DOES NOT WORK YET. 
+
 Uses the numpad with classic cellular phone style letters assigned to the numbers.
 
 # LAYERS
@@ -9,11 +11,11 @@ Uses the numpad with classic cellular phone style letters assigned to the number
 * FPHNOISY - Text layer that outputs every character and then backspaces as they're replaced
 * DYN - dynamic macro layer for recording and playing macros
 
-## T9
+## FPH
 
 Poke the "2" key twice and it makes "B".
 
-## T9NOISY
+## FPHNOISY
 
 Poke the "2" key twice and it makes "A"+backspace+"B" so you can see it cycle through.
 
