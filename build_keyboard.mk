@@ -39,6 +39,7 @@ ifneq ("$(wildcard $(KEYBOARD_C))","")
 else
     $(error "$(KEYBOARD_C)" does not exist)
 endif
+OPT_DEFS += -DKEYBOARD_$(KEYBOARD)
 
 ifneq ($(SUBPROJECT),)
     SUBPROJECT_PATH := keyboards/$(KEYBOARD)/$(SUBPROJECT)
@@ -97,10 +98,12 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_C))","")
     -include $(MAIN_KEYMAP_PATH)/Makefile
     KEYMAP_C := $(MAIN_KEYMAP_C)
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH)
+else ifneq ($(LAYOUTS),)
+    include build_layout.mk
 else
-    $(error "$(MAIN_KEYMAP_C)/keymap.c" does not exist)
+    $(error Could not find keymap)
+    # this state should never be reached
 endif
-
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
@@ -157,7 +160,10 @@ endif
 
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
-$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) -DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYMAP=\"$(KEYMAP)\"
+$(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) \
+-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(KEYBOARD).h\" -DQMK_KEYBOARD_CONFIG_H=\"$(KEYBOARD_PATH)/config.h\" \
+-DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
+-DQMK_SUBPROJECT=\"$(SUBPROJECT)\" -DQMK_SUBPROJECT_H=\"$(SUBPROJECT).h\" -DQMK_SUBPROJECT_CONFIG_H=\"$(SUBPROJECT_PATH)/config.h\"
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
 $(KEYMAP_OUTPUT)_CONFIG := $(CONFIG_H)
 $(KEYBOARD_OUTPUT)_SRC := $(CHIBISRC) $(GFXSRC)
