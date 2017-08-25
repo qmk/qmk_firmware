@@ -1,13 +1,26 @@
-# MJT's Planck layout, based on default with some tweaks.
+# Mike's Rethought Planck
 
-Summary of adjustments:
+- Music/Audio
+- Dynamic Macros
+- Media Keys
+- Works with iPhone Camera Adapter
 
-1. KC_POWER to make MacBook sleep (raise + lower + "L"" (shift(control(power))?
-3. Add arrow key "raise" keys for home, pgup, pgdn, end
-6. Enable dynamic macros https://github.com/qmk/qmk_firmware/commit/0f119e09a57c53cd44572dc958d316bb979ce298
-7. Remove Colemak and Dvorak layouts
-8. Added dynamic macro layer to lower-left button
+## Layers
 
-And some stuff I might do:
+Qwerty for letters and mods.
 
-1. Backlight levels are 0, 15, 30, 100...
+Numsym for all numbers and symbols used in typing. Follows a similar approach to
+planck but puts both on the same layer eschewing the F-keys.  
+
+Fkeys layer is for the seldom used stuff like F-keys and some additional features
+such as dynamic macros, media keys, and a sleep shortcut for OS X.
+
+Adjust layer is mainly for keyboard configuration stuff.
+
+## Dynamic Macros
+
+Hold TAB key, then press ";" to record macro 1 and "'" to record macro 2.
+
+When you are done recording, press TAB again.
+
+For playback of macros, TAB+"," plays macro 1 and TAB+","plays macro 2.

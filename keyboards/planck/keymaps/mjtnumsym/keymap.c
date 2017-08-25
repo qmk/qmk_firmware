@@ -19,8 +19,7 @@ enum planck_layers {
   _FKEYS,
   _NUMSYM,
   _PLOVER,
-  _ADJUST,
-  _DYN
+  _ADJUST
 };
 
 enum planck_keycodes {

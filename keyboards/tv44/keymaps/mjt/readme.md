@@ -1,25 +1,26 @@
-# Mike's Minivan with Planck mappings
+# Mike's Minivan
 
 - Arrow Layout (45key)
 - Dynamic Macros
+- Media Keys
 - Works with iPhone Camera Adapter
 
-## Qwerty
+## Layers
 
-## RAISE
+Qwerty for letters and mods.
 
-## LOWER
+Numsym for all numbers and symbols used in typing. Follows a similar approach to
+planck but puts both on the same layer eschewing the F-keys.  
 
-## PLOVER
+Fkeys layer is for the seldom used stuff like F-keys and some additional features
+such as dynamic macros, media keys, and a sleep shortcut for OS X.
 
-## ADJUST
+Adjust layer is tough to get to so it is only for keyboard configuration stuff.
 
 ## Dynamic Macros
 
-Enable the DYN layer, then press "O" to record macro 1 and P to record macro 2.
+Hold TAB key, then press ";" to record macro 1 and "'" to record macro 2.
 
-When you are done recording, return to the dyn layer and press backspace.
-This shouldn't be necessary but the way the layers are setup on this layout
-seems to break the way dynamic macros normally work.
+When you are done recording, press TAB again.
 
-For playback of macros, the down arrow plays macro 0, up arrow plays macro 1.
+For playback of macros, TAB+"," plays macro 1 and TAB+","plays macro 2.
