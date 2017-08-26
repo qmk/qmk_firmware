@@ -201,9 +201,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Bksp  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |  ' "   |
  * |--------+------+------+------+------+------| TG(2)|           | TG(2)|------+------+------+------+------+--------|
- * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  UP  | Shift  |
+ * | Shift  |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  ? / | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `/SYM|  ' " | LGUI |  [ { | ] }  |                                       | SYMB |  ? / | LEFT | DOWN |RIGHT |
+ *   | `/SYM|  ' " | LGUI |  [ { | ] }  |                                       | LEFT | DOWN |  UP  |RIGHT | SYMB |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,--------------.       ,--------------.
  *                                        |Alt/Ap|  Win  |       | Alt  |Ctl/Esc|
@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				TG(DVORAK),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
 				TG(COLEMAK),    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_FN1,     KC_LEFT,    KC_DOWN,    KC_UP,          KC_RIGHT,
+                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
 				KC_LALT,    CTL_T(KC_ESCAPE),
 				KC_PGUP,
 				KC_PGDOWN,  KC_DELETE,  KC_ENTER
@@ -262,16 +262,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DELT,        KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LBRACKET,KC_RBRACKET,
+        LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
              KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             KC_NO,    KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
+             KC_NO,       KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
-             KC_TRNS,KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+             KC_TRNS,KC_K,KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
+						  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_ENT
@@ -305,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DELT,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(DIABLO),
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
         KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LBRACKET,KC_RBRACKET,
+        LT(SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
@@ -314,7 +314,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TRNS,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   LT(MOUS, KC_S),   KC_MINS,
              KC_NO,KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
-                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+	                       KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_ENT
@@ -347,15 +347,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
 				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_TRNS,
 				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-                                        RGB_MOD,    RGB_0000FF,
-                                                    RGB_008000,
-							RGB_VAD,    RGB_VAI,    RGB_FF0000,
+	                                                              KC_TRNS, KC_TRNS,
+	                                                              KC_TRNS,
+	                                                              KC_TRNS, KC_TRNS, KC_TRNS,
 				
 				KC_TRNS, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
 				KC_TRNS, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
 				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
 				KC_TRNS, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
-                                            KC_TRNS,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_KP_ENTER,
+	                                 KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_TRNS,
 				RGB_TOG,    RGB_SLD,
 				KC_NO,
 				KC_KP_DOT, KC_KP_0, KC_KP_ENTER
@@ -476,9 +476,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 									KC_MS_BTN1,KC_MS_BTN2,KC_MS_WH_DOWN,
 				
 				KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
+				KC_TRNS,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
 				KC_NO,KC_NO,KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,KC_NO,KC_NO,
-				KC_TRANSPARENT,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,KC_AUDIO_MUTE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_NO,
+				KC_TRNS,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,KC_AUDIO_MUTE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_NO,
 				KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
 				KC_NO,KC_NO,
 				KC_NO,
