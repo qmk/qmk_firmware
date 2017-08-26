@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				TG(DVORAK),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
 				TG(COLEMAK),    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_FN1,     KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,
+                                            KC_FN1,     KC_LEFT,    KC_DOWN,    KC_UP,          KC_RIGHT,
 				KC_LALT,    CTL_T(KC_ESCAPE),
 				KC_PGUP,
 				KC_PGDOWN,  KC_DELETE,  KC_ENTER
