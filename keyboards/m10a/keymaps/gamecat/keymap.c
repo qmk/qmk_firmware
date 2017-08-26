@@ -21,6 +21,11 @@ enum layers {
   _L9
 };
 
+enum m10a_keycodes {
+    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+};
+
+#include "dynamic_macro.h"
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define FN_ZERO LT(_L9, KC_0)
@@ -29,13 +34,6 @@ enum layers {
 #define KC_DMP1 DYN_MACRO_PLAY1
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
-
-enum m10a_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-#include "dynamic_macro.h"
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
@@ -48,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |L0 |FN_L9 0|  |L1 |       |  |L2 |       |  |L3 |       |  |L4 |       |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     *  .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
-    *  |   |   |   |  |   |   |   |  |   |   |   |  |_L6|_L7|_L9|  |   |   |   |
+    *  |   |   |   |  |   |   |   |  |MP1|   |MP2|  |_L6|_L7|_L9|  |   |   |   |
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |   |   |   |  |   |   |   |  |   |MP1|MR1|  |_L3|_L4|_L5|  |   |   |   |
+    *  |   |   |   |  |   |   |   |  |   |MRS|   |  |_L3|_L4|_L5|  |   |   |   |
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |   |   |   |  |   |   |   |  |MRS|MR2|MP2|  |_L0|_L1|_L2|  |_L8|_L8|_L8|
+    *  |   |   |   |  |   |   |   |  |MR1|   |MR2|  |_L0|_L1|_L2|  |_L8|_L8|_L8|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
     *  |L5 |       |  |L6 |       |  |L7 |       |  |L8 |       |  |L9 |       |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
@@ -64,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L4] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L7] = {{_______, _______, _______}, {_______, KC_DMP1, KC_DMR1}, {KC_DMRS, KC_DMR2, KC_DMP2}, {XXXXXXX, XXXXXXX, MO(_L8)}},
+    [_L7] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L8] = {{TO(_L6), TO(_L7), TO(_L9)}, {TO(_L3), TO(_L4), TO(_L5)}, {TO(_L0), TO(_L1), TO(_L2)}, {XXXXXXX, XXXXXXX, _______}},
     [_L9] = {{_______, _______, _______}, {_______, _______, _______}, {TO(_L8), TO(_L8), TO(_L8)}, {XXXXXXX, XXXXXXX, _______}},
 };
