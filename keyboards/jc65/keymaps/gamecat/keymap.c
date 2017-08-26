@@ -5,6 +5,11 @@
 #define _CL 2    // Control Layer
 #define _______ KC_TRNS
 #define FN_CAPS LT(_FL, KC_CAPS)
+#define KC_DMR1 DYN_REC_START1
+#define KC_DMR2 DYN_REC_START2
+#define KC_DMP1 DYN_MACRO_PLAY1
+#define KC_DMP2 DYN_MACRO_PLAY2
+#define KC_DMRS DYN_REC_STOP
 
 enum jc65_keycodes {
     DYNAMIC_MACRO_RANGE = SAFE_RANGE,
@@ -38,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* _FL: Function Layer.
-    *  Fn0 *should* open Chrome
+    *  M0 opens Chrome
     *  .---------------------------------------------------------------.
-    *  |Fn0| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
+    *  |M0 | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
     *  |---------------------------------------------------------------|
     *  |Fn_CL|   |   |   |   |   |   |   |   |   |   |   |   |     |Pau|
     *  |---------------------------------------------------------------|
@@ -52,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_FL] = KEYMAP(
-        F(0),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_SLCK, KC_PSCR,
+        M(0),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_SLCK, KC_PSCR,
         MO(_CL),          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PAUS,
         _______,          _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_HOME,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MUTE, KC_VOLU, KC_END,
@@ -74,11 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_CL] = KEYMAP(
-        M(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, DYN_MACRO_PLAY1,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1,
-        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          DYN_REC_STOP,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, DYN_REC_START2,
-        RESET,   _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, DYN_MACRO_PLAY2
+        F(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_DMP1,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DMR1,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DMRS,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, KC_DMR2,
+        RESET,   _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, KC_DMP2
     ),
 };
 
@@ -86,7 +91,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch(id) {
         case 0:
             if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+                return MACRO(I(0), D(LGUI), T(R), U(LGUI), END);
+            } 
+            else {
+                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0\n");
+                return false;
             }
         break;
     }
@@ -109,9 +118,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
         case 0:
             if (record->event.pressed) {
-                MACRO(D(LGUI), T(R), U(LGUI), END);
-                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0");
-                MACRO(T(ENT), END);
+                SEND_STRING ("Keyboard:" QMK_KEYBOARD "    QMK Version:" QMK_VERSION "    Keymap:" QMK_KEYMAP);
             }
         break;
     }

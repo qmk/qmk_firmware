@@ -1,0 +1,249 @@
+// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
+// this is the style you want to emulate.
+
+#include "m10a.h"
+#include "action_layer.h"
+#include "eeconfig.h"
+#include "version.h"
+
+extern keymap_config_t keymap_config;
+
+enum layers {
+    _L0,
+    _L1,
+    _L2,
+    _L3,
+    _L4,
+    _L5,
+    _L6,
+    _L7,
+    _L8,
+    _L9
+};
+
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+#define FN_ZERO LT(_L2, KC_0)
+
+enum m10a_keycodes {
+    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+    L0,
+    L1,
+    L2,
+    L3,
+    L4,
+    L5,
+    L6,
+    L7,
+    L8,
+    L9,
+    TIMOD
+};
+
+#include "dynamic_macro.h"
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* _NL: Number Layer.
+    *  .-----------.
+    *  |  7|  8|  9|
+    *  |-----------|
+    *  |  4|  5|  6|
+    *  |-----------|
+    *  |  1|  2|  3|
+    *  |-----------|
+    *  |||||FN_L1 0|
+    *  *-----------*
+    */
+    [_L0] = M10A(KC_7,    KC_8,    KC_9,  KC_4,    KC_5,    KC_6,   KC_1,    KC_2,    KC_3,  XXXXXXX, XXXXXXX, TIMOD),
+    [_L1] = M10A(_______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______),
+    [_L2] = M10A(L7, L8, L9, L4, L5, L6, L0, L2, L3, XXXXXXX, XXXXXXX, TIMOD),
+    [_L3] = M10A(KC_VOLU, KC_MNXT, KC_MFFD, KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD, KC_MPRV, KC_MRWD, XXXXXXX, XXXXXXX, TIMOD),
+    [_L4] = M10A(KC_WFWD, _______, _______, F(0),    F(1),    _______, KC_WBAK, _______, _______, XXXXXXX, XXXXXXX, TIMOD),
+    [_L5] = M10A(_______, _______, _______, _______, M(0),    _______, _______, _______, _______, XXXXXXX, XXXXXXX, TIMOD),
+    [_L6] = M10A(_______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, TIMOD),
+    [_L7] = M10A(_______, _______, _______, _______, _______, _______, _______, KC_Y, KC_7, XXXXXXX, XXXXXXX, TIMOD),
+    [_L8] = M10A(_______, _______, _______, _______, _______, _______, _______, KC_X, KC_8, XXXXXXX, XXXXXXX, TIMOD),
+    [_L9] = M10A(_______, _______, _______, _______, DYN_MACRO_PLAY1, DYN_REC_START1, DYN_REC_STOP, DYN_REC_START2, DYN_MACRO_PLAY2, XXXXXXX, XXXXXXX, TIMOD)
+};
+
+void matrix_init_user(void) {
+  #ifdef BACKLIGHT_ENABLE
+    backlight_level(0);
+  #endif
+}
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+            }
+        break;
+    }
+    return MACRO_NONE;
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_FUNCTION(0),
+    [1] = ACTION_FUNCTION(1),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch (id) {
+        case 0:
+            if (record->event.pressed) {
+                MACRO(D(LGUI), T(R), U(LGUI), END);
+                SEND_STRING("chrome.exe");
+                MACRO(T(ENT), END);
+            }
+        break;
+        case 1:
+            if (record->event.pressed) {
+                MACRO(D(LCTL), T(W), U(LCTL), END);
+            }
+        break;
+    }
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t layer;
+
+    // Enable Dynamic Macros.
+    if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
+
+
+    switch (keycode) {
+        case TIMOD:
+          if (record->event.pressed) {
+              MACRO(I(2), T(G), T(O), T(T), END);
+              layer = biton32(layer_state);  // get the current layer
+              if (keycode >= KC_0 && keycode <= KC_9){
+                  if (layer != _L0) {
+                      set_single_persistent_default_layer(_L0);
+                  }
+                  if(layer == _L0) {
+                      if (keycode == KC_0) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L0);
+                          } 
+                      }
+                      if (keycode == KC_1) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L1);
+                          } 
+                      }
+                      if (keycode == KC_2) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L2);
+                          } 
+                      }
+                      if (keycode == KC_3) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L3);
+                          } 
+                      }
+                      if (keycode == KC_4) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L4);
+                          } 
+                      }
+                      if (keycode == KC_5) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L5);
+                          } 
+                      }
+                      if (keycode == KC_6) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L6);
+                          } 
+                      }
+                      if (keycode == KC_7) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L7);
+                          } 
+                      }
+                      if (keycode == KC_8) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L8);
+                          } 
+                      }
+                      if (keycode == KC_9) {
+                          if (record->event.pressed) {
+                              set_single_persistent_default_layer(_L9);
+                          } 
+                      }
+                  }
+                  else{
+                      MACRO(T(0), END);
+                  }
+              }
+          }
+          return true;
+          break;
+        case L0:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L0);
+          }
+          return false;
+          break;
+        case L1:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L1);
+          }
+          return false;
+          break;
+        case L2:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L2);
+          }
+          return false;
+          break;
+        case L3:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L3);
+          }
+          return false;
+          break;
+        case L4:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L4);
+          }
+          return false;
+          break;
+        case L5:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L5);
+          }
+          return false;
+          break;
+        case L6:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L6);
+          }
+          return false;
+          break;
+        case L7:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L7);
+          }
+          return false;
+          break;
+        case L8:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L8);
+          }
+          return false;
+          break;
+        case L9:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_L9);
+          }
+          return false;
+          break;
+      }
+    return true;
+};
+
