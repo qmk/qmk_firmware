@@ -123,8 +123,11 @@ void VIM_LEADER(uint16_t keycode) {
   vim_queue = keycode;
   switch(keycode) {
     case VIM_C: print("⌨️c…"); break;
+    case VIM_CI: print("⌨️ci…"); break;
     case VIM_D: print("⌨️d…"); break;
+    case VIM_DI: print("⌨️di…"); break;
     case VIM_V: print("⌨️v…"); break;
+    case VIM_VI: print("⌨️vi…"); break;
     case KC_NO: print("❎"); break;
   }
 }
