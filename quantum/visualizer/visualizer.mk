@@ -91,7 +91,7 @@ GDISP_DRIVER_LIST := $(subst $(GDISP_LIST_SPACE),$(GDISP_LIST_COMMA),$(GDISP_DRI
 GFXDEFS +=-DGDISP_DRIVER_LIST="$(GDISP_DRIVER_LIST)"
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
-    SRC += keyboards/$(KEYBOARD)/keymaps/$(KEYMAP)/visualizer.c
+    SRC += $(KEYMAP_PATH)/visualizer.c
 else 
     ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
         ifeq ("$(wildcard $(SUBPROJECT_PATH)/visualizer.c)","")
