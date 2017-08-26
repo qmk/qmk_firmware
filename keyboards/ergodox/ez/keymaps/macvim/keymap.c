@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Layer 2 Right Hand
                               _______,_______,_______,_______,_______,_______,_______,
                               _______,VIM_Y  ,VIM_U  ,INS_MOD,VIM_O  ,VIM_P  ,_______,
-                                      KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,_______,KC_ESC ,
+                                      VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,_______,KC_ESC ,
                               _______,_______,_______,_______,_______,_______,KC_LSFT,
                                               _______,_______,_______,_______,_______,
 
@@ -172,6 +172,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   if (record->event.pressed) { VIM_COMMAND_E(); }
                   return false;
 
+                case VIM_H:
+                  if (record->event.pressed) { VIM_LEFT(); }
+                  return false;
+
+                case VIM_J:
+                  if (record->event.pressed) { SHIFTED ? VIM_JOIN() : VIM_DOWN(); }
+                  return false;
+
+                case VIM_K:
+                  if (record->event.pressed) { VIM_UP(); }
+                  return false;
+
+                case VIM_L:
+                  if (record->event.pressed) { VIM_RIGHT(); }
+                  return false;
+
                 case VIM_O:
                   if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_O() : VIM_COMMAND_O(); }
                   return false;
@@ -196,25 +212,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   if (record->event.pressed) { VIM_COMMAND_Y(); }
                   return false;
 
-                case KC_DOWN:
-                  if (SHIFTED & record->event.pressed) {
-                    VIM_COMMAND_SHIFT_J();
-                    return false;
-                  }
-                  else {
-                    return true;
-                  }
-
-              return true;
-          } // END switch(is_vim_leader(keycode))
-
-        case KC_LSFT:
-        case KC_RSFT: print("|found SFT-|");
-          switch (keycode) {
-
-            case VIM_A: print("|vim A|");
-                if (record->event.pressed) { VIM_COMMAND_SHIFT_A(); }
-                return false;
+              }
+              // END switch(keycode) when no vim leader
+            }
+            // END switch(is_vim_leader(keycode))
 
             case VIM_D: print("|vim D|");
                 if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }

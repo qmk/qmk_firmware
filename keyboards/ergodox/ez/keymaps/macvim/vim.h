@@ -21,6 +21,10 @@ enum custom_keycodes {
   VIM_B,
   VIM_D,
   VIM_E,
+  VIM_H,
+  VIM_J,
+  VIM_K,
+  VIM_L,
   VIM_O,
   VIM_P,
   VIM_S,
@@ -43,8 +47,18 @@ void TAP(uint16_t keycode) {
 #define VIM_LEADERS_LENGTH 3
 
 static const uint16_t VIM_KEYS[VIM_KEYS_LENGTH] = {
-  VIM_D, VIM_W, VIM_V,    VIM_B, KC_H,  KC_J,
-  KC_K,  KC_L,  KC_X,     VIM_A, VIM_S
+  VIM_A,
+  VIM_B,
+  VIM_C,
+  VIM_D,
+  VIM_H,
+  VIM_J,
+  VIM_K,
+  VIM_L,
+  VIM_S,
+  VIM_V,
+  VIM_W,
+  VIM_X,
 };
 
 static const uint16_t VIM_LEADERS[VIM_LEADERS_LENGTH] = {
@@ -124,6 +138,15 @@ void VIM_COMMAND_B(void) {
 }
 
 /**
+ * Vim-like `down` command
+ * Sends ↓
+ */
+void VIM_DOWN(void) {
+  print("⌨️↓🍻");
+  TAP(KC_DOWN);
+}
+
+/**
  * Vim-like `end` command
  * Simulates vim's `e` command by sending ⌥→
  */
@@ -132,6 +155,15 @@ void VIM_COMMAND_E(void) {
   PRESS(KC_LALT);
     TAP(KC_RIGHT);
   RELEASE(KC_LALT);
+}
+
+/**
+ * Vim-like `left` command
+ * Sends ←
+ */
+void VIM_LEFT(void) {
+  print("⌨️←🍻");
+  TAP(KC_LEFT);
 }
 
 /**
@@ -160,6 +192,15 @@ void VIM_COMMAND_P(void) {
 }
 
 /**
+ * Vim-like `right` command
+ * Sends →
+ */
+void VIM_RIGHT(void) {
+  print("⌨️→🍻");
+  TAP(KC_RIGHT);
+}
+
+/**
  * Vim-like `substitute` command
  * Simulates vim's `s` command by sending ⇧→ to select the next character, then
  * ⌘X to cut it, then entering insert mode.
@@ -181,6 +222,15 @@ void VIM_COMMAND_U(void) {
   PRESS(KC_LGUI);
     TAP(KC_Z);
   RELEASE(KC_LGUI);
+}
+
+/**
+ * Vim-like `up` command
+ * Sends ↑
+ */
+void VIM_UP(void) {
+  print("⌨️↑🍻");
+  TAP(KC_UP);
 }
 
 /**
