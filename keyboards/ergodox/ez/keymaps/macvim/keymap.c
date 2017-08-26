@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Layer 2 Right Hand
                               _______,_______,_______,_______,_______,_______,_______,
-                              _______,VIM_Y  ,VIM_U  ,INS_MOD,VIM_O  ,VIM_P  ,_______,
+                              _______,VIM_Y  ,VIM_U  ,VIM_I  ,VIM_O  ,VIM_P  ,_______,
                                       VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,_______,KC_ESC ,
                               _______,_______,_______,_______,_______,_______,KC_LSFT,
                                               _______,_______,_______,_______,_______,
@@ -119,8 +119,8 @@ return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t layer = biton32(layer_state);
-  bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) | (keyboard_report->mods & MOD_BIT(KC_LSFT));
+  bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
+                 (keyboard_report->mods & MOD_BIT(KC_RSFT));
 
   // START switch(layer)
   switch (layer) {
@@ -262,33 +262,152 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true; // placeholder until VIM_C queue is implemented
 
       }
-      // END switch (vim_queue)
+      return false;
 
-    case INSERT_MODE:
-      // START switch(keycode) for case INSERT_MODE
-      switch (keycode) {
-        // dynamically generate these.
-        case EPRM:
-          if (record->event.pressed) { eeconfig_init(); }
-          return false;
-        case VRSN:
-          if (record->event.pressed) { SEND_STRING(VERSION_STRING); }
-          return false;
-        case RGB_SLD:
-          if (record->event.pressed) { rgblight_mode(1); }
-          return false;
+    case VIM_C:
+      if (record->event.pressed) {
+        switch(vim_queue) {
+          case KC_NO: SHIFTED ? VIM_CHANGE_LINE() : VIM_LEADER(VIM_C); break;
+          case VIM_C: VIM_CHANGE_WHOLE_LINE(); break;
+        }
       }
-      // END switch(keycode) for case INSERT_MODE
+      return false;
 
+    case VIM_D:
+      if (record->event.pressed) {
+        switch(vim_queue) {
+          case KC_NO: SHIFTED ? VIM_DELETE_LINE() : VIM_LEADER(VIM_D); break;
+          case VIM_D: VIM_DELETE_WHOLE_LINE(); break;
+        }
+      }
+      return false;
+
+    case VIM_E:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: VIM_END(); break;
+          case VIM_C: VIM_CHANGE_END(); break;
+          case VIM_D: VIM_DELETE_END(); break;
+          case VIM_V: VIM_VISUAL_END(); break;
+        }
+      }
+      return false;
+
+    case VIM_H:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: VIM_LEFT(); break;
+          case VIM_C: VIM_CHANGE_LEFT(); break;
+          case VIM_D: VIM_DELETE_LEFT(); break;
+          case VIM_V: VIM_VISUAL_LEFT(); break;
+        }
+      }
+      return false;
+
+    case VIM_I:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: layer_on(INSERT_MODE); break;
+          case VIM_C: VIM_LEADER(VIM_CI); break;
+          case VIM_D: VIM_LEADER(VIM_DI); break;
+          case VIM_V: VIM_LEADER(VIM_VI); break;
+        }
+      }
+      return false;
+
+    case VIM_J:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: SHIFTED ? VIM_JOIN() : VIM_DOWN(); break;
+          case VIM_C: VIM_CHANGE_DOWN(); break;
+          case VIM_D: VIM_DELETE_DOWN(); break;
+          case VIM_V: VIM_VISUAL_DOWN(); break;
+        }
+      }
+      return false;
+
+    case VIM_K:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: VIM_UP(); break;
+          case VIM_C: VIM_CHANGE_UP(); break;
+          case VIM_D: VIM_DELETE_UP(); break;
+          case VIM_V: VIM_VISUAL_UP(); break;
+        }
+      }
+      return false;
+
+    case VIM_L:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: VIM_RIGHT(); break;
+          case VIM_C: VIM_CHANGE_RIGHT(); break;
+          case VIM_D: VIM_DELETE_RIGHT(); break;
+          case VIM_V: VIM_VISUAL_RIGHT(); break;
+        }
+      }
+      return false;
+
+    case VIM_O:
+      if (record->event.pressed) { SHIFTED ? VIM_OPEN_ABOVE() : VIM_OPEN(); }
+      return false;
+
+    case VIM_P:
+      if (record->event.pressed) { VIM_PUT(); }
+      return false;
+
+    case VIM_S:
+      if (record->event.pressed) { SHIFTED ? VIM_CHANGE_WHOLE_LINE() : VIM_SUBSTITUTE(); }
+      return false;
+
+    case VIM_U:
+      if (record->event.pressed) { VIM_UNDO(); }
+      return false;
+
+    case VIM_V:
+      if (record->event.pressed) { VIM_LEADER(keycode); }
+      return false;
+
+    case VIM_W:
+      if (record->event.pressed) {
+        switch (vim_queue) {
+          case KC_NO: VIM_WORD(); break;
+          case VIM_C: VIM_CHANGE_WORD(); break;
+          case VIM_CI: VIM_CHANGE_INNER_WORD(); break;
+          case VIM_D: VIM_DELETE_WORD(); break;
+          case VIM_DI: VIM_DELETE_INNER_WORD(); break;
+          case VIM_V: VIM_VISUAL_WORD(); break;
+          case VIM_VI: VIM_VISUAL_INNER_WORD(); break;
+        }
+      }
+      return false;
+
+    case VIM_X:
+      if (record->event.pressed) { VIM_CUT(); }
+      return false;
+
+    case VIM_Y:
+      if (record->event.pressed) { VIM_YANK(); }
+      return false;
+
+    // dynamically generate these.
+    case EPRM:
+      if (record->event.pressed) { eeconfig_init(); }
+      return false;
+    case VRSN:
+      if (record->event.pressed) { SEND_STRING(VERSION_STRING); }
+      return false;
+    case RGB_SLD:
+      if (record->event.pressed) { rgblight_mode(1); }
+      return false;
   }
-  // END switch(layer)
 
   return true;
 };
 
 void matrix_init_user(void) {
   debug_enable = true;
-  ENQUEUE_VIM_LEADER(KC_NO);
+  VIM_LEADER(KC_NO);
 };
 
 void matrix_scan_user(void) {
