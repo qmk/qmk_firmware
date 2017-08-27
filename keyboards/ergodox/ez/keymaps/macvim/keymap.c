@@ -122,8 +122,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
                  (keyboard_report->mods & MOD_BIT(KC_RSFT));
 
-  // START switch(layer)
-  switch (layer) {
+  switch (keycode) {
 
     case NORMAL_MODE:
 
@@ -261,12 +260,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             ENQUEUE_VIM_LEADER(KC_NO);
             return true; // placeholder until VIM_C queue is implemented
 
+    case VIM_B:
+      if (record->event.pressed) {
+        switch(VIM_QUEUE) {
+          case KC_NO: VIM_BACK(); break;
+          case VIM_C: VIM_CHANGE_BACK(); break;
+          case VIM_D: VIM_DELETE_BACK(); break;
+          case VIM_V: VIM_VISUAL_BACK(); break;
+        }
       }
       return false;
 
     case VIM_C:
       if (record->event.pressed) {
-        switch(vim_queue) {
+        switch(VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_CHANGE_LINE() : VIM_LEADER(VIM_C); break;
           case VIM_C: VIM_CHANGE_WHOLE_LINE(); break;
         }
@@ -275,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_D:
       if (record->event.pressed) {
-        switch(vim_queue) {
+        switch(VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_DELETE_LINE() : VIM_LEADER(VIM_D); break;
           case VIM_D: VIM_DELETE_WHOLE_LINE(); break;
         }
@@ -284,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_E:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: VIM_END(); break;
           case VIM_C: VIM_CHANGE_END(); break;
           case VIM_D: VIM_DELETE_END(); break;
@@ -295,7 +302,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_H:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: VIM_LEFT(); break;
           case VIM_C: VIM_CHANGE_LEFT(); break;
           case VIM_D: VIM_DELETE_LEFT(); break;
@@ -306,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_I:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: layer_on(INSERT_MODE); break;
           case VIM_C: VIM_LEADER(VIM_CI); break;
           case VIM_D: VIM_LEADER(VIM_DI); break;
@@ -317,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_J:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: SHIFTED ? VIM_JOIN() : VIM_DOWN(); break;
           case VIM_C: VIM_CHANGE_DOWN(); break;
           case VIM_D: VIM_DELETE_DOWN(); break;
@@ -328,7 +335,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_K:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: VIM_UP(); break;
           case VIM_C: VIM_CHANGE_UP(); break;
           case VIM_D: VIM_DELETE_UP(); break;
@@ -339,7 +346,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_L:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: VIM_RIGHT(); break;
           case VIM_C: VIM_CHANGE_RIGHT(); break;
           case VIM_D: VIM_DELETE_RIGHT(); break;
@@ -370,7 +377,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case VIM_W:
       if (record->event.pressed) {
-        switch (vim_queue) {
+        switch (VIM_QUEUE) {
           case KC_NO: VIM_WORD(); break;
           case VIM_C: VIM_CHANGE_WORD(); break;
           case VIM_CI: VIM_CHANGE_INNER_WORD(); break;
@@ -401,6 +408,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) { rgblight_mode(1); }
       return false;
   }
+
+  // End by clearing the queue unless keycode is a
+  // if ((record->event.pressed) &&
+  //     (keycode != VIM_I ||
+  //     keycode != VIM_C ||
+  //     keycode != VIM_D ||
+  //     keycode != VIM_V)) {
+  //   VIM_LEADER(KC_NO);
+  // }
 
   return true;
 };

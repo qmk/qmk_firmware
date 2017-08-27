@@ -1,4 +1,5 @@
 #include "config.h"
+#include "print.h"
 #include "keycode.h"
 #include "quantum.h"
 #include "quantum_keycodes.h"
@@ -13,7 +14,7 @@
 #define RELEASE(keycode) unregister_code16(keycode)
 #define PREVENT_STUCK_MODIFIERS
 
-uint16_t vim_queue;
+uint16_t VIM_QUEUE;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -115,12 +116,12 @@ void ALT(uint16_t keycode) {
 }
 
 /**
- * Sets the `vim_queue` variable to the incoming keycode.
+ * Sets the `VIM_QUEUE` variable to the incoming keycode.
  * Pass `KC_NO` to cancel the operation.
  * @param keycode
  */
 void VIM_LEADER(uint16_t keycode) {
-  vim_queue = keycode;
+  VIM_QUEUE = keycode;
   switch(keycode) {
     case VIM_C: print("⌨️c…"); break;
     case VIM_CI: print("⌨️ci…"); break;
@@ -149,7 +150,6 @@ void VIM_LEADER(uint16_t keycode) {
  */
 void VIM_COMMAND_A(void) {
   print("⌨️a🍻");
-  VIM_LEADER(KC_NO);
   TAP(KC_RIGHT);
   TO(INSERT_MODE);
 }
@@ -160,7 +160,6 @@ void VIM_COMMAND_A(void) {
  */
 void VIM_COMMAND_B(void) {
   print("⌨️b🍻");
-  VIM_LEADER(KC_NO);
   ALT(KC_LEFT);
 }
 
@@ -170,7 +169,6 @@ void VIM_COMMAND_B(void) {
  */
 void VIM_CUT(void) {
   print("⌨️x🍻");
-  VIM_LEADER(KC_NO);
   SHIFT(KC_RIGHT);
   CMD(KC_X);
 }
@@ -181,7 +179,6 @@ void VIM_CUT(void) {
  */
 void VIM_DOWN(void) {
   print("⌨️↓🍻");
-  VIM_LEADER(KC_NO);
   TAP(KC_DOWN);
 }
 
@@ -191,7 +188,6 @@ void VIM_DOWN(void) {
  */
 void VIM_COMMAND_E(void) {
   print("⌨️e🍻");
-  VIM_LEADER(KC_NO);
   ALT(KC_RIGHT);
 }
 
