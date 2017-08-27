@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |L0 |FN_L9 0|  |L1 |       |  |L2 |       |  |L3 |       |  |L4 |       |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     *  .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
-    *  |   |   |   |  |   |   |   |  |MP1|   |MP2|  |_L6|_L7|_L9|  |   |   |   |
+    *  |   |   |   |  |RST|   |   |  |MP1|   |MP2|  |_L6|_L7|_L9|  |   |   |   |
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
     *  |   |   |   |  |   |   |   |  |   |MRS|   |  |_L3|_L4|_L5|  |   |   |   |
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L3] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L4] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
+    [_L6] = {{RESET,   _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L7] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L8)}},
     [_L8] = {{TO(_L6), TO(_L7), TO(_L9)}, {TO(_L3), TO(_L4), TO(_L5)}, {TO(_L0), TO(_L1), TO(_L2)}, {XXXXXXX, XXXXXXX, _______}},
     [_L9] = {{_______, _______, _______}, {_______, _______, _______}, {TO(_L8), TO(_L8), TO(_L8)}, {XXXXXXX, XXXXXXX, _______}},
@@ -72,6 +72,48 @@ void matrix_init_user(void) {
     backlight_level(0);
   #endif
 }
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    switch (layer) {
+        case 0:
+            backlight_level(0);
+            break;
+        case 1:
+            backlight_level(1);
+            break;
+        case 2:
+            backlight_level(2);
+            break;
+        case 3:
+            backlight_level(3);
+            break;
+        case 4:
+            backlight_level(4);
+            break;
+        case 5:
+            backlight_level(4);
+            break;
+        case 6:
+            backlight_level(5);
+            break;
+        case 7:
+            backlight_level(5);
+            break;
+        case 8:
+            backlight_level(6);
+            break;
+        case 9:
+            backlight_level(6);
+            break;
+        default:
+            backlight_level(0);
+            break;
+    }
+
+};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch(id) {
