@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
         CH_PARA,         CH_1,         CH_2,   CH_3,   CH_4,   CH_5,   KC_ESC,
-        LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
-        LT(SYMB, KC_ESC),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
+        LT(SUBL,KC_ESC),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
+        LT(SYMB, KC_TAB),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
         MT(MOD_LCTL | MOD_LSFT, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
-        KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, MT(MOD_LALT | MOD_LSFT, CH_BSLS),
+        KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, OSM(MOD_RALT | MOD_LSFT),
                                               KC_ENT,  KC_LGUI,
                                                               KC_PGUP,
                                                LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),MEH_T(KC_HOME),
@@ -114,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
        KC_TRNS, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
                 CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS, KC_TRNS,
-       KC_TRNS, CH_PARA, CH_LESS,   CH_MORE,    KC_TRNS,    KC_PSLS, KC_TRNS,
-                         KC_TRNS,KC_TRNS,  KC_TRNS,    KC_EQL,  KC_TRNS,
+       KC_TRNS, CH_PARA, CH_LESS,   CH_MORE,    KC_TRNS,    CH_EQL, KC_TRNS,
+                         KC_TRNS,KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
