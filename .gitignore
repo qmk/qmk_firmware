@@ -24,7 +24,6 @@ CMakeLists.txt
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
-.vs
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
