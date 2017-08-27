@@ -20,6 +20,8 @@ extern keymap_config_t keymap_config;
 #define CODE 7
 #define ADJUST 8
 #define MOUSE 9
+#define DESKTOP 10
+#define INTELLIJ 11
 
 
 // Fillers to make layering more clear
@@ -42,6 +44,15 @@ bool RGB_LIGHT_STATUS = true;
 enum {
   TD_Y_COPY = 0,
   TD_F_PASTE,
+  TD_M_WIN1,
+  TD_W_WIN2,
+  TD_V_WIN3,
+  TD_WIN4_LEFT,
+  TD_WIN5_DOWN,
+  TD_WIN6_RIGHT,
+  TD_G_WIN7,
+  TD_WIN8_UP,
+  TD_R_WIN9
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,27 +94,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,           KC_LALT,        KC_LGUI, TT(MOUSE), LT(RAISE,KC_BSPC),  LT(LOWER,KC_SPC),  LT(RAISE,KC_ENT),  LT(LOWER,KC_DELT),   LT(MOUSE,KC_UP), KC_DOWN, RGB_TOG,   RCTL_T(KC_CAPS) \
 ),
 /* Marc
- * ,-----------------------------------------------------------------------------------.
- * | Esc  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  -   |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | TAB |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Shift|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Ctrl |
- * `-----------------------------------------------------------------------------------'
+ * ,--------------------------------------------------------------------------------------------.
+ * | Esc/CODE |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | - /INTELIJ|
+ * |----------+------+------+------+------+-------------+------+------+------+------+-----------|
+ * | TAB/SYMB |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  / /SYMB  |
+ * |----------+------+------+------+------+------|------+------+------+------+------+-----------|
+ * | Shift    |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Shift     |
+ * |----------+------+------+------+------+------+------+------+------+------+------+-----------|
+ * | Ctrl     | GUI  | Alt  |Mouse |Bksp/ |Delete|Enter/|SPACE/| DESK | Alt  |  GUI |BMayus     |
+ * |          |      |      |      |LOWER |/RAISE|RAISE |LOWER | TOP  |      |      |/ Ctrl     |
+ * `--------------------------------------------------------------------------------------------'
  */
 
 [MARC] = KEYMAP ( \
-  LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,             KC_G,              KC_C,    KC_R,    KC_L,    LT(CODE,KC_MINS),\
-  LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,             KC_H,              KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
-  KC_LSFT,           KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,              KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  KC_LCTL,           KC_LALT, KC_RGUI, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_ENT), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), KC_UP,   KC_DOWN, KC_RGUI, RCTL_T(KC_CAPS) \
-                  ),
+  LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,         KC_G,         KC_C,    KC_R,    KC_L,    LT(INTELLIJ,KC_MINS),\
+  LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,         KC_H,         KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
+  OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,         KC_W,    KC_V,    KC_Z,   OSM(MOD_LSFT), \
+  LCTL_T(KC_CAPS),   KC_RGUI, KC_LALT, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_SPC), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), OSL(DESKTOP),   KC_LALT, KC_RGUI, RCTL_T(KC_ENT) \
+),
 
 /* Mouse
  * ,-----------------------------------------------------------------------------------.
- * |ADJUST|     |      |      |  ESC  |COPY  |      | HOME |  UP  |  END |  *   |      |
+ * |ADJUST|     |      |      |  ESC  |COPY  |MOUSE1| HOME |  UP  |  END |  *   |      |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
  * |      |     |      |MOUSE2| MOUSE1|CUT   |      | LEFT | DOWN | RIGHT|   +  |      |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
@@ -113,15 +125,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [MOUSE] = KEYMAP( \
-  TG(ADJUST),  XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, LCTL(KC_C), XXXXXXX, KC_WH_U,    KC_MS_UP, KC_WH_D,XXXXXXX,_______, \
-  _______, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, LCTL(KC_X), KC_WH_L, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_WH_R, _______, \
-  _______, XXXXXXX, XXXXXXX, KC_DELT, KC_ENT, LCTL(KC_V), XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______,_______, _______, _______, _______ \
+                 TG(ADJUST),  XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC, LCTL(KC_C), KC_BTN1, KC_WH_U,    KC_MS_UP, KC_WH_D,XXXXXXX,_______, \
+                 _______, XXXXXXX, XXXXXXX, KC_BTN2, KC_BTN1, LCTL(KC_X), KC_WH_L, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_WH_R, _______, \
+                 _______, XXXXXXX, XXXXXXX, KC_DELT, KC_ENT, LCTL(KC_V), XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, _______, \
+                 _______, _______, _______, _______, _______, _______, _______, _______,_______, _______, _______, _______ \
 ),
 
 /* Symbol
  * ,-----------------------------------------------------------------------------------.
- * |      |   !  |   @  |   {  |   }  |   |  |   ç |   "  |   '  |   &   |  *   |      |
+ * |      |   !  |   @  |   {  |   }  |   |  |   ç  |   "  |   '  |   &   |  *   |     |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   #  |   $  |   (  |   )  |   `  |  ´   |   \  |   /  |   ?  |   +  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -137,6 +149,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______ \
 ),
 
+/* Symbol
+ * ,-----------------------------------------------------------------------------------.
+ * |      |   !  |   @  |   {  |   }  |   |  |   $  |   @  |   '  |   &   |  *   |     |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |   #  |   $  |   (  |   )  |   `  |  ´   |   \  |   /  |   *  |   +  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |   %  |   ^  |   [  |   ]  |   ~  |   =  |   <  |   >  |  =   |   /  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
 [SYMBUS] = KEYMAP( \
   _______, KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE, LSFT(KC_4),   LSFT(KC_2),   KC_QUOT,    KC_AMPR,    KC_ASTR, KC_BSPC, \
   _______,  KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV, ALGR(KC_MINS), KC_BSLS,   KC_SLSH,    KC_PAST,    KC_PPLS,  _______, \
@@ -145,21 +168,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |  F4 |  F3  |   F2 |  F1   |   1  |  DEL |   7  |   8  |   9  |  *   |      |
+ * |      |  F4 |  F3  |   F2 |  F1   |      |  DEL |   7  |   8  |   9  |  *   | BSPC |
  * |------+-----+------+------+----- -+-------------+------+------+------+------+------|
- * |      |  F8 |   F7 |   F6 |   F5  |   5  |      |   4  |   5  |   6  |   +  |  -   |
+ * |      |  F8 |   F7 |   F6 |   F5  |      |  =   |   4  |   5  |   6  |   +  |  -   |
  * |------+-----+------+------+----- -+------|------+------+------+------+------+------|
- * |      |  12  | F11  |  F10 |  F9  |   0  |   0  |   1  |   2  |   3  |   /  |      |
+ * |      |  12  | F11  |  F10 |  F9  |      |   0  |   1  |   2  |   3  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |  ,   |   .  |   =  |      |
+ * |      |      |      |      |      |             |      |  ,   |   .  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [LOWER] = KEYMAP( \
-  _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   KC_0,    KC_DELT, KC_7,    KC_8,    KC_9,   KC_PAST, _______, \
-  _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   KC_5,    XXXXXXX, KC_4,    KC_5,    KC_6,   KC_PPLS, KC_PMNS, \
-  _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   KC_1,    KC_0,    KC_1,    KC_2,    KC_3,   KC_PSLS, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_PCMM, KC_DOT, CH_EQL,  _______ \
-),
+                 _______, KC_F4,   KC_F3,   KC_F2,   KC_F1,   _______,   KC_DELT, KC_7,    KC_8,    KC_9,   KC_PAST, KC_BSPC, \
+                 _______, KC_F8,   KC_F7,   KC_F6,   KC_F5,   _______,   KC_EQL, KC_4,    KC_5,    KC_6,   KC_PPLS, KC_PMNS, \
+                 _______, KC_F12,  KC_F11,  KC_F10,  KC_F9,   _______,    KC_0,    KC_1,    KC_2,    KC_3,   KC_PSLS, _______, \
+                 _______, _______, _______, _______, _______, _______, _______, _______, KC_PCMM, KC_DOT, _______,  _______ \
+                  ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -196,6 +219,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, XXXXXXX, XXXXXXX, REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)), LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
+/* Adjust (Lower + Raise)
+ * ,-----------------------------------------------------------------------------------.
+ * |      | Exit |Restart|Reload|workSl|workSr|fullsc|  7   | 8-UP |  9   |resize|      |
+ * |------+------+-------+------+------+-------------+------+------+------+------+------|
+ * |      |      |stackin|togSpl|tabbed|      | menu |4-LEFT|5-DOWN|6-RIGH|vertic|horitz|
+ * |------+------+-------+------+------+------|------+------+------+------+------+------|
+ * |      | KILL |       |      |      | LOCK |  0   |  1   |  2   |  3   |      |      |
+ * |------+------+-------+------+------+------+------+------+------+------+------+------|
+ * |      |      |       |      |      |floati focus |      |      |      |      |consol|
+ * `------------------------------------------------------------------------------------'
+ */
+
+[DESKTOP] =  KEYMAP( \
+                    _______, LGUI(LSFT(KC_E)), LGUI(LSFT(KC_R)), LGUI(LSFT(KC_C)), LGUI(LALT(KC_LEFT)), LGUI(LALT(KC_RIGHT)), LGUI(KC_F), LGUI(KC_7), TD(TD_WIN8_UP), LGUI(KC_9), LGUI(KC_R), _______, \
+                    _______, _______, LGUI(KC_S), LGUI(KC_E), LGUI(KC_W), _______, LGUI(KC_D), TD(TD_WIN4_LEFT), TD(TD_WIN5_DOWN), TD(TD_WIN6_RIGHT), LGUI(KC_V), LGUI(KC_H), \
+                    _______, LGUI(LSFT(KC_Q)), _______, _______, _______, LGUI(LSFT(KC_X)), LGUI(KC_0), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), _______, _______, \
+                    _______, _______, _______, _______, _______, LGUI(LSFT(KC_SPC)), LGUI(KC_SPC), _______, _______, _______, _______, LGUI(KC_ENT) \
+                     ),
+
+[INTELLIJ] =  KEYMAP( \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+                     ),
 /*
   Name 	Description
   RGB_TOG 	toggle on/off
@@ -220,14 +268,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADJUST] =  KEYMAP( \
   _______, RESET , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, KC_DEL, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, TO(QWERTY),  XXXXXXX, TO(MARC),  XXXXXXX, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(JOAN), XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, TO(QWERTY),  XXXXXXX, DF(MARC),  XXXXXXX, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(JOAN), XXXXXXX, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_M_WIN1] = ACTION_TAP_DANCE_DOUBLE(KC_M, LGUI(KC_1)),
+  [TD_W_WIN2] = ACTION_TAP_DANCE_DOUBLE(KC_W, LGUI(KC_2)),
+  [TD_V_WIN3] = ACTION_TAP_DANCE_DOUBLE(KC_V, LGUI(KC_3)),
+  [TD_WIN4_LEFT] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_4), LGUI(KC_LEFT)),
+  [TD_WIN5_DOWN] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), LGUI(KC_DOWN)),
+  [TD_WIN6_RIGHT] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), LGUI(KC_RIGHT)),
+  [TD_G_WIN7] = ACTION_TAP_DANCE_DOUBLE(KC_G, LGUI(KC_7)),
+  [TD_WIN8_UP] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(KC_UP)),
+  [TD_R_WIN9] = ACTION_TAP_DANCE_DOUBLE(KC_R, LGUI(KC_9)),
+
+  [TD_M_WIN1] = ACTION_TAP_DANCE_DOUBLE(CH_Y, LCTL(CH_C)),
   [TD_Y_COPY] = ACTION_TAP_DANCE_DOUBLE(CH_Y, LCTL(CH_C)),
   [TD_F_PASTE] = ACTION_TAP_DANCE_DOUBLE(CH_F, LCTL(CH_V))
 };
@@ -333,14 +392,20 @@ void matrix_scan_user(void) {
     case ADJUST:
       rgbsps_setall(255,0,0); // red
       break;
-    default:
-      if (RGB_LIGHT_STATUS)
-      {
-        rgbsps_setall(255,255,255); // white
-      }
-      else {
+  case DESKTOP:
+    rgbsps_setall(0,100,0); // green
+    break;
+  case INTELLIJ:
+    rgbsps_setall(0,206,209); // red
+    break;
+  default:
+    //      if (RGB_LIGHT_STATUS)
+    // {
+    //    rgbsps_setall(255,255,255); // white
+    //  }
+    //  else {
         rgbsps_setall(0,0,0); // none
-      }
+        //  }
       break;
   }
   ws2812_setleds(led, RGBLED_NUM);
