@@ -9,7 +9,7 @@ Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-m
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tada68-default-bin
+    make tada68-default-flashbin
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
@@ -17,13 +17,13 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 
 1) from the `qmk_firmware` directory run:
 ```
-$ make tada68-default-bin
+$ make tada68-default-flashbin
 ```
 
 2) hit the reset button on the TADA, the lights will start flashing.
 
 3) You'll see a new drive on your computer called TADA68. Backup the original factory `FLASH.BIN` file thats inside it.
 
-4) Delete `FLASH.BIN` from the TADA drive and copy `tada68_default.bin` that was generated at the root of the qmk directory into the TADA drive.
+4) Delete `FLASH.BIN` from the TADA drive and copy `FLASH.bin` that was generated at the root of the qmk directory into the TADA drive.
 
 5) Hit ESC on the keyboard. The lights will stop flashing and your firmware is loaded!
