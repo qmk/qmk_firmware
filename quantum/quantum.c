@@ -238,6 +238,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
   #endif
+  #ifdef TERMINAL_ENABLE
+    process_terminal(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
