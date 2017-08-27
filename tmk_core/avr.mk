@@ -167,10 +167,8 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
-# Convert hex to bin.
-flashbin: $(BUILD_DIR)/$(TARGET).hex
-	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
-	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+# copy bin to FLASH.bin
+flashbin: bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
 
 # Generate avr-gdb config/init file which does the following:
