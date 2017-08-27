@@ -360,7 +360,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case VIM_P:
-      if (record->event.pressed) { VIM_PUT(); }
+      if (record->event.pressed) { SHIFTED ? VIM_PUT_BEFORE() : VIM_PUT(); }
       return false;
 
     case VIM_S:
@@ -394,7 +394,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 
     case VIM_Y:
-      if (record->event.pressed) { VIM_YANK(); }
+      if (record->event.pressed) { SHIFTED ? VIM_YANK_LINE() : VIM_YANK(); }
       return false;
 
     // dynamically generate these.
