@@ -236,7 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       persistent_function_layer_set(_FUNCTIONPC);
       #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_fnpc, false, 0);
+        PLAY_SONG(tone_fnpc);
       #endif
     }
     return false;
@@ -245,7 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       persistent_function_layer_set(_FUNCTIONMAC);
       #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_fnmac, false, 0);
+        PLAY_SONG(tone_fnmac);
       #endif
     }
     return false;
@@ -279,12 +279,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -296,7 +296,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
