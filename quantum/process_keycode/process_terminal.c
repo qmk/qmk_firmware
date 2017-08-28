@@ -16,11 +16,14 @@
 
 #include "process_terminal.h"
 #include <string.h>
+#include "version.h"
+#include <stdio.h>
+#include <math.h>
 
 bool terminal_enabled = false;
 char buffer[80] = "";
 
-#define TERMINAL_PROMPT "> "
+char terminal_prompt[2] = "> ";
 
 #ifdef AUDIO_ENABLE
     #ifndef TERMINAL_SONG
@@ -55,20 +58,25 @@ struct stringcase {
 
 void enable_terminal(void) {
     terminal_enabled = true;
-    SEND_STRING(TERMINAL_PROMPT);
+    strcpy(buffer, "");
+    send_string(terminal_prompt);
 }
 
 void disable_terminal(void) {
     terminal_enabled = false;
 }
 
-void terminal_test(void) {
-    SEND_STRING("Wow, ok.\n");
+void terminal_about(void) {
+    SEND_STRING("QMK v");
+    SEND_STRING(QMK_VERSION);
+    SEND_STRING("\nBuilt: ");
+    SEND_STRING(QMK_BUILDDATE);
+    SEND_STRING("\n");
 }
 
 stringcase terminal_cases[] = { 
     { "exit", disable_terminal },
-    { "test", terminal_test }
+    { "about", terminal_about }
 };
 
 void command_not_found(void) {
@@ -94,7 +102,7 @@ void process_terminal_command(void) {
 
     if (terminal_enabled) {
         strcpy(buffer, "");
-        SEND_STRING(TERMINAL_PROMPT);
+        send_string(terminal_prompt);
     }
 }
 
