@@ -28,6 +28,7 @@ enum mitosis_keycodes
   MACSLEEP,
   FNMAC,
   FNPC,
+  AUDIOTEST,
   DYNAMIC_MACRO_RANGE,
 };
 
@@ -248,6 +249,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PLAY_SONG(tone_fnmac);
       #endif
     }
+  return false;
+  break;
+    case AUDIOTEST:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+        PLAY_SONG(music_scale);
+        register_code(KC_M);
+        unregister_code(KC_M);
+        #endif
+        register_code(KC_A);
+      } else {
+        unregister_code(KC_A);
+      }
     return false;
     break;
   //If any other key was pressed during the layer mod hold period,
