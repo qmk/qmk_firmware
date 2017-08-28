@@ -558,9 +558,16 @@ void send_string(const char *str) {
 }
 
 void send_string_with_delay(const char *str, uint8_t interval) {
+    bool pgm = true;
+    if (pgm_read_byte(str) >= 0x80)
+      pgm = false;
     while (1) {
         uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
+        uint8_t ascii_code;
+        if (pgm)
+          ascii_code = pgm_read_byte(str);
+        else
+          ascii_code = *str;
         if (!ascii_code) break;
         keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
         if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
