@@ -12,7 +12,7 @@
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 #define PERMISSIVE_HOLD
-#define TAPPING_TERM    150
+#define TAPPING_TERM    125
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
