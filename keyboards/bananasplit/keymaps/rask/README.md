@@ -1,6 +1,6 @@
 # rask's BananaSplit60
 
-![./bslayout.png]
+![BS60 layout](./bslayout.png)
 
 ## Notes
 
