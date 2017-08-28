@@ -559,7 +559,7 @@ void send_string(const char *str) {
 
 void send_string_with_delay(const char *str, uint8_t interval) {
     bool pgm = true;
-    if (pgm_read_byte(str) >= 0x80)
+    if (!pgm_read_byte(str))
       pgm = false;
     while (1) {
         uint8_t keycode;
