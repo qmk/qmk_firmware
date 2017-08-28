@@ -6,6 +6,10 @@
 #include "keymap_extras/keymap_german_ch.h"
 #include "timer.h"
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define NUMB 2 // Numbers and F keys
@@ -45,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Tab/SYMB|A/Shift|   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S/LShift| L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
- * |ä/CrlShf|  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  SYMB  |
+ * | ä/CODE |  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  SYMB  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |  Ctrl| Alt  | LGui |~SYMB|AltShf\|                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
  *   `----------------------------------'                                       `----------------------------------'
@@ -64,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CH_PARA,         CH_1,         CH_2,   CH_3,   CH_4,   CH_5,   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
         LT(SYMB, KC_TAB),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
-        MT(MOD_LCTL | MOD_LSFT, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
+        LT(SUBL, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
         KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, OSM(MOD_RALT | MOD_LSFT),
                                               KC_ENT,  KC_LGUI,
                                                               KC_PGUP,
@@ -88,9 +92,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   #  |   $  |   (  |   )  |   `  |------|           |------|  ´   |   \  |   /  |   ?  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   §  |   <  |   >  |      |   /  |        |
+ * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   §  |   <  |   >  |  =   |   =  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |  =   |      |
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -102,23 +106,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [SYMB] = KEYMAP(
        // left hand
-       KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE,KC_TRNS,
-       KC_TRNS,CH_HASH,CH_DLR, CH_LPRN,CH_RPRN,CH_GRV,
-       KC_TRNS,CH_PERC,CH_CARR,CH_LBRC,CH_RBRC,CH_TILD,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
-                                               KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
+       _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
+       _______,CH_EXLM,CH_AT,  CH_LCBR,CH_RCBR,CH_PIPE,_______,
+       _______,CH_HASH,CH_DLR, CH_LPRN,CH_RPRN,CH_GRV,
+       _______,CH_PERC,CH_CARR,CH_LBRC,CH_RBRC,CH_TILD,_______,
+       _______,_______,_______,_______,_______,
+                                       _______,_______,
+                                               _______,
+                               _______,_______,_______,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
-                CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS, KC_TRNS,
-       KC_TRNS, CH_PARA, CH_LESS,   CH_MORE,    CH_EQL,    CH_EQL, KC_TRNS,
-                         KC_TRNS,KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       _______, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
+       _______, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
+                CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS, _______,
+       _______, CH_PARA, CH_LESS,   CH_MORE,    CH_EQL,    CH_EQL, _______,
+                         _______,_______,  _______,    _______,  _______,
+       _______, _______,
+       _______,
+       _______, _______, _______
 ),
 /* Keymap 2: Number Layer
  *
@@ -143,23 +147,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [NUMB] = KEYMAP(
        // left hand
-        KC_TRNS,     KC_F1,     KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,     
-        KC_TRNS,     KC_F4,      KC_F3,    KC_F2,    KC_F1,    CH_0,    KC_TRNS,     
-        KC_TRNS,     KC_F8,   KC_F7,     KC_F6,    KC_F5,    CH_5,     
-        KC_TRNS,     KC_F12,   KC_F11,    KC_F10,    KC_F9,    CH_1,    KC_TRNS,     
-        KC_TRNS,     KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,     
-                                                                    KC_TRNS,    KC_TRNS,    
-                                                                                KC_TRNS,     
-                                                        KC_TRNS,    KC_TRNS,    KC_TRNS,
+        _______,     KC_F1,     KC_F2,      KC_F3,      KC_F4,      KC_F5,      _______,     
+        _______,     KC_F4,      KC_F3,    KC_F2,    KC_F1,    CH_0,    _______,     
+        _______,     KC_F8,   KC_F7,     KC_F6,    KC_F5,    CH_5,     
+        _______,     KC_F12,   KC_F11,    KC_F10,    KC_F9,    CH_1,    _______,     
+        _______,     _______,   _______,    _______,    _______,     
+                                                                    _______,    _______,    
+                                                                                _______,     
+                                                        _______,    _______,    _______,
         // right hand
-        KC_TRNS,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,  
-        KC_TRNS,    LSFT(CH_2), CH_7,       CH_8,       CH_9,       KC_PAST,    KC_F12,    
-                    KC_DOWN,    CH_4,       CH_5,       CH_6,       KC_PPLS,    KC_TRNS,    
-        KC_TRNS,    CH_AMPR,    CH_1,       CH_2,       CH_3,       KC_PSLS,    KC_NLCK,   
-                    CH_0,       DOUBLE0,    KC_DOT,     CH_EQL,     KC_TRNS,  
-        KC_TRNS,    KC_TRNS,   
-        KC_TRNS,   
-        KC_TRNS,    KC_TRNS,    KC_TRNS
+        _______,    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,  
+        _______,    LSFT(CH_2), CH_7,       CH_8,       CH_9,       KC_PAST,    KC_F12,    
+                    KC_DOWN,    CH_4,       CH_5,       CH_6,       KC_PPLS,    _______,    
+        _______,    CH_AMPR,    CH_1,       CH_2,       CH_3,       KC_PSLS,    KC_NLCK,   
+                    CH_0,       DOUBLE0,    KC_DOT,     CH_EQL,     _______,  
+        _______,    _______,   
+        _______,   
+        _______,    _______,    _______
 ),
 /* Keymap 3: Working
  *
@@ -170,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |WinExp|AdrBar|      |------|           |------|TaskVw| Left | Down | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |PrvTab|NexTab|      |      |           |      |NexWin| Undo | Redo |      |      |        |
+ * | CrlShf |      |      |PrvTab|NexTab|      |      |           |      |NexWin| Undo | Redo |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |     |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -183,23 +187,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [WORK] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, LGUI(CH_L), KC_TRNS, KC_TRNS, LALT(KC_F4), KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_MYCM, LCTL(CH_L), KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, LGUI(CH_L), XXXXXXX, XXXXXXX, LALT(KC_F4), XXXXXXX, _______,
+       _______, XXXXXXX, XXXXXXX, KC_MYCM, LCTL(CH_L), XXXXXXX,
+       OSM(MOD_LCTL | MOD_LSFT), XXXXXXX, XXXXXXX, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), XXXXXXX, _______,
+       _______, _______, _______, _______, _______,
+                                           _______, _______,
+                                                    _______,
+                                  _______, _______, _______,
     // right hand
-       KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_HOME, KC_UP, KC_END, KC_TRNS, KC_TRNS,
-                 LGUI(KC_TAB), KC_LEFT, KC_DOWN, KC_RIGHT, KC_TRNS, KC_TRNS,
-       KC_TRNS,  LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       _______,  _______,  _______, _______, _______, _______, _______,
+       _______,  XXXXXXX, KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX,
+                 LGUI(KC_TAB), KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, _______,
+       _______,  LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), XXXXXXX, XXXXXXX, _______,
+                          _______, _______, _______, _______, _______,
+       _______, _______,
+       _______,
+       _______, _______, _______
 ),
 /* Keymap 4: SublimeText
  *
@@ -226,23 +230,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // Sublimetext
 [SUBL] = KEYMAP(
-       KC_TRNS,             LCTL(LSFT(CH_P)),    KC_F2,               KC_TRNS,       KC_TRNS,       KC_F5,               KC_TRNS,
-       KC_TRNS,             LCTL(LSFT(LALT(KC_A))),         LCTL(LSFT(LALT(KC_O))),         LCTL(LSFT(LALT(KC_E))),   LCTL(LSFT(LALT(KC_I))),   CLOSEFILE,           KC_TRNS,
-       KC_TRNS,             KC_TRNS,             SELECTOMARK,         DELETEMARK,    MARK,          LCTL(CH_M),
-       KC_TRNS,             KC_TRNS,             KC_TRNS,             REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)),    KC_TRNS,
-       KC_TRNS,             KC_TRNS,             KC_TRNS,             LALT(KC_LEFT), LALT(KC_RIGHT),
-                                                                      KC_TRNS,       KC_TRNS,
-                                                                                     KC_TRNS,
-                                                 KC_TRNS,             KC_TRNS,       KC_TRNS,
+       _______,             LCTL(LSFT(CH_P)),    KC_F2,               _______,       _______,       KC_F5,               _______,
+       _______,             LCTL(LSFT(LALT(KC_A))),         LCTL(LSFT(LALT(KC_O))),         LCTL(LSFT(LALT(KC_E))),   LCTL(LSFT(LALT(KC_I))),   CLOSEFILE,           _______,
+       _______,             _______,             SELECTOMARK,         DELETEMARK,    MARK,          LCTL(CH_M),
+       _______,             _______,             _______,             REVEAL,        COPYPATH,      LCTL(LSFT(CH_K)),    _______,
+       _______,             _______,             _______,             LALT(KC_LEFT), LALT(KC_RIGHT),
+                                                                      _______,       _______,
+                                                                                     _______,
+                                                 _______,             _______,       _______,
     // right hand
-       KC_TRNS,             KC_F10,              KC_F11,              LSFT(KC_F11),  KC_F9,         KC_F11,          KC_F12,
-       KC_TRNS,             LCTL(CH_PARA),       LSFT(KC_F3),         LCTL(CH_F),    KC_F3,         KC_TRNS,         KC_TRNS,
+       _______,             KC_F10,              KC_F11,              LSFT(KC_F11),  KC_F9,         KC_F11,          KC_F12,
+       _______,             LCTL(CH_PARA),       LSFT(KC_F3),         LCTL(CH_F),    KC_F3,         _______,         _______,
                             LCTL(LALT(CH_P)),    LCTL(CH_R),          LCTL(KC_P),    WORKINGFILES,  LCTL(KC_G),      LALT(KC_F12),
-       LSFT(LALT(CH_F)),    LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R),      KC_TRNS,
-                            LCTL(LSFT(KC_UP)),   LCTL(LSFT(KC_DOWN)), KC_TRNS,       KC_TRNS,         KC_LCTL,
-       KC_TRNS,             KC_TRNS,
-       KC_TRNS,
-       KC_TRNS,             KC_TRNS,             KC_TRNS
+       LSFT(LALT(CH_F)),    LSFT(LALT(KC_LEFT)), LSFT(LALT(KC_RIGHT)),LALT(CH_C),    LALT(CH_W),    LALT(CH_R),      _______,
+                            LCTL(LSFT(KC_UP)),   LCTL(LSFT(KC_DOWN)), _______,       _______,         KC_LCTL,
+       _______,             _______,
+       _______,
+       _______,             _______,             _______
 ),
 };
 
