@@ -19,6 +19,9 @@
 
 #include "quantum.h"
 
+extern const char keycode_to_ascii_lut[58];
+extern const char shifted_keycode_to_ascii_lut[58];
+extern const char terminal_prompt[8];
 bool process_terminal(uint16_t keycode, keyrecord_t *record);
 
 #endif

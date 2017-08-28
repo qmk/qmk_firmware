@@ -23,7 +23,8 @@
 bool terminal_enabled = false;
 char buffer[80] = "";
 
-char terminal_prompt[2] = "> ";
+__attribute__ ((weak))
+const char terminal_prompt[8] = "> ";
 
 #ifdef AUDIO_ENABLE
     #ifndef TERMINAL_SONG
@@ -35,6 +36,7 @@ char terminal_prompt[2] = "> ";
     #define TERMINAL_BELL()  
 #endif
 
+__attribute__ ((weak))
 const char keycode_to_ascii_lut[58] = {
     0, 0, 0, 0,
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -43,6 +45,7 @@ const char keycode_to_ascii_lut[58] = {
     ' ', '-', '=', '[', ']', '\\', 0, ';', '\'', '`', ',', '.', '/'
 }; 
 
+__attribute__ ((weak))
 const char shifted_keycode_to_ascii_lut[58] = {
     0, 0, 0, 0,
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -59,6 +62,8 @@ struct stringcase {
 void enable_terminal(void) {
     terminal_enabled = true;
     strcpy(buffer, "");
+    // select all text to start over
+    // SEND_STRING(SS_LCTRL("a"));
     send_string(terminal_prompt);
 }
 
@@ -67,11 +72,12 @@ void disable_terminal(void) {
 }
 
 void terminal_about(void) {
-    SEND_STRING("QMK v");
+    SEND_STRING("QMK Firmware\n");
+    SEND_STRING("  v");
     SEND_STRING(QMK_VERSION);
-    SEND_STRING("\nBuilt: ");
+    SEND_STRING("\n"SS_TAP(X_HOME)"  Built: ");
     SEND_STRING(QMK_BUILDDATE);
-    SEND_STRING("\n");
+    SEND_STRING("\n"SS_TAP(X_HOME));
 }
 
 stringcase terminal_cases[] = { 
@@ -86,6 +92,7 @@ void command_not_found(void) {
 }
 
 void process_terminal_command(void) {
+    // we capture return bc of the order of events, so we need to manually send a newline
     SEND_STRING("\n");
   
     bool command_found = false;
@@ -119,30 +126,46 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
             disable_terminal();
             return false;
         }
-        if (keycode <= 58) {
-            if (keycode == KC_ENTER) {
-                process_terminal_command();
-                return false;
+        if (keycode < 256) {
+            uint8_t str_len;
+            char char_to_add;
+            switch (keycode) {
+                case KC_ENTER:
+                    process_terminal_command();
+                    return false; break;
+                case KC_ESC:
+                    SEND_STRING("\n");
+                    enable_terminal();
+                    return false; break;
+                case KC_BSPC:
+                    str_len = strlen(buffer);
+                    if (str_len > 0) {
+                        buffer[str_len-1] = 0;
+                        return true;
+                    } else {
+                        TERMINAL_BELL();
+                        return false;
+                    } break;
+                case KC_LEFT:
+                case KC_RIGHT:
+                case KC_UP:
+                case KC_DOWN:
+                    return false; break;
+                default:
+                    if (keycode <= 58) {
+                        char_to_add = 0;
+                        if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+                            char_to_add = shifted_keycode_to_ascii_lut[keycode];
+                        } else if (get_mods() == 0) {
+                            char_to_add = keycode_to_ascii_lut[keycode];
+                        }
+                        if (char_to_add != 0) {
+                            strncat(buffer, &char_to_add, 1);
+                        } 
+                    } break;
             }
-            if (keycode == KC_BSPC) {
-                int str_len = strlen(buffer);
-                if (str_len > 0) {
-                    buffer[str_len-1] = 0;
-                    return true;
-                } else {
-                    TERMINAL_BELL();
-                    return false;
-                }
-            }
-            char char_to_add = 0;
-            if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
-                char_to_add = shifted_keycode_to_ascii_lut[keycode];
-            } else if (get_mods() == 0) {
-                char_to_add = keycode_to_ascii_lut[keycode];
-            }
-            if (char_to_add != 0) {
-                strncat(buffer, &char_to_add, 1);
-            }
+
+
 
         }
     }

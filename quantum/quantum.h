@@ -40,7 +40,7 @@
 #include "action_util.h"
 #include <stdlib.h>
 #include "print.h"
-
+#include "send_string_keycodes.h"
 
 extern uint32_t default_layer_state;
 
@@ -107,11 +107,26 @@ extern uint32_t default_layer_state;
 	#include "process_terminal.h"
 #endif
 
-#define SEND_STRING(str) send_string(PSTR(str))
+#define STRINGIZE(z) #z
+#define ADD_SLASH_X(y) STRINGIZE(\x ## y)
+#define SYMBOL_STR(x) ADD_SLASH_X(x)
+
+#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+
+#define SS_LCTRL(keycode) SS_DOWN(X_LCTRL) keycode SS_UP(X_LCTRL)
+#define SS_LGUI(keycode) SS_DOWN(X_LGUI) keycode SS_UP(X_LGUI)
+#define SS_LALT(keycode) SS_DOWN(X_LALT) keycode SS_UP(X_LALT)
+
+#define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
+void send_string_P(const char *str);
+void send_string_with_delay_P(const char *str, uint8_t interval);
+void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
