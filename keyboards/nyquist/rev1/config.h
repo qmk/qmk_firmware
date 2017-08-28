@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef REV1_CONFIG_H
 #define REV1_CONFIG_H
 
-#include "../config.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCEEB

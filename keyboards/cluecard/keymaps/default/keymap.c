@@ -36,13 +36,13 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	if (record->event.pressed) {
 		switch (id) {
 			case 0:
-				PLAY_NOTE_ARRAY(tone_startup, false, 0);
+				PLAY_SONG(tone_startup);
 				break;
 			case 1:
-				PLAY_NOTE_ARRAY(music_scale, false, 0);
+				PLAY_SONG(music_scale);
 				break;
 			case 2:
-				PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+				PLAY_SONG(tone_goodbye);
 				break;
 		}
 	}

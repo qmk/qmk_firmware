@@ -15,6 +15,7 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
+#include "eeprom.h"
 #include "keymap_steno.h"
 #include "virtser.h"
 
@@ -54,8 +55,9 @@
 
 #define BOLT_STATE_SIZE 4
 #define GEMINI_STATE_SIZE 6
+#define MAX_STATE_SIZE GEMINI_STATE_SIZE
 
-uint8_t state[MAX(BOLT_STATE_SIZE, GEMINI_STATE_SIZE)] = {0};
+uint8_t state[MAX_STATE_SIZE] = {0};
 uint8_t pressed = 0;
 steno_mode_t mode;
 
@@ -68,11 +70,8 @@ uint8_t boltmap[64] = {
   TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_NUM, TXB_Z_R
 };
 
-#define BOLTMAP_MASK (sizeof(boltmap) - 1)
-
-
 void steno_clear_state(void) {
-  memset(state, 0, sizeof(state));
+  __builtin_memset(state, 0, sizeof(state));
 }
 
 void steno_init() {

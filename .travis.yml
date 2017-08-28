@@ -29,6 +29,7 @@ addons:
     - binutils-arm-none-eabi
     - libnewlib-arm-none-eabi
     - diffutils
+    - dos2unix
 after_success: 
   bash util/travis_compiled_push.sh
 notifications:
