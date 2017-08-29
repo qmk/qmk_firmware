@@ -22,6 +22,7 @@
 
 bool terminal_enabled = false;
 char buffer[80] = "";
+char arguments[6][80];
 
 __attribute__ ((weak))
 const char terminal_prompt[8] = "> ";
@@ -62,6 +63,8 @@ struct stringcase {
 void enable_terminal(void) {
     terminal_enabled = true;
     strcpy(buffer, "");
+    for (int i = 0; i < 6; i++)
+        strcpy(arguments[i], "");
     // select all text to start over
     // SEND_STRING(SS_LCTRL("a"));
     send_string(terminal_prompt);
@@ -77,7 +80,12 @@ void terminal_about(void) {
     SEND_STRING(QMK_VERSION);
     SEND_STRING("\n"SS_TAP(X_HOME)"  Built: ");
     SEND_STRING(QMK_BUILDDATE);
-    SEND_STRING("\n"SS_TAP(X_HOME));
+    SEND_STRING("\n");
+    if (strlen(arguments[1]) != 0) {
+        SEND_STRING("You entered: ");
+        send_string(arguments[1]);
+        SEND_STRING("\n");
+    }
 }
 
 stringcase terminal_cases[] = { 
@@ -94,6 +102,15 @@ void command_not_found(void) {
 void process_terminal_command(void) {
     // we capture return bc of the order of events, so we need to manually send a newline
     SEND_STRING("\n");
+
+    char * pch;
+    uint8_t i = 0;
+    pch = strtok(buffer, " ");
+    while (pch != NULL) {
+        strcpy(arguments[i], pch);
+        pch = strtok(NULL, " ");
+        i++;
+    }
   
     bool command_found = false;
     for( stringcase* case_p = terminal_cases; case_p != terminal_cases + sizeof( terminal_cases ) / sizeof( terminal_cases[0] ); case_p++ ) {
@@ -109,6 +126,9 @@ void process_terminal_command(void) {
 
     if (terminal_enabled) {
         strcpy(buffer, "");
+        for (int i = 0; i < 6; i++)
+            strcpy(arguments[i], "");
+        SEND_STRING(SS_TAP(X_HOME));
         send_string(terminal_prompt);
     }
 }
@@ -122,7 +142,6 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
 
     if (terminal_enabled && record->event.pressed) {
         if (keycode == TERM_OFF && record->event.pressed) {
-            SEND_STRING("exit\n");
             disable_terminal();
             return false;
         }
