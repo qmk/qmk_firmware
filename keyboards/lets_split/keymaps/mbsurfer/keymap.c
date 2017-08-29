@@ -193,45 +193,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LOWER:
       if (record->event.pressed) {
+
+        if (IS_LAYER_OFF(_RAISE) && IS_LAYER_OFF(_ADJUST)) {
+          // Save current RGB info
+          RGB_current_mode = rgblight_config.mode;
+          RGB_current_hue = rgblight_config.hue;
+
+          // Set RGB to Blue
+          rgblight_mode(1);
+          rgblight_setrgb(0, 0, 255);
+        }
+
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Save current RGB info
-        RGB_current_mode = rgblight_config.mode;
-        RGB_current_hue = rgblight_config.hue;
-
-        // Set RGB to Blue
-        rgblight_mode(1);
-        rgblight_setrgb(0, 0, 254);
+        if (IS_LAYER_ON(_ADJUST)){
+          // Set RGB to cyan
+          rgblight_setrgb(0, 255, 255);
+        }
       } else {
+
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Reset RGB
-        rgblight_mode(RGB_current_mode);
-        rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        if (IS_LAYER_OFF(_RAISE) && IS_LAYER_OFF(_ADJUST)) {
+          // Reset RGB
+          rgblight_mode(RGB_current_mode);
+          rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        } else if (IS_LAYER_ON(_RAISE)){
+          // Set RGB to Red
+          rgblight_setrgb(0, 255, 0);
+        }
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
+
+        if (IS_LAYER_OFF(_LOWER) && IS_LAYER_OFF(_ADJUST)) {
+          // Save current RGB info
+          RGB_current_mode = rgblight_config.mode;
+          RGB_current_hue = rgblight_config.hue;
+
+          // Set RGB to Green
+          rgblight_mode(1);
+          rgblight_setrgb(0, 255, 0);
+        }
+
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Save current RGB info
-        RGB_current_mode = rgblight_config.mode;
-        RGB_current_hue = rgblight_config.hue;
-
-        // Set RGB to Green
-        rgblight_mode(1);
-        rgblight_setrgb(0, 254, 0);
+        if (IS_LAYER_ON(_ADJUST)){
+          // Set RGB to cyan
+          rgblight_setrgb(0, 255, 255);
+        }
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Reset RGB
-        rgblight_mode(RGB_current_mode);
-        rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        if (IS_LAYER_OFF(_LOWER) && IS_LAYER_OFF(_ADJUST)) {
+          // Reset RGB
+          rgblight_mode(RGB_current_mode);
+          rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        } else if (IS_LAYER_ON(_LOWER)){
+          // Set RGB to Blue
+          rgblight_setrgb(0, 0, 255);
+        }
       }
       return false;
       break;
