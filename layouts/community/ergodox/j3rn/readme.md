@@ -28,5 +28,6 @@ This layout more closely resembles that of the Mac keyboard, and has some other 
 - **The bottommost-inner keys on the left and right thumb are momentary L2 and momentary L1, respectively**. I have found that both modes are useful, and this seemed like a reasonably accessible place to put these.
 - **Traditional numpad layout.** The base of most numpads is a double-wide "0" key to the left of a "." key. This is reflected in my layout by having two "0" keys to the left of a "." key.
 - **The function keys (F1-F12) have been moved to L2.** They were in the way in L1.
+- **The keys on the bottom-right that were formerly "[" and "]" are now Alt-Shift and Alt, respectively.** This enables me to do those `C-M-<key>` bindings in emacs. I use L1 for "[" and "]".
 
 **I'm always open to feedback and/or suggestions!**
