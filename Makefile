@@ -551,6 +551,10 @@ test: test-all
 .PHONY: test-clean
 test-clean: test-all-clean
 
+git-submodule:
+	git submodule sync --recursive
+	git submodule update --init --recursive
+
 ifdef SKIP_VERSION
 SKIP_GIT := yes
 endif
