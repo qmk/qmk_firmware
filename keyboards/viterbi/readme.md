@@ -3,12 +3,9 @@ Viterbi
 
 A split 5x14 ortholinear keyboard kit made and sold by Keebio. [More info at Keebio](https://keeb.io)
 
-Keyboard Maintainer: [Bakingpy](https://github.com/nooges)
-
-Hardware Supported: Pro Micro
-
+Keyboard Maintainer: [Bakingpy](https://github.com/nooges)  
+Hardware Supported: Pro Micro  
 Hardware Availability: [Keebio](https://keeb.io)
-
 
 Make example for this keyboard (after setting up your build environment):
 
