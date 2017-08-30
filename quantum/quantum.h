@@ -117,9 +117,9 @@ extern uint32_t default_layer_state;
 #define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
 #define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
 
-#define SS_LCTRL(keycode) SS_DOWN(X_LCTRL) keycode SS_UP(X_LCTRL)
-#define SS_LGUI(keycode) SS_DOWN(X_LGUI) keycode SS_UP(X_LGUI)
-#define SS_LALT(keycode) SS_DOWN(X_LALT) keycode SS_UP(X_LALT)
+#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
+#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
+#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
