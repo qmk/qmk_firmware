@@ -22,6 +22,7 @@
 
 bool terminal_enabled = false;
 char buffer[80] = "";
+char newline[2] = "\n";
 char arguments[6][80];
 
 __attribute__ ((weak))
@@ -80,19 +81,64 @@ void terminal_about(void) {
     SEND_STRING(QMK_VERSION);
     SEND_STRING("\n"SS_TAP(X_HOME)"  Built: ");
     SEND_STRING(QMK_BUILDDATE);
-    SEND_STRING("\n");
+    send_string(newline);
     if (strlen(arguments[1]) != 0) {
         SEND_STRING("You entered: ");
         send_string(arguments[1]);
-        SEND_STRING("\n");
+        send_string(newline);
     }
 }
 
 void terminal_help(void);
 
+extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+
+void terminal_keycode(void) {
+    if (strlen(arguments[1]) != 0 && strlen(arguments[2]) != 0 && strlen(arguments[3]) != 0) {
+        char keycode_dec[5];
+        char keycode_hex[5];
+        uint16_t layer = strtol(arguments[1], (char **)NULL, 10);
+        uint16_t row = strtol(arguments[2], (char **)NULL, 10);
+        uint16_t col = strtol(arguments[3], (char **)NULL, 10);
+        uint16_t keycode = pgm_read_word(&keymaps[layer][row][col]);
+        itoa(keycode, keycode_dec, 10);
+        itoa(keycode, keycode_hex, 16);
+        SEND_STRING("0x");
+        send_string(keycode_hex);
+        SEND_STRING(" (");
+        send_string(keycode_dec);
+        SEND_STRING(")\n");
+    } else {
+        #ifdef TERMINAL_HELP
+            SEND_STRING("usage: keycode <layer> <row> <col>\n");
+        #endif
+    }
+}
+
+void terminal_keymap(void) {
+    if (strlen(arguments[1]) != 0) {
+        uint16_t layer = strtol(arguments[1], (char **)NULL, 10);
+        for (int r = 0; r < MATRIX_ROWS; r++) {
+            for (int c = 0; c < MATRIX_COLS; c++) {
+                uint16_t keycode = pgm_read_word(&keymaps[layer][r][c]);
+                char keycode_s[8];
+                sprintf(keycode_s, "0x%04x, ", keycode);
+                send_string(keycode_s);
+            }
+            send_string(newline);
+        }
+    } else {
+        #ifdef TERMINAL_HELP
+            SEND_STRING("usage: keymap <layer>\n");
+        #endif
+    }
+}
+
 stringcase terminal_cases[] = { 
     { "about", terminal_about },
     { "help", terminal_help },
+    { "keycode", terminal_keycode },
+    { "keymap", terminal_keymap },
     { "exit", disable_terminal }
 };
 
@@ -102,7 +148,7 @@ void terminal_help(void) {
         send_string(case_p->string);
         SEND_STRING(" ");
     }
-    SEND_STRING("\n");
+    send_string(newline);
 }
 
 void command_not_found(void) {
@@ -113,7 +159,7 @@ void command_not_found(void) {
 
 void process_terminal_command(void) {
     // we capture return bc of the order of events, so we need to manually send a newline
-    SEND_STRING("\n");
+    send_string(newline);
 
     char * pch;
     uint8_t i = 0;
