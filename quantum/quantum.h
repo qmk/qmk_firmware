@@ -105,6 +105,8 @@ extern uint32_t default_layer_state;
 
 #ifdef TERMINAL_ENABLE
 	#include "process_terminal.h"
+#else
+	#include "process_terminal_nop.h"
 #endif
 
 #define STRINGIZE(z) #z

@@ -23,7 +23,7 @@
 bool terminal_enabled = false;
 char buffer[80] = "";
 char newline[2] = "\n";
-char arguments[6][80];
+char arguments[6][20];
 
 __attribute__ ((weak))
 const char terminal_prompt[8] = "> ";
@@ -82,11 +82,13 @@ void terminal_about(void) {
     SEND_STRING("\n"SS_TAP(X_HOME)"  Built: ");
     SEND_STRING(QMK_BUILDDATE);
     send_string(newline);
-    if (strlen(arguments[1]) != 0) {
-        SEND_STRING("You entered: ");
-        send_string(arguments[1]);
-        send_string(newline);
-    }
+    #ifdef TERMINAL_HELP
+        if (strlen(arguments[1]) != 0) {
+            SEND_STRING("You entered: ");
+            send_string(arguments[1]);
+            send_string(newline);
+        }
+    #endif
 }
 
 void terminal_help(void);
