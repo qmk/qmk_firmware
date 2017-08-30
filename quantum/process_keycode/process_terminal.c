@@ -88,10 +88,22 @@ void terminal_about(void) {
     }
 }
 
+void terminal_help(void);
+
 stringcase terminal_cases[] = { 
-    { "exit", disable_terminal },
-    { "about", terminal_about }
+    { "about", terminal_about },
+    { "help", terminal_help },
+    { "exit", disable_terminal }
 };
+
+void terminal_help(void) {
+    SEND_STRING("commands available:\n  ");
+    for( stringcase* case_p = terminal_cases; case_p != terminal_cases + sizeof( terminal_cases ) / sizeof( terminal_cases[0] ); case_p++ ) {
+        send_string(case_p->string);
+        SEND_STRING(" ");
+    }
+    SEND_STRING("\n");
+}
 
 void command_not_found(void) {
     SEND_STRING("command \"");
