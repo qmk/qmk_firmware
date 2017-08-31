@@ -45,6 +45,7 @@ enum macro_id {
 #define M_UPPER M(MACRO_UPPER)
 #define ROT_LED M(M_LED)   /* Rotate LED */
 #define QWERTY DF(_QWERTY)   /* Switch to QWERTY layout */
+#define QCENT DF(_QCENT)   /* Switch to QWERTY-with-centre layout */
 #define USERNAME M(M_USERNAME) /* shortcut for username */
 #define RANDDIG M(M_RANDDIGIT)
 #define RANDALP M(M_RANDLETTER)
@@ -79,39 +80,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
 
   [_QCENT] = { /* QWERTY, with keypad in the centre */
-  { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
+  { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
-  { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
+  { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_TAB, KC_LALT, ROT_LED, MO(_RAISE), KC_SPC, ALT_T(KC_BSPC), ALT_T(KC_BSPC),  ALT_T(KC_BSPC), KC_SPC, MO(_LOWER), KC_LEFT, KC_DOWN, KC_UP, ALTRIGHT},
+  { KC_LALT, ROT_LED, ROT_LED, MO(_RAISE), KC_SPC, ALT_T(KC_BSPC), ALT_T(KC_BSPC),  ALT_T(KC_BSPC), KC_SPC, MO(_LOWER), KC_LEFT, KC_DOWN, KC_UP, ALTRIGHT},
 
  },
 
  /* layout for centred keypad + qwerty...
 
-  | 1 | 2 | 3 | 4 | 5 | ? | ? | ? | ? | ? | 6 | 7 | 8 | 9 | 0 |
-  | q | w | e | r | t | ? | ? | ? | ? | ? | y | u | i | o | p |
-  | a | s | d | f | g | ? | ? | ? | ? | ? | h | j | k | l | ; |
-  | z | x | c | v | b | ? | ? | ? | ? | ? | n | m | , | . | / |
-  |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|ESC| 1 | 2 | 3 | 4 | 5 | ? | ? | ? | ? | 6 | 7 | 8 | 9 | 0 |
+|TAB| q | w | e | r | t | ? | ? | ? | ? | y | u | i | o | p |
+|CTL| a | s | d | f | g | ? | ? | ? | ? | h | j | k | l | ; |
+|SHF| z | x | c | v | b | ? | ? | ? | ? | n | m | , | . | / |
+|ALT|LED|   |   |   |   |   |   |   |   |   |   |   |   |   |
 
 
 keys needing to be:
-KC_TAB - tab
-ROT_LED - rotate LED
-KC_LALT - Left ALT
-KC_LGUI  - this is the windows/command key, which I think I do not use...
-M_LOWER - switch to LOWER layer 
-KC_SPC - space
-M_UPPER - switch to UPPER layer, maybe unneeded for 15x5
-KC_LEFT - famous arrows
-KC_DOWN - famous arrows
-KC_UP - famous arrows
-KC_RIGHT - famous arrows
-KC_ENT - enter
-KC_GRV - leftwards quote
-KC_QUOT - rightwards quote
-KC_BSPC - backspace
+11 - KC_TAB - tab
+52 - ROT_LED - rotate LED
+15 - KC_LALT - Left ALT
+   - KC_LGUI  - this is the windows/command key, which I think I do not use...
+   - M_LOWER - switch to LOWER layer 
+   - KC_SPC - space
+   - M_UPPER - switch to UPPER layer, maybe unneeded for 15x5
+   - KC_LEFT - famous arrows
+   - KC_DOWN - famous arrows
+   - KC_UP - famous arrows
+   - KC_RIGHT - famous arrows
+   - KC_ENT - enter
+   - KC_GRV - leftwards quote
+   - KC_QUOT - rightwards quote
+   - KC_BSPC - backspace
 
                         
 
