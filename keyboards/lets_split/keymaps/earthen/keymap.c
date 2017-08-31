@@ -87,12 +87,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |      |      |      | RAISE| LOWER| RAISE| LOWER|      |      |      |        |
  * `---------------------------------------------------------------------------------------'
  */
+
 [JOAN] = KEYMAP( \
   LT(CODE,CH_PARA),   CH_UE,          CH_COMM, CH_DOT,  CH_P,               TD(TD_Y_COPY),      TD(TD_F_PASTE),     CH_G,               CH_C,    CH_T,    CH_Z,    LT(CODE,KC_PSCR), \
   LT(SYMB, KC_TAB),  SFT_T(CH_A),    CH_O,    CH_E,    CH_I,               CH_U,               CH_H,               CH_D,               CH_R,    CH_N,    SFT_T(CH_S),    LT(SYMB,CH_L), \
   SFT_T(CH_AE),      CH_OE,          CH_Q,    CH_J,    CH_K,               CH_X,               CH_B,               CH_M,               CH_W,    CH_V,    CH_MINS, SFT_T(KC_ESC) , \
   KC_LCTL,           KC_LALT,        KC_LGUI, TT(MOUSE), LT(RAISE,KC_BSPC),  LT(LOWER,KC_SPC),  LT(RAISE,KC_ENT),  LT(LOWER,KC_DELT),   LT(MOUSE,KC_UP), KC_DOWN, RGB_TOG,   RCTL_T(KC_CAPS) \
 ),
+
 /* Marc
  * ,--------------------------------------------------------------------------------------------.
  * | Esc/CODE |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | - /INTELIJ|
@@ -107,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [MARC] = KEYMAP ( \
-  LT(CODE, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,         KC_G,         KC_C,    KC_R,    KC_L,    LT(INTELLIJ,KC_MINS),\
+  LT(INTELLIJ, KC_ESC),  KC_QUOT, KC_COMM, KC_DOT,             KC_P,              KC_Y,             KC_F,         KC_G,         KC_C,    KC_R,    KC_L,    LT(INTELLIJ,KC_MINS),\
   LT(SYMBUS,KC_TAB), KC_A,    KC_O,    KC_E,               KC_U,              KC_I,             KC_D,         KC_H,         KC_T,    KC_N,    KC_S,    LT(SYMBUS,KC_SLSH), \
   OSM(MOD_LSFT), KC_SCLN, KC_Q,    KC_J,               KC_K,              KC_X,             KC_B,             KC_M,         KC_W,    KC_V,    KC_Z,   OSM(MOD_LSFT), \
   LCTL_T(KC_CAPS),   KC_RGUI, KC_LALT, TT(MOUSE), LT(LOWER,KC_BSPC), LT(RAISE,KC_SPC), LT(RAISE,KC_SPC), LT(LOWER,KC_DELT), OSL(DESKTOP),   KC_LALT, KC_RGUI, RCTL_T(KC_ENT) \
@@ -151,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Symbol
  * ,-----------------------------------------------------------------------------------.
- * |      |   !  |   @  |   {  |   }  |   |  |   $  |   @  |   '  |   &   |  *   |     |
+ * |      |   !  |   @  |   {  |   }  |   |  |   $  |   @  |   '  |   &   |  *   |  =  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   #  |   $  |   (  |   )  |   `  |  ´   |   \  |   /  |   *  |   +  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -161,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [SYMBUS] = KEYMAP( \
-  _______, KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE, LSFT(KC_4),   LSFT(KC_2),   KC_QUOT,    KC_AMPR,    KC_ASTR, KC_BSPC, \
+  _______, KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE, LSFT(KC_4),   LSFT(KC_2),   KC_QUOT,    KC_AMPR,    KC_ASTR, KC_EQL, \
   _______,  KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV, ALGR(KC_MINS), KC_BSLS,   KC_SLSH,    KC_PAST,    KC_PPLS,  _______, \
   _______, KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD, KC_EQL, LSFT(KC_COMMA), LSFT(KC_DOT) ,    KC_EQL,    KC_PSLS,  _______, \
   _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______ \
@@ -225,25 +227,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+-------+------+------+-------------+------+------+------+------+------|
  * |      |      |stackin|togSpl|tabbed|      | menu |4-LEFT|5-DOWN|6-RIGH|vertic|horitz|
  * |------+------+-------+------+------+------|------+------+------+------+------+------|
- * |      | KILL |       |      |      | LOCK |  0   |  1   |  2   |  3   |      |      |
+ * |      | KILL | mute  |voldow|volup | LOCK |  0   |  1   |  2   |  3   |      |      |
  * |------+------+-------+------+------+------+------+------+------+------+------+------|
- * |      |      |       |      |      |floati focus |      |      |      |      |consol|
+ * |      | stop | bakc  | play | next |floati focus |      |      |      |      |consol|
  * `------------------------------------------------------------------------------------'
  */
 
 [DESKTOP] =  KEYMAP( \
                     _______, LGUI(LSFT(KC_E)), LGUI(LSFT(KC_R)), LGUI(LSFT(KC_C)), LGUI(LALT(KC_LEFT)), LGUI(LALT(KC_RIGHT)), LGUI(KC_F), LGUI(KC_7), TD(TD_WIN8_UP), LGUI(KC_9), LGUI(KC_R), _______, \
                     _______, _______, LGUI(KC_S), LGUI(KC_E), LGUI(KC_W), _______, LGUI(KC_D), TD(TD_WIN4_LEFT), TD(TD_WIN5_DOWN), TD(TD_WIN6_RIGHT), LGUI(KC_V), LGUI(KC_H), \
-                    _______, LGUI(LSFT(KC_Q)), _______, _______, _______, LGUI(LSFT(KC_X)), LGUI(KC_0), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), _______, _______, \
-                    _______, _______, _______, _______, _______, LGUI(LSFT(KC_SPC)), LGUI(KC_SPC), _______, _______, _______, _______, LGUI(KC_ENT) \
+                    _______, LGUI(LSFT(KC_Q)), KC__MUTE, KC__VOLDOWN, KC__VOLUP, LGUI(LSFT(KC_X)), LGUI(KC_0), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), _______, _______, \
+                    _______, KC_STOP, KC_MPRV, KC_MPLY, KC_MNXT, LGUI(LSFT(KC_SPC)), LGUI(KC_SPC), _______, _______, _______, _______, LGUI(KC_ENT) \
                      ),
 
+/* Adjust (Lower + Raise)
+ * ,-----------------------------------------------------------------------------------.
+ * |      |refact|altIns|      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |goBack|      |goFord|      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      | shift|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |altEnt|
+ * `-----------------------------------------------------------------------------------'
+ */
 [INTELLIJ] =  KEYMAP( \
-                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+                     _______, LCTL(LALT(LSFT(KC_T))), LALT(KC_INS), _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+                    _______, _______, _______, _______, _______, _______, _______, LCTL(LALT(KC_LEFT)), _______, LCTL(LALT(KC_RIGHT)), _______, _______, \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LSFT(KC_LSFT), \
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LALT(KC_ENT) \
                      ),
+
 /*
   Name 	Description
   RGB_TOG 	toggle on/off
