@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   §    |   1  |   2  |   3  |   4  |   5  | Esc  |           | Numb |   6  |   7  |   8  |   9  |   0  |PrintScr|
+ * | MEH §  |   1  |   2  |   3  |   4  |   5  | Esc  |           | Numb |   6  |   7  |   8  |   9  |   0  |PrintScr|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |~SYMB |   F  |   G  |   C  |   T  |   Z  |code/Back|
+ * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |MEH R |   F  |   G  |   C  |   T  |   Z  |code/Back|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Tab/SYMB|A/Shift|   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S/LShift| L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        CH_PARA,         CH_1,         CH_2,   CH_3,   CH_4,   CH_5,   KC_ESC,
+        MEH(CH_PARA),         CH_1,         CH_2,   CH_3,   CH_4,   CH_5,   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
         LT(SYMB, KC_TAB),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
         LT(SUBL, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),MEH_T(KC_HOME),
         // right hand
              TG(NUMB),     CH_6,   CH_7,   CH_8,   CH_9,   CH_0,             KC_PSCR,
-             KC_FN1,    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
+             MEH(CH_R),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
                           TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   SFT_T(CH_S),             LT(SYMB,CH_L),
              LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   OSL(SYMB),
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        | Lock |      |      |WinCls|      |      |           |      |      |  END |  Up  |  HOME|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |WinExp|AdrBar|      |------|           |------|TaskVw| Left | Down | Right|      |        |
+ * |        |      |      |WinExp|AdrBar| LGui |------|           |------|TaskVw| Left | Down | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | CrlShf |      |      |PrvTab|NexTab|      |      |           |      |NexWin| Undo | Redo |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -189,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [WORK] = KEYMAP(
        _______, _______, _______, _______, _______, _______, _______,
        _______, LGUI(CH_L), XXXXXXX, XXXXXXX, LALT(KC_F4), XXXXXXX, _______,
-       _______, XXXXXXX, XXXXXXX, KC_MYCM, LCTL(CH_L), XXXXXXX,
+       _______, XXXXXXX, XXXXXXX, KC_MYCM, LCTL(CH_L), KC_LGUI,
        OSM(MOD_LCTL | MOD_LSFT), XXXXXXX, XXXXXXX, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), XXXXXXX, _______,
        _______, _______, _______, _______, _______,
                                            _______, _______,
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______, _______, _______,
     // right hand
        _______,  _______,  _______, _______, _______, _______, _______,
-       _______,  MEH(CH_Z), KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX,
+       _______,  MEH(CH_R), KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX,
                  LGUI(KC_TAB), KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, _______,
        _______,  LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), XXXXXXX, XXXXXXX, _______,
                           _______, _______, _______, _______, _______,
