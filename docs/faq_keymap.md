@@ -1,9 +1,9 @@
-# Frequently Asked Keymap Questions
+# Keymap FAQ
 
-This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.html) first.
+This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.md) first.
 
 ## What Keycodes Can I Use?
-See [Basic Keycodes](keycodes.html) and [Quantum Keycodes](quantum_keycodes.html) for most of the keys you can define.
+See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
 
 Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
 
@@ -116,7 +116,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and `~ on a key
 
-Use `GRAVE_ESC` or `KC_GESC` in your keymap. `GUI`+`GRAVE_ESC` results in `\`` and `SHIFT`+`GRAVE_ESC` results in `~`.
+Use `GRAVE_ESC` or `KC_GESC` in your keymap. `GUI`+`GRAVE_ESC` results in `` ` `` and `SHIFT`+`GRAVE_ESC` results in `~`.
 
 Note that this will break the CTRL+SHIFT+ESC shortcut to the Windows task manager. Use `#define GRAVE_ESC_CTRL_OVERRIDE` in your `config.h` to get the shortcut back. With this option, `ESC_GRAVE` results in `ESC` if `CTRL` is held, even if `SHIFT` or `GUI` are also held.
 

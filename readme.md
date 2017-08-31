@@ -17,7 +17,7 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.
 
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox/)
+* [ErgoDox EZ](/keyboards/ergodox_ez/)
 * [Clueboard](/keyboards/clueboard/)
 * [Cluepad](/keyboards/cluepad/)
 
