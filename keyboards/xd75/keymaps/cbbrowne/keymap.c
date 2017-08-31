@@ -31,6 +31,11 @@ enum layers {
   _FUNCTION /* Function key layer */  
 };
 
+
+/* Macros need to be uniquely identified; using an enum to do this
+   automatically
+ */
+
 enum macro_id {
   M_LED = 0,
   M_USERNAME,
@@ -40,6 +45,9 @@ enum macro_id {
   MACRO_UPPER,
   MACRO_LOWER,
 };
+
+/* I want some short forms for keycodes so that they fit into
+   limited-width cells */
 
 #define M_LOWER M(MACRO_LOWER)
 #define M_UPPER M(MACRO_UPPER)
@@ -54,6 +62,10 @@ enum macro_id {
 #define ALTRIGHT MT(MOD_LALT, KC_RGHT)
 #define MVERSION M(M_VERSION)
 #define ALTSLASH LALT(KC_SLSH)
+#define FUNCTION MO(_FUNCTION)
+#define MRAISE MO(_RAISE)
+#define MLOWER MO(_LOWER)
+#define ALTBSP ALT_T(KC_BSPC)  
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -76,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
   { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MO(_RAISE), KC_SPC,  KC_SPC,  MO(_LOWER), KC_RGUI, KC_RALT, KC_RCTL, MO(_FUNCTION), KC_LEFT, KC_DOWN, KC_RGHT  },
+  { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MRAISE,  KC_SPC,  KC_SPC,  MLOWER,  KC_RGUI, KC_RALT, KC_RCTL, FUNCTION, KC_LEFT, KC_DOWN, KC_RGHT  },
  },
 
   [_QCENT] = { /* QWERTY, with keypad in the centre */
@@ -84,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
   { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
-  { KC_LALT, ROT_LED, ROT_LED, MO(_RAISE), KC_SPC, ALT_T(KC_BSPC), ALT_T(KC_BSPC),  ALT_T(KC_BSPC), KC_SPC, MO(_LOWER), KC_LEFT, KC_DOWN, KC_UP, ALTRIGHT},
+  { KC_LALT, ROT_LED, ROT_LED, MRAISE,  KC_SPC,  ALTBSP,  ALTBSP,  ALTBSP,  ALTBSP,  KC_SPC,  MLOWER,  KC_LEFT, KC_DOWN, KC_UP,   ALTRIGHT},
 
  },
 
