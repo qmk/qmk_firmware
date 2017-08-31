@@ -14,7 +14,7 @@
 #define RELEASE(keycode) unregister_code16(keycode)
 #define PREVENT_STUCK_MODIFIERS
 
-uint16_t VIM_QUEUE;
+uint16_t VIM_QUEUE = KC_NO;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -124,11 +124,11 @@ void VIM_LEADER(uint16_t keycode) {
   VIM_QUEUE = keycode;
   switch(keycode) {
     case VIM_C: print("\e[32mc\e[0m"); break;
-    case VIM_CI: print("\e[32mci\e[0m"); break;
+    case VIM_CI: print("\e[32mi\e[0m"); break;
     case VIM_D: print("\e[32md\e[0m"); break;
-    case VIM_DI: print("\e[32mdi\e[0m"); break;
+    case VIM_DI: print("\e[32mi\e[0m"); break;
     case VIM_V: print("\e[32mv\e[0m"); break;
-    case VIM_VI: print("\e[32mvi\e[0m"); break;
+    case VIM_VI: print("\e[32mi\e[0m"); break;
     case KC_NO: print("❎"); break;
   }
 }
@@ -178,7 +178,7 @@ void VIM_CUT(void) {
  * Sends ↓
  */
 void VIM_DOWN(void) {
-  print("\e[31m↓\e[0m");
+  print("\e[31mj\e[0m");
   TAP(KC_DOWN);
 }
 
@@ -196,7 +196,7 @@ void VIM_END(void) {
  * Sends ←
  */
 void VIM_LEFT(void) {
-  print("\e[31m←\e[0m");
+  print("\e[31mh\e[0m");
   VIM_LEADER(KC_NO);
   TAP(KC_LEFT);
 }
@@ -241,7 +241,7 @@ void VIM_PUT_BEFORE(void) {
  * Sends →
  */
 void VIM_RIGHT(void) {
-  print("\e[31m→\e[0m");
+  print("\e[31ml\e[0m");
   VIM_LEADER(KC_NO);
   TAP(KC_RIGHT);
 }
@@ -274,7 +274,7 @@ void VIM_UNDO(void) {
  * Sends ↑
  */
 void VIM_UP(void) {
-  print("\e[31m↑\e[0m");
+  print("\e[31mk\e[0m");
   VIM_LEADER(KC_NO);
   TAP(KC_UP);
 }
@@ -448,7 +448,7 @@ void VIM_DELETE_WHOLE_LINE(void) {
  * of the next word then cut.
  */
 void VIM_DELETE_WORD(void) {
-  print("/w\e[0m");
+  print("\e[31mw\e[0m");
   VIM_LEADER(KC_NO);
   PRESS(KC_LALT);
     SHIFT(KC_RIGHT); // select to end of this word
@@ -463,7 +463,7 @@ void VIM_DELETE_WORD(void) {
  * Simulates vim's `db` command by selecting to the end of the word then deleting.
  */
 void VIM_DELETE_BACK(void) {
-  print("\e[31mdb\e[0m");
+  print("\e[31mb\e[0m");
   VIM_LEADER(KC_NO);
   PRESS(KC_LALT);
     SHIFT(KC_LEFT); // select to start of word
@@ -476,7 +476,7 @@ void VIM_DELETE_BACK(void) {
  * Simulates vim's `dh` command by sending ⇧← then ⌘X.
  */
 void VIM_DELETE_LEFT(void) {
-  print("\e[31mdh\e[0m");
+  print("\e[31mh\e[0m");
   VIM_LEADER(KC_NO);
   SHIFT(KC_LEFT);
   CMD(KC_X);
@@ -487,7 +487,7 @@ void VIM_DELETE_LEFT(void) {
  * Simulates vim's `dl` command by sending ⇧→ then ⌘X.
  */
 void VIM_DELETE_RIGHT(void) {
-  print("\e[31mdl\e[0m");
+  print("\e[31ml\e[0m");
   VIM_LEADER(KC_NO);
   SHIFT(KC_RIGHT);
   CMD(KC_X);
@@ -498,7 +498,7 @@ void VIM_DELETE_RIGHT(void) {
  * Simulates vim's `dk` command by sending ↑ then deleting the line.
  */
 void VIM_DELETE_UP(void) {
-  print("\e[31mdk\e[0m");
+  print("\e[31mk\e[0m");
   VIM_LEADER(KC_NO);
   TAP(KC_UP);
   VIM_DELETE_LINE();
@@ -509,7 +509,7 @@ void VIM_DELETE_UP(void) {
  * Simulates vim's `dj` command by sending ↓ then deleting the line.
  */
 void VIM_DELETE_DOWN(void) {
-  print("\e[31mdj\e[0m");
+  print("\e[31mj\e[0m");
   VIM_LEADER(KC_NO);
   TAP(KC_DOWN);
   VIM_DELETE_LINE();
@@ -531,7 +531,7 @@ void VIM_DELETE_DOWN(void) {
  * Simulates vim's `diw` command by moving back then cutting to the end of the word.
  */
 void VIM_DELETE_INNER_WORD(void) {
-  print("\e[31mdiw\e[0m");
+  print("\e[31mw\e[0m");
   VIM_LEADER(KC_NO);
   VIM_BACK();
   VIM_DELETE_END();
@@ -554,7 +554,7 @@ void VIM_DELETE_INNER_WORD(void) {
  * then switching to insert mode.
  */
 void VIM_CHANGE_BACK(void) {
-  print("\e[31mcb\e[0m");
+  print("\e[31mb\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_BACK();
   layer_on(INSERT_MODE);
@@ -565,7 +565,7 @@ void VIM_CHANGE_BACK(void) {
  * Simulates vim's `cj` command by sending ↓ then changing the line.
  */
 void VIM_CHANGE_DOWN(void) {
-  print("\e[31mcj\e[0m");
+  print("\e[31mj\e[0m");
   VIM_LEADER(KC_NO);
   VIM_DELETE_DOWN();
   layer_on(INSERT_MODE);
