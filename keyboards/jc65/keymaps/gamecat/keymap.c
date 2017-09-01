@@ -1,8 +1,17 @@
 #include "jc65.h"
 #include "version.h"
-#define _BL 0    // Base Layer
-#define _FL 1    // Function Layer
-#define _CL 2    // Control Layer
+
+enum layers {
+    _BL,     // Base Layer
+    _FL,     // Function Layer
+    _CL,     // Control Layer
+};
+
+enum jc65_keycodes {
+    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+};
+
+#include "dynamic_macro.h"
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define FN_CAPS LT(_FL, KC_CAPS)
@@ -11,12 +20,6 @@
 #define KC_DMP1 DYN_MACRO_PLAY1
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
-
-enum jc65_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _BL: Base Layer, mostly standard 65% layout.

@@ -1,6 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-
 #include "m10a.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -9,16 +6,16 @@
 extern keymap_config_t keymap_config;
 
 enum layers {
-  _L0,
-  _L1,
-  _L2,
-  _L3,
-  _L4,
-  _L5,
-  _L6,
-  _L7,
-  _L8,
-  _L9
+    _L0,
+    _L1,
+    _L2,
+    _L3,
+    _L4,
+    _L5,
+    _L6,
+    _L7,
+    _L8,
+    _L9
 };
 
 enum m10a_keycodes {
@@ -43,28 +40,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
     *  |  1|  2|  3|  |VLD|CMP|WBK|  |VLD|PRV|RWD|  |   |   |   |  |   |   |   |
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |L0 |FN_L9 0|  |L1 |       |  |L2 |       |  |L3 |       |  |L4 |       |
+    *  |L0 |  _L9/0|  |L1 |  _L9  |  |L2 |  _L9  |  |L3 |  _L9  |  |L4 |  _L9  |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     *  .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
-    *  |   |   |   |  |RST|   |   |  |MP1|   |MP2|  |_L6|_L7|_L9|  |   |   |   |
+    *  |   |   |   |  |   |   |   |  |   |RST|   |  |MP1|   |MP2|  |_L6|_L7|_L8|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |   |   |   |  |   |   |   |  |   |MRS|   |  |_L3|_L4|_L5|  |   |   |   |
+    *  |   |   |   |  |   |   |   |  |   |   |   |  |   |MRS|   |  |_L3|_L4|_L5|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |   |   |   |  |   |   |   |  |MR1|   |MR2|  |_L0|_L1|_L2|  |_L8|_L8|_L8|
+    *  |   |   |   |  |   |   |   |  |   |   |   |  |MR1|   |MR2|  |_L0|_L1|_L2|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |L5 |       |  |L6 |       |  |L7 |       |  |L8 |       |  |L9 |       |
+    *  |L5 |  _L9  |  |L6 |  _L9  |  |L7 |  _L9  |  |L8 |  _L9  |  |L9 |       |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     */
     [_L0] = {{KC_7,    KC_8,    KC_9   }, {KC_4,    KC_5,    KC_6   }, {KC_1,    KC_2,    KC_3   }, {XXXXXXX, XXXXXXX, FN_ZERO}},
-    [_L1] = {{KC_VOLU, F(0),    KC_WFWD}, {KC_MUTE, M(1),    M(0)   }, {KC_VOLD, KC_MYCM, KC_WBAK}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L2] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L3] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L4] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L6] = {{RESET,   _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L7] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L8)}},
-    [_L8] = {{TO(_L6), TO(_L7), TO(_L9)}, {TO(_L3), TO(_L4), TO(_L5)}, {TO(_L0), TO(_L1), TO(_L2)}, {XXXXXXX, XXXXXXX, _______}},
-    [_L9] = {{_______, _______, _______}, {_______, _______, _______}, {TO(_L8), TO(_L8), TO(_L8)}, {XXXXXXX, XXXXXXX, _______}},
+    [_L1] = {{KC_VOLU, F(0),    KC_WFWD}, {KC_MUTE, M(1),    M(0)   }, {KC_VOLD, KC_MYCM, KC_WBAK}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L2] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L3] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L4] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L7] = {{_______, RESET,   _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L8] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L9] = {{DF(_L6), DF(_L7), DF(_L8)}, {DF(_L3), DF(_L4), DF(_L5)}, {DF(_L0), DF(_L1), DF(_L2)}, {XXXXXXX, XXXXXXX, _______}},
 };
 
 void matrix_init_user(void) {
@@ -94,19 +91,19 @@ void matrix_scan_user(void) {
             backlight_level(4);
             break;
         case 5:
-            backlight_level(4);
+            backlight_level(5);
             break;
         case 6:
-            backlight_level(5);
+            backlight_level(6);
             break;
         case 7:
-            backlight_level(5);
+            backlight_level(6);
             break;
         case 8:
             backlight_level(6);
             break;
         case 9:
-            backlight_level(6);
+            backlight_level(0);
             break;
         default:
             backlight_level(0);
