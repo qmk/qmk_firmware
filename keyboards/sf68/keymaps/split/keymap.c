@@ -17,15 +17,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Esc,  1, 2, 3, 4, 5, 6, 7, 8, 9, 0, -, =, \, `, Inc
  * Tab,  q, w, e, r, t, y, u, i, o, p, [, ], Delete, PgUp
  * LCtrl,a, s, d, f, g, h, j, k, l, ;, ', Enter, PgDn
- * LSft, z, x, c, v, b, n, m, ,, ., /, RSft, Up, Fn1
- * Caps, Fn1, LAlt, LGui, Bsp, Space, RAlt, Lock, Left, Down, Right
+ * LSft, z, x, c, v, b, n, m, ,, ., /, RSft, Up, Delete 
+ * Caps, Lock1, LAlt, LGui, Bsp, Space, RAlt, Fn1, Left, Down, Right
  */
 [_NML] = { /* Normal */
   {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,   KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,  KC_INS  },
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,    KC_LBRC, KC_RBRC, _______, KC_DEL,  KC_PGUP },
   {KC_LCTL, _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, _______, KC_ENT,  KC_PGDN },
-  {KC_LSFT, _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, _______, KC_RSFT, KC_UP,   KC_FN1  },
-  {KC_CAPS, KC_FN1,  KC_LALT, KC_LGUI, _______, _______, KC_BSPC, _______, KC_SPC, _______, _______, KC_RALT, KC_RGUI, KC_LEFT, KC_DOWN, KC_RGHT }
+  {KC_LSFT, _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, _______, KC_RSFT, KC_UP,   KC_DEL  },
+  {KC_CAPS, TG(_FUN),KC_LALT, KC_LGUI, _______, _______, KC_BSPC, _______, KC_SPC, _______, _______, KC_RALT, TT(_FUN),KC_LEFT, KC_DOWN, KC_RGHT }
 },
 /*
  * --, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, --, --, -- 
