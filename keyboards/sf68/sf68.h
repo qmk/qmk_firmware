@@ -21,7 +21,7 @@
 	{ k10, k11,   k12, k13, k14,   k15,   k16, k17,   k18, k19,   k1A,   k1B, k1C,   KC_NO, k1E, k1F }, \
 	{ k20, KC_NO, k21, k22, k23,   k24,   k25, k26,   k27, k28,   k29,   k2A, k2B,   KC_NO, k2C, k2D }, \
 	{ k30, KC_NO, k31, k32, k33,   k34,   k35, k36,   k37, k38,   k39,   k3A, KC_NO, k3B,   k3C, k3D }, \
-  { k40, k41,   k42, k43, KC_NO, KC_NO, k44, KC_NO, k45, KC_NO, KC_NO, k46, k47,   k48,   k49, k4A } \
+    { k40, k41,   k42, k43, KC_NO, KC_NO, k44, KC_NO, k45, KC_NO, KC_NO, k46, k47,   k48,   k49, k4A } \
 }
 
 #endif
