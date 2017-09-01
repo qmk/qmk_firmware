@@ -2,9 +2,24 @@
 
 These ARM Teensies are now supported through [ChibiOS](http://chibios.org).
 
-You'll need to install an ARM toolchain, for instance from [gcc ARM embedded](https://launchpad.net/gcc-arm-embedded) website, or using your favourite package manager. After installing, you should be able to run `arm-none-eabi-gcc -v` in the command prompt and get sensible output. This toolchain is used instead of `avr-gcc`, which is only for AVR chips. Naturally you'll also need the usual development tools (e.g. `make`), just as in the AVR setting.
+## Installing the ARM toolchain
 
-Next, you'll need ChibiOS. For Teensies, you'll need code from two repositories: [chibios-main](https://github.com/ChibiOS/ChibiOS) and [chibios-contrib](https://github.com/ChibiOS/ChibiOS). If you're not using git, you can just download a [zip of chibios from here](https://github.com/ChibiOS/ChibiOS/archive/a7df9a891067621e8e1a5c2a2c0ceada82403afe.zip), unpack the zip, and rename/move the unpacked directory (named `ChibiOS-<long_hash_here>`) to `tmk_core/tool/chibios/chibios` (so that the file `tmk_core/tool/chibios/chibios/license.txt` exists). Now the same procedure with a [zip of chibios-contrib from here](https://github.com/ChibiOS/ChibiOS-Contrib/archive/e1311c4db6cd366cf760673f769e925741ac0ad3.zip): unpack and move `ChibiOS-Contrib-<long_hash_here>` to `tmk_core/tool/chibios/chibios-contrib`.
+You'll need to install an ARM toolchain, there is now a nice documentation about the two AVR/ARM toolchain : https://docs.qmk.fm/getting_started_build_tools.html and you can just run `sudo util/install_dependencies.sh`.
+This toolchain is used instead of `avr-gcc`, which is only for AVR chips. Naturally you'll also need the usual development tools (e.g. `make`), just as in the AVR setting.
+
+You can find others way with the [gcc ARM embedded](https://launchpad.net/gcc-arm-embedded) website, or using your favourite package manager. After installing, you should be able to run `arm-none-eabi-gcc -v` in the command prompt and get sensible output.
+
+## Installing ChibiOS
+
+Next, you'll need ChibiOS. For Teensies, you'll need code from two repositories: [chibios-main](https://github.com/ChibiOS/ChibiOS) and [chibios-contrib](https://github.com/ChibiOS/ChibiOS).
+
+### If you’re using git
+
+Run `git submodule sync —recursive && git submodule update --init —recursive`. This will install ChibiOS and ChibiOS-Contrib in the `/lib/` directory.
+
+### If you’re not using Git
+
+If you're not using git, you can just download a [zip of chibios from here](https://github.com/ChibiOS/ChibiOS/archive/a7df9a891067621e8e1a5c2a2c0ceada82403afe.zip), unpack the zip, and rename/move the unpacked directory (named `ChibiOS-<long_hash_here>`) to `lib/chibios/chibios` (so that the file `lib/chibios/chibios/license.txt` exists). Now the same procedure with a [zip of chibios-contrib from here](https://github.com/ChibiOS/ChibiOS-Contrib/archive/e1311c4db6cd366cf760673f769e925741ac0ad3.zip): unpack and move `ChibiOS-Contrib-<long_hash_here>` to `lib/chibios/chibios-contrib`.
 
 (If you're using git, you can just clone the two repos: [chibios](https://github.com/ChibiOS/ChibiOS) and [chibios-contrib](https://github.com/ChibiOS/ChibiOS-Contrib). However - be warned that things may be somewhat out-of-sync (updates at different rates), so you may need to hunt a bit for the right commits.)
 
