@@ -117,7 +117,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
         case 0:
             if (record->event.pressed) {
                 return MACRO(I(10), D(LGUI), T(R), U(LGUI), END);
-            } 
+            }
             else {
                 SEND_STRING("chrome.exe\n");
                 return false;
