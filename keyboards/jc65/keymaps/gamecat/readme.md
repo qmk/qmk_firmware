@@ -74,7 +74,7 @@ Layer Select:(Caps+TAB+( )) (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-Function Layer (hold Caps), and Adjust Layer (hold Caps+TAB).
+Function Layer (hold Caps to access).
 ==============================================================================
     _FL: Function Layer.
     M0 opens Chrome
@@ -90,6 +90,8 @@ Function Layer (hold Caps), and Adjust Layer (hold Caps+TAB).
     |    |    |Menu|                        |     |     |WBk|VlD|WFw|
     *---------------------------------------------------------------*
 
+Adjust Layer (hold Caps+TAB to access).
+==============================================================================
     _AL: Adjust Layer.
     Default keymap, RGB Underglow, and Dynamic Macro settings.
     .---------------------------------------------------------------.
