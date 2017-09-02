@@ -3,7 +3,7 @@
 
 #include "zeal_color.h"
 
-#define PROTOCOL_VERSION 0x0005
+#define PROTOCOL_VERSION 0x0006
 
 enum
 {
@@ -62,6 +62,7 @@ typedef struct PACKED
 	uint8_t disable_after_timeout;
 	uint8_t brightness;
 	uint8_t effect;
+	uint8_t effect_speed;
 	HSV color_1;
 	HSV color_2;
 	HSV caps_lock_indicator_color;

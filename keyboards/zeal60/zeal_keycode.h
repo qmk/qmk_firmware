@@ -11,6 +11,8 @@ enum zeal60_keycodes {
 	BR_DEC, 			// backlight brightness decrease
 	EF_INC, 			// backlight effect increase
 	EF_DEC,  			// backlight effect decrease
+	ES_INC,
+	ES_DEC,
 	H1_INC,
 	H1_DEC,
 	S1_INC,

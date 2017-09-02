@@ -26,6 +26,7 @@ typedef struct
 	uint8_t disable_after_timeout;      // 1 byte
 	uint8_t brightness;                 // 1 byte
 	uint8_t effect;                     // 1 byte
+	uint8_t effect_speed;				// 1 byte
 	HSV color_1;                        // 3 bytes
 	HSV color_2;                        // 3 bytes
 	zeal_indicator caps_lock_indicator;	// 4 bytes
@@ -33,7 +34,7 @@ typedef struct
 	zeal_indicator layer_2_indicator;	// 4 bytes
 	zeal_indicator layer_3_indicator;	// 4 bytes
 	uint16_t alphas_mods[5];            // 10 bytes
-} zeal_backlight_config;                // = 36 bytes
+} zeal_backlight_config;                // = 37 bytes
 
 void backlight_config_set_values(msg_backlight_config_set_values *values);
 void backlight_config_set_alphas_mods( uint16_t *value );
@@ -59,6 +60,8 @@ void backlight_set_key_hit(uint8_t row, uint8_t col);
 
 void backlight_effect_increase(void);
 void backlight_effect_decrease(void);
+void backlight_effect_speed_increase(void);
+void backlight_effect_speed_decrease(void);
 
 void backlight_brightness_increase(void);
 void backlight_brightness_decrease(void);
@@ -71,6 +74,8 @@ void backlight_color_2_hue_increase(void);
 void backlight_color_2_hue_decrease(void);
 void backlight_color_2_sat_increase(void);
 void backlight_color_2_sat_decrease(void);
+
+
 
 void *backlight_get_key_color_eeprom_address(uint8_t led);
 void backlight_get_key_color( uint8_t led, HSV *hsv );

@@ -11,7 +11,7 @@
 #include "zeal_color.h"
 #include "IS31FL3731_driver.h"
 
-#define BACKLIGHT_EFFECT_MAX 9
+#define BACKLIGHT_EFFECT_MAX 11
 
 zeal_backlight_config g_config = {
 	.use_split_backspace = BACKLIGHT_USE_SPLIT_BACKSPACE,
@@ -24,6 +24,7 @@ zeal_backlight_config g_config = {
 	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
 	.brightness = 255,
 	.effect = 255, // Default to RGB test, so Zeal can flash and test in one pass!
+	.effect_speed = 0,
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
 	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
@@ -96,6 +97,23 @@ const Point g_map_led_to_point[72] PROGMEM = {
 };
 #endif // ZEAL65_PROTO
 
+const Point g_map_led_to_point_polar[72] PROGMEM = {
+	// LA0..LA17
+	{58,129}, {70,129}, {80,139}, {89,157}, {96,181}, {101,208}, {105,238}, {109,255}, {128,247}, {58,255},
+	{64,255}, {70,255}, {75,255}, {80,255}, {85,255}, {89,255}, {93,255}, {96,255},
+	// LB0..LB17
+	{53,255}, {48,255}, {43,255}, {39,255}, {34,255}, {32,255}, {255,255}, {255,255}, {255,255},
+	{48,139}, {39,157}, {32,181}, {27,208}, {23,238}, {19,255}, {255,255}, {255,255}, {255,255},
+	// LC0..LC17
+	{188,255}, {183,131}, {173,143}, {165,163}, {159,188}, {154,216}, {172,252}, {170,255}, {165,255},
+	{128,9}, {128,46}, {128,82}, {128,119}, {128,155}, {128,192}, {150,244}, {147,255}, {161,255},
+	// LD0..LD17
+	{0,27}, {0,64}, {0,101}, {0,137}, {0,174}, {255,233}, {228,201}, {235,255}, {237,255},
+	{195,128}, {206,136}, {215,152}, {222,175}, {205,234}, {209,255}, {214,255}, {219,255}, {223,255}
+};
+
+
+
 // This may seem counter-intuitive, but it's quite flexible.
 // For each LED, get it's position to decide what color to make it.
 // This solves the issue of LEDs (and switches) not aligning to a grid,
@@ -140,6 +158,14 @@ void map_led_to_point( uint8_t index, Point *point )
 				point->x -= 8;
 			break;
 	}
+}
+
+void map_led_to_point_polar( uint8_t index, Point *point )
+{
+	// Slightly messy way to get Point structs out of progmem.
+	uint8_t *addr = (uint8_t*)&g_map_led_to_point_polar[index];
+	point->x = pgm_read_byte(addr);
+	point->y = pgm_read_byte(addr+1);
 }
 
 //
@@ -455,7 +481,7 @@ void backlight_effect_raindrops(bool initialize)
 
 void backlight_effect_cycle_all(void)
 {
-	uint8_t offset = g_tick & 0xFF;
+	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 
 	// Relies on hue being 8-bit and wrapping
 	for ( int i=0; i<72; i++ )
@@ -477,7 +503,7 @@ void backlight_effect_cycle_all(void)
 
 void backlight_effect_cycle_left_right(void)
 {
-	uint8_t offset = g_tick & 0xFF;
+	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
@@ -502,7 +528,7 @@ void backlight_effect_cycle_left_right(void)
 
 void backlight_effect_cycle_up_down(void)
 {
-	uint8_t offset = g_tick & 0xFF;
+	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
@@ -547,6 +573,46 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 			rgb = hsv_to_rgb( hsv );
 			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 		}
+	}
+}
+
+void backlight_effect_cycle_radial1(void)
+{
+	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
+	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
+	RGB rgb;
+	Point point;
+	for ( int i=0; i<72; i++ )
+	{
+		map_led_to_point_polar( i, &point );
+		// Relies on hue being 8-bit and wrapping
+		hsv.h = point.x + offset;
+		hsv.s = point.y;
+		rgb = hsv_to_rgb( hsv );
+		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+	}
+}
+
+void backlight_effect_cycle_radial2(void)
+{
+	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
+
+	HSV hsv = { .h = 0, .s = g_config.color_1.s, .v = g_config.brightness };
+	RGB rgb;
+	Point point;
+	for ( int i=0; i<72; i++ )
+	{
+		map_led_to_point_polar( i, &point );
+		uint8_t offset2 = offset + point.x;
+		if ( offset2 & 0x80 )
+		{
+			offset2 = ~offset2;
+		}
+		offset2 = offset2 >> 2;
+		hsv.h = g_config.color_1.h + offset2;
+		hsv.s = 127 + ( point.y >> 1 );
+		rgb = hsv_to_rgb( hsv );
+		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 	}
 }
 
@@ -715,6 +781,11 @@ ISR(TIMER3_COMPA_vect)
 			backlight_effect_jellybean_raindrops( initialize );
 			break;
 		case 9:
+			backlight_effect_cycle_radial1();
+			break;
+		case 10:
+			backlight_effect_cycle_radial2();
+			break;
 		default:
 			backlight_effect_custom();
 			break;
@@ -742,6 +813,14 @@ void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column 
 
 void backlight_config_set_values(msg_backlight_config_set_values *values)
 {
+	bool needs_init = (
+			g_config.use_split_backspace != values->use_split_backspace ||
+			g_config.use_split_left_shift != values->use_split_left_shift ||
+			g_config.use_split_right_shift != values->use_split_right_shift ||
+			g_config.use_7u_spacebar != values->use_7u_spacebar ||
+			g_config.use_iso_enter != values->use_iso_enter ||
+			g_config.disable_hhkb_blocker_leds != values->disable_hhkb_blocker_leds );
+
 	g_config.use_split_backspace = values->use_split_backspace;
 	g_config.use_split_left_shift = values->use_split_left_shift;
 	g_config.use_split_right_shift = values->use_split_right_shift;
@@ -754,6 +833,7 @@ void backlight_config_set_values(msg_backlight_config_set_values *values)
 
 	g_config.brightness = values->brightness;
 	g_config.effect = values->effect;
+	g_config.effect_speed = values->effect_speed;
 	g_config.color_1 = values->color_1;
 	g_config.color_2 = values->color_2;
 	g_config.caps_lock_indicator.color = values->caps_lock_indicator_color;
@@ -764,6 +844,11 @@ void backlight_config_set_values(msg_backlight_config_set_values *values)
 	backlight_set_indicator_index( &g_config.layer_2_indicator.index, values->layer_2_indicator_row, values->layer_2_indicator_column );
 	g_config.layer_3_indicator.color = values->layer_3_indicator_color;
 	backlight_set_indicator_index( &g_config.layer_3_indicator.index, values->layer_3_indicator_row, values->layer_3_indicator_column );
+
+	if ( needs_init )
+	{
+		backlight_init_drivers();
+	}
 }
 
 void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
@@ -860,6 +945,18 @@ void backlight_effect_increase(void)
 void backlight_effect_decrease(void)
 {
 	g_config.effect = decrement( g_config.effect, 1, 0, BACKLIGHT_EFFECT_MAX );
+	backlight_config_save();
+}
+
+void backlight_effect_speed_increase(void)
+{
+	g_config.effect_speed = increment( g_config.effect_speed, 1, 0, 3 );
+	backlight_config_save();
+}
+
+void backlight_effect_speed_decrease(void)
+{
+	g_config.effect_speed = decrement( g_config.effect_speed, 1, 0, 3 );
 	backlight_config_save();
 }
 

@@ -44,7 +44,6 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
 			backlight_config_set_values(msg);
 			backlight_config_save();
-			backlight_init_drivers();
 			break;
 		}
 		case id_backlight_config_set_alphas_mods:
@@ -200,6 +199,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 			if (record->event.pressed)
 			{
 				backlight_effect_decrease();
+			}
+			return false;
+			break;
+		case ES_INC:
+			if (record->event.pressed)
+			{
+				backlight_effect_speed_increase();
+			}
+			return false;
+			break;
+		case ES_DEC:
+			if (record->event.pressed)
+			{
+				backlight_effect_speed_decrease();
 			}
 			return false;
 			break;
