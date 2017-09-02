@@ -38,8 +38,8 @@ enum custom_keycodes {
     TUR_S,
     TUR_U,
     TUR_TL,
-    UTF_LI,
-    UTF_WN,
+    UNI_LI,
+    UNI_WN,
 };
 
 // Tap dance
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Function layer
 [_FN] = {
-  {TG(_FN),TG(_QW),TG(_GM),MU_ON,  _______,_______,_______,   UTF_LI, UTF_WN ,KC_WAKE,KC_SLEP,KC_PWR },
+  {TG(_FN),TG(_QW),TG(_GM),MU_ON,  _______,_______,_______,   UNI_LI, UNI_WN ,KC_WAKE,KC_SLEP,KC_PWR },
   {KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12 },
   {_______,LSFT(KC_Z),LSFT(KC_Y),LSFT(KC_X),LSFT(KC_C),LSFT(KC_V),KC_PSCR,KC_INS, KC_HOME,KC_PGDN,KC_PGUP,KC_END },
   {_______,KC_MUTE,KC_VOLD,KC_VOLU,_______,_______,_______,_______,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT}
@@ -162,13 +162,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_A:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00c2);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00e2);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -176,13 +176,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_U:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00dc);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00fc);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -190,13 +190,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_I:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x0130);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x0131);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -204,13 +204,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_O:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00d6);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00f6);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -218,13 +218,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_S:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x015e);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x015f);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -232,13 +232,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_G:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x011e);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x011f);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
@@ -246,32 +246,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TUR_C:
       if (record->event.pressed) {
         if ( shifted ) {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00c7);
-            unicode_input_end;
+            unicode_input_finish();
         } else {
-            unicode_input_start;
+            unicode_input_start();
             register_hex(0x00e7);
-            unicode_input_end;
+            unicode_input_finish();
         }
       }
       return false;
       break;
     case TUR_TL:
       if (record->event.pressed) {
-        unicode_input_start;
+        unicode_input_start();
         register_hex(0x20ba);
-        unicode_input_end;
+        unicode_input_finish();
       }
       return false;
       break;
-    case UTF_LI:
+    case UNI_LI:
       if( record->event.pressed ) {
           set_unicode_input_mode(UC_LNX);
       }
       return false;
       break;
-    case UTF_WN:
+    case UNI_WN:
       if( record->event.pressed ) {
           set_unicode_input_mode(UC_WIN);
       }
