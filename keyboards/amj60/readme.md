@@ -3,9 +3,9 @@ AMJ60
 
 A 60% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: AMJ60
-Hardware Availability: https://geekhack.org/index.php?topic=77636.0
+Keyboard Maintainer: QMK Community  
+Hardware Supported: AMJ60  
+Hardware Availability: https://geekhack.org/index.php?topic=77636.0  
 
 Make example for this keyboard (after setting up your build environment):
 

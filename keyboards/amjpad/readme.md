@@ -3,9 +3,9 @@ AMJ Pad
 
 A DIY Keypad Kit
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: AMJ Pad
-Hardware Availability: https://geekhack.org/index.php?topic=83546.0
+Keyboard Maintainer: QMK Community  
+Hardware Supported: AMJ Pad  
+Hardware Availability: https://geekhack.org/index.php?topic=83546.0  
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -247,8 +247,8 @@ gccversion :
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(KEYBOARD)_$(KEYMAP).hex; \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(TARGET).hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
 	else \
 		$(COPY) $@ $(TARGET).hex; \
 	fi
