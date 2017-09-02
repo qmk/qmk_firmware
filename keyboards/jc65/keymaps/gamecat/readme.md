@@ -4,7 +4,7 @@ Layout Config:
     2u backspace, 2.25u left shift/enter, 1.75u right shift,
     and (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
 ==============================================================================
-Layer Select:(Caps+TAB+()) (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
+Layer Select:(Caps+TAB+( )) (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
 ==============================================================================
     _BL: Base Layer, mostly standard 65% layout.
     FN_CAPS = CAPS when tapped, MO(_FL) when held.
