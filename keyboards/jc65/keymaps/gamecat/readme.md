@@ -74,7 +74,7 @@ Layer Select:(Caps+TAB+( )) (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-Function (hold Caps), and Adjust Layers (hold Caps+TAB).
+Function Layer (hold Caps), and Adjust Layer (hold Caps+TAB).
 ==============================================================================
     _FL: Function Layer.
     M0 opens Chrome
