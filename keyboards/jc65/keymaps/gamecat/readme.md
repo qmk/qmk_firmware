@@ -1,7 +1,7 @@
 Keymap Maintainer: Gam3cat
 ==============================================================================
-Config (for adjustments modify keymap.c): 
-    2u backspace, 2.25u left shift/enter, 1.75u right shift, 
+Layout Config: 
+    2u backspace, 2.25u left shift/enter, 1.75u right shift,
     and (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
 ==============================================================================
     _BL: Base Layer, mostly standard 65% layout.
@@ -19,7 +19,7 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
-    
+
     _WL: Workman Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
@@ -32,7 +32,7 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
-    
+
     _NL: Norman Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
@@ -45,7 +45,7 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
-    
+
     _DL: Dvorak Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  [|  ]|Backsp |Ins|
@@ -58,7 +58,7 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
-    
+
     _CL: Colmak Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
@@ -71,7 +71,8 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
-==============================================================================
+
+
 
 
     _FL: Function Layer.
@@ -87,9 +88,9 @@ Config (for adjustments modify keymap.c):
     |---------------------------------------------------------------|
     |    |    |Menu|                        |     |     |WBk|VlD|WFw|
     *---------------------------------------------------------------*
-    
+
     _AL: Adjust Layer.
-    RGB Underglow and Dynamic Macro controls.
+    Default keymap, RGB Underglow, and Dynamic Macro settings.
     .---------------------------------------------------------------.
     |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
     |---------------------------------------------------------------|

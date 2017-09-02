@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* _AL: Adjust Layer.
-    *  RGB Underglow and Dynamic Macro controls.
+    *  Default keymap, RGB Underglow, and Dynamic Macro settings.
     *  .---------------------------------------------------------------.
     *  |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
     *  |---------------------------------------------------------------|
