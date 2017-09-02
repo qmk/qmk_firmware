@@ -24,11 +24,6 @@ enum jc65_keycodes {
 #define KC_DMP1 DYN_MACRO_PLAY1
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
-#define LY_QWER DF(_BL)
-#define LY_WORK DF(_WL)
-#define LY_NRMN DF(_NL)
-#define LY_DVRK DF(_DL)
-#define LY_CLMK DF(_CL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _BL: Base Layer, mostly standard 65% layout.
@@ -177,9 +172,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_AL] = KEYMAP(
         F(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_DMP1,
-        _______,          LY_QWER, LY_WORK, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DMR1,
-        _______,          _______, _______, LY_DVRK, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DMRS,
-        _______, _______, _______, _______, LY_CLMK, _______, LY_QWER, LY_NRMN, _______, _______, _______, _______,          _______, _______, KC_DMR2,
+        _______,          DF(_BL), DF(_WL), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DMR1,
+        _______,          _______, _______, DF(_DL), _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DMRS,
+        _______, _______, _______, _______, DF(_CL), _______, DF(_BL), DF(_NL), _______, _______, _______, _______,          _______, _______, KC_DMR2,
         RESET,   _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, KC_DMP2
     ),
 };
