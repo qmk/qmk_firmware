@@ -1,6 +1,6 @@
 Keymap Maintainer: Gam3cat
 ==============================================================================
-Layout Config: 
+Layout Config:
     2u backspace, 2.25u left shift/enter, 1.75u right shift,
     and (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
 ==============================================================================
@@ -74,7 +74,7 @@ Base Layer Options: QWERTY, Workman, Norman, Dvorak, Colmak
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-Function and Adjust Layers.
+Function (hold Caps), and Adjust Layers (hold Caps+TAB).
 ==============================================================================
     _FL: Function Layer.
     M0 opens Chrome
