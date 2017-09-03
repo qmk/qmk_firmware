@@ -82,7 +82,7 @@ typedef struct { \
         remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
         uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);\
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return triple_buffer_read_internal(obj->object_size, tb); \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
     }
 
 #define MASTER_TO_SINGLE_SLAVE_OBJECT(name, type) \
@@ -112,7 +112,7 @@ typedef struct { \
         remote_object_t* obj = (remote_object_t*)&remote_object_##name; \
         uint8_t* start = obj->buffer + NUM_SLAVES * LOCAL_OBJECT_SIZE(obj->object_size);\
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return triple_buffer_read_internal(obj->object_size, tb); \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
     }
 
 #define SLAVE_TO_MASTER_OBJECT(name, type) \
@@ -139,12 +139,13 @@ typedef struct { \
         uint8_t* start = obj->buffer + LOCAL_OBJECT_SIZE(obj->object_size);\
         start+=slave * REMOTE_OBJECT_SIZE(obj->object_size); \
         triple_buffer_object_t* tb = (triple_buffer_object_t*)start; \
-        return triple_buffer_read_internal(obj->object_size, tb); \
+        return (type*)triple_buffer_read_internal(obj->object_size, tb); \
     }
 
 #define REMOTE_OBJECT(name) (remote_object_t*)&remote_object_##name
 
 void add_remote_objects(remote_object_t** remote_objects, uint32_t num_remote_objects);
+void reinitialize_serial_link_transport(void);
 void transport_recv_frame(uint8_t from, uint8_t* data, uint16_t size);
 void update_transport(void);
 

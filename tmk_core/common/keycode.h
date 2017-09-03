@@ -85,7 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LCAP KC_LOCKING_CAPS
 #define KC_LNUM KC_LOCKING_NUM
 #define KC_LSCR KC_LOCKING_SCROLL
-#define KC_ERAS KC_ALT_ERASE,
+#define KC_ERAS KC_ALT_ERASE
 #define KC_CLR  KC_CLEAR
 /* Japanese specific */
 #define KC_ZKHK KC_GRAVE
@@ -94,6 +94,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_JYEN KC_INT3
 #define KC_HENK KC_INT4
 #define KC_MHEN KC_INT5
+/* Korean specific */
+#define KC_HAEN KC_LANG1
+#define KC_HANJ KC_LANG2
 /* Keypad */
 #define KC_P1   KC_KP_1
 #define KC_P2   KC_KP_2
@@ -113,6 +116,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_PPLS KC_KP_PLUS
 #define KC_PEQL KC_KP_EQUAL
 #define KC_PENT KC_KP_ENTER
+/* Unix function key */
+#define KC_EXEC KC_EXECUTE
+#define KC_SLCT KC_SELECT
+#define KC_AGIN KC_AGAIN
+#define KC_PSTE KC_PASTE
 /* Mousekey */
 #define KC_MS_U KC_MS_UP
 #define KC_MS_D KC_MS_DOWN

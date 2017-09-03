@@ -20,6 +20,7 @@ sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboards/$KEYBO
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboards/$KEYBOARD/config.h
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/readme.md > keyboards/$KEYBOARD/readme.md
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboards/$KEYBOARD/Makefile
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/rules.mk > keyboards/$KEYBOARD/rules.mk
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/config.h > keyboards/$KEYBOARD/keymaps/default/config.h
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/keymap.c > keyboards/$KEYBOARD/keymaps/default/keymap.c
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/Makefile > keyboards/$KEYBOARD/keymaps/default/Makefile

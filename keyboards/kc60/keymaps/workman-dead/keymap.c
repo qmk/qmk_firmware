@@ -6,9 +6,6 @@
 #define _FUN 3
 #define _MS 4
 
-#define _______ KC_NO
-#define XXXXXXX KC_TRNS
-
 #define _DK_ACT 0
 #define _DK_REL 1
 #define _KC_COMS 2
@@ -56,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TABM,          KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS, \
   KC_LCTL,          KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT, _______, KC_ENT,  \
   KC_LSFT, _______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    DK_ACT,  KC_DOT,  KC_SLSH,          _______, KC_RSFT, \
-  KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPFN,                   KC_RALT, KC_RGUI, KC_RCTL, KC_DFQW),
+  KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPFN,          _______, KC_RALT, KC_RGUI, KC_RCTL, KC_DFQW),
 
 // QWERTY
 /*
@@ -77,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TABM,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
   KC_LCTL,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, _______, KC_ENT,  \
   KC_LSFT, _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    DK_ACT,  KC_DOT,  KC_SLSH,          _______, KC_RSFT, \
-  KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPFN,                   KC_RALT, KC_RGUI, KC_RCTL, KC_DOWN),
+  KC_LCTL, KC_LALT, KC_LGUI,                   KC_SPFN,          _______, KC_RALT, KC_RGUI, KC_RCTL, KC_DFWM),
 
 // dead key layer
 /*
@@ -98,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,          KC_PERC, KC_AMPR, KC_QUES, KC_PLUS, KC_AT,   KC_DLR,  KC_UNDS, KC_LBRC, KC_RBRC, KC_EXLM, KC_TILD, KC_CIRC, _______, \
   _______,          KC_HASH, KC_LPRN, KC_EQL,  KC_0,    KC_LCBR, KC_RCBR, KC_1,    KC_ASTR, KC_RPRN, KC_MINS, KC_GRV,  _______, KC_CENT, \
   _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_PIPE, KC_BSLS, KC_2,    DK_REL,  KC_4,    KC_5,             _______, _______, \
-  KC_LCTL, KC_LALT, KC_LGUI,                   KC_COMS,                   KC_RALT, KC_RGUI, KC_RCTL, _______),
+  KC_LCTL, KC_LALT, KC_LGUI,                   KC_COMS,          _______, KC_RALT, KC_RGUI, KC_RCTL, _______),
 
 // function layer
 /*
@@ -119,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,           KC_CMDQ, KC_CMDD, KC_CSTB, KC_C_TB, _______, _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, _______, KC_INS,  \
   KC_LSFT,          KC_CMDA, KC_CMDS, KC_C_LF, KC_C_RT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END,  _______, KC_BSPC, \
   KC_LSFT, _______, KC_CMDZ, KC_CMDX, _______, KC_CMDC, KC_CMDV, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______,          _______, _______, \
-  KC_LCTL, KC_LALT, KC_LGUI,                   KC_TRNS,                   KC_RALT, KC_RGUI, KC_RCTL, RESET),
+  KC_LCTL, KC_LALT, KC_LGUI,                   KC_TRNS,          _______, KC_RALT, KC_RGUI, KC_RCTL, RESET),
 
 // mouse layer
 /*
@@ -140,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX,          KC_ACL2, KC_ACL1, KC_ACL0, _______, _______, _______, _______, KC_MS_U, _______, _______, _______, _______, _______, \
   _______,          _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN2, _______, _______, _______, \
   _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______,                   KC_BTN1,                   _______, _______, _______, _______),
+  _______, _______, _______,                   KC_BTN1,          _______, _______, _______, _______, _______),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

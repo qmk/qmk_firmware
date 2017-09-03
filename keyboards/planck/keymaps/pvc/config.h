@@ -59,13 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D1
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 28     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
 
 /*
  * Feature disable options
@@ -73,10 +68,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* disable debug print */
-//#define NO_DEBUG
+#ifndef NO_DEBUG
+#  define NO_DEBUG
+#endif
 
 /* disable print */
-//#define NO_PRINT
+// #ifndef NO_PRINT
+// #  define NO_PRINT
+// #endif
+
+/* Only print user print statements */
+#define USER_PRINT
+
 
 /* disable action features */
 //#define NO_ACTION_LAYER
