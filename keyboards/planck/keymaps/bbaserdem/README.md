@@ -30,5 +30,5 @@ I set this up for seldom use, since I will put an artisan there.
 # To fix
 
 * Layer locking does not work. Fix it.
-* Tap dance layer does not work.
+* Tap dance layer does not work. (Check ACTION_TAP_DANCE_DUAL_ROLE)
 * Can't deal with previous base layer setting != 0.
