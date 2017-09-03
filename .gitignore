@@ -23,6 +23,7 @@ quantum/version.h
 CMakeLists.txt
 .DS_STORE
 /util/wsl_downloaded
+/util/win_downloaded
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject
@@ -32,10 +33,19 @@ CMakeLists.txt
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt
-.vscode
+# Let these ones be user specific, since we have so many different configurations
+.vscode/launch.json
+.vscode/tasks.json
 .stfolder
 
 # ignore image files
 *.png
 *.jpg
 *.gif
+
+# Do not ignore MiniDox left/right hand eeprom files
+!keyboards/minidox/*.eep 
+
+# things travis sees
+secrets.tar
+id_rsa_*

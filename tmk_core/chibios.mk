@@ -155,3 +155,6 @@ DFU_UTIL ?= dfu-util
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

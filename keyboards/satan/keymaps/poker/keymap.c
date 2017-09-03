@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------.
    * | ~ | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|  DEL  |
    * |-----------------------------------------------------------|
-   * |     | Up|  |  |  |  |Cal|   |Ins|   |PrSc|Sclk|Paus|      |
+   * |     |   |Up|  |  |  |Cal|   |Ins|   |PrSc|Sclk|Paus|      |
    * |-----------------------------------------------------------|
    * |      |Left|Down|Rig|  |  |  |  |   |   |Home|PgUp|        |
    * |-----------------------------------------------------------|
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_HOME, KC_PGUP,          KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_APP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU,  KC_MUTE, KC_END,  KC_PGDN,                   KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-  
+
   /* Keymap _RL: Function Layer
    * ,-----------------------------------------------------------.
    * |   |   |   |   |   |   |   |   |   |   |   |   |   |  RESET|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |        | F1|F2 | F3|F4 | F5| F6| F7| F8|   |   |          |
    * |-----------------------------------------------------------|
    * |    |    |    |                        |    |    |    |    |
-   * `-----------------------------------------------------------'   
+   * `-----------------------------------------------------------'
    */
 [_RL] = KEYMAP_ANSI(
   #ifdef RGBLIGHT_ENABLE

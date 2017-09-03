@@ -1,5 +1,6 @@
 # Quantum Mechanical Keyboard Firmware
 
+[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
 [![Gitter](https://img.shields.io/gitter/room/qmk/qmk_firmware.js.svg)](https://gitter.im/qmk/qmk_firmware)
 [![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
@@ -16,7 +17,7 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.
 
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox/)
+* [ErgoDox EZ](/keyboards/ergodox_ez/)
 * [Clueboard](/keyboards/clueboard/)
 * [Cluepad](/keyboards/cluepad/)
 
