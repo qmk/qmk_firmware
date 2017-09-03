@@ -44,15 +44,15 @@ enum custom_keycodes {
 
 // Tap dance
 enum {
-    TD_ATD = 0,
-    TD_ATQ,
+    ATD = 0,
+    ATQ,
 };
 
 // Tap dance feature
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Left Ctrl, second one is momentory switch to layer TUR
-    [TD_ATD] =  ACTION_TAP_DANCE_DOUBLE( KC_LALT, MO(_TD) )
-    ,[TD_ATQ] = ACTION_TAP_DANCE_DOUBLE( KC_LALT, MO(_TQ) )
+    [ATD] =  ACTION_TAP_DANCE_DOUBLE( KC_LALT, MO(_TD) )
+    ,[ATQ] = ACTION_TAP_DANCE_DOUBLE( KC_LALT, MO(_TQ) )
 };
 
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {BL_STEP, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC },
   {KC_ESC , KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_DEL  },
   {KC_TAB , KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  MO(_MO) },
-  {KC_LSFT, KC_LCTL, TD_ATD,  KC_LGUI, MO(_SY), KC_ENT,  KC_SPC,  MO(_FN), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT }
+  {KC_LSFT, KC_LCTL, TD(ATD), KC_LGUI, MO(_SY), KC_ENT,  KC_SPC,  MO(_FN), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT }
 },
 [_TD] = {
   {_______,_______,_______,_______,_______,_______,_______, TUR_G, TUR_C,  _______,_______,_______},
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   _______},
   {_______, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,_______},
   {_______, KC_Z,  KC_X,  KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_QUOT,_______},
-  {_______,_______,TD_ATQ,_______,_______,_______,_______,_______,_______,_______,_______,_______}
+  {_______,_______,TD(ATQ),_______,_______,_______,_______,_______,_______,_______,_______,_______}
 },
 [_TQ] = {
   {_______,_______,_______,_______,_______,_______,_______, TUR_U, TUR_I,  TUR_O,  _______,_______},

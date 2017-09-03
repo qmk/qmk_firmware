@@ -8,10 +8,10 @@ EXTRAKEY_ENABLE = yes
 NKRO_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 AUDIO_ENABLE = yes
-MIDI_ENABLE = yes
 
 # DISABLE
 BOOTMAGIC_ENABLE = no
+MIDI_ENABLE = no
 
 # Not for planck
 RGBLIGHT_ENABLE = no #Clashes with audio
