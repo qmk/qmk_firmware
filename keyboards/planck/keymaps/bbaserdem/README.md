@@ -2,33 +2,36 @@
 
 ![This layout](keyboard-layout.png)
 
-Built this planck layout to use DVORAK with turkish compatibility.
+Built this planck layout to use DVORAK with an unorthodox Turkish layout.
 If you used a previous layout with a persistent base layer change,
 change it to 0 before proceeding.
 The layout has the following functionality
 
 * **QWERTY** can be toggled on/off from **Function** layer.
-* **Game** layout can be toggled on/off from **Function** layer,
-and turned off from its own layer
-* **Mouse** layer allows manipulation of the mouse
-* Music layer allows playing some nice songs
+* **Mouse** layer allows manipulation of the mouse.
+* **Function** layer has F and special keys.
+* **Symbol** layer has numericals and symbols.
+* **Game** layout can be toggled on/off from **Function** layer.
+* **Music** layer allows playing sounds like a keyboard.
+
+Double tapping **Mouse**, **Function** and **Symbol** layers activate them until deacivation.
+Topleftmost key turns off **Function**, **Symbol**, **Game** and **Music** layers,
+and puts the board into *reset* mode from the **Mouse** layer.
 
 # Using Turkish letters
 
-Double tapping ALT key will activate turkish conversion.
+Instead of a turkish F keyboard layout (very inconvenient to code in),
+I opted to modulate characters like an *AltGr* impleentation.
+Tap and holding *Alt* on **DVORAK** and **QWERTY** layer will change some letters
+to Turkish equivelants.
+Shifting these letters will work.
 The keycodes should transmit the correct unicode characters combined with shift.
-Symbol layer also has the symbol for Turkish Lira.
+The turkish letters are sent via the unicode implementation.
+No software layout change is neccessary (hence making coding easier).
+By default, the unicode is set to Linux mode. Switch to windows (non-persistent)
+can be done from the associated key in **Function** layer.
+**Symbol** layer also has the symbol for Turkish Lira.
 
-# Top left key
+# To improve
 
-I set this up for seldom use, since I will put an artisan there.
-
-* On **DVORAK** and **QWERTY**, this key cycles backlight.
-* In **Symbol**, **Mouse** and **Function** layer, this key locks/unlocks the layers.
-* In the **Game** and **Music** layers, it turns off these layers.
-
-# To fix
-
-* Layer locking does not work. Fix it.
-* Tap dance layer does not work. (Check ACTION_TAP_DANCE_DUAL_ROLE)
-* Can't deal with previous base layer setting != 0.
+I want to write a couple pieces of my own music for layer switching.
