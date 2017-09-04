@@ -80,7 +80,7 @@ GRAVE_ESC + SHIFT = ~
 ### Function Layer
 (hold Caps to access).
 M0 opens Chrome
-####_FL: Function Layer.
+#### _FL: Function Layer.
     .---------------------------------------------------------------.
     |M0 | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
     |---------------------------------------------------------------|
