@@ -1,22 +1,18 @@
-Keymap Maintainer: Gam3cat
-==============================================================================
+# Keymap Maintainer: Gam3cat
 
-Layout Config:
-==============================================================================
-    2u backspace, 2.25u left shift/enter, 1.75u right shift,
-    and (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
+## Layout Config:
+2u backspace, 2.25u left shift/enter, 1.75u right shift, and
+(3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
 
-Base Layer Selection:
-==============================================================================
-    (Caps+TAB+(  )): (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
+## Base Layer Selection:
+(Caps+TAB+(  )): (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
 
-Base Layer Options:
-==============================================================================
-    FN_CAPS = CAPS when tapped, MO(_FL) when held.
-    GRAVE_ESC + GUI = `
-    GRAVE_ESC + SHIFT = ~
+### Base Layer Options:
+FN_CAPS = CAPS when tapped, MO(_FL) when held.
+GRAVE_ESC + GUI = `
+GRAVE_ESC + SHIFT = ~
 
-    _BL: Base Layer, mostly standard 65% layout.
+#### _BL: Base Layer, mostly standard 65% QWERTY layout.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|
@@ -29,7 +25,7 @@ Base Layer Options:
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-    _WL: Workman Layer.
+#### _WL: Workman Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|
@@ -42,7 +38,7 @@ Base Layer Options:
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-    _NL: Norman Layer.
+#### _NL: Norman Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|
@@ -55,7 +51,7 @@ Base Layer Options:
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-    _DL: Dvorak Layer.
+#### _DL: Dvorak Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  [|  ]|Backsp |Ins|
     |---------------------------------------------------------------|
@@ -68,7 +64,7 @@ Base Layer Options:
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-    _CL: Colmak Layer.
+#### _CL: Colmak Layer.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|
@@ -81,10 +77,10 @@ Base Layer Options:
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-Function Layer (hold Caps to access).
-==============================================================================
-    _FL: Function Layer.
-    M0 opens Chrome
+### Function Layer
+(hold Caps to access).
+M0 opens Chrome
+####_FL: Function Layer.
     .---------------------------------------------------------------.
     |M0 | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
     |---------------------------------------------------------------|
@@ -97,10 +93,10 @@ Function Layer (hold Caps to access).
     |    |    |Menu|                        |     |     |WBk|VlD|WFw|
     *---------------------------------------------------------------*
 
-Adjust Layer (hold Caps+TAB to access).
-==============================================================================
-    _AL: Adjust Layer.
-    Default keymap, RGB Underglow, and Dynamic Macro settings.
+### Adjust Layer
+(hold Caps+TAB to access).
+Default keymap, RGB Underglow, and Dynamic Macro settings.
+#### _AL: Adjust Layer.
     .---------------------------------------------------------------.
     |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
     |---------------------------------------------------------------|
