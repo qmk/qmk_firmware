@@ -8,9 +8,9 @@
 (Caps+TAB+(  )): (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
 
 ### Base Layer Options:
-FN_CAPS = CAPS when tapped, MO(_FL) when held.
-GRAVE_ESC + GUI = `
-GRAVE_ESC + SHIFT = ~
+    FN_CAPS = CAPS when tapped, MO(_FL) when held.
+    GRAVE_ESC + GUI = `
+    GRAVE_ESC + SHIFT = ~
 
 #### _BL: Base Layer, mostly standard 65% QWERTY layout.
     .---------------------------------------------------------------.
@@ -78,7 +78,7 @@ GRAVE_ESC + SHIFT = ~
     *---------------------------------------------------------------*
 
 ### Function Layer: (hold Caps to access)
-M0 opens Chrome
+    M0 opens Chrome
 #### _FL: Function Layer.
     .---------------------------------------------------------------.
     |M0 | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
@@ -93,7 +93,7 @@ M0 opens Chrome
     *---------------------------------------------------------------*
 
 ### Adjust Layer: (hold Caps+TAB to access)
-Default keymap, RGB Underglow, and Dynamic Macro settings.
+    Default keymap, RGB Underglow, and Dynamic Macro settings.
 #### _AL: Adjust Layer.
     .---------------------------------------------------------------.
     |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |   |   |   |       |MP1|
