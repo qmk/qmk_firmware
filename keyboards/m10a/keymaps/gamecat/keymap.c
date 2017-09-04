@@ -6,7 +6,7 @@
 extern keymap_config_t keymap_config;
 
 enum layers {
-    _L0,
+    _L0 = 0,
     _L1,
     _L2,
     _L3,
@@ -34,11 +34,11 @@ enum m10a_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
-    *  |  7|  8|  9|  |VLU|Ver|WFD|  |VLU|NXT|FFD|  |   |   |   |  |   |   |   |
+    *  |  7|  8|  9|  |  +|  -|  *|  |  ^|  &|  !|  |VLU|Ver|WFD|  |VLU|NXT|FFD|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |  4|  5|  6|  |MUT|C-W|CHR|  |MUT|STP|PLY|  |   |   |   |  |   |   |   |
+    *  |  4|  5|  6|  |  /|  %|  ,|  |  D|  E|  F|  |MUT|C-W|CHR|  |MUT|STP|PLY|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
-    *  |  1|  2|  3|  |VLD|CMP|WBK|  |VLD|PRV|RWD|  |   |   |   |  |   |   |   |
+    *  |  1|  2|  3|  |  .|  =|Ent|  |  A|  B|  C|  |VLD|CMP|WBK|  |VLD|PRV|RWD|
     *  |-----------|  |-----------|  |-----------|  |-----------|  |-----------|
     *  |L0 |  _L9/0|  |L1 |  _L9  |  |L2 |  _L9  |  |L3 |  _L9  |  |L4 |  _L9  |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
@@ -53,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     */
     [_L0] = {{KC_7,    KC_8,    KC_9   }, {KC_4,    KC_5,    KC_6   }, {KC_1,    KC_2,    KC_3   }, {XXXXXXX, XXXXXXX, FN_ZERO}},
-    [_L1] = {{KC_VOLU, F(0),    KC_WFWD}, {KC_MUTE, M(1),    M(0)   }, {KC_VOLD, KC_MYCM, KC_WBAK}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L2] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L3] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L4] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L1] = {{KC_PPLS, KC_PMNS, KC_PAST}, {KC_PSLS, KC_PERC, KC_COMM}, {KC_PDOT, KC_EQL,  KC_PENT}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L2] = {{KC_CIRC, KC_AMPR, KC_EXLM}, {S(KC_D), S(KC_E), S(KC_F)}, {S(KC_A), S(KC_B), S(KC_C)}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L3] = {{KC_VOLU, F(0),    KC_WFWD}, {KC_MUTE, M(1),    M(0)   }, {KC_VOLD, KC_MYCM, KC_WBAK}, {XXXXXXX, XXXXXXX, MO(_L9)}},
+    [_L4] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
     [_L7] = {{_______, RESET,   _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
@@ -112,6 +112,14 @@ void matrix_scan_user(void) {
 
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Enable Dynamic Macros.
+    if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
+    return true;
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch(id) {
         case 0:
@@ -131,14 +139,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
     return MACRO_NONE;
 };
-
-// Enable Dynamic Macros.
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
-    return true;
-}
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_FUNCTION(0),
