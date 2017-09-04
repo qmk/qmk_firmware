@@ -287,7 +287,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
         case 0:
             if (record->event.pressed) {
-                SEND_STRING ("Keyboard:" QMK_KEYBOARD "    QMK Version:" QMK_VERSION "    Keymap:" QMK_KEYMAP);
+                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
             }
         break;
     }
