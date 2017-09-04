@@ -77,8 +77,7 @@ GRAVE_ESC + SHIFT = ~
     |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *---------------------------------------------------------------*
 
-### Function Layer
-(hold Caps to access).
+### Function Layer: (hold Caps to access)
 M0 opens Chrome
 #### _FL: Function Layer.
     .---------------------------------------------------------------.
@@ -93,8 +92,7 @@ M0 opens Chrome
     |    |    |Menu|                        |     |     |WBk|VlD|WFw|
     *---------------------------------------------------------------*
 
-### Adjust Layer
-(hold Caps+TAB to access).
+### Adjust Layer: (hold Caps+TAB to access)
 Default keymap, RGB Underglow, and Dynamic Macro settings.
 #### _AL: Adjust Layer.
     .---------------------------------------------------------------.
