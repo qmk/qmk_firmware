@@ -1,15 +1,22 @@
 Keymap Maintainer: Gam3cat
 ==============================================================================
+
 Layout Config:
+==============================================================================
     2u backspace, 2.25u left shift/enter, 1.75u right shift,
     and (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
+
+Base Layer Selection:
 ==============================================================================
-Layer Select:(Caps+TAB+( )) (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
+    (Caps+TAB+(  )): (Q)WERTY, (W)orkman, (N)orman, (D)vorak, (C)olmak
+
+Base Layer Options:
 ==============================================================================
-    _BL: Base Layer, mostly standard 65% layout.
     FN_CAPS = CAPS when tapped, MO(_FL) when held.
     GRAVE_ESC + GUI = `
     GRAVE_ESC + SHIFT = ~
+
+    _BL: Base Layer, mostly standard 65% layout.
     .---------------------------------------------------------------.
     |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     |---------------------------------------------------------------|

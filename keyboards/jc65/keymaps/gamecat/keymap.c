@@ -25,11 +25,14 @@ enum jc65_keycodes {
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
 
+static uint8_t current_layer;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* _BL: Base Layer, mostly standard 65% layout.
-    *  FN_CAPS = CAPS when tapped, MO(_FL) when held.
+    /* FN_CAPS = CAPS when tapped, MO(_FL) when held.
     *  GRAVE_ESC + GUI = `
     *  GRAVE_ESC + SHIFT = ~
+    *
+    *  _BL: Base Layer, mostly standard 65% layout.
     *  .---------------------------------------------------------------.
     *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     *  |---------------------------------------------------------------|
@@ -149,11 +152,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_FL] = KEYMAP(
-        M(0),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_SLCK, KC_PSCR,
-        MO(_AL),          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PAUS,
-        _______,          _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, _______,          KC_HOME,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_MUTE, KC_VOLU, KC_END,
-        _______, _______,          KC_MENU, _______,          _______,          _______,          _______, _______, _______, KC_WBAK, KC_VOLD, KC_WFWD
+        M(0),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_SLCK, KC_PSCR,
+        MO(_AL),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS,
+        XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,          KC_HOME,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_MUTE, KC_VOLU, KC_END,
+        XXXXXXX, XXXXXXX,          KC_MENU, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, KC_VOLD, KC_WFWD
     ),
 
     /* _AL: Adjust Layer.
@@ -171,12 +174,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_AL] = KEYMAP(
-        F(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, _______, _______, _______, KC_DMP1,
-        _______,          DF(_BL), DF(_WL), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DMR1,
-        _______,          _______, _______, DF(_DL), _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DMRS,
-        _______, _______, _______, _______, DF(_CL), _______, DF(_BL), DF(_NL), _______, _______, _______, _______,          _______, _______, KC_DMR2,
-        RESET,   _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, KC_DMP2
+        F(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMP1,
+        XXXXXXX,          DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMR1,
+        XXXXXXX,          XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DMRS,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_DMR2,
+        RESET,   XXXXXXX,          XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMP2
     ),
+};
+
+void matrix_init_user(void) {
+    #ifdef BACKLIGHT_ENABLE
+        backlight_level(0);
+    #endif
+    #ifdef RGBLIGHT_ENABLE
+        rgblight_mode(1);
+        rgblight_sethsv(180,100,100);
+    #endif
+}
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    if (current_layer == layer) {
+    }
+    else {
+        current_layer = layer;
+        switch (layer) {
+            case 0:
+                backlight_level(0);
+                rgblight_sethsv(180,100,100);
+                break;
+            case 1:
+                backlight_level(1);
+                rgblight_sethsv(180,95,95);
+                break;
+            case 2:
+                backlight_level(1);
+                rgblight_sethsv(180,90,90);
+                break;
+            case 3:
+                backlight_level(1);
+                rgblight_sethsv(180,85,85);
+                break;
+            case 4:
+                backlight_level(1);
+                rgblight_sethsv(180,80,80);
+                break;
+            case 5:
+                backlight_level(2);
+                rgblight_sethsv(33,100,100);
+                break;
+            case 6:
+                backlight_level(3);
+                rgblight_sethsv(300,50,50);
+                break;
+            default:
+                backlight_level(0);
+                rgblight_sethsv(180,100,100);
+                break;
+        }
+    }
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
