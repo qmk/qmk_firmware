@@ -1,15 +1,23 @@
-mechmini keyboard firmware
-==========================
+mechmini
+========
 
-This is a port of the QMK firmware for boards that are based on the
-ps2avrGB firmware, like the [ps2avrGB
-keyboard](https://www.keyclack.com/product/gb-ps2avrgb/) or the ones sold
-by [Winkeyless](http://winkeyless.kr/product/ps2avrgb-parts/).
+A compact ortholinear/staggered keyboard.
+
+Keyboard Maintainer: QMK Community
+Hardware Supported: mechmini PCB
+Hardware Availability: https://mechkeys.ca/collections/keyboards/products/mechmini-2-0-pcb
+
+Make example for this keyboard (after setting up your build environment):
+
+    make mechmini-default
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+## Mechmini Notes
 
 Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.
-
 
 ## Installing
 

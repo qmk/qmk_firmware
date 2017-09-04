@@ -7,7 +7,7 @@ Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) 
 
 ## The Leader key: A new kind of modifier
 
-Most modifiers have to be held or toggled. But what if you had a key that indicated the start of a sequence? You could press that key and then rapidly press 1-3 more keys to trigger a macro, or enter a special layer, or anything else you might want to do. To learn more about it check out the [Leader Key](leader_key.md) page.
+Most modifiers have to be held or toggled. But what if you had a key that indicated the start of a sequence? You could press that key and then rapidly press 1-3 more keys to trigger a macro, or enter a special layer, or anything else you might want to do. To learn more about it check out the [Leader Key](feature_leader_key.md) page.
 
 ## Tap Dance: A single key can do 3, 5, or 100 different things
 
