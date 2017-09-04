@@ -109,7 +109,6 @@ void matrix_scan_user(void) {
             backlight_level(0);
             break;
     }
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
