@@ -1,6 +1,17 @@
-# Techkeys SixKeyBoard
+Techkeys SixKeyBoard
+===
 
-[Get one here!](http://techkeys.us/collections/accessories/products/sixkeyboard)
+Keyboard Maintainer: QMK Community
+Hardware Supported: Techkeys SixKeyBoard PCB
+Hardware Availability: http://techkeys.us/collections/accessories/products/sixkeyboard
+
+Make example for this keyboard (after setting up your build environment):
+
+    make sixkeyboard-default
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+## Hardware Info
 
 The schematic is like this:
 
