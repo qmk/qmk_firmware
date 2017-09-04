@@ -3,6 +3,7 @@ make jc65-gam3cat
 ## Layout Config:
 2u backspace, 2.25u left shift/enter, 1.75u right shift, and
 (3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
+
     FN_CAPS = MO(_FL) when held, CAPS when tapped.
     GRAVE_ESC + GUI = `
     GRAVE_ESC + SHIFT = ~
