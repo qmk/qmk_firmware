@@ -28,11 +28,7 @@ enum jc65_keycodes {
 static uint8_t current_layer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* FN_CAPS = CAPS when tapped, MO(_FL) when held.
-    *  GRAVE_ESC + GUI = `
-    *  GRAVE_ESC + SHIFT = ~
-    *
-    *  _BL: Base Layer, mostly standard 65% layout.
+    /* _BL: Base Layer, mostly standard 65% layout.
     *  .---------------------------------------------------------------.
     *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     *  |---------------------------------------------------------------|
@@ -235,7 +231,7 @@ void matrix_scan_user(void) {
                 break;
         }
     }
-};
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Enable Dynamic Macros.
@@ -295,4 +291,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
             }
         break;
     }
-};
+}

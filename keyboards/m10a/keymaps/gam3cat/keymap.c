@@ -109,7 +109,7 @@ void matrix_scan_user(void) {
             backlight_level(0);
             break;
     }
-};
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Enable Dynamic Macros.
@@ -151,4 +151,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
             }
         break;
     }
-};
+}
