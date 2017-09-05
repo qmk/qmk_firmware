@@ -566,13 +566,11 @@ void rgblight_effect_knight(uint8_t interval) {
       }
     }
   }
-  if (RGBLIGHT_EFFECT_KNIGHT_OFFSET) {
-    for (i = 0; i < RGBLED_NUM; i++) {
-      cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
-      led[i].r = preled[cur].r;
-      led[i].g = preled[cur].g;
-      led[i].b = preled[cur].b;
-    }
+  for (i = 0; i < RGBLED_NUM; i++) {
+    cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
+    led[i].r = preled[cur].r;
+    led[i].g = preled[cur].g;
+    led[i].b = preled[cur].b;
   }
   rgblight_set();
   if (increment == 1) {
