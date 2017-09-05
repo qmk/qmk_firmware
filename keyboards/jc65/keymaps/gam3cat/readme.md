@@ -1,8 +1,9 @@
 # Keymap Maintainer: Gam3cat
 make jc65-gam3cat
 ## Layout Config:
-2u backspace, 2.25u left shift/enter, 1.75u right shift, and
-(3x1.25u, 1x6.25u, 2x1.5u, 3x1u) bottom row.
+2u backspace, 2.25u left shift/enter, 1.75u right shift.
+(2x1.5u, 1x7.0u, 2x1.5u, 3x1u), (3x1.25u, 1x6.25u, 2x1.5u, 3x1u), or
+(3x1.25u, 1x6.25u, 6x1u) bottom row.
 
     FN_CAPS = MO(_FL) when held, CAPS when tapped.
     GRAVE_ESC + GUI = `
