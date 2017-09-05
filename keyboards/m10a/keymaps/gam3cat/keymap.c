@@ -113,6 +113,7 @@ void matrix_scan_user(void) {
     if (current_layer == layer) {
     }
     else {
+        current_layer = layer;
         switch (layer) {
             case 0:
                 backlight_level(0);
