@@ -64,6 +64,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L9] = {{DF(_L6), DF(_L7), DF(_L8)}, {DF(_L3), DF(_L4), DF(_L5)}, {DF(_L0), DF(_L1), DF(_L2)}, {XXXXXXX, XXXXXXX, _______}},
 };
 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                return MACRO(I(10), D(LGUI), T(R), U(LGUI), END);
+            }
+            else {
+                SEND_STRING("chrome.exe\n");
+                return false;
+            }
+        break;
+        case 1:
+            if (record->event.pressed) {
+                return MACRO(I(10), D(LCTL), T(W), U(LCTL), END);
+            }
+        break;
+    }
+    return MACRO_NONE;
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_FUNCTION(0),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch (id) {
+        case 0:
+            if (record->event.pressed) {
+                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
+            }
+        break;
+    }
+}
+
 void matrix_init_user(void) {
   #ifdef BACKLIGHT_ENABLE
     backlight_level(0);
@@ -117,38 +151,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     return true;
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                return MACRO(I(10), D(LGUI), T(R), U(LGUI), END);
-            }
-            else {
-                SEND_STRING("chrome.exe\n");
-                return false;
-            }
-        break;
-        case 1:
-            if (record->event.pressed) {
-                return MACRO(I(10), D(LCTL), T(W), U(LCTL), END);
-            }
-        break;
-    }
-    return MACRO_NONE;
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(0),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch (id) {
-        case 0:
-            if (record->event.pressed) {
-                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
-            }
-        break;
-    }
 }

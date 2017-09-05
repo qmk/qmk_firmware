@@ -178,6 +178,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                return MACRO(I(0), D(LGUI), T(R), U(LGUI), END);
+            }
+            else {
+                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0\n");
+                return false;
+            }
+        break;
+    }
+    return MACRO_NONE;
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_FUNCTION(0),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch (id) {
+        case 0:
+            if (record->event.pressed) {
+                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
+            }
+        break;
+    }
+}
+
 void matrix_init_user(void) {
     #ifdef BACKLIGHT_ENABLE
         backlight_level(0);
@@ -261,34 +290,5 @@ void led_set_user(uint8_t usb_led) {
     if (usb_led & (1 << USB_LED_KANA)) {
     }
     else {
-    }
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                return MACRO(I(0), D(LGUI), T(R), U(LGUI), END);
-            }
-            else {
-                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0\n");
-                return false;
-            }
-        break;
-    }
-    return MACRO_NONE;
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(0),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch (id) {
-        case 0:
-            if (record->event.pressed) {
-                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
-            }
-        break;
     }
 }
