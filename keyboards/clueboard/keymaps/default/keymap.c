@@ -5,11 +5,28 @@
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _BL 0
 #define _FL 1
 #define _CL 2
+
+// Custom keycodes
+enum custom_keycodes {
+  RGB_MODE_PLAIN = SAFE_RANGE,
+  RGB_MODE_BREATHE,
+  RGB_MODE_RAINBOW,
+  RGB_MODE_SWIRL,
+  RGB_MODE_SNAKE,
+  RGB_MODE_KNIGHT,
+  RGB_MODE_XMAS
+};
+
+#define RGB_M_P RGB_MODE_PLAIN
+#define RGB_M_B RGB_MODE_BREATHE
+#define RGB_M_R RGB_MODE_RAINBOW
+#define RGB_M_SW RGB_MODE_SWIRL
+#define RGB_M_SN RGB_MODE_SNAKE
+#define RGB_M_K RGB_MODE_KNIGHT
+#define RGB_M_X RGB_MODE_XMAS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
@@ -33,9 +50,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _CL: Control layer
    */
 [_CL] = KEYMAP(
-  BL_STEP,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,RGB_TOG,        RGB_VAI, \
+  BL_STEP,RGB_M_P,RGB_M_B,RGB_M_R,RGB_M_SW,RGB_M_SN,RGB_M_K,RGB_M_X,_______,_______,_______,_______,_______,_______,RGB_TOG,        RGB_VAI, \
   _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,                RGB_VAD, \
   _______,_______,MO(_CL),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,                         \
   MO(_FL),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        RGB_SAI,         \
   _______,_______,_______,_______,        RGB_MOD,   RGB_MOD,                     _______,_______,MO(_FL),_______,RGB_HUD,RGB_SAD,RGB_HUI),
 };
+
+#define RGB_M_PL RGB_MODE_PLAIN
+#define RGB_M_BR RGB_MODE_BREATHE
+#define RGB_M_RA RGB_MODE_RAINBOW
+#define RGB_M_SW RGB_MODE_SWIRL
+#define RGB_M_SN RGB_MODE_SNAKE
+#define RGB_M_KR RGB_MODE_KNIGHT
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch (keycode) {
+      #ifdef RGBLIGHT_ENABLE
+      case RGB_MODE_PLAIN:
+        rgblight_mode(1);
+        return true;
+      case RGB_MODE_BREATHE:
+        rgblight_mode(2);
+        return true;
+      case RGB_MODE_RAINBOW:
+        rgblight_mode(6);
+        return true;
+      case RGB_MODE_SWIRL:
+        rgblight_mode(9);
+        return true;
+      case RGB_MODE_SNAKE:
+        rgblight_mode(15);
+        return true;
+      case RGB_MODE_KNIGHT:
+        rgblight_mode(21);
+        return true;
+      case RGB_MODE_XMAS:
+        rgblight_mode(24);
+        return true;
+      #endif
+    }
+  }
+  return true;
+}
