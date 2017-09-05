@@ -32,6 +32,8 @@ enum m10a_keycodes {
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
 
+static uint8_t current_layer;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
     *  |  7|  8|  9|  |  +|  -|  *|  |  ^|  &|  !|  |VLU|Ver|WFD|  |VLU|NXT|FFD|
@@ -108,40 +110,44 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
-    switch (layer) {
-        case 0:
-            backlight_level(0);
-            break;
-        case 1:
-            backlight_level(1);
-            break;
-        case 2:
-            backlight_level(2);
-            break;
-        case 3:
-            backlight_level(3);
-            break;
-        case 4:
-            backlight_level(4);
-            break;
-        case 5:
-            backlight_level(5);
-            break;
-        case 6:
-            backlight_level(6);
-            break;
-        case 7:
-            backlight_level(6);
-            break;
-        case 8:
-            backlight_level(6);
-            break;
-        case 9:
-            backlight_level(0);
-            break;
-        default:
-            backlight_level(0);
-            break;
+    if (current_layer == layer) {
+    }
+    else {
+        switch (layer) {
+            case 0:
+                backlight_level(0);
+                break;
+            case 1:
+                backlight_level(1);
+                break;
+            case 2:
+                backlight_level(2);
+                break;
+            case 3:
+                backlight_level(3);
+                break;
+            case 4:
+                backlight_level(4);
+                break;
+            case 5:
+                backlight_level(5);
+                break;
+            case 6:
+                backlight_level(6);
+                break;
+            case 7:
+                backlight_level(6);
+                break;
+            case 8:
+                backlight_level(6);
+                break;
+            case 9:
+                backlight_level(0);
+                break;
+            default:
+                backlight_level(0);
+                break;
+        }
     }
 }
 
