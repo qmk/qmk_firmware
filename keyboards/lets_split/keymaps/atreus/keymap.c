@@ -13,13 +13,11 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 16
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE,
     LOWER,
-    RAISE,
-    ADJUST
+    RAISE
 };
 
 // Fillers to make layering more clear
@@ -64,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_NO,   KC_NO,   KC_UP,   KC_F7,    KC_F8,   KC_F9,   KC_F10, \
             KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_NO,   KC_NO,   KC_DOWN, KC_F4,    KC_F5,   KC_F6,   KC_F11, \
             KC_TRNS, KC_VOLU, KC_TRNS, KC_TRNS, RESET,   KC_NO,   KC_NO,   KC_TRNS, KC_F1,    KC_F2,   KC_F3,   KC_F12, \
-            ADJUST,  KC_VOLD, KC_LGUI, KC_LSFT, KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  QWERTY,   KC_PSCR, KC_SLCK, KC_PAUS \
+            KC_NO,   KC_VOLD, KC_LGUI, KC_LSFT, KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  QWERTY,   KC_PSCR, KC_SLCK, KC_PAUS \
             )
 
 };
@@ -81,6 +79,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
     // The value to return
     bool return_value = false;
 
@@ -93,6 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 persistent_default_layer_set(1UL<<_QWERTY);
             }
             break;
+
         case LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);
@@ -100,10 +100,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_LOWER);
             }
             break;
+
         case RAISE:
             persistent_default_layer_set(1UL<<_RAISE);
             break;
         default:
+
             // If the keycode is not handled by any of the other cases, we
             // should return true
             return_value = true;
