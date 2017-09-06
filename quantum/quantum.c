@@ -342,7 +342,7 @@ bool process_record_quantum(keyrecord_t *record) {
       if ((9 <= rgblight_get_mode()) && (rgblight_get_mode() < 14)) {
         rgblight_step();
       } else {
-      rgblight_mode(9);
+        rgblight_mode(9);
       }
     }
     return false;
@@ -351,7 +351,7 @@ bool process_record_quantum(keyrecord_t *record) {
       if ((15 <= rgblight_get_mode()) && (rgblight_get_mode() < 20)) {
         rgblight_step();
       } else {
-      rgblight_mode(15);
+        rgblight_mode(15);
       }
     }
     return false;
@@ -360,7 +360,7 @@ bool process_record_quantum(keyrecord_t *record) {
       if ((21 <= rgblight_get_mode()) && (rgblight_get_mode() < 23)) {
         rgblight_step();
       } else {
-      rgblight_mode(21);
+        rgblight_mode(21);
       }
     }
     return false;
