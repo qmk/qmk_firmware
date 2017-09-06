@@ -180,6 +180,13 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).bin
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
+	zip $(TARGET).qmk -urj $(KEYBOARD_PATH_1)/info.json
+
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
