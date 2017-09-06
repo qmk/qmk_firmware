@@ -249,14 +249,14 @@ bool process_record_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
         reset_keyboard();
       }
-	  return false;
+    return false;
       break;
     case DEBUG:
       if (record->event.pressed) {
           print("\nDEBUG: enabled.\n");
           debug_enable = true;
       }
-	  return false;
+    return false;
       break;
   #ifdef FAUXCLICKY_ENABLE
   case FC_TOG:
@@ -278,56 +278,96 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
     break;
   #endif
-	#ifdef RGBLIGHT_ENABLE
-	case RGB_TOG:
-		if (record->event.pressed) {
-			rgblight_toggle();
-      }
-	  return false;
-      break;
-	case RGB_MOD:
-		if (record->event.pressed) {
-			rgblight_step();
-      }
-	  return false;
-      break;
-	case RGB_HUI:
-		if (record->event.pressed) {
-			rgblight_increase_hue();
-      }
-	  return false;
-      break;
-	case RGB_HUD:
-		if (record->event.pressed) {
-			rgblight_decrease_hue();
-      }
-	  return false;
-      break;
-	case RGB_SAI:
-		if (record->event.pressed) {
-			rgblight_increase_sat();
-      }
-	  return false;
-      break;
-	case RGB_SAD:
-		if (record->event.pressed) {
-			rgblight_decrease_sat();
-      }
-	  return false;
-      break;
-	case RGB_VAI:
-		if (record->event.pressed) {
-			rgblight_increase_val();
-      }
-	  return false;
-      break;
-	case RGB_VAD:
-		if (record->event.pressed) {
-			rgblight_decrease_val();
-      }
-	  return false;
-      break;
-	#endif
+  #ifdef RGBLIGHT_ENABLE
+  case RGB_TOG:
+    if (record->event.pressed) {
+      rgblight_toggle();
+    }
+    return false;
+    break;
+  case RGB_MOD:
+    if (record->event.pressed) {
+      rgblight_step();
+    }
+    return false;
+    break;
+  case RGB_HUI:
+    if (record->event.pressed) {
+      rgblight_increase_hue();
+    }
+    return false;
+    break;
+  case RGB_HUD:
+    if (record->event.pressed) {
+      rgblight_decrease_hue();
+    }
+    return false;
+    break;
+  case RGB_SAI:
+    if (record->event.pressed) {
+      rgblight_increase_sat();
+    }
+    return false;
+    break;
+  case RGB_SAD:
+    if (record->event.pressed) {
+      rgblight_decrease_sat();
+    }
+    return false;
+    break;
+  case RGB_VAI:
+    if (record->event.pressed) {
+      rgblight_increase_val();
+    }
+    return false;
+    break;
+  case RGB_VAD:
+    if (record->event.pressed) {
+      rgblight_decrease_val();
+    }
+    return false;
+    break;
+  case RGB_MODE_PLAIN:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+    }
+    return false;
+  case RGB_MODE_BREATHE:
+    if (record->event.pressed) {
+      rgblight_mode(2);
+    }
+    return false;
+  case RGB_MODE_RAINBOW:
+    if (record->event.pressed) {
+      rgblight_mode(6);
+    }
+    return false;
+  case RGB_MODE_SWIRL:
+    if (record->event.pressed) {
+      rgblight_mode(9);
+    }
+    return false;
+  case RGB_MODE_SNAKE:
+    if (record->event.pressed) {
+      rgblight_mode(15);
+    }
+    return false;
+  case RGB_MODE_KNIGHT:
+    if (record->event.pressed) {
+      rgblight_mode(21);
+    }
+    return false;
+  case RGB_MODE_XMAS:
+    if (record->event.pressed) {
+      rgblight_mode(24);
+    }
+    return false;
+  case RGB_MODE_GRADIENT:
+    if (record->event.pressed) {
+      rgblight_mode(25);
+    }
+    return false;
+  #endif
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
