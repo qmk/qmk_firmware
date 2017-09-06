@@ -253,8 +253,8 @@ bool process_record_quantum(keyrecord_t *record) {
       break;
     case DEBUG:
       if (record->event.pressed) {
-          print("\nDEBUG: enabled.\n");
           debug_enable = true;
+          print("DEBUG: enabled.\n");
       }
 	  return false;
       break;
