@@ -22,7 +22,6 @@
 #include "debug.h"
 #include "led_tables.h"
 
-
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
@@ -197,6 +196,14 @@ void rgblight_step_reverse(void) {
   rgblight_mode(mode);
 }
 
+uint32_t rgblight_get_mode(void) {
+  if (!rgblight_config.enable) {
+    return false;
+  }
+
+  return rgblight_config.mode;
+}
+
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
     return;
@@ -220,6 +227,8 @@ void rgblight_mode(uint8_t mode) {
     // MODE 9-14, rainbow swirl
     // MODE 15-20, snake
     // MODE 21-23, knight
+    // MODE 24, xmas
+    // MODE 25-34, static rainbow
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
