@@ -51,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
     /*
-     * insert home   up  end   pgup   _     _   up     F7    F8    F9   F10
+     * insert home   up   end  pgup   _     _   up     F7    F8    F9   F10
      *  del   left  down right pgdn   _     _  down    F4    F5    F6   F11
-     *       volup             reset  _     _          F1    F2    F3   F12
-     *       voldn  super shift bksp ctrl  alt space   L0  prtsc scroll pause
+     *   _   volup    _    _   reset  _     _          F1    F2    F3   F12
+     *   _   voldn super shift bksp  ctrl  alt space   L0  prtsc scroll pause
      */
     [_RAISE] = KEYMAP( \
             KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_NO,   KC_NO,   KC_UP,   KC_F7,    KC_F8,   KC_F9,   KC_F10, \
