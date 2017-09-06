@@ -8,6 +8,13 @@ similar method of handling layer switches as the `default` keymap.
 
 The following tables are the layers as implemented.
 
+### Underscores in Layer
+
+Any underscore represents a key that is mapped to `KC_NO`, or no keypress. The
+2x3 block in the middle is like this because the Atreus does not have any keys
+there. It has been left blank for the user to add her own special keypresses or
+macros that she finds useful to have on that particular layer.
+
 
 ## `_QWERTY`
 
