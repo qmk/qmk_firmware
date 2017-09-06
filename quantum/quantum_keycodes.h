@@ -401,6 +401,14 @@ enum quantum_keycodes {
     RGB_SAD,
     RGB_VAI,
     RGB_VAD,
+    RGB_MODE_PLAIN,
+    RGB_MODE_BREATHE,
+    RGB_MODE_RAINBOW,
+    RGB_MODE_SWIRL,
+    RGB_MODE_SNAKE,
+    RGB_MODE_KNIGHT,
+    RGB_MODE_XMAS,
+    RGB_MODE_GRADIENT,
 
     // Left shift, open paren
     KC_LSPO,
@@ -534,6 +542,14 @@ enum quantum_keycodes {
 
 #define KC_GESC GRAVE_ESC
 
+#define RGB_M_P RGB_MODE_PLAIN
+#define RGB_M_B RGB_MODE_BREATHE
+#define RGB_M_R RGB_MODE_RAINBOW
+#define RGB_M_SW RGB_MODE_SWIRL
+#define RGB_M_SN RGB_MODE_SNAKE
+#define RGB_M_K RGB_MODE_KNIGHT
+#define RGB_M_X RGB_MODE_XMAS
+#define RGB_M_G RGB_MODE_GRADIENT
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
