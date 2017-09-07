@@ -1,3 +1,3 @@
 ifndef MAKEFILE_INCLUDED
-	include ../../../Makefile
+	include ../../Makefile
 endif
