@@ -22,8 +22,6 @@
 #include "debug.h"
 #include "led_tables.h"
 
-<<<<<<< HEAD
-
 const float BRIGHTNESS_CORRECTION_TABLE[] PROGMEM = {
     1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
     1.0, 1.0, 1.0, 1.0,
@@ -31,8 +29,6 @@ const float BRIGHTNESS_CORRECTION_TABLE[] PROGMEM = {
     1.0, 1.0, 1.0, 1.0
 };
 
-=======
->>>>>>> master
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
