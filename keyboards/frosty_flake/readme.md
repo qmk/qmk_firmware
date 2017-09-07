@@ -28,10 +28,16 @@ Make example for this keyboard (after setting up your build environment):
 make frosty_flake-default
 ```
 
+To directly flash the frosty_flake after compiling use
+
+```
+make frosty_flake-default-dfu
+```
+
 87 key tkl layout:
 
 ```
-make frosty_flake-tkl
+make frosty_flake-tkl-dfu
 ```
 
 See [build environment
