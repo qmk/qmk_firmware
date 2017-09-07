@@ -8,10 +8,11 @@ A fully customizable 66% keyboard.
 * Hardware Supported: Clueboard 66% PCB
   * rev1 (1.0)
   * rev2 (2.0, 2.0.1, 2.1, 2.5, 2.5.1, 2.6)
+  * rev3 (2.7)
 * Hardware Availability: [clueboard.co](https://clueboard.co/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cluepad-default
+    make clueboard-rev3-default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
