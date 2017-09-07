@@ -23,6 +23,7 @@
 #include "print.h"
 #include "audio.h"
 #include "keymap.h"
+#include "wait.h"
 
 #include "eeconfig.h"
 
@@ -122,13 +123,18 @@ bool glissando = true;
 #ifndef STARTUP_SONG
     #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
+#ifndef AUDIO_ON_SONG
+    #define AUDIO_ON_SONG SONG(AUDIO_ON_SOUND)
+#endif
+#ifndef AUDIO_OFF_SONG
+    #define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
+#endif
 float startup_song[][2] = STARTUP_SONG;
+float audio_on_song[][2] = AUDIO_ON_SONG;
+float audio_off_song[][2] = AUDIO_OFF_SONG;
 
 void audio_init()
 {
-
-    if (audio_initialized)
-        return;
 
     // Check EEPROM
     if (!eeconfig_is_enabled())
@@ -137,46 +143,49 @@ void audio_init()
     }
     audio_config.raw = eeconfig_read_audio();
 
-    // Set port PC6 (OC3A and /OC4A) as output
+    if (!audio_initialized) {
 
-    #ifdef C6_AUDIO
-        DDRC |= _BV(PORTC6);
-    #else
-        DDRC |= _BV(PORTC6);
-        PORTC &= ~_BV(PORTC6);
-    #endif
+        // Set port PC6 (OC3A and /OC4A) as output
 
-    #ifdef B5_AUDIO
-        DDRB |= _BV(PORTB5);
-    #else
-        DDRB |= _BV(PORTB5);
-        PORTB &= ~_BV(PORTB5);
-    #endif
+        #ifdef C6_AUDIO
+            DDRC |= _BV(PORTC6);
+        #else
+            DDRC |= _BV(PORTC6);
+            PORTC &= ~_BV(PORTC6);
+        #endif
 
-    #ifdef C6_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-    #endif
-    
-    #ifdef B5_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-    #endif
+        #ifdef B5_AUDIO
+            DDRB |= _BV(PORTB5);
+        #else
+            DDRB |= _BV(PORTB5);
+            PORTB &= ~_BV(PORTB5);
+        #endif
 
-    // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers
-    // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
-    // Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14 (Period = ICR3, Duty Cycle = OCR3A)
-    // Clock Select (CS3n) = 0b010 = Clock / 8
+        #ifdef C6_AUDIO
+            DISABLE_AUDIO_COUNTER_3_ISR;
+        #endif
+        
+        #ifdef B5_AUDIO
+            DISABLE_AUDIO_COUNTER_1_ISR;
+        #endif
 
-    #ifdef C6_AUDIO
-        TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
-        TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
-    #endif
+        // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers
+        // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
+        // Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14 (Period = ICR3, Duty Cycle = OCR3A)
+        // Clock Select (CS3n) = 0b010 = Clock / 8
 
-    #ifdef B5_AUDIO
-        TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
-        TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
-    #endif
+        #ifdef C6_AUDIO
+            TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+            TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
+        #endif
 
-    audio_initialized = true;
+        #ifdef B5_AUDIO
+            TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+            TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
+        #endif
+
+        audio_initialized = true;
+    }
 
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
@@ -720,9 +729,13 @@ void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
     audio_on_user();
+    PLAY_SONG(audio_on_song);
 }
 
 void audio_off(void) {
+    PLAY_SONG(audio_off_song);
+    wait_ms(100);
+    stop_all_notes();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }
