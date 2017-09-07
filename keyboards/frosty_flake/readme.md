@@ -16,9 +16,9 @@ and gone through some minor refactoring for QMK.
 Support for both 104 key and 87 key layouts is provided. See the
 keymaps `default` (104) and `tkl` (87) for example layouts.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Frosty Flake
-Hardware Availability: https://1upkeyboards.com/qfr-frosty-flake-controller.html
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Frosty Flake  
+Hardware Availability: https://1upkeyboards.com/qfr-frosty-flake-controller.html  
 
 Make example for this keyboard (after setting up your build environment):
 
