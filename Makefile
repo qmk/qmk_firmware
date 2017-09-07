@@ -554,10 +554,6 @@ test: test-all
 .PHONY: test-clean
 test-clean: test-all-clean
 
-lib/%:
-	git submodule sync $?
-	git submodule update --init $?
-
 git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive
