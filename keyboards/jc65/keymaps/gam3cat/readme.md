@@ -97,7 +97,7 @@ make jc65-gam3cat
     Default keymap, RGB Underglow, LED backlight, and Dynamic Macro settings.
 #### _AL: Adjust Layer.
     .---------------------------------------------------------------.
-    |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLO|BL-|BL+|       |MP1|
+    |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLT|BL-|BL+|       |MP1|
     |---------------------------------------------------------------|
     |     |_BL|_WL|   |   |   |   |   |   |   |   |   |   |     |MR1|
     |---------------------------------------------------------------|

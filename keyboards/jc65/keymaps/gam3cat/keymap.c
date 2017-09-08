@@ -28,7 +28,7 @@ enum jc65_keycodes {
 static uint8_t current_layer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* _BL: Base Layer, mostly standard 65% layout.
+    /* _BL: Base Layer, mostly standard 65% QWERTY layout.
     *  .---------------------------------------------------------------.
     *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
     *  |---------------------------------------------------------------|
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _AL: Adjust Layer.
     *  Default keymap, RGB Underglow, LED backlight, and Dynamic Macro settings.
     *  .---------------------------------------------------------------.
-    *  |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLO|BL-|BL+|       |MP1|
+    *  |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLT|BL-|BL+|       |MP1|
     *  |---------------------------------------------------------------|
     *  |     |_BL|_WL|   |   |   |   |   |   |   |   |   |   |     |MR1|
     *  |---------------------------------------------------------------|
