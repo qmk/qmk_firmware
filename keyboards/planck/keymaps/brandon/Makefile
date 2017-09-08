@@ -7,6 +7,7 @@ NKRO_ENABLE      = yes  # N-key rollover required for use as a steno board
 AUDIO_ENABLE     = no   # Audio output on port C6
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE  = yes
+CONSOLE_ENABLE   = no
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
