@@ -22,7 +22,6 @@
 #include "debug.h"
 #include "led_tables.h"
 
-
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
@@ -32,7 +31,7 @@ const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
-const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
@@ -197,6 +196,14 @@ void rgblight_step_reverse(void) {
   rgblight_mode(mode);
 }
 
+uint32_t rgblight_get_mode(void) {
+  if (!rgblight_config.enable) {
+    return false;
+  }
+
+  return rgblight_config.mode;
+}
+
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
     return;
@@ -220,6 +227,8 @@ void rgblight_mode(uint8_t mode) {
     // MODE 9-14, rainbow swirl
     // MODE 15-20, snake
     // MODE 21-23, knight
+    // MODE 24, xmas
+    // MODE 25-34, static rainbow
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -550,7 +559,14 @@ void rgblight_effect_knight(uint8_t interval) {
   static int8_t increment = 1;
   uint8_t i, cur;
 
+  // Set all the LEDs to 0
   for (i = 0; i < RGBLED_NUM; i++) {
+    led[i].r = 0;
+    led[i].g = 0;
+    led[i].b = 0;
+  }
+  // Determine which LEDs should be lit up
+  for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
     cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
 
     if (i >= low_bound && i <= high_bound) {
@@ -563,10 +579,12 @@ void rgblight_effect_knight(uint8_t interval) {
   }
   rgblight_set();
 
+  // Move from low_bound to high_bound changing the direction we increment each
+  // time a boundary is hit.
   low_bound += increment;
   high_bound += increment;
 
-  if (high_bound <= 0 || low_bound >= RGBLED_NUM - 1) {
+  if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
     increment = -increment;
   }
 }
