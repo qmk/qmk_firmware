@@ -209,6 +209,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void matrix_init_user(void) {
     #ifdef BACKLIGHT_ENABLE
+        //This is a guess, not sure if pin needs to be in or out for CAPS LED.
+        DDRB &= ~(1<<2);
         backlight_level(0);
     #endif
     #ifdef RGBLIGHT_ENABLE
@@ -271,13 +273,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-    //This is a guess.
+    //This is a guess, not sure correct setup for CAPS.
     if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |=  (1<<2);
         PORTB &= ~(1<<2);
     }
     else {
-        DDRB &= ~(1<<2);
-        PORTB &= ~(1<<2);
+        PORTB |= (1<<2);
     }
 }
