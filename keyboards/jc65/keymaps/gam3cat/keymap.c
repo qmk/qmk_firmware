@@ -209,8 +209,8 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void matrix_init_user(void) {
     #ifdef BACKLIGHT_ENABLE
-        //This is a guess, not sure if pin needs to be in or out for CAPS LED.
-        DDRB &= ~(1<<2);
+        //This is a guess, not sure if pin needs to be in or out for CAPS LED, currently out.
+        DDRB |= (1<<2);
         backlight_level(0);
     #endif
     #ifdef RGBLIGHT_ENABLE
