@@ -1,0 +1,1 @@
+include keyboards/xd75/rules.mk
