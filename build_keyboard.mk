@@ -91,11 +91,11 @@ MAIN_KEYMAP_C := $(MAIN_KEYMAP_PATH)/keymap.c
 SUBPROJ_KEYMAP_PATH := $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)
 SUBPROJ_KEYMAP_C := $(SUBPROJ_KEYMAP_PATH)/keymap.c
 ifneq ("$(wildcard $(SUBPROJ_KEYMAP_C))","")
-    -include $(SUBPROJ_KEYMAP_PATH)/Makefile
+    -include $(SUBPROJ_KEYMAP_PATH)/rules.mk
     KEYMAP_C := $(SUBPROJ_KEYMAP_C)
     KEYMAP_PATH := $(SUBPROJ_KEYMAP_PATH)
 else ifneq ("$(wildcard $(MAIN_KEYMAP_C))","")
-    -include $(MAIN_KEYMAP_PATH)/Makefile
+    -include $(MAIN_KEYMAP_PATH)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_C)
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH)
 else ifneq ($(LAYOUTS),)
@@ -181,4 +181,3 @@ build: elf hex
 
 
 include $(TMK_PATH)/rules.mk
-
