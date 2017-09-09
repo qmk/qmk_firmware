@@ -74,7 +74,6 @@ void matrix_scan_kb(void)
     // but can't find QMK equiv
     static uint32_t layer_indicator = -1;
     if(layer_indicator != layer_state){
-        dprintf("%08lX(%u)\n", layer_state, biton32(layer_state));
         for(uint32_t i=0;; i++){
             // the layer_info list should end with layer 0xFFFF
             // it will break this out of the loop and define the unknown layer color

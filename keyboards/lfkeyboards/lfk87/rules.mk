@@ -1,4 +1,4 @@
-# Set the LFK78 hardware version.
+# Set the LFK87 hardware version.
 #
 # RevA - Green PCB. at90usb1286 Only 3 exist
 # RevB - We don't talk about RevB
@@ -15,7 +15,6 @@ else
 	OPT_DEFS += -DBOOTLOADER_SIZE=4096
 endif
 OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
-OPT_DEFS += -DLFK_REV_STRING=\"Rev$(LFK_REV)\"
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the

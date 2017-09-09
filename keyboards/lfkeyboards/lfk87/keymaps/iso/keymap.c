@@ -117,8 +117,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 
 void matrix_init_user(void) {
-  // This keymap only has one base layer, ignore whatever was stored in eeprom
-  default_layer_set(1);
+    // This keymap only has a single base layer, so reset the default if needed
+    if(eeconfig_read_default_layer() > 1){
+        eeconfig_update_default_layer(1);
+        default_layer_set(1);
+    }
 }
 
 void matrix_scan_user(void) {

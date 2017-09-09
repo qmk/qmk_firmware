@@ -138,36 +138,6 @@ void writeRegister8(uint8_t device, uint8_t frame, uint8_t reg, uint8_t data)
     TWITransmitData(payload, sizeof(payload), 0, 1);
 }
 
-// void activateLED(uint8_t matrix, uint8_t cx, uint8_t cy, uint8_t pwm)
-// {
-//     xprintf("activeLED: %02X %02X %02X %02X\n", matrix, cy, cx, pwm);
-//     uint8_t x = cx - 1;  // funciton takes 1 based counts, but we need 0...
-//     uint8_t y = cy - 1;  // creating them once for less confusion
-//     if(pwm == 0){
-//         cbi(control[matrix][y], x);
-//     }else{
-//         sbi(control[matrix][y], x);
-//     }
-//     uint8_t device = (matrix & 0x06) >> 1;
-//     uint8_t control_reg = (y << 1) | (matrix & 0x01);
-//     uint8_t pwm_reg = 0;
-//     switch(matrix & 0x01){
-//         case 0:
-//             pwm_reg = 0x24;
-//             break;
-//         case 1:
-//             pwm_reg = 0x2C;
-//             break;
-//     }
-//     pwm_reg += (y << 4) + x;
-//     xprintf("  device: %02X\n", device);
-//     xprintf("  control: %02X %02X\n", control_reg, control[matrix][y]);
-//     xprintf("  pwm:     %02X %02X\n", pwm_reg, pwm);
-//     writeRegister8(device, 0, control_reg, control[matrix][y]);
-//     writeRegister8(device, 0, control_reg + 0x12, control[matrix][y]);
-//     writeRegister8(device, 0, pwm_reg, pwm);
-// }
-
 void activateLED(uint8_t matrix, uint8_t cx, uint8_t cy, uint8_t pwm)
 {
     uint8_t device_addr = (matrix & 0x06) >> 1;
@@ -196,15 +166,8 @@ void activateLED(uint8_t matrix, uint8_t cx, uint8_t cy, uint8_t pwm)
             break;
     }
     pwm_reg += (y << 4) + x;
-    // xprintf("  device_addr: %02X\n", device_addr);
-    // xprintf("  control: %02X %02X\n", control_reg, control[matrix][y]);
-    // xprintf("  pwm:     %02X %02X\n", pwm_reg, pwm);
-    // writeRegister8(device_addr, 0, control_reg, control[matrix][y]);
     device->led_pwm[pwm_reg] = pwm;
     device->led_dirty = 1;
-
-    // writeRegister8(device_addr, 0, control_reg + 0x12, control[matrix][y]);
-    // writeRegister8(device_addr, 0, pwm_reg, pwm);
 }
 
 void update_issi(uint8_t device_addr, uint8_t blocking)
