@@ -24,8 +24,8 @@
 
 enum layers {
   _QWERTY = 0,  /* Qwerty mapping */
-  _QCENT, /* QWERTY with keypad in the centre */
   _QCENT2, /* QWERTY with keypad in the centre */
+  _QCENT,
   _LOWER, /* Lower layer, where top line has symbols !@#$%^&*() */
   _RAISE, /* Raised layer, where top line has digits 1234567890 */
   _ADJUST, /* Special Adjust layer coming via tri-placement */
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 	
- [_QWERTY] = { /* QWERTY */
+ [_QCENT] = { /* QWERTY */
   { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
   { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
@@ -134,17 +134,26 @@ special things...
   - a and ; double up as ctl modifier
   - z and / double up as shift modifier
 
+Missing still...  
+   KC_EQL
+
   */  
 
-
-   [_QCENT2] = { /* QWERTY, with keypad in the centre */
+   [_QWERTY] = { /* QWERTY, with keypad in the centre */
      { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_ESC,  KC_PLUS, KC_MINS, RESET,     KC_ESC, KC_6,    KC_7,    KC_8,    KC_9,    KC_0 },
-     { QALT,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,    KC_9,    RANDDIG, USERNAME, KC_Y,    KC_U,    KC_I,    KC_O,    PALT },
-     { ACTL,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,    KC_6,    RANDALP,  _______, KC_H,    KC_J,    KC_K,    KC_L,    SCTL },
-     { ZSHF,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,    KC_3,    MVERSION,  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  SCTL },
-     { KC_TAB,  ROT_LED, MRAISE,  KC_BSPC, KC_SPC, KC_ENT,  KC_0,    _______,  KC_ENT,  KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+     { QALT,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,    KC_9,    KC_EQL, USERNAME, KC_Y,    KC_U,    KC_I,    KC_O,    PALT },
+     { ACTL,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,    KC_6,    RANDALP,  RANDDIG, KC_H,    KC_J,    KC_K,    KC_L,    SCTL },
+     { ZSHF,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,    KC_3,    KC_MINS,  MVERSION, KC_N,    KC_M,    KC_COMM, KC_DOT,  SCTL },
+     { KC_TAB,  ROT_LED, MRAISE,  KC_BSPC, KC_SPC, KC_ENT,  KC_0,    KC_ENT, KC_SPC,    KC_BSPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
    },
 
+ [_QCENT2] = { /* QWERTY */
+  { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC  },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL   },
+  { KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_ENT,  KC_PGUP  },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RSFT, KC_UP,   KC_PGDN  },
+  { M(0),    KC_LCTL, KC_LALT, KC_LGUI, MRAISE,  KC_SPC,  KC_SPC,  MLOWER,  KC_RGUI, KC_RALT, KC_RCTL, FUNCTION, KC_LEFT, KC_DOWN, KC_RGHT  },
+ },
 	
 /* LOWER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
@@ -209,7 +218,7 @@ special things...
   { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
   { KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, ___T___, ___T___, KC_WH_U  },
   { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  },
-  { RESET  , _______, DF(_QWERTY), DF(_QCENT), DF(_QCENT2), KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
+  { RESET  , _______, DF(_QWERTY), DF(_QCENT2), DF(_QCENT2), KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
  },
 };
 
