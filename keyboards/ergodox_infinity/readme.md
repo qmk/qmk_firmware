@@ -44,4 +44,5 @@ You have a few options in how you flash the firmware:
 
 - For minor changes such as changing only the keymap without having updated
   any part of the firmware code itself, you can program only the MASTER half.
-  It is safest to program both halves though.
+
+- It is safest to program both halves though.
