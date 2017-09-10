@@ -2,7 +2,7 @@
 
 ## Main layout
 
-Based around a typematrix dvorak keyboard, with escape, tab, enter and
+Inspired by my old typematrix dvorak keyboard, with escape, tab, enter and
 backspace in the middle.  
 
 ```
@@ -41,8 +41,9 @@ The arrow keys become `Home`, `End` and `Page Up` and `Page Down`.
 With Raise, the middle row functions as though we are holding shift and typing
 numbers.  This makes it a little easier than trying to hold lower and shift at
 the same time.  The row below home is a set of keys mapped from `Gui-1` to
-`Gui-0`.  I use these to change virtual desktops on i3.  I also include 'right'
-versions of the modifier keys on here.
+`Gui-0`.  I use these to change virtual desktops on [i3](https://i3wm.org/).  I
+also include 'right' versions of the modifier keys on here.
+
 
  ```
  ,-----------------------------------------------------------------------------------.
@@ -59,14 +60,15 @@ versions of the modifier keys on here.
 
 ## Adjust
 
-Raise and lower at the some time give an adjustment layer, which allows changing
-to the numpad and movement layer, and adjusting the backlights (assuming you
-have them - I don't yet).  I have also added various media keys and the
-all-important `Reset` key for programming the keyboard.  I've got the ability
-to swap `Alt` and `Gui` in hardware and three special keys set up for
-hammerspoon on mac.  If I ever start using this keyboard seriously on mac again
-(I'm using it mainly on Windows and Linux atm) I'll write a special Mac mode
-and redo all my hammerspoon config to be more like i3 on Linux.
+Raise and lower at the some time give an adjustment layer, which allows
+changing to the numpad and movement layer, and adjusting the backlights
+(assuming you have them - I don't yet).  I have also added various media keys
+and the all-important `Reset` key for programming the keyboard.  I've got the
+ability to swap `Alt` and `Gui` in hardware and three special keys set up for
+[hammerspoon]( http://www.hammerspoon.org/) on mac.  If I ever start using this
+keyboard seriously on mac again (I'm using it mainly on Windows and Linux atm)
+I'll write a special Mac mode and redo all my hammerspoon config to be more
+like i3 on Linux.
 
 ```
  Adjust (Lower + Raise)
@@ -84,7 +86,7 @@ and redo all my hammerspoon config to be more like i3 on Linux.
 ## Numpad                                                                                                             
 
 I have added a numpad, although this is a little annoying at the moment as you
-have to first press `NumLock' to use.  I guess I could make a macro so as soon as
+have to first press `NumLock` to use.  I guess I could make a macro so as soon as
 you go into numpad mode it turns `NumLock` on.
 
 ```
@@ -123,6 +125,5 @@ seamlessly between computers with an os qwerty and an os dvorak mapping.
 
 ## TODO
 
-1. Figure out why my mac prints weird chars for backtick and tilde
-2. Make sure I have morking keybindings for locking the screen etc
-3. Actually learn to use the media keys
+1. Make sure I have morking keybindings for locking the screen etc
+2. Actually learn to use the media keys
