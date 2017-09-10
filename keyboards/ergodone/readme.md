@@ -12,7 +12,7 @@ ErgoDone is a modified ErgoDox with pre-soldered components made by K.T.E.C. It 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ergodox-ergodone-default
+    make ergodone-default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
