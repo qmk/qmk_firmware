@@ -22,7 +22,7 @@ backspace in the middle.
 With Lower, the numbers are on the home row.  Brackets and braces are down the
 centre of the keyboard when holding lower, and most other special characters,
 can be found on the row below home.  One row up are the main function keys.
-The arrow keys become `Home`, `End` and the page movement keys.
+The arrow keys become `Home`, `End` and `Page Up` and `Page Down`.
 
  ```
  ,-----------------------------------------------------------------------------------.
@@ -50,7 +50,7 @@ versions of the modifier keys on here.
  |------+------+------+------+------+-------------+------+------+------+------+------|
  |  !   |   @  |   #  |   $  |   %  |Sleep | Wake |   ^  |   &  |   *  |   (  |  )   |
  |------+------+------+------+------+-------------+------+------+------+------+------|
- | GUI1 | GUI2 | GUI3 | GUI4 | GUI5 |             | GUI6 | GUI7 | GUI8 | GUI9 |GUI10 |
+ | GUI1 | GUI2 | GUI3 | GUI4 | GUI5 |      |      | GUI6 | GUI7 | GUI8 | GUI9 |GUI10 |
  |------+------+------+------+------+------+------+------+------+------+------+------|
  | Sft  | Ctl  | Alt  | Gui  |Lower |             |Raise | Gui  | Alt  | Ctl  | Sft  |
  `-----------------------------------------------------------------------------------'
@@ -84,7 +84,8 @@ and redo all my hammerspoon config to be more like i3 on Linux.
 ## Numpad                                                                                                             
 
 I have added a numpad, although this is a little annoying at the moment as you
-have to first press numlock to use.  
+have to first press `NumLock' to use.  I guess I could make a macro so as soon as
+you go into numpad mode it turns `NumLock` on.
 
 ```
  ,-----------------------------------------------------------------------------------.
@@ -100,7 +101,7 @@ have to first press numlock to use.
 
 ## Movement
 
-I have added a movement layer but at present I seldomn use it.
+I have added a movement layer but at present I seldom use it.
 
 ```
  ,-----------------------------------------------------------------------------------.
@@ -119,3 +120,9 @@ I have added a movement layer but at present I seldomn use it.
 I have implemented a version of the main, lower and raise maps that works if
 the computer itself is in dvorak mode at the os level.  This allows me to move
 seamlessly between computers with an os qwerty and an os dvorak mapping.
+
+## TODO
+
+1. Figure out why my mac prints weird chars for backtick and tilde
+2. Make sure I have morking keybindings for locking the screen etc
+3. Actually learn to use the media keys
