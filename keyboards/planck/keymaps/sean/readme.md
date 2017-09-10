@@ -60,7 +60,7 @@ also include 'right' versions of the modifier keys on here.
 
 ## Adjust
 
-Raise and lower at the some time give an adjustment layer, which allows
+Raise and lower at the same time give an adjustment layer, which allows
 changing to the numpad and movement layer, and adjusting the backlights
 (assuming you have them - I don't yet).  I have also added various media keys
 and the all-important `Reset` key for programming the keyboard.  I've got the
@@ -120,10 +120,11 @@ I have added a movement layer but at present I seldom use it.
 ## Software Dvorak mode
 
 I have implemented a version of the main, lower and raise maps that works if
-the computer itself is in dvorak mode at the os level.  This allows me to move
-seamlessly between computers with an os qwerty and an os dvorak mapping.
+the computer itself is in dvorak mode at the os level.  This allows me to work
+well on my laptop when I have to take it with me (eg to go to a meeting) and
+don't want the keyboard with me.  I simply set it in dvorak mode in the os and
+then put the keyboard into this mode.
 
 ## TODO
 
-1. Make sure I have morking keybindings for locking the screen etc
-2. Actually learn to use the media keys
+1. Actually learn to use the media keys
