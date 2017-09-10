@@ -17,7 +17,6 @@ enum custom_keycodes {
   
 };
 
-// make ergodox-dvorak_atreus_like-teensy
 
 #define BASE      0 // base dvorak layer
 #define KEYNAV    1 // arrow navigation (right hand)
