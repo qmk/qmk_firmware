@@ -4,6 +4,9 @@
 #include "version.h"
 
 
+// to build this keymap
+// make ergodox_ez-dvorak_42_key-teensy
+
 static bool mouse_lock = false;
 
 enum custom_keycodes {
