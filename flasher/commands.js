@@ -29,7 +29,7 @@ async function Upload (keymap, path, right = false) {
   }
 
   Echo(`Building for ${board.name} (${board.path})`);
-  await Flash(keymap, board.path, right);
+  await Flash(keymap, board, right);
 }
 module.exports.Upload = Upload;
 
@@ -41,9 +41,9 @@ async function Build (keymap, path, right = false) {
 }
 module.exports.Build = Build;
 
-async function Flash (keymap, path, right = false) {
+async function Flash (keymap, board, right = false) {
   Echo(`Flashing ${right ? 'right' : 'left'}`);
-  await Exec(`dfu-util --path ${path} -D .build/ergodox_infinity_default.bin`);
+  await Exec(`dfu-util --device ${board.id} --path ${board.path} -D .build/ergodox_infinity_default.bin`);
   Echo(`Flashed ${right ? 'right' : 'left'}`, '');
 }
 module.exports.Flash = Flash;
