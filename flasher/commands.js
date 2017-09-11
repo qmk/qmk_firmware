@@ -43,7 +43,7 @@ module.exports.Build = Build;
 
 async function Flash (keymap, board, right = false) {
   Echo(`Flashing ${right ? 'right' : 'left'}`);
-  await Exec(`dfu-util --device ${board.id} --path ${board.path} -D .build/ergodox_infinity_default.bin`);
+  await Exec(`dfu-util --device ${board.id} --path ${board.path} -D .build/ergodox_infinity_${keymap}.bin`);
   Echo(`Flashed ${right ? 'right' : 'left'}`, '');
 }
 module.exports.Flash = Flash;
