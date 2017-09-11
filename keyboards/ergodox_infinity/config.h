@@ -77,6 +77,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VISUALIZER_USER_DATA_SIZE 16
 
+// ws2812 options
+#define RGB_DI_PIN F6 // pin the DI on the ws2812 is hooked-up to
+#define RGBLIGHT_ANIMATIONS // run RGB animations
+#define RGBLED_NUM 6 // number of LEDs
+#define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
+#define RGBLIGHT_SAT_STEP 25 // units to step when in/decresing saturation
+#define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

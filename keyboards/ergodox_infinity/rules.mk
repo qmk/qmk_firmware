@@ -75,15 +75,15 @@ VISUALIZER_ENABLE = yes
 LCD_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 LCD_BACKLIGHT_ENABLE = yes
-MIDI_ENABLE = no
-RGBLIGHT_ENABLE = no
+MIDI_ENABLE = no # MIDI support (+2400 to 4200, depending on config)
+RGBLIGHT_ENABLE = yes # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 
 LCD_DRIVER = st7565
-LCD_WIDTH = 128 
+LCD_WIDTH = 128
 LCD_HEIGHT = 32
 
 LED_DRIVER = is31fl3731c
-LED_WIDTH = 7 
+LED_WIDTH = 7
 LED_HEIGHT = 7
 
 LAYOUTS = ergodox ergodox_80
