@@ -1,24 +1,27 @@
+const { exec, execSync } = require('child_process');
 const Chalk = require('chalk');
 
-module.exports.IdentifyKeyboard = function IdentifyKeyboard (name = 'Kiibohd DFU', path, limit = true) {
+function IdentifyKeyboard (name = 'Kiibohd DFU', path, limit = false) {
   const boards = execSync(`dfu-util --list`).toString()
     .split('\n')
     .filter(line => line.match(/(\[\w+\:\w+\])/g) != null)
     .map(line => ({
       name: /name="([\w\s]+)"/g.exec(line)[1],
+      path: /path="([\w-]+)"/g.exec(line)[1],
       id: /(\[\w+\:\w+\])/g.exec(line)[1]
     }))
-    .filter(device => device.name === name && path != null ? device.path === path : true);
+    .filter(device => device.name === name || device.path === path);
   if (limit) {
     return boards[0];
   } else {
-    return boards;
+    return boards.length > 0 ? boards : undefined;
   }
 }
+module.exports.IdentifyKeyboard = IdentifyKeyboard;
 
-module.exports.Exec = function Exec (command) {
+function Exec (command) {
   return new Promise((resolve, reject) => {
-    console.log(command);
+    console.log(Chalk.blue('] ') + command);
     const proc = exec(command, (err) => {
       if (err) {
         reject(err);
@@ -30,13 +33,15 @@ module.exports.Exec = function Exec (command) {
     proc.stdout.on('data', data => console.log(line_start + data.replace(/\n$/, '').replace(/\n/g, `\n${line_start}`)));
   });
 }
+module.exports.Exec = Exec;
 
-module.exports.Echo = function Echo (...logs) {
+function Echo (...logs) {
   for(const log of logs) {
     if (typeof log === 'string') {
       console.log(log);
     } else {
-      console.log(log.toString ? log.toString() : log);
+      console.log((log && log.toString) ? log.toString() : log);
     }
   }
 }
+module.exports.Echo = Echo;
