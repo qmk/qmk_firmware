@@ -5,6 +5,7 @@ const { Echo, Exec, IdentifyKeyboard } = require('./util');
 async function Upload (keymap, path, right = false) {
   await Build(keymap, path, right);
 
+  // Find a keyboard to flash
   let board;
   while (board == null) {
     board = IdentifyKeyboard(undefined, path);
@@ -40,22 +41,9 @@ async function Build (keymap, path, right = false) {
 }
 module.exports.Build = Build;
 
-function Flash (keymap, path, right = false) {
-  return new Promise(async resolve => {
-    Echo(`Flashing ${right ? 'right' : 'left'}`);
-    // make infinity-<keymap>-.build/ergodox_infinity_<keymap>.bin
-    // await Exec(`make ergodox_infinity-${keymap}-dfu-util ${right ? 'MASTER=right' : ''}`);
-    await Exec(`dfu-util --path ${path} -D .build/ergodox_infinity_default.bin`);
-    Echo(`Flashed ${right ? 'right' : 'left'}`, '');
-
-    // while (IdentifyKeyboard(board.path)) {
-    //   Echo(`Unplug your keyboard!`);
-    // }
-    // TODO: Check to see if the script is done. If it is, then don't require an unplug
-    // TODO: Make this actually look for the keyboard to be unplugged
-    // Echo(`Unplug your keyboard! (you have 15 seconds to do so)`);
-    // setTimeout(() => resolve(), 15000);
-    resolve();
-  });
+async function Flash (keymap, path, right = false) {
+  Echo(`Flashing ${right ? 'right' : 'left'}`);
+  await Exec(`dfu-util --path ${path} -D .build/ergodox_infinity_default.bin`);
+  Echo(`Flashed ${right ? 'right' : 'left'}`, '');
 }
 module.exports.Flash = Flash;
