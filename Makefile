@@ -595,7 +595,7 @@ endef
 define ALL_SUBPROJECTS
     SUBPROJECTS_OPTION := $$(notdir $$(patsubst %/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_OPTION)/*/rules.mk)))
     $$(eval $$(call ALL_KEYMAPS))
-    ifneq ($$(SUBPROJECT_OPTION),)
+    ifneq ($$(SUBPROJECTS_OPTION),)
         $$(foreach SUBPROJECT_OPTION, $$(SUBPROJECTS_OPTION), $$(eval $$(call ALL_KEYMAPS)))
     endif
 endef
