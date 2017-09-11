@@ -121,16 +121,19 @@ special things...
   - quote doubles with shift
 
 Missing still...  
-   KC_EQL
+   KC_LBRC
+   KC_RBRC
+   KC_+
+
 
   */  
 
    [_QWERTY] = { /* QWERTY, with keypad in the centre */
-     { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_PLUS, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
-     { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,    KC_9,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_EQL },
+     { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
+     { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,    KC_9,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
      { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,    KC_6,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
      { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,    KC_3,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-     { KC_TAB,  ROT_LED, MRAISE,  KC_BSPC, KC_SPC, KC_ENT,  KC_0,    KC_ENT, KC_SPC,   KC_BSPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+     { KC_TAB,  ROT_LED, MRAISE,  KC_BSPC, KC_SPC, KC_SPC,  KC_0,    KC_MINS, KC_SPC,   KC_BSPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
    },
 
 	
