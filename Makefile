@@ -281,7 +281,7 @@ define PARSE_KEYBOARD
     CURRENT_KB := $$(DEFAULT_FOLDER)
 
     # 5/4/3/2/1
-    KEYBOARD_FOLDER_PATH_1 := $$(CURRENT_KB) 
+    KEYBOARD_FOLDER_PATH_1 := $$(CURRENT_KB)
     KEYBOARD_FOLDER_PATH_2 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_1)))
     KEYBOARD_FOLDER_PATH_3 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_2)))
     KEYBOARD_FOLDER_PATH_4 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_3)))
