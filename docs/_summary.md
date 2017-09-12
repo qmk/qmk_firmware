@@ -28,6 +28,7 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Stenography](stenography.md)
   * [Unicode](unicode.md)
+  * [Terminal](feature_terminal.md)
 
 * Reference
   * [Glossary](glossary.md)

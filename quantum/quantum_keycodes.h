@@ -431,6 +431,11 @@ enum quantum_keycodes {
     KC_LOCK,
 #endif
 
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };
