@@ -11,21 +11,22 @@ if (!process.cwd().endsWith('/qmk_firmware')) {
 }
 
 Commander
+  .option('-k --keyboard [name]', 'Keyboard name', 'ergodox_infinity')
   .option('-m --keymap [name]', 'Keymap name', 'default')
   .option('-p --path [path]', 'DFU device path')
   .option('--half [half]', 'Which half to program (left, right)')
   .parse(process.argv);
 
 (async () => {
-  Echo(`Keymap: ${Commander.keymap}`);
+  Echo(`${Commander.keyboard} / ${Commander.keymap}`);
 
   if (Commander.half != null) {
-    await Upload(Commander.keymap, Commander.path, Commander.half === 'right');
+    await Upload(Commander.keyboard, Commander.keymap, Commander.path, Commander.half === 'right');
   } else {
     // Build both halves
 
-    await Upload(Commander.keymap);
-    await Upload(Commander.keymap, undefined, true);
+    await Upload(Commander.keyboard, Commander.keymap);
+    await Upload(Commander.keyboard, Commander.keymap, undefined, true);
   }
 })();
 

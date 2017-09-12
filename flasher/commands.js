@@ -1,16 +1,18 @@
 const Inquirer = require('inquirer');
+const Chalk = require('chalk');
 
-const { Echo, Exec, IdentifyKeyboard } = require('./util');
+const { Echo, Exec, IdentifyKeyboard, Sleep } = require('./util');
 
-async function Upload (keymap, path, right = false) {
-  await Build(keymap, path, right);
+async function Upload (keyboard, keymap, path, right = false) {
+  await Build(keyboard, keymap, path, right);
 
   // Find a keyboard to flash
   let board;
   while (board == null) {
     board = IdentifyKeyboard(undefined, path);
     if (board == null) {
-      Echo(`Put your keyboard in flash mode`);
+      Echo(Chalk.yellow`Put your keyboard in flash mode`);
+      await Sleep(1000);
     }
   }
   if (board.length > 1) {
@@ -28,22 +30,22 @@ async function Upload (keymap, path, right = false) {
     board = board[0];
   }
 
-  Echo(`Building for ${board.name} (${board.path})`);
-  await Flash(keymap, board, right);
+  Echo(Chalk.blue(`Building for ${board.name} (${board.path})`));
+  await Flash(keyboard, keymap, board, right);
 }
 module.exports.Upload = Upload;
 
-async function Build (keymap, path, right = false) {
-  Echo(`Building ${right ? 'right' : 'left'}`);
-  await Exec(`make ergodox_infinity-${keymap} ${right ? 'MASTER=right' : ''}`);
-  await Exec(`make ergodox_infinity-${keymap}-.build/ergodox_infinity_${keymap}.bin ${right ? 'MASTER=right' : ''}`);
-  Echo(`Built ${right ? 'right' : 'left'}`, '');
+async function Build (keyboard, keymap, path, right = false) {
+  Echo(Chalk.blue(`Building ${right ? 'right' : 'left'}`));
+  await Exec(`make ${keyboard}-${keymap} ${right ? 'MASTER=right' : ''}`);
+  await Exec(`make ${keyboard}-${keymap}-.build/${keyboard}_${keymap}.bin ${right ? 'MASTER=right' : ''}`);
+  Echo(Chalk.green(`Built ${right ? 'right' : 'left'}`), '');
 }
 module.exports.Build = Build;
 
-async function Flash (keymap, board, right = false) {
-  Echo(`Flashing ${right ? 'right' : 'left'}`);
-  await Exec(`dfu-util --device ${board.id} --path ${board.path} -D .build/ergodox_infinity_${keymap}.bin`);
-  Echo(`Flashed ${right ? 'right' : 'left'}`, '');
+async function Flash (keyboard, keymap, board, right = false) {
+  Echo(Chalk.blue(`Flashing ${right ? 'right' : 'left'}`));
+  await Exec(`dfu-util --device ${board.id} --path ${board.path} -D .build/${keyboard}_${keymap}.bin`);
+  Echo(Chalk.green(`Flashed ${right ? 'right' : 'left'}`), '');
 }
 module.exports.Flash = Flash;

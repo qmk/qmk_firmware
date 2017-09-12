@@ -45,3 +45,8 @@ function Echo (...logs) {
   }
 }
 module.exports.Echo = Echo;
+
+function Sleep (duration) {
+  return new Promise(resolve => setTimeout(resolve, duration));
+}
+module.exports.Sleep = Sleep;
