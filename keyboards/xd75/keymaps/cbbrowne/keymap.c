@@ -116,26 +116,19 @@ keys needing to be assigned:
    - KC_BSPC - backspace
    - KC_ESC
 
-special things...
-  - enter doubles with ctl
-  - quote doubles with shift
-
 Missing still...  
-   KC_LBRC
-   KC_RBRC
-   KC_+
-
+   KC_LBRC and KC_LCBR
+   KC_RBRC and KC_RCBR
 
   */  
 
    [_QWERTY] = { /* QWERTY, with keypad in the centre */
      { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
-     { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,    KC_9,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
-     { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,    KC_6,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
-     { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,    KC_3,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-     { KC_TAB,  ROT_LED, MRAISE,  KC_BSPC, KC_SPC, KC_SPC,  KC_0,    KC_MINS, KC_SPC,   KC_BSPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+     { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,   KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
+     { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,   KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
+     { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
+     { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,  KC_0,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
    },
-
 	
 /* LOWER
  * .---------------------------------------------------------------------------------------------------------------------- 2u ------------.
@@ -152,10 +145,10 @@ Missing still...
  */
  
  [_LOWER] = { /* LOWERED */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, },
-  { KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, _______, _______, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______, KC_INS   },
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, ___T___, ___T___  },
-  { KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
+   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
+  { ___T___, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS   },
+   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, _______ },
+   { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
@@ -189,7 +182,7 @@ Missing still...
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ------------+--------|
  * | CAP LK | MS BT5 | MS BT4 | MS BT3 | MS BT2 | SLOW M | FAST M | NEXT   | VOL+   | VOL-   | PLAY   |        | XXXXXX .        | WHEEL+ |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+- 2u ---------------------+--------|
- * | RGB TG | RGB MD | RGB HI | RGB HD | RGB SI | RGB SD | RGB VI | RGB VD | BL TOG | BL INC | BL DEC | XXXXXX .        | MOUS U | WHEEL- |
+ * | RGB TG | RGB MD | RGB HI | RGB HD | RGB SI | RGB SD | RGB VI | RGB VD | BL TOG | BL INC | BL DEC | XXXXXX .        | MOUS Un | WHEEL- |
  * |--------+--------+--------+--------+--------+-- 2u -----------+--------+--------+--------+--------+-----------------+--------+--------|
  * | RESET  |        | QWERTY | COLEMK | DVORAK | XXXXXX . MS BT1 |        |        |        |        |        | MOUS L | MOUS D | MOUS R |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
