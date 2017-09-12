@@ -290,7 +290,7 @@ BEGIN = gccversion sizebefore
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
 ifdef $1_CONFIG
-$1_CONFIG_FLAGS += -include $$($1_CONFIG)
+$1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
 $1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 $1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
