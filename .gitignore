@@ -24,6 +24,9 @@ CMakeLists.txt
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
+/keyboards/*/Makefile
+/keyboards/*/*/Makefile
+/keyboards/*/keymaps/Makefile
 
 # Eclipse/PyCharm/Other IDE Settings
 .cproject

@@ -47,7 +47,7 @@ void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_da
   if (state->count == 1) {
     register_code16 (pair->kc);
   } else if (state->count == 2) {
-    layer_invert (pair->layer);
+    layer_move (pair->layer);
   }
 }
 

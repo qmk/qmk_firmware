@@ -30,10 +30,17 @@
 /* Underlight configuration
  */
 #define RGB_DI_PIN D7
-#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 14     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_HUE_STEP 32
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+
+#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 666*2
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3   // How many LEDs wide to light up
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 1   // The led to start at
+#define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 5  // How many LEDs to travel
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 4    // How many LEDs wide to light up
 
 #endif

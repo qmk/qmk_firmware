@@ -40,8 +40,11 @@ Debian/Ubuntu example:
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
 
     brew tap osx-cross/avr
-    brew install avr-libc
+    brew tap PX4/homebrew-px4
+    brew update
+    brew install avr-gcc
     brew install dfu-programmer
+    brew install gcc-arm-none-eabi
 
 This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
 
