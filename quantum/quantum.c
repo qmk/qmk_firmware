@@ -238,6 +238,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
   #endif
+  #ifdef TERMINAL_ENABLE
+    process_terminal(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
@@ -249,105 +252,153 @@ bool process_record_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
         reset_keyboard();
       }
-	  return false;
-      break;
+    return false;
     case DEBUG:
       if (record->event.pressed) {
-          print("\nDEBUG: enabled.\n");
           debug_enable = true;
+          print("DEBUG: enabled.\n");
       }
-	  return false;
-      break;
+    return false;
   #ifdef FAUXCLICKY_ENABLE
   case FC_TOG:
     if (record->event.pressed) {
       FAUXCLICKY_TOGGLE;
     }
     return false;
-    break;
   case FC_ON:
     if (record->event.pressed) {
       FAUXCLICKY_ON;
     }
     return false;
-    break;
   case FC_OFF:
     if (record->event.pressed) {
       FAUXCLICKY_OFF;
     }
     return false;
-    break;
   #endif
-	#ifdef RGBLIGHT_ENABLE
-	case RGB_TOG:
-		if (record->event.pressed) {
-			rgblight_toggle();
+  #ifdef RGBLIGHT_ENABLE
+  case RGB_TOG:
+    if (record->event.pressed) {
+      rgblight_toggle();
+    }
+    return false;
+  case RGB_MOD:
+    if (record->event.pressed) {
+      rgblight_step();
+    }
+    return false;
+  case RGB_HUI:
+    if (record->event.pressed) {
+      rgblight_increase_hue();
+    }
+    return false;
+  case RGB_HUD:
+    if (record->event.pressed) {
+      rgblight_decrease_hue();
+    }
+    return false;
+  case RGB_SAI:
+    if (record->event.pressed) {
+      rgblight_increase_sat();
+    }
+    return false;
+  case RGB_SAD:
+    if (record->event.pressed) {
+      rgblight_decrease_sat();
+    }
+    return false;
+  case RGB_VAI:
+    if (record->event.pressed) {
+      rgblight_increase_val();
+    }
+    return false;
+  case RGB_VAD:
+    if (record->event.pressed) {
+      rgblight_decrease_val();
+    }
+    return false;
+  case RGB_MODE_PLAIN:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+    }
+    return false;
+  case RGB_MODE_BREATHE:
+    if (record->event.pressed) {
+      if ((2 <= rgblight_get_mode()) && (rgblight_get_mode() < 5)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(2);
       }
-	  return false;
-      break;
-	case RGB_MOD:
-		if (record->event.pressed) {
-			rgblight_step();
+    }
+    return false;
+  case RGB_MODE_RAINBOW:
+    if (record->event.pressed) {
+      if ((6 <= rgblight_get_mode()) && (rgblight_get_mode() < 8)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(6);
       }
-	  return false;
-      break;
-	case RGB_HUI:
-		if (record->event.pressed) {
-			rgblight_increase_hue();
+    }
+    return false;
+  case RGB_MODE_SWIRL:
+    if (record->event.pressed) {
+      if ((9 <= rgblight_get_mode()) && (rgblight_get_mode() < 14)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(9);
       }
-	  return false;
-      break;
-	case RGB_HUD:
-		if (record->event.pressed) {
-			rgblight_decrease_hue();
+    }
+    return false;
+  case RGB_MODE_SNAKE:
+    if (record->event.pressed) {
+      if ((15 <= rgblight_get_mode()) && (rgblight_get_mode() < 20)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(15);
       }
-	  return false;
-      break;
-	case RGB_SAI:
-		if (record->event.pressed) {
-			rgblight_increase_sat();
+    }
+    return false;
+  case RGB_MODE_KNIGHT:
+    if (record->event.pressed) {
+      if ((21 <= rgblight_get_mode()) && (rgblight_get_mode() < 23)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(21);
       }
-	  return false;
-      break;
-	case RGB_SAD:
-		if (record->event.pressed) {
-			rgblight_decrease_sat();
+    }
+    return false;
+  case RGB_MODE_XMAS:
+    if (record->event.pressed) {
+      rgblight_mode(24);
+    }
+    return false;
+  case RGB_MODE_GRADIENT:
+    if (record->event.pressed) {
+      if ((25 <= rgblight_get_mode()) && (rgblight_get_mode() < 34)) {
+        rgblight_step();
+      } else {
+        rgblight_mode(25);
       }
-	  return false;
-      break;
-	case RGB_VAI:
-		if (record->event.pressed) {
-			rgblight_increase_val();
-      }
-	  return false;
-      break;
-	case RGB_VAD:
-		if (record->event.pressed) {
-			rgblight_decrease_val();
-      }
-	  return false;
-      break;
-	#endif
+    }
+    return false;
+  #endif
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
       }
       return false;
-      break;
     case OUT_USB:
       if (record->event.pressed) {
         set_output(OUTPUT_USB);
       }
       return false;
-      break;
     #ifdef BLUETOOTH_ENABLE
     case OUT_BT:
       if (record->event.pressed) {
         set_output(OUTPUT_BLUETOOTH);
       }
       return false;
-      break;
     #endif
     #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
@@ -454,7 +505,6 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LSFT));
       }
       return false;
-      // break;
     }
 
     case KC_RSPC: {
@@ -477,7 +527,6 @@ bool process_record_quantum(keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_RSFT));
       }
       return false;
-      // break;
     }
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
@@ -554,26 +603,74 @@ void send_string(const char *str) {
   send_string_with_delay(str, 0);
 }
 
+void send_string_P(const char *str) {
+  send_string_with_delay_P(str, 0);
+}
+
 void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
-        uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
+        char ascii_code = *str;
         if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = *(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
         }
         ++str;
         // interval
         { uint8_t ms = interval; while (ms--) wait_ms(1); }
     }
+}
+
+void send_string_with_delay_P(const char *str, uint8_t interval) {
+    while (1) {
+        char ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = pgm_read_byte(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
+        }
+        ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
+    }
+}
+
+void send_char(char ascii_code) {
+  uint8_t keycode;
+  keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
+      register_code(KC_LSFT);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_LSFT);
+  } else {
+      register_code(keycode);
+      unregister_code(keycode);
+  }
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
