@@ -292,6 +292,7 @@ define PARSE_KEYBOARD
     KEYBOARD_FOLDER_4 := $$(notdir $$(KEYBOARD_FOLDER_PATH_4))
     KEYBOARD_FOLDER_5 := $$(notdir $$(KEYBOARD_FOLDER_PATH_5))
 
+    KEYMAPS :=
     # get a list of all keymaps
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
