@@ -523,11 +523,11 @@ endif
 # .PHONY: all-keyboards-defaults
 # all-keyboards-defaults: all\:default
 
-.PHONY: test
-test: test-all
+# .PHONY: test
+# test: test-all
 
-.PHONY: test-clean
-test-clean: test-all-clean
+# .PHONY: test-clean
+# test-clean: test-all-clean
 
 lib/%:
 	git submodule sync $?
