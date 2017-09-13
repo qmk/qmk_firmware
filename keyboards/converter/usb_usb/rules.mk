@@ -63,4 +63,3 @@ EXTRAKEY_ENABLE		?= yes	# Audio control and System control(+450)
 
 CUSTOM_MATRIX = yes
 SRC = custom_matrix.cpp
-include $(TMK_DIR)/protocol/usb_hid.mk
