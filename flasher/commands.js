@@ -8,13 +8,16 @@ async function Upload (keyboard, keymap, path, right = false) {
 
   // Find a keyboard to flash
   let board;
+  process.stdout.write(Chalk.yellow`Put your keyboard in flash mode`);
   while (board == null) {
     board = IdentifyKeyboard(undefined, path);
     if (board == null) {
-      Echo(Chalk.yellow`Put your keyboard in flash mode`);
+      process.stdout.write(Chalk.yellow`.`);
       await Sleep(1000);
     }
   }
+  console.log('\n\n');
+
   if (board.length > 1) {
     const answer = await Inquirer.prompt({
       name: 'path',

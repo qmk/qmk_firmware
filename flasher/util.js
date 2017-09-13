@@ -21,16 +21,22 @@ module.exports.IdentifyKeyboard = IdentifyKeyboard;
 
 function Exec (command) {
   return new Promise((resolve, reject) => {
-    console.log(Chalk.blue('] ') + command);
+    console.log(Chalk.blue`] $ ` + command);
     const proc = exec(command, (err) => {
       if (err) {
+        console.log();
         reject(err);
       } else {
+        console.log();
         resolve();
       }
     });
     const line_start = Chalk.blue(']\t');
-    proc.stdout.on('data', data => console.log(line_start + data.replace(/\n$/, '').replace(/\n/g, `\n${line_start}`)));
+    proc.stdout.on('data', data => {
+      // process.stdout.write(line_start);
+      // process.stdout.write(data.toString().replace(/\n/g, `\n`));
+      process.stdout.write(data);
+    });
   });
 }
 module.exports.Exec = Exec;
