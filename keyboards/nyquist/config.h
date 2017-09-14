@@ -20,6 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#include QMK_SUBPROJECT_CONFIG_H
-
 #endif  // CONFIG_H

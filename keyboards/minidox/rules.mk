@@ -72,3 +72,5 @@ USE_I2C ?= no
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
+
+DEFAULT_FOLDER = minidox/rev1

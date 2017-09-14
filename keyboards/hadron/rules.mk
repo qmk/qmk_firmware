@@ -70,3 +70,4 @@ SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 SRC = i2c.c \
 	  ssd1306.c
 
+DEFAULT_FOLDER = hadron/ver2
