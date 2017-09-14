@@ -9,13 +9,23 @@ For more info on this firmware (and how to make it your own), head over to [qmk.
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboards/xd75 folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
-
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+Download or clone the whole firmware and navigate to the
+keyboards/xd75 folder. Once your dev env is setup, you'll be able to
+type `make` to generate your .hex - you can then use the Teensy Loader
+to install the resulting .hex file, or have the `make` process install
+it using DFU.
 
 ### Default
 
-To build with the default keymap, simply run `make xd75-default`, and to install via DFU, `make xd75-default-dfu`.
+To build with the default keymap, simply run `make xd75-default`, and
+to install via DFU, `make xd75-default-dfu`.
+
+Note that DFU is likely to require root permissions, so installing the
+firmware likely requires a command line like:
+
+```
+$ sudo make xd75-default-dfu
+```
 
 ### Other Keymaps
 
@@ -36,9 +46,3 @@ install it, using DFU, just do `make` with a keymap like this:
 $ make xd75-[default|<name>]
 ```
 
-Note that DFU is likely to require root permissions, so installation
-of firmware likely requires a command line like:
-
-```
-$ sudo make xd75-default-dfu
-```
