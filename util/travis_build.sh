@@ -12,8 +12,11 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		make all:all AUTOGEN="true"
 		: $((exit_code = $exit_code + $?))
 	else
-		MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_]+)(?=\/)' | sort -u)
+		MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_\/]+)(?=\/)' | sort -u)
 		for KB in $MKB ; do
+			if [[ $KB == *keymaps* ]]; then
+				continue
+			fi
 			KEYMAP_ONLY=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/'${KB}'/keymaps/)' | wc -l)
 			if [[ $KEYMAP_ONLY -gt 0 ]]; then
 				echo "Making all keymaps for $KB"
