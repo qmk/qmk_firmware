@@ -20,7 +20,8 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 
 The ErgoDone uses an HID bootloader rather than the Teensy one, and requires a different way of flashing the firmware.
 
-1. While plugging in the USB cable, hold the two right-most keys on the left half of the ErgoDone to enter FLASH mode.
+1. While plugging in the USB cable, hold the two right-most keys on the top row of the left half of the ErgoDone to enter FLASH mode and flash a hex file.
+![Ergodone Flash Mode](https://i.imgur.com/sNivAnr.jpg)
 2. Use the `hid_bootloader_cli` utlity from [TKG Toolkit](https://github.com/kairyu/tkg-toolkit):
    
         hid_bootloader_cli -mmcu=atmega32u4 ergodox_ergodone_default
