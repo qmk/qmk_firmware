@@ -15,16 +15,30 @@ Depending on which keymap you would like to use, you will have to compile slight
 
 ### Default
 
-To build with the default keymap, simply run `make default`.
+To build with the default keymap, simply run `make xd75-default`, and to install via DFU, `make xd75-default-dfu`.
 
 ### Other Keymaps
 
-The "default" keymap included is basically the OLKB Atomic keymap with a few buttons added for RGB underglow control. This should be usable as a starting point, but most people will be best served creating their own keymap and flashing it - more info on creating your own keymap is available in [the official QMK documentation](https://docs.qmk.fm).
+The "default" keymap included is basically the OLKB Atomic keymap with
+a few buttons added for RGB underglow control. This should be usable
+as a starting point, but most people will be best served creating
+their own keymap and flashing it - more info on creating your own
+keymap is available in [the official QMK
+documentation](https://docs.qmk.fm).
 
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+Keymaps follow the format **__\<name\>.c__** and are stored in
+subdirectories under `keyboards/xd75/keymaps`
+
+To build the firmware binary hex file for a specific keymap, and
+install it, using DFU, just do `make` with a keymap like this:
 
 ```
-$ make [default|jack|<name>]
+$ make xd75-[default|<name>]
 ```
 
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
+Note that DFU is likely to require root permissions, so installation
+of firmware likely requires a command line like:
+
+```
+$ sudo make xd75-default-dfu
+```
