@@ -1,4 +1,4 @@
-/* Copyright 2017  Christopher Browne
+/* Copyright 2017 REPLACE_WITH_YOUR_NAME
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,4 +42,3 @@
 #define _____   KC_NO
 
 #endif
-
