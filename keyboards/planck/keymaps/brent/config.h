@@ -27,7 +27,7 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 //tapdance
-/*#define TAPPING_TERM 175*/
+#define TAPPING_TERM 150
 
 //backlight
 #ifdef BACKLIGHT_ENABLE
@@ -35,5 +35,7 @@
 	#define BACKLIGHT_LEVELS 3
     #define BACKLIGHT_ON_STATE 0
 #endif	
+
+#define USB_MAX_POWER_CONSUMPTION 100
 
 #endif
