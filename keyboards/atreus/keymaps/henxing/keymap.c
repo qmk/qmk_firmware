@@ -21,10 +21,10 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
-     *  q   w   e    r    t        ||      y   u   i  o   p
-     *  a   s   d    f    g        ||      h   j   k  l   ;
-     *  z   x   c    v    b        ||      n   m   ,  .   /
-     * esc tab gui shift bksp ctrl || alt space fn  -  ' enter
+     *  q   w   e    r    t        ||       y     u    i  o   p
+     *  a   s   d    f    g        ||       h     j    k  l   ;
+     *  z   x   c    v    b        ||       n     m    ,  .   /
+     * esc tab gui shift bksp ctrl || alt space lower  -  ' enter
      */
     [_QWERTY] = KEYMAP( \
             KC_Q,   KC_W,   KC_E,    KC_R,    KC_T,                      KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    \
@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  !       @     up     {    }        ||     pgup    7     8     9    *
      *  #     left   down  right  $        ||     pgdn    4     5     6    +
      *  [       ]      (     )    &        ||       `     1     2     3    \
-     * lower  insert  gui  shift bksp ctrl || alt space   fn    .     0    =
+     * raise  insert  gui  shift bksp ctrl || alt space  ____   .     0    =
      */
     [_LOWER] = KEYMAP( \
             KC_EXLM, KC_AT,   KC_UP,   KC_LCBR, KC_RCBR,                   KC_PGUP, KC_7,    KC_8,   KC_9, KC_ASTR, \
@@ -47,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
     /*
-     * insert home   up   end  pgup       ||      up     F7    F8    F9   F10
-     *  del   left  down right pgdn       ||     down    F4    F5    F6   F11
-     *       volup             reset      ||             F1    F2    F3   F12
-     *       voldn super shift bksp  ctrl || alt space   L0  prtsc scroll pause
+     * insert home   up   end  pgup       ||      up      F7    F8     F9    F10
+     *  del   left  down right pgdn       ||     down     F4    F5     F6    F11
+     *       volup             reset      ||              F1    F2     F3    F12
+     *       voldn super shift bksp  ctrl || alt space QWERTY  prtsc scroll pause
      */
     [_RAISE] = KEYMAP( \
             KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   KC_UP,   KC_F7,  KC_F8,   KC_F9,   KC_F10, \
@@ -79,6 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case LOWER:
+            // Toggle LOWER layer on when key pressed and off when released
             if (record->event.pressed) {
                 layer_on(_LOWER);
             } else {
@@ -89,10 +90,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RAISE:
             persistent_default_layer_set(1UL<<_RAISE);
             break;
+
         default:
 
-            // If the keycode is not handled by any of the other cases, we
-            // should return true
+            // If the keycode is not handled by any of the other cases, the
+            // function should return true
             return_value = true;
             break;
     }
