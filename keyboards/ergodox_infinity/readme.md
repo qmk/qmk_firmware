@@ -3,21 +3,21 @@
 The Infinity is two completely independent keyboards, and needs to be flashed
 for the left and right halves seperately.  To flash them:
 
-  - Build the firmware with `make infinity-keymapname`
+  - Build the firmware with `make ergodox_infinity-keymapname`
 
   - Plug in the left hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make infinity-keymapname-dfu-util`
+  - Install the firmware with `sudo make ergodox_infinity-keymapname-dfu-util`
 
-  - Build right hand firmware with `make infinity-keymapname MASTER=right`
+  - Build right hand firmware with `make ergodox_infinity-keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make infinity-keymapname-dfu-util MASTER=right`
+  - Install the firmware with `sudo make ergodox_infinity-keymapname-dfu-util MASTER=right`
 
 More information on the Infinity firmware is available in the [TMK/chibios for
 Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
