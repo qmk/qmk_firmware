@@ -45,8 +45,3 @@ ARMV = 7
 # This also requires a patch to chibios:
 #   <tmk_dir>/tmk_core/tool/chibios/ch-bootloader-jump.patch
 #STM32_BOOTLOADER_ADDRESS = 0x1FFFC800
-
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif

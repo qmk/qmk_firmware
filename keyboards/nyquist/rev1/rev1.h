@@ -1,7 +1,7 @@
 #ifndef REV1_H
 #define REV1_H
 
-#include "../nyquist.h"
+#include QMK_KEYBOARD_H
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"

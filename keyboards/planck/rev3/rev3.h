@@ -1,6 +1,6 @@
 #ifndef REV3_H
 #define REV3_H
 
-#include "../planck.h"
+#include QMK_KEYBOARD_H
 
 #endif

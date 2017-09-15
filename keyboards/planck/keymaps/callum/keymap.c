@@ -10,10 +10,14 @@ extern keymap_config_t keymap_config;
 #define _BASE 0
 #define _MOVE 1
 #define _SYMB 2
-#define _MOUSE 3
+#define _MORE 3
 #define _FUNC 4
 #define ENDASH LALT(KC_MINS)
 #define POUND LALT(KC_3)
+#define LDQUOT LALT(KC_LBRC)
+#define RDQUOT LALT(S(KC_LBRC))
+#define LSQUOT LALT(KC_RBRC)
+#define RSQUOT LALT(S(KC_RBRC))
 #define H(X) LALT(LCTL(X))
 
 enum planck_keycodes {
@@ -30,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* BASE
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Bksp |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
+ * | Bksp |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -68,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  Esc |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   –  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   £  |
+ * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   ’  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   ~  |   `  |   +  |   =  |   |  |   \  |   [  |   ]  |   {  |   }  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -77,26 +81,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYMB] = {
   {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    ENDASH },
-  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, POUND  },
+  {KC_DEL,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, RSQUOT },
   {_______, KC_TILD, KC_GRV,  KC_PLUS, KC_EQL,  KC_PIPE, KC_BSLS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* MOUSE
+/* MORE
  * ,-----------------------------------------------------------------------------------.
- * |      |      | ACC-2| ACC-1| ACC-0|      |      | SW-L |  M-U | SW-R |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | MB-3 | MB-2 | MB-1 |      |      |  M-L |  M-D |  M-R |      |      |
+ * |      |      |      |      |   £  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | SW-D | SW-U |      |      |      |
+ * |      |      |      |      |      |      |      |   “  |   ”  |   ‘  |   ’  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOUSE] = {
-  {XXXXXXX, XXXXXXX, KC_ACL2, KC_ACL1, KC_ACL0, XXXXXXX, XXXXXXX, KC_WH_L, KC_MS_U, KC_WH_R, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN2, KC_BTN1, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX},
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX, XXXXXXX, _______},
+[_MORE] = {
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, POUND,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LDQUOT,  RDQUOT,  LSQUOT,  RSQUOT,  _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -104,17 +108,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Reset|  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 | Vol+ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 | Vol- |
+ * | Power|  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F21 |  F22 |  F23 |  F24 |      |      | Power|      |      |      |      |
+ * |      |  F21 |  F22 |  F23 |  F24 |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      | Prev | Mute | Play | Next |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = {
   {RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_VOLU},
-  {XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD},
-  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, KC_POWER,XXXXXXX, XXXXXXX, XXXXXXX, _______},
+  {KC_POWER,KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_VOLD},
+  {_______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, KC_MPRV, KC_MUTE, KC_MPLY, KC_MNXT, _______, _______, _______, _______}
 }
 
@@ -125,20 +129,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MOVE:
       if (record->event.pressed) {
         layer_on(_MOVE);
-        update_tri_layer(_MOVE, _SYMB, _MOUSE);
+        update_tri_layer(_MOVE, _SYMB, _MORE);
       } else {
         layer_off(_MOVE);
-        update_tri_layer(_MOVE, _SYMB, _MOUSE);
+        update_tri_layer(_MOVE, _SYMB, _MORE);
       }
       return false;
       break;
     case SYMB:
       if (record->event.pressed) {
         layer_on(_SYMB);
-        update_tri_layer(_MOVE, _SYMB, _MOUSE);
+        update_tri_layer(_MOVE, _SYMB, _MORE);
       } else {
         layer_off(_SYMB);
-        update_tri_layer(_MOVE, _SYMB, _MOUSE);
+        update_tri_layer(_MOVE, _SYMB, _MORE);
       }
       return false;
       break;

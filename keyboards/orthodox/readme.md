@@ -96,7 +96,7 @@ the two halves, i.e. if your split keyboard has 3 rows in each half, then
 
 Flashing
 -------
-From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
+From the `orthodox` directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
 Example: `make rev2-default-avrdude`
 
 

@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
@@ -158,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+          PLAY_SONG(tone_colemak);
         #endif
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
@@ -210,12 +210,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -227,7 +227,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif

@@ -1,6 +1,22 @@
-## gh60 Rev C keyboard firmware
+GH60
+===
 
 ![gh60 Rev C PCB](https://i.imgur.com/FejpoNF.jpg)
+
+A common 60% PCB.
+
+Keyboard Maintainer: QMK Community
+Hardware Supported: GH60 PCB
+Hardware Availability: http://blog.komar.be/projects/gh60-programmable-keyboard/
+
+Make example for this keyboard (after setting up your build environment):
+
+    make gh60-default
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+
+## GH60 Hardware Information
 
     /* Column pin configuration
     * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13
@@ -34,29 +50,3 @@ Functions to controls LED clusters
     gh60_fn_led_off()
     gh60_esc_led_off()
     gh60_wasd_leds_off()
-	
-======================
-
-## Quantum MK Firmware
-
-For the full Quantum feature list, see [the parent readme.md](/readme.md).
-
-## Building
-
-Download or clone the whole firmware and navigate to the keyboards/gh60_rev_c folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
-
-Depending on which keymap you would like to use, you will have to compile slightly differently.
-
-### Default
-To build with the default keymap, simply run `make default`.
-
-### Other Keymaps
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create file named `<name>.c` in the keymaps folder, and see keymap document (you can find in top readme.md) and existent keymap files.
-
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
-
-```
-$ make [default|jack|<name>]
-```
-
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.

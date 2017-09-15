@@ -1,0 +1,12 @@
+{
+    "redirects": [
+            {
+                "from": "build_environment_setup.html",
+                "to": "getting_started_build_tools.html"
+            },
+            {
+                "from": "make_instructions.html",
+                "to": "getting_started_make_guide.html"
+            }
+        ]
+}
