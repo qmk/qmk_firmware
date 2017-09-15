@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |AGnorm|AGswap|      |      |string|string|  Del |
+ * |      | Reset|      |      |AGnorm|AGswap|      |      |      |string|string|  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |RGBMOD|HUE-UP|SAT-UP|BRI-UP|      |PLAIN |BREATH|RANBOW| SWIRL|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
