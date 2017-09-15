@@ -116,7 +116,6 @@
     S__NOTE(_REST),  \
     ED_NOTE(_E7  ),
 
-
 #define MUSIC_ON_SOUND \
     E__NOTE(_A5 ),        \
     E__NOTE(_B5 ),        \
