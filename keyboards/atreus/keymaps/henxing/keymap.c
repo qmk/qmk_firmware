@@ -88,7 +88,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case RAISE:
-            persistent_default_layer_set(1UL<<_RAISE);
+            if (record->event.pressed) {
+                persistent_default_layer_set(1UL<<_RAISE);
+            }
             break;
 
         default:
