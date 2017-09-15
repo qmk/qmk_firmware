@@ -3,8 +3,6 @@ MF68
 
 Magicforce 68 with [replacement PCB](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68) designed by [di0ib](https://github.com/di0ib).
 
-A split 60% split 5x12 ortholinear keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
-
 Keyboard Maintainer: [di0ib](http://www.40percent.club)  
 Hardware Supported: Pro Micro  
 Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68/pcb)  
