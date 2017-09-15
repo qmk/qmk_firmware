@@ -14,6 +14,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  ADMIN,
   SMSPC1
 };
 
@@ -88,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |AGnorm|AGswap|      |      |      |string|  Del |
+ * |      | Reset|      |      |      |AGnorm|AGswap|      |      |string|string|  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |RGBMOD|HUE-UP|SAT-UP|BRI-UP|      |PLAIN |BREATH|RANBOW| SWIRL|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, _______,  SMSPC1,  KC_DEL, \
+  _______, RESET,   _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, ADMIN,    SMSPC1,  KC_DEL, \
   _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, _______, _______, \
   _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______, RGB_M_G, RGB_M_X, RGB_M_K, RGB_M_SN, _______, C_A_INS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, C_A_DEL \
@@ -148,6 +149,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+      break;
+    case ADMIN:
+      if (record->event.pressed) {
+        SEND_STRING("Administrator");
       }
       return false;
       break;
