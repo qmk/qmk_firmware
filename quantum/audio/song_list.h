@@ -248,4 +248,7 @@
     Q__NOTE(_GS5),     \
     HD_NOTE(_C6),
 
+#define TERMINAL_SOUND \
+    E__NOTE(_C5 )
+
 #endif
