@@ -22,9 +22,9 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
 
 // Change this to how you wired your keyboard
 // COLS: Left to right, ROWS: Top to bottom
-#define UNUSED_PINS
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { B5, B6, B7, C6, C7, D2, D3, D4, D5, D6, D7, F0, E6, F1, F4, F5 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
