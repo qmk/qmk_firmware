@@ -14,6 +14,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  SMSPC1
 };
 
 // Fillers to make layering more clear
@@ -87,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |AGnorm|AGswap|      |      |      |      |  Del |
+ * |      | Reset|      |      |      |AGnorm|AGswap|      |      |      |string|  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |RGBMOD|HUE-UP|SAT-UP|BRI-UP|      |PLAIN |BREATH|RANBOW| SWIRL|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, _______,  _______, KC_DEL, \
+  _______, RESET,   _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, _______,  SMSPC1,  KC_DEL, \
   _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, _______, _______, \
   _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______, RGB_M_G, RGB_M_X, RGB_M_K, RGB_M_SN, _______, C_A_INS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, C_A_DEL \
@@ -109,10 +110,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [SFT_CAP] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
@@ -122,9 +119,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
@@ -154,6 +148,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+      break;
+    case SMSPC1:
+      if (record->event.pressed) {
+        SEND_STRING("Simspace1!");
       }
       return false;
       break;
