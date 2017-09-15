@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
+#include "backlight.h"
 
 #ifdef USE_I2C
 #  include "i2c.h"
@@ -57,6 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #define ERROR_DISCONNECT_COUNT 5
+
+#define SERIAL_LED_ADDR 0x00
 
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
 
@@ -237,6 +240,11 @@ int serial_transaction(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
+
+#ifdef BACKLIGHT_ENABLE
+    // Write backlight level for slave to read
+    serial_master_buffer[SERIAL_LED_ADDR] = get_backlight_level();
+#endif
     return 0;
 }
 #endif
@@ -284,6 +292,11 @@ void matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
+
+#ifdef BACKLIGHT_ENABLE
+    // Read backlight level sent from master and update level on slave
+    backlight_set(serial_master_buffer[SERIAL_LED_ADDR]);
+#endif
 #endif
 }
 
