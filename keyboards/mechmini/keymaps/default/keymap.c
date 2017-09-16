@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "quantum.h"
 
+#define MAX_BRIGHTNESS 15
+#define MAX_BRIGHTNESS_IOS 5  // max brightness suitable for iOS devices
+
 #define _BL 0
 #define _FN1 1
 #define _FN2 2
@@ -61,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  )
  */
 
-uint8_t current_level = 8;
-uint8_t prev_current_level = 8;
+uint8_t current_level = 2;
+uint8_t prev_current_level = 2;
 int is_on = 0;
 
 enum macro_id {
@@ -90,7 +93,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
            }
            break;
        case RGB_LEVEL_UP:
-           if (event.pressed && current_level < 15) {
+           if (event.pressed && current_level < MAX_BRIGHTNESS_IOS) {
                current_level++;
                prev_current_level++;
            }
