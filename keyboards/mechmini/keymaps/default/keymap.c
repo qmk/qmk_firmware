@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  )
  */
 
-uint8_t current_level = 2;
+uint8_t current_level = 4;
 int is_on = 0;
 
 uint8_t r = 0xFF;
@@ -106,22 +106,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
       break;
     case COLOR_1:  // set to pink
-      r = 0xFF;
-      g = 0x81;
-      b = 0xC2;
+      if (event.pressed) {
+        r = 0xFF;
+        g = 0x81;
+        b = 0xC2;
+      }
       break;
     case COLOR_2:  // set to cyan
-      r = 0x00;
-      g = 0xE0;
-      b = 0xFF;
+      if (event.pressed) {
+        r = 0x00;
+        g = 0xE0;
+        b = 0xFF;
+      }
       break;
     case COLOR_3:  // set to white
-      r = 0xFF;
-      g = 0xFF;
-      b = 0xFF;
+      if (event.pressed) {
+        r = 0xFF;
+        g = 0xFF;
+        b = 0xFF;
+      }
       break;
     case ENABLE_MAX_BRIGHTNESS: // enable all 16 brightness steps
-      max_brightness = MAX_BRIGHTNESS;
+      if (event.pressed) {
+        max_brightness = MAX_BRIGHTNESS;
+      }
       break;
   }
 
