@@ -28,23 +28,7 @@
 //#include "ws2812_config.h"
 //#include "i2cmaster.h"
 
-#ifdef RGBW
-  #define LED_TYPE struct cRGBW
-#else
-  #define LED_TYPE struct cRGB
-#endif
-
-
-/*
- *  Structure of the LED array
- *
- * cRGB:     RGB  for WS2812S/B/C/D, SK6812, SK6812Mini, SK6812WWA, APA104, APA106
- * cRGBW:    RGBW for SK6812RGBW
- */
-
-struct cRGB  { uint8_t g; uint8_t r; uint8_t b; };
-struct cRGBW { uint8_t g; uint8_t r; uint8_t b; uint8_t w;};
-
+#include "rgblight_types.h"
 
 
 /* User Interface
