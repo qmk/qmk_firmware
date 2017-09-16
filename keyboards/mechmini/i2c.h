@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -12,31 +12,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "mechmini.h"
-#include "rgblight.h"
+#ifndef __I2C_H__
+#define __I2C_H__
 
-#include <avr/pgmspace.h>
+void i2c_init(void);
+void i2c_set_bitrate(uint16_t bitrate_khz);
+uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
 
-#include "action_layer.h"
-#include "i2c.h"
-#include "quantum.h"
-
-extern rgblight_config_t rgblight_config;
-
-void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-            led[i].r = 0;
-            led[i].g = 0;
-            led[i].b = 0;
-        }
-    }
-
-    i2c_init();
-    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-    rgblight_task();
-}
+#endif
