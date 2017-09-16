@@ -113,7 +113,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
           break;
        case RGB_CYAN:
           r = 0x00;
-          g = 0xDC;
+          g = 0xE0;
           b = 0xFF;
           break;
       case RGB_WHITE:
