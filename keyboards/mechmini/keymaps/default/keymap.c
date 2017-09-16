@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_FN1] = KEYMAP(
      _____,      _____,      KC_UP,      KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_SLCK,  KC_PAUS,  KC_DEL,
      KC_CAPS,    KC_LEFT,    KC_DOWN,    KC_RIGHT, _____,    _____,    _____,    KC_INS,   KC_HOME,  KC_PGUP,  KC_PSCR,
-     _____,      _____,      M(0),       M(1),     M(2),    _____,    _____,    KC_END,   KC_PGDN,  _____,    _____,
+     _____,      _____,      M(0),       M(1),     M(2),     _____,    _____,    KC_END,   KC_PGDN,  _____,    _____,
      _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
    ),
    [_FN2] = KEYMAP(
@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
    [_FN3] = KEYMAP(
      KC_F1,      KC_F2,      KC_F3,      KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
-     _____,      _____,      _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,
-     _____,      _____,      _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,
+     _____,      M(3),       M(4),       M(5),     _____,    _____,    _____,    _____,    _____,    _____,    _____,
+     _____,      M(6),       _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,
      _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
    )
 };
@@ -67,10 +67,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint8_t current_level = 2;
 int is_on = 0;
 
+uint8_t r = 0xFF;
+uint8_t g = 0xFF;
+uint8_t b = 0xFF;
+
+uint8_t max_brightness = MAX_BRIGHTNESS_IOS;
+
 enum macro_id {
    TOGGLE_RGB,
    RGB_LEVEL_DOWN,
-   RGB_LEVEL_UP
+   RGB_LEVEL_UP,
+   RGB_PURPLE,
+   RGB_CYAN,
+   RGB_WHITE,
+   ENABLE_MAX_BRIGHTNESS
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -80,6 +90,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
        case TOGGLE_RGB:
            if (event.pressed) {
              if (!is_on) {
+               current_level = 2;
                is_on = 1;
              } else {
                is_on = 0;
@@ -91,10 +102,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
            }
            break;
        case RGB_LEVEL_UP:
-           if (event.pressed && current_level < MAX_BRIGHTNESS_IOS) {
+           if (event.pressed && current_level < max_brightness) {
                current_level++;
            }
            break;
+       case RGB_PURPLE:
+          r = 0xFF;
+          g = 0x81;
+          b = 0xC2;
+          break;
+       case RGB_CYAN:
+          r = 0x00;
+          g = 0xDC;
+          b = 0xFF;
+          break;
+      case RGB_WHITE:
+          r = 0xFF;
+          g = 0xFF;
+          b = 0xFF;
+          break;
+       case ENABLE_MAX_BRIGHTNESS:
+          max_brightness = MAX_BRIGHTNESS;
+          break;
    }
 
    return MACRO_NONE;
@@ -119,10 +148,9 @@ void user_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 
 void matrix_scan_user(void) {
   if (!is_on) {
-    current_level = 2;
-    user_setrgb(0xFF, 0xFF, 0xFF);
-  } else {
     current_level = 0;
-    user_setrgb(0xFF, 0xFF, 0xFF);
+    user_setrgb(r, g, b);
+  } else {
+    user_setrgb(r, g, b);
   }
 }
