@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "config_common.h"
 
 #ifndef CONFIG_H
 #define CONFIG_H
@@ -28,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
+
+#define RGBLED_NUM 16
+#define RGBLIGHT_ANIMATIONS
+#define RGB_DI_PIN E2
 
 #define NO_UART 1
 #define BOOTLOADHID_BOOTLOADER 1
