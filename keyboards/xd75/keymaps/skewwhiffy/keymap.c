@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* COLEMAK _CM
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * | RESET  |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
  * |        | Q      | W      | F      | P      | G      |        |        |        | J      | L      | U      | Y      | ;      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------|
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 	
  [_CM] = { /* COLEMAK */
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    XXXXXXX, XXXXXXX, XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, XXXXXXX  },
-  { XXXXXXX, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    XXXXXXX, XXXXXXX, XXXXXXX, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    XXXXXXX  },
-  { XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX, XXXXXXX, XXXXXXX, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
+  { RESET,   KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1     },
+  { KC_1   , KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_1   , KC_1   , KC_1   , KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_1     },
+  { KC_1   , KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_1   , KC_1   , KC_1   , KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_1     },
+  { KC_1   , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_1   , KC_1   , KC_1   , KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_1     },
+  { KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1   , KC_1     },
  },
 	
 /* DVORAK - MIT ENHANCED / GRID COMPATIBLE
