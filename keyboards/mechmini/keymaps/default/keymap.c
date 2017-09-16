@@ -14,6 +14,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "mechmini.h"
+#include "rgblight.h"
+#include "action_layer.h"
+#include "quantum.h"
+
 #define _BL 0
 #define _FN1 1
 #define _FN2 2
@@ -30,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [_FN1] = KEYMAP(
      _____,      _____,      KC_UP,      KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_SLCK,  KC_PAUS,  KC_DEL,
      KC_CAPS,    KC_LEFT,    KC_DOWN,    KC_RIGHT, _____,    _____,    _____,    KC_INS,   KC_HOME,  KC_PGUP,  KC_PSCR,
-     _____,      _____,      _____,      _____,    _____,    _____,    _____,    KC_END,   KC_PGDN,  _____,    _____,
+     _____,      _____,      M(0),       M(1),     M(2),    _____,    _____,    KC_END,   KC_PGDN,  _____,    _____,
      _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
    ),
    [_FN2] = KEYMAP(
@@ -57,5 +61,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  )
  */
 
-const uint16_t PROGMEM fn_actions[] = {
+uint8_t current_level = 8;
+uint8_t prev_current_level = 8;
+int is_on = 0;
+
+enum macro_id {
+   TOGGLE_RGB,
+   RGB_LEVEL_DOWN,
+   RGB_LEVEL_UP
 };
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+   keyevent_t event = record->event;
+
+   switch (id) {
+       case TOGGLE_RGB:
+           if (event.pressed) {
+             if (!is_on) {
+               is_on = 1;
+             } else {
+               is_on = 0;
+             }
+           }
+       case RGB_LEVEL_DOWN:
+           if (event.pressed && current_level > 0) {
+               current_level--;
+               prev_current_level--;
+           }
+           break;
+       case RGB_LEVEL_UP:
+           if (event.pressed && current_level < 15) {
+               current_level++;
+               prev_current_level++;
+           }
+           break;
+   }
+
+   return MACRO_NONE;
+}
+
+const uint16_t fn_actions[] PROGMEM = {
+   [0] = ACTION_MACRO(TOGGLE_RGB),
+   [1] = ACTION_MACRO(RGB_LEVEL_DOWN),
+   [2] = ACTION_MACRO(RGB_LEVEL_UP)
+};
+
+void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
+
+uint8_t dim(uint8_t color, uint8_t opacity) {
+   return ((uint16_t) color * opacity / 0xFF) & 0xFF;
+}
+
+void user_setrgb(uint8_t r, uint8_t g, uint8_t b) {
+   uint8_t alpha = current_level * 0x11;
+   rgblight_setrgb(dim(r, alpha), dim(g, alpha), dim(b, alpha));
+}
+
+void matrix_scan_user(void) {
+  if (is_on) {
+    current_level = prev_current_level;
+    user_setrgb(0xFF, 0xFF, 0xFF);
+  } else {
+    current_level = 0;
+    user_setrgb(0xFF, 0xFF, 0xFF);
+  }
+}
