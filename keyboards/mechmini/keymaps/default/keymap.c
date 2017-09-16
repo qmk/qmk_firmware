@@ -65,7 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 uint8_t current_level = 2;
-uint8_t prev_current_level = 2;
 int is_on = 0;
 
 enum macro_id {
@@ -89,13 +88,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
        case RGB_LEVEL_DOWN:
            if (event.pressed && current_level > 0) {
                current_level--;
-               prev_current_level--;
            }
            break;
        case RGB_LEVEL_UP:
            if (event.pressed && current_level < MAX_BRIGHTNESS_IOS) {
                current_level++;
-               prev_current_level++;
            }
            break;
    }
@@ -121,8 +118,8 @@ void user_setrgb(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void matrix_scan_user(void) {
-  if (is_on) {
-    current_level = prev_current_level;
+  if (!is_on) {
+    current_level = 2;
     user_setrgb(0xFF, 0xFF, 0xFF);
   } else {
     current_level = 0;
