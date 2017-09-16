@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "mechmini.h"
 #include "rgblight.h"
-#include "action_layer.h"
 #include "quantum.h"
 
 #define MAX_BRIGHTNESS 15
@@ -35,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL,    KC_LGUI,    KC_LALT,         _____,         KC_SPC,        _____,                   MO(_FN1), MO(_FN3)
    ),
    [_FN1] = KEYMAP(
-     _____,      _____,      KC_UP,      KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_SLCK,  KC_PAUS,  KC_DEL,
+     KC_GRAVE,   _____,      KC_UP,      KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_SLCK,  KC_PAUS,  KC_DEL,
      KC_CAPS,    KC_LEFT,    KC_DOWN,    KC_RIGHT, _____,    _____,    _____,    KC_INS,   KC_HOME,  KC_PGUP,  KC_PSCR,
      _____,      _____,      M(0),       M(1),     M(2),     _____,    _____,    KC_END,   KC_PGDN,  _____,    _____,
      _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
@@ -74,65 +73,62 @@ uint8_t b = 0xFF;
 uint8_t max_brightness = MAX_BRIGHTNESS_IOS;
 
 enum macro_id {
-   TOGGLE_RGB,
-   RGB_LEVEL_DOWN,
-   RGB_LEVEL_UP,
-   RGB_PURPLE,
-   RGB_CYAN,
-   RGB_WHITE,
-   ENABLE_MAX_BRIGHTNESS
+  TOGGLE_RGB,
+  BRIGHTNESS_DOWN,
+  BRIGHTNESS_UP,
+  COLOR_1,
+  COLOR_2,
+  COLOR_3,
+  ENABLE_MAX_BRIGHTNESS
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-   keyevent_t event = record->event;
+  keyevent_t event = record->event;
 
-   switch (id) {
-       case TOGGLE_RGB:
-           if (event.pressed) {
-             if (!is_on) {
-               current_level = 2;
-               is_on = 1;
-             } else {
-               is_on = 0;
-             }
-           }
-       case RGB_LEVEL_DOWN:
-           if (event.pressed && current_level > 0) {
-               current_level--;
-           }
-           break;
-       case RGB_LEVEL_UP:
-           if (event.pressed && current_level < max_brightness) {
-               current_level++;
-           }
-           break;
-       case RGB_PURPLE:
-          r = 0xFF;
-          g = 0x81;
-          b = 0xC2;
-          break;
-       case RGB_CYAN:
-          r = 0x00;
-          g = 0xE0;
-          b = 0xFF;
-          break;
-      case RGB_WHITE:
-          r = 0xFF;
-          g = 0xFF;
-          b = 0xFF;
-          break;
-       case ENABLE_MAX_BRIGHTNESS:
-          max_brightness = MAX_BRIGHTNESS;
-          break;
-   }
+  switch (id) {
+    case TOGGLE_RGB:
+      if (event.pressed) {
+       if (!is_on) {
+         current_level = 4;
+         is_on = 1;
+       } else {
+         is_on = 0;
+       }
+      }
+    case BRIGHTNESS_DOWN:
+      if (event.pressed && current_level > 0) {
+        current_level--;
+      }
+      break;
+    case BRIGHTNESS_UP:
+      if (event.pressed && current_level < max_brightness) {
+        current_level++;
+      }
+      break;
+    case COLOR_1:  // set to pink
+      r = 0xFF;
+      g = 0x81;
+      b = 0xC2;
+      break;
+    case COLOR_2:  // set to cyan
+      r = 0x00;
+      g = 0xE0;
+      b = 0xFF;
+      break;
+    case COLOR_3:  // set to white
+      r = 0xFF;
+      g = 0xFF;
+      b = 0xFF;
+      break;
+    case ENABLE_MAX_BRIGHTNESS: // enable all 16 brightness steps
+      max_brightness = MAX_BRIGHTNESS;
+      break;
+  }
 
-   return MACRO_NONE;
+  return MACRO_NONE;
 }
 
 const uint16_t fn_actions[] PROGMEM = {
-   [0] = ACTION_MACRO(TOGGLE_RGB),
-   [1] = ACTION_MACRO(RGB_LEVEL_DOWN),
-   [2] = ACTION_MACRO(RGB_LEVEL_UP)
 };
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
