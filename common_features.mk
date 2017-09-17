@@ -93,10 +93,14 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += ws2812.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
+    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    else
+	    SRC += ws2812.c
+    endif
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -151,6 +155,11 @@ endif
 
 ifeq ($(strip $(LED_TABLES)), yes)
     SRC += $(QUANTUM_DIR)/led_tables.c
+endif
+
+ifeq ($(strip $(TERMINAL_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
+    OPT_DEFS += -DTERMINAL_ENABLE
 endif
 
 QUANTUM_SRC:= \
