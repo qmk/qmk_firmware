@@ -95,6 +95,10 @@ extern uint32_t default_layer_state;
 	#include "process_printer.h"
 #endif
 
+#ifdef AUTO_SHIFT_ENABLE
+	#include "process_auto_shift.h"
+#endif
+
 #ifdef COMBO_ENABLE
 	#include "process_combo.h"
 #endif
