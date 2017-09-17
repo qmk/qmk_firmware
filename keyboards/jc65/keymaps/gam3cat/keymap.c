@@ -185,7 +185,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return MACRO(I(0), D(LGUI), T(R), U(LGUI), END);
             }
             else {
-                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.0\n");
+                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.new;topicseen#new\n");
                 return false;
             }
         break;
