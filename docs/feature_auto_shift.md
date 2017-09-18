@@ -1,23 +1,23 @@
 # Auto Shift: Why do we need a shift key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Viola! No shift key needeed!
+and you get its shifted state. Viola! No shift key needed!
 
 ## Why Auto Shift?
 
 Many people suffer from various forms of RSI. A common cause is stretching your
-fingers repeitively long distances. For us on the keyboard, the pinky does that
-all too often when reaching for the shift key. Auto Shift looks to aliviate that
+fingers repetitively long distances. For us on the keyboard, the pinky does that
+all too often when reaching for the shift key. Auto Shift looks to alleviate that
 problem.
 
 ## How does it work?
 
 When you tap a key, it stays depressed for a short period of time before it is
-then released. This depressed time is a different length everyone. Auto Shift
+then released. This depressed time is a different length for everyone. Auto Shift
 defines a constant `AUTO_SHIFT_TIMEOUT` which is typically set to twice your
 normal pressed state time. When you press a key, a timer starts and then stops
 when you release the key. If the time depressed is greater than or equal to the
-`AUTO_SHIFT_TIMEOUT` then a shifted version of the key is emitted. If the time
+`AUTO_SHIFT_TIMEOUT`, then a shifted version of the key is emitted. If the time
 is less than the `AUTO_SHIFT_TIMEOUT` time, then the normal state is emitted.
 
 ## Are there limitations to Auto Shift?
@@ -31,9 +31,9 @@ Yes, unfortunately.
 2. Auto Shift is disabled for any key press that is accompanied by one or more
    modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
    as Ctrl+Shift+A.
-3. You will have characters that are shifted you did not intend on shifting, and
+3. You will have characters that are shifted when you did not intend on shifting, and
    other characters you wanted shifted, but were not. This simply comes down to
-   practice. As we get in a hurry, we think we might have hit the key long enough
+   practice. As we get in a hurry, we think we have hit the key long enough
    for a shifted version, but we did not. On the other hand, we may think we are
    tapping the keys, but really we have held it for a little longer than
    anticipated.
@@ -52,9 +52,9 @@ Then compile and install your new firmware with Auto Key enabled! That's it!
 
 If desired, there is some configuration that can be done to change the
 behavior of Auto Shift. This is done by setting various variables the
-`config.h` file located in your keymap folder.
+`config.h` file located in your keymap folder. If no `config.h` file exists, you can create one.
 
-If no `config.h` file exists, you can create one. A sample is
+A sample is
 
     #ifndef CONFIG_USER_H
     #define CONFIG_USER_H
@@ -69,10 +69,9 @@ If no `config.h` file exists, you can create one. A sample is
 ### AUTO_SHIFT_TIMEOUT (value in ms)
 
 This controls how long you have to hold a key before you get the shifted state.
-Obviously, this is different for everyone. For the common person a setting of
-135 to 150 works great but one should start with a value of at least 175, which
-is the  default value. Then work down from there. The idea is to have as short
-of a time required to get the shifted state without having false positives.
+Obviously, this is different for everyone. For the common person, a setting of
+135 to 150 works great. However, one should start with a value of at least 175, which
+is the default value. Then work down from there. The idea is to have the shortest time required to get the shifted state without having false positives.
 
 Play with this value until things are perfect. Many find that all will work well
 at a given value, but one or two keys will still emit the shifted state on
@@ -137,7 +136,7 @@ completely normal and with no intention of shifted keys.
 
 #### An example run
 
-\'\'\'
+'''
 hello world. my name is john doe. i am a computer programmer playing with
 keyboards right now.
 
@@ -148,13 +147,13 @@ KEYboArDS RiGHT NOw.
 
 [PRESS KC_ASUP a few times]
 
-hello world. my name is john Doe. i am a computer programmer play with
+hello world. my name is john Doe. i am a computer programmer playing with
 keyboarDs right now.
 
 [PRESS KC_ASRP]
 
 115
-\'\'\'
+'''
 
 The keyboard typed `115` which represents your current `AUTO_SHIFT_TIMEOUT`
 value. You are now set! Practice on the *D* key a little bit that showed up
