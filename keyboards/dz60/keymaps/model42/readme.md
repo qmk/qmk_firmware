@@ -21,5 +21,7 @@ PGUP -> HOME, PGDN -> END
 
 ### Layer 3
 
-Unused
+WASD - Mouse controls
+Q - Btn 1
+E - Btn 2
 
