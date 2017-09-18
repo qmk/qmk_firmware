@@ -29,6 +29,34 @@
 #define _FN 7
 #define _MS 8
 
+#define PARAN TD(PAR)
+#define CURLY TD(CUR)
+#define SQUAR TD(SQU)
+#define ANGUL TD(ANG)
+
+#define UNDO    LCTL(KC_Z)
+#define REDO    LCTL(KC_Y)
+#define COPYCUT TD(CPC)
+#define PASTE   LCTL(KC_V)
+
+#define MO_SC_U KC_MS_WH_UP
+#define MO_SC_D KC_MS_WH_DOWN
+#define MO_SC_L KC_MS_WH_LEFT
+#define MO_SC_R KC_MS_WH_RIGHT
+#define MO_U    KC_MS_UP
+#define MO_D    KC_MS_DOWN
+#define MO_L    KC_MS_LEFT
+#define MO_R    KC_MS_RIGHT
+#define MO_CL_L KC_MS_BTN1
+#define MO_CL_R KC_MS_BTN2
+#define MO_CL_M KC_MS_BTN3
+#define MO_CL_1 KC_MS_BTN4
+#define MO_CL_2 KC_MS_BTN5
+#define MO_AC_0 KC_MS_ACCEL0
+#define MO_AC_1 KC_MS_ACCEL1
+#define MO_AC_2 KC_MS_ACCEL2
+
+
 enum custom_keycodes {
     TUR_A = SAFE_RANGE,
     TUR_C,
@@ -38,80 +66,45 @@ enum custom_keycodes {
     TUR_S,
     TUR_U,
     TUR_TL,
+    EUR_ER,
+    EUR_PN,
     PHY_HB,
     UNI_LI,
-    UNI_WN,
+    UNI_WN
 };
 
 // Tap dance
 enum {
     ATD = 0,
     ATQ,
+    CLS,
+    SCL,
+    QUO,
+    PAR,
+    CUR,
+    SQU,
+    ANG,
+    CPC
 };
-
-// Tap dance feature for the
-void altgr_tap (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LALT);
-  } else {
-    unregister_code (KC_LALT);
-  }
-}
-
-void altgr_dvorak (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 2) {
-    layer_on(_TD);
-  }
-}
-
-void altgr_qwerty (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 2) {
-    layer_on(_TQ);
-  }
-}
-
-void altgr_dvorak_end (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-      unregister_code (KC_LALT);
-  } else {
-      layer_off(_TD);
-  }
-}
-
-void altgr_qwerty_end (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-      unregister_code (KC_LALT);
-  } else {
-      layer_off(_TQ);
-  }
-}
-
-// Tap dance feature
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Left Ctrl, second one is momentory switch to layer TUR
-     [ATD] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_tap, altgr_dvorak, altgr_dvorak_end )
-    ,[ATQ] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_tap, altgr_qwerty, altgr_qwerty_end )
-};
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
- * ,-----------------------------------------------------------------------.
- * | Blt |  "  |  ,  |  .  |  P  |  Y  |  F  |  G  |  C  |  R  |  L  | Bkp |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * | Esc |  A  |  O  |  E  |  U  |  I  |  D  |  H  |  T  |  N  |  S  | Del |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * | Tab |  ;  |  Q  |  J  |  K  |  X  |  B  |  M  |  W  |  V  |  Z  |mouse|
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * | Shf | Ctl | Alt | Met | Sym | Ent | Spc | Fun | Lft | Dwn |  Up | Rgt |
- * `-----------------------------------------------------------------------'
+ * ,------------------------------------------------------------------------.
+ * | Blt |  "  |  ,  |  .  |  P  |  Y  ||  F  |  G  |  C  |  R  |  L  | Bkp |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * | Esc |  A  |  O  |  E  |  U  |  I  ||  D  |  H  |  T  |  N  |  S  | Del |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |Sh\CL| ; : |  Q  |  J  |  K  |  X  ||  B  |  M  |  W  |  V  |  Z  |MOUSE|
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * | Ctl | Alt | Meta| Tab | SYM | Spc || Ent | FUN | Lft | Dwn |  Up | Rgt |
+ * `------------------------------------------------------------------------'
  */
 [_DV] = {
-  {BL_STEP, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC },
-  {KC_ESC , KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_DEL  },
-  {KC_TAB , KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  TT(_MO) },
-  {KC_LSFT, KC_LCTL, TD(ATD), KC_LGUI, TT(_SY), KC_ENT,  KC_SPC,  TT(_FN), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT }
+  {BL_STEP,TD(QUO),KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_BSPC},
+  {KC_ESC ,KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_DEL },
+  {TD(CLS),TD(SCL),KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   TT(_MO)},
+  {KC_LCTL,TD(ATD),KC_LGUI,KC_TAB, TT(_SY),KC_SPC, KC_ENT, TT(_FN),KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT}
 },
 [_TD] = {
   {_______,_______,_______,_______,_______,_______,_______, TUR_G, TUR_C,  _______,_______,_______},
@@ -121,101 +114,101 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 /* Qwerty
- * ,-----------------------------------------------------------------------.
- * |     |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |     |
- * |-----+-----+-----+-----+-----+-----------+-----+-----+-----+-----+-----|
- * |     |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |     |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  "  |     |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     |     |     |     |     |     |     |     |
- * `-----------------------------------------------------------------------'
+ * ,------------------------------------------------------------------------.
+ * |     |  Q  |  W  |  E  |  R  |  T  ||  Y  |  U  |  I  |  O  |  P  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |  A  |  S  |  D  |  F  |  G  ||  H  |  J  |  K  |  L  |  ;  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |  Z  |  X  |  C  |  V  |  B  ||  N  |  M  |  ,  |  .  |  "  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     ||     |     |     |     |     |     |
+ * `------------------------------------------------------------------------'
  */
 [_QW] = {
-  {_______, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   _______},
-  {_______, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,_______},
-  {_______, KC_Z,  KC_X,  KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_QUOT,_______},
-  {_______,_______,TD(ATQ),_______,_______,_______,_______,_______,_______,_______,_______,_______}
+  {_______, KC_Q,  KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   _______},
+  {_______, KC_A,  KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   TD(SCL),_______},
+  {_______, KC_Z,  KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, TD(QUO),_______},
+  {_______,TD(ATQ),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
 },
 [_TQ] = {
-  {_______,_______,_______,_______,_______,_______,_______, TUR_U, TUR_I,  TUR_O,  _______,_______},
-  {_______, TUR_A, TUR_S,  _______,_______, TUR_G,  PHY_HB,_______,_______,_______,_______,_______},
-  {_______,_______,_______, TUR_C, _______,_______,_______,_______,_______,_______,_______,_______},
+  {_______,_______,_______,_______,_______,_______,_______,TUR_U,  TUR_I,  TUR_O,  _______,_______},
+  {_______,TUR_A,  TUR_S,  _______,_______,TUR_G,  PHY_HB, _______,_______,_______,_______,_______},
+  {_______,_______,_______,TUR_C,  _______,_______,_______,_______,_______,_______,_______,_______},
   {_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
 },
 
 /* Game layer
- * ,-----------------------------------------------------------------------.
- * | OFF |  Q  |  W  |  E  |  R  |  T  |  ^  |  `  |  7  |  8  |  9  | Esc |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |  ~  |  A  |  S  |  D  |  F  |  <- |  v  |  -> |  4  |  5  |  6  | Ent |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * | Shf |  Z  |  X  |  C  |  V  |  F1 |  B  |  M  |  1  |  2  |  3  | Shf |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * | Alt | Ctrl|  !  |  ?  |     | Spc | Spc |     |  /  |  0  | Alt | Ctl |
- * `-----------------------------------------------------------------------'
+ * ,------------------------------------------------------------------------.
+ * | OFF |  Q  |  W  |  E  |  R  |  T  ||  F1 |  F2 | Ctrl|  ^  |Shift| Esc |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |  ~  |  A  |  S  |  D  |  F  |  G  ||  F3 |  F4 |  <  |  v  |  >  |Enter|
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * | Shf |  Z  |  X  |  C  |  V  |  B  ||  F5 |  F6 |  ,  |  .  | / ? | Alt |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * | Alt | Ctrl| ` ~ | - _ |     | Spc || Spc |     |  1  |  2  |  3  |  4  |
+ * `------------------------------------------------------------------------'
  */
 [_GM] = {
-  { TG(_GM),   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,    KC_UP,    KC_GRAVE, KC_7,    KC_8, KC_9,    KC_ESC  },
-  { KC_TILDE,  KC_A,    KC_S,    KC_D,    KC_F,   KC_LEFT, KC_DOWN,  KC_RIGHT, KC_4,    KC_5, KC_6,    KC_ENT  },
-  { KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,   KC_F1,   KC_COMMA, KC_DOT,   KC_1,    KC_2, KC_3,    KC_RSFT },
-  { KC_LALT,   KC_LCTL, KC_EXLM, KC_QUES, _______,KC_SPC,  KC_SPC,   _______,  KC_SLSH, KC_0, KC_RALT, KC_RCTL }
+  {TG(_GM),KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_F1,  KC_F2,  KC_RCTL,KC_UP,  KC_RSFT,KC_ESC },
+  {KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F3,  KC_F4,  KC_LEFT,KC_DOWN,KC_RGHT,KC_ENT },
+  {KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F5,  KC_F6,  KC_COMM,KC_DOT, KC_SLSH,KC_RALT},
+  {KC_LALT,KC_LCTL,KC_GRV, KC_MINS,_______,KC_SPC, KC_SPC, _______,KC_1,   KC_2,   KC_3,   KC_4   }
 },
 
 /* Mouse control layer
- * ,-----------------------------------------------------------------------.
- * |RESET|.....|  1  |  ^  |  2  |.....|.....|.....|.....|.....|.....|.....|
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |.....|< Scr| <-- |  3  | --> |> Scr|-----|-----|-----|-----|-----|-----|
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |.....|  4  |v Scr|  v  |^ Scr|  5  |.....|.....|.....|.....|.....|     |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |.....|.....|.....|.....|     |.....|.....|     |.....|Acc 0|Acc 1|Acc 2|
- * `-----------------------------------------------------------------------'
+ * ,------------------------------------------------------------------------.
+ * |     |.....|  ^  |.....|.....|Acc 2||.....|.....|.....| |^| |.....|     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |  <  |  v  |  >  |.....|Acc 1||.....|.....| <-- | |v| | --> |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     | Left| Mid |Right|.....|Acc 0||.....|.....|Btn 4|.....|Btn 5|     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     ||     |     |     |     |     |     |
+ * `------------------------------------------------------------------------'
  */
 [_MO] = {
-  { RESET, XXX,           KC_MS_BTN1,    KC_MS_UP,   KC_MS_BTN2,  XXX,            XXX, XXX,     XXX, XXX,          XXX,          XXX        },
-  { XXX,   KC_MS_WH_LEFT, KC_MS_LEFT,    KC_MS_BTN3, KC_MS_RIGHT, KC_MS_WH_RIGHT, XXX, XXX,     XXX, XXX,          XXX,          XXX        },
-  { XXX,   KC_MS_BTN4,    KC_MS_WH_DOWN, KC_MS_DOWN, KC_MS_WH_UP, KC_MS_BTN5,     XXX, XXX,     XXX, XXX,          XXX,         _______     },
-  { XXX,   XXX,           XXX,           XXX,        _______,     XXX,            XXX, _______, XXX, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2}
-},
-
-/* Symbols layer
- * ,-----------------------------------------------------------------------.
- * | OFF |  ?  |  {  |  [  |  (  |  \  |  /  |  )  |  ]  |  }  |  |  | TL  |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |  `  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |  ~  |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  +  |  =  |  _  |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     |     |     |     |     |     |     |     |
- * `-----------------------------------------------------------------------'
- */
-
-[_SY] = {
-  {TG(_SY),KC_QUES,KC_LCBR,KC_LBRC,KC_LPRN,KC_BSLS,KC_SLSH,KC_RPRN,KC_RBRC,KC_RCBR,KC_PIPE,TUR_TL },
-  {KC_GRV ,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS},
-  {KC_TILD,KC_EXLM,KC_AT  ,KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_PLUS,KC_EQL ,KC_UNDS},
+  {TG(_MO),XXX,    MO_U,   XXX,    XXX,    MO_AC_2,XXX,    XXX,    XXX,    MO_SC_U,XXX,    _______},
+  {_______,MO_L,   MO_D,   MO_R,   XXX,    MO_AC_1,XXX,    XXX,    MO_SC_L,MO_SC_D,MO_SC_R,_______},
+  {_______,MO_CL_L,MO_CL_M,MO_CL_R,XXX,    MO_AC_0,XXX,    XXX,    MO_CL_1,XXX,    MO_CL_2,_______},
   {_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
 },
 
-/* Function layer layer
- * ,-----------------------------------------------------------------------.
- * | OFF | qwe | game|music|     |     |     | win | lin | wake|sleep|power|
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |     | undo| redo| cut | copy|paste|prtsc| ins | home|pg up|pg dn| end |
- * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
- * |     | vol0| vol-| vol+|     |     |     |     | prev| stop| play| next|
- * `-----------------------------------------------------------------------'
+/* Symbols layer
+ * ,------------------------------------------------------------------------.
+ * | OFF |  !  |  1  |  2  |  3  |  &  ||  =  |  +  |  -  |  *  |  %  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |  _  | ( ) |  4  |  5  |  6  |  \  ||  /  | [ ] | { } | < > |  |  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |  ?  |  7  |  8  |  9  |  ~  ||  `  |  @  |  #  |  $  |  ^  |     |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |     |     |  0  |     |     ||     |     |TLira| Euro|Pound|     |
+ * `------------------------------------------------------------------------'
+ */
+
+[_SY] = {
+  {TG(_SY),KC_EXLM,KC_1,   KC_2,   KC_3,   KC_AMPR,KC_EQL, KC_PLUS,KC_MINS,KC_ASTR,KC_PERC,_______},
+  {KC_UNDS,PARAN,  KC_4,   KC_5,   KC_6,   KC_BSLS,KC_SLSH,SQUAR,  CURLY,  ANGUL,  KC_PIPE,_______},
+  {_______,KC_QUES,KC_7,   KC_8,   KC_9,   KC_TILD,KC_GRV, KC_AT,  KC_HASH,KC_DLR, KC_CIRC,_______},
+  {_______,_______,_______,KC_0,   _______,_______,_______,_______,TUR_TL, EUR_ER, EUR_PN, _______}
+},
+
+/* Function layer
+ * ,------------------------------------------------------------------------.
+ * | OFF | qwe | game|music|     |RESET||RESET| win | lin | wake|sleep|power|
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 ||  F7 |  F8 |  F9 | F10 | F11 | F12 |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     | undo| redo|cutcp|paste|vol 0||prtsc| ins | rev.| stop| play| next|
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |vol -||vol +|     | home|pg dn|pg up| end |
+ * `------------------------------------------------------------------------'
  */
 
 [_FN] = {
-  {TG(_FN),TG(_QW),   TG(_GM),   MU_ON,     _______,   _______,   _______,UNI_LI, UNI_WN ,KC_WAKE,KC_SLEP,KC_PWR },
-  {KC_F1,  KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12 },
-  {_______,LCTL(KC_Z),LCTL(KC_Y),LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),KC_PSCR,KC_INS, KC_HOME,KC_PGDN,KC_PGUP,KC_END },
-  {_______,KC_MUTE,   KC_VOLD,   KC_VOLU,   _______,   _______,   _______,_______,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT}
+  {TG(_FN),TG(_QW),TG(_GM),MU_ON,  _______,RESET,  RESET,  UNI_LI, UNI_WN ,KC_WAKE,KC_SLEP,KC_PWR },
+  {KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12 },
+  {_______,UNDO,   REDO,   COPYCUT,PASTE,  KC_MUTE,KC_PSCR,KC_INS, KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT},
+  {_______,_______,_______,_______,_______,KC_VOLD,KC_VOLU,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END }
 },
 
 /* Music layer
@@ -244,148 +237,243 @@ void matrix_init_user(){
 
 // User defined keys
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // This section is a bit tedious in VIM, so I shortened lines
   // Check for shift letter
-  bool shifted = keyboard_report->mods & MOD_BIT(KC_LSFT);
-
+  bool is_capital = ( keyboard_report->mods &
+      (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) ) ^
+      ( keyboard_report->mods & MOD_BIT(KC_CAPS) );
   switch (keycode) {
+    // Add music layer to music functionality
     case MU_ON:
-      if (record->event.pressed) {
-          layer_on(_MS);
-      }
-      return true;
-      break;
+      if (record->event.pressed) { layer_on(_MS); }
+      return true; break;
     case MU_OFF:
-      if (record->event.pressed) {
-          layer_off(_MS);
-      }
-      return true;
-      break;
+      if (record->event.pressed) { layer_off(_MS); }
+      return true; break;
+    // Turkish letters keycodes
     case TUR_A:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x00c2);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x00c2); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x00e2);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x00e2); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_U:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x00dc);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x00dc); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x00fc);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x00fc); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_I:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x0130);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x0130); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x0131);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x0131); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_O:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x00d6);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x00d6); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x00f6);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x00f6); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_S:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x015e);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x015e); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x015f);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x015f); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_G:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x011e);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x011e); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x011f);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x011f); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
     case TUR_C:
       if (record->event.pressed) {
-        if ( shifted ) {
-            unicode_input_start();
-            register_hex(0x00c7);
-            unicode_input_finish();
+        if ( is_capital ) {
+            unicode_input_start(); register_hex(0x00c7); unicode_input_finish();
         } else {
-            unicode_input_start();
-            register_hex(0x00e7);
-            unicode_input_finish();
+            unicode_input_start(); register_hex(0x00e7); unicode_input_finish();
         }
       }
-      return false;
-      break;
+      return false; break;
+    // Currencies
     case TUR_TL:
       if (record->event.pressed) {
-        unicode_input_start();
-        register_hex(0x20ba);
-        unicode_input_finish();
+        unicode_input_start(); register_hex(0x20ba); unicode_input_finish();
       }
-      return false;
-      break;
+      return false; break;
+    case EUR_ER:
+      if (record->event.pressed) {
+        unicode_input_start(); register_hex(0x20ac); unicode_input_finish();
+      }
+      return false; break;
+    case EUR_PN:
+      if (record->event.pressed) {
+        unicode_input_start(); register_hex(0x00a3); unicode_input_finish();
+      }
+      return false; break;
+    // Hbar because why not, I'm a physicist.
     case PHY_HB:
       if (record->event.pressed) {
-          unicode_input_start();
-          register_hex(0x0127);
-          unicode_input_finish();
+          unicode_input_start(); register_hex(0x0127); unicode_input_finish();
       }
-      return false;
-      break;
+      return false; break;
+    // Keys to change unicode mode
     case UNI_LI:
       if( record->event.pressed ) {
           set_unicode_input_mode(UC_LNX);
       }
-      return false;
-      break;
+      return false; break;
     case UNI_WN:
       if( record->event.pressed ) {
           set_unicode_input_mode(UC_WIN);
       }
-      return false;
-      break;
+      return false; break;
   }
   return true;
 }
+
+// Tap dance feature for the altgr implementation
+void altgr_dvo_tap (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RALT);
+  } else if (state->count == 2) {
+    unregister_code (KC_RALT);
+    layer_on(_TD);
+  } else if (state->count == 3) {
+      layer_off(_TD);
+  }
+}
+void altgr_dvo_end (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+      unregister_code (KC_RALT);
+  } else if (state->count == 2) {
+      layer_off(_TD);
+  }
+}
+void altgr_qwe_tap (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RALT);
+  } else if (state->count == 2) {
+    unregister_code (KC_RALT);
+    layer_on(_TQ);
+  } else if (state->count == 3) {
+      layer_off(_TQ);
+  }
+}
+void altgr_qwe_end (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+      unregister_code (KC_RALT);
+  } else if (state->count == 2) {
+      layer_off(_TQ);
+  }
+}
+
+// Shift vs capslock function
+void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code (KC_LSFT);
+    } else if (state->count == 2) {
+        unregister_code (KC_LSFT);
+        register_code (KC_CAPS);
+    }
+}
+void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        unregister_code (KC_LSFT);
+    } else {
+        unregister_code (KC_CAPS);
+    }
+}
+
+// Parantheses
+void paranthesis_dance (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("()"); register_code(KC_LEFT); unregister_code(KC_LEFT);
+        } else if (state->count == 2) {
+            SEND_STRING("(");
+        } else if (state->count == 3) {
+            SEND_STRING(")");
+    }
+}
+void curly_dance (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("{}"); register_code(KC_LEFT); unregister_code(KC_LEFT);
+        } else if (state->count == 2) {
+            SEND_STRING("{");
+        } else if (state->count == 3) {
+            SEND_STRING("}");
+    }
+}
+
+void square_dance (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("[]"); register_code(KC_LEFT); unregister_code(KC_LEFT);
+        } else if (state->count == 2) {
+            SEND_STRING("[");
+        } else if (state->count == 3) {
+            SEND_STRING("]");
+    }
+}
+
+void angular_dance (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        SEND_STRING("<>"); register_code(KC_LEFT); unregister_code(KC_LEFT);
+        } else if (state->count == 2) {
+            SEND_STRING("<");
+        } else if (state->count == 3) {
+            SEND_STRING(">");
+    }
+}
+
+// Copy or cut feature
+void copy_cut (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        register_code (KC_LCTL);
+        register_code (KC_C);
+        unregister_code (KC_C);
+        unregister_code (KC_LCTL);
+    } else if (state->count == 2) {
+        register_code (KC_LCTL);
+        register_code (KC_X);
+        unregister_code (KC_X);
+        unregister_code (KC_LCTL);
+    }
+}
+
+// Tap dance feature
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Left Ctrl, second one is momentory switch to layer TUR
+     [ATD] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_dvo_tap, NULL, altgr_dvo_end )
+    ,[ATQ] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_qwe_tap, NULL, altgr_qwe_end )
+    // Advanced tap dance feature allows for immediate response to shift
+    ,[CLS] = ACTION_TAP_DANCE_FN_ADVANCED( caps_tap, NULL, caps_tap_end )
+    // Shifting for double quote and semicolon
+    ,[SCL] = ACTION_TAP_DANCE_DOUBLE( KC_SCLN, KC_COLN )
+    ,[QUO] = ACTION_TAP_DANCE_DOUBLE( KC_QUOT, KC_DQUO )
+    // Tap dances for paranthesis, which sends macros
+    ,[PAR] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, paranthesis_dance )
+    ,[CUR] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, curly_dance )
+    ,[SQU] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, square_dance )
+    ,[ANG] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, NULL, angular_dance )
+    // Tap dance for copy/cutting
+    ,[CPC] = ACTION_TAP_DANCE_FN( copy_cut )
+};

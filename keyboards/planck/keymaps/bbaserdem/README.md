@@ -1,7 +1,5 @@
 # Planck Layout
 
-![This layout](keyboard-layout.png)
-
 Built this planck layout to use DVORAK with an unorthodox Turkish layout.
 If you used a previous layout with a persistent base layer change,
 change it to 0 before proceeding.
