@@ -19,7 +19,6 @@ enum planck_keycodes {
 // Helpful defines
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
@@ -42,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_QWERTY] = KEYMAP(
-  F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS, KC_GRV,           KC_PGUP, \
+  KC_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS, KC_GRV,           KC_PGUP, \
   HPR_TAB, KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,                   KC_PGDN, \
   CTL_ESC, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  XXXXXXX,  KC_ENT,                             \
   KC_LSFT, XXXXXXX, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  SFT_ENT,  MO(_FL),          KC_UP,            \
@@ -62,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_COLEMAK] = KEYMAP(
-  F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS, KC_GRV,           KC_PGUP, \
+  KC_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSLS, KC_GRV,           KC_PGUP, \
   HPR_TAB, KC_Q,    KC_W,   KC_F,   KC_P,   KC_G,   KC_J,   KC_L,   KC_U,   KC_Y,    KC_SCLN,  KC_LBRC,  KC_RBRC,  KC_BSPC,                   KC_PGDN, \
   CTL_ESC, KC_A,    KC_R,   KC_S,   KC_T,   KC_D,   KC_H,   KC_N,   KC_E,   KC_I,    KC_O,     KC_QUOT,  XXXXXXX,  KC_ENT,                             \
   KC_LSFT, XXXXXXX, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_K,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  SFT_ENT,  MO(_FL),          KC_UP,            \
@@ -82,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `------------------------------------------------------------------'
    */
 [_DVORAK] = KEYMAP(
-  F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_LBRC,  KC_RBRC,  KC_BSLS, KC_GRV,           KC_PGUP, \
+  KC_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_LBRC,  KC_RBRC,  KC_BSLS, KC_GRV,           KC_PGUP, \
   HPR_TAB, KC_QUOT, KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,    KC_L,     KC_SLSH,  KC_EQL,   KC_BSPC,                   KC_PGDN, \
   CTL_ESC, KC_A,    KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,    KC_S,     KC_MINS,  XXXXXXX,  KC_ENT,                             \
   KC_LSFT, XXXXXXX, KC_SCLN,KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,    KC_V,     KC_Z,     SFT_ENT,  MO(_FL),          KC_UP,            \
@@ -106,50 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MO(_FL), _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  MO(_FL),          RGB_SAI,          \
   _______, _______, _______,_______,         RGB_MOD,RGB_MOD,                        _______,  _______,  _______,  _______, RGB_HUD, RGB_SAD, RGB_HUI),
 };
-
-/* This is a list of user defined functions. F(N) corresponds to item N
-   of this list.
- */
-const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_FUNCTION(0),  // Calls action_function()
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  static uint8_t mods_pressed;
-  static bool mod_flag;
-
-  switch (id) {
-    case 0:
-      /* Handle the combined Grave/Esc key
-       */
-      mods_pressed = get_mods()&GRAVE_MODS; // Check to see what mods are pressed
-
-      if (record->event.pressed) {
-        /* The key is being pressed.
-         */
-        if (mods_pressed) {
-          mod_flag = true;
-          add_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          add_key(KC_ESC);
-          send_keyboard_report();
-        }
-      } else {
-        /* The key is being released.
-         */
-        if (mod_flag) {
-          mod_flag = false;
-          del_key(KC_GRV);
-          send_keyboard_report();
-        } else {
-          del_key(KC_ESC);
-          send_keyboard_report();
-        }
-      }
-      break;
-  }
-}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);

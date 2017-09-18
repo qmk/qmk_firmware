@@ -188,10 +188,10 @@ action_t store_or_get_action(bool pressed, keypos_t key)
 
 int8_t layer_switch_get_layer(keypos_t key)
 {
+#ifndef NO_ACTION_LAYER
     action_t action;
     action.code = ACTION_TRANSPARENT;
 
-#ifndef NO_ACTION_LAYER
     uint32_t layers = layer_state | default_layer_state;
     /* check top layer first */
     for (int8_t i = 31; i >= 0; i--) {

@@ -51,6 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #   include "rgblight.h"
 #endif
+#ifdef STENO_ENABLE
+#   include "process_steno.h"
+#endif
 #ifdef FAUXCLICKY_ENABLE
 #   include "fauxclicky.h"
 #endif
@@ -138,6 +141,9 @@ void keyboard_init(void) {
 #endif
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
+#endif
+#ifdef STENO_ENABLE
+    steno_init();
 #endif
 #ifdef FAUXCLICKY_ENABLE
     fauxclicky_init();

@@ -215,8 +215,7 @@ To actually handle the keypress event we define an `action_function()`. This fun
 
 This should have given you a basic overview for creating your own keymap. For more details see the following resources:
 
-* https://github.com/qmk/qmk_firmware/wiki/Keycodes
-* https://github.com/qmk/qmk_firmware/wiki/FAQ-Keymap
-* https://github.com/qmk/qmk_firmware/wiki/Keymap-examples
+* [Keycodes](keycodes.md)
+* [Keymap FAQ](faq_keymap.md)
 
 We are actively working to improve these docs. If you have suggestions for how they could be made better please [file an issue](https://github.com/qmk/qmk_firmware/issues/new)!
