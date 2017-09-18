@@ -14,8 +14,8 @@
 #endif
 
 // Enables tap magic
-#define TAPPING_TERM 200
-#define TAPPING_TOGGLE 2
+#define TAPPING_TERM 300
+#define TAPPING_TOGGLE 1
 
 /*
  * MIDI options
