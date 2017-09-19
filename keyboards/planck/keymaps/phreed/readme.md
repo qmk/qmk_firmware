@@ -1,15 +1,4 @@
-# The Default Planck Layout
-
-Make example for this keyboard (after setting up your build environment):
-
-    make planck-rev3-phreed
-
-To flash the keyboard
-
-    make planck-rev3-phreed-dfu
-
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the
-[make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+# The Phreed Planck Layout
 
 
 |  Q  |  W  |  E  |  R  |  T  | ESC |           | \  |  Y  |  U  |  I  |  O  |  P  |
@@ -35,3 +24,15 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 |     |     |     |shift|     | ctl |    MOD    | ctl |     |shift|     |     |     |
 | f19 | f20 | f21 | f22 | f23 | f24 |<fn]  [num>|     |     |     |     |     |     |
 |pg dn| ins |     |     |     |     |<cmd][spec>|     |     |     |     |     |     |
+
+
+Make example for this keyboard (after setting up your build environment):
+
+    make planck-rev3-phreed
+
+To flash the keyboard
+
+    make planck-rev3-phreed-dfu
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the
+[make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
