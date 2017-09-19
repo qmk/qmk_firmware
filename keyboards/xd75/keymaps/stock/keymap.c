@@ -60,16 +60,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | VOL-   | MUTE   | VOL+   |        |        |        | P1     | P2     | P3     | PENT   |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | RESET  |        |        |        |        |        | P0     |        | P.     | PENT   | PENT   |        |        |        |        |
+ * | RESET  |        |        | FN     |        |        | P0     |        | P.     | PENT   | PENT   | FN     |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
  [_FN] = { /* FUNCTION */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,  KC_NLCK, KC_SLSH, KC_ASTR, KC_F7,   KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12 },
-  { KC_MSEL, KC_CALC, KC_NO,   KC_MAIL, KC_SPC, KC_SPC, KC_HOME, KC_NO,   KC_PGUP, KC_MINS, KC_SPC, KC_SPC, KC_NO,  KC_NO,  KC_NO },
-  { KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_SPC, KC_SPC, KC_NO,   KC_5,    KC_NO,   KC_PLUS, KC_SPC, KC_NO,  KC_SPC, KC_SPC, KC_SPC },
-  { KC_NO,   KC_MUTE, KC_NO,   KC_APP,  KC_SPC, KC_SPC, KC_END,  KC_NO,   KC_PGDN, KC_NO,   KC_SPC, KC_SPC, KC_SPC, KC_NO,  KC_NO },
-  { RESET,   KC_NO,   KC_NO,   KC_SPC,  KC_SPC, KC_SPC, KC_INS,  KC_NO,   KC_DEL,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO },
+  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,  KC_NLCK, KC_SLSH, KC_ASTR, KC_F7,   KC_F8,  KC_F9,   KC_F10, KC_F11, KC_F12 },
+  { KC_MSEL, KC_CALC, KC_NO,   KC_MAIL, KC_SPC, KC_SPC, KC_HOME, KC_NO,   KC_PGUP, KC_MINS, KC_SPC, KC_SPC,  KC_NO,  KC_NO,  KC_NO },
+  { KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP, KC_SPC, KC_SPC, KC_NO,   KC_5,    KC_NO,   KC_PLUS, KC_SPC, KC_NO,   KC_SPC, KC_SPC, KC_SPC },
+  { KC_NO,   KC_MUTE, KC_NO,   KC_APP,  KC_SPC, KC_SPC, KC_END,  KC_NO,   KC_PGDN, KC_NO,   KC_SPC, KC_SPC,  KC_SPC, KC_NO,  KC_NO },
+  { RESET,   KC_NO,   KC_NO,   MO(_FN), KC_SPC, KC_SPC, KC_INS,  KC_NO,   KC_DEL,  KC_NO,   KC_NO,  MO(_FN), KC_NO,  KC_NO,  KC_NO },
  },
 
 /* LOWERED
