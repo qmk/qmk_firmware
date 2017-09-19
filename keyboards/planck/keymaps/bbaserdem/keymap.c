@@ -21,13 +21,11 @@
 
 #define _DV 0
 #define _TD 1
-#define _QW 2
-#define _TQ 3
-#define _GM 4
-#define _MO 5
-#define _SY 6
-#define _FN 7
-#define _MS 8
+#define _GM 2
+#define _MO 3
+#define _SY 4
+#define _FN 5
+#define _MS 6
 
 #define PARAN TD(PAR)
 #define CURLY TD(CUR)
@@ -56,6 +54,11 @@
 #define MO_AC_1 KC_MS_ACCEL1
 #define MO_AC_2 KC_MS_ACCEL2
 
+#define PHY_HB UC(0x0127)
+#define PHY_DE UC(0xc2b0)
+#define TUR_TL UC(0x20ba)
+#define EUR_ER UC(0x20ac)
+#define EUR_PN UC(0x00a3)
 
 enum custom_keycodes {
     TUR_A = SAFE_RANGE,
@@ -65,10 +68,6 @@ enum custom_keycodes {
     TUR_O,
     TUR_S,
     TUR_U,
-    TUR_TL,
-    EUR_ER,
-    EUR_PN,
-    PHY_HB,
     UNI_LI,
     UNI_WN
 };
@@ -76,7 +75,6 @@ enum custom_keycodes {
 // Tap dance
 enum {
     ATD = 0,
-    ATQ,
     CLS,
     SCL,
     QUO,
@@ -110,30 +108,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,_______,_______,_______,_______,_______,_______, TUR_G, TUR_C,  _______,_______,_______},
   {_______, TUR_A,  TUR_O, _______, TUR_U,  TUR_I, _______, PHY_HB,_______,_______, TUR_S, _______},
   {_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______},
-  {_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
-},
-
-/* Qwerty
- * ,------------------------------------------------------------------------.
- * |     |  Q  |  W  |  E  |  R  |  T  ||  Y  |  U  |  I  |  O  |  P  |     |
- * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  A  |  S  |  D  |  F  |  G  ||  H  |  J  |  K  |  L  |  ;  |     |
- * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  Z  |  X  |  C  |  V  |  B  ||  N  |  M  |  ,  |  .  |  "  |     |
- * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     |     ||     |     |     |     |     |     |
- * `------------------------------------------------------------------------'
- */
-[_QW] = {
-  {_______, KC_Q,  KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   _______},
-  {_______, KC_A,  KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   TD(SCL),_______},
-  {_______, KC_Z,  KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, TD(QUO),_______},
-  {_______,TD(ATQ),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
-},
-[_TQ] = {
-  {_______,_______,_______,_______,_______,_______,_______,TUR_U,  TUR_I,  TUR_O,  _______,_______},
-  {_______,TUR_A,  TUR_S,  _______,_______,TUR_G,  PHY_HB, _______,_______,_______,_______,_______},
-  {_______,_______,_______,TUR_C,  _______,_______,_______,_______,_______,_______,_______,_______},
   {_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______}
 },
 
@@ -179,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  _  | ( ) |  4  |  5  |  6  |  \  ||  /  | [ ] | { } | < > |  |  |     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  ?  |  7  |  8  |  9  |  ~  ||  `  |  @  |  #  |  $  |  ^  |     |
+ * |degre|  ?  |  7  |  8  |  9  |  ~  ||  `  |  @  |  #  |  $  |  ^  |     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |     |     |  0  |     |     ||     |     |TLira| Euro|Pound|     |
  * `------------------------------------------------------------------------'
@@ -188,13 +162,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SY] = {
   {TG(_SY),KC_EXLM,KC_1,   KC_2,   KC_3,   KC_AMPR,KC_EQL, KC_PLUS,KC_MINS,KC_ASTR,KC_PERC,_______},
   {KC_UNDS,PARAN,  KC_4,   KC_5,   KC_6,   KC_BSLS,KC_SLSH,SQUAR,  CURLY,  ANGUL,  KC_PIPE,_______},
-  {_______,KC_QUES,KC_7,   KC_8,   KC_9,   KC_TILD,KC_GRV, KC_AT,  KC_HASH,KC_DLR, KC_CIRC,_______},
+  {PHY_DE, KC_QUES,KC_7,   KC_8,   KC_9,   KC_TILD,KC_GRV, KC_AT,  KC_HASH,KC_DLR, KC_CIRC,_______},
   {_______,_______,_______,KC_0,   _______,_______,_______,_______,TUR_TL, EUR_ER, EUR_PN, _______}
 },
 
 /* Function layer
  * ,------------------------------------------------------------------------.
- * | OFF | qwe | game|music|     |RESET||RESET| win | lin | wake|sleep|power|
+ * | OFF | game|music|     |     |RESET||RESET| win | lin | wake|sleep|power|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 ||  F7 |  F8 |  F9 | F10 | F11 | F12 |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
@@ -205,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_FN] = {
-  {TG(_FN),TG(_QW),TG(_GM),MU_ON,  _______,RESET,  RESET,  UNI_LI, UNI_WN ,KC_WAKE,KC_SLEP,KC_PWR },
+  {TG(_FN),TG(_GM),MU_ON,  _______,_______,RESET,  RESET,  UNI_LI, UNI_WN ,KC_WAKE,KC_SLEP,KC_PWR },
   {KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12 },
   {_______,UNDO,   REDO,   COPYCUT,PASTE,  KC_MUTE,KC_PSCR,KC_INS, KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT},
   {_______,_______,_______,_______,_______,KC_VOLD,KC_VOLU,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END }
@@ -314,28 +288,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false; break;
-    // Currencies
-    case TUR_TL:
-      if (record->event.pressed) {
-        unicode_input_start(); register_hex(0x20ba); unicode_input_finish();
-      }
-      return false; break;
-    case EUR_ER:
-      if (record->event.pressed) {
-        unicode_input_start(); register_hex(0x20ac); unicode_input_finish();
-      }
-      return false; break;
-    case EUR_PN:
-      if (record->event.pressed) {
-        unicode_input_start(); register_hex(0x00a3); unicode_input_finish();
-      }
-      return false; break;
-    // Hbar because why not, I'm a physicist.
-    case PHY_HB:
-      if (record->event.pressed) {
-          unicode_input_start(); register_hex(0x0127); unicode_input_finish();
-      }
-      return false; break;
     // Keys to change unicode mode
     case UNI_LI:
       if( record->event.pressed ) {
@@ -367,23 +319,6 @@ void altgr_dvo_end (qk_tap_dance_state_t *state, void *user_data) {
       unregister_code (KC_RALT);
   } else if (state->count == 2) {
       layer_off(_TD);
-  }
-}
-void altgr_qwe_tap (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_RALT);
-  } else if (state->count == 2) {
-    unregister_code (KC_RALT);
-    layer_on(_TQ);
-  } else if (state->count == 3) {
-      layer_off(_TQ);
-  }
-}
-void altgr_qwe_end (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-      unregister_code (KC_RALT);
-  } else if (state->count == 2) {
-      layer_off(_TQ);
   }
 }
 
@@ -463,7 +398,6 @@ void copy_cut (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Left Ctrl, second one is momentory switch to layer TUR
      [ATD] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_dvo_tap, NULL, altgr_dvo_end )
-    ,[ATQ] = ACTION_TAP_DANCE_FN_ADVANCED( altgr_qwe_tap, NULL, altgr_qwe_end )
     // Advanced tap dance feature allows for immediate response to shift
     ,[CLS] = ACTION_TAP_DANCE_FN_ADVANCED( caps_tap, NULL, caps_tap_end )
     // Shifting for double quote and semicolon
