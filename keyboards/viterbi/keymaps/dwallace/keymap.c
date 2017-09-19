@@ -19,6 +19,8 @@ enum custom_keycodes {
 #define KC_SAPP LGUI(KC_TAB)    // Switch between applications
 #define KC_FN1 MO(_FN)
 #define KC_LCAG LCAG(KC_NO)
+#define KC_RTOG RGB_TOG
+#define KC_RMOD RGB_MOD
 #define KC_RVAD RGB_VAD
 #define KC_RVAI RGB_VAI
 #define KC_CLRM KC_NO           // TODO: Clear sticky modifiers
@@ -48,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,RST ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    ,RVAD,RVAI,    ,    ,    ,
+         ,    ,    ,    ,    ,    ,    ,     RTOG,RMOD,RVAD,RVAI,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,         ,MUTE,VOLD,VOLU,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
