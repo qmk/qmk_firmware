@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */ 
  [_SYL] = {
   { _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______  },
-  { _______, KC_EXLM, UK_PND,  KC_UNDS,        KC_MINS, KC_TILD, _______, _______, _______, KC_BSLS, KC_LCBR, KC_RCBR,           KC_SLSH, UK_HASH, _______  },
+  { _______, KC_EXLM, UK_PND,  KC_UNDS,        KC_MINS, KC_TILD, _______, _______, _______, UK_BSLS, KC_LCBR, KC_RCBR,           KC_SLSH, UK_HASH, _______  },
   { _______, KC_DLR,  KC_PERC, KC_PLUS,        KC_EQL,  _______, _______, _______, _______, UK_QUOT, KC_LPRN, KC_RPRN,           KC_QUOT, UK_AT,   _______  },
   { _______, KC_CIRC, KC_AMPR, LT(_SYL, KC_C), KC_PIPE, _______, _______, _______, _______, KC_LABK, KC_LBRC, KC_RBRC,           KC_RABK, KC_GRV,  _______  },
   { _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______  },
