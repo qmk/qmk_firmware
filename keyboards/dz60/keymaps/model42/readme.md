@@ -1,14 +1,24 @@
-# Yan-Fa Li's Keymap for KBDFans DZ60 PCB
+# yanfali's keymap for KBDFans DZ60 PCB
 
 ## 4 Layers
 
 ### Layer 0
 
 ![layer 0](layer0.png)
-Conventional ANSI layout. Backspace has been replaced with 2 keys, PGUP and PGDN.
-Left shift is 1.25U with 1U key for layer 3, Bottom right shift is 1.75U. Has arrow cluster. Tap right shift for / and dedicated
-/ key is to far right.
-Bottom row, split space bar 2.75U (Space), 1.25U (mouse key + WASD), 2.25U (backspace). 1U layer 2, 1U layer 1, arrows.
+Conventional ANSI layout. Except:
+
+ - Backspace has been replaced with 2 keys
+   - PGUP
+   - PGDN
+ - 2.25U Left shift is now 1.25U with 1U key LT(layer 3, KC_Z)
+ - Bottom right shift is 1.75U. Has arrow cluster. Tap right shift for / and dedicated / key is to far right.
+ - Bottom row, split space bar
+   - 2.75U (Space)
+   - 1.25U (mouse key + WASD) with LT(4, KC_SPC)
+   - 2.25U (backspace)
+   - 1U MO(layer 2)
+   - 1U LT(layer 1, SHIFT+LGUI+R)
+   - arrows.
 
 ### Layer 1
 
@@ -22,7 +32,7 @@ F1-F12, PGUP -> HOME, PGDN -> END
 
 ### Layer 3
 
-Unused
+Unused at this time but tied to 3 FN key to right of 1.25U left shift.
 
 ### Layer 4
 
