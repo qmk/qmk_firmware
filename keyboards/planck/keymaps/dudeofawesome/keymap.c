@@ -175,7 +175,7 @@
   * ,-----------------------------------------------------------------------------------.
   * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
   * |------+------+------+------+------+-------------+------+------+------+------+------|
-  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+  * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Wrkman|Dvorak|Plover|      |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
   * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -184,7 +184,7 @@
   */
  [_ADJUST] = {
    {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL },
-   {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+   {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WORKMAN, DVORAK,  PLOVER,  _______},
    {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
  }
@@ -209,6 +209,12 @@
      case COLEMAK:
        if (record->event.pressed) {
          set_single_persistent_default_layer(_COLEMAK);
+       }
+       return false;
+       break;
+     case WORKMAN:
+       if (record->event.pressed) {
+         set_single_persistent_default_layer(_WORKMAN);
        }
        return false;
        break;
