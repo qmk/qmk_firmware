@@ -62,7 +62,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "eeconfig.h"
+#ifndef RGBLIGHT_CUSTOM_DRIVER
 #include "ws2812.h"
+#endif
+#include "rgblight_types.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
