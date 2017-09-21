@@ -18,6 +18,8 @@ enum custom_keycodes {
   STK_GUI,
   STK_META,
   STK_CLEAR,
+  RGB_LEVEL_UP,
+  RGB_LEVEL_DOWN,
 };
 
 #define KC_ KC_TRNS
@@ -28,9 +30,8 @@ enum custom_keycodes {
 #define KC_FN1 MO(_FN)
 #define KC_LCAG LCAG(KC_NO)
 #define KC_RTOG RGB_TOG
-#define KC_RMOD RGB_MOD
-#define KC_RVAD RGB_VAD
-#define KC_RVAI RGB_VAI
+#define KC_RGUP RGB_LEVEL_UP
+#define KC_RGDN RGB_LEVEL_DOWN
 #define KC_RST RESET
 #define KC_SSFT STK_SHIFT
 #define KC_SCTL STK_CTRL
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,RST ,    ,    ,         ,    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,     RTOG,RMOD,RVAD,RVAI,    ,    ,    ,
+         ,    ,    ,    ,    ,    ,    ,     RTOG,    ,RGDN,RGUP,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,         ,MUTE,VOLD,VOLU,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
@@ -84,11 +85,13 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool modifier_already_applied = false;
 uint8_t physically_held_modifiers = 0;
-#define SET_LED_RGB(val, led_num) setrgb((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF, (LED_TYPE *)&led[led_num])
+uint8_t rgb_dimming = 0;
+#define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
 
 void update_underglow_level(void) { 
   if (get_mods() == 0) {
-    rgblight_setrgb(0x10, 0x10, 0x10);
+    uint8_t level = 0x10 >> rgb_dimming;
+    rgblight_setrgb(level, level, level);
     return;
   }
   
@@ -188,6 +191,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case STK_CLEAR:
       if (record->event.pressed) {
         clear_sticky_modifiers();
+      }
+      return false;
+      break;
+    case RGB_LEVEL_DOWN:
+      if (record->event.pressed && rgb_dimming < 8) {
+        rgb_dimming++;
+      }
+      return false;
+      break;
+    case RGB_LEVEL_UP:
+      if (record->event.pressed && rgb_dimming > 0) {
+        rgb_dimming--;
       }
       return false;
       break;
