@@ -1,4 +1,4 @@
-# yuuki's1 Layout
+# yuuki's Layout
 
 Customized xd60 keymap with inspirations from HHKB and the layout I used on my Vortex Core (a 40% keyboard).
 
