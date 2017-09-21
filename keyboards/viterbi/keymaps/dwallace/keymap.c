@@ -1,6 +1,9 @@
 #include "viterbi.h"
 #include "action_layer.h"
 #include "eeconfig.h"
+#ifdef RGBLIGHT_ENABLE
+#include "rgblight.h"
+#endif
 
 extern keymap_config_t keymap_config;
 
@@ -82,12 +85,12 @@ void persistent_default_layer_set(uint16_t default_layer) {
 bool modifier_already_applied = false;
 uint8_t physically_held_modifiers = 0;
 
-void update_underglow_level(void) {
-  if (1 == 0) {
-    // TODO: Dim underglow
+void update_underglow_level(void) { 
+  if (get_mods() == 0) {
+    rgblight_setrgb(0x10, 0x10, 0x10);
     return;
   }
-  // TODO: Set underglow level high
+  rgblight_setrgb(0x00, 0xFF, 0xFF);
 }
 
 void add_sticky_modifier(uint16_t keycode) {
@@ -166,4 +169,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_sticky_modifiers();
   }
   return true;
+}
+
+void matrix_init_user(void) {
+  #ifdef RGBLIGHT_ENABLE
+  rgblight_enable();
+  #endif //RGBLIGHT_ENABLE
+}
+
+void matrix_scan_user(void) {
+  #ifdef RGBLIGHT_ENABLE
+  update_underglow_level();
+  #endif //RGBLIGHT_ENABLE
 }
