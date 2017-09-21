@@ -1,4 +1,4 @@
-#include "clueboard.h"
+#include "clueboard_66.h"
 #include "tetris_text.h"
 
 // Helpful defines

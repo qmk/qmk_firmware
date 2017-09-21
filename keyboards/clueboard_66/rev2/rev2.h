@@ -1,7 +1,7 @@
 #ifndef REV2_H
 #define REV2_H
 
-#include "../clueboard.h"
+#include "../clueboard_66.h"
 
 /* Clueboard matrix layout
  * ,-----------------------------------------------------------.  ,---.
