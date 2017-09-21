@@ -23,6 +23,7 @@
    _QWERTY,
    _COLEMAK,
    _DVORAK,
+   _WORKMAN,
    _LOWER,
    _RAISE,
    _PLOVER,
@@ -33,6 +34,7 @@
    QWERTY = SAFE_RANGE,
    COLEMAK,
    DVORAK,
+   WORKMAN,
    PLOVER,
    LOWER,
    RAISE,
@@ -93,6 +95,24 @@
    {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
    {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
    {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
+   {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+ },
+
+ /* Workman
+  * ,-----------------------------------------------------------------------------------.
+  * | Tab  |   Q  |   W  |   R  |   W  |   B  |   J  |   F  |   U  |   P  |   ;  | Bksp |
+  * |------+------+------+------+------+-------------+------+------+------+------+------|
+  * | Esc  |   A  |   S  |   H  |   T  |   G  |   Y  |   N  |   E  |   O  |   I  |  "   |
+  * |------+------+------+------+------+------|------+------+------+------+------+------|
+  * | Shift|   Z  |   X  |   M  |   C  |   V  |   K  |   L  |   ,  |   .  |   /  |Enter |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+  * `-----------------------------------------------------------------------------------'
+  */
+ [_WORKMAN] = {
+   {KC_TAB,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC},
+   {KC_ESC,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT},
+   {KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
    {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
  },
 
