@@ -1,4 +1,4 @@
-#include "cluepad.h"
+#include "clueboard_17.h"
 
 #include "backlight.h"
 
