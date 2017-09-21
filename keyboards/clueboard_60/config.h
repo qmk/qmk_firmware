@@ -127,3 +127,7 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 #endif
+
+ /* Backlight configuration
+ */
+#define BACKLIGHT_LEVELS 1
