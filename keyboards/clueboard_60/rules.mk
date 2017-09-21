@@ -1,6 +1,7 @@
 # project specific files
 SRC =	matrix.c \
 	led.c
+LAYOUTS += 60_ansi 60_ansi_split_bs_rshift 60_iso
 
 ## chip/board settings
 # - the next two should match the directories in
