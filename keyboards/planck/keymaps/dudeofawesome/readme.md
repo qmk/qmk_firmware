@@ -1,1 +1,1 @@
-# The DudeOfAwesome's Planck Layout
+# DudeOfAwesome's Planck Layout
