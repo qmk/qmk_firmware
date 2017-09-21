@@ -14,67 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "audio.h"
+#include "ch.h"
+#include "hal.h"
+
 #include <stdio.h>
 #include <string.h>
-//#include <math.h>
-#if defined(__AVR__)
-  #include <avr/pgmspace.h>
-  #include <avr/interrupt.h>
-  #include <avr/io.h>
-#endif
 #include "print.h"
-#include "audio.h"
 #include "keymap.h"
-#include "wait.h"
 
 #include "eeconfig.h"
 
-#define CPU_PRESCALER 8
-
 // -----------------------------------------------------------------------------
-// Timer Abstractions
-// -----------------------------------------------------------------------------
-
-// TIMSK3 - Timer/Counter #3 Interrupt Mask Register
-// Turn on/off 3A interputs, stopping/enabling the ISR calls
-#ifdef C6_AUDIO
-    #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3A)
-    #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3A)
-#endif
-
-#ifdef B5_AUDIO
-    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
-    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
-#endif
-
-// TCCR3A: Timer/Counter #3 Control Register
-// Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
-
-#ifdef C6_AUDIO
-    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3A1);
-    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
-#endif
-
-#ifdef B5_AUDIO
-    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1A1);
-    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
-#endif
-
-// Fast PWM Mode Controls
-
-#ifdef C6_AUDIO
-    #define TIMER_3_PERIOD     ICR3
-    #define TIMER_3_DUTY_CYCLE OCR3A
-#endif
-
-#ifdef B5_AUDIO
-    #define TIMER_1_PERIOD     ICR1
-    #define TIMER_1_DUTY_CYCLE OCR1A
-#endif
-
-
-// -----------------------------------------------------------------------------
-
 
 int voices = 0;
 int voice_place = 0;
@@ -125,69 +76,63 @@ bool glissando = true;
 #ifndef STARTUP_SONG
     #define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
-#ifndef AUDIO_ON_SONG
-    #define AUDIO_ON_SONG SONG(AUDIO_ON_SOUND)
-#endif
-#ifndef AUDIO_OFF_SONG
-    #define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
-#endif
 float startup_song[][2] = STARTUP_SONG;
-float audio_on_song[][2] = AUDIO_ON_SONG;
-float audio_off_song[][2] = AUDIO_OFF_SONG;
+
+static void gpt_cb6(GPTDriver *gptp);
+static void gpt_cb7(GPTDriver *gptp);
+static void gpt_cb8(GPTDriver *gptp);
+
+/*
+ * GPT6 configuration.
+ */
+GPTConfig gpt6cfg1 = {
+  .frequency    = 440,
+  .callback     = gpt_cb6,
+  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
+  .dier         = 0U
+};
+
+GPTConfig gpt7cfg1 = {
+  .frequency    = 440,
+  .callback     = gpt_cb7,
+  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
+  .dier         = 0U
+};
+
+GPTConfig gpt8cfg1 = {
+  .frequency    = 10,
+  .callback     = gpt_cb8,
+  .cr2          = TIM_CR2_MMS_1,    /* MMS = 010 = TRGO on Update Event.    */
+  .dier         = 0U
+};
+
+static void gpt_cb6(GPTDriver *gptp) {
+    palTogglePad(GPIOA, 4);
+}
+
+
+static void gpt_cb7(GPTDriver *gptp) {
+    palTogglePad(GPIOA, 5);
+}
 
 void audio_init()
 {
 
+    if (audio_initialized)
+        return;
+
     // Check EEPROM
-    if (!eeconfig_is_enabled())
-    {
-        eeconfig_init();
-    }
-    audio_config.raw = eeconfig_read_audio();
+    // if (!eeconfig_is_enabled())
+    // {
+    //     eeconfig_init();
+    // }
+    // audio_config.raw = eeconfig_read_audio();
+    audio_config.enable = true;
 
-    if (!audio_initialized) {
+    palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPadMode(GPIOA, 5, PAL_MODE_OUTPUT_PUSHPULL);
 
-        // Set port PC6 (OC3A and /OC4A) as output
-
-        #ifdef C6_AUDIO
-            DDRC |= _BV(PORTC6);
-        #else
-            DDRC |= _BV(PORTC6);
-            PORTC &= ~_BV(PORTC6);
-        #endif
-
-        #ifdef B5_AUDIO
-            DDRB |= _BV(PORTB5);
-        #else
-            DDRB |= _BV(PORTB5);
-            PORTB &= ~_BV(PORTB5);
-        #endif
-
-        #ifdef C6_AUDIO
-            DISABLE_AUDIO_COUNTER_3_ISR;
-        #endif
-        
-        #ifdef B5_AUDIO
-            DISABLE_AUDIO_COUNTER_1_ISR;
-        #endif
-
-        // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers
-        // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
-        // Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14 (Period = ICR3, Duty Cycle = OCR3A)
-        // Clock Select (CS3n) = 0b010 = Clock / 8
-
-        #ifdef C6_AUDIO
-            TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
-            TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
-        #endif
-
-        #ifdef B5_AUDIO
-            TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
-            TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
-        #endif
-
-        audio_initialized = true;
-    }
+    audio_initialized = true;
 
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
@@ -204,16 +149,9 @@ void stop_all_notes()
     }
     voices = 0;
 
-
-    #ifdef C6_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-        DISABLE_AUDIO_COUNTER_3_OUTPUT;
-    #endif
-
-    #ifdef B5_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-        DISABLE_AUDIO_COUNTER_1_OUTPUT;
-    #endif
+    gptStopTimer(&GPTD6);
+    gptStopTimer(&GPTD7);
+    gptStopTimer(&GPTD8);
 
     playing_notes = false;
     playing_note = false;
@@ -256,14 +194,9 @@ void stop_note(float freq)
             voice_place = 0;
         }
         if (voices == 0) {
-            #ifdef C6_AUDIO
-                DISABLE_AUDIO_COUNTER_3_ISR;
-                DISABLE_AUDIO_COUNTER_3_OUTPUT;
-            #endif
-            #ifdef B5_AUDIO
-                DISABLE_AUDIO_COUNTER_1_ISR;
-                DISABLE_AUDIO_COUNTER_1_OUTPUT;
-            #endif
+            gptStopTimer(&GPTD6);
+            gptStopTimer(&GPTD7);
+            gptStopTimer(&GPTD8);
             frequency = 0;
             frequency_alt = 0;
             volume = 0;
@@ -292,15 +225,26 @@ float vibrato(float average_freq) {
 
 #endif
 
-#ifdef C6_AUDIO
-ISR(TIMER3_COMPA_vect)
-{
+static void restart_gpt6(void) {
+    // gptStopTimer(&GPTD6);
+
+    gptStart(&GPTD6, &gpt6cfg1);
+    gptStartContinuous(&GPTD6, 2U);
+}
+
+static void restart_gpt7(void) {
+    // gptStopTimer(&GPTD7);
+
+    gptStart(&GPTD7, &gpt7cfg1);
+    gptStartContinuous(&GPTD7, 2U);
+}
+
+static void gpt_cb8(GPTDriver *gptp) {
     float freq;
 
     if (playing_note) {
         if (voices > 0) {
 
-            #ifdef B5_AUDIO
             float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
@@ -337,15 +281,19 @@ ISR(TIMER3_COMPA_vect)
                         freq_alt = 30.52;
                     }
 
-                    TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
-                    TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
+                    if (gpt6cfg1.frequency != (uint16_t)freq_alt) {
+                        gpt6cfg1.frequency = freq_alt;
+                        restart_gpt6();
+                    }
+                    //note_timbre;
+                } else {
+                    // gptStopTimer(&GPTD6);
                 }
-            #endif
 
             if (polyphony_rate > 0) {
                 if (voices > 1) {
                     voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
+                    if (place++ > (frequencies[voice_place] / polyphony_rate)) {
                         voice_place = (voice_place + 1) % voices;
                         place = 0.0;
                     }
@@ -394,8 +342,14 @@ ISR(TIMER3_COMPA_vect)
                 freq = 30.52;
             }
 
-            TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+
+            if (gpt7cfg1.frequency != (uint16_t)freq) {
+                gpt7cfg1.frequency = freq;
+                restart_gpt7();
+            }
+            //note_timbre;
+        } else {
+            // gptStopTimer(&GPTD7);
         }
     }
 
@@ -416,22 +370,28 @@ ISR(TIMER3_COMPA_vect)
             }
             freq = voice_envelope(freq);
 
-            TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+
+            if (gpt6cfg1.frequency != (uint16_t)freq) {
+                gpt6cfg1.frequency = freq;
+                restart_gpt6();
+                gpt7cfg1.frequency = freq;
+                restart_gpt7();
+            }
+            //note_timbre;
         } else {
-            TIMER_3_PERIOD = 0;
-            TIMER_3_DUTY_CYCLE = 0;
+            // gptStopTimer(&GPTD6);
+            // gptStopTimer(&GPTD7);
         }
 
         note_position++;
         bool end_of_note = false;
-        if (TIMER_3_PERIOD > 0) {
+        if (gpt6cfg1.frequency > 0) {
             if (!note_resting) 
-                end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
+                end_of_note = (note_position >= (note_length*16 - 1));
             else
-                end_of_note = (note_position >= (note_length));
+                end_of_note = (note_position >= (note_length*16));
         } else {
-            end_of_note = (note_position >= (note_length));
+            end_of_note = (note_position >= (note_length*16));
         }
 
         if (end_of_note) {
@@ -440,8 +400,9 @@ ISR(TIMER3_COMPA_vect)
                 if (notes_repeat) {
                     current_note = 0;
                 } else {
-                    DISABLE_AUDIO_COUNTER_3_ISR;
-                    DISABLE_AUDIO_COUNTER_3_OUTPUT;
+                    gptStopTimer(&GPTD6);
+                    gptStopTimer(&GPTD7);
+                    // gptStopTimer(&GPTD8);
                     playing_notes = false;
                     return;
                 }
@@ -472,148 +433,6 @@ ISR(TIMER3_COMPA_vect)
         playing_note = false;
     }
 }
-#endif
-
-#ifdef B5_AUDIO
-ISR(TIMER1_COMPA_vect)
-{
-    #if defined(B5_AUDIO) && !defined(C6_AUDIO)
-    float freq = 0;
-
-    if (playing_note) {
-        if (voices > 0) {
-            if (polyphony_rate > 0) {
-                if (voices > 1) {
-                    voice_place %= voices;
-                    if (place++ > (frequencies[voice_place] / polyphony_rate / CPU_PRESCALER)) {
-                        voice_place = (voice_place + 1) % voices;
-                        place = 0.0;
-                    }
-                }
-
-                #ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq = vibrato(frequencies[voice_place]);
-                    } else {
-                        freq = frequencies[voice_place];
-                    }
-                #else
-                    freq = frequencies[voice_place];
-                #endif
-            } else {
-                if (glissando) {
-                    if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
-                        frequency = frequency * pow(2, 440/frequency/12/2);
-                    } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
-                        frequency = frequency * pow(2, -440/frequency/12/2);
-                    } else {
-                        frequency = frequencies[voices - 1];
-                    }
-                } else {
-                    frequency = frequencies[voices - 1];
-                }
-
-                #ifdef VIBRATO_ENABLE
-                    if (vibrato_strength > 0) {
-                        freq = vibrato(frequency);
-                    } else {
-                        freq = frequency;
-                    }
-                #else
-                    freq = frequency;
-                #endif
-            }
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-
-            freq = voice_envelope(freq);
-
-            if (freq < 30.517578125) {
-                freq = 30.52;
-            }
-
-            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        }
-    }
-
-    if (playing_notes) {
-        if (note_frequency > 0) {
-            #ifdef VIBRATO_ENABLE
-                if (vibrato_strength > 0) {
-                    freq = vibrato(note_frequency);
-                } else {
-                    freq = note_frequency;
-                }
-            #else
-                    freq = note_frequency;
-            #endif
-
-            if (envelope_index < 65535) {
-                envelope_index++;
-            }
-            freq = voice_envelope(freq);
-
-            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
-        } else {
-            TIMER_1_PERIOD = 0;
-            TIMER_1_DUTY_CYCLE = 0;
-        }
-
-        note_position++;
-        bool end_of_note = false;
-        if (TIMER_1_PERIOD > 0) {
-            if (!note_resting) 
-                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
-            else
-                end_of_note = (note_position >= (note_length));
-        } else {
-            end_of_note = (note_position >= (note_length));
-        }
-
-        if (end_of_note) {
-            current_note++;
-            if (current_note >= notes_count) {
-                if (notes_repeat) {
-                    current_note = 0;
-                } else {
-                    DISABLE_AUDIO_COUNTER_1_ISR;
-                    DISABLE_AUDIO_COUNTER_1_OUTPUT;
-                    playing_notes = false;
-                    return;
-                }
-            }
-            if (!note_resting) {
-                note_resting = true;
-                current_note--;
-                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
-                    note_frequency = 0;
-                    note_length = 1;
-                } else {
-                    note_frequency = (*notes_pointer)[current_note][0];
-                    note_length = 1;
-                }
-            } else {
-                note_resting = false;
-                envelope_index = 0;
-                note_frequency = (*notes_pointer)[current_note][0];
-                note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
-            }
-
-            note_position = 0;
-        }
-    }
-
-    if (!audio_config.enable) {
-        playing_notes = false;
-        playing_note = false;
-    }
-#endif
-}
-#endif
 
 void play_note(float freq, int vol) {
 
@@ -624,12 +443,6 @@ void play_note(float freq, int vol) {
     }
 
     if (audio_config.enable && voices < 8) {
-        #ifdef C6_AUDIO
-            DISABLE_AUDIO_COUNTER_3_ISR;
-        #endif
-        #ifdef B5_AUDIO
-            DISABLE_AUDIO_COUNTER_1_ISR;
-        #endif
 
         // Cancel notes if notes are playing
         if (playing_notes)
@@ -645,21 +458,9 @@ void play_note(float freq, int vol) {
             voices++;
         }
 
-        #ifdef C6_AUDIO
-            ENABLE_AUDIO_COUNTER_3_ISR;
-            ENABLE_AUDIO_COUNTER_3_OUTPUT;
-        #endif
-        #ifdef B5_AUDIO
-            #ifdef C6_AUDIO
-            if (voices > 1) {
-                ENABLE_AUDIO_COUNTER_1_ISR;
-                ENABLE_AUDIO_COUNTER_1_OUTPUT;
-            }
-            #else
-            ENABLE_AUDIO_COUNTER_1_ISR;
-            ENABLE_AUDIO_COUNTER_1_OUTPUT;
-            #endif
-        #endif
+        gptStart(&GPTD8, &gpt8cfg1);
+        gptStartContinuous(&GPTD8, 2U);
+            
     }
 
 }
@@ -672,13 +473,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
     }
 
     if (audio_config.enable) {
-
-        #ifdef C6_AUDIO
-            DISABLE_AUDIO_COUNTER_3_ISR;
-        #endif
-        #ifdef B5_AUDIO
-            DISABLE_AUDIO_COUNTER_1_ISR;
-        #endif
 
         // Cancel note if a note is playing
         if (playing_note)
@@ -697,17 +491,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
         note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
         note_position = 0;
 
-
-        #ifdef C6_AUDIO
-            ENABLE_AUDIO_COUNTER_3_ISR;
-            ENABLE_AUDIO_COUNTER_3_OUTPUT;
-        #endif
-        #ifdef B5_AUDIO
-            #ifndef C6_AUDIO
-            ENABLE_AUDIO_COUNTER_1_ISR;
-            ENABLE_AUDIO_COUNTER_1_OUTPUT;
-            #endif
-        #endif
+        gptStart(&GPTD8, &gpt8cfg1);
+        gptStartContinuous(&GPTD8, 2U);
+        restart_gpt6();
+        restart_gpt7();
     }
 
 }
@@ -731,13 +518,9 @@ void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
     audio_on_user();
-    PLAY_SONG(audio_on_song);
 }
 
 void audio_off(void) {
-    PLAY_SONG(audio_off_song);
-    wait_ms(100);
-    stop_all_notes();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }

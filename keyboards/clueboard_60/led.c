@@ -1,4 +1,5 @@
-/* Copyright 2016 IBNobody
+/*
+ * Copyright 2017 skully <skullydazed@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,25 +13,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
-#if defined(__AVR__)
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-    #include <avr/pgmspace.h>
-#else
-    #include "ch.h"
-    #include "hal.h"
-#endif
+#include "hal.h"
+#include "backlight.h"
+#include "led.h"
+#include "printf.h"
 
-#ifndef LUTS_H
-#define LUTS_H
+void backlight_init_ports(void) {
+    printf("backlight_init_ports()\n");
+}
 
-#define VIBRATO_LUT_LENGTH 20
-
-#define FREQUENCY_LUT_LENGTH 349
-
-extern const float vibrato_lut[VIBRATO_LUT_LENGTH];
-extern const uint16_t frequency_lut[FREQUENCY_LUT_LENGTH];
-
-#endif /* LUTS_H */
+void backlight_set(uint8_t level) {
+    printf("backlight_set(%d)\n", level);
+}

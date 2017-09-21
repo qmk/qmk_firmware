@@ -6,7 +6,7 @@
 # Stack size to be allocated to the Cortex-M process stack. This stack is
 # the stack used by the main() thread.
 ifeq ($(USE_PROCESS_STACKSIZE),)
-  USE_PROCESS_STACKSIZE = 0x200
+  USE_PROCESS_STACKSIZE = 0x8000
 endif
 
 # Stack size to the allocated to the Cortex-M main/exceptions stack. This
@@ -143,7 +143,7 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
-DFU_ARGS =
+DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif

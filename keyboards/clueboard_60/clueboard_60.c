@@ -1,4 +1,4 @@
-/* Copyright 2016 IBNobody
+/* Copyright 2017 skully <skullydazed@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,24 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "clueboard_60.h"
 
-#if defined(__AVR__)
-    #include <avr/io.h>
-    #include <avr/interrupt.h>
-    #include <avr/pgmspace.h>
-#else
-    #include "ch.h"
-    #include "hal.h"
-#endif
+void matrix_init_kb(void) {
 
-#ifndef LUTS_H
-#define LUTS_H
+}
 
-#define VIBRATO_LUT_LENGTH 20
+void matrix_scan_kb(void) {
 
-#define FREQUENCY_LUT_LENGTH 349
-
-extern const float vibrato_lut[VIBRATO_LUT_LENGTH];
-extern const uint16_t frequency_lut[FREQUENCY_LUT_LENGTH];
-
-#endif /* LUTS_H */
+}
