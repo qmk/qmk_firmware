@@ -19,11 +19,13 @@
 #include "quantum.h"
 
 /*
- * This a shortcut to help you visually see your layout.
- * The first section contains all of the arguments. We've arranged it into a
- * vaguely 60% layout to help visualization.
- * The second converts the arguments into a two-dimensional array representing the
- * physical matrix.
+ * These are shortcuts to help you work with the various layout options. If your 
+ * keymap works with one of the LAYOUT_...() macros you are encouraged to use that
+ * and to contribute your keymap to the corresponding layout in 
+ * `qmk_firmware/layouts/community`.
+ */
+
+/* The fully-featured KEYMAP() that has every single key available in the matrix.
  */
 #define KEYMAP(\
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
@@ -37,6 +39,23 @@
     { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, KC_NO, k2e, }, \
     { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, KC_NO, k3e, }, \
     { k40, k41, k42, KC_NO, KC_NO, KC_NO, KC_NO, k47, KC_NO, KC_NO, k4a, k4b, k4c, KC_NO, k4e, }, \
+}
+
+/* A layout that matches the Apple Extended Keyboard's main area. No split keys,
+ * 3 mods on either side of the spacebar.
+ */
+#define KEYMAP_AEK(\
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,   k0e, \
+     k10,   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,   k1e, \
+     k20,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,    k2e, \
+       k30,   k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b,      k3c, \
+    k40,  k41,  k42,               k47,                         k4b, k4c, k4e \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, KC_NO, k0e, }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, KC_NO, k1e, }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, KC_NO, KC_NO, k2e, }, \
+    { k30, KC_NO, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, KC_NO, KC_NO, }, \
+    { k40, k41, k42, KC_NO, KC_NO, KC_NO, KC_NO, k47, KC_NO, KC_NO, KC_NO, k4b, k4c, KC_NO, k4e, }, \
 }
 
 /* Standard 60% ANSI layout */
