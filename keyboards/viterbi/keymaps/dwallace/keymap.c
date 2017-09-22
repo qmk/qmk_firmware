@@ -93,42 +93,34 @@ void update_underglow_level(void) {
   if (get_mods() == last_mods)
     return;
 
+  last_mods = get_mods();
+
   if (get_mods() == 0) {
     uint8_t level = 0x10 >> rgb_dimming;
     rgblight_setrgb(level, level, level);
     return;
   }
-  
+
+  uint32_t mod_colors[4] = {0};
+  uint8_t mod_count = 0;
   rgblight_setrgb(0x00, 0x00, 0x00);
-  if (get_mods() & MOD_BIT(KC_LSFT)) {
-    uint32_t color = 0xFF0000;
-    SET_LED_RGB(color, 0);
-    SET_LED_RGB(color, 1);
-    SET_LED_RGB(color, 12);
-    SET_LED_RGB(color, 13);
-  }
-  if (get_mods() & MOD_BIT(KC_LCTL)) {
-    uint32_t color = 0x00FF00;
-    SET_LED_RGB(color, 2);
-    SET_LED_RGB(color, 3);
-    SET_LED_RGB(color, 10);
-    SET_LED_RGB(color, 11);
-  }
-  if (get_mods() & MOD_BIT(KC_LALT)) {
-    uint32_t color = 0x0000FF;
-    SET_LED_RGB(color, 4);
-    SET_LED_RGB(color, 5);
-    SET_LED_RGB(color, 8);
-    SET_LED_RGB(color, 9);
-  }
-  if (get_mods() & MOD_BIT(KC_LGUI)) {
-    uint32_t color = 0xFFFF00;
-    SET_LED_RGB(color, 6);
-    SET_LED_RGB(color, 7);
+
+  if (get_mods() & MOD_BIT(KC_LSFT))
+    mod_colors[mod_count++] = 0xFF0000;
+  if (get_mods() & MOD_BIT(KC_LCTL))
+    mod_colors[mod_count++] = 0x00FF00;
+  if (get_mods() & MOD_BIT(KC_LALT))
+    mod_colors[mod_count++] = 0x0000FF;
+  if (get_mods() & MOD_BIT(KC_LGUI))
+    mod_colors[mod_count++] = 0xFFFF00;
+
+  uint8_t led_num = 0;
+  for (int m = 0; m < mod_count; m++) {
+    for (; led_num < RGBLED_NUM*(m+1)/mod_count; led_num++) {
+      SET_LED_RGB(mod_colors[m], led_num);
+    }
   }
   rgblight_set();
-
-  last_mods = get_mods();
 }
 
 void add_sticky_modifier(uint16_t keycode) {
