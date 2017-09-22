@@ -226,10 +226,10 @@ void matrix_scan_user(void) {
     has_layer_changed = false;
 
     switch (layer) {
-      case _QWERTY:
+      case _LOWER:
         backlight_set(1);
       break;
-      case _LOWER:
+      case _QWERTY:
         backlight_set(2);
       break;
       case _RAISE:
