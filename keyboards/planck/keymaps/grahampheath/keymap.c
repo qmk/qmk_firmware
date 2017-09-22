@@ -212,35 +212,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-bool has_layer_changed = true;
-void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
-  static uint8_t old_layer = 0;
+#ifdef BACKLIGHT_ENABLE
+  bool has_layer_changed = true;
 
-  if (old_layer != layer) {
-    has_layer_changed = true;
-    old_layer = layer;
-  }
+  void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+    static uint8_t old_layer = 0;
 
-  if (has_layer_changed) {
-    has_layer_changed = false;
-
-    switch (layer) {
-      case _LOWER:
-        backlight_set(1);
-      break;
-      case _QWERTY:
-        backlight_set(2);
-      break;
-      case _RAISE:
-        backlight_set(3);
-      break;
-      case _ADJUST:
-        backlight_set(4);
-      break;
+    if (old_layer != layer) {
+      has_layer_changed = true;
+      old_layer = layer;
     }
-  }
-};
+
+    if (has_layer_changed) {
+      has_layer_changed = false;
+
+      switch (layer) {
+        case _LOWER:
+          backlight_set(1);
+        break;
+        case _QWERTY:
+          backlight_set(2);
+        break;
+        case _RAISE:
+          backlight_set(3);
+        break;
+        case _ADJUST:
+          backlight_set(4);
+        break;
+      }
+    }
+  };
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
