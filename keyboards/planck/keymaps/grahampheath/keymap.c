@@ -227,41 +227,18 @@ void matrix_scan_user(void) {
     has_layer_changed = false;
 
     switch (layer) {
-      case 0:
-        backlight_set(0);
-        print("0");
-      break;
-      case 1:
-        print("1");
-      break;
-      case 2:
-        print("2");
-      break;
       case 3:
         backlight_set(1);
-        print("3");
+      break;
+      case 0:
+        backlight_set(2);
       break;
       case 4:
-        backlight_set(2);
-        print("4");
-      break;
-      case 5:
-        print("5");
-      break;
-      case 6:
-        print("6");
+        backlight_set(3);
       break;
       case 7:
-        backlight_set(3);
-        print("7");
+        backlight_set(4);
       break;
-      case 8:
-        print("8");
-      break;
-      case 9:
-        print("9");
-      break;
-
     }
   }
 };
