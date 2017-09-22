@@ -40,8 +40,6 @@ enum custom_keycodes {
 #define KC_SMTA STK_META
 #define KC_SCLR STK_CLEAR
 
-// TODO: Make modifiers sticky
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = KC_KEYMAP(
