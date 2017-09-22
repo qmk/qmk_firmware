@@ -163,6 +163,7 @@ void matrix_scan_user(void) {
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
+#ifdef RGBLIGHT_ENABLE
     case RGBLED_TOGGLE:
       //led operations
       if (record->event.pressed) {
@@ -204,6 +205,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
           rgblight_step();
         }
         break;
+#endif
     static uint8_t shift_esc_shift_mask;
     // Shift + ESC = ~
     case SHIFT_ESC:
