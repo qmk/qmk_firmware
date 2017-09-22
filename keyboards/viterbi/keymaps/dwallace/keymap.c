@@ -85,10 +85,14 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool modifier_already_applied = false;
 uint8_t physically_held_modifiers = 0;
+uint8_t last_mods = 0xFF;
 uint8_t rgb_dimming = 0;
 #define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
 
-void update_underglow_level(void) { 
+void update_underglow_level(void) {
+  if (get_mods() == last_mods)
+    return;
+
   if (get_mods() == 0) {
     uint8_t level = 0x10 >> rgb_dimming;
     rgblight_setrgb(level, level, level);
@@ -123,6 +127,8 @@ void update_underglow_level(void) {
     SET_LED_RGB(color, 7);
   }
   rgblight_set();
+
+  last_mods = get_mods();
 }
 
 void add_sticky_modifier(uint16_t keycode) {
