@@ -46,7 +46,6 @@ enum planck_keycodes {
 };
 
 
-bool has_layer_changed = true;
 #define KC_X0 MT(MOD_LCTL, KC_ESC)  // Hold for Left Ctrl, Tap for ESC
 #define KC_X1 MT(MOD_RSFT, KC_ENT)  // Hold for Right Shift, Tap for Enter
 #define KC_MOUS TT(_MOUSE)  // Hold for Mouse Layer, or tap 5 times.
@@ -213,10 +212,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-uint8_t old_layer = 0;
-
+bool has_layer_changed = true;
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
+  static uint8_t old_layer = 0;
 
   if (old_layer != layer) {
     has_layer_changed = true;
@@ -227,16 +226,16 @@ void matrix_scan_user(void) {
     has_layer_changed = false;
 
     switch (layer) {
-      case 3:
+      case _QWERTY:
         backlight_set(1);
       break;
-      case 0:
+      case _LOWER:
         backlight_set(2);
       break;
-      case 4:
+      case _RAISE:
         backlight_set(3);
       break;
-      case 7:
+      case _ADJUST:
         backlight_set(4);
       break;
     }
