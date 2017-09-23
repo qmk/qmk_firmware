@@ -41,7 +41,8 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-#define RGB_DI_PIN D7     // The pin the LED strip is connected to
+#define RGB_DI_PIN B2     // The pin the LED strip is connected to
 #define RGBLED_NUM 3      // Number of LEDs in your strip
+#define RGBLIGHT_ANIMATIONS
 
 #endif
