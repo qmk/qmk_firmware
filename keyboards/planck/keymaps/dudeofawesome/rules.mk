@@ -2,7 +2,7 @@ ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
 
-AUDIO_ENABLE = no         # Audio output on port C6
+AUDIO_ENABLE = yes         # Audio output on port C6
 CONSOLE_ENABLE = no        # Console for debug(+400)
 MIDI_ENABLE = no           # MIDI controls
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
