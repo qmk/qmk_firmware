@@ -5,7 +5,7 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#include "lets_split.h"
+#include "helix.h"
 #include "common/glcdfont.c"
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
@@ -251,7 +251,7 @@ bool iota_gfx_off(void) {
 
 done:
   return success;
-} 
+}
 
 bool iota_gfx_on(void) {
   bool success = false;
@@ -445,7 +445,7 @@ static void render_status_info(void) {
         default:
            matrix_write(&matrix, buf);
  }
-  
+
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",

@@ -1,4 +1,4 @@
-#include "lets_split.h"
+#include "helix.h"
 #include "bootloader.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -296,14 +296,14 @@ void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
-    RGB_current_mode = rgblight_config.mode; 
+    RGB_current_mode = rgblight_config.mode;
 }
 
 //SSD1306 OLED init and update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 void matrix_master_OLED_init (void) {
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-    iota_gfx_init();   // turns on the display   
+    iota_gfx_init();   // turns on the display
 }
 
 void matrix_scan_user(void) {
@@ -352,7 +352,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed){
           return MACRO (I(10), T(H), T(E), T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D), END);
         }
- 
+
     }
 
     return MACRO_NONE;
