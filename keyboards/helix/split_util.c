@@ -9,7 +9,7 @@
 #include "keyboard.h"
 #include "config.h"
 
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else
 #  include "serial.h"
@@ -32,17 +32,19 @@ static void setup_handedness(void) {
 
 static void keyboard_master_setup(void) {
 #ifdef USE_I2C
-    i2c_master_init();
 #ifdef SSD1306OLED
     matrix_master_OLED_init ();
 #endif
+#endif
+#ifdef USE_MATRIX_I2C
+    i2c_master_init();
 #else
     serial_master_init();
 #endif
 }
 
 static void keyboard_slave_setup(void) {
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
 #else
     serial_slave_init();

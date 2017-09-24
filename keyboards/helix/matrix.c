@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
 #  include "serial.h"
@@ -149,7 +149,7 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
@@ -204,7 +204,7 @@ uint8_t matrix_scan(void)
 
 
 
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
     if( serial_transaction() ) {
@@ -235,7 +235,7 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : (MATRIX_ROWS / 2);
 
-#ifdef USE_I2C
+#ifdef USE_MATRIX_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
         i2c_slave_buffer[i] = matrix[offset+i];

@@ -64,10 +64,17 @@ void serial_master_init(void) {
 void serial_slave_init(void) {
   serial_input();
 
+#ifndef USE_SERIAL_PD2
   // Enable INT0
   EIMSK |= _BV(INT0);
   // Trigger on falling edge of INT0
   EICRA &= ~(_BV(ISC00) | _BV(ISC01));
+#else
+  // Enable INT2
+  EIMSK |= _BV(INT2);
+  // Trigger on falling edge of INT2
+  EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+#endif
 }
 
 // Used by the master to synchronize timing with the slave.
