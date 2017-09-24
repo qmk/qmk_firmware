@@ -112,61 +112,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
-	// 	case PS:
-	// 	  if (record->event.pressed) {
-	// 		layer_on(_PS);
-
-	// 		RGB_current_mode = rgblight_config.mode;
-	// 		RGB_current_hue  = rgblight_config.hue;
-
-	// 		rgblight_mode(1);
-	// 		rgblight_setrgb(0,0,255);
-	// 		} 
-	// 		// else {
-	// 		// 	layer_off(_PS);
-
-	// 		// 	rgblight_mode(RGB_current_mode);
-	// 		// 	rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
-	// 		// }
-	// 	  return false;
-	// 	  break;
-	// 	case AI:
-	// 	  if (record->event.pressed) {
-	// 		layer_on(_AI);
-			  
-	// 		RGB_current_mode = rgblight_config.mode;
-	// 		RGB_current_hue  = rgblight_config.hue;
-
-	// 		// Set to orange.
-	// 		rgblight_mode(1);
-	// 		rgblight_setrgb(255, 0, 0);
-	// 		} 
-	// 		// else {
-	// 		// layer_off(_AI);
-
-	// 		// rgblight_mode(RGB_current_mode);
-	// 		// rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
-	// 	  // }
-	// 	  return false;
-	// 	  break;
-	// 	case PR:
-	// 	  if (record->event.pressed) {
-	// 		layer_on(_PR);
-			  
-	// 		RGB_current_mode = rgblight_config.mode;
-	// 		RGB_current_hue  = rgblight_config.hue;
-
-	// 		  // Set to purple.
-	// 		rgblight_mode(1);
-	// 		rgblight_setrgb(0, 255, 0);
-	// 		} else {
-	// 		layer_off(_PR);
-
-	// 		rgblight_mode(RGB_current_mode);
-	// 		rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
-	// 	  }
-	// 	  return false;
-	// 	  break;
 	}
 	return true;
 }
