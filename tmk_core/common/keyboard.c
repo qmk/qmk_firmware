@@ -63,6 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VISUALIZER_ENABLE
 #   include "visualizer/visualizer.h"
 #endif
+#ifdef POINTING_DEVICE
+#   include "generic_pointer.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -148,6 +151,9 @@ void keyboard_init(void) {
 #ifdef FAUXCLICKY_ENABLE
     fauxclicky_init();
 #endif
+#ifdef POINTING_DEVICE
+    pointingdevice_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
@@ -230,6 +236,10 @@ MATRIX_LOOP_END:
 
 #ifdef VISUALIZER_ENABLE
     visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
+#endif
+
+#ifdef POINTING_DEVICE
+    pointing_device_task();
 #endif
 
     // update LED
