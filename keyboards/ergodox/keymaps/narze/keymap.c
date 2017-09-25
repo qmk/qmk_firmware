@@ -117,8 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = KEYMAP(
         // left hand
-        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(_MDIA),
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(_SYMB),
+        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
+        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   LT(_SYMB, KC_NO),
         HPR_ESC,        KC_A,         LT(_SUPER, KC_S),   LT(_DUPER, KC_D),   KC_F,   KC_G,
         SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(_MDIA),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(_SYMB),   KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
+             LT(_MDIA, KC_NO),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
+             LT(_SYMB, KC_NO),   KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              MEH_T(KC_NO),KC_N,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
                                   RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
@@ -158,8 +158,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = KEYMAP(
         // left hand
-        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(_MDIA),
-        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(_SYMB),
+        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
+        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   LT(_SYMB, KC_NO),
         HPR_ESC,        KC_A,         LT(_SUPER,KC_R),   LT(_DUPER,KC_S),   KC_T,   KC_D,
         SFT_PO,         LT(_MOUSE, KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
@@ -167,8 +167,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(_MDIA),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,          KC_MINS,
-             TG(_SYMB),   KC_J,   KC_L,  KC_U,   KC_Y,   KC_SCLN,       KC_BSLS,
+             LT(_MDIA, KC_NO),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,          KC_MINS,
+             LT(_SYMB, KC_NO),   KC_J,   KC_L,  KC_U,   KC_Y,   KC_SCLN,       KC_BSLS,
                           KC_H,   KC_N,  KC_E,   KC_I,   KC_O,          KC_QUOT,
              MEH_T(KC_NO),KC_K,   KC_M,  KC_COMM,KC_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
                                   RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
@@ -179,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty on software Colemak : Useful for gaming with qwerty keymaps! */
 [_QWOC] = KEYMAP(
         // left hand
-        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(_MDIA),
-        KC_TAB,         CM_Q,         CM_W,   CM_E,   CM_R,   CM_T,   TG(_SYMB),
+        KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
+        KC_TAB,         CM_Q,         CM_W,   CM_E,   CM_R,   CM_T,   LT(_SYMB, KC_NO),
         HPR_ESC,        CM_A,         LT(_SUPER,CM_S),   LT(_DUPER,CM_D),   CM_F,   CM_G,
         SFT_PO,         LT(_MOUSE, CM_Z),  CM_X,   CM_C,   CM_V,   CM_B,   ALL_T(KC_NO),
         LT(_RAISE, KC_LBRC),KC_LCTL,   KC_LALT,  GUI_UNDS, LOWER,
@@ -188,8 +188,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(_MDIA),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(_SYMB),   CM_Y,   CM_U,  CM_I,   CM_O,   CM_P,             KC_BSLS,
+             LT(_MDIA, KC_NO),   KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_MINS,
+             LT(_SYMB, KC_NO),   CM_Y,   CM_U,  CM_I,   CM_O,   CM_P,             KC_BSLS,
                           CM_H,   CM_J,  CM_K,   CM_L,   CM_SCLN,          KC_QUOT,
              MEH_T(KC_NO),CM_N,   CM_M,  CM_COMM,CM_DOT, LT(_SUPERDUPER, KC_SLSH),   SFT_PC,
                                   RAISE, GUI_MINS,KC_RALT,KC_RCTL, LT(_LOWER, KC_RBRC),
