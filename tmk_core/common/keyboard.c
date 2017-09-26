@@ -64,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   include "visualizer/visualizer.h"
 #endif
 #ifdef POINTING_DEVICE
-#   include "generic_pointer.h"
+#   include "pointing_device.h"
 #endif
 
 #ifdef MATRIX_HAS_GHOST
