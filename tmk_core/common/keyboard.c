@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VISUALIZER_ENABLE
 #   include "visualizer/visualizer.h"
 #endif
-#ifdef POINTING_DEVICE
+#ifdef POINTING_DEVICE_ENABLE
 #   include "pointing_device.h"
 #endif
 
