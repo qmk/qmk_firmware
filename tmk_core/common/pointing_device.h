@@ -21,12 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "host.h"
 
-static inline uint8_t pointingdevice_init(void)
-{
-    //put any initialization code here
-    return 0;
-}
-
+void pointingdevice_init(void);
 void pointing_device_task(void);
 
 #endif
