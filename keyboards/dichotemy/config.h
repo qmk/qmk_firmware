@@ -23,15 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0xACC7
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    unknown
-#define PRODUCT         Mitosis
-#define DESCRIPTION     q.m.k. keyboard firmware for Mitosis
+#define PRODUCT         Dichotemy
+#define DESCRIPTION     q.m.k. keyboard firmware for Dichotemy
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 10
+#define MATRIX_COLS 12
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -53,6 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #define PREVENT_STUCK_MODIFIERS
+#define POINTING_DEVICE
 
 /* disable debug print */
 //#define NO_DEBUG
