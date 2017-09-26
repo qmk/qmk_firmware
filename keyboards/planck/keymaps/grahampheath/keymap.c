@@ -42,7 +42,12 @@ enum planck_keycodes {
   SMILE,
   FROWN,
   HEART,
-  SHRUG
+  SHRUG,
+  GRIN,
+  LLAP,
+  CRY,
+  SHIT,
+  FLIP
 };
 
 
@@ -114,20 +119,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  *        Mouse keys -----/```````````````````\
  *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- *                │     │Ms B2│Ms Up│Ms B1│Ms WD│     │     │     │     │     │     │     │
+ *                │     │Ms B2│Ms Up│Ms B1│Ms WD│     │     │LLAP │CRY  │FLIP │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  *                │     │Ms L │Ms Dn│Ms R │Ms WU│     │     │SMILE│FROWN│HEART│SHRUG│     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │     │Ms WL│Ms B3│Ms WR│     │     │     │     │     │     │     │     │
+ *                │     │Ms WL│Ms B3│Ms WR│     │     │     │GRIN │SHIT │     │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
  *                │     │     │     │     │Brig-│   Sleep   │Brig+│     │     │     │     │
  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  *                        \___ Media ___/   \___ Screen/sleep __/   \___ Volume __/
  */
 [_MOUSE] = {
-  {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, LLAP,    CRY,     FLIP,    _______, _______},
   {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, SMILE,   FROWN,   HEART,   SHRUG,   _______},
-  {_______, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, GRIN,    SHIT,    _______, _______, _______},
   {_______, _______, _______, _______, KC_SLCK, KC_SLEP, KC_SLEP, KC_PAUS, _______, _______, _______, _______}
 },
 
@@ -326,27 +331,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case FLIP:
+      if (record->event.pressed) {
+        SEND_STRING("&fliptable;");
+      }
+      return false;
+      break;
+    case SHIT:
+      if (record->event.pressed) {
+        SEND_STRING("&shit; ");
+      }
+      return false;
+      break;
+    case CRY:
+      if (record->event.pressed) {
+        SEND_STRING(":'-( ");
+      }
+      return false;
+      break;
+    case LLAP:
+      if (record->event.pressed) {
+        SEND_STRING("&llap; ");
+      }
+      return false;
+      break;
+    case GRIN:
+      if (record->event.pressed) {
+        SEND_STRING(":-D ");
+      }
+      return false;
+      break;
     case SMILE:
       if (record->event.pressed) {
-        SEND_STRING(":-)");
+        SEND_STRING(":-) ");
       }
       return false;
       break;
     case FROWN:
       if (record->event.pressed) {
-        SEND_STRING(":-(");
+        SEND_STRING(":-( ");
       }
       return false;
       break;
     case HEART:
       if (record->event.pressed) {
-        SEND_STRING("<3");
+        SEND_STRING("<3 ");
       }
       return false;
       break;
     case SHRUG:
       if (record->event.pressed) {
-        SEND_STRING("&shrug;");
+        SEND_STRING("&shrug; ");
       }
       return false;
       break;

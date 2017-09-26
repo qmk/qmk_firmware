@@ -41,3 +41,6 @@
 
 #endif
 #define TAPPING_TERM 200
+#undef BACKLIGHT_LEVELS
+#define BACKLIGHT_LEVELS 4
+
