@@ -1,11 +1,12 @@
 
 OPT_DEFS += -DMITOSIS_PROMICRO
 OPT_DEFS += -DCATERINA_BOOTLOADER
-MITOSIS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+DICHOTEMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
-SRC = matrix.c
+SRC = matrix.c \
+      pointing_device.c
 
 
 # MCU name
@@ -62,7 +63,8 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 #   comment out to disable the options.
 #
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+#MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+POITNING_DEVICE_ENABLE = yes # Generic Pointer, not as big as mouse keys hopefully.
 EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
 CONSOLE_ENABLE = yes	# Console for debug(+400)
 COMMAND_ENABLE = yes   # Commands for debug and configuration
@@ -78,4 +80,4 @@ UNICODE_ENABLE = YES 		# Unicode
 USB = /dev/ttyACM0
 
 upload: build
-	$(MITOSIS_UPLOAD_COMMAND)
+	$(DICHOTEMY_UPLOAD_COMMAND)
