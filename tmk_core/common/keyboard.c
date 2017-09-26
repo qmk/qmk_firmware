@@ -151,7 +151,7 @@ void keyboard_init(void) {
 #ifdef FAUXCLICKY_ENABLE
     fauxclicky_init();
 #endif
-#ifdef POINTING_DEVICE
+#ifdef POINTING_DEVICE_ENABLE
     pointingdevice_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
@@ -238,7 +238,7 @@ MATRIX_LOOP_END:
     visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
 #endif
 
-#ifdef POINTING_DEVICE
+#ifdef POINTING_DEVICE_ENABLE
     pointing_device_task();
 #endif
 
