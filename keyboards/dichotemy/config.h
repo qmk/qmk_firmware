@@ -53,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #define PREVENT_STUCK_MODIFIERS
-#define POINTING_DEVICE
 
 /* disable debug print */
 //#define NO_DEBUG
