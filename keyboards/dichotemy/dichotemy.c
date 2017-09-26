@@ -1,4 +1,4 @@
-#include "mitosis.h"
+#include "dichotemy.h"
 
 void uart_init(void) {
 	SERIAL_UART_INIT();
