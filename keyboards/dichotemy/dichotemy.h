@@ -1,5 +1,5 @@
-#ifndef MITOSIS_H
-#define MITOSIS_H
+#ifndef DICHOTEMY_H
+#define DICHOTEMY_H
 
 #include "quantum.h"
 #include "matrix.h"
