@@ -20,8 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "host.h"
+#include "report.h"
 
 void pointingdevice_init(void);
 void pointing_device_task(void);
+void pointing_device_send(mouse_report_t mouseReport);
 
 #endif
