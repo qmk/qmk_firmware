@@ -29,14 +29,14 @@ void pointingdevice_init(void){
 }
 
 __attribute__ ((weak))
-void pointing_device_send(mouse_report_t mouseReport){
+void pointing_device_send(report_mouse_t mouseReport){
     //If you need to do other things, like debugging, this is the place to do it.
     host_mouse_send(mouseReport);
 }
 
 __attribute__ ((weak))
 void pointing_device_task(void){
-    mouse_report_t mouseReport = {};
+    report_mouse_t mouseReport = {};
     //gather info and put it in:
     //mouseReport.x = 127 max -127 min
     //mouseReport.y = 127 max -127 min
