@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Use I2C or Serial, not both */
 
-#define USE_SERIAL
-// #define USE_I2C
+//#define USE_SERIAL
+#define USE_I2C
 
 /* Select hand configuration */
 
@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+<<<<<<< HEAD
 // RGB Options
 #undef RGBLED_NUM
 #define RGBLED_NUM 10
@@ -46,4 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PREVENT_STUCK_MODIFIERS
 #define QMK_KEYS_PER_SCAN 4
 
+=======
+>>>>>>> remove all makefiles from keyboard directories
 #endif
