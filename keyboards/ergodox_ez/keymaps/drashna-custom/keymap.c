@@ -44,6 +44,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+<<<<<<< HEAD
+=======
+
+//define macro keycodes
+#define M_VERSION M(0)
+#define M_MAKE M(1)
+>>>>>>> Updated RGB Underglow info
  
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -436,6 +443,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [OVERWATCH] = KEYMAP(
+<<<<<<< HEAD
                 KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
@@ -449,6 +457,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
+=======
+				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
+				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
+				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
+				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
+                                            KC_O,   KC_P,
+                                                    KC_LGUI,
+                                KC_V,   KC_SPACE,   KC_H,
+									
+				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+>>>>>>> Updated RGB Underglow info
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 KC_NO,          KC_NO,
                 KC_NO,
@@ -562,6 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case VRSN:
             if (record->event.pressed) {
+<<<<<<< HEAD
                 SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
             }
             return false;
@@ -618,6 +642,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+=======
+                // make ergodox-ez-drashna-custom-teensy
+                return MACRO(I(5), T(M), T(A), T(K), T(E), T(SPACE), T(E), T(R), T(G), T(O), T(D), T(O), T(X), D(LSFT), T(MINUS), U(LSFT), T(E), T(Z), T(MINUS), T(D), T(R), T(A), T(S), T(H), T(N), T(A), T(MINUS), T(C), T(U), T(S), T(T), T(O), T(M), T(MINUS), T(T), T(E), T(E), T(N), T(S), T(Y), T(ENTER), END);
+            }				
+    }
+    return MACRO_NONE;
+};
+
+>>>>>>> Updated RGB Underglow info
 
         case RGB_00FF90:
             if (record->event.pressed) {
@@ -758,6 +791,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
         }
         
     }
+<<<<<<< HEAD
 
     // Run Diablo 3 macro checking code.
 #ifdef TAP_DANCE_ENABLE
@@ -830,3 +864,53 @@ uint32_t layer_state_set_kb(uint32_t state) {
 #endif
    return state;
 }
+=======
+    // Check layer, and apply color if its changed since last check
+    if (has_layer_changed) {
+        switch (layer) {
+            case SYMB:
+                rgblight_sethsv (255,255,255);
+                rgblight_mode(23);
+                break;
+            case OVERWATCH:
+                rgblight_sethsv (30,255,255);
+                rgblight_mode(17);
+                break;
+            case DIABLO:
+                rgblight_sethsv (0,255,255);
+                rgblight_mode(5);
+                break;
+            case MOUS:
+                rgblight_sethsv (60,255,255);
+                break;
+            case COLEMAK:
+                rgblight_sethsv (300,255,255);
+                break;
+            case DVORAK:
+                rgblight_sethsv (120,255,255);
+                break;
+            case 7:
+                rgblight_sethsv (255,255,255);
+                break;
+            default:
+                rgblight_sethsv (195,255,255);
+                rgblight_mode(1);
+                break;
+        }
+    }
+
+	// Update layer status at the end, so this sets the default color
+	// rather than relying on the init, which was unreliably...
+	// Probably due to a timing issue, but this requires no additional code
+    if (current_layer == layer) {
+        has_layer_changed = false;
+    } else {
+        has_layer_changed = true;
+        current_layer = layer;
+    }
+
+	// Run Diablo 3 macro checking code.
+    run_diablo_macro_check();
+};
+
+>>>>>>> Updated RGB Underglow info
