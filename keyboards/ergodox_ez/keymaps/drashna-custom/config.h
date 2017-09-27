@@ -10,6 +10,9 @@
 #define RGBLIGHT_SAT_STEP 12
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated RGB Underglow info
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
@@ -20,10 +23,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated RGB Underglow info
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 3
+<<<<<<< HEAD
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
@@ -66,3 +73,9 @@
 
 #endif
 >>>>>>> Minor tweaks
+=======
+#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+#endif // RGBLIGHT_ENABLE
+#define FORCE_NKRO
+>>>>>>> Updated RGB Underglow info
+>>>>>>> Updated RGB Underglow info
