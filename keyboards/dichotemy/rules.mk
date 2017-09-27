@@ -1,5 +1,5 @@
 
-OPT_DEFS += -DMITOSIS_PROMICRO
+OPT_DEFS += -DDICHOTEMY_PROMICRO
 OPT_DEFS += -DCATERINA_BOOTLOADER
 DICHOTEMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
@@ -79,5 +79,5 @@ UNICODE_ENABLE = YES 		# Unicode
 
 USB = /dev/ttyACM0
 
-upload: build
-	$(DICHOTEMY_UPLOAD_COMMAND)
+#upload: build
+#	$(DICHOTEMY_UPLOAD_COMMAND)
