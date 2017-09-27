@@ -25,7 +25,6 @@
 
 
 
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 7     // Number of LEDs
