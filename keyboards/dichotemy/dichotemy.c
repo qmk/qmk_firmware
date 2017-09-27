@@ -1,11 +1,13 @@
 #include "dichotemy.h"
 #include "pointing_device.h"
+#include "report.h"
 
 void uart_init(void) {
 	SERIAL_UART_INIT();
 }
 
 void pointing_device_task(void){
+    report_mouse_t mouseReport = {};
     SERIAL_UART_INIT();
     uint32_t timeout = 0;
 
@@ -40,6 +42,7 @@ void pointing_device_task(void){
         //mouseReport.h = 127 max -127 min (scroll horizontal)
         //mouseReport.buttons = 0x31 max (bitmask for mouse buttons 1-5) 0x00 min
     }
+    pointing_device_send(mouseReport);
 }
 
 void led_init(void) {
