@@ -5,8 +5,7 @@ DICHOTEMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
-SRC = matrix.c \
-      pointing_device.c
+SRC = matrix.c
 
 
 # MCU name
