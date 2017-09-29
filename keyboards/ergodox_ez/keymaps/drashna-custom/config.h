@@ -20,5 +20,10 @@
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 3
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
+<<<<<<< HEAD
 #define FORCE_NKRO
 >>>>>>> Updated RGB Underglow info
+=======
+
+//#define FORCE_NKRO
+>>>>>>> Cleanup macros

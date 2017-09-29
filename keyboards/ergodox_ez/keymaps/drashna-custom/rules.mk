@@ -13,8 +13,12 @@ SLEEP_LED_ENABLE  = yes  # Breathing sleep LED during USB suspend
 COMMAND_ENABLE    = no  # Commands for debug and configuration
 RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
+<<<<<<< HEAD
 CONSOLE_ENABLE    = yes
 >>>>>>> Updated RGB Underglow info
+=======
+CONSOLE_ENABLE    = no
+>>>>>>> Cleanup macros
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
