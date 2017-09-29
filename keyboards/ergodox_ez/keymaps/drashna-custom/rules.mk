@@ -26,11 +26,15 @@ RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Cleanup macros
 CONSOLE_ENABLE    = yes
 >>>>>>> Updated RGB Underglow info
 =======
 CONSOLE_ENABLE    = no
 >>>>>>> Cleanup macros
+<<<<<<< HEAD
 
 =======
 CONSOLE_ENABLE    = no
@@ -46,6 +50,8 @@ MIDI_ENABLE       = no
 CONSOLE_ENABLE    = yes
 >>>>>>> Updated RGB Underglow info
 >>>>>>> Updated RGB Underglow info
+=======
+>>>>>>> Cleanup macros
 
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 ifndef QUANTUM_DIR

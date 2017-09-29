@@ -38,6 +38,7 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define FORCE_NKRO
 >>>>>>> Updated RGB Underglow info
 =======
@@ -45,6 +46,8 @@
 //#define FORCE_NKRO
 >>>>>>> Cleanup macros
 =======
+=======
+>>>>>>> Cleanup macros
 #define FORCE_NKRO
 <<<<<<< HEAD
 #ifdef FORCE_NKRO
@@ -79,3 +82,7 @@
 #define FORCE_NKRO
 >>>>>>> Updated RGB Underglow info
 >>>>>>> Updated RGB Underglow info
+=======
+
+//#define FORCE_NKRO
+>>>>>>> Cleanup macros
