@@ -27,9 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         ps2avrGB
 
 /* matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
-#define DIODE_DIRECTION ROW2COL
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 14
+#define DIODE_DIRECTION COL2ROW
 
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
