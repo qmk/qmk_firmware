@@ -40,15 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //define macro keycodes
 #define M_VERSION M(0)
-#define M_SYMM M(1)
-#define M_SALT M(2)
-#define M_HARD M(3)
-#define M_MAKE M(4)
-#define M_GOODGAME M(5)
-#define M_MORESALT M(6)
-#define M_DOOMFIST M(7)
-
-
+#define M_MAKE M(1)
+ 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
@@ -383,10 +376,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [OVERWATCH] = KEYMAP(
-				KC_ESCAPE,      M_SALT,		M_MORESALT, M_GOODGAME, M_SYMM,     M_DOOMFIST, M_HARD,
+				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,    KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
+				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
 				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
                                             KC_O,   KC_P,
                                                     KC_LGUI,
@@ -395,7 +388,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
 				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO, KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 				KC_NO,  KC_NO,
 				KC_NO,
@@ -508,45 +501,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         case 1:
             if (record->event.pressed) {
-                // Symmentra "Left Click to win" salt
-                return MACRO( I(50),  T(ENTER), I(5), D(LSFT), T(L), U(LSFT), T(E), T(F), T(T), T(SPACE), T(C), T(L), T(I), T(C), T(K), T(SPACE), T(T), T(O), T(SPACE), T(W), T(I), T(N), D(LSFT), T(1), U(LSFT), T(ENTER), END );
-            }
-        case 2:
-            if (record->event.pressed) {
-                //salt salt salt
-                return MACRO( I(50), T(ENTER), I(5), D(LSFT), T(S), U(LSFT), T(A), T(L), T(T), T(COMMA), T(SPACE), T(S), T(A), T(L), T(T), T(COMMA), T(SPACE), T(S), T(A), T(L), T(T), T(DOT), T(DOT), T(DOT), T(ENTER), END );
-            }
-        case 3:
-            if (record->event.pressed) {
-                // your saltiness makes me hard
-                return MACRO( I(50),  T(ENTER), I(5), D(LSFT), T(Y), U(LSFT), T(O), T(U), T(R), T(SPACE), T(S), T(A), T(L), T(T), T(SPACE), T(O), T(N), T(L), T(Y), T(SPACE), T(M), T(A), T(K), T(E), T(S), T(SPACE), T(M), T(Y), T(SPACE), T(P), T(E), T(N), T(I), T(S), T(SPACE), T(T), T(H), T(A), T(T), T(SPACE), T(M), T(U), T(C), T(H), T(SPACE), T(H), T(A), T(R), T(D), T(E), T(R), T(COMMA), T(SPACE), T(A), T(N), T(D), T(SPACE), T(E), T(V), T(E), T(N), T(SPACE), T(M), T(O), T(R), T(E), T(SPACE), T(A), T(G), T(G), T(R), T(E), T(S), T(S), T(I), T(V), T(E), D(LSFT), T(1), U(LSFT), T(ENTER), END );
-            }
-        case 4:
-            if (record->event.pressed) {
                 // make ergodox-ez-drashna-custom-teensy
                 return MACRO(I(5), T(M), T(A), T(K), T(E), T(SPACE), T(E), T(R), T(G), T(O), T(D), T(O), T(X), D(LSFT), T(MINUS), U(LSFT), T(E), T(Z), T(MINUS), T(D), T(R), T(A), T(S), T(H), T(N), T(A), T(MINUS), T(C), T(U), T(S), T(T), T(O), T(M), T(MINUS), T(T), T(E), T(E), T(N), T(S), T(Y), T(ENTER), END);
-            }
-        case 5:
-            if (record->event.pressed) {
-                //gg
-                return MACRO(I(50), T(ENTER), I(5), T(G), T(G), T(ENTER), END);
-            }
-        case 6:
-            if (record->event.pressed) {
-                // Please sir, can I have some more salt
-                return MACRO( I(50), T(ENTER), I(5), D(LSFT), T(P), U(LSFT), T(L), T(E), T(A), T(S), T(E), T(SPACE), T(S), T(I), T(R), T(COMMA), T(SPACE), T(C), T(A), T(N), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(H), T(A), T(V), T(E), T(SPACE), T(S), T(O), T(M), T(E), T(SPACE), T(M), T(O), T(R), T(E), T(SPACE), T(S), T(A), T(L), T(T), D(LSFT), T(SLASH), U(LSFT), D(LSFT), T(1), U(LSFT), T(ENTER), END );
-            }
-            break;
-        case 7:
-			if (record->event.pressed) {
-				// DoomFisted
-				// Hey, look at me.  I'm Doomfist, and I'm overpowered!  
-				// All I do is spam punches all day!   I'm DPS, tank and 
-				// defense, rolled into one! All I need is team healing to be complete!
-				return MACRO( I(50), T(ENTER), I(5), D(LSFT), T(H), U(LSFT), T(E), T(Y), T(COMMA), T(SPACE), T(L), T(O), T(O), T(K), T(SPACE), T(A), T(T), T(SPACE), T(M), T(E), T(DOT), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), T(O), T(O), T(M), T(F), T(I), T(S), T(T), T(COMMA), T(SPACE), T(A), T(N), T(D), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), T(O), T(V), T(E), T(R), T(P), T(O), T(W), T(E), T(R), T(E), T(D), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(D), T(O), T(SPACE), T(I), T(S), T(SPACE), T(S), T(P), T(A), T(M), T(SPACE), T(P), T(U), T(N), T(C), T(H), T(E), T(S), T(SPACE), T(A), T(L), T(L), T(SPACE), T(D), T(A), T(Y), D(LSFT), T(1), U(LSFT), T(SPACE), T(SPACE), T(SPACE), D(LSFT), T(I), U(LSFT), T(QUOTE), T(M), T(SPACE), D(LSFT), T(D), U(LSFT), D(LSFT), T(P), U(LSFT), D(LSFT), T(S), U(LSFT), T(COMMA), T(SPACE), T(T), T(A), T(N), T(K), T(SPACE), T(A), T(N), T(D), T(SPACE), T(D), T(E), T(F), T(E), T(N), T(S), T(E), T(COMMA), T(SPACE), T(R), T(O), T(L), T(L), T(E), T(D), T(SPACE), T(I), T(N), T(T), T(O), T(SPACE), T(O), T(N), T(E), D(LSFT), T(1), U(LSFT), T(SPACE), D(LSFT), T(A), U(LSFT), T(L), T(L), T(SPACE), D(LSFT), T(I), U(LSFT), T(SPACE), T(N), T(E), T(E), T(D), T(SPACE), T(I), T(S), T(SPACE), T(T), T(E), T(A), T(M), T(SPACE), T(H), T(E), T(A), T(L), T(I), T(N), T(G), T(SPACE), T(T), T(O), T(SPACE), T(B), T(E), T(SPACE), T(C), T(O), T(M), T(P), T(L), T(E), T(T), T(E), D(LSFT), T(1), U(LSFT), T(ENTER), END );
-			}
-			break;
-				
+            }				
     }
     return MACRO_NONE;
 };
@@ -709,49 +666,39 @@ void matrix_scan_user(void) {  // runs frequently to update info
         
     }
     // Check layer, and apply color if its changed since last check
-    switch (layer) {
-        case SYMB:
-            if (has_layer_changed) {
+    if (has_layer_changed) {
+        switch (layer) {
+            case SYMB:
                 rgblight_sethsv (255,255,255);
-            }
-            break;
-        case OVERWATCH:
-            if (has_layer_changed) {
+                rgblight_mode(23);
+                break;
+            case OVERWATCH:
                 rgblight_sethsv (30,255,255);
-            }
-            break;
-        case DIABLO:
-            if (has_layer_changed) {
+                rgblight_mode(17);
+                break;
+            case DIABLO:
                 rgblight_sethsv (0,255,255);
-            }
-            break;
-        case MOUS:
-            if (has_layer_changed) {
+                rgblight_mode(5);
+                break;
+            case MOUS:
                 rgblight_sethsv (60,255,255);
-            }
-            break;
-        case COLEMAK:
-            if (has_layer_changed) {
+                break;
+            case COLEMAK:
                 rgblight_sethsv (300,255,255);
-            }
-            break;
-        case DVORAK:
-            if (has_layer_changed) {
+                break;
+            case DVORAK:
                 rgblight_sethsv (120,255,255);
-            }
-            break;
-        case 7:
-            if (has_layer_changed) {
+                break;
+            case 7:
                 rgblight_sethsv (255,255,255);
-            }
-            break;
-        default:
-            if (has_layer_changed) {
+                break;
+            default:
                 rgblight_sethsv (195,255,255);
-            }
-            break;
+                rgblight_mode(1);
+                break;
+        }
     }
-    
+
 	// Update layer status at the end, so this sets the default color
 	// rather than relying on the init, which was unreliably...
 	// Probably due to a timing issue, but this requires no additional code
