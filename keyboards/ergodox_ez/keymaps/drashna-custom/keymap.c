@@ -357,13 +357,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Customized Overwatch Layout
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ESC  | SALT | MORE |  GG  | SYMM | DOOM | HARD |           |      |  F9  | F10  | F11  |  F12 |      |        |
+ * |   ESC  |      |      |      |      |      |      |           |      |  F9  | F10  | F11  |  F12 |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   F1   |  K   |  Q   |  W   |  E   |  R   |  T   |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   TAB  |  G   |  A   |  S   |  D   |  F   |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  M   |      |           |      |      |      |      |      |      |        |
+ * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   O  |   M  |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |   J  |  U   |  I   |  Y   |  T   |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -379,7 +379,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
+				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
 				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
                                             KC_O,   KC_P,
                                                     KC_LGUI,
@@ -387,8 +387,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 									
 				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
 				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_O,      KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 				KC_NO,  KC_NO,
 				KC_NO,
