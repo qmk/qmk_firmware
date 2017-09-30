@@ -116,7 +116,6 @@
     S__NOTE(_REST),  \
     ED_NOTE(_E7  ),
 
-
 #define MUSIC_ON_SOUND \
     E__NOTE(_A5 ),        \
     E__NOTE(_B5 ),        \
@@ -126,6 +125,14 @@
     E__NOTE(_FS6),        \
     E__NOTE(_GS6),        \
     E__NOTE(_A6 ),
+
+#define AUDIO_ON_SOUND \
+    E__NOTE(_A5 ),        \
+    E__NOTE(_A6 ),
+
+#define AUDIO_OFF_SOUND \
+    E__NOTE(_A6 ),        \
+    E__NOTE(_A5 ),
 
 #define MUSIC_SCALE_SOUND MUSIC_ON_SOUND
 
@@ -239,5 +246,8 @@
     Q__NOTE(_E5),     \
     Q__NOTE(_GS5),     \
     HD_NOTE(_C6),
+
+#define TERMINAL_SOUND \
+    E__NOTE(_C5 )
 
 #endif

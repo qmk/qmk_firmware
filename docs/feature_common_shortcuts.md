@@ -39,7 +39,7 @@ If you are just getting started with QMK you will want to keep everything simple
 
 ### Intermediate Users
 
-Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as multually exclusive. When one base layer is on the others are off. 
+Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off. 
 
 ### Advanced Users
 
@@ -92,7 +92,7 @@ The following shortcuts automatically add `LSFT()` to keycodes to get commonly u
 | KC_RCBR | } |
 | KC_LABK | < |
 | KC_RABK | > |
-| KC_PIPE | | |
+| KC_PIPE | &#x7C; |
 | KC_COLN | : |
 
 ## Mod Tap

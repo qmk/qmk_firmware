@@ -89,7 +89,7 @@ ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
 endif
 
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
-KEYBOARDS := $(notdir $(patsubst %/Makefile,%,$(wildcard $(ROOT_DIR)/keyboards/*/Makefile)))
+KEYBOARDS := $(notdir $(patsubst %/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/rules.mk)))
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
@@ -261,7 +261,7 @@ endef
 define PARSE_KEYBOARD
     CURRENT_KB := $1
     # A subproject is any keyboard subfolder with a makefile
-    SUBPROJECTS := $$(notdir $$(patsubst %/Makefile,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/*/Makefile)))
+    SUBPROJECTS := $$(notdir $$(patsubst %/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/*/rules.mk)))
     # if the rule starts with allsp, then continue with looping over all subprojects
     ifeq ($$(call COMPARE_AND_REMOVE_FROM_RULE,allsp),true)
         $$(eval $$(call PARSE_ALL_SUBPROJECTS))
@@ -300,7 +300,9 @@ define PARSE_SUBPROJECT
     endif
     ifeq ($$(CURRENT_SP),defaultsp)
         SUBPROJECT_DEFAULT=
-        $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/Makefile)
+        ifneq ("$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/subproject.mk)","")
+            $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/subproject.mk)
+        endif
         CURRENT_SP := $$(SUBPROJECT_DEFAULT)
     endif
     # If current subproject is empty (the default was not defined), and we have a list of subproject
@@ -314,11 +316,21 @@ define PARSE_SUBPROJECT
     ifneq ($$(CURRENT_SP),allsp)
         # get a list of all keymaps
         KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
+        LAYOUTS :=
+        $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
+        KEYBOARD_LAYOUTS := $$(LAYOUTS)
         ifneq ($$(CURRENT_SP),)
             # if the subproject is defined, then also look for keymaps inside the subproject folder
             SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
             KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
+	        # $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/rules.mk)
+        	# KEYBOARD_LAYOUTS := $$(sort $$(KEYBOARD_LAYOUTS) $$(LAYOUTS))
         endif
+
+        LAYOUT_KEYMAPS :=
+        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
+        
+        KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
         # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
         # compile all the keymaps
         ifeq ($$(RULE),)
@@ -493,7 +505,7 @@ if [ $$error_occurred -gt 0 ]; then $(HANDLE_ERROR); fi;
 endef
 
 # Allow specifying just the subproject, in the keyboard directory, which will compile all keymaps
-SUBPROJECTS := $(notdir $(patsubst %/Makefile,%,$(wildcard ./*/Makefile)))
+SUBPROJECTS := $(notdir $(patsubst %/rules.mk,%,$(wildcard ./*/rules.mk)))
 .PHONY: $(SUBPROJECTS)
 $(SUBPROJECTS): %: %-allkm
 
@@ -504,6 +516,9 @@ $(SUBPROJECTS): %: %-allkm
 	cmp $(ROOT_DIR)/Makefile $(ROOT_DIR)/Makefile >/dev/null 2>&1; if [ $$? -gt 0 ]; then printf "$(MSG_NO_CMP)"; exit 1; fi;
 	# Check if the submodules are dirty, and display a warning if they are
 ifndef SKIP_GIT
+	if [ ! -e lib/chibios ]; then git submodule sync lib/chibios && git submodule update --init lib/chibios; fi
+	if [ ! -e lib/chibios-contrib ]; then git submodule sync lib/chibios-contrib && git submodule update --init lib/chibios-contrib; fi
+	if [ ! -e lib/ugfx ]; then git submodule sync lib/ugfx && git submodule update --init lib/ugfx; fi
 	git submodule status --recursive 2>/dev/null | \
 	while IFS= read -r x; do \
 		case "$$x" in \
@@ -540,6 +555,14 @@ test: test-all
 
 .PHONY: test-clean
 test-clean: test-all-clean
+
+lib/%:
+	git submodule sync $?
+	git submodule update --init $?
+
+git-submodule:
+	git submodule sync --recursive
+	git submodule update --init --recursive
 
 ifdef SKIP_VERSION
 SKIP_GIT := yes

@@ -143,7 +143,7 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
-DFU_ARGS =
+DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
@@ -155,3 +155,6 @@ DFU_UTIL ?= dfu-util
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 6
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

@@ -1,4 +1,4 @@
-#include "nyquist.h"
+#include QMK_SUBPROJECT_H
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

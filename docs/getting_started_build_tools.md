@@ -36,12 +36,23 @@ Debian/Ubuntu example:
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
 
-# Mac
+## Nix
+
+If you're on [NixOS](https://nixos.org/), or have Nix installed on Linux or macOS, run `nix-shell` from the repository root to get a build environment.
+
+By default, this will download compilers for both AVR and ARM. If you don't need both, disable the `avr` or `arm` arguments, e.g.:
+
+    nix-shell --arg arm false
+
+## Mac
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
 
     brew tap osx-cross/avr
-    brew install avr-libc
+    brew tap PX4/homebrew-px4
+    brew update
+    brew install avr-gcc
     brew install dfu-programmer
+    brew install gcc-arm-none-eabi
 
 This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
 
