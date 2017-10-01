@@ -6,6 +6,7 @@
 
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
 #define _______ KC_TRNS
+#define X_____X KC_TRNS
 #define KC_ATM LGUI(LSFT(KC_P))
 #define KC_ATP LGUI(LCTL(KC_P))
 
@@ -34,22 +35,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [NORMAL_MODE] = KEYMAP(
     // Layer 2 Left Hand
-    _______,_______,_______,_______,_______,_______,_______,
-    KC_TAB ,_______,VIM_W,  VIM_E  ,_______,_______,_______,
-    KC_ESC ,VIM_A  ,VIM_S  ,VIM_D  ,_______,_______,
-    KC_LSFT,_______,VIM_X  ,_______,VIM_V  ,VIM_B  ,_______,
-    _______,_______,_______,_______,_______,
+    X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
+    KC_TAB ,X_____X,VIM_W,  VIM_E  ,X_____X,X_____X,X_____X,
+    X_____X,VIM_A  ,VIM_S  ,VIM_D  ,X_____X,X_____X,
+    KC_LSFT,X_____X,VIM_X  ,VIM_C  ,VIM_V  ,VIM_B  ,X_____X,
+    KC_LCTL,KC_LALT,X_____X,X_____X,X_____X,
 
                                                                 KC_LEFT,KC_DOWN,
                                                                         KC_HOME,
                                                 GUI_T(KC_SPC),  KC_DEL, KC_END,
 
     // Layer 2 Right Hand
-                              _______,_______,_______,_______,_______,_______,_______,
-                              _______,VIM_Y  ,VIM_U  ,VIM_I  ,VIM_O  ,VIM_P  ,_______,
-                                      VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,_______,KC_ESC ,
-                              _______,_______,_______,_______,_______,_______,KC_LSFT,
-                                              _______,_______,_______,_______,_______,
+                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
+                              X_____X,VIM_Y  ,VIM_U  ,VIM_I  ,VIM_O  ,VIM_P  ,X_____X,
+                                      VIM_H  ,VIM_J  ,VIM_K  ,VIM_L  ,X_____X,X_____X,
+                              X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,KC_LSFT,
+                                              X_____X,X_____X,X_____X,KC_RALT,KC_RCTL,
 
     KC_UP,  KC_RGHT,
     KC_PGUP,
