@@ -373,7 +373,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
-__attribute__ ((weak))
+#ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
   if (rgblight_config.enable) {
     #ifdef RGBW
@@ -394,6 +394,7 @@ void rgblight_set(void) {
     #endif
   }
 }
+#endif
 
 #ifdef RGBLIGHT_ANIMATIONS
 
@@ -489,7 +490,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
     return;
   }
   last_timer = timer_read();
