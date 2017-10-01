@@ -2,9 +2,8 @@
 -I.
 -I./drivers
 -I./drivers/avr
--I./keyboards/ergodox
--I./keyboards/ergodox/ez
--I./keyboards/ergodox/ez/keymaps/macvim
+-I./keyboards/ergodox_ez
+-I./keyboards/ergodox_ez/keymaps/vim
 -I./lib
 -I./lib/lufa
 -I./quantum
@@ -18,6 +17,7 @@
 -I./quantum/visualizer
 -I./tmk_core
 -I./tmk_core/common
+-I./tmk_core/common/debug.h
 -I./tmk_core/protocol
 -I./tmk_core/protocol/lufa
 -I./util
