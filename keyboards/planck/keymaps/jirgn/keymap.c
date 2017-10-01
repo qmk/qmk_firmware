@@ -35,6 +35,7 @@ enum planck_keycodes {
   RAISE,
   EXT_PLV
 };
+
 // keycode aliases
 #define _______ KC_TRNS
 #define ___x___ KC_NO
@@ -43,6 +44,7 @@ enum planck_keycodes {
 #define CTL_QUOT CTL_T(KC_QUOT)
 #define SFT_ENT SFT_T(KC_ENT)
 #define NAV_SCLN LT(_NAVIGATION, KC_SCLN)
+#define NAV_A LT(_NAVIGATION, KC_A)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -50,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *              ,-----------------------------------------------------------------------------------.
  *              | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  *              |------+------+------+------+------+-------------+------+------+------+------+------|
- * Tab for Esc--| Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | ; Nav| Ctrl |--Tab for "
+ * Tab for Esc--| Ctrl | A Nav|   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | ; Nav| Ctrl |--Tab for "
  *              |------+------+------+------+------+------|------+------+------+------+------+------|
  *              | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Shift|--Tab for Enter
  *              |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -59,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC},
-  {CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NAV_SCLN, CTL_QUOT},
+  {CTL_ESC, NAV_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NAV_SCLN, CTL_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SFT_ENT},
   {___x___, KC_HYPR, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LGUI, KC_LALT, KC_HYPR,  ___x___}
 },
@@ -102,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*              Navigation
  *              ,-----------------------------------------------------------------------------------.
- *              |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ *              |      |      |      |      |      |      |      |      |      |      |      |      |
  *              |------+------+------+------+------+-------------+------+------+------+------+------|
- * Tab to Del---| Ctrl |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ *              |      |      | HOME | PGUP | PGDN | END  | LEFT | DOWN | UP   | RIGHT|      |      |
  *              |------+------+------+------+------+------|------+------+------+------+------+------|
- *              |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
+ *              |      |      |      |      |      |      |      |      |      |      |      |      |
  *              |------+------+------+------+------+------+------+------+------+------+------+------|
  *              |      |      |      |      |      |             |      |      |      |      |      |
  *              `-----------------------------------------------------------------------------------'
