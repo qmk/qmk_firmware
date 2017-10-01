@@ -30,8 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----`-----`-----`-----|
  * |  1  |  2  |  3  |Enter|
  * |-----`-----`-----`-----|
- * | 0/L1|Space|  .  |  /  |
+ * |  0  |Space|  .  |  /  |
  * `-----`-----`-----`-----'
+ * | L1  | L2  |     |     | Layer hold
  */
   [_NP] = /* Numpad */
     SINGLES_KEYMAP(KC_P7,        KC_P8,         KC_P9,   KC_BSPC, \
@@ -47,14 +48,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----`-----`-----`-----|
  * | 192.| 255 |     |     |
  * |-----`-----`-----`-----|
- * |     | LED |     |     |
+ * |_____| LED |  .  |     |
  * `-----`-----`-----`-----'
  */
   [_L1] = /* LAYER 1 */
     SINGLES_KEYMAP(RESET,   XXXXXXX, XXXXXXX, KC_DEL, \
                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
                    STR192,  STR255,  XXXXXXX, XXXXXXX, \
-                   _______, BL_STEP, XXXXXXX, XXXXXXX),
+                   _______, BL_STEP, _______, XXXXXXX),
  
 /* L2
  * ,-----------------------.
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----`-----`-----`-----|
  * |     |     |     |     |
  * |-----`-----`-----`-----|
- * |     |     |     |     |
+ * |     |_____|     |     |
  * `-----`-----`-----`-----'
  */
   [_L2] = /* LAYER 2 */
