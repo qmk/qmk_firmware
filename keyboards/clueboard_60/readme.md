@@ -9,6 +9,6 @@ A fully customizable 60% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make clueboard_60-default-dfu-util
+    make clueboard_60:default:dfu-util
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
