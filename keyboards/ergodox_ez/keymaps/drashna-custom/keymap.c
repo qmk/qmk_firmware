@@ -1064,6 +1064,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 >>>>>>> Updated RGB Underglow info
 =======
 void persistent_default_layer_set(uint16_t default_layer) {
+<<<<<<< HEAD
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -1147,6 +1148,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+=======
+    eeconfig_update_default_layer(default_layer);
+    default_layer_set(default_layer);
+}
+
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
 
 >>>>>>> Updated macros and added workman keymaps
         case RGB_00FF90:
@@ -1189,8 +1197,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
         case KC_WORKMAN:
             if (record->event.pressed) {
                 persistent_default_layer_set(1UL << WORKMAN);
@@ -1292,6 +1303,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     return true;
+<<<<<<< HEAD
 >>>>>>> Updated macros and added workman keymaps
 =======
     return false;
@@ -1342,6 +1354,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 >>>>>>> Fixed formatting to fall in line with official standards
+=======
+=======
+
+	}
+	return true;
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
 }
 
 #ifdef TAP_DANCE_ENABLE
