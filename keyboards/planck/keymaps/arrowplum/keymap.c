@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |CTLTAB|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |ctl/ent|
+ * |CTLESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |ctl/ent|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   |  |  [   |   ]  | pgup  |Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      | home | pgdwn| end  |
+ * |      |      |      |      |  SPC |  SPC | SPC  |  SPC |      | home | pgdwn| end  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
@@ -239,18 +239,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_NAV);
         }
         return false;
-        break;
-    case MUSIC1:
-        PLAY_NOTE_ARRAY(tone_coin, false, 0);
-        break;
-    case MUSIC2:
-        PLAY_NOTE_ARRAY(tone_1up, false, 0);
-        break;
-    case MUSIC3:
-        PLAY_NOTE_ARRAY(tone_zelda_puzzle, false, 0);
-        break;
-    case MUSIC4:
-        PLAY_NOTE_ARRAY(tone_ode_to_joy, false, 0);
         break;
 
 
