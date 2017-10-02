@@ -518,6 +518,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+void persistent_default_layer_set(uint16_t default_layer) {
+    eeconfig_update_default_layer(default_layer);
+    default_layer_set(default_layer);
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -605,7 +610,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-            
+        case KC_QWERTY:
+            if (record->event.pressed) {
+                persistent_default_layer_set(1UL << QWERTY);
+            }
+            return false;
+            break;
+        case KC_COLEMAK:
+            if (record->event.pressed) {
+                persistent_default_layer_set(1UL << COLEMAK);
+            }
+            return false;
+            break;
+        case KC_DVORAK:
+            if (record->event.pressed) {
+                persistent_default_layer_set(1UL << DVORAK);
+            }
+            return false;
+            break;
+
 	}
 	return true;
 }
