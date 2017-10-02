@@ -11,8 +11,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
+=======
+>>>>>>> Tweaked RGB lighting stuff
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
@@ -31,6 +34,9 @@
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 3
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Tweaked RGB lighting stuff
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 7

@@ -44,11 +44,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Update to keymaps
 
 >>>>>>> Add workman layer to planck
+=======
+>>>>>>> Tweaked RGB lighting stuff
 /* key combination for command */
 #ifdef IS_COMMAND
 #undef IS_COMMAND
@@ -63,6 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
@@ -73,6 +77,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 #define RGBLED_NUM 16     // Number of LEDs
 >>>>>>> Update to keymaps
+=======
+#ifdef RGBLIGHT_ENABLE
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 12     // Number of LEDs
+>>>>>>> Tweaked RGB lighting stuff
+>>>>>>> Tweaked RGB lighting stuff
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -106,5 +116,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Remove force NKRO
 
+<<<<<<< HEAD
 #endif
+=======
+
+#endif
+<<<<<<< HEAD
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
+=======
+>>>>>>> Tweaked RGB lighting stuff
+>>>>>>> Tweaked RGB lighting stuff
