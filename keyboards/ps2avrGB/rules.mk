@@ -20,7 +20,6 @@ PROTOCOL = VUSB
 # unsupported features for now
 NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
-BACKLIGHT_ENABLE = no
 
 # processor frequency
 F_CPU = 12000000
@@ -31,13 +30,16 @@ MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c
+SRC = matrix.c i2c.c
 
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex

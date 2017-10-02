@@ -1,6 +1,6 @@
 # UK78
 
-![UK78](http://i.imgur.com/42pg6RS.png)
+![UK78](https://imgur.com/6pUQkKP.jpg)
 
 A fully customizable 60%+numpad keyboard.
 
