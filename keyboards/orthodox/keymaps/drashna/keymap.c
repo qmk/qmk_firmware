@@ -75,8 +75,8 @@ enum custom_keycodes {
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 
 //This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = false;
-static uint8_t current_layer = 0;
+bool has_layer_changed = true;
+static uint8_t current_layer = 10;
 #endif
 >>>>>>> Tweaked RGB lighting stuff
 
@@ -252,9 +252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 #ifdef RGBLIGHT_ENABLE
 
-void matrix_init_user(void) { // Runs boot tasks for keyboard
-    has_layer_changed = true;
-};
 
 
 
@@ -270,27 +267,32 @@ void matrix_scan_user(void) {  // runs frequently to update info
         switch (layer) {
         case _QWERTY:
             rgblight_set_teal;
-            break;
-        case _RAISE:
-            rgblight_set_blue;
-            break;
-        case _LOWER:
-            rgblight_set_orange;
-            break;
-        case _ADJUST:
-            rgblight_set_red;
+            rgblight_mode(1);
             break;
         case _COLEMAK:
             rgblight_set_magenta;
+            rgblight_mode(1);
             break;
         case _DVORAK:
             rgblight_set_green;
+            rgblight_mode(1);
+            break;
+        case _RAISE:
+            rgblight_set_blue;
+            rgblight_mode(2);
+            break;
+        case _LOWER:
+            rgblight_set_orange;
+            rgblight_mode(3);
+            break;
+        case _ADJUST:
+            rgblight_set_red;
+            rgblight_mode(17);
             break;
         case 6:
             rgblight_set_urine;
             break;
         }
-        rgblight_mode(1);
         has_layer_changed = false;
     }
 

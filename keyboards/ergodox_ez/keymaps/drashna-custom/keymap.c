@@ -720,7 +720,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return MACRO_NONE;
 };
 
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow info
+=======
+void persistent_default_layer_set(uint16_t default_layer) {
+    eeconfig_update_default_layer(default_layer);
+    default_layer_set(default_layer);
+}
+
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
 
         case RGB_00FF90:
             if (record->event.pressed) {
@@ -760,6 +768,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+<<<<<<< HEAD
         case KC_WORKMAN:
             if (record->event.pressed) {
                 persistent_default_layer_set(1UL << WORKMAN);
@@ -775,6 +784,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     return true;
+=======
+
+	}
+	return true;
+>>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
 }
 
 #ifdef TAP_DANCE_ENABLE
