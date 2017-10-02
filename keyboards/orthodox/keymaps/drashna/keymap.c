@@ -49,6 +49,20 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#ifdef RGBLIGHT_ENABLE
+//define layer change stuff for underglow indicator
+#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
+#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
+#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
+#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
+#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
+
+//This is both for underglow, and Diablo 3 macros
+bool has_layer_changed = false;
+static uint8_t current_layer = 0;
+#endif
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -194,4 +208,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+#ifdef RGBLIGHT_ENABLE
 
+void matrix_init_user(void) { // Runs boot tasks for keyboard
+    has_layer_changed = true;
+};
+
+
+
+void matrix_scan_user(void) {  // runs frequently to update info
+     uint8_t layer = biton32(layer_state);
+
+     if (layer != current_layer) {
+        has_layer_changed = true;
+        current_layer = layer;
+    }
+    // Check layer, and apply color if its changed since last check
+    if (has_layer_changed) {
+        switch (layer) {
+        case _QWERTY:
+            rgblight_set_teal;
+            break;
+        case _RAISE:
+            rgblight_set_blue;
+            break;
+        case _LOWER:
+            rgblight_set_orange;
+            break;
+        case _ADJUST:
+            rgblight_set_red;
+            break;
+        case _COLEMAK:
+            rgblight_set_magenta;
+            break;
+        case _DVORAK:
+            rgblight_set_green;
+            break;
+        case 6:
+            rgblight_set_urine;
+            break;
+        }
+        rgblight_mode(1);
+        has_layer_changed = false;
+    }
+
+ };
+#endif

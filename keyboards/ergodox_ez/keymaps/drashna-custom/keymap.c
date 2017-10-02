@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_nordic.h"
 
 // Define layer names 
-#define BASE 0
+#define QWERTY 0
 #define COLEMAK 1
 #define DVORAK 2
 #define SYMB 3
@@ -45,9 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
+#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
+#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
+#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
+#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
+#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 //This is both for underglow, and Diablo 3 macros
 bool has_layer_changed = false;
-static uint8_t current_layer;
+static uint8_t current_layer = 0;
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -70,7 +77,10 @@ enum custom_keycodes {
 	RGB_FF0000,
 	RGB_800080,
 	RGB_00FF90,
-    KC_DIABLO_CLEAR
+    KC_DIABLO_CLEAR,
+    KC_QWERTY,
+    KC_COLEMAK,
+    KC_DVORAK
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -206,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | End   |       | PgDn |       |      |
  *                                 `---------------------'       `---------------------'
  */
-  [BASE] = KEYMAP(
+  [QWERTY] = KEYMAP(
 				KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
 				KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
 				KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
@@ -261,9 +271,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
              KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             KC_NO,       KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
+             TG(DVORAK),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
-             KC_TRNS,KC_K,KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
+             TG(COLEMAK), KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
 						  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -304,9 +314,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
              KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-             KC_TRNS,       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
+             TG(DVORAK),  KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   LT(MOUS, KC_S),   KC_MINS,
-             KC_NO,KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
+             TG(COLEMAK), KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
 	                       KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -357,13 +367,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Customized Overwatch Layout
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ESC  | SALT | MORE |  GG  | SYMM | DOOM | HARD |           |      |  F9  | F10  | F11  |  F12 |      |        |
+ * |   ESC  |      |      |      |      |      |      |           |      |  F9  | F10  | F11  |  F12 |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   F1   |  K   |  Q   |  W   |  E   |  R   |  T   |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   TAB  |  G   |  A   |  S   |  D   |  F   |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  M   |      |           |      |      |      |      |      |      |        |
+ * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   N  |  M   |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |   J  |  U   |  I   |  Y   |  T   |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -379,7 +389,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
 				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
 				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_M,       KC_TRNS,
+				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
 				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
                                             KC_O,   KC_P,
                                                     KC_LGUI,
@@ -388,7 +398,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
 				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+				KC_NO,          KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
 				KC_NO,  KC_NO,
 				KC_NO,
@@ -665,48 +675,43 @@ void matrix_scan_user(void) {  // runs frequently to update info
         }
         
     }
+    if (layer != current_layer) {
+        has_layer_changed = true;
+        current_layer = layer;
+    }
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
         switch (layer) {
             case SYMB:
-                rgblight_sethsv (255,255,255);
-                rgblight_mode(23);
+                rgblight_set_blue;
+                rgblight_mode(2);
                 break;
             case OVERWATCH:
-                rgblight_sethsv (30,255,255);
+                rgblight_set_orange;
                 rgblight_mode(17);
                 break;
             case DIABLO:
-                rgblight_sethsv (0,255,255);
+                rgblight_set_red;
                 rgblight_mode(5);
                 break;
             case MOUS:
-                rgblight_sethsv (60,255,255);
+                rgblight_set_urine;
                 break;
             case COLEMAK:
-                rgblight_sethsv (300,255,255);
+                rgblight_set_magenta;
                 break;
             case DVORAK:
-                rgblight_sethsv (120,255,255);
+                rgblight_set_green;
                 break;
             case 7:
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                rgblight_sethsv (195,255,255);
+                rgblight_set_teal;
                 rgblight_mode(1);
                 break;
         }
-    }
-
-	// Update layer status at the end, so this sets the default color
-	// rather than relying on the init, which was unreliably...
-	// Probably due to a timing issue, but this requires no additional code
-    if (current_layer == layer) {
         has_layer_changed = false;
-    } else {
-        has_layer_changed = true;
-        current_layer = layer;
     }
 
 	// Run Diablo 3 macro checking code.
