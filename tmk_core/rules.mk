@@ -92,6 +92,9 @@ endif
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+ifneq ($(strip $(ALLOW_WARNINGS)), yes)
+    CFLAGS += -Werror
+endif
 #CFLAGS += -mshort-calls
 #CFLAGS += -fno-unit-at-a-time
 #CFLAGS += -Wundef
@@ -115,6 +118,9 @@ CPPFLAGS += -O$(OPT)
 CPPFLAGS += -w
 CPPFLAGS += -Wall
 CPPFLAGS += -Wundef
+ifneq ($(strip $(ALLOW_WARNINGS)), yes)
+    CPPFLAGS += -Werror
+endif
 #CPPFLAGS += -mshort-calls
 #CPPFLAGS += -fno-unit-at-a-time
 #CPPFLAGS += -Wstrict-prototypes
@@ -241,8 +247,8 @@ gccversion :
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(KEYBOARD)_$(KEYMAP).hex; \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(TARGET).hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
 	else \
 		$(COPY) $@ $(TARGET).hex; \
 	fi
@@ -376,7 +382,7 @@ $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter gccversion \
-build elf hex eep lss sym coff extcoff \
+.PHONY : all finish sizebefore sizeafter qmkversion \
+gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
 program teensy dfu flip dfu-ee flip-ee dfu-start 

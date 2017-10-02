@@ -1,6 +1,6 @@
 #RGB backlight for MinOrca
 
-![wiring](example.jpg)
+![wiring](https://i.imgur.com/jyYyiSS.jpg)
 
 Example of adding WS2812b LEDs to a MinOrca.
 
@@ -21,5 +21,5 @@ Example wiring:
 
 WS2812 data pin is connected to D5
 
-![wiring](wiring1.jpg)
-![wiring closeup](wiring2.jpg)
+![wiring](https://i.imgur.com/CFBf71F.jpg)
+![wiring closeup](https://i.imgur.com/VJogRoj.jpg)

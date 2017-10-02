@@ -1,3 +1,19 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef MUSICAL_NOTES_H
 #define MUSICAL_NOTES_H
 
@@ -35,12 +51,6 @@
 #define ED_NOTE(n)                     EIGHTH_DOT_NOTE(n)
 #define SD_NOTE(n)                     SIXTEENTH_DOT_NOTE(n)
 
-// Note Styles
-// Staccato makes sure there is a rest between each note. Think: TA TA TA
-// Legato makes notes flow together. Think: TAAA
-#define STACCATO 0.01
-#define LEGATO   0
-
 // Note Timbre
 // Changes how the notes sound
 #define TIMBRE_12       0.125
@@ -48,7 +58,6 @@
 #define TIMBRE_50       0.500
 #define TIMBRE_75       0.750
 #define TIMBRE_DEFAULT  TIMBRE_50
-
 
 // Notes - # = Octave
 

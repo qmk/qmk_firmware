@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Alt/` |   GUI   |  Lower |    Space     |    Space     |  Raise  | GUI  | Alt  | Ctrl  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_QWERTY] = KEYMAP_TV45(
+[_QWERTY] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
     HPR_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC      ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Alt/` |   GUI   |  Lower |    Space     |    Space     |  Raise  | GUI  | Alt  | Ctrl  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_COLEMAK] = KEYMAP_TV45(
+[_COLEMAK] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
     HPR_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,    KC_BSPC      ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Alt/` |   GUI   |  Lower |    Space     |    Space     |  Raise  | GUI  | Alt  | Ctrl  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_DVORAK] = KEYMAP_TV45(
+[_DVORAK] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
     HPR_TAB,KC_QUOT, KC_COMM,  KC_DOT,    KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC      ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Brite |         |        |    Home      |     End      |         | Left | Down | Right |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_LOWER] = KEYMAP_TV45(
+[_LOWER] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
 ALL_T(KC_0),   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL       ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -137,7 +137,7 @@ ALT_T(BACKLIT),   _______   , _______ ,     KC_HOME    ,      KC_END     , _____
  * |  Brite |         |        |     Play     |     Next     |         | Mute | Vol- | Vol+  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_RAISE] = KEYMAP_TV45(
+[_RAISE] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
 ALL_T(KC_TILD),KC_EXLM,KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,    KC_DEL       ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -159,7 +159,7 @@ ALT_T(BACKLIT),   _______   , _______ ,     KC_MPLY    ,     KC_MNXT     , _____
  * |        |         |        |              |              |         |      |      |       |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_ADJUST] = KEYMAP_TV45(
+[_ADJUST] = KEYMAP_ARROW(
 /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
     _______, RESET , _______, _______, _______, _______, _______, _______, _______, _______, _______,      RESET      ,
 /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
@@ -171,7 +171,7 @@ ALT_T(BACKLIT),   _______   , _______ ,     KC_MPLY    ,     KC_MNXT     , _____
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -180,19 +180,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;

@@ -9,6 +9,7 @@
 #include "suspend.h"
 #include "timer.h"
 #include "led.h"
+#include "host.h"
 
 #ifdef PROTOCOL_LUFA
 	#include "lufa.h"

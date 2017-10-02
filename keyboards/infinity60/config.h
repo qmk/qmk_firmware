@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define INFINITY_PROTOTYPE
 
 /* Keymap for Infinity 1.1a (first revision with LED support) */
-//#define INFINITY_LED
+#define INFINITY_LED
 
 /*
  * Feature disable options

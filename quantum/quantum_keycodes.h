@@ -1,6 +1,34 @@
-
+/* Copyright 2016-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef QUANTUM_KEYCODES_H
 #define QUANTUM_KEYCODES_H
+
+#ifndef MIDI_ENABLE_STRICT
+#define MIDI_ENABLE_STRICT 0
+#endif
+
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
+#ifndef MIDI_TONE_KEYCODE_OCTAVES
+#define MIDI_TONE_KEYCODE_OCTAVES 3
+#endif
+#endif
+
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
 enum quantum_keycodes {
     // Ranges used in shortucuts - not to be used directly
@@ -43,6 +71,12 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
+#ifdef STENO_ENABLE
+    QK_STENO              = 0x5A00,
+    QK_STENO_BOLT         = 0x5A30,
+    QK_STENO_GEMINI       = 0x5A31,
+    QK_STENO_MAX          = 0x5A3F,
+#endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
@@ -80,11 +114,17 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    GRAVE_ESC,
 
     // Leader key
 #ifndef DISABLE_LEADER
     KC_LEAD,
 #endif
+
+    // Auto Shift setup
+    KC_ASUP,
+    KC_ASDN,
+    KC_ASRP,
 
     // Audio on/off/toggle
     AU_ON,
@@ -103,13 +143,237 @@ enum quantum_keycodes {
     MU_OFF,
     MU_TOG,
 
+    // Music mode cycle
+    MU_MOD,
+
     // Music voice iterate
     MUV_IN,
     MUV_DE,
 
-    // Midi mode on/off
-    MIDI_ON,
-    MIDI_OFF,
+    // Midi
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+    MI_ON,  // send midi notes when music mode is enabled
+    MI_OFF, // don't send midi notes when music mode is enabled
+#endif
+
+#if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
+    MIDI_TONE_MIN,
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 0
+    MI_C = MIDI_TONE_MIN,
+    MI_Cs,
+    MI_Db = MI_Cs,
+    MI_D,
+    MI_Ds,
+    MI_Eb = MI_Ds,
+    MI_E,
+    MI_F,
+    MI_Fs,
+    MI_Gb = MI_Fs,
+    MI_G,
+    MI_Gs,
+    MI_Ab = MI_Gs,
+    MI_A,
+    MI_As,
+    MI_Bb = MI_As,
+    MI_B,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 1
+    MI_C_1,
+    MI_Cs_1,
+    MI_Db_1 = MI_Cs_1,
+    MI_D_1,
+    MI_Ds_1,
+    MI_Eb_1 = MI_Ds_1,
+    MI_E_1,
+    MI_F_1,
+    MI_Fs_1,
+    MI_Gb_1 = MI_Fs_1,
+    MI_G_1,
+    MI_Gs_1,
+    MI_Ab_1 = MI_Gs_1,
+    MI_A_1,
+    MI_As_1,
+    MI_Bb_1 = MI_As_1,
+    MI_B_1,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 2
+    MI_C_2,
+    MI_Cs_2,
+    MI_Db_2 = MI_Cs_2,
+    MI_D_2,
+    MI_Ds_2,
+    MI_Eb_2 = MI_Ds_2,
+    MI_E_2,
+    MI_F_2,
+    MI_Fs_2,
+    MI_Gb_2 = MI_Fs_2,
+    MI_G_2,
+    MI_Gs_2,
+    MI_Ab_2 = MI_Gs_2,
+    MI_A_2,
+    MI_As_2,
+    MI_Bb_2 = MI_As_2,
+    MI_B_2,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 3
+    MI_C_3,
+    MI_Cs_3,
+    MI_Db_3 = MI_Cs_3,
+    MI_D_3,
+    MI_Ds_3,
+    MI_Eb_3 = MI_Ds_3,
+    MI_E_3,
+    MI_F_3,
+    MI_Fs_3,
+    MI_Gb_3 = MI_Fs_3,
+    MI_G_3,
+    MI_Gs_3,
+    MI_Ab_3 = MI_Gs_3,
+    MI_A_3,
+    MI_As_3,
+    MI_Bb_3 = MI_As_3,
+    MI_B_3,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 4
+    MI_C_4,
+    MI_Cs_4,
+    MI_Db_4 = MI_Cs_4,
+    MI_D_4,
+    MI_Ds_4,
+    MI_Eb_4 = MI_Ds_4,
+    MI_E_4,
+    MI_F_4,
+    MI_Fs_4,
+    MI_Gb_4 = MI_Fs_4,
+    MI_G_4,
+    MI_Gs_4,
+    MI_Ab_4 = MI_Gs_4,
+    MI_A_4,
+    MI_As_4,
+    MI_Bb_4 = MI_As_4,
+    MI_B_4,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 5
+    MI_C_5,
+    MI_Cs_5,
+    MI_Db_5 = MI_Cs_5,
+    MI_D_5,
+    MI_Ds_5,
+    MI_Eb_5 = MI_Ds_5,
+    MI_E_5,
+    MI_F_5,
+    MI_Fs_5,
+    MI_Gb_5 = MI_Fs_5,
+    MI_G_5,
+    MI_Gs_5,
+    MI_Ab_5 = MI_Gs_5,
+    MI_A_5,
+    MI_As_5,
+    MI_Bb_5 = MI_As_5,
+    MI_B_5,
+#endif
+
+#if !MIDI_ENABLE_STRICT || MIDI_TONE_KEYCODE_OCTAVES > 5
+    MIDI_TONE_MAX = MI_B_5,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 4
+    MIDI_TONE_MAX = MI_B_4,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 3
+    MIDI_TONE_MAX = MI_B_3,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 2
+    MIDI_TONE_MAX = MI_B_2,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 1
+    MIDI_TONE_MAX = MI_B_1,
+#elif MIDI_TONE_KEYCODE_OCTAVES > 0
+    MIDI_TONE_MAX = MI_B,
+#endif
+
+    MIDI_OCTAVE_MIN,
+    MI_OCT_N2 = MIDI_OCTAVE_MIN,
+    MI_OCT_N1,
+    MI_OCT_0,
+    MI_OCT_1,
+    MI_OCT_2,
+    MI_OCT_3,
+    MI_OCT_4,
+    MI_OCT_5,
+    MI_OCT_6,
+    MI_OCT_7,
+    MIDI_OCTAVE_MAX = MI_OCT_7,
+    MI_OCTD, // octave down
+    MI_OCTU, // octave up
+
+    MIDI_TRANSPOSE_MIN,
+    MI_TRNS_N6 = MIDI_TRANSPOSE_MIN,
+    MI_TRNS_N5,
+    MI_TRNS_N4,
+    MI_TRNS_N3,
+    MI_TRNS_N2,
+    MI_TRNS_N1,
+    MI_TRNS_0,
+    MI_TRNS_1,
+    MI_TRNS_2,
+    MI_TRNS_3,
+    MI_TRNS_4,
+    MI_TRNS_5,
+    MI_TRNS_6,
+    MIDI_TRANSPOSE_MAX = MI_TRNS_6,
+    MI_TRNSD, // transpose down
+    MI_TRNSU, // transpose up
+
+    MIDI_VELOCITY_MIN,
+    MI_VEL_1 = MIDI_VELOCITY_MIN,
+    MI_VEL_2,
+    MI_VEL_3,
+    MI_VEL_4,
+    MI_VEL_5,
+    MI_VEL_6,
+    MI_VEL_7,
+    MI_VEL_8,
+    MI_VEL_9,
+    MI_VEL_10,
+    MIDI_VELOCITY_MAX = MI_VEL_10,
+    MI_VELD, // velocity down
+    MI_VELU, // velocity up
+
+    MIDI_CHANNEL_MIN,
+    MI_CH1 = MIDI_CHANNEL_MIN,
+    MI_CH2,
+    MI_CH3,
+    MI_CH4,
+    MI_CH5,
+    MI_CH6,
+    MI_CH7,
+    MI_CH8,
+    MI_CH9,
+    MI_CH10,
+    MI_CH11,
+    MI_CH12,
+    MI_CH13,
+    MI_CH14,
+    MI_CH15,
+    MI_CH16,
+    MIDI_CHANNEL_MAX = MI_CH16,
+    MI_CHD, // previous channel
+    MI_CHU, // next channel
+
+    MI_ALLOFF, // all notes off
+
+    MI_SUS, // sustain
+    MI_PORT, // portamento
+    MI_SOST, // sostenuto
+    MI_SOFT, // soft pedal
+    MI_LEG,  // legato
+
+    MI_MOD, // modulation
+    MI_MODSD, // decrease modulation speed
+    MI_MODSU, // increase modulation speed
+#endif // MIDI_ADVANCED
 
     // Backlight functionality
     BL_0,
@@ -142,6 +406,14 @@ enum quantum_keycodes {
     RGB_SAD,
     RGB_VAI,
     RGB_VAD,
+    RGB_MODE_PLAIN,
+    RGB_MODE_BREATHE,
+    RGB_MODE_RAINBOW,
+    RGB_MODE_SWIRL,
+    RGB_MODE_SNAKE,
+    RGB_MODE_KNIGHT,
+    RGB_MODE_XMAS,
+    RGB_MODE_GRADIENT,
 
     // Left shift, open paren
     KC_LSPO,
@@ -159,8 +431,14 @@ enum quantum_keycodes {
 #ifdef BLUETOOTH_ENABLE
     OUT_BT,
 #endif
-#ifdef ADAFRUIT_BLE_ENABLE
-    OUT_BLE,
+
+#ifdef KEY_LOCK_ENABLE
+    KC_LOCK,
+#endif
+
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
 #endif
 
     // always leave at the end
@@ -272,6 +550,16 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
+#define KC_GESC GRAVE_ESC
+
+#define RGB_M_P RGB_MODE_PLAIN
+#define RGB_M_B RGB_MODE_BREATHE
+#define RGB_M_R RGB_MODE_RAINBOW
+#define RGB_M_SW RGB_MODE_SWIRL
+#define RGB_M_SN RGB_MODE_SNAKE
+#define RGB_M_K RGB_MODE_KNIGHT
+#define RGB_M_X RGB_MODE_XMAS
+#define RGB_M_G RGB_MODE_GRADIENT
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
@@ -281,9 +569,6 @@ enum quantum_keycodes {
 
 #define BL_ON  BL_9
 #define BL_OFF BL_0
-
-#define MI_ON MIDI_ON
-#define MI_OFF MIDI_OFF
 
 // GOTO layer - 16 layers max
 // when:
@@ -308,13 +593,13 @@ enum quantum_keycodes {
 #define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
 
 // One-shot mod
-#define OSM(mod) (mod | QK_ONE_SHOT_MOD)
+#define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
 
 // Layer tap-toggle
 #define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0x1F) << 8))
+#define MT(mod, kc) (kc | QK_MOD_TAP | (((mod) & 0x1F) << 8))
 
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define LCTL_T(kc) MT(MOD_LCTL, kc)

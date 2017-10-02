@@ -212,7 +212,7 @@ void serial_link_update(void) {
 
     systime_t current_time = chVTGetSystemTimeX();
     systime_t delta = current_time - last_update;
-    if (changed || delta > US2ST(1000)) {
+    if (changed || delta > US2ST(5000)) {
         last_update = current_time;
         last_matrix = matrix;
         matrix_object_t* m = begin_write_keyboard_matrix();

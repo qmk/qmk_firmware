@@ -1,3 +1,19 @@
+/* Copyright 2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef PROCESS_UNICODE_COMMON_H
 #define PROCESS_UNICODE_COMMON_H
 
@@ -21,6 +37,7 @@ void register_hex(uint16_t hex);
 #define UC_WIN 2  // Windows 'HexNumpad'
 #define UC_BSD 3  // BSD (not implemented)
 #define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
+#define UC_OSX_RALT 5 // Mac OS X using Right Alt key for Unicode Compose
 
 #define UC_BSPC	UC(0x0008)
 

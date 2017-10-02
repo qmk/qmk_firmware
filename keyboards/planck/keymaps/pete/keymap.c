@@ -143,7 +143,7 @@ float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -154,25 +154,25 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+              PLAY_SONG(tone_qwerty);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+              PLAY_SONG(tone_dvorak);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _LOWER:
@@ -211,7 +211,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             unregister_code(KC_RCTL);
             unregister_code(KC_RALT);
             unregister_code(KC_RGUI);
-          } 
+          }
         break;
         case _OS:
           if (record->event.pressed) {
@@ -229,7 +229,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             layer_off(currentOs);
             currentOs = id;
           }
-        break;        
+        break;
       }
     return MACRO_NONE;
 };
@@ -237,14 +237,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     _delay_ms(20); // stops the tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
   #endif
 }
 
 #ifdef AUDIO_ENABLE
 void play_goodbye_tone()
 {
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  PLAY_SONG(goodbye);
   _delay_ms(150);
 }
 

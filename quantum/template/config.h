@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 REPLACE_WITH_YOUR_NAME
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -66,6 +66,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
+ * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
+ */
+// #define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Force NKRO
@@ -158,5 +163,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+/*
+ * MIDI options
+ */
+
+/* Prevent use of disabled MIDI features in the keymap */
+//#define MIDI_ENABLE_STRICT 1
+
+/* enable basic MIDI features:
+   - MIDI notes can be sent when in Music mode is on
+*/
+//#define MIDI_BASIC
+
+/* enable advanced MIDI features:
+   - MIDI notes can be added to the keymap
+   - Octave shift and transpose
+   - Virtual sustain, portamento, and modulation wheel
+   - etc.
+*/
+//#define MIDI_ADVANCED
+
+/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
+//#define MIDI_TONE_KEYCODE_OCTAVES 1
 
 #endif

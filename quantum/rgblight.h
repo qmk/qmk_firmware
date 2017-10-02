@@ -1,3 +1,18 @@
+/* Copyright 2017 Yang Liu
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
@@ -8,18 +23,19 @@
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
 #endif
 
 #ifndef RGBLIGHT_EFFECT_KNIGHT_LENGTH
-#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
-#endif
-#ifndef RGBLIGHT_EFFECT_KNIGHT_OFFSET
-#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 9
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
 #endif
 
-#ifndef RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH
-#define RGBLIGHT_EFFECT_DUALKNIGHT_LENGTH 4
+#ifndef RGBLIGHT_EFFECT_KNIGHT_OFFSET
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 0
+#endif
+
+#ifndef RGBLIGHT_EFFECT_KNIGHT_LED_NUM
+#define RGBLIGHT_EFFECT_KNIGHT_LED_NUM RGBLED_NUM
 #endif
 
 #ifndef RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL
@@ -46,7 +62,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "eeconfig.h"
-#include "light_ws2812.h"
+#ifndef RGBLIGHT_CUSTOM_DRIVER
+#include "ws2812.h"
+#endif
+#include "rgblight_types.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
@@ -74,6 +93,7 @@ void rgblight_toggle(void);
 void rgblight_enable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
+uint32_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);

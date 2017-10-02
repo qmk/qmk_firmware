@@ -3,7 +3,7 @@
 
 #if defined(__AVR__)
 #   include <avr/pgmspace.h>
-#elif defined(__arm__)
+#else
 #   define PROGMEM
 #   define pgm_read_byte(p)     *((unsigned char*)p)
 #   define pgm_read_word(p)     *((uint16_t*)p)

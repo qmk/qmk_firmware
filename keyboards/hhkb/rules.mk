@@ -53,28 +53,28 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # as per original hasu settings
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE ?= yes # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes  # Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes  # Audio control and System control(+450)
-CONSOLE_ENABLE ?= yes   # Console for debug(+400)
-COMMAND_ENABLE ?= yes   # Commands for debug and configuration
-CUSTOM_MATRIX ?= yes    # Custom matrix file for the HHKB
+BOOTMAGIC_ENABLE = yes # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes  # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes  # Audio control and System control(+450)
+CONSOLE_ENABLE = yes   # Console for debug(+400)
+COMMAND_ENABLE = yes   # Commands for debug and configuration
+CUSTOM_MATRIX = yes    # Custom matrix file for the HHKB
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
-# NKRO_ENABLE ?= yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE ?= yes       # MIDI controls
-# UNICODE_ENABLE ?= yes    # Unicode
-# BLUETOOTH_ENABLE ?= yes  # Enable Bluetooth with the Adafruit EZ-Key HID
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+# NKRO_ENABLE = yes       # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+# MIDI_ENABLE = yes       # MIDI controls
+# UNICODE_ENABLE = yes    # Unicode
+# BLUETOOTH_ENABLE = yes  # Enable Bluetooth with the Adafruit EZ-Key HID
 
-debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
-debug-on: all
+# debug-on: EXTRAFLAGS += -DDEBUG -DDEBUG_ACTION
+# debug-on: all
 
-debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
-debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
-debug-off: all
+# debug-off: EXTRAFLAGS += -DNO_DEBUG -DNO_PRINT
+# debug-off: OPT_DEFS := $(filter-out -DCONSOLE_ENABLE,$(OPT_DEFS))
+# debug-off: all

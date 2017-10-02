@@ -63,19 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BACKLIGHT_LEVELS 4
 
-/* Underlight configuration
- */
-
-/*#define RGB_DI_PIN E2
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 2     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17*/
-//Disabled while I figure out a suitable pin for RGB support.
-//I've tried F5, D2, D3, and E2 but it's possible the end of my
-//strand is bad. New LEDs on order.
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

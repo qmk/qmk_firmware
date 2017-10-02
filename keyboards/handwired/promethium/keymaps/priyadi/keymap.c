@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #ifdef RGBSPS_ENABLE
 #include "rgbsps.h"
+#include "rgbtheme.h"
 #endif
 #ifdef PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
@@ -38,6 +39,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef FAUXCLICKY_ENABLE
 #include "fauxclicky.h"
+#ifdef RGBSPS_ENABLE
+#undef FAUXCLICKY_OFF
+#define FAUXCLICKY_OFF do { \
+    fauxclicky_enabled = false; \
+    rgbsps_set(LED_AUDIO, COLOR_BLANK); \
+    fauxclicky_stop(); \
+} while (0)
+#undef FAUXCLICKY_ON
+#define FAUXCLICKY_ON do { \
+    fauxclicky_enabled = true; \
+    rgbsps_set(LED_AUDIO, THEME_COLOR_AUDIO); \
+} while (0)
+#endif
 #endif
 #include "outputselect.h"
 #include "led.h"
@@ -128,9 +142,10 @@ enum planck_keycodes {
 #ifndef FAUXCLICKY_ENABLE
   FC_TOG,
 #endif
-#ifndef ADAFRUIT_BLE_ENABLE
-  OUT_BLE,
+#ifndef MODULE_ADAFRUIT_BLE
+  OUT_BT,
 #endif
+  RGBDEMO,
   KEYCODE_END
 };
 
@@ -421,19 +436,30 @@ const uint8_t PROGMEM LED_MODS[] = {
 };
 
 const uint8_t PROGMEM LED_FN[] = {
-  LED_PUNC,
+  LED_EMPTY,
   LED_NUM,
   LED_FUN,
-  LED_EMOJI
+  LED_GREEK
 };
 
 const uint8_t PROGMEM LED_INDICATORS[] = {
-  LED_IND_EMOJI,
-  LED_IND_NUM,
-  LED_IND_FUN,
-  LED_IND_BATTERY,
-  LED_IND_USB,
+  LED_IND_LINUX,
+  LED_IND_APPLE,
+  LED_IND_WINDOWS,
+  LED_IND_QWERTY,
+  LED_IND_ALT,
+  LED_IND_AUDIO,
   LED_IND_BLUETOOTH,
+  LED_IND_USB,
+
+  LED_IND_BATTERY,
+  LED_IND_CAPSLOCK,
+  LED_IND_GUI,
+  LED_IND_FUN,
+  LED_IND_NUM,
+  LED_IND_PUNC,
+  LED_IND_EMOJI,
+  LED_IND_GREEK,
 };
 
 const uint8_t PROGMEM LED_TRACKPOINT[] = {
@@ -444,15 +470,36 @@ const uint8_t PROGMEM LED_TRACKPOINT[] = {
 
 void led_turnoff_keys(void) {
   for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), COLOR_BLACK);
   }
   for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-    rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_MODS[i]), COLOR_BLACK);
   }
   for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-    rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 0);
+    rgbsps_set(pgm_read_byte(&LED_FN[i]), COLOR_BLACK);
   }
 }
+
+#ifdef RGBSPS_DEMO_ENABLE
+void led_demo(void) {
+  rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
+  rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
+  rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
+  rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
+  rgbsps_set(LED_IND_ALT, THEME_COLOR_ALT);
+  rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
+  rgbsps_set(LED_IND_BLUETOOTH, THEME_COLOR_BLUETOOTH);
+  rgbsps_set(LED_IND_USB, THEME_COLOR_USB);
+  rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
+  rgbsps_set(LED_IND_GUI, THEME_COLOR_GUI);
+  rgbsps_set(LED_IND_FUN, THEME_COLOR_FUN);
+  rgbsps_set(LED_IND_NUM, THEME_COLOR_NUM);
+  rgbsps_set(LED_IND_PUNC, THEME_COLOR_PUNC);
+  rgbsps_set(LED_IND_GREEK, THEME_COLOR_GREEK);
+  rgbsps_set(LED_IND_EMOJI, THEME_COLOR_EMOJI);
+  rgbsps_send();
+}
+#endif
 
 void led_reset(void) {
   switch (glow_mode) {
@@ -462,38 +509,54 @@ void led_reset(void) {
     case GLOW_MIN:
       led_turnoff_keys();
       for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
-        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 8, 8, 8);
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), THEME_COLOR_GLOW1_HOME);
       }
-      rgbsps_set(LED_F, 15, 0, 0);
-      rgbsps_set(LED_J, 15, 0, 0);
+      rgbsps_set(LED_F, THEME_COLOR_GLOW1_HOMING);
+      rgbsps_set(LED_J, THEME_COLOR_GLOW1_HOMING);
       break;
     case GLOW_FULL:
       for(uint8_t i = 0; i < COUNT(LED_ALNUM); i++) {
-        rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), 8, 8, 8);
+        rgbsps_set(pgm_read_byte(&LED_ALNUM[i]), THEME_COLOR_GLOW2_ALPHA);
       }
       for(uint8_t i = 0; i < COUNT(LED_MODS); i++) {
-        rgbsps_set(pgm_read_byte(&LED_MODS[i]), 0, 15, 0);
+        rgbsps_set(pgm_read_byte(&LED_MODS[i]), THEME_COLOR_GLOW2_MODS);
       }
       for(uint8_t i = 0; i < COUNT(LED_FN); i++) {
-        rgbsps_set(pgm_read_byte(&LED_FN[i]), 0, 0, 15);
+        rgbsps_set(pgm_read_byte(&LED_FN[i]), THEME_COLOR_GLOW2_FN);
       }
       for(uint8_t i = 0; i < COUNT(LED_HOMING); i++) {
-        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), 15, 0, 0);
+        rgbsps_set(pgm_read_byte(&LED_HOMING[i]), THEME_COLOR_GLOW2_HOME);
       }
-      rgbsps_set(LED_F, 15, 15, 0);
-      rgbsps_set(LED_J, 15, 15, 0);
+      rgbsps_set(LED_F, THEME_COLOR_GLOW2_HOMING);
+      rgbsps_set(LED_J, THEME_COLOR_GLOW2_HOMING);
       break;
   }
+}
+
+void led_set_default_layer_indicator(void) {
+  uint8_t default_layer = biton32(default_layer_state);
+  if (default_layer == _QWERTY) {
+    rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
+    rgbsps_set(LED_IND_ALT, COLOR_BLANK);
+  } else {
+    rgbsps_set(LED_IND_QWERTY, COLOR_BLANK);
+    rgbsps_set(LED_IND_ALT, THEME_COLOR_ALT);
+  }
+  rgbsps_send();
+  return;
 }
 
 void led_set_layer_indicator(void) {
   static uint8_t oldlayer = 255;
 
-  rgbsps_set(LED_IND_FUN, 0, 0, 0);
-  // rgbsps_set(LED_IND_NUM, 0, 0, 0);
-  rgbsps_set(LED_IND_EMOJI, 0, 0, 0);
-
   led_reset();
+
+  rgbsps_set(LED_IND_GUI, COLOR_BLANK);
+  rgbsps_set(LED_IND_FUN, COLOR_BLANK);
+  rgbsps_set(LED_IND_NUM, COLOR_BLANK);
+  rgbsps_set(LED_IND_PUNC, COLOR_BLANK);
+  rgbsps_set(LED_IND_GREEK, COLOR_BLANK);
+  rgbsps_set(LED_IND_EMOJI, COLOR_BLANK);
 
   uint8_t layer = biton32(layer_state);
   if (oldlayer == layer) {
@@ -508,39 +571,72 @@ void led_set_layer_indicator(void) {
   }
 
   switch(layer) {
-    case _FUN:
-      rgbsps_set(LED_IND_FUN, 15, 0, 0);
+    case _GUI:
+      rgbsps_set(LED_IND_GUI, THEME_COLOR_GUI);
       break;
-    // case _NUM:
-    //   rgbsps_set(LED_IND_NUM, 0, 0, 15);
-    //   break;
+    case _FUN:
+      rgbsps_set(LED_IND_FUN, THEME_COLOR_FUN);
+      break;
+    case _NUM:
+      rgbsps_set(LED_IND_NUM, THEME_COLOR_NUM);
+      break;
+    case _PUNC:
+      rgbsps_set(LED_IND_PUNC, THEME_COLOR_PUNC);
+      break;
+    case _GREEKL:
+    case _GREEKU:
+      rgbsps_set(LED_IND_GREEK, THEME_COLOR_GREEK);
+      break;
     case _EMOJI:
-      rgbsps_set(LED_IND_EMOJI, 15, 15, 0);
+      rgbsps_set(LED_IND_EMOJI, THEME_COLOR_EMOJI);
       break;
     default:
-      rgbsps_set(LED_IND_FUN, 3, 3, 3);
-      // rgbsps_set(LED_IND_NUM, 3, 3, 3);
-      rgbsps_set(LED_IND_EMOJI, 3, 3, 3);
+      rgbsps_set(LED_IND_GUI, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_FUN, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_NUM, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_PUNC, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_GREEK, THEME_COLOR_OTHERLAYER);
+      rgbsps_set(LED_IND_EMOJI, THEME_COLOR_OTHERLAYER);
   }
 
   rgbsps_send();
 }
 
+void led_set_unicode_input_mode(void) {
+  rgbsps_set(LED_IND_LINUX, COLOR_BLANK);
+  rgbsps_set(LED_IND_APPLE, COLOR_BLANK);
+  rgbsps_set(LED_IND_WINDOWS, COLOR_BLANK);
+
+  switch (get_unicode_input_mode()) {
+    case UC_LNX:
+      rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
+      break;
+    case UC_OSX:
+      rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
+      break;
+    case UC_WIN:
+    case UC_WINC:
+      rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
+      break;
+  }
+  rgbsps_send();
+}
+
 void led_set_output_ble(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 15);
-  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_set(LED_IND_BLUETOOTH, THEME_COLOR_BLUETOOTH);
+  rgbsps_set(LED_IND_USB, COLOR_BLANK);
   rgbsps_send();
 }
 
 void led_set_output_usb(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
-  rgbsps_set(LED_IND_USB, 15, 15, 15);
+  rgbsps_set(LED_IND_BLUETOOTH, COLOR_BLANK);
+  rgbsps_set(LED_IND_USB, THEME_COLOR_USB);
   rgbsps_send();
 }
 
 void led_set_output_none(void) {
-  rgbsps_set(LED_IND_BLUETOOTH, 0, 0, 0);
-  rgbsps_set(LED_IND_USB, 0, 0, 0);
+  rgbsps_set(LED_IND_BLUETOOTH, COLOR_BLANK);
+  rgbsps_set(LED_IND_USB, COLOR_BLANK);
   rgbsps_send();
 }
 
@@ -549,10 +645,30 @@ void led_init(void) {
   rgbsps_turnoff();
 
   // set trackpoint color
-  rgbsps_set(LED_TRACKPOINT1, 15, 0, 0);
-  rgbsps_set(LED_TRACKPOINT2, 0, 0, 15);
-  rgbsps_set(LED_TRACKPOINT3, 15, 0, 0);
+  rgbsps_set(LED_TRACKPOINT1, THEME_COLOR_TP1);
+  rgbsps_set(LED_TRACKPOINT2, THEME_COLOR_TP2);
+  rgbsps_set(LED_TRACKPOINT3, THEME_COLOR_TP3);
+
+  // unicode input mode
+  led_set_unicode_input_mode();
+
+  // layer indicator
+  led_set_layer_indicator();
+  led_set_default_layer_indicator();
+
+  // clicky
+#ifdef FAUXCLICKY_ENABLE
+  if (fauxclicky_enabled) {
+    rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
+  } else {
+    rgbsps_set(LED_IND_AUDIO, COLOR_BLANK);
+  }
+#endif
+
+  rgbsps_send();
 }
+
+
 #endif // RGBSPS_ENABLE
 
 // keymaps
@@ -570,11 +686,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | Alt  | GUI  | Punc | Num  |    Space    | Fun  |Greek | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = KEYMAP(
+[_QWERTY] = KEYMAP_CUSTOM(
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT ,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, C_RALT,  KC_RCTL
+  KC_LCTL, KC_LALT, KC_LGUI, EMPTY,   NUM,     LSPACE,  RSPACE,  FUN,     GREEK,   KC_RGUI, C_RALT,  KC_RCTL,
+                                           _______, _______, _______
 ),
 
 /* Dvorak
@@ -589,11 +706,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 #ifdef LAYOUT_DVORAK
-[_DVORAK] = KEYMAP(
+[_DVORAK] = KEYMAP_CUSTOM(
   _______, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    _______,
   _______, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    _______,
   _______, KC_SLSH, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 #endif
 
@@ -610,11 +728,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 #ifdef LAYOUT_COLEMAK
-[_COLEMAK] = KEYMAP(
+[_COLEMAK] = KEYMAP_CUSTOM(
   _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, _______,
   _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    _______,
   _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 #endif
 
@@ -631,11 +750,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 #ifdef LAYOUT_NORMAN
-[_NORMAN] = KEYMAP(
+[_NORMAN] = KEYMAP_CUSTOM(
   _______, KC_Q,    KC_W,    KC_D,    KC_F,    KC_K,    KC_J,    KC_U,    KC_R,    KC_L,    KC_QUOT, _______,
   _______, KC_A,    KC_S,    KC_E,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_I,    KC_O,    KC_H,    _______,
   _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 #endif
 
@@ -652,11 +772,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 #ifdef LAYOUT_WORKMAN
-[_WORKMAN] = KEYMAP(
+[_WORKMAN] = KEYMAP_CUSTOM(
   _______, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_QUOT, _______,
   _______, KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    _______,
   _______, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 #endif
 
@@ -671,11 +792,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_PUNC] = KEYMAP(
+[_PUNC] = KEYMAP_CUSTOM(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, X(LTEQ), X(GTEQ), _______,
   KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, X(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
   KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, _______,
+                                           _______, _______, _______
 ),
 
 /* Num
@@ -689,11 +811,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |   x  |      |      |      |      |   0  |   ,  |   .  |   :  |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_NUM] = KEYMAP(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),  KC_7,    KC_8,    KC_9,   S(KC_D), _______,
+[_NUM] = KEYMAP_CUSTOM(
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, S(KC_A),  KC_1,    KC_2,    KC_3,   S(KC_D), _______,
   KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, S(KC_B),  KC_4,    KC_5,    KC_6,   S(KC_E), _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_1,    KC_2,    KC_3,   S(KC_F), _______,
-  _______, _______, KC_X,    _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_COLN, _______
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, S(KC_C),  KC_7,    KC_8,    KC_9,   S(KC_F), _______,
+  _______, _______, KC_X,    _______, _______, _______, _______,  FUN0 ,   KC_COMM, KC_DOT, KC_COLN, _______,
+                                           _______, _______, _______
 ),
 
 /* Func
@@ -707,11 +830,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_FUN] = KEYMAP(
+[_FUN] = KEYMAP_CUSTOM(
   XXXXXXX,   KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_INS,  XXXXXXX, KC_PGUP,   KC_UP, KC_PGDN, KC_PGUP, KC_DEL,
   KC_CAPS,   KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_PSCR, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
   _______,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_PAUS, XXXXXXX, XXXXXXX, KC_HOME,  KC_END, XXXXXXX, _______,
-  _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 
 /* Uppercase Greek
@@ -725,11 +849,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_GREEKU] = KEYMAP(
+[_GREEKU] = KEYMAP_CUSTOM(
   _______, XXXXXXX, XXXXXXX,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
   _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), KC_QUOT, _______,
   _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 
 /* Lowercase Greek
@@ -743,11 +868,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_GREEKL] = KEYMAP(
+[_GREEKL] = KEYMAP_CUSTOM(
   _______, XXXXXXX,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
   _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), KC_QUOT, _______,
   _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 
 /* Empty
@@ -761,11 +887,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_EMPTY] = KEYMAP(
+[_EMPTY] = KEYMAP_CUSTOM(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                           _______, _______, _______
 ),
 
 /* Emoji
@@ -779,11 +906,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_EMOJI] = KEYMAP(
+[_EMOJI] = KEYMAP_CUSTOM(
   X(HART2), X(CRY2),X(WEARY),X(EYERT),X(SMIRK), X(TJOY),X(RECYC),X(UNAMU),X(MUSIC),X(OKHND),X(PENSV), X(PHEW),
   X(THMUP), X(PRAY),X(SMILE),X(SMIL2),X(FLUSH), X(GRIN),X(HEART),  X(BYE), X(KISS),X(CELEB), X(COOL),X(NOEVS),
   X(THMDN),X(SLEEP), X(CLAP),  X(CRY),  X(VIC),X(BHART),  X(SUN),X(SMEYE), X(WINK), X(MOON),X(CONFU),X(NOEVH),
-    X(POO), X(EYES), X(HUNRD),_______, X(SKULL),X(HORNS), X(HALO), X(FEAR),_______,X(YUMMY),X(DISAP),X(NOEVK)
+    X(POO), X(EYES), X(HUNRD),_______, X(SKULL),X(HORNS), X(HALO), X(FEAR),_______,X(YUMMY),X(DISAP),X(NOEVK),
+                                           _______, _______, _______
 ),
 
 /* GUI
@@ -797,11 +925,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_GUI] = KEYMAP(
+[_GUI] = KEYMAP_CUSTOM(
   XXXXXXX, G(KC_1), G(KC_2), G(KC_3), G(KC_4), G(KC_5), G(KC_6), G(KC_7), G(KC_8), G(KC_9), G(KC_0), XXXXXXX,
   KC_ESC,  XXXXXXX, S(KC_TAB),KC_ESC, KC_TAB,  XXXXXXX, XXXXXXX, KC_WWWB, XXXXXXX, KC_WWWF, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, KC_SPC,  KC_SPC,  KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                           _______, _______, _______
 ),
 
 /* Sys
@@ -815,19 +944,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_SYS] = KEYMAP(
-  XXXXXXX, QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+[_SYS] = KEYMAP_CUSTOM(
+  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BLE, NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
+  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                                           _______, _______, _______
 ),
 
 
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+#ifdef RGBSPS_ENABLE
+  led_set_default_layer_indicator();
+#endif
 }
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
@@ -1001,14 +1134,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // layout switchers
     case QWERTY:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
 #ifdef LAYOUT_DVORAK
     case DVORAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
@@ -1016,7 +1149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_COLEMAK
     case COLEMAK:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
@@ -1024,7 +1157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_WORKMAN
     case WORKMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_WORKMAN);
+        persistent_default_layer_set(1UL<<_WORKMAN);
       }
       return false;
       break;
@@ -1032,7 +1165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef LAYOUT_NORMAN
     case NORMAN:
       if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_NORMAN);
+        persistent_default_layer_set(1UL<<_NORMAN);
       }
       return false;
       break;
@@ -1072,14 +1205,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // OS switchers
     case LINUX:
       set_unicode_input_mode(UC_LNX);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
     case WIN:
       set_unicode_input_mode(UC_WINC);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
     case OSX:
       set_unicode_input_mode(UC_OSX);
+#ifdef RGBSPS_ENABLE
+      led_set_unicode_input_mode();
+#endif
       return false;
       break;
 
@@ -1101,7 +1243,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // faux clicky indicator
 #ifdef FAUXCLICKY_ENABLE
     case FC_TOG:
+#ifdef RGBSPS_ENABLE
+      if (fauxclicky_enabled) {
+        rgbsps_set(LED_IND_AUDIO, THEME_COLOR_AUDIO);
+      } else {
+        rgbsps_set(LED_IND_AUDIO, COLOR_BLANK);
+      }
+      rgbsps_send();
+#endif
       return true;
+      break;
+#endif
+
+#ifdef RGBSPS_DEMO_ENABLE
+    case RGBDEMO:
+      led_demo();
+      return false;
       break;
 #endif
   }
@@ -1109,12 +1266,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void set_output_user(uint8_t output) {
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
       break;
-    case OUTPUT_ADAFRUIT_BLE:
+    case OUTPUT_BLUETOOTH:
       led_set_output_ble();
       break;
     default:
@@ -1133,12 +1290,12 @@ void matrix_init_user() {
 #endif
 
   // auto detect output on init
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);
   } else {
-    set_output(OUTPUT_ADAFRUIT_BLE);
+    set_output(OUTPUT_BLUETOOTH);
   }
 #endif
 }
@@ -1164,9 +1321,9 @@ void turn_off_capslock() {
     bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
     if (new_capslock ^ capslock) { // capslock state is different
       if ((capslock = new_capslock)) {
-        rgbsps_set(LED_IND_NUM, 15, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
       } else {
-        rgbsps_set(LED_IND_NUM, 0, 0, 0);
+        rgbsps_set(LED_IND_CAPSLOCK, COLOR_BLANK);
       }
       rgbsps_send();
     }

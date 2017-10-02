@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define AUDIO_VOICES
+#define C6_AUDIO
 
 #define BACKLIGHT_PIN B7
 

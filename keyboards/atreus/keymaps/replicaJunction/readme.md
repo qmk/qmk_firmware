@@ -10,7 +10,7 @@ I won't claim that this layout is perfect for everyone. It does make several sig
 
 ## Base Layer ##
 
-![Atreus base layout](atreus-replica-base.png)
+![Atreus base layout](http://imgur.com/YbOjS7O)
 
 The letters on this layout are arranged in the [Colemak Mod-DH layout](https://colemakmods.github.io/mod-dh/).
 
@@ -22,7 +22,7 @@ In addition to the Shift keys, there are three dual-purpose keys: Ctrl (Delete),
 
 ## Extend Layer ##
 
-![Atreus extend layer](atreus-replica-extend.png)
+![Atreus extend layer](http://imgur.com/WiKkMQw)
 
 This layout is designed primarily for keyboard navigation. Arrow keys are easily accessible under the right hand (a welcome change from the original Atreus layout, which places them under the left hand), along with Home/End and PgUp/PgDn.
 
@@ -34,7 +34,7 @@ The Space key exists to prevent going from this layer directly into the Number l
 
 ## Number and Symbol Layer ##
 
-![Atreus number and symbol layer](atreus-replica-num.png)
+![Atreus number and symbol layer](http://imgur.com/gfTXcjC)
 
 This layer provides the only way of accessing number keys on this keyboard, since it's too small for its own number row. Note that even though they are laid out in the number pad fashion, they send the "regular" number keystrokes. Games and programs that specifically use NumPad keys are not supported in this layout at the moment.
 
@@ -42,7 +42,7 @@ This layer also provides plenty of symbol shortcuts. Most of these can be access
 
 ## Function Layer ##
 
-![Atreus function layer](atreus-replica-function.png)
+![Atreus function layer](http://imgur.com/m5x0MxZ)
 
 Function keys (F1-F12) are on this layer. Their layout in groups of four comes from Jeremy's Atreus layout in this repository. I'd been using 1-9 in a numpad layout, then adding 10-12 on the side...I suppose it took seeing someone else do it this way for me to realize how much more sense it makes.
 
@@ -52,7 +52,7 @@ Finally, the reset key is on this layer, as well as toggles from Colemak to QWER
 
 ## Gaming Layer ##
 
-![Atreus gaming layer](atreus-replica-game.png)
+![Atreus gaming layer](http://imgur.com/4S5AO4E)
 
 This is a small layer developed to allow some simple gameplay without a mouse. This layer is a toggle (from the Number layer), so it is designed to stay on while in use.
 

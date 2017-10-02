@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <musical_notes.h>
 
-__attribute__ ((weak))
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_F3, 2);
-__attribute__ ((weak))
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A3, 2);
-__attribute__ ((weak))
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C3, 2);
-
 bool fauxclicky_enabled = true;
 uint16_t note_start = 0;
 bool note_playing = false;
@@ -48,13 +41,13 @@ void fauxclicky_stop()
     note_playing = false;
 }
 
-void fauxclicky_play(float note[2]) {
+void fauxclicky_play(float note[]) {
     if (!fauxclicky_enabled) return;
     if (note_playing) fauxclicky_stop();
-    FAUXCLICKY_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (note[0] * FAUXCLICKY_CPU_PRESCALER));
-    FAUXCLICKY_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (note[0] * FAUXCLICKY_CPU_PRESCALER)) / 2);
+    FAUXCLICKY_TIMER_PERIOD = (uint16_t)(((float)F_CPU) / (note[0] * (float)FAUXCLICKY_CPU_PRESCALER));
+    FAUXCLICKY_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (note[0] * (float)FAUXCLICKY_CPU_PRESCALER)) / (float)2);
     note_playing = true;
-    note_period = (note[1] / 16) * (60 / (float)FAUXCLICKY_TEMPO) * 100;   // check this
+    note_period = (note[1] / (float)16) * ((float)60 / (float)FAUXCLICKY_TEMPO) * 1000;
     note_start = timer_read();
     FAUXCLICKY_ENABLE_OUTPUT;
 }

@@ -1,0 +1,77 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Joystick Device Demo
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *  \li Series AU XMEGA AVRs (ATXMEGAxxxAxU)
+ *  \li Series B XMEGA AVRs (ATXMEGAxxxBx)
+ *  \li Series C XMEGA AVRs (ATXMEGAxxxCx)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Human Interface Device (HID)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>N/A</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF HID Specification \n
+ *        USBIF HID Usage Tables</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Low Speed Mode \n
+ *        Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Joystick demonstration application. This gives a simple reference
+ *  application for implementing a USB Keyboard device, for USB Joysticks
+ *  using the standard Keyboard HID profile.
+ *
+ *  This device will show up as a generic joystick device, with two buttons.
+ *  Pressing the joystick inwards is the first button, and the HWB button
+ *  is the second.
+ *
+ *  Moving the joystick on the selected board moves the joystick location on
+ *  the host computer.
+ *
+ *  Currently only single interface joysticks are supported.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
+
