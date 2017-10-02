@@ -39,10 +39,9 @@ enum planck_keycodes {
 // keycode aliases
 #define _______ KC_TRNS
 #define ___x___ KC_NO
-#define CTL_ESC CTL_T(KC_ESC)
+#define KC_EUR LALT(S(KC_2))
+#define KC_SEC LALT(KC_6)
 #define CTL_DEL CTL_T(KC_DEL)
-#define CTL_QUOT CTL_T(KC_QUOT)
-#define SFT_ENT SFT_T(KC_ENT)
 #define NAV_SCLN LT(_NAVIGATION, KC_SCLN)
 #define NAV_A LT(_NAVIGATION, KC_A)
 
@@ -60,28 +59,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *              `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC},
-  {CTL_ESC, NAV_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NAV_SCLN, CTL_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SFT_ENT},
-  {___x___, KC_HYPR, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LGUI, KC_LALT, KC_HYPR,  ___x___}
+  {KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC},
+  {CTL_T(KC_ESC), NAV_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NAV_SCLN, KC_QUOT},
+  {KC_LSFT,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  SFT_T(KC_ENT)},
+  {___x___,       KC_HYPR, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LGUI, KC_LALT, KC_HYPR,  ___x___}
 },
 
 /*              Lower
  *              ,-----------------------------------------------------------------------------------.
  *              |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  *              |------+------+------+------+------+-------------+------+------+------+------+------|
- * Tab to Del---| Ctrl |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
+ * Tab to Del---| Ctrl |  ¡   |  ™   |  €   |  ¢   |  ∞   |  §   |   _  |   +  |   {  |   }  |  |   |
  *              |------+------+------+------+------+------|------+------+------+------+------+------|
- *              |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |      |
+ *              |      |      |      |      |      |      |      |ISO ~ |ISO | |      |      |      |
  *              |------+------+------+------+------+------+------+------+------+------+------+------|
  *              |      |      |      |      |      |             |      |      |      |      |      |
  *              `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC},
-  {CTL_DEL, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______,    _______,    _______, _______, _______}
+  {KC_TILD, S(KC_1),    S(KC_2),    S(KC_3), S(KC_4),    S(KC_5),    S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9), S(KC_0), KC_BSPC},
+  {CTL_DEL, LALT(KC_1), LALT(KC_2), KC_EUR,  LALT(KC_4), LALT(KC_5), LALT(KC_6), KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
+  {_______, ___x___,    ___x___,    ___x___, ___x___,    ___x___,    ___x___,    S(KC_NUHS), S(KC_NUBS), _______, _______, _______},
+  {_______, _______,    _______,    _______, _______,    _______,    _______,    _______,    _______,    _______, _______, _______}
 },
 
 /*              Raise
@@ -117,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  ___x___, ___x___},
   {___x___, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END , KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, ___x___},
   {___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  ___x___, ___x___},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
+  {___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___,  ___x___, ___x___}
 },
 
 /*              Plover layer (http://opensteno.org)
@@ -133,10 +132,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_PLOVER] = {
-  {KC_1,    KC_1,    KC_1,    KC_1, KC_1, KC_1,     KC_1,    KC_1, KC_1, KC_1,    KC_1,    KC_1   },
-  {___x___, KC_Q,    KC_W,    KC_E, KC_R, KC_T,     KC_Y,    KC_U, KC_I, KC_O,    KC_P,    KC_LBRC},
-  {___x___, KC_A,    KC_S,    KC_D, KC_F, KC_G,     KC_H,    KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, ___x___, ___x___, KC_C, KC_V, ___x___,  ___x___, KC_N, KC_M, ___x___, ___x___, ___x___}
+  {KC_1,    KC_1,    KC_1,    KC_1, KC_1, KC_1,    KC_1,    KC_1, KC_1, KC_1,    KC_1,    KC_1   },
+  {___x___, KC_Q,    KC_W,    KC_E, KC_R, KC_T,    KC_Y,    KC_U, KC_I, KC_O,    KC_P,    KC_LBRC},
+  {___x___, KC_A,    KC_S,    KC_D, KC_F, KC_G,    KC_H,    KC_J, KC_K, KC_L,    KC_SCLN, KC_QUOT},
+  {EXT_PLV, ___x___, ___x___, KC_C, KC_V, ___x___, ___x___, KC_N, KC_M, ___x___, ___x___, ___x___}
 },
 
 /*              Adjust (Lower + Raise)
