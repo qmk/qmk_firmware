@@ -46,13 +46,27 @@ endif
 include $(PLATFORM_MK)
 
 
-BOARD_MK = $(KEYBOARD_PATH)/boards/$(BOARD)/board.mk
+BOARD_MK := 
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
+    BOARD_MK += $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk)","")
+    BOARD_MK += $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk)","")
+    BOARD_MK += $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
+    BOARD_MK += $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
+    BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
+endif
+
 ifeq ("$(wildcard $(BOARD_MK))","")
 	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
 	ifeq ("$(wildcard $(BOARD_MK))","")
 		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
 	endif
 endif
+
 include $(BOARD_MK)
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
