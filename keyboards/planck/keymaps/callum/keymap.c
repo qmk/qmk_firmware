@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {H(KC_4), H(KC_1), G(KC_6), G(KC_5), G(KC_4), G(KC_HOME),G(KC_END),KC_HOME, KC_UP, KC_END,G(KC_BSPC),KC_ESC},
   {H(KC_5), H(KC_2), G(KC_3), G(KC_2), G(KC_1), G(KC_PGDN),G(KC_PGUP),KC_LEFT,KC_DOWN,KC_RGHT, KC_CAPS,KC_DEL},
   {_______, H(KC_3), G(KC_9), G(KC_8), G(KC_7), G(KC_M),G(KC_C),KC_PGDN,KC_PGUP,H(KC_LEFT),H(KC_RGHT),_______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, H(KC_ENT),_______,_______, _______, _______, _______, _______}
 },
 
 [_SYMB] = {
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MORE] = {
   {XXXXXXX, C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5), C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0), XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, G(KC_B), XXXXXXX, XXXXXXX, G(KC_T), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
   {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
