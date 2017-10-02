@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+<<<<<<< HEAD
 /* key combination for command */
 #ifdef IS_COMMAND
 #undef IS_COMMAND
@@ -52,6 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
+=======
+#ifdef RGBLIGHT_ENABLE
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 12     // Number of LEDs
+>>>>>>> Tweaked RGB lighting stuff
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -62,4 +68,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // RGBLIGHT_ENABLE
 
 
+<<<<<<< HEAD
 #endif
+=======
+
+#endif
+>>>>>>> Tweaked RGB lighting stuff
