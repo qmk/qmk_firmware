@@ -51,12 +51,6 @@
 #define ED_NOTE(n)                     EIGHTH_DOT_NOTE(n)
 #define SD_NOTE(n)                     SIXTEENTH_DOT_NOTE(n)
 
-// Note Styles
-// Staccato makes sure there is a rest between each note. Think: TA TA TA
-// Legato makes notes flow together. Think: TAAA
-#define STACCATO 0.01
-#define LEGATO   0
-
 // Note Timbre
 // Changes how the notes sound
 #define TIMBRE_12       0.125
@@ -64,7 +58,6 @@
 #define TIMBRE_50       0.500
 #define TIMBRE_75       0.750
 #define TIMBRE_DEFAULT  TIMBRE_50
-
 
 // Notes - # = Octave
 

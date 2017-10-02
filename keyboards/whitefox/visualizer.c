@@ -20,7 +20,7 @@
 #include "visualizer.h"
 #include "visualizer_keyframes.h"
 #include "led.h"
-#include "animations.h"
+#include "default_animations.h"
 
 
 static bool initial_update = true;

@@ -1,18 +1,9 @@
-## READ FIRST
-- https://github.com/qmk/qmk_firmware/blob/master/docs/build_guide.md
+# Frequently Asked Build Questions
 
-In short,
+This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](make_instructions.md) guides.
 
-    $ make [-f Makefile.<variant>] [KEYMAP=...] clean
-    $ make [-f Makefile.<variant>] [KEYMAP=...]
-    $ make [-f Makefile.<variant>] [KEYMAP=...] dfu
-
-
-## Can't program on Linux and Mac
-You will need proper permission to operate a device. For Linux users see udev rules below.
-Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
-
-https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/sudo.8.html
+## Can't program on Linux
+You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
 
 In short when your controller is ATMega32u4,
     
@@ -22,67 +13,18 @@ In short when your controller is ATMega32u4,
 
 or just
 
-    $ sudo make dfu
+    $ sudo make <keyboard>-<keymap>-dfu
 
-But to run `make` with root privilege is not good idea. Use former method as possible.
-
-## Do 'make clean' before 'make'
-You'll need `make clean` after you edit **config.h** or change options like `KEYMAP`.
-
-Frist remove all files made in previous build,
-
-    $ make clean
-
-then build new firmware. 
-
-    $ make [KEYMAP=...]
-
-Also you can always try `make clean` when you get other strange result during build.
-
+But to run `make` with root privilege is not good idea. Use former method if possible.
 
 ## WINAVR is obsolete
 It is no longer recommended and may cause some problem.
-See [Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
-## USB stack: LUFA or PJRC?
-Use **LUFA**.
-
-**PJRC** stack won't be supported actively anymore. There is no reason to hesitate to use LUFA except for binary size(about 1KB lager?). But **PJRC** is still very useful for debug and development purpose.
-See also [Issue #50](https://github.com/tmk/tmk_keyboard/issues/50) and [Issue #58](https://github.com/tmk/tmk_keyboard/issues/58).
-
-## Edit configuration but not change
-You will need followings after editing `CONSOLE_ENABLE`, `NKRO_ENABLE`, `EXTRAKEY_ENABLE` or `MOUSEKEY_ENABLE` option in **Makefile**.
-
-### 1. make clean
-This will be needed when you edit **config.h**.
-
-### 2. Remove Drivers from Device Manager(Windows)
-**Windows only.** Linux, OSX and other OS's doesn't require this. It looks like Windows keeps using driver installed when device was connected first time even after the device changes its configuration. To load proper drivers for new configuration you need to remove existent drivers from **Drvice Manager**.
-
-### 3. Build with different VID:PID
-**Windows only.** If method 2. does't work fou you try this. Change Vendor ID or Product ID in **config.h** and build firmware. Windows should recognize it as whole new device and start drivers install process.
-
-### 4. Just try other ports
-This will be useful and the easiest workaround for **Windows**.
-
-
+See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
 ## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very least chance of collision with other product.
+You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
 
-For example TMK uses following numbers by default.
-```
-keyboard:
-hhkb: FEED:CAFE
-gh60: FEED:6060
-
-converter:
-x68k: FEED:6800
-ps2: FEED:6512
-adb: FEED:0ADB
-ibm4704: FEED:4704
-pc98: FEED:9898
-```
+Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
 
 Also see this.
 https://github.com/tmk/tmk_keyboard/issues/150
@@ -90,7 +32,6 @@ https://github.com/tmk/tmk_keyboard/issues/150
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
-
 
 ## Linux udev rules
 On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
@@ -110,7 +51,6 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
-
 
 
 ## Cortex: cstddef: No such file or directory

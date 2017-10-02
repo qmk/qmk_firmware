@@ -12,7 +12,7 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
 BIN =
 
-
+COMMON_VPATH += $(DRIVER_PATH)/avr
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
@@ -87,11 +87,13 @@ DEBUG_PORT = 4242
 DEBUG_HOST = localhost
 
 #============================================================================
-# Autodecct teensy loader
-ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-  TEENSY_LOADER_CLI ?= teensy-loader-cli
-else
-  TEENSY_LOADER_CLI ?= teensy_loader_cli
+# Autodetect teensy loader
+ifndef TEENSY_LOADER_CLI
+    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
+    else
+        TEENSY_LOADER_CLI ?= teensy_loader_cli
+    endif
 endif
 
 # Program the device.
@@ -115,11 +117,11 @@ dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
 	done
-ifneq (, $(findstring 0.7, $(shell $(DFU_PROGRAMMER) --version 2>&1)))
-	$(DFU_PROGRAMMER) $(MCU) erase --force
-else
-	$(DFU_PROGRAMMER) $(MCU) erase
-endif
+	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+	fi
 	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	$(DFU_PROGRAMMER) $(MCU) reset
 
@@ -135,17 +137,38 @@ flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-ifneq (, $(findstring 0.7, $(shell dfu-programmer --version 2>&1)))
-	$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep
-else
-	$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep
-endif
+	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep;\
+	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+avrdude: $(BUILD_DIR)/$(TARGET).hex
+	if grep -q -s Microsoft /proc/version; then \
+		echo 'ERROR: Pro Micros can not be flashed within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
+	else \
+		ls /dev/tty* > /tmp/1; \
+		echo "Detecting Pro Micro port, reset your Pro Micro now.\c"; \
+		while [ -z $$USB ]; do \
+			sleep 1; \
+			echo ".\c"; \
+			ls /dev/tty* > /tmp/2; \
+			USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+		done; \
+		echo ""; \
+		echo "Detected Pro Micro port at $$USB"; \
+		sleep 1; \
+		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+	fi
+
 # Convert hex to bin.
-flashbin: $(BUILD_DIR)/$(TARGET).hex
+bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
+
+# copy bin to FLASH.bin
+flashbin: bin
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
 
 # Generate avr-gdb config/init file which does the following:

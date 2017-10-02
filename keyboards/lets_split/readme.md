@@ -106,7 +106,7 @@ Notes on Software Configuration
 -------------------------------
 
 Configuring the firmware is similar to any other QMK project. One thing
-to note is that `MATIX_ROWS` in `config.h` is the total number of rows between
+to note is that `MATRIX_ROWS` in `config.h` is the total number of rows between
 the two halves, i.e. if your split keyboard has 4 rows in each half, then
 `MATRIX_ROWS=8`.
 
@@ -115,7 +115,7 @@ not be very difficult to adapt it to support more if required.
 
 Flashing
 -------
-From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
+From the `lets_split` directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
 Example: `make rev2-default-avrdude`
 
 

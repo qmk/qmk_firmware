@@ -1,5 +1,7 @@
 # Tap Dance: A single key can do 3, 5, or 100 different things
 
+<!-- FIXME: Break this up into multiple sections -->
+
 Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/qmk/qmk_firmware/pull/451). Here's how algernon describes the feature:
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
@@ -34,7 +36,9 @@ Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-danc
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
-### Examples
+# Examples
+
+## Simple Example
 
 Here's a simple example for a single definition:
 
@@ -58,6 +62,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //In Layer declaration, add tap dance item in place of a key code
 TD(TD_ESC_CAPS)
 ```
+
+## Complex Example
 
 Here's a more complex example involving custom actions:
 

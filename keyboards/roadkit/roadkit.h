@@ -30,4 +30,6 @@
     { K30,   K31,   K32,   K33 }  \
 }
 
+#define LAYOUT_ortho_4x4 SINGLES_KEYMAP
+
 #endif

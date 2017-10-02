@@ -1,0 +1,106 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage OB's Quad-Relay outlet control using a Teensy2++
+ *
+ *  \section Sec_Compat Project Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  \li AT90USB1286
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ * <table>
+ *  <tr>
+ *   <td><b>USB Mode:</b></td>
+ *   <td>Device</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Class:</b></td>
+ *   <td>None</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>USB Subclass:</b></td>
+ *   <td>None</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Relevant Standards:</b></td>
+ *   <td>USB Standards</td>
+ *  </tr>
+ *  <tr>
+ *   <td><b>Supported USB Speeds:</b></td>
+ *   <td>Low Speed Mode, Full Speed Mode</td>
+ *  </tr>
+ * </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Firmware for a Teensy2++ AVR-based miniboard to control four relays, using the
+ *  same protocol used by the commercially available Silver Shield PM power outlets
+ *  ( http://sourceforge.net/projects/sispmctl ) sold for some time. Because this
+ *  project mimics the original device, it can be controlled using the "sismpctl"
+ *  package included in many Linux distributions - including router-orientated
+ *  versions such as OpenWRT - to control the board's relays.
+ *
+ *  Relays 1 to 4 are respectively wired to pins C4, C5, C6 and C7 of the Teensy++ V2,
+ *  which are the PORTC bits 4 to 7 of the AT90USB1286. The relays MUST be wired through
+ *  a transistor, and a diode must be added in antiparallel on the relay's coil pins to
+ *  protect the transistor from back EMF generated from the relay when the coil is turned off.
+ *  The transistor base pin is wired to the Teensy data port through a 10K resistor. A
+ *  LED may be also be added as a relay status indicator on each channel.
+ *
+ *  The Relay coil will be driven by the transistor, but the power will come from
+ *  the 5V from the PC's USB port: Be careful in choosing the relay to avoid overloading
+ *  the PC, as the maximum current used MUST remains under ~450mA @ 5V.
+ *
+ *  The author's tested relays are 2 Finder 32.21.7.005.2000, coil il 125ohm, which can
+ *  handle 5A @ 250VAC. Be careful to use proper isolation if high voltages are manipulated.
+ *  The author used Hotglue to isolate all parts of the PCB in contact with high voltage.
+ *
+ *  See <a>http://www.pjrc.com/teensy/</a> for the Teensy2++ website.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>Signal:</b></td>
+ *    <td><b>AVR Port:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>Relay 1</td>
+ *    <td>PORTC, Pin 4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Relay 2</td>
+ *    <td>PORTC, Pin 5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Relay 3</td>
+ *    <td>PORTC, Pin 6</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Relay 4</td>
+ *    <td>PORTC, Pin 7</td>
+ *   </tr>
+ *   <tr>
+ *    <td>Teensy2++ Yellow Led</td>
+ *    <td>PORTD, pin 6</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

@@ -27,6 +27,7 @@
 #include "sleep_led.h"
 #include "led.h"
 #endif
+#include "wait.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -38,6 +39,14 @@
  *       Global interface variables and declarations
  * ---------------------------------------------------------
  */
+
+#ifndef usb_lld_connect_bus
+  #define usb_lld_connect_bus(usbp)
+#endif
+
+#ifndef usb_lld_disconnect_bus
+  #define usb_lld_disconnect_bus(usbp)
+#endif
 
 uint8_t keyboard_idle __attribute__((aligned(2))) = 0;
 uint8_t keyboard_protocol __attribute__((aligned(2))) = 1;
@@ -1017,7 +1026,7 @@ void init_usb_driver(USBDriver *usbp) {
    * after a reset.
    */
   usbDisconnectBus(usbp);
-  chThdSleepMilliseconds(1500);
+  wait_ms(1500);
   usbStart(usbp, &usbcfg);
   usbConnectBus(usbp);
 
@@ -1037,16 +1046,16 @@ void send_remote_wakeup(USBDriver *usbp) {
 #if defined(K20x) || defined(KL2x)
 #if KINETIS_USB_USE_USB0
   USB0->CTL |= USBx_CTL_RESUME;
-  chThdSleepMilliseconds(15);
+  wait_ms(15);
   USB0->CTL &= ~USBx_CTL_RESUME;
 #endif /* KINETIS_USB_USE_USB0 */
-#elif defined(STM32F0XX) || defined(STM32F1XX) /* K20x || KL2x */
+#elif defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) /* End K20x || KL2x */
   STM32_USB->CNTR |= CNTR_RESUME;
-  chThdSleepMilliseconds(15);
+  wait_ms(15);
   STM32_USB->CNTR &= ~CNTR_RESUME;
-#else /* STM32F0XX || STM32F1XX */
+#else /* End STM32F0XX || STM32F1XX || STM32F3XX */
 #warning Sending remote wakeup packet not implemented for your platform.
-#endif /* K20x || KL2x */
+#endif
 }
 
 /* ---------------------------------------------------------
