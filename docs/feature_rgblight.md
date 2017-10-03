@@ -11,9 +11,9 @@ Some keyboards come with RGB LEDs pre-installed. Others have to have LEDs instal
 
 QMK uses Hue, Saturation, and Value to set color rather than using RGB. You can use the color wheel below to see how this works. Changing the Hue will cycle around the circle. Saturation will affect the intensity of the color, which you can see as you move from the inner part to the outer part of the wheel. Value sets the overall brightness.
 
-![gitbook/images/color-wheel.svg]
+<img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250">
 
-If you would like to learn more about HSV you can start with the [wikipedia article](https://en.wikipedia.org/wiki/HSL_and_HSV).
+If you would like to learn more about HSV you can start with the [Wikipedia article](https://en.wikipedia.org/wiki/HSL_and_HSV).
 
 ## Configuration
 
@@ -21,11 +21,11 @@ Before RGB Lighting can be used you have to enable it in `rules.mk`:
 
     RGBLIGHT_ENABLE = yes
 
-You can configure the behavior of the RGB lighting by defining values inside `config.h`. 
+You can configure the behavior of the RGB lighting by defining values inside `config.h`.
 
 ### Required Configuration
 
-At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected. 
+At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected.
 
 ```c
 #define RGB_DI_PIN D7     // The pin the LED strip is connected to
