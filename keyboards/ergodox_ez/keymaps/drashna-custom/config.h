@@ -27,8 +27,11 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
+=======
+>>>>>>> Add forced NKRO
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -52,6 +55,7 @@
 //#define FORCE_NKRO
 >>>>>>> Cleanup macros
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> Cleanup macros
 #define FORCE_NKRO
@@ -92,3 +96,10 @@
 
 //#define FORCE_NKRO
 >>>>>>> Cleanup macros
+=======
+#define FORCE_NKRO
+#ifdef FORCE_NKRO
+#define NKRO_EPSIZE 32
+#endif
+>>>>>>> Add forced NKRO
+>>>>>>> Add forced NKRO

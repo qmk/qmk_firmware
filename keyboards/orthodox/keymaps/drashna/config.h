@@ -94,13 +94,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add forced NKRO
 
 <<<<<<< HEAD
 #endif
 =======
 =======
 #define FORCE_NKRO
+<<<<<<< HEAD
 #ifndef FORCE_NKRO
+=======
+#ifdef FORCE_NKRO
+>>>>>>> Add forced NKRO
 #define NKRO_EPSIZE 32
 #endif
 >>>>>>> Add forced NKRO

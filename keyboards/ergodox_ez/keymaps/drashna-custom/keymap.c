@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 >>>>>>> Updated macros and added workman keymaps
 
 
+
+
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -119,7 +121,7 @@ static uint8_t current_layer = 0;
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 //This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = false;
+
 static uint8_t current_layer = 0;
 >>>>>>> Tweaked RGB lighting stuff
 >>>>>>> Tweaked RGB lighting stuff
@@ -684,8 +686,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMB] = KEYMAP(
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Add forced NKRO
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
@@ -719,6 +724,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_KP_DOT, KC_KP_0, KC_KP_ENTER
             ),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add forced NKRO
 =======
 				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,
 				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRNS,
@@ -739,8 +747,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_KP_DOT, KC_KP_0, KC_KP_ENTER
 			),
 >>>>>>> Add forced NKRO
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Add forced NKRO
 
 /* Keymap 4: Customized Overwatch Layout
  *
@@ -1405,10 +1416,14 @@ void run_diablo_macro_check(void) {
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add forced NKRO
 #ifdef RGBLIGHT_ENABLE
 <<<<<<< HEAD
     uint8_t default_layer = eeconfig_read_default_layer();
 =======
+<<<<<<< HEAD
 =======
 #ifdef RGBLIGHT_ENABLE
     uint8_t default_layer = eeconfig_read_default_layer();
@@ -1445,6 +1460,9 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
   }
 >>>>>>> Fixed formatting to fall in line with official standards
 #endif
+=======
+
+>>>>>>> Add forced NKRO
 };
 >>>>>>> Add forced NKRO
 
@@ -1484,6 +1502,9 @@ void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add forced NKRO
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -1492,6 +1513,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
         ergodox_right_led_3_off();
 =======
     uint8_t layer = biton32(layer_state);
+<<<<<<< HEAD
     static bool has_layer_changed = true;
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
@@ -1499,12 +1521,18 @@ void matrix_scan_user(void) {  // runs frequently to update info
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+    bool dvorak = false;
+    bool colemak = false;
+	static bool has_layer_changed = true;
+>>>>>>> Add forced NKRO
 	if (!skip_leds) {
 		ergodox_board_led_off();
 		ergodox_right_led_1_off();
 		ergodox_right_led_2_off();
 		ergodox_right_led_3_off();
 >>>>>>> Add forced NKRO
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Add leader keys
@@ -1514,6 +1542,8 @@ void matrix_scan_user(void) {  // runs frequently to update info
         ergodox_right_led_2_off();
         ergodox_right_led_3_off();
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Add forced NKRO
         
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
@@ -1776,7 +1806,15 @@ uint32_t layer_state_set_kb(uint32_t state) {
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                rgblight_set_teal;
+                if (colemak) {
+                    rgblight_set_magenta;
+                }
+                else if (dvorak) {
+                    rgblight_set_green;
+                }
+                else {
+                    rgblight_set_teal;
+                }
                 rgblight_mode(1);
                 break;
         }
