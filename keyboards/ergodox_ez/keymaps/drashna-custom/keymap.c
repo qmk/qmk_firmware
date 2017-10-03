@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIABLO 5
 #define MOUS 6
 
+
+
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -53,7 +55,7 @@ bool skip_leds = false;
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 //This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = false;
+
 static uint8_t current_layer = 0;
 
 //define diablo macro timer variables
@@ -354,10 +356,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	                                                              KC_TRNS,
 	                                                              KC_TRNS, KC_TRNS, KC_TRNS,
 				
-				KC_TRNS, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
-				KC_TRNS, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
+				KC_QWERTY, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
+				KC_DVORAK, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
 				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
-				KC_TRNS, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
+				KC_COLEMAK, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
 	                                 KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_TRNS,
 				RGB_TOG,    RGB_SLD,
 				KC_NO,
@@ -669,7 +671,7 @@ void run_diablo_macro_check(void) {
 }
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
-    has_layer_changed = true;
+
 };
 
 
@@ -677,7 +679,9 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
     uint8_t layer = biton32(layer_state);
-	
+    bool dvorak = false;
+    bool colemak = false;
+	static bool has_layer_changed = true;
 	if (!skip_leds) {
 		ergodox_board_led_off();
 		ergodox_right_led_1_off();
@@ -730,7 +734,15 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                rgblight_set_teal;
+                if (colemak) {
+                    rgblight_set_magenta;
+                }
+                else if (dvorak) {
+                    rgblight_set_green;
+                }
+                else {
+                    rgblight_set_teal;
+                }
                 rgblight_mode(1);
                 break;
         }
