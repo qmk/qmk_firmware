@@ -4,10 +4,11 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define VENDOR_ID       0x1209
+#define PRODUCT_ID      0x2328  // See http://pid.codes/org/ktec/
+// Alternative VID and PID without guarantee: 47EC, E60D
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ErgoDone
+#define MANUFACTURER    K.T.E.C.
 #define PRODUCT         ErgoDone
 #define DESCRIPTION     QMK keyboard firmware for ErgoDone
 
@@ -55,6 +56,9 @@
 #define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 500
+
+/* NKRO */
+#define FORCE_NKRO  // Depends on NKRO_ENABLE.
 
 /*
  * Feature disable options
