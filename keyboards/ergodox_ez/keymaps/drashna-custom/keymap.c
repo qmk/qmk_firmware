@@ -40,6 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define LEADER_TIMEOUT 1500
 
+
+
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -75,7 +77,7 @@ bool skip_leds = false;
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 //This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = false;
+
 static uint8_t current_layer = 0;
 >>>>>>> Tweaked RGB lighting stuff
 
@@ -455,6 +457,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 `--------------------'       `--------------------'
 */
   [SYMB] = KEYMAP(
+<<<<<<< HEAD
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
@@ -473,6 +476,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO,
                 KC_KP_DOT, KC_KP_0, KC_KP_ENTER
             ),
+=======
+				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,
+				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRNS,
+				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
+				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_TRNS,
+				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+	                                                              KC_TRNS, KC_TRNS,
+	                                                              KC_TRNS,
+	                                                              KC_TRNS, KC_TRNS, KC_TRNS,
+				
+				KC_QWERTY, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
+				KC_DVORAK, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
+				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
+				KC_COLEMAK, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
+	                                 KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_TRNS,
+				RGB_TOG,    RGB_SLD,
+				KC_NO,
+				KC_KP_DOT, KC_KP_0, KC_KP_ENTER
+			),
+>>>>>>> Add forced NKRO
 
 /* Keymap 4: Customized Overwatch Layout
  *
@@ -831,8 +854,13 @@ void run_diablo_macro_check(void) {
 
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
+<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
     uint8_t default_layer = eeconfig_read_default_layer();
+=======
+
+};
+>>>>>>> Add forced NKRO
 
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
@@ -854,12 +882,24 @@ LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
+<<<<<<< HEAD
 
     if (!skip_leds) {
         ergodox_board_led_off();
         ergodox_right_led_1_off();
         ergodox_right_led_2_off();
         ergodox_right_led_3_off();
+=======
+    uint8_t layer = biton32(layer_state);
+    bool dvorak = false;
+    bool colemak = false;
+	static bool has_layer_changed = true;
+	if (!skip_leds) {
+		ergodox_board_led_off();
+		ergodox_right_led_1_off();
+		ergodox_right_led_2_off();
+		ergodox_right_led_3_off();
+>>>>>>> Add forced NKRO
         
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
@@ -984,7 +1024,15 @@ uint32_t layer_state_set_kb(uint32_t state) {
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                rgblight_set_teal;
+                if (colemak) {
+                    rgblight_set_magenta;
+                }
+                else if (dvorak) {
+                    rgblight_set_green;
+                }
+                else {
+                    rgblight_set_teal;
+                }
                 rgblight_mode(1);
                 break;
         }

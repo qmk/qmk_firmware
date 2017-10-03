@@ -15,6 +15,7 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
+<<<<<<< HEAD
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -32,3 +33,9 @@
 
 //#define FORCE_NKRO
 >>>>>>> Cleanup macros
+=======
+#define FORCE_NKRO
+#ifdef FORCE_NKRO
+#define NKRO_EPSIZE 32
+#endif
+>>>>>>> Add forced NKRO
