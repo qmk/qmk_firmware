@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void pointingdevice_init(void);
 void pointing_device_task(void);
-void pointing_device_send(report_mouse_t mouseReport);
+void pointing_device_send(void);
+report_mouse_t pointing_device_get_report(void);
+void pointing_device_set_report(report_mouse_t newMouseReport);
 
 #endif

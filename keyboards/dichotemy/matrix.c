@@ -44,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
+#define MAIN_ROWMASK 0xFFF0;
+#deinfe LOWER_ROWMASK 0x1F80;
+
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
@@ -100,10 +103,10 @@ uint8_t matrix_scan(void)
     SERIAL_UART_DATA = 's';
 
     //trust the external keystates entirely, erase the last data
-    uint8_t uart_data[11] = {0};
+    uint8_t uart_data[7] = {0};
 
     //there are 10 bytes corresponding to 10 columns, and an end byte
-    for (uint8_t i = 0; i < 11; i++) {
+    for (uint8_t i = 0; i < 7; i++) {
         //wait for the serial data, timeout if it's been too long
         //this only happened in testing with a loose wire, but does no
         //harm to leave it in here
@@ -118,11 +121,22 @@ uint8_t matrix_scan(void)
 
     //check for the end packet, the key state bytes use the LSBs, so 0xE0
     //will only show up here if the correct bytes were recieved
-    if (uart_data[10] == 0xE0)
-    {
+    if (uart_data[6] == 0x96) { //this is an arbitrary binary checksum (10010110)
         //shifting and transferring the keystates to the QMK matrix variable
+		//bits 1-12 are row 1, 13-24 are row 2, 25-36 are row 3,
+		//bits 37-42 are row 4 (only 6 wide, 1-3 are 0, and 10-12 are 0)
+		//bits 43-48 are row 5 (same as row 4)
+		/* ASSUMING MSB FIRST */
+		matrix[0] = (uint16_t) uart_data[0] << 8 | (uint16_t) uart_data[1] & MAIN_ROWMASK;
+		matrix[1] = (uint16_t) uart_data[1] << 12 | (uint16_t) uart_data[2] << 4;
+		matrix[2] = (uint16_t) uart_data[3] << 8 | (uint16_t) uart_data[4] & MAIN_ROWMASK;
+		matrix[3] = (uint16_t) uart_data[4] << 9 | (uint16_t) uart_data[5] << 1 & LOWER_ROWMASK;
+		matrix[4] = (uint16_t) uart_data[5] << 7 & LOWER_ROWMASK;
+		/* OK, TURNS OUT THAT WAS A BAD ASSUMPTION */
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-            matrix[i] = (uint16_t) uart_data[i*2] | (uint16_t) uart_data[i*2+1] << 5;
+			//I've unpacked these into the mirror image of what QMK expects them to be, so...
+			matrix[i] = ((matrix[i] * 0x0802LU & 0x22110LU) | (matrix[i] * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
+			//bithack mirror!  Doesn't make any sense, but works - and efficiently.
         }
     }
 

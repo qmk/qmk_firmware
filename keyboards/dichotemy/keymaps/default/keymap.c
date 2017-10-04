@@ -2,28 +2,42 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include "dichotemy.h"
+#include "report.h"
+#include "pointing_device.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum mitosis_layers
+enum dichotemy_layers
 {
-	_MALT,
-	_SHIFTED,
-	_FUNCTION,
-	_FUNCSHIFT
+	_BS,
+	_SF,
+	_NM,
+	_NS,
+	_MS
 };
 
-enum mitosis_keycodes 
-{
-  FNKEY = SAFE_RANGE,
-  SHIFT
-};
+#define LONGPRESS_COUNT = 4;
 
+enum dichotemy_keycodes 
+{
+  CK_1G, = SAFE_RANGE,
+  CK_BSPE,
+  CK_QE,
+  CK_TE, //these 4 CK_XXXX keys are special "alternate long-press" keys controlled with unique timers.  Make sure you understand them before you mess with them.
+  NS_HYPH,
+  NS_EQU,
+  NUMKEY,
+  SFTKEY,
+  MOUSE,
+  MS_BTN1,
+  MS_BTN2
+  //MS_BTN3
+};
 
 // Macro definitions for readability
-enum mitosis_macros
+enum dichotemy_macros
 {
 	VOLU,
 	VOLD,
@@ -31,50 +45,52 @@ enum mitosis_macros
 };
 
 #define LONGPRESS_DELAY 150
-#define LAYER_TOGGLE_DELAY 300
+#define MAX_TOGGLE_LENGTH 300
+#define TAPPING_TOGGLE 1
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_MALT] = { /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */
-  {KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B,           KC_V,    KC_M,    KC_U,    KC_Z,    KC_L    },
-  {KC_A,    KC_N,    KC_I,    KC_S,    KC_F,           KC_D,    KC_T,    KC_H,    KC_O,    KC_R    },
-  {KC_COMM, KC_DOT,  KC_J,    KC_G,    KC_SLSH,        KC_SCLN, KC_W,    KC_K,    KC_QUOT, KC_X    },
-  {XXXXXXX, M(VOLU), M(ESCM), KC_TAB,  KC_LCTL,        KC_LALT, KC_ENT,  KC_DEL,  KC_PGUP, XXXXXXX },
-  {XXXXXXX, M(VOLD), KC_LGUI, KC_E,    FNKEY,          SHIFT,   KC_SPC,  KC_BSPC, KC_PGDN, XXXXXXX }
+[_BASE] = { /* Base layout, nearly qwerty but with modifications because it's not a full keyboard. Obviously. */
+  {CK_TE,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
+  {NUMKEY,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CK_QE   },
+  {SFTKEY,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MOUSE   },
+  {XXXXXXX, XXXXXXX, XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI,        KC_RGUI, KC_RALT, KC_RCTL, XXXXXXX, XXXXXXX, XXXXXXX },
+  {XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_LPRN, KC_QUOT,        KC_SPC,  KC_RPRN, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX }
 },
 
-
-[_SHIFTED] = { /* Shifted Layer, layered so that tri_layer can be used, or selectively
-                                 able to modify individual key's shifted behaviour */
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX }
+[_SF] = { /* Shifted layout, small changes (because angle brackets have been moved to thumb cluster buttons) */
+  {_______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______,        _______, _______, NS_HYPH, KC_UNDS, _______, _______ },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_LABK, _______,        _______, KC_RABK, _______, XXXXXXX, XXXXXXX, XXXXXXX }
 },
 
-
-
-[_FUNCTION] = { /* Function Layer, primary alternative layer featuring numpad on right hand,
-                                   cursor keys on left hand, and all symbols*/
-  {KC_AMPR, KC_PERC, KC_UP,   KC_CIRC, KC_PIPE,       KC_LBRC, KC_7,    KC_8,    KC_9,    KC_MINS },
-  {KC_AT,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HASH,       KC_LPRN, KC_4,    KC_5,    KC_6,    KC_PLUS },
-  {KC_ASTR, KC_UNDS, KC_EXLM, KC_DLR,  KC_BSLS,       KC_LCBR, KC_1,    KC_2,    KC_3,    KC_ENT  },
-  {XXXXXXX, KC_HOME, KC_GRV,  KC_PWR,  _______,       _______, KC_EQL,  KC_TILD, KC_DOT,  XXXXXXX },
-  {XXXXXXX, KC_END,  _______, _______, _______,       _______, KC_0,    _______, KC_PSCR, XXXXXXX }
+[_NM] = { /* Number layout, basically the main function layer */
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______ },
+  {_______, CK_1G,   KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    CK_BSPE },
+  {_______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,         KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______ },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX }
 },
 
+[_NS] = { /* Shifted number/function layout, for per-key control.  Only active when shift is held, and number is toggled or held */
+  {_______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______,        _______, _______, _______, KC_PLUS, NS_EQU,  _______ },
+  {_______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX }
+},
 
-[_FUNCSHIFT] = { /* Function Shifted Layer, secondary alternative layer with closing brackets,
-                                            and F-keys under their numpad equivalents*/
-  {_______, _______, _______, _______, _______,       KC_RBRC, KC_F7,   KC_F8,   KC_F9,   KC_F10  },
-  {_______, _______, _______, _______, _______,       KC_RPRN, KC_F4,   KC_F5,   KC_F6,   KC_F11  },
-  {_______, _______, _______, _______, _______,       KC_RCBR, KC_F1,   KC_F2,   KC_F3,   KC_F12  },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX }
+[_MS] = { /* Mouse layer, including buttons for clicking. */
+  {_______, _______, _______, _______, _______, _______,        KC_VOLU, KC_HOME, KC_PGUP, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______,        _______, MS_BTN1, MS_BTN2, _______, _______, _______ },
+  {_______, _______, _______, _______, _______, _______,        KC_VOLD, KC_END,  KC_PGDN, _______, _______, _______ },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        _______, KC_UP,   _______, XXXXXXX, XXXXXXX, XXXXXXX },
+  {XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______,        KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX }
 }
 
 };
@@ -84,123 +100,280 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-static uint16_t key_timer;
+static uint16_t[LONGPRESS_COUNT] special_timers = {0xFFFF,0xFFFF,0xFFFF,0xFFFF};
+static bool[LONGPRESS_COUNT] special_key_states = {0,0,0,0};
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-    switch(id) {
+static uint16_t shift_timer;
+static uint16_t num_timer;
+static uint16_t mouse_timer;
 
-      	//switch multiplexing for media, short tap for volume up, long press for play/pause
-        case VOLU:
-            if (record->event.pressed) {
-            	key_timer = timer_read(); // if the key is being pressed, we start the timer.
-          	} else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) { // LONGPRESS_DELAY being 150ms, the threshhold we pick for counting something as a tap.
-                  return MACRO(T(MPLY), END);
-                } else {
-                  return MACRO(T(VOLU), END);
-                }
-          	}
-          	break;
+static bool shift_singular_key = false;
+static bool number_singular_key = false;
+static bool mouse_singular_key = false;
 
-		//switch multiplexing for media, short tap for volume down, long press for next track
-        case VOLD:
-            if (record->event.pressed) {
-            	key_timer = timer_read();
-          	} else {
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
-                  return MACRO(T(MNXT), END);
-                } else {
-                  return MACRO(T(VOLD), END);
-                }
-          	}
-          	break;
-
-        //switch multiplexing for escape, short tap for escape, long press for context menu
-        case ESCM:
-            if (record->event.pressed) {
-            	key_timer = timer_read();
-          	} else {
-            	if (timer_elapsed(key_timer) > LONGPRESS_DELAY) {
-                  return MACRO(T(APP), END);
-                } else {
-                  return MACRO(T(ESC), END);
-                }
-          	}
-          	break;     
-
-        break;
-    }
-    return MACRO_NONE;
-};
-
-static bool singular_key = false;
+static bool shift_held = false;
+static bool shift_suspended = false;
+report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	uint8_t layer;
-  layer = biton32(layer_state);  // get the current layer
+	layer = biton32(layer_state);  // get the current layer
 
-  //custom layer handling for tri_layer,
-  switch (keycode) {
-  case FNKEY:
-  	if (record->event.pressed) {
-      key_timer = timer_read();
-      singular_key = true;
-    	layer_on(_FUNCTION);
-  	} else {
-      if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-        layer_off(_FUNCTION);
-      }
-  	}
-    update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
-  	break;
-  //SHIFT is handled as LSHIFT in the general case
-  case SHIFT:
-  	if (record->event.pressed) {
-      key_timer = timer_read();
-      singular_key = true;
-    	layer_on(_SHIFTED);
-    	register_code(KC_LSFT);
-  	} else {
-    	if (timer_elapsed(key_timer) < LAYER_TOGGLE_DELAY || !singular_key) {
-        layer_off(_SHIFTED);
-    	  unregister_code(KC_LSFT);
-      }
-    }
-    update_tri_layer(_FUNCTION, _SHIFTED, _FUNCSHIFT);
-  	return false;
-  	break;
-
-  //If any other key was pressed during the layer mod hold period,
-  //then the layer mod was used momentarily, and should block latching
-  default:
-    singular_key = false;
-    break;
-  }
-
-  //FUNCSHIFT has been shifted by the SHIFT handling, some keys need to be excluded
-  if (layer == _FUNCSHIFT) {
-  	//F1-F12 should be sent as unshifted keycodes, 
-  	//and ] needs to be unshifted or it is sent as }
-  	if ( (keycode >= KC_F1 && keycode <= KC_F12)
-  	   || keycode == KC_RBRC ) {
-  		if (record->event.pressed) {
-              unregister_mods(MOD_LSFT);
-          } else {
-              register_mods(MOD_LSFT);
-          }
-  	}
-  }
-
-  return true;
+	 //custom layer handling for tri_layer,
+	switch (keycode) {
+		case NUMKEY:
+			if (record->event.pressed) {
+				num_timer = timer_read();
+				number_singular_key = true;
+				layer_invert(_NM);
+			} else {
+				if (timer_elapsed(num_timer) < MAX_TOGGLE_LENGTH && number_singular_key) {
+					//do nothing, the layer has already been inverted
+				} else {
+					layer_invert(_NM);
+				}
+			}
+			update_tri_layer(_NM, _SF, _NS);
+			return false;
+		break;
+		//SHIFT is handled as LSHIFT in the general case - 'toggle' shoudl activate caps, while the layer is only active when shift is held.
+		case SFTKEY:
+			if (record->event.pressed) {
+				shift_held = true;
+				shift_suspended = false;
+				shift_timer = timer_read();
+				shift_singular_key = true;
+				layer_on(_SF);
+				register_code(KC_LSFT);
+			} else {
+				shift_held = FALSE;
+				if (timer_elapsed(key_timer) < MAX_TOGGLE_LENGTH && shift_singular_key) {
+					//this was basically a toggle, so activate/deactivate caps lock.
+					SEND_STRING(SS_TAP(X_CAPSLOCK));
+				}
+				layer_off(_SF);
+				unregister_code(KC_LSFT);
+			}
+			update_tri_layer(_NM, _SF, _NS);
+			return false;
+		break;
+		//MOUSE layer needs to be handled the same way as NUMKEY, but differently from shift
+		case MOUSE:
+			if (record->event.pressed) {
+				mouse_timer = timer_read();
+				mouse_singular_key = true;
+				layer_invert(_MS);
+			} else {
+				if (timer_elapsed(mouse_timer) < MAX_TOGGLE_LENGTH && number_singular_key){
+					//do nothing, it was a toggle (and it's already been toggled)
+				} else {
+					layer_invert(_MS);
+				}
+			}
+			return false;
+		break;
+		//Custom macros for strange keys with different long-tap behavior
+		case CK_1G:
+			if (shift_held && shift_suspended){
+				register_code(KC_LSFT);
+				shift_suspended = false;
+			}
+			shift_singular_key = false;
+			number_singular_key = false;
+			mouse_singular_key = false;
+			if (record->event.pressed) {
+				special_timers[CK_1G-SAFE_RANGE] = timer_read();
+			} else {
+				if (special_key_states[CK_1G-SAFE_RANGE]){
+					//key was activated after longpress_delay, need to close those keycodes
+					special_key_states[CK_1G-SAFE_RANGE] = 0;
+					unregister_code(KC_GRAVE);
+				} else {
+					//key was not activated, return macro activating proper, pre-long-tap key
+					SEND_STRING(SS_TAP(X_1));
+				}
+				special_timers[CK_1G-SAFE_RANGE] = 0xFFFF;
+			}
+		break;
+		case CK_BSPE:
+			if (shift_held && shift_suspended){
+				register_code(KC_LSFT);
+				shift_suspended = false;
+			}
+			shift_singular_key = false;
+			number_singular_key = false;
+			mouse_singular_key = false;
+			if (record->event.pressed) {
+				special_timers[CK_BSPE-SAFE_RANGE] = timer_read();
+			} else {
+				if (special_key_states[CK_BSPE-SAFE_RANGE]){
+					//key was activated after longpress_delay, need to close those keycodes
+					special_key_states[CK_BSPE-SAFE_RANGE] = 0;
+					unregister_code(KC_ENTER);
+				} else {
+					//key was not activated, return macro activating proper, pre-long-tap key
+					SEND_STRING(SS_TAP(X_BSLASH));
+				}
+				special_timers[CK_BSPE-SAFE_RANGE] = 0xFFFF;
+			}
+		break;
+		case CK_QE:
+			if (shift_held && shift_suspended){
+				register_code(KC_LSFT);
+				shift_suspended = false;
+			}
+			shift_singular_key = false;
+			number_singular_key = false;
+			mouse_singular_key = false;
+			if (record->event.pressed) {
+				special_timers[CK_QE-SAFE_RANGE] = timer_read();
+			} else {
+				if (special_key_states[CK_QE-SAFE_RANGE]){
+					//key was activated after longpress_delay, need to close those keycodes
+					special_key_states[CK_QE-SAFE_RANGE] = 0;
+					unregister_code(KC_ENTER);
+				} else {
+					//key was not activated, return macro activating proper, pre-long-tap key
+					SEND_STRING(SS_TAP(X_QUOTE));
+				}
+				special_timers[CK_QE-SAFE_RANGE] = 0xFFFF;
+			}
+		break;
+		case CK_TE:
+			if (shift_held && shift_suspended){
+				register_code(KC_LSFT);
+				shift_suspended = false;
+			}
+			if (record->event.pressed) {
+				special_timers[CK_TE-SAFE_RANGE] = timer_read();
+			} else {
+				if (special_key_states[CK_TE-SAFE_RANGE]){
+					//key was activated after longpress_delay, need to close those keycodes
+					special_key_states[CK_TE-SAFE_RANGE] = 0;
+					unregister_code(KC_ENTER);
+				} else {
+					//key was not activated, return macro activating proper, pre-long-tap key
+					SEND_STRING(SS_TAP(X_TAB));
+				}
+				special_timers[CK_TE-SAFE_RANGE] = 0xFFFF:
+			}
+		break;
+		//No-shift keys, they unregister the KC_LSFT code so they can send 
+		//unshifted values - but they don't change the bool. if any other 
+		//key is pressed and the bool is set, KC_LSFT is registered again.
+		case NS_HYPH:
+			if (record->event.pressed) {
+				shift_suspended = true;
+				unregister_code(KC_LSFT);
+				register_code(KC_MINS);
+			} else {
+				unregister_code(KC_MINS);
+				if (shift_held && shift_suspended){
+					register_code(KC_LSFT);
+					shift_suspended = false;
+				}
+			}
+		break;
+		case NS_EQU:
+			if (record->event.pressed) {
+				shift_suspended = true;
+				unregister_code(KC_LSFT);
+				register_code(KC_EQUAL);
+			} else {
+				unregister_code(KC_EQUAL);
+				if (shift_held && shift_suspended){
+					register_code(KC_LSFT);
+					shift_suspended = false;
+				}
+			}
+		break;
+		
+		//mouse buttons, for 1-3, to update the mouse report:
+		case MS_BTN1:
+			currentReport = pointing_device_get_report();
+			if (record->event.pressed) {
+				if (shift_held && shift_suspended){
+					register_code(KC_LSFT);
+					shift_suspended = false;
+				}
+				//update mouse report here
+				currentReport.buttons |= MOUSE_BTN1; //MOUSE_BTN1 is a const defined in report.h
+			} else {
+				//update mouse report here
+				currentReport.buttons &= ~MOUSE_BTN1;
+			}
+			pointing_device_set_report(currentReport);
+		break;
+		case MS_BTN2:
+			currentReport = pointing_device_get_report();
+			if (record->event.pressed) {
+				if (shift_held && shift_suspended){
+					register_code(KC_LSFT);
+					shift_suspended = false;
+				}
+				//update mouse report here
+				currentReport.buttons |= MOUSE_BTN2; //MOUSE_BTN2 is a const defined in report.h
+			} else {
+				//update mouse report here
+			}
+			pointing_device_set_report(currentReport);
+		break;
+		//there is a case for button 3, but that's handled in dichotemy.c, and this is being
+		//disabled to avoid any conflict.
+		/*case MS_BTN3:
+			currentReport = pointing_device_get_report();
+			if (record->event.pressed) {
+				if (shift_held && shift_suspended){
+					register_code(KC_LSFT);
+					shift_suspended = false;
+				}
+				//update mouse report here
+				currentReport.buttons |= MOUSE_BTN3; //MOUSE_BTN2 is a const defined in report.h
+			} else {
+				//update mouse report here
+			}
+			pointing_device_set_report(currentReport);
+		break;*/
+		
+		//If any other key was pressed during the layer mod hold period,
+		//then the layer mod was used momentarily, and should block latching
+		//Additionally, if NS_ keys are in use, then shift may be held (but is
+		//disabled for the unshifted keycodes to be send.  Check the bool and
+		//register shift as necessary.
+		default:
+			if (shift_held){
+				register_code(KC_LSFT);
+			}
+			shift_singular_key = false;
+			number_singular_key = false;
+			mouse_singular_key = false;
+		break;
+	}
+	return true;
 };
 
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
-    
+    for (uint8_t i = 0; i<LONGPRESS_COUNT; i++){
+		if (timer_elapsed(special_timers[i]) >= LONGPRESS_DELAY && !special_key_states[i]){
+			switch (i + SAFE_RANGE){
+				case CK_1G:
+					register_code(KC_GRAVE);
+				break;
+				case CK_BSPE:
+					register_code(KC_ENTER);
+				break;
+				case CK_QE:
+					register_code(KC_ENTER);
+				break;
+				case CK_TE:
+					register_code(KC_ESCAPE)
+				break;
+			}
+			special_key_states[i] = 1;
+		}
+	}
     switch (layer) {
     	case _MALT:
     		set_led_off;
