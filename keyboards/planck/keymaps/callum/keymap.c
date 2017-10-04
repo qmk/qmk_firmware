@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_MOVE] = {
-  {H(KC_4), H(KC_1), G(KC_6), G(KC_5), G(KC_4), G(KC_HOME),G(KC_END),KC_HOME, KC_UP, KC_END,G(KC_BSPC),KC_ESC},
-  {H(KC_5), H(KC_2), G(KC_3), G(KC_2), G(KC_1), G(KC_PGDN),G(KC_PGUP),KC_LEFT,KC_DOWN,KC_RGHT, KC_CAPS,KC_DEL},
-  {_______, H(KC_3), G(KC_9), G(KC_8), G(KC_7), G(KC_M),G(KC_C),KC_PGDN,KC_PGUP,H(KC_LEFT),H(KC_RGHT),_______},
+  {S(H(KC_4)),S(H(KC_1)),G(KC_6),G(KC_5),G(KC_4),G(KC_HOME),G(KC_END),KC_HOME,KC_UP, KC_END,G(KC_BSPC),KC_ESC},
+  {S(H(KC_5)),S(H(KC_2)),G(KC_3),G(KC_2),G(KC_1),G(KC_PGDN),G(KC_PGUP),KC_LEFT,KC_DOWN,KC_RGHT, KC_CAPS,KC_DEL},
+  {_______, S(H(KC_3)),G(KC_9),G(KC_8),G(KC_7), G(KC_M),G(KC_C),KC_PGDN,KC_PGUP,H(KC_LEFT),H(KC_RGHT),_______},
   {_______, _______, _______, _______, _______, H(KC_ENT),_______,_______, _______, _______, _______, _______}
 },
 
