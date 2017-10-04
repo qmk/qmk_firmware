@@ -1,4 +1,5 @@
-
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 #include "../../config.h"
 
 
@@ -15,4 +16,8 @@
 #define FORCE_NKRO
 #ifdef FORCE_NKRO
 #define NKRO_EPSIZE 32
+#endif
+
+#define PERMISSIVE_HOLD
+
 #endif

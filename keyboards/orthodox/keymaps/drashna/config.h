@@ -57,4 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NKRO_EPSIZE 32
 #endif
 
+#define PERMISSIVE_HOLD
+
 #endif
