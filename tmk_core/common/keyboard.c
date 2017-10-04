@@ -152,7 +152,7 @@ void keyboard_init(void) {
     fauxclicky_init();
 #endif
 #ifdef POINTING_DEVICE_ENABLE
-    pointingdevice_init();
+    pointing_device_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;

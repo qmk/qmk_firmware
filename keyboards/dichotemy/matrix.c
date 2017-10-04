@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define MAIN_ROWMASK 0xFFF0;
-#deinfe LOWER_ROWMASK 0x1F80;
+#define LOWER_ROWMASK 0x1F80;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -127,11 +127,11 @@ uint8_t matrix_scan(void)
 		//bits 37-42 are row 4 (only 6 wide, 1-3 are 0, and 10-12 are 0)
 		//bits 43-48 are row 5 (same as row 4)
 		/* ASSUMING MSB FIRST */
-		matrix[0] = (uint16_t) uart_data[0] << 8 | (uint16_t) uart_data[1] & MAIN_ROWMASK;
-		matrix[1] = (uint16_t) uart_data[1] << 12 | (uint16_t) uart_data[2] << 4;
-		matrix[2] = (uint16_t) uart_data[3] << 8 | (uint16_t) uart_data[4] & MAIN_ROWMASK;
-		matrix[3] = (uint16_t) uart_data[4] << 9 | (uint16_t) uart_data[5] << 1 & LOWER_ROWMASK;
-		matrix[4] = (uint16_t) uart_data[5] << 7 & LOWER_ROWMASK;
+		matrix[0] = (((uint16_t) uart_data[0] << 8) | ((uint16_t) uart_data[1])) & MAIN_ROWMASK;
+		matrix[1] = (((uint16_t) uart_data[1] << 12) | ((uint16_t) uart_data[2] << 4);
+		matrix[2] = (((uint16_t) uart_data[3] << 8) | ((uint16_t) uart_data[4])) & MAIN_ROWMASK;
+		matrix[3] = (((uint16_t) uart_data[4] << 9) | ((uint16_t) uart_data[5] << 1)) & LOWER_ROWMASK;
+		matrix[4] = ((uint16_t) uart_data[5] << 7) & LOWER_ROWMASK;
 		/* OK, TURNS OUT THAT WAS A BAD ASSUMPTION */
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
 			//I've unpacked these into the mirror image of what QMK expects them to be, so...

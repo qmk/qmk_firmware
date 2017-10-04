@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static report_mouse_t mouseReport = {};
 
 __attribute__ ((weak))
-void pointingdevice_init(void){
+void pointing_device_init(void){
     //initialize device, if that needs to be done.
 }
 
@@ -43,15 +43,14 @@ void pointing_device_send(void){
 
 __attribute__ ((weak))
 void pointing_device_task(void){
-    report_mouse_t mouseReport = {};
     //gather info and put it in:
     //mouseReport.x = 127 max -127 min
     //mouseReport.y = 127 max -127 min
     //mouseReport.v = 127 max -127 min (scroll vertical)
     //mouseReport.h = 127 max -127 min (scroll horizontal)
-    //mouseReport.buttons = 0x31 max (bitmask for mouse buttons 1-5) 0x00 min
+    //mouseReport.buttons = 0x1F (decimal 31, binary 00011111) max (bitmask for mouse buttons 1-5, 1 is rightmost, 5 is leftmost) 0x00 min
     //send the report
-    pointing_device_send(mouseReport);
+    pointing_device_send();
 }
 
 report_mouse_t pointing_device_get_report(void){
