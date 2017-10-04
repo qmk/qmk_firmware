@@ -79,5 +79,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 >>>>>>> Add forced NKRO
 
+<<<<<<< HEAD
 #endif
 >>>>>>> Tweaked RGB lighting stuff
+=======
+#define PERMISSIVE_HOLD
+
+#endif
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

@@ -566,10 +566,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				KC_NO,          KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
 >>>>>>> Tweaked RGB lighting stuff
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+<<<<<<< HEAD
                 KC_NO,          KC_NO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
+=======
+				KC_NO,          KC_NO,
+				KC_NO,
+                KC_PGDOWN,      KC_DELETE, KC_ENTER
+			),
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
 
 /* Keymap 3:
  *
@@ -891,9 +898,11 @@ void matrix_scan_user(void) {  // runs frequently to update info
         ergodox_right_led_3_off();
 =======
     uint8_t layer = biton32(layer_state);
-    bool dvorak = false;
-    bool colemak = false;
+    bool l_dvorak = false;
+    bool l_colemak = false;
 	static bool has_layer_changed = true;
+
+
 	if (!skip_leds) {
 		ergodox_board_led_off();
 		ergodox_right_led_1_off();
@@ -998,6 +1007,15 @@ uint32_t layer_state_set_kb(uint32_t state) {
 >>>>>>> Tweaked RGB lighting stuff
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
+        uint8_t default_layer = 0;
+        default_layer = eeconfig_read_default_layer();
+
+        if (default_layer & (1UL << DVORAK)) {
+            l_dvorak = true;
+        }
+        else if (default_layer & (1UL << COLEMAK)) {
+            l_colemak = true;
+        }
         switch (layer) {
             case SYMB:
                 rgblight_set_blue;
@@ -1024,10 +1042,10 @@ uint32_t layer_state_set_kb(uint32_t state) {
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                if (colemak) {
+                if (l_colemak) {
                     rgblight_set_magenta;
                 }
-                else if (dvorak) {
+                else if (l_dvorak) {
                     rgblight_set_green;
                 }
                 else {

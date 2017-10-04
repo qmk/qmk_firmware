@@ -38,4 +38,11 @@
 #ifdef FORCE_NKRO
 #define NKRO_EPSIZE 32
 #endif
+<<<<<<< HEAD
 >>>>>>> Add forced NKRO
+=======
+
+#define PERMISSIVE_HOLD
+
+#endif
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

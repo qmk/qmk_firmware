@@ -264,9 +264,26 @@ void matrix_scan_user(void) {  // runs frequently to update info
     }
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
+        uint8_t default_layer = 0;
+        default_layer = eeconfig_read_default_layer();
+
+        if (default_layer & (1UL << _DVORAK)) {
+            l_dvorak = true;
+        }
+        else if (default_layer & (1UL << _COLEMAK)) {
+            l_colemak = true;
+        }
         switch (layer) {
         case _QWERTY:
-            rgblight_set_teal;
+            if (l_colemak) {
+                rgblight_set_magenta;
+            }
+            else if (l_dvorak) {
+                rgblight_set_green;
+            }
+            else {
+                rgblight_set_teal;
+            }
             rgblight_mode(1);
             break;
         case _COLEMAK:
