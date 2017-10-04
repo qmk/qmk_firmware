@@ -856,6 +856,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
 			),
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
+<<<<<<< HEAD
 =======
                                             KC_O,   KC_P,
                                                     KC_LGUI,
@@ -891,6 +892,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
 
 /* Keymap 3:
  *
@@ -1514,6 +1517,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
 =======
     uint8_t layer = biton32(layer_state);
 <<<<<<< HEAD
+<<<<<<< HEAD
     static bool has_layer_changed = true;
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
@@ -1526,6 +1530,13 @@ void matrix_scan_user(void) {  // runs frequently to update info
     bool colemak = false;
 	static bool has_layer_changed = true;
 >>>>>>> Add forced NKRO
+=======
+    bool l_dvorak = false;
+    bool l_colemak = false;
+	static bool has_layer_changed = true;
+
+
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
 	if (!skip_leds) {
 		ergodox_board_led_off();
 		ergodox_right_led_1_off();
@@ -1780,6 +1791,15 @@ uint32_t layer_state_set_kb(uint32_t state) {
 >>>>>>> Tweaked RGB lighting stuff
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
+        uint8_t default_layer = 0;
+        default_layer = eeconfig_read_default_layer();
+
+        if (default_layer & (1UL << DVORAK)) {
+            l_dvorak = true;
+        }
+        else if (default_layer & (1UL << COLEMAK)) {
+            l_colemak = true;
+        }
         switch (layer) {
             case SYMB:
                 rgblight_set_blue;
@@ -1806,10 +1826,10 @@ uint32_t layer_state_set_kb(uint32_t state) {
                 rgblight_sethsv (255,255,255);
                 break;
             default:
-                if (colemak) {
+                if (l_colemak) {
                     rgblight_set_magenta;
                 }
-                else if (dvorak) {
+                else if (l_dvorak) {
                     rgblight_set_green;
                 }
                 else {

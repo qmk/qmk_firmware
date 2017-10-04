@@ -114,10 +114,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
 #endif
 >>>>>>> Tweaked RGB lighting stuff
 =======
 #define PERMISSIVE_HOLD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
 =======
@@ -133,3 +137,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Tweaked RGB lighting stuff
 >>>>>>> Tweaked RGB lighting stuff
+=======
+
+#endif
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
+>>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

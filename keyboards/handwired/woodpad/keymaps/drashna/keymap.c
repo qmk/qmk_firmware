@@ -596,6 +596,10 @@ uint32_t layer_state_set_kb(uint32_t state) {
     // set Numlock LED to output and low
     DDRF |= (1<<7);
     PORTF &= ~(1<<7);
+    if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) ){
+        register_code(KC_NUMLOCK);
+        unregister_code(KC_NUMLOCK);
+    }
 }
 
 void matrix_scan_user(void) {
