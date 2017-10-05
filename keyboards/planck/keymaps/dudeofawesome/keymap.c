@@ -39,7 +39,7 @@ enum planck_keycodes {
 
 static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
