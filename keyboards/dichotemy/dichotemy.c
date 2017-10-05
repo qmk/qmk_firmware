@@ -49,7 +49,7 @@ void pointing_device_task(void){
 		currentReport.h = uart_data[3];
         //mouseReport.buttons = 0x31 max (bitmask for mouse buttons 1-5) 0x00 min
 		//mouse buttons 1 and 2 are handled by the keymap, but not 3
-		if (uart_data[5] == 0x0F) { //then 3 is not pressed
+		if (uart_data[4] == 0x0F) { //then 3 is not pressed
 			currentReport.buttons &= ~MOUSE_BTN3; //MOUSE_BTN3 is def in report.h
 		} else { //3 must be pressed
 			currentReport.buttons |= MOUSE_BTN3;
