@@ -37,15 +37,9 @@ extern keymap_config_t keymap_config;
 
 #include <inttypes.h>
 
-/* converts key to action */
-action_t action_for_key(uint8_t layer, keypos_t key)
+/* converts keycode to action */
+action_t action_for_configured_keycode(uint16_t keycode)
 {
-    // 16bit keycodes - important
-    uint16_t keycode = keymap_key_to_keycode(layer, key);
-
-    // keycode remapping
-    keycode = keycode_config(keycode);
-
     action_t action;
     uint8_t action_layer, when, mod;
 
@@ -148,6 +142,18 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
     }
     return action;
+}
+
+/* converts key to action */
+action_t action_for_key(uint8_t layer, keypos_t key)
+{
+    // 16bit keycodes - important
+    uint16_t keycode = keymap_key_to_keycode(layer, key);
+
+    // keycode remapping
+    keycode = keycode_config(keycode);
+	 
+    return action_for_configured_keycode(keycode);
 }
 
 __attribute__ ((weak))

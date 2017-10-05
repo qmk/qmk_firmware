@@ -108,6 +108,21 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
 endif
 
+ifeq ($(strip $(PAPAGENO_ENABLE)), yes)
+
+    OPT_DEFS += -DPAPAGENO_ENABLE
+    
+    EXTRAINCDIRS += $(QUANTUM_DIR)/../lib/papageno/src
+    EXTRAINCDIRS += $(QUANTUM_DIR)/../lib/papageno/3rd_party
+    EXTRAINCDIRS += $(QUANTUM_DIR)/../lib/papageno/build/atmega32u4/src
+
+    LDFLAGS += -Wl,-L$(QUANTUM_DIR)/../lib/papageno/build/atmega32u4/src
+
+    LDFLAGS += -lpapageno
+    
+    SRC += $(QUANTUM_DIR)/process_keycode/process_papageno.c       
+
+endif
 ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
     OPT_DEFS += -DKEY_LOCK_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c

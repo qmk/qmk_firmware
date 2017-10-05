@@ -46,6 +46,9 @@ typedef struct {
 #endif
 } keyrecord_t;
 
+/* Can be overridden and executes action_exec by default */
+void action_exec_user(keyevent_t event);
+
 /* Execute action per keyevent */
 void action_exec(keyevent_t event);
 

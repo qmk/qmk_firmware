@@ -10,3 +10,6 @@
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest
+[submodule "lib/papageno"]
+	path = lib/papageno
+	url = https://github.com/noseglasses/papageno.git
