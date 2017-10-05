@@ -23,7 +23,6 @@
 #define BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
 
 // Set up RGB underglow.
-#define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
 #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
 #define RGBLED_NUM 35          // Number of LEDs
@@ -32,12 +31,14 @@
 #define RGBLIGHT_VAL_STEP 10   // How much each press of rgb_val changes val
 
 // Enable current limiting for RGB underglow.
-#define USB_MAX_POWER_CONSUMPTION 900
-#define RGBSTRIP_CURRENT_LIMIT 800        // Strip current limit in mA.
+#define RGBSTRIP_CURRENT_LIMIT 1300    // Strip current limit in mA. (USB amperage - 500mA for keyboard)
 #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 40 // mA per light when at max brightness.
 
 // Scale brightnes according to BRIGHTNESS_CORRECTION_TABLE in quantum/rgblight.c.
 // This allows to mitigate uneven brightness from LED underglow strips.
 // #define LED_BRIGHTNESS_CORRECTION
+
+// Prevent modifiers on layer 1 from persisting after we let go
+#define PREVENT_STUCK_MODIFIERS
 
 #endif
