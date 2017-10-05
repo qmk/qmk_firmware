@@ -128,7 +128,7 @@ uint8_t matrix_scan(void)
 		//bits 43-48 are row 5 (same as row 4)
 		/* ASSUMING MSB FIRST */
 		matrix[0] = (((uint16_t) uart_data[0] << 8) | ((uint16_t) uart_data[1])) & MAIN_ROWMASK;
-		matrix[1] = (((uint16_t) uart_data[1] << 12) | ((uint16_t) uart_data[2] << 4);
+		matrix[1] = ((uint16_t) uart_data[1] << 12) | ((uint16_t) uart_data[2] << 4);
 		matrix[2] = (((uint16_t) uart_data[3] << 8) | ((uint16_t) uart_data[4])) & MAIN_ROWMASK;
 		matrix[3] = (((uint16_t) uart_data[4] << 9) | ((uint16_t) uart_data[5] << 1)) & LOWER_ROWMASK;
 		matrix[4] = ((uint16_t) uart_data[5] << 7) & LOWER_ROWMASK;
