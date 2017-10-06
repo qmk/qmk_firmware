@@ -15,11 +15,6 @@
  */
 #include "xd75.h"
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define ___T___ KC_TRNS
-#define XXXXXXX KC_TRNS
-
 // Layer shorthand
 #define _QW 0
 #define _FN 1
