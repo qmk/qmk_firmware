@@ -18,11 +18,11 @@ enum dichotemy_layers
 	_MS
 };
 
-#define LONGPRESS_COUNT = 4;
+#define LONGPRESS_COUNT 4;
 
 enum dichotemy_keycodes 
 {
-  CK_1G, = SAFE_RANGE,
+  CK_1G = SAFE_RANGE,
   CK_BSPE,
   CK_QE,
   CK_TE, //these 4 CK_XXXX keys are special "alternate long-press" keys controlled with unique timers.  Make sure you understand them before you mess with them.
@@ -53,7 +53,7 @@ enum dichotemy_macros
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = { /* Base layout, nearly qwerty but with modifications because it's not a full keyboard. Obviously. */
+[_BS] = { /* Base layout, nearly qwerty but with modifications because it's not a full keyboard. Obviously. */
   {CK_TE,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },
   {NUMKEY,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CK_QE   },
   {SFTKEY,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MOUSE   },
@@ -100,8 +100,8 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-static uint16_t[LONGPRESS_COUNT] special_timers = {0xFFFF,0xFFFF,0xFFFF,0xFFFF};
-static bool[LONGPRESS_COUNT] special_key_states = {0,0,0,0};
+static uint16_t special_timers[LONGPRESS_COUNT] = {0xFFFF,0xFFFF,0xFFFF,0xFFFF};
+static bool special_key_states[LONGPRESS_COUNT] = {0,0,0,0};
 
 static uint16_t shift_timer;
 static uint16_t num_timer;
@@ -147,8 +147,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_on(_SF);
 				register_code(KC_LSFT);
 			} else {
-				shift_held = FALSE;
-				if (timer_elapsed(key_timer) < MAX_TOGGLE_LENGTH && shift_singular_key) {
+				shift_held = false;
+				if (timer_elapsed(shift_timer) < MAX_TOGGLE_LENGTH && shift_singular_key) {
 					//this was basically a toggle, so activate/deactivate caps lock.
 					SEND_STRING(SS_TAP(X_CAPSLOCK));
 				}
@@ -375,16 +375,16 @@ void matrix_scan_user(void) {
 		}
 	}
     switch (layer) {
-    	case _MALT:
+    	case _BS:
     		set_led_off;
     		break;
-        case _FUNCTION:
+        case _NM:
             set_led_blue;
             break;
-        case _SHIFTED:
+        case _SF:
             set_led_red;
             break;
-        case _FUNCSHIFT:
+        case _NS:
         	set_led_green;
         	break;
         default:
