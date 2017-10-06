@@ -18,7 +18,7 @@ enum dichotemy_layers
 	_MS
 };
 
-#define LONGPRESS_COUNT 4;
+#define LONGPRESS_COUNT 4
 
 enum dichotemy_keycodes 
 {
@@ -117,8 +117,8 @@ report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-	uint8_t layer;
-	layer = biton32(layer_state);  // get the current layer
+	//uint8_t layer;
+	//layer = biton32(layer_state);  // get the current layer  //Or don't, I didn't use it.
 
 	 //custom layer handling for tri_layer,
 	switch (keycode) {
@@ -256,7 +256,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					//key was not activated, return macro activating proper, pre-long-tap key
 					SEND_STRING(SS_TAP(X_TAB));
 				}
-				special_timers[CK_TE-SAFE_RANGE] = 0xFFFF:
+				special_timers[CK_TE-SAFE_RANGE] = 0xFFFF;
 			}
 		break;
 		//No-shift keys, they unregister the KC_LSFT code so they can send 
@@ -368,7 +368,7 @@ void matrix_scan_user(void) {
 					register_code(KC_ENTER);
 				break;
 				case CK_TE:
-					register_code(KC_ESCAPE)
+					register_code(KC_ESCAPE);
 				break;
 			}
 			special_key_states[i] = 1;
