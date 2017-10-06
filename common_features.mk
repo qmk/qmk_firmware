@@ -70,7 +70,7 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	SRC += $(DRIVER_PATH)/avr/pointing_device.c
+	SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
