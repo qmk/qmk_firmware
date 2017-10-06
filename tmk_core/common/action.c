@@ -40,6 +40,12 @@ int tp_buttons;
 #include <fauxclicky.h>
 #endif
 
+__attribute__ ((weak))
+void action_exec_user(keyevent_t event)
+{
+   action_exec(event);
+}
+
 void action_exec(keyevent_t event)
 {
     if (!IS_NOEVENT(event)) {

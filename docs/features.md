@@ -103,3 +103,8 @@ case MACRO_RAISED:
   }
   break;
 ```
+
+## Papageno: Turn your keyboard into a magical musical instrument
+
+Define multi-key tap-dances, highly customizable leader key-sequences, chords, key-clusters or mixtures of it all. [Papageno](https://github.com/noseglasses/papageno/) an advanced pattern matching library seamlessly integrates with QMK to provide ultimate flexibility in the generation of multi-key-commands. An automatized compression mechanism converts easy-to-define search-tree data structures into statically allocated, compile-time static compressed data-sets. This allows for Flash and RAM memory-saving definitions of large amounts of key-patterns in a clearly arranged fashion.
+See the [QMK-Papageno](papageno.md) page for detailed information.
