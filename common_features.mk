@@ -69,6 +69,10 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/pointing_device.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON = yes
@@ -117,6 +121,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    OPT_DEFS += -DAUTO_SHIFT_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)

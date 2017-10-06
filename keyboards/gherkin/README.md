@@ -5,8 +5,8 @@ A 30 key keyboard.
 
 * [The original TMK firmware](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/gherkin)
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Gherkin PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Gherkin PCB  
 Hardware Availability: [Gherkin project on 40% Keyboards](http://www.40percent.club/2016/11/gherkin.html)
 
 Make example for this keyboard (after setting up your build environment):

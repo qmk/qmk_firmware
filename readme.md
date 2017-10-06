@@ -18,8 +18,8 @@ This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.
 * [Planck](/keyboards/planck/)
 * [Preonic](/keyboards/preonic/)
 * [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/cluepad/)
+* [Clueboard](/keyboards/clueboard_66/)
+* [Cluepad](/keyboards/clueboard_17/)
 
 The project also includes community support for [lots of other keyboards](/keyboards/).
 
