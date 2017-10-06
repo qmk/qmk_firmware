@@ -63,6 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VISUALIZER_ENABLE
 #   include "visualizer/visualizer.h"
 #endif
+#ifdef POINTING_DEVICE_ENABLE
+#   include "pointing_device.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -119,6 +122,11 @@ void keyboard_setup(void) {
     matrix_setup();
 }
 
+__attribute__((weak))
+bool is_keyboard_master(void) {
+    return true;
+}
+
 void keyboard_init(void) {
     timer_init();
     matrix_init();
@@ -148,6 +156,9 @@ void keyboard_init(void) {
 #ifdef FAUXCLICKY_ENABLE
     fauxclicky_init();
 #endif
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
@@ -168,36 +179,38 @@ void keyboard_task(void)
     matrix_row_t matrix_change = 0;
 
     matrix_scan();
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row = matrix_get_row(r);
-        matrix_change = matrix_row ^ matrix_prev[r];
-        if (matrix_change) {
+    if (is_keyboard_master()) {
+        for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+            matrix_row = matrix_get_row(r);
+            matrix_change = matrix_row ^ matrix_prev[r];
+            if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-            if (has_ghost_in_row(r, matrix_row)) {
-                /* Keep track of whether ghosted status has changed for
-                 * debugging. But don't update matrix_prev until un-ghosted, or
-                 * the last key would be lost.
-                 */
-                //if (debug_matrix && matrix_ghost[r] != matrix_row) {
-                //    matrix_print();
-                //}
+                if (has_ghost_in_row(r, matrix_row)) {
+                    /* Keep track of whether ghosted status has changed for
+                    * debugging. But don't update matrix_prev until un-ghosted, or
+                    * the last key would be lost.
+                    */
+                    //if (debug_matrix && matrix_ghost[r] != matrix_row) {
+                    //    matrix_print();
+                    //}
+                    //matrix_ghost[r] = matrix_row;
+                    continue;
+                }
                 //matrix_ghost[r] = matrix_row;
-                continue;
-            }
-            //matrix_ghost[r] = matrix_row;
 #endif
-            if (debug_matrix) matrix_print();
-            for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                if (matrix_change & ((matrix_row_t)1<<c)) {
-                    action_exec((keyevent_t){
-                        .key = (keypos_t){ .row = r, .col = c },
-                        .pressed = (matrix_row & ((matrix_row_t)1<<c)),
-                        .time = (timer_read() | 1) /* time should not be 0 */
-                    });
-                    // record a processed key
-                    matrix_prev[r] ^= ((matrix_row_t)1<<c);
-                    // process a key per task call
-                    goto MATRIX_LOOP_END;
+                if (debug_matrix) matrix_print();
+                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+                    if (matrix_change & ((matrix_row_t)1<<c)) {
+                        action_exec((keyevent_t){
+                            .key = (keypos_t){ .row = r, .col = c },
+                            .pressed = (matrix_row & ((matrix_row_t)1<<c)),
+                            .time = (timer_read() | 1) /* time should not be 0 */
+                        });
+                        // record a processed key
+                        matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                        // process a key per task call
+                        goto MATRIX_LOOP_END;
+                    }
                 }
             }
         }
@@ -230,6 +243,10 @@ MATRIX_LOOP_END:
 
 #ifdef VISUALIZER_ENABLE
     visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_task();
 #endif
 
     // update LED

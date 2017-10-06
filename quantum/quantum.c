@@ -235,6 +235,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
+  #ifdef AUTO_SHIFT_ENABLE
+    process_auto_shift(keycode, record) &&
+  #endif
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
   #endif
