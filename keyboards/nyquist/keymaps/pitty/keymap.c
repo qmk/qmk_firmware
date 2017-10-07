@@ -15,7 +15,7 @@ enum custom_macros {
     DRIGHT,
 };
 
-enum planck_keycodes {
+enum nyquist_keycodes {
   DYNAMIC_MACRO_RANGE,
 };
 
