@@ -14,7 +14,7 @@ Shortcuts for bootmagic options. You can use these even when bootmagic is off.
 |`MAGIC_SWAP_RALT_RGUI`|Swap the right Alt and GUI keys|
 |`MAGIC_NO_GUI`|Disable the GUI key|
 |`MAGIC_SWAP_GRAVE_ESC`|Swap the Grave and Esc key.|
-|`MAGIC_SWAP_BACKSLASH_BACKSPACE`|Swap backslack and backspace|
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`|Swap backslash and backspace|
 |`MAGIC_HOST_NKRO`|Force NKRO on|
 |`MAGIC_SWAP_ALT_GUI`/`AG_SWAP`|Swap Alt and Gui on both sides|
 |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`|Disable the Control/Capslock swap|
