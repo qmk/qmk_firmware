@@ -15,9 +15,6 @@ enum custom_macros {
     DRIGHT,
 };
 
-enum nyquist_keycodes {
-  DYNAMIC_MACRO_RANGE,
-};
 
 #include "dynamic_macro.h"
 
@@ -37,15 +34,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Í/Shft| Y(Z) |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  -(/)| Shift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt |LOWER |  Spc |  Spc | Bksp | Ent  |  Alt |  DM  | GAME | Del  |
+ * | Ctrl |  GUI |  Alt |LOWER |  Spc |  Spc | Bksp | Ent  |  Alt | =(&) | GAME | Del  |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP( \
-  KC_GRV,                KC_1,      KC_2,    KC_3,        KC_4,           KC_5,    KC_6,    KC_7,    KC_8,    KC_9,            KC_0,          KC_MINUS, \
-  KC_TAB,                KC_Q,      KC_W,    KC_E,        KC_R,           KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,            KC_P,          KC_BSPC, \
-  KC_ESC,                KC_A,      KC_S,    KC_D,        LT(_VIM, KC_F), KC_G,    KC_H,    KC_J,    KC_K,    KC_L,            KC_SCLN,       KC_QUOT, \
-  MT(MOD_LSFT, KC_NUBS), KC_Z,      KC_X,    KC_C,        KC_V,           KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,          KC_SLSH,       OSM(MOD_RSFT), \
-  KC_LCTL,               KC_LGUI,   KC_LALT, TT(_LOWER),  KC_SPC,         KC_SPC, KC_BSPC,  KC_ENT,  KC_RALT, DYN_MACRO_PLAY1, TG(_GAME),     KC_DEL \
+  KC_GRV,                KC_1,      KC_2,    KC_3,        KC_4,           KC_5,    KC_6,    KC_7,    KC_8,    KC_9,         KC_0,          KC_MINUS, \
+  KC_TAB,                KC_Q,      KC_W,    KC_E,        KC_R,           KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,          KC_BSPC, \
+  KC_ESC,                KC_A,      KC_S,    KC_D,        LT(_VIM, KC_F), KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         KC_SCLN,       KC_QUOT, \
+  MT(MOD_LSFT, KC_NUBS), KC_Z,      KC_X,    KC_C,        KC_V,           KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,       OSM(MOD_RSFT), \
+  KC_LCTL,               KC_LGUI,   KC_LALT, TT(_LOWER),  KC_SPC,         KC_SPC, KC_BSPC,  KC_ENT,  KC_RALT, KC_AMPERSAND, TG(_GAME),     KC_DEL \
 ),
 
 /* Gaming mode
@@ -106,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_VIM] =  KEYMAP( \
-  RGB_MOD, RGB_TOG,  _______,   _______, DYN_REC_STOP,   _______, _______, _______, _______, _______, KC_LBRC, KC_NUHS, \
-  _______, _______,  _______,   _______, DYN_REC_START1, _______, _______, KC_RBRC, KC_NUBS, KC_EQL , _______, _______, \
-  _______, M(DLEFT), M(DRIGHT), KC_LCTL, _______,        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
-  _______, _______,  _______,   _______, _______,        _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______,  _______,   _______, KC_LSFT,        _______, _______, _______, _______, _______, _______, _______ \
+  RGB_MOD, RGB_TOG,  _______,   _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_NUHS, \
+  _______, _______,  _______,   _______, _______, _______, _______, KC_RBRC, KC_NUBS, KC_EQL , _______, _______, \
+  _______, M(DLEFT), M(DRIGHT), KC_LCTL, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+  _______, _______,  _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______,  _______,   _______, KC_LSFT, _______, _______, _______, _______, _______, _______, _______ \
 )
 
 
@@ -135,11 +132,5 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             break;
     }
     return MACRO_NONE;
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(macro_kc, record)) {
-        return false;
-    }
-    return true;
 }
+
