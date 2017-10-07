@@ -16,8 +16,6 @@ enum custom_macros {
 };
 
 
-#include "dynamic_macro.h"
-
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
