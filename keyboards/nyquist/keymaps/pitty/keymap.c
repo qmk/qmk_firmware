@@ -71,20 +71,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |  Up  |      |      |      |      |      |   7  |   8  |   9  |   /  |
+ * |      |      |  Up  |      |  Del |  Ins |      |      |   7  |   8  |   9  |   /  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Left | Down | Right|      |      |      |      |   4  |   5  |   6  |   *  |
+ * |      | Left | Down | Right| Home |  End |      |      |   4  |   5  |   6  |   *  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|      |      |      |      |      |      |      |   1  |   2  |   3  |   -  |
+ * | Shift|      |      |      | PGUP | PGDN |      |      |   1  |   2  |   3  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |   0  |   .  |   =  |   +  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
   KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,    KC_F11,       KC_F12, \
-  _______,   _______, KC_UP,   _______, _______, _______, _______,  _______, KC_7,    KC_8,      KC_9,         KC_KP_SLASH, \
-  _______,   KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,  _______, KC_4,    KC_5,      KC_6,         KC_KP_ASTERISK, \
-  KC_LSFT,   _______, _______, _______, _______, _______, _______,  _______, KC_1,    KC_2,      KC_3,         KC_KP_MINUS, \
+  _______,   _______, KC_UP,   _______, KC_DEL , KC_INS , _______,  _______, KC_7,    KC_8,      KC_9,         KC_KP_SLASH, \
+  _______,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END , _______,  _______, KC_4,    KC_5,      KC_6,         KC_KP_ASTERISK, \
+  KC_LSFT,   _______, _______, _______, KC_PGUP, KC_PGDN, _______,  _______, KC_1,    KC_2,      KC_3,         KC_KP_MINUS, \
   _______,   _______, _______, _______, _______, _______, _______,  _______, KC_GRV,  KC_KP_DOT, KC_KP_EQUAL,  KC_KP_PLUS \
 ),
 
@@ -135,8 +135,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
-  return true;
+    uint16_t macro_kc = (keycode == MO(_VIM) ? DYN_REC_STOP : keycode);
+    if (!process_record_dynamic_macro(macro_kc, record)) {
+        return false;
+    }
+    return true;
 }
