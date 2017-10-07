@@ -13,7 +13,10 @@ extern keymap_config_t keymap_config;
 enum custom_macros {
     DLEFT,
     DRIGHT,
-	DYNAMIC_MACRO_RANGE,
+};
+
+enum planck_keycodes {
+  DYNAMIC_MACRO_RANGE,
 };
 
 #include "dynamic_macro.h"
