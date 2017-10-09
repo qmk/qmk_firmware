@@ -1,7 +1,7 @@
 Dichotemy Keyboard Firmware
 ======================
 
-These configuration files were based off the Mitosis keyboard. This keyboard uses a completely different 'matrix scan' system to other keyboards, it relies on an external nRF51822 microcontroller maintaining a matrix of keystates received from the keyboard halves - it also receives mouse pointer information from the keyboard halves, which is implemented through pointing_device. The matrix.c file contains the code to poll the external microcontroller for the key matrix, and the pointing_device.c file contains similar code to obtain the mouse report. As long as these files are not changed, all other QMK features are supported.
+These configuration files were based off the Mitosis keyboard. This keyboard uses a completely different 'matrix scan' system to other keyboards, it relies on an external nRF51822 microcontroller maintaining a matrix of keystates received from the keyboard halves - it also receives mouse pointer information from the keyboard halves, which is implemented through a new feature, "Pointing Device". The matrix.c file contains the code to poll the external microcontroller for the key matrix, and the keymap.c file contains similar code to obtain the mouse report. As long as the relavant functions in these files are not changed, all other QMK features are supported.
 
 Build log of the keyboard can be found [here](http://google.com)
 
