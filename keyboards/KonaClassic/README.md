@@ -13,31 +13,31 @@ Hardware Availability: Via GB
 Layouts that are preconfigured are shown here:
 
 Default:
-![Default](DangerousParts/KonaClassic/QMKFirmware/layout_images/default.png)  
+![Default](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/default.png)  
 
 ANSI:
-![ANSI](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi.png)  
+![ANSI](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi.png)  
 
 ANSI_split:
-![ANSI w/ Split Space](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split.png)  
+![ANSI w/ Split Space](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split.png)  
 
 ANSI_arrows:
-![ANSI w/ Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_arrows.png)  
+![ANSI w/ Arrows](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_arrows.png)  
 
 ANSI_split_arrows:
-![ANSI w/ Split Space & Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split_arrows.png)  
+![ANSI w/ Split Space & Arrows](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split_arrows.png)  
 
 ISO:
-![ISO](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso.png)  
+![ISO](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/iso.png)  
 
 ISO_split:
-![ISO w/ Split Space](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split.png)  
+![ISO w/ Split Space](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split.png)  
 
 ISO_arrows:
-![ISO w/ Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_arrows.png)  
+![ISO w/ Arrows](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_arrows.png)  
 
 ISO_split_arrows:
-![ISO w/ Split Space & Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split_arrows.png)  
+![ISO w/ Split Space & Arrows](https://github.com/DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split_arrows.png)  
 
 
 Make example for this keyboard (after setting up your build environment):
