@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USB_USB_H
-#define USB_USB_H
+#ifndef USB_USB_CONVERTER_H
+#define USB_USB_CONVERTER_H
 
 #include "quantum.h"
 

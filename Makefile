@@ -316,21 +316,21 @@ define PARSE_SUBPROJECT
     ifneq ($$(CURRENT_SP),allsp)
         # get a list of all keymaps
         KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/keymaps/*/.)))
-        LAYOUTS :=
-        $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
-        KEYBOARD_LAYOUTS := $$(LAYOUTS)
-        ifneq ($$(CURRENT_SP),)
-            # if the subproject is defined, then also look for keymaps inside the subproject folder
-            SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
-            KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
-	        # $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/rules.mk)
-        	# KEYBOARD_LAYOUTS := $$(sort $$(KEYBOARD_LAYOUTS) $$(LAYOUTS))
-        endif
+        # LAYOUTS :=
+        # $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
+        # KEYBOARD_LAYOUTS := $$(LAYOUTS)
+        # ifneq ($$(CURRENT_SP),)
+        #     # if the subproject is defined, then also look for keymaps inside the subproject folder
+        #     SP_KEYMAPS := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/keymaps/*/.)))
+        #     KEYMAPS := $$(sort $$(KEYMAPS) $$(SP_KEYMAPS))
+	       #  # $$(eval -include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/$$(CURRENT_SP)/rules.mk)
+        # 	# KEYBOARD_LAYOUTS := $$(sort $$(KEYBOARD_LAYOUTS) $$(LAYOUTS))
+        # endif
 
-        LAYOUT_KEYMAPS :=
-        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
+        # LAYOUT_KEYMAPS :=
+        # $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
         
-        KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+        KEYMAPS := $$(sort $$(KEYMAPS))
         # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
         # compile all the keymaps
         ifeq ($$(RULE),)
@@ -555,6 +555,10 @@ test: test-all
 
 .PHONY: test-clean
 test-clean: test-all-clean
+
+.PHONY: clean
+clean:
+	rm -r .build
 
 lib/%:
 	git submodule sync $?
