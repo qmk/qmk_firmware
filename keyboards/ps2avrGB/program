@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>, Sebastian Kaim <sebb@sebb767.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,54 +21,84 @@ import sys
 import time
 import usb
 
+
+def checkForKeyboardInNormalMode():
+    """Returns a device if a ps2avrGB device in normal made (that is in keyboard mode) or None if it is not found."""
+    return usb.core.find(idVendor=0x20A0, idProduct=0x422D)
+
+def checkForKeyboardInBootloaderMode():
+    """Returns True if a ps2avrGB device in bootloader (flashable) mode is found and False otherwise."""
+    return (usb.core.find(idVendor=0x16c0, idProduct=0x05df) is not None)
+
+def flashKeyboard(firmware_file):
+    """Calls bootloadHID to flash the given file to the device."""
+    print('Flashing firmware to device ...')
+    if os.system('bootloadHID -r "%s"' % firmware_file) == 0:
+        print('\nDone!')
+    else:
+        print('\nbootloadHID returned an error.')
+
+def printDeviceInfo(dev):
+    """Prints all infos for a given USB device"""
+    print('Device Information:')
+    print('  idVendor: %d (0x%04x)' % (dev.idVendor, dev.idVendor))
+    print('  idProduct: %d (0x%04x)' % (dev.idProduct, dev.idProduct))
+    print('Manufacturer: %s' % (dev.iManufacturer))
+    print('Serial: %s' % (dev.iSerialNumber))
+    print('Product: %s' % (dev.iProduct), end='\n\n')
+
+def sendDeviceToBootloaderMode(dev):
+    """Tries to send a given ps2avrGB keyboard to bootloader mode to allow flashing."""
+    try:
+        dev.set_configuration()
+
+        request_type = usb.util.build_request_type(
+                usb.util.CTRL_OUT,
+                usb.util.CTRL_TYPE_CLASS,
+                usb.util.CTRL_RECIPIENT_DEVICE)
+
+        USBRQ_HID_SET_REPORT = 0x09
+        HID_REPORT_OPTION = 0x0301
+
+        dev.ctrl_transfer(request_type, USBRQ_HID_SET_REPORT, HID_REPORT_OPTION, 0, [0, 0, 0xFF] + [0] * 5)
+    except usb.core.USBError:
+        # for some reason I keep getting USBError, but it works!
+        pass
+
+
 if len(sys.argv) < 2:
     print('Usage: %s <firmware.hex>' % sys.argv[0])
     sys.exit(1)
 
-print('Searching for ps2avrGB... ', end='')
+kb = checkForKeyboardInNormalMode()
 
-dev = usb.core.find(idVendor=0x20A0, idProduct=0x422D)
-if dev is None:
-    raise ValueError('Device not found')
+if kb is not None:
+    print('Found a keyboad in normal mode. Attempting to send it to bootloader mode ...', end='')
+    sendDeviceToBootloaderMode(kb)
+    print(' done.')
+    print("Hint: If your keyboard can't be set to bootloader mode automatically, plug it in while pressing left control to do so manually.")
 
-print('Found', end='\n\n')
+attempts = 12  # 60 seconds
+found = False
+for attempt in range(1, attempts + 1):
+    print("Searching for keyboard in bootloader mode (%i/%i) ... " % (attempt, attempts), end='')
 
-print('Device Information:')
-print('  idVendor: %d (0x%04x)' % (dev.idVendor, dev.idVendor))
-print('  idProduct: %d (0x%04x)' % (dev.idProduct, dev.idProduct))
-print('Manufacturer: %s' % (dev.iManufacturer))
-print('Serial: %s' % (dev.iSerialNumber))
-print('Product: %s' % (dev.iProduct), end='\n\n')
+    if checkForKeyboardInBootloaderMode():
+        print('Found', end='\n\n')
+        flashKeyboard(sys.argv[1])
+        found = True
+        break
+    else:
+        print('Nothing.', end='')
 
-print('Transferring control to bootloader... ', end='')
+        if attempt != attempts:  # no need to wait on the last attempt
+            print(' Sleeping 5 seconds.', end='')
+            time.sleep(5)
 
-dev.set_configuration()
+        # print a newline
+        print()
 
-request_type = usb.util.build_request_type(
-        usb.util.CTRL_OUT,
-        usb.util.CTRL_TYPE_CLASS,
-        usb.util.CTRL_RECIPIENT_DEVICE)
+if not found:
+    print("Couldn't find a flashable keyboard. Aborting.")
+    sys.exit(2)
 
-USBRQ_HID_SET_REPORT = 0x09
-HID_REPORT_OPTION = 0x0301
-
-
-try:
-    dev.ctrl_transfer(
-            request_type,
-            USBRQ_HID_SET_REPORT,
-            HID_REPORT_OPTION,
-            0,
-            [0, 0, 0xFF] + [0] * 5
-            )
-except usb.core.USBError:
-    # for some reason I keep getting USBError, but it works!
-    pass
-
-# wait a bit until bootloader starts up
-time.sleep(2)
-
-print('OK')
-print('Programming...')
-if os.system('bootloadHID -r "%s"' % sys.argv[1]) == 0:
-    print('\nDone!')
