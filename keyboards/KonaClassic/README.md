@@ -11,19 +11,33 @@ Hardware Supported: Teensy 2.0
 Hardware Availability: Via GB
 
 Layouts that are preconfigured are shown here:
-![Default](layout_images/default.png)  
 
-ANSI Layouts:
-![ANSI](layout_images/ansi.png)  
-![ANSI w/ Split Space](layout_images/ansi_split.png)  
-![ANSI w/ Arrows](layout_images/ansi_arrows.png)  
-![ANSI w/ Split Space & Arrows](layout_images/ansi_split_arrows.png)  
+Default:
+![Default](DangerousParts/KonaClassic/QMKFirmware/layout_images/default.png)  
 
-ISO Layouts:
-![ISO](layout_images/iso.png)  
-![ISO w/ Split Space](layout_images/iso_split.png)  
-![ISO w/ Arrows](layout_images/iso_arrows.png)  
-![ISO w/ Split Space & Arrows](layout_images/iso_split_arrows.png)  
+ANSI:
+![ANSI](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi.png)  
+
+ANSI_split:
+![ANSI w/ Split Space](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split.png)  
+
+ANSI_arrows:
+![ANSI w/ Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_arrows.png)  
+
+ANSI_split_arrows:
+![ANSI w/ Split Space & Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/ansi_split_arrows.png)  
+
+ISO:
+![ISO](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso.png)  
+
+ISO_split:
+![ISO w/ Split Space](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split.png)  
+
+ISO_arrows:
+![ISO w/ Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_arrows.png)  
+
+ISO_split_arrows:
+![ISO w/ Split Space & Arrows](DangerousParts/KonaClassic/QMKFirmware/layout_images/iso_split_arrows.png)  
 
 
 Make example for this keyboard (after setting up your build environment):
