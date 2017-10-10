@@ -21,6 +21,7 @@
   * [Leader Key](feature_leader_key.md)
   * [Macros](macros.md)
   * [Mouse keys](mouse_keys.md)
+  * [Pointing Device](feature_pointing_device.md)
   * [PS2 Mouse](feature_ps2_mouse.md)
   * [Space Cadet](space_cadet_shift.md)
   * [Tap Dance](tap_dance.md)
