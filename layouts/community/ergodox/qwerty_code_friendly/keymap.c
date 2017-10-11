@@ -15,7 +15,7 @@
 #define CFQ_USER_KEY1 KC_F13
 #endif
 #if !defined(CFQ_USER_KEY2)
-#define CFQ_USER_KEY2 KC_F14
+#define CFQ_USER_KEY2 KC_APP
 #endif
 
 #define BASE 0 // default layer
@@ -77,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | Ins  |Space |                                       | Left | Down | Up   |Right | Del  |
+ *   | LCtl |Super | Alt  | USR2 |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | USR2 | ~L3  |       | Home | End  |
+ *                                        | Ins  | ~L3  |       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      | ~L2  |       | PgUp |      |      |
  *                                 |Space | USR1 |------|       |------|Enter |Space |
@@ -91,14 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
-  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR, KC_PERC, KC_LCBR,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,    KC_LPRN,
-  KC_ESC,  KC_A,    KC_S,    KC_D,     KC_F,   KC_G,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V,   KC_B,    KC_LBRC,
-  KC_LCTL, KC_LGUI, KC_LALT, KC_INS,   KC_SPC,
-                                               CFQ_USER_KEY2, CFQ_KC_FN3,
-                                                              CFQ_KC_FN2,
-                                       KC_SPC, CFQ_USER_KEY1, CFQ_KC_FN1,
+  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH,       KC_DLR, KC_PERC, KC_LCBR,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,          KC_R,   KC_T,    KC_LPRN,
+  KC_ESC,  KC_A,    KC_S,    KC_D,          KC_F,   KC_G,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,          KC_V,   KC_B,    KC_LBRC,
+  KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY2, KC_SPC,
+                                                    KC_INS,        CFQ_KC_FN3,
+                                                                   CFQ_KC_FN2,
+                                            KC_SPC, CFQ_USER_KEY1, CFQ_KC_FN1,
   // right hand
   KC_RCBR,     KC_CIRC, KC_AMPR, KC_ASTR,KC_MINS, KC_EQL,    KC_BSPC,
   KC_RPRN,     KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,      KC_BSLS,

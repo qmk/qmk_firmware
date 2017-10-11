@@ -49,6 +49,20 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#ifdef RGBLIGHT_ENABLE
+//define layer change stuff for underglow indicator
+#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
+#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
+#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
+#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
+#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
+
+//This is both for underglow, and Diablo 3 macros
+bool has_layer_changed = true;
+static uint8_t current_layer = 10;
+#endif
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -194,4 +208,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+#ifdef RGBLIGHT_ENABLE
 
+
+
+
+void matrix_scan_user(void) {  // runs frequently to update info
+     uint8_t layer = biton32(layer_state);
+
+     if (layer != current_layer) {
+        has_layer_changed = true;
+        current_layer = layer;
+    }
+    // Check layer, and apply color if its changed since last check
+    if (has_layer_changed) {
+        uint8_t default_layer = 0;
+        default_layer = eeconfig_read_default_layer();
+
+        if (default_layer & (1UL << _DVORAK)) {
+            l_dvorak = true;
+        }
+        else if (default_layer & (1UL << _COLEMAK)) {
+            l_colemak = true;
+        }
+        switch (layer) {
+        case _QWERTY:
+            if (l_colemak) {
+                rgblight_set_magenta;
+            }
+            else if (l_dvorak) {
+                rgblight_set_green;
+            }
+            else {
+                rgblight_set_teal;
+            }
+            rgblight_mode(1);
+            break;
+        case _COLEMAK:
+            rgblight_set_magenta;
+            rgblight_mode(1);
+            break;
+        case _DVORAK:
+            rgblight_set_green;
+            rgblight_mode(1);
+            break;
+        case _RAISE:
+            rgblight_set_blue;
+            rgblight_mode(2);
+            break;
+        case _LOWER:
+            rgblight_set_orange;
+            rgblight_mode(3);
+            break;
+        case _ADJUST:
+            rgblight_set_red;
+            rgblight_mode(17);
+            break;
+        case 6:
+            rgblight_set_urine;
+            break;
+        }
+        has_layer_changed = false;
+    }
+
+ };
+#endif
