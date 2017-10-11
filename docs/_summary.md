@@ -53,6 +53,7 @@
   * [The `config.h` File](config_options.md)
   * [Customizing Functionality](custom_quantum_functions.md)
   * [Documentation Best Practices](documentation_best_practices.md)
+  * [Documentation Templates](documentation_templates.md)
   * [Unit Testing](unit_testing.md)
 
 * For Makers and Modders
