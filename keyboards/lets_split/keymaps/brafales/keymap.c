@@ -22,6 +22,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  HSH_RKT,
+  GO_ASGN
 };
 
 // Fillers to make layering more clear
@@ -33,11 +35,6 @@ enum custom_keycodes {
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
 #define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
 #define MEH_GRV     MEH_T(KC_GRV)               // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
-
-//Tap Dance Declarations
-enum {
-  TD_COLON_ROCKET = 0
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -54,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = KEYMAP( \
   HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD_COLON_ROCKET), KC_QUOT, \
+  CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
-  MEH_GRV, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  SFT_ENT,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  MEH_GRV, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_ENTER,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Colemak
@@ -115,19 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------. ,-----------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  | Del  |
+ * |   ~  |   !  |   @  |   £  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |      |      |      |      |      |      | |   _  |   ?  |   +  |   {  |   }  |  |   |
+ * |      |   => |  :=  |   /  |   \  |   |  | |   _  |   ?  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |      |      |      |      |      |      | |   -  |   /  |   =  |   [  |   ]  |  \   |
+ * |      |   <  |   >  |   =  |   @  |   #  | |   -  |   /  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * |      |      |      |      |      |      | |      |      | Home |PageDn|PageUp| End  |
  * `-----------------------------------------' `-----------------------------------------'
  */
 [_RAISE] = KEYMAP( \
-  ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  _______,        _______, _______, _______, _______, _______, KC_UNDS, KC_QUES, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______,        _______, _______, _______, _______, _______, KC_MINS, KC_SLSH, KC_EQL,  KC_LBRC, KC_RBRC, SFT_T(KC_BSLS), \
+  ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
+  _______,        HSH_RKT, GO_ASGN, KC_SLSH, KC_BSLS, KC_PIPE,       KC_UNDS, KC_QUES, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______,        KC_LABK, KC_RABK,  KC_EQL,   KC_AT, KC_NONUS_HASH, KC_MINS, KC_SLSH, KC_EQL,  KC_LBRC, KC_RBRC, SFT_T(KC_BSLS), \
   _______,        _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
@@ -156,27 +153,6 @@ float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
-
-void hash_rocket(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_SCLN);
-    unregister_code (KC_SCLN);
-  } else {
-    register_code (KC_EQL);
-    unregister_code (KC_EQL);
-    register_code (KC_LSFT);
-    register_code(KC_DOT);
-    unregister_code (KC_DOT);
-    unregister_code (KC_LSFT);
-  }
-}
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for semi colon, twice for hash rocket
-  [TD_COLON_ROCKET] = ACTION_TAP_DANCE_FN(hash_rocket)
-// Other declarations would go here, separated by commas, if you have them
-};
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -240,6 +216,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case HSH_RKT:
+      if (record->event.pressed) {
+        SEND_STRING(" => ");
+      }
+      return false;
+      break;
+    case GO_ASGN:
+    if (record->event.pressed) {
+      SEND_STRING(" := ");
+    }
+    return false;
+    break;
   }
   return true;
 }
