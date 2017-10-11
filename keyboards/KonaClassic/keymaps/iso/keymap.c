@@ -15,6 +15,9 @@
  */
 #include "KonaClassic.h"
 
+#define MODS_SHFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
 // Helpful defines
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
@@ -41,20 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    // MACRODOWN only works in this function
-    switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                register_code(KC_RSFT);
-            } else {
-                unregister_code(KC_RSFT);
-            }
-            break;
-    }
-    return MACRO_NONE;
-};
+// const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {};
 
 
 void matrix_init_user(void) {
@@ -71,4 +61,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_user(uint8_t usb_led) {
 
+}
+
+enum function_id {
+    ESCAPE,
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+  [0]  = ACTION_FUNCTION(ESCAPE),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  static uint8_t shift_esc_shift_mask;
+  switch (id) {
+    case ESCAPE:
+      shift_esc_shift_mask = get_mods()&MODS_SHFT_MASK;
+      if (record->event.pressed) {
+        if (shift_esc_shift_mask) {
+          add_key(KC_GRV);
+          send_keyboard_report();
+        } else {
+          add_key(KC_ESC);
+          send_keyboard_report();
+        }
+      } else {
+        if (shift_esc_shift_mask) {
+          del_key(KC_GRV);
+          send_keyboard_report();
+        } else {
+          del_key(KC_ESC);
+          send_keyboard_report();
+        }
+      }
+      break;
+  }
 }
