@@ -111,6 +111,7 @@ Keyboards are the raison d'être for QMK. Some keyboards are community maintaine
 
 We also ask that you follow these guidelines: 
 
+* Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 
@@ -123,7 +124,7 @@ Before you put a lot of work into building your new feature you should make sure
 
 Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
 
-Here are some things to keep in mind when working on your feature or bug report.
+Here are some things to keep in mind when working on your feature or bug fix.
 
 * **Disabled by default** - memory is a pretty limited on most chips QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned **on**, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.
 * **Compile locally before submitting** - hopefully this one is obvious, but things need to compile! Our Travis system will catch any issues, but it's generally faster for you to compile a few keyboards locally instead of waiting for the results to come back.
@@ -135,11 +136,11 @@ We also ask that you follow these guidelines:
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
 * Write [Unit Tests](http://docs.qmk.fm/unit_testing.html) for your feature
-* Follow the style of the file you are editing. If the style is unclear or there are mixed styles conform to these styles:
+* Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the [coding conventions](#coding-conventions) above.
 
 ## Refactoring
 
-To maintain a clear vision of how things are laid out in QMK, we try to plan out refactors in-depth, and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, [open an issue](https://github.com/qmk/qmk_firmware/issues), we'd love to talk about how QMK can be improved.
+To maintain a clear vision of how things are laid out in QMK we try to plan out refactors in-depth and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, [open an issue](https://github.com/qmk/qmk_firmware/issues), we'd love to talk about how QMK can be improved.
 
 # What does the Code of Conduct mean for me?
 
