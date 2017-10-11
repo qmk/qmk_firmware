@@ -26,7 +26,7 @@ When developing your keyboard, keep in mind that all warnings will be treated as
 
 ## Licenses
 
-If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, it this format:
+If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, in this format:
 
     Copyright 2017 Your Name <your@email.com>
     

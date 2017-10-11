@@ -3,6 +3,7 @@
   * [Install Build Tools](getting_started_build_tools.md)
     * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
   * [Build/Compile instructions](getting_started_make_guide.md)
+  * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
 
 * [FAQ](faq.md)
@@ -21,6 +22,7 @@
   * [Leader Key](feature_leader_key.md)
   * [Macros](macros.md)
   * [Mouse keys](mouse_keys.md)
+  * [Pointing Device](feature_pointing_device.md)
   * [PS2 Mouse](feature_ps2_mouse.md)
   * [Space Cadet](space_cadet_shift.md)
   * [Tap Dance](tap_dance.md)
@@ -51,11 +53,11 @@
   * [The `config.h` File](config_options.md)
   * [Customizing Functionality](custom_quantum_functions.md)
   * [Documentation Best Practices](documentation_best_practices.md)
+  * [Documentation Templates](documentation_templates.md)
   * [Unit Testing](unit_testing.md)
 
 * For Makers and Modders
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
-  * [Adding features to QMK](adding_features_to_qmk.md)
   * [Hand Wiring Guide](hand_wiring.md)
   * [ISP flashing guide](isp_flashing_guide.md)
   * [Modding your keyboard](modding_your_keyboard.md)

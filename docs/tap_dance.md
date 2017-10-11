@@ -14,7 +14,7 @@ The implementation hooks into two parts of the system, to achieve this: into `pr
 
 But lets start with how to use it, first!
 
-First, you will need `TAP_DANCE_ENABLE=yes` in your `Makefile`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
+First, you will need `TAP_DANCE_ENABLE=yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
 
 This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
 
@@ -42,7 +42,7 @@ For the sake of flexibility, tap-dance actions can be either a pair of keycodes,
 
 Here's a simple example for a single definition:
 
-1. In your `makefile`, add `TAP_DANCE_ENABLE = yes`
+1. In your `rules.mk`, add `TAP_DANCE_ENABLE = yes`
 2. In your `config.h` (which you can copy from `qmk_firmware/keyboards/planck/config.h` to your keymap directory), add `#define TAPPING_TERM 200`
 3. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
