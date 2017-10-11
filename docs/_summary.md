@@ -3,7 +3,7 @@
   * [Install Build Tools](getting_started_build_tools.md)
     * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
   * [Build/Compile instructions](getting_started_make_guide.md)
-  * [Contributing to QMK](getting_started_contributing.md)
+  * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
 
 * [FAQ](faq.md)
