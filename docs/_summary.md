@@ -3,6 +3,7 @@
   * [Install Build Tools](getting_started_build_tools.md)
     * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
   * [Build/Compile instructions](getting_started_make_guide.md)
+  * [Contributing to QMK](getting_started_contributing.md)
   * [How to Use Github](getting_started_github.md)
 
 * [FAQ](faq.md)
@@ -56,7 +57,6 @@
 
 * For Makers and Modders
   * [Adding a keyboard to QMK](adding_a_keyboard_to_qmk.md)
-  * [Adding features to QMK](adding_features_to_qmk.md)
   * [Hand Wiring Guide](hand_wiring.md)
   * [ISP flashing guide](isp_flashing_guide.md)
   * [Modding your keyboard](modding_your_keyboard.md)

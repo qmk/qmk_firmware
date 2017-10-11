@@ -1,0 +1,1 @@
+docs/getting_started_contributing.md
