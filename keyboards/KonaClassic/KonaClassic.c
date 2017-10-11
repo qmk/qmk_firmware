@@ -18,7 +18,6 @@
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
-
     led_init_ports();
     matrix_init_user();
 }
@@ -38,9 +37,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_init_ports(void) {
-
+//    DDRB |= (1<<6) | (1<<7); // OUT
 }
 
 void led_set_kb(uint8_t usb_led) {
-
+//    led_set_user(usb_led);
 }
