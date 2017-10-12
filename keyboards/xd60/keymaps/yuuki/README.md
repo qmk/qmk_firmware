@@ -12,7 +12,7 @@ Change the layout in `keymap.c` then run `make xd60-yuuki`. The compiled file wi
 
 ## Layout
 
-![Keyboard Layout](https://github.com/cideM/cidem.github.io/blob/master/keyboard-layout.jpg "Layout")
+![Keyboard Layout](https://github.com/cideM/cidem.github.io/blob/master/keyboard-layout.png "Layout")
 
 Upper row is default layer, bottom row is function layer. I Didn't include the symbols, such as @,# or $, as their placement is just as you'd expect it.
 
