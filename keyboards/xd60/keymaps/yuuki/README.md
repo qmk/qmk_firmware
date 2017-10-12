@@ -26,5 +26,3 @@ Upper row is default layer, bottom row is function layer. I Didn't include the s
 | Rightmost key in second row from bottom | Temporarily activate function layer |
 | FN + C | ^ |
 | FN + V | & (both for convenience as I use these keys a lot with VIM navigation and I find them hard reach) |
-
-
