@@ -235,8 +235,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
+  #ifdef AUTO_SHIFT_ENABLE
+    process_auto_shift(keycode, record) &&
+  #endif
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
+  #endif
+  #ifdef TERMINAL_ENABLE
+    process_terminal(keycode, record) &&
   #endif
       true)) {
     return false;
@@ -600,26 +606,74 @@ void send_string(const char *str) {
   send_string_with_delay(str, 0);
 }
 
+void send_string_P(const char *str) {
+  send_string_with_delay_P(str, 0);
+}
+
 void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
-        uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
+        char ascii_code = *str;
         if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = *(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
         }
         ++str;
         // interval
         { uint8_t ms = interval; while (ms--) wait_ms(1); }
     }
+}
+
+void send_string_with_delay_P(const char *str, uint8_t interval) {
+    while (1) {
+        char ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = pgm_read_byte(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
+        }
+        ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
+    }
+}
+
+void send_char(char ascii_code) {
+  uint8_t keycode;
+  keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
+      register_code(KC_LSFT);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_LSFT);
+  } else {
+      register_code(keycode);
+      unregister_code(keycode);
+  }
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
