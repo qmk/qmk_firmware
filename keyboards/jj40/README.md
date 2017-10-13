@@ -4,7 +4,7 @@
 
 A compact 40% (12x4) ortholinear keyboard kit made and KPRepublic on AliExpress.
 
-Keyboard Maintainer: [Jack Humbert](https://github.com/jackhumbert)  
+Keyboard Maintainer: [QMK Community](https://github.com/qmk)  
 Hardware Supported: Atmega32A  
 Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj40-Custom-Mechanical-Keyboard-40-PCB-programmed-40-planck-layouts-bface-firmware-gh40/3034003_32828781103.html)
 
