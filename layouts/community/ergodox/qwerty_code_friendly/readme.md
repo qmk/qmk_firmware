@@ -28,16 +28,20 @@ Some optional behavior is configurable without editing the code
 using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 
 - `CFQ_USER_KEY1`, `CFQ_USER_KEY2` are used for custom-keys
-  if not set they default to F13, F14.
 - `CFQ_USE_MOMENTARY_LAYER_KEYS` is used to prevent layer keys from toggling when tapped.
-- `CFQ_USE_EXPEREMENTAL_LAYER` defines an extra layer for misc extra keys/macros.
-  Currently it's mostly empty.
 - `CFQ_USE_SWAP_RIGHT_SPACE_ENTER` swap Enter and Space on the right hand thumb cluster.
   While asymmetric, it makes Enter more easily accessible.
+- `CFQ_USE_EXPEREMENTAL_LAYER` defines an extra layer for misc extra keys/macros.
+  Currently it's mostly empty.
 
 
 
 ## Keymap 0: Basic layer
+
+When undefined:
+
+- `USR1` defaults to `F13`, otherwise use `CFQ_USER_KEY1`.
+- `USR2` defaults to `APP`, otherwise use `CFQ_USER_KEY2`.
 
 ```
 ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -49,10 +53,10 @@ using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
 | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  | LCtl |Super | Alt  | Ins  |Space |                                       | Left | Down | Up   |Right | Del  |
+  | LCtl |Super | Alt  | USR2 |Space |                                       | Left | Down | Up   |Right | Del  |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       | USR2 | ~L3  |       | Home | End  |
+                                       | Ins  | ~L3  |       | Home | End  |
                                 ,------|------|------|       |------+------+------.
                                 |      |      | ~L2  |       | PgUp |      |      |
                                 |Space | USR1 |------|       |------|Enter |Space |
@@ -110,3 +114,7 @@ Note the double bracket keys on this layer press left to position the cursor bet
 ```
 
 ## Changelog
+
+- 2017/10/4
+  Move Insert key to the left thumb cluster (away from the modifier keys).
+  Replace with `USR2` which defaults to `APP`.
