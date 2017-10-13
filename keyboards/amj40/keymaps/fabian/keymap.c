@@ -1,3 +1,18 @@
+/* Copyright 2015-2017 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "amj40.h"
 
 // Set the custom keymap
@@ -14,23 +29,16 @@
     {k30, k31, k32, k33, k34, k35, XXX, XXX, XXX, k39, k3a, k3b} \
 }
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+extern keymap_config_t keymap_config;
 
-// Custom
-#define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
-#define SFT_ENT SFT_T(KC_ENT)  // Tap for Enter, hold for Shift
-#define SFT_BSP SFT_T(KC_BSPC) // Tap for Backspace, hold for Shift
-#define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
-// #define MEH_GRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
-
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum custom_layers {
+  _QWERTY,
+  _COLEMAK,
+  _DVORAK,
+  _LOWER,
+  _RAISE,
+  _ADJUST
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -38,8 +46,20 @@ enum custom_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  ADJUST,
+  BACKLIT,
+  EXT_PLV
 };
+
+#define XXXXXXX KC_NO
+#define _______ KC_TRNS
+
+#define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
+#define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
+#define MEH_GRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
+#define SFT_BSP SFT_T(KC_BSPC) // Tap for Backspace, hold for Shift
+#define SFT_ENT SFT_T(KC_ENT)  // Tap for Enter, hold for Shift
+#define SFT_SPC SFT_T(KC_SPC)  // Tap for Space, hold for Shift
+#define UMLAUT  RALT(KC_U)     // Combine Alt and U
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -50,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  | Lower and Space | Raise and Bksp | GUI  |AltGr | Ctrl |
+ * | Ctrl | Meh  | Alt  | GUI  | Lower and Space | Raise          | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP( \
   HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT , \
-  F(2),    KC_LCTL, KC_LALT, KC_LGUI,          F(0),             F(1),             KC_RGUI, KC_RALT, KC_RCTL \
+  SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT, \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Colemak
@@ -68,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  | Lower and Space | Raise and Bksp | GUI  |AltGr | Ctrl |
+ * | Ctrl | Meh  | Alt  | GUI  | Lower and Space | Raise          | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = KEYMAP( \
   HPR_TAB, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
   CTL_ESC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT , \
-  F(2),    KC_LCTL, KC_LALT, KC_LGUI,          F(0),             F(1),             KC_RGUI, KC_RALT, KC_RCTL \
+  SFT_BSP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_ENT, \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Dvorak
@@ -86,14 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  | Lower and Space | Raise and Bksp | GUI  |AltGr | Ctrl |
+ * | Ctrl | Meh  | Alt  | GUI  | Lower and Space | Raise          | GUI  |AltGr | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = KEYMAP( \
   HPR_TAB, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
   CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
-  SFT_BSP, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT , \
-  F(2),    KC_LCTL, KC_LALT, KC_LGUI,          F(0),             F(1),             KC_RGUI, KC_RALT, KC_RCTL \
+  SFT_BSP, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT, \
+  KC_LCTL, MEH_GRV, KC_LALT, KC_LGUI,          F(0),             RAISE,            KC_RGUI, KC_RALT, KC_RCTL \
 ),
 
 /* Lower
@@ -104,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | MS L | MS D |MS U  | MS R |MS Btn|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |                 |      Next      | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
@@ -122,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | Left | Down |  Up  | Rght |MS_BN2|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |                 |      Next      | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = KEYMAP( \
@@ -134,72 +154,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Reset |Colemk|Qwerty|Dvorak|      |      |      |      |  MU  |      |      |Reset |
+ * |      | Reset|      |      |      |      |      |      |      |      | Reset|  Del |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |AGNorm|AGSwap|      |      |      |      |  ML  |  MD  |  MR  |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |AudOn |AudOff|      |      |      |      |MBtn1 |MBtn2 |MBtn3 |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |                 |                |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = KEYMAP( \
-  RESET,   COLEMAK, QWERTY,  DVORAK,  _______, _______, _______, _______, KC_MS_U, _______, _______, RESET, \
-  _______, AG_NORM, AG_SWAP, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, \
-  _______, AU_ON,   AU_OFF,  _______, _______, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3, _______, _______, \
+  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, RESET,   KC_DEL, \
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______,          _______,          _______,          _______, _______, _______ \
 )
-
 };
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 const uint16_t PROGMEM fn_actions[] = {
-        [0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
-        [1]  = ACTION_LAYER_TAP_KEY(_RAISE, KC_BSPC),
-        [2]  = ACTION_LAYER_TAP_KEY(_ADJUST, KC_LGUI),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
+    [0]  = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
       break;
@@ -223,11 +215,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case ADJUST:
+    case BACKLIT:
       if (record->event.pressed) {
-        layer_on(_ADJUST);
+        register_code(KC_RSFT);
+        #ifdef BACKLIGHT_ENABLE
+          backlight_step();
+        #endif
       } else {
-        layer_off(_ADJUST);
+        unregister_code(KC_RSFT);
       }
       return false;
       break;
