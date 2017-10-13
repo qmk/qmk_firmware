@@ -23,7 +23,8 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   HSH_RKT,
-  GO_ASGN
+  GO_ASGN,
+  KC_REAL_HASH
 };
 
 // Fillers to make layering more clear
@@ -122,10 +123,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------' `-----------------------------------------'
  */
 [_RAISE] = KEYMAP( \
-  ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  _______,        HSH_RKT, GO_ASGN, KC_SLSH, KC_BSLS, KC_PIPE,       KC_UNDS, KC_QUES, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______,        KC_LABK, KC_RABK,  KC_EQL,   KC_AT, KC_NONUS_HASH, KC_MINS, KC_SLSH, KC_EQL,  KC_LBRC, KC_RBRC, SFT_T(KC_BSLS), \
-  _______,        _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+  ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,        KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
+  _______,        HSH_RKT, GO_ASGN, KC_SLSH, KC_BSLS,       KC_PIPE, KC_UNDS, KC_QUES, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______,        KC_LABK, KC_RABK,  KC_EQL,   KC_AT,  KC_REAL_HASH, KC_MINS, KC_SLSH,  KC_EQL, KC_LBRC, KC_RBRC, SFT_T(KC_BSLS), \
+  _______,        _______, _______, _______, _______,       _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
 /* Adjust (Lower + Raise)
@@ -223,11 +224,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case GO_ASGN:
-    if (record->event.pressed) {
-      SEND_STRING(" := ");
-    }
-    return false;
-    break;
+      if (record->event.pressed) {
+        SEND_STRING(" := ");
+      }
+      return false;
+      break;
+    case KC_REAL_HASH:
+      if (record->event.pressed) {
+        register_code (KC_LALT);
+        register_code (KC_3);
+        unregister_code (KC_3);
+        unregister_code (KC_LALT);
+      }
+      return false;
+      break;
   }
   return true;
 }
