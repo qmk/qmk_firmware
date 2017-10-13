@@ -1,16 +1,24 @@
-jj40 keyboard firmware
-==========================
+# jj40
 
-This is a port of the QMK firmware for boards that are based on the ps2avrGB firmware.
+![jj40](https://ae01.alicdn.com/kf/HTB18bq6bOERMeJjSspiq6zZLFXar.jpg?size=359506&height=562&width=750&hash=663a22d0109e2416ec8f54a7658686da)
+
+A compact 40% (12x4) ortholinear keyboard kit made and KPRepublic on AliExpress.
+
+Keyboard Maintainer: [Jack Humbert](https://github.com/jackhumbert)  
+Hardware Supported: Atmega32A  
+Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj40-Custom-Mechanical-Keyboard-40-PCB-programmed-40-planck-layouts-bface-firmware-gh40/3034003_32828781103.html)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make jj40-program
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
 Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.
 
-## Installing
-
-First, install the requirements. These commands are for OSX, but all you
-need is the AVR toolchain and `bootloadHID` for flashing:
+In addition you may need the AVR toolchain and `bootloadHID` for flashing:
 
 ```
 $ brew cask install crosspack-avr
@@ -24,13 +32,6 @@ the bootloader, you'll need Python 2 with PyUSB installed:
 $ pip install pyusb
 ```
 
-Then, with the keyboard plugged in, simply run this command from the
-`qmk_firmware` directory:
-
-```
-$ make jj40-program
-```
-
 If you prefer, you can just build it and flash the firmware directly with
 `bootloadHID` if you boot the board while holding down `L_Ctrl` to keep it
 in the bootloader:
@@ -41,9 +42,6 @@ $ bootloadHID -r jj40_default.hex
 ```
 
 ## Troubleshooting
-
-From my experience, it's really hard to brick these boards. But these
-tricks have been useful when it got stuck in a weird scenario.
 
 1. Try plugging the board in while pressing `L_Ctrl`. This will force it
    to boot only the bootloader without loading the firmware. Once this is
