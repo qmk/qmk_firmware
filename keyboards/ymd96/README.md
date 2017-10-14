@@ -12,9 +12,13 @@ USB report options are supported.
 
 ## Supported Boards
 
-Only the [B.mini X2](http://winkeyless.kr/product/b-mini-x2-pcb/) has been
-tested so far (since it's the only one I own). But other boards that use
-the ps2avrGB firmware should work as well.
+This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ps2avrGB), also found on this qmk repo, to work with the YMD96 keyboard. However, I only have one board to test with, which might have a different layout than yours. To get qmk working with your specific layout, you'll need to follow these steps:  
+
+1. Follow the [guide here](https://www.massdrop.com/talk/1392/programming-kbd-keyboards-via-bootmapper-client) to get Bootmapper Client setup. While you won't need it after you get qmk working, you need to use Bootmapper Client to figure out how the matrix is laid out. In the end, here's an example of what it should look like: ![BMC](https://i.imgur.com/wNihDwn.png)  
+2. Next is the tricky part: editing the `ymd96.h` file. Here, you have to figure out how the keys are laid out physically and assign each key the right keycode. Study how the codes in brackets correspond to the BMC columns. Consider the first column: K000 corresponds to Col 1 Row 1, and K100 corresponds to Col 2 Row 1. K111 = Col 2 Row 10.  
+3. First, you need to define the codes that are actually used in the brackets. KC_NO is used whenever a cell isn't used, such as col 1 row 4-6 in BMC.  
+4. Once you have all those set up, you need to put the keycodes where they physically are in the KEYMAP( area. Since the columns aren't all uniform (e.g. col2row6 is B, but col2row7 is the numpad 1), the keycodes will be all over the place.  
+5. Finally! Hard part is pretty much done. Next, you simply have to edit the `keymap.c` file to actually assign the keycodes to do something. You essentially replace the keycodes (e.g. K000) with actual codes that do something, e.g. KC_ENTER. Modify these to your hearts content, and of course this is where all the extra functionality of QMK shines. I won't get into it here, but hopefully you've made it this far!
 
 ## Installing
 
@@ -37,7 +41,7 @@ Then, with the keyboard plugged in, simply run this command from the
 `qmk_firmware` directory:
 
 ```
-$ make ps2avrGB-program
+$ make ymd96-program
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
@@ -45,7 +49,7 @@ If you prefer, you can just build it and flash the firmware directly with
 in the bootloader:
 
 ```
-$ make ps2avrGB
+$ make ymd96
 $ bootloadHID -r ps2avrGB_default.hex
 ```
 
