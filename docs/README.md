@@ -16,7 +16,7 @@ Before you are able to compile, you'll need to [install an environment](getting_
 
     make planck/rev4:default
 
-This would build the `rev4` revision of the `planck` with the `default` keymap. Not all keyboards have revisions (also called subprojects), in which case, it can be omitted:
+This would build the `rev4` revision of the `planck` with the `default` keymap. Not all keyboards have revisions (also called subprojects or folders), in which case, it can be omitted:
 
     make preonic:default
 

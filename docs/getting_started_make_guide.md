@@ -1,15 +1,14 @@
 # More detailed make instruction
 
-The full syntax of the `make` command is `<keyboard>-<subproject>-<keymap>-<target>`, where:
+The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, where:
 
-* `<keyboard>` is the name of the keyboard, for example `planck`
-  * Use `allkb` to compile all keyboards
-* `<subproject>` is the name of the subproject (revision or sub-model of the keyboard). For example, for Planck it can be `rev3` or `rev4`.
-  * If the keyboard doesn't have any subprojects, it can be left out
-  * To compile the default subproject, you can leave it out, or specify `defaultsp`
-  * Use `allsp` to compile all subprojects
+* `<keyboard_folder>` is the path of the keyboard, for example `planck`
+  * Use `all` to compile all keyboards
+  * Specify the path to compile a revision, for example `planck/rev4` or `planck/rev3` 
+  * If the keyboard doesn't have any folders, it can be left out
+  * To compile the default folder, you can leave it out
 * `<keymap>` is the name of the keymap, for example `algernon`
-  * Use `allkm` to compile all keymaps
+  * Use `all` to compile all keymaps
 * `<target>` will be explained in more detail below.
 
 The `<target>` means the following
@@ -30,7 +29,7 @@ The make command itself also has some additional options, type `make --help` for
 
 Here are some examples commands
 
-* `make all:all` builds everything (all keyboards, all subprojects, all keymaps). Running just `make` from the `root` will also run this.
+* `make all:all` builds everything (all keyboard folders, all keymaps). Running just `make` from the `root` will also run this.
 * `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard. 
 * `make planck/rev4:default:dfu COLOR=false` builds and uploads the keymap without color output.
 
