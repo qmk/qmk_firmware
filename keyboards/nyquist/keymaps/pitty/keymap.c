@@ -39,12 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,                KC_1,      KC_2,    KC_3,        KC_4,           KC_5,    KC_6,    KC_7,    KC_8,    KC_9,         KC_0,          KC_MINUS, \
   KC_TAB,                KC_Q,      KC_W,    KC_E,        KC_R,           KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,          KC_BSPC, \
   KC_ESC,                KC_A,      KC_S,    KC_D,        LT(_VIM, KC_F), KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         KC_SCLN,       KC_QUOT, \
-  MT(MOD_LSFT, KC_NUBS), KC_Z,      KC_X,    KC_C,        KC_V,           KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,       OSM(MOD_RSFT), \
+  MT(MOD_LSFT, KC_NUBS), KC_Z,      KC_X,    KC_C,        KC_V,           KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,       KC_RSFT, \
   KC_LCTL,               KC_LGUI,   KC_LALT, TT(_LOWER),  KC_SPC,         KC_SPC, KC_BSPC,  KC_ENT,  KC_RALT, KC_AMPERSAND, TG(_GAME),     KC_DEL \
 ),
 
 /* Gaming mode
- * All one-shot mods are disabled on this layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |QWERTY|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -69,29 +68,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |  Up  |      |  Del |  Ins |      |      |   7  |   8  |   9  |   /  |
+ * |      |      |  Up  |      |  Del |  Ins |      |   7  |   8  |   9  |   /  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Left | Down | Right| Home |  End |      |      |   4  |   5  |   6  |   *  |
+ * |      | Left | Down | Right| Home |  End |      |   4  |   5  |   6  |   *  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|      |      |      | PGUP | PGDN |      |      |   1  |   2  |   3  |   -  |
+ * | Shift|      |      |      | PGUP | PGDN |      |   1  |   2  |   3  |   -  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |   0  |   .  |   =  |   +  |
+ * |      |      |      |      |      |      |      |   0  |   .  |   =  |   +  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
-  KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,    KC_F11,       KC_F12, \
-  _______,   _______, KC_UP,   _______, KC_DEL , KC_INS , _______,  _______, KC_7,    KC_8,      KC_9,         KC_KP_SLASH, \
-  _______,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END , _______,  _______, KC_4,    KC_5,      KC_6,         KC_KP_ASTERISK, \
-  KC_LSFT,   _______, _______, _______, KC_PGUP, KC_PGDN, _______,  _______, KC_1,    KC_2,      KC_3,         KC_KP_MINUS, \
-  _______,   _______, _______, _______, _______, _______, _______,  _______, KC_GRV,  KC_KP_DOT, KC_KP_EQUAL,  KC_KP_PLUS \
+  KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,     KC_F10,       KC_F11,         KC_F12, \
+  _______,   _______, KC_UP,   _______, KC_DEL , KC_INS , _______,  KC_7,    KC_8,      KC_9,         KC_KP_SLASH,    _______, \
+  _______,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END , _______,  KC_4,    KC_5,      KC_6,         KC_KP_ASTERISK, _______, \
+  KC_LSFT,   _______, _______, _______, KC_PGUP, KC_PGDN, _______,  KC_1,    KC_2,      KC_3,         KC_KP_MINUS,    _______, \
+  _______,   _______, _______, _______, _______, _______, _______,  KC_GRV,  KC_KP_DOT, KC_KP_EQUAL,  KC_KP_PLUS,     _______ \
 ),
 
 
 /* Vim Movement (Hold down F)
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |DM_stp|      |      |      |      |      |      |      |
+ * |      |      |      |      |DM_stp|      |      |      |      |      |   Ő  |  Ű   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |DM_REC|      |      |      |      |      |      |      |
+ * |      |      |      |      |DM_REC|      |      |  Ú   |   Í  |   Ó  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | DLeft|DRight| LCTRL|      |      | Left | Down |  Up  | Right|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
