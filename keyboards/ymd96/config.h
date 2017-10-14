@@ -23,15 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
-#define MANUFACTURER    winkeyless.kr
-#define PRODUCT         ps2avrGB
+#define MANUFACTURER    ymdkey
+#define PRODUCT         ymd96
 
 /* matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 14
-#define DIODE_DIRECTION COL2ROW
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 15
+#define DIODE_DIRECTION ROW2COL
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 20
 #define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1
