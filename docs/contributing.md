@@ -78,8 +78,8 @@ We have a few different types of changes in QMK, each requiring a different leve
 * Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature. 
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
-  * Keymaps: Make sure that `make keyboard-revision-your_new_keymap` does not return an error
-  * Keyboards: Make sure that `make keyboard-all` does not return any errors
+  * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
+  * Keyboards: Make sure that `make keyboard:all` does not return any errors
   * Core: Make sure that `make allkb` does not return any errors.
 * Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
 

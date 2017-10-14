@@ -13,7 +13,7 @@ In short when your controller is ATMega32u4,
 
 or just
 
-    $ sudo make <keyboard>-<keymap>-dfu
+    $ sudo make <keyboard>:<keymap>:dfu
 
 But to run `make` with root privilege is not good idea. Use former method if possible.
 

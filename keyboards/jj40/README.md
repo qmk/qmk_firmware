@@ -10,7 +10,7 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj4
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jj40-program
+    make jj40:default:program
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 

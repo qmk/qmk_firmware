@@ -17,13 +17,13 @@ it using DFU.
 
 ### Default
 
-To build with the default keymap, simply run `make xd75-default` from the root directory (i.e. two levels above this file), and to install via DFU, `make xd75-default-dfu`, also from the root directory.
+To build with the default keymap, simply run `make xd75:default` from the root directory (i.e. two levels above this file), and to install via DFU, `make xd75:default:dfu`, also from the root directory.
 
 Note that DFU is likely to require root permissions, so installing the
 firmware likely requires a command line like:
 
 ```
-$ sudo make xd75-default-dfu
+$ sudo make xd75:default:dfu
 ```
 
 ### Other Keymaps
@@ -42,6 +42,6 @@ To build the firmware binary hex file for a specific keymap, and
 install it, using DFU, just do `make` with a keymap like this:
 
 ```
-$ make xd75-[default|<name>]
+$ make xd75:[default|<name>]
 ```
 
