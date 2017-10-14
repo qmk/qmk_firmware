@@ -59,7 +59,7 @@ EXTRAKEY_ENABLE		= yes	# Audio control and System control(+450)
 # SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 # NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes
-
+USB_HID_ENABLE = yes
 
 CUSTOM_MATRIX = yes
 SRC = custom_matrix.cpp
