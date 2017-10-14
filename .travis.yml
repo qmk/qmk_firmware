@@ -17,14 +17,9 @@ install:
   - export PATH="$PATH:$TRAVIS_BUILD_DIR/avr8-gnu-toolchain-linux_x86_64/bin"
 before_script:
   - avr-gcc --version
-jobs:
-  include:
-    - stage: test
-      script: make test:all AUTOGEN=false
-    - stage: build
-      script: bash util/travis_build.sh
-    - stage: push
-      script: bash util/travis_compiled_push.sh
+script:
+- make test:all AUTOGEN=false
+- bash util/travis_build.sh
 addons:
   apt:
     packages:
@@ -35,6 +30,8 @@ addons:
     - libnewlib-arm-none-eabi
     - diffutils
     - dos2unix
+after_success: 
+  bash util/travis_compiled_push.sh
 notifications:
   webhooks:
     urls:
