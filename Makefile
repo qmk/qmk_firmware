@@ -112,6 +112,7 @@ $(eval $(call GET_KEYBOARDS))
 
 list-keyboards:
 	echo $(KEYBOARDS)
+	exit 0
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
