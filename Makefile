@@ -21,7 +21,9 @@ override SILENT := false
 
 QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
 ifneq ($(QMK_VERSION),)
+ifeq ($(NO_VERSION),)
 $(info QMK Firmware v$(QMK_VERSION))
+endif
 endif
 
 ON_ERROR := error_occurred=1
@@ -563,6 +565,50 @@ lib/%:
 git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive
+
+define PRINT_OPTION
+    ifeq ($$(SUBPROJECT_OPTION),)
+        ALL_OPTIONS += $$(KEYBOARD_OPTION)-$$(KEYMAP_OPTION)
+    else
+        ALL_OPTIONS += $$(KEYBOARD_OPTION)-$$(SUBPROJECT_OPTION)-$$(KEYMAP_OPTION)
+    endif
+endef
+
+define ALL_KEYMAPS
+    KEYMAPS_OPTION := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_OPTION)/keymaps/*/.)))
+    LAYOUTS :=
+    $$(eval -include $(ROOT_DIR)/keyboards/$$(KEYBOARD_OPTION)/rules.mk)
+    KEYBOARD_LAYOUTS := $$(LAYOUTS)
+    ifneq ($$(SUBPROJECT_OPTION),)
+        SP_KEYMAPS_OPTION := $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_OPTION)/$$(SUBPROJECT_OPTION)/keymaps/*/.)))
+        KEYMAPS_OPTION := $$(sort $$(KEYMAPS_OPTION) $$(SP_KEYMAPS_OPTION))
+    endif
+
+    LAYOUT_KEYMAPS_OPTION :=
+    $$(foreach LAYOUT_OPTION,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS_OPTION += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT_OPTION)/*/.)))))
+    
+    KEYMAPS_OPTION := $$(sort $$(KEYMAPS_OPTION) $$(LAYOUT_KEYMAPS_OPTION))
+
+    $$(foreach KEYMAP_OPTION, $$(KEYMAPS_OPTION), $$(eval $$(call PRINT_OPTION)))
+endef
+
+define ALL_SUBPROJECTS
+    SUBPROJECTS_OPTION := $$(notdir $$(patsubst %/rules.mk,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_OPTION)/*/rules.mk)))
+    $$(eval $$(call ALL_KEYMAPS))
+    ifneq ($$(SUBPROJECTS_OPTION),)
+        $$(foreach SUBPROJECT_OPTION, $$(SUBPROJECTS_OPTION), $$(eval $$(call ALL_KEYMAPS)))
+    endif
+endef
+
+define ALL_KEYBOARDS
+    $$(foreach KEYBOARD_OPTION,$$(KEYBOARDS), $$(eval $$(call ALL_SUBPROJECTS)))
+endef
+
+ALL_OPTIONS :=
+$(eval $(call ALL_KEYBOARDS))
+
+autocomplete:   
+	echo $(ALL_OPTIONS)
 
 ifdef SKIP_VERSION
 SKIP_GIT := yes
