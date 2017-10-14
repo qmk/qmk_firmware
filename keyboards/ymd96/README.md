@@ -1,14 +1,17 @@
-ps2avrGB keyboard firmware
+YMD96 
 ==========================
 
 This is a port of the QMK firmware for boards that are based on the
 ps2avrGB firmware, like the [ps2avrGB
-keyboard](https://www.keyclack.com/product/gb-ps2avrgb/) or the ones sold
-by [Winkeyless](http://winkeyless.kr/product/ps2avrgb-parts/).
+keyboard](https://www.keyclack.com/product/gb-ps2avrgb/), for use on the YMD96. 
 
 Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
-USB report options are supported.
+USB report options are supported.  
+
+Here is the default layout: 
+![YMD96 Layout](https://i.imgur.com/qCwE2ns.png)  
+If you have a different layout (since there were many options during the GB), please feel free to contribute!
 
 ## Supported Boards
 
@@ -37,21 +40,11 @@ the bootloader, you'll need Python 2 with PyUSB installed:
 $ pip install pyusb
 ```
 
-Then, with the keyboard plugged in, simply run this command from the
-`qmk_firmware` directory:
-
+Build the keyboard with  
 ```
-$ make ymd96-program
-```
-
-If you prefer, you can just build it and flash the firmware directly with
-`bootloadHID` if you boot the board while holding down `L_Ctrl` to keep it
-in the bootloader:
-
-```
-$ make ymd96
-$ bootloadHID -r ps2avrGB_default.hex
-```
+$ make ymd96-default  
+```  
+If you make your own layout, change the `default` word to whatever your layout is.  
 
 ## Troubleshooting
 
