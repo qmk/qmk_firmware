@@ -1,7 +1,7 @@
 #ifndef REV3_CONFIG_H
 #define REV3_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 #define PRODUCT_ID      0x2370
 #define DEVICE_VER      0x0001

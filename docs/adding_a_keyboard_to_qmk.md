@@ -4,7 +4,7 @@ We welcome all keyboard projects into QMK, but ask that you try to stick to a co
 
 ## Naming your directory/project
 
-All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Dashes (`-`) aren't allow by our build system, and will confuse it with keymaps/subprojects. Your directory and your `.h` and `.c` files should have exactly the same name. Subprojects/revision should follow the same format. 
+All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Your directory and your `.h` and `.c` files should have exactly the same name. All folders should follow the same format. 
 
 ## `readme.md`
 

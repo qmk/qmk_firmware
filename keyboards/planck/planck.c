@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "planck.h"
 
 #ifdef ONEHAND_ENABLE
 __attribute__ ((weak))
