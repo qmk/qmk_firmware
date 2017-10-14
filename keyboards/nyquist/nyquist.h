@@ -1,7 +1,9 @@
 #ifndef NYQUIST_H
 #define NYQUIST_H
 
-#include QMK_SUBPROJECT_H
+#ifdef KEYBOARD_nyquist_rev1
+    #include "rev1.h"
+#endif
 
 #include "quantum.h"
 

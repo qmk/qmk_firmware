@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef REV1_H
 #define REV1_H
 
-#include "../orthodox.h"
+#include "orthodox.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"

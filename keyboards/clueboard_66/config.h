@@ -60,15 +60,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
-#ifdef SUBPROJECT_rev3
-    #include "rev3/config.h"
-#endif
-
 #endif

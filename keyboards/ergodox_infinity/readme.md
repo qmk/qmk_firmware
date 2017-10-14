@@ -5,15 +5,15 @@ for the left and right halves seperately.  To flash them:
 
   - Make sure you are in the top-level qmk_firmware directory
 
-  - Build the firmware with `make ergodox_infinity-keymapname`
+  - Build the firmware with `make ergodox_infinity:keymapname`
 
   - Plug in the left hand keyboard only.
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make ergodox_infinity-keymapname-dfu-util`
+  - Install the firmware with `sudo make ergodox_infinity:keymapname:dfu-util`
 
-  - Build right hand firmware with `make ergodox_infinity-keymapname MASTER=right`
+  - Build right hand firmware with `make ergodox_infinity:keymapname MASTER=right`
 
   - Plug in the right hand keyboard only.
 

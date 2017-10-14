@@ -46,7 +46,7 @@ $ pip install pyusb
 
 Build the keyboard with  
 ```
-$ make ymd96-default  
+$ make ymd96:default  
 ```  
 If you make your own layout, change the `default` word to whatever your layout is.  
 
