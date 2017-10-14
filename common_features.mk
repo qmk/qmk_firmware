@@ -69,6 +69,10 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/pointing_device.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON = yes

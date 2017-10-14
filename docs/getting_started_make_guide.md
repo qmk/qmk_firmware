@@ -4,7 +4,7 @@ The full syntax of the `make` command is `<keyboard>-<subproject>-<keymap>-<targ
 
 * `<keyboard>` is the name of the keyboard, for example `planck`
   * Use `allkb` to compile all keyboards
-* `<subproject>` is the name of the subproject (revision or sub-model of the keyboard). For example, for Ergodox it can be `ez` or `infinity`, and for Planck `rev3` or `rev4`.
+* `<subproject>` is the name of the subproject (revision or sub-model of the keyboard). For example, for Planck it can be `rev3` or `rev4`.
   * If the keyboard doesn't have any subprojects, it can be left out
   * To compile the default subproject, you can leave it out, or specify `defaultsp`
   * Use `allsp` to compile all subprojects
