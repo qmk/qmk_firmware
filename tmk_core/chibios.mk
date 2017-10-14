@@ -49,14 +49,19 @@ include $(PLATFORM_MK)
 BOARD_MK := 
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_5)
     BOARD_MK += $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk
 else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_4)
     BOARD_MK += $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk
 else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_3)
     BOARD_MK += $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk
 else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_2)
     BOARD_MK += $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
 endif
 
