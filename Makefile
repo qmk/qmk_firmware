@@ -301,6 +301,7 @@ define PARSE_KEYBOARD
     KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
+    KEYBOARD_LAYOUTS :=
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)","")
       LAYOUTS :=
       $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)
