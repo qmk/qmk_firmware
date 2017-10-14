@@ -2,14 +2,14 @@ QMK BLE Adapter
 ===============
 A small device that reads USB keyboard input and passes it on over Bluetooth LE HID.
 
-![Picture of Adapter](./ble_adapter.png)
+![Picture of Adapter](https://i.imgur.com/O3VwBBJ.png)
 
 Hardware
 --------
 The hardware is relatively easy to assemble. Just follow the schematic and don't forget to [cut the VBUS jumper](https://www.pjrc.com/teensy/td_libs_USBHostShield_4a.jpg).
 
 Schematic:
-![Schematic](./schematic.png)
+![Schematic](https://i.imgur.com/s1Ia9We.png)
 
 Part list:
 * [Adafruit Feather 32u4 Bluefruit LE](https://www.adafruit.com/product/2829)
