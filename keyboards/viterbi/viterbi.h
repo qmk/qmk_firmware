@@ -1,7 +1,7 @@
 #ifndef VITERBI_H
 #define VITERBI_H
 
-#ifdef SUBPROJECT_rev1
+#ifdef KEYBOARD_viterbi_rev1
     #include "rev1.h"
 #endif
 
