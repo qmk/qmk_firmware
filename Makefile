@@ -21,7 +21,7 @@ override SILENT := false
 
 QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
 ifneq ($(QMK_VERSION),)
-$(info QMK Firmware v$(QMK_VERSION))
+$(info QMK Firmware $(QMK_VERSION))
 endif
 
 ON_ERROR := error_occurred=1
@@ -255,8 +255,13 @@ define PARSE_RULE
         $$(eval $$(call PARSE_KEYBOARD,$$(KEYBOARD)))
     else
         $$(info make: *** No rule to make target '$1'. Stop.)
-        # Notice the tab instead of spaces below!
-		exit 1
+        $$(info |)
+        $$(info |  QMK's make format recently changed to use folder locations and colons:)
+        $$(info |     make project_folder:keymap[:target])
+        $$(info |  Examples:)
+        $$(info |     make planck/rev4:default:dfu)
+        $$(info |     make planck:default)
+        $$(info |)
     endif
 endef
 
