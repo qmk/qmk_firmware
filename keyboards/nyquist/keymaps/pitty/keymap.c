@@ -44,7 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Gaming mode
- * All one-shot mods are disabled on this layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |QWERTY|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
