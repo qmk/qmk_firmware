@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,30 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#include "ymd96.h"
+#include "rgblight.h"
 
-#include "../../config.h"
+#include <avr/pgmspace.h>
 
-/* Use I2C or Serial, not both */
+#include "action_layer.h"
+#include "i2c.h"
+#include "quantum.h"
 
-#define USE_SERIAL
-// #define USE_I2C
+extern rgblight_config_t rgblight_config;
 
-/* Select hand configuration */
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
 
-#define MASTER_LEFT
-// #define _MASTER_RIGHT
-// #define EE_HANDS
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+}
 
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-
-#define TAPPING_TOGGLE 2
-
-#endif
-
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+    rgblight_task();
+}

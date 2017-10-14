@@ -48,3 +48,6 @@ $ bootloadHID -r jj40_default.hex
    done, just reflash the board with the original firmware.
 2. Sometimes USB hubs can act weird, so try connecting the board directly
    to your computer or plugging/unplugging the USB hub.
+3. If you get an error such as "Resource Unavailable" when attemting to flash
+   on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md`
+   for more info.

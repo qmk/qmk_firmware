@@ -1,5 +1,6 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,30 +16,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#include "../../config.h"
+#define VENDOR_ID       0x20A0
+#define PRODUCT_ID      0x422D
+// TODO: share these strings with usbconfig.h
+// Edit usbconfig.h to change these.
+#define MANUFACTURER    ymdkey
+#define PRODUCT         ymd96
 
-/* Use I2C or Serial, not both */
+/* matrix size */
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 15
+#define DIODE_DIRECTION ROW2COL
 
-#define USE_SERIAL
-// #define USE_I2C
-
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define _MASTER_RIGHT
-// #define EE_HANDS
-
-#undef RGBLED_NUM
+#define RGBLED_NUM 20
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 
-#define TAPPING_TOGGLE 2
+#define NO_UART 1
+#define BOOTLOADHID_BOOTLOADER 1
+
+/* key combination for command */
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #endif
-
