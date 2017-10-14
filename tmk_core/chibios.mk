@@ -86,10 +86,18 @@ RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 endif
 
 # Define linker script file here
-ifneq ("$(wildcard $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld)","")
-LDSCRIPT = $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
 else
-LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
+    LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
 CHIBISRC = $(STARTUPSRC) \
