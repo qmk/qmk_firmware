@@ -7,7 +7,7 @@ It's still a WIP.
 I wrote the keys that will appear when using Hungarian layout in Windows and the respective English keys in brackets.
 
 ```
-Qwerty
+ Qwerty
 ,-----------------------------------------------------------------------------------.
 | 0(') |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  | Ö(0) | Ü(-) |
 |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -24,8 +24,7 @@ Qwerty
  Tap left shift writes the missing ISO key, hold is Shift. I have 2u Space.
 
 ```
-Gaming mode
-All one-shot mods are disabled on this layer
+ Gaming mode (Toggle layer)
 ,-----------------------------------------------------------------------------------.
 |      |      |      |      |      |      |      |      |      |      |      |QWERTY|
 |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -42,7 +41,7 @@ All one-shot mods are disabled on this layer
 Disabled some of the functions in the main layer to help with better gaming experience.
 
 ```
-Lower (double tap toggles the layer, and hold for momentary switch)
+ Lower (double tap toggles the layer, and hold for momentary switch)
 ,-----------------------------------------------------------------------------------.
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |------+------+------+------+------+-------------+------+------+------+------+------|
