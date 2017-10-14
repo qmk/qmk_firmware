@@ -7,8 +7,8 @@
 
 enum custom_layers {
   _QWERTY,
-  _COLEMAK,
   _DVORAK,
+  _WORKMAN,
   _GAME,
   _MOUSE,
   _NUM,
@@ -19,8 +19,8 @@ enum custom_layers {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
   DVORAK,
+  WORKMAN,
   GAME,
   MOUSE,
   NUM,
@@ -32,7 +32,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
+/* Keymap 0: Basic QWERTY layer
  *
  * ,-----------------------------------------------.           ,--------------------------------------------------.
  * |   -    |  1  |   2  |  3  |  4  |   5  | Esc  |           | Esc  |   6  |   7  |   8  |   9  |   0  |   =    |
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |    |     | LGUI |           | LGUI |        |     |
  *                               `-----------------'           `---------------------'
  */
-[_QWERTY] = LAYOUT_ergodox(  // layer 0 : default
+[_QWERTY] = LAYOUT_ergodox(
     // left hand
     KC_MINUS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_ESC,
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_LBRACKET,
@@ -70,6 +70,96 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RBRACKET, KC_Y, KC_U,  KC_I,    KC_O,    KC_P,               KC_BSPACE,
                  KC_H, KC_J,  KC_K,    KC_L,    KC_SCOLON,          KC_QUOTE,
     KC_FN1,      KC_N, KC_M,  KC_COMM, KC_DOT,  LT(MOUSE, KC_SLSH), KC_ENTER,
+                       RAISE, KC_LEFT, KC_DOWN, KC_UP,              KC_RIGHT,
+
+    NUM,     TG(MOUSE),
+    KC_LALT,
+    KC_LGUI, RAISE,     KC_SPACE
+),
+
+/* Keymap 0: Basic Dvorak layer
+ *
+ * ,---------------------------------------------.           ,--------------------------------------------.
+ * |   -    |  1  |  2  |  3  |  4  |  5  | Esc  |           | Esc  |  6  |  7  |  8  |  9  |  0  |   =    |
+ * |--------+-----+-----+-----+-----+------------|           |------+-----+-----+-----+-----+-----+--------|
+ * |  Tab   |  '  |  ,  |  .  |  P  |  Y  |  [{  |           |  ]}  |  F  |  G  |  C  |  R  |  L  |  BSPC  |
+ * |--------+-----+-----+-----+-----+-----|      |           |      |-----+-----+-----+-----+-----+--------|
+ * |  ESC   |  A  |  O  |  E  |  U  |  I  |------|           |------|  D  |  H  |  T  |  N  |  S  |   /    |
+ * |--------+-----+-----+-----+-----+-----|  L1  |           |  L1  |-----+-----+-----+-----+-----+--------|
+ * | LShift |  ;  |  Q  |  J  |  K  |  X  |      |           |      |  B  |  M  |  W  |  V  |  Z  | Enter  |
+ * `--------+-----+-----+-----+-----+------------'           `------------+-----+-----+-----+-----+--------'
+ *   |Grv/L1|CTRL | Alt |LGUI |Lower|                                     |Raise|Left |Down | Up  |Right |
+ *   `------------------------------'                                     `------------------------------'
+ *                                  ,------------.          ,---------------.
+ *                                  | App | LGui |          | Alt  |Ctrl/Esc|
+ *                             ,----|-----|------|          |------+--------+-----.
+ *                             |    |     | Alt  |          | Alt  |        |     |
+ *                             |BSPC|LOWER|------|          |------| RAISE  |Space|
+ *                             |    |     | LGUI |          | LGUI |        |     |
+ *                             `-----------------'          `---------------------'
+ */
+[_DVORAK] = LAYOUT_ergodox(
+    // left hand
+    KC_MINUS, KC_1,      KC_2,    KC_3,    KC_4,  KC_5, KC_ESC,
+    KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,  KC_Y, KC_LBRACKET,
+    KC_ESC,   KC_A,      KC_O,    KC_E,    KC_U,  KC_I,
+    KC_LSPO,  KC_SCOLON, KC_Q,    KC_J,    KC_K,  KC_X, KC_FN1,
+    NUM,      KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
+
+                                                   KC_MPLY, TO(MOUSE),
+                                                             KC_LALT,
+                                        KC_BSPACE, LOWER,   KC_LGUI,
+
+    // right hand
+    KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,  KC_EQUAL,
+    KC_RBRACKET, KC_F, KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPACE,
+                 KC_D, KC_H,  KC_T,    KC_N,    KC_S,  LT(MOUSE, KC_SLSH),
+    KC_FN1,      KC_B, KC_M,  KC_W,    KC_V,    KC_Z,  KC_ENTER,
+                       RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
+
+    NUM,     TG(MOUSE),
+    KC_LALT,
+    KC_LGUI, RAISE,     KC_SPACE
+),
+
+/* Keymap 0: Basic Workman layer
+ *
+ * ,---------------------------------------------.           ,--------------------------------------------.
+ * |   -    |  1  |  2  |  3  |  4  |  5  | Esc  |           | Esc  |  6  |  7  |  8  |  9  |  0  |   =    |
+ * |--------+-----+-----+-----+-----+------------|           |------+-----+-----+-----+-----+-----+--------|
+ * |  Tab   |  Q  |  D  |  R  |  W  |  B  |  [{  |           |  ]}  |  J  |  F  |  U  |  P  |  ;  |  BSPC  |
+ * |--------+-----+-----+-----+-----+-----|      |           |      |-----+-----+-----+-----+-----+--------|
+ * |  ESC   |  A  |  S  |  H  |  T  |  G  |------|           |------|  Y  |  N  |  E  |  O  |  I  |   '"   |
+ * |--------+-----+-----+-----+-----+-----|  L1  |           |  L1  |-----+-----+-----+-----+-----+--------|
+ * | LShift |  Z  |  X  |  M  |  C  |  V  |      |           |      |  K  |  L  |  ,  |  .  |  /  | Enter  |
+ * `--------+-----+-----+-----+-----+------------'           `------------+-----+-----+-----+-----+--------'
+ *   |Grv/L1|CTRL | Alt |LGUI |Lower|                                     |Raise|Left |Down | Up  |Right |
+ *   `------------------------------'                                     `------------------------------'
+ *                                  ,------------.          ,---------------.
+ *                                  | App | LGui |          | Alt  |Ctrl/Esc|
+ *                             ,----|-----|------|          |------+--------+-----.
+ *                             |    |     | Alt  |          | Alt  |        |     |
+ *                             |BSPC|LOWER|------|          |------| RAISE  |Space|
+ *                             |    |     | LGUI |          | LGUI |        |     |
+ *                             `-----------------'          `---------------------'
+ */
+[_WORKMAN] = LAYOUT_ergodox(
+    // left hand
+    KC_MINUS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_ESC,
+    KC_TAB,   KC_Q,    KC_D,    KC_R,    KC_W,    KC_B, KC_LBRACKET,
+    KC_ESC,   KC_A,    KC_S,    KC_H,    KC_T,    KC_G,
+    KC_LSPO,  KC_Z,    KC_X,    KC_M,    KC_C,    KC_V, KC_FN1,
+    NUM,      KC_LCTL, KC_LALT, KC_LGUI, LOWER,
+
+                                                    KC_MPLY, TO(MOUSE),
+                                                             KC_LALT,
+                                        KC_BSPACE,  LOWER,   KC_LGUI,
+
+    // right hand
+    KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,               KC_EQUAL,
+    KC_RBRACKET, KC_J, KC_F,  KC_U,    KC_P,    KC_SCOLON,          KC_BSPACE,
+                 KC_Y, KC_N,  KC_E,    KC_O,    KC_I,               KC_QUOTE,
+    KC_FN1,      KC_K, KC_L,  KC_COMM, KC_DOT,  LT(MOUSE, KC_SLSH), KC_ENTER,
                        RAISE, KC_LEFT, KC_DOWN, KC_UP,              KC_RIGHT,
 
     NUM,     TG(MOUSE),
@@ -201,11 +291,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,
 
     // right hand
-    _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,
-             AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,
-                      _______, _______, _______, _______, _______,
+    _______, _______, _______, _______,  _______, _______, _______,
+    _______, _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL,
+             AG_SWAP, QWERTY,  WORKMAN,  DVORAK,  _______, _______,
+    _______, _______, _______, _______,  _______, _______, _______,
+                      _______, _______,  _______, _______, _______,
 
     _______, _______,
     _______,
@@ -378,9 +468,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case COLEMAK:
+    case WORKMAN:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        set_single_persistent_default_layer(_WORKMAN);
       }
       return false;
       break;
