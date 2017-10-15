@@ -73,6 +73,7 @@ enum custom_keycodes {
 #define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
+#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
 
 //This is both for underglow, and Diablo 3 macros
 bool has_layer_changed = true;
@@ -128,6 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_DVORAK] = KEYMAP(\
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Fixed RGB lighting for Workman layout
     KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
     KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
     KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
@@ -136,11 +140,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
     KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
     KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
+<<<<<<< HEAD
 =======
   KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
   KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
   KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Fixed RGB lighting for Workman layout
 ),
 
 [_LOWER] = KEYMAP( \
@@ -162,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 =======
   _______, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_DEL,  \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY , COLEMAK,  DVORAK,  _______, _______, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 >>>>>>> Updated macros and added workman keymaps
 )
@@ -204,6 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case DVORAK:
         if (record->event.pressed) {
+<<<<<<< HEAD
         #ifdef AUDIO_ENABLE
             PLAY_SONG(tone_dvorak);
         #endif
@@ -216,6 +224,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
             PLAY_SONG(tone_workman);
         #endif
+=======
+        #ifdef AUDIO_ENABLE
+            PLAY_SONG(tone_dvorak);
+        #endif
+            persistent_default_layer_set(1UL << _DVORAK);
+        }
+        return false;
+        break;
+    case WORKMAN:
+        if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+            PLAY_SONG(tone_dvorak);
+        #endif
+>>>>>>> Fixed RGB lighting for Workman layout
             persistent_default_layer_set(1UL << _WORKMAN);
         }
         return false;
@@ -286,6 +308,9 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 }
                 else if (default_layer & (1UL << _DVORAK)) {
                     rgblight_set_green;
+                }
+                else if (default_layer & (1UL << WORKMAN)) {
+                    rgblight_set_purple;
                 }
                 else {
                     rgblight_set_teal;
