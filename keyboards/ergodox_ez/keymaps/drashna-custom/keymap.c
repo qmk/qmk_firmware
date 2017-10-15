@@ -131,7 +131,7 @@ static uint8_t current_layer = 0;
 #define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_aqua rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
 //This is both for underglow, and Diablo 3 macros
 
 static uint8_t current_layer = 0;
@@ -1606,7 +1606,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 =======
             if (record->event.pressed) {
-                SEND_STRING("make ergodox_ez-drashna-custom-teensy"SS_TAP(X_ENTER));
+                SEND_STRING("make ergodox_ez:drashna-custom:teensy"SS_TAP(X_ENTER));
             }
             return false;
             break;
@@ -2077,7 +2077,7 @@ uint32_t layer_state_set_kb(uint32_t state) {
                     rgblight_set_magenta;
                 }
                 else if (default_layer & (1UL << WORKMAN)) {
-                    rgblight_set_aqua;
+                    rgblight_set_purple;
                 }
                 else {
                     rgblight_set_teal;
