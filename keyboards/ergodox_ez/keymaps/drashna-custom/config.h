@@ -35,14 +35,16 @@
 >>>>>>> Cleanup macros
 =======
 #define FORCE_NKRO
+<<<<<<< HEAD
 #ifdef FORCE_NKRO
 #define NKRO_EPSIZE 32
 #endif
 <<<<<<< HEAD
 >>>>>>> Add forced NKRO
 =======
+=======
+>>>>>>> Updated macros and added workman keymaps
 
-#define PERMISSIVE_HOLD
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

@@ -74,16 +74,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 =======
 #define FORCE_NKRO
-#ifdef FORCE_NKRO
+#ifndef FORCE_NKRO
 #define NKRO_EPSIZE 32
 #endif
 >>>>>>> Add forced NKRO
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif
 >>>>>>> Tweaked RGB lighting stuff
 =======
 #define PERMISSIVE_HOLD
+=======
+>>>>>>> Updated macros and added workman keymaps
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
