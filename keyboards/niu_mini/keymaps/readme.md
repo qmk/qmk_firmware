@@ -19,4 +19,4 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 
 # List of keymaps
 
-* **default** default Planck layout
+* **default** default layout from the Planck keyboard

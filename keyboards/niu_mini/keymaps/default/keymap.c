@@ -19,7 +19,7 @@
 
 extern keymap_config_t keymap_config;
 
-enum planck_layers {
+enum layers {
   _QWERTY,
   _COLEMAK,
   _DVORAK,
@@ -29,7 +29,7 @@ enum planck_layers {
   _ADJUST
 };
 
-enum planck_keycodes {
+enum keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
