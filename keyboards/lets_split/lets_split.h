@@ -3,7 +3,11 @@
 
 #include "quantum.h"
 
-#include QMK_SUBPROJECT_H
+#ifdef KEYBOARD_lets_split_rev1
+    #include "rev1.h"
+#else
+    #include "rev2.h"
+#endif
 
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \

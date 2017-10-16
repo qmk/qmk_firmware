@@ -18,4 +18,4 @@ Default keymap included, matching configuration on sale page.
 
 
 ## Build
-To build the default keymap, simply run `make org60-default`.
+To build the default keymap, simply run `make org60:default`.
