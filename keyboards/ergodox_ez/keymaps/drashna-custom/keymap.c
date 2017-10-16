@@ -43,7 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Updated macros and added workman keymaps
 
-
+//Leader Key stuff
+#ifdef LEADER_TIMEOUT
+#undef LEADER_TIMEOUT
+#define LEADER_TIMEOUT 1000
+#endif
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -311,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
 >>>>>>> Updated macros and added workman keymaps
                 
-                                    ALT_T(KC_APPLICATION),  KC_LGUI,
+                                    ALT_T(KC_APPLICATION),  KC_LEAD,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
@@ -487,8 +491,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 =======
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
+<<<<<<< HEAD
                                               ALT_T(KC_APP),  KC_LGUI,
 >>>>>>> Updated macros and added workman keymaps
+=======
+                                              ALT_T(KC_APP),  KC_LEAD,
+>>>>>>> Add leader keys
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -1056,6 +1064,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 };
 >>>>>>> Add forced NKRO
 
+<<<<<<< HEAD
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
         rgblight_set_magenta;
@@ -1072,6 +1081,8 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 #endif
 };
 
+=======
+>>>>>>> Add leader keys
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
@@ -1087,6 +1098,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t layer = biton32(layer_state);
     static bool has_layer_changed = true;
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	if (!skip_leds) {
@@ -1096,6 +1108,8 @@ void matrix_scan_user(void) {  // runs frequently to update info
 		ergodox_right_led_3_off();
 >>>>>>> Add forced NKRO
 =======
+=======
+>>>>>>> Add leader keys
     if (!skip_leds) {
         ergodox_board_led_off();
         ergodox_right_led_1_off();
@@ -1245,6 +1259,25 @@ uint32_t layer_state_set_kb(uint32_t state) {
 
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+        SEQ_ONE_KEY(KC_C) {
+            SEND_STRING("Covecube");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_D) {
+            SEND_STRING("StableBit DrivePool");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_C) {
+            SEND_STRING("StableBit CloudDrive");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_S) {
+            SEND_STRING("StableBit Scanner");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_T) {
+            SEND_STRING("StableBit Troubleshooter");
+        }
+    }
 };
 
 >>>>>>> Updated RGB Underglow info
