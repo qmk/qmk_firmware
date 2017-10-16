@@ -19,4 +19,5 @@ When adding your keymap to this list, keep it organised alphabetically (select l
 
 # List of keymaps
 
-* **default** default layout from the Planck keyboard
+- **default** default layout from KBDFans
+- **planck** Planck default layout
