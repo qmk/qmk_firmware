@@ -34,7 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIABLO 10
 #define MOUS 12
 
-
+//Leader Key stuff
+#ifdef LEADER_TIMEOUT
+#undef LEADER_TIMEOUT
+#define LEADER_TIMEOUT 1000
+#endif
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -225,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LSHIFT,      CTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
-                                    ALT_T(KC_APPLICATION),  KC_LGUI,
+                                    ALT_T(KC_APPLICATION),  KC_LEAD,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
@@ -268,7 +272,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-                                              ALT_T(KC_APP),  KC_LGUI,
+                                              ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -311,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
         KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
-                                              ALT_T(KC_APP),  KC_LGUI,
+                                              ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -354,7 +358,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
         KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-                                              ALT_T(KC_APP),  KC_LGUI,
+                                              ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -713,13 +717,12 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 
 };
 
-
+LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
     uint8_t layer = biton32(layer_state);
     static bool has_layer_changed = true;
-
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -792,5 +795,24 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+        SEQ_ONE_KEY(KC_C) {
+            SEND_STRING("Covecube");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_D) {
+            SEND_STRING("StableBit DrivePool");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_C) {
+            SEND_STRING("StableBit CloudDrive");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_S) {
+            SEND_STRING("StableBit Scanner");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_T) {
+            SEND_STRING("StableBit Troubleshooter");
+        }
+    }
 };
 
