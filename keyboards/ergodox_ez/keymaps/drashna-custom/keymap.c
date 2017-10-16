@@ -98,7 +98,7 @@ enum {
 
 
 // on each tap, light up one led, from right to left
-// on the forth tap, turn them off from right to leftmake ergodox-ez-drashna-custom-teensy
+// on the forth tap, turn them off from right to left
 
 void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 	if (!skip_leds) {

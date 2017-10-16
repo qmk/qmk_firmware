@@ -17,4 +17,4 @@ makes sense.
 
 Follow the main Infinity ErgoDox guide but use the following layout:
 
-    $ sudo make ergodox_infinity-rask
+    $ sudo make ergodox_infinity:rask
