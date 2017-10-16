@@ -41,6 +41,24 @@ void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    register_code16 (pair->kc);
+  } else if (state->count == 2) {
+    layer_move (pair->layer);
+  }
+}
+
+void qk_tap_dance_dual_role_reset (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 1) {
+    unregister_code16 (pair->kc);
+  }
+}
+
 static inline void _process_tap_dance_action_fn (qk_tap_dance_state_t *state,
                                                  void *user_data,
                                                  qk_tap_dance_user_fn_t fn)

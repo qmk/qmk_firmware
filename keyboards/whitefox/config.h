@@ -82,11 +82,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #endif
-
-// The visualizer needs gfx thread priorities
-#define LED_DISPLAY_NUMBER 0
-
-#define LED_NUM_ROWS 5
-#define LED_NUM_COLS 16
-
-#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)

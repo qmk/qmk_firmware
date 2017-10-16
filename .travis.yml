@@ -11,14 +11,14 @@ env:
   global:
   - secure: vBTSL34BDPxDilKUuTXqU4CJ26Pv5hogD2nghatkxSQkI1/jbdnLj/DQdPUrMJFDIY6TK3AltsBx72MaMsLQ1JO/Ou24IeHINHXzUC1FlS9yQa48cpxnhX5kzXNyGs3oa0qaFbvnr7RgYRWtmD52n4bIZuSuW+xpBv05x2OCizdT2ZonH33nATaHGFasxROm4qYZ241VfzcUv766V6RVHgL4x9V08warugs+RENVkfzxxwhk3NmkrISabze0gSVJLHBPHxroZC6EUcf/ocobcuDrCwFqtEt90i7pNIAFUE7gZsN2uE75LmpzAWin21G7lLPcPL2k4FJVd8an1HiP2WmscJU6U89fOfMb2viObnKcCzebozBCmKGtHEuXZo9FcReOx49AnQSpmESJGs+q2dL/FApkTjQiyT4J6O5dJpoww0/r57Wx0cmmqjETKBb5rSgXM51Etk3wO09mvcPHsEwrT7qH8r9XWdyCDoEn7FCLX3/LYnf/D4SmZ633YPl5gv3v9XEwxR5+04akjgnvWDSNIaDbWBdxHNb7l4pMc+WR1bwCyMyA7KXj0RrftEGOrm9ZRLe6BkbT4cycA+j77nbPOMcyZChliV9pPQos+4TOJoTzcK2L8yWVoY409aDNVuAjdP6Yum0R2maBGl/etLmIMpJC35C5/lZ+dUNjJAM=
 before_install:
-  - wget http://www.atmel.com/images/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
+  - wget http://www.atmel.com/images/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz || wget http://qmk.fm/avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
 install:
   - tar -zxf avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
   - export PATH="$PATH:$TRAVIS_BUILD_DIR/avr8-gnu-toolchain-linux_x86_64/bin"
 before_script:
   - avr-gcc --version
 script:
-- make test AUTOGEN=false
+- make test:all AUTOGEN=false
 - bash util/travis_build.sh
 addons:
   apt:
@@ -29,12 +29,13 @@ addons:
     - binutils-arm-none-eabi
     - libnewlib-arm-none-eabi
     - diffutils
+    - dos2unix
 after_success: 
   bash util/travis_compiled_push.sh
 notifications:
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/cca31de3d44b9adb617b
-    on_success: change  # options: [always|never|change] default: always
+      - https://webhooks.gitter.im/e/afce403d65f143dfac09
+    on_success: always  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always

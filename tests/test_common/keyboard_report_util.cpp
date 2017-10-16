@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #include "keyboard_report_util.h"
+ #include "keyboard_report_util.hpp"
  #include <vector>
  #include <algorithm>
  using namespace testing;
@@ -47,19 +47,25 @@ bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
 
 std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value) {
     stream << "Keyboard report:" << std::endl;
-    stream << "Mods: " << value.mods << std::endl;
+    stream << "Mods: " << (uint32_t)value.mods << std::endl;
+    stream << "Keys: ";
     // TODO: This should probably print friendly names for the keys
     for (uint32_t k: get_keys(value)) {
-        stream << k << std::endl;
+        stream << k << " ";
     }
+    stream << std::endl;
     return stream;
 }
 
 KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
-    // TODO: Support modifiers
     memset(m_report.raw, 0, sizeof(m_report.raw));
     for (auto k: keys) {
-        add_key_to_report(&m_report, k);
+        if (IS_MOD(k)) {
+            m_report.mods |= MOD_BIT(k);
+        }
+        else {
+            add_key_to_report(&m_report, k);
+        }
     }
 }
 

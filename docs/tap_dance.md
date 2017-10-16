@@ -1,5 +1,7 @@
 # Tap Dance: A single key can do 3, 5, or 100 different things
 
+<!-- FIXME: Break this up into multiple sections -->
+
 Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by [algernon](https://github.com/algernon) in [#451](https://github.com/qmk/qmk_firmware/pull/451). Here's how algernon describes the feature:
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
@@ -12,7 +14,7 @@ The implementation hooks into two parts of the system, to achieve this: into `pr
 
 But lets start with how to use it, first!
 
-First, you will need `TAP_DANCE_ENABLE=yes` in your `Makefile`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
+First, you will need `TAP_DANCE_ENABLE=yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
 
 This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
 
@@ -34,11 +36,13 @@ Our next stop is `matrix_scan_tap_dance()`. This handles the timeout of tap-danc
 
 For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.
 
-### Examples
+# Examples
+
+## Simple Example
 
 Here's a simple example for a single definition:
 
-1. In your `makefile`, add `TAP_DANCE_ENABLE = yes`
+1. In your `rules.mk`, add `TAP_DANCE_ENABLE = yes`
 2. In your `config.h` (which you can copy from `qmk_firmware/keyboards/planck/config.h` to your keymap directory), add `#define TAPPING_TERM 200`
 3. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
@@ -58,6 +62,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //In Layer declaration, add tap dance item in place of a key code
 TD(TD_ESC_CAPS)
 ```
+
+## Complex Example
 
 Here's a more complex example involving custom actions:
 

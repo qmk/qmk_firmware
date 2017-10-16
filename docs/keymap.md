@@ -79,7 +79,7 @@ Key with `KC_TRANS` (`KC_TRNS` and `_______` are the alias) doesn't has its own 
 
 ## Anatomy Of A `keymap.c`
 
-For this example we will walk through the [default Clueboard keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
+For this example we will walk through the [default Clueboard 66% keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard_66/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
 
 There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
 
@@ -215,8 +215,7 @@ To actually handle the keypress event we define an `action_function()`. This fun
 
 This should have given you a basic overview for creating your own keymap. For more details see the following resources:
 
-* https://github.com/qmk/qmk_firmware/wiki/Keycodes
-* https://github.com/qmk/qmk_firmware/wiki/FAQ-Keymap
-* https://github.com/qmk/qmk_firmware/wiki/Keymap-examples
+* [Keycodes](keycodes.md)
+* [Keymap FAQ](faq_keymap.md)
 
 We are actively working to improve these docs. If you have suggestions for how they could be made better please [file an issue](https://github.com/qmk/qmk_firmware/issues/new)!

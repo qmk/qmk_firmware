@@ -37,7 +37,7 @@ Then, with the keyboard plugged in, simply run this command from the
 `qmk_firmware` directory:
 
 ```
-$ make ps2avrGB-program
+$ make ps2avrGB:program
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
