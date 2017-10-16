@@ -39,6 +39,7 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   EXT_PLV,
+  TOUNGE,
   SMILE,
   FROWN,
   HEART,
@@ -128,16 +129,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  *                │HYPR1│Ms L │Ms Dn│Ms R │Ms WU│     │     │SMILE│FROWN│HEART│SHRUG│     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │HYPR2│Ms WL│Ms B3│Ms WR│     │     │     │GRIN │SHIT │     │     │     │
+ *                │HYPR2│Ms WL│Ms B3│Ms WR│     │     │     │GRIN │SHIT │TOUNGE│     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
  *                │     │     │     │     │Brig-│   Sleep   │Brig+│     │     │     │     │
  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  *                        \___ Media ___/   \___ Screen/sleep __/   \___ Volume __/
  */
 [_MOUSE] = {
-  {HYPR_0, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, LLAP,    CRY,     FLIP,    _______, _______},
-  {HYPR_1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, SMILE,   FROWN,   HEART,   SHRUG,   _______},
-  {HYPR_2, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, GRIN,    SHIT,    _______, _______, _______},
+  {HYPR_0, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, LLAP,    CRY,     FLIP,     _______, _______},
+  {HYPR_1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, SMILE,   FROWN,   HEART,    SHRUG,   _______},
+  {HYPR_2, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, GRIN,    SHIT,    TOUNGE,   _______, _______},
   {_______, _______, _______, _______, KC_SLCK, KC_SLEP, KC_SLEP, KC_PAUS, _______, _______, _______, _______}
 },
 
@@ -363,6 +364,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case GRIN:
       if (record->event.pressed) {
         SEND_STRING(":-D ");
+      }
+      return false;
+      break;
+    case TOUNGE:
+      if (record->event.pressed) {
+        SEND_STRING(":-P ");
       }
       return false;
       break;
