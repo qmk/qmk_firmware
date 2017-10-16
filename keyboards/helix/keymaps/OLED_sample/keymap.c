@@ -2,7 +2,7 @@
 #include "bootloader.h"
 #include "action_layer.h"
 #include "eeconfig.h"
-#include "tmk_core/protocol/lufa/LUFA-git/LUFA/Drivers/Peripheral/TWI.h"
+#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
