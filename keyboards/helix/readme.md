@@ -9,7 +9,7 @@ For the full Quantum feature list, see [the parent readme](/).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the root folder. Once your dev env is setup, you'll be able to type `make helix-default` to generate your .hex - you can then use the Teensy Loader to program your .hex file.
+Download or clone the whole firmware and navigate to the root folder. Once your dev env is setup, you'll be able to type `make helix:default` to generate your .hex - you can then use the Teensy Loader to program your .hex file.
 
 (Note: replace helix with the name of your keyboard.)
 
@@ -17,7 +17,7 @@ Depending on which keymap you would like to use, you will have to compile slight
 
 ### Default
 
-To build with the default keymap, simply run `make helix-default`.
+To build with the default keymap, simply run `make helix:default`.
 
 ### Other Keymaps
 
@@ -34,5 +34,5 @@ Several version of keymap are available in advance but you are recommended to de
 To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
 
 ```
-$ make helix-[default|jack|<name>]
+$ make helix:[default|jack|<name>]
 ```

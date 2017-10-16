@@ -1,7 +1,7 @@
 #ifndef HELIX_H
 #define HELIX_H
 
-#ifdef SUBPROJECT_rev1
+#ifdef KEYBOARD_helix_rev1
     #include "rev1.h"
 #endif
 
