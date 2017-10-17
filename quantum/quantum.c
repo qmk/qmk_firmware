@@ -279,7 +279,7 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   #endif
-  #ifdef RGBLIGHT_ENABLE
+  #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   case RGB_TOG:
     if (record->event.pressed) {
       rgblight_toggle();
@@ -862,13 +862,14 @@ void backlight_set(uint8_t level)
     }
   #endif
 
-  #ifdef BACKLIGHT_BREATHING
+  #if defined(BACKLIGHT_BREATHING)
     breathing_intensity_default();
   #endif
 }
 
 uint8_t backlight_tick = 0;
 
+__attribute__ ((weak))
 void backlight_task(void) {
   #ifdef NO_BACKLIGHT_CLOCK
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
@@ -893,6 +894,23 @@ void backlight_task(void) {
 }
 
 #ifdef BACKLIGHT_BREATHING
+
+
+#ifdef NO_BACKLIGHT_CLOCK
+  void breathing_enable(void) {}
+  void breathing_pulse(void) {}
+  void breathing_disable(void) {}
+  void breathing_self_disable(void) {}
+  void breathing_toggle(void) {}
+  bool is_breathing(void) { return false; }
+  void breathing_intensity_default(void) {}
+  void breathing_intensity_set(uint8_t value) {}
+  void breathing_speed_default(void) {}
+  void breathing_speed_set(uint8_t value) {}
+  void breathing_speed_inc(uint8_t value) {}
+  void breathing_speed_dec(uint8_t value) {}
+  void breathing_defaults(void) {}
+#else
 
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
@@ -1093,7 +1111,7 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
-
+#endif // no clock
 
 #endif // breathing
 
@@ -1156,6 +1174,7 @@ void send_nibble(uint8_t number) {
 __attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex)
 {
+  hex = hex & 0xF;
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {
