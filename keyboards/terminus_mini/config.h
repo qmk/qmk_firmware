@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
  * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
+ * rules.mk for this to work.)
  *
  * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
  * until the next keyboard reset.
