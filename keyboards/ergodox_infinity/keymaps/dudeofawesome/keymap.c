@@ -3,32 +3,30 @@
 #include "action_layer.h"
 #include "version.h"
 
-#define BASE 0 // default layer
-
 enum custom_layers {
-  _QWERTY,
-  _DVORAK,
-  _WORKMAN,
-  _GAME,
-  _MOUSE,
-  _NUM,
-  _LOWER,
-  _RAISE,
-  _ADJUST
+    _QWERTY,
+    _DVORAK,
+    _WORKMAN,
+    _GAME,
+    _MOUSE,
+    _NUM,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  DVORAK,
-  WORKMAN,
-  GAME,
-  MOUSE,
-  NUM,
-  LOWER,
-  RAISE,
-  EPRM,
-  VRSN,
-  RGB_SLD
+    QWERTY = SAFE_RANGE,
+    DVORAK,
+    WORKMAN,
+    LOWER,
+    RAISE,
+    GAME,
+    MOUSE,
+    NUM,
+    EPRM,
+    VRSN,
+    RGB_SLD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
