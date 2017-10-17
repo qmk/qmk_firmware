@@ -95,8 +95,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add forced NKRO
+=======
+>>>>>>> Remove force NKRO
 
 <<<<<<< HEAD
 #endif
