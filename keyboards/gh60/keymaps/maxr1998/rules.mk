@@ -4,7 +4,3 @@
 RGBLIGHT_ENABLE = yes # Enable RGB Underglow
 KEY_LOCK_ENABLE = yes # Enable key lock option
 SKIP_GIT = yes
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
