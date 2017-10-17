@@ -15,7 +15,7 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
 >  |-----+------+------+------+------+------|     |------+------+------+------+------+------| \
 >  | Tab |   Q  |   W  |   F  |   P  |   G  |     |   J  |   L  |   U  |   Y  |   ;  |  \\  | \
 >  |-----+------+------+------+------+------|     |------+------+------+------+------+------| \
->  | BS  |   A  |   R  |   S  |   T  |   D  |     |   H  |   N  |   E  |   I  |   O  |  "   | \
+>  | BS  |   A  |   R  |   S  |   T  |   D  |     |   H  |   N  |   E  |   I  |   O  |  '   | \
 >  |-----+------+------+------+------+------|     |------+------+------+------+------+------| \
 >  | LSPO|   Z  |   X  |   C  |   V  |   B  |     |   K  |   M  |   ,  |  \.  |   /  | RSPC | \
 >  |-----+------+------+------+------+------|     |------+------+------+------+------+------| \
@@ -80,7 +80,7 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
  > |------+------+------+------+------+------|     |------+------+------+------+------+------| \
  > |  Tab |      |      |      |      |      |     |      |      |      |      |      |  \\  | \
  > |------+------+------+------+------+------|     |------+------+------+------+------+------| \
- > |  BS  |  \!  |   @  |  \#  |   $  |   %  |     |   ^  |   &  |  \*  |  \-  |  \+  |   "  | \
+ > |  BS  |  \!  |   @  |  \#  |   $  |   %  |     |   ^  |   &  |  \*  |  \-  |  \+  |   '  | \
  > |------+------+------+------+------+------|     |------+------+------+------+------+------| \
  > | LSBO |      |      |  \{  |  \[  |  \`  |     |   |  |  \]  |  \}  |  \.  |   ?  | RSBC | \
  > |------+------+------+------+------+------|     |------+------+------+------+------+------| \
@@ -108,13 +108,13 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
  > | Ctrl | LGUI | Alt  |      | Space/Lower |     | Enter/Raise |  Fn  | Mouse|      |PsBrk | \
  > '-----------------------------------------'     '-----------------------------------------' \
 
- 		* The *FUNCTION* layer contains media keys as well as the F-row. This layer is momentary and requires Fn to be held.
- 				* The media cluster is based on the nav cluster in the *LOWER* layer, with RW, PP & FF in the Left, Down & Right positions.
- 				* Mute, and Vol +/- are next to each other in ascending (L->R) volume order, Stop is below Mute.
- 				* Insert, Print Screen, Scroll Lock & Pause Break are all implemented on the far right column.
- 						I don't really use these keys so their position is not optimised.
- 				* Caps lock is implemented on this layer, in the traditional position, in place of BackSpace on the Base layer.
- 				* The RESET key will reset the Teensy for flashing and the Power key will initiate a shutdown of the PC. I've placed these in the far-reach index positions so that they are least likely to be pressed on accident. The power key is particularly dangerous, so I've placed it conciously on the right hand so that it becomes very awkward to activate with one hand (Fn needs to be held with the middle finger at the same time)
+	* The *FUNCTION* layer contains media keys as well as the F-row. This layer is momentary and requires Fn to be held.
+			* The media cluster is based on the nav cluster in the *LOWER* layer, with RW, PP & FF in the Left, Down & Right positions.
+			* Mute, and Vol +/- are next to each other in ascending (L->R) volume order, Stop is below Mute.
+			* Insert, Print Screen, Scroll Lock & Pause Break are all implemented on the far right column.
+					I don't really use these keys so their position is not optimised.
+			* Caps lock is implemented on this layer, in the traditional position, in place of BackSpace on the Base layer.
+			* The RESET key will reset the board for flashing and the Power key will initiate a shutdown of the PC. I've placed these in the far-reach index positions so that they are least likely to be pressed on accident. The power key is particularly dangerous, so I've placed it conciously on the right hand so that it becomes very awkward to activate with one hand (Fn needs to be held with the middle finger at the same time)
 
 ### MOUSE - Mouse keys: The functionality of this layer is not as optimal as using a true mouse, generally slower but will work in a pinch.
  > ,----------------------------------------.     .----------------------------------------. \
@@ -129,7 +129,7 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
  > | Ctrl |      |      |      |Sensitivity |     | Sensitivity|      |MOUSE |      | Ctrl | \
  > '----------------------------------------'     '----------------------------------------' \
 
- 		* The *MOUSE* layer contains keys replicating functions found on the mouse. 
- 			* The navigation cluster (Up, Down, Left, Right) is a replication of the Navigation cluster on the *LOWER* layer. The scroll keys are analagous to the Page Up & Down keys.
- 			*) The primary click (right & left) buttons are on the right home row (index & middle fingers)
- 			* Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.
+ 	* The *MOUSE* layer contains keys replicating functions found on the mouse. 
+ 		* The navigation cluster (Up, Down, Left, Right) is a replication of the Navigation cluster on the *LOWER* layer. The scroll keys are analagous to the Page Up & Down keys.
+ 		*) The primary click (right & left) buttons are on the right home row (index & middle fingers)
+ 		* Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.
