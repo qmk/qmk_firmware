@@ -38,5 +38,8 @@
 #ifdef KEYBOARD_planck_rev4
     #include "rev4.h"
 #endif
+#ifdef KEYBOARD_planck_light
+    #include "light.h"
+#endif
 
 #endif
