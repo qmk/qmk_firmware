@@ -56,14 +56,20 @@
  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
+
+#if !defined(BOOTLOADER_SIZE) && !defined(BOOTLOADER_START)
+    #warning To use bootloader_jump() you need to define BOOTLOADER_SIZE or BOOTLOADER_START in config.h.
+#endif
+
 #ifndef BOOTLOADER_SIZE
-#warning To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
 #define BOOTLOADER_SIZE     4096
 #endif
 
 #define FLASH_SIZE          (FLASHEND + 1L)
-#define BOOTLOADER_START    (FLASH_SIZE - BOOTLOADER_SIZE)
 
+#ifndef BOOTLOADER_START
+#define BOOTLOADER_START    (FLASH_SIZE - BOOTLOADER_SIZE)
+#endif
 
 /*
  * Entering the Bootloader via Software
