@@ -68,6 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // RGBLIGHT_ENABLE
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 #endif
@@ -87,6 +88,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Remove force NKRO
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

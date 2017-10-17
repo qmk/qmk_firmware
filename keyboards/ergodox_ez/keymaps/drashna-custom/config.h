@@ -16,6 +16,7 @@
 #endif // RGBLIGHT_ENABLE
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -45,6 +46,8 @@
 =======
 >>>>>>> Updated macros and added workman keymaps
 
+=======
+>>>>>>> Remove force NKRO
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
