@@ -33,14 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "system/serial_link.h"
 #include "default_animations.h"
 
-static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0x00);
-static const uint32_t initial_color = LCD_COLOR(0x7F, 0xFF, 0xFF);
+static const uint32_t logo_background_color = LCD_COLOR(0, 0, 255);
+static const uint32_t initial_color = LCD_COLOR(84, 255, 255);
 
 static const uint32_t led_emulation_colors[4] = {
-    LCD_COLOR(0, 0, 0),
-    LCD_COLOR(255, 255, 255),
-    LCD_COLOR(84, 255, 255),
-    LCD_COLOR(168, 255, 255),
+    LCD_COLOR(0, 0, 255),
+    LCD_COLOR(141, 222, 255),
+    LCD_COLOR(24, 245, 255),
+    LCD_COLOR(194, 245, 255),
 };
 
 static uint32_t next_led_target_color = 0;
@@ -180,26 +180,27 @@ static void update_emulated_leds(visualizer_state_t* state, visualizer_keyboard_
     if (true || is_serial_link_master()) {
         new_index = get_led_index_master(user_data_new);
         old_index = get_led_index_master(user_data_old);
-    }
-    else {
+    } else {
         new_index = get_led_index_slave(user_data_new);
         old_index = get_led_index_slave(user_data_old);
     }
+
     uint8_t new_secondary_index = get_secondary_led_index(user_data_new);
     uint8_t old_secondary_index = get_secondary_led_index(user_data_old);
 
-    uint8_t old_brightness = get_brightness(user_data_old, old_index);
     uint8_t new_brightness = get_brightness(user_data_new, new_index);
+    uint8_t old_brightness = get_brightness(user_data_old, old_index);
 
-    uint8_t old_secondary_brightness = get_brightness(user_data_old, old_secondary_index);
     uint8_t new_secondary_brightness = get_brightness(user_data_new, new_secondary_index);
+    uint8_t old_secondary_brightness = get_brightness(user_data_old, old_secondary_index);
 
-    if (lcd_state == LCD_STATE_INITIAL ||
-            new_index != old_index ||
-            new_secondary_index != old_secondary_index ||
-            new_brightness != old_brightness ||
-            new_secondary_brightness != old_secondary_brightness) {
-
+    if (
+        lcd_state == LCD_STATE_INITIAL ||
+        new_index != old_index ||
+        new_secondary_index != old_secondary_index ||
+        new_brightness != old_brightness ||
+        new_secondary_brightness != old_secondary_brightness
+    ) {
         if (new_secondary_index != 0) {
             state->target_lcd_color = change_lcd_color_intensity(
                 led_emulation_colors[new_index], new_brightness);
@@ -211,6 +212,7 @@ static void update_emulated_leds(visualizer_state_t* state, visualizer_keyboard_
         } else {
             state->target_lcd_color = change_lcd_color_intensity(
                 led_emulation_colors[new_index], new_brightness);
+
             stop_keyframe_animation(&two_led_colors);
             start_keyframe_animation(&one_led_color);
         }
