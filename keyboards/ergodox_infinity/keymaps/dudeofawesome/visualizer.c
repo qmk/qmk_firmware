@@ -38,9 +38,9 @@ static const uint32_t initial_color = LCD_COLOR(84, 255, 255);
 
 static const uint32_t led_emulation_colors[4] = {
     LCD_COLOR(0, 0, 255),
-    LCD_COLOR(141, 222, 255),
-    LCD_COLOR(24, 245, 255),
-    LCD_COLOR(194, 245, 255),
+    LCD_COLOR(141, 255, 255),
+    LCD_COLOR(18, 255, 255),
+    LCD_COLOR(194, 255, 255),
 };
 
 static uint32_t next_led_target_color = 0;
