@@ -37,8 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Leader Key stuff
 #ifdef LEADER_TIMEOUT
 #undef LEADER_TIMEOUT
-#define LEADER_TIMEOUT 1000
 #endif
+#define LEADER_TIMEOUT 1500
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
-                          KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
+                          KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
@@ -804,10 +804,10 @@ void matrix_scan_user(void) {  // runs frequently to update info
         SEQ_TWO_KEYS(KC_S, KC_D) {
             SEND_STRING("StableBit DrivePool");
         }
-        SEQ_TWO_KEYS(KC_S, KC_C) {
+        SEQ_TWO_KEYS(KC_C, KC_D) {
             SEND_STRING("StableBit CloudDrive");
         }
-        SEQ_TWO_KEYS(KC_S, KC_S) {
+        SEQ_TWO_KEYS(KC_S, KC_C) {
             SEND_STRING("StableBit Scanner");
         }
         SEQ_TWO_KEYS(KC_S, KC_T) {
