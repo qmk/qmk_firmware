@@ -1,5 +1,5 @@
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#ifndef CLUEBOARD_66_REV1_CONFIG_H
+#define CLUEBOARD_66_REV1_CONFIG_H
 
 #include "config_common.h"
 
