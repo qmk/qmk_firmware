@@ -79,7 +79,7 @@ Key with `KC_TRANS` (`KC_TRNS` and `_______` are the alias) doesn't has its own 
 
 ## Anatomy Of A `keymap.c`
 
-For this example we will walk through the [default Clueboard keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
+For this example we will walk through the [default Clueboard 66% keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard_66/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
 
 There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
 

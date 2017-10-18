@@ -20,8 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-
 #endif  // CONFIG_H
