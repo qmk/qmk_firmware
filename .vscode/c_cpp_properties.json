@@ -1,0 +1,37 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "intelliSenseMode": "clang-x64",
+            "includePath": [
+                "${workspaceRoot}",
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++",
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/mingw32",
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/backward",
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include",
+                "C:/MinGW/include",
+                "C:/MinGW/lib/gcc/mingw32/5.3.0/include-fixed",
+                "${workspaceRoot}/lib",
+                "${workspaceRoot}/quantum",
+                "${workspaceRoot}/quantum/audio"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "__GNUC__=5",
+                "__cdecl=__attribute__((__cdecl__))"
+            ],
+            "browse": {
+                "path": [
+                    "C:/MinGW/lib/gcc/mingw32/5.3.0/include",
+                    "C:/MinGW/lib/gcc/mingw32/5.3.0/include-fixed",
+                    "C:/MinGW/include/*",
+                    "${workspaceRoot}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 3
+}

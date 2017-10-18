@@ -12,5 +12,8 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp"
-    }
+    },
+    "C_Cpp.addWorkspaceRootToIncludePath": true    ,
+    "C_Cpp.intelliSenseEngine": "Default",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }
