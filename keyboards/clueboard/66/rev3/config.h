@@ -1,9 +1,9 @@
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#ifndef CLUEBOARD_66_REV3_CONFIG_H
+#define CLUEBOARD_66_REV3_CONFIG_H
 
 #include "config_common.h"
 
-#define PRODUCT_ID      0x2320
+#define PRODUCT_ID      0x2370
 #define DEVICE_VER      0x0001
 
 /* key matrix size */
@@ -30,7 +30,7 @@
 /* Underlight configuration
  */
 #define RGB_DI_PIN D7
-#define RGBLED_NUM 14     // Number of LEDs
+#define RGBLED_NUM 18     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 32
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
@@ -41,7 +41,7 @@
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 666*2
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3   // How many LEDs wide to light up
-#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 1   // The led to start at
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 2   // The led to start at
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 5  // How many LEDs to travel
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4    // How many LEDs wide to light up
 
