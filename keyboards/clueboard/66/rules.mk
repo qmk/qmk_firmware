@@ -1,3 +1,4 @@
+DEFAULT_FOLDER = clueboard/66/rev2
 MCU = atmega32u4
 F_CPU = 16000000
 ARCH = AVR8
@@ -19,5 +20,3 @@ RGBLIGHT_ENABLE = yes  # Enable keyboard underlight functionality
 MIDI_ENABLE = no 		# MIDI controls
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
-
-DEFAULT_FOLDER = clueboard_66/rev2
