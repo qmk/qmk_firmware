@@ -3,7 +3,9 @@ Space Oddity Keyboard
 
 This firmware is for an Emacs-focused handwired custom keyboard using an Arduino Pro Micro.
 
-As originally designed, the top row consists of 2u keys which are used for user-defined macros.
+As originally designed, the top row consists of 2u keys which are used for user-defined macros. The keys for Shift and Enter are 1.75u.
+
+A picture of the finished product can be found here: https://imgur.com/dE9Y4XK
 
 ## Pinout
 
