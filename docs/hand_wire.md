@@ -273,7 +273,7 @@ Notice how the `k11` and `KC_NO` switched places to represent the wiring, and th
 
 ### keymaps/<variant>/default.c
 
-This is the actual keymap for your keyboard, and the main place you'll make changes as you perfect your layout. `default.c` is the file that gets pull by default when typing `make`, but you can make other files as well, and specify them by typing `make handwired-<keyboard>-<variant>`, which will pull `keymaps/<variant>/keymap.c`.
+This is the actual keymap for your keyboard, and the main place you'll make changes as you perfect your layout. `default.c` is the file that gets pull by default when typing `make`, but you can make other files as well, and specify them by typing `make handwired/<keyboard>:<variant>`, which will pull `keymaps/<variant>/keymap.c`.
 
 The basis of a keymap is its layers - by default, layer 0 is active. You can activate other layers, the highest of which will be referenced first. Let's start with our base layer.
 

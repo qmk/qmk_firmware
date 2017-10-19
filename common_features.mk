@@ -171,6 +171,10 @@ ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     OPT_DEFS += -DTERMINAL_ENABLE
 endif
 
+ifeq ($(strip $(USB_HID_ENABLE)), yes)
+    include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
