@@ -1,4 +1,4 @@
-#include QMK_SUBPROJECT_H
+#include "rev2.h"
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

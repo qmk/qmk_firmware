@@ -9,11 +9,11 @@ Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make iris-rev2-default
+    make iris/rev2:default
 
 Example of flashing this keyboard:
 
-    make iris-rev2-default-avrdude
+    make iris/rev2:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 

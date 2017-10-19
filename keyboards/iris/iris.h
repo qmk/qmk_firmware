@@ -1,7 +1,11 @@
 #ifndef IRIS_H
 #define IRIS_H
 
-#include QMK_SUBPROJECT_H
+#ifdef KEYBOARD_iris_rev1
+    #include "rev1.h"
+#else
+    #include "rev2.h"
+#endif
 
 #include "quantum.h"
 
