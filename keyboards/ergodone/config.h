@@ -58,7 +58,9 @@
 #define USB_MAX_POWER_CONSUMPTION 500
 
 /* NKRO */
-#define FORCE_NKRO  // Depends on NKRO_ENABLE.
+#ifndef FORCE_NKRO
+    #define FORCE_NKRO  // Depends on NKRO_ENABLE.
+#endif
 
 /*
  * Feature disable options
