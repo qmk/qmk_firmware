@@ -1,5 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
 // Below layout is based upon /u/That-Canadian's planck layout
 

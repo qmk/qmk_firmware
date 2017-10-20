@@ -93,6 +93,8 @@ uint8_t matrix_scan(void) {
         }
     }
 
+    matrix_scan_user();
+
     return 1;
 }
 

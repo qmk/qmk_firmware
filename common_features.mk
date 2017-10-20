@@ -69,6 +69,10 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/pointing_device.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON = yes
@@ -93,10 +97,14 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += ws2812.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
+    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    else
+	    SRC += ws2812.c
+    endif
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -113,6 +121,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    OPT_DEFS += -DAUTO_SHIFT_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
@@ -151,6 +164,15 @@ endif
 
 ifeq ($(strip $(LED_TABLES)), yes)
     SRC += $(QUANTUM_DIR)/led_tables.c
+endif
+
+ifeq ($(strip $(TERMINAL_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
+    OPT_DEFS += -DTERMINAL_ENABLE
+endif
+
+ifeq ($(strip $(USB_HID_ENABLE)), yes)
+    include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
 QUANTUM_SRC:= \
