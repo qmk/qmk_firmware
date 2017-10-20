@@ -20,3 +20,6 @@ The following pins are used:
 To build the firmware, run `make handwired/space-oddity` from the toplevel directory.
 
 On GNU/Linux, you can flash the default layout onto the microcontroller by using `avrdude -p atmega32u4 -P /dev/ttyACM0 -c avr109 -U flash:w:handwired_space_oddity_default.hex`. Note that the device name under `/dev` may be different. 
+
+
+This design was conceived by James Taylor. Any requests for further information and/or tips for building your own are welcome!

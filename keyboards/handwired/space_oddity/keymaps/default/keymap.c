@@ -33,9 +33,11 @@ enum {
 #define MOUSE_LAYER 2
 
 const uint16_t PROGMEM fn_actions[] = {
-
     [2] = ACTION_LAYER_TOGGLE(MOUSE_LAYER),
+};
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -110,10 +112,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-};
 
 void led_set_user(uint8_t usb_led) {
 
