@@ -49,8 +49,8 @@ If you have `#define RGBLIGHT_ANIMATIONS` in your `config.h` you will have a num
 | Option | Default Value | Description |
 |--------|---------------|-------------|
 | `RGBLIGHT_ANIMATIONS` | | `#define` this to enable animation modes. |
-| `RGBLIGHT_EFFECT_BREATHE_CENTER | 1.85 | Used to calculate the curve for the breathing animation. Valid values 1.0-2.7. |
-| `RGBLIGHT_EFFECT_BREATHE_MAX | 255 | The maximum brightness for the breathing mode. Valid values 1-255. |
+| `RGBLIGHT_EFFECT_BREATHE_CENTER` | 1.85 | Used to calculate the curve for the breathing animation. Valid values 1.0-2.7. |
+| `RGBLIGHT_EFFECT_BREATHE_MAX` | 255 | The maximum brightness for the breathing mode. Valid values 1-255. |
 | `RGBLIGHT_EFFECT_SNAKE_LENGTH` | 4 | The number of LEDs to light up for the "snake" animation. |
 | `RGBLIGHT_EFFECT_KNIGHT_LENGTH` | 3 | The number of LEDs to light up for the "knight" animation. |
 | `RGBLIGHT_EFFECT_KNIGHT_OFFSET` | 0 | Start the knight animation this many LEDs from the start of the strip. |
