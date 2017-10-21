@@ -1,4 +1,4 @@
-#include "cluecard.h"
+#include "card.h"
 #ifdef AUDIO_ENABLE
 	#include "audio.h"
 #endif

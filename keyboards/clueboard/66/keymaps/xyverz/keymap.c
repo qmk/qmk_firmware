@@ -1,7 +1,7 @@
 // Xyverz' keymap.
 // It's based on the default keymap, but Dvorak!
 
-#include "clueboard_66.h"
+#include "66.h"
 
 // Used for SHIFT_ESC
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
