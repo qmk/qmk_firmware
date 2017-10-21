@@ -62,7 +62,7 @@ https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstdd
 https://developer.mbed.org/forum/mbed/topic/5205/
 
 
-## 'clock_prescale_set' and 'clock_div_1' not available
+## `clock_prescale_set` and `clock_div_1` not available
 Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
 
 ```
