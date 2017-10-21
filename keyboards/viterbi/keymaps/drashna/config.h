@@ -28,7 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
+<<<<<<< HEAD
 // #define MASTER_RIGHT
+=======
+// #define _MASTER_RIGHT
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 // #define EE_HANDS
 
 #undef RGBLED_NUM
@@ -37,9 +41,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+<<<<<<< HEAD
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 #endif

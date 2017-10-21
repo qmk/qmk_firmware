@@ -309,7 +309,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 else if (default_layer & (1UL << _DVORAK)) {
                     rgblight_set_green;
                 }
-                else if (default_layer & (1UL << WORKMAN)) {
+                else if (default_layer & (1UL << _WORKMAN)) {
                     rgblight_set_purple;
                 }
                 else {
