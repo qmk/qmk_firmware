@@ -226,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
                 KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
                 KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-                KC_LSHIFT,      CTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
+                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
                                     ALT_T(KC_APPLICATION),  KC_LEAD,
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(MOUS),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
                 TG(DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
+                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
                 KC_LALT,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
@@ -268,9 +268,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [COLEMAK] = KEYMAP(  
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
-        KC_TAB,        KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
+        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
-        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
+        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
@@ -279,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
-             TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
+             TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(DIABLO),
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
-        KC_LSFT,        CTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
+        KC_LSFT,        LCTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
@@ -322,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
              TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
-             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z), KC_RSHIFT,
+             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
                                    KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -356,7 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   TG(DIABLO),
         KC_BSPC,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
-        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
+        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
@@ -365,7 +365,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
+             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -795,6 +795,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
+#ifdef LEADER_KEYS
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
@@ -814,5 +815,6 @@ void matrix_scan_user(void) {  // runs frequently to update info
             SEND_STRING("StableBit Troubleshooter");
         }
     }
+#endif
 };
 

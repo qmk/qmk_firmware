@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = KEYMAP( \
-  KC_TILD,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                    KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
+  KC_TILD,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_DEL,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,   XXXXXXX, KC_F12,          _______, XXXXXXX, KC_RCTL, KC_F11,  KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE, \
   TD(TD_FLSH),KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, KC_F12,  KC_HOME,    KC_COMM,    KC_DOT,  KC_END,  _______ \
 ),
@@ -250,7 +250,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 else if (default_layer & (1UL << _DVORAK)) {
                     rgblight_set_green;
                 }
-                else if (default_layer & (1UL << WORKMAN)) {
+                else if (default_layer & (1UL << _WORKMAN)) {
                     rgblight_set_purple;
                 }
                 else {
