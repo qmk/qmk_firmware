@@ -15,6 +15,7 @@
 * [Features](features.md)
   * [Layouts](feature_layouts.md)
   * [Common Shortcuts](feature_common_shortcuts.md)
+  * [Userspace](feature_userspace.md)
   * [Backlight](feature_backlight.md)
   * [Bootmagic](feature_bootmagic.md)
   * [Dynamic Macros](dynamic_macros.md)
