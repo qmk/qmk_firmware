@@ -1,8 +1,6 @@
 #include "planck.h"
 #include "backlight.h"
 #include "config.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
