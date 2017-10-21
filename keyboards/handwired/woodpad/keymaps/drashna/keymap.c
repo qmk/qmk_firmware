@@ -180,10 +180,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_MEDIA] = KEYMAP( /* Base */
 <<<<<<< HEAD
+<<<<<<< HEAD
     KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
 =======
     _______, KC_MUTE, KC_VOLD, KC_VOLU,\
+=======
+    RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     _______, _______, RGB_HUI, RGB_HUD,   \
 >>>>>>> Move woodpad to handwired
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \

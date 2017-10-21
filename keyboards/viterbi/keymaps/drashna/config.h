@@ -43,17 +43,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 #endif

@@ -12,10 +12,14 @@ extern keymap_config_t keymap_config;
 #define _DIABLO   1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 #define _GAMEPAD  2
 #define _MACROS   3
 #define _MEDIA    4
 #define _COVECUBE 5
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 #define _MACROS   2
@@ -28,6 +32,13 @@ extern keymap_config_t keymap_config;
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+#define _MACROS   2
+#define _GAMEPAD  3
+#define _MEDIA    4
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 
 enum custom_keycodes {
@@ -36,12 +47,18 @@ enum custom_keycodes {
     KC_P00,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     KC_MAKE,
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
     KC_MAKE,
 >>>>>>> Made "make" keystroke universal
+=======
+    KC_MAKE,
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     KC_OVERWATCH,
     KC_SALT,
     KC_MORESALT,
@@ -51,6 +68,7 @@ enum custom_keycodes {
     KC_DOOMFIST,
     KC_JUSTGAME,
     KC_GLHF,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     KC_TORB,
@@ -79,6 +97,13 @@ enum custom_keycodes {
   KC_TORB,
   KC_AIM
 >>>>>>> Fixed formatting to fall in line with official standards
+=======
+    KC_TORB,
+    KC_AIM
+=======
+    KC_TORB
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 };
 
 // Fillers to make layering more clear
@@ -86,26 +111,36 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 #define MACROS   TG(_MACROS)
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
 #define MEDIA    TG(_MEDIA)
 #define COVECUBE TG(_COVECUBE)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 #define MACROS  TG(_MACROS)
 #define DIABLO  TG(_DIABLO)
 #define GAMEPAD TG(_GAMEPAD)
 #define MEDIA   TG(_MEDIA)
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 
 bool is_overwatch = false;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -135,6 +170,8 @@ bool has_layer_changed = true;
 #define rgblight_set_purple   rgblight_sethsv (0x10E, 0xFF, 0xFF);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
@@ -146,7 +183,25 @@ bool has_layer_changed = true;
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
 #endif
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+//This is both for underglow, and Diablo 3 macros
+static uint8_t current_layer = 0;
+bool has_layer_changed = true;
+
+
+#define rgblight_set_blue     rgblight_sethsv (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red      rgblight_sethsv(0x00, 0xFF, 0xFF);
+#define rgblight_set_green    rgblight_sethsv (0x78, 0xFF, 0xFF);
+#define rgblight_set_orange   rgblight_sethsv (0x1E, 0xFF, 0xFF);
+#define rgblight_set_teal     rgblight_sethsv (0xC3, 0xFF, 0xFF);
+#define rgblight_set_magenta  rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_urine    rgblight_sethsv (0x3C, 0xFF, 0xFF);
+#define rgblight_set_purple   rgblight_sethsv (0x10E, 0xFF, 0xFF);
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -217,6 +272,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
   [_NUMNAV] = KEYMAP(
       MACROS,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   KC_CALC, COVECUBE,KC_P7,   KC_P8,   KC_P9,   KC_PAST,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -238,6 +296,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MACROS,  DIABLO,  GAMEPAD, KC_NLCK, KC_SCLK, KC_PTSC, KC_PSLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
   [_NUMNAV] = KEYMAP(
       MACROS,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -247,11 +306,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 =======
       MEDIA,   KC_CALC, COVECUBE,KC_P7,   KC_P8,   KC_P9,   KC_PAST,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
 >>>>>>> Update to keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
       KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_P00,  KC_PDOT, KC_PENT,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   [_DIABLO] = KEYMAP(
@@ -311,6 +373,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 =======
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
   [_DIABLO] = KEYMAP(
       KC_ESC,  DIABLO,  KC_V,    KC_D,    XXXXXXX, XXXXXXX, KC_L,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_J,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -355,7 +419,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 
+<<<<<<< HEAD
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+=======
+/* Lower
+ * ,------------------------------------------------.      ,------------------------------------------------.
+ * |      |   ~  |  F1  |  F3  |  F3  |  F4  |  F5  |      |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
+ * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
+ * |   _  |      |   !  |   @  |   #  |   $  |   %  |      |   ^  |   &  |   *  |   (  |   )  |   {  |   }  |
+ * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
+ * |   +  |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |  F6  |   _  |   +  |   {  |   }  |      |      |
+ * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
+ * |      |      |  F7  |  F8  |  F9  |  F10 |  F11 |      |  F12 |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |      |
+ * `------------------------------------------------'      `------------------------------------------------'
+ */
+  [_DIABLO] = KEYMAP(
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  ),
+
+ 
+  [_MACROS] = KEYMAP(
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  ),
+
+  [_MEDIA] = KEYMAP(
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  )
+
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 };
 
 
@@ -365,33 +472,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint16_t kc;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     if (is_overwatch) { 
         kc = KC_BSPC;  
 =======
     if (is_overwatch) {
         kc = KC_BSPC;
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
     if (is_overwatch) { 
         kc = KC_BSPC;  
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     }
     else {
         kc = KC_ENTER;
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     // Once a delay command is added to "SEND_STRING", 
     // replace these with X_BSPC and X_ENTER instead. 
     // and add "SS_TAP(kc) SS_DELAY(50)" to all of the
     // SEND_STRING commands, to compress things. 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     switch (keycode) {
 =======
   uint16_t kc;
@@ -431,6 +552,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     case KC_MAKE:
         if (!record->event.pressed) {
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
@@ -445,6 +569,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif
 =======
+<<<<<<< HEAD
 =======
     case KC_MAKE:
         if (!record->event.pressed) {
@@ -498,6 +623,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 <<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+    case KC_OVERWATCH:  // reset all Diable timers, disabling them
+        if (record->event.pressed) {
+            is_overwatch = !is_overwatch;
+            has_layer_changed = true;
+        }
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         return false;
         break;
     case KC_SALT:
@@ -505,6 +638,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
@@ -516,6 +650,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+            SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
+=======
+            SEND_STRING("Salt, salt, salt...");
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -526,15 +668,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             _delay_ms(50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Please sir, can I have some more salt?!");
             register_code(KC_ENTER);
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
             SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -543,6 +691,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
@@ -554,6 +703,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+            SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
+=======
+            SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -564,15 +721,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             _delay_ms(50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Good game, everyone!");
             register_code(KC_ENTER);
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
             SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -581,6 +744,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
@@ -592,6 +756,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+            SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
+=======
+            SEND_STRING("Good luck, have fun!!!");
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -602,6 +774,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             _delay_ms(50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("Left click to win!" SS_TAP(X_ENTER));
         }
         return false;
@@ -617,6 +792,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_DOOMFIST:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
             SEND_STRING("Left click to win!" SS_TAP(X_ENTER));
         }
@@ -625,12 +801,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_JUSTGAME:
 
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         if (!record->event.pressed) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games." SS_TAP(X_ENTER));
         }
         return false;
@@ -645,6 +826,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_JUSTGAME:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
             SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games." SS_TAP(X_ENTER));
         }
@@ -652,11 +834,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_TORB:
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
         if (!record->event.pressed) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             SEND_STRING("That was positively riveting! SS_TAP(X_ENTER)");
@@ -674,12 +859,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_TORB:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("That was positively riveting! SS_TAP(X_ENTER)");
         }
         return false;
         break;
     case KC_AIM:
+<<<<<<< HEAD
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+=======
+            SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+        }
+        return false;
+        break;
+    case KC_TORB:
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
         if (!record->event.pressed) {
             register_code(kc);
@@ -687,6 +886,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             _delay_ms(50);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
             SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
             _delay_ms(50);
             SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
@@ -695,11 +897,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(KC_ENTER);
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
             SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
             _delay_ms(50);
             SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         }
         return false;
         break;
@@ -798,11 +1003,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     }
     return true;
 =======
@@ -818,13 +1029,19 @@ void send_diablo_keystroke(uint8_t diablo_key) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
     if (biton32(layer_state) == _DIABLO) {
 =======
     if (current_layer == _DIABLO) {
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 =======
     if (biton32(layer_state) == _DIABLO) {
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
         switch (diablo_key) {
         case 0:
             SEND_STRING("1");
@@ -877,8 +1094,11 @@ void run_diablo_macro_check(void) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
@@ -908,15 +1128,63 @@ void matrix_scan_user(void) {  // runs frequently to update info
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 void matrix_scan_user(void) {  // runs frequently to update info
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+void matrix_scan_user(void) {  // runs frequently to update info
+    uint8_t layer = biton32(layer_state);
+
+    if (layer != current_layer) {
+        has_layer_changed = true;
+        current_layer = layer;
+    }
+    // Check layer, and apply color if its changed since last check
+    if (has_layer_changed) {
+
+        switch (layer) {
+        case _NUMNAV:
+            rgblight_set_teal;
+            rgblight_mode(2);
+            break;
+        case _MACROS:
+            rgblight_set_orange;
+            if (is_overwatch) {
+                rgblight_mode(17); 
+            }
+            else {
+                rgblight_mode(18);
+            }
+            break;
+        case _DIABLO:
+            rgblight_set_red;
+            rgblight_mode(5);
+            break;
+        case _GAMEPAD:
+            rgblight_set_urine;
+            rgblight_mode(1);
+            break;
+        case _MEDIA:
+            rgblight_set_blue;
+            rgblight_mode(1);
+            break;
+        }
+        has_layer_changed = false;
+    }
+
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 #ifdef TAP_DANCE_ENABLE
     // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
 #endif
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 };
 
 
@@ -952,8 +1220,14 @@ uint32_t layer_state_set_kb(uint32_t state) {
   return state;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 };
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+};
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others

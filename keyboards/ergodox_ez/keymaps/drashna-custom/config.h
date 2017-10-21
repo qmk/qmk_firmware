@@ -29,12 +29,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
 =======
 >>>>>>> Add forced NKRO
 =======
 >>>>>>> Remove force NKRO
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -75,11 +78,17 @@
 =======
 >>>>>>> Remove force NKRO
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #define FORCE_NKRO
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Remove force NKRO
+=======
+=======
+#define FORCE_NKRO
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

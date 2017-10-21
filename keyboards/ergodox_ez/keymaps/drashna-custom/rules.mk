@@ -27,8 +27,11 @@ MIDI_ENABLE       = no
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Cleanup macros
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 CONSOLE_ENABLE    = yes
 >>>>>>> Updated RGB Underglow info
 =======
@@ -53,7 +56,14 @@ CONSOLE_ENABLE    = yes
 =======
 >>>>>>> Cleanup macros
 
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+CONSOLE_ENABLE    = no
+LEADER_KEYS       = no
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
