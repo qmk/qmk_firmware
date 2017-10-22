@@ -1,15 +1,33 @@
-# ErgoDox EZ Default Configuration
+# narze's layout
 
-## Changelog
+## Notes
+- SuperDuper mode for Ergodox is still under development, since combo keys does not work very well on Ergodox firmware.
+  Now it is using multiple layers as a workaround. Actual implementation using combos are on my Planck layout.
 
-* Dec 2016:
-  * Added LED keys
-  * Refreshed layout graphic, comes from http://configure.ergodox-ez.com now.
-* Sep 22, 2016:
-  * Created a new key in layer 1 (bottom-corner key) that resets the EEPROM.
-* Feb 2, 2016 (V1.1): 
-  * Made the right-hand quote key double as Cmd/Win on hold. So you get ' when you tap it, " when you tap it with Shift, and Cmd or Win when you hold it. You can then use it as a modifier, or just press and hold it for a moment (and then let go) to send a single Cmd or Win keystroke (handy for opening the Start menu on Windows).
+## Key features
+- Qwerty + [Colemak](https://colemak.com) layouts, and you can type Qwerty on software-level Colemak as well. Very useful for gaming or when your friend wanna type something but don't use Colemak.
+- [(S)uper (D)uper Mode](https://github.com/jasonrudolph/keyboard#super-duper-mode) inspired by [jasonrudolph](https://github.com/jasonrudolph), with [some extensions](https://gist.github.com/narze/861e2167784842d38771) such as backspace & forward delete.
+- Mouse keys with Z
 
-This is what we ship with out of the factory. :) The image says it all:
+## (S)uper (D)uper Mode
+Press `S+D` simultaneously and hold, then...
+- `H/J/K/L` for Vim-like movement
+- `I/O` to move between browser tabs (Not working on Windows yet)
+- `A` for `Option (Alt)`
+- `F/;` for `Backspace/Forward delete`
+- `A` with `H/L` to move to previous/next word
+- `A` with `G/;` to delete to previous/next word
+- `G` for `Cmd` (Gui/Windows)
+- Available for all layouts (but plover) using physical S & D keys position in qwerty
+- `Spacebar` for `Shift` (it's easier when already holding A with your pinky)
+- Disable with `Raise+Lower+M`
+- You can edit or add more useful keys in SUPERDUPER layer
+- It can be activated by holding `/` as well, but it's slower since `LT()` uses `TAPPING_TERM` of 200ms but `S+D` uses `COMBO_TERM` of only 20ms (Can be changed within config.h)
 
-![Default](https://i.imgur.com/Be53jH7.png)
+## Build instructions
+- `cd /path/to/qmk_firmware`
+- `docker run -e keymap=narze -e subproject=rev4 -e keyboard=planck --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware`
+- `dfu-programmer atmega32u4 erase && dfu-programmer atmega32u4 flash .build/planck_rev4_narze.hex`
+
+## TODO
+- [ ] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl
