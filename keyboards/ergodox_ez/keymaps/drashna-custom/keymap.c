@@ -678,6 +678,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef TAP_DANCE_ENABLE
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke (uint8_t diablo_key) {
@@ -713,11 +714,16 @@ void run_diablo_macro_check(void) {
     
 }
 
+#endif
+
+
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 
 };
 
+#ifdef LEADER_KEYS
 LEADER_EXTERNS();
+#endif
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();

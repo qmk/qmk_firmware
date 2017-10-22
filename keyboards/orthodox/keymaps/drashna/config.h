@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 #endif
 
+#define FORCE_NKRO
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
