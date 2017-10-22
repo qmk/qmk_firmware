@@ -7,7 +7,7 @@ A compact 40% (12x4) ortholinear keyboard kit sold by KBDFans.
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: NIU Mini PCB  
-Hardware Availability: [KBDFans](https://kbdfans.myshopify.com/)
+Hardware Availability: [KBDFans](https://kbdfans.myshopify.com/products/niu-mini-40-diy-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
