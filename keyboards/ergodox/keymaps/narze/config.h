@@ -4,14 +4,14 @@
 #include "../../config.h"
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 
 // Combos not working yet
 // #define COMBO_TERM 20
 // #define COMBO_COUNT 1
 // #define COMBO_ALLOW_ACTION_KEYS
 
-// #define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
 
