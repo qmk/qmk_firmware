@@ -2,8 +2,11 @@ TAP_DANCE_ENABLE  = yes
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
+=======
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
 COMMAND_ENABLE    = yes  # Commands for debug and configuration
 <<<<<<< HEAD

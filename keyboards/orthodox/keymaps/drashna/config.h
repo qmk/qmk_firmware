@@ -40,6 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 #define FORCE_NKRO
 
 <<<<<<< HEAD

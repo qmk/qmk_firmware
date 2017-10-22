@@ -1760,8 +1760,11 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add leader keys
+=======
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
         rgblight_set_magenta;
@@ -1781,6 +1784,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 =======
 >>>>>>> Add leader keys
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #ifdef LEADER_KEYS
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
@@ -1791,6 +1795,13 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 LEADER_EXTERNS();
 =======
 >>>>>>> Removed Leader Keys from Ergodox EZ Keymap
+=======
+=======
+#ifdef LEADER_KEYS
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+LEADER_EXTERNS();
+#endif
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 
 void matrix_scan_user(void) {  // runs frequently to update info
 <<<<<<< HEAD

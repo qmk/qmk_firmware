@@ -62,4 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 
+#define FORCE_NKRO
+
 #endif
