@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* Keymap 0: Colemak Layer
          *
          * ,-----------------------------------------------------.           ,-----------------------------------------------------.
-         * |    Find   | 1  ! | 2  @ | 3  # | 4  $ | 5  % | Undo |           | VOLUP| 6  ^ | 7  & | 8  * | 9  ( | 0  ) |    ----   |
+         * |    Find   | 1  ! | 2  @ | 3  # | 4  $ | 5  % | Undo |           | VOLUP| 6  ^ | 7  & | 8  * | 9  ( | 0  ) |    LOCK   |
          * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
          * |-----------+------+------+------+------+------+------|           |------+------+------+------+------+------+-----------|
          * |  '  "  `  |   Q   |   W  |   F  |   P  |  G  | CCopy|           | VOLDN|   J  |   L  | U Ü  |   Y  | = +  |  ~  :  ;  |
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * |-----------+------+------+------+------+------| Paste|           | MUTE |------+------+------+------+------+-----------|
          * |  -  ,  <  |  Z   |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |  / ? | \ |  |   ^  |  _  .  >  |
          * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
-         *     |  AUX | RAISE | LOWER | LEAD | GUI  |                                      |  ESC | LOCK |   <  |   v  |   >   |
+         *     |  AUX | RAISE | LOWER | LEAD | GUI  |                                      |  ESC | RUN  |   <  |   v  |   >   |
          *     `-----------------------------------'                                       `-----------------------------------'
          *                                         ,-------------.           ,-------------.
          *                                         | ALT  | CTRL |           | HOME |  END |
@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_SPC, KC_BSPC, KC_TAB,
 
             // Right Hand
-            KC_VOLU, KC_6, KC_7, KC_8, KC_9, KC_0, ____,
-            KC_VOLD, KC_J, KC_L, KC_U, KC_Y, KC_MINS, TD(TD_TDE),
+            KC_VOLU, KC_6, KC_7, KC_8, KC_9, KC_0, LGUI(KC_L),
+            KC_VOLD, KC_J, KC_L, KC_U, KC_Y, KC_EQL, TD(TD_TDE),
             KC_H, KC_N, KC_E, KC_I, KC_O, TD(TD_RPRN),
             KC_MUTE, KC_K, KC_M, KC_SLSH, KC_BSLS, KC_UP, TD(TD_USC),
-            KC_ESC, LGUI(KC_L), KC_LEFT, KC_DOWN, KC_RGHT,
+            KC_ESC, LGUI(KC_R), KC_LEFT, KC_DOWN, KC_RGHT,
             KC_HOME, KC_END,
             KC_PGUP,
             KC_PGDOWN, KC_ENT, OSM(MOD_LSFT)),
