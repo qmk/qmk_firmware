@@ -12,29 +12,25 @@ This is a c header file that is one of the first things included, and will persi
 
 // config options
 
-#ifdef SUBPROJECT_<subproject>
-    #include "<subproject>/config.h"
-#endif
-
 #endif
 ```
 
-This file contains config options that should apply to the whole keyboard, and won't change in subprojects, or most keymaps. The suproject block here only applies to keyboards with subprojects.
+This file contains config options that should apply to the whole keyboard, and won't change in revisions, or most keymaps. The revision block here only applies to keyboards with revisions.
 
-## Subproject
+## Revisions
 
 ```c
-#ifndef <subproject>_CONFIG_H
-#define <subproject>_CONFIG_H
+#ifndef <revision>_CONFIG_H
+#define <revision>_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 // config options
 
 #endif
 ```
 
-For keyboards that have subprojects, this file contains config options that should apply to only that subproject, and won't change in most keymaps.
+For keyboards that have revisions, this file contains config options that should apply to only that revisions, and won't change in most keymaps.
 
 ## Keymap
 
@@ -42,7 +38,7 @@ For keyboards that have subprojects, this file contains config options that shou
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include "config_common.h"
 
 // config options
 

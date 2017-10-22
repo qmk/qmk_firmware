@@ -22,6 +22,14 @@ Your page should generally have multiple "H1" headings. Only H1 and H2 headings 
 
 You can have styled hint blocks drawn around text to draw attention to it.
 
+```
+{% hint style='info' %}
+This uses `hint style='info'`
+{% endhint %}
+```
+
+### Examples:
+
 {% hint style='info' %}
 This uses `hint style='info'`
 {% endhint %}
@@ -37,3 +45,53 @@ This uses `hint style='danger'`
 {% hint style='working' %}
 This uses `hint style='working'`
 {% endhint %}
+
+# Styled Terminal Blocks
+
+You can present styled terminal blocks by including special tokens inside your text block.
+
+```
+\`\`\`
+**[terminal]
+**[prompt foo@joe]**[path ~]**[delimiter  $ ]**[command ./myscript]
+Normal output line. Nothing special here...
+But...
+You can add some colors. What about a warning message?
+**[warning [WARNING] The color depends on the theme. Could look normal too]
+What about an error message?
+**[error [ERROR] This is not the error you are looking for]
+\`\`\`
+```
+
+### Example
+
+```
+**[terminal]
+**[prompt foo@joe]**[path ~]**[delimiter  $ ]**[command ./myscript]
+Normal output line. Nothing special here...
+But...
+You can add some colors. What about a warning message?
+**[warning [WARNING] The color depends on the theme. Could look normal too]
+What about an error message?
+**[error [ERROR] This is not the error you are looking for]
+```
+
+# Documenting Features
+
+If you create a new feature for QMK, create a documentation page for it. It doesn't have to be very long, a few sentances describing your feature and a table listing any relevant keycodes is enough. Here is a basic template:
+
+```markdown
+# My Cool Feature
+
+This page describes my cool feature. You can use my cool feature to make coffee and order cream and sugar to be delivered via drone.
+
+## My Cool Feature Keycodes
+
+|Long Name|Short Name|Description|
+|---------|----------|-----------|
+|KC_COFFEE||Make Coffee|
+|KC_CREAM||Order Cream|
+|KC_SUGAR||Order Sugar|
+```
+
+Place your documentation into `docs/feature_<my_cool_feature>.md`, and add that file to the appropriate place in `docs/_summary.md`. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.

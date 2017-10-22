@@ -133,10 +133,19 @@ typedef struct
 /* index of interface */
 #define KEYBOARD_INTERFACE          0
 
-#ifdef MOUSE_ENABLE
-#   define MOUSE_INTERFACE          (KEYBOARD_INTERFACE + 1)
+// It is important that the Raw HID interface is at a constant
+// interface number, to support Linux/OSX platforms and chrome.hid
+// If Raw HID is enabled, let it be always 1.
+#ifdef RAW_ENABLE
+#   define RAW_INTERFACE        	(KEYBOARD_INTERFACE + 1)
 #else
-#   define MOUSE_INTERFACE          KEYBOARD_INTERFACE
+#   define RAW_INTERFACE        	KEYBOARD_INTERFACE
+#endif
+
+#ifdef MOUSE_ENABLE
+#   define MOUSE_INTERFACE          (RAW_INTERFACE + 1)
+#else
+#   define MOUSE_INTERFACE          RAW_INTERFACE
 #endif
 
 #ifdef EXTRAKEY_ENABLE
@@ -145,16 +154,10 @@ typedef struct
 #   define EXTRAKEY_INTERFACE       MOUSE_INTERFACE
 #endif
 
-#ifdef RAW_ENABLE
-#   define RAW_INTERFACE        	(EXTRAKEY_INTERFACE + 1)
-#else
-#   define RAW_INTERFACE        	EXTRAKEY_INTERFACE
-#endif
-
 #ifdef CONSOLE_ENABLE
-#   define CONSOLE_INTERFACE        (RAW_INTERFACE + 1)
+#   define CONSOLE_INTERFACE        (EXTRAKEY_INTERFACE + 1)
 #else
-#   define CONSOLE_INTERFACE        RAW_INTERFACE
+#   define CONSOLE_INTERFACE        EXTRAKEY_INTERFACE
 #endif
 
 #ifdef NKRO_ENABLE
@@ -238,7 +241,8 @@ typedef struct
 #   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
-#if defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4
+#if (defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4) || \
+    (defined(__AVR_ATmega32U4__) && CDC_OUT_EPNUM > 6)
 # error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
 #endif
 

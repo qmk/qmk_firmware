@@ -73,3 +73,7 @@ USE_I2C = yes
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
+
+LAYOUTS = ortho_5x12
+
+DEFAULT_FOLDER = nyquist/rev1

@@ -15,30 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#undef DEVICE_VER
 #define DEVICE_VER      0x0003
-#define MANUFACTURER    Sentraq
-#define PRODUCT         S60-RGB
-#define DESCRIPTION     QMK keyboard firmware for Sentraq S60-RGB
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { B5, B4, D7, D6, D4 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D5, B6, C6, C7, F1, F0, E6, B3, B2, B1, B0 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -65,10 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Underlight configuration
  */
-
-#define RGB_DI_PIN F6
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 10    // Number of LEDs
+#undef RGBLIGHT_HUE_STEP
+#undef RGBLIGHT_SAT_STEP
+#undef RGBLIGHT_VAL_STEP
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
