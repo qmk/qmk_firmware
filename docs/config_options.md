@@ -27,7 +27,7 @@ This level contains all of the options for that particular keymap. If you wish t
 
 # The `config.h` file
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. 
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere.
 
 ## `config.h` Options
 
@@ -35,7 +35,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define VENDOR_ID 0x1234`
   * defines your VID, and for most DIY projects, can be whatever you want
 * `#define PRODUCT_ID 0x5678`
-  * defines your PID, and for most DIY projects, can be whatever you want  
+  * defines your PID, and for most DIY projects, can be whatever you want
 * `#define DEVICE_VER 0`
   * defines the device version (often used for revisions)
 * `#define MANUFACTURER Me`
@@ -53,7 +53,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
 * `#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }`
-  * pins unused by the keyboard for reference 
+  * pins unused by the keyboard for reference
 * `#define MATRIX_HAS_GHOST`
   * define is matrix has ghost (unlikely)
 * `#define DIODE_DIRECTION COL2ROW`
@@ -104,7 +104,7 @@ If you define these options you will enable the associated feature, which may in
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of eeprom setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define PREVENT_STUCK_MODIFIERS`
   * when switching layers, this will release all mods
-  
+
 ### Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
