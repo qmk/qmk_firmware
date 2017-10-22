@@ -183,6 +183,10 @@ else
     # this state should never be reached
 endif
 
+# User space stuff
+USER_PATH := users/$(KEYMAP)
+-include $(USER_PATH)/rules.mk
+
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
@@ -204,6 +208,7 @@ SRC += $(KEYBOARD_SRC) \
 VPATH += $(KEYMAP_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
+VPATH += $(USER_PATH)
 
 include common_features.mk
 include $(TMK_PATH)/protocol.mk

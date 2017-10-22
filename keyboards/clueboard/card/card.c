@@ -1,4 +1,4 @@
-#include "cluecard.h"
+#include "card.h"
 #define BL_RED OCR1B
 #define BL_GREEN OCR1A
 #define BL_BLUE OCR1C

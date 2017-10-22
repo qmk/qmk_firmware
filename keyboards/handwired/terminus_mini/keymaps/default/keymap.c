@@ -29,22 +29,19 @@ extern keymap_config_t keymap_config;
 
 enum terminus_mini_layers {
   _COLEMAK,
-  _QWERTY,
   _LOWER,
   _RAISE,
   _FUNCTION,
   _MOUSE,
-  _ADJUST,
+  _ADJUST
 };
 
 enum terminus_mini_keycodes {
   COLEMAK = SAFE_RANGE,
-  QWERTY,
   LOWER,
   RAISE,
   FUNCTION,
-  MOUSE,
-  ADJUST,
+  MOUSE
 };
 
   // Enable these functions using FUNC(n) macro.
@@ -159,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
    KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_RSPC, \
-   _______, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ACL1,           KC_ACL0,     XXXXXXX,      MSE, XXXXXXX, KC_RCTL \
+   _______, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ACL2,           KC_ACL0,     XXXXXXX,      MSE, XXXXXXX, KC_RCTL \
   ),
 
 };
