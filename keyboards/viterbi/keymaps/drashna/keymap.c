@@ -18,6 +18,7 @@ extern keymap_config_t keymap_config;
 enum custom_keycodes {
     KC_DIABLO_CLEAR = SAFE_RANGE,
     KC_P00,
+    KC_MAKE,
     KC_OVERWATCH,
     KC_SALT,
     KC_MORESALT,
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MEDIA] = KEYMAP(
-      RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      RESET,   KC_MAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   XXXXXXX, RGB_SAI, RGB_VAI, RGB_M_P, RGB_M_B, RGB_M_R,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       RGB_TOG, RGB_MOD, RGB_SAD, RGB_VAD, RGB_M_SW, RGB_M_SN, RGB_M_K,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT, RGB_M_K, RGB_M_X, RGB_M_G,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -194,6 +195,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_P0);
             register_code(KC_P0);
             unregister_code(KC_P0);
+        }
+        return false;
+        break;
+    case KC_MAKE:
+        if (!record->event.pressed) {
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP S_TAP(X_ENTER));
         }
         return false;
         break;
