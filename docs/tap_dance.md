@@ -170,7 +170,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 ### Example 4: 'Quad Function Tap-Dance'
 
-By @DanielGGordon
+By [DanielGGordon](https://github.com/danielggordon)
 
 Allow one key to have 4 (or more) functions, depending on number of presses, and if the key is held or tapped.
 Below is a specific example:
@@ -187,7 +187,8 @@ enum {
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4
+  DOUBLE_HOLD = 4, 
+  DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
   // Add more enums here if you want for triple, quadruple, etc. 
 };
 
@@ -197,12 +198,21 @@ typedef struct {
 } tap;
 
 int cur_dance (qk_tap_dance_state_t *state) {
-  if ((state->count == 1) && (!state->pressed)) return SINGLE_TAP;
-  else if ((state->count == 1) && (state->pressed)) return SINGLE_HOLD;
-  else if ((state->count == 2) && (!state->pressed)) return DOUBLE_TAP;
-  else if ((state->count == 2) && (state->pressed)) return DOUBLE_HOLD;
-  else return 5; //magic number. At some point this method will expand to work for more presses
+  if (state->count == 1) {
+    //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
+    if (state->interrupted || state->!pressed) return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  }
+  //If count = 2, and it has been interrupted - assume that user is trying to type the letter associated
+  //with single tap. In example below, that means to send `xx` instead of `Escape`.
+  else if (state->count = 2) {
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  } 
+  else return 6; //magic number. At some point this method will expand to work for more presses
 }
+
 //**************** Definitions needed for quad function to work *********************//
 
 //instanalize an instance of 'tap' for the 'x' tap dance.
@@ -217,7 +227,11 @@ void x_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: register_code(KC_X); break;
     case SINGLE_HOLD: register_code(KC_LCTRL); break;
     case DOUBLE_TAP: register_code(KC_ESC); break;
-    case DOUBLE_HOLD: register_code(KC_LALT);
+    case DOUBLE_HOLD: register_code(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
   }
 }
 
@@ -227,6 +241,7 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
     case DOUBLE_TAP: unregister_code(KC_ESC); break;
     case DOUBLE_HOLD: unregister_code(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
   }
   xtap_state.state = 0;
 }
