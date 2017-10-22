@@ -1022,7 +1022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 >>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
 =======
             if (record->event.pressed) {
-                SEND_STRING("make ergodox_ez:drashna-custom:teensy"SS_TAP(X_ENTER));
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
             }
             return false;
             break;
