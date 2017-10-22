@@ -1081,6 +1081,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 >>>>>>> Add forced NKRO
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
         rgblight_set_magenta;
@@ -1099,7 +1100,11 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 
 =======
 >>>>>>> Add leader keys
+=======
+#ifdef LEADER_KEYS
+>>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 LEADER_EXTERNS();
+#endif
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
