@@ -66,7 +66,6 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
 	
 	* The Navigation cluster is offset to the right compared to the traditional **WASD** nav cluster. With this implementation, you don't need to move your hand from the home position when navigating. Page Up & Down keys are found on the far left of the cluster.
 
-
  	* All unused (blank on the above keymap) keys are locked out using the XXXXXXX filler (KC_NO), all modifiers (edge |_| keys \[except 0, \. & Fn\] on the above keymap) and the ZXCV cluster are transparent (_______) to the Base layer.
 
  	- [] TO DO!! - It would be nice to have a **TAP_DANCE_DOUBLE** implementation whereby a double tap of the right 2U key sends KC_PENT
@@ -131,5 +130,7 @@ The TERMINUS_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired a
 
  	* The *MOUSE* layer contains keys replicating functions found on the mouse. 
  		* The navigation cluster (Up, Down, Left, Right) is a replication of the Navigation cluster on the *LOWER* layer. The scroll keys are analagous to the Page Up & Down keys.
+
  		*) The primary click (right & left) buttons are on the right home row (index & middle fingers)
+
  		* Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.

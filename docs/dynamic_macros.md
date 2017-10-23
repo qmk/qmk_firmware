@@ -1,6 +1,6 @@
 # Dynamic macros: record and replay macros in runtime
 
-QMK supports temporarily macros created on the fly. We call these Dynamic Macros. They are defined by the user from the keyboard and are lost when the keyboard is unplugged or otherwise rebooted.
+QMK supports temporary macros created on the fly. We call these Dynamic Macros. They are defined by the user from the keyboard and are lost when the keyboard is unplugged or otherwise rebooted.
 
 You can store one or two macros and they may have a combined total of 128 keypresses. You can increase this size at the cost of RAM.
 
@@ -22,7 +22,7 @@ enum planck_keycodes {
 
 It must be the last element because `dynamic_macros.h` will add some more keycodes after it.
 
-Below it include the `dynamic_macro.h` header:
+Below it, include the `dynamic_macro.h` header:
 
 ```c
 	#include "dynamic_macro.h"`
@@ -58,6 +58,6 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 	}
 ```
 
-If the LED's start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
+If the LEDs start blinking during the recording with each keypress, it means there is no more space for the macro in the macro buffer. To fit the macro in, either make the other macro shorter (they share the same buffer) or increase the buffer size by setting the `DYNAMIC_MACRO_SIZE` preprocessor macro (default value: 128; please read the comments for it in the header).
 
 For the details about the internals of the dynamic macros, please read the comments in the `dynamic_macro.h` header.

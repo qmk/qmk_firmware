@@ -52,11 +52,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-#define FORCE_NKRO
-#ifdef FORCE_NKRO
-#define NKRO_EPSIZE 32
-#endif
-
-#define PERMISSIVE_HOLD
 
 #endif
