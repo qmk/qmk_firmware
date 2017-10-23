@@ -5,7 +5,7 @@ This is a dvorak based layout for the Ergodox EZ. Its basic key layout is simila
 
 How to build 
 ------------
-make ergodox_ez-dvorak_42_key-teensy
+make ergodox_ez:dvorak_42_key:teensy
 
 Layers
 ------

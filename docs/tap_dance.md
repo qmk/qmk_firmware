@@ -63,20 +63,23 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 TD(TD_ESC_CAPS)
 ```
 
-## Complex Example
+## Complex Examples
 
-Here's a more complex example involving custom actions:
+This section details several complex tap dance examples.
+All the enums used in the examples are declared like this:
 
 ```c
+// Enums defined for all examples:
 enum {
  CT_SE = 0,
  CT_CLN,
  CT_EGG,
  CT_FLSH,
+ X_TAP_DANCE
 };
-
-/* Have the above three on the keymap, TD(CT_SE), etc... */
-
+```
+### Example 1: Send `:` on single tap, `;` on double tap
+```c
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RSFT);
@@ -95,6 +98,13 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+//All tap dance functions would go here. Only showing this one.
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+};
+```
+### Example 2: Send "Safety Dance!" after 100 taps
+```c
 void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count >= 100) {
     SEND_STRING ("Safety dance!");
@@ -102,6 +112,14 @@ void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+};
+```
+
+### Example 3: Turn LED lights on then off, one at a time
+
+```c
 // on each tap, light up one led, from right to left
 // on the forth tap, turn them off from right to left
 void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
@@ -141,6 +159,7 @@ void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_3_off();
 }
 
+//All tap dances now put together. Example 3 is "CT_FLASH"
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
  ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
@@ -148,3 +167,84 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
 };
 ```
+
+### Example 4: 'Quad Function Tap-Dance'
+
+By [DanielGGordon](https://github.com/danielggordon)
+
+Allow one key to have 4 (or more) functions, depending on number of presses, and if the key is held or tapped.
+Below is a specific example:
+*  Tap = Send `x`
+*  Hold = Send `Control`
+*  Double Tap = Send `Escape`
+*  Double Tap and Hold = Send `Alt`
+
+The following example can be easily expanded to more than 4 quite easily:
+```c
+//**************** Definitions needed for quad function to work *********************//
+//Enums used to clearly convey the state of the tap dance
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4, 
+  DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
+  // Add more enums here if you want for triple, quadruple, etc. 
+};
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
+    if (state->interrupted || state->!pressed) return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  }
+  //If count = 2, and it has been interrupted - assume that user is trying to type the letter associated
+  //with single tap. In example below, that means to send `xx` instead of `Escape`.
+  else if (state->count = 2) {
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  } 
+  else return 6; //magic number. At some point this method will expand to work for more presses
+}
+
+//**************** Definitions needed for quad function to work *********************//
+
+//instanalize an instance of 'tap' for the 'x' tap dance.
+static tap xtap_state = { 
+  .is_press_action = true,
+  .state = 0
+};
+
+void x_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(KC_X); break;
+    case SINGLE_HOLD: register_code(KC_LCTRL); break;
+    case DOUBLE_TAP: register_code(KC_ESC); break;
+    case DOUBLE_HOLD: register_code(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+}
+
+void x_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_X); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+    case DOUBLE_TAP: unregister_code(KC_ESC); break;
+    case DOUBLE_HOLD: unregister_code(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
+  }
+  xtap_state.state = 0;
+}
+```
+And then simply add this to your list of tap dance functions:
+`[X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)`

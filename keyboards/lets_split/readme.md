@@ -19,7 +19,7 @@ There is additional information there about flashing and adding RGB underglow.
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make lets_split-rev2-default
+$ make lets_split/rev2:default
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex file:
@@ -32,7 +32,7 @@ If you would like to use one of the alternative keymaps, or create your own, cop
 
 
 ```
-$ make lets_split-rev2-YOUR_KEYMAP_NAME
+$ make lets_split/rev2:YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
@@ -115,8 +115,8 @@ not be very difficult to adapt it to support more if required.
 
 Flashing
 -------
-From the top level `qmk_firmware` directory run `make KEYBOARD-SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make lets_split-rev2-default-avrdude`
+From the top level `qmk_firmware` directory run `make KEYBOARD:KEYMAP:avrdude` for automatic serial port resolution and flashing.
+Example: `make lets_split/rev2:default:avrdude`
 
 
 Choosing which board to plug the USB cable into (choosing Master)

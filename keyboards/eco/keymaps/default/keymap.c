@@ -1,5 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
 // Default ECO Layout
 // KLE here : http://www.keyboard-layout-editor.com/#/gists/0733eca6b4cb88ff9d7de746803f4039

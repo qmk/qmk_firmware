@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-#include QMK_SUBPROJECT_H
+#include "rev1.h"
 
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \
