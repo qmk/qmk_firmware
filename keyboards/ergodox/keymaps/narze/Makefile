@@ -22,7 +22,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 # Combos not working yet
 COMBO_ENABLE = no
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
