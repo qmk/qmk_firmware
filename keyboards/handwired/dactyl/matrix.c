@@ -273,7 +273,7 @@ static void  init_cols(void)
 
 static matrix_row_t read_cols(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 6) {
         if (mcp23018_status) { // if there was an error
             return 0;
         } else {
@@ -302,12 +302,12 @@ static matrix_row_t read_cols(uint8_t row)
 /* Row pin configuration
  *
  * Teensy
- * row: 7   8   9   10  11  12  13
- * pin: B0  B1  B2  B3  D2  D3  C6
+ * row: 6   7   8   9   10  11
+ * pin: B1  B2  B3  D2  D3  C6
  *
  * MCP23018
- * row: 0   1   2   3   4   5   6
- * pin: A0  A1  A2  A3  A4  A5  A6
+ * row: 0   1   2   3   4   5
+ * pin: A0  A1  A2  A3  A4  A5
  */
 static void unselect_rows(void)
 {
@@ -316,39 +316,45 @@ static void unselect_rows(void)
         // do nothing
     } else {
         // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write( 0xFF
-                              & ~(0<<7)
-                          );                            if (mcp23018_status) goto out;
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(0xFF);           if (mcp23018_status) goto out;
     out:
         i2c_stop();
     }
 
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
+    DDRB  &= ~(1<<1 | 1<<2 | 1<<3);
+    PORTB &= ~(1<<1 | 1<<2 | 1<<3);
     DDRD  &= ~(1<<2 | 1<<3);
     PORTD &= ~(1<<2 | 1<<3);
     DDRC  &= ~(1<<6);
     PORTC &= ~(1<<6);
 }
 
+/* Row pin configuration
+ *
+ * Teensy
+ * row: 6   7   8   9   10  11
+ * pin: B1  B2  B3  D2  D3  C6
+ *
+ * MCP23018
+ * row: 0   1   2   3   4   5
+ * pin: A0  A1  A2  A3  A4  A5
+ */
 static void select_row(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 6) {
         // select on mcp23018
         if (mcp23018_status) { // if there was an error
             // do nothing
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row)
-                                  & ~(0<<7)
-                              );                                if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA);            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }
@@ -356,31 +362,27 @@ static void select_row(uint8_t row)
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
-            case 7:
-                DDRB  |= (1<<0);
-                PORTB &= ~(1<<0);
-                break;
-            case 8:
+            case 6:
                 DDRB  |= (1<<1);
                 PORTB &= ~(1<<1);
                 break;
-            case 9:
+            case 7:
                 DDRB  |= (1<<2);
                 PORTB &= ~(1<<2);
                 break;
-            case 10:
+            case 8:
                 DDRB  |= (1<<3);
                 PORTB &= ~(1<<3);
                 break;
-            case 11:
+            case 9:
                 DDRD  |= (1<<2);
                 PORTD &= ~(1<<3);
                 break;
-            case 12:
+            case 10:
                 DDRD  |= (1<<3);
                 PORTD &= ~(1<<3);
                 break;
-            case 13:
+            case 11:
                 DDRC  |= (1<<6);
                 PORTC &= ~(1<<6);
                 break;
