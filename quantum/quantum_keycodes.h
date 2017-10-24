@@ -400,6 +400,7 @@ enum quantum_keycodes {
     // RGB functionality
     RGB_TOG,
     RGB_MOD,
+    RGB_SMOD,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
