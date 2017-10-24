@@ -9,15 +9,9 @@
 
 #define _______ KC_TRNS
 
-enum process_combo_event {
-  WF_CTRL 
-  };
+const uint16_t PROGMEM ctrl_combo1[] = {KC_J, KC_K, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO(ctrl_combo1, KC_RCTRL)};
 
-const uint16_t PROGMEM ctrl_combo[] = {KC_J, KC_K, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-  [WF_CTRL] = COMBO_ACTION(ctrl_combo),
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -80,17 +74,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT, KC_UP, KC_PGDN, \
   KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,                        TO(_BL), MO(_FL), KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT)
 };
-
-
-void process_combo_event(uint8_t combo_index, bool pressed) {
-  switch(combo_index) {
-  case WF_CTRL:
-      if (pressed) {
-            register_code(KC_LCTRL);
-              send_keyboard_report();
-              unregister_code(KC_LCTRL);
-              
-      }
-      break;
-    }
-}
