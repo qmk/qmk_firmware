@@ -26,8 +26,20 @@ Press `S+D` simultaneously and hold, then...
 
 ## Build instructions
 - `cd /path/to/qmk_firmware`
-- `docker run -e keymap=narze -e subproject=rev4 -e keyboard=planck --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware`
-- `dfu-programmer atmega32u4 erase && dfu-programmer atmega32u4 flash .build/planck_rev4_narze.hex`
+
+#### Left side
+ ```
+docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_left.bin
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_left.bin
+```
+
+#### Right side
+```
+docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox -e MASTER=right --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_right.bin
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_right.bin
+```
 
 ## TODO
 - [ ] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl
