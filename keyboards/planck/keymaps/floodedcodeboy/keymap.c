@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Del  |  F1  |  F2  |  F3  |  7   |   8  |   9  |   /  |   *  |   {  |   }  | DEL  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   ~  |  F4  |  F5  |  F6  |  4   |   5  |   6  |   +  |   -  |   (  |   )  |   |  |
+ * |      |  F4  |  F5  |  F6  |  4   |   5  |   6  |   +  |   -  |   (  |   )  |   |  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  1   |   2  |   3  | Home | Pg Up|Pg Dn | End  | Mute |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -58,16 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * CMD+~ to bring up iterm
  *
  */
-        [_LOWER] = {
-            {KC_DEL, KC_F1, KC_F2, KC_F3, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLASH, KC_ASTERISK, KC_LPRN, KC_RPRN, KC_BSPC},
-            {KC_TILD, KC_F4, KC_F5, KC_F6, KC_KP_4, KC_KP_5, KC_KP_6, KC_PLUS, KC_MINUS, KC_LCBR, KC_RCBR, KC_PIPE},
-            {_______, KC_F7, KC_F8, KC_F9, KC_KP_1, KC_KP_2, KC_KP_3, KC_HOME, KC_PGUP, KC_PGDOWN, KC_END, KC_MUTE},
-            {_______, KC_F10, KC_F11, KC_F12, _______, KC_KP_0, KC_DOT, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}
-        },
+        [_LOWER] = {{KC_DEL, KC_F1, KC_F2, KC_F3, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLASH, KC_ASTERISK, KC_LPRN, KC_RPRN, KC_DEL}, {_______, KC_F4, KC_F5, KC_F6, KC_KP_4, KC_KP_5, KC_KP_6, KC_PLUS, KC_MINUS, KC_LCBR, KC_RCBR, KC_PIPE}, {_______, KC_F7, KC_F8, KC_F9, KC_KP_1, KC_KP_2, KC_KP_3, KC_HOME, KC_PGUP, KC_PGDOWN, KC_END, KC_MUTE}, {_______, KC_F10, KC_F11, KC_F12, _______, KC_KP_0, KC_DOT, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}},
 
         /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | DEL  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -76,12 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
-        [_RAISE] = {
-            {KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC},
-            {KC_DEL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS},
-            {_______, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______},
-            {_______, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}
-        },
+        [_RAISE] = {{KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL}, {KC_DEL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS}, {_______, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}},
 
         /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -94,12 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-        [_ADJUST] = {
-            {_______, RESET, DEBUG, _______, _______, _______, _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL},
-            {_______, _______, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, QWERTY, _______, _______, _______, _______},
-            {_______, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______},
-            {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-        }
+        [_ADJUST] = {{_______, RESET, DEBUG, _______, _______, _______, _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL}, {_______, _______, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, QWERTY, _______, _______, _______, _______}, {_______, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}}
 
 };
 
