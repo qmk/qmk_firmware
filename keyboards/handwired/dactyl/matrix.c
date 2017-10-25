@@ -179,7 +179,6 @@ uint8_t matrix_scan(void)
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                dactyl_blink_all_leds();
             }
         }
     }

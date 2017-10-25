@@ -26,57 +26,7 @@
 extern uint8_t mcp23018_status;
 
 void init_dactyl(void);
-void dactyl_blink_all_leds(void);
 uint8_t init_mcp23018(void);
-uint8_t dactyl_left_leds_update(void);
-
-#define LED_BRIGHTNESS_LO       15
-#define LED_BRIGHTNESS_HI       255
-
-
-inline void dactyl_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
-inline void dactyl_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void dactyl_right_led_2_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
-inline void dactyl_right_led_3_on(void)    { DDRB |=  (1<<7); PORTB |=  (1<<7); }
-inline void dactyl_right_led_on(uint8_t led) { DDRB |= (1<<(led+4)); PORTB |= (1<<(led+4)); }
-
-inline void dactyl_board_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
-inline void dactyl_right_led_1_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
-inline void dactyl_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6); }
-inline void dactyl_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
-inline void dactyl_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
-
-inline void dactyl_led_all_on(void)
-{
-    dactyl_board_led_on();
-    dactyl_right_led_1_on();
-    dactyl_right_led_2_on();
-    dactyl_right_led_3_on();
-}
-
-inline void dactyl_led_all_off(void)
-{
-    dactyl_board_led_off();
-    dactyl_right_led_1_off();
-    dactyl_right_led_2_off();
-    dactyl_right_led_3_off();
-}
-
-inline void dactyl_right_led_1_set(uint8_t n)    { OCR1A = n; }
-inline void dactyl_right_led_2_set(uint8_t n)    { OCR1B = n; }
-inline void dactyl_right_led_3_set(uint8_t n)    { OCR1C = n; }
-inline void dactyl_right_led_set(uint8_t led, uint8_t n)  {
-    (led == 1) ? (OCR1A = n) :
-    (led == 2) ? (OCR1B = n) :
-                 (OCR1C = n);
-}
-
-inline void dactyl_led_all_set(uint8_t n)
-{
-    dactyl_right_led_1_set(n);
-    dactyl_right_led_2_set(n);
-    dactyl_right_led_3_set(n);
-}
 
 #define KEYMAP(                                                 \
                                                                 \

@@ -2,37 +2,10 @@
 #include "i2cmaster.h"
 
 
-extern inline void dactyl_board_led_on(void);
-extern inline void dactyl_right_led_1_on(void);
-extern inline void dactyl_right_led_2_on(void);
-extern inline void dactyl_right_led_3_on(void);
-extern inline void dactyl_right_led_on(uint8_t led);
-
-extern inline void dactyl_board_led_off(void);
-extern inline void dactyl_right_led_1_off(void);
-extern inline void dactyl_right_led_2_off(void);
-extern inline void dactyl_right_led_3_off(void);
-extern inline void dactyl_right_led_off(uint8_t led);
-
-extern inline void dactyl_led_all_on(void);
-extern inline void dactyl_led_all_off(void);
-
-extern inline void dactyl_right_led_1_set(uint8_t n);
-extern inline void dactyl_right_led_2_set(uint8_t n);
-extern inline void dactyl_right_led_3_set(uint8_t n);
-extern inline void dactyl_right_led_set(uint8_t led, uint8_t n);
-
-extern inline void dactyl_led_all_set(uint8_t n);
-
-
 bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 
 void matrix_init_kb(void) {
-   // keyboard LEDs (see "PWM on ports OC1(A|B|C)" in "teensy-2-0.md")
-    TCCR1A = 0b10101001;  // set and configure fast PWM
-    TCCR1B = 0b00001001;  // set and configure fast PWM
-
     // (tied to Vcc for hardware convenience)
     DDRB  &= ~(1<<4);  // set B(4) as input
     PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
@@ -46,29 +19,7 @@ void matrix_init_kb(void) {
     PORTD |=  (1<<5 | 1<<4);
     PORTE |=  (1<<6);
 
-    dactyl_blink_all_leds();
-
     matrix_init_user();
-}
-
-void dactyl_blink_all_leds(void)
-{
-    dactyl_led_all_off();
-    dactyl_led_all_set(LED_BRIGHTNESS_HI);
-    dactyl_right_led_1_on();
-    _delay_ms(50);
-    dactyl_right_led_2_on();
-    _delay_ms(50);
-    dactyl_right_led_3_on();
-    _delay_ms(50);
-    dactyl_right_led_1_off();
-    _delay_ms(50);
-    dactyl_right_led_2_off();
-    _delay_ms(50);
-    dactyl_right_led_3_off();
-    //dactyl_led_all_on();
-    //_delay_ms(333);
-    dactyl_led_all_off();
 }
 
 uint8_t init_mcp23018(void) {
