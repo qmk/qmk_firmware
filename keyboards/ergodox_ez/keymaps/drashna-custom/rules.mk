@@ -3,6 +3,7 @@ TAP_DANCE_ENABLE  = yes
 <<<<<<< HEAD
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
 COMMAND_ENABLE    = yes  # Commands for debug and configuration
+<<<<<<< HEAD
 RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
 CONSOLE_ENABLE    = no
@@ -15,6 +16,8 @@ SLEEP_LED_ENABLE  = yes  # Breathing sleep LED during USB suspend
 SLEEP_LED_ENABLE  = no  # Breathing sleep LED during USB suspend
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 COMMAND_ENABLE    = no  # Commands for debug and configuration
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
 <<<<<<< HEAD
