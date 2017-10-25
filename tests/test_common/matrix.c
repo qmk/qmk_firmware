@@ -58,3 +58,6 @@ void release_key(uint8_t col, uint8_t row) {
 void clear_all_keys(void) {
     memset(matrix, 0, sizeof(matrix));
 }
+
+void led_set(uint8_t usb_led) {
+}

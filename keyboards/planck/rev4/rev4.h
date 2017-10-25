@@ -1,6 +1,6 @@
 #ifndef REV4_H
 #define REV4_H
 
-#include "../planck.h"
+#include "planck.h"
 
 #endif

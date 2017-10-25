@@ -13,15 +13,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include <stdio.h>
 #include <string.h>
 //#include <math.h>
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
-#include <avr/io.h>
+#if defined(__AVR__)
+  #include <avr/pgmspace.h>
+  #include <avr/interrupt.h>
+  #include <avr/io.h>
+#endif
 #include "print.h"
 #include "audio.h"
 #include "keymap.h"
+#include "wait.h"
 
 #include "eeconfig.h"
 
@@ -98,7 +102,6 @@ uint16_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
 bool     notes_repeat;
-float    notes_rest;
 bool     note_resting = false;
 
 uint8_t current_note = 0;
@@ -119,6 +122,19 @@ audio_config_t audio_config;
 uint16_t envelope_index = 0;
 bool glissando = true;
 
+#ifndef STARTUP_SONG
+    #define STARTUP_SONG SONG(STARTUP_SOUND)
+#endif
+#ifndef AUDIO_ON_SONG
+    #define AUDIO_ON_SONG SONG(AUDIO_ON_SOUND)
+#endif
+#ifndef AUDIO_OFF_SONG
+    #define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
+#endif
+float startup_song[][2] = STARTUP_SONG;
+float audio_on_song[][2] = AUDIO_ON_SONG;
+float audio_off_song[][2] = AUDIO_OFF_SONG;
+
 void audio_init()
 {
 
@@ -129,46 +145,54 @@ void audio_init()
     }
     audio_config.raw = eeconfig_read_audio();
 
-    // Set port PC6 (OC3A and /OC4A) as output
+    if (!audio_initialized) {
 
-    #ifdef C6_AUDIO
-        DDRC |= _BV(PORTC6);
-    #else
-        DDRC |= _BV(PORTC6);
-        PORTC &= ~_BV(PORTC6);
-    #endif
+        // Set port PC6 (OC3A and /OC4A) as output
 
-    #ifdef B5_AUDIO
-        DDRB |= _BV(PORTB5);
-    #else
-        DDRB |= _BV(PORTB5);
-        PORTB &= ~_BV(PORTB5);
-    #endif
+        #ifdef C6_AUDIO
+            DDRC |= _BV(PORTC6);
+        #else
+            DDRC |= _BV(PORTC6);
+            PORTC &= ~_BV(PORTC6);
+        #endif
 
-    #ifdef C6_AUDIO
-        DISABLE_AUDIO_COUNTER_3_ISR;
-    #endif
-    
-    #ifdef B5_AUDIO
-        DISABLE_AUDIO_COUNTER_1_ISR;
-    #endif
+        #ifdef B5_AUDIO
+            DDRB |= _BV(PORTB5);
+        #else
+            DDRB |= _BV(PORTB5);
+            PORTB &= ~_BV(PORTB5);
+        #endif
 
-    // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers
-    // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
-    // Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14 (Period = ICR3, Duty Cycle = OCR3A)
-    // Clock Select (CS3n) = 0b010 = Clock / 8
+        #ifdef C6_AUDIO
+            DISABLE_AUDIO_COUNTER_3_ISR;
+        #endif
+        
+        #ifdef B5_AUDIO
+            DISABLE_AUDIO_COUNTER_1_ISR;
+        #endif
 
-    #ifdef C6_AUDIO
-        TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
-        TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
-    #endif
+        // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers
+        // Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
+        // Waveform Generation Mode (WGM3n) = 0b1110 = Fast PWM Mode 14 (Period = ICR3, Duty Cycle = OCR3A)
+        // Clock Select (CS3n) = 0b010 = Clock / 8
 
-    #ifdef B5_AUDIO
-        TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
-        TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
-    #endif
+        #ifdef C6_AUDIO
+            TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
+            TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
+        #endif
 
-    audio_initialized = true;
+        #ifdef B5_AUDIO
+            TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+            TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
+        #endif
+
+        audio_initialized = true;
+    }
+
+    if (audio_config.enable) {
+        PLAY_SONG(startup_song);
+    }
+
 }
 
 void stop_all_notes()
@@ -402,9 +426,12 @@ ISR(TIMER3_COMPA_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_3_PERIOD > 0) {
-            end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF));
+            if (!note_resting) 
+                end_of_note = (note_position >= (note_length / TIMER_3_PERIOD * 0xFFFF - 1));
+            else
+                end_of_note = (note_position >= (note_length));
         } else {
-            end_of_note = (note_position >= (note_length * 0x7FF));
+            end_of_note = (note_position >= (note_length));
         }
 
         if (end_of_note) {
@@ -419,11 +446,16 @@ ISR(TIMER3_COMPA_vect)
                     return;
                 }
             }
-            if (!note_resting && (notes_rest > 0)) {
+            if (!note_resting) {
                 note_resting = true;
-                note_frequency = 0;
-                note_length = notes_rest;
                 current_note--;
+                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+                    note_frequency = 0;
+                    note_length = 1;
+                } else {
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = 1;
+                }
             } else {
                 note_resting = false;
                 envelope_index = 0;
@@ -534,9 +566,12 @@ ISR(TIMER1_COMPA_vect)
         note_position++;
         bool end_of_note = false;
         if (TIMER_1_PERIOD > 0) {
-            end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF));
+            if (!note_resting) 
+                end_of_note = (note_position >= (note_length / TIMER_1_PERIOD * 0xFFFF - 1));
+            else
+                end_of_note = (note_position >= (note_length));
         } else {
-            end_of_note = (note_position >= (note_length * 0x7FF));
+            end_of_note = (note_position >= (note_length));
         }
 
         if (end_of_note) {
@@ -551,11 +586,16 @@ ISR(TIMER1_COMPA_vect)
                     return;
                 }
             }
-            if (!note_resting && (notes_rest > 0)) {
+            if (!note_resting) {
                 note_resting = true;
-                note_frequency = 0;
-                note_length = notes_rest;
                 current_note--;
+                if ((*notes_pointer)[current_note][0] == (*notes_pointer)[current_note + 1][0]) {
+                    note_frequency = 0;
+                    note_length = 1;
+                } else {
+                    note_frequency = (*notes_pointer)[current_note][0];
+                    note_length = 1;
+                }
             } else {
                 note_resting = false;
                 envelope_index = 0;
@@ -624,7 +664,7 @@ void play_note(float freq, int vol) {
 
 }
 
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
 {
 
     if (!audio_initialized) {
@@ -649,7 +689,6 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat, float n_rest)
         notes_pointer = np;
         notes_count = n_count;
         notes_repeat = n_repeat;
-        notes_rest = n_rest;
 
         place = 0;
         current_note = 0;
@@ -692,9 +731,13 @@ void audio_on(void) {
     audio_config.enable = 1;
     eeconfig_update_audio(audio_config.raw);
     audio_on_user();
+    PLAY_SONG(audio_on_song);
 }
 
 void audio_off(void) {
+    PLAY_SONG(audio_off_song);
+    wait_ms(100);
+    stop_all_notes();
     audio_config.enable = 0;
     eeconfig_update_audio(audio_config.raw);
 }

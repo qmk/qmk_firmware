@@ -19,7 +19,7 @@ QWR,
 CDH,
 SYM,
 MOV,
-NUM, 
+NUM,
 TRAN
 };
 
@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | tab  |  q |  w |  e |  r |  t |  y |  u |  i |  o |  p |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
 * |Bak/Mov|  a |  s |  d |  f |  g |  h |  j |  k |  l |  ; |  ' | enter     |PgUp|
-* --------------------------------------------------------------------------------	
+* --------------------------------------------------------------------------------
 * |Lsft    |  z |  x |  c |  v |  b |  n |  m |  , |  . |  / |      Rsft| Up| PgDn|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 */
 
 [_QWR] = KEYMAP( \
@@ -88,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | ESC: | ^  |  { |  } |  @ |  % |    |   [ | ( | )  | _  |  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
 * |Bak/Mov|  ! |  # |  0 | =  |  { |   } | -  | 1 |  + |  ] |  ` | enter     |PgUp|
-* --------------------------------------------------------------------------------	
+* --------------------------------------------------------------------------------
 * |Lsft    |  ; | ~ |  : | ~  | "|"|  $ | *   |    |  .  |  / |      Rsft| Up| PgDn|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 */
 
 [_SYM] = KEYMAP (\
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,    KC_SCLN, KC_TILDE,  KC_COLN,  KC_TILDE,  KC_PIPE,     KC_DLR, KC_ASTR, ____,  KC_DOT ,   KC_SLSH,     ____, ____, ____,\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
-/* 
+/*
 * |ESC | MAC| Win|RdLn| VI |    |    |    |    |    |    |    |    |    |    |    |
 *  -------------------------------------------------------------------------------'
 * |     |    |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  = |Bakspace| Del|
@@ -111,11 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * | tab  |    |    |Find|    |pTab |DSOL|DelW| Up |DelW|DEOL|  [ |  ] |  \    |    |
 *  -------------------------------------------------------------------------------'
 * |Bak/Mov|    |    |    |    |nTab |GSOL| <- | Dwn | -> | EOL |  ' | enter   |PgUp|
-* --------------------------------------------------------------------------------	
+* --------------------------------------------------------------------------------
 * |Lsft    |Undo| Cut|Copy|Pste|    |    |    |    |    |  / |      Rsft| Up| PgDn|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 * |Lctl   |Lgui  |Lalt |       Space/Sym      | GUI |  Sym |  Rctl |Left|Down|Rght|
-* ---------------------------------------------------------------------------------	
+* ---------------------------------------------------------------------------------
 */
 
 [_MOV] = KEYMAP (\
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____
-) 
+)
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -155,23 +155,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWR:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         layer_off(_CDH);
       }
       return false;
       break;
-      
+
     case CDH:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+          PLAY_SONG(tone_colemak);
         #endif
         layer_on(_CDH);
       }
       return false;
       break;
-      
+
     case SYM:
       if (record->event.pressed) {
         layer_on(_SYM);
@@ -180,12 +180,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
      return false;
      break;
-     
+
    }
  return true;
 
 }
- 
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 
@@ -195,7 +195,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
    if( id >= BABL_START_NUM && id < (BABL_START_NUM + BABL_NUM_MACROS ) ) {
    		if (record->event.pressed)  { // is there a case where this isn't desired?
-  
+
    			babblePaste ( record,  id );
    			return MACRO_NONE;
    		}
@@ -215,7 +215,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
  /* Colemak mod-dh moves the D key to the qwerty V position
    This hack makes apple-V_position do what I mean */
- 	case DHPASTE:  
+ 	case DHPASTE:
 		if(keyboard_report->mods & MOD_BIT(KC_LGUI) ) {
 			if (record->event.pressed) {
 	  	 		clear_keyboard_but_mods();
@@ -228,15 +228,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           		register_code(KC_D);
             } else {
            		unregister_code(KC_D);
-	   		}	
+	   		}
 		}
 	break;
-			
+
 	case VIBRK: // vi esc:
 		 if (record->event.pressed) {
 			return MACRO( T(ESC),D(LSFT),T(SCLN),U(LSFT), END );
 		 }
-	break;	
+	break;
 
 
 

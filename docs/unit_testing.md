@@ -36,7 +36,7 @@ Note how there's several different tests, each mocking out a separate part. Also
 
 ## Running the tests
 
-To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test-matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
+To run all the tests in the codebase, type `make test`. You can also run test matching a substring by typing `make test:matchingsubstring` Note that the tests are always compiled with the native compiler of your platform, so they are also run like any other program on your computer.
 
 ## Debugging the tests
 

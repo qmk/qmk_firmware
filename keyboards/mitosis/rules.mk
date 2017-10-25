@@ -77,5 +77,5 @@ UNICODE_ENABLE = YES 		# Unicode
 
 USB = /dev/ttyACM0
 
-upload: build
-	$(MITOSIS_UPLOAD_COMMAND)
+# upload: build
+# 	$(MITOSIS_UPLOAD_COMMAND)
