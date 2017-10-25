@@ -131,7 +131,7 @@ This consumes about 5390 bytes.
 
 `KEY_LOCK_ENABLE`
 
-This enables [key lock](key_lock.md). This consumes an additional 260 bytes.
+This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
 
 ## Customizing Makefile options on a per-keymap basis
 
