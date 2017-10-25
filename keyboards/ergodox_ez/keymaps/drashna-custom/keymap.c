@@ -461,7 +461,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Updated macros and added workman keymaps
 >>>>>>> Updated macros and added workman keymaps
                 
-                                    ALT_T(KC_APPLICATION),  KC_LEAD,
+                                    ALT_T(KC_APPLICATION),  KC_LGUI,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
@@ -506,9 +506,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+<<<<<<< HEAD
                 KC_LALT,    CTL_T(KC_ESCAPE),
 >>>>>>> Updated macros and added workman keymaps
+<<<<<<< HEAD
 >>>>>>> Updated macros and added workman keymaps
+=======
+=======
+                KC_LEAD,    CTL_T(KC_ESCAPE),
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -861,6 +868,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
 =======
                 KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
@@ -869,11 +877,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
 >>>>>>> Clean up and updates of drashna keymaps
 =======
+=======
+>>>>>>> Clean up and updates of drashna keymaps
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
 =======
                 KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
 >>>>>>> Updated macros and added workman keymaps
+<<<<<<< HEAD
 >>>>>>> Updated macros and added workman keymaps
+=======
+=======
+                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
                                                                   KC_TRNS, KC_TRNS,
 =======
                 KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
@@ -1496,6 +1512,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (!record->event.pressed) {
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
             }
@@ -1581,6 +1598,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             if (!record->event.pressed) {
 >>>>>>> Clean up and updates of drashna keymaps
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
@@ -1652,6 +1671,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 =======
             if (record->event.pressed) {
+=======
+            if (!record->event.pressed) {
+>>>>>>> Clean up and updates of drashna keymaps
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
             }
             return false;
@@ -1761,10 +1783,13 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add leader keys
 =======
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+>>>>>>> Clean up and updates of drashna keymaps
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
         rgblight_set_magenta;
@@ -1799,9 +1824,14 @@ LEADER_EXTERNS();
 =======
 #ifdef LEADER_KEYS
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 LEADER_EXTERNS();
+<<<<<<< HEAD
 #endif
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 
 void matrix_scan_user(void) {  // runs frequently to update info
 <<<<<<< HEAD
@@ -2159,17 +2189,22 @@ uint32_t layer_state_set_kb(uint32_t state) {
 
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
-#ifdef LEADER_KEYS
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
         SEQ_ONE_KEY(KC_C) {
             SEND_STRING("Covecube");
         }
+        SEQ_ONE_KEY(KC_L) {
+            register_code(KC_LGUI);
+            register_code(KC_L);
+            unregister_code(KC_L);
+            unregister_code(KC_LGUI);
+        }
         SEQ_TWO_KEYS(KC_S, KC_D) {
             SEND_STRING("StableBit DrivePool");
         }
-        SEQ_TWO_KEYS(KC_C, KC_D) {
+        SEQ_TWO_KEYS(KC_C, KC_L) {
             SEND_STRING("StableBit CloudDrive");
         }
         SEQ_TWO_KEYS(KC_S, KC_C) {
@@ -2179,7 +2214,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
             SEND_STRING("StableBit Troubleshooter");
         }
     }
-#endif
 };
 
 >>>>>>> Updated RGB Underglow info

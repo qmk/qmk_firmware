@@ -515,8 +515,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
     if (is_overwatch) { 
         kc = KC_BSPC;  
 =======
@@ -524,12 +527,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         kc = KC_BSPC;
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 =======
     if (is_overwatch) { 
         kc = KC_BSPC;  
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
     }
     else {
         kc = KC_ENTER;
@@ -537,16 +546,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Clean up and updates of drashna keymaps
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
     // Once a delay command is added to "SEND_STRING", 
     // replace these with X_BSPC and X_ENTER instead. 
     // and add "SS_TAP(kc) SS_DELAY(50)" to all of the
     // SEND_STRING commands, to compress things. 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
@@ -555,6 +570,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
     switch (keycode) {
 =======
   uint16_t kc;
@@ -624,8 +645,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
     case KC_MAKE:
         if (!record->event.pressed) {
+<<<<<<< HEAD
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP S_TAP(X_ENTER));
 >>>>>>> Made "make" keystroke universal
+=======
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -696,6 +721,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
 =======
             SEND_STRING("Salt, salt, salt...");
@@ -705,6 +733,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
             SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
 =======
@@ -713,6 +742,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -724,8 +755,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Please sir, can I have some more salt?!");
@@ -733,11 +767,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+            SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -749,6 +789,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
@@ -759,13 +800,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
 =======
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
             register_code(KC_ENTER);
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+            SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -777,8 +826,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Good game, everyone!");
@@ -786,11 +838,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+            SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -802,6 +860,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
 =======
             SEND_STRING("Good luck, have fun!!!");
@@ -811,6 +872,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
             SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
 =======
@@ -819,6 +881,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -830,8 +894,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("Left click to win!" SS_TAP(X_ENTER));
         }
         return false;
@@ -848,6 +915,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_DOOMFIST:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 =======
             SEND_STRING("Left click to win!" SS_TAP(X_ENTER));
         }
@@ -856,8 +926,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_JUSTGAME:
 
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
         if (!record->event.pressed) {
             register_code(kc);
             unregister_code(kc);
@@ -865,8 +938,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games." SS_TAP(X_ENTER));
         }
         return false;
@@ -882,6 +958,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_JUSTGAME:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 =======
             SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games." SS_TAP(X_ENTER));
         }
@@ -889,13 +968,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_TORB:
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 
         if (!record->event.pressed) {
             register_code(kc);
             unregister_code(kc);
             _delay_ms(50);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -916,6 +999,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("That was positively riveting! SS_TAP(X_ENTER)");
         }
         return false;
@@ -933,7 +1018,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_TORB:
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+            SEND_STRING("That was positively riveting! SS_TAP(X_ENTER)");
+        }
+        return false;
+        break;
+    case KC_AIM:
+>>>>>>> Clean up and updates of drashna keymaps
+>>>>>>> Clean up and updates of drashna keymaps
 
         if (!record->event.pressed) {
             register_code(kc);
@@ -942,8 +1037,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
             SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
             _delay_ms(50);
             SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
@@ -953,13 +1051,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_ENTER);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 =======
             SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
             _delay_ms(50);
             SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Clean up and updates of drashna keymaps
         }
         return false;
         break;
@@ -1059,9 +1163,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
+=======
+>>>>>>> Clean up and updates of drashna keymaps
 
 >>>>>>> Clean up and updates of drashna keymaps
 =======
@@ -1069,6 +1176,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+
+>>>>>>> Clean up and updates of drashna keymaps
     }
     return true;
 =======
