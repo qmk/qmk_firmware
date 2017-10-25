@@ -229,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
-                                    ALT_T(KC_APPLICATION),  KC_LEAD,
+                                    ALT_T(KC_APPLICATION),  KC_LGUI,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
@@ -238,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
-                KC_LALT,    CTL_T(KC_ESCAPE),
+                KC_LEAD,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -398,7 +398,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
                 TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
-                KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
                                                                   KC_TRNS, KC_TRNS,
                                                                   KC_TRNS,
                                                                   KC_TRNS, KC_TRNS, KC_TRNS,
@@ -668,7 +668,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case KC_MAKEQMK:
-            if (record->event.pressed) {
+            if (!record->event.pressed) {
                 SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
             }
             return false;
@@ -721,9 +721,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 
 };
 
-#ifdef LEADER_KEYS
 LEADER_EXTERNS();
-#endif
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
@@ -801,17 +799,22 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
-#ifdef LEADER_KEYS
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
         SEQ_ONE_KEY(KC_C) {
             SEND_STRING("Covecube");
         }
+        SEQ_ONE_KEY(KC_L) {
+            register_code(KC_LGUI);
+            register_code(KC_L);
+            unregister_code(KC_L);
+            unregister_code(KC_LGUI);
+        }
         SEQ_TWO_KEYS(KC_S, KC_D) {
             SEND_STRING("StableBit DrivePool");
         }
-        SEQ_TWO_KEYS(KC_C, KC_D) {
+        SEQ_TWO_KEYS(KC_C, KC_L) {
             SEND_STRING("StableBit CloudDrive");
         }
         SEQ_TWO_KEYS(KC_S, KC_C) {
@@ -821,6 +824,5 @@ void matrix_scan_user(void) {  // runs frequently to update info
             SEND_STRING("StableBit Troubleshooter");
         }
     }
-#endif
 };
 
