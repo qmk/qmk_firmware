@@ -1,4 +1,5 @@
 # Enable
+AUDIO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 
 # Disable
