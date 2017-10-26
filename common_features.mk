@@ -69,6 +69,10 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(QUANTUM_DIR)/pointing_device.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON = yes
@@ -165,6 +169,10 @@ endif
 ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
     OPT_DEFS += -DTERMINAL_ENABLE
+endif
+
+ifeq ($(strip $(USB_HID_ENABLE)), yes)
+    include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
 QUANTUM_SRC:= \

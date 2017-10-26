@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SALT,  KC_MORESALT, KC_SALTHARD, KC_GLHF   \
 ),
 [_MEDIA] = KEYMAP( /* Base */
-    _______, KC_MUTE, KC_VOLD, KC_VOLU,\
+    RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     _______, _______, RGB_HUI, RGB_HUD,   \
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
     RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
@@ -369,6 +369,10 @@ void matrix_init_user(void) {
     // set Numlock LED to output and low
     DDRF |= (1<<7);
     PORTF &= ~(1<<7);
+    if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) ){
+        register_code(KC_NUMLOCK);
+        unregister_code(KC_NUMLOCK);
+    }
 }
 
 void matrix_scan_user(void) {

@@ -14,11 +14,11 @@ Otherwise, you can either download it directly ([zip](https://github.com/qmk/qmk
 
 Before you are able to compile, you'll need to [install an environment](getting_started_build_tools.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
 
-    make planck-rev4-default
+    make planck/rev4:default
 
-This would build the `rev4` revision of the `planck` with the `default` keymap. Not all keyboards have revisions (also called subprojects), in which case, it can be omitted:
+This would build the `rev4` revision of the `planck` with the `default` keymap. Not all keyboards have revisions (also called subprojects or folders), in which case, it can be omitted:
 
-    make preonic-default
+    make preonic:default
 
 ## How to customize {#how-to-customize}
 

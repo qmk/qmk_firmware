@@ -187,22 +187,22 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_KP_EQUAL_AS400`||Keypad Equal Sign|
 |`KC_NO`||Ignore this key. (NOOP) |
 |`KC_TRNS`||Make this key transparent to find the key on a lower layer.|
-|[`KC_MS_UP`](mouse_keys.md)|`KC_MS_U`|Mouse Cursor Up|
-|[`KC_MS_DOWN`](mouse_keys.md)|`KC_MS_D`|Mouse Cursor Down|
-|[`KC_MS_LEFT`](mouse_keys.md)|`KC_MS_L`|Mouse Cursor Left|
-|[`KC_MS_RIGHT`](mouse_keys.md)|`KC_MS_R`|Mouse Cursor Right|
-|[`KC_MS_BTN1`](mouse_keys.md)|`KC_BTN1`|Mouse Button 1|
-|[`KC_MS_BTN2`](mouse_keys.md)|`KC_BTN2`|Mouse Button 2|
-|[`KC_MS_BTN3`](mouse_keys.md)|`KC_BTN3`|Mouse Button 3|
-|[`KC_MS_BTN4`](mouse_keys.md)|`KC_BTN4`|Mouse Button 4|
-|[`KC_MS_BTN5`](mouse_keys.md)|`KC_BTN5`|Mouse Button 5|
-|[`KC_MS_WH_UP`](mouse_keys.md)|`KC_WH_U`|Mouse Wheel Up|
-|[`KC_MS_WH_DOWN`](mouse_keys.md)|`KC_WH_D`|Mouse Wheel Down|
-|[`KC_MS_WH_LEFT`](mouse_keys.md)|`KC_WH_L`|Mouse Wheel Left|
-|[`KC_MS_WH_RIGHT`](mouse_keys.md)|`KC_WH_R`|Mouse Wheel Right|
-|[`KC_MS_ACCEL0`](mouse_keys.md)|`KC_ACL0`|Mouse Acceleration 0|
-|[`KC_MS_ACCEL1`](mouse_keys.md)|`KC_ACL1`|Mouse Acceleration 1|
-|[`KC_MS_ACCEL2`](mouse_keys.md)|`KC_ACL2`|Mouse Acceleration 2|
+|[`KC_MS_UP`](feature_mouse_keys.md)|`KC_MS_U`|Mouse Cursor Up|
+|[`KC_MS_DOWN`](feature_mouse_keys.md)|`KC_MS_D`|Mouse Cursor Down|
+|[`KC_MS_LEFT`](feature_mouse_keys.md)|`KC_MS_L`|Mouse Cursor Left|
+|[`KC_MS_RIGHT`](feature_mouse_keys.md)|`KC_MS_R`|Mouse Cursor Right|
+|[`KC_MS_BTN1`](feature_mouse_keys.md)|`KC_BTN1`|Mouse Button 1|
+|[`KC_MS_BTN2`](feature_mouse_keys.md)|`KC_BTN2`|Mouse Button 2|
+|[`KC_MS_BTN3`](feature_mouse_keys.md)|`KC_BTN3`|Mouse Button 3|
+|[`KC_MS_BTN4`](feature_mouse_keys.md)|`KC_BTN4`|Mouse Button 4|
+|[`KC_MS_BTN5`](feature_mouse_keys.md)|`KC_BTN5`|Mouse Button 5|
+|[`KC_MS_WH_UP`](feature_mouse_keys.md)|`KC_WH_U`|Mouse Wheel Up|
+|[`KC_MS_WH_DOWN`](feature_mouse_keys.md)|`KC_WH_D`|Mouse Wheel Down|
+|[`KC_MS_WH_LEFT`](feature_mouse_keys.md)|`KC_WH_L`|Mouse Wheel Left|
+|[`KC_MS_WH_RIGHT`](feature_mouse_keys.md)|`KC_WH_R`|Mouse Wheel Right|
+|[`KC_MS_ACCEL0`](feature_mouse_keys.md)|`KC_ACL0`|Mouse Acceleration 0|
+|[`KC_MS_ACCEL1`](feature_mouse_keys.md)|`KC_ACL1`|Mouse Acceleration 1|
+|[`KC_MS_ACCEL2`](feature_mouse_keys.md)|`KC_ACL2`|Mouse Acceleration 2|
 |[`RESET`](quantum_keycodes.md#qmk-keycodes)||Put the keyboard into DFU mode for flashing|
 |[`DEBUG`](quantum_keycodes.md#qmk-keycodes)||Toggles debug mode|
 |[`KC_GESC`](quantum_keycodes.md#qmk-keycodes)|`GRAVE_ESC`|Acts as escape when pressed normally but when pressed with Shift or GUI will send a `~`|
@@ -311,5 +311,5 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |[`TT(layer)`](feature_common_shortcuts.md#switching-and-toggling-layers)||tap toggle? idk FIXME`|
 |[`OSM(mod)`](quantum_keycodes.md#one-shot-keys)||hold mod for one keypress|
 |[`OSL(layer)`](quantum_keycodes.md#one-shot-keys)||switch to layer for one keypress|
-|[`UNICODE(n)`](unicode.md)|[`UC(n)`](unicode.md)|if `UNICODE_ENABLE`, this will send characters up to `0x7FFF`|
-|[`X(n)`](unicode.md)||if `UNICODEMAP_ENABLE`, also sends unicode via a different method|
+|[`UNICODE(n)`](feature_unicode.md)|[`UC(n)`](feature_unicode.md)|if `UNICODE_ENABLE`, this will send characters up to `0x7FFF`|
+|[`X(n)`](feature_unicode.md)||if `UNICODEMAP_ENABLE`, also sends unicode via a different method|
