@@ -534,6 +534,9 @@ void rgblight_effect_snake(uint8_t interval) {
     led[i].b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
       k = pos + j * increment;
+      if (k > RGBLED_NUM) {
+        k = K % RGBLED_NUM;
+      }
       if (k < 0) {
         k = k + RGBLED_NUM;
       }
