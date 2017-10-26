@@ -41,6 +41,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define FORCE_NKRO
 
+
+/* key combination for command */
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+)
+
+
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12     // Number of LEDs
