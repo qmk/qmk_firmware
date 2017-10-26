@@ -213,8 +213,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Add workman layer to planck
   KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
@@ -227,6 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Updated macros and added workman keymaps
 =======
   KC_MAKE, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+<<<<<<< HEAD
 =======
   KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
@@ -245,6 +249,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 >>>>>>> Updated macros and added workman keymaps
 >>>>>>> Updated macros and added workman keymaps
+=======
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
+>>>>>>> Add workman layer to planck
+>>>>>>> Add workman layer to planck
 )
 
 
@@ -367,6 +376,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!record->event.pressed) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
 #else
@@ -375,6 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
 >>>>>>> Add workman layer to planck
+<<<<<<< HEAD
 =======
 =======
   case QWERTY:
@@ -454,6 +467,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 <<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Add workman layer to planck
         }
         return false;
         break;
@@ -477,10 +492,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+
 #ifdef RGBLIGHT_ENABLE
-
-
-
 
 void matrix_scan_user(void) {  // runs frequently to update info
      uint8_t layer = biton32(layer_state);

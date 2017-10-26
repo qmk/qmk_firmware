@@ -48,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> Update to keymaps
@@ -55,6 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 >>>>>>> Add workman layer to planck
 =======
 >>>>>>> Tweaked RGB lighting stuff
+=======
+=======
+
+>>>>>>> Add workman layer to planck
+>>>>>>> Add workman layer to planck
 /* key combination for command */
 #ifdef IS_COMMAND
 #undef IS_COMMAND
@@ -65,11 +71,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> Add workman layer to planck
 =======
 >>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
@@ -81,6 +90,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 16     // Number of LEDs
 >>>>>>> Update to keymaps
 =======
+=======
+>>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 12     // Number of LEDs
