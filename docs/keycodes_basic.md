@@ -125,12 +125,12 @@ Windows and Mac use different key codes for next track and previous track. Make 
 |Long Name|Short Name|Description|
 |---------|----------|-----------|
 |KC_STOP||Stop|
-|KC__MUTE||Mute|
-|KC__VOLUP||Volume Up|
-|KC__VOLDOWN||Volume Down|
-|KC_AUDIO_MUTE|KC_MUTE||
-|KC_AUDIO_VOL_UP|KC_VOLU||
-|KC_AUDIO_VOL_DOWN|KC_VOLD||
+|KC__MUTE||Mute (macOS)|
+|KC__VOLUP||Volume Up (macOS)|
+|KC__VOLDOWN||Volume Down (macOS)|
+|KC_AUDIO_MUTE|KC_MUTE|Mute (Windows/macOS/Linux)|
+|KC_AUDIO_VOL_UP|KC_VOLU|Volume Up (Windows/macOS/Linux)|
+|KC_AUDIO_VOL_DOWN|KC_VOLD|Volume Down (Windows/macOS/Linux)|
 |KC_MEDIA_NEXT_TRACK|KC_MNXT|Next Track (Windows)|
 |KC_MEDIA_PREV_TRACK|KC_MPRV|Previous Track (Windows)|
 |KC_MEDIA_FAST_FORWARD|KC_MFFD|Next Track (macOS)|

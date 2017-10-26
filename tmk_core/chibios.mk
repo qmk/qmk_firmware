@@ -143,7 +143,7 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
-DFU_ARGS =
+DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
