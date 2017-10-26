@@ -164,6 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] =  KEYMAP( \
 <<<<<<< HEAD
+<<<<<<< HEAD
   KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
@@ -172,6 +173,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
 >>>>>>> Updated macros and added workman keymaps
+=======
+  KC_MAKE, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
+>>>>>>> Add workman layer to planck
 )
 
 
@@ -272,11 +278,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_MAKE:
         if (!record->event.pressed) {
+<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
 #else
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
 #endif
+=======
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+>>>>>>> Add workman layer to planck
         }
         return false;
         break;
@@ -284,10 +294,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+
 #ifdef RGBLIGHT_ENABLE
-
-
-
 
 void matrix_scan_user(void) {  // runs frequently to update info
      uint8_t layer = biton32(layer_state);
