@@ -35,6 +35,12 @@
         #define PIND_ADDRESS 0x9
         #define PINE_ADDRESS 0xC
         #define PINF_ADDRESS 0xF
+    #elif defined(__AVR_ATmega32U2__)
+        #define pin_t uint8_t
+        #define ADDRESS_BASE 0x00
+        #define PINB_ADDRESS 0x3
+        #define PINC_ADDRESS 0x6
+        #define PIND_ADDRESS 0x9
     #elif defined(__AVR_AT90USB1286__)
         #define pin_t uint8_t
         #define ADDRESS_BASE 0x00
