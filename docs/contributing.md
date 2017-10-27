@@ -80,7 +80,7 @@ We have a few different types of changes in QMK, each requiring a different leve
 * Make sure your code change actually compiles.
   * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
   * Keyboards: Make sure that `make keyboard:all` does not return any errors
-  * Core: Make sure that `make all` does not return any errors.
+  * Core: Make sure that `make allkb` does not return any errors.
 * Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:
 
 ```
@@ -144,4 +144,4 @@ To maintain a clear vision of how things are laid out in QMK we try to plan out 
 
 # What does the Code of Conduct mean for me?
 
-Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.
+Our Code of Conduct means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.

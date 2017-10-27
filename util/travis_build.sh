@@ -9,7 +9,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	BRANCH=$(git rev-parse --abbrev-ref HEAD)
 	if [ $NEFM -gt 0 -o "$BRANCH" = "master" ]; then
 		echo "Making all keymaps for all keyboards"
-		make all:default AUTOGEN="true"
+		make all:all AUTOGEN="true"
 		: $((exit_code = $exit_code + $?))
 	else
 		MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_\/]+)(?=\/)' | sort -u)

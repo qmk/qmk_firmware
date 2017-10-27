@@ -41,7 +41,7 @@ enum terminus_mini_keycodes {
   LOWER,
   RAISE,
   FUNCTION,
-  MOUSE
+  MOUSE,
 };
 
   // Enable these functions using FUNC(n) macro.

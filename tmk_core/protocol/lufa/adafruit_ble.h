@@ -8,9 +8,6 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "config_common.h"
-#include "progmem.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
