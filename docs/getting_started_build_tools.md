@@ -60,8 +60,8 @@ This is the recommended method. If you don't have homebrew, [install it!](http:/
 
 The best environment to use, for Windows Vista through any later version (tested on 7 and 10), is [msys2](http://www.msys2.org).
 
-* Install msys2 by downloading and following the instructions here: http://www.msys2.org
-* Open the "MSYS2 MingGW 64-bit" shortcut
+* Install msys2 by downloading it and following the instructions here: http://www.msys2.org
+* Open the ``MSYS2 MingGW 64-bit`` shortcut
 * Navigate to your qmk checkout. For example, if it's in the root of your c drive:
  * `$ cd /c/qmk_firmware`
 * Run `util/msys2_install.sh` and follow the prompts
@@ -80,7 +80,7 @@ If you already have cloned the repository on your Windows file system you can ig
 
 You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute. 
 
-Once Git is installed, open the Git bash command and change the directory to where you want to clone QMK, note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
+Once Git is installed, open the Git Bash command and change the directory to where you want to clone QMK; note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
 
 ### Toolchain setup
 The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.
@@ -122,8 +122,11 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 # defaults are ergodox/default
 
 docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+```
 
-# On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and $('pwd') won't print a Windows compliant path; use full path instead, like this:
+On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
+
+```bash
 docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
