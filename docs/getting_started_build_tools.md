@@ -134,4 +134,4 @@ docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/D
 This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.
 
 ## Vagrant
-If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [vagrant guide](vagrant_guide.md).
+If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [vagrant guide](getting_started_vagrant.md).
