@@ -27,16 +27,17 @@
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 /* I/O pins */
-#define PINDEF(port, pin) (uint8_t)((((uint16_t)&PORT##port) << 4) + PIN##port##pin)
+// #define PINDEF(port, pin) (uint8_t)((((uint16_t)&PIN##port) << 4) + PIN##port##pin)
+#define PINDEF(port, pin) (uint8_t)(((((uint16_t)&PIN##port) - __SFR_OFFSET)<< 4) + PIN##port##pin)
 
-#define PIN(p) (*((volatile uint8_t*)(p >> 4) + 0))
+#define PIN(p) (*((volatile uint16_t*)(p >> 4) + 0 + __SFR_OFFSET))
 #define PIN_VALUE(p) (PIN(p) & _BV(p & 0xF))
 
-#define DDR(p) (*((volatile uint8_t*)(p >> 4) + 1))
+#define DDR(p) (*((volatile uint16_t*)(p >> 4) + 1 + __SFR_OFFSET))
 #define DDR_OUTPUT(p) (DDR(p) |= _BV(p & 0xF))
 #define DDR_INPUT(p) (DDR(p) &= ~_BV(p & 0xF))
 
-#define PORT(p) (*((volatile uint8_t*)(p >> 4) + 2))
+#define PORT(p) (*((volatile uint16_t*)(p >> 4) + 2 + __SFR_OFFSET))
 #define PORT_HIGH(p) (PORT(p) |= _BV(p & 0xF))
 #define PORT_LOW(p) (PORT(p) &= ~_BV(p & 0xF))
 

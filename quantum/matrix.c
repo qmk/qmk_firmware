@@ -220,7 +220,10 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
+    
+    dprintf("%x\n", PINDEF(B,0));
     matrix_scan_quantum();
+
     return 1;
 }
 
