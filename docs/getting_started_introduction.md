@@ -1,6 +1,6 @@
 # Introduction
 
-This page attempts to explain the basic information you need to know to work with the QMK project. It assumes that you are familiar with navigating a UNIX shell, but does not assume you are familiar with C or with compiling using make.
+This page attempts to explain the basic information you need to know to work with the QMK project. It assumes that you are familiar with navigating a Unix shell, but does not assume you are familiar with C or with compiling using make.
 
 ## Basic QMK structure
 
