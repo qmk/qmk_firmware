@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             {KC_MUTE, KC_F1, KC_F2, KC_F3, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLASH, KC_ASTERISK, KC_LPRN, KC_RPRN, KC_DEL},
             {KC_VOLU, KC_F4, KC_F5, KC_F6, KC_KP_4, KC_KP_5, KC_KP_6, KC_PLUS, KC_MINUS, KC_LCBR, KC_RCBR, KC_PIPE},
             {KC_VOLD, KC_F7, KC_F8, KC_F9, KC_KP_1, KC_KP_2, KC_KP_3, KC_BSLASH, _______, ______, ______, ______},
-            {_______, KC_F10, KC_F11, KC_F12, _______, KC_KP_0, KC_DOT, _______, KC_HOME, KC_PGUP, KC_PGDDN, KC_END}
+            {_______, KC_F10, KC_F11, KC_F12, _______, KC_KP_0, KC_DOT, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
         },
 
         /* Raise
