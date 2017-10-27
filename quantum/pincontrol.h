@@ -15,7 +15,26 @@
  */
 #pragma once
 // Some helpers for controlling gpio pins
-#include <avr/io.h>
+#if defined(__AVR__)
+    #include <avr/io.h>
+#endif
+
+static inline volatile uint8_t* helper(pin_t p, uint8_t offset) {
+    return (volatile uint8_t*)((p >> 4) + offset + __SFR_OFFSET);
+}
+
+#define PIN(p) *helper(p, 0)
+#define PIN_VALUE(p) (PIN(p) & _BV(p & 0xF))
+
+#define DDR(p) *helper(p, 1)
+#define DDR_OUTPUT(p) (DDR(p) |= _BV(p & 0xF))
+#define DDR_INPUT(p) (DDR(p) &= ~_BV(p & 0xF))
+
+#define PORT(p) *helper(p, 2)
+#define PORT_HIGH(p) (PORT(p) |= _BV(p & 0xF))
+#define PORT_LOW(p) (PORT(p) &= ~_BV(p & 0xF))
+
+// Arduino shortcuts
 
 enum {
   PinDirectionInput = 0,

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-
+#include "quantum.h"
 
 /* Set 0 if debouncing isn't needed */
 

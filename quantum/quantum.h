@@ -41,6 +41,7 @@
 #include <stdlib.h>
 #include "print.h"
 #include "send_string_keycodes.h"
+#include "pincontrol.h"
 
 extern uint32_t default_layer_state;
 

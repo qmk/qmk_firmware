@@ -36,21 +36,6 @@
 // #define PINDEF(port, pin) (uint8_t)((((uint16_t)&PIN##port) << 4) + PIN##port##pin)
 #define PINDEF(port, pin) ((pin_t)(((((uint16_t)&PIN##port) - __SFR_OFFSET)<< 4) + PIN##port##pin))
 
-static inline uint8_t* helper(pin_t p, uint8_t offset) {
-    return (uint8_t*)((p >> 4) + offset + __SFR_OFFSET);
-}
-
-#define PIN(p) *helper(p, 0)
-#define PIN_VALUE(p) (PIN(p) & _BV(p & 0xF))
-
-#define DDR(p) *helper(p, 1)
-#define DDR_OUTPUT(p) (DDR(p) |= _BV(p & 0xF))
-#define DDR_INPUT(p) (DDR(p) &= ~_BV(p & 0xF))
-
-#define PORT(p) *helper(p, 2)
-#define PORT_HIGH(p) (PORT(p) |= _BV(p & 0xF))
-#define PORT_LOW(p) (PORT(p) &= ~_BV(p & 0xF))
-
 #ifdef PORTA
     #define A0 PINDEF(A, 0)
     #define A1 PINDEF(A, 1)
