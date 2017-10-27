@@ -27,7 +27,7 @@ dfu-programmer atmega32u2 start
 
 ```
 ### Base Layer - Colemak
-The base layout is Colemak. 
+The base layout is Colemak by default, but this can be changed to QWERTY via the *LOWER* layer. 
 * I've implemented COLEMAK = SAFE\_RANGE when enumerating the custom\_keycodes, but I don't actually know what this does...
 
 * Space cadet is implemented in the shift keys (hold for shift, tap for respective parentheses)
@@ -39,7 +39,7 @@ The base layout is Colemak.
 ### LOWER
 ```
   ,----.    ,-------------------. ,-------------------. ,-------------------. ,--------------.
-  |ESC |    | F1 | F2 | F3 | F4 | | F5 | F6 | F7 | F8 | | F9 |F10 |F11 |F12 | |PrSc|ScLk|PsBk|
+  |ESC |    | F1 | F2 | F3 | F4 | | F5 | F6 | F7 | F8 | | F9 |F10 |F11 |F12 | |QWTY|CLMK|PsBk|
   '----'    '-------------------' '-------------------' '-------------------' '--------------'
   ,-------------------------------------------------------------------------. ,--------------. 
   |  ~ | !  |  @ |  # |  $ |  % |  ^ |  & |  * |  ( |  ) |  _ |  + |  Bspc  | | Ins|Home|PgUp| 
@@ -58,6 +58,8 @@ The *LOWER* layer contains a navigation cluster on the left hand. This layer is 
 * The Navigation cluster is offset to the right compared to the traditional **WASD** nav cluster. With this implementation, you don't need to move your hand from the home position when navigating. Page Up & Down keys are found on the far left of the cluster.
 
 * All unused (blank on the above keymap) keys are locked out using the XXXXXXX filler (KC\_NO), all modifiers (edge |\_| keys \[except 0, \. & Fn\] on the above keymap) and the ZXCV cluster are transparent (\_\_\_\_\_\_\_) to the Base layer.
+
+* The base layer can be switched to QWERTY or COLEMAK by pressing the Pause Break or Scroll Lock keys respectively
 
 ### MOUSE
 ```
