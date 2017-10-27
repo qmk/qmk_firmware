@@ -1,6 +1,6 @@
 # Installing Build Tools
 
-This page describes setting up the build environment for QMK. These instructions cover AVR processors (such as the atmega32u4.)
+This page describes setting up the build environment for QMK. These instructions cover AVR processors (such as the atmega32u4).
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
@@ -58,7 +58,7 @@ This is the recommended method. If you don't have homebrew, [install it!](http:/
 
 ## Windows with msys2 (recommended)
 
-The best environment to use, for Windows Vista through any later version (tested on 7 and 10,) is [msys2](http://www.msys2.org).
+The best environment to use, for Windows Vista through any later version (tested on 7 and 10), is [msys2](http://www.msys2.org).
 
 * Install msys2 by downloading and following the instructions here: http://www.msys2.org
 * Open the "MSYS2 MingGW 64-bit" shortcut
