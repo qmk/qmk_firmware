@@ -1,4 +1,11 @@
 # TKL keymap for frosty\_flake
+```
+make frosty_flake:QFR_JM
+
+dfu-programmer atmega32u2 erase
+dfu-programmer atmega32u2 flash frosty_flake_QFR_JM.hex
+dfu-programmer atmega32u2 start
+```
 
 ##Layers
 ```
