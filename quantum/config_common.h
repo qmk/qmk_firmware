@@ -50,7 +50,7 @@
         #define PIND_ADDRESS 0x0
         #define PINC_ADDRESS 0x3
         #define PINB_ADDRESS 0x6
-        #define PINB_ADDRESS 0x9
+        #define PINA_ADDRESS 0x9
     #else
         #define pin_t uint16_t
         #define ADDRESS_BASE 0x0
