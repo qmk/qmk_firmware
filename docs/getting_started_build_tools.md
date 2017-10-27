@@ -123,7 +123,7 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 
 docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
-# On windows docker seems to have issue with VOLUME tag in Dockerfile, and $('pwd') won't print a windows compliant path, use full path instead like this
+# On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and $('pwd') won't print a Windows compliant path; use full path instead, like this:
 docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
