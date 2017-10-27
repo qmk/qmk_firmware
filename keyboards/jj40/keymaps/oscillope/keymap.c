@@ -56,19 +56,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | Back | Fwd  |      |      |      |      |      | Mute | Vol- | Vol+ |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Prev | Stop | Play | Next |
+ * |      |      |      |      | Lock |      |             | Prev | Stop | Play | Next |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
   KC_DEL,  _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
   _______, KC_WBAK, KC_WFWD, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
-  _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT \
+  _______, _______, _______, _______, KC_LOCK, _______, _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT \
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   &  |   *  |   _  |   (  |   )  |   7  |   8  |   9  |   =  | Bksp | Del  |
+ * | Caps |   &  |   *  |   _  |   (  |   )  |   7  |   8  |   9  |   =  | Bksp | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Ins  |   $  |   %  |   ^  |   [  |   ]  |   4  |   5  |   6  |   -  |   +  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = KEYMAP( \
-  _______, KC_AMPR, KC_ASTR, KC_UNDS, KC_LPRN, KC_RPRN, KC_7,    KC_8,    KC_9,    KC_EQL,  KC_BSPC, KC_DEL, \
+  KC_CAPS, KC_AMPR, KC_ASTR, KC_UNDS, KC_LPRN, KC_RPRN, KC_7,    KC_8,    KC_9,    KC_EQL,  KC_BSPC, KC_DEL, \
   KC_INS,  KC_DLR,  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_4,    KC_5,    KC_6,    KC_MINS, KC_PLUS, KC_PIPE, \
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_LCBR, KC_RCBR, KC_1,    KC_2,    KC_3,    _______, KC_BSLS, _______, \
   _______, _______, _______, _______, _______, _______, KC_0,    KC_HOME, KC_PGDN, KC_PGUP, KC_END \
