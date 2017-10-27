@@ -44,7 +44,7 @@ By default, this will download compilers for both AVR and ARM. If you don't need
 
     nix-shell --arg arm false
 
-## Mac
+## macOS
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
 
     brew tap osx-cross/avr
