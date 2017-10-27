@@ -1,8 +1,13 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
 #include "../../config.h"
 
-#define COMBO_COUNT 1
+#undef COMBO_COUNT
+#define COMBO_COUNT 2
 
 #define BACKLIGHT_BREATHING
 
-#define TAPPING_TERM 200
-
+#undef COMBO_TERM
+#define COMBO_TERM 20
+#endif
