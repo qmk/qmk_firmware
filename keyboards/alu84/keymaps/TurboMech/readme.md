@@ -27,10 +27,12 @@
 
 #### Base Layer
 ```
-.- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -. |   Esc   |   Scrn  |   Scrn  | Expose  |Launchpad|   Show  |Dock Hide|  Screen | Shortcut| Shortcut| Shortcut| Shortcut|   Play  |  Mute   | Vol Up  | Vol Down|
+.- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -. 
+|   Esc   |   Scrn  |   Scrn  | Expose  |Launchpad|   Show  |Dock Hide|  Screen | Shortcut| Shortcut| Shortcut| Shortcut|   Play  |  Mute   | Vol Up  | Vol Down|
 |         |Brght Up | Brght Dn|         |         | Desktop |  Toggle | Capture |         |         |         |         |   Pause |         |         |         |
 |- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - - - - - - -+- - - - -|
-|    `    |    1    |    2    |    3    |    4    |    5    |    6    |    7    |    8    |    9    |    0    |    -    |    +    |     Backspace     |  POWER  | |         |         |         |         |         |         |         |         |         |         |         |         |         |                   |         |
+|    `    |    1    |    2    |    3    |    4    |    5    |    6    |    7    |    8    |    9    |    0    |    -    |    +    |     Backspace     |  POWER  | 
+|         |         |         |         |         |         |         |         |         |         |         |         |         |                   |         |
 |- - - - - - - +- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - - - - +- - - - -|
 |     TAB      |    Q    |    W    |    E    |    R    |    T    |    Y    |    U    |    I    |    O    |    P    |    [    |     ]   |      \       | Shortcut|
 |              |         |         |         |         |         |         |         |         |         |         |         |         |              |         |
@@ -51,9 +53,11 @@
 |   Quit  |   F1    |    F2   |   F3    |   F4    |   F5    |    F6   |   F7    |    F8   |    F9   |   F10   |   F11   |   F12   |  Trns   |  Trns   |   DFU   |
 |   All   |         |         |         |         |         |         |         |         |         |         |         |         |         |         |  Reset  |
 |- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - - - - - - -+- - - - -|
-|   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |       Delete      |   Lock  | |         |         |         |         |         |         |         |         |         |         |         |         |         |                   |Shortcut |
+|   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |       Delete      |   Lock  | 
+|         |         |         |         |         |         |         |         |         |         |         |         |         |                   |Shortcut |
 |- - - - - - - +- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - - - - +- - - - -|
-|     Trns     |   RGB   |   RGB   |   RGB   |   RGB   | RGB Hue | RGB Hue | RGB Sat | RGB Sat |  Trns   |   Trns  |   Trns  |   Trns  |     Trns     |   Trns  | |              |  Toggle |   Mode  | Increase| Decrease| Increase| Decrease| Increase| Decrease|         |         |         |         |              |         |
+|     Trns     |   RGB   |   RGB   |   RGB   |   RGB   | RGB Hue | RGB Hue | RGB Sat | RGB Sat |  Trns   |   Trns  |   Trns  |   Trns  |     Trns     |   Trns  | 
+|              |  Toggle |   Mode  | Increase| Decrease| Increase| Decrease| Increase| Decrease|         |         |         |         |              |         |
 |- - - - - - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - -+- - - - - - - - - - -+- - - - -|
 |      Trns       |   Trns  |   Trns  |   Trns  |   Trns  |   Trns  |  Trns   |  Trns   |   Trns  |   Trns  |  Trns   |   Trns  |        Trns         |   Trns  |
 |                 |         |         |         |         |         |         |         |         |         |         |         |                     |         |
