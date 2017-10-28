@@ -117,7 +117,10 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
     bool is_combo_key = false;
 
     for (current_combo_index = 0; current_combo_index < COMBO_COUNT; ++current_combo_index) {
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Warray-bounds"
         combo_t *combo = &key_combos[current_combo_index];
+        #pragma GCC diagnostic pop
         is_combo_key |= process_single_combo(combo, keycode, record);
     }    
 
