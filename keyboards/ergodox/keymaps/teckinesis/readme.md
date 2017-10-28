@@ -12,7 +12,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 ## The Base Layout ##
 
 [teckinesis (Base Layer)](http://www.keyboard-layout-editor.com/#/gists/befd4c5800d92114aa9e50d4f7c0dfb0)
-![teckinesis base layout](teckinesis-base.png)
+![teckinesis base layout](https://i.imgur.com/DeehOSY.png)
 
 ### Changes from The Ordinary Layout ###
 
@@ -27,7 +27,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 ## The Symbols Layer ##
 
 [teckinesis (Symbols Layer)](http://www.keyboard-layout-editor.com/#/gists/e6ddc4e9e0d194b3e52ac0616238ab61)
-![teckinesis symbols layout](teckinesis-symbol.png)
+![teckinesis symbols layout](https://i.imgur.com/u8faqMq.png)
 
 ### Changes from The Ordinary Layout ###
 
@@ -36,7 +36,7 @@ the [Kinesis Advantage](http://www.kinesis-ergo.com/wp-content/uploads/2013/06/a
 ## The Media Layer ##
 
 [teckinesis (Media Layer)](http://www.keyboard-layout-editor.com/#/gists/41ff65e6a7c490211fd6702fb34d9908)
-![teckinesis media layout](teckinesis-media.png)
+![teckinesis media layout](https://i.imgur.com/NgdJkuh.png)
 
 ### Changes from The Ordinary Layout ###
 

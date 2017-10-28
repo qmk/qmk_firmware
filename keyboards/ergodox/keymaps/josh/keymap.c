@@ -8,15 +8,16 @@
 #define MDIA 2 // media keys
 
 //macros
-#define CTL_SFT_T 100
-#define CTL_SFT_G 101
-#define CTL_ALT_H 102
+#define CTL_SFT_T 100 // open type
+#define CTL_SFT_G 101 // find references
+#define CTL_ALT_H 102 // open call hierarchy
+#define CTL_SFT_R 103 // open resource
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           | M 100|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  |           |M100/3|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |TAB /Alt|   Q  |   W  |   E  |   R  |   T  | Meh  |           | Meh  |   Y  |   U  |   I  |   O  |   P  |\ / ALT |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -38,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
+        LT(MDIA, KC_EQL),KC_1,        KC_2,   KC_3,   KC_4,   KC_5,   KC_ESC,
         ALT_T(KC_TAB),  KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   ALL_T(KC_NO),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(SYMB),
@@ -47,11 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             M(CTL_SFT_T),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             MEH_T(KC_NO),KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
-                          KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),CTL_T(KC_QUOT),
-             MO(SYMB),      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
-                            LALT(KC_LSFT),KC_LEFT,KC_DOWN,KC_UP,            KC_RIGHT,
+             LT(M(CTL_SFT_T),
+                M(CTL_SFT_R)),KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   LT(MDIA, KC_MINS),
+             MEH_T(KC_NO),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,                 KC_BSLS,
+                              KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN), CTL_T(KC_QUOT),
+             MO(SYMB),        KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
+                        LALT(KC_LSFT),KC_LEFT,KC_DOWN,KC_UP,            KC_RIGHT,
              KC_LALT,        KC_CAPS,
              KC_PGUP,
              KC_PGDN,KC_DEL, KC_ENT
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |RESET |           |RESET |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -121,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = KEYMAP(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -130,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       RESET,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
@@ -171,6 +173,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO(D(LCTL), D(LALT), T(H), END);
             }
             return MACRO(U(LCTL), U(LALT), END);
+            break;
+        case CTL_SFT_R:
+            if (record->event.pressed) {
+                return MACRO(D(LCTL), D(LSFT), T(R), END);
+            }
+            return MACRO(U(LCTL), U(LSFT), END);
             break;
     }
     return MACRO_NONE;

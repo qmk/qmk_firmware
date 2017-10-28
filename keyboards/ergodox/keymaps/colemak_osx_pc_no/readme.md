@@ -20,4 +20,4 @@ Tap for the next character to be shifted, hold down for regular shift functional
 
 ## Layout
 
-![keyboard-layout](keyboard-layout.png)
+![keyboard-layout](https://i.imgur.com/168aGmR.png)

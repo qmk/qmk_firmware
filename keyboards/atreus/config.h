@@ -37,7 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // COLS: Left to right, ROWS: Top to bottom
 #if defined(ATREUS_ASTAR)
 #   define MATRIX_ROW_PINS { D0, D1, D3, D2 }
+#if defined(PCBDOWN)
+#   define MATRIX_COL_PINS { B7, D6, F7, F6, B6, D4, E6, B4, B5, C6, D7 }
+#else
 #   define MATRIX_COL_PINS { D7, C6, B5, B4, E6, D4, B6, F6, F7, D6, B7 }
+#endif
 #   define UNUSED_PINS
 #elif defined(ATREUS_TEENSY2)
 #   define MATRIX_ROW_PINS { D0, D1, D2, D3 }

@@ -1,5 +1,4 @@
 #include "ergodox.h"
-#include "debug.h"
 #include "action_layer.h"
 #include "led.h"
 #include "keymap_extras/keymap_neo2.h"
@@ -23,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤ TL2 │     │ TL3 ├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ü  │  Ö  │  Ä  │  P  │  Z  │     │     │     │  B  │  M  │  ,  │  .  │  J  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ Mod4│                             │ Mod4│ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ Mod4│                             │ Mod4│ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -47,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     NEO_K,  NEO_H,  NEO_G,  NEO_F,  NEO_Q,  NEO_SS,
                     NEO_S,  NEO_N,  NEO_R,  NEO_T,  NEO_D,  NEO_L1_R,
         TG(PMN),    NEO_B,  NEO_M,  KC_COMM,KC_DOT, NEO_J,  KC_RSFT,
-                            NEO_L2_R,KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            NEO_L2_R,KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -64,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ä  │  Q  │  R  │  W  │  N  │     │     │     │  J  │  M  │  ,  │  .  │  ẞ  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -88,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     DE_B,   DE_A,   DE_S,   DE_G,   DE_V,   DE_Y,
                     DE_U,   DE_MINS,DE_Z,   DE_E,   DE_X,   NEO_L1_R,
         KC_TRNS,    DE_J,   DE_M,   DE_COMM,DE_DOT, DE_SS,  KC_RSFT,
-                            MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            MO(NHL),KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -105,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
  * │ LSHFT │  Ü  │  Ö  │  Ä  │  P  │  Z  │     │     │     │  B  │  M  │  ,  │  .  │  J  │ Shift │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
- *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ Alt │ CTL │
+ *   │ CTL │ ALT │ MO1 │ Win │ MO4 │                             │ M04 │ Win │ MO1 │ ALT │ CTL │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
  *                                   │  ←  │  ↑  │ │  ↓  │  →  │
  *                             ┌─────┼─────┼─────┤ ├─────┼─────┼─────┐
@@ -128,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     DE_K,   DE_H,   DE_G,   DE_F,   DE_Q,   DE_SS,
                     DE_S,   DE_N,   DE_R,   DE_T,   DE_D,   KC_NO,
         KC_TRNS,    DE_B,   DE_M,   KC_COMM,KC_DOT, DE_J,   KC_RSFT,
-                            MO(NHL),KC_RGUI,MO(FMU),KC_RALT,KC_RCTL,
+                            MO(NHL),KC_RGUI,MO(FMU),KC_LALT,KC_RCTL,
         KC_DOWN,    KC_RGHT,
         KC_MINS,
         MEH_T(KC_NO),KC_ENT,KC_SPC
@@ -136,13 +135,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 3: F-keys, Mouse and Unicode
  * ┌───────┬─────┬─────┬─────┬─────┬─────┬─────┐     ┌─────┬─────┬─────┬─────┬─────┬─────┬───────┐
- * │       │     │     │     │     │     │     │     │     │     │     │     │     │     │       │
+ * │       │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │     │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │       │
  * ├───────┼─────┼─────┼─────┼─────┼─────┼─────┤     ├─────┼─────┼─────┼─────┼─────┼─────┼───────┤
- * │       │     │     │     │  ✕  │     │     │     │     │     │ F9  │ F10 │ F11 │ F12 │       │
+ * │       │  ┌  │  ┬  │  ┐  │  ─  │  │  │     │     │     │  ↔  │  ←  │  →  │  ↑  │  ↓  │       │
  * ├───────┼─────┼─────┼─────╆─────╅─────┤     │     │     ├─────╆─────╅─────┼─────┼─────┼───────┤
- * │       │     │     │     │  ✓  │     ├─────┤     ├─────┤     │ F5  │ F6  │ F7  │ F8  │       │
+ * │       │  ├  │  ┼  │  ┤  │  〈 │  〉 ├─────┤     ├─────┤     │  ✓  │  ✕  │  •  │  ∶  │       │
  * ├───────┼─────┼─────┼─────╄─────╃─────┤(TL2)│     │(TL3)├─────╄─────╃─────┼─────┼─────┼───────┤
- * │       │     │     │     │     │     │     │     │     │     │ F1  │ F2  │ F3  │ F4  │       │
+ * │       │  └  │  ┴  │  ┘  │     │     │     │     │     │  ⇔  │  ⇐  │  ⇒  │  ⇑  │  ⇓  │       │
  * └─┬─────┼─────┼─────┼─────┼─────┼─────┴─────┘     └─────┴─────┼─────┼─────┼─────┼─────┼─────┬─┘
  *   │     │     │(MO1)│     │(MO4)│                             │(MO4)│     │(MO1)│     │     │
  *   └─────┴─────┴─────┴─────┴─────┘ ┌─────┬─────┐ ┌─────┬─────┐ └─────┴─────┴─────┴─────┴─────┘
@@ -155,23 +154,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [FMU] = KEYMAP(
         // left hand
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,UC(0x2713),KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,UC(0x2715),KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                                    KC_MS_L,    KC_MS_U,
+        KC_TRNS,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,
+        KC_TRNS,    UC(0x250C),UC(0x252C),UC(0x2510),UC(0x2500),UC(0x2502),KC_TRNS,
+        KC_TRNS,    UC(0x251C),UC(0x253C),UC(0x2524),UC(0x3008),UC(0x3009),
+        KC_TRNS,    UC(0x2514),UC(0x2534),UC(0x2518),KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+                                                     KC_MS_L,   KC_MS_U,
                                                                 KC_BTN1,
-                                            KC_TRNS,KC_TRNS,    KC_TRNS,
+                                            KC_TRNS, KC_TRNS,   KC_TRNS,
         // right hand
-        KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_F9,  KC_F10, KC_F11, KC_F12, KC_TRNS,
-                    KC_TRNS,KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_TRNS,
-        KC_TRNS,    KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_TRNS,
-                            KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+        KC_F7,      KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_TRNS,
+        KC_TRNS,    UC(0x2194),UC(0x2190),UC(0x2192),UC(0x2191),UC(0x2193),KC_TRNS,
+                    KC_TRNS,   UC(0x2713),UC(0x2715),UC(0x2022),UC(0x2236),KC_TRNS,
+        KC_TRNS,    UC(0x21D4),UC(0x21D0),UC(0x21D2),UC(0x21D1),UC(0x21D3),KC_TRNS,
+                               KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
         KC_MS_D,    KC_MS_R,
         KC_BTN2,
-        KC_TRNS,    KC_TRNS,KC_TRNS
+        KC_TRNS,    KC_TRNS,   KC_TRNS
     ),
 
 /* Layer 4: Neo’s software layer 4 rebuilt in Hardware
@@ -245,6 +244,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    set_unicode_input_mode(UC_LNX);
 };
 
 
@@ -279,3 +279,42 @@ void matrix_scan_user(void)
     }
 
 };
+
+
+// Override Unicode start method to use NEO_U instead of KC_U
+void unicode_input_start (void) {
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    register_code(NEO_U);
+    unregister_code(NEO_U);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+};
+
+// Override method to use NEO_A instead of KC_A
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if(hex == 0x0) {
+    return KC_0;
+  }
+  else if(hex >= 0xA) {
+    switch(hex) {
+      case 0xA:
+        return NEO_A;
+      case 0xB:
+        return NEO_B;
+      case 0xC:
+        return NEO_C;
+      case 0xD:
+        return NEO_D;
+      case 0xE:
+        return NEO_E;
+      case 0xF:
+        return NEO_F;
+      default:
+        return KC_NO;
+    }
+  }
+
+  return KC_1 + (hex - 0x1);
+}

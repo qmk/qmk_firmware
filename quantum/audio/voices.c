@@ -1,3 +1,18 @@
+/* Copyright 2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "voices.h"
 #include "audio.h"
 #include "stdlib.h"
@@ -6,6 +21,7 @@
 extern uint16_t envelope_index;
 extern float note_timbre;
 extern float polyphony_rate;
+extern bool glissando;
 
 voice_type voice = default_voice;
 
@@ -18,20 +34,132 @@ void voice_iterate() {
 }
 
 void voice_deiterate() {
-    voice = (voice - 1) % number_of_voices;
+    voice = (voice - 1 + number_of_voices) % number_of_voices;
 }
 
 float voice_envelope(float frequency) {
     // envelope_index ranges from 0 to 0xFFFF, which is preserved at 880.0 Hz
+    __attribute__ ((unused))
     uint16_t compensated_index = (uint16_t)((float)envelope_index * (880.0 / frequency));
 
     switch (voice) {
         case default_voice:
+            glissando = false;
             note_timbre = TIMBRE_50;
             polyphony_rate = 0;
 	        break;
 
+    #ifdef AUDIO_VOICES
+
+        case something:
+            glissando = false;
+            polyphony_rate = 0;
+            switch (compensated_index) {
+                case 0 ... 9:
+                    note_timbre = TIMBRE_12;
+                    break;
+
+                case 10 ... 19:
+                    note_timbre = TIMBRE_25;
+                    break;
+
+                case 20 ... 200:
+                    note_timbre = .125 + .125;
+                    break;
+
+                default:
+                    note_timbre = .125;
+                    break;
+            }
+            break;
+
+        case drums:
+            glissando = false;
+            polyphony_rate = 0;
+                // switch (compensated_index) {
+                //     case 0 ... 10:
+                //         note_timbre = 0.5;
+                //         break;
+                //     case 11 ... 20:
+                //         note_timbre = 0.5 * (21 - compensated_index) / 10;
+                //         break;
+                //     default:
+                //         note_timbre = 0;
+                //         break;
+                // }
+                // frequency = (rand() % (int)(frequency * 1.2 - frequency)) + (frequency * 0.8);
+
+            if (frequency < 80.0) {
+
+            } else if (frequency < 160.0) {
+
+                // Bass drum: 60 - 100 Hz
+                frequency = (rand() % (int)(40)) + 60;
+                switch (envelope_index) {
+                    case 0 ... 10:
+                        note_timbre = 0.5;
+                        break;
+                    case 11 ... 20:
+                        note_timbre = 0.5 * (21 - envelope_index) / 10;
+                        break;
+                    default:
+                        note_timbre = 0;
+                        break;
+                }
+
+            } else if (frequency < 320.0) {
+
+
+                // Snare drum: 1 - 2 KHz
+                frequency = (rand() % (int)(1000)) + 1000;
+                switch (envelope_index) {
+                    case 0 ... 5:
+                        note_timbre = 0.5;
+                        break;
+                    case 6 ... 20:
+                        note_timbre = 0.5 * (21 - envelope_index) / 15;
+                        break;
+                    default:
+                        note_timbre = 0;
+                        break;
+                }
+
+            } else if (frequency < 640.0) {
+
+                // Closed Hi-hat: 3 - 5 KHz
+                frequency = (rand() % (int)(2000)) + 3000;
+                switch (envelope_index) {
+                    case 0 ... 15:
+                        note_timbre = 0.5;
+                        break;
+                    case 16 ... 20:
+                        note_timbre = 0.5 * (21 - envelope_index) / 5;
+                        break;
+                    default:
+                        note_timbre = 0;
+                        break;
+                }
+
+            } else if (frequency < 1280.0) {
+
+                // Open Hi-hat: 3 - 5 KHz
+                frequency = (rand() % (int)(2000)) + 3000;
+                switch (envelope_index) {
+                    case 0 ... 35:
+                        note_timbre = 0.5;
+                        break;
+                    case 36 ... 50:
+                        note_timbre = 0.5 * (51 - envelope_index) / 15;
+                        break;
+                    default:
+                        note_timbre = 0;
+                        break;
+                }
+
+            }
+            break;
         case butts_fader:
+            glissando = true;
             polyphony_rate = 0;
             switch (compensated_index) {
                 case 0 ... 9:
@@ -79,6 +207,7 @@ float voice_envelope(float frequency) {
 
         case duty_osc:
             // This slows the loop down a substantial amount, so higher notes may freeze
+            glissando = true;
             polyphony_rate = 0;
             switch (compensated_index) {
                 default:
@@ -93,6 +222,7 @@ float voice_envelope(float frequency) {
 	        break;
 
         case duty_octave_down:
+            glissando = true;
             polyphony_rate = 0;
             note_timbre = (envelope_index % 2) * .125 + .375 * 2;
             if ((envelope_index % 4) == 0)
@@ -101,6 +231,7 @@ float voice_envelope(float frequency) {
                 note_timbre = 0;
             break;
         case delayed_vibrato:
+            glissando = true;
             polyphony_rate = 0;
             note_timbre = TIMBRE_50;
             #define VOICE_VIBRATO_DELAY 150
@@ -155,11 +286,11 @@ float voice_envelope(float frequency) {
         //         note_timbre = 0.25;
         //     break;
 
+    #endif
+
 		default:
    			break;
     }
 
     return frequency;
 }
-
-

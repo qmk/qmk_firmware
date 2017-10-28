@@ -20,7 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
-
+#ifdef MIDI_ENABLE
+	#include "midi.h"
+#endif
 
 typedef struct {
     uint8_t (*keyboard_leds)(void);
@@ -28,6 +30,11 @@ typedef struct {
     void (*send_mouse)(report_mouse_t *);
     void (*send_system)(uint16_t);
     void (*send_consumer)(uint16_t);
+#ifdef MIDI_ENABLE
+    void (*usb_send_func)(MidiDevice *, uint16_t, uint8_t, uint8_t, uint8_t);
+    void (*usb_get_midi)(MidiDevice *);
+    void (*midi_usb_init)(MidiDevice *);
+#endif
 } host_driver_t;
 
 #endif

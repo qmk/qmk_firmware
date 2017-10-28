@@ -96,7 +96,7 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#if TAPPING_TERM >= 500
+#if TAPPING_TERM >= 500 || defined PERMISSIVE_HOLD
                 /* Process a key typed within TAPPING_TERM
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
@@ -228,6 +228,7 @@ bool process_tapping(keyrecord_t *keyp)
         if (WITHIN_TAPPING_TERM(event)) {
             if (event.pressed) {
                 if (IS_TAPPING_KEY(event.key)) {
+#ifndef TAPPING_FORCE_HOLD
                     if (!tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
                         // sequential tap.
                         keyp->tap = tapping_key.tap;
@@ -237,11 +238,11 @@ bool process_tapping(keyrecord_t *keyp)
                         tapping_key = *keyp;
                         debug_tapping_key();
                         return true;
-                    } else {
-                        // FIX: start new tap again
-                        tapping_key = *keyp;
-                        return true;
                     }
+#endif
+                    // FIX: start new tap again
+                    tapping_key = *keyp;
+                    return true;
                 } else if (is_tap_key(event.key)) {
                     // Sequential tap can be interfered with other tap key.
                     debug("Tapping: Start with interfering other tap.\n");
@@ -257,7 +258,7 @@ bool process_tapping(keyrecord_t *keyp)
                     return true;
                 }
             } else {
-                if (!IS_NOEVENT(event)) debug("Tapping: other key just after tap.\n") {};
+                if (!IS_NOEVENT(event)) debug("Tapping: other key just after tap.\n");
                 process_record(keyp);
                 return true;
             }

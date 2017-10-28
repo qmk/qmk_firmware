@@ -27,10 +27,6 @@ void magic(void)
     /* keymap config */
     keymap_config.raw = eeconfig_read_keymap();
 
-#ifdef NKRO_ENABLE
-    keyboard_nkro = keymap_config.nkro;
-#endif
-
     uint8_t default_layer = 0;
     default_layer = eeconfig_read_default_layer();
     default_layer_set((uint32_t)default_layer);

@@ -6,15 +6,15 @@
 
 ### Main Layer
 
-![Main Layer](img/main_layer.png)
+![Main Layer](https://i.imgur.com/n1Bl4R3.png)
 
 ### Code Layer
 
-![Code Layer](img/code_layer.png)
+![Code Layer](https://i.imgur.com/1B0vfpG.png)
 
 ### Media Layer
 
-![Media Layer](img/media_layer.png)
+![Media Layer](https://i.imgur.com/CGPyOfj.png)
 
 ## Changelog
 

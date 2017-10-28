@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
+#include "serial_link/system/serial_link.h"
 
 
 /*

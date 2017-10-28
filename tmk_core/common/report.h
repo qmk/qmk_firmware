@@ -134,13 +134,6 @@ typedef union {
     } nkro;
 #endif
 } __attribute__ ((packed)) report_keyboard_t;
-/*
-typedef struct {
-    uint8_t mods;
-    uint8_t reserved;
-    uint8_t keys[REPORT_KEYS];
-} __attribute__ ((packed)) report_keyboard_t;
-*/
 
 typedef struct {
     uint8_t buttons;
@@ -180,6 +173,20 @@ typedef struct {
     (key == KC_WWW_STOP         ?  AC_STOP : \
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
     (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))
+
+uint8_t has_anykey(report_keyboard_t* keyboard_report);
+uint8_t get_first_key(report_keyboard_t* keyboard_report);
+
+void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
+void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
+#ifdef NKRO_ENABLE
+void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+#endif
+
+void add_key_to_report(report_keyboard_t* keyboard_report, int8_t key);
+void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
+void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
 #ifdef __cplusplus
 }

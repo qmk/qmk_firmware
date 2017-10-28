@@ -29,6 +29,9 @@ extern uint32_t default_layer_state;
 void default_layer_debug(void);
 void default_layer_set(uint32_t state);
 
+__attribute__((weak))
+uint32_t default_layer_state_set_kb(uint32_t state);
+
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */
 void default_layer_or(uint32_t state);
@@ -69,6 +72,8 @@ void layer_xor(uint32_t state);
 #define layer_xor(state)
 #define layer_debug()
 
+__attribute__((weak))
+uint32_t layer_state_set_kb(uint32_t state);
 #endif
 
 /* pressed actions cache */

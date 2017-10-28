@@ -1,1 +1,1 @@
-HHKB_JP=yes
+OPT_DEFS += -DHHKB_JP

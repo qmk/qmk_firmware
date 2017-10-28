@@ -1,3 +1,18 @@
+/* Copyright 2016-2017 Yang Liu
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -5,62 +20,31 @@
 #include "timer.h"
 #include "rgblight.h"
 #include "debug.h"
+#include "led_tables.h"
 
-const uint8_t DIM_CURVE[] PROGMEM = {
-  0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,
-  3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-  4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6,
-  6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8,
-  8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 11,
-  11, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14, 15,
-  15, 15, 16, 16, 16, 16, 17, 17, 17, 18, 18, 18, 19, 19, 19, 20,
-  20, 20, 21, 21, 22, 22, 22, 23, 23, 24, 24, 25, 25, 25, 26, 26,
-  27, 27, 28, 28, 29, 29, 30, 30, 31, 32, 32, 33, 33, 34, 35, 35,
-  36, 36, 37, 38, 38, 39, 40, 40, 41, 42, 43, 43, 44, 45, 46, 47,
-  48, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62,
-  63, 64, 65, 66, 68, 69, 70, 71, 73, 74, 75, 76, 78, 79, 81, 82,
-  83, 85, 86, 88, 90, 91, 93, 94, 96, 98, 99, 101, 103, 105, 107, 109,
-  110, 112, 114, 116, 118, 121, 123, 125, 127, 129, 132, 134, 136, 139, 141, 144,
-  146, 149, 151, 154, 157, 159, 162, 165, 168, 171, 174, 177, 180, 183, 186, 190,
-  193, 196, 200, 203, 207, 211, 214, 218, 222, 226, 230, 234, 238, 242, 248, 255
-};
-const uint8_t RGBLED_BREATHING_TABLE[] PROGMEM = {
-  0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 9,
-  10, 11, 12, 14, 15, 17, 18, 20, 21, 23, 25, 27, 29, 31, 33, 35,
-  37, 40, 42, 44, 47, 49, 52, 54, 57, 59, 62, 65, 67, 70, 73, 76,
-  79, 82, 85, 88, 90, 93, 97, 100, 103, 106, 109, 112, 115, 118, 121, 124,
-  127, 131, 134, 137, 140, 143, 146, 149, 152, 155, 158, 162, 165, 167, 170, 173,
-  176, 179, 182, 185, 188, 190, 193, 196, 198, 201, 203, 206, 208, 211, 213, 215,
-  218, 220, 222, 224, 226, 228, 230, 232, 234, 235, 237, 238, 240, 241, 243, 244,
-  245, 246, 248, 249, 250, 250, 251, 252, 253, 253, 254, 254, 254, 255, 255, 255,
-  255, 255, 255, 255, 254, 254, 254, 253, 253, 252, 251, 250, 250, 249, 248, 246,
-  245, 244, 243, 241, 240, 238, 237, 235, 234, 232, 230, 228, 226, 224, 222, 220,
-  218, 215, 213, 211, 208, 206, 203, 201, 198, 196, 193, 190, 188, 185, 182, 179,
-  176, 173, 170, 167, 165, 162, 158, 155, 152, 149, 146, 143, 140, 137, 134, 131,
-  128, 124, 121, 118, 115, 112, 109, 106, 103, 100, 97, 93, 90, 88, 85, 82,
-  79, 76, 73, 70, 67, 65, 62, 59, 57, 54, 52, 49, 47, 44, 42, 40,
-  37, 35, 33, 31, 29, 27, 25, 23, 21, 20, 18, 17, 15, 14, 12, 11,
-  10, 9, 7, 6, 5, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0
-};
+
+__attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+__attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+__attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
+__attribute__ ((weak))
+const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
 rgblight_config_t rgblight_config;
 rgblight_config_t inmem_config;
-struct cRGB led[RGBLED_NUM];
+
+LED_TYPE led[RGBLED_NUM];
 uint8_t rgblight_inited = 0;
+bool rgblight_timer_enabled = false;
 
-
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
-  // Convert hue, saturation, and value (HSV/HSB) to RGB. DIM_CURVE is used only
-  // on value and saturation (inverted). This looks the most natural.
+void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
-
-  val = pgm_read_byte(&DIM_CURVE[val]);
-  sat = 255 - pgm_read_byte(&DIM_CURVE[255 - sat]);
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -103,11 +87,14 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, struct cRGB *led1) {
         break;
     }
   }
+  r = pgm_read_byte(&CIE1931_CURVE[r]);
+  g = pgm_read_byte(&CIE1931_CURVE[g]);
+  b = pgm_read_byte(&CIE1931_CURVE[b]);
 
   setrgb(r, g, b, led1);
 }
 
-void setrgb(uint8_t r, uint8_t g, uint8_t b, struct cRGB *led1) {
+void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
   (*led1).r = r;
   (*led1).g = g;
   (*led1).b = b;
@@ -124,9 +111,9 @@ void eeconfig_update_rgblight_default(void) {
   dprintf("eeconfig_update_rgblight_default\n");
   rgblight_config.enable = 1;
   rgblight_config.mode = 1;
-  rgblight_config.hue = 200;
-  rgblight_config.sat = 204;
-  rgblight_config.val = 204;
+  rgblight_config.hue = 0;
+  rgblight_config.sat = 255;
+  rgblight_config.val = 255;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
@@ -156,12 +143,28 @@ void rgblight_init(void) {
   }
   eeconfig_debug_rgblight(); // display current eeprom values
 
-  #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+  #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_init(); // setup the timer
   #endif
 
+  #ifdef RGBLIGHT_STARTUP
   if (rgblight_config.enable) {
+    rgblight_mode(1);
+    startup_animation();
+  }
+  #endif
+}
+
+void rgblight_update_dword(uint32_t dword) {
+  rgblight_config.raw = dword;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  if (rgblight_config.enable)
     rgblight_mode(rgblight_config.mode);
+  else {
+    #ifdef RGBLIGHT_ANIMATIONS
+      rgblight_timer_disable();
+    #endif
+      rgblight_set();
   }
 }
 
@@ -188,6 +191,14 @@ void rgblight_step(void) {
   }
   rgblight_mode(mode);
 }
+void rgblight_step_reverse(void) {
+  uint8_t mode = 0;
+  mode = rgblight_config.mode - 1;
+  if (mode < 1) {
+    mode = RGBLIGHT_MODES;
+  }
+  rgblight_mode(mode);
+}
 
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
@@ -203,18 +214,24 @@ void rgblight_mode(uint8_t mode) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight mode: %u\n", rgblight_config.mode);
   if (rgblight_config.mode == 1) {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
-  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 23) {
+  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 24) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
     // MODE 15-20, snake
     // MODE 21-23, knight
 
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
+    #endif
+  } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+    // MODE 25-34, static gradient
+
+    #ifdef RGBLIGHT_ANIMATIONS
+      rgblight_timer_disable();
     #endif
   }
   rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
@@ -227,12 +244,19 @@ void rgblight_toggle(void) {
   if (rgblight_config.enable) {
     rgblight_mode(rgblight_config.mode);
   } else {
-    #if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+    #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
     _delay_ms(50);
     rgblight_set();
   }
+}
+
+void rgblight_enable(void) {
+  rgblight_config.enable = 1;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight enable: rgblight_config.enable = %u\n", rgblight_config.enable);
+  rgblight_mode(rgblight_config.mode);
 }
 
 
@@ -290,7 +314,7 @@ void rgblight_decrease_val(void) {
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
   inmem_config.raw = rgblight_config.raw;
   if (rgblight_config.enable) {
-    struct cRGB tmp_led;
+    LED_TYPE tmp_led;
     sethsv(hue, sat, val, &tmp_led);
     inmem_config.hue = hue;
     inmem_config.sat = sat;
@@ -312,6 +336,17 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
       } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 14) {
         // rainbow mood and rainbow swirl, ignore the change of hue
         hue = rgblight_config.hue;
+      } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+        // static gradient
+        uint16_t _hue;
+        int8_t direction = ((rgblight_config.mode - 25) % 2) ? -1 : 1;
+        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[(rgblight_config.mode - 25) / 2]);
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+          _hue = (range / RGBLED_NUM * i * direction + hue + 360) % 360;
+          dprintf("rgblight rainbow set hsv: %u,%u,%d,%u\n", i, _hue, direction, range);
+          sethsv(_hue, sat, val, (LED_TYPE *)&led[i]);
+        }
+        rgblight_set();
       }
     }
     rgblight_config.hue = hue;
@@ -332,68 +367,260 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
+/* added by user GlenPickle */
+void rgblight_individual_light_test(uint8_t led_num, uint8_t r, uint8_t g, uint8_t b) {
+  led[led_num].r = r;
+  led[led_num].g = g;
+  led[led_num].b = b;
+
+  rgblight_set();
+}
+
+void rgblight_code_test(void){
+  if (rgblight_config.mode == 1)
+  {
+    rgblight_setrgb(0xff,0xff,0xff);
+  }
+}
+
+void startup_animation(void)
+{
+	uint8_t i = 0;
+
+	rgblight_mode(1);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	/* snake rgb */
+	for (i = 0; i < RGBLED_NUM; i++)
+	{
+		led[i].r = 0xff;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+	_delay_ms(63);
+	for (i = (RGBLED_NUM - 1); i > 0; i--)
+	{
+		led[i].r = 0xff;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+	_delay_ms(63);
+	for (i = 0; i < RGBLED_NUM; i++)
+	{
+		led[i].r = 0x00;
+		led[i].g = 0xff;
+		led[i].b = 0x00;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+	_delay_ms(63);
+	for (i = (RGBLED_NUM - 1); i > 0; i--)
+	{
+		led[i].r = 0x00;
+		led[i].g = 0xff;
+		led[i].b = 0x00;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+	_delay_ms(63);
+	for (i = 0; i < RGBLED_NUM; i++)
+	{
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0xff;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+	_delay_ms(63);
+	for (i = (RGBLED_NUM - 1); i > 0; i--)
+	{
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0xff;
+		rgblight_set();
+		
+		_delay_ms(63);
+
+		led[i].r = 0x00;
+		led[i].g = 0x00;
+		led[i].b = 0x00;
+		rgblight_set();
+	}
+
+	_delay_ms(100);
+
+	rgblight_setrgb(0xff,0x00,0x00);
+
+	_delay_ms(400);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(400);
+
+	rgblight_setrgb(0x00,0xff,0x00);
+
+	_delay_ms(400);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(400);
+	
+	rgblight_setrgb(0x00,0x00,0xff);
+
+	_delay_ms(400);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(400);
+
+	rgblight_setrgb(0xff,0xff,0xff);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0xff,0xff,0xff);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0xff,0xff,0xff);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0x00,0x00,0x00);
+
+	_delay_ms(200);
+
+	rgblight_setrgb(0x00,0xff,0x00);
+
+}	
+
+
+__attribute__ ((weak))
 void rgblight_set(void) {
   if (rgblight_config.enable) {
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
     }
-    ws2812_setleds(led, RGBLED_NUM);
+    #ifdef RGBW
+      ws2812_setleds_rgbw(led, RGBLED_NUM);
+    #else
+      ws2812_setleds(led, RGBLED_NUM);
+    #endif
   }
 }
 
-#if !defined(AUDIO_ENABLE) && defined(RGBLIGHT_TIMER)
+#ifdef RGBLIGHT_ANIMATIONS
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {
-  static uint8_t rgblight_timer_is_init = 0;
-  if (rgblight_timer_is_init) {
-    return;
-  }
-  rgblight_timer_is_init = 1;
-  /* Timer 3 setup */
-  TCCR3B = _BV(WGM32) //CTC mode OCR3A as TOP
-        | _BV(CS30); //Clock selelct: clk/1
-  /* Set TOP value */
-  uint8_t sreg = SREG;
-  cli();
-  OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
-  OCR3AL = RGBLED_TIMER_TOP & 0xff;
-  SREG = sreg;
+  // static uint8_t rgblight_timer_is_init = 0;
+  // if (rgblight_timer_is_init) {
+  //   return;
+  // }
+  // rgblight_timer_is_init = 1;
+  // /* Timer 3 setup */
+  // TCCR3B = _BV(WGM32) // CTC mode OCR3A as TOP
+  //       | _BV(CS30); // Clock selelct: clk/1
+  // /* Set TOP value */
+  // uint8_t sreg = SREG;
+  // cli();
+  // OCR3AH = (RGBLED_TIMER_TOP >> 8) & 0xff;
+  // OCR3AL = RGBLED_TIMER_TOP & 0xff;
+  // SREG = sreg;
+
+  rgblight_timer_enabled = true;
 }
 void rgblight_timer_enable(void) {
-  TIMSK3 |= _BV(OCIE3A);
+  rgblight_timer_enabled = true;
   dprintf("TIMER3 enabled.\n");
 }
 void rgblight_timer_disable(void) {
-  TIMSK3 &= ~_BV(OCIE3A);
+  rgblight_timer_enabled = false;
   dprintf("TIMER3 disabled.\n");
 }
 void rgblight_timer_toggle(void) {
-  TIMSK3 ^= _BV(OCIE3A);
+  rgblight_timer_enabled ^= rgblight_timer_enabled;
   dprintf("TIMER3 toggled.\n");
 }
 
-ISR(TIMER3_COMPA_vect) {
-  // mode = 1, static light, do nothing here
-  if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
-    // mode = 2 to 5, breathing mode
-    rgblight_effect_breathing(rgblight_config.mode - 2);
-  } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
-    // mode = 6 to 8, rainbow mood mod
-    rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
-  } else if (rgblight_config.mode >= 9 && rgblight_config.mode <= 14) {
-    // mode = 9 to 14, rainbow swirl mode
-    rgblight_effect_rainbow_swirl(rgblight_config.mode - 9);
-  } else if (rgblight_config.mode >= 15 && rgblight_config.mode <= 20) {
-    // mode = 15 to 20, snake mode
-    rgblight_effect_snake(rgblight_config.mode - 15);
-  } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
-    // mode = 21 to 23, knight mode
-    rgblight_effect_knight(rgblight_config.mode - 21);
+void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_setrgb(r, g, b);
+}
+
+void rgblight_task(void) {
+  if (rgblight_timer_enabled) {
+    // mode = 1, static light, do nothing here
+    if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
+      // mode = 2 to 5, breathing mode
+      rgblight_effect_breathing(rgblight_config.mode - 2);
+    } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
+      // mode = 6 to 8, rainbow mood mod
+      rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
+    } else if (rgblight_config.mode >= 9 && rgblight_config.mode <= 14) {
+      // mode = 9 to 14, rainbow swirl mode
+      rgblight_effect_rainbow_swirl(rgblight_config.mode - 9);
+    } else if (rgblight_config.mode >= 15 && rgblight_config.mode <= 20) {
+      // mode = 15 to 20, snake mode
+      rgblight_effect_snake(rgblight_config.mode - 15);
+    } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
+      // mode = 21 to 23, knight mode
+      rgblight_effect_knight(rgblight_config.mode - 21);
+    } else if (rgblight_config.mode == 24) {
+      // mode = 24, christmas mode
+      rgblight_effect_christmas();
+    }
   }
 }
 
@@ -407,7 +634,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   }
   last_timer = timer_read();
 
-  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, pgm_read_byte(&RGBLED_BREATHING_TABLE[pos]));
+  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, pgm_read_byte(&LED_BREATHING_TABLE[pos]));
   pos = (pos + 1) % 256;
 }
 void rgblight_effect_rainbow_mood(uint8_t interval) {
@@ -432,7 +659,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
     hue = (360 / RGBLED_NUM * i + current_hue) % 360;
-    sethsv(hue, rgblight_config.sat, rgblight_config.val, &led[i]);
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
 
@@ -469,7 +696,7 @@ void rgblight_effect_snake(uint8_t interval) {
         k = k + RGBLED_NUM;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), &led[i]);
+        sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), (LED_TYPE *)&led[i]);
       }
     }
   }
@@ -489,7 +716,7 @@ void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint8_t i, j, cur;
   int8_t k;
-  struct cRGB preled[RGBLED_NUM];
+  LED_TYPE preled[RGBLED_NUM];
   static int8_t increment = -1;
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
@@ -508,7 +735,7 @@ void rgblight_effect_knight(uint8_t interval) {
         k = RGBLED_NUM - 1;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, &preled[i]);
+        sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&preled[i]);
       }
     }
   }
@@ -536,6 +763,24 @@ void rgblight_effect_knight(uint8_t interval) {
       pos += 1;
     }
   }
+}
+
+
+void rgblight_effect_christmas(void) {
+  static uint16_t current_offset = 0;
+  static uint16_t last_timer = 0;
+  uint16_t hue;
+  uint8_t i;
+  if (timer_elapsed(last_timer) < RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL) {
+    return;
+  }
+  last_timer = timer_read();
+  current_offset = (current_offset + 1) % 2;
+  for (i = 0; i < RGBLED_NUM; i++) {
+    hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + current_offset) % 2) * 120;
+    sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
+  }
+  rgblight_set();
 }
 
 #endif

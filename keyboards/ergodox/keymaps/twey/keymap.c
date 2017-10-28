@@ -205,6 +205,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+    __attribute__ ((unused))
     uint32_t layer0 = layer_state & (1UL << 0),
              layer1 = layer_state & (1UL << 1),
              layer2 = layer_state & (1UL << 2),

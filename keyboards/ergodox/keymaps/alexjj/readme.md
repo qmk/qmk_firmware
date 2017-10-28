@@ -22,7 +22,7 @@ the 1st layer - in case of fat fingers.
 Layout
 -------
 
-![Layout](rl-layout.jpg "Isn't it lovely")
+![Layout](https://i.imgur.com/4bDwHLS.jpg "Isn't it lovely")
 
 ### Base Layer
 

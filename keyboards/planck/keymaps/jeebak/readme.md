@@ -6,7 +6,7 @@ needed, they will be mapped to home row keys. The `keymap.c` file will contain
 the exact changes. The diagrams in this README shows the highlights of the
 changes from the default mappings.
 
-I also decided to change all calls to `persistant_default_layer_set()` to
+I also decided to change all calls to `persistent_default_layer_set()` to
 `default_layer_set()` since this is my personal perference.
 
 ## Macros

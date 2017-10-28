@@ -1,6 +1,7 @@
 # project specific files
 SRC =	matrix.c \
-	led.c
+	led.c \
+	led_controller.c
 
 ## chip/board settings
 # - the next two should match the directories in
@@ -55,12 +56,12 @@ OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE ?= yes	# Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
-MOUSEKEY_ENABLE ?= yes	# Mouse keys
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control
-CONSOLE_ENABLE ?= yes	# Console for debug
-COMMAND_ENABLE ?= yes    # Commands for debug and configuration
-SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE ?= yes	    # USB Nkey Rollover
-CUSTOM_MATRIX ?= yes # Custom matrix file
+MOUSEKEY_ENABLE = yes	# Mouse keys
+EXTRAKEY_ENABLE = yes	# Audio control and System control
+CONSOLE_ENABLE = yes	# Console for debug
+COMMAND_ENABLE = yes    # Commands for debug and configuration
+SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes	    # USB Nkey Rollover
+CUSTOM_MATRIX = yes # Custom matrix file

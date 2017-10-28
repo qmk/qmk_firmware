@@ -2,7 +2,7 @@
 
 I'm using the colemak layer -- customized a bit to work a bit better when using spacemacs as my editor.
 
-![default-layer](img/colemak-default-layer.png)
+![default-layer](https://i.imgur.com/7uRqlWw.png)
 
 ## Special Keys ##
 
@@ -23,7 +23,7 @@ Just have the same button to toggle back to colemak.
 
 # Symbol Layer #
 
-![symbol-layer](img/symbol-layer.png)
+![symbol-layer](https://i.imgur.com/ppT0rIU.png)
 
 This is just putting matching closing symbols next to each other -- useful when editing lisp.
 
@@ -31,4 +31,4 @@ This is just putting matching closing symbols next to each other -- useful when 
 
 Just a basic number layer with a D-PAD on the other side.
 
-![number-dpad-layer](img/number-dpad-layer.png)
+![number-dpad-layer](https://i.imgur.com/Q0VHfyq.png)

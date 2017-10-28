@@ -48,8 +48,12 @@ int main(void)
     uint16_t last_timer = timer_read();
 #endif
 
+#ifdef CLKPR
+    // avoid unintentional changes of clock frequency in devices that have a
+    // clock prescaler
     CLKPR = 0x80, CLKPR = 0;
-#ifndef PS2_USE_USART
+#endif
+#ifndef NO_UART
     uart_init(UART_BAUD_RATE);
 #endif
 

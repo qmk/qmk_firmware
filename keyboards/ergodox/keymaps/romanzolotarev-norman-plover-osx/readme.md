@@ -10,7 +10,7 @@ There are four layers:
 Looking for HJKL arrows? [Here we
 go](../romanzolotarev-norman-plover-osx-hjkl/).
 
-[![keyboard-layout](romanzolotarev-norman-plover-osx.png)](http://www.keyboard-layout-editor.com/#/gists/8ebcb701ecb763944417)
+[![keyboard-layout](https://i.imgur.com/kseXR4Z.png)](http://www.keyboard-layout-editor.com/#/gists/8ebcb701ecb763944417)
 
 ## Switching
 

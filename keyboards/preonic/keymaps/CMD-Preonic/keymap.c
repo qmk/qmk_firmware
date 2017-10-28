@@ -212,10 +212,10 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
-  {440.0*pow(2.0,(14)/12.0), 20},
-  {440.0*pow(2.0,(26)/12.0), 8},
-  {440.0*pow(2.0,(18)/12.0), 20},
-  {440.0*pow(2.0,(26)/12.0), 8}
+   MUSICAL_NOTE(_B5, 20),
+   MUSICAL_NOTE(_B6, 8),
+   MUSICAL_NOTE(_DS6, 20),
+   MUSICAL_NOTE(_B6, 8),
 };
 
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
@@ -225,7 +225,7 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -238,7 +238,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
@@ -246,7 +246,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
@@ -254,7 +254,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _GAME:
@@ -262,7 +262,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_GAME);
+            persistent_default_layer_set(1UL<<_GAME);
           }
           break;
         case _NUMPAD:
@@ -270,7 +270,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_NUMPAD);
+            persistent_default_layer_set(1UL<<_NUMPAD);
           }
           break;
         case _ARROW:
@@ -278,7 +278,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             #ifdef AUDIO_ENABLE
               PLAY_NOTE_ARRAY(tone_colemak, false, 0);
             #endif
-            persistant_default_layer_set(1UL<<_LOWER);
+            persistent_default_layer_set(1UL<<_LOWER);
           }
           break;
         case _LOWER:
@@ -323,7 +323,7 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void play_goodbye_tone()
+void play_goodbye_tone(void)
 {
   PLAY_NOTE_ARRAY(goodbye, false, 0);
   _delay_ms(150);

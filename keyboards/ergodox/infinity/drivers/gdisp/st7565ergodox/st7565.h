@@ -34,4 +34,6 @@
 #define ST7565_RESISTOR_RATIO       0x20
 #define ST7565_POWER_CONTROL        0x28
 
+#define ST7565_RESET                0xE2
+
 #endif /* _ST7565_H */

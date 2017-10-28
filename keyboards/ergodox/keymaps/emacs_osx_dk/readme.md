@@ -7,4 +7,4 @@ Gui button takes a predominant place on the thumb cluster, as I'm using a mac os
 
 Finally there is also two Right Alts to easily access to accented letters of the spanish alphabet.
 
-![Default](default_highres.png)
+![Default](https://i.imgur.com/EDgp9xj.png)

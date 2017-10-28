@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 0 : Dvorak
  * ,--------------------------------------------------. ,--------------------------------------------------.
- * |   ]    |   1  |   2  |   3  |   4  |   5  | ESC  | | ESC  |   6  |   7  |   8  |   9  |   0  |   [    |
+ * |   =    |   1  |   2  |   3  |   4  |   5  | ESC  | | ESC  |   6  |   7  |   8  |   9  |   0  |   /    |
  * |--------+------+------+------+------+-------------| |------+------+------+------+------+------+--------|
  * | Tab    |   '  |   ,  |   .  |   P  |   Y  |      | |      |   F  |   G  |   C  |   R  |   L  |   \    |
  * |--------+------+------+------+------+------|      | |      |------+------+------+------+------+--------|
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
  * | LShift |   ;  |   Q  |   J  |   K  |   X  |      | |      |   B  |   M  |   W  |   V  |   Z  | RShift |
  * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   [  |   ]  | RGUI |
  *   `----------------------------------'                             `----------------------------------'
  *                                      ,-------------. ,-------------.
  *                                      | LCTL | LALT | | RALT | RCTL |
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DV] = KEYMAP(
         // left hand
-        KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_ESC,
+        KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_ESC,
         KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    XXXXXXX,
         KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,
         KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    MO(_MD),
@@ -70,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_HOME,
                                    KC_BSPC, KC_DEL,  KC_END,
         // right hand
-        KC_ESC,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC,
+        KC_ESC,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_SLSH,
         XXXXXXX, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
                  KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
         MO(_KP), KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                          KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  KC_RGUI,
+                          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, KC_RGUI,
         KC_RALT, KC_RCTL,
         KC_PGUP,
         KC_PGDN, KC_ENT,  KC_SPC
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      | |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   [  |   ]  | RGUI |
  *   `----------------------------------'                             `----------------------------------'
  *                                      ,-------------. ,-------------.
  *                                      | LCTL | LALT | | RALT | RCTL |
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| _MD  | | _KP  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      | |      |   K  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------' `-------------+------+------+------+------+--------'
- *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   /  |   =  | RGUI |
+ *   | LGUI |   `  |  INS | Left | Rght |                             |  Up  |  Dn  |   [  |   ]  | RGUI |
  *   `----------------------------------'                             `----------------------------------'
  *                                      ,-------------. ,-------------.
  *                                      | LCTL | LALT | | RALT | RCTL |
@@ -254,7 +254,7 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -265,17 +265,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       switch(id) {
         case _DV:
           if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_DV);
+            persistent_default_layer_set(1UL<<_DV);
           }
           break;
         case _QW:
           if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_QW);
+            persistent_default_layer_set(1UL<<_QW);
           }
           break;
         case _CM:
           if (record->event.pressed) {
-            persistant_default_layer_set(1UL<<_CM);
+            persistent_default_layer_set(1UL<<_CM);
           }
           break;
       }

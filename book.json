@@ -1,0 +1,24 @@
+{
+    "structure": {
+        "readme": "home.md",
+        "summary": "_summary.md"
+    },
+    "plugins" : ["toolbar", "edit-link", "anchors"],
+    "pluginsConfig": {
+            "edit-link": {
+                "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
+                "label": "Suggest an edit"
+            },
+        "toolbar": {
+            "buttons":
+            [
+                {
+                    "label": "QMK Firmware",
+                    "icon": "fa fa-github",
+                    "url": "https://github.com/qmk/qmk_firmware"
+                }
+            ]
+        }
+    },
+    "root": "./docs/"
+}

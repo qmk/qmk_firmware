@@ -16,8 +16,14 @@
  */
 uint32_t default_layer_state = 0;
 
+__attribute__((weak))
+uint32_t default_layer_state_set_kb(uint32_t state) {
+    return state;
+}
+
 static void default_layer_state_set(uint32_t state)
 {
+    state = default_layer_state_set_kb(state);
     debug("default_layer_state: ");
     default_layer_debug(); debug(" to ");
     default_layer_state = state;
@@ -57,8 +63,14 @@ void default_layer_xor(uint32_t state)
  */
 uint32_t layer_state = 0;
 
+__attribute__((weak))
+uint32_t layer_state_set_kb(uint32_t state) {
+    return state;
+}
+
 static void layer_state_set(uint32_t state)
 {
+    state = layer_state_set_kb(state);
     dprint("layer_state: ");
     layer_debug(); dprint(" to ");
     layer_state = state;

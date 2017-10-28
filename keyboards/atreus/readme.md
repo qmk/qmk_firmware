@@ -88,7 +88,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 ### Remember: These are just aliases
 
-These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/jackhumbert/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).
+These functions work the same way that their `ACTION_*` functions do - they're just quick aliases. To dig into all of the tmk ACTION_* functions, please see the [TMK documentation](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/doc/keymap.md#2-action).
 
 Instead of using `FNx` when defining `ACTION_*` functions, you can use `F(x)` - the benefit here is being able to use more than 32 function actions (up to 4096), if you happen to need them.
 
@@ -169,7 +169,7 @@ This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboar
 
 ## Building
 
-Download or clone the whole firmware and navigate to the keyboards/planck folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
+Download or clone the whole firmware and navigate to the keyboards/atreus folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use `make dfu` to program your PCB once you hit the reset button. 
 
 Depending on which keymap you would like to use, you will have to compile slightly differently.
 

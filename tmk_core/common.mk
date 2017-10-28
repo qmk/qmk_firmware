@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
 endif
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
@@ -16,6 +18,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
 	$(COMMON_DIR)/eeconfig.c \
+	$(COMMON_DIR)/report.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
@@ -26,6 +29,10 @@ endif
 
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+endif
+
+ifeq ($(PLATFORM),TEST)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
@@ -48,6 +55,10 @@ endif
 
 ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
+endif
+
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DRAW_ENABLE
 endif
 
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
@@ -76,6 +87,14 @@ ifeq ($(strip $(SLEEP_LED_ENABLE)), yes)
     TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
 endif
 
+ifeq ($(strip $(NO_UART)), yes)
+    TMK_COMMON_DEFS += -DNO_UART
+endif
+
+ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
+    TMK_COMMON_DEFS += -DNO_SUSPEND_POWER_DOWN
+endif
+
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/backlight.c
     TMK_COMMON_DEFS += -DBACKLIGHT_ENABLE
@@ -83,10 +102,33 @@ endif
 
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitBLE)
+	TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_BLE
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(BLUETOOTH)), AdafruitEZKey)
+	TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DMODULE_ADAFRUIT_EZKEY
+    TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
+endif
+
+ifeq ($(strip $(BLUETOOTH)), RN42)
+	TMK_COMMON_DEFS += -DBLUETOOTH_ENABLE
+	TMK_COMMON_DEFS += -DMODULE_RN42
+	TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
 ifeq ($(strip $(ONEHAND_ENABLE)), yes)
     TMK_COMMON_DEFS += -DONEHAND_ENABLE
+endif
+
+ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
+    TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
 ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)

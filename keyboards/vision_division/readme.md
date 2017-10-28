@@ -1,6 +1,12 @@
 vision_division keyboard firmware
 ======================
 
+## Keyboard Info
+
+[See this thread.](https://geekhack.org/index.php?topic=83692.msg2227856#msg2227856)
+
+Vision/Division is a full size or split keyboard that can be customized due to its pcb.
+
 ## Quantum MK Firmware
 
 For the full Quantum feature list, see [the parent readme.md](/doc/readme.md).

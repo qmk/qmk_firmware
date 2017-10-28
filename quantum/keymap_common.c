@@ -1,5 +1,5 @@
 /*
-Copyright 2012,2013 Jun Wako <wakojun@gmail.com>
+Copyright 2012-2017 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -48,12 +48,10 @@ action_t action_for_key(uint8_t layer, keypos_t key)
 
     action_t action;
     uint8_t action_layer, when, mod;
-    // The arm-none-eabi compiler generates out of bounds warnings when using the fn_actions directly for some reason
-    const uint16_t* actions = fn_actions;
 
     switch (keycode) {
         case KC_FN0 ... KC_FN31:
-            action.code = pgm_read_word(&actions[FN_INDEX(keycode)]);
+            action.code = keymap_function_id_to_action(FN_INDEX(keycode));
             break;
         case KC_A ... KC_EXSEL:
         case KC_LCTRL ... KC_RGUI:
@@ -79,10 +77,13 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case QK_FUNCTION ... QK_FUNCTION_MAX: ;
             // Is a shortcut for function action_layer, pull last 12bits
             // This means we have 4,096 FN macros at our disposal
-            action.code = pgm_read_word(&actions[(int)keycode & 0xFFF]);
+            action.code = keymap_function_id_to_action( (int)keycode & 0xFFF );
             break;
         case QK_MACRO ... QK_MACRO_MAX:
-            action.code = ACTION_MACRO(keycode & 0xFF);
+            if (keycode & 0x800) // tap macros have upper bit set
+                action.code = ACTION_MACRO_TAP(keycode & 0xFF);
+            else
+                action.code = ACTION_MACRO(keycode & 0xFF);
             break;
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             action.code = ACTION_LAYER_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
@@ -118,8 +119,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             mod = keycode & 0xFF;
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+            action.code = ACTION_LAYER_TAP_TOGGLE(keycode & 0xFF);
+            break;
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            action.code = ACTION_MODS_TAP_KEY((keycode >> 0x8) & 0xF, keycode & 0xFF);
+            mod = mod_config((keycode >> 0x8) & 0x1F);
+            action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_0 ... BL_15:
@@ -163,9 +168,24 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
 
-/* translates key to keycode */
+// translates key to keycode
+__attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+}
+
+// translates function id to action
+__attribute__ ((weak))
+uint16_t keymap_function_id_to_action( uint16_t function_id )
+{
+    // The compiler sees the empty (weak) fn_actions and generates a warning
+    // This function should not be called in that case, so the warning is too strict
+    // If this function is called however, the keymap should have overridden fn_actions, and then the compile
+    // is comparing against the wrong array
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Warray-bounds"
+	return pgm_read_word(&fn_actions[function_id]);
+    #pragma GCC diagnostic pop
 }

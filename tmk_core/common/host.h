@@ -28,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-#ifdef NKRO_ENABLE
-extern bool keyboard_nkro;
-#endif
-
 extern uint8_t keyboard_idle;
 extern uint8_t keyboard_protocol;
 
