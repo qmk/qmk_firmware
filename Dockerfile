@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y build-essential
 
 ENV keyboard=ergodox
 ENV subproject=ez
-ENV keymap=default
+ENV keymap=tk
 
 VOLUME /qmk
 WORKDIR /qmk
