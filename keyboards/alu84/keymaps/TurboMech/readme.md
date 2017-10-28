@@ -5,20 +5,20 @@ It is designed for Mac OS, due to the specific functions I created.
 Here is the layout found in the keymap.c file.
 
 I use shortcuts for the Function row (above number row) listed below:
- Scrn Bright Up: F14
- Scrn Bright Down: F15
- Expose: LCTRL + Up 
- Launchpad: LCTRL + L
- Show Desktop: F11
- Show/Hide Dock: LALT + LGUI + D
- Screen Capture: LCTRL + S
- Custom Shortcut (setup for an application I use frequently): LCTRL + LSHFT + O
- Custom Shortcut 1: LCTRL + LGUI + 1
- Custom Shortcut 2: LCTRL + LGUI + 2
- Custom Shortcut 3: LCTRL + LGUI + 3 
-  ^ use the custom shortcuts for whatever you want: launch an application, a macro, etc.
- Play/Pause: exactly that
- Mute / Volume Up / Volume Down: exactly what it says
+  Scrn Bright Up: F14
+  Scrn Bright Down: F15
+  Expose: LCTRL + Up 
+  Launchpad: LCTRL + L
+  Show Desktop: F11
+  Show/Hide Dock: LALT + LGUI + D
+  Screen Capture: LCTRL + S
+  Custom Shortcut (setup for an application I use frequently): LCTRL + LSHFT + O
+  Custom Shortcut 1: LCTRL + LGUI + 1
+  Custom Shortcut 2: LCTRL + LGUI + 2
+  Custom Shortcut 3: LCTRL + LGUI + 3 
+   ^ use the custom shortcuts for whatever you want: launch an application, a macro, etc.
+  Play/Pause: exactly that
+  Mute / Volume Up / Volume Down: exactly what it says
 
  Going down the right side from Vol Down:
   POWER: this serves as the power button on Mac's only.  Press and hold the button as you would on your Macbook or iMac keyboard.
