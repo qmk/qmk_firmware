@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_GRV, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN, KC_BSPC},
+  {KC_TILD, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,  KC_RPRN, KC_BSPC},
   {_______, KC_BSPC, KC_PGUP, KC_DEL,  _______, _______, _______, KC_PGUP, KC_UP,   _______,  _______, _______},
   {_______, KC_HOME, KC_PGDN, KC_END,  _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______},
   {_______, KC_PAUSE, KC_INS, _______, KC_PSCR, KC_PSCR, _______, KC_END,  _______, _______,  _______, _______},
