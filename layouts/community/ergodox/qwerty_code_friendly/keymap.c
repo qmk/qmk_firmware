@@ -11,11 +11,20 @@
 // #define CFQ_USE_MOMENTARY_LAYER_KEYS
 // #define CFQ_USE_EXPEREMENTAL_LAYER
 
+// keep enabled for now
+#define CFQ_USE_DYNAMIC_MACRO
+
 #if !defined(CFQ_USER_KEY1)
-#define CFQ_USER_KEY1 KC_F13
+#define CFQ_USER_KEY1 KC_SPC
 #endif
 #if !defined(CFQ_USER_KEY2)
-#define CFQ_USER_KEY2 KC_APP
+#define CFQ_USER_KEY2 KC_ENT
+#endif
+#if !defined(CFQ_USER_KEY3)
+#define CFQ_USER_KEY3 CFQ_KC_FN3
+#endif
+#if !defined(CFQ_USER_KEY4)
+#define CFQ_USER_KEY4 KC_APP
 #endif
 
 #define BASE 0 // default layer
@@ -29,8 +38,15 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
-  RGB_SLD
+  RGB_SLD,
+#ifdef CFQ_USE_DYNAMIC_MACRO
+  DYNAMIC_MACRO_RANGE,
+#endif
 };
+
+#ifdef CFQ_USE_DYNAMIC_MACRO
+#include "dynamic_macro.h"
+#endif
 
 // macros
 #ifdef CFQ_USE_EXPEREMENTAL_LAYER
@@ -77,13 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | USR2 |Space |                                       | Left | Down | Up   |Right | Del  |
+ *   | LCtl |Super | Alt  | USR4 |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Ins  | ~L3  |       | Home | End  |
+ *                                        | Ins  | USR3 |       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      | ~L2  |       | PgUp |      |      |
- *                                 |Space | USR1 |------|       |------|Enter |Space |
+ *                                 | USR1 | USR2 |------|       |------|Enter |Space |
  *                                 |      |      | ~L1  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -95,10 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,          KC_R,   KC_T,    KC_LPRN,
   KC_ESC,  KC_A,    KC_S,    KC_D,          KC_F,   KC_G,
   KC_LSFT, KC_Z,    KC_X,    KC_C,          KC_V,   KC_B,    KC_LBRC,
-  KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY2, KC_SPC,
-                                                    KC_INS,        CFQ_KC_FN3,
+  KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY4, KC_SPC,
+                                                    KC_INS,        CFQ_USER_KEY3,
                                                                    CFQ_KC_FN2,
-                                            KC_SPC, CFQ_USER_KEY1, CFQ_KC_FN1,
+                                     CFQ_USER_KEY1, CFQ_USER_KEY2, CFQ_KC_FN1,
   // right hand
   KC_RCBR,     KC_CIRC, KC_AMPR, KC_ASTR,KC_MINS, KC_EQL,    KC_BSPC,
   KC_RPRN,     KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,      KC_BSLS,
@@ -127,10 +143,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       |   0  |      |   .  |   +  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |      |      |       |      |        |
+ *                                        |Start1|Start2|       |      |        |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       |      |        |      |
- *                                 |      |      |------|       |------|        |      |
+ *                                 |      |      | Stop |       |      |        |      |
+ *                                 |Play1 |Play2 |------|       |------|        |      |
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -142,9 +158,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(M_ARROW_RMINUS),
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(M_BRACKET_IN_ANG), M(M_BRACKET_IN_BRC),
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+#ifdef CFQ_USE_DYNAMIC_MACRO
+                               DYN_REC_START1, DYN_REC_START2,
+                                               DYN_REC_STOP,
+                              DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, KC_TRNS,
+#else
                                       KC_TRNS, KC_TRNS,
                                                KC_TRNS,
                              KC_TRNS, KC_TRNS, KC_TRNS,
+#endif
   // right hand
   M(M_BRACKET_OUT_CBR), KC_F6,                KC_F7,   KC_F8,   KC_F9,     KC_F10,         KC_TRNS,
   M(M_BRACKET_OUT_PRN), M(M_ARROW_LEQL),      KC_KP_7, KC_KP_8, KC_KP_9,   KC_KP_SLASH,    KC_F11,
@@ -201,13 +223,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: My own testing keys!
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        | Spc1 | Spc2 | Spc3 | Spc4 | Spc5 |      |           |      | Spc6 | Spc7 | Spc8 |      |      |        |
+ * |        |      |      |  {   |   }  |      |   }  |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |  (   |   )  |      |   )  |           |      | Spc7 | Spc8 |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |  [   |   ]  |      |------|           |------| Spc4 | Spc5 | Spc6 |      |      |        |
+ * |--------+------+------+------+------+------|   ]  |           |      |------+------+------+------+------+--------|
+ * |        |      |      |  <   |   >  |      |      |           |      | Spc1 | Spc2 | Spc3 |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -220,23 +242,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 
-// EXPEREMENT
+// EXPERIMENT
 [EXPR] = LAYOUT_ergodox(
   // left hand
-  KC_TRNS, M(M_SPACES_1), M(M_SPACES_2), M(M_SPACES_3), M(M_SPACES_4), M(M_SPACES_5), KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                               KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                               KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                      KC_TRNS, KC_TRNS,
-                                               KC_TRNS,
-                             KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_LCBR,    KC_RCBR,    KC_TRNS, KC_RCBR,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_LPRN,    KC_RPRN,    KC_TRNS, KC_RPRN,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC,    KC_RBRC,	 KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, S(KC_COMM), S(KC_DOT),  KC_TRNS, KC_RBRC,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
+                                         KC_TRNS, KC_TRNS,
+                                                  KC_TRNS,
+                                KC_TRNS, KC_TRNS, KC_TRNS,
   // right hand
-  KC_TRNS, M(M_SPACES_6), M(M_SPACES_7), M(M_SPACES_8), KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS,
-           KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, M(M_SPACES_7), M(M_SPACES_8), KC_TRNS,       KC_TRNS, KC_TRNS,
+           KC_TRNS, M(M_SPACES_4), M(M_SPACES_5), M(M_SPACES_6), KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, M(M_SPACES_1), M(M_SPACES_2), M(M_SPACES_3), KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,       KC_TRNS,
   KC_TRNS, KC_TRNS,
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
@@ -314,6 +336,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CFQ_USE_DYNAMIC_MACRO
+  if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
+#endif
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
