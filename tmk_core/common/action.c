@@ -36,8 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
-#ifdef RETRO_TAP
-int retro_tap_counter = 0;
+#ifdef RETRO_TAPPING
+int retro_tapping_counter = 0;
 #endif
 
 #ifdef FAUXCLICKY_ENABLE
@@ -49,8 +49,8 @@ void action_exec(keyevent_t event)
     if (!IS_NOEVENT(event)) {
         dprint("\n---- action_exec: start -----\n");
         dprint("EVENT: "); debug_event(event); dprintln();
-#ifdef RETRO_TAP
-        retro_tap_counter++;
+#ifdef RETRO_TAPPING
+        retro_tapping_counter++;
 #endif
     }
 
@@ -594,25 +594,25 @@ void process_action(keyrecord_t *record, action_t action)
 #endif
 
 #ifndef NO_ACTION_TAPPING
-  #ifdef RETRO_TAP
+  #ifdef RETRO_TAPPING
   if (!is_tap_key(record->event.key)) {
-    retro_tap_counter = 0;
+    retro_tapping_counter = 0;
   } else {
     if (event.pressed) {
         if (tap_count > 0) {
-          retro_tap_counter = 0;
+          retro_tapping_counter = 0;
         } else {
 
         }
     } else {
       if (tap_count > 0) {
-        retro_tap_counter = 0;
+        retro_tapping_counter = 0;
       } else {
-        if (retro_tap_counter == 2) {
+        if (retro_tapping_counter == 2) {
           register_code(action.layer_tap.code);
           unregister_code(action.layer_tap.code);
         }
-        retro_tap_counter = 0;
+        retro_tapping_counter = 0;
       }
     }
   }
