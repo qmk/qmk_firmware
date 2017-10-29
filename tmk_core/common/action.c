@@ -36,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
+#ifdef RETRO_TAP
+int slow_tap_counter = 0;
+#endif
+
 #ifdef FAUXCLICKY_ENABLE
 #include <fauxclicky.h>
 #endif
@@ -45,6 +49,9 @@ void action_exec(keyevent_t event)
     if (!IS_NOEVENT(event)) {
         dprint("\n---- action_exec: start -----\n");
         dprint("EVENT: "); debug_event(event); dprintln();
+#ifdef RETRO_TAP
+        slow_tap_counter++;
+#endif
     }
 
 #ifdef FAUXCLICKY_ENABLE
@@ -462,6 +469,9 @@ void process_action(keyrecord_t *record, action_t action)
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
+#ifdef RETRO_TAP
+                            slow_tap_counter=0;
+#endif
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
@@ -473,9 +483,20 @@ void process_action(keyrecord_t *record, action_t action)
                                 wait_ms(80);
                             }
                             unregister_code(action.layer_tap.code);
+#ifdef RETRO_TAP
+                            slow_tap_counter=0;
+#endif
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
+#ifdef RETRO_TAP
+                            dprintf("slow_tap_counter:%d\n", slow_tap_counter);
+                            if (slow_tap_counter == 2) {
+                              register_code(action.layer_tap.code);
+                              unregister_code(action.layer_tap.code);
+                            }
+                            slow_tap_counter = 0;
+#endif
                         }
                     }
                     break;
@@ -586,6 +607,12 @@ void process_action(keyrecord_t *record, action_t action)
     }
 #endif
 
+#ifdef RETRO_TAP
+    if (!is_tap_key(record->event.key)) {
+      slow_tap_counter = 0;
+    }
+#endif
+
 #ifndef NO_ACTION_ONESHOT
     /* Because we switch layers after a oneshot event, we need to release the
      * key before we leave the layer or no key up event will be generated.
@@ -619,7 +646,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_CAPSLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_CAPSLOCK);
         send_keyboard_report();
     }
@@ -630,7 +657,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_NUMLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_NUMLOCK);
         send_keyboard_report();
     }
@@ -641,7 +668,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_SCROLLLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_SCROLLLOCK);
         send_keyboard_report();
     }
