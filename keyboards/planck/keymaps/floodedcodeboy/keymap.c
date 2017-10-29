@@ -29,9 +29,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |Esc/~ |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |Enter |
+ * |(LShft|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |RShft)|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TBC1 | Ctrl | Alt  | GUI  |Lower |Space |Space |Raise |   /  | Left | Down |Right |
+ * | TBC1 | Ctrl | Alt  | GUI  |Lower |Enter |Space |Raise |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  *
  * TBC1 - possible switch to windows control layer / terminal/amythest controls
@@ -42,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = {
             {KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC},
             {KC_GESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT},
-            {SFT_T(KC_CAPS), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_UP, KC_ENTER},
-            {_______, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC, RAISE, KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}},
+            {KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_UP, KC_RSPC},
+            {_______, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_ENTER, KC_SPC, RAISE, KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}},
 
         /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -54,6 +54,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Vol- |  F7  |  F8  |  F9  |  1   |   2  |   3  |   \  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F10 |  F11 |  F12 |      |   0  |   .  |      | Home |PG Up |PG Dn | End  |
+ * `-----------------------------------------------------------------------------------'
+ *
+ * ,-----------------------------------------------------------------------------------.
+ * | Mute |  F1  |  F2  |  F3  |      |   {  |   }  |   /  |   *  |  7   |  8   |  9   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Vol+ |  F4  |  F5  |  F6  |      |   (  |   )  |   -  |   +  |  4   |  5   |  6   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Vol- |  F7  |  F8  |  F9  |      |   |  |   \  |      |   0  |  1   |  2   |  3   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  F10 |  F11 |  F12 |      |      |      |      | Home |PG Up |PG Dn | End  |
  * `-----------------------------------------------------------------------------------'
  *
  * Proposed Additions:
@@ -71,19 +81,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | DEL  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |      |      |      |      |      |      |   -  |   =  |   [  |   ]  |  \   |
+ * | Acc0 | RClk |  Mup | LClk |MWhlU |      |      |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |ISO # |ISO / |Pg Up |Pg Dn |      |
+ * | Acc1 | MLft | MDwn | MRt  |MWhlD |      |      |ISO # |ISO / |Pg Up |Pg Dn |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
+ * | Acc2 |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
-        [_RAISE] = {
-            {KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL},
-            {KC_DEL, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS},
-            {_______, _______, _______, _______, _______, _______, _______, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______},
-            {_______, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}
-        },
+        [_RAISE] = {{KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL}, {KC_MS_ACCEL0, KC_BTN2, KC_MS_UP, KC_BTN1, KC_MS_WH_UP, _______, _______, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS}, {KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN, _______, _______, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______}, {KC_MS_ACCEL2, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}},
 
         /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
