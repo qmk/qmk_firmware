@@ -469,9 +469,6 @@ void process_action(keyrecord_t *record, action_t action)
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: register_code\n");
                             register_code(action.layer_tap.code);
-#ifdef RETRO_TAP
-                            slow_tap_counter=0;
-#endif
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: On on press\n");
                             layer_on(action.layer_tap.val);
@@ -483,20 +480,9 @@ void process_action(keyrecord_t *record, action_t action)
                                 wait_ms(80);
                             }
                             unregister_code(action.layer_tap.code);
-#ifdef RETRO_TAP
-                            slow_tap_counter=0;
-#endif
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
                             layer_off(action.layer_tap.val);
-#ifdef RETRO_TAP
-                            dprintf("slow_tap_counter:%d\n", slow_tap_counter);
-                            if (slow_tap_counter == 2) {
-                              register_code(action.layer_tap.code);
-                              unregister_code(action.layer_tap.code);
-                            }
-                            slow_tap_counter = 0;
-#endif
                         }
                     }
                     break;
@@ -607,10 +593,30 @@ void process_action(keyrecord_t *record, action_t action)
     }
 #endif
 
-#ifdef RETRO_TAP
-    if (!is_tap_key(record->event.key)) {
-      slow_tap_counter = 0;
+#ifndef NO_ACTION_TAPPING
+  #ifdef RETRO_TAP
+  if (!is_tap_key(record->event.key)) {
+    slow_tap_counter = 0;
+  } else {
+    if (event.pressed) {
+        if (tap_count > 0) {
+          slow_tap_counter = 0;
+        } else {
+
+        }
+    } else {
+      if (tap_count > 0) {
+        slow_tap_counter = 0;
+      } else {
+        if (slow_tap_counter == 2) {
+          register_code(action.layer_tap.code);
+          unregister_code(action.layer_tap.code);
+        }
+        slow_tap_counter = 0;
+      }
     }
+  }
+  #endif
 #endif
 
 #ifndef NO_ACTION_ONESHOT
