@@ -1300,6 +1300,9 @@ uint32_t layer_state_set_kb(uint32_t state) {
         SEQ_ONE_KEY(KC_C) {
             SEND_STRING("Covecube");
         }
+        SEQ_ONE_KEY(KC_D) {
+            SEND_STRING("StableBit CloudDrive");
+        }
         SEQ_ONE_KEY(KC_L) {
             register_code(KC_LGUI);
             register_code(KC_L);
@@ -1308,9 +1311,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
         }
         SEQ_TWO_KEYS(KC_S, KC_D) {
             SEND_STRING("StableBit DrivePool");
-        }
-        SEQ_TWO_KEYS(KC_C, KC_L) {
-            SEND_STRING("StableBit CloudDrive");
         }
         SEQ_TWO_KEYS(KC_S, KC_C) {
             SEND_STRING("StableBit Scanner");

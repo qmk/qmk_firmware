@@ -18,6 +18,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -55,3 +56,6 @@
 
 #endif
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
+=======
+#endif
+>>>>>>> Update to keymaps

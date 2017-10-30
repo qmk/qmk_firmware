@@ -39,11 +39,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 #endif
 
+<<<<<<< HEAD
 #define FORCE_NKRO
 
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> Update to keymaps
 
 >>>>>>> Add workman layer to planck
 /* key combination for command */
@@ -64,8 +67,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 >>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
+<<<<<<< HEAD
 #define RGBLED_NUM 12     // Number of LEDs
 >>>>>>> Tweaked RGB lighting stuff
+=======
+#define RGBLED_NUM 16     // Number of LEDs
+>>>>>>> Update to keymaps
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
