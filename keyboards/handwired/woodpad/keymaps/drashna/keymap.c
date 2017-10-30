@@ -65,7 +65,8 @@ enum custom_keycodes {
     KC_DOOMFIST,
     KC_JUSTGAME,
     KC_GLHF,
-    KC_TORB
+    KC_TORB,
+    KC_MAKE
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -163,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_MEDIA] = KEYMAP( /* Base */
     RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
-    _______, _______, RGB_HUI, RGB_HUD,   \
+    KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
     RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, _______, RGB_SAD, RGB_VAD   \
@@ -324,6 +325,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case KC_MAKE:
+            if (!record->event.pressed) {
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+            }
+            return false;
+            break;
+
 
   }
   return true;
