@@ -14,10 +14,5 @@
 #endif // RGBLIGHT_ENABLE
 
 #define FORCE_NKRO
-#ifdef FORCE_NKRO
-#define NKRO_EPSIZE 32
-#endif
-
-#define PERMISSIVE_HOLD
 
 #endif

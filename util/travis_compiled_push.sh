@@ -40,7 +40,8 @@ if [[ $NEFM -gt 0 ]] ; then
 	#lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
 	lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | sort -V | tail -1)
 	newtag=$(increment_version $lasttag)
-	git tag $newtag
+	newertag=$(increment_version $newtag)
+	git tag $newtag || git tag $newertag
 	git push --tags git@github.com:qmk/qmk_firmware.git
 else
 	echo "No essential files modified."
