@@ -76,7 +76,8 @@ if kb is not None:
     print('Found a keyboad in normal mode. Attempting to send it to bootloader mode ...', end='')
     sendDeviceToBootloaderMode(kb)
     print(' done.')
-    print("Hint: If your keyboard can't be set to bootloader mode automatically, plug it in while pressing left control to do so manually.")
+    print("Hint: If your keyboard can't be set to bootloader mode automatically, plug it in while pressing the bootloader key to do so manually.")
+    print("      You can find more infos about this here: https://github.com/qmk/qmk_firmware/tree/master/keyboards/ps2avrGB#setting-the-board-to-bootloader-mode")
 
 attempts = 12  # 60 seconds
 found = False
