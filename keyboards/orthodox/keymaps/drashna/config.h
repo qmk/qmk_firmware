@@ -41,8 +41,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
+=======
+>>>>>>> Update to keymaps
 #define FORCE_NKRO
 
 <<<<<<< HEAD
@@ -94,9 +97,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 >>>>>>> Add workman layer to planck
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
+<<<<<<< HEAD
 #define RGBLED_NUM 12     // Number of LEDs
 >>>>>>> Tweaked RGB lighting stuff
+<<<<<<< HEAD
 >>>>>>> Tweaked RGB lighting stuff
+=======
+=======
+#define RGBLED_NUM 16     // Number of LEDs
+>>>>>>> Update to keymaps
+>>>>>>> Update to keymaps
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12

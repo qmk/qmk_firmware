@@ -81,8 +81,13 @@ enum custom_keycodes {
     KC_DOOMFIST,
     KC_JUSTGAME,
     KC_GLHF,
+<<<<<<< HEAD
     KC_TORB
 >>>>>>> Move woodpad to handwired
+=======
+    KC_TORB,
+    KC_MAKE
+>>>>>>> Update to keymaps
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -187,9 +192,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_MUTE, KC_VOLD, KC_VOLU,\
 =======
     RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
     _______, _______, RGB_HUI, RGB_HUD,   \
 >>>>>>> Move woodpad to handwired
+=======
+    KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
+>>>>>>> Update to keymaps
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
     RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, _______, RGB_SAD, RGB_VAD   \
@@ -481,7 +490,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+<<<<<<< HEAD
 >>>>>>> Move woodpad to handwired
+=======
+        case KC_MAKE:
+            if (!record->event.pressed) {
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+            }
+            return false;
+            break;
+
+>>>>>>> Update to keymaps
 
   }
   return true;
