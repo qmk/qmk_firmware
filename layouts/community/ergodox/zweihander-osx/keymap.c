@@ -6,12 +6,7 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
-#define SGWK 0 // "sagewick", ⌘S ⌘⇥
-#define SGWF 1 // "sagewick freshly", ⌘S ⌘⇥ ⌘R
-#define BBED 2 // BBEdit
-#define TMNL 3 // Terminal
-#define SAFA 4 // Safari
-#define ALFRED_LEAD_TIME 250 // time, in milliseconds, to let Alfred come to the fore and accept keyboard input
+// Best viewed in Xcode in Menlo Regular.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -22,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   ⌦    |   Q  |   W  |   E  |   R  |   T  | ~L1  |           | ~L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   ⌫    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2| ' / L⌘ |
- * |--------+------+------+------+------+------|  L⌘  |           |  L⌘  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  L⌘  |           |  R⌘  |------+------+------+------+------+--------|
  * |  L⇧    |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | / / ⌃|  R⇧    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |  L⌃  |  L⌥  |  L⌘  |   ←  |   →  |                                       |   ↑  |   ↓  |   [  |   ]  |      |
@@ -51,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(SYMB),  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              MO(SYMB),  KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_BSLS,
                         KC_H,   KC_J,   KC_K,   KC_L,   LT(MDIA, KC_SCLN),GUI_T(KC_QUOT),
-             KC_LGUI,   KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+             KC_RGUI,   KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
                                 KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_SPC ,
              KC_ESC,            KC_BSPC,
              KC_PGDN,
@@ -102,13 +97,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F14 |  F15 |PrtScr|SclLck| Pause|      |           |  ⌘Q  |  ⌘W  | ⌘⇧`  |  ⌘`  |      |      |  Power |
+ * |        |  F14 |  F15 |PrtScr|SclLck| Pause|      |           |      |  ⌘W  | ⌘⇧`  |  ⌘`  |      |      |  Power |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | PgUp |⌘S⌘⇥⌘R| Term |      |           |      |  ⌘]  | ⌥⌘↑  |   ↑  | ⌥⌘↓  |      |        |
+ * |        |      |      | PgUp |      |      |      |           |      |  ⌘]  | ⌥⌘↑  |   ↑  | ⌥⌘↓  |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |Safari| PgDn |      |      |------|           |------|  ⌘[  |   ←  |   ↓  |   →  |      |    ⏯  |
+ * |        |      | Home | PgDn |  End |      |------|           |------|  ⌘[  |   ←  |   ↓  |   →  |      |   F16  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |BBEdit|      |           |      |      |  ⏯  |  ⏮  |   ⏭ |      |        |
+ * |        |      |      |      |      |      |      |           |      |      |  ⏯  |  ⏮  |   ⏭ |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |VolUp |VolDn | Mute |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -123,17 +118,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_F14 , KC_F15 , KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS,  /* F14 dims screen, F15 brightens */
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, M(SGWF), M(TMNL), KC_TRNS,
-       KC_TRNS, KC_TRNS, M(SAFA), KC_PGDN, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(BBED), KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END , KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_HOME,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       LGUI(KC_Q),  LGUI(KC_W),     LGUI(LSFT(KC_GRV)), LGUI(KC_GRV),   KC_TRNS,                KC_TRNS,        KC_PWR ,
+       KC_TRNS,     LGUI(KC_W),     LGUI(LSFT(KC_GRV)), LGUI(KC_GRV),   KC_TRNS,                KC_TRNS,        KC_POWER,
        KC_TRNS,     LGUI(KC_RBRC),  LGUI(LALT(KC_UP)),  KC_UP  ,        LGUI(LALT(KC_DOWN)),    KC_TRNS,        KC_TRNS,
-                    LGUI(KC_LBRC),  KC_LEFT,            KC_DOWN,        KC_RGHT,                KC_TRNS,        KC_MPLY,
+                    LGUI(KC_LBRC),  KC_LEFT,            KC_DOWN,        KC_RGHT,                KC_TRNS,        KC_F16 ,
        KC_TRNS,     KC_TRNS,        KC_MPLY,            KC_MPRV,        KC_MNXT,                KC_TRNS,        KC_TRNS,
                                     KC_VOLU,            KC_VOLD,        KC_MUTE,                KC_TRNS,        KC_TRNS,
        KC_TRNS,     KC_TRNS,
@@ -149,57 +144,7 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
-          case SGWK:
-              if (record->event.pressed) {
-                  return MACRO(
-                               I(10),
-                               D(LGUI), T(S),   U(LGUI),
-                               D(LGUI), T(TAB), U(LGUI),
-                               END);
-              }
-              break;
-          case SGWF:
-              if (record->event.pressed) {
-                  return MACRO(
-                               I(10),
-                               D(LGUI), T(S),   U(LGUI),
-                               D(LGUI), T(TAB), U(LGUI),
-                               D(LGUI), T(R),   U(LGUI),
-                               END);
-              }
-              break;
-          case BBED:
-              if (record->event.pressed) {
-                  return MACRO(
-                               I(10),
-                               D(LALT), T(SPC),   U(LALT), W(ALFRED_LEAD_TIME),
-                               T(B), T(B), T(E), T(D), T(I), T(T),
-                               T(ENT),
-                               END);
-              }
-              break;
-          case TMNL:
-              if (record->event.pressed) {
-                  return MACRO(
-                               I(10),
-                               D(LALT), T(SPC),   U(LALT), W(ALFRED_LEAD_TIME),
-                               T(T), T(E), T(R), T(M), T(I), T(N), T(A), T(L),
-                               T(ENT),
-                               END);
-              }
-              break;
-          case SAFA:
-              if (record->event.pressed) {
-                  return MACRO(
-                               I(10),
-                               D(LALT), T(SPC),   U(LALT), W(ALFRED_LEAD_TIME),
-                               T(S), T(A), T(F), T(A), T(R), T(I),
-                               T(ENT),
-                               END);
-              }
-              break;
-      }
+
     return MACRO_NONE;
 };
 
