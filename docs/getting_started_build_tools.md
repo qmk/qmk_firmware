@@ -36,7 +36,15 @@ Debian/Ubuntu example:
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
 
-# Mac
+## Nix
+
+If you're on [NixOS](https://nixos.org/), or have Nix installed on Linux or macOS, run `nix-shell` from the repository root to get a build environment.
+
+By default, this will download compilers for both AVR and ARM. If you don't need both, disable the `avr` or `arm` arguments, e.g.:
+
+    nix-shell --arg arm false
+
+## Mac
 If you're using [homebrew,](http://brew.sh/) you can use the following commands:
 
     brew tap osx-cross/avr
@@ -113,10 +121,10 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 # modify the keymap and keyboard assigment to compile what you want
 # defaults are ergodox/default
 
-docker run -e keymap=gwen -e subproject=ez -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 
 # On windows docker seems to have issue with VOLUME tag in Dockerfile, and $('pwd') won't print a windows compliant path, use full path instead like this
-docker run -e keymap=default -e subproject=ez -e keyboard=ergobox --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
 

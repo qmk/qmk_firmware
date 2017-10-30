@@ -9,7 +9,7 @@ Hardware Availability: https://mechkeys.ca/collections/keyboards/products/mechmi
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mechmini-default
+    make mechmini:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
@@ -40,7 +40,7 @@ Then, with the keyboard plugged in, simply run this command from the
 `qmk_firmware` directory:
 
 ```
-$ make mechmini-program
+$ make mechmini:program
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
