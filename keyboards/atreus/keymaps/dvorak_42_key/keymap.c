@@ -15,7 +15,7 @@
 static bool mouse_lock = false;
 
 // building instructions:
-// make atreus-dvorak_42_key
+// make atreus:dvorak_42_key
 
 // flashing instructions:
 // avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_dvorak_42_key.hex  -P COM7

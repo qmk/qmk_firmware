@@ -21,6 +21,7 @@ build/
 quantum/version.h
 .idea/
 CMakeLists.txt
+cmake-build-debug
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
@@ -54,3 +55,4 @@ util/Win_Check_Output.txt
 # things travis sees
 secrets.tar
 id_rsa_*
+/.vs

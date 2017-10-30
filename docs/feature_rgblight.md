@@ -11,9 +11,9 @@ Some keyboards come with RGB LEDs pre-installed. Others have to have LEDs instal
 
 QMK uses Hue, Saturation, and Value to set color rather than using RGB. You can use the color wheel below to see how this works. Changing the Hue will cycle around the circle. Saturation will affect the intensity of the color, which you can see as you move from the inner part to the outer part of the wheel. Value sets the overall brightness.
 
-![gitbook/images/color-wheel.svg]
+<img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250">
 
-If you would like to learn more about HSV you can start with the [wikipedia article](https://en.wikipedia.org/wiki/HSL_and_HSV).
+If you would like to learn more about HSV you can start with the [Wikipedia article](https://en.wikipedia.org/wiki/HSL_and_HSV).
 
 ## Configuration
 
@@ -21,11 +21,11 @@ Before RGB Lighting can be used you have to enable it in `rules.mk`:
 
     RGBLIGHT_ENABLE = yes
 
-You can configure the behavior of the RGB lighting by defining values inside `config.h`. 
+You can configure the behavior of the RGB lighting by defining values inside `config.h`.
 
 ### Required Configuration
 
-At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected. 
+At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected.
 
 ```c
 #define RGB_DI_PIN D7     // The pin the LED strip is connected to
@@ -49,8 +49,10 @@ If you have `#define RGBLIGHT_ANIMATIONS` in your `config.h` you will have a num
 | Option | Default Value | Description |
 |--------|---------------|-------------|
 | `RGBLIGHT_ANIMATIONS` | | `#define` this to enable animation modes. |
-| `RGBLIGHT_EFFECT_SNAKE_LENGTH` | 4 | The number of LEDs to light up for the "snake" mode. |
-| `RGBLIGHT_EFFECT_KNIGHT_LENGTH` | 3 | The number of LEDs to light up for the "knight" mode. |
+| `RGBLIGHT_EFFECT_BREATHE_CENTER` | 1.85 | Used to calculate the curve for the breathing animation. Valid values 1.0-2.7. |
+| `RGBLIGHT_EFFECT_BREATHE_MAX` | 255 | The maximum brightness for the breathing mode. Valid values 1-255. |
+| `RGBLIGHT_EFFECT_SNAKE_LENGTH` | 4 | The number of LEDs to light up for the "snake" animation. |
+| `RGBLIGHT_EFFECT_KNIGHT_LENGTH` | 3 | The number of LEDs to light up for the "knight" animation. |
 | `RGBLIGHT_EFFECT_KNIGHT_OFFSET` | 0 | Start the knight animation this many LEDs from the start of the strip. |
 | `RGBLIGHT_EFFECT_KNIGHT_LED_NUM` | RGBLED_NUM | The number of LEDs to have the "knight" animation travel. |
 | `RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL` | 1000 | How long to wait between light changes for the "christmas" animation. Specified in ms. |
@@ -86,6 +88,7 @@ These control the RGB Lighting functionality.
 |-----------|------------|-------------|
 ||`RGB_TOG`|toggle on/off|
 ||`RGB_MOD`|cycle through modes|
+||`RGB_SMOD`|cycle through modes, use reverse direction when shift is hold|
 ||`RGB_HUI`|hue increase|
 ||`RGB_HUD`|hue decrease|
 ||`RGB_SAI`|saturation increase|

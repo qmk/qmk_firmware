@@ -33,6 +33,7 @@
 	{ k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b } \
 }
 
+#define KEYMAP PREONIC_MIT
 #define LAYOUT_ortho_5x12 PREONIC_GRID
 
 #endif
