@@ -48,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
+#ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
 #define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
 #define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
@@ -56,6 +57,7 @@ bool skip_leds = false;
 #define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
 #define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#endif
 //This is both for underglow, and Diablo 3 macros
 
 static uint8_t current_layer = 0;
@@ -136,9 +138,11 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 // and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count >= 4) {
+#ifdef RGBLIGHT_ENABLE
         rgblight_enable();
         rgblight_mode(1);
         rgblight_setrgb(0xff,0x00,0x00);
+#endif
         reset_keyboard();
         reset_tap_dance(state);
     }
@@ -558,6 +562,9 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CONSOLE_ENABLE
+    xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
     switch (keycode) {
         // dynamically generate these.
         case EPRM:
@@ -574,7 +581,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_SLD:
             if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
                 rgblight_mode(1);
+#endif
             }
             return false;
             break;
@@ -754,7 +763,8 @@ void matrix_scan_user(void) {  // runs frequently to update info
     }
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
-        uint8_t default_layer = 0;
+ #ifdef RGBLIGHT_ENABLE
+       uint8_t default_layer = 0;
         default_layer = eeconfig_read_default_layer();
 
         switch (layer) {
@@ -794,11 +804,14 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 rgblight_mode(1);
                 break;
         }
+#endif
         has_layer_changed = false;
     }
 
     // Run Diablo 3 macro checking code.
+#ifdef TAP_DANCE_ENABLE
     run_diablo_macro_check();
+#endif
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();

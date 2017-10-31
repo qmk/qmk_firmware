@@ -275,15 +275,15 @@ void matrix_scan_user(void) {  // runs frequently to update info
                 break;
             case _RAISE:
                 rgblight_set_blue;
-                rgblight_mode(2);
+                rgblight_mode(5);
                 break;
             case _LOWER:
                 rgblight_set_orange;
-                rgblight_mode(3);
+                rgblight_mode(5);
                 break;
             case _ADJUST:
                 rgblight_set_red;
-                rgblight_mode(17);
+                rgblight_mode(23);
                 break;
             case 6:
                 rgblight_set_urine;
