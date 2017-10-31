@@ -1,10 +1,3 @@
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
-
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = no
-CONSOLE_ENABLE = no
-API_SYSEX_ENABLE = no
-TAP_DANCE_ENABLE = no
