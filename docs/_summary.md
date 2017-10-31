@@ -67,7 +67,7 @@
   * [Unit Testing](unit_testing.md)
 
 * For Makers and Modders
-  * [Hand Wiring Guide](hand_wiring.md)
+  * [Hand Wiring Guide](hand_wire.md)
   * [ISP flashing guide](isp_flashing_guide.md)
   * [Modding your keyboard](modding_your_keyboard.md)
 
