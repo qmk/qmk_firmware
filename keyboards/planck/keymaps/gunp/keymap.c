@@ -176,7 +176,7 @@ void shutdown_user() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint16_t mask = 1 << (3 - (keycode - FN_A));
-  if(!process_record_dynamic_macro(keycode, record))
+  if (!process_record_dynamic_macro(keycode, record))
     return false;
   if(FN_A <= keycode && keycode <= FN_D) {
     if(!(cur_layer_code & mask) == record->event.pressed) {
