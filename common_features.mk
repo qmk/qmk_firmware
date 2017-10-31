@@ -70,7 +70,8 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	SRC += $(QUANTUM_DIR)/pointing_device.c
+    OPT_DEFS += -POINTING_DEVICE_ENABLE
+    SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
