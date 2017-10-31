@@ -113,6 +113,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
+ * Cycle Layout Fwd : Alt + Shift + Space : LALT(LSFT(KC_SPACE))
+ * Cycle Layout Bk : Ctrl + Alt + Shift + Space : LCTL(LALT(LSFT(KC_SPACE)))
+ * Shrink Main Pane : Alt + Shift + H : LALT(LSFT(KC_H))
+ * Expand Main Pane : Alt + Shft + L : LALT(LSFT(KC_L))
+ * Move Focus CCW : Alt + Shift + J : LALT(LSFT(KC_J))
+ * Move Focus CW : Alt + Shift + K : LALT(LSFT(KC_K))
+ * Increase Main Pane Count : Alt +  Shift + , : LALT(LSFT(KC_COMMA))
+ * Decrease Main Pane Count : Alt + Shift + . : LALT(LSFT(KC_DOT))
  */
         [_AMYTHEST] = {{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}}
 
