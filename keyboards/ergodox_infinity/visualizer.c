@@ -33,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "system/serial_link.h"
 #include "default_animations.h"
 
-static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0x00);
-static const uint32_t initial_color = LCD_COLOR(0x7F, 0xFF, 0xFF);
+static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
+static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
 
 static const uint32_t led_emulation_colors[4] = {
     LCD_COLOR(0, 0, 0),
@@ -116,7 +116,7 @@ static keyframe_animation_t lcd_bitmap_leds_animation = {
 void initialize_user_visualizer(visualizer_state_t* state) {
     // The brightness will be dynamically adjustable in the future
     // But for now, change it here.
-    lcd_backlight_brightness(180);
+    lcd_backlight_brightness(130);
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     lcd_state = LCD_STATE_INITIAL;
