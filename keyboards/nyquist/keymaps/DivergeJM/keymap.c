@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------.    .-----------------------------------------.
- * |  Esc |      |      |      |      |      |    |   =  |   /  |   *  |   -  |      | Del  |
+ * |  Esc |      |      |      |      |RESET |    |   =  |   /  |   *  |   -  |      | Del  |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
  * |  Tab | PgUp | Home |  Up  |  End |      |    |   7  |   8  |   9  |   +  |      |   \  |
  * |------+------+------+------+------+------|    |------+------+------+------+------+------|
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
  */
 [_LOWER] = KEYMAP( \
-  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  KC_PEQL, KC_PSLS, KC_PAST, KC_MINS,  XXXXXXX, _______, \
+  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  RESET,   XXXXXXX,  KC_PEQL, KC_PSLS, KC_PAST, KC_MINS,  XXXXXXX, _______, \
   _______, KC_PGUP,  KC_HOME,  KC_UP,    KC_END,  XXXXXXX,  KC_7,    KC_8,    KC_9,    KC_PPLS,  XXXXXXX, _______,\
   _______, KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT, XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_PENT,  XXXXXXX, _______,\
   _______, _______,  _______,  _______,  _______, XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_PENT,  XXXXXXX, _______,\
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.     .-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |     |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
- * | Esc  | Mute | Vol- | Vol+ |      | RESET|     | POWER|      |      |      |      | Ins  |
+ * | Esc  | Mute | Vol- | Vol+ |      |      |     |      |      |      |      |      | Ins  |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
  * | Caps | Stop | |<<  | >/|| |  >>| |      |     |      |      |      |      |      |PrtSc |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FUNCTION] = KEYMAP( 
   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12, \
-  _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, RESET,   KC_PWR,  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_INS , \
+  _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_INS , \
   KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY,  KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_SLCK, \
   _______, _______, _______, _______,  _______, _______, _______, _______, FNC,     _______,  _______, KC_PAUS \
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* MOUSE
  * ,----------------------------------------.     .----------------------------------------.
- * |  Esc |      |      |      |      |     |     |     |      |      |      |      |  Del |
+ * |  Esc |      |      |      |      |     |     |RESET|      |      |      |      |  Del |
  * |------+------+------+------+------+-----|     |-----+------+------+------+------+------|
  * |  Tab | WhlU | WhlL | MsUp | WhlR |     |     |     |  M1  |  M2  |  M3  |      |      |
  * |------+------+------+------+------+-----|     |-----+------+------+------+------+------|
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSE] = KEYMAP(
-   KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_DEL, \
+   KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, RESET,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_DEL, \
    KC_TAB,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
    KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_RSPC, \
