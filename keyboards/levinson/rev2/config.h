@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCEEB
 #define PRODUCT_ID      0x1146
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         Levinson
 #define DESCRIPTION     Split 40 percent ortholinear keyboard
@@ -35,8 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, F4 }
+#define MATRIX_ROW_PINS { D4, D7, E6, B4 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+
 
 #define CATERINA_BOOTLOADER
 
@@ -67,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_DDRREG   DDRD
 
 /* Backlight LEDs */
-#define BACKLIGHT_PIN B6
+#define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 7
 
 /*
