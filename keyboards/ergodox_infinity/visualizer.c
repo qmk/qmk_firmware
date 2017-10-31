@@ -177,7 +177,7 @@ static void update_emulated_leds(visualizer_state_t* state, visualizer_keyboard_
     uint8_t new_index;
     uint8_t old_index;
 
-    if (true || is_serial_link_master()) {
+    if (is_serial_link_master()) {
         new_index = get_led_index_master(user_data_new);
         old_index = get_led_index_master(user_data_old);
     }
