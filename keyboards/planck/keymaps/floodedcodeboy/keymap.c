@@ -47,16 +47,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /* Lower
  * ,-----------------------------------------------------------------------------------.
- * | Mute |  F1  |  F2  |  F3  |  7   |   8  |   9  |   /  |   *  |   {  |   }  | DEL  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Vol+ |  F4  |  F5  |  F6  |  4   |   5  |   6  |   -  |   +  |   (  |   )  |   |  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Vol- |  F7  |  F8  |  F9  |  1   |   2  |   3  |   \  |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F10 |  F11 |  F12 |      |   0  |   .  |      | Home |PG Up |PG Dn | End  |
- * `-----------------------------------------------------------------------------------'
- *
- * ,-----------------------------------------------------------------------------------.
  * | Mute |  F1  |  F2  |  F3  |      |   {  |   }  |   /  |   *  |  7   |  8   |  9   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Vol+ |  F4  |  F5  |  F6  |      |   (  |   )  |   -  |   +  |  4   |  5   |  6   |
@@ -70,12 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * CMD+~ to bring up iterm
  * AMY - Amythest Layer
  */
-        [_LOWER] = {
-            {KC_MUTE, KC_F1, KC_F2, KC_F3, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLASH, KC_ASTERISK, KC_LPRN, KC_RPRN, KC_DEL},
-            {KC_VOLU, KC_F4, KC_F5, KC_F6, KC_KP_4, KC_KP_5, KC_KP_6, KC_PLUS, KC_MINUS, KC_LCBR, KC_RCBR, KC_PIPE},
-            {KC_VOLD, KC_F7, KC_F8, KC_F9, KC_KP_1, KC_KP_2, KC_KP_3, KC_BSLASH, _______, _______, _______, _______},
-            {_______, KC_F10, KC_F11, KC_F12, _______, KC_KP_0, KC_DOT, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
-        },
+        [_LOWER] = {{KC_MUTE, KC_F1, KC_F2, KC_F3, _______, KC_LCBR, KC_RCBR, KC_SLASH, KC_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9}, {KC_VOLU, KC_F4, KC_F5, KC_F6, _______, KC_KP_LPAREN, KC_KP_RPAREN, KC_MINUS, KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6}, {KC_VOLD, KC_F7, KC_F8, KC_F9, _______, KC_PIPE, KC_BSLASH, _______, KC_KP_0, KC_KP_1, KC_KP_3, KC_KP_4}, {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}},
 
         /* Raise
  * ,-----------------------------------------------------------------------------------.
@@ -127,46 +112,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode)
     {
-        case QWERTY:
-                if (record->event.pressed)
-                {
-                    set_single_persistent_default_layer(_QWERTY);
-                }
-                return false;
-            break;
-        case LOWER:
-                if (record->event.pressed)
-                {
-                    layer_on(_LOWER);
-                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                }
-                else
-                {
-                    layer_off(_LOWER);
-                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                }
-                return false;
-            break;
-        case RAISE:
-                if (record->event.pressed)
-                {
-                    layer_on(_RAISE);
-                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                }
-                else
-                {
-                    layer_off(_RAISE);
-                    update_tri_layer(_LOWER, _RAISE, _ADJUST);
-                }
-                return false;
-            break;
-        case AMYTHEST:
-                if (record->event.pressed)
-                {
-                    set_single_persistent_default_layer(_AMYTHEST);
-                }
-                return false;
-            break;
+    case QWERTY:
+        if (record->event.pressed)
+        {
+            set_single_persistent_default_layer(_QWERTY);
+        }
+        return false;
+        break;
+    case LOWER:
+        if (record->event.pressed)
+        {
+            layer_on(_LOWER);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        }
+        else
+        {
+            layer_off(_LOWER);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        }
+        return false;
+        break;
+    case RAISE:
+        if (record->event.pressed)
+        {
+            layer_on(_RAISE);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        }
+        else
+        {
+            layer_off(_RAISE);
+            update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        }
+        return false;
+        break;
+    case AMYTHEST:
+        if (record->event.pressed)
+        {
+            set_single_persistent_default_layer(_AMYTHEST);
+        }
+        return false;
+        break;
     }
     return true;
 }
