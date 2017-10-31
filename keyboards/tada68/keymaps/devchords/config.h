@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-#define COMBO_COUNT 6
+#define COMBO_COUNT 12
 
 #define BACKLIGHT_BREATHING
 

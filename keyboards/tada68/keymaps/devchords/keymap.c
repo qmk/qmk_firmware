@@ -1,4 +1,5 @@
 #include "tada68.h"
+#include "keymap.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -72,70 +73,101 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum process_combo_events
 {
-  JK_CTRL,
-  FD_CTRL,
-  KL_SHIFT,
-  DS_SHIFT,
-  SA_ALT,
-  LCOMMA_ALT
+  RIGHT_CTRL,
+  LEFT_CTRL,
+  RIGHT_SHIFT,
+  LEFT_SHIFT,
+  LEFT_ALT,
+  RIGHT_ALT,
+  RIGHT_CTRL_SHIFT,
+  LEFT_CTRL_SHIFT,
+  RIGHT_CTRL_ALT,
+  LEFT_CTRL_ALT,
+  RIGHT_SHIFT_ALT,
+  LEFT_SHIFT_ALT
 };
 
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM ds_combo[] = {KC_D, KC_S, COMBO_END};
-const uint16_t PROGMEM sa_combo[] = {KC_S, KC_A, COMBO_END};
-const uint16_t PROGMEM lcomma_combo[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM rightctrl_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM rightshift_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM righttalt_combo[] = {KC_L, KC_COMM, COMBO_END};
+const uint16_t PROGMEM right_ctrl_shift_combo[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM right_ctrl_alt_combo[] = {KC_J, KC_COMM, COMBO_END};
+const uint16_t PROGMEM right_shift_alt_combo[] = {KC_K, KC_COMM, COMBO_END};
 
+const uint16_t PROGMEM leftctrl_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM leftshift_combo[] = {KC_D, KC_S, COMBO_END};
+const uint16_t PROGMEM leftalt_combo[] = {KC_S, KC_A, COMBO_END};
+const uint16_t PROGMEM left_ctrl_shift_combo[] = {KC_F, KC_S, COMBO_END};
+const uint16_t PROGMEM left_ctrl_alt_combo[] = {KC_F, KC_A, COMBO_END};
+const uint16_t PROGMEM left_shift_alt_combo[] = {KC_S, KC_A, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-        [JK_CTRL] = COMBO_ACTION(jk_combo),
-        [FD_CTRL] = COMBO_ACTION(fd_combo),
-        [KL_SHIFT] = COMBO_ACTION(kl_combo),
-        [DS_SHIFT] = COMBO_ACTION(ds_combo),
-        [SA_ALT] = COMBO_ACTION(sa_combo),
-        [LCOMMA_ALT] = COMBO_ACTION(lcomma_combo)
-};
+        [RIGHT_CTRL] = COMBO_ACTION(rightctrl_combo),
+        [LEFT_CTRL] = COMBO_ACTION(leftctrl_combo),
+        [RIGHT_SHIFT] = COMBO_ACTION(rightshift_combo),
+        [LEFT_SHIFT] = COMBO_ACTION(leftshift_combo),
+        [LEFT_ALT] = COMBO_ACTION(leftalt_combo),
+        [RIGHT_ALT] = COMBO_ACTION(righttalt_combo),
+        [RIGHT_CTRL_SHIFT] = COMBO_ACTION(right_ctrl_shift_combo),
+        [LEFT_CTRL_SHIFT] = COMBO_ACTION(left_ctrl_shift_combo),
+        [RIGHT_CTRL_ALT] = COMBO_ACTION(right_ctrl_alt_combo),
+        [LEFT_CTRL_ALT] = COMBO_ACTION(left_ctrl_alt_combo),
+        [RIGHT_SHIFT_ALT] = COMBO_ACTION(right_shift_alt_combo),
+        [LEFT_SHIFT_ALT] = COMBO_ACTION(left_shift_alt_combo)};
 
 void process_combo_event(uint8_t combo_index, bool pressed)
 {
   switch (combo_index)
   {
-  case JK_CTRL:
-    if (pressed)
-      register_code(KC_RCTRL);
-    else
-      unregister_code(KC_RCTRL);
+  case RIGHT_CTRL:
+    sendCode(KC_RCTRL, pressed);
     break;
-  case FD_CTRL:
-    if (pressed)
-      register_code(KC_LCTRL);
-    else
-      unregister_code(KC_LCTRL);
+  case LEFT_CTRL:
+    sendCode(KC_LCTRL, pressed);
     break;
-  case KL_SHIFT:
-    if (pressed)
-      register_code(KC_RSHIFT);
-    else
-      unregister_code(KC_RSHIFT);
+  case RIGHT_SHIFT:
+    sendCode(KC_RSHIFT, pressed);
     break;
-  case DS_SHIFT:
-    if (pressed)
-      register_code(KC_LSHIFT);
-    else
-      unregister_code(KC_LSHIFT);
+  case LEFT_SHIFT:
+    sendCode(KC_LSHIFT, pressed);
     break;
-  case SA_ALT:
-    if(pressed)
-      register_code(KC_LALT);
-      else
-      unregister_code(KC_LALT);
+  case LEFT_ALT:
+    sendCode(KC_RALT, pressed);
     break;
-    case LCOMMA_ALT:
-      if(pressed)
-        register_code(KC_RALT);
-        else
-        unregister_code(KC_RALT);
-      break;
+  case RIGHT_ALT:
+    sendCode(KC_RALT, pressed);
+    break;
+  case RIGHT_CTRL_SHIFT:
+    sendCode(KC_RCTL, pressed);
+    sendCode(KC_RSHIFT, pressed);
+    break;
+  case LEFT_CTRL_SHIFT:
+    sendCode(KC_LCTRL, pressed);
+    sendCode(KC_LSHIFT, pressed);
+    break;
+  case RIGHT_CTRL_ALT:
+    sendCode(KC_RCTRL, pressed);
+    sendCode(KC_RALT, pressed);
+    break;
+  case LEFT_CTRL_ALT:
+    sendCode(KC_LCTRL, pressed);
+    sendCode(KC_LALT, pressed);
+    break;
+  case RIGHT_SHIFT_ALT:
+    sendCode(KC_RSHIFT, pressed);
+    sendCode(KC_RALT, pressed);
+    break;
+  case LEFT_SHIFT_ALT:
+    sendCode(KC_LSHIFT, pressed);
+    sendCode(KC_LALT, pressed);
+    break;
   }
+}
+
+void sendCode(uint8_t code, bool pressed)
+{
+  if (pressed)
+    register_code(code);
+  else
+    unregister_code(code);
 }
