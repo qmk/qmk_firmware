@@ -109,6 +109,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold
+* `#define RETRO_TAPPING`
+  * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`

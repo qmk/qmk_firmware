@@ -46,12 +46,31 @@ inline void ergodox_right_led_2_off(void)   { DDRB &= ~(1<<6); PORTB &= ~(1<<6);
 inline void ergodox_right_led_3_off(void)   { DDRB &= ~(1<<7); PORTB &= ~(1<<7); }
 inline void ergodox_right_led_off(uint8_t led) { DDRB &= ~(1<<(led+4)); PORTB &= ~(1<<(led+4)); }
 
+#ifdef LEFT_LEDS
+bool ergodox_left_led_1;
+bool ergodox_left_led_2;
+bool ergodox_left_led_3;
+
+inline void ergodox_left_led_1_on(void)    { ergodox_left_led_1 = 1; }
+inline void ergodox_left_led_2_on(void)    { ergodox_left_led_2 = 1; }
+inline void ergodox_left_led_3_on(void)    { ergodox_left_led_3 = 1; }
+
+inline void ergodox_left_led_1_off(void)    { ergodox_left_led_1 = 0; }
+inline void ergodox_left_led_2_off(void)    { ergodox_left_led_2 = 0; }
+inline void ergodox_left_led_3_off(void)    { ergodox_left_led_3 = 0; }
+#endif // LEFT_LEDS
+
 inline void ergodox_led_all_on(void)
 {
     ergodox_board_led_on();
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
     ergodox_right_led_3_on();
+#ifdef LEFT_LEDS
+    ergodox_left_led_1_on();
+    ergodox_left_led_2_on();
+    ergodox_left_led_3_on();
+#endif // LEFT_LEDS
 }
 
 inline void ergodox_led_all_off(void)
@@ -60,6 +79,11 @@ inline void ergodox_led_all_off(void)
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+#ifdef LEFT_LEDS
+    ergodox_left_led_1_off();
+    ergodox_left_led_2_off();
+    ergodox_left_led_3_off();
+#endif // LEFT_LEDS
 }
 
 inline void ergodox_right_led_1_set(uint8_t n)    { OCR1A = n; }
