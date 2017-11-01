@@ -44,7 +44,7 @@ void fn_finished (qk_tap_dance_state_t *state, void *user_data) {
 void fn_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (fn_tap_state.state) {
     case SINGLE_HOLD: layer_off(_FN); break;
-    case TRIPLE_HOLD: layer_off(_MOUSE);
+    case TRIPLE_HOLD: layer_off(_MOUSE); layer_off(_MOUSESHIFT);
   }
 }
 
