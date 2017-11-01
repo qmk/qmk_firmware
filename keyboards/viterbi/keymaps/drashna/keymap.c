@@ -24,6 +24,9 @@ extern keymap_config_t keymap_config;
 #define _COVECUBE 5
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 #define _MACROS   2
 #define _GAMEPAD  3
@@ -35,6 +38,7 @@ extern keymap_config_t keymap_config;
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+<<<<<<< HEAD
 =======
 =======
 #define _MACROS   2
@@ -42,6 +46,8 @@ extern keymap_config_t keymap_config;
 #define _MEDIA    4
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 
 enum custom_keycodes {
@@ -134,10 +140,15 @@ enum custom_keycodes {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 #define MACROS   TG(_MACROS)
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
@@ -145,8 +156,11 @@ enum custom_keycodes {
 #define COVECUBE TG(_COVECUBE)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 #define MACROS  TG(_MACROS)
 #define DIABLO  TG(_DIABLO)
@@ -154,10 +168,15 @@ enum custom_keycodes {
 #define MEDIA   TG(_MEDIA)
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 
 bool is_overwatch = false;
@@ -165,6 +184,7 @@ bool is_overwatch = false;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
@@ -194,6 +214,8 @@ bool has_layer_changed = true;
 =======
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
@@ -223,7 +245,23 @@ bool has_layer_changed = true;
 #define rgblight_set_urine    rgblight_sethsv (0x3C, 0xFF, 0xFF);
 #define rgblight_set_purple   rgblight_sethsv (0x10E, 0xFF, 0xFF);
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+
+#ifdef RGBLIGHT_ENABLE
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#endif
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -505,8 +543,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
-  [_MACROS] = KEYMAP(
-      COVECUBE     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  [_COVECUBE] = KEYMAP(
+      COVECUBE,    XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -666,6 +704,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MAKE:
         if (!record->event.pressed) {
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+<<<<<<< HEAD
 =======
 =======
     case KC_MAKE:
@@ -676,10 +715,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         }
         return false;
         break;
 >>>>>>> Made "make" keystroke universal
+<<<<<<< HEAD
 <<<<<<< HEAD
     case KC_OVERWATCH:  // reset all Diable timers, disabling them
         if (record->event.pressed) {
@@ -733,9 +775,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             is_overwatch = !is_overwatch;
             has_layer_changed = true;
+=======
+    case KC_OVERWATCH:  // reset all Diable timers, disabling them
+        if (record->event.pressed) {
+            is_overwatch = !is_overwatch;
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         }
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+#ifdef RGBLIGHT_ENABLE
+        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+#endif
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         return false;
         break;
     case KC_SALT:
@@ -1220,18 +1276,27 @@ void send_diablo_keystroke(uint8_t diablo_key) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
     if (biton32(layer_state) == _DIABLO) {
 =======
     if (current_layer == _DIABLO) {
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     if (biton32(layer_state) == _DIABLO) {
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+    if (biton32(layer_state) == _DIABLO) {
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         switch (diablo_key) {
         case 0:
             SEND_STRING("1");
@@ -1285,10 +1350,15 @@ void run_diablo_macro_check(void) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
@@ -1312,6 +1382,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
     if (has_layer_changed) {
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -1331,39 +1402,19 @@ void matrix_scan_user(void) {  // runs frequently to update info
     }
     // Check layer, and apply color if its changed since last check
     if (has_layer_changed) {
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
-        switch (layer) {
-        case _NUMNAV:
-            rgblight_set_teal;
-            rgblight_mode(2);
-            break;
-        case _MACROS:
-            rgblight_set_orange;
-            if (is_overwatch) {
-                rgblight_mode(17); 
-            }
-            else {
-                rgblight_mode(18);
-            }
-            break;
-        case _DIABLO:
-            rgblight_set_red;
-            rgblight_mode(5);
-            break;
-        case _GAMEPAD:
-            rgblight_set_urine;
-            rgblight_mode(1);
-            break;
-        case _MEDIA:
-            rgblight_set_blue;
-            rgblight_mode(1);
-            break;
-        }
-        has_layer_changed = false;
-    }
 
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+void matrix_scan_user(void) {  // runs frequently to update info
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 #ifdef TAP_DANCE_ENABLE
     // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
@@ -1371,10 +1422,15 @@ void matrix_scan_user(void) {  // runs frequently to update info
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 };
 
 
@@ -1411,6 +1467,7 @@ uint32_t layer_state_set_kb(uint32_t state) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 };
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
@@ -1421,3 +1478,10 @@ uint32_t layer_state_set_kb(uint32_t state) {
 };
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+};
+>>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function

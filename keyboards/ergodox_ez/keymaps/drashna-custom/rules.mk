@@ -17,6 +17,9 @@ CONSOLE_ENABLE    = no
 EXTRAFLAGS        = -flto
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 =======
 SLEEP_LED_ENABLE  = yes  # Breathing sleep LED during USB suspend
 =======
@@ -66,7 +69,13 @@ CONSOLE_ENABLE    = yes
 CONSOLE_ENABLE    = no
 LEADER_KEYS       = no
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+<<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
+=======
+=======
+
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
