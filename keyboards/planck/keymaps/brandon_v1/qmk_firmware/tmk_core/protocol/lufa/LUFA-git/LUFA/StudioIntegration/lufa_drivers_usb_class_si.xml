@@ -1,0 +1,56 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2013.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-config id="lufa.drivers.usb.class.si" name="lufa.drivers.usb.class.si.mode" default="host" caption="LUFA USB Class Driver - Still Image">
+			<build type="doxygen-entry-point" value="Group_USBClassSI"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<module type="service" id="lufa.drivers.usb.class.si#host" caption="LUFA USB Class Driver - Still Image (Host)">
+				<info type="description" value="summary">
+					Common definitions and Host mode implementation of the Still Image USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassSI"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/StillImageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/StillImageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/StillImageClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/StillImageClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.si#definitions_only" caption="LUFA USB Class Driver - Still Image (Definitions Only)">
+				<info type="description" value="summary">
+					Common definitions only (no implementations) of the Still Image USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassSI"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/StillImageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/StillImageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/StillImageClassHost.h"/>
+			</module>
+		</select-by-config>
+	</asf>
+</lufa>
