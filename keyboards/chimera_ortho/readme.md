@@ -9,7 +9,7 @@ Keyboard Maintainer: [William Wilson](https://github.com/GlenPickle)
 
 Hardware Supported: Chimera Ortho PCB, WaveShare core nRF51822
 
-Hardware Availability: [Gerbers](https://github.com/GlenPickle/Chimera/ortho/gerbers)
+Hardware Availability: [Gerbers](https://github.com/GlenPickle/Chimera/tree/master/ortho/gerbers)
 
 Make example for this keyboard (after setting up your build environment):
 
