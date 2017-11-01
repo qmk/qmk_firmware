@@ -78,6 +78,7 @@ bool skip_leds = false;
 #define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+<<<<<<< HEAD
 #endif
 =======
 =======
@@ -96,6 +97,9 @@ bool skip_leds = false;
 
 static uint8_t current_layer = 0;
 >>>>>>> Tweaked RGB lighting stuff
+=======
+#endif
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -208,6 +212,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
         rgblight_mode(1);
         rgblight_setrgb(0xff,0x00,0x00);
 #endif
+<<<<<<< HEAD
         reset_tap_dance(state);
         reset_keyboard();
 =======
@@ -221,6 +226,10 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
         reset_keyboard();
         reset_tap_dance(state);
 >>>>>>> Updated macros and added workman keymaps
+=======
+        reset_tap_dance(state);
+        reset_keyboard();
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
     }
 }
 
@@ -336,6 +345,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<<<<<< HEAD
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+<<<<<<< HEAD
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 =======
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
@@ -347,6 +357,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LALT,    CTL_T(KC_ESCAPE),
 >>>>>>> Updated macros and added workman keymaps
 =======
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 >>>>>>> Clean up and updates of drashna keymaps
                 KC_PGUP,
@@ -413,8 +425,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
+<<<<<<< HEAD
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
 >>>>>>> Updated macros and added workman keymaps
+=======
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -472,8 +488,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
              TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
+<<<<<<< HEAD
                                    KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
 >>>>>>> Updated macros and added workman keymaps
+=======
+                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -533,6 +553,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<<<<<< HEAD
              TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+<<<<<<< HEAD
 =======
              TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
 =======
@@ -540,6 +561,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -807,6 +830,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+<<<<<<< HEAD
 
 void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
@@ -864,6 +888,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
         case RGB_FF0000:
             if (record->event.pressed) {
@@ -1100,10 +1126,29 @@ void run_diablo_macro_check(void) {
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
+<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
     uint8_t default_layer = eeconfig_read_default_layer();
 =======
+=======
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
+    rgblight_enable();
+    if (default_layer & (1UL << COLEMAK)) {
+        rgblight_set_magenta;
+    }
+    else if (default_layer & (1UL << DVORAK)) {
+        rgblight_set_green;
+    }
+    else if (default_layer & (1UL << WORKMAN)) {
+        rgblight_set_purple;
+    }
+    else {
+        rgblight_set_teal;
+    }
+#endif
 };
 >>>>>>> Add forced NKRO
 
@@ -1138,6 +1183,7 @@ LEADER_EXTERNS();
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -1147,6 +1193,8 @@ void matrix_scan_user(void) {  // runs frequently to update info
 =======
     uint8_t layer = biton32(layer_state);
     static bool has_layer_changed = true;
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 <<<<<<< HEAD
 
@@ -1181,6 +1229,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
         }
         
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -1308,6 +1357,8 @@ uint32_t layer_state_set_kb(uint32_t state) {
 #endif
         has_layer_changed = false;
     }
+=======
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
     // Run Diablo 3 macro checking code.
 #ifdef TAP_DANCE_ENABLE
@@ -1340,4 +1391,47 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
 };
 
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow info
+=======
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    switch (biton32(state)) {
+        case SYMB:
+            rgblight_set_blue;
+            rgblight_mode(2);
+            break;
+        case OVERWATCH:
+            rgblight_set_orange;
+            rgblight_mode(17);
+            break;
+        case DIABLO:
+            rgblight_set_red;
+            rgblight_mode(5);
+            break;
+        case MOUS:
+            rgblight_set_yellow;
+            rgblight_mode(1);
+            break;
+        default:
+            if (default_layer & (1UL << COLEMAK)) {
+                rgblight_set_green;
+            }
+            else if (default_layer & (1UL << DVORAK)) {
+                rgblight_set_magenta;
+            }
+            else if (default_layer & (1UL << WORKMAN)) {
+                rgblight_set_purple;
+            }
+            else {
+                rgblight_set_teal;
+            }
+            rgblight_mode(1);
+            break;
+    }
+#endif
+   return state;
+}
+>>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
