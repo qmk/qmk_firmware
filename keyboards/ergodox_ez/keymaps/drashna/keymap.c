@@ -17,8 +17,6 @@
 #define MOUS 2
 
 #ifdef LAYER_UNDERGLOW_LIGHTING
-bool has_layer_changed = true;
-
 #define rgblight_set_teal rgblight_setrgb(0x00, 0xFF, 0xFF)
 #define rgblight_set_red rgblight_setrgb(0xFF, 0x00, 0x00)
 #define rgblight_set_blue rgblight_setrgb(0x00, 0xFF, 0x00);
@@ -100,20 +98,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void matrix_init_user(void) {
+#ifdef LAYER_UNDERGLOW_LIGHTING
+  rgblight_enable();
+  rgblight_set_teal;
+  rgblight_mode(1);
+#endif
 
-
+}
 
 void matrix_scan_user(void) {
 
-    uint8_t new_layer = biton32(layer_state);
-    
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     
 #ifdef LAYER_UNDERGLOW_LIGHTING
-    static uint8_t old_layer = 0;
     uint8_t modifiders = get_mods();
     
     if ( modifiders & MODS_SHIFT_MASK) {
@@ -124,44 +125,10 @@ void matrix_scan_user(void) {
     }
     if ( modifiders & MODS_ALT_MASK) {
             ergodox_right_led_3_on();
-    }
-    
-    if (old_layer != new_layer) {
-        has_layer_changed = true; 
-        old_layer = new_layer;
-    }
-    if (has_layer_changed) {
-        switch (new_layer) {
-            case 1:
-                rgblight_set_red;
-                break;
-            case 2:
-                rgblight_set_blue;
-                break;
-            case 3:
-                rgblight_set_green;
-                break;
-            case 4:
-                rgblight_set_yellow;
-                break;
-            case 5:
-                rgblight_setrgb(0xFF, 0xFF, 0x00);
-                break;
-            case 6:
-                rgblight_setrgb(0xFF, 0xFF, 0x00);
-                break;
-            case 7:
-                rgblight_setrgb(0xFF, 0xFF, 0xFF);
-                break;
-            default:
-                rgblight_set_teal;
-                break;
-        }
-        has_layer_changed = false;
-    }
-    
-#else    
-    switch (new_layer) {
+    }    
+#else
+    uint8_t layer = biton32(layer_state);
+    switch (layer) {
         case 1:
             ergodox_right_led_1_on();
             break;
@@ -193,3 +160,35 @@ void matrix_scan_user(void) {
      }
 #endif 
 };
+
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef LAYER_UNDERGLOW_LIGHTING
+    switch (biton32(state)) {
+    case 1:
+      rgblight_set_red;
+      break;
+    case 2:
+      rgblight_set_blue;
+      break;
+    case 3:
+      rgblight_set_green;
+      break;
+    case 4:
+      rgblight_set_yellow;
+      break;
+    case 5:
+      rgblight_setrgb(0xFF, 0xFF, 0x00);
+      break;
+    case 6:
+      rgblight_setrgb(0xFF, 0xFF, 0x00);
+      break;
+    case 7:
+      rgblight_setrgb(0xFF, 0xFF, 0xFF);
+      break;
+    default:
+      rgblight_set_teal;
+      break;
+    }
+#endif
+    return state;
+}

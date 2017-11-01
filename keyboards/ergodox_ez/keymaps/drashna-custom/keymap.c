@@ -48,17 +48,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
-//This is both for underglow, and Diablo 3 macros
-
-static uint8_t current_layer = 0;
+#ifdef RGBLIGHT_ENABLE
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#endif
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -136,11 +135,13 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 // and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count >= 4) {
+#ifdef RGBLIGHT_ENABLE
         rgblight_enable();
         rgblight_mode(1);
         rgblight_setrgb(0xff,0x00,0x00);
-        reset_keyboard();
+#endif
         reset_tap_dance(state);
+        reset_keyboard();
     }
 }
 
@@ -229,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
-                                    ALT_T(KC_APPLICATION),  KC_LEAD,
+                                    ALT_T(KC_APPLICATION),  KC_LGUI,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
@@ -237,8 +238,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
-                KC_LALT,    CTL_T(KC_ESCAPE),
+                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+                KC_LEAD,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -280,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -323,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
              TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
+                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -366,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
              TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -398,7 +399,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
                 TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
-                KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
                                                                   KC_TRNS, KC_TRNS,
                                                                   KC_TRNS,
                                                                   KC_TRNS, KC_TRNS, KC_TRNS,
@@ -540,16 +541,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),
-    // FN1 - Momentary Layer 1 (Symbols)
-};
-
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-{
-   
-}
-
 
 void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
@@ -558,6 +549,9 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CONSOLE_ENABLE
+    xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
     switch (keycode) {
         // dynamically generate these.
         case EPRM:
@@ -574,7 +568,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case RGB_SLD:
             if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
                 rgblight_mode(1);
+#endif
             }
             return false;
             break;
@@ -668,8 +664,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case KC_MAKEQMK:
-            if (record->event.pressed) {
-                SEND_STRING("make ergodox_ez:drashna-custom:teensy"SS_TAP(X_ENTER));
+            if (!record->event.pressed) {
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
             }
             return false;
             break;
@@ -678,10 +674,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef TAP_DANCE_ENABLE
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke (uint8_t diablo_key) {
-    if (current_layer == DIABLO) {
+    if (biton32(layer_state) == DIABLO) {
         switch (diablo_key) {
             case 0:
                 SEND_STRING("1");
@@ -713,16 +710,33 @@ void run_diablo_macro_check(void) {
     
 }
 
-void matrix_init_user(void) { // Runs boot tasks for keyboard
+#endif
 
+
+void matrix_init_user(void) { // Runs boot tasks for keyboard
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    rgblight_enable();
+    if (default_layer & (1UL << COLEMAK)) {
+        rgblight_set_magenta;
+    }
+    else if (default_layer & (1UL << DVORAK)) {
+        rgblight_set_green;
+    }
+    else if (default_layer & (1UL << WORKMAN)) {
+        rgblight_set_purple;
+    }
+    else {
+        rgblight_set_teal;
+    }
+#endif
 };
 
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
-    uint8_t layer = biton32(layer_state);
-    static bool has_layer_changed = true;
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -744,69 +758,28 @@ void matrix_scan_user(void) {  // runs frequently to update info
         }
         
     }
-    if (layer != current_layer) {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
-        uint8_t default_layer = 0;
-        default_layer = eeconfig_read_default_layer();
-
-        switch (layer) {
-            case SYMB:
-                rgblight_set_blue;
-                rgblight_mode(2);
-                break;
-            case OVERWATCH:
-                rgblight_set_orange;
-                rgblight_mode(17);
-                break;
-            case DIABLO:
-                rgblight_set_red;
-                rgblight_mode(5);
-                break;
-            case MOUS:
-                rgblight_set_urine;
-                rgblight_mode(1);
-                break;
-            case 7:
-                rgblight_sethsv (255,255,255);
-                rgblight_mode(1);
-                break;
-            default:
-                if (default_layer & (1UL << COLEMAK)) {
-                    rgblight_set_green;
-                }
-                else if (default_layer & (1UL << DVORAK)) {
-                    rgblight_set_magenta;
-                }
-                else if (default_layer & (1UL << WORKMAN)) {
-                    rgblight_set_purple;
-                }
-                else {
-                    rgblight_set_teal;
-                }
-                rgblight_mode(1);
-                break;
-        }
-        has_layer_changed = false;
-    }
 
     // Run Diablo 3 macro checking code.
+#ifdef TAP_DANCE_ENABLE
     run_diablo_macro_check();
-#ifdef LEADER_KEYS
+#endif
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
         SEQ_ONE_KEY(KC_C) {
             SEND_STRING("Covecube");
         }
+        SEQ_ONE_KEY(KC_D) {
+            SEND_STRING("StableBit CloudDrive");
+        }
+        SEQ_ONE_KEY(KC_L) {
+            register_code(KC_LGUI);
+            register_code(KC_L);
+            unregister_code(KC_L);
+            unregister_code(KC_LGUI);
+        }
         SEQ_TWO_KEYS(KC_S, KC_D) {
             SEND_STRING("StableBit DrivePool");
-        }
-        SEQ_TWO_KEYS(KC_C, KC_D) {
-            SEND_STRING("StableBit CloudDrive");
         }
         SEQ_TWO_KEYS(KC_S, KC_C) {
             SEND_STRING("StableBit Scanner");
@@ -815,6 +788,45 @@ void matrix_scan_user(void) {  // runs frequently to update info
             SEND_STRING("StableBit Troubleshooter");
         }
     }
-#endif
 };
 
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    switch (biton32(state)) {
+        case SYMB:
+            rgblight_set_blue;
+            rgblight_mode(2);
+            break;
+        case OVERWATCH:
+            rgblight_set_orange;
+            rgblight_mode(17);
+            break;
+        case DIABLO:
+            rgblight_set_red;
+            rgblight_mode(5);
+            break;
+        case MOUS:
+            rgblight_set_yellow;
+            rgblight_mode(1);
+            break;
+        default:
+            if (default_layer & (1UL << COLEMAK)) {
+                rgblight_set_green;
+            }
+            else if (default_layer & (1UL << DVORAK)) {
+                rgblight_set_magenta;
+            }
+            else if (default_layer & (1UL << WORKMAN)) {
+                rgblight_set_purple;
+            }
+            else {
+                rgblight_set_teal;
+            }
+            rgblight_mode(1);
+            break;
+    }
+#endif
+   return state;
+}
