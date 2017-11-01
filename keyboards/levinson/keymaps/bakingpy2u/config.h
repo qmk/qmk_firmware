@@ -23,8 +23,4 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 
-#define BACKLIGHT_PIN B6
-//#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 7
-
 #endif
