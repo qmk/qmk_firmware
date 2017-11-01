@@ -77,4 +77,4 @@ CUSTOM_MATRIX = yes
 
 LAYOUTS = ortho_4x12
 
-DEFAULT_FOLDER = levinson/rev1
+DEFAULT_FOLDER = levinson/rev2
