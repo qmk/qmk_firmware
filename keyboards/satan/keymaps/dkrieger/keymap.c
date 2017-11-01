@@ -5,6 +5,7 @@
 #define _FN 1
 #define _MOUSE 2
 #define _MOUSESHIFT 3
+#define _UTIL 4
 
 // Fillers to make layering more clear
 #define ______ KC_TRNS
@@ -12,7 +13,8 @@
 enum {
   SUPER_FN = 0,
   SINGLE_HOLD = 1,
-  TRIPLE_HOLD = 2
+  DOUBLE_HOLD = 2,
+  TRIPLE_HOLD = 3
 };
 
 typedef struct {
@@ -21,9 +23,12 @@ typedef struct {
 } tap;
 
 int cur_dance (qk_tap_dance_state_t *state) {
-  if (state->count == 1 && (state->interrupted == false || state->pressed)) return SINGLE_HOLD;
-  else if (state->count == 3 && (state->interrupted == false || state->pressed)) return TRIPLE_HOLD;
-  else return 3;
+  if (state->interrupted == false || state->pressed) {
+    if (state->count < 2) return SINGLE_HOLD;
+    if (state->count < 3) return DOUBLE_HOLD;
+    else return TRIPLE_HOLD;
+  }
+  else return 9;
 }
 
 //instantiate an instance of 'tap' for the 'fn' tap dance.
@@ -37,14 +42,16 @@ void fn_finished (qk_tap_dance_state_t *state, void *user_data) {
   switch (fn_tap_state.state) {
     /* case SINGLE_HOLD: register_code(MO(_FN)); break; */
     case SINGLE_HOLD: layer_on(_FN); break;
-    case TRIPLE_HOLD: layer_on(_MOUSE);
+    case DOUBLE_HOLD: layer_on(_MOUSE); break;
+    case TRIPLE_HOLD: layer_on(_UTIL);
   }
 }
 
 void fn_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (fn_tap_state.state) {
     case SINGLE_HOLD: layer_off(_FN); break;
-    case TRIPLE_HOLD: layer_off(_MOUSE); layer_off(_MOUSESHIFT);
+    case DOUBLE_HOLD: layer_off(_MOUSE); layer_off(_MOUSESHIFT); break;
+    case TRIPLE_HOLD: layer_off(_UTIL);
   }
 }
 
@@ -134,6 +141,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_MS_WH_UP, ______, ______,  \
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_MS_WH_LEFT, KC_MS_WH_RIGHT, ______,   \
       ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_MS_WH_DOWN, ______, ______,  \
+      ______,   ______, ______,                 ______,                 ______, ______, ______, ______ \
+      ),
+
+/* UTIL Layer
+ * ,-----------------------------------------------------------------------------------------.
+ * |     |     |     |     |     |     |     |     |     |     |     |     |     |     |RESET|
+ * |----------------------------------------------------------------------------------------- 
+ * |        |     |     |     |     |     |     |     |     |     |     |     |     |        |
+ * |----------------------------------------------------------------------------------------- 
+ * |         |     |     |     |     |     |     |     |     |     |     |     |             |
+ * |----------------------------------------------------------------------------------------- 
+ * |           |     |     |     |     |     |     |     |      |    |     |           |     |
+ * |-----------------------------------------------------------------------------------------+
+ *         |       |       |                                 |       |       |
+ *         `-----------------------------------------------------------------'
+ */
+  [_UTIL] = KEYMAP_HHKB(
+      ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, RESET, \
+      ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,   \
+      ______,   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
       ______,   ______, ______,                 ______,                 ______, ______, ______, ______ \
       )
 };
