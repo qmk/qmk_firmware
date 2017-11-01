@@ -5,6 +5,7 @@ AUDIO_ENABLE      = no
 MOUSEKEY_ENABLE   = no
 NKRO_ENABLE       = yes
 FAUXCLICKY_ENABLE = no
+EXTRAFLAGS        = -flto
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile

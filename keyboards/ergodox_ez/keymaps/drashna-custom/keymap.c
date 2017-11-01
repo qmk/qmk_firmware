@@ -49,18 +49,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool skip_leds = false;
 
 #ifdef RGBLIGHT_ENABLE
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
 #endif
-//This is both for underglow, and Diablo 3 macros
-
-static uint8_t current_layer = 0;
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -143,8 +140,8 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
         rgblight_mode(1);
         rgblight_setrgb(0xff,0x00,0x00);
 #endif
-        reset_keyboard();
         reset_tap_dance(state);
+        reset_keyboard();
     }
 }
 
@@ -241,7 +238,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
                 KC_LEAD,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
@@ -284,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -327,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
              TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
+                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -370,7 +367,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
              TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -544,16 +541,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),
-    // FN1 - Momentary Layer 1 (Symbols)
-};
-
-void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
-{
-   
-}
-
 
 void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
@@ -691,7 +678,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke (uint8_t diablo_key) {
-    if (current_layer == DIABLO) {
+    if (biton32(layer_state) == DIABLO) {
         switch (diablo_key) {
             case 0:
                 SEND_STRING("1");
@@ -727,15 +714,29 @@ void run_diablo_macro_check(void) {
 
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
 
+    rgblight_enable();
+    if (default_layer & (1UL << COLEMAK)) {
+        rgblight_set_magenta;
+    }
+    else if (default_layer & (1UL << DVORAK)) {
+        rgblight_set_green;
+    }
+    else if (default_layer & (1UL << WORKMAN)) {
+        rgblight_set_purple;
+    }
+    else {
+        rgblight_set_teal;
+    }
+#endif
 };
 
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
     uint8_t modifiders = get_mods();
-    uint8_t layer = biton32(layer_state);
-    static bool has_layer_changed = true;
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -756,56 +757,6 @@ void matrix_scan_user(void) {  // runs frequently to update info
             ergodox_right_led_3_on();
         }
         
-    }
-    if (layer != current_layer) {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
- #ifdef RGBLIGHT_ENABLE
-       uint8_t default_layer = 0;
-        default_layer = eeconfig_read_default_layer();
-
-        switch (layer) {
-            case SYMB:
-                rgblight_set_blue;
-                rgblight_mode(2);
-                break;
-            case OVERWATCH:
-                rgblight_set_orange;
-                rgblight_mode(17);
-                break;
-            case DIABLO:
-                rgblight_set_red;
-                rgblight_mode(5);
-                break;
-            case MOUS:
-                rgblight_set_urine;
-                rgblight_mode(1);
-                break;
-            case 7:
-                rgblight_sethsv (255,255,255);
-                rgblight_mode(1);
-                break;
-            default:
-                if (default_layer & (1UL << COLEMAK)) {
-                    rgblight_set_green;
-                }
-                else if (default_layer & (1UL << DVORAK)) {
-                    rgblight_set_magenta;
-                }
-                else if (default_layer & (1UL << WORKMAN)) {
-                    rgblight_set_purple;
-                }
-                else {
-                    rgblight_set_teal;
-                }
-                rgblight_mode(1);
-                break;
-        }
-#endif
-        has_layer_changed = false;
     }
 
     // Run Diablo 3 macro checking code.
@@ -839,3 +790,43 @@ void matrix_scan_user(void) {  // runs frequently to update info
     }
 };
 
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    switch (biton32(state)) {
+        case SYMB:
+            rgblight_set_blue;
+            rgblight_mode(2);
+            break;
+        case OVERWATCH:
+            rgblight_set_orange;
+            rgblight_mode(17);
+            break;
+        case DIABLO:
+            rgblight_set_red;
+            rgblight_mode(5);
+            break;
+        case MOUS:
+            rgblight_set_yellow;
+            rgblight_mode(1);
+            break;
+        default:
+            if (default_layer & (1UL << COLEMAK)) {
+                rgblight_set_green;
+            }
+            else if (default_layer & (1UL << DVORAK)) {
+                rgblight_set_magenta;
+            }
+            else if (default_layer & (1UL << WORKMAN)) {
+                rgblight_set_purple;
+            }
+            else {
+                rgblight_set_teal;
+            }
+            rgblight_mode(1);
+            break;
+    }
+#endif
+   return state;
+}

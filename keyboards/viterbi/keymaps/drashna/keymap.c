@@ -13,6 +13,7 @@ extern keymap_config_t keymap_config;
 #define _GAMEPAD  2
 #define _MACROS   3
 #define _MEDIA    4
+#define _COVECUBE 5
 
 
 enum custom_keycodes {
@@ -35,27 +36,26 @@ enum custom_keycodes {
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define MACROS  TG(_MACROS)
-#define DIABLO  TG(_DIABLO)
-#define GAMEPAD TG(_GAMEPAD)
-#define MEDIA   TG(_MEDIA)
+#define MACROS   TG(_MACROS)
+#define DIABLO   TG(_DIABLO)
+#define GAMEPAD  TG(_GAMEPAD)
+#define MEDIA    TG(_MEDIA)
+#define COVECUBE TG(_COVECUBE)
 
 
 bool is_overwatch = false;
 
-//This is both for underglow, and Diablo 3 macros
-static uint8_t current_layer = 0;
-bool has_layer_changed = true;
 
-
-#define rgblight_set_blue     rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red      rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green    rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange   rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal     rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta  rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine    rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple   rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#ifdef RGBLIGHT_ENABLE
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#endif
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -156,8 +156,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
-  [_MACROS] = KEYMAP(
-      COVECUBE     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  [_COVECUBE] = KEYMAP(
+      COVECUBE,    XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -220,8 +220,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_OVERWATCH:  // reset all Diable timers, disabling them
         if (record->event.pressed) {
             is_overwatch = !is_overwatch;
-            has_layer_changed = true;
         }
+#ifdef RGBLIGHT_ENABLE
+        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+#endif
         return false;
         break;
     case KC_SALT:
@@ -320,7 +322,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke(uint8_t diablo_key) {
-    if (current_layer == _DIABLO) {
+    if (biton32(layer_state) == _DIABLO) {
         switch (diablo_key) {
         case 0:
             SEND_STRING("1");
@@ -354,48 +356,51 @@ void run_diablo_macro_check(void) {
 #endif
 
 
+void matrix_init_user(void) { // Runs boot tasks for keyboard
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable();
+    rgblight_set_teal;
+    rgblight_mode(1);
+#endif
+};
+
+
 void matrix_scan_user(void) {  // runs frequently to update info
-    uint8_t layer = biton32(layer_state);
-
-    if (layer != current_layer) {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
-
-        switch (layer) {
-        case _NUMNAV:
-            rgblight_set_teal;
-            rgblight_mode(2);
-            break;
-        case _MACROS:
-            rgblight_set_orange;
-            if (is_overwatch) {
-                rgblight_mode(17); 
-            }
-            else {
-                rgblight_mode(18);
-            }
-            break;
-        case _DIABLO:
-            rgblight_set_red;
-            rgblight_mode(5);
-            break;
-        case _GAMEPAD:
-            rgblight_set_urine;
-            rgblight_mode(1);
-            break;
-        case _MEDIA:
-            rgblight_set_blue;
-            rgblight_mode(1);
-            break;
-        }
-        has_layer_changed = false;
-    }
-
 #ifdef TAP_DANCE_ENABLE
     // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 #endif
 };
+
+
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable();
+    switch (biton32(state)) {
+    case _NUMNAV:
+        rgblight_set_teal;
+        rgblight_mode(2);
+        break;
+    case _MACROS:
+        rgblight_set_orange;
+        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+        break;
+    case _DIABLO:
+        rgblight_set_red;
+        rgblight_mode(5);
+        break;
+    case _GAMEPAD:
+        rgblight_set_yellow;
+        rgblight_mode(1);
+        break;
+    case _MEDIA:
+        rgblight_set_blue;
+        rgblight_mode(1);
+        break;
+    case _COVECUBE:
+        rgblight_set_green;
+        rgblight_mode(2);
+    }
+#endif
+    return state;
+}

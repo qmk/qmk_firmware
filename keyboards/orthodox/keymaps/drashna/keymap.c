@@ -53,20 +53,16 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 
 #ifdef RGBLIGHT_ENABLE
-//define layer change stuff for underglow indicator
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
-
-//This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = true;
-static uint8_t current_layer = 10;
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
 #endif
+
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -85,8 +81,8 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
         rgblight_mode(1);
         rgblight_setrgb(0xff, 0x00, 0x00);
 #endif
-        reset_keyboard();
         reset_tap_dance(state);
+        reset_keyboard();
     }
 }
 
@@ -138,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] =  KEYMAP( \
-  KC_MAKE, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+  KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 )
@@ -150,6 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_workman[][2]    = SONG(PLOVER_SONG);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -189,7 +186,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WORKMAN:
         if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_dvorak);
+            PLAY_SONG(tone_workman);
         #endif
             persistent_default_layer_set(1UL << _WORKMAN);
         }
@@ -225,7 +222,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case KC_MAKE:
         if (!record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+#else
+            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
+#endif
         }
         return false;
         break;
@@ -234,63 +235,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
+void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    rgblight_enable();
+    if (default_layer & (1UL << _COLEMAK)) {
+        rgblight_set_magenta;
+}
+    else if (default_layer & (1UL << _DVORAK)) {
+        rgblight_set_green;
+    }
+    else if (default_layer & (1UL << _WORKMAN)) {
+        rgblight_set_purple;
+    }
+    else {
+        rgblight_set_teal;
+    }
+#endif
+
+};
 
 void matrix_scan_user(void) {  // runs frequently to update info
-     uint8_t layer = biton32(layer_state);
 
-     if (layer != current_layer) {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
-        uint8_t default_layer = 0;
-        default_layer = eeconfig_read_default_layer();
+};
 
-        switch (layer) {
-            case _QWERTY:
-                if (default_layer & (1UL << _COLEMAK)) {
-                    rgblight_set_magenta;
-                }
-                else if (default_layer & (1UL << _DVORAK)) {
-                    rgblight_set_green;
-                }
-                else if (default_layer & (1UL << _WORKMAN)) {
-                    rgblight_set_purple;
-                }
-                else {
-                    rgblight_set_teal;
-                }
-                rgblight_mode(1);
-                break;
-            case _COLEMAK:
-                rgblight_set_magenta;
-                rgblight_mode(1);
-                break;
-            case _DVORAK:
-                rgblight_set_green;
-                rgblight_mode(1);
-                break;
-            case _RAISE:
-                rgblight_set_blue;
-                rgblight_mode(5);
-                break;
-            case _LOWER:
-                rgblight_set_orange;
-                rgblight_mode(5);
-                break;
-            case _ADJUST:
-                rgblight_set_red;
-                rgblight_mode(23);
-                break;
-            case 6:
-                rgblight_set_urine;
-                break;
+uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
+#ifdef RGBLIGHT_ENABLE
+    uint8_t default_layer = eeconfig_read_default_layer();
+
+    switch (biton32(state)) {
+    case _COLEMAK:
+        rgblight_set_magenta;
+        rgblight_mode(1);
+        break;
+    case _DVORAK:
+        rgblight_set_green;
+        rgblight_mode(1);
+        break;
+    case _RAISE:
+        rgblight_set_yellow;
+        rgblight_mode(5);
+        break;
+    case _LOWER:
+        rgblight_set_orange;
+        rgblight_mode(5);
+        break;
+    case _ADJUST:
+        rgblight_set_red;
+        rgblight_mode(23);
+        break;
+    case 6:
+        rgblight_set_blue;
+        break;
+    case _QWERTY:
+        if (default_layer & (1UL << _COLEMAK)) {
+            rgblight_set_magenta;
         }
-        has_layer_changed = false;
+        else if (default_layer & (1UL << _DVORAK)) {
+            rgblight_set_green;
+        }
+        else if (default_layer & (1UL << _WORKMAN)) {
+            rgblight_set_purple;
+        }
+        else {
+            rgblight_set_teal;
+        }
+        rgblight_mode(1);
+        break;
     }
-
- };
 #endif
+    return state;
+}

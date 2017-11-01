@@ -5,6 +5,8 @@ RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
 CONSOLE_ENABLE    = no
 
+EXTRAFLAGS        = -flto
+
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
