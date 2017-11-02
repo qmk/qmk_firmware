@@ -92,4 +92,4 @@ ONEHAND_ENABLE          = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
 MIDI_ENABLE             = no
 
-LAYOUTS = ergodox ergodox_80
+LAYOUTS = ergodox
