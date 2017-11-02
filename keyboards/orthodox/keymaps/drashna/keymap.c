@@ -45,7 +45,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  KC_MAKE
+  KC_MAKE,
+  KC_RESET
 };
 
 // Fillers to make layering more clear
@@ -90,7 +91,7 @@ static uint8_t current_layer = 10;
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-    TD_FLSH = 0,
+  TD_FLSH = 0,
 };
 
 
@@ -100,38 +101,38 @@ enum {
 // on the fourth tap, set the keyboard on flash state
 // and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count >= 4) {
+  if (state->count >= 4) {
 #ifdef RGBLIGHT_ENABLE
-        rgblight_mode(1);
-        rgblight_setrgb(0xff, 0x00, 0x00);
+    rgblight_mode(1);
+    rgblight_setrgb(0xff, 0x00, 0x00);
 #endif
-        reset_tap_dance(state);
-        reset_keyboard();
-    }
+    reset_tap_dance(state);
+    reset_keyboard();
+  }
 }
 
 
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-    [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_flsh_finished, NULL),
+  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
+  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_flsh_finished, NULL),
 
 };
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = KEYMAP( \
+[_QWERTY] = KEYMAP(\
   KC_ESC,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_TAB,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT,    CTL_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_N,    KC_M,    KC_COMM, KC_DOT, CTL_T(KC_SLASH), KC_LGUI \
 ),
 
 [_COLEMAK] = KEYMAP(\
-  KC_ESC,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-  KC_TAB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT,  CTL_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH), KC_LGUI \
+  KC_ESC,     KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
+  KC_TAB,     KC_A,    KC_R,    KC_S,    KC_T,    KC_D,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+  KC_LSFT,    CTL_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH), KC_LGUI \
 ),
 
 [_DVORAK] = KEYMAP(\
@@ -157,18 +158,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Fixed RGB lighting for Workman layout
 ),
 
-[_LOWER] = KEYMAP( \
+[_LOWER] = KEYMAP(\
   KC_TILD,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_DEL,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,   XXXXXXX, KC_F12,          _______, XXXXXXX, KC_RCTL, KC_F11,  KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE, \
   TD(TD_FLSH),KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, KC_F12,  KC_HOME,    KC_COMM,    KC_DOT,  KC_END,  _______ \
 ),
 
-[_RAISE] = KEYMAP( \
+[_RAISE] = KEYMAP(\
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,  XXXXXXX, KC_F12,           _______, XXXXXXX, _______, KC_F11,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, KC_F12,  KC_PGUP, KC_COMM, KC_DOT,  KC_PGDN, _______ \
 ),
 
+<<<<<<< HEAD
 [_ADJUST] =  KEYMAP( \
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -186,6 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 =======
   KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+[_ADJUST] = KEYMAP(\
+  KC_MAKE,    KC_RESET, TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+>>>>>>> update make command and added lit reset
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 >>>>>>> Add workman layer to planck
@@ -208,6 +214,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+<<<<<<< HEAD
     case QWERTY:
         if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -300,45 +307,133 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
 >>>>>>> Add workman layer to planck
 =======
-#ifdef RGBLIGHT_ENABLE
-            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-#else
-            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
+=======
+  case QWERTY:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_SONG(tone_qwerty);
 #endif
+      persistent_default_layer_set(1UL << _QWERTY);
+    }
+    return false;
+    break;
+  case COLEMAK:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_SONG(tone_colemak);
+#endif
+      persistent_default_layer_set(1UL << _COLEMAK);
+    }
+    return false;
+    break;
+  case DVORAK:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_SONG(tone_dvorak);
+#endif
+      persistent_default_layer_set(1UL << _DVORAK);
+    }
+    return false;
+    break;
+  case WORKMAN:
+    if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+      PLAY_SONG(tone_workman);
+#endif
+      persistent_default_layer_set(1UL << _WORKMAN);
+    }
+    return false;
+    break;
+  case LOWER:
+    if (record->event.pressed) {
+      layer_on(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    else {
+      layer_off(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    return false;
+    break;
+  case RAISE:
+    if (record->event.pressed) {
+      layer_on(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    else {
+      layer_off(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _ADJUST);
+    }
+    return false;
+    break;
+  case ADJUST:
+    if (record->event.pressed) {
+      layer_on(_ADJUST);
+    }
+    else {
+      layer_off(_ADJUST);
+    }
+    return false;
+    break;
+  case KC_MAKE:
+    if (!record->event.pressed) {
+>>>>>>> update make command and added lit reset
+#ifdef RGBLIGHT_ENABLE
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=yes AUDIO_ENABLE=yes" SS_TAP(X_ENTER));
+#else
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no AUDIO_ENABLE=yes"SS_TAP(X_ENTER));
+#endif
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         }
         return false;
         break;
 
+=======
+    }
+    return false;
+    break;
+  case KC_RESET:
+    if (!record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+      reset_keyboard();
+    }
+    return false;
+    break;
+>>>>>>> update make command and added lit reset
   }
   return true;
 }
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = eeconfig_read_default_layer();
 
-    rgblight_enable();
+  rgblight_enable();
 
-    if (true) {
-        if (default_layer & (1UL << _COLEMAK)) {
-          rgblight_set_magenta;
-        }
-        else if (default_layer & (1UL << _DVORAK)) {
-          rgblight_set_green;
-        }
-        else if (default_layer & (1UL << _WORKMAN)) {
-          rgblight_set_purple;
-        }
-        else {
-          rgblight_set_teal;
-        }
+  if (true) {
+    if (default_layer & (1UL << _COLEMAK)) {
+      rgblight_set_magenta;
     }
-    else
-    {
-      rgblight_set_red;
-      rgblight_mode(5);
+    else if (default_layer & (1UL << _DVORAK)) {
+      rgblight_set_green;
     }
+    else if (default_layer & (1UL << _WORKMAN)) {
+      rgblight_set_purple;
+    }
+    else {
+      rgblight_set_teal;
+    }
+  }
+  else
+  {
+    rgblight_set_red;
+    rgblight_mode(5);
+  }
 #endif
 
 };
@@ -349,48 +444,37 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
 uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
 #ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = eeconfig_read_default_layer();
 
-    switch (biton32(state)) {
-    case _COLEMAK:
-        rgblight_set_magenta;
-        rgblight_mode(1);
-        break;
-    case _DVORAK:
-        rgblight_set_green;
-        rgblight_mode(1);
-        break;
-    case _RAISE:
-        rgblight_set_yellow;
-        rgblight_mode(5);
-        break;
-    case _LOWER:
-        rgblight_set_orange;
-        rgblight_mode(5);
-        break;
-    case _ADJUST:
-        rgblight_set_red;
-        rgblight_mode(23);
-        break;
-    case 6:
-        rgblight_set_blue;
-        break;
-    case _QWERTY:
-        if (default_layer & (1UL << _COLEMAK)) {
-            rgblight_set_magenta;
-        }
-        else if (default_layer & (1UL << _DVORAK)) {
-            rgblight_set_green;
-        }
-        else if (default_layer & (1UL << _WORKMAN)) {
-            rgblight_set_purple;
-        }
-        else {
-            rgblight_set_teal;
-        }
-        rgblight_mode(1);
-        break;
+  switch (biton32(state)) {
+  case _COLEMAK:
+    rgblight_set_magenta;
+    rgblight_mode(1);
+    break;
+  case _DVORAK:
+    rgblight_set_green;
+    rgblight_mode(1);
+    break;
+  case _RAISE:
+    rgblight_set_yellow;
+    rgblight_mode(5);
+    break;
+  case _LOWER:
+    rgblight_set_orange;
+    rgblight_mode(5);
+    break;
+  case _ADJUST:
+    rgblight_set_red;
+    rgblight_mode(23);
+    break;
+  case 6:
+    rgblight_set_blue;
+    break;
+  case _QWERTY:
+    if (default_layer & (1UL << _COLEMAK)) {
+      rgblight_set_magenta;
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -471,7 +555,21 @@ uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
 #endif
 >>>>>>> Tweaked RGB lighting stuff
 =======
+=======
+    else if (default_layer & (1UL << _DVORAK)) {
+      rgblight_set_green;
+    }
+    else if (default_layer & (1UL << _WORKMAN)) {
+      rgblight_set_purple;
+    }
+    else {
+      rgblight_set_teal;
+    }
+    rgblight_mode(1);
+    break;
+  }
+>>>>>>> update make command and added lit reset
 #endif
-    return state;
+  return state;
 }
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
