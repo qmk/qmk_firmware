@@ -90,7 +90,7 @@ The *RAISE* layer contains the symbols. This layer is momentary when the right t
 ,-----------------------------------------.     .-----------------------------------------.
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |     |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
-| Esc  | Mute | Vol- | Vol+ |      | 	  |     | RESET|      |      |      |      | Ins  |
+| Esc  | Mute | Vol- | Vol+ |      | 	  |     |      |      |      |      |      | Ins  |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
 | Caps | Stop | |<<  | >/|| |  >>| |      |     |      |      |      |      |      |PrtSc |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
@@ -105,12 +105,11 @@ The *FUNCTION* layer contains media keys as well as the F-row. This layer is mom
 * Mute, and Vol +/- are next to each other in ascending (L->R) volume order, Stop is below Mute.
 * Insert, Print Screen, Scroll Lock & Pause Break are all implemented on the far right column. I don't really use these keys so their position is not optimised.
 * Caps lock is implemented on this layer, in the traditional position, in place of BackSpace on the Base layer.
-* The RESET key will reset the board for flashing and the Power key will initiate a shutdown of the PC. I've placed these in the far-reach index positions so that they are least likely to be pressed on accident. The power key is particularly dangerous, so I've placed it conciously on the right hand so that it becomes very awkward to activate with one hand (Fn needs to be held with the middle finger at the same time)
 
 ### MOUSE - Mouse keys: The functionality of this layer is not as optimal as using a true mouse, generally slower but will work in a pinch.
 ```
  ,----------------------------------------.     .----------------------------------------. 
- |  Esc |      |      |      |      |     |     |     |      |      |      |      |  Del | 
+ |  Esc |      |      |      |      |     |     |RESET|      |      |      |      |  Del | 
  |------+------+------+------+------+-----|     |-----+------+------+------+------+------| 
  |  Tab | WhlU | WhlL | MsUp | WhlR |     |     |     |  M3  |  M4  |  M5  |      |      | 
  |------+------+------+------+------+-----|     |-----+------+------+------+------+------| 
@@ -126,3 +125,4 @@ The *MOUSE* layer contains keys replicating functions found on the mouse.
 * The navigation cluster (Up, Down, Left, Right) is a replication of the Navigation cluster on the *LOWER* layer. The scroll keys are analagous to the Page Up & down keys.
 * The primary click (right & left) buttons are on the right home row (index & middle fingers)
 * Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.
+* The RESET key will reset the board for flashing. I've placed this in the far-reach index positions so it is least likely to be pressed on accident.
