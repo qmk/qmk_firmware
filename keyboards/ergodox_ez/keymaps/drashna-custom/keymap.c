@@ -62,10 +62,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
 =======
 
 //define macro keycodes
@@ -175,11 +178,14 @@ enum custom_keycodes {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
 =======
 >>>>>>> Tweaked RGB lighting stuff
 =======
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
 =======
 >>>>>>> Updated macros and added workman keymaps
 >>>>>>> Updated macros and added workman keymaps
@@ -227,6 +233,9 @@ enum custom_keycodes {
     KC_MAKEQMK
 >>>>>>> Updated macros and added workman keymaps
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
 =======
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -243,6 +252,7 @@ enum custom_keycodes {
   KC_DVORAK,
   KC_WORKMAN,
 <<<<<<< HEAD
+<<<<<<< HEAD
   KC_MAKEQMK
 >>>>>>> Fixed formatting to fall in line with official standards
 =======
@@ -253,6 +263,10 @@ enum custom_keycodes {
 >>>>>>> Tweaked RGB lighting stuff
 =======
 >>>>>>> Updated macros and added workman keymaps
+=======
+  KC_MAKEQMK
+>>>>>>> Fixed formatting to fall in line with official standards
+>>>>>>> Fixed formatting to fall in line with official standards
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -307,6 +321,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   if (state->count >= 4) {
 >>>>>>> Fixed formatting to fall in line with official standards
@@ -339,6 +354,18 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
 =======
 <<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+=======
+  if (state->count >= 4) {
+>>>>>>> Fixed formatting to fall in line with official standards
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable();
+    rgblight_mode(1);
+    rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> Fixed formatting to fall in line with official standards
         reset_tap_dance(state);
         reset_keyboard();
 <<<<<<< HEAD
@@ -1350,6 +1377,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 void persistent_default_layer_set(uint16_t default_layer) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -1436,6 +1464,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
     eeconfig_update_default_layer(default_layer);
     default_layer_set(default_layer);
+=======
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+>>>>>>> Fixed formatting to fall in line with official standards
 }
 
 >>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
@@ -1447,27 +1479,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
-    switch (keycode) {
-        // dynamically generate these.
-        case EPRM:
-            if (record->event.pressed) {
-                eeconfig_init();
-            }
-            return false;
-            break;
-        case VRSN:
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            }
-            return false;
-            break;
-        case RGB_SLD:
-            if (record->event.pressed) {
+  switch (keycode) {
+    // dynamically generate these.
+  case EPRM:
+    if (record->event.pressed) {
+      eeconfig_init();
+    }
+    return false;
+    break;
+  case VRSN:
+    if (record->event.pressed) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+    }
+    return false;
+    break;
+  case RGB_SLD:
+    if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
-                rgblight_mode(1);
+      rgblight_mode(1);
 #endif
+<<<<<<< HEAD
             }
             return false;
             break;
@@ -1597,6 +1630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode(1);
       rgblight_setrgb(0x00, 0x00, 0xff);
 #endif
+<<<<<<< HEAD
     }
     return false;
     break;
@@ -1630,10 +1664,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode(1);
       rgblight_setrgb(0x80, 0x00, 0x80);
 #endif
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
     }
     return false;
     break;
 
+<<<<<<< HEAD
+=======
+  case RGB_008000:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x00, 0x80, 0x00);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_FF0000:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_800080:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x80, 0x00, 0x80);
+#endif
+    }
+    return false;
+    break;
+
+>>>>>>> Fixed formatting to fall in line with official standards
   case RGB_00FF90:
     if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
@@ -1749,6 +1821,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 >>>>>>> Updated macros and added workman keymaps
 >>>>>>> Updated macros and added workman keymaps
+=======
+    return false;
+    break;
+  case KC_QWERTY:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << QWERTY);
+    }
+    return false;
+    break;
+  case KC_COLEMAK:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << COLEMAK);
+    }
+    return false;
+    break;
+  case KC_DVORAK:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << DVORAK);
+    }
+    return false;
+    break;
+  case KC_WORKMAN:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << WORKMAN);
+    }
+    return false;
+    break;
+  case KC_MAKEQMK:
+    if (!record->event.pressed) {
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  }
+  return true;
+>>>>>>> Fixed formatting to fall in line with official standards
 }
 
 #ifdef TAP_DANCE_ENABLE
@@ -1862,6 +1971,23 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
     else {
         rgblight_set_teal;
     }
+=======
+  uint8_t default_layer = eeconfig_read_default_layer();
+
+  rgblight_enable();
+  if (default_layer & (1UL << COLEMAK)) {
+    rgblight_set_magenta;
+  }
+  else if (default_layer & (1UL << DVORAK)) {
+    rgblight_set_green;
+  }
+  else if (default_layer & (1UL << WORKMAN)) {
+    rgblight_set_purple;
+  }
+  else {
+    rgblight_set_teal;
+  }
+>>>>>>> Fixed formatting to fall in line with official standards
 #endif
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 };
@@ -2288,36 +2414,60 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+  uint8_t modifiders = get_mods();
 
-    // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-    run_diablo_macro_check();
-#endif
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-        SEQ_ONE_KEY(KC_C) {
-            SEND_STRING("Covecube");
-        }
-        SEQ_ONE_KEY(KC_D) {
-            SEND_STRING("StableBit CloudDrive");
-        }
-        SEQ_ONE_KEY(KC_L) {
-            register_code(KC_LGUI);
-            register_code(KC_L);
-            unregister_code(KC_L);
-            unregister_code(KC_LGUI);
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) {
-            SEND_STRING("StableBit DrivePool");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_C) {
-            SEND_STRING("StableBit Scanner");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_T) {
-            SEND_STRING("StableBit Troubleshooter");
-        }
+  if (!skip_leds) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    // Since we're not using the LEDs here for layer indication anymore,
+    // then lets use them for modifier indicators.  Shame we don't have 4...
+    // Also, no "else", since we want to know each, independantly. 
+    if (modifiders & MODS_SHIFT_MASK) {
+      ergodox_right_led_2_on();
     }
+    if (modifiders & MODS_CTRL_MASK) {
+      ergodox_right_led_1_on();
+    }
+    if (modifiders & MODS_ALT_MASK) {
+      ergodox_right_led_3_on();
+    }
+
+  }
+>>>>>>> Fixed formatting to fall in line with official standards
+
+  // Run Diablo 3 macro checking code.
+#ifdef TAP_DANCE_ENABLE
+  run_diablo_macro_check();
+#endif
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+    SEQ_ONE_KEY(KC_C) {
+      SEND_STRING("Covecube");
+    }
+    SEQ_ONE_KEY(KC_D) {
+      SEND_STRING("StableBit CloudDrive");
+    }
+    SEQ_ONE_KEY(KC_L) {
+      register_code(KC_LGUI);
+      register_code(KC_L);
+      unregister_code(KC_L);
+      unregister_code(KC_LGUI);
+    }
+    SEQ_TWO_KEYS(KC_S, KC_D) {
+      SEND_STRING("StableBit DrivePool");
+    }
+    SEQ_TWO_KEYS(KC_S, KC_C) {
+      SEND_STRING("StableBit Scanner");
+    }
+    SEQ_TWO_KEYS(KC_S, KC_T) {
+      SEND_STRING("StableBit Troubleshooter");
+    }
+  }
 };
 
 <<<<<<< HEAD
@@ -2328,43 +2478,43 @@ uint32_t layer_state_set_kb(uint32_t state) {
 =======
 uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = eeconfig_read_default_layer();
 
-    switch (biton32(state)) {
-        case SYMB:
-            rgblight_set_blue;
-            rgblight_mode(2);
-            break;
-        case OVERWATCH:
-            rgblight_set_orange;
-            rgblight_mode(17);
-            break;
-        case DIABLO:
-            rgblight_set_red;
-            rgblight_mode(5);
-            break;
-        case MOUS:
-            rgblight_set_yellow;
-            rgblight_mode(1);
-            break;
-        default:
-            if (default_layer & (1UL << COLEMAK)) {
-                rgblight_set_green;
-            }
-            else if (default_layer & (1UL << DVORAK)) {
-                rgblight_set_magenta;
-            }
-            else if (default_layer & (1UL << WORKMAN)) {
-                rgblight_set_purple;
-            }
-            else {
-                rgblight_set_teal;
-            }
-            rgblight_mode(1);
-            break;
+  switch (biton32(state)) {
+  case SYMB:
+    rgblight_set_blue;
+    rgblight_mode(2);
+    break;
+  case OVERWATCH:
+    rgblight_set_orange;
+    rgblight_mode(17);
+    break;
+  case DIABLO:
+    rgblight_set_red;
+    rgblight_mode(5);
+    break;
+  case MOUS:
+    rgblight_set_yellow;
+    rgblight_mode(1);
+    break;
+  default:
+    if (default_layer & (1UL << COLEMAK)) {
+      rgblight_set_green;
     }
+    else if (default_layer & (1UL << DVORAK)) {
+      rgblight_set_magenta;
+    }
+    else if (default_layer & (1UL << WORKMAN)) {
+      rgblight_set_purple;
+    }
+    else {
+      rgblight_set_teal;
+    }
+    rgblight_mode(1);
+    break;
+  }
 #endif
-   return state;
+  return state;
 }
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function

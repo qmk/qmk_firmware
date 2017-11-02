@@ -131,7 +131,26 @@ enum custom_keycodes {
     KC_TORB,
     KC_AIM
 >>>>>>> Update to keymaps
+<<<<<<< HEAD
 >>>>>>> Update to keymaps
+=======
+=======
+  KC_DIABLO_CLEAR = SAFE_RANGE,
+  KC_P00,
+  KC_MAKE,
+  KC_OVERWATCH,
+  KC_SALT,
+  KC_MORESALT,
+  KC_SALTHARD,
+  KC_GOODGAME,
+  KC_SYMM,
+  KC_DOOMFIST,
+  KC_JUSTGAME,
+  KC_GLHF,
+  KC_TORB,
+  KC_AIM
+>>>>>>> Fixed formatting to fall in line with official standards
+>>>>>>> Fixed formatting to fall in line with official standards
 };
 
 // Fillers to make layering more clear
@@ -463,7 +482,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, (TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), KC_Z, KC_DIABLO_CLEAR,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_LALT, KC_F4,   KC_F5,   KC_F8,   KC_F9,   KC_F10,  SFT_T(KC_SPACE),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
- 
+
   [_GAMEPAD] = KEYMAP(  // Game pad layout designed primarily for Overwatch
       MACROS,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -787,9 +806,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 =======
+=======
+  case KC_P00:
+    if (!record->event.pressed) {
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+    }
+    return false;
+    break;
+  case KC_MAKE:
+    if (!record->event.pressed) {
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_OVERWATCH:  // reset all Diable timers, disabling them
+    if (record->event.pressed) {
+      is_overwatch = !is_overwatch;
+    }
+>>>>>>> Fixed formatting to fall in line with official standards
 #ifdef RGBLIGHT_ENABLE
-        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         return false;
@@ -1245,6 +1286,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
@@ -1277,10 +1321,13 @@ void send_diablo_keystroke(uint8_t diablo_key) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+>>>>>>> Fixed formatting to fall in line with official standards
     if (biton32(layer_state) == _DIABLO) {
 =======
     if (current_layer == _DIABLO) {
