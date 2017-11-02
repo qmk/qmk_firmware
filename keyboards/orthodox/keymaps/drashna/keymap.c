@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_workman[][2]    = SONG(PLOVER_SONG);
+float tone_workman[][2]    = SONG(PLOVER_SOUND);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -319,17 +319,25 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
     uint8_t default_layer = eeconfig_read_default_layer();
 
     rgblight_enable();
-    if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_set_magenta;
-}
-    else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_set_green;
+
+    if (true) {
+        if (default_layer & (1UL << _COLEMAK)) {
+          rgblight_set_magenta;
+        }
+        else if (default_layer & (1UL << _DVORAK)) {
+          rgblight_set_green;
+        }
+        else if (default_layer & (1UL << _WORKMAN)) {
+          rgblight_set_purple;
+        }
+        else {
+          rgblight_set_teal;
+        }
     }
-    else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
+    else
+    {
+      rgblight_set_red;
+      rgblight_mode(5);
     }
 #endif
 
