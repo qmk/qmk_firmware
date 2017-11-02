@@ -20,7 +20,7 @@ Any sort of hardware file (plate, case, pcb) can't be stored in qmk_firmware, bu
 
 As QMK grows so does the ecosystem surrounding QMK. To make it easier for projects in that ecosystem to tie into QMK as we make changes we are developing a metadata system to expose information about keyboards in QMK.
 
-You can create `info.json` files at every level under `qmk_firmware/keyboards/&lt;name&gt;` to specify this metadata. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
+You can create `info.json` files at every level under `qmk_firmware/keyboards/<name>` to specify this metadata. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
 
 ### `info.json` Format
 
