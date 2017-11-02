@@ -1,4 +1,4 @@
-# Clueboard 66%
+# Knops Mini
 
 ![Knops logo](http://knops.io/img/Knops_logo.jpg)
 
