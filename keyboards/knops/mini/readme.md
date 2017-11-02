@@ -1,36 +1,21 @@
-knops keyboard firmware
-======================
+# Clueboard 66%
 
-## Quantum MK Firmware
+![Knops logo](http://knops.io/img/Knops_logo.jpg)
 
-For the full Quantum feature list, see [the parent readme](/).
+![Knops mini keyboard](https://i.imgur.com/AMrXVi4.jpg)
 
-## Building
+A fully customizable 3x2 macropad. An exploded view of the keyboard is [available here](https://i.imgur.com/H83l5H8.gif).
 
-Download or clone the whole firmware and navigate to the root folder. Once your dev env is setup, you'll be able to type `make knops-default` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+*The best way to change settings on your keyboard*, is by using [our official configurator tool](http://knops.io/configurator.html).
 
-(Note: replace knops with the name of your keyboard.)
+* Keyboard Maintainer: [Pawnerd](https://github.com/pawnerd)
+* Contact / Questions (by e-mail): kayle `at` knops `dot` io
+* Hardware Supported: Knops Mini
+  * rev1 (1.0) (Sold by CMStore EU/USA/CAD from 27th of august, 2017)
+* Hardware Availability: [knops.io](http://knops.io/knopsmini.html), [Direct EU](http://www.cmstore.eu/maker-made/knops-mini-macro-keyboard/), [Direct USA/CAN](http://www.cmstore-usa.com/knops-mini-macro-keyboard/)
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+Make example for this keyboard (after setting up your build environment):
 
-### Default
+    make knops/mini:default
 
-To build with the default keymap, simply run `make knops-default`.
-
-### Other Keymaps
-
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder. Create a `readme.md` and a `keymap.c` file to complete your new keymap. When you are done your file tree should look like this:
-
-* `qmk_firmware/`
-  * `keyboard/`
-    * `keymaps/`
-      * `config.h` (optional)
-      * `keymap.c`
-      * `readme.md`
-      * `rules.mk` (optional)
-
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
-
-```
-$ make knops-[default|jack|<name>]
-```
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
