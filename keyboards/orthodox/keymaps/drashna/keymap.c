@@ -529,17 +529,25 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
     uint8_t default_layer = eeconfig_read_default_layer();
 
     rgblight_enable();
-    if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_set_magenta;
-}
-    else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_set_green;
+
+    if (true) {
+        if (default_layer & (1UL << _COLEMAK)) {
+          rgblight_set_magenta;
+        }
+        else if (default_layer & (1UL << _DVORAK)) {
+          rgblight_set_green;
+        }
+        else if (default_layer & (1UL << _WORKMAN)) {
+          rgblight_set_purple;
+        }
+        else {
+          rgblight_set_teal;
+        }
     }
-    else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
+    else
+    {
+      rgblight_set_red;
+      rgblight_mode(5);
     }
 #endif
 
