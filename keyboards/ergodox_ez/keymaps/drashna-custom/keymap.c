@@ -55,6 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 //define macro keycodes
@@ -64,6 +65,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Updated macros and added workman keymaps
  
+=======
+
+>>>>>>> Fixed formatting to fall in line with official standards
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
@@ -103,16 +107,17 @@ static uint8_t current_layer = 0;
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
-static uint8_t diablo_times[] = {0, 1, 3, 5, 10, 30};
+static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
 static uint8_t diablo_key_time[4];
 
 bool check_dtimer(uint8_t dtimer) {
-    // has the correct number of seconds elapsed (as defined by diablo_times)
-    return (timer_elapsed(diablo_timer[dtimer]) < ( diablo_key_time[dtimer] * 1000 ) ) ? false : true;
+  // has the correct number of seconds elapsed (as defined by diablo_times)
+  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
 };
 
 
 enum custom_keycodes {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -156,15 +161,32 @@ enum custom_keycodes {
     KC_WORKMAN,
     KC_MAKEQMK
 >>>>>>> Updated macros and added workman keymaps
+=======
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+  EPRM,
+  VRSN,
+  RGB_SLD,
+  RGB_0000FF,
+  RGB_008000,
+  RGB_FF0000,
+  RGB_800080,
+  RGB_00FF90,
+  KC_DIABLO_CLEAR,
+  KC_QWERTY,
+  KC_COLEMAK,
+  KC_DVORAK,
+  KC_WORKMAN,
+  KC_MAKEQMK
+>>>>>>> Fixed formatting to fall in line with official standards
 };
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-    TD_FLSH = 0,
-    TD_DIABLO_1,
-    TD_DIABLO_2,
-    TD_DIABLO_3,
-    TD_DIABLO_4
+  TD_FLSH = 0,
+  TD_DIABLO_1,
+  TD_DIABLO_2,
+  TD_DIABLO_3,
+  TD_DIABLO_4
 };
 
 
@@ -174,44 +196,49 @@ enum {
 // on the forth tap, turn them off from right to left
 
 void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
-    if (!skip_leds) {
-        ergodox_board_led_off();
-        ergodox_right_led_1_off();
-        ergodox_right_led_2_off();
-        ergodox_right_led_3_off();
-        skip_leds = true;
-    }
-    switch (state->count) {
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        case 3:
-            ergodox_right_led_3_on();
-            break;
-        case 4:
-            ergodox_right_led_1_off();
-            _delay_ms(50);
-            ergodox_right_led_2_off();
-            _delay_ms(50);
-            ergodox_right_led_3_off();
+  if (!skip_leds) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+    skip_leds = true;
+  }
+  switch (state->count) {
+  case 1:
+    ergodox_right_led_1_on();
+    break;
+  case 2:
+    ergodox_right_led_2_on();
+    break;
+  case 3:
+    ergodox_right_led_3_on();
+    break;
+  case 4:
+    ergodox_right_led_1_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_3_off();
 
-    }
+  }
 }
 
 // on the fourth tap, set the keyboard on flash state
 // and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
+<<<<<<< HEAD
     if (state->count >= 4) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+  if (state->count >= 4) {
+>>>>>>> Fixed formatting to fall in line with official standards
 #ifdef RGBLIGHT_ENABLE
-        rgblight_enable();
-        rgblight_mode(1);
-        rgblight_setrgb(0xff,0x00,0x00);
+    rgblight_enable();
+    rgblight_mode(1);
+    rgblight_setrgb(0xff, 0x00, 0x00);
 #endif
+<<<<<<< HEAD
 <<<<<<< HEAD
         reset_tap_dance(state);
         reset_keyboard();
@@ -231,59 +258,65 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
         reset_keyboard();
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
     }
+=======
+    reset_tap_dance(state);
+    reset_keyboard();
+  }
+>>>>>>> Fixed formatting to fall in line with official standards
 }
 
 // Cycle through the times for the macro, starting at 0, for disabled.
 // Max of six values, so don't exceed
-void diablo_tapdance_master (qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-    if (state->count >= 7) {
-        diablo_key_time[diablo_key] = diablo_times[0];
-        reset_tap_dance(state);
-    } else {
-        diablo_key_time[diablo_key] = diablo_times[state->count - 1];
-    }
+void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
+  if (state->count >= 7) {
+    diablo_key_time[diablo_key] = diablo_times[0];
+    reset_tap_dance(state);
+  }
+  else {
+    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
+  }
 }
 
 
 // Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1 (qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master (state, user_data, 0);
+void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 0);
 }
 
-void diablo_tapdance2 (qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master (state, user_data, 1);
+void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 1);
 }
 
-void diablo_tapdance3 (qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master (state, user_data, 2);
+void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 2);
 }
 
-void diablo_tapdance4 (qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master (state, user_data, 3);
+void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 3);
 }
 
 
 // if the flash state didnt happen, then turn off leds, left to right
 void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
-    _delay_ms(200);
-    ergodox_right_led_3_off();
-    _delay_ms(200);
-    ergodox_right_led_2_off();
-    _delay_ms(200);
-    ergodox_right_led_1_off();
-    _delay_ms(500);
-    skip_leds = false;
+  _delay_ms(200);
+  ergodox_right_led_3_off();
+  _delay_ms(200);
+  ergodox_right_led_2_off();
+  _delay_ms(200);
+  ergodox_right_led_1_off();
+  _delay_ms(500);
+  skip_leds = false;
 }
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-    [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-    // tap once to disable, and more to enable timed micros
-    [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-    [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-    [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-    [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
+  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
+  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
+  // tap once to disable, and more to enable timed micros
+  [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
+  [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
+  [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
+  [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
 
 };
 #endif
@@ -926,8 +959,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 >>>>>>> Updated RGB Underglow info
 =======
 void persistent_default_layer_set(uint16_t default_layer) {
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 >>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
@@ -936,27 +969,28 @@ void persistent_default_layer_set(uint16_t default_layer) {
 =======
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
-    switch (keycode) {
-        // dynamically generate these.
-        case EPRM:
-            if (record->event.pressed) {
-                eeconfig_init();
-            }
-            return false;
-            break;
-        case VRSN:
-            if (record->event.pressed) {
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            }
-            return false;
-            break;
-        case RGB_SLD:
-            if (record->event.pressed) {
+  switch (keycode) {
+    // dynamically generate these.
+  case EPRM:
+    if (record->event.pressed) {
+      eeconfig_init();
+    }
+    return false;
+    break;
+  case VRSN:
+    if (record->event.pressed) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+    }
+    return false;
+    break;
+  case RGB_SLD:
+    if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
-                rgblight_mode(1);
+      rgblight_mode(1);
 #endif
+<<<<<<< HEAD
             }
             return false;
             break;
@@ -1062,8 +1096,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-
+=======
     }
+    return false;
+    break;
+>>>>>>> Fixed formatting to fall in line with official standards
+
+  case RGB_0000FF:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x00, 0x00, 0xff);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_008000:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x00, 0x80, 0x00);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_FF0000:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_800080:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x80, 0x00, 0x80);
+#endif
+    }
+    return false;
+    break;
+
+  case RGB_00FF90:
+    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0x00, 0xff, 0x90);
+#endif
+    }
+    return false;
+    break;
+  case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
+    if (record->event.pressed) {
+      uint8_t dtime;
+
+      for (dtime = 0; dtime < 4; dtime++) {
+        diablo_key_time[dtime] = diablo_times[0];
+      }
+    }
+<<<<<<< HEAD
     return true;
 =======
 
@@ -1083,42 +1184,79 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 >>>>>>> Updated macros and added workman keymaps
+=======
+    return false;
+    break;
+  case KC_QWERTY:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << QWERTY);
+    }
+    return false;
+    break;
+  case KC_COLEMAK:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << COLEMAK);
+    }
+    return false;
+    break;
+  case KC_DVORAK:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << DVORAK);
+    }
+    return false;
+    break;
+  case KC_WORKMAN:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL << WORKMAN);
+    }
+    return false;
+    break;
+  case KC_MAKEQMK:
+    if (!record->event.pressed) {
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  }
+  return true;
+>>>>>>> Fixed formatting to fall in line with official standards
 }
 
 #ifdef TAP_DANCE_ENABLE
 
 // Sends the key press to system, but only if on the Diablo layer
-void send_diablo_keystroke (uint8_t diablo_key) {
-    if (biton32(layer_state) == DIABLO) {
-        switch (diablo_key) {
-            case 0:
-                SEND_STRING("1");
-                break;
-            case 1:
-                SEND_STRING("2");
-                break;
-            case 2:
-                SEND_STRING("3");
-                break;
-            case 3:
-                SEND_STRING("4");
-                break;
-        }
+void send_diablo_keystroke(uint8_t diablo_key) {
+  if (biton32(layer_state) == DIABLO) {
+    switch (diablo_key) {
+    case 0:
+      SEND_STRING("1");
+      break;
+    case 1:
+      SEND_STRING("2");
+      break;
+    case 2:
+      SEND_STRING("3");
+      break;
+    case 3:
+      SEND_STRING("4");
+      break;
     }
+  }
 }
 
 // Checks each of the 4 timers/keys to see if enough time has elapsed
 // Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
-    uint8_t dtime;
-    
-    for (dtime = 0; dtime < 4; dtime++) {
-        if (check_dtimer(dtime) && diablo_key_time[dtime]) {
-            diablo_timer[dtime] = timer_read();
-            send_diablo_keystroke(dtime);
-        } 
+  uint8_t dtime;
+
+  for (dtime = 0; dtime < 4; dtime++) {
+    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
+      diablo_timer[dtime] = timer_read();
+      send_diablo_keystroke(dtime);
     }
-    
+  }
+
 }
 
 #endif
@@ -1128,6 +1266,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
 <<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
+<<<<<<< HEAD
     uint8_t default_layer = eeconfig_read_default_layer();
 =======
 =======
@@ -1148,6 +1287,23 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
     else {
         rgblight_set_teal;
     }
+=======
+  uint8_t default_layer = eeconfig_read_default_layer();
+
+  rgblight_enable();
+  if (default_layer & (1UL << COLEMAK)) {
+    rgblight_set_magenta;
+  }
+  else if (default_layer & (1UL << DVORAK)) {
+    rgblight_set_green;
+  }
+  else if (default_layer & (1UL << WORKMAN)) {
+    rgblight_set_purple;
+  }
+  else {
+    rgblight_set_teal;
+  }
+>>>>>>> Fixed formatting to fall in line with official standards
 #endif
 };
 >>>>>>> Add forced NKRO
@@ -1181,6 +1337,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {  // runs frequently to update info
+<<<<<<< HEAD
     uint8_t modifiders = get_mods();
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1359,36 +1516,60 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
 =======
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
+=======
+  uint8_t modifiders = get_mods();
 
-    // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-    run_diablo_macro_check();
-#endif
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-        SEQ_ONE_KEY(KC_C) {
-            SEND_STRING("Covecube");
-        }
-        SEQ_ONE_KEY(KC_D) {
-            SEND_STRING("StableBit CloudDrive");
-        }
-        SEQ_ONE_KEY(KC_L) {
-            register_code(KC_LGUI);
-            register_code(KC_L);
-            unregister_code(KC_L);
-            unregister_code(KC_LGUI);
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) {
-            SEND_STRING("StableBit DrivePool");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_C) {
-            SEND_STRING("StableBit Scanner");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_T) {
-            SEND_STRING("StableBit Troubleshooter");
-        }
+  if (!skip_leds) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    // Since we're not using the LEDs here for layer indication anymore,
+    // then lets use them for modifier indicators.  Shame we don't have 4...
+    // Also, no "else", since we want to know each, independantly. 
+    if (modifiders & MODS_SHIFT_MASK) {
+      ergodox_right_led_2_on();
     }
+    if (modifiders & MODS_CTRL_MASK) {
+      ergodox_right_led_1_on();
+    }
+    if (modifiders & MODS_ALT_MASK) {
+      ergodox_right_led_3_on();
+    }
+
+  }
+>>>>>>> Fixed formatting to fall in line with official standards
+
+  // Run Diablo 3 macro checking code.
+#ifdef TAP_DANCE_ENABLE
+  run_diablo_macro_check();
+#endif
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+    SEQ_ONE_KEY(KC_C) {
+      SEND_STRING("Covecube");
+    }
+    SEQ_ONE_KEY(KC_D) {
+      SEND_STRING("StableBit CloudDrive");
+    }
+    SEQ_ONE_KEY(KC_L) {
+      register_code(KC_LGUI);
+      register_code(KC_L);
+      unregister_code(KC_L);
+      unregister_code(KC_LGUI);
+    }
+    SEQ_TWO_KEYS(KC_S, KC_D) {
+      SEND_STRING("StableBit DrivePool");
+    }
+    SEQ_TWO_KEYS(KC_S, KC_C) {
+      SEND_STRING("StableBit Scanner");
+    }
+    SEQ_TWO_KEYS(KC_S, KC_T) {
+      SEND_STRING("StableBit Troubleshooter");
+    }
+  }
 };
 
 <<<<<<< HEAD
@@ -1396,42 +1577,42 @@ uint32_t layer_state_set_kb(uint32_t state) {
 =======
 uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = eeconfig_read_default_layer();
 
-    switch (biton32(state)) {
-        case SYMB:
-            rgblight_set_blue;
-            rgblight_mode(2);
-            break;
-        case OVERWATCH:
-            rgblight_set_orange;
-            rgblight_mode(17);
-            break;
-        case DIABLO:
-            rgblight_set_red;
-            rgblight_mode(5);
-            break;
-        case MOUS:
-            rgblight_set_yellow;
-            rgblight_mode(1);
-            break;
-        default:
-            if (default_layer & (1UL << COLEMAK)) {
-                rgblight_set_green;
-            }
-            else if (default_layer & (1UL << DVORAK)) {
-                rgblight_set_magenta;
-            }
-            else if (default_layer & (1UL << WORKMAN)) {
-                rgblight_set_purple;
-            }
-            else {
-                rgblight_set_teal;
-            }
-            rgblight_mode(1);
-            break;
+  switch (biton32(state)) {
+  case SYMB:
+    rgblight_set_blue;
+    rgblight_mode(2);
+    break;
+  case OVERWATCH:
+    rgblight_set_orange;
+    rgblight_mode(17);
+    break;
+  case DIABLO:
+    rgblight_set_red;
+    rgblight_mode(5);
+    break;
+  case MOUS:
+    rgblight_set_yellow;
+    rgblight_mode(1);
+    break;
+  default:
+    if (default_layer & (1UL << COLEMAK)) {
+      rgblight_set_green;
     }
+    else if (default_layer & (1UL << DVORAK)) {
+      rgblight_set_magenta;
+    }
+    else if (default_layer & (1UL << WORKMAN)) {
+      rgblight_set_purple;
+    }
+    else {
+      rgblight_set_teal;
+    }
+    rgblight_mode(1);
+    break;
+  }
 #endif
-   return state;
+  return state;
 }
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function

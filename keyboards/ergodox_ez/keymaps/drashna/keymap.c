@@ -27,7 +27,7 @@
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#endif  
+#endif  -
 
 
 enum custom_keycodes {
@@ -60,40 +60,40 @@ const uint16_t PROGMEM fn_actions[] = {
 // leaving this in place for compatibilty with old keymaps cloned and re-compiled.
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-      }
-    return MACRO_NONE;
+  switch (id) {
+  case 0:
+    if (record->event.pressed) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+    }
+    break;
+  }
+  return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
+  case EPRM:
+    if (record->event.pressed) {
+      eeconfig_init();
+    }
+    return false;
+    break;
+  case VRSN:
+    if (record->event.pressed) {
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+    }
+    return false;
+    break;
 #ifndef LAYER_UNDERGLOW_LIGHTING
-    case RGB_SLD:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-      }
-      return false;
-      break;
+  case RGB_SLD:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+    }
+    return false;
+    break;
 #endif
-     
+
   }
   return true;
 }
@@ -109,86 +109,86 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
 
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    
+  ergodox_board_led_off();
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+
 #ifdef LAYER_UNDERGLOW_LIGHTING
-    uint8_t modifiders = get_mods();
-    
-    if ( modifiders & MODS_SHIFT_MASK) {
-            ergodox_right_led_1_on();
-    }
-    if ( modifiders & MODS_CTRL_MASK) {
-            ergodox_right_led_2_on();
-    }
-    if ( modifiders & MODS_ALT_MASK) {
-            ergodox_right_led_3_on();
-    }    
+  uint8_t modifiders = get_mods();
+
+  if (modifiders & MODS_SHIFT_MASK) {
+    ergodox_right_led_1_on();
+  }
+  if (modifiders & MODS_CTRL_MASK) {
+    ergodox_right_led_2_on();
+  }
+  if (modifiders & MODS_ALT_MASK) {
+    ergodox_right_led_3_on();
+  }
 #else
-    uint8_t layer = biton32(layer_state);
-    switch (layer) {
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        case 3:
-            ergodox_right_led_3_on();
-            break;
-        case 4:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case 5:
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
-     }
+  uint8_t layer = biton32(layer_state);
+  switch (layer) {
+  case 1:
+    ergodox_right_led_1_on();
+    break;
+  case 2:
+    ergodox_right_led_2_on();
+    break;
+  case 3:
+    ergodox_right_led_3_on();
+    break;
+  case 4:
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    break;
+  case 5:
+    ergodox_right_led_1_on();
+    ergodox_right_led_3_on();
+    break;
+  case 6:
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();
+    break;
+  case 7:
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();
+    break;
+  default:
+    break;
+  }
 #endif 
 };
 
 uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef LAYER_UNDERGLOW_LIGHTING
-    switch (biton32(state)) {
-    case 1:
-      rgblight_set_red;
-      break;
-    case 2:
-      rgblight_set_blue;
-      break;
-    case 3:
-      rgblight_set_green;
-      break;
-    case 4:
-      rgblight_set_yellow;
-      break;
-    case 5:
-      rgblight_setrgb(0xFF, 0xFF, 0x00);
-      break;
-    case 6:
-      rgblight_setrgb(0xFF, 0xFF, 0x00);
-      break;
-    case 7:
-      rgblight_setrgb(0xFF, 0xFF, 0xFF);
-      break;
-    default:
-      rgblight_set_teal;
-      break;
-    }
+  switch (biton32(state)) {
+  case 1:
+    rgblight_set_red;
+    break;
+  case 2:
+    rgblight_set_blue;
+    break;
+  case 3:
+    rgblight_set_green;
+    break;
+  case 4:
+    rgblight_set_yellow;
+    break;
+  case 5:
+    rgblight_setrgb(0xFF, 0xFF, 0x00);
+    break;
+  case 6:
+    rgblight_setrgb(0xFF, 0xFF, 0x00);
+    break;
+  case 7:
+    rgblight_setrgb(0xFF, 0xFF, 0xFF);
+    break;
+  default:
+    rgblight_set_teal;
+    break;
+  }
 #endif
-    return state;
+  return state;
 }

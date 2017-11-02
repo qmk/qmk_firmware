@@ -31,6 +31,7 @@ extern keymap_config_t keymap_config;
 
 
 enum custom_keycodes {
+<<<<<<< HEAD
     KC_DIABLO_CLEAR = SAFE_RANGE,
     KC_P00,
 <<<<<<< HEAD
@@ -61,6 +62,22 @@ enum custom_keycodes {
     KC_TORB,
     KC_AIM
 >>>>>>> Update to keymaps
+=======
+  KC_DIABLO_CLEAR = SAFE_RANGE,
+  KC_P00,
+  KC_MAKE,
+  KC_OVERWATCH,
+  KC_SALT,
+  KC_MORESALT,
+  KC_SALTHARD,
+  KC_GOODGAME,
+  KC_SYMM,
+  KC_DOOMFIST,
+  KC_JUSTGAME,
+  KC_GLHF,
+  KC_TORB,
+  KC_AIM
+>>>>>>> Fixed formatting to fall in line with official standards
 };
 
 // Fillers to make layering more clear
@@ -138,58 +155,58 @@ static uint8_t diablo_key_time[4];
 
 
 bool check_dtimer(uint8_t dtimer) {
-    // has the correct number of seconds elapsed (as defined by diablo_times)
-    return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
+  // has the correct number of seconds elapsed (as defined by diablo_times)
+  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
 };
 
 
 enum {
-    TD_DIABLO_1 = 0,
-    TD_DIABLO_2,
-    TD_DIABLO_3,
-    TD_DIABLO_4
+  TD_DIABLO_1 = 0,
+  TD_DIABLO_2,
+  TD_DIABLO_3,
+  TD_DIABLO_4
 };
 
 
 // Cycle through the times for the macro, starting at 0, for disabled.
 // Max of six values, so don't exceed
 void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-    if (state->count >= 7) {
-        diablo_key_time[diablo_key] = diablo_times[0];
-        reset_tap_dance(state);
-    }
-    else {
-        diablo_key_time[diablo_key] = diablo_times[state->count - 1];
-    }
+  if (state->count >= 7) {
+    diablo_key_time[diablo_key] = diablo_times[0];
+    reset_tap_dance(state);
+  }
+  else {
+    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
+  }
 }
 
 
 // Would rather have one function for all of this, but no idea how to do that...
 void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master(state, user_data, 0);
+  diablo_tapdance_master(state, user_data, 0);
 }
 
 void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master(state, user_data, 1);
+  diablo_tapdance_master(state, user_data, 1);
 }
 
 void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master(state, user_data, 2);
+  diablo_tapdance_master(state, user_data, 2);
 }
 
 void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
-    diablo_tapdance_master(state, user_data, 3);
+  diablo_tapdance_master(state, user_data, 3);
 }
 
 
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // tap once to disable, and more to enable timed micros
-    [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-    [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-    [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-    [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
+  // tap once to disable, and more to enable timed micros
+  [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
+  [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
+  [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
+  [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
 
 };
 #endif
@@ -243,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, (TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), KC_Z, KC_DIABLO_CLEAR,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_LALT, KC_F4,   KC_F5,   KC_F8,   KC_F9,   KC_F10,  SFT_T(KC_SPACE),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
- 
+
   [_GAMEPAD] = KEYMAP(  // Game pad layout designed primarily for Overwatch
       MACROS,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -343,6 +360,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+<<<<<<< HEAD
     uint16_t kc;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -374,18 +392,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 =======
 >>>>>>> Clean up and updates of drashna keymaps
     switch (keycode) {
+=======
+  uint16_t kc;
+  if (is_overwatch) {
+    kc = KC_BSPC;
+  }
+  else {
+    kc = KC_ENTER;
+  }
+  // Once a delay command is added to "SEND_STRING", 
+  // replace these with X_BSPC and X_ENTER instead. 
+  // and add "SS_TAP(kc) SS_DELAY(50)" to all of the
+  // SEND_STRING commands, to compress things. 
+  switch (keycode) {
+>>>>>>> Fixed formatting to fall in line with official standards
 #ifdef TAP_DANCE_ENABLE
-    case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
-        if (record->event.pressed) {
-            uint8_t dtime;
+  case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
+    if (record->event.pressed) {
+      uint8_t dtime;
 
-            for (dtime = 0; dtime < 4; dtime++) {
-                diablo_key_time[dtime] = diablo_times[0];
-            }
-        }
-        return false;
-        break;
+      for (dtime = 0; dtime < 4; dtime++) {
+        diablo_key_time[dtime] = diablo_times[0];
+      }
+    }
+    return false;
+    break;
 #endif
+<<<<<<< HEAD
     case KC_P00:
         if (!record->event.pressed) {
             register_code(KC_P0);
@@ -426,9 +459,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
+=======
+  case KC_P00:
+    if (!record->event.pressed) {
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+    }
+    return false;
+    break;
+  case KC_MAKE:
+    if (!record->event.pressed) {
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_OVERWATCH:  // reset all Diable timers, disabling them
+    if (record->event.pressed) {
+      is_overwatch = !is_overwatch;
+    }
+>>>>>>> Fixed formatting to fall in line with official standards
 #ifdef RGBLIGHT_ENABLE
-        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif
+<<<<<<< HEAD
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
         return false;
         break;
@@ -635,10 +690,101 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
+=======
+    return false;
+    break;
+  case KC_SALT:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Salt, salt, salt..." SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_MORESALT:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Please sir, can I have some more salt?!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_SALTHARD:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_GOODGAME:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Good game, everyone!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_GLHF:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Good luck, have fun!!!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_SYMM:
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("Left click to win!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_JUSTGAME:
+
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games." SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_TORB:
+
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("That was positively riveting! SS_TAP(X_ENTER)");
+    }
+    return false;
+    break;
+  case KC_AIM:
+
+    if (!record->event.pressed) {
+      register_code(kc);
+      unregister_code(kc);
+      _delay_ms(50);
+      SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
+      _delay_ms(50);
+      SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+>>>>>>> Fixed formatting to fall in line with official standards
 
 <<<<<<< HEAD
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 =======
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
@@ -646,12 +792,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 >>>>>>> Clean up and updates of drashna keymaps
     }
     return true;
+=======
+  }
+  return true;
+>>>>>>> Fixed formatting to fall in line with official standards
 }
 
 #ifdef TAP_DANCE_ENABLE
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke(uint8_t diablo_key) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     if (biton32(layer_state) == _DIABLO) {
@@ -675,20 +826,37 @@ void send_diablo_keystroke(uint8_t diablo_key) {
             SEND_STRING("4");
             break;
         }
+=======
+  if (biton32(layer_state) == _DIABLO) {
+    switch (diablo_key) {
+    case 0:
+      SEND_STRING("1");
+      break;
+    case 1:
+      SEND_STRING("2");
+      break;
+    case 2:
+      SEND_STRING("3");
+      break;
+    case 3:
+      SEND_STRING("4");
+      break;
+>>>>>>> Fixed formatting to fall in line with official standards
     }
+  }
 }
 
 // Checks each of the 4 timers/keys to see if enough time has elapsed
 // Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
-    uint8_t dtime;
+  uint8_t dtime;
 
-    for (dtime = 0; dtime < 4; dtime++) {
-        if (check_dtimer(dtime) && diablo_key_time[dtime]) {
-            diablo_timer[dtime] = timer_read();
-            send_diablo_keystroke(dtime);
-        }
+  for (dtime = 0; dtime < 4; dtime++) {
+    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
+      diablo_timer[dtime] = timer_read();
+      send_diablo_keystroke(dtime);
     }
+  }
 
 }
 #endif
@@ -700,9 +868,9 @@ void run_diablo_macro_check(void) {
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 void matrix_init_user(void) { // Runs boot tasks for keyboard
 #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_set_teal;
-    rgblight_mode(1);
+  rgblight_enable();
+  rgblight_set_teal;
+  rgblight_mode(1);
 #endif
 };
 <<<<<<< HEAD
@@ -730,7 +898,7 @@ void matrix_scan_user(void) {  // runs frequently to update info
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 #ifdef TAP_DANCE_ENABLE
     // Run Diablo 3 macro checking code.
-    run_diablo_macro_check();
+  run_diablo_macro_check();
 #endif
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -741,34 +909,34 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
 uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    switch (biton32(state)) {
-    case _NUMNAV:
-        rgblight_set_teal;
-        rgblight_mode(2);
-        break;
-    case _MACROS:
-        rgblight_set_orange;
-        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-        break;
-    case _DIABLO:
-        rgblight_set_red;
-        rgblight_mode(5);
-        break;
-    case _GAMEPAD:
-        rgblight_set_yellow;
-        rgblight_mode(1);
-        break;
-    case _MEDIA:
-        rgblight_set_blue;
-        rgblight_mode(1);
-        break;
-    case _COVECUBE:
-        rgblight_set_green;
-        rgblight_mode(2);
-    }
+  rgblight_enable();
+  switch (biton32(state)) {
+  case _NUMNAV:
+    rgblight_set_teal;
+    rgblight_mode(2);
+    break;
+  case _MACROS:
+    rgblight_set_orange;
+    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    break;
+  case _DIABLO:
+    rgblight_set_red;
+    rgblight_mode(5);
+    break;
+  case _GAMEPAD:
+    rgblight_set_yellow;
+    rgblight_mode(1);
+    break;
+  case _MEDIA:
+    rgblight_set_blue;
+    rgblight_mode(1);
+    break;
+  case _COVECUBE:
+    rgblight_set_green;
+    rgblight_mode(2);
+  }
 #endif
-    return state;
+  return state;
 }
 <<<<<<< HEAD
 =======
