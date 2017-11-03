@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 //UART settings for communication with the RF microcontroller
-#define SERIAL_UART_BAUD 1000000
+#define SERIAL_UART_BAUD 250000
 #define SERIAL_UART_DATA UDR1
 #define SERIAL_UART_UBRR (F_CPU / (16UL * SERIAL_UART_BAUD) - 1)
 #define SERIAL_UART_TXD_READY (UCSR1A & _BV(UDRE1))
