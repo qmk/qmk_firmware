@@ -19,6 +19,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -59,3 +60,9 @@
 =======
 #endif
 >>>>>>> Update to keymaps
+=======
+#undef DEBOUNCE
+#define DEBOUNCE    5
+
+#endif
+>>>>>>> Minor tweaks

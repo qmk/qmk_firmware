@@ -1,7 +1,11 @@
 CONSOLE_ENABLE    = no
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 TAP_DANCE_ENABLE  = no
+=======
+TAP_DANCE_ENABLE  = yes
+>>>>>>> Minor tweaks
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = no
 MOUSEKEY_ENABLE   = no
