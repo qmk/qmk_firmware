@@ -1,3 +1,5 @@
+(TODO: Layout image)
+
 # A Mitosis keymap
 
 - Base layer is a variant of Workman.
@@ -26,8 +28,12 @@
 - I used to have Blue layer on ring finger, but that was too hard to use in
   conjunction with shift.
 
+- Space/Enter to the left of layer select for Enter doesn't work well; I always
+  trigger space first.
+
 ## To do
 
+- Layout image (HTML table?)
 - Improve LED indications (may require modding bluetooth firmware):
     - Is any board nonresponsive (which one?)
     - Does either board have a low battery?
