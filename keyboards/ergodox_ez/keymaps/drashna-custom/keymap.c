@@ -248,6 +248,7 @@ enum custom_keycodes {
   KC_WORKMAN,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   KC_MAKEQMK
 >>>>>>> Fixed formatting to fall in line with official standards
 =======
@@ -262,6 +263,14 @@ enum custom_keycodes {
   KC_MAKEQMK
 >>>>>>> Fixed formatting to fall in line with official standards
 >>>>>>> Fixed formatting to fall in line with official standards
+=======
+  KC_MAKEQMK
+>>>>>>> Fixed formatting to fall in line with official standards
+=======
+  KC_MAKEQMK,
+  KC_RESET
+>>>>>>> Tweak reset code
+>>>>>>> Tweak reset code
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -537,6 +546,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Tweak reset code
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 =======
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
@@ -576,7 +588,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 >>>>>>> Clean up and updates of drashna keymaps
+<<<<<<< HEAD
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+=======
+                KC_RGUI,    CTL_T(KC_ESCAPE),
+>>>>>>> Tweak reset code
+>>>>>>> Tweak reset code
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -1846,6 +1864,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKEQMK:
     if (!record->event.pressed) {
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
+      debug_enable = true;
+    }
+    return false;
+    break;
+  case KC_RESET:
+    if (!record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+      reset_keyboard();
     }
     return false;
     break;
