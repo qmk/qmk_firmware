@@ -78,6 +78,7 @@ enum custom_keycodes {
   KC_GLHF,
   KC_TORB,
 <<<<<<< HEAD
+<<<<<<< HEAD
   KC_MAKE,
   KC_RESET
 =======
@@ -102,6 +103,10 @@ enum custom_keycodes {
 =======
   KC_MAKE
 >>>>>>> Fixed formatting to fall in line with official standards
+=======
+  KC_MAKE,
+  KC_RESET
+>>>>>>> Removed Leader Keys from Ergodox EZ Keymap
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -200,6 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MEDIA] = KEYMAP( /* Base */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
 =======
@@ -211,6 +217,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, RGB_HUI, RGB_HUD,   \
 >>>>>>> Move woodpad to handwired
 =======
+=======
+    KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
+>>>>>>> Removed Leader Keys from Ergodox EZ Keymap
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
 >>>>>>> Update to keymaps
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \

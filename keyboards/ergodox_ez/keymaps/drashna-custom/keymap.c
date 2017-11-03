@@ -47,11 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 =======
 >>>>>>> Updated macros and added workman keymaps
 
-//Leader Key stuff
-#ifdef LEADER_TIMEOUT
-#undef LEADER_TIMEOUT
-#endif
-#define LEADER_TIMEOUT 1500
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -2000,12 +1995,15 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Add leader keys
 =======
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 =======
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Removed Leader Keys from Ergodox EZ Keymap
     rgblight_enable();
     if (default_layer & (1UL << COLEMAK)) {
         rgblight_set_magenta;
@@ -2036,6 +2034,7 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
 LEADER_EXTERNS();
 =======
 >>>>>>> Removed Leader Keys from Ergodox EZ Keymap
+<<<<<<< HEAD
 =======
 =======
 #ifdef LEADER_KEYS
@@ -2048,6 +2047,8 @@ LEADER_EXTERNS();
 >>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
 =======
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+>>>>>>> Removed Leader Keys from Ergodox EZ Keymap
 
 void matrix_scan_user(void) {  // runs frequently to update info
 <<<<<<< HEAD
@@ -2443,31 +2444,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef TAP_DANCE_ENABLE
   run_diablo_macro_check();
 #endif
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-    SEQ_ONE_KEY(KC_C) {
-      SEND_STRING("Covecube");
-    }
-    SEQ_ONE_KEY(KC_D) {
-      SEND_STRING("StableBit CloudDrive");
-    }
-    SEQ_ONE_KEY(KC_L) {
-      register_code(KC_LGUI);
-      register_code(KC_L);
-      unregister_code(KC_L);
-      unregister_code(KC_LGUI);
-    }
-    SEQ_TWO_KEYS(KC_S, KC_D) {
-      SEND_STRING("StableBit DrivePool");
-    }
-    SEQ_TWO_KEYS(KC_S, KC_C) {
-      SEND_STRING("StableBit Scanner");
-    }
-    SEQ_TWO_KEYS(KC_S, KC_T) {
-      SEND_STRING("StableBit Troubleshooter");
-    }
-  }
 };
 
 <<<<<<< HEAD
