@@ -124,8 +124,8 @@ Missing still...
      { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
      { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,   KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
      { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_4,    KC_5,   KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
-     { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_1,    KC_2,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-     { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,  KC_0,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+     { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGUP, KC_2,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
+     { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,KC_PGDN,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
    },
 	
 /* LOWER
