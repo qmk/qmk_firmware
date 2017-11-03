@@ -23,7 +23,12 @@ enum custom_keycodes {
   RAISE,
   FUNCTION,
   MOUSE,
-  ADJUST,
+  ADJUST
+};
+
+enum custom_macros {
+  R_PIPE,
+  R_POINT
 };
 /*
 // Tap Dance Declarations
@@ -51,6 +56,8 @@ enum {
 #define LWR FUNC(2)
 #define MSE FUNC(3)
 #define FNC FUNC(4)
+#define PIPE M(R_PIPE)
+#define POINT M(R_POINT)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -109,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
  * |  BS  |      |      |      |      |      |     |      |      |      |      |      |   "  |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
- * | LSBO |      |      |   {  |   [  |   `  |     |   |  |   ]  |   }  |   .  |   ?  | RSBC |
+ * | LSBO |  <-  | %>%  |   {  |   [  |   `  |     |   |  |   ]  |   }  |   .  |   ?  | RSBC |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
  * | Ctrl | LGUI |      | LAlt | Space/Lower |     | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `-----------------------------------------'     `-----------------------------------------' 
@@ -118,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    _______, \
   _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC,  KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  _______, \
   _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, \
-  _______,  XXXXXXX, XXXXXXX, KC_LCBR, KC_LBRC, KC_GRV,  KC_PIPE,  KC_RBRC, KC_RCBR, KC_DOT,  KC_SLSH, _______, \
+  _______,  POINT,   PIPE,    KC_LCBR, KC_LBRC, KC_GRV,  KC_PIPE,  KC_RBRC, KC_RCBR, KC_DOT,  KC_SLSH, _______, \
   _______,  _______, XXXXXXX, _______, _______, _______, ENT_RS,   ENT_RS,  FNC,     MSE,     _______, _______ \
   ),
 
@@ -171,12 +178,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float tone_colemak[][2] = SONG(COLEMAK_SOUND);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+}
+
+// Macros to send R pointer & dplyr pipe
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case R_POINT:
+            if (record->event.pressed) { // pointer
+                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
+            }
+            break;
+        case R_PIPE:
+            if (record->event.pressed) { // dplyr pipe
+                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
+            }
+            break;
+    }
+    return MACRO_NONE;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

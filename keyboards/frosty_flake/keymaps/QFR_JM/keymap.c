@@ -19,6 +19,12 @@ enum QFR_keycodes {
   MOUSE
 };
 
+enum custom_macros {
+  R_PIPE,
+  R_POINT
+};
+
+
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
       [1] = ACTION_LAYER_TAP_TOGGLE(_LOWER),         //Hold for momentary Mouse, Tap for toggle Mouse
@@ -27,6 +33,8 @@ enum QFR_keycodes {
 #define SPC_LW FUNC(0)
 #define LWR FUNC(1)
 #define MSE FUNC(2)
+#define PIPE M(R_PIPE)
+#define POINT M(R_POINT)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -65,11 +73,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV,   KC_1,      KC_2,      KC_3,     KC_4,    KC_5,      KC_6,      KC_7,      KC_8,     KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,    _______,_______,_______, \
       KC_TAB,   KC_WH_U,   KC_WH_L,   KC_MS_U,  KC_WH_R, XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS,   _______,_______,_______, \
       KC_BSPC,  KC_WH_D,   KC_MS_L,   KC_MS_D,  KC_MS_R, XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, _______,          _______,                             \
-      _______,XXXXXXX,KC_Z,KC_X,      KC_C,     KC_V,    XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______,  _______,                  _______,           _______,          \
+      _______,XXXXXXX,PIPE,POINT,     XXXXXXX,  XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______,  _______,                  _______,           _______,          \
       _______,  _______,   _______,             KC_ACL2,                       MSE,       _______,  _______,  _______,                             _______,_______,_______  \
       )
 };
 
+// Macros to send R pointer & dplyr pipe
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case R_POINT:
+            if (record->event.pressed) { // pointer
+                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
+            }
+            break;
+        case R_PIPE:
+            if (record->event.pressed) { // dplyr pipe
+                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
+            }
+            break;
+    }
+    return MACRO_NONE;
+}
+ 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
