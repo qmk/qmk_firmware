@@ -129,8 +129,16 @@ void matrix_scan_user(void) {
 
   // This ties state of _xF to red LED, _xN to blue, and _xS to green.
   // 0 = LED on, so we negate the layer_state.
-  setbits(PORTD, ~layer_state>>1, 0b00000010);
-  setbits(PORTF, ~layer_state<<1, 0b00110000);
+  // setbits(PORTD, ~layer_state>>1, 0b00000010);
+  // setbits(PORTF, ~layer_state<<1, 0b00110000);
+
+  // A simplified (but technically inaccurate) model of the momentary tri-state
+  // layer is easier to think about:
+  // Fn1 key: _xS active; indicator = red
+  // Fn2 key: _xN active; indicator = blue
+  // Both:    _xF active; indicator = purple
+  uint32_t portf_bits = ~(layer_state|layer_state<<1|(layer_state&0b100)<<3);
+  setbits(PORTF, portf_bits, 0b00110000);
 }
 
 // vim: set sw=2 et:
