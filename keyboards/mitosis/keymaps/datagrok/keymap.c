@@ -132,10 +132,5 @@ void matrix_scan_user(void) {
   setbits(PORTD, ~layer_state>>1, 0b00000010);
   setbits(PORTF, ~layer_state<<1, 0b00110000);
 }
-void led_set_user(uint8_t usb_led) {
-  // This ties state of num, caps, and scroll lock to pro micro pins labeled
-  // 15, 16, 14 respectively.
-  setbits(PORTB, ~usb_led<<1, 0b00001110);
-}
 
 // vim: set sw=2 et:
