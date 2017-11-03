@@ -7,7 +7,6 @@ COMMAND_ENABLE    = yes  # Commands for debug and configuration
 RGBLIGHT_ENABLE   = yes
 MIDI_ENABLE       = no
 CONSOLE_ENABLE    = no
-LEADER_KEYS       = no
 
 EXTRAFLAGS        = -flto
 <<<<<<< HEAD
