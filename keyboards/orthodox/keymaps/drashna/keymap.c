@@ -54,18 +54,6 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 
 #ifdef RGBLIGHT_ENABLE
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
 #define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
 #define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
@@ -74,43 +62,7 @@ enum custom_keycodes {
 #define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-<<<<<<< HEAD
 #endif
-
-=======
-//define layer change stuff for underglow indicator
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed RGB lighting for Workman layout
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
-
-//This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = true;
-static uint8_t current_layer = 10;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-<<<<<<< HEAD
-#endif
->>>>>>> Tweaked RGB lighting stuff
-
-=======
-
-//This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = true;
-static uint8_t current_layer = 10;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-#endif
->>>>>>> Tweaked RGB lighting stuff
->>>>>>> Tweaked RGB lighting stuff
 
 
 #ifdef TAP_DANCE_ENABLE
@@ -160,18 +112,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_DVORAK] = KEYMAP(\
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed RGB lighting for Workman layout
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
->>>>>>> Fixed RGB lighting for Workman layout
->>>>>>> Fixed RGB lighting for Workman layout
     KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
     KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
     KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
@@ -180,28 +120,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
     KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
     KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Fixed RGB lighting for Workman layout
-=======
-  KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-  KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-  KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed RGB lighting for Workman layout
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
->>>>>>> Fixed RGB lighting for Workman layout
->>>>>>> Fixed RGB lighting for Workman layout
 ),
 
 [_LOWER] = KEYMAP(\
@@ -216,69 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, XXXXXXX, KC_PGUP, KC_COMM, KC_DOT,  KC_PGDN, _______ \
 ),
 
-<<<<<<< HEAD
-[_ADJUST] =  KEYMAP( \
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Add workman layer to planck
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-  KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
-=======
-  _______, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, KC_DEL,  \
-<<<<<<< HEAD
-<<<<<<< HEAD
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
->>>>>>> Updated macros and added workman keymaps
-=======
-  KC_MAKE, RESET,   _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
 [_ADJUST] = KEYMAP(\
   KC_MAKE,    KC_RESET, TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
->>>>>>> update make command and added lit reset
-=======
-=======
-  KC_MAKE, RESET,   TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
->>>>>>> Add workman layer to planck
-=======
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY , COLEMAK,  DVORAK,  _______, _______, \
-=======
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
->>>>>>> Fixed RGB lighting for Workman layout
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-=======
-[_ADJUST] = KEYMAP(\
-  KC_MAKE,    KC_RESET, TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
->>>>>>> update make command and added lit reset
->>>>>>> update make command and added lit reset
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
->>>>>>> Add workman layer to planck
->>>>>>> Add workman layer to planck
 )
 
 
@@ -298,127 +157,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-<<<<<<< HEAD
-    case QWERTY:
-        if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_qwerty);
-        #endif
-            persistent_default_layer_set(1UL<<_QWERTY);
-        }
-        return false;
-        break;
-    case COLEMAK:
-        if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_colemak);
-        #endif
-            persistent_default_layer_set(1UL<<_COLEMAK);
-        }
-        return false;
-        break;
-    case DVORAK:
-        if (record->event.pressed) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_dvorak);
-        #endif
-            persistent_default_layer_set(1UL << _DVORAK);
-        }
-        return false;
-        break;
-    case WORKMAN:
-        if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_workman);
-        #endif
-=======
-=======
->>>>>>> Fixed RGB lighting for Workman layout
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_dvorak);
-        #endif
-            persistent_default_layer_set(1UL << _DVORAK);
-        }
-        return false;
-        break;
-    case WORKMAN:
-        if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_workman);
-        #endif
-<<<<<<< HEAD
-=======
-=======
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_dvorak);
-        #endif
-            persistent_default_layer_set(1UL << _DVORAK);
-        }
-        return false;
-        break;
-    case WORKMAN:
-        if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-            PLAY_SONG(tone_workman);
-        #endif
->>>>>>> Fixed RGB lighting for Workman layout
->>>>>>> Fixed RGB lighting for Workman layout
-            persistent_default_layer_set(1UL << _WORKMAN);
-        }
-        return false;
-        break;
-    case LOWER:
-        if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
-    case RAISE:
-        if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
-    case ADJUST:
-        if (record->event.pressed) {
-            layer_on(_ADJUST);
-        } else {
-            layer_off(_ADJUST);
-        }
-        return false;
-        break;
-    case KC_MAKE:
-        if (!record->event.pressed) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add workman layer to planck
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-#ifdef RGBLIGHT_ENABLE
-            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-#else
-            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
-#endif
-=======
-            SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
->>>>>>> Add workman layer to planck
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
   case QWERTY:
     if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
@@ -488,102 +226,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_MAKE:
     if (!record->event.pressed) {
->>>>>>> update make command and added lit reset
 #ifdef RGBLIGHT_ENABLE
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=yes AUDIO_ENABLE=yes" SS_TAP(X_ENTER));
 #else
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no AUDIO_ENABLE=yes"SS_TAP(X_ENTER));
 #endif
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
->>>>>>> Add workman layer to planck
-=======
-=======
-=======
-  case QWERTY:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_qwerty);
-#endif
-      persistent_default_layer_set(1UL << _QWERTY);
-    }
-    return false;
-    break;
-  case COLEMAK:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_colemak);
-#endif
-      persistent_default_layer_set(1UL << _COLEMAK);
-    }
-    return false;
-    break;
-  case DVORAK:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_dvorak);
-#endif
-      persistent_default_layer_set(1UL << _DVORAK);
-    }
-    return false;
-    break;
-  case WORKMAN:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_workman);
-#endif
-      persistent_default_layer_set(1UL << _WORKMAN);
-    }
-    return false;
-    break;
-  case LOWER:
-    if (record->event.pressed) {
-      layer_on(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case RAISE:
-    if (record->event.pressed) {
-      layer_on(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case ADJUST:
-    if (record->event.pressed) {
-      layer_on(_ADJUST);
-    }
-    else {
-      layer_off(_ADJUST);
-    }
-    return false;
-    break;
-  case KC_MAKE:
-    if (!record->event.pressed) {
->>>>>>> update make command and added lit reset
-#ifdef RGBLIGHT_ENABLE
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=yes AUDIO_ENABLE=yes" SS_TAP(X_ENTER));
-#else
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no AUDIO_ENABLE=yes"SS_TAP(X_ENTER));
-#endif
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-        }
-        return false;
-        break;
-
-=======
     }
     return false;
     break;
@@ -598,7 +245,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
->>>>>>> update make command and added lit reset
   }
   return true;
 }
@@ -668,159 +314,6 @@ uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
     if (default_layer & (1UL << _COLEMAK)) {
       rgblight_set_magenta;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-void matrix_init_user(void) { // Runs boot tasks for keyboard
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  rgblight_enable();
-
-  if (true) {
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-  }
-  else
-  {
-    rgblight_set_red;
-    rgblight_mode(5);
-  }
-#endif
-
-};
-
-void matrix_scan_user(void) {  // runs frequently to update info
-
-};
-
-uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  switch (biton32(state)) {
-  case _COLEMAK:
-    rgblight_set_magenta;
-    rgblight_mode(1);
-    break;
-  case _DVORAK:
-    rgblight_set_green;
-    rgblight_mode(1);
-    break;
-  case _RAISE:
-    rgblight_set_yellow;
-    rgblight_mode(5);
-    break;
-  case _LOWER:
-    rgblight_set_orange;
-    rgblight_mode(5);
-    break;
-  case _ADJUST:
-    rgblight_set_red;
-    rgblight_mode(23);
-    break;
-  case 6:
-    rgblight_set_blue;
-    break;
-  case _QWERTY:
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
-    }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-void matrix_init_user(void) { // Runs boot tasks for keyboard
-#ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
-
-    rgblight_enable();
-    if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_set_magenta;
-}
-    else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_set_green;
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
-    }
-#endif
-
-};
-
-void matrix_scan_user(void) {  // runs frequently to update info
-
-};
-
-uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
-#ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
-
-    switch (biton32(state)) {
-    case _COLEMAK:
-        rgblight_set_magenta;
-        rgblight_mode(1);
-        break;
-    case _DVORAK:
-        rgblight_set_green;
-        rgblight_mode(1);
-        break;
-    case _RAISE:
-        rgblight_set_yellow;
-        rgblight_mode(5);
-        break;
-    case _LOWER:
-        rgblight_set_orange;
-        rgblight_mode(5);
-        break;
-    case _ADJUST:
-        rgblight_set_red;
-        rgblight_mode(23);
-        break;
-    case 6:
-        rgblight_set_blue;
-        break;
-    case _QWERTY:
-        if (default_layer & (1UL << _COLEMAK)) {
-            rgblight_set_magenta;
-        }
-        else if (default_layer & (1UL << _DVORAK)) {
-            rgblight_set_green;
-        }
-        else if (default_layer & (1UL << _WORKMAN)) {
-            rgblight_set_purple;
-        }
-        else {
-            rgblight_set_teal;
-        }
-        rgblight_mode(1);
-        break;
-    }
-#endif
-    return state;
-}
-=======
- };
-#endif
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
     else if (default_layer & (1UL << _DVORAK)) {
       rgblight_set_green;
     }
@@ -833,31 +326,6 @@ uint32_t layer_state_set_kb(uint32_t state) { // runs on layer switch
     rgblight_mode(1);
     break;
   }
->>>>>>> update make command and added lit reset
 #endif
   return state;
 }
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-=======
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-    rgblight_mode(1);
-    break;
-  }
->>>>>>> update make command and added lit reset
-#endif
-  return state;
-}
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function

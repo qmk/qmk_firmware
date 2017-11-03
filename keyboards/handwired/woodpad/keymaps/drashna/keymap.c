@@ -61,10 +61,6 @@ bool check_dtimer(uint8_t dtimer) {
 
 
 enum custom_keycodes {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed formatting to fall in line with official standards
   PLACEHOLDER = SAFE_RANGE, // can always be here
   KC_DIABLO_CLEAR,
   KC_OVERWATCH,
@@ -77,36 +73,8 @@ enum custom_keycodes {
   KC_JUSTGAME,
   KC_GLHF,
   KC_TORB,
-<<<<<<< HEAD
-<<<<<<< HEAD
   KC_MAKE,
   KC_RESET
-=======
-    PLACEHOLDER = SAFE_RANGE, // can always be here
-    KC_DIABLO_CLEAR,
-    KC_OVERWATCH,
-    KC_SALT,
-    KC_MORESALT,
-    KC_SALTHARD,
-    KC_GOODGAME,
-    KC_SYMM,
-    KC_DOOMFIST,
-    KC_JUSTGAME,
-    KC_GLHF,
-<<<<<<< HEAD
-    KC_TORB
->>>>>>> Move woodpad to handwired
-=======
-    KC_TORB,
-    KC_MAKE
->>>>>>> Update to keymaps
-=======
-  KC_MAKE
->>>>>>> Fixed formatting to fall in line with official standards
-=======
-  KC_MAKE,
-  KC_RESET
->>>>>>> Removed Leader Keys from Ergodox EZ Keymap
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -203,25 +171,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SALT,  KC_MORESALT, KC_SALTHARD, KC_GLHF   \
 ),
 [_MEDIA] = KEYMAP( /* Base */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
-=======
-    _______, KC_MUTE, KC_VOLD, KC_VOLU,\
-=======
-    RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
-<<<<<<< HEAD
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-    _______, _______, RGB_HUI, RGB_HUD,   \
->>>>>>> Move woodpad to handwired
-=======
-=======
-    KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
->>>>>>> Removed Leader Keys from Ergodox EZ Keymap
-    KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
->>>>>>> Update to keymaps
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
     RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, _______, RGB_SAD, RGB_VAD   \
@@ -260,19 +211,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 #endif
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed formatting to fall in line with official standards
   case KC_OVERWATCH:
     if (record->event.pressed) {
       is_overwatch = !is_overwatch;
     }
-<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
     is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif
-<<<<<<< HEAD
     return false;
     break;
   case KC_SALT:
@@ -394,245 +339,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-=======
-        case KC_OVERWATCH:  // reset all Diable timers, disabling them
-=======
-        case KC_OVERWATCH:
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-            if (record->event.pressed) {
-                is_overwatch = !is_overwatch;
-            }
-=======
->>>>>>> Fixed formatting to fall in line with official standards
-#ifdef RGBLIGHT_ENABLE
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-#endif
-<<<<<<< HEAD
-            return false;
-            break;
-        case KC_SALT:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Salt, salt, salt...");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_MORESALT:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Please sir, can I have some more salt?!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_SALTHARD:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_GOODGAME:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Good game, everyone!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_GLHF:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Good luck, have fun!!!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_SYMM:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Left click to win!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_DOOMFIST:
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("Hey, look at me.  I'm Doomfist, and I'm overpowered!  All I do is spam punches all day!   I'm DPS, tank and defense, rolled into one! All I need is team healing to be complete!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_JUSTGAME:
-
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-        case KC_TORB:
-
-            if (!record->event.pressed) {
-                register_code(kc);
-                unregister_code(kc);
-                _delay_ms(50);
-                SEND_STRING("That was positively riveting!");
-                register_code(KC_ENTER);
-                unregister_code(KC_ENTER);
-            }
-            return false;
-            break;
-<<<<<<< HEAD
->>>>>>> Move woodpad to handwired
-=======
-        case KC_MAKE:
-            if (!record->event.pressed) {
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
-=======
-    return false;
-    break;
-  case KC_SALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Salt, salt, salt...");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_MORESALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Please sir, can I have some more salt?!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SALTHARD:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_GOODGAME:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good game, everyone!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_GLHF:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good luck, have fun!!!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SYMM:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Left click to win!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_DOOMFIST:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Hey, look at me.  I'm Doomfist, and I'm overpowered!  All I do is spam punches all day!   I'm DPS, tank and defense, rolled into one! All I need is team healing to be complete!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_JUSTGAME:
-
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_TORB:
-
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("That was positively riveting!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_MAKE:
-    if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
->>>>>>> Fixed formatting to fall in line with official standards
-
->>>>>>> Update to keymaps
 
   }
   return true;
@@ -641,11 +347,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke(uint8_t diablo_key) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed formatting to fall in line with official standards
   if (biton32(layer_state) == _DIABLO) {
     switch (diablo_key) {
     case 0:
@@ -660,29 +361,6 @@ void send_diablo_keystroke(uint8_t diablo_key) {
     case 3:
       SEND_STRING("4");
       break;
-<<<<<<< HEAD
-=======
-    if (current_layer == _DIABLO) {
-=======
-    if (biton32(layer_state) == _DIABLO) {
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-        switch (diablo_key) {
-        case 0:
-            SEND_STRING("1");
-            break;
-        case 1:
-            SEND_STRING("2");
-            break;
-        case 2:
-            SEND_STRING("3");
-            break;
-        case 3:
-            SEND_STRING("4");
-            break;
-        }
->>>>>>> Move woodpad to handwired
-=======
->>>>>>> Fixed formatting to fall in line with official standards
     }
   }
 }
@@ -702,9 +380,6 @@ void run_diablo_macro_check(void) {
 }
 #endif
 void matrix_init_user(void) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   // set Numlock LED to output and low
   DDRF |= (1 << 7);
   PORTF &= ~(1 << 7);
@@ -758,108 +433,9 @@ uint32_t layer_state_set_kb(uint32_t state) {
     rgblight_mode(1);
     break;
   }
-=======
-    has_layer_changed = true;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-    // set Numlock LED to output and low
-    DDRF |= (1<<7);
-    PORTF &= ~(1<<7);
-=======
-  // set Numlock LED to output and low
-  DDRF |= (1 << 7);
-  PORTF &= ~(1 << 7);
->>>>>>> Fixed formatting to fall in line with official standards
-
-#ifdef RGBLIGHT_ENABLE
-  rgblight_enable();
-  rgblight_set_teal;
-  rgblight_mode(1);
-#endif
-
-  if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
-  }
-}
-
-void matrix_scan_user(void) {
-  numlock_led_off();
-  if (is_overwatch && biton32(layer_state) == _MACROS) {
-    numlock_led_on();
-  }
-
-  // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-  run_diablo_macro_check();
-#endif
-}
-
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-<<<<<<< HEAD
-// Check layer, and apply color if its changed since last check
-    switch (biton32(state)) {
-    case _NAV:
-        rgblight_set_blue;
-        rgblight_mode(1);
-        break;
-    case _MACROS:
-        rgblight_set_orange;
-        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-        break;
-    case _DIABLO:
-        rgblight_set_red;
-        rgblight_mode(5);
-        break;
-    case _MEDIA:
-        rgblight_set_green;
-        rgblight_mode(22);
-        break;
-    default:
-        rgblight_set_teal;
-        rgblight_mode(1);
-        break;
-    }
->>>>>>> Move woodpad to handwired
-
-#endif
-<<<<<<< HEAD
-<<<<<<< HEAD
-  return state;
-=======
->>>>>>> Move woodpad to handwired
-=======
-    return state;
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-  // Check layer, and apply color if its changed since last check
-  switch (biton32(state)) {
-  case _NAV:
-    rgblight_set_blue;
-    rgblight_mode(1);
-    break;
-  case _MACROS:
-    rgblight_set_orange;
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    break;
-  case _DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case _MEDIA:
-    rgblight_set_green;
-    rgblight_mode(22);
-    break;
-  default:
-    rgblight_set_teal;
-    rgblight_mode(1);
-    break;
-  }
 
 #endif
   return state;
->>>>>>> Fixed formatting to fall in line with official standards
 }
 void led_set_user(uint8_t usb_led) {
 

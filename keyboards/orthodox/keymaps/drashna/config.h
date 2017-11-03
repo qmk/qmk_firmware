@@ -39,31 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 #endif
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
-=======
->>>>>>> Update to keymaps
-#define FORCE_NKRO
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Update to keymaps
-
->>>>>>> Add workman layer to planck
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-
->>>>>>> Add workman layer to planck
->>>>>>> Add workman layer to planck
 /* key combination for command */
 #ifdef IS_COMMAND
 #undef IS_COMMAND
@@ -73,40 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Add workman layer to planck
-=======
->>>>>>> Add workman layer to planck
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-<<<<<<< HEAD
-#define RGBLED_NUM 12     // Number of LEDs
->>>>>>> Tweaked RGB lighting stuff
-=======
-#define RGBLED_NUM 16     // Number of LEDs
->>>>>>> Update to keymaps
-=======
-=======
->>>>>>> Add workman layer to planck
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-<<<<<<< HEAD
-#define RGBLED_NUM 12     // Number of LEDs
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-#define RGBLED_NUM 16     // Number of LEDs
->>>>>>> Update to keymaps
->>>>>>> Update to keymaps
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -116,68 +61,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add forced NKRO
-=======
->>>>>>> Remove force NKRO
-
-<<<<<<< HEAD
-#endif
-=======
-=======
-#define FORCE_NKRO
-<<<<<<< HEAD
-<<<<<<< HEAD
-#ifndef FORCE_NKRO
-=======
-#ifdef FORCE_NKRO
->>>>>>> Add forced NKRO
-=======
-#ifndef FORCE_NKRO
->>>>>>> Updated macros and added workman keymaps
-#define NKRO_EPSIZE 32
-#endif
->>>>>>> Add forced NKRO
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
-=======
->>>>>>> Updated macros and added workman keymaps
-#endif
->>>>>>> Tweaked RGB lighting stuff
-=======
-#define PERMISSIVE_HOLD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Remove force NKRO
-
-<<<<<<< HEAD
-#endif
-=======
 
 #endif
-<<<<<<< HEAD
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
-=======
->>>>>>> Tweaked RGB lighting stuff
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-
-#endif
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow

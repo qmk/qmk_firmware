@@ -33,68 +33,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OVERWATCH 9
 #define DIABLO 10
 #define MOUS 12
-<<<<<<< HEAD
-
-//Leader Key stuff
-#ifdef LEADER_TIMEOUT
-#undef LEADER_TIMEOUT
-#endif
-#define LEADER_TIMEOUT 1500
-=======
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
-
-=======
->>>>>>> Updated macros and added workman keymaps
 
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated RGB Underglow info
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Fixed formatting to fall in line with official standards
-=======
 
-//define macro keycodes
-#define M_VERSION M(0)
-#define M_MAKE M(1)
->>>>>>> Updated RGB Underglow info
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Updated RGB Underglow info
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
- 
-=======
-
->>>>>>> Fixed formatting to fall in line with official standards
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Fix makefile toggle code in ez keymap
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
 #define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
@@ -104,57 +52,7 @@ bool skip_leds = false;
 #define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-<<<<<<< HEAD
-<<<<<<< HEAD
 #endif
-=======
-=======
-#ifdef RGBLIGHT_ENABLE
->>>>>>> Fix makefile toggle code in ez keymap
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#endif
-<<<<<<< HEAD
-//This is both for underglow, and Diablo 3 macros
-
-static uint8_t current_layer = 0;
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-#endif
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-=======
-=======
-#ifdef RGBLIGHT_ENABLE
->>>>>>> Fix makefile toggle code in ez keymap
-#define rgblight_set_blue rgblight_sethsv (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red rgblight_sethsv(0x00, 0xFF, 0xFF);
-#define rgblight_set_green rgblight_sethsv (0x78, 0xFF, 0xFF);
-#define rgblight_set_orange rgblight_sethsv (0x1E, 0xFF, 0xFF);
-#define rgblight_set_teal rgblight_sethsv (0xC3, 0xFF, 0xFF);
-#define rgblight_set_magenta rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_urine rgblight_sethsv (0x3C, 0xFF, 0xFF);
-#define rgblight_set_purple rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#endif
-//This is both for underglow, and Diablo 3 macros
-
-static uint8_t current_layer = 0;
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-#endif
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
 
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -168,70 +66,6 @@ bool check_dtimer(uint8_t dtimer) {
 
 
 enum custom_keycodes {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
->>>>>>> Fixed formatting to fall in line with official standards
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-    PLACEHOLDER = SAFE_RANGE, // can always be here
-    EPRM,
-    VRSN,
-    RGB_SLD,
-    RGB_0000FF,
-    RGB_008000,
-    RGB_FF0000,
-    RGB_800080,
-    RGB_00FF90,
-<<<<<<< HEAD
-    KC_DIABLO_CLEAR,
-    KC_QWERTY,
-    KC_COLEMAK,
-    KC_DVORAK,
-    KC_WORKMAN,
-    KC_MAKEQMK
-=======
-	PLACEHOLDER = SAFE_RANGE, // can always be here
-	EPRM,
-	VRSN,
-	RGB_SLD,
-	RGB_0000FF,
-	RGB_008000,
-	RGB_FF0000,
-	RGB_800080,
-	RGB_00FF90,
-    KC_DIABLO_CLEAR,
-    KC_QWERTY,
-    KC_COLEMAK,
-    KC_DVORAK
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-    KC_DIABLO_CLEAR,
-    KC_QWERTY,
-    KC_COLEMAK,
-    KC_DVORAK,
-    KC_WORKMAN,
-    KC_MAKEQMK
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Fixed formatting to fall in line with official standards
-=======
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
@@ -246,31 +80,8 @@ enum custom_keycodes {
   KC_COLEMAK,
   KC_DVORAK,
   KC_WORKMAN,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  KC_MAKEQMK
->>>>>>> Fixed formatting to fall in line with official standards
-=======
   KC_MAKEQMK,
   KC_RESET
->>>>>>> Tweak reset code
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-  KC_MAKEQMK
->>>>>>> Fixed formatting to fall in line with official standards
->>>>>>> Fixed formatting to fall in line with official standards
-=======
-  KC_MAKEQMK
->>>>>>> Fixed formatting to fall in line with official standards
-=======
-  KC_MAKEQMK,
-  KC_RESET
->>>>>>> Tweak reset code
->>>>>>> Tweak reset code
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -319,87 +130,15 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
 // on the fourth tap, set the keyboard on flash state
 // and set the underglow to red, because red == bad
 void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-<<<<<<< HEAD
-    if (state->count >= 4) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   if (state->count >= 4) {
->>>>>>> Fixed formatting to fall in line with official standards
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable();
     rgblight_mode(1);
     rgblight_setrgb(0xff, 0x00, 0x00);
 #endif
-<<<<<<< HEAD
-<<<<<<< HEAD
-        reset_tap_dance(state);
-        reset_keyboard();
-=======
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Fix makefile toggle code in ez keymap
-#ifdef RGBLIGHT_ENABLE
->>>>>>> Fix makefile toggle code in ez keymap
-        rgblight_enable();
-        rgblight_mode(1);
-        rgblight_setrgb(0xff,0x00,0x00);
-#endif
-<<<<<<< HEAD
-        reset_keyboard();
-        reset_tap_dance(state);
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-=======
-  if (state->count >= 4) {
->>>>>>> Fixed formatting to fall in line with official standards
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> Fixed formatting to fall in line with official standards
-        reset_tap_dance(state);
-        reset_keyboard();
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-=======
-=======
-#ifdef RGBLIGHT_ENABLE
->>>>>>> Fix makefile toggle code in ez keymap
-        rgblight_enable();
-        rgblight_mode(1);
-        rgblight_setrgb(0xff,0x00,0x00);
-#endif
-        reset_keyboard();
-        reset_tap_dance(state);
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-        reset_tap_dance(state);
-        reset_keyboard();
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-    }
-=======
     reset_tap_dance(state);
     reset_keyboard();
   }
->>>>>>> Fixed formatting to fall in line with official standards
 }
 
 // Cycle through the times for the macro, starting at 0, for disabled.
@@ -482,49 +221,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `---------------------'       `---------------------'
  */
   [QWERTY] = KEYMAP(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Updated macros and added workman keymaps
                 KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
                 KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
                 KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
                 KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
                 LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-=======
-				KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
-				KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
-				KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-                KC_LSHIFT,      CTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
-				LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-                KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
-                KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
-                KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
-                LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-                KC_LSHIFT,      CTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
-=======
-                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
                 
                                     ALT_T(KC_APPLICATION),  KC_LGUI,
                                                             KC_HOME,
@@ -533,68 +234,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(MOUS),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
                 TG(DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Tweak reset code
-                KC_LEAD,    CTL_T(KC_ESCAPE),
-=======
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
-=======
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
-<<<<<<< HEAD
-                KC_LALT,    CTL_T(KC_ESCAPE),
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-                KC_LEAD,    CTL_T(KC_ESCAPE),
-<<<<<<< HEAD
->>>>>>> Clean up and updates of drashna keymaps
-=======
                 KC_RGUI,    CTL_T(KC_ESCAPE),
->>>>>>> Tweak reset code
-=======
-=======
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
-=======
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
-<<<<<<< HEAD
-                KC_LALT,    CTL_T(KC_ESCAPE),
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-                KC_LEAD,    CTL_T(KC_ESCAPE),
->>>>>>> Clean up and updates of drashna keymaps
-<<<<<<< HEAD
->>>>>>> Clean up and updates of drashna keymaps
-=======
-=======
-                KC_RGUI,    CTL_T(KC_ESCAPE),
->>>>>>> Tweak reset code
->>>>>>> Tweak reset code
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -624,31 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [COLEMAK] = KEYMAP(  
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
-=======
-        KC_TAB,        KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
->>>>>>> Updated macros and added workman keymaps
-=======
-        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-=======
-=======
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
-=======
-        KC_TAB,        KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
         KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
@@ -656,64 +274,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
              TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-=======
-             KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DVORAK),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
-                          KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
-             TG(COLEMAK), KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
-						  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Updated macros and added workman keymaps
-             TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
-                          KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
-             TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-<<<<<<< HEAD
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Updated macros and added workman keymaps
-=======
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-=======
-             KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DVORAK),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
-                          KC_H,   KC_N,   KC_E,   KC_I,   LT(MOUS, KC_O),   KC_QUOTE,
-             TG(COLEMAK), KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),KC_RSHIFT,
-						  KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
-             TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
-                          KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
-             TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-<<<<<<< HEAD
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -752,62 +317,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Updated macros and added workman keymaps
              TG(MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
              TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
              TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
                                    KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
-=======
-             KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-             TG(DVORAK),  KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
-                          KC_D,   KC_H,   KC_T,   KC_N,   LT(MOUS, KC_S),   KC_MINS,
-             TG(COLEMAK), KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSHIFT,
-	                       KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_FN1,
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-             TG(MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
-             TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
-                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
-<<<<<<< HEAD
-<<<<<<< HEAD
-             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
-<<<<<<< HEAD
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
->>>>>>> Updated macros and added workman keymaps
-=======
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z), KC_RSHIFT,
-=======
-             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
-<<<<<<< HEAD
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-=======
-<<<<<<< HEAD
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    KC_FN1,
->>>>>>> Updated macros and added workman keymaps
-=======
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -840,88 +354,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   TG(DIABLO),
         KC_BSPC,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
         LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
-=======
-        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-        LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-<<<<<<< HEAD
-                                              ALT_T(KC_APP),  KC_LGUI,
->>>>>>> Updated macros and added workman keymaps
-=======
-                                              ALT_T(KC_APP),  KC_LEAD,
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> Add leader keys
-=======
-=======
-        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
-=======
-        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-        LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-<<<<<<< HEAD
-                                              ALT_T(KC_APP),  KC_LGUI,
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-                                              ALT_T(KC_APP),  KC_LEAD,
->>>>>>> Add leader keys
->>>>>>> Add leader keys
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
              TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-<<<<<<< HEAD
-=======
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
-=======
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-=======
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, CTL_T(KC_SLASH),  KC_RSHIFT,
-=======
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
->>>>>>> Add Viterbi one handed layout and minor tweaks to others
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       KC_FN1,
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -949,54 +392,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 `--------------------'       `--------------------'
 */
   [SYMB] = KEYMAP(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Add forced NKRO
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
-<<<<<<< HEAD
-                TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-=======
-                KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
->>>>>>> Updated macros and added workman keymaps
-=======
-                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
->>>>>>> Clean up and updates of drashna keymaps
-=======
-=======
->>>>>>> Clean up and updates of drashna keymaps
-                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-=======
-                KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
-                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
->>>>>>> Clean up and updates of drashna keymaps
->>>>>>> Clean up and updates of drashna keymaps
-                                                                  KC_TRNS, KC_TRNS,
-=======
                 KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-    RGB_MODE_RAINBOW, KC_TRNS,
->>>>>>> Tweak reset code
+                                                                  KC_TRNS, KC_TRNS,
                                                                   KC_TRNS,
                                                                   KC_TRNS, KC_TRNS, KC_TRNS,
                 
@@ -1009,43 +410,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO,
                 KC_KP_DOT, KC_KP_0, KC_KP_ENTER
             ),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add forced NKRO
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-				KC_ESCAPE,KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_TRNS,
-				M_VERSION,      KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_TRNS,
-				M_MAKE,         KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
-				TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_TRNS,
-				KC_NO,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-	                                                              KC_TRNS, KC_TRNS,
-	                                                              KC_TRNS,
-	                                                              KC_TRNS, KC_TRNS, KC_TRNS,
-				
-				KC_QWERTY, KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
-				KC_DVORAK, KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
-				KC_KP_MINUS,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,KC_PSCREEN,
-				KC_COLEMAK, KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
-	                                 KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_TRNS,
-				RGB_TOG,    RGB_SLD,
-				KC_NO,
-				KC_KP_DOT, KC_KP_0, KC_KP_ENTER
-			),
->>>>>>> Add forced NKRO
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Add forced NKRO
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
 
 /* Keymap 4: Customized Overwatch Layout
  *
@@ -1056,31 +420,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   TAB  |  G   |  A   |  S   |  D   |  F   |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
  * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   N  |  M   |      |      |      |        |
-=======
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   O  |   M  |      |      |      |        |
->>>>>>> Cleanup macros
-=======
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   N  |  M   |      |      |      |        |
->>>>>>> Tweaked RGB lighting stuff
-=======
-=======
->>>>>>> Tweaked RGB lighting stuff
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   N  |  M   |      |      |      |        |
-=======
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   O  |   M  |      |      |      |        |
->>>>>>> Cleanup macros
-<<<<<<< HEAD
->>>>>>> Cleanup macros
-=======
-=======
- * |  LCTR  | LSHFT|  Z   |  X   |  C   |  V   |      |           |      |   N  |  M   |      |      |      |        |
->>>>>>> Tweaked RGB lighting stuff
->>>>>>> Tweaked RGB lighting stuff
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |   J  |  U   |  I   |  Y   |  T   |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -1093,24 +433,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [OVERWATCH] = KEYMAP(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Updated RGB Underglow info
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
                 KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
                 KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
                 KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
-<<<<<<< HEAD
                                             KC_O,   KC_P,
                                                     KC_LGUI,
                                 KC_V,   KC_SPACE,   KC_H,
@@ -1119,89 +446,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
-=======
-				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
-				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
-				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
-                                            KC_O,   KC_P,
-                                                    KC_LGUI,
-                                KC_V,   KC_SPACE,   KC_H,
-									
-				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-<<<<<<< HEAD
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-<<<<<<< HEAD
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
->>>>>>> Updated RGB Underglow info
-=======
-				                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_O,      KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
->>>>>>> Cleanup macros
-=======
-				KC_NO,          KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
->>>>>>> Tweaked RGB lighting stuff
-                                            KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-<<<<<<< HEAD
-                KC_NO,          KC_NO,
-                KC_NO,
-                KC_PGDOWN,      KC_DELETE, KC_ENTER
-            ),
-=======
-				KC_NO,          KC_NO,
-				KC_NO,
-                KC_PGDOWN,      KC_DELETE, KC_ENTER
-			),
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
-                                            KC_O,   KC_P,
-                                                    KC_LGUI,
-                                KC_V,   KC_SPACE,   KC_H,
-                                    
-                KC_TRNS,        KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
-                KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-                                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
-<<<<<<< HEAD
-=======
-				KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
-				KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
-				KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
-				KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
-				KC_G,           KC_U,       KC_I,       KC_Y,       KC_T,
-                                            KC_O,   KC_P,
-                                                    KC_LGUI,
-                                KC_V,   KC_SPACE,   KC_H,
-									
-				KC_NO,          KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-<<<<<<< HEAD
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
->>>>>>> Updated RGB Underglow info
-=======
-				                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-				KC_NO,          KC_O,      KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
->>>>>>> Cleanup macros
-=======
->>>>>>> Updated macros and added workman keymaps
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 KC_NO,          KC_NO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
-=======
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
-=======
->>>>>>> Updated macros and added workman keymaps
 
 /* Keymap 3:
  *
@@ -1289,120 +538,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-<<<<<<< HEAD
 
 void persistent_default_layer_set(uint16_t default_layer) {
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-}
-
-<<<<<<< HEAD
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-    xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
-    switch (keycode) {
-        // dynamically generate these.
-        case EPRM:
-            if (record->event.pressed) {
-                eeconfig_init();
-            }
-            return false;
-            break;
-        case VRSN:
-            if (record->event.pressed) {
-<<<<<<< HEAD
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-            }
-            return false;
-            break;
-        case RGB_SLD:
-            if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-                rgblight_mode(1);
-#endif
-            }
-            return false;
-            break;
-
-        case RGB_0000FF:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x00,0xff);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_008000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x80,0x00);
-                #endif
-            }
-            return false;
-            break;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-        case RGB_FF0000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0xff,0x00,0x00);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_800080:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x80,0x00,0x80);
-                #endif
-            }
-            return false;
-            break;
-=======
-                // make ergodox-ez-drashna-custom-teensy
-                return MACRO(I(5), T(M), T(A), T(K), T(E), T(SPACE), T(E), T(R), T(G), T(O), T(D), T(O), T(X), D(LSFT), T(MINUS), U(LSFT), T(E), T(Z), T(MINUS), T(D), T(R), T(A), T(S), T(H), T(N), T(A), T(MINUS), T(C), T(U), T(S), T(T), T(O), T(M), T(MINUS), T(T), T(E), T(E), T(N), T(S), T(Y), T(ENTER), END);
-            }				
-    }
-    return MACRO_NONE;
-};
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Updated macros and added workman keymaps
-
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow info
-=======
-void persistent_default_layer_set(uint16_t default_layer) {
-<<<<<<< HEAD
-<<<<<<< HEAD
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
-=======
 
->>>>>>> Updated RGB Underglow info
->>>>>>> Updated RGB Underglow info
 
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-
-<<<<<<< HEAD
-=======
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
@@ -1426,215 +568,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
       rgblight_mode(1);
 #endif
-<<<<<<< HEAD
-            }
-            return false;
-            break;
-
-        case RGB_0000FF:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x00,0xff);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_008000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x80,0x00);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_FF0000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0xff,0x00,0x00);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_800080:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x80,0x00,0x80);
-                #endif
-            }
-            return false;
-            break;
-=======
-    eeconfig_update_default_layer(default_layer);
-    default_layer_set(default_layer);
-=======
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
->>>>>>> Fixed formatting to fall in line with official standards
-}
-
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
-  switch (keycode) {
-    // dynamically generate these.
-  case EPRM:
-    if (record->event.pressed) {
-      eeconfig_init();
     }
     return false;
     break;
-  case VRSN:
-    if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-    }
-    return false;
-    break;
-  case RGB_SLD:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_mode(1);
-#endif
-<<<<<<< HEAD
-            }
-            return false;
-            break;
-
-        case RGB_0000FF:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x00,0xff);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_008000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0x80,0x00);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_FF0000:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0xff,0x00,0x00);
-                #endif
-            }
-            return false;
-            break;
-
-        case RGB_800080:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x80,0x00,0x80);
-                #endif
-            }
-            return false;
-            break;
-
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-        case RGB_00FF90:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                rgblight_enable();
-                rgblight_mode(1);
-                rgblight_setrgb(0x00,0xff,0x90);
-                #endif
-            }
-            return false;
-            break;
-        case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
-            if (record->event.pressed) {
-                uint8_t dtime;
-                
-                for (dtime = 0; dtime < 4; dtime++) {
-                    diablo_key_time[dtime] = diablo_times[0];
-                }
-            }
-            return false;
-            break;
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                persistent_default_layer_set(1UL << QWERTY);
-            }
-            return false;
-            break;
-        case KC_COLEMAK:
-            if (record->event.pressed) {
-                persistent_default_layer_set(1UL << COLEMAK);
-            }
-            return false;
-            break;
-        case KC_DVORAK:
-            if (record->event.pressed) {
-                persistent_default_layer_set(1UL << DVORAK);
-            }
-            return false;
-            break;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-        case KC_WORKMAN:
-            if (record->event.pressed) {
-                persistent_default_layer_set(1UL << WORKMAN);
-            }
-            return false;
-            break;
-        case KC_MAKEQMK:
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if (!record->event.pressed) {
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
-=======
-    }
-    return false;
-    break;
->>>>>>> Fixed formatting to fall in line with official standards
 
   case RGB_0000FF:
     if (record->event.pressed) {
@@ -1643,7 +579,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode(1);
       rgblight_setrgb(0x00, 0x00, 0xff);
 #endif
-<<<<<<< HEAD
     }
     return false;
     break;
@@ -1677,48 +612,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode(1);
       rgblight_setrgb(0x80, 0x00, 0x80);
 #endif
-=======
->>>>>>> Fixed formatting to fall in line with official standards
     }
     return false;
     break;
 
-<<<<<<< HEAD
-=======
-  case RGB_008000:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x00, 0x80, 0x00);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_FF0000:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_800080:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x80, 0x00, 0x80);
-#endif
-    }
-    return false;
-    break;
-
->>>>>>> Fixed formatting to fall in line with official standards
   case RGB_00FF90:
     if (record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
@@ -1737,32 +634,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         diablo_key_time[dtime] = diablo_times[0];
       }
     }
-<<<<<<< HEAD
-    return true;
-=======
-
-	}
-	return true;
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-=======
-            if (record->event.pressed) {
-=======
-=======
->>>>>>> Updated macros and added workman keymaps
-=======
->>>>>>> Clean up and updates of drashna keymaps
-            if (!record->event.pressed) {
->>>>>>> Clean up and updates of drashna keymaps
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
-
-    }
-    return true;
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
     return false;
     break;
   case KC_QWERTY:
@@ -1792,7 +663,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKEQMK:
     if (!record->event.pressed) {
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-      debug_enable = true;
     }
     return false;
     break;
@@ -1810,79 +680,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   }
   return true;
->>>>>>> Fixed formatting to fall in line with official standards
-=======
-=======
-
-	}
-	return true;
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-<<<<<<< HEAD
->>>>>>> Start to merge orthodox/ergodox keymaps (persistant layers)
-=======
-=======
-            if (record->event.pressed) {
-=======
-            if (!record->event.pressed) {
->>>>>>> Clean up and updates of drashna keymaps
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
-
-    }
-    return true;
->>>>>>> Updated macros and added workman keymaps
->>>>>>> Updated macros and added workman keymaps
-=======
-    return false;
-    break;
-  case KC_QWERTY:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << QWERTY);
-    }
-    return false;
-    break;
-  case KC_COLEMAK:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << COLEMAK);
-    }
-    return false;
-    break;
-  case KC_DVORAK:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << DVORAK);
-    }
-    return false;
-    break;
-  case KC_WORKMAN:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << WORKMAN);
-    }
-    return false;
-    break;
-  case KC_MAKEQMK:
-    if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-      debug_enable = true;
-    }
-    return false;
-    break;
-  case KC_RESET:
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-      reset_keyboard();
-    }
-    return false;
-    break;
-
-  }
-  return true;
->>>>>>> Fixed formatting to fall in line with official standards
 }
 
 #ifdef TAP_DANCE_ENABLE
@@ -1925,38 +722,7 @@ void run_diablo_macro_check(void) {
 
 
 void matrix_init_user(void) { // Runs boot tasks for keyboard
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add forced NKRO
 #ifdef RGBLIGHT_ENABLE
-<<<<<<< HEAD
-    uint8_t default_layer = eeconfig_read_default_layer();
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-#ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-    rgblight_enable();
-    if (default_layer & (1UL << COLEMAK)) {
-        rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << DVORAK)) {
-        rgblight_set_green;
-    }
-    else if (default_layer & (1UL << WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
-    }
-=======
   uint8_t default_layer = eeconfig_read_default_layer();
 
   rgblight_enable();
@@ -1972,354 +738,11 @@ void matrix_init_user(void) { // Runs boot tasks for keyboard
   else {
     rgblight_set_teal;
   }
->>>>>>> Fixed formatting to fall in line with official standards
-#endif
-=======
-=======
-#ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-<<<<<<< HEAD
->>>>>>> Add forced NKRO
-=======
-    rgblight_enable();
-    if (default_layer & (1UL << COLEMAK)) {
-        rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << DVORAK)) {
-        rgblight_set_green;
-    }
-    else if (default_layer & (1UL << WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
-    }
-=======
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  rgblight_enable();
-  if (default_layer & (1UL << COLEMAK)) {
-    rgblight_set_magenta;
-  }
-  else if (default_layer & (1UL << DVORAK)) {
-    rgblight_set_green;
-  }
-  else if (default_layer & (1UL << WORKMAN)) {
-    rgblight_set_purple;
-  }
-  else {
-    rgblight_set_teal;
-  }
->>>>>>> Fixed formatting to fall in line with official standards
-#endif
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-};
->>>>>>> Add forced NKRO
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add leader keys
-=======
->>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
-=======
->>>>>>> Clean up and updates of drashna keymaps
-=======
->>>>>>> Removed Leader Keys from Ergodox EZ Keymap
-    rgblight_enable();
-    if (default_layer & (1UL << COLEMAK)) {
-        rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << DVORAK)) {
-        rgblight_set_green;
-    }
-    else if (default_layer & (1UL << WORKMAN)) {
-        rgblight_set_purple;
-    }
-    else {
-        rgblight_set_teal;
-    }
 #endif
 };
 
-=======
->>>>>>> Add leader keys
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-#ifdef LEADER_KEYS
->>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
-=======
->>>>>>> Clean up and updates of drashna keymaps
-=======
->>>>>>> Add leader keys
-LEADER_EXTERNS();
-=======
->>>>>>> Removed Leader Keys from Ergodox EZ Keymap
-<<<<<<< HEAD
-=======
-=======
-#ifdef LEADER_KEYS
->>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
-=======
->>>>>>> Clean up and updates of drashna keymaps
-LEADER_EXTERNS();
-<<<<<<< HEAD
-#endif
->>>>>>> Finishing up Viterbi keyboard layout, and NKRO tweaks to other layouts
-=======
->>>>>>> Clean up and updates of drashna keymaps
-=======
->>>>>>> Removed Leader Keys from Ergodox EZ Keymap
 
 void matrix_scan_user(void) {  // runs frequently to update info
-<<<<<<< HEAD
-    uint8_t modifiders = get_mods();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Add forced NKRO
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-    if (!skip_leds) {
-        ergodox_board_led_off();
-        ergodox_right_led_1_off();
-        ergodox_right_led_2_off();
-        ergodox_right_led_3_off();
-=======
-    uint8_t layer = biton32(layer_state);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    static bool has_layer_changed = true;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
-    bool dvorak = false;
-    bool colemak = false;
-	static bool has_layer_changed = true;
->>>>>>> Add forced NKRO
-=======
-    bool l_dvorak = false;
-    bool l_colemak = false;
-	static bool has_layer_changed = true;
-
-
->>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
-=======
-    static bool has_layer_changed = true;
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-<<<<<<< HEAD
-
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-	if (!skip_leds) {
-		ergodox_board_led_off();
-		ergodox_right_led_1_off();
-		ergodox_right_led_2_off();
-		ergodox_right_led_3_off();
->>>>>>> Add forced NKRO
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> Add leader keys
-=======
-=======
-<<<<<<< HEAD
->>>>>>> Updated macros and added workman keymaps
-=======
-=======
->>>>>>> Add leader keys
->>>>>>> Add leader keys
-    if (!skip_leds) {
-        ergodox_board_led_off();
-        ergodox_right_led_1_off();
-        ergodox_right_led_2_off();
-        ergodox_right_led_3_off();
->>>>>>> Updated macros and added workman keymaps
-<<<<<<< HEAD
-=======
->>>>>>> Add forced NKRO
-=======
->>>>>>> Updated macros and added workman keymaps
-        
-        // Since we're not using the LEDs here for layer indication anymore,
-        // then lets use them for modifier indicators.  Shame we don't have 4...
-        // Also, no "else", since we want to know each, independantly. 
-        if ( modifiders & MODS_SHIFT_MASK) {
-            ergodox_right_led_2_on();
-        }
-        if ( modifiders & MODS_CTRL_MASK) {
-            ergodox_right_led_1_on();
-        }
-        if ( modifiders & MODS_ALT_MASK) {
-            ergodox_right_led_3_on();
-        }
-        
-    }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Updated RGB Underglow info
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-
-    // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-    run_diablo_macro_check();
-#endif
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-        SEQ_ONE_KEY(KC_C) {
-            SEND_STRING("Covecube");
-        }
-        SEQ_ONE_KEY(KC_D) {
-            SEND_STRING("StableBit CloudDrive");
-        }
-        SEQ_ONE_KEY(KC_L) {
-            register_code(KC_LGUI);
-            register_code(KC_L);
-            unregister_code(KC_L);
-            unregister_code(KC_LGUI);
-        }
-        SEQ_TWO_KEYS(KC_S, KC_D) {
-            SEND_STRING("StableBit DrivePool");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_C) {
-            SEND_STRING("StableBit Scanner");
-        }
-        SEQ_TWO_KEYS(KC_S, KC_T) {
-            SEND_STRING("StableBit Troubleshooter");
-        }
-    }
-};
-
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-    uint8_t default_layer = eeconfig_read_default_layer();
-
-    switch (biton32(state)) {
-        case SYMB:
-            rgblight_set_blue;
-            rgblight_mode(2);
-            break;
-        case OVERWATCH:
-            rgblight_set_orange;
-            rgblight_mode(17);
-            break;
-        case DIABLO:
-            rgblight_set_red;
-            rgblight_mode(5);
-            break;
-        case MOUS:
-            rgblight_set_yellow;
-            rgblight_mode(1);
-            break;
-        default:
-            if (default_layer & (1UL << COLEMAK)) {
-                rgblight_set_green;
-            }
-            else if (default_layer & (1UL << DVORAK)) {
-                rgblight_set_magenta;
-            }
-            else if (default_layer & (1UL << WORKMAN)) {
-                rgblight_set_purple;
-            }
-            else {
-                rgblight_set_teal;
-            }
-            rgblight_mode(1);
-            break;
-    }
-#endif
-   return state;
-}
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Tweaked RGB lighting stuff
-=======
-    if (layer != current_layer) {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
->>>>>>> Tweaked RGB lighting stuff
-<<<<<<< HEAD
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
- #ifdef RGBLIGHT_ENABLE
-       uint8_t default_layer = 0;
-        default_layer = eeconfig_read_default_layer();
-
-        switch (layer) {
-            case SYMB:
-                rgblight_set_blue;
-                rgblight_mode(2);
-                break;
-            case OVERWATCH:
-                rgblight_set_orange;
-                rgblight_mode(17);
-                break;
-            case DIABLO:
-                rgblight_set_red;
-                rgblight_mode(5);
-                break;
-            case MOUS:
-                rgblight_set_urine;
-                rgblight_mode(1);
-                break;
-            case 7:
-                rgblight_sethsv (255,255,255);
-                rgblight_mode(1);
-                break;
-            default:
-                if (default_layer & (1UL << COLEMAK)) {
-                    rgblight_set_green;
-                }
-                else if (default_layer & (1UL << DVORAK)) {
-                    rgblight_set_magenta;
-                }
-                else if (default_layer & (1UL << WORKMAN)) {
-                    rgblight_set_purple;
-                }
-                else {
-                    rgblight_set_teal;
-                }
-                rgblight_mode(1);
-                break;
-        }
-#endif
-        has_layer_changed = false;
-    }
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
   uint8_t modifiders = get_mods();
 
   if (!skip_leds) {
@@ -2342,7 +765,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
     }
 
   }
->>>>>>> Fixed formatting to fall in line with official standards
 
   // Run Diablo 3 macro checking code.
 #ifdef TAP_DANCE_ENABLE
@@ -2350,9 +772,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
 #endif
 };
 
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow info
-=======
 uint32_t layer_state_set_kb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
@@ -2393,134 +812,3 @@ uint32_t layer_state_set_kb(uint32_t state) {
 #endif
   return state;
 }
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-=======
->>>>>>> Tweaked RGB lighting stuff
-    // Check layer, and apply color if its changed since last check
-    if (has_layer_changed) {
- #ifdef RGBLIGHT_ENABLE
-       uint8_t default_layer = 0;
-        default_layer = eeconfig_read_default_layer();
-
-        switch (layer) {
-            case SYMB:
-                rgblight_set_blue;
-                rgblight_mode(2);
-                break;
-            case OVERWATCH:
-                rgblight_set_orange;
-                rgblight_mode(17);
-                break;
-            case DIABLO:
-                rgblight_set_red;
-                rgblight_mode(5);
-                break;
-            case MOUS:
-                rgblight_set_urine;
-                rgblight_mode(1);
-                break;
-            case 7:
-                rgblight_sethsv (255,255,255);
-                rgblight_mode(1);
-                break;
-            default:
-                if (default_layer & (1UL << COLEMAK)) {
-                    rgblight_set_green;
-                }
-                else if (default_layer & (1UL << DVORAK)) {
-                    rgblight_set_magenta;
-                }
-                else if (default_layer & (1UL << WORKMAN)) {
-                    rgblight_set_purple;
-                }
-                else {
-                    rgblight_set_teal;
-                }
-                rgblight_mode(1);
-                break;
-        }
-#endif
-        has_layer_changed = false;
-    }
-=======
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
-=======
-  uint8_t modifiders = get_mods();
-
-  if (!skip_leds) {
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-
-    // Since we're not using the LEDs here for layer indication anymore,
-    // then lets use them for modifier indicators.  Shame we don't have 4...
-    // Also, no "else", since we want to know each, independantly. 
-    if (modifiders & MODS_SHIFT_MASK) {
-      ergodox_right_led_2_on();
-    }
-    if (modifiders & MODS_CTRL_MASK) {
-      ergodox_right_led_1_on();
-    }
-    if (modifiders & MODS_ALT_MASK) {
-      ergodox_right_led_3_on();
-    }
-
-  }
->>>>>>> Fixed formatting to fall in line with official standards
-
-  // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-  run_diablo_macro_check();
-#endif
-};
-
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow info
-<<<<<<< HEAD
->>>>>>> Updated RGB Underglow info
-=======
-=======
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  switch (biton32(state)) {
-  case SYMB:
-    rgblight_set_blue;
-    rgblight_mode(2);
-    break;
-  case OVERWATCH:
-    rgblight_set_orange;
-    rgblight_mode(17);
-    break;
-  case DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case MOUS:
-    rgblight_set_yellow;
-    rgblight_mode(1);
-    break;
-  default:
-    if (default_layer & (1UL << COLEMAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << DVORAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-    rgblight_mode(1);
-    break;
-  }
-#endif
-  return state;
-}
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
->>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
