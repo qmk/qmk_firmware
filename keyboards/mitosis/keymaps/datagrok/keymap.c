@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_xF] = {
     {_______, _______, KC_PGUP, _______, KC_VOLU, KC_F13,  KC_F7,   KC_F8,   KC_F9,   KC_F10},
     {_______, KC_HOME, KC_PGDN, KC_END,  KC_VOLD, KC_F14,  KC_F4,   KC_F5,   KC_F6,   KC_F11},
-    {_______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_F15,  KC_F1,   KC_F2,   KC_F3,   KC_F12},
+    {TG(_xQ), KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_F15,  KC_F1,   KC_F2,   KC_F3,   KC_F12},
     {XXXXXXX, _______, _______, ___M___, _______, _______, ___M___, _______, _______, XXXXXXX},
     {XXXXXXX, _______, _______, _______, ___M___, ___M___, _______, _______, _______, XXXXXXX},
   },
@@ -66,9 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // This is a hack to place <question mark> on <shift-comma> and <exclaimation
 // mark> on <shift-period>, when using an operating system configured for a
-// US/qwerty layout. I expect that once I get it working I'll promptly stash it
-// away in a layer or an IFDEF because it's way less hacky to do this by
-// configuring my keymap in Linux.
+// US/qwerty layout.
 bool comm_shifted = false;
 bool ques_shifted = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -127,18 +125,16 @@ void matrix_scan_user(void) {
   // board. Each may be connected to an LED by way of a resistor (4.7k to
   // match the others) for a total of 14 additional indicators.
 
-  // This ties state of _xF to red LED, _xN to blue, and _xS to green.
-  // 0 = LED on, so we negate the layer_state.
-  // setbits(PORTD, ~layer_state>>1, 0b00000010);
-  // setbits(PORTF, ~layer_state<<1, 0b00110000);
+  // A simple (but technically inaccurate) model of the momentary layer state:
+  // Fn1 key makes _xS active; indicator = red
+  // Fn2 key makes _xN active; indicator = blue
+  // Both keys make _xF active; indicator = purple
+  // Toggling QWERTY mode makes indicator include green, so (red/blue/purple becomes yellow/cyan/white)
 
-  // A simplified (but technically inaccurate) model of the momentary tri-state
-  // layer is easier to think about:
-  // Fn1 key: _xS active; indicator = red
-  // Fn2 key: _xN active; indicator = blue
-  // Both:    _xF active; indicator = purple
+  // negated because for ports 0=LED on.
   uint32_t portf_bits = ~(layer_state|layer_state<<1|(layer_state&0b100)<<3);
   setbits(PORTF, portf_bits, 0b00110000);
+  setbits(PORTD, ~layer_state, 0b00000010);
 }
 
 // vim: set sw=2 et:
