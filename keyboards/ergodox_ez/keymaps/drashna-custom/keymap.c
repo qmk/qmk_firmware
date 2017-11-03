@@ -171,8 +171,13 @@ enum custom_keycodes {
   KC_COLEMAK,
   KC_DVORAK,
   KC_WORKMAN,
+<<<<<<< HEAD
   KC_MAKEQMK
 >>>>>>> Fixed formatting to fall in line with official standards
+=======
+  KC_MAKEQMK,
+  KC_RESET
+>>>>>>> Tweak reset code
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -374,6 +379,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
 <<<<<<< HEAD
+<<<<<<< HEAD
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 =======
                 TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     CTL_T(KC_SLASH),KC_RSHIFT,
@@ -389,6 +395,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 >>>>>>> Updated RGB Underglow layer indication code due to discovery of the layer_state_set_kb function
                 KC_LEAD,    CTL_T(KC_ESCAPE),
 >>>>>>> Clean up and updates of drashna keymaps
+=======
+                KC_RGUI,    CTL_T(KC_ESCAPE),
+>>>>>>> Tweak reset code
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
             ),
@@ -625,6 +634,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
+<<<<<<< HEAD
                 TD(TD_FLSH),    KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -636,6 +646,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
 >>>>>>> Clean up and updates of drashna keymaps
                                                                   KC_TRNS, KC_TRNS,
+=======
+                KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
+                KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
+    RGB_MODE_RAINBOW, KC_TRNS,
+>>>>>>> Tweak reset code
                                                                   KC_TRNS,
                                                                   KC_TRNS, KC_TRNS, KC_TRNS,
                 
@@ -1209,6 +1224,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKEQMK:
     if (!record->event.pressed) {
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
+      debug_enable = true;
+    }
+    return false;
+    break;
+  case KC_RESET:
+    if (!record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable();
+      rgblight_mode(1);
+      rgblight_setrgb(0xff, 0x00, 0x00);
+#endif
+      reset_keyboard();
     }
     return false;
     break;
