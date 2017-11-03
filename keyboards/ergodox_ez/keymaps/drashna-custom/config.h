@@ -31,6 +31,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated RGB Underglow info
 =======
@@ -41,6 +42,8 @@
 >>>>>>> Add Viterbi one handed layout and minor tweaks to others
 =======
 >>>>>>> Update to keymaps
+=======
+>>>>>>> Minor tweaks
 #endif
 =======
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
@@ -99,12 +102,16 @@
 #endif
 >>>>>>> Update to keymaps
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Minor tweaks
 =======
 #undef DEBOUNCE
 #define DEBOUNCE    5
 
 #endif
 >>>>>>> Minor tweaks
+<<<<<<< HEAD
 =======
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
@@ -136,3 +143,5 @@
 >>>>>>> Added default layer (qwerty/colemak/dvorak) detection to RGB Underglow
 =======
 >>>>>>> Update to keymaps
+=======
+>>>>>>> Minor tweaks

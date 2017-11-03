@@ -4,10 +4,13 @@ CONSOLE_ENABLE    = no
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Updated macros and added workman keymaps
 =======
 >>>>>>> Fix makefile toggle code in ez keymap
+=======
+>>>>>>> Minor tweaks
 TAP_DANCE_ENABLE  = no
 =======
 TAP_DANCE_ENABLE  = yes
