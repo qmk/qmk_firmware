@@ -1,6 +1,7 @@
 # Enable
 AUDIO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
+BACKLIGHT_ENABLE = yes
 
 # Disable
 
