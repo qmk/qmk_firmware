@@ -1,10 +1,8 @@
-#include "mitosis.h"
-
 /* Design notes:
  *
  * - I'm learning a new key placement, so might as well go all out and use an
- *   optimal non-QWERTY layout. Would be nice to toggle-on QWERTY so friends
- *   can poke a few letters if needed.
+ *   optimal non-QWERTY layout. Would be nice to toggle QWERTY so friends can
+ *   poke a few letters if needed.
  *
  * - Can't rely (too much) on OS support
  * -- I should be able to plug my keyboard into a friend's windows box or mac
@@ -44,7 +42,7 @@
  * .--------------------------------------------..--------------------------------------------.
  * | q Esc  | d      | r Up   | w      | b      || j      | f    1 | u    2 | p    3 | ;    4 |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
- * | a      | s Lt   | h Dn   | t Rt   | g      || y      | n    5 | e    6 | o    7 | i `  8 |
+ * | a Tab  | s Lt   | h Dn   | t Rt   | g      || y      | n    5 | e    6 | o    7 | i `  8 |
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
  * | z      | x      | m      | c      | v      || k      | l    - | , [  9 | . ]  0 | / \  = |
  * '--------+--------+--------+--------+--------''--------+--------+--------+--------+--------'
@@ -69,9 +67,21 @@
  * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
  * |        |        |        |        |        ||        | F11    | F9     | F10    | F12    |
  * '--------+--------+--------+--------+--------''--------+--------+--------+--------+--------'
+ *
+ * qdrwb jfup;    QDRWB JFUP:    e_U__ _____    _____ _____    _____ _1234    _____ _!@#$
+ * ashtg yneoi    ASHTG YNEOI    tLDR_ _____    _____ _____    _____ _5678    _____ _%^&*
+ * zxmcv kl,./    ZXMCV KL<>?    _____ __[]_    _____ __{}_    _____ _-90=    _____ __()+
+ *
+ *
+ * k    b  b    k
+ *     bs  bs    
+ * r rs s  s rs r
+ *
+ *
  */  
 
 
+#include "mitosis.h"
 
 enum mitosis_layers
 {
