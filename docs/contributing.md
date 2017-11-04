@@ -104,6 +104,8 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 * Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
+* Do not include `Makefile`s in your keymap folder (they're no longer used)
+* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
 
 ## Keyboards
 
@@ -114,6 +116,9 @@ We also ask that you follow these guidelines:
 * Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
+* Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
+* Do not include `Makefile`s in your keyboard folder (they're no longer used)
+* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
 
 ## Quantum/TMK Core
 
