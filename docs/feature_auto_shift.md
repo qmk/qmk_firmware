@@ -42,7 +42,7 @@ Yes, unfortunately.
 
 Add to your `rules.mk` in the keymap folder:
 
-    AUTO_SHIFT_ENABLE = YES
+    AUTO_SHIFT_ENABLE = yes
 
 If no `rules.mk` exists, you can create one.
 
