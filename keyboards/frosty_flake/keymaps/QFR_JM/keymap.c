@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TILD,  KC_EXLM,    KC_AT,     KC_HASH,  KC_DLR,  KC_PERC,   KC_CIRC,   KC_AMPR,   KC_ASTR,  KC_LBRC, KC_RBRC, KC_UNDS, KC_PLUS, KC_BSPC,  _______,_______,_______, \
       KC_TAB,   KC_PGUP,    KC_HOME,   KC_UP,    KC_END,  XXXXXXX,   XXXXXXX,   KC_BTN3,   KC_BTN4,  KC_BTN5, XXXXXXX, KC_LCBR, KC_RCBR, KC_PIPE,  _______,_______,_______, \
       KC_CAPS,  KC_PGDN,    KC_LEFT,   KC_DOWN,  KC_RGHT, XXXXXXX,   XXXXXXX,   KC_BTN1,   KC_BTN2,  XXXXXXX, XXXXXXX, _______,          _______,                            \
-      _______,XXXXXXX,PIPE,POINT,      _______,  _______, XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______, _______,                   _______,          _______,          \
+      _______,XXXXXXX,POINT,PIPE,      _______,  _______, XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______, _______,                   _______,          _______,          \
       _______,  _______,    _______,             _______,                       KC_RALT,   _______,  _______, _______,                            _______,_______,_______  \
       ),
 
@@ -83,12 +83,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch(id) {
         case R_POINT:
             if (record->event.pressed) { // pointer
-                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
+                SEND_STRING("<-");
+//                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
             }
             break;
         case R_PIPE:
             if (record->event.pressed) { // dplyr pipe
-                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
+                SEND_STRING("%>%");
+//                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
             }
             break;
     }
