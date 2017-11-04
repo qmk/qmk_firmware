@@ -10,7 +10,7 @@
 
 ## What Differences Are There Between QMK and TMK?
 
-TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert's](https://github.com/jackhumbert) fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.
+TMK was originally designed and implemented by [Jun Wako](https://github.com/tmk). QMK started as [Jack Humbert](https://github.com/jackhumbert)'s fork of TMK for the Planck. After a while Jack's fork had diverged quite a bit from TMK, and in 2015 Jack decided to rename his fork to QMK.
 
 From a technical standpoint QMK builds upon TMK by adding several new features. Most notably QMK has expanded the number of available keycodes and uses these to implement advanced features like `S()`, `LCTL()`, and `MO()`. You can see a complete list of these keycodes in [Keycodes](keycodes.md).
 

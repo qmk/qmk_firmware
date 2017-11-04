@@ -121,6 +121,11 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
+    // Auto Shift setup
+    KC_ASUP,
+    KC_ASDN,
+    KC_ASRP,
+
     // Audio on/off/toggle
     AU_ON,
     AU_OFF,
@@ -395,6 +400,7 @@ enum quantum_keycodes {
     // RGB functionality
     RGB_TOG,
     RGB_MOD,
+    RGB_SMOD,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
@@ -429,6 +435,11 @@ enum quantum_keycodes {
 
 #ifdef KEY_LOCK_ENABLE
     KC_LOCK,
+#endif
+
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
 #endif
 
     // always leave at the end

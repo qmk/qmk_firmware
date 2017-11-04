@@ -34,13 +34,13 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
 
 ## Base layer
 
-[![Base layer](https://i.imgur.com/q1MDvq4.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
+[![Base layer](https://github.com/algernon/ergodox-layout/raw/master/images/base-layer.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
 
 At its core, this is a Dvorak layout, with some minor changes. The more interesting parts are how certain keys behave:
 
 * The number row is the same as in the [ADORE](#adore-layer) layer. The function keys are on the **Media** layer.
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
-* The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
+* The `GUI` key is special, because while a single tap works as usual, when double-tapped, it turns the number row into an application selector, and when triple tapped, it runs an application selector program on the host.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
 * The **Media** and **Hun** layer keys are one-shot, the **STENO** key is a toggle.
 * The **Fx** key is one-shot, and activates the **Media** layer, along with a one-shot `Alt`.
@@ -57,12 +57,12 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
     - `LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
-    
+
 The symbols on the front in the image above have the same color as the key that activates them, with the exception of the **Arrow** layer, which is just black on the front.
 
 ## ADORE layer
 
-[![ADORE layer](https://i.imgur.com/r3LnQAA.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
+[![ADORE layer](https://github.com/algernon/ergodox-layout/raw/master/images/adore-layer.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
 
 My experimental layout, that I keep tweaking. No full description here, because things are very much in flux.
 
@@ -70,7 +70,7 @@ Note that the **HUN** layer does not work well with ADORE: it still has the same
 
 ## Steno layer
 
-[![Steno layer for Plover](https://i.imgur.com/PgifhBF.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
+[![Steno layer for Plover](https://github.com/algernon/ergodox-layout/raw/master/images/steno-layer.png)](http://www.keyboard-layout-editor.com/#/gists/401ef9a84369e47c57f9aedcf0a0d667)
 
 This is to be used with [Plover](http://www.openstenoproject.org/plover/), nothing really fancy here. The **STENO** key toggles the layer on and off, and sends the toggle command to Plover too.
 
@@ -110,7 +110,7 @@ Included with the firmware is a small tool that can parse these logs, and create
 
 The generated heatmap looks somewhat like this:
 
- ![Heatmap](https://i.imgur.com/tly9XSy.png)
+ ![Heatmap](https://github.com/algernon/ergodox-layout/raw/master/images/heatmap.png)
 
 ## Layer notification
 
@@ -118,7 +118,7 @@ There is a very small tool in `tools/layer-notify`, that listens to the HID cons
 
 # Building
 
-To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `keyboards/ergodox_ez/algernon-master`. One way to achieve that is this:
+To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `layouts/community/algernon_master`, or symlinked there. One way to achieve that is this:
 
  [algernon:ez-layout]: https://github.com/algernon/ergodox-layout
  [qmk]: https://github.com/qmk/qmk_firmware
@@ -127,14 +127,14 @@ To make my workflow easier, this layout is maintained in [its own repository][al
 $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
-            keyboards/ergodox/keymaps/algernon-master
-$ make keyboard=ergodox keymap=algernon-master
+            layouts/community/ergodox/algernon_master
+$ make ergodox_ez-algernon_master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make keyboard=ergodox keymap=algernon
+$ make ergodox_ez-algernon
 ```
 
 ## Using on Windows
@@ -144,6 +144,3 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 # License
 
 The layout, being a derivative of the original TMK firmware which is under the GPL-2+, this layout is under the GPL as well, but GPL-3+, rather than the older version.
-
-![nav-n-media-layer.png](https://i.imgur.com/AReX8C9.png)
-![hun-layer.png](https://i.imgur.com/uPGBl9J.png)
