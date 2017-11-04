@@ -145,9 +145,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,KC_TRNS,
 	KC_TRNS,KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC,KC_TRNS,
 	KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
-	KC_TRNS,KC_CIRC, KC_AMPR,    KC_LCBR,     KC_RCBR,     KC_TRNS,KC_TRNS,
+	KC_TRNS,KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_TRNS,KC_TRNS,
 	// bottom row
-	KC_TRNS,KC_PIPE,KC_BSLS,KC_TILD,KC_GRAVE,
+	KC_TRNS,KC_PIPE, KC_BSLS,    KC_CIRC,     KC_AMPR,
 	// thumb cluster
 	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 	
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	         KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     MEH(KC_N),
 	KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     MEH(KC_O),
 	// bottom row 
-	                      KC_0,  KC_DOT,  KC_TRNS, KC_TRNS,     MEH(KC_P),
+	                      KC_0,    KC_DOT,  KC_TILD, KC_GRAVE,     MEH(KC_P),
 	// thumb cluster
 	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
   
