@@ -23,17 +23,44 @@ The TERMINUS\_MINI layout (../../../terminus_mini/terminus_mini.h) is handwired 
 ```
 
 ### Base Layer - Colemak
-The base layout is Colemak. Since the CapsLock key is replaced with BackSpace, this layout has the delete key in the traditional backspace location. 
+The base layout is Colemak by default. Since the CapsLock key is replaced with BackSpace, this layout has the delete key in the traditional backspace location. 
 
-* QWERTY and Dvorak layers have been removed from the keymap that was initially developed from the default Planck keymap.
+* QWERTY and Dvorak layers are accessible via the Adjust layer using the standard case switch macro as defined in the default Planck keymap.
 * I've implemented COLEMAK = SAFE\_RANGE when enumerating the custom\_keycodes, but I don't actually know what this does...
-
 * Space cadet is implemented in the shift keys (hold for shift, tap for respective parentheses)
 * I never find myself using the right-modifiers on a standard keyboard, so I've only implemented LGUI and LALT. I have intentions of improving my use of the ctrl key in correct hand alternation, so CTRL is implemented in both outside corners of the home row.
 
+### Alternate Base Layers - QWERTY & Dvorak
+```
+QWERTY
+ .----------------------------------------.     .-----------------------------------------.
+ | Esc |   1  |   2  |   3  |   4  |   5  |     |   6  |   7  |   8  |   9  |   0  | Del  |
+ |-----+------+------+------+------+------|     |------+------+------+------+------+------|
+ | Tab |   Q  |   W  |   E  |   R  |   T  |     |   Y  |   U  |   I  |   O  |   P  |  \   |
+ |-----+------+------+------+------+------|     |------+------+------+------+------+------|
+ | BS  |   A  |   S  |   D  |   F  |   G  |     |   H  |   J  |   K  |   L  |   ;  |  "   |
+ |-----+------+------+------+------+------|     |------+------+------+------+------+------|
+ | LSPO|   Z  |   X  |   C  |   V  |   B  |     |   N  |   M  |   ,  |   .  |   /  | RSPC |
+ |-----+------+------+------+------+------|     |------+------+------+------+------+------|
+ | Ctrl| LGUI | Lower| LAlt |    SpaceLW  |     |    RSEnter  |  Fn  | Mouse| Menu | Ctrl |
+ `----------------------------------------'     '-----------------------------------------'
+
+DVORAK
+ .----------------------------------------.     .-----------------------------------------.
+ | Esc  |   1  |   2  |   3  |   4  |   5 |     |   6  |   7  |   8  |   9  |   0  | Del  |
+ |------+------+------+------+------+-----|     |------+------+------+------+------+------|
+ | Tab  |   "  |   ,  |   .  |   P  |   Y |     |   F  |   G  |   C  |   R  |   L  |  \   |
+ |------+------+------+------+------+-----|     |------+------+------+------+------+------|
+ |  BS  |   A  |   O  |   E  |   U  |   I |     |   D  |   H  |   T  |   N  |   S  |  /   |
+ |------+------+------+------+------+-----|     |------+------+------+------+------+------|
+ | LSPO |   ;  |   Q  |   J  |   K  |   X |     |   B  |   M  |   W  |   V  |   Z  | RSPC |
+ |------+------+------+------+------+-----|     |------+------+------+------+------+------|
+ | Ctrl | LGUI | Lower| LAlt |   SpaceLW  |     |   RSEnter   |  Fn  | Mouse| Menu | Ctrl |
+ `----------------------------------------'     '-----------------------------------------'
+```
 
 #### Layer Shifting
-* The 4th key on the bottom row of the left hand PCB is a **TAP_TOGGLE** macro for the *LOWER* layer 
+* The 4th key on the bottom row of the left hand PCB is used to access the *LOWER* layer via Tap/Toggle
 * The left 2U key is a **TAP_KEY** macro - Hold for momentary *LOWER* layer, Tap for Space.
 * The right 2U key is a **TAP_KEY** macro - Hold for momentary *RAISE* layer, Tap for Enter
 * The 2nd key on the bottom row of the right hand PCB is a **LAYER_MOMENTARY** for the *FUNCTION* layer
@@ -42,7 +69,7 @@ The base layout is Colemak. Since the CapsLock key is replaced with BackSpace, t
 ### LOWER - Numpad & Navigation keys
 ```
  ,-----------------------------------------.    .-----------------------------------------. 
- |  Esc |      |      |      |      | RESET|    |   =  |   /  |   \* |  \-  |      | Del  | 
+ |  Esc |      |      |      |      |      |    |   =  |   /  |   \* |  \-  |      | Del  | 
  |------+------+------+------+------+------|    |------+------+------+------+------+------| 
  |  Tab | PgUp | Home |  Up  |  End |      |    |   7  |   8  |   9  |  \+  |      |  \\  | 
  |------+------+------+------+------+------|    |------+------+------+------+------+------| 
@@ -50,14 +77,17 @@ The base layout is Colemak. Since the CapsLock key is replaced with BackSpace, t
  |------+------+------+------+------+------|    |------+------+------+------+------+------| 
  | LSPO |   Z  |   X  |   C  |   V  |      |    |   1  |   2  |   3  | Enter|      | RSPC | 
  |------+------+------+------+-------------|    |-------------+------+------+------+------| 
- | Ctrl | LGUI | Alt  | LOWER| Space/Lower |    |      0      |  \.  |  Fn  | Menu | Ctrl | 
+ | Ctrl | LGUI | Alt  | LOWER| Space/Lower |    |      0      |  \.  |  Fn  |ADJUST| Ctrl | 
  `-----------------------------------------'    `-----------------------------------------' 
 ```
 The *LOWER* layer contains a navigation cluster on the left hand and a numpad on the right. This layer is momentary when the left thumb-bar or LOWER key is held and toggled on/off when the LOWER key is tapped.
 
 The Navigation cluster is offset to the right compared to the traditional **WASD** nav cluster. With this implementation, you don't need to move your hand from the home position when navigating. Page Up & Down keys are found on the far left of the cluster.
 
-All unused (blank on the above keymap) keys are locked out using the XXXXXXX filler (KC_NO), all modifiers (edge |_| keys \[except 0, \. & Fn\] on the above keymap) and the ZXCV cluster are transparent (_______) to the Base layer.
+All unused (blank on the above keymap) keys are locked out using the XXXXXXX filler (KC_NO), all modifiers (edge |_| keys \[except 0, \. & Fn\] on the 
+above keymap) and the ZXCV cluster are transparent (_______) to the Base layer.
+
+The ADJUST layer can be accessed via the second from right key on the bottom row. This layer contains a keymap that is used to change the base layer.
 
 [] TO DO!! - It would be nice to have a **TAP_DANCE_DOUBLE** implementation whereby a double tap of the right 2U key sends KC_PENT
 * Couldn't get this to work in Rev1, produced an error in the Make process.
@@ -68,21 +98,21 @@ All unused (blank on the above keymap) keys are locked out using the XXXXXXX fil
  ,-----------------------------------.     .-----------------------------------.
  | Esc |  1  |  2  |  3  |  4  |  5  |     |  6  |  7  |  8  |  9  |  0  | Del |
  |-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----|
- | Tab |     |     |     |     |     |     |     |     |     |     |     |  \  |
+ | Tab |  !  |  @  |  #  |  $  |  %  |     |  ^  |  &  |  *  |  -  |  +  |  \  |
  |-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----|
- | BS  |  !  |  @  |  #  |  $  |  %  |     |  ^  |  &  |  *  |  -  |  +  |  '  |
+ | BS  |     |     |     |     |     |     |     |     |     |     |     |  '  |
  |-----+-----+-----+-----+-----------|     |-----+-----+-----+-----+-----+-----|
- | LSPO|     |     |  {  |  [  |  `  |     |  |  |  ]  |  }  |  .  |  ?  |RSPC |
+ | LSPO|  <- | %>% |  {  |  [  |  `  |     |  |  |  ]  |  }  |  .  |  ?  |RSPC |
  |-----+-----+-----+-----+-----+-----|     |-----+-----+-----+-----+-----+-----|
  | Ctrl|LGUI | Alt |     |Space/Lower|     |Enter/Raise|  Fn |Mouse| Menu| Ctrl|
  '-----------------------------------'     '-----------------------------------'
 ```
 The *RAISE* layer contains the symbols. This layer is momentary when the right thumb bar is held.
 
-* Standard symbols can be found on the home row, in the traditional number row order as they occur on a standard keyboard.
-* Shifted symbols can be found on the second-from bottom row, abovee the bars - these include brackets, braces, grave and pipe keys.
-	* At this stage, you need to shift to get to the Tilde key. I'd like to remove the shift requirement as I've done with the Pipe, but we'll see. 
-* The Terminus_Mini implements the symbols on the top row, with numbers implemented on the home row. Implementing a third set of number keys (Base, *LOWER*, *RAISE*) in this keymap is probably overkill, but the current *RAISE* layout replicates the standard number row, so I don't see reason to change it.
+* Standard symbols can be found on the row above home, in the traditional number row order as they occur on a standard keyboard.
+* Shifted symbols can be found on the second-from bottom row, above the bars - these include brackets, braces, grave and pipe keys.
+	* At this stage, you need to shift to get to the Tilde key. I'd like to remove the shift requirement as I've done with the "|" Pipe, but we'll see. 
+	* Special operators for R (Pointer: <- and dplyr pipe: %>%) can be found next to the left shift key
 * The bottom row of this layer is a replication of that of the Base layer, except that the **TAP_TOGGLE** *LOWER* key is blocked with **XXXXXXX**.
 
 ### FUNCTION - Function & Media keys
@@ -109,7 +139,7 @@ The *FUNCTION* layer contains media keys as well as the F-row. This layer is mom
 ### MOUSE - Mouse keys: The functionality of this layer is not as optimal as using a true mouse, generally slower but will work in a pinch.
 ```
  ,----------------------------------------.     .----------------------------------------. 
- |  Esc |      |      |      |      |     |     |RESET|      |      |      |      |  Del | 
+ |  Esc |      |      |      |      |     |     |     |      |      |      |      |  Del | 
  |------+------+------+------+------+-----|     |-----+------+------+------+------+------| 
  |  Tab | WhlU | WhlL | MsUp | WhlR |     |     |     |  M3  |  M4  |  M5  |      |      | 
  |------+------+------+------+------+-----|     |-----+------+------+------+------+------| 
@@ -126,3 +156,19 @@ The *MOUSE* layer contains keys replicating functions found on the mouse.
 * The primary click (right & left) buttons are on the right home row (index & middle fingers)
 * Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.
 * The RESET key will reset the board for flashing. I've placed this in the far-reach index positions so it is least likely to be pressed on accident.
+
+
+### ADJUST - Keyboard Settings: Primarily used to change the base layer at this stage
+```
+,-----------------------------------------.     ,----------------------------------------.
+|      |      |      |      |      |RESET |     |     |      |      |      |      |      |
+|------+------+------+------+------+------|     |-----+------+------+------+------+------|
+|      |      |      |      |      |      |     |     |TermOn|TermOf|      |      |  Del |
+|------+------+------+------+------+------|     |-----+------+------+------+------+------|
+|      |      |      |      |      |      |     |     |Qwerty|Colemk|Dvorak|      |      |
+|------+------+------+------+------+------|     |-----+------+------+------+------+------|
+|      |      |      |      |      |      |     |     |      |      |      |      |      |
+|------+------+------+------+------+------|     |-----+------+------+------+------+------|
+|      |      |/LOWER|      |             |     |            |      |      |/RAISE|      |
+`-----------------------------------------'     `----------------------------------------'
+```

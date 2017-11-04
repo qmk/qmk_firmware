@@ -24,12 +24,12 @@ enum custom_macros {
   R_POINT
 };
 
-
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
       [1] = ACTION_LAYER_TAP_TOGGLE(_LOWER),         //Hold for momentary Mouse, Tap for toggle Mouse
       [2] = ACTION_LAYER_TAP_TOGGLE(_MOUSE),         //Hold for momentary Lower, Tap for toggle Lower
    };
+
 #define SPC_LW FUNC(0)
 #define LWR FUNC(1)
 #define MSE FUNC(2)
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TILD,  KC_EXLM,    KC_AT,     KC_HASH,  KC_DLR,  KC_PERC,   KC_CIRC,   KC_AMPR,   KC_ASTR,  KC_LBRC, KC_RBRC, KC_UNDS, KC_PLUS, KC_BSPC,  _______,_______,_______, \
       KC_TAB,   KC_PGUP,    KC_HOME,   KC_UP,    KC_END,  XXXXXXX,   XXXXXXX,   KC_BTN3,   KC_BTN4,  KC_BTN5, XXXXXXX, KC_LCBR, KC_RCBR, KC_PIPE,  _______,_______,_______, \
       KC_CAPS,  KC_PGDN,    KC_LEFT,   KC_DOWN,  KC_RGHT, XXXXXXX,   XXXXXXX,   KC_BTN1,   KC_BTN2,  XXXXXXX, XXXXXXX, _______,          _______,                            \
-      _______,XXXXXXX,_______,_______, _______,  _______, XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______, _______,                   _______,          _______,          \
+      _______,XXXXXXX,PIPE,POINT,      _______,  _______, XXXXXXX,   XXXXXXX,   XXXXXXX,   _______,  _______, _______,                   _______,          _______,          \
       _______,  _______,    _______,             _______,                       KC_RALT,   _______,  _______, _______,                            _______,_______,_______  \
       ),
 
@@ -99,7 +99,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        //print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
