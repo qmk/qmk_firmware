@@ -47,7 +47,7 @@ QWERTY
  | LSPO|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | RSPC |
  |-----+------+------+------+------+------+------+------+------+------+------+------|
  | Ctrl| LGUI | Lower| LAlt |    SpaceLW  |    RSEnter  |  Fn  | Mouse| Menu | Ctrl |
- `-----------------------------------------------------------------------------------'
+ `----------------------------------------------------------------------------------'
 
 DVORAK
  .----------------------------------------------------------------------------------.
@@ -122,7 +122,6 @@ The *FUNCTION* layer contains media keys as well as the F-row. This layer is mom
 * Mute, and Vol +/- are next to each other in ascending (L->R) volume order, Stop is below Mute.
 * Insert, Print Screen, Scroll Lock & Pause Break are all implemented on the far right column. I don't really use these keys so their position is not optimised.
 * Caps lock is implemented on this layer, in the traditional position, in place of BackSpace on the Base layer.
-* The RESET key will reset the Teensy for flashing and the Power key will initiate a shutdown of the PC. I've placed these in the far-reach index positions so that they are least likely to be pressed on accident. The power key is particularly dangerous, so I've placed it conciously on the right hand so that it becomes very awkward to activate with one hand (Fn needs to be held with the middle finger at the same time)
 
 ### MOUSE - Mouse keys: The functionality of this layer is not as optimal as using a true mouse, generally slower but will work in a pinch.
 ```

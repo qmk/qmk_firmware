@@ -66,6 +66,14 @@ DVORAK
 * The 2nd key on the bottom row of the right hand PCB is a **LAYER_MOMENTARY** for the *FUNCTION* layer
 * The 3rd key on the bottom row of the right hand PCB is a **TAP_TOGGLE** macro for the *MOUSE* layer
 
+The base layout is Colemak. Since the CapsLock key is replaced with BackSpace, this layout has the delete key in the traditional backspace location. 
+
+* QWERTY and Dvorak layers have been removed from the keymap that was initially developed from the default Planck keymap.
+* I've implemented COLEMAK = SAFE\_RANGE when enumerating the custom\_keycodes, but I don't actually know what this does...
+
+* Space cadet is implemented in the shift keys (hold for shift, tap for respective parentheses)
+* I never find myself using the right-modifiers on a standard keyboard, so I've only implemented LGUI and LALT. I have intentions of improving my use of the ctrl key in correct hand alternation, so CTRL is implemented in both outside corners of the home row.
+
 ### LOWER - Numpad & Navigation keys
 ```
  ,-----------------------------------------.    .-----------------------------------------. 
@@ -120,7 +128,7 @@ The *RAISE* layer contains the symbols. This layer is momentary when the right t
 ,-----------------------------------------.     .-----------------------------------------.
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |     |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
-| Esc  | Mute | Vol- | Vol+ |      | 	  |     |      |      |      |      |      | Ins  |
+| Esc  | Mute | Vol- | Vol+ |      | 	    |     |      |      |      |      |      | Ins  |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
 | Caps | Stop | |<<  | >/|| |  >>| |      |     |      |      |      |      |      |PrtSc |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
@@ -155,8 +163,6 @@ The *MOUSE* layer contains keys replicating functions found on the mouse.
 * The navigation cluster (Up, Down, Left, Right) is a replication of the Navigation cluster on the *LOWER* layer. The scroll keys are analagous to the Page Up & down keys.
 * The primary click (right & left) buttons are on the right home row (index & middle fingers)
 * Secondary click buttons are above the standard keys (M3/Wheel click, M4, M5) but I do not use this function.
-* The RESET key will reset the board for flashing. I've placed this in the far-reach index positions so it is least likely to be pressed on accident.
-
 
 ### ADJUST - Keyboard Settings: Primarily used to change the base layer at this stage
 ```

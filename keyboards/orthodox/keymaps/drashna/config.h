@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 // #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 #define EE_HANDS
 
 #ifndef TAPPING_TERM
@@ -40,9 +40,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+/* key combination for command */
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+)
+
+
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 12     // Number of LEDs
+#define RGBLED_NUM 16     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12

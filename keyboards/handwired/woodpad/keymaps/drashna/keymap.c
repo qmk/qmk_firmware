@@ -29,15 +29,22 @@
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#ifdef RGBLIGHT_ENABLE
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#endif
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
 bool is_overwatch = false;
 
-//This is both for underglow, and Diablo 3 macros
-bool has_layer_changed = false;
-static uint8_t current_layer;
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -65,7 +72,8 @@ enum custom_keycodes {
     KC_DOOMFIST,
     KC_JUSTGAME,
     KC_GLHF,
-    KC_TORB
+    KC_TORB,
+    KC_MAKE
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -163,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_MEDIA] = KEYMAP( /* Base */
     RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
-    _______, _______, RGB_HUI, RGB_HUD,   \
+    KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
     RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, _______, RGB_SAD, RGB_VAD   \
@@ -171,22 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
 
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{    
-    switch (id) {
-    case 0:
-        if (record->event.pressed) {
-            // Output Keyboard Firmware info
-            SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP );
-            return false;
-        }
-    }
-    return MACRO_NONE;
-};
 void numlock_led_on(void) {
   PORTF |= (1<<7);
 }
@@ -216,11 +209,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif
-        case KC_OVERWATCH:  // reset all Diable timers, disabling them
+        case KC_OVERWATCH:
             if (record->event.pressed) {
                 is_overwatch = !is_overwatch;
-                has_layer_changed = true;
             }
+#ifdef RGBLIGHT_ENABLE
+            is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+#endif
             return false;
             break;
         case KC_SALT:
@@ -324,6 +319,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case KC_MAKE:
+            if (!record->event.pressed) {
+                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
+            }
+            return false;
+            break;
+
 
   }
   return true;
@@ -332,7 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke(uint8_t diablo_key) {
-    if (current_layer == _DIABLO) {
+    if (biton32(layer_state) == _DIABLO) {
         switch (diablo_key) {
         case 0:
             SEND_STRING("1");
@@ -365,10 +367,16 @@ void run_diablo_macro_check(void) {
 }
 #endif
 void matrix_init_user(void) {
-    has_layer_changed = true;
     // set Numlock LED to output and low
     DDRF |= (1<<7);
     PORTF &= ~(1<<7);
+
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable();
+    rgblight_set_teal;
+    rgblight_mode(1);
+#endif
+
     if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) ){
         register_code(KC_NUMLOCK);
         unregister_code(KC_NUMLOCK);
@@ -376,69 +384,46 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
-#ifdef RGBLIGHT_ENABLE
-
     numlock_led_off();
-    // Check layer, and apply color if its changed since last check
-    switch (layer) {
-    case _NAV:
-        if (has_layer_changed) {
-            rgblight_sethsv(240, 255, 255);
-            rgblight_mode(1);
-        }
-        break;
-    case _MACROS:
-        if (has_layer_changed) {
-            rgblight_sethsv(30, 255, 255);
-            if (is_overwatch) {
-                rgblight_mode(17);
-            } else {
-                rgblight_mode(18);
-            }
-        }
-        if (is_overwatch) {
-            numlock_led_on();
-        }
-        break;
-    case _DIABLO:
-        if (has_layer_changed) {
-            rgblight_sethsv(0, 255, 255);
-            rgblight_mode(5);
-        }
-        break;
-    case _MEDIA:
-        if (has_layer_changed) {
-            rgblight_sethsv(120, 255, 255);
-            rgblight_mode(22);
-        }
-        break;
-    default:
-        if (has_layer_changed) {
-            rgblight_sethsv(195, 255, 255);
-            rgblight_mode(1);
-        }
-        break;
+    if (is_overwatch && biton32(layer_state) == _MACROS) {
+        numlock_led_on();
     }
 
- #endif
-    // Update layer status at the end, so this sets the default color
-    // rather than relying on the init, which was unreliably...
-    // Probably due to a timing issue, but this requires no additional code
-    if (current_layer == layer) {
-        has_layer_changed = false;
-    }
-    else {
-        has_layer_changed = true;
-        current_layer = layer;
-    }
     // Run Diablo 3 macro checking code.
 #ifdef TAP_DANCE_ENABLE
     run_diablo_macro_check();
 #endif
 }
 
+uint32_t layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+// Check layer, and apply color if its changed since last check
+    switch (biton32(state)) {
+    case _NAV:
+        rgblight_set_blue;
+        rgblight_mode(1);
+        break;
+    case _MACROS:
+        rgblight_set_orange;
+        is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+        break;
+    case _DIABLO:
+        rgblight_set_red;
+        rgblight_mode(5);
+        break;
+    case _MEDIA:
+        rgblight_set_green;
+        rgblight_mode(22);
+        break;
+    default:
+        rgblight_set_teal;
+        rgblight_mode(1);
+        break;
+    }
 
+#endif
+    return state;
+}
 void led_set_user(uint8_t usb_led) {
-
+    
 }
