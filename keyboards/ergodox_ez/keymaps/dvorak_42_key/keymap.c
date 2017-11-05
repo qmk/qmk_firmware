@@ -187,9 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
-       KC_TRNS, KC_TRNS,            M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), KC_TRNS,             KC_TRNS,
+       KC_TRNS, M(SCREEN_NEW_TAB),  M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), M(SCREEN_RENAME),    KC_TRNS,
                 M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
-       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
                                     // bottom row
                                     M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
