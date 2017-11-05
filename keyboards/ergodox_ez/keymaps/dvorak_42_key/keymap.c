@@ -27,6 +27,8 @@ enum custom_keycodes {
   SHELL_H3,
   SHELL_AMMCOLO,
   SHELL_SCREENRD,
+  SHELL_SCREEN_NEW,
+  SHELL_SCREEN_LIST,
   SHELL_MKE,
 };
 
@@ -60,7 +62,7 @@ enum custom_keycodes {
 #define SCREEN_7 19
 #define SCREEN_8 20
 #define SCREEN_9 21
-
+#define SCREEN_DETACH 22
 #define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
 
 
@@ -148,10 +150,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shell navigation layer
   [SHELL_NAV] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,
-       KC_TRNS,KC_TRNS,    SHELL_PGREP, SHELL_PLESS, SHELL_LESS,  SHELL_MKE,      SHELL_H3,
-       KC_TRNS,LCTL(KC_A), SHELL_CDPRE, SHELL_LSLTR, SHELL_LS,    SHELL_PWD,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     SHELL_TAILF, SHELL_SCREENRD, SHELL_AMMCOLO,
+       KC_TRNS,KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,    KC_TRNS,
+       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  SHELL_MKE,  SHELL_H3,
+       KC_TRNS,LCTL(KC_A),        SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_PWD,
+       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRNS,    SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -191,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
        KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
                                     // bottom row
-                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             M(SCREEN_DETACH),
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -290,6 +292,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
             }                                
         break;
+        case SCREEN_DETACH:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), T(D), END);
+            }                                
+        break;		
         case SCREEN_RENAME:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(A), U(LSFT), END);
@@ -418,9 +425,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return true;
 			break;			
 		case SHELL_SCREENRD:
-			SEND_STRING("screen -r -d \n");
+			SEND_STRING("screen -r -d ");
 			return true;
 			break;					
+		case SHELL_SCREEN_NEW:
+			SEND_STRING("screen -S ");
+			return true;
+			break;
+		case SHELL_SCREEN_LIST:
+			SEND_STRING("screen -list\n");
+			return true;
+			break;			
 		case SHELL_MKE:
 			SEND_STRING("mke\n");
 			return true;
