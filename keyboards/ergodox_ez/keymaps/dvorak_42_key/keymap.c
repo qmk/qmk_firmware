@@ -64,6 +64,13 @@ enum custom_keycodes {
 #define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
 
 
+#define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
+        case MACRO_NAME:\
+             if (record->event.pressed) {\
+                return MACRO( D(LCTL), T(A), U(LCTL), T(NUM), END);\
+            }\
+        break;\
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = KEYMAP(
@@ -300,7 +307,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 							  T(SPC),
                          	END);
             }                                
-        break;				
+        break;		
+
+		MACRO_SCREEN_NUM(SCREEN_0,0);
+		MACRO_SCREEN_NUM(SCREEN_1,1);
+		MACRO_SCREEN_NUM(SCREEN_2,2);
+		MACRO_SCREEN_NUM(SCREEN_3,3);
+		MACRO_SCREEN_NUM(SCREEN_4,4);
+		MACRO_SCREEN_NUM(SCREEN_5,5);
+		MACRO_SCREEN_NUM(SCREEN_6,6);
+		MACRO_SCREEN_NUM(SCREEN_7,7);
+		MACRO_SCREEN_NUM(SCREEN_8,8);
+		MACRO_SCREEN_NUM(SCREEN_9,9);
+		
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
