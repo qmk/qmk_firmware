@@ -20,7 +20,14 @@ enum custom_keycodes {
   SHELL_CDPRE,
   SHELL_LESS,
   SHELL_PLESS,
+  SHELL_PGREP,
   SHELL_TAILF,  
+  
+  SHELL_PWD,
+  SHELL_H3,
+  SHELL_AMMCOLO,
+  SHELL_SCREENRD,
+  SHELL_MKE,
 };
 
 
@@ -120,10 +127,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shell navigation layer
   [SHELL_NAV] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,SHELL_LS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,
+       KC_TRNS,KC_TRNS,SHELL_PGREP, SHELL_PLESS, SHELL_LESS,  SHELL_MKE,      SHELL_H3,
+       KC_TRNS,KC_TRNS,SHELL_CDPRE, SHELL_LSLTR, SHELL_LS,    SHELL_PWD,
+       KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,     SHELL_TAILF, SHELL_SCREENRD, SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -294,24 +301,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(record->event.pressed) {
 	switch (keycode) {
 		case SHELL_LS:
-			SEND_STRING("ls"SS_TAP(X_ENTER));
+			SEND_STRING("ls\n");
 			return true;
 			break;
 		case SHELL_LSLTR:
-			return false;
+			SEND_STRING("ls -ltr\n");
+			return true;
 			break;
 		case SHELL_CDPRE:
-			return false;
+			SEND_STRING("cd ..\n");
+			return true;
 			break;
 		case SHELL_LESS:
-			return false;
+			SEND_STRING("less ");
+			return true;
 			break;
 		case SHELL_PLESS:
-			return false;
+			SEND_STRING(" | less");
+			return true;
 			break;
+		case SHELL_PGREP:
+			SEND_STRING(" | grep ");
+			return true;
+			break;			
 		case SHELL_TAILF:
-			return false;
+			SEND_STRING("tail -f ");
+			return true;
 			break;
+		case SHELL_PWD:
+			SEND_STRING("echo `pwd`/");
+			return true;
+			break;			
+		case SHELL_H3:
+			SEND_STRING("h3\n");
+			return true;
+			break;			
+		case SHELL_AMMCOLO:
+			SEND_STRING("ammcolo\n");
+			return true;
+			break;			
+		case SHELL_SCREENRD:
+			SEND_STRING("screen -r -d \n");
+			return true;
+			break;					
+		case SHELL_MKE:
+			SEND_STRING("mke\n");
+			return true;
+			break;			
 	}
   }
   
