@@ -159,12 +159,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        M(SWITCH_NDS),
-       RCTL(KC_L), RCTL(KC_W),     KC_HOME,             KC_UP,           KC_END,          LALT(KC_D),     RCTL(KC_R),
-                   LALT(KC_B),     KC_LEFT,             KC_DOWN,         KC_RIGHT,        LALT(KC_F),     LALT(KC_DOT),
-       RCTL(KC_C), RCTL(KC_U),     M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),      RCTL(KC_K),     M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
-                // bottom row
-                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB), M(SCREEN_RENAME), M(SCREEN_NUMBER),
+       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,        M(SWITCH_NDS),
+       RCTL(KC_L), RCTL(KC_W),     KC_HOME,             KC_UP,           KC_END,     LALT(KC_D),     RCTL(KC_R),
+                   LALT(KC_B),     KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F),     LALT(KC_DOT),
+       RCTL(KC_C), RCTL(KC_U),     M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),  RCTL(KC_K),     M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
+                   // bottom row (match functionality of base layer)
+                   KC_TRNS,        RCTL(KC_W),          KC_TRNS,         LALT(KC_D), RCTL(KC_U),
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
