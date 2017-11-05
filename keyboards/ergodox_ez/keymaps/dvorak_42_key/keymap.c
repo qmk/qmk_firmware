@@ -68,11 +68,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = KEYMAP(
 	  // left hand
-	  KC_ESC,         KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-	  KC_TAB,         KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
-	  OSL(SHELL_NAV), KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-	  MEH(KC_0),      KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
-	  MEH(KC_1),      OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
+	  KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
+	  KC_TAB,            KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+	  OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
+	  OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
+	  MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
 	  
 	  // left thumb cluster
 	            MEH(KC_4),      MEH(KC_5),
@@ -179,12 +179,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
-                   KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
-                // bottom row
-                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS,            M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), KC_TRNS,             KC_TRNS,
+                M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
+       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), KC_TRNS,             KC_TRNS,
+                                    // bottom row
+                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -432,6 +432,7 @@ void matrix_scan_user(void) {
 		    ergodox_right_led_2_on();		
 			break;
 	    case SHELL_NAV:			
+		case SHELL_SCREEN:
 	    case KEYNAV:
 		case KEYSEL:
 		    ergodox_right_led_3_on();
