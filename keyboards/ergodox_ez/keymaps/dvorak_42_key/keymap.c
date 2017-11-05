@@ -31,12 +31,13 @@ enum custom_keycodes {
 };
 
 
-#define BASE      0 // base dvorak layer
-#define KEYNAV    1 // arrow navigation (right hand)
-#define KEYSEL    2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV 3 // bash shortcuts
-#define MOUSE     4 // mouse layer (can be locked with lock key)
-#define COMBINED  5 // combined numbers and symbols layer
+#define BASE         0 // base dvorak layer
+#define KEYNAV       1 // arrow navigation (right hand)
+#define KEYSEL       2 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV    3 // bash shortcuts
+#define SHELL_SCREEN 4 // linux screen shortcuts
+#define MOUSE        5 // mouse layer (can be locked with lock key)
+#define COMBINED     6 // combined numbers and symbols layer
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -49,7 +50,18 @@ enum custom_keycodes {
 #define SCREEN_PASTE 9
 #define SCREEN_RENAME 10
 #define SCREEN_NUMBER 11
-#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 15
+#define SCREEN_0 12
+#define SCREEN_1 13
+#define SCREEN_2 14
+#define SCREEN_3 15
+#define SCREEN_4 16
+#define SCREEN_5 17
+#define SCREEN_6 18
+#define SCREEN_7 19
+#define SCREEN_8 20
+#define SCREEN_9 21
+
+#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -152,6 +164,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
   ),
   
+
+    // linux screen layer
+  [SHELL_SCREEN] = KEYMAP(
+       // left hand
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
+       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
+                   KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
+       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,
+                // bottom row
+                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
 
   
   [COMBINED] = KEYMAP(
