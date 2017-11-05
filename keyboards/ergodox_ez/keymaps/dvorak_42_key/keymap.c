@@ -14,7 +14,13 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
-  
+  // shell nav macros
+  SHELL_LS,
+  SHELL_LSLTR,
+  SHELL_CDPRE,
+  SHELL_LESS,
+  SHELL_PLESS,
+  SHELL_TAILF,  
 };
 
 
@@ -43,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  // left hand
 	  KC_ESC,         KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
 	  KC_TAB,         KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
-	  MO(SHELL_NAV),  KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
+	  OSL(SHELL_NAV), KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
 	  MEH(KC_0),      KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
 	  MEH(KC_1),      OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
 	  
@@ -122,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
-                                               LALT(KC_D),
-                               KC_TRNS,RCTL(KC_W),KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
        KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        M(SWITCH_NDS),
        RCTL(KC_L), RCTL(KC_W),     KC_HOME,             KC_UP,           KC_END,          LALT(KC_D),     RCTL(KC_R),
@@ -282,8 +288,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    
   }
+  
+  // shell macros
+  if(record->event.pressed) {
+	switch (keycode) {
+		case SHELL_LS:
+			return false;
+			break;
+		case SHELL_LSLTR:
+			return false;
+			break;
+		case SHELL_CDPRE:
+			return false;
+			break;
+		case SHELL_LESS:
+			return false;
+			break;
+		case SHELL_PLESS:
+			return false;
+			break;
+		case SHELL_TAILF:
+			return false;
+			break;
+	}
+  }
+  
   return true;
 }
 
@@ -306,6 +336,7 @@ void matrix_scan_user(void) {
 		case COMBINED:
 		    ergodox_right_led_2_on();		
 			break;
+	    case SHELL_NAV:			
 	    case KEYNAV:
 		case KEYSEL:
 		    ergodox_right_led_3_on();
