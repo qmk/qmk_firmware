@@ -129,10 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shell navigation layer
   [SHELL_NAV] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,
-       KC_TRNS,KC_TRNS,SHELL_PGREP, SHELL_PLESS, SHELL_LESS,  SHELL_MKE,      SHELL_H3,
-       KC_TRNS,KC_TRNS,SHELL_CDPRE, SHELL_LSLTR, SHELL_LS,    SHELL_PWD,
-       KC_TRNS,KC_TRNS,KC_TRNS,     KC_TRNS,     SHELL_TAILF, SHELL_SCREENRD, SHELL_AMMCOLO,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,        KC_TRNS,
+       KC_TRNS,KC_TRNS,    SHELL_PGREP, SHELL_PLESS, SHELL_LESS,  SHELL_MKE,      SHELL_H3,
+       KC_TRNS,LCTL(KC_A), SHELL_CDPRE, SHELL_LSLTR, SHELL_LS,    SHELL_PWD,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     SHELL_TAILF, SHELL_SCREENRD, SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
