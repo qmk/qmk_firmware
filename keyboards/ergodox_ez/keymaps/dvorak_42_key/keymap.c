@@ -47,6 +47,8 @@ enum custom_keycodes {
 #define SWITCH_NDS 7
 #define SCREEN_COPY_MODE 8
 #define SCREEN_PASTE 9
+#define SCREEN_RENAME 10
+#define SCREEN_NUMBER 11
 #define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 15
 
 
@@ -143,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    LALT(KC_B),     KC_LEFT,             KC_DOWN,         KC_RIGHT,        LALT(KC_F),     LALT(KC_DOT),
        RCTL(KC_C), RCTL(KC_U),     M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),      RCTL(KC_K),     M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
                 // bottom row
-                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS,    KC_TRNS,
+                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB), M(SCREEN_RENAME), M(SCREEN_NUMBER),
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -243,6 +245,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
             }                                
         break;
+        case SCREEN_RENAME:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(A), U(LSFT), END);
+            }                                
+        break;		
+        case SCREEN_NUMBER:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
+				              T(N),
+							  T(U),
+							  T(M),
+							  T(B),
+							  T(E),
+							  T(R),
+							  T(SPC),
+                         	END);
+            }                                
+        break;				
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
