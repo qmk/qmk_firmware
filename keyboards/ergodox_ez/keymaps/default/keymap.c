@@ -197,27 +197,53 @@ void matrix_init_user(void) {
 
 };
 
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-  uint8_t layer = biton32(layer_state);
+};
 
+// Runs whenever there is a layer state change.
+uint32_t layer_state_set_user(uint32_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
+
+  uint8_t layer = biton32(state);
   switch (layer) {
-    // TODO: Make this relevant to the ErgoDox EZ.
-    case SYMB:
+    case 0:
+      #ifdef RGBLIGHT_COLOR_LAYER_0
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+      #endif
+      break;
+    case 1:
       ergodox_right_led_1_on();
+      #ifdef RGBLIGHT_COLOR_LAYER_1
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+      #endif
       break;
-    case MDIA:
+    case 2:
       ergodox_right_led_2_on();
+      #ifdef RGBLIGHT_COLOR_LAYER_2
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+      #endif
       break;
-    default:
-      // none
+    case 3:
+      #ifdef RGBLIGHT_COLOR_LAYER_3
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+      #endif
+      break;
+    case 4:
+      #ifdef RGBLIGHT_COLOR_LAYER_4
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+      #endif
+      break;
+    case 5:
+      #ifdef RGBLIGHT_COLOR_LAYER_5
+        rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+      #endif
       break;
   }
 
+  return state;
 };
