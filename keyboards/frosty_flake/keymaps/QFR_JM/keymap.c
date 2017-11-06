@@ -28,13 +28,12 @@ enum custom_macros {
 
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
-      [1] = ACTION_LAYER_TAP_TOGGLE(_LOWER),         //Hold for momentary Mouse, Tap for toggle Mouse
-      [2] = ACTION_LAYER_TAP_TOGGLE(_MOUSE),         //Hold for momentary Lower, Tap for toggle Lower
+      [1] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
+
    };
 
 #define SPC_LW FUNC(0)
-#define LWR FUNC(1)
-#define MSE FUNC(2)
+#define MSE FUNC(1)
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
 
@@ -58,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN, \
        KC_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,          KC_ENT, \
        KC_LSFT,KC_NUBS,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,            KC_UP, \
-       KC_LCTL,KC_LGUI,KC_LALT,                SPC_LW,                                 MSE,    KC_RGUI, KC_APP,  KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT  
+       KC_LCTL,KC_LGUI,KC_LALT,                SPC_LW,                                 MSE,    KC_RGUI , KC_APP,  KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT  
        ),
 
 [_DVORAK] = KEYMAP_TKL(\
@@ -94,13 +93,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch(id) {
         case R_POINT:
             if (record->event.pressed) { // pointer
-                SEND_STRING("<-");
+                SEND_STRING(" <- ");
 //                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
             }
             break;
         case R_PIPE:
             if (record->event.pressed) { // dplyr pipe
-                SEND_STRING("%>%");
+                SEND_STRING(" %>% ");
 //                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
             }
             break;

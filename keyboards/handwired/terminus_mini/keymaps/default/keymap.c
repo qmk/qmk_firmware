@@ -57,14 +57,13 @@ enum custom_macros {
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
       [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
-      [2] = ACTION_LAYER_TAP_TOGGLE(_MOUSE),         //Hold for momentary Mouse, Tap for toggle Mouse
-      [3] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
-
+      [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
+      [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
    };
 #define SPC_LW FUNC(0)
 #define ENT_RS FUNC(1)
-#define MSE FUNC(2)
-#define FNC FUNC(3)
+#define FNC FUNC(2)
+#define MSE FUNC(3)
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
 
@@ -82,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----+------+------+------+------+-------------+------+------+------+------+------|
  * | LSPO|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | RSPC |
  * |-----+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl| LGUI | Lower| LAlt |    SpaceLW  |    RSEnter  |  Fn  | Mouse| Menu | Ctrl |
+ * | Ctrl| LGUI | Lower| LAlt | Space/Lower | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = TERMINUS_MINI(
@@ -100,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----+------+------+------+------+-------------+------+------+------+------+------|
  * | LSPO|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | RSPC |
  * |-----+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl| LGUI | Lower| LAlt |    SpaceLW  |    RSEnter  |  Fn  | Mouse| Menu | Ctrl |
+ * | Ctrl| LGUI | Lower| LAlt | Space/Lower | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `----------------------------------------------------------------------------------'
  */
 [_QWERTY] = TERMINUS_MINI(
@@ -108,7 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSPC, \
   KC_LCTL, KC_LGUI, LOWER,   KC_LALT,     SPC_LW,           ENT_RS,       FNC,       MSE,     KC_APP,  KC_RCTL \
-  KC_LCTL, KC_LGUI, LWR,     KC_LALT,     SPC_LW,           ENT_RS,       FNC,       MSE,     KC_APP,  KC_RCTL \
   ),
 
 /* Dvorak
@@ -119,14 +117,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | LSPO |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | RSPC |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | LGUI | Lower| LAlt |   SpaceLW   |   RSEnter   |  Fn  | Mouse| Menu |Ctrl  |
+ * | Ctrl | LGUI | Lower| LAlt | Space/Lower | Enter/Raise |  Fn  | Mouse| Menu |Ctrl  |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = TERMINUS_MINI(
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_DEL, \
   KC_BSPC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
   KC_LSPO, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSPC, \
-  KC_LCTL, KC_LGUI, LOWER,     KC_LALT,     SPC_LW,         ENT_RS,       FNC,     MSE,     KC_APP,  KC_RCTL \
+  KC_LCTL, KC_LGUI, LOWER,   KC_LALT,      SPC_LW,          ENT_RS,       FNC,     MSE,     KC_APP,  KC_RCTL \
 ),
 
 /* Lower
@@ -157,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | LSPO |  <-  |  %>% |   {  |   [  |   `  |   \  |   ]  |   }  |   .  |   ?  | RSPC |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | LGUI |      | LAlt | Space/Lower | Raise/Enter |  Fn  | Mouse| Raise| Ctrl |
+ * | Ctrl | LGUI |      | LAlt | Space/Lower | Enter/Raise |  Fn  | Mouse| Raise| Ctrl |
  * `-----------------------------------------------------------------------------------'
   */
 
@@ -181,10 +179,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_FUNCTION] = TERMINUS_MINI( 
-  _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX, XXXXXXX,   KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_INS , \
+  _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX, XXXXXXX,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_INS , \
   KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY,  KC_MNXT, XXXXXXX, XXXXXXX,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_PSCR, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_SLCK, \
-  _______, _______, _______, _______,         _______,        _______,     _______, _______, _______, KC_PAUS \
+  _______, _______, XXXXXXX, _______,         _______,        _______,     _______, XXXXXXX, XXXXXXX, KC_PAUS \
   ),
 
 /* MOUSE
@@ -203,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_ESC,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
    KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_RSPC, \
-   _______, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ACL2,           KC_ACL0,     XXXXXXX,      MSE, XXXXXXX, KC_RCTL \
+   _______, XXXXXXX, XXXXXXX, XXXXXXX,      KC_ACL2,           KC_ACL0,     XXXXXXX,  MSE,     XXXXXXX, KC_RCTL \
   ),
 
 /* Adjust (Lower + Raise)
@@ -238,14 +236,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       //R Pointer: <-
         case R_POINT:
             if (record->event.pressed) { // pointer
-                SEND_STRING("<-")
+                SEND_STRING(" <- ");
 //                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
             }
             break;
       //dplyr pipe: %>%
         case R_PIPE:
             if (record->event.pressed) { // dplyr pipe
-                SEND_STRING("%>%")
+                SEND_STRING(" %>% ");
 //                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
             }
             break;

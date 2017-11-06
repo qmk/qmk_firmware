@@ -49,14 +49,13 @@ enum {
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
       [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
-      [2] = ACTION_LAYER_TAP_TOGGLE(_MOUSE),         //Hold for momentary Mouse, Tap for toggle Mouse
-      [3] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
+      [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
+      [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
    };
-
 #define SPC_LW FUNC(0)
 #define ENT_RS FUNC(1)
-#define MSE FUNC(2)
-#define FNC FUNC(3)
+#define FNC FUNC(2)
+#define MSE FUNC(3)
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
 
@@ -97,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----+------+------+------+------+------|     |------+------+------+------+------+------|
  * | LSPO|   Z  |   X  |   C  |   V  |   B  |     |   N  |   M  |   ,  |   .  |   /  | RSPC |
  * |-----+------+------+------+------+------|     |------+------+------+------+------+------|
- * | Ctrl| LGUI | Lower| LAlt |    SpaceLW  |     |    RSEnter  |  Fn  | Mouse| Menu | Ctrl |
+ * | Ctrl| LGUI | Lower| LAlt | Space/Lower |     | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `----------------------------------------'     '-----------------------------------------'
  */
 
@@ -119,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-----|     |------+------+------+------+------+------|
  * | LSPO |   ;  |   Q  |   J  |   K  |   X |     |   B  |   M  |   W  |   V  |   Z  | RSPC |
  * |------+------+------+------+------+-----|     |------+------+------+------+------+------|
- * | Ctrl | LGUI | Lower| LAlt |   SpaceLW  |     |   RSEnter   |  Fn  | Mouse| Menu | Ctrl |
+ * | Ctrl | LGUI | Lower| LAlt | Space/Lower|     | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `----------------------------------------'     '-----------------------------------------'
  */
 
@@ -215,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
    KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_RSPC, \
-   _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL1,  KC_ACL1, KC_ACL0, KC_ACL0, XXXXXXX,  MSE,     XXXXXXX, KC_RCTL \
+   _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_ACL1,  KC_ACL1, KC_ACL0, KC_ACL0, XXXXXXX,  MOUSE,   XXXXXXX, KC_RCTL \
   ),
 
 /* Adjust (Lower + Raise)
@@ -242,9 +241,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_colemak[][2] = SONG(COLEMAK_SOUND);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -257,7 +253,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       //R Pointer: <-
         case R_POINT:
             if (record->event.pressed) { // Pointer <-
-                SEND_STRING("<-");
+                SEND_STRING(" <- ");
 //                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
 
             }
@@ -265,7 +261,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       //dplyr pipe: %>%
         case R_PIPE:
             if (record->event.pressed) { // dplyr pipe %>%
-                SEND_STRING("%>%");
+                SEND_STRING(" %>% ");
 //                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
             }
             break;
