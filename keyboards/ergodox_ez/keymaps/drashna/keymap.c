@@ -220,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | End   |       | PgDn |       |      |
  *                                 `---------------------'       `---------------------'
  */
-  [QWERTY] = KEYMAP(
+  [QWERTY] = LAYOUT_ergodox(
                 KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
                 KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
                 KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
@@ -263,7 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[COLEMAK] = KEYMAP(  
+[COLEMAK] = LAYOUT_ergodox(  
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
@@ -306,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[DVORAK] = KEYMAP(  
+[DVORAK] = LAYOUT_ergodox(  
         // left hand
         KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(DIABLO),
@@ -349,7 +349,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[WORKMAN] = KEYMAP(  
+[WORKMAN] = LAYOUT_ergodox(  
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
         KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   TG(DIABLO),
@@ -391,7 +391,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 | DARK |BRITE | BLUE |       |      |      |      |
 *                                 `--------------------'       `--------------------'
 */
-  [SYMB] = KEYMAP(
+  [SYMB] = LAYOUT_ergodox(
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
@@ -432,7 +432,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |  H   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [OVERWATCH] = KEYMAP(
+  [OVERWATCH] = LAYOUT_ergodox(
                 KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
@@ -473,7 +473,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | SHIFT| ALT  | 0MAC |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [DIABLO] = KEYMAP(
+  [DIABLO] = LAYOUT_ergodox(
                 KC_ESCAPE,  KC_V,       KC_D,       KC_LALT,    KC_NO,      KC_NO,      KC_NO,
                 KC_TAB,     KC_S,       KC_F,       KC_I,       KC_M,       KC_T,       KC_TRNS,
                 KC_Q,       KC_1,       KC_2,       KC_3,       KC_4,       KC_G,
@@ -516,7 +516,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | MWDn |       | Mclk |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [MOUS] = KEYMAP(
+  [MOUS] = LAYOUT_ergodox(
                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
                 KC_NO,      KC_NO,      KC_MS_U,    KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
                 KC_NO,      KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_NO,      KC_NO,
@@ -795,10 +795,10 @@ uint32_t layer_state_set_kb(uint32_t state) {
     break;
   default:
     if (default_layer & (1UL << COLEMAK)) {
-      rgblight_set_green;
+      rgblight_set_magenta;
     }
     else if (default_layer & (1UL << DVORAK)) {
-      rgblight_set_magenta;
+      rgblight_set_green;
     }
     else if (default_layer & (1UL << WORKMAN)) {
       rgblight_set_purple;
