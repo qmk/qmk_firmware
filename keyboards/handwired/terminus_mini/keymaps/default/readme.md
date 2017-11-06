@@ -2,6 +2,10 @@ Copyright 2017 James Morgan <ja.morgan1@outlook.com>
 
 #MogranJM's terminus_mini layout - A handwired keyboard inspired by the UniKeyboard Terminus Mini 2.
 
+```
+make handwired/terminus_mini:default:teensy
+```
+
 This keymap is modified from the Planck default layout. Credit for the layout name goes to UniKeyboard & reddit's /u/blahlicus)
 
 The terminus_mini is a handwired 4x12 ortholinear keyboard with two 2U thumb bar keys. The microcontroller is a Teensy 2.0

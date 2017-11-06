@@ -2,6 +2,10 @@ Copyright 2017 James Morgan <ja.morgan1@outlook.com>
 
 #MogranJM's Nyquist layout
 
+```
+make nyquist/rev1:DivergeJM
+```
+
 This keymap is based on my Terminus_Mini (../../../terminus\_mini/default) layout (credit for the names of these layouts goes to UniKeyboard & reddit's /u/blahlicus)
 
 The terminus_mini is a handwired 4x12 ortholinear keyboard with two 2U thumb bar keys. This implementation of the layout converts it to a split 5x12 (two halves, each 5x6) keyboard with a 2U thumb key on the inner bottom corner of each half. 
@@ -128,7 +132,7 @@ The *RAISE* layer contains the symbols. This layer is momentary when the right t
 ,-----------------------------------------.     .-----------------------------------------.
 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |     |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
-| Esc  | Mute | Vol- | Vol+ |      | 	    |     |      |      |      |      |      | Ins  |
+| Esc  | Mute | Vol- | Vol+ |      | 	  |     |      |      |      |      |      | Ins  |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
 | Caps | Stop | |<<  | >/|| |  >>| |      |     |      |      |      |      |      |PrtSc |
 |------+------+------+------+------+------|     |------+------+------+------+------+------|
