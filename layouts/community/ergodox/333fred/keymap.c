@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  |   D  |LT 3,F|   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * | Esc    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------|  L2  |           |MO(3) |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_GRV,        KC_1,         KC_2,   KC_3,   KC_4,          KC_5,   KC_EQL,
         KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,          KC_T,   TG(CODE),
-        KC_ESC,        KC_A,         KC_S,   KC_D,   LT(VIM, KC_F),KC_G,
+        KC_ESC,        KC_A,         KC_S,   KC_D,   KC_F,          KC_G,
         OSM(MOD_LSFT), CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,          KC_B,   TG(SYMB),
         OSM(MOD_LCTL), KC_F4,        KC_F5,  KC_LGUI,KC_LALT,
                                                                              LCTL(KC_C),     LCTL(KC_V),
