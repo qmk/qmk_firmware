@@ -236,14 +236,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       //R Pointer: <-
         case R_POINT:
             if (record->event.pressed) { // pointer
-                SEND_STRING(" <- ");
+                SEND_STRING("<- ");
 //                return MACRO(D(LSFT), T(COMM), U(LSFT), T(MINS), END);
             }
             break;
       //dplyr pipe: %>%
         case R_PIPE:
             if (record->event.pressed) { // dplyr pipe
-                SEND_STRING(" %>% ");
+                SEND_STRING("%>% ");
 //                return MACRO(D(LSFT), T(5), T(DOT), T(5), U(LSFT), END);
             }
             break;
