@@ -214,6 +214,8 @@ uint32_t layer_state_set_user(uint32_t state) {
     case 0:
       #ifdef RGBLIGHT_COLOR_LAYER_0
         rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+      #else
+        rgblight_init();
       #endif
       break;
     case 1:
