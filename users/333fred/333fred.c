@@ -23,7 +23,6 @@ void tap_dance_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             if (tap_dance_active) {
                 reset_oneshot_layer();
-                layer_off(SYMB);
                 tap_dance_active = false;
             } else {
                 set_oneshot_layer(SYMB, ONESHOT_START);
