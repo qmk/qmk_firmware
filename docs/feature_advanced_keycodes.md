@@ -49,6 +49,8 @@ Once you have a good feel for how layers work and what you can do, you can get m
 
 Layers stack on top of each other in numerical order. When determining what a keypress does, QMK scans the layers from the top down, stopping when it reaches the first active layer that is not set to `KC_TRNS`. As a result if you activate a layer that is numerically lower than your current layer, and your current layer (or another layer that is active and higher than your target layer) has something other than `KC_TRNS`, that is the key that will be sent, not the key on the layer you just activated. This is the cause of most people's "why doesn't my layer get switched" problem.
 
+Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](../tmk_core/common/action_layer.h).
+
 # Modifier keys
 
 These functions allow you to combine a mod with a keycode. When pressed the keydown for the mod will be sent first, and then *kc* will be sent. When released the keyup for *kc* will be sent and then the mod will be sent.
@@ -144,6 +146,8 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
+
+Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](../tmk_core/common/action.c#L429).
 
 ## Permissive Hold
 
