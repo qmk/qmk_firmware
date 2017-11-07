@@ -31,7 +31,7 @@ $ sudo make daisy:default:dfu
 
 The "default" keymap included is the layout I personally use on the Daisy and the one I have found the most comfortable.
 
-A printable picture showing this layout is available here: https://imgur.com/a/HwnAP
+A printable picture showing this layout is available here: https://imgur.com/9mSF0yf
 
 
 ```
