@@ -14,36 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "woodpad.h"
+#include "drashna.h"
 
  // Each layer gets a name for readability, which is then used in the keymap matrix below.
  // The underscores don't mean anything - you can have a layer called STUFF or any other name.
  // Layer names don't all need to be of the same length, obviously, and you can also skip them
  // entirely and just use numbers.
-#define _NUMLOCK 0
-#define _NAV 1
-#define _DIABLO 2
-#define _MACROS 3
-#define _MEDIA 4
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#ifdef RGBLIGHT_ENABLE
-#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
-#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
-#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
-#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
-#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
-#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#endif
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
-
-bool is_overwatch = false;
 
 
 #ifdef TAP_DANCE_ENABLE
@@ -60,22 +44,6 @@ bool check_dtimer(uint8_t dtimer) {
 #endif
 
 
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  KC_DIABLO_CLEAR,
-  KC_OVERWATCH,
-  KC_SALT,
-  KC_MORESALT,
-  KC_SALTHARD,
-  KC_GOODGAME,
-  KC_SYMM,
-  KC_DOOMFIST,
-  KC_JUSTGAME,
-  KC_GLHF,
-  KC_TORB,
-  KC_MAKE,
-  KC_RESET
-};
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -190,14 +158,7 @@ void numlock_led_off(void) {
 }
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t kc;
-  if (is_overwatch) {
-    kc = KC_BSPC;
-  }
-  else {
-    kc = KC_ENTER;
-  }
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef TAP_DANCE_ENABLE
   case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
@@ -211,138 +172,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 #endif
-  case KC_OVERWATCH:
-    if (record->event.pressed) {
-      is_overwatch = !is_overwatch;
-    }
-#ifdef RGBLIGHT_ENABLE
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-#endif
-    return false;
-    break;
-  case KC_SALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Salt, salt, salt...");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_MORESALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Please sir, can I have some more salt?!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SALTHARD:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_GOODGAME:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good game, everyone!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_GLHF:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good luck, have fun!!!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SYMM:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Left click to win!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_DOOMFIST:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Hey, look at me.  I'm Doomfist, and I'm overpowered!  All I do is spam punches all day!   I'm DPS, tank and defense, rolled into one! All I need is team healing to be complete!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_JUSTGAME:
-
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_TORB:
-
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("That was positively riveting!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_MAKE:
-    if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-  case KC_RESET:
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-      reset_keyboard();
-    }
-    return false;
-    break;
-
-
   }
   return true;
 }
+
 #ifdef TAP_DANCE_ENABLE
 
 // Sends the key press to system, but only if on the Diablo layer
@@ -379,16 +212,11 @@ void run_diablo_macro_check(void) {
 
 }
 #endif
-void matrix_init_user(void) {
+void matrix_init_keymap(void) {
   // set Numlock LED to output and low
   DDRF |= (1 << 7);
   PORTF &= ~(1 << 7);
 
-#ifdef RGBLIGHT_ENABLE
-  rgblight_enable();
-  rgblight_set_teal;
-  rgblight_mode(1);
-#endif
 
   if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) {
     register_code(KC_NUMLOCK);
@@ -396,7 +224,7 @@ void matrix_init_user(void) {
   }
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_keymap(void) {
   numlock_led_off();
   if (is_overwatch && biton32(layer_state) == _MACROS) {
     numlock_led_on();
@@ -408,35 +236,3 @@ void matrix_scan_user(void) {
 #endif
 }
 
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-  // Check layer, and apply color if its changed since last check
-  switch (biton32(state)) {
-  case _NAV:
-    rgblight_set_blue;
-    rgblight_mode(1);
-    break;
-  case _MACROS:
-    rgblight_set_orange;
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    break;
-  case _DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case _MEDIA:
-    rgblight_set_green;
-    rgblight_mode(22);
-    break;
-  default:
-    rgblight_set_teal;
-    rgblight_mode(1);
-    break;
-  }
-
-#endif
-  return state;
-}
-void led_set_user(uint8_t usb_led) {
-
-}

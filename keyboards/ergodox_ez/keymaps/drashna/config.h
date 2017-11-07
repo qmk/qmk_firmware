@@ -13,7 +13,5 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-#undef DEBOUNCE
-#define DEBOUNCE    5
 
 #endif
