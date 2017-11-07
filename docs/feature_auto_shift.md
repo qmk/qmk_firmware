@@ -42,7 +42,7 @@ Yes, unfortunately.
 
 Add to your `rules.mk` in the keymap folder:
 
-    AUTO_SHIFT_ENABLE = YES
+    AUTO_SHIFT_ENABLE = yes
 
 If no `rules.mk` exists, you can create one.
 
@@ -136,24 +136,22 @@ completely normal and with no intention of shifted keys.
 
 #### An example run
 
-'''
-hello world. my name is john doe. i am a computer programmer playing with
-keyboards right now.
+    hello world. my name is john doe. i am a computer programmer playing with
+    keyboards right now.
 
-[PRESS KC_ASDN quite a few times]
+    [PRESS KC_ASDN quite a few times]
 
-heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
-KEYboArDS RiGHT NOw.
+    heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
+    KEYboArDS RiGHT NOw.
 
-[PRESS KC_ASUP a few times]
+    [PRESS KC_ASUP a few times]
 
-hello world. my name is john Doe. i am a computer programmer playing with
-keyboarDs right now.
+    hello world. my name is john Doe. i am a computer programmer playing with
+    keyboarDs right now.
 
-[PRESS KC_ASRP]
+    [PRESS KC_ASRP]
 
-115
-'''
+    115
 
 The keyboard typed `115` which represents your current `AUTO_SHIFT_TIMEOUT`
 value. You are now set! Practice on the *D* key a little bit that showed up

@@ -13,7 +13,7 @@ In short when your controller is ATMega32u4,
 
 or just
 
-    $ sudo make <keyboard>-<keymap>-dfu
+    $ sudo make <keyboard>:<keymap>:dfu
 
 But to run `make` with root privilege is not good idea. Use former method if possible.
 
@@ -62,7 +62,7 @@ https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstdd
 https://developer.mbed.org/forum/mbed/topic/5205/
 
 
-## 'clock_prescale_set' and 'clock_div_1' not available
+## `clock_prescale_set` and `clock_div_1` not available
 Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
 
 ```

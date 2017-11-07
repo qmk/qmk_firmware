@@ -349,7 +349,7 @@ static void send_keyboard(report_keyboard_t *report)
 
 static void send_mouse(report_mouse_t *report)
 {
-#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE)
+#if defined(MOUSEKEY_ENABLE) || defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
     if (!iwrap_connected() && !iwrap_check_connection()) return;
     MUX_HEADER(0x01, 0x09);
     // HID raw mode header

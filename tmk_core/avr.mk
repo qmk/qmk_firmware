@@ -96,6 +96,30 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).hex
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.hex\n" | zipnote -w $(TARGET).qmk
+	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
+	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
+	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
+
 # Program the device.
 program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(PROGRAM_CMD)
@@ -146,10 +170,10 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 
 avrdude: $(BUILD_DIR)/$(TARGET).hex
 	if grep -q -s Microsoft /proc/version; then \
-		echo 'ERROR: Pro Micros can not be flashed within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
+		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
 		ls /dev/tty* > /tmp/1; \
-		echo "Detecting Pro Micro port, reset your Pro Micro now.\c"; \
+		echo "Detecting USB port, reset your controller now.\c"; \
 		while [ -z $$USB ]; do \
 			sleep 1; \
 			echo ".\c"; \
@@ -157,7 +181,7 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex
 			USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
 		done; \
 		echo ""; \
-		echo "Detected Pro Micro port at $$USB"; \
+		echo "Detected controller on USB port at $$USB"; \
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
