@@ -1,9 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-Copyright 2017 Art Ortenburger
+Copyright 2017 Danny Nguyen <danny@hexwire.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,32 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
+#define MASTER_LEFT
 // #define _MASTER_RIGHT
-#define EE_HANDS
+// #define EE_HANDS
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
-
-
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 12     // Number of LEDs
+#undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 12
-#define RGBLIGHT_VAL_STEP 12
-#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#endif // RGBLIGHT_ENABLE
-
-#define FORCE_NKRO
-#ifdef FORCE_NKRO
-#define NKRO_EPSIZE 32
-#endif
-
-#define PERMISSIVE_HOLD
+#define RGBLED_NUM 8
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 
 #endif
+

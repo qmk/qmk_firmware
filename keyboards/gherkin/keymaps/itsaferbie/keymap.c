@@ -7,6 +7,7 @@ extern keymap_config_t keymap_config;
 #define _PS 0 // This is the Photoshop Layer
 #define _AI 1 // This is the Illustrator Layer
 #define _PR 2 // This is the Premier Layer
+#define _XD 3 // This is the Experience Design Layer
 
 enum custom_keycodes {
 	PS = SAFE_RANGE,
@@ -17,8 +18,9 @@ enum custom_keycodes {
 #define PS TO(0)
 #define AI TO(1)
 #define PR TO(2)
+#define XD TO(3)
 
-// Mix of Photoshop, Illustrator, and Premiere shortcuts.
+// Mix of Photoshop, Illustrator, Premiere, and Experience Design shortcuts.
 #define SAVE  LCTL(KC_S)
 #define OPEN  LCTL(KC_O)
 #define COPY  LCTL(KC_C)
@@ -34,34 +36,55 @@ enum custom_keycodes {
 #define BRINGF LCTL(KC_RBRC)
 #define BRINGB LCTL(KC_LBRC)
 
-// Some illustrator only shortcuts.
+// Illustrator layer shortcuts.
 #define SHAPE LSFT(KC_M)
 #define RULER LCTL(LALT(KC_R))
 
-// Premiere only shortcuts.
+// Premiere layer shortcuts.
 #define REDO LCTL(LSFT(KC_Z))
 #define EXPORT LCTL(KC_M)
 #define IMPORT LCTL(KC_I)
 #define PCOPY LCTL(KC_V)
 #define PPASTE LCTL(LSFT(KC_V))
 
+// Experience Design layer shortcuts. (can be used with others too.)
+#define NEW LCTL(KC_N)
+#define LOCK LCTL(KC_L)
+#define SYMB LCTL(KC_K)
+#define HIDE LCTL(KC_SCLN)
+#define REPEAT LCTL(KC_R)
+#define MASK LCTL(LSFT(KC_M))
+#define GROUP LCTL(KC_G)
+#define UNGRP LCTL(LSFT(KC_G))
+#define VIEW LCTL(KC_TAB)
+#define HORZ LSFT(KC_C)
+#define VERT LSFT(KC_M)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	// Photoshop layer.
+	// Photoshop layer
 	[_PS] = KEYMAP(
-		SAVE,    KC_W, KC_E, KC_T,  KC_U,   KC_I,   KC_P,   INVERT, CUNDO,    NLAYER,
+		SAVE,    KC_W, KC_E, KC_T,  KC_U,   KC_I,   KC_P,   INVERT,  CUNDO,   NLAYER,
 		UNDO,    KC_H, KC_L, TRANS, ALIGNL, ALIGNC, ALIGNR, BRINGB,  BRINGF,  OPEN,
 		KC_LSFT, COPY, PAST, KC_Z,  KC_C,   KC_V,   KC_B,   KC_LBRC, KC_RBRC, AI),
 
+	// Illustrator layer
 	[_AI] = KEYMAP(
 		KC_TRNS, M(0),    RULER,   KC_TRNS, KC_G,    KC_TRNS, KC_TRNS, KC_Q,  KC_MINS, KC_PLUS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_E,    KC_TRNS, KC_TRNS, KC_TRNS, SHAPE, KC_O,    OPEN,  
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_M,  KC_SLSH, PR),
 
+	// Premiere layer
 	[_PR] = KEYMAP(
 		KC_TRNS, KC_Q,  KC_W,   KC_I,   KC_O, KC_P, IMPORT, EXPORT,  KC_MINS,  KC_EQL,
 		KC_TRNS, REDO,  KC_D,   KC_F,   KC_H, KC_M, KC_ENT, KC_LBRC, KC_RBRC,  OPEN,  
-		KC_TRNS, PCOPY, PPASTE, KC_SPC, KC_Z, KC_C, KC_V,   KC_LEFT, KC_RIGHT, PS),
+		KC_TRNS, PCOPY, PPASTE, KC_SPC, KC_Z, KC_C, KC_V,   KC_LEFT, KC_RIGHT, XD),
+
+	// Experience Design layer
+	[_XD] = KEYMAP(
+		KC_TRNS, KC_E,    KC_R,  KC_T,  KC_P, KC_A, KC_L, KC_V, KC_DEL, NEW,
+		KC_TRNS, REDO,    GROUP, UNGRP, VIEW, HORZ, VERT, KC_Z, KC_ENT, OPEN,  
+		KC_TRNS, KC_LCTL, COPY,  PAST,  SYMB, LOCK, MASK, HIDE, REPEAT, PS),
 
 };
 
@@ -84,13 +107,20 @@ void matrix_scan_user(void) {
 	if (old_layer != new_layer) {
 		switch (new_layer) {
 			case _PS:
+			  // #31C5F0
 			  rgblight_setrgb(49, 197, 240);
 			break;
 			case _AI:
+			  // #FF8011
 			  rgblight_setrgb(255, 128, 17);
 			break;
 			case _PR:
+			  // #E788FF
 			  rgblight_setrgb(231, 136, 255);
+			break;
+			case _XD:
+			  // #FF2BC2
+			  rgblight_setrgb(255, 43, 194);
 			break;
 		}
 		old_layer = new_layer;

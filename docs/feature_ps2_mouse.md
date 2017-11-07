@@ -227,6 +227,26 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
+#### Invert mouse and scroll axes
+
+To invert the X and Y axes you can put:
+
+```
+#define PS2_MOUSE_INVERT_X
+#define PS2_MOUSE_INVERT_Y
+```
+
+into config.h.
+
+To reverse the scroll axes you can put:
+
+```
+#define PS2_MOUSE_INVERT_H
+#define PS2_MOUSE_INVERT_V
+```
+
+into config.h.
+
 #### Debug settings
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
