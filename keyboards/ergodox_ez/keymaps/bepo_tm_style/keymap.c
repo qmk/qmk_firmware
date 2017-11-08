@@ -109,6 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 };
 
+// Run for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SWAP_HAND:
@@ -117,3 +118,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true; // Let QMK send the enter press/release events
 }
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+  ergodox_right_led_1_off();
+  ergodox_right_led_2_off();
+  ergodox_right_led_3_off();
+};
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+
+};
+
+// The state of the LEDs, as requested by the system.
+uint8_t sys_led_state = 0;
+// Use these masks to read the led state.
+const uint8_T sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
+const uint8_T sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
+const uint8_T sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
+
+// Called by the system to set the state of the keyboard led.
+// Use led_sed_kb if this is not called.
+void led_set_user(uint8_t usb_led) {
+    sys_led_state = usb_led;
+    if (sys_led_state & sys_led_mask_caps_lock) {
+      ergodox_right_led_1_on();
+    } else {
+      ergodox_right_led_1_off();
+    }
+    if (sys_led_state & sys_led_mask_num_lock) {
+      ergodox_right_led_2_on();
+    } else {
+      ergodox_right_led_2_off();
+    }
+}
+// Runs whenever there is a layer state change.
+uint32_t layer_state_set_user(uint32_t state) {
+  uint8_t layer = biton32(state);
+  // Light the third led for all layer except the default one.
+  switch (layer) {
+    case 0:
+      ergodox_right_led_3_off();
+      break;
+    default:
+      ergodox_right_led_3_on();
+      break;
+  }
+
+  return state;
+};

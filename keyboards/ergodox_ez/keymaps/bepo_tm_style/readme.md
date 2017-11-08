@@ -1,9 +1,22 @@
-# Drashna's ErgoDox EZ Underglow Mod
+# Bépo compatible keymap for the Ergodox EZ, *TypeMatrix* style.
 
-This is based on the default Ergodox EZ keymap.
+This keymap is meant to be used with a [Bépo](http://bepo.fr) layout. It is
+designed to be somewhat similar to a TypeMatrix keyboard so that switching
+between one and the other is easy.
 
-This modifieds the keymay so that it uses the underglow to indicate which layer you're on, rather than the top LEDs.
+![The Keymap](https://i.imgur.com/ZRAzU5a.png)
 
-Default colors are "teal" for base layer, "red" for Symbols, and "green" for mouse/media.  Blue would be the next layer, if you had more.
+## Build instruction
 
-Additionally, the top LEDs are Shift/Control/Alt indicators instead (in that order). 
+To build this on Windows, under Cygwin, provided that you have installed the
+Arduino environment and Teensy loaded in the default path, you can do:
+
+```shell
+PATH=/cygdrive/c/Program\ Files\ \(x86\)/Arduino/hardware/tools/avr/bin:$PATH
+make ergodox_ez:bepo_tm_style:all
+```
+
+## Debug
+
+See https://github.com/tmk/tmk_keyboard#magic-commands for command that can help
+debug, together with the hid_listen tool (https://docs.qmk.fm/faq_debug.html).
