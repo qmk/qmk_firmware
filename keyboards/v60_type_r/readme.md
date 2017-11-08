@@ -23,7 +23,7 @@ Hardware Availability: [mechanicalkeyboards.com](https://mechanicalkeyboards.com
 
 Make example for this keyboard (after setting up your build environment):
 
-    make v60_type_r-default
+    make v60_type_r:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
