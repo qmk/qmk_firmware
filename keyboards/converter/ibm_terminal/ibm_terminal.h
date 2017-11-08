@@ -1,5 +1,5 @@
-#ifndef IBM_TERMINAL_CONVERTER_H
-#define IBM_TERMINAL_CONVERTER_H
+#ifndef IBM_TERMINAL_H
+#define IBM_TERMINAL_H
 
 #include "quantum.h"
 

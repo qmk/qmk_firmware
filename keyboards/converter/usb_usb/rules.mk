@@ -19,7 +19,7 @@ MCU = atmega32u4
 # respective hardware variantion (i.e. subproject). For example, in /pro_micro/rules.mk
 # this is set to 8000000.
 # The value here is only a fallback and is ignored if it is defined in the subproject.
-# F_CPU ?= 16000000
+F_CPU ?= 16000000
 
 DEFAULT_FOLDER = converter/usb_usb/hasu
 

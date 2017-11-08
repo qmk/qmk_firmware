@@ -24,7 +24,7 @@ BUILD
 -----
 $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
-$ make ibm_terminal_converter
+$ make converter/ibm_terminal:default
 
 
 RESOURCE

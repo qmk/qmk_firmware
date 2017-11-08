@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "ibm_terminal_converter.h"
+#include "ibm_terminal.h"
 #include "action_layer.h"
 
 // Fillers to make layering clearer
