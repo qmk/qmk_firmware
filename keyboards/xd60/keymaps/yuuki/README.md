@@ -17,6 +17,8 @@ Change the layout in `keymap.c` then run `make xd60:yuuki`. The compiled file wi
 
 Upper row is default layer, bottom row is function layer. I Didn't include the symbols, such as @,# or $, as their placement is just as you'd expect it.
 
+## Summary of Changes
+
 | Key                        | Function                           |
 | -------------------------- | ---------------------------------- |
 | Capslock | Forward Slash when tapped and Left Control when held |
