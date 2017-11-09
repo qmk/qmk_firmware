@@ -53,8 +53,8 @@ ARMV = 7
 # Vector table for application
 # 0x00000000-0x00001000 area is occupied by bootloader.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
-OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
-#OPT_DEFS =
+#OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
+OPT_DEFS =
 
 DFU_ARGS = -d 1c11:b007
 
