@@ -58,6 +58,7 @@ typedef struct
 {
   uint16_t kc;
   uint8_t layer;
+  void (*layer_function)(uint8_t);
 } qk_tap_dance_dual_role_t;
 
 #define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) { \
