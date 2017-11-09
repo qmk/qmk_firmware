@@ -52,9 +52,7 @@ static void keyboard_slave_setup(void) {
 }
 
 bool has_usb(void) {
-   USBCON |= (1 << OTGPADE); //enables VBUS pad
-   _delay_us(5);
-   return (USBSTA & (1<<VBUS));  //checks state of VBUS
+   return (UDADDR & (1<<ADDEN));  // Checks if the arduino has been assigned a USB address
 }
 
 void split_keyboard_setup(void) {
