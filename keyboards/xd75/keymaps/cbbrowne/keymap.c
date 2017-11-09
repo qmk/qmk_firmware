@@ -97,35 +97,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 keys needing to be assigned:
-11 - KC_TAB - tab
-52 - ROT_LED - rotate LED
+51 - KC_TAB - tab
+   - ROT_LED - rotate LED
 15 - KC_LALT - Left ALT
-   - KC_LGUI  - this is the windows/command key, which I think I do not use...
-   - M_LOWER - switch to LOWER layer 
-   - KC_SPC - space
-   - M_UPPER - switch to UPPER layer, maybe unneeded for 15x5
-   - KC_LEFT - famous arrows
-   - KC_DOWN - famous arrows
-   - KC_UP - famous arrows
-   - KC_RIGHT - famous arrows
-   - KC_ENT - enter
+53,55 - M_RAISE - switch to RAISE layer 
+5b - M_LOWER - switch to LOWER layer 
+56,59,5a   - KC_SPC - space
+5c - KC_LEFT - famous arrows
+5d - KC_DOWN - famous arrows
+5e - KC_UP - famous arrows
+5f - KC_RIGHT - famous arrows
+3f - KC_ENT - enter
    - KC_GRV - leftwards quote
-   - KC_QUOT - rightwards quote
-   - KC_BSPC - backspace
-   - KC_ESC
-
-Missing still...  
-   KC_LBRC and KC_LCBR
-   KC_RBRC and KC_RCBR
+4f - KC_QUOT - rightwards quote
+1f - KC_BSPC - backspace
+11 - KC_ESC
+19 - KC_GRV - ` - raised
+19 - KC_TILD - ~ - lowered
 
   */
 
-   [_QWERTY] = { /* QWERTY, with keypad in the centre */
-     { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, RESET,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
+  [_QWERTY] = { /* QWERTY, with keypad in the centre */
+     { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_EQL, KC_MINS, KC_EQL,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC },
      { KC_LALT, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_7,    KC_8,   KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PLUS },
      { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_LBRC, KC_RBRC,KC_MINS, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CTLENTER },
      { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_PGUP, KC_EQL,   KC_BSLS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFTQUOTE },
-     { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,KC_PGDN,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
+      { KC_TAB,  FUNCTION, MRAISE,  FUNCTION, MRAISE, KC_SPC,KC_PGDN,  KC_MINS, KC_SPC, KC_SPC,  MLOWER, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT }
    },
 	
 /* LOWER
@@ -143,7 +140,7 @@ Missing still...
  */
  
  [_LOWER] = { /* LOWERED */
-   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
+   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, KC_GRV,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
   { ___T___, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS  },
    { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE },
    { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______ },
@@ -165,7 +162,7 @@ Missing still...
  */
  
  [_RAISE] = { /* RAISED */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___ },
+  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_GRV,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___ },
   { KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    _______, _______, KC_7,    KC_8,    KC_LCBR, KC_RCBR,    _______, _______, KC_INS   },
   { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, ___T___, ___T___ },
   { KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______, _______  },
@@ -187,7 +184,7 @@ Missing still...
  */
  
  [_FUNCTION] = { /* FUNCTION */
-  { KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___T___, ___T___  },
+  { KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  RESET, RESET },
   { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
   { KC_CAPS, KC_BTN5, KC_BTN4, KC_BTN3, KC_BTN2, KC_ACL0, KC_ACL2, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, ___T___, ___T___, KC_WH_U  },
   { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  },
