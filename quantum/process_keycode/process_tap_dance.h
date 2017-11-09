@@ -68,7 +68,7 @@ typedef struct
 
 #define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) { \
     .fn = { NULL, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset }, \
-    .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer }), \
+    .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer, layer_move }), \
   }
 
 #define ACTION_TAP_DANCE_FN(user_fn) {  \
