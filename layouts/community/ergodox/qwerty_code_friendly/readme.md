@@ -32,6 +32,7 @@ using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 - `CFQ_USE_SWAP_RIGHT_SPACE_ENTER` swap Enter and Space on the right hand thumb cluster.
   While asymmetric, it makes Enter more easily accessible.
 - `CFQ_USE_EXPEREMENTAL_LAYER` defines an extra layer for misc extra keys/macros.
+  When set, Caps-Lock is replace by Layer3.
   Currently it's mostly empty.
 
 
@@ -52,7 +53,7 @@ Keymap 0: Basic layer
   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       | Ins  | ~L3  |       | Home | End  |
+                                       | Ins  |CapsLk|       | Home | End  |
                                 ,------|------|------|       |------+------+------.
                                 |      |      | ~L2  |       | PgUp |      |      |
                                 |Space |Enter |------|       |------|Enter |Space |
@@ -126,6 +127,9 @@ Notes:
 ```
 
 ## Changelog
+
+- 2017/11/09
+  Use Caps-Lock when `CFQ_USE_EXPEREMENTAL_LAYER` isn't defined.
 
 - 2017/11/07
   Make thumb left thumb cluster completely configurable with defines.
