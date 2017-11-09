@@ -43,15 +43,15 @@ The folder name must be added to the keyboard's `rules.mk`:
 
     LAYOUTS = 60_ansi
 
-`LAYOUTS` can be appended in the subproject's `rules.mk`:
+`LAYOUTS` can be set in any keyboard folder level's `rules.mk`:
 
-    LAYOUTS += 60_iso
+    LAYOUTS = 60_iso
 
-but the `LAYOUT_<layout>` variable must be defined in `<subproject>.h` as well.
+but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
 
 ## Tips for making layouts keyboard-agnostic
 
-Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<subproject>.h` should not be included here) file that is being compiled:
+Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<folder>.h` should not be included here) file that is being compiled:
 
     #include QMK_KEYBOARD_H
 
@@ -61,17 +61,16 @@ In your config.h, you can also use this variable to include the keyboard's `conf
 
 If you want to keep some keyboard-specific code, you can use these variables to escape it with an `#ifdef` statement:
 
-* `KEYBOARD_<keyboard>`
-* `SUBPROJECT_<subproject>`
+* `KEYBOARD_<folder1>_<folder2>`
 
 For example:
 
 ```c
 #ifdef KEYBOARD_planck
-    #ifdef SUBPROJECT_rev4
+    #ifdef KEYBOARD_planck_rev4
         planck_rev4_function();
     #endif
 #endif
 ```
 
-Note that the names are lowercase and match the folder/file names for the keyboard/subproject exactly.
+Note that the names are lowercase and match the folder/file names for the keyboard/revision exactly.

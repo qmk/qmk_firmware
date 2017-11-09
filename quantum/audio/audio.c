@@ -17,9 +17,11 @@
 #include <stdio.h>
 #include <string.h>
 //#include <math.h>
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
-#include <avr/io.h>
+#if defined(__AVR__)
+  #include <avr/pgmspace.h>
+  #include <avr/interrupt.h>
+  #include <avr/io.h>
+#endif
 #include "print.h"
 #include "audio.h"
 #include "keymap.h"

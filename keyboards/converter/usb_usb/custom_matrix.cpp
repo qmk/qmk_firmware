@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host.h"
 #include "keyboard.h"
 
+extern "C" {
+#include "quantum.h"
+}
 
 /* KEY CODE to Matrix
  *
@@ -62,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Integrated key state of all keyboards
-static report_keyboard_t keyboard_report;
+static report_keyboard_t local_keyboard_report;
 
 static bool matrix_is_mod = false;
 
@@ -98,13 +101,13 @@ extern "C"
     }
 
     static void or_report(report_keyboard_t report) {
-        // integrate reports into keyboard_report
-        keyboard_report.mods |= report.mods;
+        // integrate reports into local_keyboard_report
+        local_keyboard_report.mods |= report.mods;
         for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
             if (IS_ANY(report.keys[i])) {
                 for (uint8_t j = 0; j < KEYBOARD_REPORT_KEYS; j++) {
-                    if (! keyboard_report.keys[j]) {
-                        keyboard_report.keys[j] = report.keys[i];
+                    if (! local_keyboard_report.keys[j]) {
+                        local_keyboard_report.keys[j] = report.keys[i];
                         break;
                     }
                 }
@@ -130,7 +133,7 @@ extern "C"
             last_time_stamp4 = kbd_parser4.time_stamp;
 
             // clear and integrate all reports
-            keyboard_report = {};
+            local_keyboard_report = {};
             or_report(kbd_parser1.report);
             or_report(kbd_parser2.report);
             or_report(kbd_parser3.report);
@@ -138,9 +141,9 @@ extern "C"
 
             matrix_is_mod = true;
 
-            dprintf("state:  %02X %02X", keyboard_report.mods, keyboard_report.reserved);
+            dprintf("state:  %02X %02X", local_keyboard_report.mods, local_keyboard_report.reserved);
             for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-                dprintf(" %02X", keyboard_report.keys[i]);
+                dprintf(" %02X", local_keyboard_report.keys[i]);
             }
             dprint("\r\n");
         } else {
@@ -177,12 +180,12 @@ extern "C"
         uint8_t code = CODE(row, col);
 
         if (IS_MOD(code)) {
-            if (keyboard_report.mods & ROW_BITS(code)) {
+            if (local_keyboard_report.mods & ROW_BITS(code)) {
                 return true;
             }
         }
         for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            if (keyboard_report.keys[i] == code) {
+            if (local_keyboard_report.keys[i] == code) {
                 return true;
             }
         }
@@ -192,14 +195,14 @@ extern "C"
     matrix_row_t matrix_get_row(uint8_t row) {
         uint16_t row_bits = 0;
 
-        if (IS_MOD(CODE(row, 0)) && keyboard_report.mods) {
-            row_bits |= keyboard_report.mods;
+        if (IS_MOD(CODE(row, 0)) && local_keyboard_report.mods) {
+            row_bits |= local_keyboard_report.mods;
         }
 
         for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            if (IS_ANY(keyboard_report.keys[i])) {
-                if (row == ROW(keyboard_report.keys[i])) {
-                    row_bits |= ROW_BITS(keyboard_report.keys[i]);
+            if (IS_ANY(local_keyboard_report.keys[i])) {
+                if (row == ROW(local_keyboard_report.keys[i])) {
+                    row_bits |= ROW_BITS(local_keyboard_report.keys[i]);
                 }
             }
         }
@@ -209,9 +212,9 @@ extern "C"
     uint8_t matrix_key_count(void) {
         uint8_t count = 0;
 
-        count += bitpop(keyboard_report.mods);
+        count += bitpop(local_keyboard_report.mods);
         for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
-            if (IS_ANY(keyboard_report.keys[i])) {
+            if (IS_ANY(local_keyboard_report.keys[i])) {
                 count++;
             }
         }
@@ -233,6 +236,7 @@ extern "C"
         kbd2.SetReport(0, 0, 2, 0, 1, &usb_led);
         kbd3.SetReport(0, 0, 2, 0, 1, &usb_led);
         kbd4.SetReport(0, 0, 2, 0, 1, &usb_led);
+        led_set_kb(usb_led);
     }
 
 };

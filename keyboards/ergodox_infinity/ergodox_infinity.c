@@ -126,6 +126,10 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
+bool is_keyboard_master(void) {
+    return is_serial_link_master();
+}
+
 __attribute__ ((weak))
 void ergodox_board_led_on(void){
 }
