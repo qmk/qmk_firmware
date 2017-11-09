@@ -15,32 +15,36 @@
 #define CFQ_USE_DYNAMIC_MACRO
 
 #if !defined(CFQ_USER_KEY1)
-#define CFQ_USER_KEY1 CFQ_KC_FN1
+#  define CFQ_USER_KEY1 CFQ_KC_FN1
 #endif
 #if !defined(CFQ_USER_KEY2)
-#define CFQ_USER_KEY2 KC_INS
+#  define CFQ_USER_KEY2 KC_INS
 #endif
 #if !defined(CFQ_USER_KEY3)
-#define CFQ_USER_KEY3 CFQ_KC_FN3
+#  ifdef CFQ_USE_EXPEREMENTAL_LAYER
+#    define CFQ_USER_KEY3 CFQ_KC_FN3
+#  else
+#    define CFQ_USER_KEY3 KC_CAPS
+#  endif
 #endif
 #if !defined(CFQ_USER_KEY4)
-#define CFQ_USER_KEY4 KC_SPC
+#  define CFQ_USER_KEY4 KC_SPC
 #endif
 #if !defined(CFQ_USER_KEY5)
-#define CFQ_USER_KEY5 KC_ENT
+#  define CFQ_USER_KEY5 KC_ENT
 #endif
 #if !defined(CFQ_USER_KEY6)
-#define CFQ_USER_KEY5 CFQ_KC_FN2
+#  define CFQ_USER_KEY6 CFQ_KC_FN2
 #endif
 #if !defined(CFQ_USER_KEY7)
-#define CFQ_USER_KEY5 CFQ_KC_FN1
+#  define CFQ_USER_KEY7 CFQ_KC_FN1
 #endif
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #ifdef CFQ_USE_EXPEREMENTAL_LAYER
-#define EXPR 3 // experimental keys
+#  define EXPR 3 // experimental keys
 #endif
 
 enum custom_keycodes {
@@ -105,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Ins  | ~L3  |       | Home | End  |
+ *                                        | Ins  |CapsLk|       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      | ~L2  |       | PgUp |      |      |
  *                                 |Space |Enter |------|       |------|Enter |Space |
