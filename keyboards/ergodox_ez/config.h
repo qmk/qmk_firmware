@@ -87,6 +87,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
+// #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
+/* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
+/* #define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00 */
+/* #define RGBLIGHT_COLOR_LAYER_3 0x00, 0xFF, 0x00 */
+/* #define RGBLIGHT_COLOR_LAYER_4 0xFF, 0xFF, 0x00 */
+/* #define RGBLIGHT_COLOR_LAYER_5 0x00, 0xFF, 0xFF */
+/* #define RGBLIGHT_COLOR_LAYER_6 0xFF, 0x00, 0xFF */
+/* #define RGBLIGHT_COLOR_LAYER_7 0xFF, 0xFF, 0xFF */
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

@@ -52,7 +52,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Your changes now exist on your fork on Github - if you go back there (https://github.com/<whoeveryouare>/qmk_firmware), you can create a "New Pull Request" by clicking this button:
+Your changes now exist on your fork on Github - if you go back there (`https://github.com/<whoeveryouare>/qmk_firmware`), you can create a "New Pull Request" by clicking this button:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

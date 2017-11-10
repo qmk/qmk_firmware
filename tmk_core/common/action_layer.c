@@ -64,8 +64,13 @@ void default_layer_xor(uint32_t state)
 uint32_t layer_state = 0;
 
 __attribute__((weak))
-uint32_t layer_state_set_kb(uint32_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
     return state;
+}
+
+__attribute__((weak))
+uint32_t layer_state_set_kb(uint32_t state) {
+    return layer_state_set_user(state);
 }
 
 static void layer_state_set(uint32_t state)

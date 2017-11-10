@@ -66,6 +66,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
+/* Backlight LEDs */
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 7
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

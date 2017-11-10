@@ -66,6 +66,10 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=512
 
+# If you have Left LEDs (see
+# https://geekhack.org/index.php?topic=22780.msg873819#msg873819 for
+# details), include the following define:
+# OPT_DEFS += -DLEFT_LEDS
 
 # Build Options
 #   comment out to disable the options.

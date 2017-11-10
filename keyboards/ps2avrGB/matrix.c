@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 
 #ifndef DEBOUNCE
-#   define DEBOUNCE	5
+#define DEBOUNCE	5
 #endif
 
 static uint8_t debouncing = DEBOUNCE;
