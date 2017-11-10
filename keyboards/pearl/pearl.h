@@ -14,23 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef BFAKE_CONFIG_H
-#define BFAKE_CONFIG_H
 
-#include "config_common.h"
+#ifndef PEARL_H
+#define PEARL_H
 
-#define MANUFACTURER    NotActuallyWinkeyless
+#include "quantum.h"
+#include "pearl.h"
 
-#define RGBLED_NUM 12
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6}
-#define UNUSED_PINS
-
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+#define KEYMAP( \
+  K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,\
+   K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A,  K1B, \
+    K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,\
+       K30, K31, K32,   K34,  K35, K37,   K39, K3A\
+){ \
+  { K00, K01, K02, K03,   K04, K05, K06,   K07, K08,   K09, K0A, K0B,   K0C}, \
+  { K10, K11, K12, K13,   K14, K15, K16,   K17, K18,   K19, K1A, K1B,   KC_NO}, \
+  { K20, K21, K22, K23,   K24, K25, K26,   K27, K28,   K29, K2A, K2B,   KC_NO}, \
+  { K30, K31, K32, KC_NO, K34, K35, KC_NO, K37, KC_NO, K39, K3A, KC_NO, KC_NO}, \
+}
 
 #endif

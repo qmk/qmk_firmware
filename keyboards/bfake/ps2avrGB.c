@@ -15,22 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PEARL_H
-#define PEARL_H
-
-#include "quantum.h"
 #include "ps2avrGB.h"
+#include "rgblight.h"
 
-#define KEYMAP( \
-  K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,\
-   K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A,  K1B, \
-    K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,\
-       K30, K31, K32,   K34,  K35, K37,   K39, K3A\
-){ \
-  { K00, K01, K02, K03,   K04, K05, K06,   K07, K08,   K09, K0A, K0B,   K0C}, \
-  { K10, K11, K12, K13,   K14, K15, K16,   K17, K18,   K19, K1A, K1B,   KC_NO}, \
-  { K20, K21, K22, K23,   K24, K25, K26,   K27, K28,   K29, K2A, K2B,   KC_NO}, \
-  { K30, K31, K32, KC_NO, K34, K35, KC_NO, K37, KC_NO, K39, K3A, KC_NO, KC_NO}, \
+#include <avr/pgmspace.h>
+
+#include "action_layer.h"
+#include "i2c.h"
+#include "quantum.h"
+
+extern rgblight_config_t rgblight_config;
+
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
+
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
 }
 
-#endif
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+    rgblight_task();
+}

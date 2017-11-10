@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,13 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Please do not modify this file 
+#ifndef KEYMAP_COMMON_H
+#define KEYMAP_COMMON_H
 
-#ifndef __I2C_H__
-#define __I2C_H__
+#include "quantum.h"
 
-void i2c_init(void);
-void i2c_set_bitrate(uint16_t bitrate_khz);
-uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
+#ifdef KEYBOARD_ps2avrGB_bfake
+  #include "bfake.h"
+#endif
+
+#ifdef KEYBOARD_ps2avrGB_bmini_x2
+  #include "bmini_x2.h"
+#endif
 
 #endif
