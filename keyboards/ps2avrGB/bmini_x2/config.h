@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MANUFACTURER    winkeyless.kr
 
+#define RGBLED_NUM 16
+
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
