@@ -24,6 +24,26 @@
 #include "is31fl3731.h"
 #include "quantum.h"
 
+typedef struct Point {
+	uint8_t x;
+	uint8_t y;
+} __attribute__((packed)) Point;
+
+typedef struct rgb_led {
+	union {
+		uint8_t raw;
+		struct {
+			uint8_t row:4; // 16 max
+			uint8_t col:4; // 16 max
+		};
+	} matrix_co;
+	Point point;
+	uint8_t modifier:1;
+} __attribute__((packed)) rgb_led;
+
+
+extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
+
 typedef struct
 {
 	HSV color;

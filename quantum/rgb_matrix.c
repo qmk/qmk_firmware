@@ -65,12 +65,12 @@ uint8_t g_last_led_count = 0;
 
 void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t *led_count)
 {
-    is31_led led;
+    rgb_led led;
     *led_count = 0;
 
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         // map_index_to_led(i, &led);
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         if (row == led.matrix_co.row && column == led.matrix_co.col) {
             led_i[*led_count] = i;
             (*led_count)++;
@@ -274,9 +274,9 @@ void backlight_effect_alphas_mods(void)
     RGB rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
     RGB rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
     
-    is31_led led;
+    rgb_led led;
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         if ( led.matrix_co.raw < 0xFF ) {
             if ( led.modifier )
             {
@@ -318,7 +318,7 @@ void backlight_effect_gradient_up_down(void)
     for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
     {
         // map_led_to_point( i, &point );
-        point = g_is31_leds[i].point;
+        point = g_rgb_leds[i].point;
         // The y range will be 0..64, map this to 0..4
         uint8_t y = (point.y>>4);
         // Relies on hue being 8-bit and wrapping
@@ -377,13 +377,13 @@ void backlight_effect_cycle_all(void)
 {
     uint8_t offset = g_tick & 0xFF;
 
-    is31_led led;
+    rgb_led led;
 
     // Relies on hue being 8-bit and wrapping
     for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
     {
         // map_index_to_led(i, &led);
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         if (led.matrix_co.raw < 0xFF) {
             uint16_t offset2 = g_key_hit[i]<<2;
             offset2 = (offset2<=63) ? (63-offset2) : 0;
@@ -401,17 +401,17 @@ void backlight_effect_cycle_left_right(void)
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
     RGB rgb;
     Point point;
-    is31_led led;
+    rgb_led led;
     for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
     {
         // map_index_to_led(i, &led);
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         if (led.matrix_co.raw < 0xFF) {
             uint16_t offset2 = g_key_hit[i]<<2;
             offset2 = (offset2<=63) ? (63-offset2) : 0;
 
             // map_led_to_point( i, &point );
-            point = g_is31_leds[i].point;
+            point = g_rgb_leds[i].point;
             // Relies on hue being 8-bit and wrapping
             hsv.h = point.x + offset + offset2;
             rgb = hsv_to_rgb( hsv );
@@ -426,17 +426,17 @@ void backlight_effect_cycle_up_down(void)
     HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
     RGB rgb;
     Point point;
-    is31_led led;
+    rgb_led led;
     for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
     {
         // map_index_to_led(i, &led);
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         if (led.matrix_co.raw < 0xFF) {
             uint16_t offset2 = g_key_hit[i]<<2;
             offset2 = (offset2<=63) ? (63-offset2) : 0;
 
             // map_led_to_point( i, &point );
-            point = g_is31_leds[i].point;
+            point = g_rgb_leds[i].point;
             // Relies on hue being 8-bit and wrapping
             hsv.h = point.y + offset + offset2;
             rgb = hsv_to_rgb( hsv );
@@ -449,9 +449,9 @@ void backlight_effect_cycle_up_down(void)
 void backlight_effect_dual_beacon(void) {
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb;
-    is31_led led;
+    rgb_led led;
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         hsv.h = ((led.point.y - 32.0)* cos(g_tick * PI / 128) / 32 + (led.point.x - 112.0) * sin(g_tick * PI / 128) / (112)) * (g_config.color_2.h - g_config.color_1.h) + g_config.color_1.h;
         rgb = hsv_to_rgb( hsv );
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
@@ -461,9 +461,9 @@ void backlight_effect_dual_beacon(void) {
 void backlight_effect_rainbow_beacon(void) {
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb;
-    is31_led led;
+    rgb_led led;
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         hsv.h = 1.5 * (led.point.y - 32.0)* cos(g_tick * PI / 128) + 1.5 * (led.point.x - 112.0) * sin(g_tick * PI / 128) + g_config.color_1.h;
         rgb = hsv_to_rgb( hsv );
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
@@ -473,9 +473,9 @@ void backlight_effect_rainbow_beacon(void) {
 void backlight_effect_rainbow_pinwheels(void) {
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb;
-    is31_led led;
+    rgb_led led;
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         hsv.h = 2 * (led.point.y - 32.0)* cos(g_tick * PI / 128) + 2 * (66 - abs(led.point.x - 112.0)) * sin(g_tick * PI / 128) + g_config.color_1.h;
         rgb = hsv_to_rgb( hsv );
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
@@ -485,9 +485,9 @@ void backlight_effect_rainbow_pinwheels(void) {
 void backlight_effect_rainbow_moving_chevron(void) {
     HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
     RGB rgb;
-    is31_led led;
+    rgb_led led;
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        led = g_is31_leds[i];
+        led = g_rgb_leds[i];
         // uint8_t r = g_tick;
         uint8_t r = 32;
         hsv.h = 1.5 * abs(led.point.y - 32.0)* sin(r * PI / 128) + 1.5 * (led.point.x - (g_tick / 256.0 * 224)) * cos(r * PI / 128) + g_config.color_1.h;
@@ -526,14 +526,14 @@ void backlight_effect_multisplash(void) {
     // if (g_any_key_hit < 0xFF) {    
         HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
         RGB rgb;
-        is31_led led;
+        rgb_led led;
         for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-            led = g_is31_leds[i];
+            led = g_rgb_leds[i];
             uint16_t c = 0, d = 0;
-            is31_led last_led;
+            rgb_led last_led;
             // if (g_last_led_count) {
                 for (uint8_t last_i = 0; last_i < g_last_led_count; last_i++) {
-                    last_led = g_is31_leds[g_last_led_hit[last_i]];
+                    last_led = g_rgb_leds[g_last_led_hit[last_i]];
                     uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
                     uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
                     c += MIN(MAX(effect, 0), 255);
@@ -563,14 +563,14 @@ void backlight_effect_solid_multisplash(void) {
     // if (g_any_key_hit < 0xFF) {    
         HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
         RGB rgb;
-        is31_led led;
+        rgb_led led;
         for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-            led = g_is31_leds[i];
+            led = g_rgb_leds[i];
             uint16_t d = 0;
-            is31_led last_led;
+            rgb_led last_led;
             // if (g_last_led_count) {
                 for (uint8_t last_i = 0; last_i < g_last_led_count; last_i++) {
-                    last_led = g_is31_leds[g_last_led_hit[last_i]];
+                    last_led = g_rgb_leds[g_last_led_hit[last_i]];
                     uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
                     uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
                     d += 255 - MIN(MAX(effect, 0), 255);
