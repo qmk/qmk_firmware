@@ -14,7 +14,7 @@ Other than having Vagrant and Virtualbox installed and possibly a restart of you
 
 The "easy" way to flash the firmware is using a tool from your host OS:
 
-* [QMK Flasher](https://github.com/qmk/qmk_flasher)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (reccommened)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
 * [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 

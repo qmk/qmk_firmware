@@ -296,7 +296,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case SCREEN_DETACH:
              if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(D), END);
-            }                                
+            }
         break;        
         case SCREEN_RENAME:
              if (record->event.pressed) {

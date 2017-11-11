@@ -6,7 +6,7 @@ This is a port of TMK's converter/terminal_usb to QMK.
 It supports PS/2 Scan Code Set 3 and runs on USB AVR chips such like PJRC Teensy.
 I tested the converter on ATMega32U4 with 1392595(102keys) and 6110345(122keys).
 
-Source code: https://github.com/tmk/tmk_keyboard
+Source code: https://github.com/qmk/qmk_firmware.git
 Article: http://geekhack.org/index.php?topic=27272.0
 
 
@@ -22,9 +22,9 @@ And VCC and GND, of course. See RESOURCE for keyboard connector pin assign.
 
 BUILD
 -----
-$ git clone https://github.com/tmk/tmk_keyboard.git
-$ cd converter/terminal_usb
-$ make 
+$ git clone https://github.com/qmk/qmk_firmware.git
+$ cd qmk_firmware
+$ make converter/ibm_terminal:default
 
 
 RESOURCE
