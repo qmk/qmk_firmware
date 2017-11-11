@@ -44,7 +44,7 @@ float voice_envelope(float frequency) {
 
     switch (voice) {
         case default_voice:
-            glissando = true;
+            glissando = false;
             note_timbre = TIMBRE_50;
             polyphony_rate = 0;
 	        break;

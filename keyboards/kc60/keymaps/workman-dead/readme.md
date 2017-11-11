@@ -1,7 +1,7 @@
 # Workman dead with spacefn (kc60 @ QMK)
 
 ## Layout reference
-![workman dead with spacefn](./kc60-wm-dead.png)
+![workman dead with spacefn](http://imgur.com/Ep8gePQ)
 
 ## Build
 

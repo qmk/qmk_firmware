@@ -6,6 +6,7 @@ This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
+**Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
 
 ## Build Guide
 
@@ -15,24 +16,23 @@ There is additional information there about flashing and adding RGB underglow.
 
 ## First Time Setup
 
-Download or clone the whole firmware and navigate to the keyboards/lets_split directory. Once your dev env is setup, you'll be able to generate the default .hex using:
+Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make rev2
+$ make lets_split/rev2:default
 ```
 
-You will see a lot of output and if everything worked correctly you will see the built hex files:
+You will see a lot of output and if everything worked correctly you will see the built hex file:
 
 ```
-lets_split_rev2_serial.hex
-lets_split_rev2_i2c.hex
+lets_split_rev2_default.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
 
 
 ```
-$ make rev2-YOUR_KEYMAP_NAME
+$ make lets_split/rev2:YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
@@ -67,7 +67,7 @@ Required Hardware
 Apart from diodes and key switches for the keyboard matrix in each half, you
 will need:
 
-* 2 Arduino Pro Micro's. You can find theses on aliexpress for ≈3.50USD each.
+* 2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
 * 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
 
 Alternatively, you can use any sort of cable and socket that has at least 3
@@ -85,45 +85,47 @@ Wiring
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
 PD0 on the ATmega32u4) between the two Pro Micros.
 
-Then wire your key matrix to any of the remaining 17 IO pins of the pro micro
+Next, wire your key matrix to any of the remaining 17 IO pins of the pro micro
 and modify the `matrix.c` accordingly.
 
 The wiring for serial:
 
-![serial wiring](imgs/split-keyboard-serial-schematic.png)
+![serial wiring](https://i.imgur.com/C3D1GAQ.png)
 
 The wiring for i2c:
 
-![i2c wiring](imgs/split-keyboard-i2c-schematic.png)
+![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
 
 The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
 unnecessary in simple use cases.
 
+You can change your configuration between serial and i2c by modifying your `config.h` file.
+
 Notes on Software Configuration
 -------------------------------
 
 Configuring the firmware is similar to any other QMK project. One thing
-to note is that `MATIX_ROWS` in `config.h` is the total number of rows between
-the two halves, i.e. if your split keyboard has 4 rows in each half, then
+to note is that `MATRIX_ROWS` in `config.h` is the total number of rows between
+the two halves, i.e. if your split keyboard has 4 rows in each half, then use
 `MATRIX_ROWS=8`.
 
-Also the current implementation assumes a maximum of 8 columns, but it would
+Also, the current implementation assumes a maximum of 8 columns, but it would
 not be very difficult to adapt it to support more if required.
 
 Flashing
 -------
-From the keymap directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make rev2-serial-avrdude`
+From the top level `qmk_firmware` directory run `make KEYBOARD:KEYMAP:avrdude` for automatic serial port resolution and flashing.
+Example: `make lets_split/rev2:default:avrdude`
 
 
 Choosing which board to plug the USB cable into (choosing Master)
 --------
 Because the two boards are identical, the firmware has logic to differentiate the left and right board.
 
-It uses two strategies to figure things out: look at the EEPROM (memory on the chip) or looks if the current board has the usb cable.
+It uses two strategies to figure things out: looking at the EEPROM (memory on the chip) or looking if the current board has the usb cable.
 
-The EEPROM approach requires additional setup (flashing the eeeprom) but allows you to swap the usb cable to either side.
+The EEPROM approach requires additional setup (flashing the eeprom) but allows you to swap the usb cable to either side.
 
 The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
 

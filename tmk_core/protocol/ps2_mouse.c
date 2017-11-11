@@ -169,8 +169,14 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     // remove sign and overflow flags
     mouse_report->buttons &= PS2_MOUSE_BTN_MASK;
 
+#ifdef PS2_MOUSE_INVERT_X
+    mouse_report->x = -mouse_report->x;
+#endif
+#ifndef PS2_MOUSE_INVERT_Y // NOTE if not!
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;
+#endif
+
 }
 
 static inline void ps2_mouse_clear_report(report_mouse_t *mouse_report) {
@@ -227,6 +233,12 @@ static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report) {
             mouse_report->h =  mouse_report->x/(PS2_MOUSE_SCROLL_DIVISOR_H);
             mouse_report->x = 0;
             mouse_report->y = 0;
+#ifdef PS2_MOUSE_INVERT_H
+            mouse_report->h = -mouse_report->h;
+#endif
+#ifdef PS2_MOUSE_INVERT_V
+            mouse_report->v = -mouse_report->v;
+#endif
         }
     } else if (0 == (PS2_MOUSE_SCROLL_BTN_MASK & mouse_report->buttons)) {
         // None of the scroll buttons are pressed

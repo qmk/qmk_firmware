@@ -103,7 +103,7 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
-	return matrix[row];
+    return matrix[row];
 }
 
 void matrix_print(void)

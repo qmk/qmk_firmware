@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6061
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Ortholinear Keyboards
+#define MANUFACTURER    OLKB
 #define PRODUCT         The Preonic Keyboard
 #define DESCRIPTION     A compact ortholinear keyboard
 
@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 #define AUDIO_VOICES
+#define C6_AUDIO
 
 #define BACKLIGHT_PIN B7
 

@@ -16,7 +16,7 @@
 
 #include "lcd_backlight_keyframes.h"
 
-bool backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool lcd_backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state) {
     int frame_length = animation->frame_lengths[animation->current_frame];
     int current_pos = frame_length - animation->time_left_in_frame;
     uint8_t t_h = LCD_HUE(state->target_lcd_color);
@@ -49,7 +49,7 @@ bool backlight_keyframe_animate_color(keyframe_animation_t* animation, visualize
     return true;
 }
 
-bool backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool lcd_backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     state->prev_lcd_color = state->target_lcd_color;
     state->current_lcd_color = state->target_lcd_color;
@@ -60,14 +60,14 @@ bool backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_st
     return false;
 }
 
-bool backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool lcd_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
     lcd_backlight_hal_color(0, 0, 0);
     return false;
 }
 
-bool backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool lcd_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)animation;
     (void)state;
     lcd_backlight_color(LCD_HUE(state->current_lcd_color),

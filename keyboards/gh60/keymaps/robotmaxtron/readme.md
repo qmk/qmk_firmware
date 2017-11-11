@@ -10,7 +10,7 @@ For the full Quantum feature list, see the parent readme.md.
 * Neopixel/WS2812 RGB Underglow Support
 
 ## Reference Images
-![Wiring Refererence] (WS2812-wiring.jpg)
+![Wiring Refererence](https://i.imgur.com/BkJ39JD.jpg)
 
 ### Additional Credits
 Keymap has been based on various keymaps available from the QMK Repo for the GH60-SATAN and KC60 keyboards.

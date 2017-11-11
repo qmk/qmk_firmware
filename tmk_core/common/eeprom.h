@@ -4,6 +4,8 @@
 #if defined(__AVR__)
 #include <avr/eeprom.h>
 #else
+#include <stdint.h>
+
 uint8_t 	eeprom_read_byte (const uint8_t *__p);
 uint16_t 	eeprom_read_word (const uint16_t *__p);
 uint32_t 	eeprom_read_dword (const uint32_t *__p);

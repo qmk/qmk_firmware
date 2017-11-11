@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "visualizer.h"
 #include "config.h"
+#include "visualizer.h"
 #include <string.h>
 #ifdef PROTOCOL_CHIBIOS
 #include "ch.h"
@@ -52,14 +52,18 @@ SOFTWARE.
 
 // Define this in config.h
 #ifndef VISUALIZER_THREAD_PRIORITY
-#define "Visualizer thread priority not defined"
+// The visualizer needs gfx thread priorities
+#define VISUALIZER_THREAD_PRIORITY (NORMAL_PRIORITY - 2)
 #endif
 
 static visualizer_keyboard_status_t current_status = {
     .layer = 0xFFFFFFFF,
     .default_layer = 0xFFFFFFFF,
-    .mods = 0xFF,
     .leds = 0xFFFFFFFF,
+#ifdef BACKLIGHT_ENABLE
+    .backlight_level = 0,
+#endif
+    .mods = 0xFF,
     .suspended = false,
 #ifdef VISUALIZER_USER_DATA_SIZE
     .user_data = {0}
@@ -72,6 +76,9 @@ static bool same_status(visualizer_keyboard_status_t* status1, visualizer_keyboa
         status1->mods == status2->mods &&
         status1->leds == status2->leds &&
         status1->suspended == status2->suspended
+#ifdef BACKLIGHT_ENABLE
+        && status1->backlight_level == status2->backlight_level
+#endif
 #ifdef VISUALIZER_USER_DATA_SIZE
         && memcmp(status1->user_data, status2->user_data, VISUALIZER_USER_DATA_SIZE) == 0
 #endif
@@ -99,15 +106,19 @@ static remote_object_t* remote_objects[] = {
 GDisplay* LCD_DISPLAY = 0;
 GDisplay* LED_DISPLAY = 0;
 
+#ifdef LCD_DISPLAY_NUMBER
 __attribute__((weak))
 GDisplay* get_lcd_display(void) {
-    return gdispGetDisplay(0);
+    return gdispGetDisplay(LCD_DISPLAY_NUMBER);
 }
+#endif
 
+#ifdef LED_DISPLAY_NUMBER
 __attribute__((weak))
 GDisplay* get_led_display(void) {
-    return gdispGetDisplay(1);
+    return gdispGetDisplay(LED_DISPLAY_NUMBER);
 }
+#endif
 
 void start_keyframe_animation(keyframe_animation_t* animation) {
     animation->current_frame = -1;
@@ -245,9 +256,12 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         .mods = 0xFF,
         .leds = 0xFFFFFFFF,
         .suspended = false,
-#ifdef VISUALIZER_USER_DATA_SIZE
+    #ifdef BACKLIGHT_ENABLE
+        .backlight_level = 0,
+    #endif
+    #ifdef VISUALIZER_USER_DATA_SIZE
         .user_data = {0},
-#endif
+    #endif
     };
 
     visualizer_state_t state = {
@@ -279,6 +293,19 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
         bool enabled = visualizer_enabled;
         if (force_update || !same_status(&state.status, &current_status)) {
             force_update = false;
+    #if BACKLIGHT_ENABLE
+            if(current_status.backlight_level != state.status.backlight_level) {
+                if (current_status.backlight_level != 0) {
+                    gdispGSetPowerMode(LED_DISPLAY, powerOn);
+                    uint16_t percent = (uint16_t)current_status.backlight_level * 100 / BACKLIGHT_LEVELS;
+                    gdispGSetBacklight(LED_DISPLAY, percent);
+                }
+                else {
+                    gdispGSetPowerMode(LED_DISPLAY, powerOff);
+                }
+                state.status.backlight_level = current_status.backlight_level;
+            }
+    #endif
             if (visualizer_enabled) {
                 if (current_status.suspended) {
                     stop_all_keyframe_animations();
@@ -309,7 +336,7 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
                 update_keyframe_animation(animations[i], &state, delta, &sleep_time);
             }
         }
-#ifdef LED_ENABLE
+#ifdef BACKLIGHT_ENABLE
         gdispGFlush(LED_DISPLAY);
 #endif
 
@@ -361,25 +388,26 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
 void visualizer_init(void) {
     gfxInit();
 
-#ifdef LCD_BACKLIGHT_ENABLE
+  #ifdef LCD_BACKLIGHT_ENABLE
     lcd_backlight_init();
-#endif
+  #endif
 
-#ifdef SERIAL_LINK_ENABLE
+  #ifdef SERIAL_LINK_ENABLE
     add_remote_objects(remote_objects, sizeof(remote_objects) / sizeof(remote_object_t*) );
-#endif
+  #endif
 
-#ifdef LCD_ENABLE
+  #ifdef LCD_ENABLE
     LCD_DISPLAY = get_lcd_display();
-#endif
-#ifdef LED_ENABLE
+  #endif
+
+  #ifdef BACKLIGHT_ENABLE
     LED_DISPLAY = get_led_display();
-#endif
+  #endif
 
     // We are using a low priority thread, the idea is to have it run only
     // when the main thread is sleeping during the matrix scanning
-    gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
-                              VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
+  gfxThreadCreate(visualizerThreadStack, sizeof(visualizerThreadStack),
+                  VISUALIZER_THREAD_PRIORITY, visualizerThread, NULL);
 }
 
 void update_status(bool changed) {
@@ -445,6 +473,9 @@ void visualizer_update(uint32_t default_state, uint32_t state, uint8_t mods, uin
             .default_layer = default_state,
             .mods = mods,
             .leds = leds,
+#ifdef BACKLIGHT_ENABLE
+            .backlight_level = current_status.backlight_level,
+#endif
             .suspended = current_status.suspended,
         };
 #ifdef VISUALIZER_USER_DATA_SIZE
@@ -467,3 +498,10 @@ void visualizer_resume(void) {
     current_status.suspended = false;
     update_status(true);
 }
+
+#ifdef BACKLIGHT_ENABLE
+void backlight_set(uint8_t level) {
+    current_status.backlight_level = level;
+    update_status(true);
+}
+#endif
