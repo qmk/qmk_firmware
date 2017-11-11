@@ -38,8 +38,7 @@
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
 #endif
 
-__attribute__ ((weak))
-bool is_overwatch = false;
+extern bool is_overwatch;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -59,15 +58,13 @@ enum custom_keycodes {
   KC_SALTHARD,
   KC_GOODGAME,
   KC_SYMM,
-  KC_DOOMFIST,
   KC_JUSTGAME,
   KC_GLHF,
   KC_TORB,
   KC_AIM,
   KC_MAKE,
   KC_RESET,
-  KC_P00,
-  NEWPLACEHOLDER
+  NEWPLACEHOLDER  //use "NEWPLACEHOLDER for keymap specific codes
 };
 
 #endif

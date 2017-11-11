@@ -3,6 +3,10 @@
 #include "action.h"
 #include "version.h"
 
+// Add reconfigurable functions here, for keymap customization
+// This allows for a global, userspace functions, and continued
+// customization of the keymap.  Use _keymap instead of _user
+// functions in the keymaps
 __attribute__ ((weak))
 void matrix_init_keymap(void) {}
 
@@ -13,8 +17,15 @@ __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
 
+bool is_overwatch = false;
 
+// Call user matrix init, set default RGB colors and then
+// call the keymap's init function
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
@@ -44,6 +55,8 @@ void matrix_init_user(void) {
   matrix_init_keymap();
 }
 
+// No global matrix scan code, so just run keymap's matix
+// scan function
 void matrix_scan_user(void) {
   matrix_scan_keymap();
 }
@@ -61,16 +74,10 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-
+// Defines actions tor my global custom keycodes. Defined in drashna.h file
+// Then runs the _keymap's recod handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  uint16_t kc;
-  if (is_overwatch) {
-    kc = KC_BSPC;
-  }
-  else {
-    kc = KC_ENTER;
-  }
+  
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
@@ -143,6 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_ergodox_ez))
   case KC_OVERWATCH:
     if (record->event.pressed) {
       is_overwatch = !is_overwatch;
@@ -154,8 +162,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SALT:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("Salt, salt, salt...");
       register_code(KC_ENTER);
@@ -165,8 +173,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_MORESALT:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("Please sir, can I have some more salt?!");
       register_code(KC_ENTER);
@@ -176,10 +184,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SALTHARD:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
-      SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
+      SEND_STRING("Your salt only makes me harder, and even more aggressive!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
     }
@@ -187,8 +195,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_GOODGAME:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("Good game, everyone!");
       register_code(KC_ENTER);
@@ -198,8 +206,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_GLHF:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("Good luck, have fun!!!");
       register_code(KC_ENTER);
@@ -209,8 +217,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SYMM:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("Left click to win!");
       register_code(KC_ENTER);
@@ -218,21 +226,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_DOOMFIST:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Hey, look at me.  I'm Doomfist, and I'm overpowered!  All I do is spam punches all day!   I'm DPS, tank and defense, rolled into one! All I need is team healing to be complete!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
   case KC_JUSTGAME:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
       register_code(KC_ENTER);
@@ -242,8 +239,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_TORB:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("That was positively riveting!");
       register_code(KC_ENTER);
@@ -253,8 +250,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_AIM:
     if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
       _delay_ms(50);
@@ -262,13 +259,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+#endif
   case KC_MAKE:
     if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=yes" SS_TAP(X_ENTER));
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+#ifndef CATERINA_BOOTLOADER
+      SEND_STRING(":teensy ");
 #else
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
+      SEND_STRING(" ");
 #endif
+#ifdef RGBLIGHT_ENABLE
+      SEND_STRING("RGBLIGHT_ENABLE=yes ");
+#else
+      SEND_STRING("RGBLIGHT_ENABLE=no ");
+#endif
+#ifdef AUDIO_ENABLE
+      SEND_STRING("AUDIO_ENABLE=yes ");
+#else
+      SEND_STRING("AUDIO_ENABLE=no ");
+#endif
+#ifdef FAUXCLICKY_ENABLE
+      SEND_STRING("FAUXCLICKY_ENABLE=yes ");
+#else
+      SEND_STRING("FAUXCLICKY_ENABLE=no ");
+#endif
+      SEND_STRING(SS_TAP(X_ENTER));
     }
     return false;
     break;
@@ -295,21 +310,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_P00:
-    if (!record->event.pressed) {
-      register_code(KC_P0);
-      unregister_code(KC_P0);
-      register_code(KC_P0);
-      unregister_code(KC_P0);
-    }
-    return false;
-    break;
   }
   return process_record_keymap(keycode, record);
 }
 
-
-uint32_t layer_state_set_kb(uint32_t state) {
+// Runs state check and changes underglow color and animation
+// on layer change, no matter where the change was initiated
+// Then runs keymap's layer change check
+uint32_t layer_state_set_user (uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
 
@@ -329,7 +337,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
   case _MACROS:
     rgblight_set_orange;
     is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    rgblight_mode(18);
     break;
   case _MEDIA:
     rgblight_set_green;
@@ -375,5 +382,5 @@ uint32_t layer_state_set_kb(uint32_t state) {
     break;
   }
 #endif
-  return state;
+  return layer_state_set_keymap (state);
 }
