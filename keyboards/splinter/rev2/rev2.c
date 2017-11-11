@@ -1,4 +1,4 @@
-#include "lets_split.h"
+#include "splinter.h"
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

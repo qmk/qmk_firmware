@@ -75,6 +75,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-LAYOUTS = ortho_4x12
-
 DEFAULT_FOLDER = splinter/rev2
