@@ -47,10 +47,10 @@ bool check_dtimer(uint8_t dtimer) {
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-  TD_DIABLO_1 = 0,
-  TD_DIABLO_2,
-  TD_DIABLO_3,
-  TD_DIABLO_4
+  TD_D3_1 = 0,
+  TD_D3_2,
+  TD_D3_3,
+  TD_D3_4
 };
 
 
@@ -89,10 +89,10 @@ void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   // tap once to disable, and more to enable timed micros
-  [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-  [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-  [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-  [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
+  [TD_D3_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
+  [TD_D3_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
+  [TD_D3_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
+  [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
 
 };
 #endif
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC, _______, _______, _______,\
     KC_S, KC_F, KC_I, KC_M,   \
     KC_1, KC_2, KC_3, KC_4, \
-    TD(TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), \
+    TD(TD_D3_1), TD(TD_D3_2), TD(TD_D3_3), TD(TD_D3_4), \
     _______, KC_DIABLO_CLEAR, KC_Q, SFT_T(KC_SPACE)  \
 ),
 #else
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_OVERWATCH, _______, _______, XXXXXXX,\
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   \
     XXXXXXX, XXXXXXX, XXXXXXX, KC_JUSTGAME,   \
-    KC_SYMM,  KC_DOOMFIST, KC_TORB, KC_GOODGAME,   \
+    KC_SYMM, KC_TORB, XXXXXXX, KC_GOODGAME,   \
     KC_SALT,  KC_MORESALT, KC_SALTHARD, KC_GLHF   \
 ),
 [_MEDIA] = KEYMAP( /* Base */
@@ -226,7 +226,7 @@ void matrix_init_keymap(void) {
 
 void matrix_scan_keymap(void) {
   numlock_led_off();
-  if (is_overwatch && biton32(layer_state) == _MACROS) {
+  if ((is_overwatch && biton32(layer_state) == _MACROS) || (biton32(layer_state) == _NAV)) {
     numlock_led_on();
   }
 

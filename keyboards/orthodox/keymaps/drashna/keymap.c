@@ -79,4 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A4, 0.0625);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A4, 0.0625); // (_C4, 0.125);
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 0.25);       // (_C4, 0.25);
+#endif 
