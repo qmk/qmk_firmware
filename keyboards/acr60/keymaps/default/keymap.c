@@ -4,6 +4,14 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+/*
+ * Default keymap with standard 60% layout. Split space possible but entirely optional with this layout, as this
+ * layout covers all three split space keys as space keycodes. This also has alt right next to the space bar
+ * on both sides (Windows keyboard layout), no right-side system/GUI key, and momentary layer switching on
+ * the right modifiers into the 3rd (macro) and 2nd (function/sfx) layers, respectively. This also has the grave
+ * accent key set up on the 2nd layer, although on the first layer it includes grave key (tilde) when shift is held down,
+ * via the function actions code at the bottom.
+ */
 	KEYMAP(
 		F(0), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_BSPC,
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
