@@ -25,7 +25,8 @@
 #define _NLOWER 136
 #define _NFNLAYER 192
 #define _MOUSECURSOR 256
-#define _ADJUST 65560
+#define _ADJUST 65536
+#define _ADJUST_TRI 65560
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
@@ -440,6 +441,7 @@ static void render_status_info(void) {
            matrix_write_P(&matrix, PSTR("Lower"));
            break;
         case _ADJUST:
+        case _ADJUST_TRI:
            matrix_write_P(&matrix, PSTR("ADJUST"));
            break;
         default:
