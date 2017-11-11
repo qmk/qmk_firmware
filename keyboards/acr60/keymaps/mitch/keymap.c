@@ -1,13 +1,19 @@
 #include "acr60.h"
 
-#define _DEFAULT 0
-#define _FN 1
-#define _SFX 2
+#define _DFT 0
+#define _NGUI 1
+#define _FN 2
+#define _SFX 3
 
 // Fillers to make layering more clear
 #define ______ KC_TRNS
+#define bbbbbb KC_NO
+#define GUIOFF MAGIC_NO_GUI
+#define GUION MAGIC_UNNO_GUI
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+
+/* TODO: create handy quick-ref list here for easy grokking of the actual shortcuts in place */
 
 /*
  * This is Mitch's default ACR60 layout (also DZ60, on which the ACR60 is based). This is a
@@ -39,7 +45,7 @@
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Qwerty gui/alt/space/alt/gui
+/* Layer 0
  * ,-----------------------------------------------------------------------------------------.
  * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |    Bksp   |
  * |-----------------------------------------------------------------------------------------+
@@ -52,37 +58,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LCtrl | LAlt | LGUI  |      Space      | Space|   Space    | RGUI |  Fn  | RAlt | RCtrl |
  * `-----------------------------------------------------------------------------------------'
  */
-  [_DEFAULT] = MITCHSPLIT( /* Basic QWERTY */
+/* Qwerty gui/alt/space/alt/gui /
+ *
+ * Hit MO(_FN) and Alt in that order to lock into the _FN layer.
+ */
+  [_DFT] = MITCHSPLIT( /* Basic QWERTY */
       F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
       KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  \
       MO(_FN), KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  \
       KC_LSFT, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(_FN), \
-      KC_LCTL, KC_LALT, KC_LGUI,        KC_SPC, KC_SPC, KC_SPC,         KC_RGUI, MO(_FN), LT(_SFX, KC_RALT),KC_RCTL \
+      KC_LCTL, KC_LALT, KC_LGUI,        KC_SPC, KC_SPC, KC_SPC,                  KC_RGUI, MO(_FN), LT(_SFX, KC_RALT),KC_RCTL \
+      ),
+
+/* Gaming
+ * ,-----------------------------------------------------------------------------------------.
+ * |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
+ * |-----------------------------------------------------------------------------------------+
+ * |        |     |     |     |     |    |     |     |     |     |     |     |     |         |
+ * |-----------------------------------------------------------------------------------------+
+ * |         |     |     |     |     |     |     |     |     |     |     |     |             |
+ * |-----------------------------------------------------------------------------------------+
+ * |           |     |     |     |     |     |     |     |      |    |     |           |     |
+ * |-----------------------------------------------------------------------------------------+
+ * |      |      |BLOCKED|               |       |             |BLOCKED|      |       |      |
+ * `-----------------------------------------------------------------------------------------'
+ */
+/* I disable the GUI / System key for gaming, as usually that's windows and I hit that at the most
+ * inopportune moments. And games don't use the windows key. I'd use the Bootmagic MAGIC_NO_GUI and
+ * MAGIC_UNNO_GUI keycodes, but that actually disables it and has it persist beyond disconnection
+ * of the board. That's less convenient (and more confusing) for me than this approach, which is
+ * basically just blocking the GUI keys when this layer is active and not letting them flow through
+ * to the default layer.
+ */
+ /* Layer 2: "special effects": RGB lighting, backlighting, bootloader */
+  [_NGUI] = MITCHSPLIT(
+      ______,  ______, ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,  ______, ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,  ______, ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,  ______, ______,  ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,  \
+      ______,  ______, bbbbbb,          ______, ______, ______,                 bbbbbb, ______, ______, ______   \
       ),
 
 /* Fn Layer / Layer 1
  * ,-----------------------------------------------------------------------------------------.
  * |KC_GRV| F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |   Del    |
  * |-----------------------------------------------------------------------------------------+
- * | CAPS  |     |     |     |     |     |    | Home| Up  |Pgup |     |     |     |          |
+ * | CAPS  |     |     |     |     |     |Home | Pgup| Up  | PgDn| End |     |     |         |
  * |-----------------------------------------------------------------------------------------+
  * |        | Vol-| Vol+| Mute|     |     |     | Left| Down|Right|     |     |              |
  * |-----------------------------------------------------------------------------------------+
- * |           |Prev |Play |Next |     |     |     |End  |     |PgDn |     |          |      |
+ * |           |Prev |Play |Next |     |     |     |     |     |     |     |          |      |
  * |-----------------------------------------------------------------------------------------+
  * |      |      |       |               |       |               |      |      | LrSfx |     |
  * `-----------------------------------------------------------------------------------------'
  */
  /* Layer 1: Functions, media controls, directional */
   [_FN] = MITCHSPLIT(
-      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10, KC_F11, KC_F12, KC_DEL, \
-      KC_CAPS, ______,  ______,  ______,  ______, ______, ______,  KC_HOME, KC_UP ,  KC_PGUP ,  ______, ______, ______, ______,  \
-      ______,  KC_VOLD, KC_VOLU, KC_MUTE, ______, ______, ______,  KC_LEFT, KC_DOWN, KC_RIGHT,  ______, ______, ______,   \
-      ______,  KC_MPRV, KC_MPLY, KC_MNXT, ______, ______, ______,  KC_END,  ______,  KC_PGDOWN, ______, ______, ______,  \
-      ______,  ______,  ______,           ______, ______, ______,                    ______,    ______, TG(_SFX), ______  \
+      KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10, KC_F11, KC_F12, KC_DEL, \
+      KC_CAPS, bbbbbb,  bbbbbb,  bbbbbb,  bbbbbb, bbbbbb, KC_HOME, KC_PGUP, KC_UP ,  KC_PGDOWN,KC_END, bbbbbb, bbbbbb, bbbbbb,  \
+      ______,  KC_VOLD, KC_VOLU, KC_MUTE, bbbbbb, bbbbbb, bbbbbb,  KC_LEFT, KC_DOWN, KC_RIGHT, bbbbbb, bbbbbb, ______,   \
+      ______,  KC_MPRV, KC_MPLY, KC_MNXT, bbbbbb, bbbbbb, bbbbbb,TG(_DFT),TG(_NGUI), bbbbbb,   bbbbbb, ______, ______,  \
+      ______,  ______,  ______,           ______, ______, ______,                    ______,   ______,TG(_SFX),______  \
       ),
 
-/* Fn Layer / Layer 1
+/* Special Effects Layer / Layer 2
  * ,-----------------------------------------------------------------------------------------.
  * |     |Plain|Brth |Rnbw |Swirl|Snake|Knght|Xmas |Grdnt|     |     |     |     |     |     |
  * |-----------------------------------------------------------------------------------------+
@@ -95,7 +134,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |       |               |       |              |      |      |LrDflt |      |
  * `-----------------------------------------------------------------------------------------'
  */
-/* See https://docs.qmk.fm/feature_rgblight.html#rgblight-keycodes for details about
+/* Tap RAlt to get back to default layer (0).
+ *
+ * See https://docs.qmk.fm/feature_rgblight.html#rgblight-keycodes for details about
  * RGB codes. Quick summary, though:
  *
  *    RGB_MODE_PLAIN         RGB_M_P	    Switch to the static no animation mode
@@ -107,20 +148,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    RGB_MODE_XMAS          RGB_M_X	    Switch to the Christmas animation
  *    RGB_MODE_GRADIENT      RGB_M_G	    Switch to the static gradient mode
  *
- *    Also mapped to "S" (3rd row 3rd key from left) is the RGB mode cycle, hold shift with this
- *    to cycle backwards, but only when you have the SFX layer toggled on from the
- *    default+_FN layer (Fn+Alt). Note that there are more animation variations, usually
- *    timer-based, by cycling through the modes. Use one of the deciated keys to get to
- *    the general mode you want, then cycle through variations of that mode to get something
- *    specific more quickly.
+ *    Note that there are more animation variations, usually timer-based variations, by using the
+ *    "S" key to cycle through modes. Use one of the deciated keys to get to
+ *    the general mode where you want it, then cycle through variations of that mode to get
+ *    something specific more quickly.
  */
  /* Layer 2: "special effects": RGB lighting, backlighting, bootloader */
   [_SFX] = MITCHSPLIT(
-      ______,  RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G,______, ______, ______, ______, ______,  \
-      ______,  BL_TOGG, BL_STEP, BL_DEC,  BL_INC,  ______,  ______,  ______,  ______, ______, ______, ______, ______,  RESET,  \
-      ______,  RGB_TOG, RGB_SMOD,______,  ______,  ______,  ______,  ______,  ______, ______, ______, ______, ______,  \
-      ______,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ______,  ______, ______, ______, ______, ______,  \
-      ______,  ______,  ______,             ______, ______, ______,                   ______, ______, TO(_DEFAULT), ______   \
+      ______,  RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G,______, ______, ______,  ______, ______,  \
+      ______,  BL_TOGG, BL_STEP, BL_DEC,  BL_INC,  ______,  ______,  ______,  ______, ______, ______, ______,  ______,  RESET,  \
+      ______,  RGB_TOG, RGB_MOD,______,  ______,  ______,  ______,  ______,  ______, ______, ______, ______,  ______,  \
+      ______,  RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ______,  ______, ______, ______, ______,  ______,  \
+      ______,  ______,  ______,             ______, ______, ______,                   ______, ______,TO(_DFT),______   \
       )
 
 };
