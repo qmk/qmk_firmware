@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), LALT(KC_DOT),
        RCTL(KC_C), RCTL(KC_U), M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),  RCTL(KC_K), M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
                    // bottom row (match functionality of base layer)
-                   KC_TRNS,    RCTL(KC_W),          KC_TRNS,         LALT(KC_D), RCTL(KC_U),
+                   KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
