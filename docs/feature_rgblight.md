@@ -88,6 +88,7 @@ These control the RGB Lighting functionality.
 |-----------|------------|-------------|
 ||`RGB_TOG`|toggle on/off|
 ||`RGB_MOD`|cycle through modes|
+||`RGB_SMOD`|cycle through modes, use reverse direction when shift is hold|
 ||`RGB_HUI`|hue increase|
 ||`RGB_HUD`|hue decrease|
 ||`RGB_SAI`|saturation increase|
