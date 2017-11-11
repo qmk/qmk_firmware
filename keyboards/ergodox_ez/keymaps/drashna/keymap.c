@@ -225,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
         KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(_OVERWATCH),
         LT(_SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-                                              ALT_T(KC_APP),  KC_LEAD,
+                                              ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
@@ -234,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
              TG(_OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
-             KC_LALT,        CTL_T(KC_ESC),
+             KC_RGUI,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
     ),

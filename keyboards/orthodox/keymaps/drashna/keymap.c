@@ -20,11 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "orthodox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -35,38 +32,6 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-
-#ifdef TAP_DANCE_ENABLE
-enum {
-  TD_FLSH = 0,
-};
-
-
-
-
-
-// on the fourth tap, set the keyboard on flash state
-// and set the underglow to red, because red == bad
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 4) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_mode(1);
-    rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-    reset_tap_dance(state);
-    reset_keyboard();
-  }
-}
-
-
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_flsh_finished, NULL),
-
-};
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -106,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = KEYMAP(\
-  KC_MAKE,    KC_RESET, TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
+  KC_MAKE,KC_RESET, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 )
@@ -114,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A4, 0.0625);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A4, 0.0625); // (_C4, 0.125);
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 0.25);       // (_C4, 0.25);
+#endif 
