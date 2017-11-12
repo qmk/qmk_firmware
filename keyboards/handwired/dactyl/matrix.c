@@ -39,7 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This constant define not debouncing time in msecs, but amount of matrix
  * scan loops which should be made to get stable debounced results.
  *
- * On Dactyl matrix scan rate is relatively low, because of slow I2C.
+ * On the Dactyl, the matrix scan rate is relatively low, because
+ * communicating with the left hand's I/O expander is slower than simply
+ * selecting local pins.
  * Now it's only 317 scans/second, or about 3.15 msec/scan.
  * According to Cherry specs, debouncing time is 5 msec.
  *
