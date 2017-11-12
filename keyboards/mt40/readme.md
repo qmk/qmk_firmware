@@ -7,6 +7,7 @@
 ## Pictures
 
 [PCB](https://i.imgur.com/8BeeY07.jpg)
+[Backview of the PCB](https://i.imgur.com/0opsDkt.jpg)
 [Board with Sleeve](https://i.imgur.com/44FhPU8.jpg)
 
 ## Buy
