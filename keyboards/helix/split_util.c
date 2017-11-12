@@ -44,6 +44,13 @@ static void keyboard_master_setup(void) {
 }
 
 static void keyboard_slave_setup(void) {
+#ifndef KEYBOARD_helix_rev1
+#ifdef USE_I2C
+#ifdef SSD1306OLED
+    matrix_master_OLED_init ();
+#endif
+#endif
+#endif
 #ifdef USE_MATRIX_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
 #else
@@ -79,8 +86,9 @@ void keyboard_slave_loop(void) {
 // this code runs before the usb and keyboard is initialized
 void matrix_setup(void) {
     split_keyboard_setup();
-
+#ifdef KEYBOARD_helix_rev1
     if (!has_usb()) {
         keyboard_slave_loop();
     }
+#endif
 }

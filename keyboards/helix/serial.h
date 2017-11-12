@@ -18,7 +18,11 @@
 #endif
 
 #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
+#ifdef KEYBOARD_helix_rev1
 #define SERIAL_MASTER_BUFFER_LENGTH 1
+#else
+#define SERIAL_MASTER_BUFFER_LENGTH MATRIX_ROWS/2
+#endif
 
 // Buffers for master - slave communication
 extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
