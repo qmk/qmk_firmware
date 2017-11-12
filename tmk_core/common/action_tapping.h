@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM    200
 #endif
 
+//#define RETRO_TAPPING // Tap anyway, even after TAPPING_TERM, as long as there was no interruption
+
 /* tap count needed for toggling a feature */
 #ifndef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  5

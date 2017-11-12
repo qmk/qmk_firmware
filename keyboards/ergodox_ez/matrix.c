@@ -202,6 +202,9 @@ uint8_t matrix_scan(void)
     }
 #endif
 
+#ifdef LEFT_LEDS
+     mcp23018_status = ergodox_left_leds_update();
+#endif // LEFT_LEDS
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
         wait_us(30);  // without this wait read unstable value.

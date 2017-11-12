@@ -73,6 +73,8 @@ void layer_xor(uint32_t state);
 #define layer_debug()
 
 __attribute__((weak))
+uint32_t layer_state_set_user(uint32_t state);
+__attribute__((weak))
 uint32_t layer_state_set_kb(uint32_t state);
 #endif
 

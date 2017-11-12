@@ -9,12 +9,12 @@ Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make levinson/rev1:default
+    make levinson/rev2:default
 
 Example of flashing this keyboard:
 
-    make levinson/rev1:default:avrdude
+    make levinson/rev2:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
-A build guide for this keyboard can be found here: [Nyquist Build Guide](https://docs.keeb.io)
+A build guide for this keyboard can be found here: [Levinson Build Guide](https://docs.keeb.io)
