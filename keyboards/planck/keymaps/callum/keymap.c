@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {
     GC(KC_UP),    GAC(KC_1),    G(KC_6),      G(KC_5),
     G(KC_4),      GAC(KC_UP),   GAC(KC_RGHT), KC_HOME,
-    KC_UP,        KC_END,       G(KC_BSPC),   KC_ESC
+    KC_UP,        KC_END,       C(KC_SPC),    KC_ESC
   },
   {
     GC(KC_DOWN),  GAC(KC_2),    G(KC_3),      G(KC_2),
