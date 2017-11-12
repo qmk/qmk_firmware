@@ -18,16 +18,18 @@ To flash the firmware:
 
   - Load the .hex file into it.
 
-  - Press the Reset button by inserting a paperclip gently into the reset hole
-    in the top right corder.
+  - Put the Teensy in firmware-loading mode:
+    * If your current layout has a RESET key, press it.
+    * If you lack a RESET key, press the reset button on the Teensy board itself.
 
   - Click the button in the Teensy app to download the firmware.
 
 To flash with ´teensy-loader-cli´:
 
-  - Build the firmware with `make keymapname`, for example `make default`
+  - Build the firmware as above
 
   - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymap>.hex`
 
-  - Press the Reset button by inserting a paperclip gently into the reset hole
-    in the top right corder.
+  - Put the Teensy in firmware-loading mode:
+    * If your current layout has a RESET key, press it.
+    * If you lack a RESET key, press the reset button on the Teensy board itself.
