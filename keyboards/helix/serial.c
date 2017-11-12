@@ -28,7 +28,9 @@ inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
-
+void serial_delay_short(void) {
+  _delay_us(SERIAL_DELAY-1);
+}
 inline static
 void serial_output(void) {
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
@@ -84,7 +86,8 @@ void sync_recv(void) {
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
-  serial_delay();
+  //serial_delay();
+  _delay_us(SERIAL_DELAY-5);
 }
 
 // Used by the slave to send a synchronization signal to the master.
@@ -211,7 +214,7 @@ int serial_update_buffers(void) {
 
   if (checksum_computed != checksum_received) {
     sei();
-    return 1;
+    return 2;
   }
 
   uint8_t checksum = 0;

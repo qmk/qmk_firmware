@@ -190,11 +190,12 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    if (serial_update_buffers()) {
+    int ret=serial_update_buffers();
+    if (ret ) {
+        if(ret==2)RXLED1;
         return 1;
     }
-
+RXLED0;
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
@@ -209,11 +210,19 @@ uint8_t matrix_scan(void)
     }else{
         matrix_slave_scan();
 
-        int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
+//        if(serial_slave_DATA_CORRUPT()){
+//          TXLED0;
+          int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
 
-        for (int i = 0; i < ROWS_PER_HAND; ++i) {
-            matrix[offset+i] = serial_master_buffer[i];
-        }
+          for (int i = 0; i < ROWS_PER_HAND; ++i) {
+              matrix[offset+i] = serial_master_buffer[i];
+          }
+
+//        }else{
+//          TXLED1;
+//        }
+
+        matrix_scan_quantum();
     }
     return 1;
 }
