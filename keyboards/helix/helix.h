@@ -4,6 +4,9 @@
 #ifdef KEYBOARD_helix_rev1
     #include "rev1.h"
 #endif
+#ifdef KEYBOARD_helix_rev2
+    #include "rev2.h"
+#endif
 
 #if HELIX_ROWS == 3
   #define KC_KEYMAP( \
