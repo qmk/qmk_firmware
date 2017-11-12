@@ -1,8 +1,8 @@
-# Chinese Planck Clone Keyboard
+# MT40: An 40% Ortholinear Keyboard
 
 ## Program 
 
-`make chinese_planck:default:program`
+`make mt40:default:program`
 
 ## Pictures
 

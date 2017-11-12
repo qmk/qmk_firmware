@@ -33,4 +33,4 @@ CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/chinese_planck/program $(TARGET).hex
+PROGRAM_CMD = ./keyboards/mt40/program $(TARGET).hex

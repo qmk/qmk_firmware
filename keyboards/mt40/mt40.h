@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef CHINESE_PLANCK_H
-#define CHINESE_PLANCK_H
+#ifndef MT40_H
+#define MT40_H
 
 #include "quantum_keycodes.h"
 #include "keycode.h"
