@@ -6,7 +6,7 @@ Parts list:
 * Keyboard plate (metal, plastic, cardboard, etc)
 * Wire (strained for wiring to the Teensy, anything for the rows/columns)
 * Soldering iron set at 600ºF or 315ºC (if temperature-controlled)
-* Resin-cored solder (leaded or lead-free)
+* Rosin-cored solder (leaded or lead-free)
 * Adequate ventilation/a fan
 * Tweezers (optional)
 * Wire cutters/snippers
