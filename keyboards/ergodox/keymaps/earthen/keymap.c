@@ -50,17 +50,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |WIN 1 |   F  |   G  |   C  |   T  |   Z  |code/Back|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |Tab/SYMB|A/Shift|   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S/LShift| L/SYMB |
+ * |Tab/SYMB|A     |   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S     | L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
- * | ä/CODE |  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  SYMB  |
+ * | ä/Shift |  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  Shift|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |  Ctrl| Alt  | LGui |~SYMB|AltShf\|                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | GAME |  App |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |Backsp| PgUp |       | PgDn |        |      |
- *                                 |Space/| ace /|------|       |------|  Del/  |Enter/|
+ *                                 |  Back|      | PgUp |       | PgDn |        |      |
+ *                                 |Space/| Del /|------|       |------|  Enter/|Space/|
  *                                 | NUMB | WORK |Home/MD|      | End |  WORK  | NUMB  |
  *                                 `--------------------'       `----------------------'
  */
@@ -70,26 +70,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         MEH(CH_PARA),         LGUI(CH_1),         LGUI(CH_2),   LGUI(CH_3),   LGUI(CH_4),   LGUI(CH_5),   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
-        LT(SYMB, KC_TAB),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
-        LT(SUBL, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
+        LT(SYMB, KC_TAB),        CH_A,         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
+        SFT_T(CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
         KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, OSM(MOD_RALT | MOD_LSFT),
                                               KC_ENT,  KC_LGUI,
                                                               KC_PGUP,
-                                               LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),MEH_T(KC_HOME),
+                                               LT(NUMB,KC_BSPC),LT(WORK,KC_DELT),MEH_T(KC_HOME),
         // right hand
              TG(NUMB),     LGUI(CH_6),   LGUI(CH_7),   LGUI(CH_8),   LGUI(CH_9),   CH_0,             KC_PSCR,
              LGUI(CH_1),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
-                          TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   SFT_T(CH_S),             LT(SYMB,CH_L),
-             LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   OSL(SYMB),
+                          TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   CH_S,             LT(SYMB,CH_L),
+             LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   KC_LSFT,
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
              TG(GAME),        ALT_T(KC_APP),
              KC_PGDN,
-             KC_END,LT(NUMB,KC_DELT), LT(WORK,KC_ENT)
+             KC_END,LT(NUMB,KC_ENT), LT(WORK,KC_SPC)
  ),
 /* Keymap 1: GAME layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   §    |   1  |   2  |   3  |   4  |   5  | Hyper|           |  Numb|   6  |   7  |   8  |   9  |   0  |PrintScr|
+ * |   §    |   1  |   2  |   3  |   4  |   5  | Esc  |           |  Numb|   6  |   7  |   8  |   9  |   0  |PrintScr|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |Tab/CODE|   Q  |   W  |   E  |   R  |   T  | Del  |           |~SYMB |   Z  |   U  |   I  |   O  |   P  | Ü /CODE|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [GAME] = KEYMAP(  // layer 1 : default
         // left hand
-        CH_PARA,         CH_1,           CH_2,     CH_3,     CH_4,     CH_5,   ALL_T(KC_NO),
+        CH_PARA,         CH_1,           CH_2,     CH_3,     CH_4,     CH_5,   KC_ESC,
         LT(SUBL,KC_TAB),         CH_Q,           CH_W,     CH_E,     CH_R,     CH_T,   KC_DELT,
         LT(SYMB,KC_TAB),         CH_A,           CH_S,     CH_D,     CH_F,     CH_G,
         KC_LSFT,         CH_Y,           CH_X,     CH_C,     CH_V,     CH_B,   COPYPASTE,
