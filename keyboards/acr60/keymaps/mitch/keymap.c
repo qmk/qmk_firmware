@@ -112,12 +112,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |       |               |       |               |      |      | LrSfx |     |
  * `-----------------------------------------------------------------------------------------'
  */
- /* Layer 1: Functions, media controls, directional */
+/*
+ * Pok3r-style layer switching on M and "," keys (_DFT and _NGUI layers, respectively). Note that
+ * these don't enable/disable those layers (i.e. latching keys), they actually switch to that layer.
+ * To go to the _NGUI layer, Fn+comma, to go to _DFT from _NGUI, hit Fn+M.
+ */
+ /* Layer 1: Functions, primary layer switching, media controls, directional */
   [_FN] = MITCHSPLIT(
       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10, KC_F11, KC_F12, KC_DEL, \
       KC_CAPS, bbbbbb,  bbbbbb,  bbbbbb,  bbbbbb, bbbbbb, KC_HOME, KC_PGUP, KC_UP ,  KC_PGDOWN,KC_END, bbbbbb, bbbbbb, bbbbbb,  \
       ______,  KC_VOLD, KC_VOLU, KC_MUTE, bbbbbb, bbbbbb, bbbbbb,  KC_LEFT, KC_DOWN, KC_RIGHT, bbbbbb, bbbbbb, ______,   \
-      ______,  KC_MPRV, KC_MPLY, KC_MNXT, bbbbbb, bbbbbb, bbbbbb,TG(_DFT),TG(_NGUI), bbbbbb,   bbbbbb, ______, ______,  \
+      ______,  KC_MPRV, KC_MPLY, KC_MNXT, bbbbbb, bbbbbb, bbbbbb,TO(_DFT),TO(_NGUI), bbbbbb,   bbbbbb, ______, ______,  \
       ______,  ______,  ______,           ______, ______, ______,                    ______,   ______,TG(_SFX),______  \
       ),
 
