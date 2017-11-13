@@ -6,15 +6,17 @@
 #include "keymap_extras/keymap_german_ch.h"
 #include "timer.h"
 
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define NUMB 2 // Numbers and F keys
-#define WORK 3 // Work keys
-#define SUBL 4 // Sublime Code Shortcuts
+#define GAME 1 // Game Layer
+#define SYMB 2 // symbols
+#define NUMB 3 // Numbers and F keys
+#define WORK 4 // Work keys
+#define SUBL 5 // Sublime Code Shortcuts
 
 #define CUTTIMER 500
 #define COPYTIMER 150
@@ -32,6 +34,7 @@
 #define MARK M(11)
 #define DELETEMARK M(12)
 #define SELECTOMARK M(13)
+#define MAIL M(14)
 
 // Tap Dance declarations
 enum {
@@ -45,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | MEH §  |   1  |   2  |   3  |   4  |   5  | Esc  |           | Numb |   6  |   7  |   8  |   9  |   0  |PrintScr|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |MEH R |   F  |   G  |   C  |   T  |   Z  |code/Back|
+ * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |WIN 1 |   F  |   G  |   C  |   T  |   Z  |code/Back|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Tab/SYMB|A/Shift|   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S/LShift| L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
@@ -65,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        MEH(CH_PARA),         CH_1,         CH_2,   CH_3,   CH_4,   CH_5,   KC_ESC,
+        MEH(CH_PARA),         LGUI(CH_1),         LGUI(CH_2),   LGUI(CH_3),   LGUI(CH_4),   LGUI(CH_5),   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
         LT(SYMB, KC_TAB),        SFT_T(CH_A),         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
         LT(SUBL, CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
@@ -74,15 +77,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_PGUP,
                                                LT(NUMB,KC_SPC),LT(WORK,KC_BSPC),MEH_T(KC_HOME),
         // right hand
-             TG(NUMB),     CH_6,   CH_7,   CH_8,   CH_9,   CH_0,             KC_PSCR,
-             MEH(CH_R),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
+             TG(NUMB),     LGUI(CH_6),   LGUI(CH_7),   LGUI(CH_8),   LGUI(CH_9),   CH_0,             KC_PSCR,
+             LGUI(CH_1),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
                           TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   SFT_T(CH_S),             LT(SYMB,CH_L),
              LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   OSL(SYMB),
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
-             KC_TRNS,        ALT_T(KC_APP),
+             TG(GAME),        ALT_T(KC_APP),
              KC_PGDN,
              KC_END,LT(NUMB,KC_DELT), LT(WORK,KC_ENT)
  ),
+/* Keymap 1: GAME layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   §    |   1  |   2  |   3  |   4  |   5  | Hyper|           |  Numb|   6  |   7  |   8  |   9  |   0  |PrintScr|
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |Tab/CODE|   Q  |   W  |   E  |   R  |   T  | Del  |           |~SYMB |   Z  |   U  |   I  |   O  |   P  | Ü /CODE|
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |CtrlShif|   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   Ö  | Ä/SYMB |
+ * |--------+------+------+------+------+------| C & P|           |~LMDIA|------+------+------+------+------+--------|
+ * | LShift |   Y  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |-/AltG|  Shift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |  Ctrl|  Alt |  Gui | Left | Right|                                       |  Up  | Down |  \   | ~WIND| CAPS |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | App  | LGui |       |      |Ctrl/Esc|
+ *                                 ,------+------+------|       |------+--------+------.
+ *                                 |      |Backsp| Home |       | PgUp |        |      |
+ *                                 | Space| ace /|------|       |------|  Del   |Enter/|
+ *                                 |      |      |  End |       | PgDn |        |       |
+ *                                 `--------------------'       `----------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[GAME] = KEYMAP(  // layer 1 : default
+        // left hand
+        CH_PARA,         CH_1,           CH_2,     CH_3,     CH_4,     CH_5,   ALL_T(KC_NO),
+        LT(SUBL,KC_TAB),         CH_Q,           CH_W,     CH_E,     CH_R,     CH_T,   KC_DELT,
+        LT(SYMB,KC_TAB),         CH_A,           CH_S,     CH_D,     CH_F,     CH_G,
+        KC_LSFT,         CH_Y,           CH_X,     CH_C,     CH_V,     CH_B,   COPYPASTE,
+         KC_LCTL,                KC_LALT,        KC_LGUI,  KC_LEFT,  KC_RGHT,
+                                               ALT_T(KC_APP), KC_LGUI,
+                                                              KC_HOME,
+                                               KC_SPC,KC_BSPC,KC_END,
+        // right hand
+        TG(NUMB),     CH_6,   CH_7,    CH_8,    CH_9,   CH_0,             KC_PSCR,
+        KC_FN1,       CH_Z,   CH_U,    CH_I,    CH_O,   CH_P,             LT(SUBL,CH_UE),
+                     CH_H,   CH_J,    CH_K,    CH_L,   CH_OE,            LT(SYMB,CH_AE),
+        KC_FN2,CH_N,   CH_M,    CH_COMM, CH_DOT, KC_FN3,   KC_RSFT,
+                             KC_UP, KC_DOWN, CH_BSLS, KC_FN4,          KC_CAPS,
+        _______,CTL_T(KC_ESC),
+        KC_PGUP,
+        KC_PGDN,KC_DELT, KC_ENT
+),
 /* Keymap 1: Symbol Layer
  * 
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -170,7 +216,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |       |      |      |     |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Lock |      |      |WinCls|      |      |           |      |      |  END |  Up  |  HOME|      |        |
+ * |        | Lock | MAIL |      |WinCls|      |      |           |      |      |  END |  Up  |  HOME|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |WinExp|AdrBar| LGui |------|           |------|TaskVw| Left | Down | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -188,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [WORK] = KEYMAP(
        _______, _______, _______, _______, _______, _______, _______,
-       _______, LGUI(CH_L), XXXXXXX, XXXXXXX, LALT(KC_F4), XXXXXXX, _______,
+       _______, LGUI(CH_L), MAIL, XXXXXXX, LALT(KC_F4), XXXXXXX, _______,
        _______, XXXXXXX, XXXXXXX, KC_MYCM, LCTL(CH_L), KC_LGUI,
        OSM(MOD_LCTL | MOD_LSFT), XXXXXXX, XXXXXXX, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), XXXXXXX, _______,
        _______, _______, _______, _______, _______,
@@ -397,6 +443,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
           break;
         }
+        case 14: {
+          if (record->event.pressed)          {
+            // SEND_STRING("joan.lustenberger");
+            return MACRO(T(J),T(O),T(A),T(N),T(DOT),T(L),T(U),T(S),T(T),T(E),T(N),T(B),T(E),T(R),T(G),T(E),T(R),D(RALT),T(2),U(RALT),T(S),T(U),T(V),T(A),T(DOT),T(C),T(H),T(TAB),END);
+          }
+          break;
+        }
       }
     return MACRO_NONE;
 };
@@ -437,12 +490,12 @@ void matrix_scan_user(void) {
       case WORK:
         ergodox_right_led_3_on();
         break;
-      // case GAME:
-      //   ergodox_led_all_set (LED_BRIGHTNESS_LO);
-      //   ergodox_right_led_1_on();
-      //   ergodox_right_led_2_on();
-      //   ergodox_right_led_3_on();
-      //   break;
+      case GAME:
+        ergodox_led_all_set (LED_BRIGHTNESS_LO);
+        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
+        ergodox_right_led_3_on();
+        break;
       case SUBL:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
