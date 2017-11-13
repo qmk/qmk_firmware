@@ -23,9 +23,11 @@
 #define _______ KC_TRNS
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define ARRW 3 // arrow + soon mouse
+#define ZUDVP 1
+#define SYMB 2 // symbols
+#define MDIA 3 // media keys
+#define ARRW 4 // arrow + soon mouse
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -43,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   Å    |
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ö / L2|Ä / Cmd |
+ * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ö / L2|   Ä    |
  * |        |      |      |      |      |      | Hyper|           | Meh  |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Left   |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ;  |   :  |_/Ctrl| RShift |
@@ -60,29 +62,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | Space| Bksp | End  |       | AltGr|  Meta  | Enter|
  *                                 `--------------------'       `----------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// If it accepts an argument (i.e, is a function), it doesn't need KC_
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP_80(  // layer 0 : default
     // left hand
-    NO_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   LALT(KC_TAB),
+    NO_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
     KC_TAB,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
     MO(ARRW),          KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
     KC_LSFT,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),
-    LT(SYMB,NO_APOS), NO_ACUT,        KC_LALT, KC_LEFT, KC_RGHT,
-                                                KC_ESC,  KC_LGUI,
-                                    KC_SPC,    KC_BSPC,   KC_HOME,
-                                    NO_LESS,   KC_DEL,  KC_END,
-    // right hand
-         NO_PLUS,      KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              KC_BSPC,
+    LT(SYMB,NO_APOS), NO_ACUT,        KC_LALT, KC_DEL, KC_SPC,
+                                                                    NO_LESS,  KC_END,
+                                                                KC_LEFT, KC_RIGHT,  KC_PGDN,
+                                                        CTL_T(KC_ESC),ALT_T(KC_ENT),KC_LGUI,    // right hand
+         TO(ZUDVP),      KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              NO_PLUS,
          TG(SYMB),     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              NO_AA,
-                       KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), GUI_T(NO_AE),
+                       KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), NO_AE,
          MEH_T(KC_NO), KC_N,   KC_M,   KC_COMM, KC_DOT,  CTL_T(NO_MINS),    KC_RSFT,
-                               KC_UP,  KC_DOWN, NO_CIRC, NO_ASTR,           KC_FN1,
-         KC_PGUP, CTL_T(KC_ESC),
-         KC_PGDN,KC_BSPC, KC_ENT,
-         NO_ALGR,KC_RGUI, KC_RGUI
+                               KC_SPC,  KC_BSPC, NO_CIRC, NO_ASTR,           KC_FN1,
+        KC_HOME, NO_ALGR,
+        KC_PGUP, KC_UP, KC_DOWN,
+        KC_LGUI,ALT_T(KC_ENT), CTL_T(KC_ESC)
 ),
-
+/* Keymap 1: Zudvp
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Del    |  :;  |  ,<  |  .>  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  | S/L2 |   -    |
+ * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+ * | LShift | '"/L1|   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |Z/Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |Grv/L1|  '"  |AltShf|BKSPC | SPC  |                                       |  SPC | Del  |   [  |   ]  | ~L1  |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,---------------.
+ *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 |LCtrl | LAlt |------|       |------| LAlt   |LCtrl |
+ *                                 |/Esc  |/Enter| End  |       | PgDn | /Enter |/Esc  |
+ *                                 `--------------------'       `----------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[ZUDVP] = KEYMAP_80(  // layer 0 : default
+        // left hand
+        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TO(BASE),
+        KC_DEL,        KC_COLN,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(SYMB),
+        KC_TAB,         KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
+        KC_RSFT,           LT(SYMB,KC_QUOT),       KC_Q,    KC_J,   KC_K,   KC_X,   ALL_T(KC_NO),
+        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_BSPC,   KC_SPC,
+                                              ALT_T(KC_APP),  KC_END,
+                                       _______, _______,  KC_PGDN,
+	                                 CTL_T(KC_ESC),ALT_T(KC_ENT),KC_LGUI,
+        // right hand
+             TO(BASE),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
+             TG(SYMB),       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
+                          KC_D,   KC_H,   KC_T,   KC_N,   LT(MDIA, KC_S),   KC_MINS,
+	MEH_T(KC_NO),KC_B,   KC_M,   KC_W,   KC_V,   LT(SYMB,KC_Z),           KC_LSFT,
+                                  KC_SPC, KC_DELETE,KC_LBRC,KC_RBRC,          KC_FN1,
+             KC_HOME,        CTL_T(KC_ESC),
+             KC_PGUP, _______, _______,
+	     KC_LGUI,ALT_T(KC_ENT), CTL_T(KC_ESC)
+),
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -187,6 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,
         _______, _______, _______
 ),
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -254,18 +298,20 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
+      // Binary: lsb at bottom
         case 1:
-            ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
             break;
         case 2:
             ergodox_right_led_2_on();
             break;
         case 3:
+            ergodox_right_led_2_on();
             ergodox_right_led_3_on();
+        case 4:
+            ergodox_right_led_1_on();
         default:
             // none
             break;
     }
-
 };
