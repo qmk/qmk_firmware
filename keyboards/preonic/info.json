@@ -2,7 +2,7 @@
   "keyboard_name": "Preonic",
   "keyboard_folder": "preonic",
   "manufacturer": "OLKB",
-  "identifier": "FEED:6061:0001",
+  "identifier": "03A8:5A60:0001",
   "url": "https://olkb.com/preonic",
   "maintainer": "jackhumbert",
   "processor": "atmega32u4",

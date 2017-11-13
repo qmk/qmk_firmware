@@ -2,7 +2,7 @@
   "keyboard_name": "Planck",
   "keyboard_folder": "planck",
   "manufacturer": "OLKB",
-  "identifier": "FEED:6060:0001",
+  "identifier": "03A8:5A60:0001",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
   "processor": "atmega32u4",
