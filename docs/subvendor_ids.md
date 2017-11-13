@@ -13,6 +13,8 @@ There are many projects using QMK that aren't large enough where it would make s
 
 Subvendor IDs in QMK are a bitmask of the `PRODUCT_ID`: `0xFFE0` - this leaves 5 bits for the Project ID (0x001F bitmask), of which each Subvendor can have 32. If the Project ID is larger than 15, add 1 to the Subvendor ID (`0xFA4 -> 0xFA5`) - all Subvendor IDs are even (in hex) to allow this. All Subvendor IDs are randomly generated.
 
+For projects that are heavily DIY in nature, hand-wired, or historical, a Subvendor ID may be established for each.
+
 ## Using other values
 
 It's not recommended using custom Vendor IDs, but some projects may have obtained their own, and are welcome to use them in QMK, but only with permission of the project's creator (the owner of the Vendor ID).
