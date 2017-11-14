@@ -247,6 +247,8 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 bootloader: 
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	echo "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	echo `grep "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	echo `grep "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	echo `grep "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
@@ -255,10 +257,10 @@ bootloader:
 	make -C lib/lufa/Bootloaders/DFU/
 	echo "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
-	$(SIZE) $(TARGET)_bootloader.hex
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader
 	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
-	$(SIZE) $(TARGET)_production.hex
+	echo "File sizes:"
+	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
 
