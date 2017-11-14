@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef SOCKETS_CONFIG_H
 #define SOCKETS_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xBEE5
