@@ -27,5 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_rev2
     #include "rev2/config.h"
 #endif
+#ifdef SUBPROJECT_sockets
+    #include "sockets/config.h"
+#endif
 
 #endif
