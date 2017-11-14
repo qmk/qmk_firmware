@@ -1,5 +1,10 @@
 #!/bin/bash
 
+TRAVIS_BRANCH="${TRAVIS_BRANCH:master}"
+TRAVIS_PULL_REQUEST="${TRAVIS_PULL_REQUEST:false}"
+TRAVIS_COMMIT_MESSAGE="${TRAVIS_COMMIT_MESSAGE:-none}"
+TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
+
 set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
@@ -19,8 +24,8 @@ ssh-add id_rsa_qmk_firmware
 
 # convert to unix line-endings
 git checkout master
-git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
-git diff --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
+git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 dos2unix
+git diff --diff-filter=M --name-only -n 1 -z ${TRAVIS_COMMIT_RANGE} | xargs -0 git add
 git commit -m "convert to unix line-endings [skip ci]" && git push git@github.com:qmk/qmk_firmware.git master
 
 increment_version ()
@@ -40,8 +45,9 @@ if [[ $NEFM -gt 0 ]] ; then
 	#lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | xargs -I@ git log --format=format:"%ai @%n" -1 @ | sort -V | awk '{print $4}' | tail -1)
 	lasttag=$(git describe --tags $(git rev-list --tags --max-count=10) | grep -Ev '\-' | sort -V | tail -1)
 	newtag=$(increment_version $lasttag)
-	newertag=$(increment_version $newtag)
-	git tag $newtag || git tag $newertag
+	until git tag $newtag; do
+		newtag=$(increment_version $newtag)
+	done
 	git push --tags git@github.com:qmk/qmk_firmware.git
 else
 	echo "No essential files modified."
