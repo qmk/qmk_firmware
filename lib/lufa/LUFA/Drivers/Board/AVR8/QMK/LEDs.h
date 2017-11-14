@@ -105,11 +105,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         #include "Keyboard.h"
 
-        #ifndef QMK_ESC_COL
-            #define QMK_ESC_COL F1
+        #ifndef QMK_ESC_INPUT
+            #define QMK_ESC_INPUT F1
         #endif
-        #ifndef QMK_ESC_ROW
-            #define QMK_ESC_ROW D5
+        #ifndef QMK_ESC_OUTPUT
+            #define QMK_ESC_OUTPUT D5
         #endif
         #ifndef QMK_LED
             #define QMK_LED     E6
