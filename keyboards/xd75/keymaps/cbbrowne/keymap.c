@@ -140,7 +140,7 @@ keys needing to be assigned:
  */
  
  [_LOWER] = { /* LOWERED */
-   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, KC_GRV,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
+   { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______, _______, KC_TILD,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11 },
   { ___T___, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS  },
    { ___T___, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE },
    { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, ___T___, ___T___, _______ },
