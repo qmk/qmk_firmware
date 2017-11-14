@@ -69,4 +69,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_4x12 planck_mit planck_grid
 
-DEFAULT_FOLDER = planck/rev4
+DEFAULT_FOLDER = planck/rev5
