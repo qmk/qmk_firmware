@@ -19,9 +19,9 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifndef SUB_IS_SILENT
 QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
 ifneq ($(QMK_VERSION),)
-ifneq ($(SILENT),)
 $(info QMK Firmware $(QMK_VERSION))
 endif
 endif
