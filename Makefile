@@ -21,7 +21,9 @@ override SILENT := false
 
 QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
 ifneq ($(QMK_VERSION),)
+ifneq ($(SILENT),)
 $(info QMK Firmware $(QMK_VERSION))
+endif
 endif
 
 ON_ERROR := error_occurred=1
@@ -112,6 +114,14 @@ $(eval $(call GET_KEYBOARDS))
 
 list-keyboards:
 	echo $(KEYBOARDS)
+	exit 0
+
+define PRINT_KEYBOARD
+	$(info $(PRINTING_KEYBOARD))
+endef
+
+generate-keyboards-file:
+	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
 	exit 0
 
 #Compatibility with the old make variables, anything you specify directly on the command line
