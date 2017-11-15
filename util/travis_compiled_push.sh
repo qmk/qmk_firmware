@@ -54,22 +54,23 @@ else
 fi
 
 if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
-
+	make generate-keyboards-file SILENT=true > .keyboards
 	cd ..
 	git clone git@github.com:qmk/qmk.fm.git
 	cd qmk.fm
 	mv ../qmk_firmware/id_rsa_qmk.fm id_rsa_qmk.fm
+	mv ../qmk_firmware/.keyboards .
 	ssh-add -D
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
 	
 	# not sure this is needed now
-	# rm -f compiled/*.hex
+	rm -f compiled/*.hex
 
 	# ignore errors here
 	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-
+	_util/generate_keyboard_page.sh
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
 	git push git@github.com:qmk/qmk.fm.git
