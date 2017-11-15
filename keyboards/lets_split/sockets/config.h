@@ -1,5 +1,6 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,45 +16,36 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef SOCKETS_CONFIG_H
+#define SOCKETS_CONFIG_H
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6061
-#define MANUFACTURER    OLKB
-#define PRODUCT         Preonic
-#define DESCRIPTION     A compact ortholinear keyboard
+#define VENDOR_ID       0xBEE5
+#define PRODUCT_ID      0xFEED
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Duckle29
+#define PRODUCT         Lets Split Sockets
+#define DESCRIPTION     A split keyboard for the cheapish makers
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
+// Rows are doubled-up
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 6
 
-/* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { D2, D5, B5, B6, D3 }
-#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define UNUSED_PINS
+// wiring of each half
+#define MATRIX_ROW_PINS { B1, B5, E6, B4 }
+#define MATRIX_COL_PINS { F4, F7, D7, B3, B2, B6}
+// #define MATRIX_COL_PINS { B6, B2, B3, C6, F7, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
-#define QMK_ESC_OUTPUT F1
-#define QMK_ESC_INPUT B5
-#define QMK_LED     E6
-#define QMK_SPEAKER C6
-
-#define AUDIO_VOICES
-#define C6_AUDIO
-
-#define BACKLIGHT_PIN B7
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+#define CATERINA_BOOTLOADER
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -69,12 +61,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D1
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 28     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+#define RGB_DI_PIN D4
+#define RGBLIGHT_TIMER 
+#define RGBLED_NUM 12    // Number of LEDs
+#define ws2812_PORTREG  PORTD
+#define ws2812_DDRREG   DDRD
+
+/* Audio settings */
+#ifdef AUDIO_ENABLE
+    #define C6_AUDIO // Define this to enable the buzzer
+#endif
 
 /*
  * Feature disable options
@@ -93,5 +89,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
 
 #endif

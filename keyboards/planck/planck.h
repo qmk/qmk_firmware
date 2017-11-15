@@ -32,11 +32,4 @@
 #define KEYMAP LAYOUT_planck_grid
 #define LAYOUT_ortho_4x12 LAYOUT_planck_grid
 
-#ifdef KEYBOARD_planck_rev3
-    #include "rev3.h"
-#endif
-#ifdef KEYBOARD_planck_rev4
-    #include "rev4.h"
-#endif
-
 #endif
