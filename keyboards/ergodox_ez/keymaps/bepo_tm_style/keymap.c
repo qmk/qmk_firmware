@@ -134,9 +134,9 @@ void matrix_scan_user(void) {
 // The state of the LEDs, as requested by the system.
 uint8_t sys_led_state = 0;
 // Use these masks to read the led state.
-const uint8_T sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-const uint8_T sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
-const uint8_T sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
+const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
+const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
+const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 
 // Called by the system to set the state of the keyboard led.
 // Use led_sed_kb if this is not called.
