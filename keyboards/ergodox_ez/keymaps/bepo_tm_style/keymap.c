@@ -13,7 +13,7 @@
 #define BASE 0
 #define FN 1
 #define MOUSE 2
-#define ARROWS 2
+#define ARROWS 3
 
 enum custom_keycodes {
   SWAP_HAND = SAFE_RANGE, // make this a layer so that it can have the TT mode?
