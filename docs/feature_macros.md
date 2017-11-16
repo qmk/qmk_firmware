@@ -10,7 +10,7 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
 
-For example, you could write in your `keymap.c`:
+Here is an example `keymap.c` for a two-key keyboard:
 
 ```c
 enum custom_keycodes {
@@ -21,21 +21,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
-				SEND_STRING("QMK is the best thing ever!");
+				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
 				return false; break;
 		}
 	}
 	return true;
 };
-```
 
-To activate this macro, assign the keycode `MY_CUSTOM_MACRO` to one of your keys in your keymap.
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, KC_ESC}
+	}
+};
+```
 
 What happens here is this:
 We first define a new custom keycode in the range not occupied by any other keycodes.
 Then we use the `process_record_user` function, which is called whenever a key is pressed or released, to check if our custom keycode has been activated.
 If yes, we send the string `"QMK is the best thing ever!"` to the computer via the `SEND_STRING` macro (this is a C preprocessor macro, not to be confused with QMK macros).
 We return `false` to indicate to the caller that the key press we just processed need not be processed any further.
+Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
 You might want to add more than one macro.
 You can do that by adding another keycode and adding another case to the switch statement, like so:
@@ -58,6 +63,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 	}
 	return true;
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
+	}
 };
 ```
 
