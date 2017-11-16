@@ -14,12 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #ifndef BFAKE_CONFIG_H
 #define BFAKE_CONFIG_H
 
 #include "config_common.h"
 
+#define VENDOR_ID       0x20A0
+#define PRODUCT_ID      0x422D
 #define MANUFACTURER    NotActuallyWinkeyless
+#define PRODUCT         b.fake
 
 #define RGBLED_NUM 16
 
@@ -32,5 +36,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCING_DELAY 5
+
+
+#define RGBLIGHT_ANIMATIONS
+
+#define NO_UART 1
+#define BOOTLOADHID_BOOTLOADER 1
+
+/* key combination for command */
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #endif

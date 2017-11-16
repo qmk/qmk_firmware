@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ps2avrGB.h"
+#include "bfake.h"
 #include "rgblight.h"
 
 #include <avr/pgmspace.h>
