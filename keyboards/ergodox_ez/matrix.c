@@ -296,13 +296,7 @@ static matrix_row_t read_cols(uint8_t row)
         }
     } else {
         // read from teensy
-        return
-            (PINF&(1<<0) ? 0 : (1<<0)) |
-            (PINF&(1<<1) ? 0 : (1<<1)) |
-            (PINF&(1<<4) ? 0 : (1<<2)) |
-            (PINF&(1<<5) ? 0 : (1<<3)) |
-            (PINF&(1<<6) ? 0 : (1<<4)) |
-            (PINF&(1<<7) ? 0 : (1<<5)) ;
+	return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2)) & 0x3F;
     }
 }
 
