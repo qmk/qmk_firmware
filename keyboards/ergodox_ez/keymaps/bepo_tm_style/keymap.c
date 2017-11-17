@@ -185,8 +185,8 @@ const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
 const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
 const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 
-// 255 is too bright
-const uint8_t max_led_value = 180;
+// 255 is far too bright
+const uint8_t max_led_value = 20;
 
 uint32_t cur_layer_state = 0;
 #define LAYER_ON(layer) (cur_layer_state & (1<<layer))
