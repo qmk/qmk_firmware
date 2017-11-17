@@ -15,21 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include "pearl.h"
 
-#include "config_common.h"
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = KEYMAP(
+      KC_GESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,    KC_P,     KC_LBRC, KC_BSPC,
+      KC_TAB,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,    KC_SCLN,  KC_ENT,
+      KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT,
+      KC_LCTL, KC_LGUI,    KC_LALT,    KC_SPACE,   KC_SPACE,      KC_SPACE, KC_RCTL, KC_RALT
+      ),
+};
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define PRODUCT         ps2avrGB
-
-#define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-#endif

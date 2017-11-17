@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BMINI_H
 
 #include "quantum.h"
-#include "ps2avrGB.h"
 
 #define KEYMAP( \
   K05, K25, K35, K45, K55, K06, KA6, KA7, K07, KB5, KC5, KD5, KE5, KD1, KE1, KE2, \

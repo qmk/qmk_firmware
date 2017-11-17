@@ -14,21 +14,32 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef BFAKE_CONFIG_H
-#define BFAKE_CONFIG_H
 
-#include "config_common.h"
+#include "bfake.h"
+#include "rgblight.h"
 
-#define MANUFACTURER    NotActuallyWinkeyless
+#include <avr/pgmspace.h>
 
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 11
+#include "action_layer.h"
+#include "i2c.h"
+#include "quantum.h"
 
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6}
-#define UNUSED_PINS
+extern rgblight_config_t rgblight_config;
 
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCING_DELAY 5
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
 
-#endif
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+    rgblight_task();
+}

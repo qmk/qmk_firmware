@@ -15,13 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BMINI_CONFIG_H
-#define BMINI_CONFIG_H
+#include "bmini.h"
+#include "rgblight.h"
 
-#define MANUFACTURER    winkeyless.kr
+#include <avr/pgmspace.h>
 
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+#include "action_layer.h"
+#include "i2c.h"
+#include "quantum.h"
 
-#endif
+extern rgblight_config_t rgblight_config;
+
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
+
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+    rgblight_task();
+}
