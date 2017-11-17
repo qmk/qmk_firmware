@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_SPC,  KC_RALT, TT(SYSLEDS), BP_CCED, PERC_FN,
     KC_LEFT, KC_RIGHT,
     KC_UP,
-    KC_DOWN, KC_RALT, TT(MOUSE)),
+    KC_DOWN, TT(FN), TT(MOUSE)),
 
   [FN] = KEYMAP(  
     /* left hand */
@@ -188,36 +188,86 @@ const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 // 255 is too bright
 const uint8_t max_led_value = 180;
 
+uint32_t cur_layer_state = 0;
+#define LAYER_ON(layer) (cur_layer_state & (1<<layer))
+
+void led_1_on(void) {
+  ergodox_right_led_1_on();
+  ergodox_right_led_1_set(max_led_value);
+}
+
+void led_2_on(void) {
+  ergodox_right_led_2_on();
+  ergodox_right_led_2_set(max_led_value);
+}
+
+void led_3_on(void) {
+  ergodox_right_led_3_on();
+  ergodox_right_led_3_set(max_led_value);
+}
+
+void led_1_off(void) {
+  ergodox_right_led_1_off();
+}
+
+void led_2_off(void) {
+  ergodox_right_led_2_off();
+}
+
+void led_3_off(void) {
+  ergodox_right_led_3_off();
+}
+
 // Called by the system to set the state of the keyboard led.
 // Use led_sed_kb if this is not called.
 void led_set_user(uint8_t usb_led) {
     sys_led_state = usb_led;
+  if (LAYER_ON(SYSLEDS)) {
     if (sys_led_state & sys_led_mask_caps_lock) {
-      ergodox_right_led_1_set(max_led_value);
+      led_1_on();
     } else {
-      ergodox_right_led_1_off();
+      led_1_off();
     }
     if (sys_led_state & sys_led_mask_num_lock) {
-      ergodox_right_led_2_on();
+      led_2_on();
     } else {
-      ergodox_right_led_2_off();
+      led_2_off();
     }
+    if (sys_led_state & sys_led_mask_scroll_lock) {
+      led_3_on();
+    } else {
+      led_3_off();
+    }
+  }
 }
+
 // Runs whenever there is a layer state change.   IS_LAYER_ON(layer)
 uint32_t layer_state_set_user(uint32_t state) {
-  if (IS_LAYER_ON(SYSLEDS)) {
-    ergodox_right_led_1_set(sys_led_state & sys_led_mask_caps_lock ? max_led_value : 0);
-    ergodox_right_led_2_set(sys_led_state & sys_led_mask_num_lock ? max_led_value : 0);
-    ergodox_right_led_3_set(sys_led_state & sys_led_mask_scroll_lock ? max_led_value : 0);
-  } else {
-    ergodox_right_led_1_set(IS_LAYER_ON(FN) ? max_led_value : 0);
-    ergodox_right_led_2_set(IS_LAYER_ON(ARROWS) ? max_led_value : 0);
-    ergodox_right_led_3_set(IS_LAYER_ON(MOUSE) ? max_led_value : 0);    
+  cur_layer_state = state;
+  swap_hands = LAYER_ON(SWAP);
+
+  if (LAYER_ON(SYSLEDS)) {
+    led_set_user(sys_led_state);
+    return state;
   }
-  swap_hands = IS_LAYER_ON(SWAP);
-  // To control the state:
-  // ergodox_right_led_3_off();
-  // ergodox_right_led_3_on();
+
+  if (LAYER_ON(FN)) {
+    led_1_on();
+  } else {
+    led_1_off();
+  }
+
+  if (LAYER_ON(ARROWS)) {
+    led_2_on();
+  } else {
+    led_2_off();
+  }
+
+  if (LAYER_ON(MOUSE)) {
+    led_3_on();
+  } else {
+    led_3_off();
+  }
 
   return state;
 };
