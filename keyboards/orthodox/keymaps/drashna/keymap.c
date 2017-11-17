@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = KEYMAP(\
   KC_TILD,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_DEL,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,   XXXXXXX, KC_F12,          _______, XXXXXXX, KC_RCTL, XXXXXXX, KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE, \
-  TD(TD_FLSH),KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, XXXXXXX, KC_HOME,    KC_COMM,    KC_DOT,  KC_END,  _______ \
+  _______,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, XXXXXXX, KC_HOME,    KC_COMM,    KC_DOT,  KC_END,  _______ \
 ),
 
 [_RAISE] = KEYMAP(\
@@ -72,15 +72,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = KEYMAP(\
   KC_MAKE,KC_RESET, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
+  RGB_SMOD,RGB_HUI, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
+  KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 )
 
 
 };
 
 #ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A4, 0.0625);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A4, 0.0625); // (_C4, 0.125);
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 0.25);       // (_C4, 0.25);
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
 #endif 
