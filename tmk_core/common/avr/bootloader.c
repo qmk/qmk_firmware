@@ -56,14 +56,11 @@
  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
-#ifndef BOOTLOADER_SIZE
-#warning To use bootloader_jump() you need to define BOOTLOADER_SIZE in config.h.
-#define BOOTLOADER_SIZE     4096
+#ifdef BOOTLOADER_SIZE
+#pragma message "\n* BOOTLOADER_SIZE is no longer used \n  the bootloader location is determined automatically"
 #endif
 
 #define FLASH_SIZE          (FLASHEND + 1L)
-#define BOOTLOADER_START    (FLASH_SIZE - BOOTLOADER_SIZE)
-
 
 /*
  * Entering the Bootloader via Software
@@ -71,9 +68,35 @@
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key  __attribute__ ((section (".noinit")));
+uint16_t bootloader_start;
 
 /* initialize MCU status by watchdog reset */
 void bootloader_jump(void) {
+    uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
+
+    // there's probably a better way to determine chip presets
+    #ifdef __AVR_AT90USB1286__
+        if (high_fuse & (~FUSE_BOOTSZ0 | ~FUSE_BOOTSZ0)) { // 11
+            bootloader_start = FLASH_SIZE - 512;
+        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 01
+            bootloader_start = FLASH_SIZE - 2048;
+        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 10
+            bootloader_start = FLASH_SIZE - 1024;
+        } else {                                           // 00
+            bootloader_start = FLASH_SIZE - 4096;
+        }
+    #else // all other chips
+        if (high_fuse & (~FUSE_BOOTSZ0 | ~FUSE_BOOTSZ0)) { // 11
+            bootloader_start = FLASH_SIZE - 256;
+        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 01
+            bootloader_start = FLASH_SIZE - 1024;
+        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 10
+            bootloader_start = FLASH_SIZE - 512;
+        } else {                                           // 00
+            bootloader_start = FLASH_SIZE - 2048;
+        }
+    #endif
+
     #ifndef CATERINA_BOOTLOADER
 
         #ifdef PROTOCOL_LUFA
@@ -141,7 +164,10 @@ void bootloader_jump_after_watchdog_reset(void)
         wdt_disable();
 
         // This is compled into 'icall', address should be in word unit, not byte.
-        ((void (*)(void))(BOOTLOADER_START/2))();
+        // ((void (*)(void))(bootloader_start/2))();
+        
+        // This seems to work ok
+        asm("ijmp" :: "z" (bootloader_start));
     }
 }
 
