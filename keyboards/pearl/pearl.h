@@ -15,21 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef PEARL_H
+#define PEARL_H
 
-#include "config_common.h"
+#include "quantum.h"
+#include "pearl.h"
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define PRODUCT         ps2avrGB
-
-#define RGBLIGHT_ANIMATIONS
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+#define KEYMAP( \
+  K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C,\
+   K10,  K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A,  K1B, \
+    K20,  K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,\
+       K30, K31, K32,   K34,  K35, K37,   K39, K3A\
+){ \
+  { K00, K01, K02, K03,   K04, K05, K06,   K07, K08,   K09, K0A, K0B,   K0C}, \
+  { K10, K11, K12, K13,   K14, K15, K16,   K17, K18,   K19, K1A, K1B,   KC_NO}, \
+  { K20, K21, K22, K23,   K24, K25, K26,   K27, K28,   K29, K2A, K2B,   KC_NO}, \
+  { K30, K31, K32, KC_NO, K34, K35, KC_NO, K37, KC_NO, K39, K3A, KC_NO, KC_NO}, \
+}
 
 #endif
