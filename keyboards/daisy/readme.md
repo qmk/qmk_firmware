@@ -18,14 +18,7 @@ it using DFU.
 
 ### Default
 
-To build with the default keymap, simply run `make daisy:default` from the root directory (i.e. two levels above this file), and to install via DFU, `make daisy:default:dfu`, also from the root directory.
-
-Note that DFU is likely to require root permissions, so installing the
-firmware likely requires a command line like:
-
-```
-$ sudo make daisy:default:dfu
-```
+To build with the default keymap, simply run `make daisy:default` from the root directory (i.e. two levels above this file).
 
 ### Other Keymaps
 
@@ -38,3 +31,6 @@ A printable picture showing this layout is available here: https://imgur.com/9mS
 $ make daisy:[default|<name>]
 ```
 
+## Bootloader
+
+I personally had issues with the bootloader on my Daisy PCB and was unable to flash a firmware to the board after the first time. I replaced the bootloader with the one available in the repository at ../../util/bootloader_atmega32u4_1_0_0.hex
