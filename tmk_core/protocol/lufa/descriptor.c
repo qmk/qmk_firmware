@@ -860,16 +860,16 @@ const USB_Descriptor_String_t PROGMEM ProductString =
     .UnicodeString          = LSTR(PRODUCT)
 };
 
-#ifndef SERIALNUMBER
-    #define SERIALNUMBER 0
+#ifndef SERIAL_NUMBER
+    #define SERIAL_NUMBER 0
 #endif
 
 const USB_Descriptor_String_t PROGMEM SerialNumberString =
 {
     /* subtract 1 for null terminator */
-    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIALNUMBER))-1), .Type = DTYPE_String},
+    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1), .Type = DTYPE_String},
 
-    .UnicodeString          = LSTR(SERIALNUMBER)
+    .UnicodeString          = LSTR(SERIAL_NUMBER)
 };
 
 
