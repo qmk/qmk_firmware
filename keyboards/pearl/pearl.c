@@ -15,21 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include "pearl.h"
+#include "rgblight.h"
 
-#include "config_common.h"
+#include <avr/pgmspace.h>
 
-#define VENDOR_ID       0x20A0
-#define PRODUCT_ID      0x422D
-#define PRODUCT         ps2avrGB
+#include "action_layer.h"
+#include "i2c.h"
+#include "quantum.h"
 
-#define RGBLIGHT_ANIMATIONS
+extern rgblight_config_t rgblight_config;
 
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            led[i].r = 0;
+            led[i].g = 0;
+            led[i].b = 0;
+        }
+    }
 
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+}
 
-#endif
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+    rgblight_task();
+}

@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BFAKE_H
 
 #include "quantum.h"
-#include "ps2avrGB.h"
 
 #define KEYMAP( \
   K61, K71, K72, K73, K74, K64, K65, K75, K76, K77, K78, K68, K66, K10, K60,\
