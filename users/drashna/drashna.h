@@ -1,3 +1,20 @@
+/*
+Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef USERSPACE
 #define USERSPACE
 
@@ -26,6 +43,7 @@
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
@@ -39,8 +57,9 @@
 #endif
 
 extern bool is_overwatch;
+extern bool rgb_layer_change;
 
-enum custom_keycodes {
+enum userrpace_custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
@@ -62,9 +81,24 @@ enum custom_keycodes {
   KC_GLHF,
   KC_TORB,
   KC_AIM,
+  KC_C9,
+  KC_GGEZ,
   KC_MAKE,
   KC_RESET,
-  NEWPLACEHOLDER  //use "NEWPLACEHOLDER for keymap specific codes
+  KC_RGB_T,
+  NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
+
+#ifdef TAP_DANCE_ENABLE
+enum {
+  TD_D3_1 = 0,
+  TD_D3_2,
+  TD_D3_3,
+  TD_D3_4
+};
+#endif
+
+
+
 
 #endif

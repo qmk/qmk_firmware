@@ -32,125 +32,17 @@ bool skip_leds = false;
 
 
 #ifdef TAP_DANCE_ENABLE
-
-//define diablo macro timer variables
-static uint16_t diablo_timer[4];
-static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
-static uint8_t diablo_key_time[4];
-
-bool check_dtimer(uint8_t dtimer) {
-  // has the correct number of seconds elapsed (as defined by diablo_times)
-  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
-};
-
-enum {
-  TD_FLSH = 0,
-  TD_DIABLO_1,
-  TD_DIABLO_2,
-  TD_DIABLO_3,
-  TD_DIABLO_4
-};
-
-// on each tap, light up one led, from right to left
-// on the forth tap, turn them off from right to left
-
-void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (!skip_leds) {
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    skip_leds = true;
-  }
-  switch (state->count) {
-  case 1:
-    ergodox_right_led_1_on();
-    break;
-  case 2:
-    ergodox_right_led_2_on();
-    break;
-  case 3:
-    ergodox_right_led_3_on();
-    break;
-  case 4:
-    ergodox_right_led_1_off();
-    _delay_ms(50);
-    ergodox_right_led_2_off();
-    _delay_ms(50);
-    ergodox_right_led_3_off();
-
-  }
-}
-
-// on the fourth tap, set the keyboard on flash state
-// and set the underglow to red, because red == bad
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 4) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_setrgb(0xff, 0x00, 0x00);
+#define KC_D3_1 TD(TD_D3_1)
+#define KC_D3_2 TD(TD_D3_2)
+#define KC_D3_3 TD(TD_D3_3)
+#define KC_D3_4 TD(TD_D3_4)
+#else
+#define KC_D3_1 KC_1
+#define KC_D3_2 KC_2
+#define KC_D3_3 KC_3
+#define KC_D3_4 KC_4
 #endif
-    reset_tap_dance(state);
-    reset_keyboard();
-  }
-}
 
-// Cycle through the times for the macro, starting at 0, for disabled.
-// Max of six values, so don't exceed
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-  if (state->count >= 7) {
-    diablo_key_time[diablo_key] = diablo_times[0];
-    reset_tap_dance(state);
-  }
-  else {
-    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
-  }
-}
-
-
-// Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 0);
-}
-
-void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 1);
-}
-
-void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 2);
-}
-
-void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 3);
-}
-
-
-// if the flash state didnt happen, then turn off leds, left to right
-void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
-  _delay_ms(200);
-  ergodox_right_led_3_off();
-  _delay_ms(200);
-  ergodox_right_led_2_off();
-  _delay_ms(200);
-  ergodox_right_led_1_off();
-  _delay_ms(500);
-  skip_leds = false;
-}
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-  // tap once to disable, and more to enable timed micros
-  [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-  [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-  [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-  [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
-
-};
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -430,9 +322,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_DIABLO] = LAYOUT_ergodox(
                 KC_ESCAPE,  KC_V,       KC_D,       KC_LALT,    KC_NO,      KC_NO,      KC_NO,
-                KC_TAB,     KC_S,       KC_F,       KC_I,       KC_M,       KC_T,       KC_TRNS,
+                KC_TAB,     KC_S,       KC_I,       KC_F,       KC_M,       KC_T,       KC_TRNS,
                 KC_Q,       KC_1,       KC_2,       KC_3,       KC_4,       KC_G,
-                KC_LCTL, TD(TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), KC_Z,       KC_NO,
+                KC_LCTL,    KC_D3_1,    KC_D3_2,    KC_D3_3,    KC_D3_4, KC_Z,       KC_NO,
                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                                 KC_L,   KC_J,
                                                         KC_F,
@@ -499,44 +391,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef TAP_DANCE_ENABLE
-
-// Sends the key press to system, but only if on the Diablo layer
-void send_diablo_keystroke(uint8_t diablo_key) {
-  if (biton32(layer_state) == _DIABLO) {
-    switch (diablo_key) {
-    case 0:
-      SEND_STRING("1");
-      break;
-    case 1:
-      SEND_STRING("2");
-      break;
-    case 2:
-      SEND_STRING("3");
-      break;
-    case 3:
-      SEND_STRING("4");
-      break;
-    }
-  }
-}
-
-// Checks each of the 4 timers/keys to see if enough time has elapsed
-// Runs the "send string" command if enough time has passed, and resets the timer.
-void run_diablo_macro_check(void) {
-  uint8_t dtime;
-
-  for (dtime = 0; dtime < 4; dtime++) {
-    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
-      diablo_timer[dtime] = timer_read();
-      send_diablo_keystroke(dtime);
-    }
-  }
-
-}
-
-#endif
-
 
 void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 };
@@ -566,9 +420,5 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
 
   }
 
-  // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-  run_diablo_macro_check();
-#endif
 };
 
