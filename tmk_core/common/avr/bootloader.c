@@ -6,6 +6,7 @@
 #include <avr/wdt.h>
 #include <util/delay.h>
 #include "bootloader.h"
+#include <avr/boot.h>
 
 #ifdef PROTOCOL_LUFA
 #include <LUFA/Drivers/USB/USB.h>
