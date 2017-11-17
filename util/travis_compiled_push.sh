@@ -64,12 +64,14 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
 	
-	# not sure this is needed now
-	rm -f compiled/*.hex
+	# don't delete files in case not all keyboards are built
+	# rm -f compiled/*.hex
 
 	# ignore errors here
-	for file in ../qmk_firmware/keyboards/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	bash _util/generate_keyboard_page.sh
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}" 
