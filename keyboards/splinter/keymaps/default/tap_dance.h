@@ -7,6 +7,7 @@ enum {
 };
 
 enum {
+  NO_TAP = 0,
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
@@ -20,6 +21,6 @@ typedef struct {
   int state;
 } tap;
 
-void cur_dance(qk_tap_dance_state_t *state);
-void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data);
-void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data);
+int cur_dance(qk_tap_dance_state_t*);
+void n_tilde_finished(qk_tap_dance_state_t*, void*);
+void n_tilde_reset(qk_tap_dance_state_t*, void*);
