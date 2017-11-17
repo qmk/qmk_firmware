@@ -1,12 +1,16 @@
-#include "daisy.h"
+	#include "daisy.h"
 #include "action_layer.h"
 
-//extern keymap_config_t keymap_config;
+extern keymap_config_t keymap_config;
 
 // Layer shorthand
 #define _BL 0
 #define _LW 1
 #define _RS 2
+
+enum layer_keycodes {
+	QWERTY = SAFE_RANGE, LOWER, RAISE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -18,15 +22,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------------------------------------------------------------------|
  * | LSHIFT | Z   | X    | C   | V   | B   | N   | M   | ,<  | .>  | /?    |
  * |-----------------------------------------------------------------------|
- * | LCTRL | LGUI | LALT | SPACE   | BACKSPACE      | FN1    | FN2 | RALT  |
+ * | LCTRL | LGUI | LALT | SPACE   | BACKSPACE      | LW     | RS  | RALT  |
  * '-----------------------------------------------------------------------'
  */
 
 	[_BL] = KEYMAP(
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS,
+  GRAVE_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_Y,     KC_U,   KC_I,    KC_O,    KC_P,    KC_BSLS,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,     KC_H,     KC_J,   KC_K,    KC_L,    KC_ENT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,     KC_M,   KC_COMM, KC_DOT,  KC_SLSH,
-  KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  KC_BSPC, MO(_LW), MO(_RS), KC_RALT ),
+  KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  KC_BSPC, LOWER, RAISE, KC_RALT ),
  
 
 /* Function Layer
@@ -70,4 +74,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
 
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+		case LOWER:
+		  if(record->event.pressed){
+			   layer_on(_LW);
+		  } else {
+			  layer_off(_LW);
+		  }
+		  return false;
+		  break;
+		  case RAISE:
+		  if(record->event.pressed){
+			   layer_on(_RS);
+		  } else {
+			  layer_off(_RS);
+		  }
+		  return false;
+		  break;
+	}
+  return true;
 };
