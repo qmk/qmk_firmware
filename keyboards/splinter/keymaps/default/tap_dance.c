@@ -64,4 +64,30 @@ void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data) {
 
   ts[CT_N_TILDE].state = 0;
 }
+
+void esc_grv_finished(qk_tap_dance_state_t *state, void *user_data) {
+  ts[CT_ESC_GRV].state = cur_dance(state);
+  switch (ts[CT_ESC_GRV].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    register_code(KC_GRV);
+    break;
+  default:
+    register_code(KC_ESCAPE);
+    break;
+  }
+}
+
+void esc_grv_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (ts[CT_ESC_GRV].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    unregister_code(KC_GRV);
+    break;
+  default:
+    unregister_code(KC_ESCAPE);
+    break;
+  }
+
+  ts[CT_ESC_GRV].state = 0;
 }

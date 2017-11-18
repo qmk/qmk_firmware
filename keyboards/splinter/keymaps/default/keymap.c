@@ -16,7 +16,7 @@ extern keymap_config_t keymap_config;
   KC_QUOTE,     KC_COMMA,     KC_DOT,           KC_P,       KC_Y,            KC_F,            KC_G,     KC_C,             KC_R,            KC_L,         \
   CTL_T(KC_A),  SFT_T(KC_O),  ALT_T(KC_E),      KC_U,       KC_I,            KC_D,            KC_H,     ALT_T(KC_T),      TD(CT_N_TILDE),  CTL_T(KC_S),  \
   KC_SCOLON,    KC_Q,         KC_J,             KC_K,       KC_X,            KC_B,            KC_M,     KC_W,             KC_V,            KC_Z,         \
-  TO(_UL),      MO(_VL),      KC_TAB,           KC_BSPACE,  KC_ESCAPE,       KC_INS,          KC_HOME,  KC_PGUP,          MO(_VL),         TO(_UL),      \
+  TO(_UL),      MO(_VL),      KC_TAB,           KC_BSPACE,  TD(CT_ESC_GRV)/*KC_ESCAPE*/,       KC_INS,          KC_HOME,  KC_PGUP,          MO(_VL),         TO(_UL), \
   TO(_DL),      KC_LCTRL,     LSFT_T(KC_CAPS),  KC_LGUI,    LGUI_T(KC_SPC),  RGUI_T(KC_ENT),  KC_RALT,  RSFT_T(KC_CAPS),  KC_RCTRL,        TO(_DL))
 
 #define _upLayer KEYMAP( \
@@ -74,7 +74,8 @@ void shifted_layer(void) {
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset)
+  [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
+  [CT_ESC_GRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset)
 };
 
 void matrix_scan_user(void) {
