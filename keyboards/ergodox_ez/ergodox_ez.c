@@ -26,7 +26,134 @@ extern inline void ergodox_led_all_set(uint8_t n);
 
 
 bool i2c_initialized = 0;
+// left hand: mcp23018 expander
 uint8_t mcp23018_status = 0x20;
+// add-on: mcp23008 used to drive a 4x20 LCD
+uint8_t mcp23008_status = 0x0;
+uint8_t mcp23008_gpio = 0x0;
+
+static inline uint8_t mcp23008_writeport(uint8_t port, uint8_t value) {
+    mcp23008_status = i2c_start(LCD_ADDR_WRITE);    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(port);     if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(value);	    if (mcp23008_status) goto out;
+out:
+    i2c_stop();
+    if (mcp23008_status)
+        ergodox_right_led_1_on();
+    return mcp23008_status;
+}
+
+uint8_t lcd_setpins(void) {
+    return mcp23008_writeport(MCP23008_GPIO, mcp23008_gpio);
+}
+
+uint8_t lcd_write4(uint8_t value) {
+    mcp23008_gpio = (mcp23008_gpio & ~MCP23008_DATA) | ((value & 0xF) << 3);
+    mcp23008_status = lcd_setpins();                  if (mcp23008_status) goto out;
+    mcp23008_gpio |= MCP23008_ENABLE;
+    mcp23008_status = lcd_setpins();                  if (mcp23008_status) goto out;
+    mcp23008_gpio &= ~MCP23008_ENABLE;
+    mcp23008_status = lcd_setpins();                  if (mcp23008_status) goto out;
+out:
+    return mcp23008_status;
+}
+
+uint8_t lcd_write8(uint8_t value) {
+    mcp23008_status = lcd_write4((value >> 4) & 0xF); if (mcp23008_status) goto out;
+    mcp23008_status = lcd_write4(value & 0xF);        if (mcp23008_status) goto out;
+out:
+    return mcp23008_status;
+}
+
+uint8_t lcd_command(uint8_t c) {
+    mcp23008_gpio &= ~MCP23008_RS;
+    mcp23008_status = lcd_write8(c);
+    // allow command to complete
+    _delay_us(50);
+    return mcp23008_status;
+}
+
+void
+lcd_move(int row, int col) {
+    row %= 4;
+    col %= 20;
+    uint8_t addr = 0x14 * ((row >> 1) & 1) + 0x40 * (row & 1);
+    lcd_command(0x80 | (addr + col));
+}
+
+uint8_t lcd_char(uint8_t c) {
+    mcp23008_gpio |= MCP23008_RS;
+    return lcd_write8(c);
+}
+
+uint8_t init_lcd(void) {
+    uint8_t stopped = 1;
+    // init code for mcp23008 and LCD
+    mcp23008_status = 0x20;
+    stopped = 0;
+    mcp23008_status = i2c_start(LCD_ADDR_WRITE);    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(MCP23008_IODIR);    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0xFF);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    mcp23008_status = i2c_write(0x00);		    if (mcp23008_status) goto out;
+    i2c_stop();
+    stopped = 1;
+    mcp23008_status = mcp23008_writeport(MCP23008_IODIR, 0x01);    if (mcp23008_status) goto out;
+    // turn on the backlight pin. don't turn on any others, which
+    // means that RS and ENABLE are now off...
+    // mcp23008_gpio = MCP23008_BACKLIGHT;
+    mcp23008_gpio = MCP23008_BACKLIGHT;
+    mcp23008_status = lcd_setpins();                if (mcp23008_status) goto out;
+    _delay_ms(50);
+    mcp23008_gpio &= ~MCP23008_BACKLIGHT;
+    mcp23008_status = lcd_setpins();                if (mcp23008_status) goto out;
+    lcd_write4(0x03);
+    _delay_us(4150);
+    lcd_write4(0x03);
+    _delay_us(4150);
+    lcd_write4(0x03);
+    _delay_us(150);
+    lcd_write4(0x02);
+    lcd_command(0x28);
+    lcd_command(0x0C);
+    lcd_command(0x01);
+    _delay_ms(2);
+    lcd_command(0x06);
+    lcd_move(0, 0);
+    lcd_char('y');
+    lcd_char('o');
+    lcd_char('.');
+    _delay_ms(100);
+    mcp23008_gpio |= MCP23008_BACKLIGHT;
+    mcp23008_status = lcd_setpins();                if (mcp23008_status) goto out;
+    _delay_ms(100);
+    mcp23008_gpio &= ~MCP23008_BACKLIGHT;
+    mcp23008_status = lcd_setpins();                if (mcp23008_status) goto out;
+    _delay_ms(100);
+    mcp23008_gpio |= MCP23008_BACKLIGHT;
+    mcp23008_status = lcd_setpins();                if (mcp23008_status) goto out;
+out:
+    if (!stopped)
+	    i2c_stop();
+    return mcp23008_status;
+}
+
+void update_lcd(void) {
+    char buf[3];
+    lcd_move(0, 0);
+    for (int i = 0; i < 6; ++i) {
+    	snprintf(buf, 3, "%02x", state[i]);
+	lcd_char(buf[0]);
+	lcd_char(buf[1]);
+    }
+}
 
 void matrix_init_kb(void) {
    // keyboard LEDs (see "PWM on ports OC1(A|B|C)" in "teensy-2-0.md")

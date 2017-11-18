@@ -108,7 +108,7 @@ void matrix_init(void)
     // initialize row and col
 
     mcp23018_status = init_mcp23018();
-
+    mcp23008_status = init_lcd();
 
     unselect_rows();
     init_cols();
@@ -217,6 +217,7 @@ uint8_t matrix_scan(void)
     }
 
     matrix_scan_quantum();
+    update_lcd();
 
     return 1;
 }

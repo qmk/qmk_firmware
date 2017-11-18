@@ -23,12 +23,30 @@
 #define OLATA           0x14            // output latch register
 #define OLATB           0x15
 
+/* these are the only registers needed for the LCD driver */
+#define LCD_ADDR (I2C_ADDR | 0x01)
+#define LCD_ADDR_WRITE  ( (LCD_ADDR<<1) | I2C_WRITE )
+#define LCD_ADDR_READ   ( (LCD_ADDR<<1) | I2C_READ  )
+
+#define MCP23008_IODIR 0x00
+#define MCP23008_GPIO 0x09
+
+#define MCP23008_RS 0x2
+#define MCP23008_ENABLE 0x4
+#define MCP23008_DATA (0xF << 3)
+#define MCP23008_BACKLIGHT 0x80
+
 extern uint8_t mcp23018_status;
+extern uint8_t mcp23008_status;
 
 void init_ergodox(void);
 void ergodox_blink_all_leds(void);
 uint8_t init_mcp23018(void);
+uint8_t init_lcd(void);
+void update_lcd(void);
 uint8_t ergodox_left_leds_update(void);
+// hacky: we look into the steno code for this
+extern uint8_t state[6];
 
 #define LED_BRIGHTNESS_LO       5
 #define LED_BRIGHTNESS_HI       255
