@@ -168,11 +168,11 @@ void bootloader_jump_after_watchdog_reset(void)
         wdt_disable();
 
         // This is compled into 'icall', address should be in word unit, not byte.
-        // ((void (*)(void))(bootloader_start/2))();
+        // ((void (*)(void))(BOOTLOADER_START/2))();
         
         // This seems to work ok
         #ifdef BOOTLOADER_SIZE
-            ((void (*)(void))((FLASH_SIZE - BOOTLOADER_SIZE)/2))();
+            ((void (*)(void))(FLASH_SIZE - BOOTLOADER_SIZE))();
         #else
             asm("ijmp" :: "z" (bootloader_start));
         #endif

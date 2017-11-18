@@ -96,6 +96,37 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+# Detect Bootloader
+ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
+    OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
+    OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_SIZE = 2048
+endif
+ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
+    OPT_DEFS += -DBOOTLOADER_LUFA_DFU
+    OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_SIZE = 2048
+endif
+ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
+    OPT_DEFS += -DBOOTLOADER_QMK_DFU
+    OPT_DEFS += -DBOOTLOADER_DFU
+    BOOTLOADER_SIZE = 2048
+endif
+ifeq ($(strip $(BOOTLOADER)), halfkay)
+    OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_SIZE = 512
+endif
+ifeq ($(strip $(BOOTLOADER)), caterina)
+    OPT_DEFS += -DBOOTLOADER_CATERINA
+    BOOTLOADER_SIZE = 2048
+endif
+ifeq ($(strip $(BOOTLOADER)), bootloadHID)
+    OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
+    BOOTLOADER_SIZE = 2048
+endif
+
+OPT_DEFS += -DBOOTLOADER_SIZE=$(strip $(BOOTLOADER_SIZE))
+
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).hex
 	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*

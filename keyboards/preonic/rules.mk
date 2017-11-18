@@ -36,6 +36,20 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+# Bootloader
+#     This definition is option, and if you keyboard supports multiple bootloaders of
+#     different sizes, leave this blank, and your the correct address will be loaded 
+#     automatically. 
+#
+# 	  Options are:
+#     * atmel-dfu (default)
+#     * lufa-dfu
+#     * qmk-dfu (what's generated via the :bootloader target)
+#     * halfkay
+#     * caterina
+#     * bootloadHID
+BOOTLOADER = qmk-dfu
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
