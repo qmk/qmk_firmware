@@ -91,3 +91,30 @@ void esc_grv_reset(qk_tap_dance_state_t *state, void *user_data) {
 
   ts[CT_ESC_GRV].state = 0;
 }
+
+void lgui_alt_finished(qk_tap_dance_state_t *state, void *user_data) {
+  ts[CT_LGUI_ALT].state = cur_dance(state);
+  switch (ts[CT_LGUI_ALT].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    register_code(KC_LALT);
+    break;
+  default:
+    register_code(KC_LGUI);
+    break;
+  }
+}
+
+void lgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (ts[CT_LGUI_ALT].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    unregister_code(KC_LALT);
+    break;
+  default:
+    unregister_code(KC_LGUI);
+    break;
+  }
+
+  ts[CT_LGUI_ALT].state = 0;
+}
