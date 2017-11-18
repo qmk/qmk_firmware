@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "i2cmaster.h"
 #include <ctype.h>
+#include <string.h>
+#include <stdio.h>
 
 
 extern inline void ergodox_board_led_on(void);
@@ -168,15 +170,17 @@ static char *displaypos = "WAAAAAAKKBLCMDNUVOOWWWOOXYFPGQHRISJAAAAAAT";
 static uint8_t counter = 0;
 static uint8_t prev_state[6];
 static uint8_t prev_chord[6];
-void update_lcd(void) {
+void lcd_update(void) {
+    char keys[26];
+    int pressed = 0;
     if (!memcmp(state, prev_state, 6))
         return;
     memcpy(prev_state, state, 6);
-    char keys[26];
-    int pressed = 0;
 
     memset(keys, ' ', 25);
     for (int i = 0; i < 6; ++i) {
+	if (!chord[i])
+	    continue;
 	for (int j = 0; j < 7; ++j) {
 	    uint8_t bit = 1 << j;
 	    uint8_t idx = (i * 7) + (6 - j);
@@ -209,6 +213,8 @@ void update_lcd(void) {
     if (!pressed) {
 	    memset(keys, ' ', 25);
 	    for (int i = 0; i < 6; ++i) {
+	        if (!prev_chord[i])
+	            continue;
 		for (int j = 0; j < 7; ++j) {
 		    uint8_t bit = 1 << j;
 		    uint8_t idx = (i * 7) + (6 - j);
