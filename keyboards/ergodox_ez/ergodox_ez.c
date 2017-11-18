@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "i2cmaster.h"
+#include <ctype.h>
 
 
 extern inline void ergodox_board_led_on(void);
@@ -31,6 +32,7 @@ uint8_t mcp23018_status = 0x20;
 // add-on: mcp23008 used to drive a 4x20 LCD
 uint8_t mcp23008_status = 0x0;
 uint8_t mcp23008_gpio = 0x0;
+static uint8_t *state, *chord;
 
 static inline uint8_t mcp23008_writeport(uint8_t port, uint8_t value) {
     mcp23008_status = i2c_start(LCD_ADDR_WRITE);    if (mcp23008_status) goto out;
@@ -77,7 +79,11 @@ void
 lcd_move(int row, int col) {
     row %= 4;
     col %= 20;
-    uint8_t addr = 0x14 * ((row >> 1) & 1) + 0x40 * (row & 1);
+    // 0xA * (row & 2) = 0x14 if the high order bit is set.
+    // the display order puts row 2 exactly 20 characters past row 0,
+    // and then row 3 exactly 20 characters past row 1, but this omits
+    // a shift
+    uint8_t addr = 0xA * (row & 2) + 0x40 * (row & 1);
     lcd_command(0x80 | (addr + col));
 }
 
@@ -87,6 +93,8 @@ uint8_t lcd_char(uint8_t c) {
 }
 
 uint8_t init_lcd(void) {
+    state = steno_get_state();
+    chord = steno_get_chord();
     uint8_t stopped = 1;
     // init code for mcp23008 and LCD
     mcp23008_status = 0x20;
@@ -145,14 +153,101 @@ out:
     return mcp23008_status;
 }
 
+static char *display      = "?######SSTKPWHRAO**???**EUFRPBLGTSD######Z";
+// A = position 1...
+// position Z isn't displayed, it's there for "don't display this"
+
+// #STKPWHR*FRPBLGTSDZ
+//       AO EU
+// static char *displaypos = "WAAAAAABBCDEFGHUVIIWWWIIXYJKLMNOPQRAAAAAAS";
+
+// #TPH FPLTD
+// SKWR*RBGSZ
+//   AO?EU
+static char *displaypos = "WAAAAAAKKBLCMDNUVOOWWWOOXYFPGQHRISJAAAAAAT";
+static uint8_t counter = 0;
+static uint8_t prev_state[6];
+static uint8_t prev_chord[6];
 void update_lcd(void) {
-    char buf[3];
-    lcd_move(0, 0);
+    if (!memcmp(state, prev_state, 6))
+        return;
+    memcpy(prev_state, state, 6);
+    char keys[26];
+    int pressed = 0;
+
+    memset(keys, ' ', 25);
     for (int i = 0; i < 6; ++i) {
-    	snprintf(buf, 3, "%02x", state[i]);
-	lcd_char(buf[0]);
-	lcd_char(buf[1]);
+	for (int j = 0; j < 7; ++j) {
+	    uint8_t bit = 1 << j;
+	    uint8_t idx = (i * 7) + (6 - j);
+	    if (chord[i] & bit) {
+		++pressed;
+	        uint8_t pos = displaypos[idx] - 'A';
+		uint8_t ch = display[idx];
+		keys[pos] = ch;
+		if (ch == '*') {
+		    keys[pos - 10] = (state[i] & bit) ? ch : ' ';
+		}
+		if (!(state[i] & bit)) {
+		    keys[pos] = tolower(keys[pos]);
+		}
+	    }
+	}
     }
+    lcd_move(0, 0);
+    for (int i = 0; i < 10; ++i) {
+    	lcd_char(keys[i]);
+    }
+    lcd_move(1, 0);
+    for (int i = 10; i < 20; ++i) {
+    	lcd_char(keys[i]);
+    }
+    lcd_move(2, 2);
+    for (int i = 20; i < 25; ++i) {
+        lcd_char(keys[i]);
+    }
+    if (!pressed) {
+	    memset(keys, ' ', 25);
+	    for (int i = 0; i < 6; ++i) {
+		for (int j = 0; j < 7; ++j) {
+		    uint8_t bit = 1 << j;
+		    uint8_t idx = (i * 7) + (6 - j);
+		    if (prev_chord[i] & bit) {
+			uint8_t pos = displaypos[idx] - 'A';
+			uint8_t ch = display[idx];
+			keys[pos] = ch;
+		    }
+		}
+	    }
+	    char *k = keys;
+	    for (int i = 0; i < 25; ++i) {
+	        if (keys[i] != ' ') {
+		    *k++ = keys[i];
+		}
+	    }
+	    // help my children are starving
+	    // push fewer keys at once
+	    // no
+	    if ((k - keys) > 20) {
+	        keys[17] = '.';
+	        keys[18] = '.';
+	        keys[19] = '.';
+	    } else {
+		    for (int i = (k - keys) + 1; i < 20; ++i) {
+			keys[i] = ' ';
+		    }
+	    }
+	    lcd_move(3, 0);
+	    for (int i = 0; i < 20; ++i) {
+	        lcd_char(keys[i]);
+	    }
+    }
+    lcd_move(0, 17);
+    snprintf(keys, 5, "%3d", counter++);
+    for (int i = 0; i < 3; ++i) {
+        lcd_char(keys[i]);
+    }
+    memcpy(prev_chord, chord, 6);
 }
 
 void matrix_init_kb(void) {

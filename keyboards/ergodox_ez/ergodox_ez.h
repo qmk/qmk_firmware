@@ -45,8 +45,6 @@ uint8_t init_mcp23018(void);
 uint8_t init_lcd(void);
 void update_lcd(void);
 uint8_t ergodox_left_leds_update(void);
-// hacky: we look into the steno code for this
-extern uint8_t state[6];
 
 #define LED_BRIGHTNESS_LO       5
 #define LED_BRIGHTNESS_HI       255
