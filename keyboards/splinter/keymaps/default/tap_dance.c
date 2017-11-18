@@ -34,21 +34,21 @@ void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data) {
     SEND_STRING("n");
     break;
   case SINGLE_HOLD:
-    register_code(KC_LSFT);
+    register_code(KC_RSFT);
     break;
   case DOUBLE_TAP:
     SEND_STRING(SS_LCTRL(SS_LSFT("u")));
     SEND_STRING("f1 ");
     break;
   case DOUBLE_HOLD:
-    register_code(KC_LSFT);
+    register_code(KC_RSFT);
     break;
   case TRIPLE_TAP:
     SEND_STRING(SS_LCTRL(SS_LSFT("u")));
     SEND_STRING("d1 ");
     break;
   case TRIPLE_HOLD:
-    register_code(KC_LSFT);
+    register_code(KC_RSFT);
     break;
   }
 }
@@ -58,7 +58,7 @@ void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data) {
   case SINGLE_HOLD:
   case DOUBLE_HOLD:
   case TRIPLE_HOLD:
-    unregister_code(KC_LSFT);
+    unregister_code(KC_RSFT);
     break;
   }
 
