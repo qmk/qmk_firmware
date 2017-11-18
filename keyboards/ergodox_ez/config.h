@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 14
+#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 6
 
 #define MOUSEKEY_INTERVAL       20
@@ -80,7 +81,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBW 1
 
-/* Set 0 if debouncing isn't needed */
+/* "debounce" is measured in keyboard scans. Some users reported
+ * needing values as high as 15, which was at the time around 50ms.
+ * If you don't define it here, the matrix code will default to
+ * 5, which is now closer to 10ms, but still plenty according to
+ * manufacturer specs.
+ *
+ * Default is quite high, because of reports with some production
+ * runs seeming to need it. This may change when configuration for
+ * this is more directly exposed.
+ */
 #define DEBOUNCE    15
 
 #define PREVENT_STUCK_MODIFIERS
