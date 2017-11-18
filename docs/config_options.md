@@ -123,6 +123,9 @@ If you define these options you will enable the associated feature, which may in
   * how many taps before oneshot toggle is triggered
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+* `#define QMK_KEYS_PER_SCAN`
+  * Allows sending more than one key per scan. (By default, only one key event gets
+    sent via `process_record()` per scan.)
 
 ### RGB Light Configuration
 
