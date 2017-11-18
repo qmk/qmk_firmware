@@ -5,7 +5,6 @@ SRC=  babblePaste.c
 
 ifdef ASTAR
   CFLAGS=-D ASTAR
- OPT_DEFS += -DBOOTLOADER_SIZE=4096
  MCU = atmega32u4
  OPT_DEFS += -DCATERINA_BOOTLOADER
  SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
@@ -13,7 +12,6 @@ ifdef ASTAR
 
 else
  MCU = at90usb1286
- OPT_DEFS += -DBOOTLOADER_SIZE=2048
  SCULPT_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 endif
 

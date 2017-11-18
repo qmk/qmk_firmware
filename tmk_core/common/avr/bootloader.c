@@ -57,11 +57,22 @@
  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
-#ifdef BOOTLOADER_SIZE
-#pragma message "\n* BOOTLOADER_SIZE is no longer used \n  the bootloader location is determined automatically"
+
+// Larger chips need their addresses cut in half
+#if FLASHEND > 0x8000
+    #define FLASH_SIZE ((FLASHEND + 1L) >> 1)
+#else
+    #define FLASH_SIZE (FLASHEND + 1L)
 #endif
 
-#define FLASH_SIZE          (FLASHEND + 1L)
+#if !defined(BOOTLOADER_SIZE)
+    uint16_t bootloader_start;
+#endif
+
+#define BOOT_SIZE_256  0b110
+#define BOOT_SIZE_512  0b100
+#define BOOT_SIZE_1024 0b010
+#define BOOT_SIZE_2048 0b000
 
 /*
  * Entering the Bootloader via Software
@@ -69,34 +80,26 @@
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key  __attribute__ ((section (".noinit")));
-uint16_t bootloader_start;
 
 /* initialize MCU status by watchdog reset */
 void bootloader_jump(void) {
-    uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
-    // there's probably a better way to determine chip presets
-    #ifdef __AVR_AT90USB1286__
-        if (high_fuse & (~FUSE_BOOTSZ0 | ~FUSE_BOOTSZ0)) { // 11
-            bootloader_start = FLASH_SIZE - 512;
-        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 01
-            bootloader_start = FLASH_SIZE - 2048;
-        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 10
-            bootloader_start = FLASH_SIZE - 1024;
-        } else {                                           // 00
-            bootloader_start = FLASH_SIZE - 4096;
-        }
-    #else // all other chips
-        if (high_fuse & (~FUSE_BOOTSZ0 | ~FUSE_BOOTSZ0)) { // 11
+    #if !defined(BOOTLOADER_SIZE)
+        uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS) & 0b110;
+
+        if (high_fuse == BOOT_SIZE_256) { 
             bootloader_start = FLASH_SIZE - 256;
-        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 01
-            bootloader_start = FLASH_SIZE - 1024;
-        } else if (high_fuse & ~FUSE_BOOTSZ0) {            // 10
+        } else if (high_fuse == BOOT_SIZE_512) {
             bootloader_start = FLASH_SIZE - 512;
-        } else {                                           // 00
+        } else if (high_fuse == BOOT_SIZE_1024) {
+            bootloader_start = FLASH_SIZE - 1024;
+        } else {
             bootloader_start = FLASH_SIZE - 2048;
         }
     #endif
+
+    // Something like this might work, but it compiled larger than the block above
+    // bootloader_start = FLASH_SIZE - (256 << (~high_fuse & 0b110 >> 1));
 
     #ifndef CATERINA_BOOTLOADER
 
@@ -168,7 +171,11 @@ void bootloader_jump_after_watchdog_reset(void)
         // ((void (*)(void))(bootloader_start/2))();
         
         // This seems to work ok
-        asm("ijmp" :: "z" (bootloader_start));
+        #ifdef BOOTLOADER_SIZE
+            ((void (*)(void))((FLASH_SIZE - BOOTLOADER_SIZE)/2))();
+        #else
+            asm("ijmp" :: "z" (bootloader_start));
+        #endif
     }
 }
 
