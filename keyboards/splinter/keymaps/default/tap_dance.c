@@ -1,10 +1,18 @@
 #include "splinter.h"
 #include "tap_dance.h"
 
-static tap n_tilde_tap_state = {
-  .is_press_action = true,
-  .state = 0
-};
+tap ts[CT_SAFE_END] = {};
+
+void init_tap_dance(void) {
+  for (int i = CT_SAFE_START + 1; i < CT_SAFE_END; i++){
+    static tap t = {
+      .is_press_action = true,
+      .state = 0
+    };
+
+    ts[i] = t;
+  }
+}
 
 int cur_dance (qk_tap_dance_state_t *state) {
   switch (state->count) {
@@ -20,8 +28,8 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data) {
-  n_tilde_tap_state.state = cur_dance(state);
-  switch (n_tilde_tap_state.state) {
+  ts[CT_N_TILDE].state = cur_dance(state);
+  switch (ts[CT_N_TILDE].state) {
   case SINGLE_TAP:
     SEND_STRING("n");
     break;
@@ -46,11 +54,14 @@ void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (n_tilde_tap_state.state) {
+  switch (ts[CT_N_TILDE].state) {
   case SINGLE_HOLD:
   case DOUBLE_HOLD:
   case TRIPLE_HOLD:
     unregister_code(KC_LSFT);
     break;
   }
+
+  ts[CT_N_TILDE].state = 0;
+}
 }

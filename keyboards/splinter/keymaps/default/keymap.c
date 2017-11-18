@@ -80,3 +80,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void matrix_scan_user(void) {
   shifted_layer();
 }
+
+void matrix_init_user(void) {
+  init_tap_dance();
+}
