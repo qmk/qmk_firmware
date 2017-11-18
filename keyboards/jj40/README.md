@@ -41,13 +41,29 @@ $ make jj40
 $ bootloadHID -r jj40_default.hex
 ```
 
+## Flashing on Windows 10
+You can build the firmware using the standard build tools (MSYS2) as per the latest Build Tool Install instructions. 
+
+```
+$ make jj40:default
+```
+
+However, you will need to use bootloadHID.exe to flash the board. (you can find the command line executable pre-compiled in the package under the commandline folder. Get package [here](https://www.obdev.at/products/vusb/bootloadhid.html)
+
+To flash, run a command prompt as administrator and call the compiled firmware using bootloaderHID:
+
+```
+bootloaderHID jj40_default.hex
+```
+
 ## Troubleshooting
 
-1. Try plugging the board in while pressing `L_Ctrl`. This will force it
+1. Default keymap isn't the MIT layout. If you find yourself "missing" the `raise` key, edit `jj40.h` change the define at the bottom of the file from `#define KEYMAP KEYMAP_OFFSET`  to `#define KEYMAP KEYMAP_MIT`
+2. Try plugging the board in while pressing `L_Ctrl` or `BSPACE`. This will force it
    to boot only the bootloader without loading the firmware. Once this is
    done, just reflash the board with the original firmware.
-2. Sometimes USB hubs can act weird, so try connecting the board directly
+3. Sometimes USB hubs can act weird, so try connecting the board directly
    to your computer or plugging/unplugging the USB hub.
-3. If you get an error such as "Resource Unavailable" when attemting to flash
+4. If you get an error such as "Resource Unavailable" when attemting to flash
    on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md`
    for more info.
