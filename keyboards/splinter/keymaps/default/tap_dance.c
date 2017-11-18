@@ -31,20 +31,20 @@ void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data) {
   ts[CT_N_TILDE].state = cur_dance(state);
   switch (ts[CT_N_TILDE].state) {
   case SINGLE_TAP:
-    SEND_STRING("n");
+    SEND_STRING(SS_TAP(X_N));
     break;
   case SINGLE_HOLD:
     register_code(KC_RSFT);
     break;
   case DOUBLE_TAP:
-    SEND_STRING(SS_LCTRL(SS_LSFT("u")));
+    SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_U))));
     SEND_STRING("f1 ");
     break;
   case DOUBLE_HOLD:
     register_code(KC_RSFT);
     break;
   case TRIPLE_TAP:
-    SEND_STRING(SS_LCTRL(SS_LSFT("u")));
+    SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_U))));
     SEND_STRING("d1 ");
     break;
   case TRIPLE_HOLD:
