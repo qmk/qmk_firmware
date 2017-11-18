@@ -62,7 +62,7 @@ void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data) {
     break;
   }
 
-  ts[CT_N_TILDE].state = 0;
+  ts[CT_N_TILDE].state = NO_TAP;
 }
 
 void esc_grv_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -89,7 +89,7 @@ void esc_grv_reset(qk_tap_dance_state_t *state, void *user_data) {
     break;
   }
 
-  ts[CT_ESC_GRV].state = 0;
+  ts[CT_ESC_GRV].state = NO_TAP;
 }
 
 void lgui_alt_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -116,5 +116,5 @@ void lgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
     break;
   }
 
-  ts[CT_LGUI_ALT].state = 0;
+  ts[CT_LGUI_ALT].state = NO_TAP;
 }
