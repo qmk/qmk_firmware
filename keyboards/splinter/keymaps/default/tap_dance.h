@@ -1,7 +1,5 @@
 #include "splinter.h"
 
-#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
-
 enum {
   CT_SAFE_START = 0,
   CT_N_TILDE,
