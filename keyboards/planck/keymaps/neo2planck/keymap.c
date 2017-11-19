@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* 
 ,-----------------------------------------------------------------------------------.
-| Esc  |   X  |   V  |   L  |   C  |   W  |   K  |   H  |   G  |   F  |   Q  |  ẞ   |
+| Esc  |   X  |   V  |   L  |   C  |   W  |   K  |   H  |   G  |   F  |   Q  | Bksp |
 |------+------+------+------+------+-------------+------+------+------+------+------|
 | Ent  |   U  |   I  |   A  |   E  |   O  |   S  |   N  |   R  |   T  |   D  |  Y   |
 |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -34,15 +34,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [0] = {
-	{ KC_ESC,        DE_X,    DE_V,    DE_L,  DE_C,  DE_W,   DE_K,   DE_H,  DE_G,    DE_F,     DE_Q,     DE_SS        },
+	{ KC_ESC,        DE_X,    DE_V,    DE_L,  DE_C,  DE_W,   DE_K,   DE_H,  DE_G,    DE_F,     DE_Q,     KC_BSPC      },
 	{ KC_ENT,        DE_U,    DE_I,    DE_A,  DE_E,  DE_O,   DE_S,   DE_N,  DE_R,    DE_T,     DE_D,     DE_Y         },
 	{ KC_LSFT,       DE_UE,   DE_OE,   DE_AE, DE_P,  DE_Z,   DE_B,   DE_M,  DE_COMM, DE_DOT,   DE_J,     KC_LSFT      },
-	{ KC_LCTL ,      KC_RGUI, KC_LALT, MO(2), MO(1), KC_SPC, KC_SPC, MO(1), MO(2),   KC_RALT,  KC_MS_R,  KC_RCTL      }
+	{ KC_LCTL ,      KC_RGUI, KC_LALT, MO(2), MO(1), KC_SPC, KC_SPC, MO(1), MO(2),   KC_RALT,  KC_BTN2,  KC_RCTL      }
 },
 
 /* M1 
  ,-----------------------------------------------------------------------------------.
- |  Esc |   …  |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ſ   |
+ |  Esc |      |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ß   |
  |------+------+------+------+------+-------------+------+------+------+------+------|
  |  Tab |   \  |   /  |   {  |   }  |   *  |   ?  |   (  |   )  |   -  |   :  |  @   | 
  |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -52,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  `-----------------------------------------------------------------------------------'
 */
 [1] = {
-	{ DE_RING, DE_AT,   DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC, DE_EXLM, DE_LESS, DE_MORE, DE_EQL,  DE_AMPR, DE_ACUT },
-	{ _______, DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, DE_QST,  DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, _______ },
-	{ _______, DE_HASH, DE_TILD, DE_PIPE, DE_DLR,  DE_EURO, DE_PLUS, DE_PERC, DE_DQOT, DE_QUOT, DE_SCLN, _______ },
-	{ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
+	{ _______, _______, DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC, DE_EXLM, DE_LESS, DE_MORE, DE_EQL,  DE_AMPR, DE_SS   },
+	{ KC_TAB,  DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, DE_QST,  DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, DE_AT   },
+	{ _______, DE_HASH, DE_DLR,  DE_PIPE, DE_TILD, DE_ACUT, DE_PLUS, DE_PERC, DE_DQOT, DE_QUOT, DE_SCLN, _______ },
+	{ _______, _______, _______, MO(3),   _______, _______, _______, _______, MO(3),   _______, _______, _______ }
 },
 
 /* M2 Navigation & Number Blocks
@@ -67,38 +67,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * | Shift|      |  Tab |      | Enter|      |   0  |   1  |   2  |   3  |   ,  |Shift |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Ctrl | GUI  | Alt  |  M3  |  M2  |    Space    |  M2  |  M3  | Alt  | Esc  | Ctrl |
+* | Ctrl | GUI  | Alt  |  M2  |  M1  |    Space    |  M1  |  M2  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 */
 [2] = {
 	{ XXXXXXX, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, XXXXXXX, DE_7,    DE_8,  DE_9,    XXXXXXX, KC_INS  },
 	{ KC_TAB,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  XXXXXXX, DE_4,    DE_5,  DE_6,    DE_DOT,  KC_ENT  },
 	{ _______, XXXXXXX, KC_TAB,  XXXXXXX, KC_ENT,  XXXXXXX, DE_0,    DE_1,    DE_2,  DE_3,    DE_COMM, _______ },
-	{ _______, _______, _______, MO(3),   _______, _______, _______, _______, MO(3), _______, _______, _______ }
+	{ _______, _______, _______, _______, MO(3), _______, _______, MO(3), _______,  _______, _______, _______ }
 },
 
-/* M3 Switched Navigation & Number Blocks for one handed use
-*  accessed by sliding from M2 to M3 with thumb
-* ,-----------------------------------------------------------------------------------.
-* |  Ins |      |  7   |  8   |  9   |      | PgUp | Bksp |  Up  |  DEL | PgDn |      |
-* |------+------+------+------+------+-------------+------+------+------+------+------|
-* |  Tab |      |  4   |  5   |  6   |   .  | Home | Left | Down | Right| End  | Enter|
-* |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|  0   |  1   |  2   |  3   |   ,  |      | Tab  |      | Enter|      |Shift |
-* |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Ctrl | GUI  | Alt  |  M3  |      |    Space    |      |  M3  | Alt  | Esc  | Ctrl |
-* `-----------------------------------------------------------------------------------'
-*/
-
-[3] = {
-	{ KC_INS,  XXXXXXX, DE_7,    DE_8,    DE_9,    XXXXXXX, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, XXXXXXX },
-	{ _______, XXXXXXX, DE_4,    DE_5,    DE_6,    DE_DOT,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______ },
-	{ _______, DE_0,    DE_1,    DE_2,    DE_3,    DE_COMM, XXXXXXX, KC_TAB,  XXXXXXX, KC_ENT,  XXXXXXX, _______ },
-	{ _______, _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, _______, _______ }
-},
-
-
-/* M4 Function & Media Keys
+/* M3 Function & Media Keys
 * ,-----------------------------------------------------------------------------------.
 * |      |      | Print|Scroll|Pause |      |      |  F7  |  F8  |  F9  |  F12 |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -106,37 +85,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------+------|------+------+------+------+------+------|
 * | Shift|      | Prev | Play | Next |      |   ²  |  F1  |  F2  |  F3  |  F10 |Shift |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Ctrl | GUI  | Alt  |  M4  |  M5  |    Space    |  M5  |  M4  | Alt  | Esc  | Ctrl |
+* | Ctrl | GUI  | Alt  |  M2  |  M1  |    Space    |  M1  |  M2  | Alt  | Esc  | Ctrl |
 * `-----------------------------------------------------------------------------------'
 */
-[4] = {
-	{ XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX, KC_F7, KC_F8,   KC_F9,   KC_F12,  XXXXXXX },
-	{ KC_TAB,  XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, DE_SQ3,  KC_F4, KC_F5,   KC_F6,   KC_F11,  KC_ENT  },
-	{ _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, DE_SQ2,  KC_F1, KC_F2,   KC_F3,   KC_F10,  _______ },
-	{ _______, _______, _______, _______, MO(5),   _______, _______, MO(5), _______, _______, _______, _______ }
+[3] = {
+	{ XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX, KC_F7, KC_F8,    KC_F9,   KC_F12,  XXXXXXX },
+	{ KC_TAB,  XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, DE_SQ3,  KC_F4, KC_F5,    KC_F6,   KC_F11,  KC_ENT  },
+	{ _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, DE_SQ2,  KC_F1, KC_F2,    KC_F3,   KC_F10,  _______ },
+	{ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
 },
-
-
-/* M5 Switched Function & Media Keys|
-*  accessed by sliding from M4 to M5 with thumb
-* ,-----------------------------------------------------------------------------------.
-* |      |      |  F7  |  F8  |  F9  |  F12 |      | Print|Scroll| Pause|      |      |
-* |------+------+------+------+------+-------------+------+------+------+------+------|
-* | Tab  |  ³   |  F4  |  F5  |  F6  |  F11 |      | Mute | Vol- | Vol+ |      | Enter|
-* |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|  ²   |  F1  |  F2  |  F3  |  F10 |      | Prev | Play | Next |      |Shift |
-* |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Ctrl | GUI  | Alt  |      |  M5  |    Space    |  M5  |      | Alt  | Esc  | Ctrl |
-* `-----------------------------------------------------------------------------------'
-*/
-[5] = {
-	{ XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12,  XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX },
-	{ _______, DE_SQ3,  KC_F4,   KC_F5,   KC_F6,   KC_F11,  XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, _______ },
-	{ _______, DE_SQ2,  KC_F1,   KC_F2,   KC_F3,   KC_F10,  XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, _______ },
-	{ _______, _______, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, _______, _______, _______ }
-}
 };
-
 
 const uint16_t PROGMEM fn_actions[] = {
 
