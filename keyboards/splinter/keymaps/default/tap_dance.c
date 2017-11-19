@@ -118,3 +118,30 @@ void lgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
 
   ts[CT_LGUI_ALT].state = NO_TAP;
 }
+
+void rgui_alt_finished(qk_tap_dance_state_t *state, void *user_data) {
+  ts[CT_RGUI_ALT].state = cur_dance(state);
+  switch (ts[CT_RGUI_ALT].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    register_code(KC_RGUI);
+    break;
+  default:
+    register_code(KC_RALT);
+    break;
+  }
+}
+
+void rgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (ts[CT_RGUI_ALT].state) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    unregister_code(KC_RGUI);
+    break;
+  default:
+    unregister_code(KC_RALT);
+    break;
+  }
+
+  ts[CT_RGUI_ALT].state = NO_TAP;
+}

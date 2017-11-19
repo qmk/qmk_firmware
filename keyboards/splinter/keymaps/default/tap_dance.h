@@ -5,6 +5,7 @@ enum {
   CT_N_TILDE,
   CT_ESC_GRV,
   CT_LGUI_ALT,
+  CT_RGUI_ALT,
   CT_SAFE_END
 };
 
@@ -34,3 +35,6 @@ void esc_grv_reset(qk_tap_dance_state_t*, void*);
 
 void lgui_alt_finished(qk_tap_dance_state_t*, void*);
 void lgui_alt_reset(qk_tap_dance_state_t*, void*);
+
+void rgui_alt_finished(qk_tap_dance_state_t*, void*);
+void rgui_alt_reset(qk_tap_dance_state_t*, void*);
