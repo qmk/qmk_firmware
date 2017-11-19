@@ -157,10 +157,12 @@ void bootloader_jump(void) {
 
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
-        UDCON = 1;
-        USBCON = (1<<FRZCLK);  // disable USB
-        UCSR1B = 0;
-        _delay_ms(5); // this seems to work fine
+        #ifdef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+            UDCON = 1;
+            USBCON = (1<<FRZCLK);  // disable USB
+            UCSR1B = 0;
+            _delay_ms(5); // 5 seems to work fine
+        #endif
 
         #ifdef BOOTLOADER_BOOTLOADHID
             // force bootloadHID to stay in bootloader mode, so that it waits
