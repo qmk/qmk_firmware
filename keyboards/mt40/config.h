@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 18
 
 #define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
+#define BOOTLOADER_BOOTLOADHID 1
 
 #define TAPPING_TERM 200
 

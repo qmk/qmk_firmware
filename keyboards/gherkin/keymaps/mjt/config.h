@@ -52,7 +52,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
 #define MATRIX_COL_PINS { B4, E6, D7, F6, D4, D0 }
 
-#define CATERINA_BOOTLOADER
+#define BOOTLOADER_CATERINA
 
 #define UNUSED_PINS
 

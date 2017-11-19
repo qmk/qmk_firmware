@@ -1,6 +1,6 @@
 
 OPT_DEFS += -DCHIMERA_ORTHO_PROMICRO
-OPT_DEFS += -DCATERINA_BOOTLOADER
+OPT_DEFS += -DBOOTLOADER_CATERINA
 CHIMERA_ORTHO_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 

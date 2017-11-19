@@ -143,7 +143,7 @@ void reset_keyboard(void) {
 #else
   wait_ms(250);
 #endif
-#ifdef CATERINA_BOOTLOADER
+#ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
 #endif
   bootloader_jump();

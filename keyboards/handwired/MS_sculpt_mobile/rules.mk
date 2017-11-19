@@ -6,7 +6,7 @@ SRC=  babblePaste.c
 ifdef ASTAR
   CFLAGS=-D ASTAR
  MCU = atmega32u4
- OPT_DEFS += -DCATERINA_BOOTLOADER
+ OPT_DEFS += -DBOOTLOADER_CATERINA
  SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
 		 avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 

@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
 
-#define CATERINA_BOOTLOADER
+#define BOOTLOADER_CATERINA
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

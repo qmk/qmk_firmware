@@ -32,7 +32,7 @@ Arduino boards and their clones use the [Caterina bootloader](https://github.com
 
 This block of code allows for Caterina compatibility in QMK:
 
-    #define CATERINA_BOOTLOADER
+    #define BOOTLOADER_CATERINA
 
 These bootloaders are usually 4096 bytes for the atmega32u4 chip. 
 

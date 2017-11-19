@@ -5,7 +5,7 @@ ifdef TEENSY2
     ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 else
     OPT_DEFS += -DATREUS_ASTAR
-    OPT_DEFS += -DCATERINA_BOOTLOADER
+    OPT_DEFS += -DBOOTLOADER_CATERINA
     ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                             avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 endif

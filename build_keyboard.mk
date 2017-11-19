@@ -230,6 +230,7 @@ VPATH += $(USER_PATH)
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
+include bootloader.mk
 
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)

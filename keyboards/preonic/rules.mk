@@ -37,17 +37,9 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 
 # Bootloader
-#     This definition is option, and if you keyboard supports multiple bootloaders of
-#     different sizes, leave this blank, and your the correct address will be loaded 
-#     automatically. 
-#
-# 	  Options are:
-#     * atmel-dfu (default)
-#     * lufa-dfu
-#     * qmk-dfu (what's generated via the :bootloader target)
-#     * halfkay
-#     * caterina
-#     * bootloadHID
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, leave this blank, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = qmk-dfu
 
 # Interrupt driven control endpoint task(+60)
@@ -63,7 +55,7 @@ EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes         # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 MIDI_ENABLE = yes            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
