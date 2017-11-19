@@ -9,6 +9,9 @@
     #include "rev2.h"
 #endif
 
+uint8_t row_pressed;
+uint8_t col_pressed;
+
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \
     L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \

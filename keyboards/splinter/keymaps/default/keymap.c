@@ -72,6 +72,17 @@ void shifted_layer(void) {
   }
 }
 
+void set_pressed_matrix(void) {
+  for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+      if (matrix_is_on(r, c)) {
+        row_pressed = r;
+        col_pressed = c;
+        break;
+      }
+    }
+  }
+}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
@@ -81,6 +92,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 void matrix_scan_user(void) {
   shifted_layer();
+  set_pressed_matrix();
 }
 
 void matrix_init_user(void) {
