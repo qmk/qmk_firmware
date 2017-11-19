@@ -157,7 +157,7 @@ void bootloader_jump(void) {
 
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
-        #ifdef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+        #ifndef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
             UDCON = 1;
             USBCON = (1<<FRZCLK);  // disable USB
             UCSR1B = 0;
