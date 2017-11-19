@@ -29,29 +29,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   Ü  |   Ö  |   Ä  |   P  |   Z  |   B  |   M  |   ,  |   .  |   J  |Shift |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Ctrl | GUI  | Alt  |  M2  |  M1  |    Space    |  M1  |  M2  | Alt  |  M1  | Ctrl |
+| Ctrl | GUI  | Alt  |  M2  |  M1  |    Space    |  M1  |  M2  | Alt  |MRight| Ctrl |
 `-----------------------------------------------------------------------------------'
 */
 
 [0] = {
-	{ DE_SS,        DE_J,    DE_D,    DE_U,  DE_A,  DE_X,   DE_P,   DE_H,  DE_L,    DE_M,    DE_W,    DE_Q         },
-	//{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
-	{ MO(1),        DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
-	{ KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT,  DE_K,    KC_LSFT      },
-	{ KC_LCTL,      KC_RGUI, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_RALT, KC_ESC,  KC_RCTL      }
+	{ KC_ESC,        DE_X,    DE_V,    DE_L,  DE_C,  DE_W,   DE_K,   DE_H,  DE_G,    DE_F,     DE_Q,     DE_SS        },
+	{ KC_ENT,        DE_U,    DE_I,    DE_A,  DE_E,  DE_O,   DE_S,   DE_N,  DE_R,    DE_T,     DE_D,     DE_Y         },
+	{ KC_LSFT,       DE_UE,   DE_OE,   DE_AE, DE_P,  DE_Z,   DE_B,   DE_M,  DE_COMM, DE_DOT,   DE_J,     KC_LSFT      },
+	{ KC_LCTL ,      KC_RGUI, KC_LALT, MO(2), MO(1), KC_SPC, KC_SPC, MO(1), MO(2),   KC_RALT,  KC_MS_R,  KC_RCTL      }
 },
 
-/* M1 Special Characters
-*  very ergonomic placement for coding
-* ,-----------------------------------------------------------------------------------.
-* | °    |   @  |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ´   |
-* |------+------+------+------+------+-------------+------+------+------+------+------|
-* |  M1  |   \  |   /  |   {  |   }  |   *  |   ?  |   (  |   )  |   -  |   :  |M1/Ent|  //hold for M1, tap for Enter
-* |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|   #  |   ~  |   |  |   $  |   €  |   +  |   %  |   "  |   '  |   ;  |Shift |
-* |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Ctrl | GUI  | Alt  |  M4  |  M2  |    Space    |  M2  |  M4  | Alt  | Esc  | Ctrl |
-* `-----------------------------------------------------------------------------------'
+/* M1 
+ ,-----------------------------------------------------------------------------------.
+ |  Esc |   …  |   _  |   [  |   ]  |   ^  |   !  |   <  |   >  |   =  |   &  |  ſ   |
+ |------+------+------+------+------+-------------+------+------+------+------+------|
+ |  Tab |   \  |   /  |   {  |   }  |   *  |   ?  |   (  |   )  |   -  |   :  |  @   | 
+ |------+------+------+------+------+------|------+------+------+------+------+------|
+ | Shift|   #  |   $  |   |  |   ~  |   `  |   +  |   %  |   "  |   '  |   ;  |Shift |
+ |------+------+------+------+------+------+------+------+------+------+------+------|
+ | Ctrl | GUI  | Alt  |  M2  |  M1  |    Space    |  M1  |  M2  | Alt  | Esc  | Ctrl |
+ `-----------------------------------------------------------------------------------'
 */
 [1] = {
 	{ DE_RING, DE_AT,   DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC, DE_EXLM, DE_LESS, DE_MORE, DE_EQL,  DE_AMPR, DE_ACUT },
