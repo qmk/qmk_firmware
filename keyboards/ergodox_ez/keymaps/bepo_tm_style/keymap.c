@@ -13,7 +13,7 @@
 #define BASE 0
 #define FN 1
 #define MOUSE 2
-#define ARROWS 3
+#define NUMS 3
 #define SWAP 4
 #define SYSLEDS 5
 
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ESC_FN,   BP_ECRC, KC_LGUI, KC_LALT, KC_SPC,
                                                           TT(SWAP), KC_MNXT,
                                                                     KC_MPLY,
-                                               TT(ARROWS),  TT(FN), KC_MPRV,
+                                                  TT(FN), TT(NUMS), KC_MPRV,
     /* right hand */
         KC_DEL,  BP_AT,   BP_PLUS, BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
         KC_BSPC, BP_DCRC, BP_V,    BP_D,    BP_L,        BP_J,    BP_Z,
@@ -57,20 +57,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FN] = KEYMAP(  
     /* left hand */
-    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5, KC_INS,
-    ___,     ___,   ___,    ___,     ___,      ___,   KC_SLCK,
+    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5, ___,
+    ___,     ___,   ___,    ___,     ___,      ___,   ___,
     ___,     ___,   ___,    ___,     ___,      ___,
-    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, ___,   KC_NLCK,
+    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, ___,   ___,
     ___,     ___,   ___,    ___,     ___,
-                                                      KC_HOME, KC_VOLU,
-                                                               KC_VOLD,
-                                                  ___,    ___, KC_MUTE,
+                                                 KC_HOME, KC_VOLU,
+                                                          KC_VOLD,
+                                             ___,    ___, KC_MUTE,
     /* right hand */
-        KC_PSCR, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        KC_PAUS, KC_PEQL, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, KC_F12,
-                 KC_PCMM, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, ___,
-        KC_PENT, KC_P0,   KC_P1,   KC_P2,   KC_P3,   KC_PAST, ___,
-                          KC_MUTE, KC_VOLD, ___,     KC_PSLS, ___,
+        ___, KC_F6, KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,
+        ___, ___,   KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12,
+             ___,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, ___,
+        ___, ___,   ___,     ___,     ___,      ___,     ___,
+                    ___,     ___,     ___,      ___,     ___,
     KC_HOME, KC_END,
     KC_PGUP,
     KC_PGDN, ___,    ___),
@@ -95,26 +95,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___,
     ___, ___, ___),
 
-  [ARROWS] = KEYMAP(  
+  [NUMS] = KEYMAP(  
     /* left hand */
-    ___, ___, ___,    ___,     ___,      ___, ___,
-    ___, ___, ___,    ___,     ___,      ___, ___,
-    ___, ___, ___,    ___,     ___,      ___,
-    ___, ___, MK_CUT, MK_COPY, MK_PASTE, ___, ___,
-    ___, ___, ___,    ___,     ___,
-                                  ___, ___,
-                                       ___,
-                             ___, ___, ___,
+    KC_PSCR, KC_INS, KC_PAUS,    ___,     ___,      ___, ___,
+    ___,     ___,    ___,        ___,     ___,      ___, ___,
+    ___,     ___,    ___,        ___,     ___,      ___,
+    ___,     ___,    MK_CUT,     MK_COPY, MK_PASTE, ___, ___,
+    ___,     ___,    ___,        ___,     ___,
+                                              ___, ___,
+                                                   ___,
+                                         ___, ___, ___,
     /* right hand */
-         ___, ___, ___,     ___,     ___,     ___, ___,
-         ___, ___, KC_HOME,     KC_UP, KC_END,     KC_PGUP, ___,
-              ___, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, ___,
-         ___, ___, ___,     ___,     ___,     ___, ___,
-                   ___,     ___,     ___,     ___, ___,
+         ___,     ___,     ___,   ___,   ___,     ___,     KC_NLCK,
+         ___,     KC_PEQL, KC_P7, KC_P8, KC_P9,   KC_PMNS, KC_SLCK,
+                  KC_PCMM, KC_P4, KC_P5, KC_P6,   KC_PPLS, ___,
+         KC_PENT, KC_P0,   KC_P1, KC_P2, KC_P3,   KC_PAST, ___,
+                           ___,   ___,   ___,     KC_PSLS, ___,
     ___, ___,
     ___,
     ___, ___, ___),
- 
+
   [SWAP] = KEYMAP(  
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
@@ -241,7 +241,6 @@ void led_set_user(uint8_t usb_led) {
   }
 }
 
-// Runs whenever there is a layer state change.   IS_LAYER_ON(layer)
 uint32_t layer_state_set_user(uint32_t state) {
   cur_layer_state = state;
   swap_hands = LAYER_ON(SWAP);
@@ -257,7 +256,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     led_1_off();
   }
 
-  if (LAYER_ON(ARROWS)) {
+  if (LAYER_ON(NUMS)) {
     led_2_on();
   } else {
     led_2_off();
