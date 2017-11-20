@@ -217,7 +217,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
 cphex: hex
-	printf "Copying $(TARGET).hex to qmk_firmware folder" | $(AWK_CMD)
+	$(SILENT) || printf "Copying $(TARGET).hex to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).hex $(TARGET).hex && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
 lss: $(BUILD_DIR)/$(TARGET).lss
@@ -374,8 +374,8 @@ check-size:
 	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c | grep -oP "(?<=AVR_SIZE: ).+"`; echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [[ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]]; then $(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_TOO_BIG)" ; else $(PRINT_OK); printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
+		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then $(PRINT_WARNING_PLAIN); $(SILENT) || printf " * $(MSG_FILE_TOO_BIG)" ; else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
 	fi
 
 # Create build directory
