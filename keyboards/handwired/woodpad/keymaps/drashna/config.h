@@ -24,6 +24,7 @@
 #endif // TAP_DANCE_ENABLE
 
 
+#define B5_AUDIO
 
 
 #ifdef RGBLIGHT_ENABLE
@@ -38,6 +39,6 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-
+#define FORCE_NKRO
 
 #endif

@@ -1,7 +1,83 @@
+/*
+Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "drashna.h"
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
+
+#ifdef TAP_DANCE_ENABLE
+//define diablo macro timer variables
+static uint16_t diablo_timer[4];
+static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
+static uint8_t diablo_key_time[4];
+
+
+bool check_dtimer(uint8_t dtimer) {
+  // has the correct number of seconds elapsed (as defined by diablo_times)
+  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
+};
+
+
+
+
+// Cycle through the times for the macro, starting at 0, for disabled.
+// Max of six values, so don't exceed
+void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
+  if (state->count >= 7) {
+    diablo_key_time[diablo_key] = diablo_times[0];
+    reset_tap_dance(state);
+  }
+  else {
+    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
+  }
+}
+
+
+// Would rather have one function for all of this, but no idea how to do that...
+void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 0);
+}
+
+void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 1);
+}
+
+void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 2);
+}
+
+void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
+  diablo_tapdance_master(state, user_data, 3);
+}
+
+
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // tap once to disable, and more to enable timed micros
+  [TD_D3_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
+  [TD_D3_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
+  [TD_D3_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
+  [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
+
+};
+#endif
+
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -17,12 +93,22 @@ __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
+
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
 bool is_overwatch = false;
+#ifdef RGBLIGHT_ENABLE
+bool rgb_layer_change = true;
+#endif
+
+
+
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
@@ -54,12 +140,55 @@ void matrix_init_user(void) {
 #endif
   matrix_init_keymap();
 }
+#ifdef TAP_DANCE_ENABLE
 
+// Sends the key press to system, but only if on the Diablo layer
+void send_diablo_keystroke(uint8_t diablo_key) {
+  if (biton32(layer_state) == _DIABLO) {
+    switch (diablo_key) {
+    case 0:
+      SEND_STRING("1");
+      break;
+    case 1:
+      SEND_STRING("2");
+      break;
+    case 2:
+      SEND_STRING("3");
+      break;
+    case 3:
+      SEND_STRING("4");
+      break;
+    }
+  }
+}
+
+// Checks each of the 4 timers/keys to see if enough time has elapsed
+// Runs the "send string" command if enough time has passed, and resets the timer.
+void run_diablo_macro_check(void) {
+  uint8_t dtime;
+
+  for (dtime = 0; dtime < 4; dtime++) {
+    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
+      diablo_timer[dtime] = timer_read();
+      send_diablo_keystroke(dtime);
+    }
+  }
+
+}
+#endif
 // No global matrix scan code, so just run keymap's matix
 // scan function
 void matrix_scan_user(void) {
+#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+  run_diablo_macro_check();
+#endif
   matrix_scan_keymap();
 }
+
+void led_set_user(uint8_t usb_led) {
+  led_set_keymap(usb_led);
+}
+
 
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
@@ -201,7 +330,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING("Good game, everyone!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
-  }
+    }
     return false;
     break;
   case KC_GLHF:
@@ -254,8 +383,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       _delay_ms(50);
       SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
-      _delay_ms(50);
+      _delay_ms(3000);
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+  case KC_C9:
+    if (!record->event.pressed) {
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      _delay_ms(50);
+      SEND_STRING("OMG!!!  C9!!!");
+      register_code(KC_ENTER);
+      unregister_code(KC_ENTER);
+    }
+    return false;
+    break;
+  case KC_GGEZ:
+    if (!record->event.pressed) {
+      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+      _delay_ms(50);
+      SEND_STRING("That was a fantastic game, though it was a bit easy. Try harder next time!");
+      register_code(KC_ENTER);
+      unregister_code(KC_ENTER);
+    }
+    return false;
+    break;
+#endif
+#ifdef TAP_DANCE_ENABLE
+  case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
+    if (record->event.pressed) {
+      uint8_t dtime;
+
+      for (dtime = 0; dtime < 4; dtime++) {
+        diablo_key_time[dtime] = diablo_times[0];
+      }
     }
     return false;
     break;
@@ -310,6 +475,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
+    if (record->event.pressed) {
+      rgb_layer_change = !rgb_layer_change;
+    }
+    return false;
+    break;
+  case RGB_MOD:
+  case RGB_SMOD:
+  case RGB_HUI:
+  case RGB_HUD:
+  case RGB_SAI:
+  case RGB_SAD:
+  case RGB_VAI:
+  case RGB_VAD:
+  case RGB_MODE_PLAIN:
+  case RGB_MODE_BREATHE:
+  case RGB_MODE_RAINBOW:
+  case RGB_MODE_SWIRL:
+  case RGB_MODE_SNAKE:
+  case RGB_MODE_KNIGHT:
+  case RGB_MODE_XMAS:
+  case RGB_MODE_GRADIENT:
+    if (record->event.pressed) {
+      rgb_layer_change = false;
+    }
+    return true;
+    break;
   }
   return process_record_keymap(keycode, record);
 }
@@ -317,70 +509,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Runs state check and changes underglow color and animation
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
-uint32_t layer_state_set_user (uint32_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
-
-  switch (biton32(state)) {
-  case _NAV:
-    rgblight_set_blue;
-    rgblight_mode(1);
-    break;
-  case _SYMB:
-    rgblight_set_blue;
-    rgblight_mode(2);
-    break;
-  case _MOUS:
-    rgblight_set_yellow;
-    rgblight_mode(1);
-    break;
-  case _MACROS:
-    rgblight_set_orange;
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    break;
-  case _MEDIA:
-    rgblight_set_green;
-    rgblight_mode(22);
-    break;
-  case _OVERWATCH:
-    rgblight_set_orange;
-    rgblight_mode(17);
-    break;
-  case _DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case _RAISE:
-    rgblight_set_yellow;
-    rgblight_mode(5);
-    break;
-  case _LOWER:
-    rgblight_set_orange;
-    rgblight_mode(5);
-    break;
-  case _ADJUST:
-    rgblight_set_red;
-    rgblight_mode(23);
-    break;
-  case _COVECUBE:
-    rgblight_set_green;
-    rgblight_mode(2);
-  default:
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
+  if (rgb_layer_change) {
+    switch (biton32(state)) {
+    case _NAV:
+      rgblight_set_blue;
+      rgblight_mode(1);
+      break;
+    case _SYMB:
+      rgblight_set_blue;
+      rgblight_mode(2);
+      break;
+    case _MOUS:
+      rgblight_set_yellow;
+      rgblight_mode(1);
+      break;
+    case _MACROS:
+      rgblight_set_orange;
+      is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+      break;
+    case _MEDIA:
       rgblight_set_green;
+      rgblight_mode(22);
+      break;
+    case _OVERWATCH:
+      rgblight_set_orange;
+      rgblight_mode(17);
+      break;
+    case _DIABLO:
+      rgblight_set_red;
+      rgblight_mode(5);
+      break;
+    case _RAISE:
+      rgblight_set_yellow;
+      rgblight_mode(5);
+      break;
+    case _LOWER:
+      rgblight_set_orange;
+      rgblight_mode(5);
+      break;
+    case _ADJUST:
+      rgblight_set_red;
+      rgblight_mode(23);
+      break;
+    case _COVECUBE:
+      rgblight_set_green;
+      rgblight_mode(2);
+    default:
+      if (default_layer & (1UL << _COLEMAK)) {
+        rgblight_set_magenta;
+      }
+      else if (default_layer & (1UL << _DVORAK)) {
+        rgblight_set_green;
+      }
+      else if (default_layer & (1UL << _WORKMAN)) {
+        rgblight_set_purple;
+      }
+      else {
+        rgblight_set_teal;
+      }
+      rgblight_mode(1);
+      break;
     }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-    rgblight_mode(1);
-    break;
   }
 #endif
   return layer_state_set_keymap (state);
 }
+
+
