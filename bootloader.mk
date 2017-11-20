@@ -32,17 +32,17 @@
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 2048
+    BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 2048
+    BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 2048
+    BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
@@ -50,11 +50,11 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
-    BOOTLOADER_SIZE = 2048
+    BOOTLOADER_SIZE = 4096
 endif
 ifeq ($(strip $(BOOTLOADER)), bootloadHID)
     OPT_DEFS += -DBOOTLOADER_BOOTLOADHID
-    BOOTLOADER_SIZE = 2048
+    BOOTLOADER_SIZE = 4096
 endif
 
 ifdef BOOTLOADER_SIZE

@@ -267,10 +267,10 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-all: build sizeafter
+all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf hex
+build: elf cphex
 #build: elf hex eep lss sym
 #build: lib
 

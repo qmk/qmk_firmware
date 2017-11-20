@@ -6,7 +6,6 @@ SRC=  babblePaste.c
 ifdef ASTAR
   CFLAGS=-D ASTAR
  MCU = atmega32u4
- OPT_DEFS += -DBOOTLOADER_CATERINA
  SCULPT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done ; \
 		 avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
@@ -18,6 +17,17 @@ endif
 F_CPU = 16000000
 ARCH = AVR8
 F_USB = $(F_CPU)
+
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+ifdef ASTAR
+  BOOTLOADER = caterina
+else
+  BOOTLOADER = atmel-dfu
+endif
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 

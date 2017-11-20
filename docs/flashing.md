@@ -6,7 +6,13 @@ There are quite a few different types of bootloaders that keyboards use, and jus
 
 Atmel's DFU bootloader comes on all atmega32u4 chips by default, and is used by many keyboards that have their own ICs on their PCBs (Older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader (or QMK's fork) (Newer OLKB boards) that adds in additional features specific to that hardware.
 
-These bootloaders are usually 4096 bytes for the atmega32u4 chip. 
+To ensure compatability with the DFU bootloader, make sure this block is present your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
+
+    # Bootloader
+    #     This definition is optional, and if your keyboard supports multiple bootloaders of
+    #     different sizes, comment this out, and the correct address will be loaded 
+    #     automatically (+60). See bootloader.mk for all options.
+    BOOTLOADER = atmel-dfu
 
 Compatible flashers:
 
@@ -30,11 +36,13 @@ or:
 
 Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
 
-This block of code allows for Caterina compatibility in QMK:
+To ensure compatability with the Caterina bootloader, make sure this block is present your `rules.mk`:
 
-    #define BOOTLOADER_CATERINA
-
-These bootloaders are usually 4096 bytes for the atmega32u4 chip. 
+    # Bootloader
+    #     This definition is optional, and if your keyboard supports multiple bootloaders of
+    #     different sizes, comment this out, and the correct address will be loaded 
+    #     automatically (+60). See bootloader.mk for all options.
+    BOOTLOADER = caterina
 
 Compatible flashers:
 
@@ -57,7 +65,13 @@ or
 
 Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on all Teensys (namely the 2.0).
 
-This bootloader is 512 bytes.
+To ensure compatability with the Halfkay bootloader, make sure this block is present your `rules.mk`:
+
+    # Bootloader
+    #     This definition is optional, and if your keyboard supports multiple bootloaders of
+    #     different sizes, comment this out, and the correct address will be loaded 
+    #     automatically (+60). See bootloader.mk for all options.
+    BOOTLOADER = halfkay
 
 Compatible flashers:
 

@@ -58,12 +58,7 @@
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
 
-// Larger chips need their addresses cut in half
-#if FLASHEND > 0x8000
-    #define FLASH_SIZE ((FLASHEND + 1L) >> 1)
-#else
-    #define FLASH_SIZE (FLASHEND + 1L)
-#endif
+#define FLASH_SIZE (FLASHEND + 1L)
 
 #if !defined(BOOTLOADER_SIZE)
     uint16_t bootloader_start;
@@ -88,13 +83,13 @@ void bootloader_jump(void) {
         uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
         if (high_fuse & BOOT_SIZE_256) { 
-            bootloader_start = FLASH_SIZE - 256;
+            bootloader_start = (FLASH_SIZE - 512) >> 1;
         } else if (high_fuse & BOOT_SIZE_512) {
-            bootloader_start = FLASH_SIZE - 512;
+            bootloader_start = (FLASH_SIZE - 1024) >> 1;
         } else if (high_fuse & BOOT_SIZE_1024) {
-            bootloader_start = FLASH_SIZE - 1024;
+            bootloader_start = (FLASH_SIZE - 2048) >> 1;
         } else {
-            bootloader_start = FLASH_SIZE - 2048;
+            bootloader_start = (FLASH_SIZE - 4096) >> 1;
         }
     #endif
 
@@ -200,11 +195,8 @@ void bootloader_jump_after_watchdog_reset(void)
 
 
             // This is compled into 'icall', address should be in word unit, not byte.
-            // ((void (*)(void))(BOOTLOADER_START/2))();
-            
-            // This seems to work ok. Not sure why we'd need the /2 - LUFA doesn't use that
             #ifdef BOOTLOADER_SIZE
-                ((void (*)(void))( FLASH_SIZE - BOOTLOADER_SIZE ))();
+                ((void (*)(void))( (FLASH_SIZE - BOOTLOADER_SIZE) >> 1))();
             #else
                 asm("ijmp" :: "z" (bootloader_start));
             #endif
