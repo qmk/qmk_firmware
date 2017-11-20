@@ -4,7 +4,7 @@ This keymap is meant to be used with a [Bépo](http://bepo.fr) layout. It is
 designed to be somewhat similar to a TypeMatrix keyboard so that switching
 between one and the other is easy.
 
-![The Keymap](https://i.imgur.com/ZRAzU5a.png)
+![The Keymap](https://i.imgur.com/SrPf42q.png)
 
 ## Build instruction
 

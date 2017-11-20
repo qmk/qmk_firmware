@@ -1,15 +1,14 @@
+// An Ergodox EZ keymap meant to be used with a bépo layout (FR ergonomic
+// layout, dvorak style). The overall design is slightly inspired by the
+// TypeMatrix keyboard. Switching between a TypeMatrix and an Ergodox with this
+// layout should be relatively easy.
+//
+// See the README.md file for an image of this keymap.
+
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
-
-
 #include "keymap_bepo.h"
 
-#define VERSION M(0)
-
-
-// Define layer names 
+// The layers that we are defining for this keyboards.
 #define BASE 0
 #define FN 1
 #define MOUSE 2
@@ -17,24 +16,26 @@
 #define SWAP 4
 #define SYSLEDS 5
 
-// enum custom_keycodes {
-//   SWAP_HAND = SAFE_RANGE, // make this a layer so that it can have the TT mode?
-// };
-
+// A 'transparent' key code (that fallsback to the layers below it).
 #define ___ KC_TRANSPARENT
+
+// A 'blocking' key code. Does nothing but prevent falling back to another layer.
 #define XXX KC_NO
 
-#define ESC_FN    LT(FN, KC_ESC)
-#define M_RSFT    MT(MOD_RSFT, BP_M)
-#define W_RCTL    MT(MOD_RCTL, BP_W)
-#define PERC_FN   LT(FN, BP_PERC)
+// Some combined keys (one normal keycode when tapped and one modifier or layer
+// toggle when held).
+#define ESC_FN    LT(FN, KC_ESC)      // ESC key and FN layer toggle.
+#define M_RSFT    MT(MOD_RSFT, BP_M)  // 'M' key and right shift modifier.
+#define W_RCTL    MT(MOD_RCTL, BP_W)  // 'W' key and right control modifier.
+#define PERC_FN   LT(FN, BP_PERC)     // '%' key and FN layer toggle.
 
 // The most portable copy/paste keys (windows, linux, and some terminal emulators).
-#define MK_CUT    LSFT(KC_DEL)
-#define MK_COPY   LCTL(KC_INS)
-#define MK_PASTE  LSFT(KC_INS)
+#define MK_CUT    LSFT(KC_DEL)  // shift + delete
+#define MK_COPY   LCTL(KC_INS)  // ctrl + insert
+#define MK_PASTE  LSFT(KC_INS)  // shift + insert
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // Layer 0: basic keys.
   [BASE] = KEYMAP(  
     /* left hand */
     BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL,
@@ -55,6 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_UP,
     KC_DOWN, TT(FN), TT(MOUSE)),
 
+  // Layer 1: function and media keys.
   [FN] = KEYMAP(  
     /* left hand */
     KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5, ___,
@@ -75,26 +77,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGUP,
     KC_PGDN, ___,    ___),
 
+  // Layer 2: Mouse control.
   [MOUSE] = KEYMAP(  
     /* left hand */
-    ___, ___, ___,     KC_BTN3, ___,      ___,     ___,
-    ___, ___, KC_BTN1, KC_MS_U, KC_BTN2,  KC_BTN4, ___,
-    ___, ___, KC_MS_L, KC_MS_D, KC_MS_R,  KC_BTN5,
-    ___, ___, MK_CUT,  MK_COPY, MK_PASTE, ___,     ___,
-    ___, ___, ___,     ___,     ___,
+    ___, XXX, XXX,     KC_BTN3, XXX,      XXX,     ___,
+    ___, XXX, KC_BTN1, KC_MS_U, KC_BTN2,  KC_BTN4, ___,
+    ___, XXX, KC_MS_L, KC_MS_D, KC_MS_R,  KC_BTN5,
+    ___, XXX, MK_CUT,  MK_COPY, MK_PASTE, XXX,     ___,
+    ___, XXX, ___,     ___,     ___,
                                                   ___, ___,
                                                        ___,
                                              ___, ___, ___,
     /* right hand */
-         ___, ___, ___,     ___,     ___,     ___, ___,
-         ___, ___, ___,     KC_WH_U, ___,     ___, ___,
-              ___, KC_WH_L, KC_WH_D, KC_WH_R, ___, ___,
-         ___, ___, KC_ACL0, KC_ACL1, KC_ACL2, ___, ___,
-                   KC_BTN1, KC_BTN3, KC_BTN2, ___, ___,
+         ___, XXX, XXX,     XXX,     XXX,     XXX, ___,
+         ___, XXX, XXX,     KC_WH_U, XXX,     XXX, ___,
+              XXX, KC_WH_L, KC_WH_D, KC_WH_R, XXX, ___,
+         ___, XXX, KC_ACL0, KC_ACL1, KC_ACL2, XXX, ___,
+                   KC_BTN1, KC_BTN3, KC_BTN2, XXX, ___,
     ___, ___,
     ___,
     ___, ___, ___),
 
+  // Layer 3: Numeric keypad and system keys.
   [NUMS] = KEYMAP(  
     /* left hand */
     KC_PSCR, KC_INS, KC_PAUS,    ___,     ___,      ___, ___,
@@ -115,6 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___,
     ___, ___, ___),
 
+  // Layer 4: hand swap, all keys are mirrored to the other side of the keyboard
+  // except for the layer toggle itself (so there is no right arrow when this
+  // layer is activated).
   [SWAP] = KEYMAP(  
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
@@ -135,6 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___,
     ___, ___, ___),
  
+  // Layer 5: The LEDs are showing the "standard" caps/num/scroll lock indicator
+  // instead of their default which shows the currently active layers (FN, NUMS,
+  // and MOUSE in that order).
   [SYSLEDS] = KEYMAP(  
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
@@ -156,15 +166,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 };
 
-// Run for each key down or up event.
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    //case SWAP_HAND:
-    //  swap_hands = record->event.pressed;
-    //  return false;  // Skip all further processing of this key
-  }
-  return true; // Let QMK send the enter press/release events
-}
+// Runs for each key down or up event.
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   switch (keycode) {
+//     case SWAP_HAND:
+//       swap_hands = record->event.pressed;
+//       return false;  // Skip all further processing of this key
+//   }
+//   return true; // Let QMK send the enter press/release events
+// }
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -178,18 +188,24 @@ void matrix_scan_user(void) {
 
 };
 
-// The state of the LEDs, as requested by the system.
-uint8_t sys_led_state = 0;
-// Use these masks to read the led state.
-const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
-const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
+// The state of the LEDs requested by the system, as a bitmask.
+static uint8_t sys_led_state = 0;
 
-// 255 is far too bright
-const uint8_t max_led_value = 20;
+// Use these masks to read the system LEDs state.
+static const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
+static const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
+static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 
-uint32_t cur_layer_state = 0;
-#define LAYER_ON(layer) (cur_layer_state & (1<<layer))
+// Value to use to switch LEDs on. The default value of 255 is far too bright.
+static const uint8_t max_led_value = 20;
+
+// The current set of active layers (as a bitmask).
+// There is a global 'layer_state' variable but it is set after the call
+// to layer_state_set_user().
+static uint32_t current_layer_state = 0;
+
+// Whether the given layer (one of the constant defined at the top) is active.
+#define LAYER_ON(layer) (current_layer_state & (1<<layer))
 
 void led_1_on(void) {
   ergodox_right_led_1_on();
@@ -242,7 +258,7 @@ void led_set_user(uint8_t usb_led) {
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-  cur_layer_state = state;
+  current_layer_state = state;
   swap_hands = LAYER_ON(SWAP);
 
   if (LAYER_ON(SYSLEDS)) {
