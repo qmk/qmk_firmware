@@ -88,18 +88,18 @@ enum process_combo_events
 };
 
 const uint16_t PROGMEM rightctrl_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM rightshift_combo[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM righttalt_combo[] = {KC_L, KC_COMM, COMBO_END};
-const uint16_t PROGMEM right_ctrl_shift_combo[] = {KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM right_ctrl_alt_combo[] = {KC_J, KC_COMM, COMBO_END};
-const uint16_t PROGMEM right_shift_alt_combo[] = {KC_K, KC_COMM, COMBO_END};
+const uint16_t PROGMEM rightshift_combo[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM righttalt_combo[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM right_ctrl_shift_combo[] = {KC_O, KC_P, COMBO_END};
+const uint16_t PROGMEM right_ctrl_alt_combo[] = {KC_L, KC_COLN, COMBO_END};
+const uint16_t PROGMEM right_shift_alt_combo[] = {KC_DOT, KC_SLASH, COMBO_END};
 
 const uint16_t PROGMEM leftctrl_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM leftshift_combo[] = {KC_D, KC_S, COMBO_END};
-const uint16_t PROGMEM leftalt_combo[] = {KC_S, KC_A, COMBO_END};
-const uint16_t PROGMEM left_ctrl_shift_combo[] = {KC_F, KC_S, COMBO_END};
-const uint16_t PROGMEM left_ctrl_alt_combo[] = {KC_F, KC_A, COMBO_END};
-const uint16_t PROGMEM left_shift_alt_combo[] = {KC_S, KC_A, COMBO_END};
+const uint16_t PROGMEM leftshift_combo[] = {KC_R, KC_E, COMBO_END};
+const uint16_t PROGMEM leftalt_combo[] = {KC_V, KC_C, COMBO_END};
+const uint16_t PROGMEM left_ctrl_shift_combo[] = {KC_W, KC_Q, COMBO_END};
+const uint16_t PROGMEM left_ctrl_alt_combo[] = {KC_S, KC_A, COMBO_END};
+const uint16_t PROGMEM left_shift_alt_combo[] = {KC_X, KC_Z, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
         [RIGHT_CTRL] = COMBO_ACTION(rightctrl_combo),
