@@ -2,6 +2,8 @@
 
 There are quite a few different types of bootloaders that keyboards use, and just about all of the use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
+If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size it bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
+
 ## DFU
 
 Atmel's DFU bootloader comes on all atmega32u4 chips by default, and is used by many keyboards that have their own ICs on their PCBs (Older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader (or QMK's fork) (Newer OLKB boards) that adds in additional features specific to that hardware.
@@ -31,6 +33,21 @@ Flashing sequence:
 or:
 
     make <keyboard>:<keymap>:dfu
+
+### QMK DFU
+
+QMK has a fork of the LUFA DFU bootloader that allows for a simple matrix scan for exiting the bootloader and returning to the application, as well as flashing an LED/making a ticking noise with a speaker when things are happening. To enable these features, use this block in your `config.h` (The key that exits the bootloader needs to be hooked-up to the INPUT and OUTPUT defined here):
+
+    #define QMK_ESC_OUTPUT F1 // usually COL
+    #define QMK_ESC_INPUT D5 // usually ROW
+    #define QMK_LED E6
+    #define QMK_SPEAKER C6
+
+The Manufacturer and Product names are automatically pulled from your `config.h`, and "Bootloader" is added to the product.
+
+To generate this bootloader, use the `bootloader` target, eg `make planck/rev4:default:bootloader`.
+
+To generate a production-ready .hex file (containing the application and the bootloader), use the `production` target, eg `make planck/rev4:default:production`.
 
 ## Caterina
 
