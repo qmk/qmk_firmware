@@ -1105,8 +1105,6 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
-
-
 #endif // breathing
 
 #else // backlight
@@ -1168,6 +1166,7 @@ void send_nibble(uint8_t number) {
 __attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex)
 {
+  hex = hex & 0xF;
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {
