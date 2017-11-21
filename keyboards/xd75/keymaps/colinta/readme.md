@@ -26,3 +26,9 @@ The function layer is only to switch to Qwerty (so other people can use this key
 I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DYN_REC_STOP`, and restores the layer to the default when recording is stopped.
 
 I wish Dynamic Macros supported more, because I'd like to record a third macro in the MACRO slot instead of hardcoding it.  I'm using these to store some passwords.
+
+###### Note to self:
+
+```
+make xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
+```

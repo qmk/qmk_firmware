@@ -15,6 +15,12 @@
  */
 #include "xd75.h"
 
+#ifdef IS_COLINTA
+#include "colinta.h"
+#else
+#define SENDSTRING_MM2 ""
+#endif
+
 // layers:
 // - colemak,
 // - record-mode (adds stop buttons)
@@ -221,7 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case MM_2:
-      /** SECRET! **/
+      SEND_STRING(SENDSTRING_MM2);
       return false;
     case TH_M0 ... TH_LAST:
       taphold_tapped(keycode - TH_M0, record->event.pressed);
