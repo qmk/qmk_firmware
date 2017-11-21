@@ -47,6 +47,9 @@ endif
 ifeq ($(strip $(KEYBOARD)), planck/rev5)
     BOOTLOADER = qmk-dfu
 endif
+ifeq ($(strip $(KEYBOARD)), planck/light)
+    BOOTLOADER = qmk-dfu
+endif
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
