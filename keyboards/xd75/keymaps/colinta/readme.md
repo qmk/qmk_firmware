@@ -26,3 +26,39 @@ The function layer is only to switch to Qwerty (so other people can use this key
 I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DYN_REC_STOP`, and restores the layer to the default when recording is stopped.
 
 I wish Dynamic Macros supported more, because I'd like to record a third macro in the MACRO slot instead of hardcoding it.  I'm using these to store some passwords.
+
+## Regarding "secrets.h"
+
+The macros I'm using are sensitive, I'm comfortable having them hardcoded onto my keyboard (no SSN or private GPG keys), but not suitable for public viewing.  So I've put them in a header file that is excluded from the project, and I can include this file using a compiler flag.
+
+If you would *also* like to take advantage of this feature, you'll first want to make sure your "secrets" file isn't included in the repo.  Open `.git/info/exclude` and add `secrets.h` to that file, below the comments.
+
+###### .git/info/exclude
+```
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+/keyboards/xd75/keymaps/colinta/secrets.h
+```
+
+Then you can create this file and add your macro strings to it:
+
+```
+$EDITOR keyboards/xd75/keymaps/colinta/secrets.h
+```
+
+###### secrets.h
+```
+#define SENDSTRING_MM0 "abcd1234"
+#define SENDSTRING_MM1 "shhhhh secret"
+#define SENDSTRING_MM2 "stop saying pickle rick"
+```
+
+To include the feature at compile time, include the flag `IS_COLINTA` like so:
+
+```
+make xd75:colinta:dfu EXTRAFLAGS=-DIS_COLINTA
+```
