@@ -184,6 +184,9 @@ void audio_init()
         #ifdef B5_AUDIO
             TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
+
+            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
         #endif
 
         audio_initialized = true;
@@ -192,7 +195,7 @@ void audio_init()
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
-
+    
 }
 
 void stop_all_notes()
