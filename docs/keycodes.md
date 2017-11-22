@@ -115,7 +115,7 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_DOWN`||DownArrow|
 |`KC_UP`||UpArrow|
 |`KC_APPLICATION`|`KC_APP`|Application|
-|`KC_POWER`||Power|
+|`KC_POWER`||Old power button scancode. MS has deprecated this in favor of `KC_SYSTEM_POWER`.|
 |`KC_EXECUTE`||Execute|
 |`KC_HELP`||Help|
 |`KC_MENU`||Menu|
@@ -138,7 +138,7 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 |`KC_CLEAR_AGAIN`||Clear/Again|
 |`KC_CRSEL`||CrSel/Props|
 |`KC_EXSEL`||ExSel|
-|`KC_SYSTEM_POWER`|`KC_PWR`|System Power Down|
+|`KC_SYSTEM_POWER`|`KC_PWR`|System Power Down. Recommended over `KC_POWER`.|
 |`KC_SYSTEM_SLEEP`|`KC_SLEP`|System Sleep|
 |`KC_SYSTEM_WAKE`|`KC_WAKE`|System Wake|
 |`KC_MAIL`|`KC_MAIL`||

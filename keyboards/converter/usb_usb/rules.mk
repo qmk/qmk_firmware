@@ -13,7 +13,15 @@ MCU = atmega32u4
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 8000000
+
+# Since there are different hardware variations of these adapters and since these
+# have different CPU clocks, the clock speed should be set in the rules.mk file of the
+# respective hardware variantion (i.e. subproject). For example, in /pro_micro/rules.mk
+# this is set to 8000000.
+# The value here is only a fallback and is ignored if it is defined in the subproject.
+F_CPU ?= 16000000
+
+DEFAULT_FOLDER = converter/usb_usb/hasu
 
 
 #

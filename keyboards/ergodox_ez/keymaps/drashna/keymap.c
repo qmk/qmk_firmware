@@ -18,184 +18,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-
+#include "drashna.h"
 
 #include "keymap_german.h"
 
 #include "keymap_nordic.h"
 
-// Define layer names 
-#define QWERTY 0
-#define COLEMAK 1
-#define DVORAK 2
-#define WORKMAN 3
-#define SYMB 8
-#define OVERWATCH 9
-#define DIABLO 10
-#define MOUS 12
 
 
-//define modifiers
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
-#ifdef RGBLIGHT_ENABLE
-#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
-#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
-#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
-#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
-#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
-#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#endif
-
-//define diablo macro timer variables
-static uint16_t diablo_timer[4];
-static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
-static uint8_t diablo_key_time[4];
-
-bool check_dtimer(uint8_t dtimer) {
-  // has the correct number of seconds elapsed (as defined by diablo_times)
-  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
-};
-
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  RGB_SLD,
-  RGB_0000FF,
-  RGB_008000,
-  RGB_FF0000,
-  RGB_800080,
-  RGB_00FF90,
-  KC_DIABLO_CLEAR,
-  KC_QWERTY,
-  KC_COLEMAK,
-  KC_DVORAK,
-  KC_WORKMAN,
-  KC_MAKEQMK,
-  KC_RESET
-};
 
 #ifdef TAP_DANCE_ENABLE
-enum {
-  TD_FLSH = 0,
-  TD_DIABLO_1,
-  TD_DIABLO_2,
-  TD_DIABLO_3,
-  TD_DIABLO_4
-};
-
-
-
-
-// on each tap, light up one led, from right to left
-// on the forth tap, turn them off from right to left
-
-void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (!skip_leds) {
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    skip_leds = true;
-  }
-  switch (state->count) {
-  case 1:
-    ergodox_right_led_1_on();
-    break;
-  case 2:
-    ergodox_right_led_2_on();
-    break;
-  case 3:
-    ergodox_right_led_3_on();
-    break;
-  case 4:
-    ergodox_right_led_1_off();
-    _delay_ms(50);
-    ergodox_right_led_2_off();
-    _delay_ms(50);
-    ergodox_right_led_3_off();
-
-  }
-}
-
-// on the fourth tap, set the keyboard on flash state
-// and set the underglow to red, because red == bad
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 4) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_setrgb(0xff, 0x00, 0x00);
+#define KC_D3_1 TD(TD_D3_1)
+#define KC_D3_2 TD(TD_D3_2)
+#define KC_D3_3 TD(TD_D3_3)
+#define KC_D3_4 TD(TD_D3_4)
+#else
+#define KC_D3_1 KC_1
+#define KC_D3_2 KC_2
+#define KC_D3_3 KC_3
+#define KC_D3_4 KC_4
 #endif
-    reset_tap_dance(state);
-    reset_keyboard();
-  }
-}
 
-// Cycle through the times for the macro, starting at 0, for disabled.
-// Max of six values, so don't exceed
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-  if (state->count >= 7) {
-    diablo_key_time[diablo_key] = diablo_times[0];
-    reset_tap_dance(state);
-  }
-  else {
-    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
-  }
-}
-
-
-// Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 0);
-}
-
-void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 1);
-}
-
-void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 2);
-}
-
-void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 3);
-}
-
-
-// if the flash state didnt happen, then turn off leds, left to right
-void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
-  _delay_ms(200);
-  ergodox_right_led_3_off();
-  _delay_ms(200);
-  ergodox_right_led_2_off();
-  _delay_ms(200);
-  ergodox_right_led_1_off();
-  _delay_ms(500);
-  skip_leds = false;
-}
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-  // tap once to disable, and more to enable timed micros
-  [TD_DIABLO_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-  [TD_DIABLO_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-  [TD_DIABLO_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-  [TD_DIABLO_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
-
-};
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -220,22 +67,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | End   |       | PgDn |       |      |
  *                                 `---------------------'       `---------------------'
  */
-  [QWERTY] = LAYOUT_ergodox(
-                KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(MOUS),
-                KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(DIABLO),
+  [_QWERTY] = LAYOUT_ergodox(
+                KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(_MOUS),
+                KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(_DIABLO),
                 KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(OVERWATCH),
-                LT(SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
+                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(_OVERWATCH),
+                LT(_SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
                                     ALT_T(KC_APPLICATION),  KC_LGUI,
                                                             KC_HOME,
                                     KC_SPACE,   KC_BSPACE,  KC_END,
                                     
-                TG(MOUS),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
-                TG(DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
+                TG(_MOUS),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
+                TG(_DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
-                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+                TG(_OVERWATCH),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
+                                            KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
                 KC_RGUI,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
                 KC_PGDOWN,  KC_DELETE,  KC_ENTER
@@ -263,23 +110,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[COLEMAK] = LAYOUT_ergodox(  
+[_COLEMAK] = LAYOUT_ergodox(  
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
-        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(DIABLO),
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(_MOUS),
+        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(_DIABLO),
         KC_BSPC,        KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
-        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(OVERWATCH),
-        LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
-                                              ALT_T(KC_APP),  KC_LEAD,
+        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   TG(_OVERWATCH),
+        LT(_SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
+                                              ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
+             TG(_MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             TG(_DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
-             TG(OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
-             KC_LALT,        CTL_T(KC_ESC),
+             TG(_OVERWATCH),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
+             KC_RGUI,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
     ),
@@ -306,22 +153,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[DVORAK] = LAYOUT_ergodox(  
+[_DVORAK] = LAYOUT_ergodox(  
         // left hand
-        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(MOUS),
-        KC_TAB,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(DIABLO),
+        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(_MOUS),
+        KC_TAB,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(_DIABLO),
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
-        KC_LSFT,        LCTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(OVERWATCH),
-        LT(SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
+        KC_LSFT,        LCTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(_OVERWATCH),
+        LT(_SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
-             TG(DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
+             TG(_MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
+             TG(_DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
-             TG(OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
-                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(SYMB),
+             TG(_OVERWATCH),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
+                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(_SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -349,22 +196,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[WORKMAN] = LAYOUT_ergodox(  
+[_WORKMAN] = LAYOUT_ergodox(  
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUS),
-        KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   TG(DIABLO),
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(_MOUS),
+        KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   TG(_DIABLO),
         KC_BSPC,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
-        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(OVERWATCH),
-        LT(SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
+        KC_LSFT,        LCTL_T(KC_Z),  KC_X,   KC_M,   KC_C,   KC_V,   TG(_OVERWATCH),
+        LT(_SYMB,KC_GRV),KC_QUOT,      KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             TG(MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
-             TG(DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
+             TG(_MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             TG(_DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
-             TG(OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
-                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(SYMB),
+             TG(_OVERWATCH),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
+                          KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_DELETE, KC_ENT
@@ -391,10 +238,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 | DARK |BRITE | BLUE |       |      |      |      |
 *                                 `--------------------'       `--------------------'
 */
-  [SYMB] = LAYOUT_ergodox(
+  [_SYMB] = LAYOUT_ergodox(
                 KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
-                KC_MAKEQMK,     KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
+                KC_MAKE,        KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
                 KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
                                                                   KC_TRNS, KC_TRNS,
@@ -406,8 +253,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_KP_MINUS,KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_KP_SLASH,    KC_PSCREEN,
                 KC_COLEMAK,  KC_NUMLOCK, KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_EQUAL,       KC_PAUSE,
                                          KC_KP_0,    KC_KP_0,    KC_KP_DOT,  KC_KP_ENTER,    KC_TRNS,
-                RGB_TOG,    RGB_SLD,
-                KC_NO,
+                KC_TRNS,    KC_TRNS,
+                KC_TRNS,
                 KC_KP_DOT, KC_KP_0, KC_KP_ENTER
             ),
 
@@ -432,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |  H   |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [OVERWATCH] = LAYOUT_ergodox(
+  [_OVERWATCH] = LAYOUT_ergodox(
                 KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
@@ -445,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,        KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_NO,      KC_NO,
                 KC_NO,          KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-                TG(OVERWATCH),  KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
+                TG(_OVERWATCH), KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 KC_NO,          KC_NO,
                 KC_NO,
@@ -473,11 +320,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | SHIFT| ALT  | 0MAC |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [DIABLO] = LAYOUT_ergodox(
+  [_DIABLO] = LAYOUT_ergodox(
                 KC_ESCAPE,  KC_V,       KC_D,       KC_LALT,    KC_NO,      KC_NO,      KC_NO,
-                KC_TAB,     KC_S,       KC_F,       KC_I,       KC_M,       KC_T,       KC_TRNS,
+                KC_TAB,     KC_S,       KC_I,       KC_F,       KC_M,       KC_T,       KC_TRNS,
                 KC_Q,       KC_1,       KC_2,       KC_3,       KC_4,       KC_G,
-                KC_LCTL, TD(TD_DIABLO_1), TD(TD_DIABLO_2), TD(TD_DIABLO_3), TD(TD_DIABLO_4), KC_Z,       KC_NO,
+                KC_LCTL,    KC_D3_1,    KC_D3_2,    KC_D3_3,    KC_D3_4, KC_Z,       KC_NO,
                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                                 KC_L,   KC_J,
                                                         KC_F,
@@ -516,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      | MWDn |       | Mclk |      |      |
  *                                 `--------------------'       `--------------------'
  */
-  [MOUS] = LAYOUT_ergodox(
+  [_MOUS] = LAYOUT_ergodox(
                 KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
                 KC_NO,      KC_NO,      KC_MS_U,    KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
                 KC_NO,      KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_NO,      KC_NO,
@@ -539,210 +386,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
-  switch (keycode) {
-    // dynamically generate these.
-  case EPRM:
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    return false;
-    break;
-  case VRSN:
-    if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-    }
-    return false;
-    break;
-  case RGB_SLD:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_mode(1);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_0000FF:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x00, 0x00, 0xff);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_008000:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x00, 0x80, 0x00);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_FF0000:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_800080:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x80, 0x00, 0x80);
-#endif
-    }
-    return false;
-    break;
-
-  case RGB_00FF90:
-    if (record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0x00, 0xff, 0x90);
-#endif
-    }
-    return false;
-    break;
-  case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
-    if (record->event.pressed) {
-      uint8_t dtime;
-
-      for (dtime = 0; dtime < 4; dtime++) {
-        diablo_key_time[dtime] = diablo_times[0];
-      }
-    }
-    return false;
-    break;
-  case KC_QWERTY:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << QWERTY);
-    }
-    return false;
-    break;
-  case KC_COLEMAK:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << COLEMAK);
-    }
-    return false;
-    break;
-  case KC_DVORAK:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << DVORAK);
-    }
-    return false;
-    break;
-  case KC_WORKMAN:
-    if (record->event.pressed) {
-      persistent_default_layer_set(1UL << WORKMAN);
-    }
-    return false;
-    break;
-  case KC_MAKEQMK:
-    if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":teensy"SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-  case KC_RESET:
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-      reset_keyboard();
-    }
-    return false;
-    break;
-
-  }
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef TAP_DANCE_ENABLE
 
-// Sends the key press to system, but only if on the Diablo layer
-void send_diablo_keystroke(uint8_t diablo_key) {
-  if (biton32(layer_state) == DIABLO) {
-    switch (diablo_key) {
-    case 0:
-      SEND_STRING("1");
-      break;
-    case 1:
-      SEND_STRING("2");
-      break;
-    case 2:
-      SEND_STRING("3");
-      break;
-    case 3:
-      SEND_STRING("4");
-      break;
-    }
-  }
-}
-
-// Checks each of the 4 timers/keys to see if enough time has elapsed
-// Runs the "send string" command if enough time has passed, and resets the timer.
-void run_diablo_macro_check(void) {
-  uint8_t dtime;
-
-  for (dtime = 0; dtime < 4; dtime++) {
-    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
-      diablo_timer[dtime] = timer_read();
-      send_diablo_keystroke(dtime);
-    }
-  }
-
-}
-
-#endif
-
-
-void matrix_init_user(void) { // Runs boot tasks for keyboard
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  rgblight_enable();
-  if (default_layer & (1UL << COLEMAK)) {
-    rgblight_set_magenta;
-  }
-  else if (default_layer & (1UL << DVORAK)) {
-    rgblight_set_green;
-  }
-  else if (default_layer & (1UL << WORKMAN)) {
-    rgblight_set_purple;
-  }
-  else {
-    rgblight_set_teal;
-  }
-#endif
+void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 };
 
 
-void matrix_scan_user(void) {  // runs frequently to update info
+void matrix_scan_keymap(void) {  // runs frequently to update info
   uint8_t modifiders = get_mods();
 
   if (!skip_leds) {
@@ -766,49 +420,5 @@ void matrix_scan_user(void) {  // runs frequently to update info
 
   }
 
-  // Run Diablo 3 macro checking code.
-#ifdef TAP_DANCE_ENABLE
-  run_diablo_macro_check();
-#endif
 };
 
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  switch (biton32(state)) {
-  case SYMB:
-    rgblight_set_blue;
-    rgblight_mode(2);
-    break;
-  case OVERWATCH:
-    rgblight_set_orange;
-    rgblight_mode(17);
-    break;
-  case DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case MOUS:
-    rgblight_set_yellow;
-    rgblight_mode(1);
-    break;
-  default:
-    if (default_layer & (1UL << COLEMAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << DVORAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-    rgblight_mode(1);
-    break;
-  }
-#endif
-  return state;
-}
