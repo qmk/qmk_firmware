@@ -85,7 +85,10 @@ enum userrpace_custom_keycodes {
   KC_GGEZ,
   KC_MAKE,
   KC_RESET,
+#ifdef RGBLIGHT_ENABLE
   KC_RGB_T,
+#endif
+  KC_SECRET_1,
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -99,6 +102,6 @@ enum {
 #endif
 
 
-
+#define QMK_KEYS_PER_SCAN 6
 
 #endif

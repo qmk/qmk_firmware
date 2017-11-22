@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
+#include "sensitive.h"
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -434,19 +435,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(" ");
 #endif
 #ifdef RGBLIGHT_ENABLE
-      SEND_STRING("RGBLIGHT_ENABLE=yes ");
+      SEND_STRING(" RGBLIGHT_ENABLE=yes");
 #else
-      SEND_STRING("RGBLIGHT_ENABLE=no ");
+      SEND_STRING(" RGBLIGHT_ENABLE=no");
 #endif
 #ifdef AUDIO_ENABLE
-      SEND_STRING("AUDIO_ENABLE=yes ");
+      SEND_STRING(" AUDIO_ENABLE=yes");
 #else
-      SEND_STRING("AUDIO_ENABLE=no ");
+      SEND_STRING(" AUDIO_ENABLE=no");
 #endif
 #ifdef FAUXCLICKY_ENABLE
-      SEND_STRING("FAUXCLICKY_ENABLE=yes ");
+      SEND_STRING(" FAUXCLICKY_ENABLE=yes");
 #else
-      SEND_STRING("FAUXCLICKY_ENABLE=no ");
+      SEND_STRING(" FAUXCLICKY_ENABLE=no");
 #endif
       SEND_STRING(SS_TAP(X_ENTER));
     }
@@ -475,6 +476,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case KC_SECRET_1:
+    if (!record->event.pressed) {
+      send_string(secret1);
+    }
+    return false;
+    break;
+
   case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
     if (record->event.pressed) {
       rgb_layer_change = !rgb_layer_change;
