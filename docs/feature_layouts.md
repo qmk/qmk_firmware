@@ -55,10 +55,6 @@ Instead of using `#include "planck.h"`, you can use this line to include whateve
 
     #include QMK_KEYBOARD_H
 
-In your config.h, you can also use this variable to include the keyboard's `config.h`:
-
-    #include QMK_KEYBOARD_CONFIG_H
-
 If you want to keep some keyboard-specific code, you can use these variables to escape it with an `#ifdef` statement:
 
 * `KEYBOARD_<folder1>_<folder2>`
