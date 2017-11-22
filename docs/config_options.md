@@ -27,7 +27,9 @@ This level contains all of the options for that particular keymap. If you wish t
 
 # The `config.h` file
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere.
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
+
+    #include "config_common.h"
 
 ## `config.h` Options
 
@@ -179,7 +181,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `ARCH = AVR8`
 * `F_USB = $(F_CPU)`
 * `OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT`
-* `OPT_DEFS += -DBOOTLOADER_SIZE=4096`
+* `BOOTLOADER = atmel-dfu` with the following options:
+  * `atmel-dfu`
+  * `lufa-dfu`
+  * `qmk-dfu`
+  * `halfkay`
+  * `caterina`
+  * `bootloadHID`
 
 ### Feature Options
 
