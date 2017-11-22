@@ -18,6 +18,8 @@
 #ifdef IS_COLINTA
 #include "colinta.h"
 #else
+#define SENDSTRING_MM0 ""
+#define SENDSTRING_MM1 ""
 #define SENDSTRING_MM2 ""
 #endif
 
@@ -67,7 +69,8 @@ enum my_keycods {
   TH_F10,
   TH_LAST,
   MM_2,
-  DYNAMIC_MACRO_RANGE
+  DM_CLEAR,
+  DYNAMIC_MACRO_RANGE,
 };
 
 #include "dynamic_macro.h"
@@ -150,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        |        | RESET  |                          |        |        | RESET  |        |        |        |        |
+ * |        |        |        |        | RESET  |         DM_CLEAR         |        |        | RESET  |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -159,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,          KC_NO,      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-  KC_NO,   KC_NO,   KC_NO, KC_NO, RESET,     KC_NO, KC_NO, KC_NO,               KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO, KC_NO
+  KC_NO,   KC_NO,   KC_NO, KC_NO, RESET,    KC_NO, DM_CLEAR, KC_NO,             KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO, KC_NO
  )
 };
 
@@ -213,8 +216,29 @@ void matrix_scan_user() {
   }
 }
 
+// if the dynamic macros haven't been recorded, we send the default macro strings.
+bool did_record_m1 = false;
+bool did_record_m2 = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
+  bool try_dynamic_macro = true;
+  if ((keycode == DYN_MACRO_PLAY1 && !did_record_m1) || (keycode == DYN_MACRO_PLAY2 && !did_record_m2)) {
+    try_dynamic_macro = false;
+  }
+  else if (keycode == DM_CLEAR) {
+    try_dynamic_macro = false;
+    did_record_m1 = false;
+    did_record_m2 = false;
+  }
+
+  if (try_dynamic_macro && !process_record_dynamic_macro(keycode, record)) {
+    if (keycode == DYN_MACRO_PLAY1) {
+      did_record_m1 = true;
+    }
+
+    if (keycode == DYN_MACRO_PLAY2) {
+      did_record_m2 = true;
+    }
+
     if (keycode == DYN_REC_START1 || keycode == DYN_REC_START2) {
       layer_move(LAYER_RECORD);
     }
@@ -226,6 +250,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
+    case DYN_MACRO_PLAY1:
+      SEND_STRING(SENDSTRING_MM0);
+      return false;
+    case DYN_MACRO_PLAY2:
+      SEND_STRING(SENDSTRING_MM1);
+      return false;
     case MM_2:
       SEND_STRING(SENDSTRING_MM2);
       return false;
