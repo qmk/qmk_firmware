@@ -290,6 +290,18 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_step();
     }
     return false;
+  case RGB_SMOD:
+    // same as RBG_MOD, but if shift is pressed, it will use the reverese direction instead.
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgblight_step_reverse();
+      }
+      else {
+        rgblight_step();
+      }
+    }
+    return false;
   case RGB_HUI:
     if (record->event.pressed) {
       rgblight_increase_hue();
@@ -1093,8 +1105,6 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
-
-
 #endif // breathing
 
 #else // backlight
@@ -1156,6 +1166,7 @@ void send_nibble(uint8_t number) {
 __attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex)
 {
+  hex = hex & 0xF;
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "jj40.h"
 #include "action_layer.h"
-#include "rgblight.h"
 
 #define _QWERTY 0
 #define _LOWER  1

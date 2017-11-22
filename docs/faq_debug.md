@@ -159,6 +159,7 @@ byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
 And see this discussion for further reference.
 https://github.com/tmk/tmk_keyboard/issues/179
 
+If you are using a TeensyUSB, there is a [known bug](https://github.com/qmk/qmk_firmware/issues/164) in which the hardware reset button prevents the RESET key from working. Unplugging the keyboard and plugging it back in should resolve the problem.
 
 ## Special Extra key doesn't work(System, Audio control keys)
 You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
