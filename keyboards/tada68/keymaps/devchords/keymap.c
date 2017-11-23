@@ -28,8 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
         [_BL] = KEYMAP_ANSI(
             KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_INS,
-            KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_HOME,
-            KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_END,
+            KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+            KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_HOME,
             KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_END,
             KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, TO(_TL), MO(_FL), KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
 
@@ -68,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
         [_TL] = KEYMAP_ANSI(
             KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_BSPC, KC_INS,
-            KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_HOME,
-            KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_END,
-            KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_DEL,
+            KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+            KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_HOME,
+            KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_END,
             KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, TO(_BL), MO(_FL), KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT)};
 
 enum process_combo_events
@@ -87,26 +87,24 @@ enum process_combo_events
   LEFT_CTRL_ALT,
   RIGHT_SHIFT_ALT,
   LEFT_SHIFT_ALT,
-  BRAKETS_TILDE1,
-  BRAKETS_TILDE2
+  BRAKETS_TILDE
 };
 
 const uint16_t PROGMEM rightctrl_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM rightshift_combo[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM righttalt_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM right_ctrl_shift_combo[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM right_ctrl_alt_combo[] = {KC_L, KC_COLN, COMBO_END};
-const uint16_t PROGMEM right_shift_alt_combo[] = {KC_DOT, KC_SLASH, COMBO_END};
-
-const uint16_t PROGMEM brackets_tilde1[] = {KC_LBRACKET, KC_RBRACKET, COMBO_END};
-const uint16_t PROGMEM brackets_tilde2[] = {KC_LBRACKET, KC_BSLS, COMBO_END};
+const uint16_t PROGMEM rightshift_combo[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM righttalt_combo[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM right_ctrl_shift_combo[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM right_ctrl_alt_combo[] = {KC_J, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM right_shift_alt_combo[] = {KC_L, KC_QUOT, COMBO_END};
 
 const uint16_t PROGMEM leftctrl_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM leftshift_combo[] = {KC_R, KC_E, COMBO_END};
-const uint16_t PROGMEM leftalt_combo[] = {KC_V, KC_C, COMBO_END};
-const uint16_t PROGMEM left_ctrl_shift_combo[] = {KC_W, KC_Q, COMBO_END};
-const uint16_t PROGMEM left_ctrl_alt_combo[] = {KC_S, KC_A, COMBO_END};
-const uint16_t PROGMEM left_shift_alt_combo[] = {KC_X, KC_Z, COMBO_END};
+const uint16_t PROGMEM leftshift_combo[] = {KC_D, KC_S, COMBO_END};
+const uint16_t PROGMEM leftalt_combo[] = {KC_S, KC_A, COMBO_END};
+const uint16_t PROGMEM left_ctrl_shift_combo[] = {KC_F, KC_S, COMBO_END};
+const uint16_t PROGMEM left_ctrl_alt_combo[] = {KC_F, KC_A, COMBO_END};
+const uint16_t PROGMEM left_shift_alt_combo[] = {KC_D, KC_A, COMBO_END};
+
+const uint16_t PROGMEM brackets_tilde[] = {KC_LBRACKET, KC_RBRACKET, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
         [RIGHT_CTRL] = COMBO_ACTION(rightctrl_combo),
@@ -121,8 +119,7 @@ combo_t key_combos[COMBO_COUNT] = {
         [LEFT_CTRL_ALT] = COMBO_ACTION(left_ctrl_alt_combo),
         [RIGHT_SHIFT_ALT] = COMBO_ACTION(right_shift_alt_combo),
         [LEFT_SHIFT_ALT] = COMBO_ACTION(left_shift_alt_combo),
-        [BRAKETS_TILDE1] = COMBO_ACTION(brackets_tilde1),
-        [BRAKETS_TILDE2] = COMBO_ACTION(brackets_tilde2)
+        [BRAKETS_TILDE] = COMBO_ACTION(brackets_tilde)
         };
 
 void process_combo_event(uint8_t combo_index, bool pressed)
@@ -171,10 +168,7 @@ void process_combo_event(uint8_t combo_index, bool pressed)
     sendCode(KC_LSHIFT, pressed);
     sendCode(KC_LALT, pressed);
     break;
-  case BRAKETS_TILDE1:
-      sendCode(KC_GRV, pressed);
-      break;
-  case BRAKETS_TILDE2:
+  case BRAKETS_TILDE:
       sendCode(KC_GRV, pressed);
       break;
   }
