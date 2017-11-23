@@ -7,5 +7,5 @@
 
 #define BACKLIGHT_BREATHING
 
-#define COMBO_TERM 20
+#define COMBO_TERM 50
 #endif
