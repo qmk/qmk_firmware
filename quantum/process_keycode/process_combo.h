@@ -24,7 +24,7 @@
 typedef struct
 {
     const uint16_t *keys;
-    uint16_t keycode;        
+    uint16_t keycode;
 #ifdef EXTRA_EXTRA_LONG_COMBOS
     uint32_t state;
 #elif EXTRA_LONG_COMBOS
@@ -56,4 +56,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_combo(void);
 void process_combo_event(uint8_t combo_index, bool pressed);
 
+struct combo_status_struct {
+  uint16_t prev_key_set;
+};
 #endif
