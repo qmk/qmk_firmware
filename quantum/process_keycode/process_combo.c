@@ -63,17 +63,14 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     /* Return if not a combo key */
     if (-1 == (int8_t)index) return false;
 
-    print("combo index : ");
-    print_dec(index);
     /* The combos timer is used to signal whether the combo is active */
     bool is_combo_active = COMBO_TIMER_ELAPSED == combo->timer ? false : true;
 
     if (record->event.pressed) {
         KEY_STATE_DOWN(index);
-        print("-> pressed");
+
         if (is_combo_active) {
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
-                print("-> send_combo");
                 send_combo(combo->keycode, true);
                 combo->timer = COMBO_TIMER_ELAPSED;
             } else { /* Combo key was pressed */
@@ -83,8 +80,6 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
 #else
               if(comboStatus->prev_key_set != keycode)
               {
-                print("-> prev_key: ");
-                print_dec(keycode);
                 combo->prev_key = keycode;
                 comboStatus->prev_key_set = keycode;
               }
@@ -96,22 +91,18 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             }
         }
     } else {
-      print("-> released");
         if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was released */
-            print("-> send_combo");
             send_combo(combo->keycode, false);
             combo->timer = COMBO_TIMER_ELAPSED;
         }
 
         if (is_combo_active) { /* Combo key was tapped */
 #ifdef COMBO_ALLOW_ACTION_KEYS
-            print("-> register_code-1");
             record->event.pressed = true;
             process_action(record, store_or_get_action(record->event.pressed, record->event.key));
             record->event.pressed = false;
             process_action(record, store_or_get_action(record->event.pressed, record->event.key));
 #else
-            print("-> register_code-2");
             register_code16(keycode);
             send_keyboard_report();
             unregister_code16(keycode);
@@ -125,9 +116,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     if (NO_COMBO_KEYS_ARE_DOWN) {
         combo->timer = 0;
     }
-    print("-> is_active:");
-    print_dec(is_combo_active);
-    print("\n");
+
     return is_combo_active;
 }
 
@@ -145,7 +134,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
         #pragma GCC diagnostic pop
         is_combo_key |= process_single_combo(combo, keycode, record, &comboStatus);
     }
-    print("\n");
+
     return !is_combo_key;
 }
 
@@ -171,7 +160,6 @@ void matrix_scan_combo(void)
                 store_or_get_action(combo->prev_record.event.pressed,
                                     combo->prev_record.event.key));
 #else
-            print("-> matrix_scan_combo register code\n");
             unregister_code16(combo->prev_key);
             register_code16(combo->prev_key);
 #endif
