@@ -71,10 +71,7 @@ void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS);
     memset(matrix_debouncing, 0, MATRIX_COLS);
 
-    /* Setup capslock */
-    // palSetPadMode(GPIOB, 7,  PAL_MODE_OUTPUT_PUSHPULL);
-    // palClearPad(GPIOB, 7);
-
+    palClearPad(GPIOB, 7);  // Turn off capslock
     matrix_init_quantum();
 }
 
@@ -138,6 +135,7 @@ uint8_t matrix_scan(void) {
             debouncing_time = timer_read();
         }
     }
+
     if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             matrix[row] = 0;
