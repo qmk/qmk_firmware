@@ -13,7 +13,7 @@ Wiring
 
 Below is how you wire the Feather to PCB
 
-
+![wire map](https://i.imgur.com/zYOjlTA.png)
 
 Make example for this keyboard (after setting up your build environment):
 
