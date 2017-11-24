@@ -5,7 +5,5 @@
 
 #define COMBO_COUNT 14
 
-#define BACKLIGHT_BREATHING
-
 #define COMBO_TERM 50
 #endif
