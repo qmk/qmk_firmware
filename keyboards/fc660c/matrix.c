@@ -51,7 +51,7 @@ static inline void KEY_HYS_OFF(void) { (PORTC &= ~(1<<7)); }
 static inline void KEY_INIT(void)
 {
     /* Col */
-    DDRB  |=  0x0F;
+    DDRB  |=  0x1F;
     /* Key: input with pull-up */
     DDRC  &= ~(1<<6);
     PORTC |=  (1<<6);
