@@ -8,6 +8,11 @@ Hardware Supported: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit
 Please note: This is 32u4 and not M0
 Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68/pcb)  
 
+Story
+-----
+
+The story and the idea behind this mod is available on [my reddit post](https://www.reddit.com/r/MechanicalKeyboards/comments/7eiiht/guide_i_built_a_bluetooth_enabled_magicforce68_no/)
+
 Wiring
 ------
 
