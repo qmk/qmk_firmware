@@ -208,6 +208,9 @@ void process_action(keyrecord_t *record, action_t action)
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
             {
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                uint8_t shift;
+#endif
                 uint8_t mods = (action.kind.id == ACT_LMODS_TAP) ?  action.key.mods :
                                                                     action.key.mods<<4;
                 switch (action.layer_tap.code) {
@@ -265,6 +268,10 @@ void process_action(keyrecord_t *record, action_t action)
                         }
                         break;
                     default:
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                        shift = mods & (MOD_LSFT | (MOD_RSFT << 4));
+#endif
+
                         if (event.pressed) {
                             if (tap_count > 0) {
 #ifndef IGNORE_MOD_TAP_INTERRUPT
@@ -272,24 +279,86 @@ void process_action(keyrecord_t *record, action_t action)
                                     dprint("mods_tap: tap: cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
                                     record->tap.count = 0;
-                                    register_mods(mods);
+
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                    /* If shift is present, but not
+                                     * the only modifier, consider it
+                                     * part of the tapped keycode.
+                                     * Don't register it as a
+                                     * modifier.*/
+
+                                    if (shift && mods != shift) {
+                                         register_mods(mods & ~shift);
+                                    } else {
+#endif
+                                         register_mods(mods);
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                    }
+#endif
                                 } else
 #endif
                                 {
                                     dprint("MODS_TAP: Tap: register_code\n");
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                    /* Send a shifted keycode, if
+                                     * shift was part of the
+                                     * modifiers.*/
+
+                                    if (shift && mods != shift) {
+                                         register_mods(shift);
+                                    }
+#endif
+
                                     register_code(action.key.code);
+
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                    /* Stop sending shifted keycodes,
+                                     * if the tap was interrupted.
+                                     * This prevents registering an
+                                     * unwanted shift, if the mod-tap
+                                     * key is followed by another key
+                                     * within the tapping term. */
+
+                                    if (record->tap.interrupted) {
+                                        if (shift && mods != shift) {
+                                            unregister_mods(shift);
+                                        }
+                                    }
+#endif
                                 }
                             } else {
                                 dprint("MODS_TAP: No tap: add_mods\n");
-                                register_mods(mods);
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                if (shift && mods != shift) {
+                                     register_mods(mods & ~shift);
+                                } else {
+#endif
+                                     register_mods(mods);
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                }
+#endif
                             }
                         } else {
                             if (tap_count > 0) {
                                 dprint("MODS_TAP: Tap: unregister_code\n");
                                 unregister_code(action.key.code);
+
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                if (shift && mods != shift) {
+                                    unregister_mods(shift);
+                                }
+#endif
                             } else {
                                 dprint("MODS_TAP: No tap: add_mods\n");
-                                unregister_mods(mods);
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                if (shift && mods != shift) {
+                                     unregister_mods(mods & ~shift);
+                                } else {
+#endif
+                                     unregister_mods(mods);
+#ifdef ALLOW_SHIFTED_MOD_TAP
+                                }
+#endif
                             }
                         }
                         break;
