@@ -6,6 +6,7 @@
 extern keymap_config_t keymap_config;
 
 #define _______ KC_TRNS
+/* extern struct cRGB led[5]; */
 
 #define _BL 0 // The base layer.
 #define _UL 1 // The up layer.
@@ -40,6 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
+uint8_t rgb_dimming = 6;
+#define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
@@ -91,9 +94,23 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_RGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)
 };
 
+
+
 void matrix_scan_user(void) {
   shifted_layer();
   set_pressed_matrix();
+  uint32_t mod_colors[4] = {0};
+  mod_colors[0] = 0xFF0000;
+  mod_colors[1] = 0x00FF00;
+  mod_colors[2] = 0x0000FF;
+  mod_colors[3] = 0xFFFF00;
+  /* led[4].r = 100; */
+  /* led[4].g = 0; */
+  /* led[4].b = 0; */
+  /* ws2812_setleds(led, 5); */
+  /* sethsv(0, 100, 100,(LED_TYPE *)&led[2]); */
+  SET_LED_RGB(mod_colors[1], 49);
+  rgblight_set();
 }
 
 void matrix_init_user(void) {
