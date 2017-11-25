@@ -13,6 +13,13 @@ extern keymap_config_t keymap_config;
 #define _VL 3 // This is for up layer but should be used by MO with the shift key pressed.
 #define _DL 2 // The down layer.
 
+uint32_t _BLC = 0x000000;
+uint32_t _ULC = 0x0000FF;
+uint32_t _VLC = 0xFFFF00;
+uint32_t _DLC = 0x00FF00;
+uint32_t _pressedC = 0xFF0000;
+uint8_t rgb_dimming = 7;
+
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
   CTL_T(KC_A), SFT_T(KC_O), ALT_T(KC_E),     KC_U,            KC_I,              KC_D,           KC_H,            ALT_T(KC_T),     TD(CT_N_TILDE), CTL_T(KC_S), \
@@ -41,7 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-uint8_t rgb_dimming = 6;
 #define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -75,6 +81,33 @@ void shifted_layer(void) {
   }
 }
 
+void layer_color(void) {
+  uint8_t layer = biton32(layer_state);
+
+  switch(layer){
+  case _UL:
+    for(uint8_t i = 0; i < 50; i++){
+      SET_LED_RGB(_ULC, i);
+    }
+    break;
+  case _DL:
+    for(uint8_t i = 0; i < 50; i++){
+      SET_LED_RGB(_DLC, i);
+    }
+    break;
+  case _VL:
+    for(uint8_t i = 0; i < 50; i++){
+      SET_LED_RGB(_VLC, i);
+    }
+    break;
+  default:
+    for(uint8_t i = 0; i < 50; i++){
+      SET_LED_RGB(_BLC, i);
+    }
+    break;
+  }
+}
+
 void set_pressed_matrix(void) {
   for (uint8_t c = 0; c < MATRIX_COLS; c++) {
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -98,18 +131,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 void matrix_scan_user(void) {
   shifted_layer();
-  set_pressed_matrix();
-  uint32_t mod_colors[4] = {0};
-  mod_colors[0] = 0xFF0000;
-  mod_colors[1] = 0x00FF00;
-  mod_colors[2] = 0x0000FF;
-  mod_colors[3] = 0xFFFF00;
+  /* set_pressed_matrix(); */
+  /* uint32_t mod_colors[4] = {0}; */
+  /* mod_colors[0] = 0xFF0000; */
+  /* mod_colors[1] = 0x00FF00; */
+  /* mod_colors[2] = 0x0000FF; */
+  /* mod_colors[3] = 0xFFFF00; */
   /* led[4].r = 100; */
   /* led[4].g = 0; */
   /* led[4].b = 0; */
   /* ws2812_setleds(led, 5); */
   /* sethsv(0, 100, 100,(LED_TYPE *)&led[2]); */
-  SET_LED_RGB(mod_colors[1], 49);
+  /* SET_LED_RGB(mod_colors[1], 49); */
+  layer_color();
   rgblight_set();
 }
 
