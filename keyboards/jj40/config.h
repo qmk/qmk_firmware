@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 3
+
 #define TAPPING_TOGGLE 3
 
 #define NO_UART 1
