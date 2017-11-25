@@ -19,6 +19,7 @@ uint32_t _VLC = 0xFFFF00;
 uint32_t _DLC = 0x00FF00;
 uint32_t _pressedC = 0xFF0000;
 uint8_t rgb_dimming = 7;
+bool _key_pressed[50];
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
@@ -50,7 +51,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
 
+void set_key_led_status(keyrecord_t *record) {
+  uint8_t base = 5;
+  uint8_t r = record->event.key.row;
+  uint8_t c = record->event.key.col;
+  bool pressed = record->event.pressed;
+
+  if (record->event.key.row % 2 == 0) {
+    _key_pressed[r * base + c] = pressed;
+  } else {
+    _key_pressed[r * base + (base - (c + 1))] = pressed;
+  }
+  /* for (uint8_t r = 0; r < MATRIX_ROWS; r++) { */
+  /*   if (r % 2 == 0) { */
+  /*     for (uint8_t c = 0; c < MATRIX_COLS; c++) { */
+  /*       _key_pressed[r * base + c] = */
+  /*     } */
+  /*   } */
+  /* } */
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  set_key_led_status(record);
   return true;
 }
 
@@ -81,26 +103,55 @@ void shifted_layer(void) {
   }
 }
 
+void SET_LED(uint32_t color) {
+  uint8_t base = 5;
+  uint8_t pos = 0;
+  for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+    if (r % 2 == 0) {
+      for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+        pos = r * base + c;
+        if (_key_pressed[pos]) {
+          SET_LED_RGB(_pressedC, pos);
+        } else {
+          SET_LED_RGB(color, pos);
+        }
+      }
+    } else {
+      for (uint8_t c = 4; c >= 0; c--) {
+        pos = r * base + c;
+        if (_key_pressed[pos]) {
+          SET_LED_RGB(_pressedC, pos);
+        } else {
+          SET_LED_RGB(color, pos);
+        }
+      }
+    }
+  }
+}
 void layer_color(void) {
   uint8_t layer = biton32(layer_state);
 
   switch(layer){
   case _UL:
+    /* SET_LED(_ULC); */
     for(uint8_t i = 0; i < 50; i++){
       SET_LED_RGB(_ULC, i);
     }
     break;
   case _DL:
+    /* SET_LED(_DLC); */
     for(uint8_t i = 0; i < 50; i++){
       SET_LED_RGB(_DLC, i);
     }
     break;
   case _VL:
+    /* SET_LED(_VLC); */
     for(uint8_t i = 0; i < 50; i++){
       SET_LED_RGB(_VLC, i);
     }
     break;
   default:
+    /* SET_LED(_BLC); */
     for(uint8_t i = 0; i < 50; i++){
       SET_LED_RGB(_BLC, i);
     }
