@@ -30,7 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Dactyl
 #define DESCRIPTION     An ortholinear, split, 3D-curved keyboard with thumb clusters.
 
-/* key matrix size */
+/* key matrix size
+ * At this time, "row" in the dactyl's code actually means "column" on the
+ * physical keyboard. It's confusing. I'm sorry. Blame Jack Humbert :P
+ */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 6
 
