@@ -1,1 +1,1 @@
-# Fuck 40 up and onward.
+# Fuck 40 gold.
