@@ -9,7 +9,7 @@
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
-  VRSN,
+  COLON_EQ,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |  '"  |   ,  |   .  |   P  |   Y  |                    |   F  |   G  |   C  |   R  |   L  |   /  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | LGui |   A  |   O  |   E  |   U  |   I  |                    |   D  |   H  |   T  |   N  |   S  |   -  |
+ * |  :=  |   A  |   O  |   E  |   U  |   I  |                    |   D  |   H  |   T  |   N  |   S  |   -  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |LShift|   ;  |   Q  |   J  |   K  |   X  |                    |   B  |   M  |   W  |   V  |   Z  |RShift|
  * |------+------+------+------+------+------'                    `------+------+------+------+------+------|
@@ -36,11 +36,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_dactyl(  // layer 0 : default
         // left hand
-   KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,      KC_5,
-   KC_TAB,  KC_QUOT,  KC_COMM,   KC_DOT,     KC_P,      KC_Y,
-  KC_LGUI,     KC_A,     KC_O,     KC_E,     KC_U,      KC_I,
-  KC_LSFT,  KC_SCLN,     KC_Q,     KC_J,     KC_K,      KC_X,
-  KC_HOME,   KC_GRV,   KC_EQL,  KC_LEFT,  KC_RGHT,
+    KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,      KC_5,
+    KC_TAB,  KC_QUOT,  KC_COMM,   KC_DOT,     KC_P,      KC_Y,
+  COLON_EQ,     KC_A,     KC_O,     KC_E,     KC_U,      KC_I,
+   KC_LSFT,  KC_SCLN,     KC_Q,     KC_J,     KC_K,      KC_X,
+   KC_HOME,   KC_GRV,   KC_EQL,  KC_LEFT,  KC_RGHT,
                                                     KC_LCTRL,   KC_LALT,
                                                                MO(CONT),
                                           KC_BSPC,    KC_DEL,   KC_LGUI,
@@ -138,6 +138,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case COLON_EQ:
+        SEND_STRING(":=");
+        return false;
+        break;
+    }
+  }
+
+  return true;
+}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
