@@ -476,9 +476,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_SECRET_1:
+  case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
-      send_string(secret1);
+      send_string(secret[keycode - KC_SECRET_1]);
     }
     return false;
     break;
