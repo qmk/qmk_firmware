@@ -1,5 +1,7 @@
 # Dactyl
 
+See https://github.com/adereth/dactyl-keyboard
+
 The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
 Linux users need to modify udev rules as described on the [Teensy
