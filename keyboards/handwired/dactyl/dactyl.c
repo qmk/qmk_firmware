@@ -6,7 +6,6 @@ bool i2c_initialized = 0;
 uint8_t mcp23018_status = 0x20;
 
 void matrix_init_kb(void) {
-    // (tied to Vcc for hardware convenience)
     DDRB  &= ~(1<<4);  // set B(4) as input
     PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
 
