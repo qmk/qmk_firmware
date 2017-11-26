@@ -119,6 +119,35 @@ void process_led(keyrecord_t *record) {
 
 }
 
+void set_layer_led(uint32_t c) {
+  for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
+    SET_LED_RGB(c, i);
+  }
+}
+
+void layer_led(void) {
+  uint8_t ls = biton32(layer_state);
+
+  if (current_layer != ls) {
+    current_layer = ls;
+    set_layer_led(_LC[current_layer]);
+  };
+}
+
+void key_led(keyrecord_t *record) {
+  uint8_t r = record->event.key.row;
+  uint8_t c = record->event.key.col;
+  uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - c + 1);
+
+  if (record->event.pressed) {
+    SET_LED_RGB(_PC, pos);
+  } else {
+    SET_LED_RGB(_LC[current_layer], pos);
+  }
+
+  rgblight_set();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   /* set_key_led_status(record); */
   /* uint8_t base = 5; */
@@ -131,9 +160,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   /*   xprintf("Pressed: %d \n", record->event.key.row * base + (base - (record->event.key.col + 1))); */
   /* } */
 
-  process_led(record);
+  /* process_led(record); */
 
   /* rgblight_set(); */
+  key_led(record);
   return true;
 }
 
@@ -164,46 +194,6 @@ void shifted_layer(void) {
   }
 }
 
-void SET_LED(uint32_t color) {
-  uint8_t base = 5;
-  uint8_t pos = 0;
-  for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-    if (r % 2 == 0) {
-      for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-        pos = r * base + c;
-        if (_key_pressed[pos]) {
-          SET_LED_RGB(_pressedC, pos);
-        } else {
-          SET_LED_RGB(color, pos);
-        }
-      }
-    } else {
-      for (uint8_t c = 4; c >= 0; c--) {
-        pos = r * base + c;
-        if (_key_pressed[pos]) {
-          SET_LED_RGB(_pressedC, pos);
-        } else {
-          SET_LED_RGB(color, pos);
-        }
-      }
-    }
-  }
-}
-
-void set_layer_led(uint32_t c) {
-  for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
-    SET_LED_RGB(c, i);
-  }
-}
-
-void layer_led(void) {
-  uint8_t ls = biton32(layer_state);
-
-  if (current_layer != ls) {
-    current_layer = ls;
-    set_layer_led(_LC[current_layer]);
-  };
-}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
@@ -211,8 +201,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_LGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lgui_alt_finished, lgui_alt_reset),
   [CT_RGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)
 };
-
-
 
 void matrix_scan_user(void) {
   shifted_layer();
