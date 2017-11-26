@@ -1,4 +1,4 @@
-#include QMK_SUBPROJECT_H
+#include "dactyl.h"
 #include "i2cmaster.h"
 
 

@@ -1,4 +1,4 @@
-#include QMK_SUBPROJECT_H
+#include "dactyl.h"
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
