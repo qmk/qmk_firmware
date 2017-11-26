@@ -15,7 +15,8 @@ extern keymap_config_t keymap_config;
 
 #define TOTAL_MATRIX_POINTS (MATRIX_ROWS * MATRIX_COLS)
 
-const uint32_t _PC = 0xFF0000;
+const uint8_t base = 5;
+const uint32_t _PC = 0xFF0000; // LED Red, pressed LED.
 const uint32_t _LC[5] = { \
   // LED off
   [_BL] = 0x000000, \
@@ -27,10 +28,8 @@ const uint32_t _LC[5] = { \
   [_DL] = 0x00FF00  \
 };
 
-uint8_t current_layer = 0;
-uint32_t _pressedC = 0xFF0000;
-uint8_t rgb_dimming = 7;
-bool _key_pressed[50];
+uint8_t cur_lyr = 0; // current selected layer.
+uint8_t dim = 7; // rgb dimming level.
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
@@ -60,64 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-#define SET_LED_RGB(val, led_num) setrgb(((val >> 16) & 0xFF) >> rgb_dimming, ((val >> 8) & 0xFF) >> rgb_dimming, (val & 0xFF) >> rgb_dimming, (LED_TYPE *)&led[led_num])
-
-void set_key_led_status(keyrecord_t *record) {
-  uint8_t base = 5;
-  uint8_t r = record->event.key.row;
-  uint8_t c = record->event.key.col;
-  bool pressed = record->event.pressed;
-
-  if (record->event.key.row % 2 == 0) {
-    _key_pressed[r * base + c] = pressed;
-  } else {
-    _key_pressed[r * base + (base - (c + 1))] = pressed;
-  }
-  /* for (uint8_t r = 0; r < MATRIX_ROWS; r++) { */
-  /*   if (r % 2 == 0) { */
-  /*     for (uint8_t c = 0; c < MATRIX_COLS; c++) { */
-  /*       _key_pressed[r * base + c] = */
-  /*     } */
-  /*   } */
-  /* } */
-}
-
-uint8_t base = 5;
-
-
-void process_led(keyrecord_t *record) {
-  uint8_t pos = 0;
-  uint8_t r = record->event.key.row;
-  uint8_t c = record->event.key.col;
-  /* uint8_t ls = biton32(layer_state); */
-
-  /* if (current_layer != ls) { */
-  /*   current_layer = ls; */
-  /*   switch (current_layer) { */
-  /*   case _UL: */
-  /*     set_layer_led(_ULC); */
-  /*     break; */
-  /*   case _DL: */
-  /*     set_layer_led(_DLC); */
-  /*     break; */
-  /*   case _VL: */
-  /*     set_layer_led(_VLC); */
-  /*     break; */
-  /*   default: */
-  /*     set_layer_led(_BLC); */
-  /*     break; */
-  /*   } */
-  /* } */
-
-  if (r % 2 == 0) {
-    pos = r * base + c;
-    SET_LED_RGB(_pressedC, pos);
-  } else {
-    pos = r * base + (base - (c + 1));
-    SET_LED_RGB(_pressedC, pos);
-  }
-
-}
+#define SET_LED_RGB(v, p) setrgb(((v >> 16) & 0xFF) >> dim, ((v >> 8) & 0xFF) >> dim, (v & 0xFF) >> dim, (LED_TYPE *)&led[p])
 
 void set_layer_led(uint32_t c) {
   for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
@@ -128,10 +70,12 @@ void set_layer_led(uint32_t c) {
 void layer_led(void) {
   uint8_t ls = biton32(layer_state);
 
-  if (current_layer != ls) {
-    current_layer = ls;
-    set_layer_led(_LC[current_layer]);
+  if (cur_lyr != ls) {
+    cur_lyr = ls;
+    set_layer_led(_LC[cur_lyr]);
   };
+
+  rgblight_set();
 }
 
 void key_led(keyrecord_t *record) {
@@ -142,31 +86,11 @@ void key_led(keyrecord_t *record) {
   if (record->event.pressed) {
     SET_LED_RGB(_PC, pos);
   } else {
-    SET_LED_RGB(_LC[current_layer], pos);
+    SET_LED_RGB(_LC[cur_lyr], pos);
   }
 
   rgblight_set();
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  /* set_key_led_status(record); */
-  /* uint8_t base = 5; */
-  /* uint8_t r = record->event.key.row; */
-  /* uint8_t c = record->event.key.col; */
-
-  /* if (record->event.key.row % 2 == 0) { */
-  /*   xprintf("Pressed: %d \n", record->event.key.row * base + record->event.key.col); */
-  /* } else { */
-  /*   xprintf("Pressed: %d \n", record->event.key.row * base + (base - (record->event.key.col + 1))); */
-  /* } */
-
-  /* process_led(record); */
-
-  /* rgblight_set(); */
-  key_led(record);
-  return true;
-}
-
 
 void shifted_layer(void) {
   uint8_t layer = biton32(layer_state);
@@ -202,10 +126,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_RGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  key_led(record);
+  return true;
+}
+
 void matrix_scan_user(void) {
   shifted_layer();
   layer_led();
-  rgblight_set();
 }
 
 void matrix_init_user(void) {
