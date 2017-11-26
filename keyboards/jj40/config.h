@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 3
 

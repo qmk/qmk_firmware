@@ -26,3 +26,18 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
     /* Nothing to do here... yet */
 }
+
+void matrix_init_kb(void) {
+
+  // Call the keymap level matrix init.
+  matrix_init_user();
+
+  // Set our LED pins as output
+  DDRB |= (1<<6);
+}
+
+void matrix_init_user(void) {
+  backlight_init_ports();
+  // backlight_init();
+  // backlight_level(3);
+}

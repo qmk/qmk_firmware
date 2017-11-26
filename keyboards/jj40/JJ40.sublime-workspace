@@ -1,0 +1,1446 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "MD-50156-2445312",
+			"settings":
+			{
+				"buffer_size": 16,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 4764 files for \"atmega32a\"\n\n/Users/kofta/Sites/qmk_firmware/keyboards/jj40/README.md:\n    6  \n    7  Keyboard Maintainer: [QMK Community](https://github.com/qmk)  \n    8: Hardware Supported: Atmega32A  \n    9  Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj40-Custom-Mechanical-Keyboard-40-PCB-programmed-40-planck-layouts-bface-firmware-gh40/3034003_32828781103.html)\n   10  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/jj40/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n\n/Users/kofta/Sites/qmk_firmware/.build/jj40_default.elf:\n    <binary>\n\n/Users/kofta/Sites/qmk_firmware/.build/jj40_default.map:\n   60                                .build/obj_jj40_default/quantum/quantum.o (__divmodhi4)\n   61  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_exit.o)\n   62:                               /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o (exit)\n   63  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_tablejump2.o)\n   64                                .build/obj_jj40_default/quantum/quantum.o (__tablejump2__)\n   ..\n   73  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libc.a(rand.o)\n   74                                .build/obj_jj40_default/quantum/quantum.o (rand)\n   75: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n   76                                .build/obj_jj40_default/common/eeconfig.o (eeprom_read_byte)\n   77: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n   78                                .build/obj_jj40_default/common/eeconfig.o (eeprom_read_word)\n   79: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n   80                                .build/obj_jj40_default/common/eeconfig.o (eeprom_update_byte)\n   81: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n   82                                .build/obj_jj40_default/common/eeconfig.o (eeprom_update_word)\n   83: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n   84                                .build/obj_jj40_default/common/avr/bootloader.o (eeprom_write_byte)\n   85: /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n   86:                               /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o) (eeprom_read_blraw)\n   87  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_divmodsi4.o)\n   88                                /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libc.a(rand.o) (__divmodsi4)\n   ..\n  126  Discarded input sections\n  127  \n  128:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n  129:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n  130   .text          0x0000000000000000        0x0 .build/obj_jj40_default/matrix.o\n  131   .data          0x0000000000000000        0x0 .build/obj_jj40_default/matrix.o\n  ...\n  749                  0x0000000000000000       0xb8 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libc.a(rand.o)\n  750   .comment       0x0000000000000000       0x12 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libc.a(rand.o)\n  751:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n  752:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n  753:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n  754:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n  755:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n  756:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n  757:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n  758:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n  759:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n  760:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n  761:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n  762:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n  763:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n  764:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n  765:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n  766:  .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n  767:  .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n  768:  .bss           0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n  769   .text          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_divmodsi4.o)\n  770   .data          0x0000000000000000        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_divmodsi4.o)\n  ...\n  914  Linker script and memory map\n  915  \n  916: LOAD /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n  917  LOAD .build/obj_jj40_default/matrix.o\n  918  LOAD .build/obj_jj40_default/i2c.o\n  ...\n  958  LOAD /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a\n  959  LOAD /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libc.a\n  960: LOAD /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a\n  961  END GROUP\n  962                  0x0000000000020000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x20000\n  ...\n 1060  .text           0x0000000000000000     0x4d82\n 1061   *(.vectors)\n 1062:  .vectors       0x0000000000000000       0x54 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 1063                  0x0000000000000000                __vectors\n 1064                  0x0000000000000000                __vector_default\n ....\n 1189   SORT(*)(.dtors)\n 1190   *(.init0)\n 1191:  .init0         0x0000000000000680        0x0 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 1192                  0x0000000000000680                __init\n 1193   *(.init0)\n ....\n 1195   *(.init1)\n 1196   *(.init2)\n 1197:  .init2         0x0000000000000680        0xc /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 1198   *(.init2)\n 1199   *(.init3)\n ....\n 1216   *(.init8)\n 1217   *(.init9)\n 1218:  .init9         0x0000000000000700        0x8 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 1219   *(.init9)\n 1220   *(.text)\n 1221:  .text          0x0000000000000708        0x4 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 1222                  0x0000000000000708                __vector_20\n 1223                  0x0000000000000708                __vector_12\n ....\n 1820                  0x0000000000004ce8                __cmpdi2\n 1821   .text.avr-libc\n 1822:                 0x0000000000004cfa       0x10 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n 1823                  0x0000000000004cfa                eeprom_read_byte\n 1824   .text.avr-libc\n 1825:                 0x0000000000004d0a        0xc /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n 1826                  0x0000000000004d0a                eeprom_read_word\n 1827   .text.avr-libc\n 1828:                 0x0000000000004d16       0x22 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n 1829                  0x0000000000004d16                eeprom_update_byte\n 1830                  0x0000000000004d18                eeprom_update_r18\n 1831   .text.avr-libc\n 1832:                 0x0000000000004d38        0xc /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n 1833                  0x0000000000004d38                eeprom_update_word\n 1834   .text.avr-libc\n 1835:                 0x0000000000004d44       0x1a /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n 1836                  0x0000000000004d44                eeprom_write_byte\n 1837                  0x0000000000004d46                eeprom_write_r18\n 1838   .text.avr-libc\n 1839:                 0x0000000000004d5e       0x20 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n 1840                  0x0000000000004d5e                eeprom_read_block\n 1841                  0x0000000000004d62                eeprom_read_blraw\n ....\n 2203                  0x0000000000000000       0x3c\n 2204   .note.gnu.avr.deviceinfo\n 2205:                 0x0000000000000000       0x3c /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2206  \n 2207  .note.gnu.build-id\n ....\n 2298  .debug_info     0x0000000000000000    0x139db\n 2299   *(.debug_info .gnu.linkonce.wi.*)\n 2300:  .debug_info    0x0000000000000000      0x4e6 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2301   .debug_info    0x00000000000004e6      0x338 .build/obj_jj40_default/matrix.o\n 2302   .debug_info    0x000000000000081e      0x495 .build/obj_jj40_default/keyboards/jj40/jj40.o\n ....\n 2337  .debug_abbrev   0x0000000000000000     0x4114\n 2338   *(.debug_abbrev)\n 2339:  .debug_abbrev  0x0000000000000000      0x4a3 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2340   .debug_abbrev  0x00000000000004a3      0x1cc .build/obj_jj40_default/matrix.o\n 2341   .debug_abbrev  0x000000000000066f      0x16b .build/obj_jj40_default/keyboards/jj40/jj40.o\n ....\n 2376  .debug_line     0x0000000000000000     0x6557\n 2377   *(.debug_line .debug_line.* .debug_line_end)\n 2378:  .debug_line    0x0000000000000000       0x1d /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2379   .debug_line    0x000000000000001d      0x24c .build/obj_jj40_default/matrix.o\n 2380   .debug_line    0x0000000000000269      0x1f8 .build/obj_jj40_default/keyboards/jj40/jj40.o\n ....\n 2445  .debug_str      0x0000000000000000     0x3c77\n 2446   *(.debug_str)\n 2447:  .debug_str     0x0000000000000000      0x196 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2448   .debug_str     0x0000000000000196      0x24a .build/obj_jj40_default/matrix.o\n 2449                                          0x289 (size before relaxing)\n ....\n 2606  __ashldi3                                         /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_ashldi3.o)\n 2607                                                    .build/obj_jj40_default/quantum/process_keycode/process_key_lock.o\n 2608: __bad_interrupt                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2609  __bss_end                                         /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_clear_bss.o)\n 2610  __bss_start                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_clear_bss.o)\n ....\n 2727  __gtsf2                                           /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(gesf2.o)\n 2728                                                    .build/obj_jj40_default/quantum/audio/audio.o\n 2729: __heap_end                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2730: __init                                            /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2731  __lesf2                                           /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(cmpsf2.o)\n 2732  __ltsf2                                           /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(cmpsf2.o)\n ....\n 2750                                                    /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_divmodsi4.o)\n 2751  __nesf2                                           /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(cmpsf2.o)\n 2752: __stack                                           /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2753  __subsf3                                          /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(addsf3.o)\n 2754                                                    /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(modf.o)\n ....\n 2763  __umulhisi3                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_umulhisi3.o)\n 2764                                                    /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_muluhisi3.o)\n 2765: __vector_1                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2766  __vector_10                                       .build/obj_jj40_default/common/avr/timer.o\n 2767:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2768: __vector_11                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2769: __vector_12                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2770: __vector_13                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2771: __vector_14                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2772: __vector_15                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2773: __vector_16                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2774: __vector_17                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2775: __vector_18                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2776: __vector_19                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2777  __vector_2                                        .build/obj_jj40_default/protocol/vusb/usbdrv/usbdrvasm.o\n 2778:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2779: __vector_20                                       /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2780: __vector_3                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2781: __vector_4                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2782: __vector_5                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2783: __vector_6                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2784: __vector_7                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2785: __vector_8                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2786: __vector_9                                        /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2787: __vector_default                                  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2788: __vectors                                         /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2789  __xprintf                                         .build/obj_jj40_default/common/avr/xprintf.o\n 2790                                                    .build/obj_jj40_default/protocol/vusb/vusb.o\n ....\n 2973  eeconfig_update_keymap                            .build/obj_jj40_default/common/eeconfig.o\n 2974                                                    .build/obj_jj40_default/quantum/quantum.o\n 2975: eeprom_read_block                                 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n 2976: eeprom_read_blraw                                 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_block.o)\n 2977:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n 2978: eeprom_read_byte                                  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_byte.o)\n 2979                                                    .build/obj_jj40_default/common/eeconfig.o\n 2980: eeprom_read_word                                  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eerd_word.o)\n 2981                                                    .build/obj_jj40_default/common/eeconfig.o\n 2982: eeprom_update_byte                                /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n 2983:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n 2984                                                    .build/obj_jj40_default/common/eeconfig.o\n 2985: eeprom_update_r18                                 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_byte.o)\n 2986:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n 2987: eeprom_update_word                                /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eeupd_word.o)\n 2988                                                    .build/obj_jj40_default/common/eeconfig.o\n 2989: eeprom_write_byte                                 /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n 2990                                                    .build/obj_jj40_default/common/avr/bootloader.o\n 2991: eeprom_write_r18                                  /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libatmega32a.a(eewr_byte.o)\n 2992  enable_polyphony                                  .build/obj_jj40_default/quantum/audio/audio.o\n 2993  envelope_index                                    .build/obj_jj40_default/quantum/audio/audio.o\n 2994  exit                                              /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/avr5/libgcc.a(_exit.o)\n 2995:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 2996  exp                                               /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(exp.o)\n 2997                                                    /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/libm.a(pow.o)\n ....\n 3126                                                    .build/obj_jj40_default/common/keyboard.o\n 3127  main                                              .build/obj_jj40_default/protocol/vusb/main.o\n 3128:                                                   /usr/local/Cellar/avr-gcc/7.2.0/lib/gcc/7/gcc/avr/7.2.0/../../../../../../avr/lib/avr5/crtatmega32a.o\n 3129  matrix_get_row                                    .build/obj_jj40_default/matrix.o\n 3130                                                    .build/obj_jj40_default/common/avr/suspend.o\n\n/Users/kofta/Sites/qmk_firmware/.build/obj_jj40_default/asflags.txt:\n    1: -mmcu=atmega32a -x assembler-with-cpp   -Wa,-adhlns=.build/obj_jj40_default/asflags.txt,-gstabs,--listing-cont-lines=100  -DDEBUG_LEVEL=0 -DBOOTLOADER_SIZE=2048 -DKEYBOARD_jj40 -DAUDIO_ENABLE -DKEY_LOCK_ENABLE -DMAGIC_ENABLE -DEXTRAKEY_ENABLE -DCONSOLE_ENABLE -DNO_UART -DNO_SUSPEND_POWER_DOWN -DBACKLIGHT_ENABLE -DPROTOCOL_VUSB -DF_CPU=12000000UL  -DQMK_KEYBOARD=\\\"jj40\\\" -DQMK_KEYBOARD_H=\\\"jj40.h\\\" -DQMK_KEYBOARD_CONFIG_H=\\\"keyboards/jj40/config.h\\\" -DQMK_KEYMAP=\\\"default\\\" -DQMK_KEYMAP_H=\\\"default.h\\\" -DQMK_KEYMAP_CONFIG_H=\\\"keyboards/jj40/keymaps/default/config.h\\\" -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H -Ikeyboards/jj40/keymaps/default -Ikeyboards/jj40 -I. -I./tmk_core -I./quantum -I./quantum/keymap_extras -I./quantum/audio -I./quantum/process_keycode -I./quantum/api -I./drivers -I./quantum/serial_link -I./drivers/avr -Iusers/default -Itmk_core/protocol -I./tmk_core/common -I./tmk_core/protocol/vusb -I./tmk_core/protocol/vusb/usbdrv -include keyboards/jj40/config.h\n    2  \n\n/Users/kofta/Sites/qmk_firmware/.build/obj_jj40_default/cflags.txt:\n    1: -mmcu=atmega32a -funsigned-char -funsigned-bitfields -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -fno-inline-small-functions -fno-strict-aliasing -gdwarf-2  -Os -fdiagnostics-color -Wall -Wstrict-prototypes -Werror -Wa,-adhlns=.build/obj_jj40_default/cflags.txt -std=gnu99  -DDEBUG_LEVEL=0 -DBOOTLOADER_SIZE=2048 -DKEYBOARD_jj40 -DAUDIO_ENABLE -DKEY_LOCK_ENABLE -DMAGIC_ENABLE -DEXTRAKEY_ENABLE -DCONSOLE_ENABLE -DNO_UART -DNO_SUSPEND_POWER_DOWN -DBACKLIGHT_ENABLE -DPROTOCOL_VUSB -DF_CPU=12000000UL  -DQMK_KEYBOARD=\\\"jj40\\\" -DQMK_KEYBOARD_H=\\\"jj40.h\\\" -DQMK_KEYBOARD_CONFIG_H=\\\"keyboards/jj40/config.h\\\" -DQMK_KEYMAP=\\\"default\\\" -DQMK_KEYMAP_H=\\\"default.h\\\" -DQMK_KEYMAP_CONFIG_H=\\\"keyboards/jj40/keymaps/default/config.h\\\" -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H -Ikeyboards/jj40/keymaps/default -Ikeyboards/jj40 -I. -I./tmk_core -I./quantum -I./quantum/keymap_extras -I./quantum/audio -I./quantum/process_keycode -I./quantum/api -I./drivers -I./quantum/serial_link -I./drivers/avr -Iusers/default -Itmk_core/protocol -I./tmk_core/common -I./tmk_core/protocol/vusb -I./tmk_core/protocol/vusb/usbdrv -include keyboards/jj40/config.h\n    2  \n\n/Users/kofta/Sites/qmk_firmware/.build/obj_jj40_default/common/avr/bootloader.lst:\n  595   122:./tmk_core/common/avr/bootloader.c **** }\n  596   123:./tmk_core/common/avr/bootloader.c **** \n  597:  124:./tmk_core/common/avr/bootloader.c **** #ifdef __AVR_ATmega32A__\n  598:  125:./tmk_core/common/avr/bootloader.c **** // MCUSR is actually called MCUCSR in ATmega32A\n  599   126:./tmk_core/common/avr/bootloader.c **** #define MCUSR MCUCSR\n  600   127:./tmk_core/common/avr/bootloader.c **** #endif\n\n/Users/kofta/Sites/qmk_firmware/.build/obj_jj40_default/common/avr/timer.lst:\n   65    44:./tmk_core/common/avr/timer.c **** #endif\n   66    45:./tmk_core/common/avr/timer.c **** \n   67:   46:./tmk_core/common/avr/timer.c **** #ifndef __AVR_ATmega32A__\n   68    47:./tmk_core/common/avr/timer.c ****     // Timer0 CTC mode\n   69    48:./tmk_core/common/avr/timer.c ****     TCCR0A = 0x02;\n   ..\n  550   118:./tmk_core/common/avr/timer.c **** \n  551   119:./tmk_core/common/avr/timer.c **** // excecuted once per 1ms.(excess for just timer count?)\n  552:  120:./tmk_core/common/avr/timer.c **** #ifndef __AVR_ATmega32A__\n  553   121:./tmk_core/common/avr/timer.c **** #define TIMER_INTERRUPT_VECTOR TIMER0_COMPA_vect\n  554   122:./tmk_core/common/avr/timer.c **** #else\n\n/Users/kofta/Sites/qmk_firmware/.build/obj_jj40_default/protocol/vusb/usbdrv/usbdrvasm.lst:\n  517   229               \t#elif defined (__AVR_ATmega32__)\n  518   230               \t#  include <avr/iom32.h>\n  519:  231               \t#elif defined (__AVR_ATmega32A__)\n  520   232               \t#  include <avr/iom32a.h>\n  521     1               \t/*****************************************************************************\n\n/Users/kofta/Sites/qmk_firmware/keyboards/bfake/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n   ..\n   43  \n   44  # programming options\n   45: PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex\n\n/Users/kofta/Sites/qmk_firmware/keyboards/bmini/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n   ..\n   43  \n   44  # programming options\n   45: PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex\n   46  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/jj40/README.md:\n    6  \n    7  Keyboard Maintainer: [QMK Community](https://github.com/qmk)  \n    8: Hardware Supported: Atmega32A  \n    9  Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj40-Custom-Mechanical-Keyboard-40-PCB-programmed-40-planck-layouts-bface-firmware-gh40/3034003_32828781103.html)\n   10  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/jj40/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/mechmini/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n   ..\n   43  \n   44  # programming options\n   45: PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex\n\n/Users/kofta/Sites/qmk_firmware/keyboards/mt40/rules.mk:\n    1  # MCU name\n    2: MCU = atmega32a\n    3  PROTOCOL = VUSB\n    4  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/pearl/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n   ..\n   43  \n   44  # programming options\n   45: PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex\n\n/Users/kofta/Sites/qmk_firmware/keyboards/ps2avrGB/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/README.md:\n   15  \n   16  Keyboard maintainer: [Andrew](https://github.com/sparkyman215)  \n   17: Hardware Supported: YMD96 with the ATmega32a chip.  \n   18  Hardware Availability: The GB was run June 2017, [in this thread](https://www.reddit.com/r/mechmarket/comments/6hu3yx/vendor_ymd96_gb_is_now_live_68_an_universal_and/). The vendor has stated that they plan on selling more rounds.\n   19  \n\n/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/rules.mk:\n   15  \n   16  # MCU name\n   17: MCU = atmega32a\n   18  PROTOCOL = VUSB\n   19  \n\n/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/bootloader.c:\n  122  }\n  123  \n  124: #ifdef __AVR_ATmega32A__\n  125: // MCUSR is actually called MCUCSR in ATmega32A\n  126  #define MCUSR MCUCSR\n  127  #endif\n\n/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/timer.c:\n   44  #endif\n   45  \n   46: #ifndef __AVR_ATmega32A__\n   47      // Timer0 CTC mode\n   48      TCCR0A = 0x02;\n   ..\n  118  \n  119  // excecuted once per 1ms.(excess for just timer count?)\n  120: #ifndef __AVR_ATmega32A__\n  121  #define TIMER_INTERRUPT_VECTOR TIMER0_COMPA_vect\n  122  #else\n\n114 matches across 21 files\n",
+			"settings":
+			{
+				"buffer_size": 31025,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/timer.c",
+			"settings":
+			{
+				"buffer_size": 2594,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/bootloader.c",
+			"settings":
+			{
+				"buffer_size": 7163,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/README.md",
+			"settings":
+			{
+				"buffer_size": 4011,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1254,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ps2avrGB/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1254,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/pearl/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/mt40/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1221,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "keymaps/fuck40/readme.md",
+			"settings":
+			{
+				"buffer_size": 15,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "keymaps/fuck40/rules.mk",
+			"settings":
+			{
+				"buffer_size": 965,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "keymaps/fuck40/keymap.c",
+			"settings":
+			{
+				"buffer_size": 6281,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "jj40.c",
+			"settings":
+			{
+				"buffer_size": 1016,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/.git/config",
+			"settings":
+			{
+				"buffer_size": 313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 2142,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "keymaps/oscillope/keymap.c",
+			"settings":
+			{
+				"buffer_size": 4742,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "keymaps/fuck40/config.h",
+			"settings":
+			{
+				"buffer_size": 133,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config.h",
+			"settings":
+			{
+				"buffer_size": 1247,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/bfake/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/kofta/Sites/qmk_firmware/keyboards/mechmini/rules.mk",
+			"settings":
+			{
+				"buffer_size": 1252,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 342.0,
+		"last_filter": "json",
+		"selected_items":
+		[
+			[
+				"json",
+				"Pretty JSON: Format and Sort JSON"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"synja",
+				"Set Syntax: JavaScript"
+			]
+		],
+		"width": 548.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps",
+		"/Users/kofta/Sites/qmk_firmware",
+		"/Users/kofta/Sites/qmk_firmware/keyboards",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jd45",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/default",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/fuck40",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/oscillope",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/preonic",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/preonic/keymaps",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/preonic/keymaps/jacwib"
+	],
+	"file_history":
+	[
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/rules.mk",
+		"/Users/kofta/Sites/work/web_starter_kit_works/package.json",
+		"/Volumes/PHILES/Computer/OS/OSx/10. Multiple OS/Programs/Keyboard Maestro.txt",
+		"/Users/kofta/Sites/puppies/puppiestwoext/PuppiesOpenAppsToCode.bat",
+		"/Users/kofta/.ssh/config",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/config.h",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/jj40.c",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/default/keymap.c",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/default/keymap.txt",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/keymaps/default/rules_mk.md",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/jj40/jj40.h",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/amj40/config.h",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/amjpad/rules.mk",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/ps2avrGB/program",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/planck/keymaps/pvc/keymap.c",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/planck/planck.h",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/planck/config.h",
+		"/Users/kofta/Sites/qmk_firmware/keyboards/atreus/keymaps/xk/keymap.c",
+		"/Users/kofta/.ssh/id_rsa",
+		"/Users/kofta/Downloads/cert.p7b",
+		"/Users/kofta/Sites/puppies/puppiestwoext/bower.json",
+		"/Users/kofta/Downloads/OSxInstall/post_install.sh",
+		"/Users/kofta/Sites/puppies/puppiestwoext/package.json",
+		"/Users/kofta/Sites/puppies/puppiestwoext/app/js/services_factories.js",
+		"/Users/kofta/Sites/puppies/puppiestwoext/www/scripts/contentscript.js",
+		"/Users/kofta/Sites/puppies/puppiestwoext/www/scripts/contentscript.js.map",
+		"/Users/kofta/Sites/puppies/puppiestwoext/puppiesTootExt.sublime-project",
+		"/Users/kofta/Sites/puppies/puppiestwo/server/config/config.json",
+		"/Users/kofta/Sites/puppies/puppiestwo/server/app.js",
+		"/Users/kofta/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/kofta/Downloads/Installed Packages/Package Control.sublime-package",
+		"/Users/kofta/Downloads/Installed Packages/0_package_control_loader.sublime-package",
+		"/Users/kofta/Downloads/Installed Packages/0_package_control_loader.sublime-package-new",
+		"/Users/kofta/Library/Application Support/Sublime Text 3/Installed Packages/0_package_control_loader.sublime-package",
+		"/Users/kofta/Library/Application Support/Sublime Text 3/Installed Packages/Package Control.sublime-package",
+		"/Users/kofta/Sites/puppies/puppiestwo/puppiesTwo.sublime-project",
+		"/Users/kofta/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/kofta/Downloads/OSxInstall/test.sh",
+		"/Users/kofta/Downloads/OXInstall/test.sh"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 94.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"atmega32a"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 16,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16,
+								16
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31025,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										201,
+										210
+									],
+									[
+										516,
+										525
+									],
+									[
+										992,
+										1001
+									],
+									[
+										1497,
+										1506
+									],
+									[
+										1717,
+										1726
+									],
+									[
+										1937,
+										1946
+									],
+									[
+										2160,
+										2169
+									],
+									[
+										2383,
+										2392
+									],
+									[
+										2610,
+										2619
+									],
+									[
+										2763,
+										2772
+									],
+									[
+										3241,
+										3250
+									],
+									[
+										3396,
+										3405
+									],
+									[
+										4039,
+										4048
+									],
+									[
+										4207,
+										4216
+									],
+									[
+										4375,
+										4384
+									],
+									[
+										4543,
+										4552
+									],
+									[
+										4711,
+										4720
+									],
+									[
+										4879,
+										4888
+									],
+									[
+										5047,
+										5056
+									],
+									[
+										5216,
+										5225
+									],
+									[
+										5385,
+										5394
+									],
+									[
+										5554,
+										5563
+									],
+									[
+										5723,
+										5732
+									],
+									[
+										5892,
+										5901
+									],
+									[
+										6061,
+										6070
+									],
+									[
+										6229,
+										6238
+									],
+									[
+										6397,
+										6406
+									],
+									[
+										6565,
+										6574
+									],
+									[
+										6734,
+										6743
+									],
+									[
+										6903,
+										6912
+									],
+									[
+										7355,
+										7364
+									],
+									[
+										7774,
+										7783
+									],
+									[
+										8171,
+										8180
+									],
+									[
+										8515,
+										8524
+									],
+									[
+										8794,
+										8803
+									],
+									[
+										9027,
+										9036
+									],
+									[
+										9217,
+										9226
+									],
+									[
+										9605,
+										9614
+									],
+									[
+										9870,
+										9879
+									],
+									[
+										10135,
+										10144
+									],
+									[
+										10478,
+										10487
+									],
+									[
+										10746,
+										10755
+									],
+									[
+										11086,
+										11095
+									],
+									[
+										11497,
+										11506
+									],
+									[
+										11787,
+										11796
+									],
+									[
+										12211,
+										12220
+									],
+									[
+										12663,
+										12672
+									],
+									[
+										13084,
+										13093
+									],
+									[
+										13674,
+										13683
+									],
+									[
+										14384,
+										14393
+									],
+									[
+										14543,
+										14552
+									],
+									[
+										15332,
+										15341
+									],
+									[
+										16099,
+										16108
+									],
+									[
+										16358,
+										16367
+									],
+									[
+										16517,
+										16526
+									],
+									[
+										16676,
+										16685
+									],
+									[
+										16835,
+										16844
+									],
+									[
+										16994,
+										17003
+									],
+									[
+										17153,
+										17162
+									],
+									[
+										17312,
+										17321
+									],
+									[
+										17471,
+										17480
+									],
+									[
+										17630,
+										17639
+									],
+									[
+										17789,
+										17798
+									],
+									[
+										18062,
+										18071
+									],
+									[
+										18221,
+										18230
+									],
+									[
+										18380,
+										18389
+									],
+									[
+										18539,
+										18548
+									],
+									[
+										18698,
+										18707
+									],
+									[
+										18857,
+										18866
+									],
+									[
+										19016,
+										19025
+									],
+									[
+										19175,
+										19184
+									],
+									[
+										19334,
+										19343
+									],
+									[
+										19493,
+										19502
+									],
+									[
+										19652,
+										19661
+									],
+									[
+										20219,
+										20228
+									],
+									[
+										20392,
+										20401
+									],
+									[
+										20565,
+										20574
+									],
+									[
+										20737,
+										20746
+									],
+									[
+										21008,
+										21017
+									],
+									[
+										21279,
+										21288
+									],
+									[
+										21452,
+										21461
+									],
+									[
+										21724,
+										21733
+									],
+									[
+										21897,
+										21906
+									],
+									[
+										22070,
+										22079
+									],
+									[
+										22342,
+										22351
+									],
+									[
+										22619,
+										22628
+									],
+									[
+										23133,
+										23142
+									],
+									[
+										23815,
+										23824
+									],
+									[
+										24102,
+										24111
+									],
+									[
+										25190,
+										25199
+									],
+									[
+										26624,
+										26633
+									],
+									[
+										26726,
+										26735
+									],
+									[
+										27110,
+										27119
+									],
+									[
+										27477,
+										27486
+									],
+									[
+										27891,
+										27900
+									],
+									[
+										28161,
+										28170
+									],
+									[
+										28273,
+										28282
+									],
+									[
+										28406,
+										28415
+									],
+									[
+										28518,
+										28527
+									],
+									[
+										28725,
+										28734
+									],
+									[
+										29040,
+										29049
+									],
+									[
+										29182,
+										29191
+									],
+									[
+										29294,
+										29303
+									],
+									[
+										29418,
+										29427
+									],
+									[
+										29557,
+										29566
+									],
+									[
+										29669,
+										29678
+									],
+									[
+										29805,
+										29814
+									],
+									[
+										30028,
+										30037
+									],
+									[
+										30389,
+										30398
+									],
+									[
+										30534,
+										30543
+									],
+									[
+										30591,
+										30600
+									],
+									[
+										30748,
+										30757
+									],
+									[
+										30915,
+										30924
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								29377,
+								29377
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/Users/kofta/Sites/qmk_firmware/keyboards/jj40",
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4732.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/timer.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2594,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/kofta/Sites/qmk_firmware/tmk_core/common/avr/bootloader.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7163,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2393.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4011,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 173.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ymd96/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1254,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/ps2avrGB/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1254,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/pearl/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/mt40/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "keymaps/fuck40/readme.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10,
+								10
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "keymaps/fuck40/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 965,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "keymaps/fuck40/keymap.c",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6281,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "jj40.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1016,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								857,
+								857
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/Users/kofta/Sites/qmk_firmware/.git/config",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1681,
+								1681
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 68.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "keymaps/oscillope/keymap.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4742,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								671,
+								4742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 998.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "keymaps/fuck40/config.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								124,
+								124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "config.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1247,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1035,
+								1035
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/bfake/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/Users/kofta/Sites/qmk_firmware/keyboards/mechmini/rules.mk",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 24.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "jj40.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 301.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,1 +1,0 @@
-# Fuck 40 gold.

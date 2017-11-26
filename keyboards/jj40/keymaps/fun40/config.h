@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-#define FORCE_NKRO 1
+#define FORCE_NKRO
 #define PREVENT_STUCK_MODIFIERS
 
 #endif
