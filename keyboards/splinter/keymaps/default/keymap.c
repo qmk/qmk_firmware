@@ -13,10 +13,21 @@ extern keymap_config_t keymap_config;
 #define _VL 3 // This is for up layer but should be used by MO with the shift key pressed.
 #define _DL 2 // The down layer.
 
-uint32_t _BLC = 0x000000;
-uint32_t _ULC = 0x0000FF;
-uint32_t _VLC = 0xFFFF00;
-uint32_t _DLC = 0x00FF00;
+#define TOTAL_MATRIX_POINTS (MATRIX_ROWS * MATRIX_COLS)
+
+const uint32_t _PC = 0xFF0000;
+const uint32_t _LC[5] = { \
+  // LED off
+  [_BL] = 0x000000, \
+  // LED Blue
+  [_UL] = 0x0000FF, \
+  // LED Yellow
+  [_VL] = 0xFFFF00, \
+  // LED Green
+  [_DL] = 0x00FF00  \
+};
+
+uint8_t current_layer = 0;
 uint32_t _pressedC = 0xFF0000;
 uint8_t rgb_dimming = 7;
 bool _key_pressed[50];
@@ -71,8 +82,58 @@ void set_key_led_status(keyrecord_t *record) {
   /* } */
 }
 
+uint8_t base = 5;
+
+
+void process_led(keyrecord_t *record) {
+  uint8_t pos = 0;
+  uint8_t r = record->event.key.row;
+  uint8_t c = record->event.key.col;
+  /* uint8_t ls = biton32(layer_state); */
+
+  /* if (current_layer != ls) { */
+  /*   current_layer = ls; */
+  /*   switch (current_layer) { */
+  /*   case _UL: */
+  /*     set_layer_led(_ULC); */
+  /*     break; */
+  /*   case _DL: */
+  /*     set_layer_led(_DLC); */
+  /*     break; */
+  /*   case _VL: */
+  /*     set_layer_led(_VLC); */
+  /*     break; */
+  /*   default: */
+  /*     set_layer_led(_BLC); */
+  /*     break; */
+  /*   } */
+  /* } */
+
+  if (r % 2 == 0) {
+    pos = r * base + c;
+    SET_LED_RGB(_pressedC, pos);
+  } else {
+    pos = r * base + (base - (c + 1));
+    SET_LED_RGB(_pressedC, pos);
+  }
+
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  set_key_led_status(record);
+  /* set_key_led_status(record); */
+  /* uint8_t base = 5; */
+  /* uint8_t r = record->event.key.row; */
+  /* uint8_t c = record->event.key.col; */
+
+  /* if (record->event.key.row % 2 == 0) { */
+  /*   xprintf("Pressed: %d \n", record->event.key.row * base + record->event.key.col); */
+  /* } else { */
+  /*   xprintf("Pressed: %d \n", record->event.key.row * base + (base - (record->event.key.col + 1))); */
+  /* } */
+
+  process_led(record);
+
+  /* rgblight_set(); */
   return true;
 }
 
@@ -128,47 +189,20 @@ void SET_LED(uint32_t color) {
     }
   }
 }
-void layer_color(void) {
-  uint8_t layer = biton32(layer_state);
 
-  switch(layer){
-  case _UL:
-    /* SET_LED(_ULC); */
-    for(uint8_t i = 0; i < 50; i++){
-      SET_LED_RGB(_ULC, i);
-    }
-    break;
-  case _DL:
-    /* SET_LED(_DLC); */
-    for(uint8_t i = 0; i < 50; i++){
-      SET_LED_RGB(_DLC, i);
-    }
-    break;
-  case _VL:
-    /* SET_LED(_VLC); */
-    for(uint8_t i = 0; i < 50; i++){
-      SET_LED_RGB(_VLC, i);
-    }
-    break;
-  default:
-    /* SET_LED(_BLC); */
-    for(uint8_t i = 0; i < 50; i++){
-      SET_LED_RGB(_BLC, i);
-    }
-    break;
+void set_layer_led(uint32_t c) {
+  for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
+    SET_LED_RGB(c, i);
   }
 }
 
-void set_pressed_matrix(void) {
-  for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-      if (matrix_is_on(r, c)) {
-        row_pressed = r;
-        col_pressed = c;
-        break;
-      }
-    }
-  }
+void layer_led(void) {
+  uint8_t ls = biton32(layer_state);
+
+  if (current_layer != ls) {
+    current_layer = ls;
+    set_layer_led(_LC[current_layer]);
+  };
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -182,19 +216,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 void matrix_scan_user(void) {
   shifted_layer();
-  /* set_pressed_matrix(); */
-  /* uint32_t mod_colors[4] = {0}; */
-  /* mod_colors[0] = 0xFF0000; */
-  /* mod_colors[1] = 0x00FF00; */
-  /* mod_colors[2] = 0x0000FF; */
-  /* mod_colors[3] = 0xFFFF00; */
-  /* led[4].r = 100; */
-  /* led[4].g = 0; */
-  /* led[4].b = 0; */
-  /* ws2812_setleds(led, 5); */
-  /* sethsv(0, 100, 100,(LED_TYPE *)&led[2]); */
-  /* SET_LED_RGB(mod_colors[1], 49); */
-  layer_color();
+  layer_led();
   rgblight_set();
 }
 
