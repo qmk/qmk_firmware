@@ -5,8 +5,15 @@
 
 extern keymap_config_t keymap_config;
 
+enum custom_keycodes {
+  CK_SAFE = SAFE_RANGE,
+  RGUP,
+  RGDWN
+};
+
 #define _______ KC_TRNS
-/* extern struct cRGB led[5]; */
+#define KC_RGUP RGUP
+#define KC_RGDWN RGDWN
 
 #define _BL 0 // The base layer.
 #define _UL 1 // The up layer.
@@ -39,11 +46,11 @@ uint8_t dim = 7; // rgb dimming level.
   TO(_DL),     KC_LCTRL,    LSFT_T(KC_CAPS), TD(CT_LGUI_ALT), LGUI_T(KC_SPC),    RGUI_T(KC_ENT), TD(CT_RGUI_ALT), RSFT_T(KC_CAPS), KC_RCTRL,       TO(_DL))
 
 #define _upLayer KEYMAP( \
-  KC_4,          KC_5,          KC_6,          _______,  _______,     _______,  KC_RBRC,  _______,  _______,  _______,  \
-  LCTL_T(KC_1),  LSFT_T(KC_2),  LALT_T(KC_3),  _______,  _______,     KC_LBRC,  KC_BSLS,  _______,  _______,  _______,  \
-  KC_7,          KC_8,          KC_9,          KC_0,     KC_GRV,      KC_SLSH,  _______,  _______,  _______,  _______,  \
-  TO(_BL),       _______,       _______,       _______,  _______,     KC_DEL,   KC_END,   KC_PGDN,  _______,  TO(_BL),  \
-  TO(_DL),       KC_MPLY,       KC_MPRV,       KC_MNXT,  KC_ENT,      KC_SPC,   _______,  _______,  _______,  TO(_DL))
+  KC_4,          KC_5,          KC_6,          _______,  _______,     _______,  KC_RBRC,  _______,  KC_RGUP,   _______,  \
+  LCTL_T(KC_1),  LSFT_T(KC_2),  LALT_T(KC_3),  _______,  _______,     KC_LBRC,  KC_BSLS,  _______,  KC_RGDWN,  _______,  \
+  KC_7,          KC_8,          KC_9,          KC_0,     KC_GRV,      KC_SLSH,  _______,  _______,  _______,   _______,  \
+  TO(_BL),       _______,       _______,       _______,  _______,     KC_DEL,   KC_END,   KC_PGDN,  _______,   TO(_BL),  \
+  TO(_DL),       KC_MPLY,       KC_MPRV,       KC_MNXT,  KC_ENT,      KC_SPC,   _______,  _______,  _______,   TO(_DL))
 
 #define _downLayer KEYMAP( \
   KC_F4,          KC_F5,          KC_F6,          KC_F12,   _______,     _______,   KC_RPRN,   _______,   KC_UP,    KC_RIGHT,  \
@@ -92,6 +99,28 @@ void key_led(keyrecord_t *record) {
   rgblight_set();
 }
 
+bool led_brightness(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case RGUP:
+    if (record->event.pressed && dim > 0) {
+      dim--;
+    }
+
+    return true;
+    break;
+  case RGDWN:
+    if (record->event.pressed && dim < 8) {
+      dim++;
+    }
+
+    return true;
+    break;
+  default:
+    return false;
+    break;
+  }
+}
+
 void shifted_layer(void) {
   static bool is_shifted = false;
 
@@ -116,6 +145,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   key_led(record);
+
+  if (led_brightness(keycode, record)) {
+    set_layer_led(_LC[cur_lyr]);
+    return false;
+  }
+
   return true;
 }
 
