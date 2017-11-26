@@ -68,12 +68,12 @@ void set_layer_led(uint32_t c) {
 }
 
 void layer_led(void) {
-  uint8_t ls = biton32(layer_state);
+  static uint8_t pl = 0;
 
-  if (cur_lyr != ls) {
-    cur_lyr = ls;
+  if (pl != cur_lyr) {
+    pl = cur_lyr;
     set_layer_led(_LC[cur_lyr]);
-  };
+  }
 
   rgblight_set();
 }
@@ -93,27 +93,15 @@ void key_led(keyrecord_t *record) {
 }
 
 void shifted_layer(void) {
-  uint8_t layer = biton32(layer_state);
-  static uint8_t current_layer = 0;
-  static bool has_layer_changed = false;
   static bool is_shifted = false;
 
-  if(layer != current_layer) {
-    has_layer_changed = true;
-    current_layer = layer;
-  }
-
-  if(has_layer_changed) {
-    if(layer == _VL) {
-      register_code(KC_LSFT);
-      is_shifted = true;
-    } else {
-      if(is_shifted) {
-        unregister_code(KC_LSFT);
-        is_shifted = false;
-      }
-
-      has_layer_changed = false;
+  if (cur_lyr == _VL) {
+    register_code(KC_LSFT);
+    is_shifted = true;
+  } else {
+    if (is_shifted) {
+      unregister_code(KC_LSFT);
+      is_shifted = false;
     }
   }
 }
@@ -132,6 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
+  cur_lyr = biton32(layer_state);
   shifted_layer();
   layer_led();
 }
