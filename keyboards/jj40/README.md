@@ -33,7 +33,7 @@ $ pip install pyusb
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
-`bootloadHID` if you boot the board while holding down the top right key to keep it
+`bootloadHID` if you boot the board while holding down `Backspace` (`Top Right Key`) to keep it
 in the bootloader:
 
 ```

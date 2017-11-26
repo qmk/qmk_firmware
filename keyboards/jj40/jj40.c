@@ -37,7 +37,4 @@ void matrix_init_kb(void) {
 }
 
 void matrix_init_user(void) {
-  backlight_init_ports();
-  // backlight_init();
-  // backlight_level(3);
 }
