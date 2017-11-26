@@ -1,11 +1,7 @@
 /*
 
-Note for ErgoDox EZ customizers: Here be dragons!
-This is not a file you want to be messing with.
-All of the interesting stuff for you is under keymaps/ :)
-Love, Erez
-
 Copyright 2013 Oleg Kostyuk <cub.uanic@gmail.com>
+Copyright 2017 Erin Call <hello@erincall.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include QMK_KEYBOARD_H
+#include "dactyl.h"
 #include "i2cmaster.h"
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #include  "timer.h"
@@ -43,13 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This constant define not debouncing time in msecs, but amount of matrix
  * scan loops which should be made to get stable debounced results.
  *
- * On Ergodox matrix scan rate is relatively low, because of slow I2C.
+ * On the Dactyl, the matrix scan rate is relatively low, because
+ * communicating with the left hand's I/O expander is slower than simply
+ * selecting local pins.
  * Now it's only 317 scans/second, or about 3.15 msec/scan.
  * According to Cherry specs, debouncing time is 5 msec.
  *
- * However, some switches seem to have higher debouncing requirements, or
- * something else might be wrong. (Also, the scan speed has improved since
- * that comment was written.)
+ * And so, there is no sense to have DEBOUNCE higher than 2.
  */
 
 #ifndef DEBOUNCE
@@ -185,7 +181,6 @@ uint8_t matrix_scan(void)
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
-                ergodox_blink_all_leds();
             }
         }
     }
@@ -204,24 +199,14 @@ uint8_t matrix_scan(void)
     }
 #endif
 
-#ifdef LEFT_LEDS
-    mcp23018_status = ergodox_left_leds_update();
-#endif // LEFT_LEDS
-    for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         select_row(i);
-        // and select on left hand
-        select_row(i + MATRIX_ROWS_PER_SIDE);
-        // we don't need a 30us delay anymore, because selecting a
-        // left-hand row requires more than 30us for i2c.
+        wait_us(30);  // without this wait read unstable value.
         matrix_row_t mask = debounce_mask(i);
         matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
         debounce_report(cols ^ matrix[i], i);
         matrix[i] = cols;
-        // grab cols from right hand
-        mask = debounce_mask(i + MATRIX_ROWS_PER_SIDE);
-        cols = (read_cols(i + MATRIX_ROWS_PER_SIDE) & mask) | (matrix[i + MATRIX_ROWS_PER_SIDE] & ~mask);
-        debounce_report(cols ^ matrix[i + MATRIX_ROWS_PER_SIDE], i + MATRIX_ROWS_PER_SIDE);
-        matrix[i + MATRIX_ROWS_PER_SIDE] = cols;
+
         unselect_rows();
     }
 
@@ -289,7 +274,7 @@ static void  init_cols(void)
 
 static matrix_row_t read_cols(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 6) {
         if (mcp23018_status) { // if there was an error
             return 0;
         } else {
@@ -304,25 +289,26 @@ static matrix_row_t read_cols(uint8_t row)
             return data;
         }
     } else {
-        /* read from teensy
-	 * bitmask is 0b11110011, but we want those all
-	 * in the lower six bits.
-	 * we'll return 1s for the top two, but that's harmless.
-	 */
-
-        return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2));
+        // read from teensy
+        return
+            (PINF&(1<<0) ? 0 : (1<<0)) |
+            (PINF&(1<<1) ? 0 : (1<<1)) |
+            (PINF&(1<<4) ? 0 : (1<<2)) |
+            (PINF&(1<<5) ? 0 : (1<<3)) |
+            (PINF&(1<<6) ? 0 : (1<<4)) |
+            (PINF&(1<<7) ? 0 : (1<<5)) ;
     }
 }
 
 /* Row pin configuration
  *
  * Teensy
- * row: 7   8   9   10  11  12  13
- * pin: B0  B1  B2  B3  D2  D3  C6
+ * row: 6   7   8   9   10  11
+ * pin: B1  B2  B3  D2  D3  C6
  *
  * MCP23018
- * row: 0   1   2   3   4   5   6
- * pin: A0  A1  A2  A3  A4  A5  A6
+ * row: 0   1   2   3   4   5
+ * pin: A0  A1  A2  A3  A4  A5
  */
 static void unselect_rows(void)
 {
@@ -331,35 +317,45 @@ static void unselect_rows(void)
         // do nothing
     } else {
         // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF);              if (mcp23018_status) goto out;
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(0xFF);           if (mcp23018_status) goto out;
     out:
         i2c_stop();
     }
 
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<0 | 1<<1 | 1<<2 | 1<<3);
+    DDRB  &= ~(1<<1 | 1<<2 | 1<<3);
+    PORTB &= ~(1<<1 | 1<<2 | 1<<3);
     DDRD  &= ~(1<<2 | 1<<3);
     PORTD &= ~(1<<2 | 1<<3);
     DDRC  &= ~(1<<6);
     PORTC &= ~(1<<6);
 }
 
+/* Row pin configuration
+ *
+ * Teensy
+ * row: 6   7   8   9   10  11
+ * pin: B1  B2  B3  D2  D3  C6
+ *
+ * MCP23018
+ * row: 0   1   2   3   4   5
+ * pin: A0  A1  A2  A3  A4  A5
+ */
 static void select_row(uint8_t row)
 {
-    if (row < 7) {
+    if (row < 6) {
         // select on mcp23018
         if (mcp23018_status) { // if there was an error
             // do nothing
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row));      if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA);            if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }
@@ -367,31 +363,27 @@ static void select_row(uint8_t row)
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
         switch (row) {
-            case 7:
-                DDRB  |= (1<<0);
-                PORTB &= ~(1<<0);
-                break;
-            case 8:
+            case 6:
                 DDRB  |= (1<<1);
                 PORTB &= ~(1<<1);
                 break;
-            case 9:
+            case 7:
                 DDRB  |= (1<<2);
                 PORTB &= ~(1<<2);
                 break;
-            case 10:
+            case 8:
                 DDRB  |= (1<<3);
                 PORTB &= ~(1<<3);
                 break;
-            case 11:
+            case 9:
                 DDRD  |= (1<<2);
                 PORTD &= ~(1<<3);
                 break;
-            case 12:
+            case 10:
                 DDRD  |= (1<<3);
                 PORTD &= ~(1<<3);
                 break;
-            case 13:
+            case 11:
                 DDRC  |= (1<<6);
                 PORTC &= ~(1<<6);
                 break;
