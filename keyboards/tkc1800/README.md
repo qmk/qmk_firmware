@@ -4,7 +4,7 @@ The Key Company TKC1800
 ![TKC1800](https://imgur.com/a/Xlttp)
 
 
-The Key Company TKC1800 is a Cherry 1800 form factor replacement PCB utilizing the AT90USB1286 PCB.
+The Key Company TKC1800 is a Cherry 1800 form factor replacement PCB utilizing the AT90USB1286 microcontroller.
 
 Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)  
 Hardware Supported: AT90USB1286  
