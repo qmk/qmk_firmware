@@ -7,7 +7,7 @@ Keyboard Maintainer: [di0ib](http://www.40percent.club)
 Hardware Supported: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/) 
 Please note: This is 32u4 and not M0
 Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68/pcb)  
-
+[MF68 thicc case files](https://github.com/harshitgoel96/mf68-case-thicc)
 Story
 -----
 
