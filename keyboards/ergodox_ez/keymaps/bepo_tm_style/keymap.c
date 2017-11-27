@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ___, XXX, XXX,     KC_WH_U, XXX,     XXX, ___,
               XXX, KC_WH_L, KC_WH_D, KC_WH_R, XXX, ___,
          ___, XXX, KC_ACL0, KC_ACL1, KC_ACL2, XXX, ___,
-                   KC_BTN1, KC_BTN3, KC_BTN2, XXX, ___,
+                   KC_BTN1, KC_BTN2, KC_BTN3, XXX, ___,
     ___, ___,
     ___,
     ___, ___, ___),
@@ -138,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               ___, ___, ___, ___, ___, ___,
          ___, ___, ___, ___, ___, ___, ___,
                    ___, ___, ___, ___, ___,
-    ___, ___,
+    ___, TT(SWAP),
     ___,
-    ___, ___, ___),
+    ___, ___,      ___),
  
   // Layer 5: The LEDs are showing the "standard" caps/num/scroll lock indicator
   // instead of their default which shows the currently active layers (FN, NUMS,
