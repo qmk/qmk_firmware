@@ -7,6 +7,7 @@ extern keymap_config_t keymap_config;
 #define A(X) LALT(X)
 #define C(X) LCTL(X)
 #define GC(X) G(C(X))
+#define GA(X) G(A(X))
 #define GAC(X) G(A(C(X)))
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -144,19 +145,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MOVE] = {
   {
-    GC(KC_UP),    GAC(KC_1),    G(KC_6),      G(KC_5),
-    G(KC_4),      GAC(KC_UP),   GAC(KC_RGHT), KC_HOME,
+    GA(KC_UP),    GAC(KC_1),    G(KC_6),      G(KC_5),
+    G(KC_4),      XXXXXXX,      XXXXXXX,      KC_HOME,
     KC_UP,        KC_END,       C(KC_SPC),    KC_ESC
   },
   {
-    GC(KC_DOWN),  GAC(KC_2),    G(KC_3),      G(KC_2),
+    GA(KC_DOWN),  GAC(KC_2),    G(KC_3),      G(KC_2),
     G(KC_1),      G(KC_F),      G(KC_C),      KC_LEFT,
     KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
   },
   {
     _______,      GAC(KC_3),    G(KC_9),      G(KC_8),
-    G(KC_7),      GAC(KC_LEFT), GAC(KC_DOWN), KC_PGDN,
-    KC_PGUP,      GC(KC_LEFT),  GC(KC_RGHT),  _______
+    G(KC_7),      XXXXXXX,      XXXXXXX,      KC_PGDN,
+    KC_PGUP,      GA(KC_LEFT),  GA(KC_RGHT),  _______
   },
   {
     _______,      _______,      _______,      _______,
