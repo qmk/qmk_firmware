@@ -19,6 +19,9 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
+#ifdef RGBLIGHT_ANIMATIONS
+  #include "rgblight.h"
+#endif
 
 
 #define wdt_intr_enable(value)   \
@@ -85,7 +88,10 @@ static void power_down(uint8_t wdto)
         // This sometimes disables the start-up noise, so it's been disabled
 		// stop_all_notes();
 	#endif /* AUDIO_ENABLE */
-
+#ifdef RGBLIGHT_ANIMATIONS
+  rgblight_timer_disable();
+  rgblight_setrgb(0, 0, 0);
+#endif
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
@@ -132,6 +138,10 @@ void suspend_wakeup_init(void)
     backlight_init();
 #endif
 	led_set(host_keyboard_leds());
+#ifdef RGBLIGHT_ANIMATIONS
+  rgblight_timer_enable();
+  rgblight_init();
+#endif
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
