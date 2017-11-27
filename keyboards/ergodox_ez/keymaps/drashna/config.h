@@ -13,5 +13,6 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
+#define FORCE_NKRO
 
 #endif

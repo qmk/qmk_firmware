@@ -27,7 +27,9 @@ This level contains all of the options for that particular keymap. If you wish t
 
 # The `config.h` file
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere.
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
+
+    #include "config_common.h"
 
 ## `config.h` Options
 
@@ -123,6 +125,15 @@ If you define these options you will enable the associated feature, which may in
   * how many taps before oneshot toggle is triggered
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+* `#define QMK_KEYS_PER_SCAN 4`
+  * Allows sending more than one key per scan. By default, only one key event gets
+    sent via `process_record()` per scan. This has little impact on most typing, but
+    if you're doing a lot of chords, or your scan rate is slow to begin with, you can
+    have some delay in processing key events. Each press and release is a separate
+    event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
+    going to produce the 500 keystrokes a second needed to actually get more than a
+    few ms of delay from this. But if you're doing chording on something with 3-4ms
+    scan times? You probably want this.
 
 ### RGB Light Configuration
 
@@ -170,7 +181,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `ARCH = AVR8`
 * `F_USB = $(F_CPU)`
 * `OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT`
-* `OPT_DEFS += -DBOOTLOADER_SIZE=4096`
+* `BOOTLOADER = atmel-dfu` with the following options:
+  * `atmel-dfu`
+  * `lufa-dfu`
+  * `qmk-dfu`
+  * `halfkay`
+  * `caterina`
+  * `bootloadHID`
 
 ### Feature Options
 

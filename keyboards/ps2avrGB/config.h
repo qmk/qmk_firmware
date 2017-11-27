@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 #define PRODUCT         ps2avrGB
 
-#define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1

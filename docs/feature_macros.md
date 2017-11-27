@@ -8,34 +8,78 @@ Macros allow you to send multiple keystrokes when pressing just one key. QMK has
 
 ## The new way: `SEND_STRING()` & `process_record_user`
 
-Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string for you. All ascii that is easily translated to a keycode is supported (eg `\n\t`).
+Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
 
-For example:
+Here is an example `keymap.c` for a two-key keyboard:
 
 ```c
 enum custom_keycodes {
-	PRINT_TRUTH = SAFE_RANGE
+	MY_CUSTOM_MACRO = SAFE_RANGE
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
 		switch(keycode) {
-			case PRINT_TRUTH:
-				SEND_STRING("QMK is the best thing ever!");
+			case MY_CUSTOM_MACRO:
+				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
 				return false; break;
 		}
 	}
 	return true;
 };
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, KC_ESC}
+	}
+};
 ```
 
-### Tap/down/up
+What happens here is this:
+We first define a new custom keycode in the range not occupied by any other keycodes.
+Then we use the `process_record_user` function, which is called whenever a key is pressed or released, to check if our custom keycode has been activated.
+If yes, we send the string `"QMK is the best thing ever!"` to the computer via the `SEND_STRING` macro (this is a C preprocessor macro, not to be confused with QMK macros).
+We return `false` to indicate to the caller that the key press we just processed need not be processed any further.
+Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
+You might want to add more than one macro.
+You can do that by adding another keycode and adding another case to the switch statement, like so:
+
+```c
+enum custom_keycodes {
+	MY_CUSTOM_MACRO = SAFE_RANGE,
+	MY_OTHER_MACRO
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (record->event.pressed) {
+		switch(keycode) {
+			case MY_CUSTOM_MACRO:
+				SEND_STRING("QMK is the best thing ever!");
+				return false; break;
+			case MY_OTHER_MACRO:
+				SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+				return false; break;
+		}
+	}
+	return true;
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
+	}
+};
+```
+
+### TAP, DOWN and UP
+
+You may want to use keys in your macros that you can't write down, such as `Ctrl` or `Home`.
 You can send arbitary keycodes by wrapping them in:
 
-* `SS_TAP()`
-* `SS_DOWN()`
-* `SS_UP()`
+* `SS_TAP()` presses and releases a key.
+* `SS_DOWN()` presses (but does not release) a key.
+* `SS_UP()` releases a key.
 
 For example:
 
@@ -52,12 +96,14 @@ There's also a couple of mod shortcuts you can use:
 * `SS_LCTRL(string)`
 * `SS_LGUI(string)`
 * `SS_LALT(string)`
+* `SS_LSFT(string)`
 
-That can be used like this:
+These press the respective modifier, send the supplied string and then release the modifier.
+They can be used like this:
 
     SEND_STRING(SS_LCTRL("a"));
 
-Which would send LCTRL+a (LTRL down, a, LTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
+Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 
 ### Alternative keymaps
 
