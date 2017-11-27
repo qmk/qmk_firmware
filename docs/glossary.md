@@ -110,7 +110,7 @@ A feature that lets you control your mouse cursor and click from your keyboard.
 A term that applies to keyboards that are capable of reporting any number of key-presses at once.
 
 ## Oneshot Modifier
-A modifier that acts as if it is held down until another key is released, so you can press the mod and then press the key, rather than holding the mod while pressing the key.
+A modifier that acts as if it is held down until another key is released, so you can press the mod and then press the key, rather than holding the mod while pressing the key. Also known as a Sticky key or a Dead key.
 
 ## ProMicro
 A low cost AVR development board. Clones of this device are often found on ebay very inexpensively (under $5) but people often struggle with flashing their pro micros.
