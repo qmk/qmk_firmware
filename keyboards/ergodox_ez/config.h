@@ -62,8 +62,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
+#ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
+#endif
+#ifndef LED_BRIGHTNESS_HI
 #define LED_BRIGHTNESS_HI       255
+#endif
+#define LED_BRIGHTNESS_DEFAULT (LED_BRIGHTNESS_HI)
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
