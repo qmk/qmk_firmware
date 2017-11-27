@@ -131,7 +131,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 # One Shot Keys
 
-One shot keys are keys that remain active until the next key is pressed, and then are releasd. This allows you to type keyboard combinations without pressing more than one key at a time.
+One shot keys are keys that remain active until the next key is pressed, and then are released. This allows you to type keyboard combinations without pressing more than one key at a time. These keys are usually called "Sticky keys" or "Dead keys".
 
 For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A character by first pressing and releasing shift, and then pressing and releasing A. Your computer will see the shift key being held the moment shift is pressed, and it will see the shift key being released immediately after A is released.
 
