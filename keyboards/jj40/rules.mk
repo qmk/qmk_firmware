@@ -35,6 +35,9 @@ RGBLIGHT_ENABLE = no
 RGBLIGHT_CUSTOM_DRIVER = no
 KEY_LOCK_ENABLE = yes
 
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+
 OPT_DEFS = -DDEBUG_LEVEL=0
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
