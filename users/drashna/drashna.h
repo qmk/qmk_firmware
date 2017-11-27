@@ -106,4 +106,8 @@ enum {
 
 #define QMK_KEYS_PER_SCAN 6
 
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT_SLEEP
+#endif
+
 #endif

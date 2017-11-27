@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "woodpad.h"
+#include QMK_KEYBOARD_H
 #include "drashna.h"
 
  // Each layer gets a name for readability, which is then used in the keymap matrix below.
