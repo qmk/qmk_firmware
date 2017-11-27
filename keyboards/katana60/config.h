@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RominRonin CandyKeys
 #define PRODUCT         Katana60
-#define DESCRIPTION     Ergonomic 60% Keyboard
+#define DESCRIPTION     QMK keyboard firmware for Katana60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
