@@ -85,9 +85,7 @@ enum userrpace_custom_keycodes {
   KC_GGEZ,
   KC_MAKE,
   KC_RESET,
-#ifdef RGBLIGHT_ENABLE
   KC_RGB_T,
-#endif
   KC_SECRET_1,
   KC_SECRET_2,
   KC_SECRET_3,

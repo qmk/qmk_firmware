@@ -482,34 +482,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-
   case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
+#ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
       rgb_layer_change = !rgb_layer_change;
     }
+#endif
     return false;
     break;
-  case RGB_MOD:
-  case RGB_SMOD:
-  case RGB_HUI:
-  case RGB_HUD:
-  case RGB_SAI:
-  case RGB_SAD:
-  case RGB_VAI:
-  case RGB_VAD:
-  case RGB_MODE_PLAIN:
-  case RGB_MODE_BREATHE:
-  case RGB_MODE_RAINBOW:
-  case RGB_MODE_SWIRL:
-  case RGB_MODE_SNAKE:
-  case RGB_MODE_KNIGHT:
-  case RGB_MODE_XMAS:
-  case RGB_MODE_GRADIENT:
-    if (record->event.pressed) {
+#ifdef RGBLIGHT_ENABLE
+  case RGB_MOD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
+    if (record->event.pressed) { //This disrables layer indication, as it's assumed that if you're changing this ... you want that disabled
       rgb_layer_change = false;
     }
     return true;
     break;
+#endif
   }
   return process_record_keymap(keycode, record);
 }
