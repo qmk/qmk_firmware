@@ -43,8 +43,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:
     if (!record->event.pressed) {
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
-#ifndef CATERINA_BOOTLOADER
+#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+      SEND_STRING(":dfu");
+#elseif defined(BOOTLOADER_HALFKEY)
       SEND_STRING(":teensy ");
+#elseif defined(BOOTLOADER_CATERINA)
+      SEND_STRING(":avrdude ");
 #else
       SEND_STRING(" ");
 #endif

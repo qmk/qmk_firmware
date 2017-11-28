@@ -38,7 +38,7 @@ void matrix_init_kb(void) {
     PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
 
     // unused pins - C7, D4, D5, D7, E6
-    // set as input with internal pull-ip enabled
+    // set as input with internal pull-up enabled
     DDRC  &= ~(1<<7);
     DDRD  &= ~(1<<5 | 1<<4);
     DDRE  &= ~(1<<6);
@@ -54,7 +54,7 @@ void matrix_init_kb(void) {
 void ergodox_blink_all_leds(void)
 {
     ergodox_led_all_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_HI);
+    ergodox_led_all_set(LED_BRIGHTNESS_DEFAULT);
     ergodox_right_led_1_on();
     _delay_ms(50);
     ergodox_right_led_2_on();
