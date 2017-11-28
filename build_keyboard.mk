@@ -230,6 +230,7 @@ VPATH += $(USER_PATH)
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
+include bootloader.mk
 
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
@@ -266,10 +267,10 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-all: build sizeafter
+all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf hex
+build: elf cphex
 #build: elf hex eep lss sym
 #build: lib
 
