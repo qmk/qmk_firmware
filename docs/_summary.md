@@ -26,6 +26,7 @@
   * [Backlight](feature_backlight.md)
   * [Bootmagic](feature_bootmagic.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
+  * [Grave Escape](feature_grave_escape.md)
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
