@@ -428,28 +428,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   case KC_MAKE:
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
-#ifndef BOOTLOADER_CATERINA
-      SEND_STRING(":teensy ");
-#else
-      SEND_STRING(" ");
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+       ":dfu"
+#elif defined(BOOTLOADER_HALFKEY)
+      ":teensy "
+#elif defined(BOOTLOADER_CATERINA)
+       ":avrdude "
 #endif
 #ifdef RGBLIGHT_ENABLE
-      SEND_STRING(" RGBLIGHT_ENABLE=yes");
+        " RGBLIGHT_ENABLE=yes"
 #else
-      SEND_STRING(" RGBLIGHT_ENABLE=no");
+        " RGBLIGHT_ENABLE=no"
 #endif
 #ifdef AUDIO_ENABLE
-      SEND_STRING(" AUDIO_ENABLE=yes");
+        " AUDIO_ENABLE=yes"
 #else
-      SEND_STRING(" AUDIO_ENABLE=no");
+        " AUDIO_ENABLE=no"
 #endif
 #ifdef FAUXCLICKY_ENABLE
-      SEND_STRING(" FAUXCLICKY_ENABLE=yes");
+        " FAUXCLICKY_ENABLE=yes"
 #else
-      SEND_STRING(" FAUXCLICKY_ENABLE=no");
+        " FAUXCLICKY_ENABLE=no" 
 #endif
-      SEND_STRING(SS_TAP(X_ENTER));
+        SS_TAP(X_ENTER));
     }
     return false;
     break;
