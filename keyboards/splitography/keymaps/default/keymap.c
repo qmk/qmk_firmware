@@ -66,9 +66,7 @@ enum splitography_keycodes {
  ,BLUE
  ,ORANGE
  ,PLOVER
- // ,PLOVEX
  ,TXBOLT
- // ,TXBOLX
  ,OS_ALT
  ,OS_CTL
  ,OS_GUI
@@ -334,15 +332,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case PLOVER:
       steno(record, _PLOVER);
       return false;
-    // case PLOVEX:
-    //   steno_exit(record, _PLOVER);
-    //   return false;
     case TXBOLT:
       steno(record, _TXBOLT);
       return false;
-    // case TXBOLX:
-    //   steno_exit(record, _TXBOLT);
-    //   return false;
     case OS_ALT:
       modifier(record, MOD_LALT, KC_LALT);
       break;
