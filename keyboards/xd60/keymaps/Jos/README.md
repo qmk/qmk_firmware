@@ -4,7 +4,7 @@ Custom layout with various options.
 
 ## Layout
 This is the physical layout of my xd60, for reference. See the keymap file for actual software layout.
-![Keyboard Layout (Physical appearence)](https://i.imgur.com/oSg0DPf.png "Physical Layout")
+![Keyboard Layout (Physical appearence)](https://i.imgur.com/BMWtAqT.png "Physical Layout")
 
 ## Features
 **Caps Lock** is **Escape** and the **Window key** is a **Function** key with some features of the normal **Window key**.
