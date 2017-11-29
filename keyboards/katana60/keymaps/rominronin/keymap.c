@@ -1,4 +1,4 @@
-/* Copyright 2017 RominRonin
+/* Copyright 2017 Baris Tosun
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
