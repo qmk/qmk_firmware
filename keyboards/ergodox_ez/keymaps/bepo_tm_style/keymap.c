@@ -27,7 +27,6 @@
 #define ESC_FN    LT(FN, KC_ESC)        // ESC key and FN layer toggle.
 #define M_RSFT    MT(MOD_RSFT, BP_M)    // 'M' key and right shift modifier.
 #define W_RCTL    MT(MOD_RCTL, BP_W)    // 'W' key and right control modifier.
-#define PERC_FN   LT(FN, BP_PERC)       // '%' key and FN layer toggle.
 #define SPC_RALT  MT(MOD_RALT, KC_SPC)  // SPACE key and right alt modifier.
 
 // The most portable copy/paste keys (windows, linux, and some terminal emulators).
@@ -48,11 +47,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     KC_MPLY,
                                                   TT(FN), TT(NUMS), KC_MPRV,
     /* right hand */
-        KC_DEL,  BP_AT,   BP_PLUS, BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
-        KC_BSPC, BP_DCRC, BP_V,    BP_D,    BP_L,        BP_J,    BP_Z,
-                 BP_C,    BP_T,    BP_S,    BP_R,        BP_N,    M_RSFT,
-        KC_ENT,  BP_APOS, BP_Q,    BP_G,    BP_H,        BP_F,    W_RCTL,
-                          SPC_RALT,  KC_LALT, TT(SYSLEDS), BP_CCED, PERC_FN,
+        KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
+        KC_BSPC, BP_DCRC, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
+                 BP_C,    BP_T,     BP_S,    BP_R,        BP_N,    M_RSFT,
+        KC_ENT,  BP_APOS, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
+                          SPC_RALT, KC_LALT, TT(SYSLEDS), BP_CCED, BP_PERC,
     KC_LEFT, KC_RIGHT,
     KC_UP,
     KC_DOWN, TT(FN), TT(MOUSE)),
