@@ -21,6 +21,15 @@ enum planck_keycodes
     AMYTHEST
 };
 
+// enum
+// {
+//     TD_SPC_SFT = 0
+// };
+
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     [TD_SPC_SFT] = ACTION_TAP_DANCE_DOUBLE(KC~)
+//}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /* Qwerty
@@ -31,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |(LShft|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |RShft)|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | TBC1 | Ctrl | Alt  | GUI  |Lower |Enter |Space |Raise |   /  | Left | Down |Right |
+ * | TBC1 | Ctrl | Alt  | GUI  |Lower |Space |Space |Raise |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  *
  * TBC1 - toggle Iterm
@@ -60,20 +69,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * CMD+~ to bring up iterm
  * AMY - Amythest Layer
  */
-        [_LOWER] = {{KC_MUTE, KC_F1, KC_F2, KC_F3, _______, KC_LCBR, KC_RCBR, KC_SLASH, KC_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9}, {KC_VOLU, KC_F4, KC_F5, KC_F6, _______, KC_LPRN, KC_RPRN, KC_MINUS, KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6}, {KC_VOLD, KC_F7, KC_F8, KC_F9, _______, KC_PIPE, KC_BSLASH, _______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3}, {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}},
+        [_LOWER] = {
+            {KC_MUTE, KC_F1, KC_F2, KC_F3, _______, KC_LCBR, KC_RCBR, KC_SLASH, KC_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9}, 
+            {KC_VOLU, KC_F4, KC_F5, KC_F6, _______, KC_LPRN, KC_RPRN, KC_MINUS, KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6}, 
+            {KC_VOLD, KC_F7, KC_F8, KC_F9, _______, KC_PIPE, KC_BSLASH, _______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3}, 
+            {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
+        },
 
         /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | DEL  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Acc0 | RClk |  Mup | LClk |MWhlU |      |      |   -  |   =  |   [  |   ]  |  \   |
+ * | Acc0 | RClk |  Mup | LClk |MWhlU |   {  |   }  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Acc1 | MLft | MDwn | MRt  |MWhlD |      |      |ISO # |ISO / |Pg Up |Pg Dn |      |
+ * | Acc1 | MLft | MDwn | MRt  |MWhlD |   (  |   )  |   _  |ISO / |Pg Up |Pg Dn |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Acc2 |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
-        [_RAISE] = {{KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL}, {KC_MS_ACCEL0, KC_BTN2, KC_MS_UP, KC_BTN1, KC_MS_WH_UP, _______, _______, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS}, {KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN, _______, _______, KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______}, {KC_MS_ACCEL2, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}},
+        [_RAISE] = {
+            {KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_DEL}, 
+            {KC_MS_ACCEL0, KC_BTN2, KC_MS_UP, KC_BTN1, KC_MS_WH_UP, KC_LCBR, KC_RCBR, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS}, 
+            {KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN, KC_LPRN, KC_RPRN, KC_UNDS, KC_NUBS, KC_PGUP, KC_PGDN, _______}, 
+            {KC_MS_ACCEL2, _______, _______, _______, _______, _______, _______, _______, KC_MEDIA_PREV_TRACK, KC_VOLD, KC_VOLU, KC_MEDIA_NEXT_TRACK}
+        },
 
         /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
