@@ -3,7 +3,7 @@
 This document attempts to explain how the QMK firmware works from a very high level. It assumes you understand basic programming concepts but does not (except where needed to demonstrate) assume familiarity with C. It assumes that you have a basic understanding of the following documents:
 
 * [QMK Overview](qmk_overview.md)
-* [How Keyboards Work](basic_how_keyboards_work.md)
+* [How Keyboards Work](how_keyboards_work.md)
 * [FAQ](faq.md)
 
 ## Startup
@@ -147,6 +147,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_unicode(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode.c#L22)
     * [`bool process_ucis(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c#L91)
     * [`bool process_printer(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_printer.c#L77)
+    * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_auto_shift.c#L47)
     * [`bool process_unicode_map(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicodemap.c#L47)
     * [Identify and process quantum specific keycodes](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c#L211)
   

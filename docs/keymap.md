@@ -28,14 +28,12 @@ Respective layers can be validated simultaneously. Layers are indexed with 0 to 
 Sometimes, the action code stored in keymap may be referred as keycode in some documents due to the TMK history.
 
 ### Keymap layer status
-Keymap layer has its state in two 32 bit parameters:
+The state of the Keymap layer is determined by two 32 bit parameters:
 
-* **`default_layer_state`** indicates a base keymap layer(0-31) which is always valid and to be referred.
-* **`layer_state`** () has current on/off status of the layer on its each bit.
+* **`default_layer_state`** indicates a base keymap layer (0-31) which is always valid and to be referred (the default layer).
+* **`layer_state`** has current on/off status of each layer in its bits.
 
-Keymap has its state in two parameter **`default_layer`** indicates a base keymap layer(0-31) which is always valid and to be referred, **`keymap_stat`** is 16bit variable which has current on/off status of layers on its each bit.
-Keymap layer '0' is usually `default_layer` and which is the only valid layer and other layers is initially off after boot up firmware, though, you can configured them in `config.h`.
-To change `default_layer` will be useful when you switch key layout completely, say you want Colmak instead of Qwerty.
+Keymap layer '0' is usually `default_layer`, wither other layers initially off after booting up the firmware, although this can configured differently in `config.h`. It is useful to change `default_layer` when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.
 
     Initial state of Keymap          Change base layout              
     -----------------------          ------------------              
@@ -52,7 +50,7 @@ To change `default_layer` will be useful when you switch key layout completely, 
     `--- default_layer = 0           `--- default_layer = 1
          layer_state   = 0x00000001       layer_state   = 0x00000002
 
-On the other hand, you shall change `layer_state` to overlay base layer with some layers for feature such as navigation keys, function key(F1-F12), media keys or special actions.
+On the other hand, you can change `layer_state` to overlay the base layer with other layers for features such as navigation keys, function keys (F1-F12), media keys, and/or special actions.
 
     Overlay feature layer
     ---------------------      bit|status
@@ -79,7 +77,7 @@ Key with `KC_TRANS` (`KC_TRNS` and `_______` are the alias) doesn't has its own 
 
 ## Anatomy Of A `keymap.c`
 
-For this example we will walk through the [default Clueboard keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
+For this example we will walk through the [default Clueboard 66% keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard_66/keymaps/default/keymap.c). You'll find it helpful to open that file in another browser window so you can look at everything in context.
 
 There are 3 main sections of a `keymap.c` file you'll want to concern yourself with:
 
@@ -215,8 +213,7 @@ To actually handle the keypress event we define an `action_function()`. This fun
 
 This should have given you a basic overview for creating your own keymap. For more details see the following resources:
 
-* https://github.com/qmk/qmk_firmware/wiki/Keycodes
-* https://github.com/qmk/qmk_firmware/wiki/FAQ-Keymap
-* https://github.com/qmk/qmk_firmware/wiki/Keymap-examples
+* [Keycodes](keycodes.md)
+* [Keymap FAQ](faq_keymap.md)
 
 We are actively working to improve these docs. If you have suggestions for how they could be made better please [file an issue](https://github.com/qmk/qmk_firmware/issues/new)!

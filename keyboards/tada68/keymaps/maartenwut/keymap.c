@@ -30,15 +30,6 @@
 #define LSHIFT OSM(MOD_LSFT)
 #define SPACE LT(_AR, KC_SPC)
 
-#define MACRO_BREATH_TOGGLE             13
-#define MACRO_BREATH_SPEED_INC          14
-#define MACRO_BREATH_SPEED_DEC          15
-#define MACRO_BREATH_DEFAULT            16
-#define M_BRTOG             M(MACRO_BREATH_TOGGLE)
-#define M_BSPDU             M(MACRO_BREATH_SPEED_INC)
-#define M_BSPDD             M(MACRO_BREATH_SPEED_DEC)
-#define M_BDFLT             M(MACRO_BREATH_DEFAULT)
-
 static uint16_t key_timer;
 
 enum emoticons {
@@ -76,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |      |MsL|MsD|MsR|   |_GA|   |   |   |   |   |   |        |Hme |
    * |----------------------------------------------------------------|
-   * |    |   |BL-|BL+|BL |BR-|BR+|BR |   |VoU|VoD|Mut|      |MwU|End |
+   * |    |   |   |   |   |   |   |   |   |VoU|VoD|Mut|      |MwU|End |
    * |----------------------------------------------------------------|
    * |    |    |    |                       |   |   |    |MwL|MwD|MwR |  
    * `----------------------------------------------------------------'
@@ -84,13 +75,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = KEYMAP_ANSI(
   KC_GRV,	KC_F1,		KC_F2,  	KC_F3,  	KC_F4,  	KC_F5,		KC_F6,		KC_F7, 		KC_F8,		KC_F9,		KC_F10,  	KC_F11,		KC_F12,		RESET,		KC_PSCR, \
   TRNS, 	KC_BTN1,	KC_MS_U,  	KC_BTN2, 	TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS,		TO(_LO), \
-  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TG(_GA),		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,					TRNS,		KC_HOME, \
-  TRNS, 	TRNS,		BL_DEC,		BL_INC,		BL_TOGG, 	M_BSPDD, 	M_BSPDU, 	M_BRTOG,	TRNS,		KC_VOLD,	KC_VOLU,	KC_MUTE,	TRNS,		KC_WH_U,	KC_END, \
+  TRNS, 	KC_MS_L,	KC_MS_D, 	KC_MS_R,	TRNS,		TG(_GA),	TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,					TRNS,		KC_HOME, \
+  TRNS, 	TRNS,		TRNS,		TRNS,		TRNS,	 	TRNS, 		TRNS, 		TRNS,		TRNS,		KC_VOLD,	KC_VOLU,	KC_MUTE,	TRNS,		KC_WH_U,	KC_END, \
   TRNS, 	TRNS, 		TRNS,								TRNS,											TRNS,		TRNS,		TRNS,   	KC_WH_L,	KC_WH_D, 	KC_WH_R),
 
   /* Keymap _AR: Arrow layer
    * ,----------------------------------------------------------------.
-   * |   |   |   |   |   |   |   |   |   |   |   |   |   |       |    |
+   * |~` | F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|       |    |
    * |----------------------------------------------------------------|
    * |Lenny|   |   |   |   |   |   |   |   |   |   |   |   |     |    |
    * |----------------------------------------------------------------|
@@ -102,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------'
    */
 [_AR] = KEYMAP_ANSI(
-  TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS,		TRNS, \
+ KC_GRV,	KC_F1,		KC_F2,  	KC_F3,  	KC_F4,  	KC_F5,		KC_F6,		KC_F7, 		KC_F8,		KC_F9,		KC_F10,  	KC_F11,		KC_F12,		TRNS,		TRNS, \
   LENNY,	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,		TRNS, \
   DWNHRT,	TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS, 		KC_LEFT, 	KC_DOWN, 	KC_UP,  	KC_RGHT,  	TRNS, 		TRNS, 	 				TRNS,		TRNS, \
   SHRUG, 	TRNS,   	TRNS,		TRNS,		TRNS,		TRNS,	 	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS, \
@@ -408,29 +399,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				}
 			}
 			break;
-		case MACRO_BREATH_TOGGLE:
-			if (record->event.pressed) {
-				breathing_toggle();
-			}
-			break;
-
-		case MACRO_BREATH_SPEED_INC:
-			if (record->event.pressed) {
-				breathing_speed_inc(1);
-			}
-			break;
-
-		case MACRO_BREATH_SPEED_DEC:
-			if (record->event.pressed) {
-				breathing_speed_dec(1);
-			}
-			break;
-
-		case MACRO_BREATH_DEFAULT:
-			if (record->event.pressed) {
-				breathing_defaults();
-			}
-			break;
 	}
     return MACRO_NONE;
 };
+
+void led_set_user(uint8_t usb_led) {
+	if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // Turn capslock on
+        PORTB |= (1<<6);
+    } else {
+        // Turn capslock off
+        PORTB &= ~(1<<6);
+    }
+}
