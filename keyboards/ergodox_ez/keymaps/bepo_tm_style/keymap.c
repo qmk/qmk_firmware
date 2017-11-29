@@ -60,10 +60,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 1: function and media keys.
   [FN] = KEYMAP(  
     /* left hand */
-    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5, ___,
-    ___,     ___,   ___,    ___,     ___,      ___,   ___,
-    ___,     ___,   ___,    ___,     ___,      ___,
-    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, ___,   ___,
+    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
+    ___,     ___,   ___,    ___,     ___,      ___,      ___,
+    ___,     ___,   ___,    ___,     ___,      KC_LSFT,
+    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, KC_LCTRL, ___,
     ___,     ___,   ___,    ___,     ___,
                                                  KC_HOME, KC_VOLU,
                                                           KC_VOLD,
@@ -81,9 +81,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 2: Mouse control.
   [MOUSE] = KEYMAP(  
     /* left hand */
-    ___, XXX, XXX,     KC_BTN3, XXX,      XXX,     ___,
-    ___, XXX, KC_BTN1, KC_MS_U, KC_BTN2,  KC_BTN4, ___,
-    ___, XXX, KC_MS_L, KC_MS_D, KC_MS_R,  KC_BTN5,
+    ___, XXX, XXX,     XXX,     XXX,      XXX, ___,
+    ___, XXX, KC_BTN4, KC_MS_U, KC_BTN5,  ___, ___,
+    ___, XXX, KC_MS_L, KC_MS_D, KC_MS_R,  ___,
     ___, XXX, MK_CUT,  MK_COPY, MK_PASTE, XXX,     ___,
     ___, XXX, ___,     ___,     ___,
                                                   ___, ___,
