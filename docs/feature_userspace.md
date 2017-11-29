@@ -73,17 +73,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case KC_MAKE:
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-      SEND_STRING(":dfu");
-#elseif defined(BOOTLOADER_HALFKEY)
-      SEND_STRING(":teensy ");
-#elseif defined(BOOTLOADER_CATERINA)
-      SEND_STRING(":avrdude ");
-#else
-      SEND_STRING(" ");
+       ":dfu "
+#elif defined(BOOTLOADER_HALFKAY)
+      ":teensy "
+#elif defined(BOOTLOADER_CATERINA)
+       ":avrdude "
 #endif
-      SEND_STRING(SS_TAP(X_ENTER));
+        SS_TAP(X_ENTER));
     }
     return false;
     break;
@@ -94,5 +92,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time. 
 
-Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems (AVRDUDE doesn't work on WSL, namely).
+Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
 
