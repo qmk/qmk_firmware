@@ -16,3 +16,5 @@
 ifndef MAKEFILE_INCLUDED
 	include ../../Makefile
 endif
+STENO_ENABLE     = yes # enable TX Bolt protocol, requires VIRTSER and may not work with mouse keys
+TAP_DANCE_ENABLE = yes # enable double tap
