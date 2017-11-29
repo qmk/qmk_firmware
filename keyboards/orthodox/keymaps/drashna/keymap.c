@@ -32,6 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
+#define AUD_ON  FC_ON
+#define AUD_OFF FC_OFF
+#else
+#define AUD_ON  AU_ON
+#define AUD_OFF AU_OFF
+
+#endif 
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -72,15 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = KEYMAP(\
   KC_MAKE,KC_RESET, _______, _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
-  RGB_SMOD,RGB_HUI, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
+  RGB_SMOD,RGB_HUI, _______, AUD_ON,  AUD_OFF, AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
   KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 )
 
 
 };
 
-#ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
-#endif 

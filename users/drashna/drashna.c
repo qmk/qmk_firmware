@@ -79,6 +79,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 #endif
 
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]       = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]       = SONG(DVORAK_SOUND);
+float tone_colemak[][2]      = SONG(COLEMAK_SOUND);
+float tone_workman[][2]      = SONG(PLOVER_SOUND);
+float tone_hackstartup[][2]  = SONG(ONE_UP_SOUND);
+#endif
+
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -139,6 +147,11 @@ void matrix_init_user(void) {
     rgblight_mode(5);
   }
 #endif
+#ifdef AUDIO_ENABLE
+//  _delay_ms(21); // gets rid of tick
+//  stop_all_notes();
+//  PLAY_SONG(tone_hackstartup);
+#endif
   matrix_init_keymap();
 }
 #ifdef TAP_DANCE_ENABLE
@@ -190,13 +203,6 @@ void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
 }
 
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_workman[][2]    = SONG(PLOVER_SOUND);
-#endif
 
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -432,9 +438,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
        ":dfu"
 #elif defined(BOOTLOADER_HALFKEY)
-      ":teensy "
+      ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
-       ":avrdude "
+       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
         " RGBLIGHT_ENABLE=yes"

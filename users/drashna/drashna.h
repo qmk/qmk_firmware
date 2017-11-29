@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USERSPACE
 
 #include "quantum.h"
+#include "song_list.h"
 
 // Define layer names 
 #define _QWERTY 0
@@ -104,7 +105,7 @@ enum {
 #endif
 
 
-#define QMK_KEYS_PER_SCAN 6
+#define QMK_KEYS_PER_SCAN 4
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
