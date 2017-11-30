@@ -16,6 +16,9 @@
 #define SWAP 4
 #define SYSLEDS 5
 
+// The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
+#define TAP_MACRO 0
+
 // A 'transparent' key code (that fallsback to the layers below it).
 #define ___ KC_TRANSPARENT
 
@@ -33,6 +36,18 @@
 #define MK_CUT    LSFT(KC_DEL)  // shift + delete
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
+
+// Custom keycodes
+enum {
+  // SAFE_RANGE must be used to tag the first element of the enum.
+  // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
+  // values are added (as its value is used to create a couple of othe keycodes
+  // after it).
+  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+};
+
+// This file must be included after DYNAMIC_MACRO_RANGE is defined...
+#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
@@ -54,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           SPC_RALT, KC_LALT, TT(SYSLEDS), BP_CCED, BP_PERC,
     KC_LEFT, KC_RIGHT,
     KC_UP,
-    KC_DOWN, TT(FN), TT(MOUSE)),
+    KC_DOWN, TD(TAP_MACRO), TT(MOUSE)),
 
   // Layer 1: function and media keys.
   [FN] = KEYMAP(  
@@ -168,15 +183,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 };
 
+// The definition of the tap dance actions:
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // This Tap dance plays the macro 1 on TAP and records it on double tap.
+  [TAP_MACRO] = ACTION_TAP_DANCE_DOUBLE(DYN_MACRO_PLAY1, DYN_REC_START1),
+};
+
+// Whether the macro 1 is currently being recorded.
+static bool is_macro1_recording = false;
+
 // Runs for each key down or up event.
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (is_macro1_recording && (keycode == DYN_REC_START1)) {
+    // Usually you need to press a different key to stop a macro recording. To
+    // simplify the keyboard layout we're using the same key to stop it.
+    keycode = DYN_REC_STOP;
+  }
+  if (!process_record_dynamic_macro(keycode, record)) {
+    switch(keycode) {
+      case DYN_REC_START1:
+        is_macro1_recording = 1;
+        break;
+      case DYN_REC_STOP:
+        is_macro1_recording = 0;
+        break;
+    }
+    return false;  // Eat the keycode if this was part of a macro processing.
+  }
 //   switch (keycode) {
 //     case SWAP_HAND:
 //       swap_hands = record->event.pressed;
 //       return false;  // Skip all further processing of this key
 //   }
-//   return true; // Let QMK send the enter press/release events
-// }
+  return true; // Let QMK send the enter press/release events
+}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
