@@ -122,7 +122,7 @@ We also ask that you follow these guidelines:
 
 ## Quantum/TMK Core
 
-Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understaning QMK](understanding_qmk.html), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
+Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understaning QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
 * [Chat on Gitter](https://gitter.im/qmk/qmk_firmware)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)

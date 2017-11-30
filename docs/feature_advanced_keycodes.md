@@ -15,7 +15,7 @@ This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping i
 
 ### Limits of these aliases
 
-Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.html), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.html).
+Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.md), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.md).
 
 # Switching and toggling layers
 
