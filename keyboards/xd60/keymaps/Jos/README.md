@@ -4,7 +4,7 @@ Custom layout with various options. Designed to be used with the Canadian Multil
 
 ## Layout
 This is the physical layout of my xd60, for reference. See the keymap file for actual software layout.
-![Keyboard Layout (Physical appearence)](https://i.imgur.com/BMWtAqT.png "Physical Layout")
+![Keyboard Layout (Physical appearence)](https://i.imgur.com/qzOmqyq.png "Physical Layout")
 
 ## Features
 **Caps Lock** is **Escape** and the **Window key** is a **Function** key that still acts like the **Window** key in conjuction with `w`, `s`, `d`, `l`, `t`, `e`, `h`, and `SPACE`.
