@@ -194,7 +194,7 @@ static bool is_macro1_recording = false;
 
 // Runs for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (is_macro1_recording && (keycode == DYN_REC_START1)) {
+  if (is_macro1_recording && (keycode == DYN_REC_START1 || (keycode == DYN_MACRO_PLAY1))) {
     // Usually you need to press a different key to stop a macro recording. To
     // simplify the keyboard layout we're using the same key to stop it.
     keycode = DYN_REC_STOP;
