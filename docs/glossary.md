@@ -41,7 +41,7 @@ A macro which has been recorded on the keyboard and which will be lost when the 
 ## Eclipse
 An IDE that is popular with many C developers.
 
-* [Eclipse Setup Instructions](eclipse.html)
+* [Eclipse Setup Instructions](eclipse.md)
 
 ## Firmware
 The software that controls your MCU.
@@ -62,7 +62,7 @@ In-system programming, a method of programming an AVR chip using external hardwa
 An interface for receiving debugging messages from your keyboard. You can view these messages using [QMK Flasher](https://github.com/qmk/qmk_flasher) or [PJRC's hid_listen](https://www.pjrc.com/teensy/hid_listen.html)
 
 ## Keycode
-A 2-byte number that represents a particular key. `0x00`-`0xFF` are used for [Basic Keycodes](keycodes_basic.html) while `0x100`-`0xFFFF` are used for [Quantum Keycodes](quantum_keycodes.html).
+A 2-byte number that represents a particular key. `0x00`-`0xFF` are used for [Basic Keycodes](keycodes_basic.md) while `0x100`-`0xFFFF` are used for [Quantum Keycodes](quantum_keycodes.md).
 
 ## Key Down
 An event that happens when a key is pressed down, but is completed before a key is released.
@@ -79,7 +79,7 @@ An abstraction used to allow a key to serve multiple purposes. The highest activ
 ## Leader Key
 A feature that allows you to tap the leader key followed by a sequence of 1, 2, or 3 keys to activate key presses or other quantum features.
 
-* [Leader Key Documentation](feature_leader_key.html)
+* [Leader Key Documentation](feature_leader_key.md)
 
 ## LED
 Light Emitting Diode, the most common device used for indicators on a keyboard.
@@ -104,7 +104,7 @@ A key that is held down while typing another key to modify the action of that ke
 ## Mousekeys
 A feature that lets you control your mouse cursor and click from your keyboard.
 
-* [Mousekeys Documentation](feature_mouse_keys.html)
+* [Mousekeys Documentation](feature_mouse_keys.md)
 
 ## N-Key Rollover (NKRO)
 A term that applies to keyboards that are capable of reporting any number of key-presses at once.
@@ -133,7 +133,7 @@ A 1 byte number that is sent as part of a HID report over USB that represents a 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
 
-* [Space Cadet Shift Documentation](feature_space_cadet.html)
+* [Space Cadet Shift Documentation](feature_space_cadet.md)
 
 ## Tap
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.
