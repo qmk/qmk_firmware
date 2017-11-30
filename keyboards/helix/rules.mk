@@ -1,6 +1,4 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c \
+SRC += i2c.c \
 	   serial.c \
 	   ssd1306.c
 
