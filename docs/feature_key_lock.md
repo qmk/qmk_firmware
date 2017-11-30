@@ -8,4 +8,4 @@ Here's how to use it:
 2. Enable key lock by including `KEY_LOCK_ENABLE = yes` in your Makefile.
 3. That's it!
 
-Important: switching layers does not cancel the key lock. Additionally, key lock is only able to hold standard action keys and One Shot modifier keys (for example, if you have your shift defined as `OSM(KC_LSFT)`; see [One Shot Keys](quantum_keycodes.md#one-shot-keys)). This does not include any of the QMK special functions (except One Shot modifiers), or shifted versions of keys such as KC_LPRN. If it's in the [basic_keycodes](basic_keycodes.md) list, it can be held. If it's not, then it can't be.
+Important: switching layers does not cancel the key lock. Additionally, key lock is only able to hold standard action keys and One Shot modifier keys (for example, if you have your shift defined as `OSM(KC_LSFT)`; see [One Shot Keys](quantum_keycodes.md#one-shot-keys)). This does not include any of the QMK special functions (except One Shot modifiers), or shifted versions of keys such as KC_LPRN. If it's in the [Basic Keycodes](keycodes_basic.md) list, it can be held. If it's not, then it can't be.
