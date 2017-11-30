@@ -159,7 +159,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    }
 };
 
-#if defined ISOLIKE_ALT_ENTER  || defined TWO_SFT_CAPS  || defined APP_IS_RALT_RCTRL 
+#if defined ISOLIKE_ALT_ENTER  || defined TWO_SFT_CAPS  || defined APP_IS_RALT_RCTRL || defined ALT_MINSEQL_IS_ALT_78
 // Function for the special modifiers actions below, makes it cleaner and yields smaller firmware.
 static bool special_mods(uint16_t keycode, keyrecord_t *record, uint16_t modifier) {
   if (record->event.pressed && (keyboard_report->mods & MOD_BIT(modifier))) {
