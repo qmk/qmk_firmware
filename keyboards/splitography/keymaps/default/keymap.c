@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
     {OS_ALT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
     {OS_SFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OS_GUI },
-    {                           BLUE,    ORANGE,                    KC_SPC,  OS_CTL                            },
+    {_______, _______, _______, _______, BLUE,    ORANGE,  KC_SPC,  OS_CTL,  _______, _______, _______, _______},
   },
 
 // .................................................................. Blue Layer
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______},
     {OS_ALT,  KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU, _______, _______, _______, KC_LBRC, KC_RBRC, KC_ENT },
     {OS_SFT,  KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_VOLD, KC_MUTE, _______, _______, KC_MINS, KC_EQL,  OS_GUI },
-    {                           ___x___, ORANGE,                    KC_BSPC, OS_CTL                            },
+    {_______, _______, _______, _______, ___x___, ORANGE,  KC_BSPC, OS_CTL,  _______, _______, _______, _______},
   },
 
 // ................................................................ Orange Layer
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {PLOVER,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_APP,  KC_PSCR, KC_SLCK, KC_PAUS, _______, _______},
     {OS_ALT,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______, KC_ENT },
     {OS_SFT,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_DEL,  KC_END,  KC_PGDN, KC_BSLS, OS_GUI },
-    {                           BLUE,    ___x___,                   KC_DEL,  OS_CTL                            },
+    {_______, _______, _______, _______, BLUE,    ___x___, KC_DEL,  OS_CTL,  _______, _______, _______, _______},
   },
 
 // ................................................................. Green Layer
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {TXBOLT,  _______, _______, _______, _______, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, TD_SWAP},
     {OS_ALT,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT },
     {OS_SFT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   _______, OS_GUI },
-    {                           ___x___, ___x___,                   _______, OS_CTL                            },
+    {_______, _______, _______, _______, ___x___, ___x___, _______, OS_CTL,  _______, _______, _______, _______},
   },
 
 // ................................................................... Num Layer
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______},
     {OS_ALT,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT },
     {OS_SFT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, QWERTY,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   _______, OS_GUI },
-    {                           _______, _______,                   _______, OS_CTL                            },
+    {_______, _______, _______, _______, _______, _______, _______, OS_CTL,  _______, _______, _______, _______},
   },
 
 // ...................................................................... Plover
@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
     {QWERTY,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
     {_______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-    {                           KC_C,    KC_V,                      KC_N,    KC_M                              },
+    {_______, _______, _______, _______, KC_C,    KC_V,    KC_N,    KC_M,    _______, _______, _______, _______},
   },
 
 // ...................................................................... TxBolt
@@ -235,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM},
     {QWERTY,  STN_SL,  STN_TL,  STN_PL,  STN_HL,  STN_STR, STN_STR, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
     {_______, STN_SL,  STN_KL,  STN_WL,  STN_RL,  STN_STR, STN_STR, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
-    {                           STN_A,   STN_O,                     STN_E,   STN_U                             },
+    {_______, _______, _______, _______, STN_A,   STN_O,   STN_E,   STN_U,   _______, _______, _______, _______},
   },
 
 };
