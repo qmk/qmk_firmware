@@ -9,7 +9,7 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
-ifneq ($(shell awk --version 2>/dev/null),)
+ifneq ($(shell echo "1 2 3" | awk '{ printf "%2s", $$3; }' 2>/dev/null)," 3")
 	AWK=awk
 else
 	AWK=cat && test

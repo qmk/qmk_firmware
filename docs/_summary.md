@@ -1,7 +1,7 @@
 * [Getting started](README.md)
   * [QMK Introduction](getting_started_introduction.md)
   * [Install Build Tools](getting_started_build_tools.md)
-    * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
+    * Alternative: [Vagrant Guide](getting_started_vagrant.md)
   * [Build/Compile instructions](getting_started_make_guide.md)
   * [Flashing instructions](flashing.md)
   * [Contributing to QMK](contributing.md)
@@ -70,7 +70,6 @@
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP flashing guide](isp_flashing_guide.md)
-  * [Modding your keyboard](modding_your_keyboard.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
