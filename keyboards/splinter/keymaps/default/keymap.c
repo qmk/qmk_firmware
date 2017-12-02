@@ -23,6 +23,7 @@ enum custom_keycodes {
 
 uint8_t cur_lyr = 0;  // current selected layer.
 uint8_t dim = 0;      // rgb dimming level.
+bool is_caps_led_enabled = false;  // Will determined if caps lock is enabled;
 
 const uint32_t _PC = 0xFF0000;  // LED Red, pressed LED.
 
@@ -154,6 +155,34 @@ void key_led(keyrecord_t *record) {
   rgblight_set();
 }
 
+void rainbow_loop(void) {
+  static uint16_t last_timer = 0;
+  static uint16_t i = 0;
+  static uint8_t r, g, b;
+
+  if (timer_elapsed(last_timer) < 8) {
+    return;
+  }
+
+  if (i >= 260) {
+    i = 0;
+  }
+
+  last_timer = timer_read();
+  r = _LIGHTS[(i + 120) % 360];
+  g = _LIGHTS[i];
+  b = _LIGHTS[(i + 240) % 360];
+
+  i++;
+
+  if (is_caps_led_enabled) {
+    SET_LED_RGB(r, g, b, 22);
+    SET_LED_RGB(r, g, b, 47);
+  }
+
+  rgblight_set();
+}
+
 bool led_brightness(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case RGUP:
@@ -208,35 +237,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void sine_led(uint8_t angle) {
-  setrgb(_LIGHTS[(angle + 120)%360] >> dim, _LIGHTS[angle] >> dim, _LIGHTS[(angle + 240)%360] >> dim, (LED_TYPE *)&led[0]);
-  rgblight_set();
-}
-
-void test_loop(void){
-  static uint16_t last_timer = 0;
-  static int k = 0;
-
-  if(k>=260) {
-    k = 0;
-  }
-
-  if(timer_elapsed(last_timer)<8) {
-    return;
-  }
-  last_timer = timer_read();
-  xprintf("k: %d\n", k);
-  sine_led(k);
-  k++;
-}
-
 void matrix_scan_user(void) {
   cur_lyr = biton32(layer_state);
   shifted_layer();
   layer_led();
-  test_loop();
+  rainbow_loop();
 }
 
 void matrix_init_user(void) {
   init_tap_dance();
+}
+
+void led_set_kb(uint8_t usb_led) {
+  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    is_caps_led_enabled = true;
+  } else {
+    is_caps_led_enabled = false;
+    SET_LED_RGB_HEX(_LC[cur_lyr], 22);
+    SET_LED_RGB_HEX(_LC[cur_lyr], 47);
+    rgblight_set();
+  }
 }
