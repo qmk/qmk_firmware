@@ -38,7 +38,7 @@
 
 #include "util.h"
 #include "report.h"
-#include "descriptor.h"
+#include "usb_descriptor.h"
 
 #ifndef USB_MAX_POWER_CONSUMPTION
 #define USB_MAX_POWER_CONSUMPTION 500

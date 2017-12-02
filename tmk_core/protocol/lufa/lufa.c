@@ -49,7 +49,7 @@
 #endif
 #include "suspend.h"
 
-#include "descriptor.h"
+#include "usb_descriptor.h"
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
