@@ -92,72 +92,16 @@ static void console_flush_cb(void *arg);
  *
  * Returns the proper descriptor
  */
-static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype, uint8_t dindex, uint16_t lang) {
+static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype, uint8_t dindex, uint16_t wIndex) {
   (void)usbp;
-  (void)lang;
-  #if 0
-  switch(dtype) {
-  /* Generic descriptors */
-  case USB_DESCRIPTOR_DEVICE:   /* Device Descriptor */
-    return &usb_device_descriptor;
-
-  case USB_DESCRIPTOR_CONFIGURATION:    /* Configuration Descriptor */
-    return &hid_configuration_descriptor;
-
-  case USB_DESCRIPTOR_STRING:   /* Strings */
-    if(dindex < 4)
-      return &usb_strings[dindex];
-    break;
-
-  /* HID specific descriptors */
-  case USB_DESCRIPTOR_HID:      /* HID Descriptors */
-    switch(lang) {    /* yea, poor label, it's actually wIndex from the setup packet */
-    case KBD_INTERFACE:
-      return &keyboard_hid_descriptor;
-
-#ifdef MOUSE_ENABLE
-    case MOUSE_INTERFACE:
-      return &mouse_hid_descriptor;
-#endif /* MOUSE_ENABLE */
-#ifdef CONSOLE_ENABLE
-    case CONSOLE_INTERFACE:
-      return &console_hid_descriptor;
-#endif /* CONSOLE_ENABLE */
-#ifdef EXTRAKEY_ENABLE
-    case EXTRA_INTERFACE:
-      return &extra_hid_descriptor;
-#endif /* EXTRAKEY_ENABLE */
-#ifdef NKRO_ENABLE
-    case NKRO_INTERFACE:
-      return &nkro_hid_descriptor;
-#endif /* NKRO_ENABLE */
-    }
-
-  case USB_DESCRIPTOR_HID_REPORT:       /* HID Report Descriptor */
-    switch(lang) {
-    case KBD_INTERFACE:
-      return &keyboard_hid_report_descriptor;
-
-#ifdef MOUSE_ENABLE
-    case MOUSE_INTERFACE:
-      return &mouse_hid_report_descriptor;
-#endif /* MOUSE_ENABLE */
-#ifdef CONSOLE_ENABLE
-    case CONSOLE_INTERFACE:
-      return &console_hid_report_descriptor;
-#endif /* CONSOLE_ENABLE */
-#ifdef EXTRAKEY_ENABLE
-    case EXTRA_INTERFACE:
-      return &extra_hid_report_descriptor;
-#endif /* EXTRAKEY_ENABLE */
-#ifdef NKRO_ENABLE
-    case NKRO_INTERFACE:
-      return &nkro_hid_report_descriptor;
-#endif /* NKRO_ENABLE */
-    }
-  }
-#endif
-  return NULL;
+  static USBDescriptor desc;
+  uint16_t wValue = ((uint16_t)dtype << 8) | dindex;
+  desc.ud_string = NULL;
+  desc.ud_size = get_usb_descriptor(wValue, wIndex, (const void** const)&desc.ud_string);
+  if (desc.ud_string == NULL)
+    return NULL;
+  else
+    return &desc;
 }
 
 /* keyboard endpoint state structure */
