@@ -19,7 +19,6 @@ enum custom_keycodes {
 #define _UL 1 // The up layer.
 #define _VL 3 // This is for up layer but should be used by MO with the shift key pressed.
 #define _DL 2 // The down layer.
-
 #define TOTAL_MATRIX_POINTS (MATRIX_ROWS * MATRIX_COLS)
 
 const uint8_t lights[360]={
@@ -113,7 +112,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-#define SET_LED_RGB_HEX(v, p) setrgb(((v >> 16) & 0xFF) >> dim, ((v >> 8) & 0xFF) >> dim, (v & 0xFF) >> dim, (LED_TYPE *)&led[p])
+#define SET_LED_RGB_HEX(v, p) setrgb( \
+  ((v >> 16) & 0xFF) >> dim, \
+  ((v >> 8) & 0xFF) >> dim,  \
+  (v & 0xFF) >> dim,         \
+  (LED_TYPE *)&led[p])
+
+#define SET_LED_RGB(r, g, b, p) setrgb( \
+  r >> dim, \
+  g >> dim, \
+  b >> dim, \
+  (LED_TYPE *)&led[p])
 
 void set_layer_led(uint32_t c) {
   for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
