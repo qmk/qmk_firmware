@@ -254,12 +254,9 @@ typedef struct
 #define CDC_NOTIFICATION_EPSIZE     8
 #define CDC_EPSIZE                  16
 
-
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-                                    const uint16_t wIndex,
-                                    const void** const DescriptorAddress)
-                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
-
+uint16_t get_usb_descriptor(const uint16_t wValue,
+                            const uint16_t wIndex,
+                            const void** const DescriptorAddress);
 
 /* new API */
 #if LUFA_VERSION_INTEGER < 0x140302

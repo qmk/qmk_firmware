@@ -28,6 +28,7 @@
 #include "led.h"
 #endif
 #include "wait.h"
+#include "usb_descriptor.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -79,532 +80,12 @@ static void console_flush_cb(void *arg);
  */
 
 /* HID specific constants */
-#define USB_DESCRIPTOR_HID 0x21
-#define USB_DESCRIPTOR_HID_REPORT 0x22
 #define HID_GET_REPORT 0x01
 #define HID_GET_IDLE 0x02
 #define HID_GET_PROTOCOL 0x03
 #define HID_SET_REPORT 0x09
 #define HID_SET_IDLE 0x0A
 #define HID_SET_PROTOCOL 0x0B
-
-/* USB Device Descriptor */
-static const uint8_t usb_device_descriptor_data[] = {
-  USB_DESC_DEVICE(0x0200,      // bcdUSB (1.1)
-                  0,           // bDeviceClass (defined in later in interface)
-                  0,           // bDeviceSubClass
-                  0,           // bDeviceProtocol
-                  64,          // bMaxPacketSize (64 bytes) (the driver didn't work with 32)
-                  VENDOR_ID,   // idVendor
-                  PRODUCT_ID,  // idProduct
-                  DEVICE_VER,      // bcdDevice
-                  1,           // iManufacturer
-                  2,           // iProduct
-                  3,           // iSerialNumber
-                  1)           // bNumConfigurations
-};
-
-/* Device Descriptor wrapper */
-static const USBDescriptor usb_device_descriptor = {
-  sizeof usb_device_descriptor_data,
-  usb_device_descriptor_data
-};
-
-/*
- * HID Report Descriptor
- *
- * See "Device Class Definition for Human Interface Devices (HID)"
- * (http://www.usb.org/developers/hidpage/HID1_11.pdf) for the
- * detailed descrition of all the fields
- */
-
-/* Keyboard Protocol 1, HID 1.11 spec, Appendix B, page 59-60 */
-static const uint8_t keyboard_hid_report_desc_data[] = {
-  0x05, 0x01,                // Usage Page (Generic Desktop),
-  0x09, 0x06,                // Usage (Keyboard),
-  0xA1, 0x01,                // Collection (Application),
-  0x75, 0x01,                //   Report Size (1),
-  0x95, 0x08,                //   Report Count (8),
-  0x05, 0x07,                //   Usage Page (Key Codes),
-  0x19, 0xE0,                //   Usage Minimum (224),
-  0x29, 0xE7,                //   Usage Maximum (231),
-  0x15, 0x00,                //   Logical Minimum (0),
-  0x25, 0x01,                //   Logical Maximum (1),
-  0x81, 0x02,                //   Input (Data, Variable, Absolute), ;Modifier byte
-  0x95, 0x01,                //   Report Count (1),
-  0x75, 0x08,                //   Report Size (8),
-  0x81, 0x03,                //   Input (Constant),                 ;Reserved byte
-  0x95, 0x05,                //   Report Count (5),
-  0x75, 0x01,                //   Report Size (1),
-  0x05, 0x08,                //   Usage Page (LEDs),
-  0x19, 0x01,                //   Usage Minimum (1),
-  0x29, 0x05,                //   Usage Maximum (5),
-  0x91, 0x02,                //   Output (Data, Variable, Absolute), ;LED report
-  0x95, 0x01,                //   Report Count (1),
-  0x75, 0x03,                //   Report Size (3),
-  0x91, 0x03,                //   Output (Constant),                 ;LED report padding
-  0x95, KBD_REPORT_KEYS,          //   Report Count (),
-  0x75, 0x08,                //   Report Size (8),
-  0x15, 0x00,                //   Logical Minimum (0),
-  0x26, 0xFF, 0x00,          //   Logical Maximum(255),
-  0x05, 0x07,                //   Usage Page (Key Codes),
-  0x19, 0x00,                //   Usage Minimum (0),
-  0x29, 0xFF,                //   Usage Maximum (255),
-  0x81, 0x00,                //   Input (Data, Array),
-  0xc0                       // End Collection
-};
-/* wrapper */
-static const USBDescriptor keyboard_hid_report_descriptor = {
-  sizeof keyboard_hid_report_desc_data,
-  keyboard_hid_report_desc_data
-};
-
-#ifdef NKRO_ENABLE
-static const uint8_t nkro_hid_report_desc_data[] = {
-  0x05, 0x01,                           // Usage Page (Generic Desktop),
-  0x09, 0x06,                           // Usage (Keyboard),
-  0xA1, 0x01,                           // Collection (Application),
-  // bitmap of modifiers
-  0x75, 0x01,                           //   Report Size (1),
-  0x95, 0x08,                           //   Report Count (8),
-  0x05, 0x07,                           //   Usage Page (Key Codes),
-  0x19, 0xE0,                           //   Usage Minimum (224),
-  0x29, 0xE7,                           //   Usage Maximum (231),
-  0x15, 0x00,                           //   Logical Minimum (0),
-  0x25, 0x01,                           //   Logical Maximum (1),
-  0x81, 0x02,                           //   Input (Data, Variable, Absolute), ;Modifier byte
-  // LED output report
-  0x95, 0x05,                           //   Report Count (5),
-  0x75, 0x01,                           //   Report Size (1),
-  0x05, 0x08,                           //   Usage Page (LEDs),
-  0x19, 0x01,                           //   Usage Minimum (1),
-  0x29, 0x05,                           //   Usage Maximum (5),
-  0x91, 0x02,                           //   Output (Data, Variable, Absolute),
-  0x95, 0x01,                           //   Report Count (1),
-  0x75, 0x03,                           //   Report Size (3),
-  0x91, 0x03,                           //   Output (Constant),
-  // bitmap of keys
-  0x95, NKRO_REPORT_KEYS * 8,           //   Report Count (),
-  0x75, 0x01,                           //   Report Size (1),
-  0x15, 0x00,                           //   Logical Minimum (0),
-  0x25, 0x01,                           //   Logical Maximum(1),
-  0x05, 0x07,                           //   Usage Page (Key Codes),
-  0x19, 0x00,                           //   Usage Minimum (0),
-  0x29, NKRO_REPORT_KEYS * 8 - 1,       //   Usage Maximum (),
-  0x81, 0x02,                           //   Input (Data, Variable, Absolute),
-  0xc0                                  // End Collection
-};
-/* wrapper */
-static const USBDescriptor nkro_hid_report_descriptor = {
-  sizeof nkro_hid_report_desc_data,
-  nkro_hid_report_desc_data
-};
-#endif /* NKRO_ENABLE */
-
-#ifdef MOUSE_ENABLE
-/* Mouse Protocol 1, HID 1.11 spec, Appendix B, page 59-60, with wheel extension
- * http://www.microchip.com/forums/tm.aspx?high=&m=391435&mpage=1#391521
- * http://www.keil.com/forum/15671/
- * http://www.microsoft.com/whdc/device/input/wheel.mspx */
-static const uint8_t mouse_hid_report_desc_data[] = {
-  /* mouse */
-  0x05, 0x01,                      // USAGE_PAGE (Generic Desktop)
-  0x09, 0x02,                      // USAGE (Mouse)
-  0xa1, 0x01,                      // COLLECTION (Application)
-  //0x85, REPORT_ID_MOUSE,         //   REPORT_ID (1)
-  0x09, 0x01,                      //   USAGE (Pointer)
-  0xa1, 0x00,                      //   COLLECTION (Physical)
-                                   // ----------------------------  Buttons
-  0x05, 0x09,                      //     USAGE_PAGE (Button)
-  0x19, 0x01,                      //     USAGE_MINIMUM (Button 1)
-  0x29, 0x05,                      //     USAGE_MAXIMUM (Button 5)
-  0x15, 0x00,                      //     LOGICAL_MINIMUM (0)
-  0x25, 0x01,                      //     LOGICAL_MAXIMUM (1)
-  0x75, 0x01,                      //     REPORT_SIZE (1)
-  0x95, 0x05,                      //     REPORT_COUNT (5)
-  0x81, 0x02,                      //     INPUT (Data,Var,Abs)
-  0x75, 0x03,                      //     REPORT_SIZE (3)
-  0x95, 0x01,                      //     REPORT_COUNT (1)
-  0x81, 0x03,                      //     INPUT (Cnst,Var,Abs)
-                                   // ----------------------------  X,Y position
-  0x05, 0x01,                      //     USAGE_PAGE (Generic Desktop)
-  0x09, 0x30,                      //     USAGE (X)
-  0x09, 0x31,                      //     USAGE (Y)
-  0x15, 0x81,                      //     LOGICAL_MINIMUM (-127)
-  0x25, 0x7f,                      //     LOGICAL_MAXIMUM (127)
-  0x75, 0x08,                      //     REPORT_SIZE (8)
-  0x95, 0x02,                      //     REPORT_COUNT (2)
-  0x81, 0x06,                      //     INPUT (Data,Var,Rel)
-                                   // ----------------------------  Vertical wheel
-  0x09, 0x38,                      //     USAGE (Wheel)
-  0x15, 0x81,                      //     LOGICAL_MINIMUM (-127)
-  0x25, 0x7f,                      //     LOGICAL_MAXIMUM (127)
-  0x35, 0x00,                      //     PHYSICAL_MINIMUM (0)        - reset physical
-  0x45, 0x00,                      //     PHYSICAL_MAXIMUM (0)
-  0x75, 0x08,                      //     REPORT_SIZE (8)
-  0x95, 0x01,                      //     REPORT_COUNT (1)
-  0x81, 0x06,                      //     INPUT (Data,Var,Rel)
-                                   // ----------------------------  Horizontal wheel
-  0x05, 0x0c,                      //     USAGE_PAGE (Consumer Devices)
-  0x0a, 0x38, 0x02,                //     USAGE (AC Pan)
-  0x15, 0x81,                      //     LOGICAL_MINIMUM (-127)
-  0x25, 0x7f,                      //     LOGICAL_MAXIMUM (127)
-  0x75, 0x08,                      //     REPORT_SIZE (8)
-  0x95, 0x01,                      //     REPORT_COUNT (1)
-  0x81, 0x06,                      //     INPUT (Data,Var,Rel)
-  0xc0,                            //   END_COLLECTION
-  0xc0,                            // END_COLLECTION
-};
-/* wrapper */
-static const USBDescriptor mouse_hid_report_descriptor = {
-  sizeof mouse_hid_report_desc_data,
-  mouse_hid_report_desc_data
-};
-#endif /* MOUSE_ENABLE */
-
-#ifdef CONSOLE_ENABLE
-static const uint8_t console_hid_report_desc_data[] = {
-  0x06, 0x31, 0xFF, // Usage Page 0xFF31 (vendor defined)
-  0x09, 0x74,       // Usage 0x74
-  0xA1, 0x53,       // Collection 0x53
-  0x75, 0x08,       // report size = 8 bits
-  0x15, 0x00,       // logical minimum = 0
-  0x26, 0xFF, 0x00, // logical maximum = 255
-  0x95, CONSOLE_EPSIZE, // report count
-  0x09, 0x75,       // usage
-  0x81, 0x02,       // Input (array)
-  0xC0              // end collection
-};
-/* wrapper */
-static const USBDescriptor console_hid_report_descriptor = {
-  sizeof console_hid_report_desc_data,
-  console_hid_report_desc_data
-};
-#endif /* CONSOLE_ENABLE */
-
-#ifdef EXTRAKEY_ENABLE
-/* audio controls & system controls
- * http://www.microsoft.com/whdc/archive/w2kbd.mspx */
-static const uint8_t extra_hid_report_desc_data[] = {
-  /* system control */
-  0x05, 0x01,                      // USAGE_PAGE (Generic Desktop)
-  0x09, 0x80,                      // USAGE (System Control)
-  0xa1, 0x01,                      // COLLECTION (Application)
-  0x85, REPORT_ID_SYSTEM,          //   REPORT_ID (2)
-  0x15, 0x01,                      //   LOGICAL_MINIMUM (0x1)
-  0x25, 0xb7,                      //   LOGICAL_MAXIMUM (0xb7)
-  0x19, 0x01,                      //   USAGE_MINIMUM (0x1)
-  0x29, 0xb7,                      //   USAGE_MAXIMUM (0xb7)
-  0x75, 0x10,                      //   REPORT_SIZE (16)
-  0x95, 0x01,                      //   REPORT_COUNT (1)
-  0x81, 0x00,                      //   INPUT (Data,Array,Abs)
-  0xc0,                            // END_COLLECTION
-  /* consumer */
-  0x05, 0x0c,                      // USAGE_PAGE (Consumer Devices)
-  0x09, 0x01,                      // USAGE (Consumer Control)
-  0xa1, 0x01,                      // COLLECTION (Application)
-  0x85, REPORT_ID_CONSUMER,        //   REPORT_ID (3)
-  0x15, 0x01,                      //   LOGICAL_MINIMUM (0x1)
-  0x26, 0x9c, 0x02,                //   LOGICAL_MAXIMUM (0x29c)
-  0x19, 0x01,                      //   USAGE_MINIMUM (0x1)
-  0x2a, 0x9c, 0x02,                //   USAGE_MAXIMUM (0x29c)
-  0x75, 0x10,                      //   REPORT_SIZE (16)
-  0x95, 0x01,                      //   REPORT_COUNT (1)
-  0x81, 0x00,                      //   INPUT (Data,Array,Abs)
-  0xc0,                            // END_COLLECTION
-};
-/* wrapper */
-static const USBDescriptor extra_hid_report_descriptor = {
-  sizeof extra_hid_report_desc_data,
-  extra_hid_report_desc_data
-};
-#endif /* EXTRAKEY_ENABLE */
-
-
-/*
- * Configuration Descriptor tree for a HID device
- *
- * The HID Specifications version 1.11 require the following order:
- * - Configuration Descriptor
- * - Interface Descriptor
- * - HID Descriptor
- * - Endpoints Descriptors
- */
-#define KBD_HID_DESC_NUM                0
-#define KBD_HID_DESC_OFFSET             (9 + (9 + 9 + 7) * KBD_HID_DESC_NUM + 9)
-
-#ifdef MOUSE_ENABLE
-#   define MOUSE_HID_DESC_NUM           (KBD_HID_DESC_NUM + 1)
-#   define MOUSE_HID_DESC_OFFSET        (9 + (9 + 9 + 7) * MOUSE_HID_DESC_NUM + 9)
-#else /* MOUSE_ENABLE */
-#   define MOUSE_HID_DESC_NUM           (KBD_HID_DESC_NUM + 0)
-#endif /* MOUSE_ENABLE */
-
-#ifdef CONSOLE_ENABLE
-#define CONSOLE_HID_DESC_NUM            (MOUSE_HID_DESC_NUM + 1)
-#define CONSOLE_HID_DESC_OFFSET         (9 + (9 + 9 + 7) * CONSOLE_HID_DESC_NUM + 9)
-#else /* CONSOLE_ENABLE */
-#   define CONSOLE_HID_DESC_NUM         (MOUSE_HID_DESC_NUM + 0)
-#endif /* CONSOLE_ENABLE */
-
-#ifdef EXTRAKEY_ENABLE
-#   define EXTRA_HID_DESC_NUM           (CONSOLE_HID_DESC_NUM + 1)
-#   define EXTRA_HID_DESC_OFFSET        (9 + (9 + 9 + 7) * EXTRA_HID_DESC_NUM + 9)
-#else /* EXTRAKEY_ENABLE */
-#   define EXTRA_HID_DESC_NUM           (CONSOLE_HID_DESC_NUM + 0)
-#endif /* EXTRAKEY_ENABLE */
-
-#ifdef NKRO_ENABLE
-#   define NKRO_HID_DESC_NUM            (EXTRA_HID_DESC_NUM + 1)
-#   define NKRO_HID_DESC_OFFSET         (9 + (9 + 9 + 7) * EXTRA_HID_DESC_NUM + 9)
-#else /* NKRO_ENABLE */
-#   define NKRO_HID_DESC_NUM            (EXTRA_HID_DESC_NUM + 0)
-#endif /* NKRO_ENABLE */
-
-#define NUM_INTERFACES                  (NKRO_HID_DESC_NUM + 1)
-#define CONFIG1_DESC_SIZE               (9 + (9 + 9 + 7) * NUM_INTERFACES)
-
-static const uint8_t hid_configuration_descriptor_data[] = {
-  /* Configuration Descriptor (9 bytes) USB spec 9.6.3, page 264-266, Table 9-10 */
-  USB_DESC_CONFIGURATION(CONFIG1_DESC_SIZE, // wTotalLength
-                         NUM_INTERFACES,    // bNumInterfaces
-                         1,    // bConfigurationValue
-                         0,    // iConfiguration
-                         0xA0, // bmAttributes (RESERVED|REMOTEWAKEUP)
-                         50),  // bMaxPower (50mA)
-
-  /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
-  USB_DESC_INTERFACE(KBD_INTERFACE,        // bInterfaceNumber
-                     0,        // bAlternateSetting
-                     1,        // bNumEndpoints
-                     0x03,     // bInterfaceClass: HID
-                     0x01,     // bInterfaceSubClass: Boot
-                     0x01,     // bInterfaceProtocol: Keyboard
-                     0),       // iInterface
-
-  /* HID descriptor (9 bytes) HID 1.11 spec, section 6.2.1 */
-  USB_DESC_BYTE(9),            // bLength
-  USB_DESC_BYTE(0x21),         // bDescriptorType (HID class)
-  USB_DESC_BCD(0x0111),        // bcdHID: HID version 1.11
-  USB_DESC_BYTE(0),            // bCountryCode
-  USB_DESC_BYTE(1),            // bNumDescriptors
-  USB_DESC_BYTE(0x22),         // bDescriptorType (report desc)
-  USB_DESC_WORD(sizeof(keyboard_hid_report_desc_data)), // wDescriptorLength
-
-  /* Endpoint Descriptor (7 bytes) USB spec 9.6.6, page 269-271, Table 9-13 */
-  USB_DESC_ENDPOINT(KBD_ENDPOINT | 0x80,  // bEndpointAddress
-                    0x03,      // bmAttributes (Interrupt)
-                    KBD_EPSIZE,// wMaxPacketSize
-                    10),       // bInterval
-
-  #ifdef MOUSE_ENABLE
-  /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
-  USB_DESC_INTERFACE(MOUSE_INTERFACE,   // bInterfaceNumber
-                     0,        // bAlternateSetting
-                     1,        // bNumEndpoints
-                     0x03,     // bInterfaceClass (0x03 = HID)
-                     // ThinkPad T23 BIOS doesn't work with boot mouse.
-                     0x00,     // bInterfaceSubClass (0x01 = Boot)
-                     0x00,     // bInterfaceProtocol (0x02 = Mouse)
-                     /*
-                        0x01,      // bInterfaceSubClass (0x01 = Boot)
-                        0x02,      // bInterfaceProtocol (0x02 = Mouse)
-                      */
-                     0),        // iInterface
-
-  /* HID descriptor (9 bytes) HID 1.11 spec, section 6.2.1 */
-  USB_DESC_BYTE(9),            // bLength
-  USB_DESC_BYTE(0x21),         // bDescriptorType (HID class)
-  USB_DESC_BCD(0x0111),        // bcdHID: HID version 1.11
-  USB_DESC_BYTE(0),            // bCountryCode
-  USB_DESC_BYTE(1),            // bNumDescriptors
-  USB_DESC_BYTE(0x22),         // bDescriptorType (report desc)
-  USB_DESC_WORD(sizeof(mouse_hid_report_desc_data)), // wDescriptorLength
-
-  /* Endpoint Descriptor (7 bytes) USB spec 9.6.6, page 269-271, Table 9-13 */
-  USB_DESC_ENDPOINT(MOUSE_ENDPOINT | 0x80,  // bEndpointAddress
-                    0x03,      // bmAttributes (Interrupt)
-                    MOUSE_EPSIZE,  // wMaxPacketSize
-                    1),        // bInterval
-  #endif /* MOUSE_ENABLE */
-
-  #ifdef CONSOLE_ENABLE
-  /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
-  USB_DESC_INTERFACE(CONSOLE_INTERFACE, // bInterfaceNumber
-                     0,        // bAlternateSetting
-                     1,        // bNumEndpoints
-                     0x03,     // bInterfaceClass: HID
-                     0x00,     // bInterfaceSubClass: None
-                     0x00,     // bInterfaceProtocol: None
-                     0),       // iInterface
-
-  /* HID descriptor (9 bytes) HID 1.11 spec, section 6.2.1 */
-  USB_DESC_BYTE(9),            // bLength
-  USB_DESC_BYTE(0x21),         // bDescriptorType (HID class)
-  USB_DESC_BCD(0x0111),        // bcdHID: HID version 1.11
-  USB_DESC_BYTE(0),            // bCountryCode
-  USB_DESC_BYTE(1),            // bNumDescriptors
-  USB_DESC_BYTE(0x22),         // bDescriptorType (report desc)
-  USB_DESC_WORD(sizeof(console_hid_report_desc_data)), // wDescriptorLength
-
-  /* Endpoint Descriptor (7 bytes) USB spec 9.6.6, page 269-271, Table 9-13 */
-  USB_DESC_ENDPOINT(CONSOLE_ENDPOINT | 0x80,  // bEndpointAddress
-                    0x03,      // bmAttributes (Interrupt)
-                    CONSOLE_EPSIZE, // wMaxPacketSize
-                    1),        // bInterval
-  #endif /* CONSOLE_ENABLE */
-
-  #ifdef EXTRAKEY_ENABLE
-  /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
-  USB_DESC_INTERFACE(EXTRA_INTERFACE, // bInterfaceNumber
-                     0,        // bAlternateSetting
-                     1,        // bNumEndpoints
-                     0x03,     // bInterfaceClass: HID
-                     0x00,     // bInterfaceSubClass: None
-                     0x00,     // bInterfaceProtocol: None
-                     0),       // iInterface
-
-  /* HID descriptor (9 bytes) HID 1.11 spec, section 6.2.1 */
-  USB_DESC_BYTE(9),            // bLength
-  USB_DESC_BYTE(0x21),         // bDescriptorType (HID class)
-  USB_DESC_BCD(0x0111),        // bcdHID: HID version 1.11
-  USB_DESC_BYTE(0),            // bCountryCode
-  USB_DESC_BYTE(1),            // bNumDescriptors
-  USB_DESC_BYTE(0x22),         // bDescriptorType (report desc)
-  USB_DESC_WORD(sizeof(extra_hid_report_desc_data)), // wDescriptorLength
-
-  /* Endpoint Descriptor (7 bytes) USB spec 9.6.6, page 269-271, Table 9-13 */
-  USB_DESC_ENDPOINT(EXTRA_ENDPOINT | 0x80,  // bEndpointAddress
-                    0x03,      // bmAttributes (Interrupt)
-                    EXTRA_EPSIZE, // wMaxPacketSize
-                    10),       // bInterval
-  #endif /* EXTRAKEY_ENABLE */
-
-  #ifdef NKRO_ENABLE
-  /* Interface Descriptor (9 bytes) USB spec 9.6.5, page 267-269, Table 9-12 */
-  USB_DESC_INTERFACE(NKRO_INTERFACE, // bInterfaceNumber
-                     0,        // bAlternateSetting
-                     1,        // bNumEndpoints
-                     0x03,     // bInterfaceClass: HID
-                     0x00,     // bInterfaceSubClass: None
-                     0x00,     // bInterfaceProtocol: None
-                     0),       // iInterface
-
-  /* HID descriptor (9 bytes) HID 1.11 spec, section 6.2.1 */
-  USB_DESC_BYTE(9),            // bLength
-  USB_DESC_BYTE(0x21),         // bDescriptorType (HID class)
-  USB_DESC_BCD(0x0111),        // bcdHID: HID version 1.11
-  USB_DESC_BYTE(0),            // bCountryCode
-  USB_DESC_BYTE(1),            // bNumDescriptors
-  USB_DESC_BYTE(0x22),         // bDescriptorType (report desc)
-  USB_DESC_WORD(sizeof(nkro_hid_report_desc_data)), // wDescriptorLength
-
-  /* Endpoint Descriptor (7 bytes) USB spec 9.6.6, page 269-271, Table 9-13 */
-  USB_DESC_ENDPOINT(NKRO_ENDPOINT | 0x80,  // bEndpointAddress
-                    0x03,      // bmAttributes (Interrupt)
-                    NKRO_EPSIZE, // wMaxPacketSize
-                    1),       // bInterval
-  #endif /* NKRO_ENABLE */
-};
-
-/* Configuration Descriptor wrapper */
-static const USBDescriptor hid_configuration_descriptor = {
-  sizeof hid_configuration_descriptor_data,
-  hid_configuration_descriptor_data
-};
-
-/* wrappers */
-#define HID_DESCRIPTOR_SIZE 9
-static const USBDescriptor keyboard_hid_descriptor = {
-  HID_DESCRIPTOR_SIZE,
-  &hid_configuration_descriptor_data[KBD_HID_DESC_OFFSET]
-};
-#ifdef MOUSE_ENABLE
-static const USBDescriptor mouse_hid_descriptor = {
-  HID_DESCRIPTOR_SIZE,
-  &hid_configuration_descriptor_data[MOUSE_HID_DESC_OFFSET]
-};
-#endif /* MOUSE_ENABLE */
-#ifdef CONSOLE_ENABLE
-static const USBDescriptor console_hid_descriptor = {
-  HID_DESCRIPTOR_SIZE,
-  &hid_configuration_descriptor_data[CONSOLE_HID_DESC_OFFSET]
-};
-#endif /* CONSOLE_ENABLE */
-#ifdef EXTRAKEY_ENABLE
-static const USBDescriptor extra_hid_descriptor = {
-  HID_DESCRIPTOR_SIZE,
-  &hid_configuration_descriptor_data[EXTRA_HID_DESC_OFFSET]
-};
-#endif /* EXTRAKEY_ENABLE */
-#ifdef NKRO_ENABLE
-static const USBDescriptor nkro_hid_descriptor = {
-  HID_DESCRIPTOR_SIZE,
-  &hid_configuration_descriptor_data[NKRO_HID_DESC_OFFSET]
-};
-#endif /* NKRO_ENABLE */
-
-
-/* U.S. English language identifier */
-static const uint8_t usb_string_langid[] = {
-  USB_DESC_BYTE(4),                        // bLength
-  USB_DESC_BYTE(USB_DESCRIPTOR_STRING),    // bDescriptorType
-  USB_DESC_WORD(0x0409)                    // wLANGID (U.S. English)
-};
-
-/* ugly ugly hack */
-#define PP_NARG(...) \
-         PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
-#define PP_NARG_(...) \
-         PP_ARG_N(__VA_ARGS__)
-#define PP_ARG_N( \
-          _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, \
-         _11,_12,_13,_14,_15,_16,_17,_18,_19,_20, \
-         _21,_22,_23,_24,_25,_26,_27,_28,_29,_30, \
-         _31,_32,_33,_34,_35,_36,_37,_38,_39,_40, \
-         _41,_42,_43,_44,_45,_46,_47,_48,_49,_50, \
-         _51,_52,_53,_54,_55,_56,_57,_58,_59,_60, \
-         _61,_62,_63,N,...) N
-#define PP_RSEQ_N() \
-         63,62,61,60,                   \
-         59,58,57,56,55,54,53,52,51,50, \
-         49,48,47,46,45,44,43,42,41,40, \
-         39,38,37,36,35,34,33,32,31,30, \
-         29,28,27,26,25,24,23,22,21,20, \
-         19,18,17,16,15,14,13,12,11,10, \
-         9,8,7,6,5,4,3,2,1,0
-
-/* Vendor string = manufacturer */
-static const uint8_t usb_string_vendor[] = {
-  USB_DESC_BYTE(PP_NARG(USBSTR_MANUFACTURER)+2),                       // bLength
-  USB_DESC_BYTE(USB_DESCRIPTOR_STRING),    // bDescriptorType
-  USBSTR_MANUFACTURER
-};
-
-/* Device Description string = product */
-static const uint8_t usb_string_description[] = {
-  USB_DESC_BYTE(PP_NARG(USBSTR_PRODUCT)+2),           // bLength
-  USB_DESC_BYTE(USB_DESCRIPTOR_STRING),    // bDescriptorType
-  USBSTR_PRODUCT
-};
-
-/* Serial Number string (will be filled by the function init_usb_serial_string) */
-static uint8_t usb_string_serial[] = {
-  USB_DESC_BYTE(22),                       // bLength
-  USB_DESC_BYTE(USB_DESCRIPTOR_STRING),    // bDescriptorType
-  '0', 0, 'x', 0, 'D', 0, 'E', 0, 'A', 0, 'D', 0, 'B', 0, 'E', 0, 'E', 0, 'F', 0
-};
-
-/* Strings wrappers array */
-static const USBDescriptor usb_strings[] = {
-  { sizeof usb_string_langid, usb_string_langid }
-  ,
-  { sizeof usb_string_vendor, usb_string_vendor }
-  ,
-  { sizeof usb_string_description, usb_string_description }
-  ,
-  { sizeof usb_string_serial, usb_string_serial }
-};
 
 /*
  * Handles the GET_DESCRIPTOR callback
@@ -614,6 +95,7 @@ static const USBDescriptor usb_strings[] = {
 static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype, uint8_t dindex, uint16_t lang) {
   (void)usbp;
   (void)lang;
+  #if 0
   switch(dtype) {
   /* Generic descriptors */
   case USB_DESCRIPTOR_DEVICE:   /* Device Descriptor */
@@ -674,6 +156,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 #endif /* NKRO_ENABLE */
     }
   }
+#endif
   return NULL;
 }
 
@@ -685,7 +168,7 @@ static const USBEndpointConfig kbd_ep_config = {
   NULL,                         /* SETUP packet notification callback */
   kbd_in_cb,                    /* IN notification callback */
   NULL,                         /* OUT notification callback */
-  KBD_EPSIZE,                   /* IN maximum packet size */
+  KEYBOARD_EPSIZE,              /* IN maximum packet size */
   0,                            /* OUT maximum packet size */
   &kbd_ep_state,                /* IN Endpoint state */
   NULL,                         /* OUT endpoint state */
@@ -741,7 +224,7 @@ static const USBEndpointConfig extra_ep_config = {
   NULL,                         /* SETUP packet notification callback */
   extra_in_cb,                  /* IN notification callback */
   NULL,                         /* OUT notification callback */
-  EXTRA_EPSIZE,                 /* IN maximum packet size */
+  EXTRAKEY_EPSIZE,              /* IN maximum packet size */
   0,                            /* OUT maximum packet size */
   &extra_ep_state,              /* IN Endpoint state */
   NULL,                         /* OUT endpoint state */
@@ -784,19 +267,19 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   case USB_EVENT_CONFIGURED:
     osalSysLockFromISR();
     /* Enable the endpoints specified into the configuration. */
-    usbInitEndpointI(usbp, KBD_ENDPOINT, &kbd_ep_config);
+    usbInitEndpointI(usbp, KEYBOARD_IN_EPNUM, &kbd_ep_config);
 #ifdef MOUSE_ENABLE
-    usbInitEndpointI(usbp, MOUSE_ENDPOINT, &mouse_ep_config);
+    usbInitEndpointI(usbp, MOUSE_IN_EPNUM, &mouse_ep_config);
 #endif /* MOUSE_ENABLE */
 #ifdef CONSOLE_ENABLE
     usbInitEndpointI(usbp, CONSOLE_ENDPOINT, &console_ep_config);
     /* don't need to start the flush timer, it starts from console_in_cb automatically */
 #endif /* CONSOLE_ENABLE */
 #ifdef EXTRAKEY_ENABLE
-    usbInitEndpointI(usbp, EXTRA_ENDPOINT, &extra_ep_config);
+    usbInitEndpointI(usbp, EXTRAKEY_IN_EPNUM, &extra_ep_config);
 #endif /* EXTRAKEY_ENABLE */
 #ifdef NKRO_ENABLE
-    usbInitEndpointI(usbp, NKRO_ENDPOINT, &nkro_ep_config);
+    usbInitEndpointI(usbp, NKRO_IN_EPNUM, &nkro_ep_config);
 #endif /* NKRO_ENABLE */
     osalSysUnlockFromISR();
     return;
@@ -868,7 +351,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
       switch(usbp->setup[1]) {   /* bRequest */
       case HID_GET_REPORT:
         switch(usbp->setup[4]) {     /* LSB(wIndex) (check MSB==0?) */
-        case KBD_INTERFACE:
+        case KEYBOARD_INTERFACE:
 #ifdef NKRO_ENABLE
         case NKRO_INTERFACE:
 #endif /* NKRO_ENABLE */
@@ -891,7 +374,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 #endif /* CONSOLE_ENABLE */
 
 #ifdef EXTRAKEY_ENABLE
-        case EXTRA_INTERFACE:
+        case EXTRAKEY_INTERFACE:
           if(usbp->setup[3] == 1) { /* MSB(wValue) [Report Type] == 1 [Input Report] */
             switch(usbp->setup[2]) { /* LSB(wValue) [Report ID] */
               case REPORT_ID_SYSTEM:
@@ -921,7 +404,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
         break;
 
       case HID_GET_PROTOCOL:
-        if((usbp->setup[4] == KBD_INTERFACE) && (usbp->setup[5] == 0)) {   /* wIndex */
+        if((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) {   /* wIndex */
           usbSetupTransfer(usbp, &keyboard_protocol, 1, NULL);
           return TRUE;
         }
@@ -938,7 +421,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
       switch(usbp->setup[1]) {   /* bRequest */
       case HID_SET_REPORT:
         switch(usbp->setup[4]) {       /* LSB(wIndex) (check MSB==0 and wLength==1?) */
-        case KBD_INTERFACE:
+        case KEYBOARD_INTERFACE:
 #ifdef NKRO_ENABLE
         case NKRO_INTERFACE:
 #endif  /* NKRO_ENABLE */
@@ -951,7 +434,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
         break;
 
       case HID_SET_PROTOCOL:
-        if((usbp->setup[4] == KBD_INTERFACE) && (usbp->setup[5] == 0)) {   /* wIndex */
+        if((usbp->setup[4] == KEYBOARD_INTERFACE) && (usbp->setup[5] == 0)) {   /* wIndex */
           keyboard_protocol = ((usbp->setup[2]) != 0x00);   /* LSB(wValue) */
 #ifdef NKRO_ENABLE
           keymap_config.nkro = !!keyboard_protocol;
@@ -1084,8 +567,8 @@ static void keyboard_idle_timer_cb(void *arg) {
   if(keyboard_idle) {
 #endif /* NKRO_ENABLE */
     /* TODO: are we sure we want the KBD_ENDPOINT? */
-    if(!usbGetTransmitStatusI(usbp, KBD_ENDPOINT)) {
-      usbStartTransmitI(usbp, KBD_ENDPOINT, (uint8_t *)&keyboard_report_sent, KBD_EPSIZE);
+    if(!usbGetTransmitStatusI(usbp, KEYBOARD_IN_EPNUM)) {
+      usbStartTransmitI(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
     }
     /* rearm the timer */
     chVTSetI(&keyboard_idle_timer, 4*MS2ST(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
@@ -1119,14 +602,14 @@ void send_keyboard(report_keyboard_t *report) {
      * this is more efficient */
     /* busy wait, should be short and not very common */
     osalSysLock();
-    if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_ENDPOINT)) {
+    if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_IN_EPNUM)) {
       /* Need to either suspend, or loop and call unlock/lock during
        * every iteration - otherwise the system will remain locked,
        * no interrupts served, so USB not going through as well.
        * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_ENDPOINT]->in_state->thread);
+      osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_IN_EPNUM]->in_state->thread);
     }
-    usbStartTransmitI(&USB_DRIVER, NKRO_ENDPOINT, (uint8_t *)report, sizeof(report_keyboard_t));
+    usbStartTransmitI(&USB_DRIVER, NKRO_IN_EPNUM, (uint8_t *)report, sizeof(report_keyboard_t));
     osalSysUnlock();
   } else
 #endif /* NKRO_ENABLE */
@@ -1134,14 +617,14 @@ void send_keyboard(report_keyboard_t *report) {
     /* need to wait until the previous packet has made it through */
     /* busy wait, should be short and not very common */
     osalSysLock();
-    if(usbGetTransmitStatusI(&USB_DRIVER, KBD_ENDPOINT)) {
+    if(usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
       /* Need to either suspend, or loop and call unlock/lock during
        * every iteration - otherwise the system will remain locked,
        * no interrupts served, so USB not going through as well.
        * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[KBD_ENDPOINT]->in_state->thread);
+      osalThreadSuspendS(&(&USB_DRIVER)->epc[KEYBOARD_IN_EPNUM]->in_state->thread);
     }
-    usbStartTransmitI(&USB_DRIVER, KBD_ENDPOINT, (uint8_t *)report, KBD_EPSIZE);
+    usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, (uint8_t *)report, KEYBOARD_EPSIZE);
     osalSysUnlock();
   }
   keyboard_report_sent = *report;
@@ -1174,7 +657,7 @@ void send_mouse(report_mouse_t *report) {
    */
 
   osalSysLock();
-  usbStartTransmitI(&USB_DRIVER, MOUSE_ENDPOINT, (uint8_t *)report, sizeof(report_mouse_t));
+  usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
   osalSysUnlock();
 }
 
@@ -1210,7 +693,7 @@ static void send_extra_report(uint8_t report_id, uint16_t data) {
     .usage = data
   };
 
-  usbStartTransmitI(&USB_DRIVER, EXTRA_ENDPOINT, (uint8_t *)&report, sizeof(report_extra_t));
+  usbStartTransmitI(&USB_DRIVER, EXTRAKEY_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
   osalSysUnlock();
 }
 

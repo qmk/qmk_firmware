@@ -1291,3 +1291,12 @@ void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t
 
 
 #endif
+
+
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint16_t wIndex,
+                                    const void** const DescriptorAddress)
+{
+  return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
+}
+
