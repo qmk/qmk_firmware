@@ -14,75 +14,72 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define KC_RGUP RGUP
 #define KC_RGDWN RGDWN
-
-#define _BL 0 // The base layer.
-#define _UL 1 // The up layer.
-#define _VL 3 // This is for up layer but should be used by MO with the shift key pressed.
-#define _DL 2 // The down layer.
 #define TOTAL_MATRIX_POINTS (MATRIX_ROWS * MATRIX_COLS)
 
-const uint8_t lights[360]={
-  0,   0,   0,   0,   0,   1,   1,   2,
-  2,   3,   4,   5,   6,   7,   8,   9,
- 11,  12,  13,  15,  17,  18,  20,  22,
- 24,  26,  28,  30,  32,  35,  37,  39,
- 42,  44,  47,  49,  52,  55,  58,  60,
- 63,  66,  69,  72,  75,  78,  81,  85,
- 88,  91,  94,  97, 101, 104, 107, 111,
-114, 117, 121, 124, 127, 131, 134, 137,
-141, 144, 147, 150, 154, 157, 160, 163,
-167, 170, 173, 176, 179, 182, 185, 188,
-191, 194, 197, 200, 202, 205, 208, 210,
-213, 215, 217, 220, 222, 224, 226, 229,
-231, 232, 234, 236, 238, 239, 241, 242,
-244, 245, 246, 248, 249, 250, 251, 251,
-252, 253, 253, 254, 254, 255, 255, 255,
-255, 255, 255, 255, 254, 254, 253, 253,
-252, 251, 251, 250, 249, 248, 246, 245,
-244, 242, 241, 239, 238, 236, 234, 232,
-231, 229, 226, 224, 222, 220, 217, 215,
-213, 210, 208, 205, 202, 200, 197, 194,
-191, 188, 185, 182, 179, 176, 173, 170,
-167, 163, 160, 157, 154, 150, 147, 144,
-141, 137, 134, 131, 127, 124, 121, 117,
-114, 111, 107, 104, 101,  97,  94,  91,
- 88,  85,  81,  78,  75,  72,  69,  66,
- 63,  60,  58,  55,  52,  49,  47,  44,
- 42,  39,  37,  35,  32,  30,  28,  26,
- 24,  22,  20,  18,  17,  15,  13,  12,
- 11,   9,   8,   7,   6,   5,   4,   3,
-  2,   2,   1,   1,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0,
-  0,   0,   0,   0,   0,   0,   0,   0};
+#define _BL 0  // The base layer.
+#define _UL 1  // The up layer.
+#define _VL 3  // This is for up layer but should be used by MO with the shift key pressed.
+#define _DL 2  // The down layer.
 
-const uint8_t base = 5;
-const uint32_t _PC = 0xFF0000; // LED Red, pressed LED.
-const uint32_t _LC[5] = { \
-  // LED off
-  [_BL] = 0x000000, \
-  // LED Blue
-  [_UL] = 0x0000FF, \
-  // LED Yellow
-  [_VL] = 0xFFFF00, \
-  // LED Green
-  [_DL] = 0x00FF00  \
+uint8_t cur_lyr = 0;  // current selected layer.
+uint8_t dim = 0;      // rgb dimming level.
+
+const uint32_t _PC = 0xFF0000;  // LED Red, pressed LED.
+
+const uint32_t _LC[5] = {
+  [_BL] = 0x000000,  // LED off
+  [_UL] = 0x0000FF,  // LED Blue
+  [_VL] = 0xFFFF00,  // LED Yellow
+  [_DL] = 0x00FF00   // LED Green
 };
 
-uint8_t cur_lyr = 0; // current selected layer.
-uint8_t dim = 0; // rgb dimming level.
+const uint8_t _LIGHTS[360] = {
+    0,   0,   0,   0,   0,   1,   1,   2,
+    2,   3,   4,   5,   6,   7,   8,  11,
+   12,   9,  13,  15,  17,  18,  20,  22,
+   24,  26,  28,  30,  32,  35,  37,  39,
+   42,  44,  47,  49,  52,  55,  58,  60,
+   63,  66,  69,  72,  75,  78,  81,  85,
+   88,  91,  94,  97, 101, 104, 107, 111,
+  114, 117, 121, 124, 127, 131, 134, 137,
+  141, 144, 147, 150, 154, 157, 160, 163,
+  167, 170, 173, 176, 179, 182, 185, 188,
+  191, 194, 197, 200, 202, 205, 208, 210,
+  213, 215, 217, 220, 222, 224, 226, 229,
+  231, 232, 234, 236, 238, 239, 241, 242,
+  244, 245, 246, 248, 249, 250, 251, 251,
+  252, 253, 253, 254, 254, 255, 255, 255,
+  255, 255, 255, 255, 254, 254, 253, 253,
+  252, 251, 251, 250, 249, 248, 246, 245,
+  244, 242, 241, 239, 238, 236, 234, 232,
+  231, 229, 226, 224, 222, 220, 217, 215,
+  213, 210, 208, 205, 202, 200, 197, 194,
+  191, 188, 185, 182, 179, 176, 173, 170,
+  167, 163, 160, 157, 154, 150, 147, 144,
+  141, 137, 134, 131, 127, 124, 121, 117,
+  114, 111, 107, 104, 101,  97,  94,  91,
+   88,  85,  81,  78,  75,  72,  69,  66,
+   63,  60,  58,  55,  52,  49,  47,  44,
+   42,  39,  37,  35,  32,  30,  28,  26,
+   24,  22,  20,  18,  17,  15,  13,  12,
+   11,   9,   8,   7,   6,   5,   4,   3,
+    2,   2,   1,   1,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0
+};
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
@@ -142,6 +139,8 @@ void layer_led(void) {
 }
 
 void key_led(keyrecord_t *record) {
+  static const uint8_t base = 5;
+
   uint8_t r = record->event.key.row;
   uint8_t c = record->event.key.col;
   uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - c + 1);
@@ -191,7 +190,6 @@ void shifted_layer(void) {
   }
 }
 
-
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
   [CT_ESC_GRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset),
@@ -211,7 +209,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void sine_led(uint8_t angle) {
-  setrgb(lights[(angle + 120)%360] >> dim, lights[angle] >> dim, lights[(angle + 240)%360] >> dim, (LED_TYPE *)&led[0]);
+  setrgb(_LIGHTS[(angle + 120)%360] >> dim, _LIGHTS[angle] >> dim, _LIGHTS[(angle + 240)%360] >> dim, (LED_TYPE *)&led[0]);
   rgblight_set();
 }
 
@@ -238,7 +236,6 @@ void matrix_scan_user(void) {
   layer_led();
   test_loop();
 }
-
 
 void matrix_init_user(void) {
   init_tap_dance();
