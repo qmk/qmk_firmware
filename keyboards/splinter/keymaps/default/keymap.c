@@ -113,11 +113,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-#define SET_LED_RGB(v, p) setrgb(((v >> 16) & 0xFF) >> dim, ((v >> 8) & 0xFF) >> dim, (v & 0xFF) >> dim, (LED_TYPE *)&led[p])
+#define SET_LED_RGB_HEX(v, p) setrgb(((v >> 16) & 0xFF) >> dim, ((v >> 8) & 0xFF) >> dim, (v & 0xFF) >> dim, (LED_TYPE *)&led[p])
 
 void set_layer_led(uint32_t c) {
   for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
-    SET_LED_RGB(c, i);
+    SET_LED_RGB_HEX(c, i);
   }
 }
 
@@ -138,9 +138,9 @@ void key_led(keyrecord_t *record) {
   uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - c + 1);
 
   if (record->event.pressed) {
-    SET_LED_RGB(_PC, pos);
+    SET_LED_RGB_HEX(_PC, pos);
   } else {
-    SET_LED_RGB(_LC[cur_lyr], pos);
+    SET_LED_RGB_HEX(_LC[cur_lyr], pos);
   }
 
   rgblight_set();
