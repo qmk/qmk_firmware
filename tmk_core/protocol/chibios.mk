@@ -8,4 +8,4 @@ SRC += usb_descriptor.c
 
 VPATH += $(TMK_PATH)/$(PROTOCOL_DIR)
 VPATH += $(TMK_PATH)/$(CHIBIOS_DIR)
-
+VPATH += $(TMK_PATH)/$(CHIBIOS_DIR)/lufa_utils

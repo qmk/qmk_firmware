@@ -45,8 +45,6 @@
 #define _DESCRIPTORS_H_
 
 #include <LUFA/Drivers/USB/USB.h>
-#include <avr/pgmspace.h>
-
 
 typedef struct
 {
