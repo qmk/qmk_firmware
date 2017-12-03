@@ -32,11 +32,12 @@ Row. 2|PTD4|PIN  6|Black/White
 Row. 4|PTD6|PIN 21|Yellow/Black
 Row. 5|PTD7|PIN  2|Blue/White
 
-Left side columns wiring:
-![Left side columns wiring](https://i.imgur.com/J3Z6nuV.jpg)
 
-Right side rows and columns wiring:
-![Right side rows and columns wiring](https://i.imgur.com/VzcTDnk.jpg)
+Right side columns wiring:
+![Right side columns wiring](https://i.imgur.com/VzcTDnk.jpg)
+
+Left side rows and columns wiring:
+![left side rows and columns wiring](https://i.imgur.com/j3z6nuv.jpg)
 
 Wiring to the Teensy controller:
 ![Wiring to the Teensy controller](https://i.imgur.com/gfvivOr.jpg)
