@@ -183,7 +183,7 @@ void rainbow_loop(void) {
     return;
   }
 
-  if (i >= 260) {
+  if (i >= 360) {
     i = 0;
   }
 
