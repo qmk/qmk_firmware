@@ -216,7 +216,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     usbInitEndpointI(usbp, MOUSE_IN_EPNUM, &mouse_ep_config);
 #endif /* MOUSE_ENABLE */
 #ifdef CONSOLE_ENABLE
-    usbInitEndpointI(usbp, CONSOLE_ENDPOINT, &console_ep_config);
+    usbInitEndpointI(usbp, CONSOLE_IN_EPNUM, &console_ep_config);
     /* don't need to start the flush timer, it starts from console_in_cb automatically */
 #endif /* CONSOLE_ENABLE */
 #ifdef EXTRAKEY_ENABLE
@@ -667,7 +667,7 @@ void send_consumer(uint16_t data) {
 
 /* console IN callback hander */
 void console_in_cb(USBDriver *usbp, usbep_t ep) {
-  (void)ep; /* should have ep == CONSOLE_ENDPOINT, so use that to save time/space */
+  (void)ep; /* should have ep == CONSOLE_IN_EPNUM, so use that to save time/space */
   uint8_t *buf;
   size_t n;
 
@@ -677,7 +677,7 @@ void console_in_cb(USBDriver *usbp, usbep_t ep) {
   chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
 
   /* Freeing the buffer just transmitted, if it was not a zero size packet.*/
-  if (usbp->epc[CONSOLE_ENDPOINT]->in_state->txsize > 0U) {
+  if (usbp->epc[CONSOLE_IN_EPNUM]->in_state->txsize > 0U) {
     obqReleaseEmptyBufferI(&console_buf_queue);
   }
 
@@ -688,7 +688,7 @@ void console_in_cb(USBDriver *usbp, usbep_t ep) {
     /* The endpoint cannot be busy, we are in the context of the callback,
        so it is safe to transmit without a check.*/
     /* Should have n == CONSOLE_EPSIZE; check it? */
-    usbStartTransmitI(usbp, CONSOLE_ENDPOINT, buf, CONSOLE_EPSIZE);
+    usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
   } else {
     /* Nothing to transmit.*/
   }
@@ -706,13 +706,13 @@ void console_queue_onotify(io_buffers_queue_t *bqp) {
     return;
 
   /* Checking if there is already a transaction ongoing on the endpoint.*/
-  if (!usbGetTransmitStatusI(usbp, CONSOLE_ENDPOINT)) {
+  if (!usbGetTransmitStatusI(usbp, CONSOLE_IN_EPNUM)) {
     /* Trying to get a full buffer.*/
     uint8_t *buf = obqGetFullBufferI(&console_buf_queue, &n);
     if (buf != NULL) {
       /* Buffer found, starting a new transaction.*/
       /* Should have n == CONSOLE_EPSIZE; check this? */
-      usbStartTransmitI(usbp, CONSOLE_ENDPOINT, buf, CONSOLE_EPSIZE);
+      usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
     }
   }
 }
@@ -733,7 +733,7 @@ static void console_flush_cb(void *arg) {
 
   /* If there is already a transaction ongoing then another one cannot be
      started.*/
-  if (usbGetTransmitStatusI(usbp, CONSOLE_ENDPOINT)) {
+  if (usbGetTransmitStatusI(usbp, CONSOLE_IN_EPNUM)) {
     /* rearm the timer */
     chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
     osalSysUnlockFromISR();
@@ -751,7 +751,7 @@ static void console_flush_cb(void *arg) {
     /* zero the rest of the buffer (buf should point to allocated space) */
     for(i=n; i<CONSOLE_EPSIZE; i++)
       buf[i]=0;
-    usbStartTransmitI(usbp, CONSOLE_ENDPOINT, buf, CONSOLE_EPSIZE);
+    usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
   }
 
   /* rearm the timer */
