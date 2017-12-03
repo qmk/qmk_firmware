@@ -36,8 +36,8 @@ typedef struct {
 #define _RBW_LCAPS 0
 #define _RBW_RCAPS 1
 
-uint8_t cur_lyr = 0;  // current selected layer.
-uint8_t dim = 0;      // rgb dimming level.
+static uint8_t cur_lyr = 0;  // current selected layer.
+static uint8_t dim = 0;      // rgb dimming level.
 
 static rbw_key_led rbw_leds[_RBWC] = {
   [_RBW_LCAPS] = { DEFAULT, 22 },
