@@ -196,6 +196,19 @@ static const USBEndpointConfig nkro_ep_config = {
 };
 #endif /* NKRO_ENABLE */
 
+#ifdef RAW_ENABLE
+#error "Raw interfaces not yet supported on ChibiOS"
+#endif
+
+#ifdef MIDI_ENABLE
+#error "Midi interfaces not yet supported on ChibiOS"
+#endif
+
+#ifdef VIRTSER_ENABLE
+#error "Virtual serial port interfaces not yet supported on ChibiOS"
+#endif
+
+
 /* ---------------------------------------------------------
  *                  USB driver functions
  * ---------------------------------------------------------
