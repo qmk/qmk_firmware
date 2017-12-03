@@ -32,16 +32,18 @@ typedef struct {
 #define _VL 3  // This is for up layer but should be used by MO with the shift key pressed.
 #define _DL 2  // The down layer.
 
-#define _RBWC 2  // The count of rainbow leds.
+#define _RBWC 3  // The count of rainbow leds.
 #define _RBW_LCAPS 0
 #define _RBW_RCAPS 1
+#define _RBW_SCRLK 2
 
 static uint8_t cur_lyr = 0;  // current selected layer.
 static uint8_t dim = 0;      // rgb dimming level.
 
 static rbw_key_led rbw_leds[_RBWC] = {
   [_RBW_LCAPS] = { DEFAULT, 22 },
-  [_RBW_RCAPS] = { DEFAULT, 47 }
+  [_RBW_RCAPS] = { DEFAULT, 47 },
+  [_RBW_SCRLK] = { DEFAULT, 42 }
 };
 
 const uint32_t _PC = 0xFF0000;  // LED Red, pressed LED.
@@ -276,12 +278,18 @@ void matrix_init_user(void) {
   init_tap_dance();
 }
 
-void led_set_kb(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
     rbw_leds[_RBW_LCAPS].status = ENABLED;
     rbw_leds[_RBW_RCAPS].status = ENABLED;
   } else {
     rbw_leds[_RBW_LCAPS].status = DISABLED;
     rbw_leds[_RBW_RCAPS].status = DISABLED;
+  }
+
+  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    rbw_leds[_RBW_SCRLK].status = ENABLED;
+  } else {
+    rbw_leds[_RBW_SCRLK].status = DISABLED;
   }
 }
