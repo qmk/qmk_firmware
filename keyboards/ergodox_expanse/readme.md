@@ -37,7 +37,7 @@ Right side columns wiring:
 ![Right side columns wiring](https://i.imgur.com/VzcTDnk.jpg)
 
 Left side rows and columns wiring:
-![left side rows and columns wiring](https://i.imgur.com/j3z6nuv.jpg)
+![left side rows and columns wiring](https://i.imgur.com/J3Z6nuV.jpg)
 
 Wiring to the Teensy controller:
 ![Wiring to the Teensy controller](https://i.imgur.com/gfvivOr.jpg)
