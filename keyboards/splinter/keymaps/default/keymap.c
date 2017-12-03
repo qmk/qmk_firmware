@@ -11,6 +11,17 @@ enum custom_keycodes {
   RGDWN
 };
 
+typedef enum {
+  DEFAULT,
+  ENABLED,
+  DISABLED,
+} rbw_led_status;
+
+typedef struct {
+  rbw_led_status status;
+  uint8_t pos;
+} rbw_key_led;
+
 #define _______ KC_TRNS
 #define KC_RGUP RGUP
 #define KC_RGDWN RGDWN
@@ -21,9 +32,17 @@ enum custom_keycodes {
 #define _VL 3  // This is for up layer but should be used by MO with the shift key pressed.
 #define _DL 2  // The down layer.
 
+#define _RBWC 2  // The count of rainbow leds.
+#define _RBW_LCAPS 0
+#define _RBW_RCAPS 1
+
 uint8_t cur_lyr = 0;  // current selected layer.
 uint8_t dim = 0;      // rgb dimming level.
-bool is_caps_led_enabled = false;  // Will determined if caps lock is enabled;
+
+static rbw_key_led rbw_leds[_RBWC] = {
+  [_RBW_LCAPS] = { DEFAULT, 22 },
+  [_RBW_RCAPS] = { DEFAULT, 47 }
+};
 
 const uint32_t _PC = 0xFF0000;  // LED Red, pressed LED.
 
@@ -175,9 +194,18 @@ void rainbow_loop(void) {
 
   i++;
 
-  if (is_caps_led_enabled) {
-    SET_LED_RGB(r, g, b, 22);
-    SET_LED_RGB(r, g, b, 47);
+  for (uint8_t i = 0; i < _RBWC; i++) {
+    switch(rbw_leds[i].status){
+    case ENABLED:
+      SET_LED_RGB(r, g, b, rbw_leds[i].pos);
+      break;
+    case DISABLED:
+      SET_LED_RGB_HEX(_LC[cur_lyr], rbw_leds[i].pos);
+      rbw_leds[i].status = DEFAULT;
+      break;
+    default:
+      break;
+    }
   }
 
   rgblight_set();
@@ -250,11 +278,10 @@ void matrix_init_user(void) {
 
 void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    is_caps_led_enabled = true;
+    rbw_leds[_RBW_LCAPS].status = ENABLED;
+    rbw_leds[_RBW_RCAPS].status = ENABLED;
   } else {
-    is_caps_led_enabled = false;
-    SET_LED_RGB_HEX(_LC[cur_lyr], 22);
-    SET_LED_RGB_HEX(_LC[cur_lyr], 47);
-    rgblight_set();
+    rbw_leds[_RBW_LCAPS].status = DISABLED;
+    rbw_leds[_RBW_RCAPS].status = DISABLED;
   }
 }
