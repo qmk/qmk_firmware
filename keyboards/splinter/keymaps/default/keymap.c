@@ -40,6 +40,8 @@ typedef struct {
 static uint8_t cur_lyr = 0;  // current selected layer.
 static uint8_t dim = 0;      // rgb dimming level.
 
+static bool active_key_pos[50] = {};
+
 static rbw_key_led rbw_leds[_RBWC] = {
   [_RBW_LCAPS] = { DEFAULT, 22 },
   [_RBW_RCAPS] = { DEFAULT, 47 },
@@ -168,8 +170,10 @@ void set_key_led(keyrecord_t *record) {
   uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - (c + 1));
 
   if (record->event.pressed) {
+    active_key_pos[pos] = true;
     SET_LED_RGB_HEX(_PC, pos);
   } else {
+    active_key_pos[pos] = false;
     SET_LED_RGB_HEX(_LC[cur_lyr], pos);
   }
 
@@ -180,6 +184,7 @@ void rainbow_loop(void) {
   static uint16_t last_timer = 0;
   static uint16_t i = 0;
   static uint8_t r, g, b;
+  uint8_t pos;
 
   if (timer_elapsed(last_timer) < 8) {
     return;
@@ -197,12 +202,20 @@ void rainbow_loop(void) {
   i++;
 
   for (uint8_t i = 0; i < _RBWC; i++) {
+    pos = rbw_leds[i].pos;
+
     switch(rbw_leds[i].status){
     case ENABLED:
-      SET_LED_RGB(r, g, b, rbw_leds[i].pos);
+      if (!active_key_pos[pos]) {
+        SET_LED_RGB(r, g, b, pos);
+      }
+
       break;
     case DISABLED:
-      SET_LED_RGB_HEX(_LC[cur_lyr], rbw_leds[i].pos);
+      if (!active_key_pos[pos]) {
+        SET_LED_RGB_HEX(_LC[cur_lyr], pos);
+      }
+
       rbw_leds[i].status = DEFAULT;
       break;
     default:
