@@ -139,7 +139,7 @@ void layer_led(void) {
   rgblight_set();
 }
 
-void key_led(keyrecord_t *record) {
+void set_key_led(keyrecord_t *record) {
   static const uint8_t base = 5;
 
   uint8_t r = record->event.key.row;
@@ -227,7 +227,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  key_led(record);
+  set_key_led(record);
 
   if (led_brightness(keycode, record)) {
     set_layer_led(_LC[cur_lyr]);
