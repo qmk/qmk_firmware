@@ -165,7 +165,7 @@ void set_key_led(keyrecord_t *record) {
 
   uint8_t r = record->event.key.row;
   uint8_t c = record->event.key.col;
-  uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - c + 1);
+  uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - (c + 1));
 
   if (record->event.pressed) {
     SET_LED_RGB_HEX(_PC, pos);
