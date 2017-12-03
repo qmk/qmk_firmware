@@ -37,11 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_BP] = { /* BepoDev */
-  { KC_ESC,  BP_DQOT,    BP_LGIL,    BP_RGIL, BP_LPRN, BP_RPRN,    TODO,    TODO,    TODO,    BP_AT,   BP_PLUS, BP_MINUS, BP_SLASH, BP_ASTR, BP_EQUAL },
-  { KC_TAB,  BP_B,       BP_E_ACUTE, BP_P,    BP_O,    BP_DOLLAR,  BP_ECRC, KC_DEL,  BP_DCRC, BP_V,    BP_D,    BP_L,     BP_J,     BP_Z,    BP_CCED  },
-  { KC_RALT, BP_A,       BP_U,       BP_I,    BP_E,    BP_COMMA,   KC_ENT,  KC_ENT,  BP_C,    BP_T,    BP_S,    BP_R,     BP_N,     BP_M,    BP_W     },
-  { KC_LSFT, BP_A_GRAVE, BP_Y,       BP_X,    BP_DOT,  BP_K,       KC_BSPC, KC_BSPC, BP_APOS, BP_Q,    BP_G,    BP_H,     BP_F,     KC_UP,   KC_RSFT  },
-  { KC_LCTL, KC_LALT,    KC_LGUI,    MO(_FN), KC_SPC,  KC_SPC,     KC_RALT, KC_RALT, KC_SPC,  KC_SPC,  MO(_FN), KC_RGUI,  KC_LEFT,  KC_DOWN, KC_RGHT  },
+  { KC_ESC,  BP_DQOT,    BP_LGIL,    BP_RGIL, BP_LPRN, BP_RPRN,    BP_PERCENT, KC_NO,   KC_NO,    BP_AT,   BP_PLUS, BP_MINUS, BP_SLASH, BP_ASTR, BP_EQUAL },
+  { KC_TAB,  BP_B,       BP_E_ACUTE, BP_P,    BP_O,    BP_DOLLAR,  BP_ECRC,    KC_DEL,  BP_DCRC, BP_V,    BP_D,    BP_L,     BP_J,     BP_Z,    BP_CCED  },
+  { KC_RALT, BP_A,       BP_U,       BP_I,    BP_E,    BP_COMMA,   KC_ENT,     KC_ENT,  BP_C,    BP_T,    BP_S,    BP_R,     BP_N,     BP_M,    BP_W     },
+  { KC_LSFT, BP_A_GRAVE, BP_Y,       BP_X,    BP_DOT,  BP_K,       KC_BSPC,    KC_BSPC, BP_APOS, BP_Q,    BP_G,    BP_H,     BP_F,     KC_UP,   KC_RSFT  },
+  { KC_LCTL, KC_LALT,    KC_LGUI,    MO(_FN), KC_SPC,  KC_SPC,     KC_RALT,    KC_RALT, KC_SPC,  KC_SPC,  MO(_FN), KC_RGUI,  KC_LEFT,  KC_DOWN, KC_RGHT  },
  },
 
 /* FUNCTION
