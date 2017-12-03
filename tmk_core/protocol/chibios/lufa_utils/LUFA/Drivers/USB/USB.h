@@ -1,5 +1,6 @@
 #define __INCLUDE_FROM_USB_DRIVER
 #define __INCLUDE_FROM_HID_DRIVER
+#define __INCLUDE_FROM_CDC_DRIVER
 #include "progmem.h"
 #include "stddef.h"
 
@@ -31,6 +32,7 @@
 #include "Class/Common/HIDClassCommon.h"
 #include "Core/StdDescriptors.h"
 #include "Class/Common/HIDReportData.h"
+#include "Class/Common/CDCClassCommon.h"
 #include "Core/USBController.h"
 
 
