@@ -1,5 +1,6 @@
 #include "helix.h"
 
+
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);
     float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -37,3 +38,20 @@ void shutdown_kb(void) {
       	stop_all_notes();
     #endif
 }
+
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+
+void rgblight_set(void) {
+    if (!rgblight_config.enable) {
+      ws2812_setleds(led, RGBLED_NUM);
+  } else {
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+      led[i].r = 0;
+      led[i].g = 0;
+      led[i].b = 0;
+    }
+    ws2812_setleds(led, RGBLED_NUM);
+  }
+}
+#endif

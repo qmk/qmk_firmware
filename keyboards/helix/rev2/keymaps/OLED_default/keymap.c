@@ -12,9 +12,10 @@
 
 extern keymap_config_t keymap_config;
 
+#ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
-
+#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -321,7 +322,9 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    rgblight_mode(RGB_current_mode);
+    #ifdef RGBLIGHT_ENABLE
+      rgblight_mode(RGB_current_mode);
+    #endif
     layer_on(layer3);
   } else {
     layer_off(layer3);
@@ -364,12 +367,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(16);
+          #ifdef RGBLIGHT_ENABLE
+            rgblight_mode(16);
+          #endif
         }
         layer_on(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
+        #endif
         TOG_STATUS = false;
         layer_off(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
@@ -383,12 +390,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(15);
+          #ifdef RGBLIGHT_ENABLE
+            rgblight_mode(15);
+          #endif
         }
         layer_on(_RAISE);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
+        #endif
         layer_off(_RAISE);
         TOG_STATUS = false;
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
@@ -416,11 +427,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
     case RGB_MOD:
-      if (record->event.pressed) {
-        rgblight_mode(RGB_current_mode);
-        rgblight_step();
-        RGB_current_mode = rgblight_config.mode;
-      }
+      #ifdef RGBLIGHT_ENABLE
+        if (record->event.pressed) {
+          rgblight_mode(RGB_current_mode);
+          rgblight_step();
+          RGB_current_mode = rgblight_config.mode;
+        }
+      #endif
       return false;
       break;
     case EISU:
@@ -448,13 +461,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case RGBRST:
-    if (record->event.pressed) {
-      eeconfig_update_rgblight_default();
-      //rgblight_mode(9);
-      rgblight_enable();
-      //rgblight_sethsv(0, 255, 255);
-      RGB_current_mode = rgblight_config.mode;
-    }
+      #ifdef RGBLIGHT_ENABLE
+        if (record->event.pressed) {
+          eeconfig_update_rgblight_default();
+          rgblight_enable();
+          RGB_current_mode = rgblight_config.mode;
+        }
+      #endif
+      break;
   }
   return true;
 }
@@ -463,7 +477,9 @@ void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
-    RGB_current_mode = rgblight_config.mode;
+    #ifdef RGBLIGHT_ENABLE
+      RGB_current_mode = rgblight_config.mode;
+    #endif
 }
 
 //SSD1306 OLED init and update loop, make sure to add #define SSD1306OLED in config.h
