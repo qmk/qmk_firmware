@@ -205,9 +205,59 @@ static const USBEndpointConfig nkro_ep_config = {
 #endif
 
 #ifdef VIRTSER_ENABLE
-#error "Virtual serial port interfaces not yet supported on ChibiOS"
-#endif
+SerialUSBDriver SDU1;
 
+static USBOutEndpointState virtser_out_ep_state;
+static USBInEndpointState virtser_in_ep_state;
+static USBInEndpointState virtser_int_ep_state;
+
+static const USBEndpointConfig virtser_in_ep_config = {
+  USB_EP_MODE_TYPE_BULK,
+  NULL,
+  sduDataTransmitted,
+  NULL,
+  CDC_EPSIZE,
+  0,
+  &virtser_in_ep_state,
+  NULL,
+  2,
+  NULL
+};
+
+static const USBEndpointConfig virtser_out_ep_config = {
+  USB_EP_MODE_TYPE_BULK,
+  NULL,
+  NULL,
+  sduDataReceived,
+  0,
+  CDC_EPSIZE,
+  NULL,
+  &virtser_out_ep_state,
+  2,
+  NULL
+};
+
+static const USBEndpointConfig virtser_int_ep_config = {
+  USB_EP_MODE_TYPE_INTR,
+  NULL,
+  sduInterruptTransmitted,
+  NULL,
+  CDC_NOTIFICATION_EPSIZE,
+  0,
+  &virtser_int_ep_state,
+  NULL,
+  1,
+  NULL
+};
+
+const SerialUSBConfig serusbcfg = {
+  &USB_DRIVER,
+  CDC_IN_EPNUM,
+  CDC_OUT_EPNUM,
+  CDC_NOTIFICATION_EPNUM
+};
+
+#endif
 
 /* ---------------------------------------------------------
  *                  USB driver functions
@@ -238,10 +288,24 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef NKRO_ENABLE
     usbInitEndpointI(usbp, NKRO_IN_EPNUM, &nkro_ep_config);
 #endif /* NKRO_ENABLE */
+#ifdef VIRTSER_ENABLE
+    /* Enables the endpoints specified into the configuration.
+       Note, this callback is invoked from an ISR so I-Class functions
+       must be used.*/
+    usbInitEndpointI(usbp, CDC_IN_EPNUM, &virtser_in_ep_config);
+    usbInitEndpointI(usbp, CDC_OUT_EPNUM, &virtser_out_ep_config);
+    usbInitEndpointI(usbp, CDC_NOTIFICATION_EPNUM, &virtser_int_ep_config);
+
+    /* Resetting the state of the CDC subsystem.*/
+    sduConfigureHookI(&SDU1);
+#endif
     osalSysUnlockFromISR();
     return;
   case USB_EVENT_SUSPEND:
     //TODO: from ISR! print("[S]");
+#ifdef VIRTSER_ENABLE
+    sduDisconnectI(&SDU1);
+#endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -437,6 +501,9 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
     usbSetupTransfer(usbp, (uint8_t *)dp->ud_string, dp->ud_size, NULL);
     return TRUE;
   }
+  #ifdef VIRTSER_ENABLE
+    return sduRequestsHook(usbp);
+  #endif
 
   return FALSE;
 }
@@ -444,6 +511,11 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
+#ifdef VIRTSER_ENABLE
+  osalSysLockFromISR();
+  sduSOFHookI(&SDU1);
+  osalSysUnlockFromISR();
+#endif
 }
 
 
@@ -459,6 +531,9 @@ static const USBConfig usbcfg = {
  * Initialize the USB driver
  */
 void init_usb_driver(USBDriver *usbp) {
+  sduObjectInit(&SDU1);
+  sduStart(&SDU1, &serusbcfg);
+
   /*
    * Activates the USB driver and then the USB bus pull-up on D+.
    * Note, a delay is inserted in order to not have to disconnect the cable
@@ -800,3 +875,28 @@ void sendchar_pf(void *p, char c) {
   (void)p;
   sendchar((uint8_t)c);
 }
+
+#ifdef VIRTSER_ENABLE
+
+void virtser_send(const uint8_t byte) {
+  chnWrite(&SDU1, &byte, 1);
+}
+
+__attribute__ ((weak))
+void virtser_recv(uint8_t c)
+{
+  // Ignore by default
+}
+
+void virtser_task(void) {
+  uint8_t numBytesReceived = 0;
+  uint8_t buffer[16];
+  do {
+    numBytesReceived = chnReadTimeout(&SDU1, buffer, sizeof(buffer), TIME_IMMEDIATE);
+    for (int i=0;i<numBytesReceived;i++) {
+      virtser_recv(buffer[i]);
+    }
+  } while (numBytesReceived > 0);
+}
+
+#endif
