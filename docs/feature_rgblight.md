@@ -87,8 +87,8 @@ These control the RGB Lighting functionality.
 | Long Name | Short Name | Description |
 |-----------|------------|-------------|
 ||`RGB_TOG`|toggle on/off|
-||`RGB_MOD`|cycle through modes|
-||`RGB_SMOD`|cycle through modes, use reverse direction when shift is hold|
+|`RGB_MODE_FORWARD`|`RGB_MOD`|cycle through modes, use reverse direction when shift is held|
+|`RGB_MODE_REVERSE`|`RGB_RMOD`|cycle through modes in reverse (also suppost shift to go forward)|
 ||`RGB_HUI`|hue increase|
 ||`RGB_HUD`|hue decrease|
 ||`RGB_SAI`|saturation increase|
@@ -103,6 +103,8 @@ These control the RGB Lighting functionality.
 |`RGB_MODE_KNIGHT`|`RGB_M_K`| Switch to the knight animation |
 |`RGB_MODE_XMAS`|`RGB_M_X`| Switch to the Christmas animation |
 |`RGB_MODE_GRADIENT`|`RGB_M_G`| Switch to the static gradient mode |
+
+note: for backwards compatibility, `RGB_SMOD` is an alias for `RGB_MOD`.
 
 ## Hardware Modification
 

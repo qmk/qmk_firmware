@@ -286,13 +286,7 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_toggle();
     }
     return false;
-  case RGB_MOD:
-    if (record->event.pressed) {
-      rgblight_step();
-    }
-    return false;
-  case RGB_SMOD:
-    // same as RBG_MOD, but if shift is pressed, it will use the reverese direction instead.
+  case RGB_MODE_FORWARD:
     if (record->event.pressed) {
       uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
       if(shifted) {
@@ -300,6 +294,17 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         rgblight_step();
+      }
+    }
+    return false;
+  case RGB_MODE_REVERSE:
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgblight_step();
+      }
+      else {
+        rgblight_step_reverse();
       }
     }
     return false;
