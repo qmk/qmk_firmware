@@ -935,6 +935,11 @@ void backlight_task(void) {
 
 #ifdef BACKLIGHT_BREATHING
 
+#ifdef NO_BACKLIGHT_CLOCK
+void breathing_defaults(void) {}
+void breathing_intensity_default(void) {}
+#else
+
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
 #define BREATHING_HALT_ON  2
@@ -1134,6 +1139,7 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
+#endif // NO_BACKLIGHT_CLOCK
 #endif // breathing
 
 #else // backlight
