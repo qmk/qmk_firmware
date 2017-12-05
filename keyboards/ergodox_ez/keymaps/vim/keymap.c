@@ -41,9 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,X_____X,VIM_X  ,VIM_C  ,VIM_V  ,VIM_B  ,X_____X,
     KC_LCTL,KC_LALT,X_____X,X_____X,X_____X,
 
-                                                                KC_LEFT,KC_DOWN,
-                                                                        KC_HOME,
-                                                GUI_T(KC_SPC),  KC_DEL, KC_END,
+                                            KC_HOME,KC_END ,
+                                            TO(SYMB),
+                                            GUI_T(KC_SPC),  KC_ESC ,_______,
+
 
     // Layer 2 Right Hand
                               X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,
@@ -52,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               X_____X,X_____X,X_____X,X_____X,X_____X,X_____X,KC_LSFT,
                                               X_____X,X_____X,X_____X,KC_RALT,KC_RCTL,
 
-    KC_UP,  KC_RGHT,
-    KC_PGUP,
-    KC_PGDN, KC_ENT, GUI_T(KC_BSPC)
-  ),
+    KC_PGUP,  KC_PGDN,
+    TO(SYMB),
+    KC_DEL , KC_ENT, GUI_T(KC_BSPC)
+),
 
   /* Insert mode
   *
@@ -86,9 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,KC_Z,   KC_X,   KC_C,    KC_V,   KC_B, KC_EQL,
     KC_LCTL,KC_LALT,KC_LPRN,KC_LBRC, KC_LCBR,
 
-                                                                KC_HOME,KC_END,
-                                                                        _______,
-                                                        _______,_______,TT(NOR_MOD),
+                                            KC_HOME,KC_END ,
+                                            TO(SYMB),
+                                            GUI_T(KC_SPC),  KC_ESC ,LT(NOR_MOD, KC_ESC),
+
 
     // Right Hand
                               KC_ATP , KC_6, KC_7,   KC_8,    KC_9,   KC_0,   KC_MINS,
@@ -97,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               KC_PLUS, KC_N, KC_M,   KC_COMM, KC_DOT, KC_SLSH,KC_RSFT,
                                              KC_RCBR,KC_RBRC, KC_RPRN,KC_RALT,KC_RCTL,
 
-    KC_PGDN, KC_PGUP,
-    _______,
-    _______, KC_ENT, GUI_T(KC_BSPC)
+    KC_PGUP,  KC_PGDN,
+    TO(SYMB),
+    MO(MOUSE) , KC_ENT, GUI_T(KC_BSPC)
   ),
 
   [SYMB] = KEYMAP(

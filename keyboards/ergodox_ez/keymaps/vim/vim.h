@@ -7,9 +7,6 @@
 #define NOR_MOD TO(NORMAL_MODE)
 #define INS_MOD TO(INSERT_MODE)
 
-#define NORMAL_MODE 0
-#define INSERT_MODE 1
-
 #define PRESS(keycode) register_code16(keycode)
 #define RELEASE(keycode) unregister_code16(keycode)
 #define PREVENT_STUCK_MODIFIERS
@@ -151,7 +148,7 @@ void VIM_LEADER(uint16_t keycode) {
 void VIM_APPEND(void) {
   print("\e[31ma\e[0m");
   TAP(KC_RIGHT);
-  TO(INSERT_MODE);
+  layer_on(INSERT_MODE);
 }
 
 /**
@@ -211,7 +208,7 @@ void VIM_OPEN(void) {
   VIM_LEADER(KC_NO);
   CMD(KC_RIGHT);
   TAP(KC_ENTER);
-  TO(INSERT_MODE);
+  layer_on(INSERT_MODE);
 }
 
 /**
@@ -372,7 +369,7 @@ void VIM_JOIN(void) {
   VIM_LEADER(KC_NO);
   CMD(KC_RIGHT);
   TAP(KC_DELETE);
-  ENQUEUE_VIM_LEADER(KC_NO);
+  VIM_LEADER(KC_NO);
 }
 
 /**
