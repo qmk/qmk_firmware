@@ -159,6 +159,11 @@ void reset_keyboard(void) {
   #define RSPC_KEY KC_0
 #endif
 
+// Shift / Enter setup
+#ifndef SFTENT_KEY
+  #define SFTENT_KEY KC_ENT
+#endif
+
 static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
 
@@ -549,6 +554,24 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       return false;
     }
+
+    case KC_SFTENT: {
+      if (record->event.pressed) {
+        shift_interrupted[1] = false;
+        scs_timer[1] = timer_read ();
+        register_mods(MOD_BIT(KC_RSFT));
+      }
+      else if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
+        unregister_mods(MOD_BIT(KC_RSFT));
+        register_code(SFTENT_KEY);
+        unregister_code(SFTENT_KEY);
+      }
+      else {
+        unregister_mods(MOD_BIT(KC_RSFT));
+      }
+      return false;
+    }
+
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
