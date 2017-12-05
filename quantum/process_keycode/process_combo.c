@@ -127,8 +127,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record)
 void matrix_scan_combo(void)
 {
     for (int i = 0; i < COMBO_COUNT; ++i) {
+        // Do not treat the (weak) key_combos too strict.
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Warray-bounds"
         combo_t *combo = &key_combos[i];
-        if (combo->timer && 
+        #pragma GCC diagnostic pop
+        if (combo->timer &&
             combo->timer != COMBO_TIMER_ELAPSED && 
             timer_elapsed(combo->timer) > COMBO_TERM) {
             

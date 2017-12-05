@@ -63,6 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef VISUALIZER_ENABLE
 #   include "visualizer/visualizer.h"
 #endif
+#ifdef POINTING_DEVICE_ENABLE
+#   include "pointing_device.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -153,13 +156,16 @@ void keyboard_init(void) {
 #ifdef FAUXCLICKY_ENABLE
     fauxclicky_init();
 #endif
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
 }
 
 /*
- * Do keyboard routine jobs: scan mantrix, light LEDs, ...
+ * Do keyboard routine jobs: scan matrix, light LEDs, ...
  * This is repeatedly called as fast as possible.
  */
 void keyboard_task(void)
@@ -171,6 +177,9 @@ void keyboard_task(void)
     static uint8_t led_status = 0;
     matrix_row_t matrix_row = 0;
     matrix_row_t matrix_change = 0;
+#ifdef QMK_KEYS_PER_SCAN
+    uint8_t keys_processed = 0;
+#endif
 
     matrix_scan();
     if (is_keyboard_master()) {
@@ -202,6 +211,10 @@ void keyboard_task(void)
                         });
                         // record a processed key
                         matrix_prev[r] ^= ((matrix_row_t)1<<c);
+#ifdef QMK_KEYS_PER_SCAN
+                        // only jump out if we have processed "enough" keys.
+                        if (++keys_processed >= QMK_KEYS_PER_SCAN)
+#endif
                         // process a key per task call
                         goto MATRIX_LOOP_END;
                     }
@@ -210,6 +223,10 @@ void keyboard_task(void)
         }
     }
     // call with pseudo tick event when no real key event.
+#ifdef QMK_KEYS_PER_SCAN
+    // we can get here with some keys processed now.
+    if (!keys_processed)
+#endif
     action_exec(TICK);
 
 MATRIX_LOOP_END:
@@ -237,6 +254,10 @@ MATRIX_LOOP_END:
 
 #ifdef VISUALIZER_ENABLE
     visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_task();
 #endif
 
     // update LED

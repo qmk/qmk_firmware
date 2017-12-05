@@ -1,6 +1,6 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](make_instructions.md) guides.
+This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
 
 ## Can't program on Linux
 You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
@@ -13,7 +13,7 @@ In short when your controller is ATMega32u4,
 
 or just
 
-    $ sudo make <keyboard>-<keymap>-dfu
+    $ sudo make <keyboard>:<keymap>:dfu
 
 But to run `make` with root privilege is not good idea. Use former method if possible.
 
@@ -62,7 +62,7 @@ https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstdd
 https://developer.mbed.org/forum/mbed/topic/5205/
 
 
-## 'clock_prescale_set' and 'clock_div_1' not available
+## `clock_prescale_set` and `clock_div_1` not available
 Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
 
 ```

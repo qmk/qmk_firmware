@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "preonic.h"
 
 #ifdef ONEHAND_ENABLE
 __attribute__ ((weak))
