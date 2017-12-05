@@ -499,7 +499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 #ifdef RGBLIGHT_ENABLE
-  case RGB_MOD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
+  case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
     if (record->event.pressed) { //This disrables layer indication, as it's assumed that if you're changing this ... you want that disabled
       rgb_layer_change = false;
     }
