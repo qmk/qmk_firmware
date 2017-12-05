@@ -143,7 +143,8 @@ void reset_keyboard(void) {
 #else
   wait_ms(250);
 #endif
-#ifdef CATERINA_BOOTLOADER
+// this is also done later in bootloader.c - not sure if it's neccesary here
+#ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
 #endif
   bootloader_jump();
@@ -285,13 +286,7 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_toggle();
     }
     return false;
-  case RGB_MOD:
-    if (record->event.pressed) {
-      rgblight_step();
-    }
-    return false;
-  case RGB_SMOD:
-    // same as RBG_MOD, but if shift is pressed, it will use the reverese direction instead.
+  case RGB_MODE_FORWARD:
     if (record->event.pressed) {
       uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
       if(shifted) {
@@ -299,6 +294,17 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         rgblight_step();
+      }
+    }
+    return false;
+  case RGB_MODE_REVERSE:
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgblight_step();
+      }
+      else {
+        rgblight_step_reverse();
       }
     }
     return false;
@@ -547,11 +553,34 @@ bool process_record_quantum(keyrecord_t *record) {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
 
-#ifdef GRAVE_ESC_CTRL_OVERRIDE
-      // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.
-      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
-      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
+#ifdef GRAVE_ESC_ALT_OVERRIDE
+      // if ALT is pressed, ESC is always sent
+      // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
+      if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
         shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_CTRL_OVERRIDE
+      // if CTRL is pressed, ESC is always sent
+      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))) {
+        shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_GUI_OVERRIDE
+      // if GUI is pressed, ESC is always sent
+      if (get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))) {
+        shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_SHIFT_OVERRIDE
+      // if SHIFT is pressed, ESC is always sent
+      if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+        shifted = 0;
+      }
 #endif
 
       if (record->event.pressed) {

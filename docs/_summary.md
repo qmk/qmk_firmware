@@ -1,7 +1,7 @@
 * [Getting started](README.md)
   * [QMK Introduction](getting_started_introduction.md)
   * [Install Build Tools](getting_started_build_tools.md)
-    * Alternative: [Vagrant Guide](getting_started_vagrant_guide.md)
+    * Alternative: [Vagrant Guide](getting_started_vagrant.md)
   * [Build/Compile instructions](getting_started_make_guide.md)
   * [Flashing instructions](flashing.md)
   * [Contributing to QMK](contributing.md)
@@ -26,6 +26,7 @@
   * [Backlight](feature_backlight.md)
   * [Bootmagic](feature_bootmagic.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
+  * [Grave Escape](feature_grave_escape.md)
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
@@ -70,7 +71,6 @@
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP flashing guide](isp_flashing_guide.md)
-  * [Modding your keyboard](modding_your_keyboard.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
