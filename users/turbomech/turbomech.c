@@ -94,7 +94,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 
-void matrix_scan_user(void) {
+/*void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
   switch (layer) {
     case _FUNCTION:
@@ -118,7 +118,7 @@ void matrix_scan_user(void) {
         TOG_STATUS = false;
        break;
   }
-};
+};*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
