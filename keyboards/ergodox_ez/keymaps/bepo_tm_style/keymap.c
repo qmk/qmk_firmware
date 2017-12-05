@@ -183,38 +183,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 };
 
-// The definition of the tap dance actions:
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // This Tap dance plays the macro 1 on TAP and records it on double tap.
-  [TAP_MACRO] = ACTION_TAP_DANCE_DOUBLE(DYN_MACRO_PLAY1, DYN_REC_START1),
-};
-
 // Whether the macro 1 is currently being recorded.
 static bool is_macro1_recording = false;
 
+// The current set of active layers (as a bitmask).
+// There is a global 'layer_state' variable but it is set after the call
+// to layer_state_set_user().
+static uint32_t current_layer_state = 0;
+uint32_t layer_state_set_user(uint32_t state);
+
+void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
+  uint16_t keycode;
+  keyrecord_t record;
+  dprintf("macro_tap_dance_fn %d\n", state->count);
+  if (is_macro1_recording) {
+    keycode = DYN_REC_STOP;
+    is_macro1_recording = false;
+    layer_state_set_user(current_layer_state);
+  } else if (state->count == 1) {
+    keycode = DYN_MACRO_PLAY1;
+  } else {
+    keycode = DYN_REC_START1;
+    is_macro1_recording = true;
+    layer_state_set_user(current_layer_state);
+  }
+
+  record.event.pressed = true;
+  process_record_dynamic_macro(keycode, &record);
+  record.event.pressed = false;
+  process_record_dynamic_macro(keycode, &record);
+}
+
+// The definition of the tap dance actions:
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // This Tap dance plays the macro 1 on TAP and records it on double tap.
+  [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
+};
+
 // Runs for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (is_macro1_recording && (keycode == DYN_REC_START1 || (keycode == DYN_MACRO_PLAY1))) {
-    // Usually you need to press a different key to stop a macro recording. To
-    // simplify the keyboard layout we're using the same key to stop it.
-    keycode = DYN_REC_STOP;
-  }
-  if (!process_record_dynamic_macro(keycode, record)) {
-    switch(keycode) {
-      case DYN_REC_START1:
-        is_macro1_recording = 1;
-        break;
-      case DYN_REC_STOP:
-        is_macro1_recording = 0;
-        break;
+  if (keycode != TD(TAP_MACRO)) {
+    // That key is processed by the macro_tapdance_fn. Not ignoring it here is mostly a
+    // no-op except that it is recorded in the macros (and uses space).
+    // We can't just return false when the key is a tap dance, because process_record_user,
+    // is called before the tap dance processing (and returning false would eat the tap dance).
+    if (!process_record_dynamic_macro(keycode, record)) {
+      return false;
     }
-    return false;  // Eat the keycode if this was part of a macro processing.
   }
-//   switch (keycode) {
-//     case SWAP_HAND:
-//       swap_hands = record->event.pressed;
-//       return false;  // Skip all further processing of this key
-//   }
+
   return true; // Let QMK send the enter press/release events
 }
 
@@ -240,11 +257,6 @@ static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 
 // Value to use to switch LEDs on. The default value of 255 is far too bright.
 static const uint8_t max_led_value = 20;
-
-// The current set of active layers (as a bitmask).
-// There is a global 'layer_state' variable but it is set after the call
-// to layer_state_set_user().
-static uint32_t current_layer_state = 0;
 
 // Whether the given layer (one of the constant defined at the top) is active.
 #define LAYER_ON(layer) (current_layer_state & (1<<layer))
@@ -302,6 +314,13 @@ void led_set_user(uint8_t usb_led) {
 uint32_t layer_state_set_user(uint32_t state) {
   current_layer_state = state;
   swap_hands = LAYER_ON(SWAP);
+
+  if (is_macro1_recording) {
+    led_1_on();
+    led_2_on();
+    led_3_on();
+    return state;
+  }
 
   if (LAYER_ON(SYSLEDS)) {
     led_set_user(sys_led_state);

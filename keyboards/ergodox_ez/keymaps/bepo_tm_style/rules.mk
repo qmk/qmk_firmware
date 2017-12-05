@@ -5,9 +5,9 @@ NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: htt
 ONEHAND_ENABLE   = yes # Allow swapping hands of keyboard
 KEY_LOCK_ENABLE  = yes # Enable the KC_LOCK key
 TAP_DANCE_ENABLE = yes # Enable the tap dance feature.
+CONSOLE_ENABLE   = yes  # Console for debug
 
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration
-CONSOLE_ENABLE   = no  # Console for debug
 UNICODE_ENABLE   = no
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
