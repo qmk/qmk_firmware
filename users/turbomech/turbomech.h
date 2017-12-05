@@ -20,13 +20,33 @@
 
 #include "quantum.h"
 
-
+// Definine layer names
 #define _QWERTY 0
 #define _FUNCTION 1
 
+#ifdef RGBLIGHT_ENABLE
+//values are HSV (Hue, Sat, Val) - except Sat and Val equal 255 for 100%.
+#define rgblight_set_blue        rgblight_sethsv (240, 255, 255);
+#define rgblight_set_red         rgblight_sethsv (0, 255, 255);
+#define rgblight_set_green       rgblight_sethsv (120, 255, 255);
+#define rgblight_set_orange      rgblight_sethsv (30, 255, 255);
+#define rgblight_set_teal        rgblight_sethsv (195, 255, 255);
+#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
+#define rgblight_set_yellow      rgblight_sethsv (60, 255, 255);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
+#define rgblight_set_cyan        rgblight_sethsv (180, 255, 255);
+#define rgblight_set_white       rgblight_sethsv (0, 0, 255)
+#endif
+
 extern bool rgb_layer_change;
 
-enum userrpace_custom_keycodes {
-  KC_RESET
+void rgblight_setrgb_indicator_caps(uint8_t r, uint8_t g, uint8_t b);
+
+//must use KC_RESET in order to have RESET indicate a color/mode
+enum userspace_custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE,  //should always be here
+  KC_RESET,
+  KC_MAKE_ALU84,
+  KC_QMK,
 };
 #endif
