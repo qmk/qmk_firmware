@@ -18,10 +18,9 @@
 #include "alu84.h"
 #include "turbomech.h"
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
 #define _QWERTY 0 //BASE layer
 #define _FUNCTION 1 //Function layer
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -53,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, LCTL(LGUI(KC_N)),
 		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
 		KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, KC_UP, KC_PGDN,
-		KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_RGUI, KC_RALT, MO(1), KC_LEFT, KC_DOWN, KC_RGHT),
+		KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_RGUI, KC_RALT, TT(1), KC_LEFT, KC_DOWN, KC_RGHT),
 
 /* FN1 - SEE readme.md
  * ,- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -.
@@ -89,20 +88,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-
 	switch (id) {
-
 	}
 	return MACRO_NONE;
 }
 
 
 
-void matrix_scan_user(void) {
-}
 
-void led_set_user(uint8_t usb_led) {
+
+/*bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	return true;
+}*/
+
+/*void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
 
@@ -134,7 +133,7 @@ void led_set_user(uint8_t usb_led) {
 
 	}
 
-}
+}*/
 
 enum function_id {
     SHIFT_ESC,
@@ -169,3 +168,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
   }
 }
+

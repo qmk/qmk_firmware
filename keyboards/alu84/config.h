@@ -23,9 +23,11 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    mechkeys.ca
+#define MANUFACTURER    mechkeys
 #define PRODUCT         ALU84
 #define DESCRIPTION     TurboMech
+
+
 
 /* key matrix size */
 #define MATRIX_ROWS 6

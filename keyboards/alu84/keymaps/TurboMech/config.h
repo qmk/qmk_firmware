@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#ifndef USER_CONFIG_H
+#define USER_CONFIG_H
 
+#define TAPPING_TOGGLE 2
+//#include "turbomech.h"
 #include "../../config.h"
 
 // place overrides here

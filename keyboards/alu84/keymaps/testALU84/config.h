@@ -4,12 +4,12 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+/*#define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    qmkbuilder
 #define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define DESCRIPTION     Keyboard*/
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -26,7 +26,7 @@
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_LEVELS 3
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -50,9 +50,9 @@
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
+//#define RGBLIGHT_HUE_STEP 8
+//#define RGBLIGHT_SAT_STEP 8
+//#define RGBLIGHT_VAL_STEP 8
 #endif
 
 #endif
