@@ -80,6 +80,20 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 ```
 
+### LED control
+
+Look in `rgblights.h` for all available functions, but if you want to control all or some LEDs your goto functions are:
+
+```c
+rgblight_disable();  // turn all lights off
+rgblight_enable();  // turn lights on, based on their previous state (stored in EEPROM)
+
+rgblight_setrgb(r, g, b);  // where r/g/b is a number from 0..255.  Turns all the LEDs to this color
+rgblight_sethsv(h, s, v);  // HSV color control
+rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
+rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
+```
+
 ## RGB Lighting Keycodes
 
 These control the RGB Lighting functionality.
