@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "woodpad.h"
+#include QMK_KEYBOARD_H
 #include "drashna.h"
 
  // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -97,12 +97,6 @@ void matrix_init_keymap(void) {
   // set Numlock LED to output and low
   DDRF |= (1 << 7);
   PORTF &= ~(1 << 7);
-
-
-  if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
-  }
 }
 
 void matrix_scan_keymap(void) {
@@ -114,3 +108,9 @@ void matrix_scan_keymap(void) {
   // Run Diablo 3 macro checking code.
 }
 
+void led_set_keymap(uint8_t usb_led) {
+  if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
+    register_code(KC_NUMLOCK);
+    unregister_code(KC_NUMLOCK);
+  }
+}

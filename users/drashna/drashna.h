@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USERSPACE
 
 #include "quantum.h"
+#include "song_list.h"
 
 // Define layer names 
 #define _QWERTY 0
@@ -86,6 +87,11 @@ enum userrpace_custom_keycodes {
   KC_MAKE,
   KC_RESET,
   KC_RGB_T,
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -99,6 +105,10 @@ enum {
 #endif
 
 
+#define QMK_KEYS_PER_SCAN 4
 
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT_SLEEP
+#endif
 
 #endif
