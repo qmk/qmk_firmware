@@ -1,6 +1,3 @@
-#define __INCLUDE_FROM_USB_DRIVER
-#define __INCLUDE_FROM_HID_DRIVER
-#define __INCLUDE_FROM_CDC_DRIVER
 #include "progmem.h"
 #include "stddef.h"
 
@@ -24,15 +21,17 @@
 #define CONCAT_EXPANDED(x, y)   CONCAT(x, y)
 #define CPU_TO_LE16(x)           (x)
 
-/** Endpoint address direction mask for an IN direction (Device to Host) endpoint. This may be ORed with
- *  the index of the address within a device to obtain the full endpoint address.
- */
-#define ENDPOINT_DIR_IN                    0x80
+// We don't need anything from the following files, or we have defined it already
+#define __LUFA_COMMON_H__
+#define __USBMODE_H__
+#define __USBEVENTS_H__
+#define __HIDPARSER_H__
+#define __USBCONTROLLER_AVR8_H__
 
-#include "Class/Common/HIDClassCommon.h"
-#include "Core/StdDescriptors.h"
-#include "Class/Common/HIDReportData.h"
-#include "Class/Common/CDCClassCommon.h"
-#include "Core/USBController.h"
-
-
+#define __INCLUDE_FROM_USB_DRIVER
+#define __INCLUDE_FROM_HID_DRIVER
+#define __INCLUDE_FROM_CDC_DRIVER
+#include "lib/lufa/LUFA/Drivers/USB/Class/Common/HIDClassCommon.h"
+#include "lib/lufa/LUFA/Drivers/USB/Class/Common/HIDReportData.h"
+#include "lib/lufa/LUFA/Drivers/USB/Class/Common/CDCClassCommon.h"
+#include "lib/lufa/LUFA/Drivers/USB/Core/USBController.h"
