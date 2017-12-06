@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
+#include "sensitive.h"
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -76,6 +77,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
 
 };
+#endif
+
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]       = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]       = SONG(DVORAK_SOUND);
+float tone_colemak[][2]      = SONG(COLEMAK_SOUND);
+float tone_workman[][2]      = SONG(PLOVER_SOUND);
+float tone_hackstartup[][2]  = SONG(ONE_UP_SOUND);
 #endif
 
 
@@ -138,6 +147,11 @@ void matrix_init_user(void) {
     rgblight_mode(5);
   }
 #endif
+#ifdef AUDIO_ENABLE
+//  _delay_ms(21); // gets rid of tick
+//  stop_all_notes();
+//  PLAY_SONG(tone_hackstartup);
+#endif
   matrix_init_keymap();
 }
 #ifdef TAP_DANCE_ENABLE
@@ -189,13 +203,6 @@ void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
 }
 
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_workman[][2]    = SONG(PLOVER_SOUND);
-#endif
 
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -427,28 +434,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   case KC_MAKE:
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
-#ifndef BOOTLOADER_CATERINA
-      SEND_STRING(":teensy ");
-#else
-      SEND_STRING(" ");
+      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+       ":dfu"
+#elif defined(BOOTLOADER_HALFKAY)
+      ":teensy"
+#elif defined(BOOTLOADER_CATERINA)
+       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
-      SEND_STRING("RGBLIGHT_ENABLE=yes ");
+        " RGBLIGHT_ENABLE=yes"
 #else
-      SEND_STRING("RGBLIGHT_ENABLE=no ");
+        " RGBLIGHT_ENABLE=no"
 #endif
 #ifdef AUDIO_ENABLE
-      SEND_STRING("AUDIO_ENABLE=yes ");
+        " AUDIO_ENABLE=yes"
 #else
-      SEND_STRING("AUDIO_ENABLE=no ");
+        " AUDIO_ENABLE=no"
 #endif
 #ifdef FAUXCLICKY_ENABLE
-      SEND_STRING("FAUXCLICKY_ENABLE=yes ");
+        " FAUXCLICKY_ENABLE=yes"
 #else
-      SEND_STRING("FAUXCLICKY_ENABLE=no ");
+        " FAUXCLICKY_ENABLE=no" 
 #endif
-      SEND_STRING(SS_TAP(X_ENTER));
+        SS_TAP(X_ENTER));
     }
     return false;
     break;
@@ -475,33 +484,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
-    if (record->event.pressed) {
-      rgb_layer_change = !rgb_layer_change;
+  case KC_SECRET_1 ... KC_SECRET_5:
+    if (!record->event.pressed) {
+      send_string(secret[keycode - KC_SECRET_1]);
     }
     return false;
     break;
-  case RGB_MOD:
-  case RGB_SMOD:
-  case RGB_HUI:
-  case RGB_HUD:
-  case RGB_SAI:
-  case RGB_SAD:
-  case RGB_VAI:
-  case RGB_VAD:
-  case RGB_MODE_PLAIN:
-  case RGB_MODE_BREATHE:
-  case RGB_MODE_RAINBOW:
-  case RGB_MODE_SWIRL:
-  case RGB_MODE_SNAKE:
-  case RGB_MODE_KNIGHT:
-  case RGB_MODE_XMAS:
-  case RGB_MODE_GRADIENT:
+  case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
+#ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
+      rgb_layer_change = !rgb_layer_change;
+    }
+#endif
+    return false;
+    break;
+#ifdef RGBLIGHT_ENABLE
+  case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
+    if (record->event.pressed) { //This disrables layer indication, as it's assumed that if you're changing this ... you want that disabled
       rgb_layer_change = false;
     }
     return true;
     break;
+#endif
   }
   return process_record_keymap(keycode, record);
 }
