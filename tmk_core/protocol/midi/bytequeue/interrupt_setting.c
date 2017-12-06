@@ -1,5 +1,5 @@
 //Copyright 20010 Alex Norman
-//writen by Alex Norman 
+//writen by Alex Norman
 //
 //This file is part of avr-bytequeue.
 //
@@ -22,6 +22,7 @@
 //implementations of the typedef and these functions
 
 #include "interrupt_setting.h"
+#ifdef PLATFORM_AVR
 #include <avr/interrupt.h>
 
 interrupt_setting_t store_and_clear_interrupt(void) {
@@ -33,4 +34,15 @@ interrupt_setting_t store_and_clear_interrupt(void) {
 void restore_interrupt_setting(interrupt_setting_t setting) {
    SREG = setting;
 }
+#elif PLATFORM_CHIBIOS
+
+interrupt_setting_t store_and_clear_interrupt(void) {
+  chSysLock();
+  return 0;
+}
+
+void restore_interrupt_setting(interrupt_setting_t setting) {
+   chSysUnlock();
+}
+#endif
 

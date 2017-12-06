@@ -31,7 +31,11 @@
 #define __INCLUDE_FROM_USB_DRIVER
 #define __INCLUDE_FROM_HID_DRIVER
 #define __INCLUDE_FROM_CDC_DRIVER
+#define __INCLUDE_FROM_AUDIO_DRIVER
+#define __INCLUDE_FROM_MIDI_DRIVER
 #include "lib/lufa/LUFA/Drivers/USB/Class/Common/HIDClassCommon.h"
 #include "lib/lufa/LUFA/Drivers/USB/Class/Common/HIDReportData.h"
 #include "lib/lufa/LUFA/Drivers/USB/Class/Common/CDCClassCommon.h"
+#include "lib/lufa/LUFA/Drivers/USB/Class/Common/AudioClassCommon.h"
+#include "lib/lufa/LUFA/Drivers/USB/Class/Common/MIDIClassCommon.h"
 #include "lib/lufa/LUFA/Drivers/USB/Core/USBController.h"

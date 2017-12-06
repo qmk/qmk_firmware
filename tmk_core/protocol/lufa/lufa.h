@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -69,7 +69,6 @@ typedef struct {
 
 #ifdef MIDI_ENABLE
   void MIDI_Task(void);
-  MidiDevice midi_device;
 #endif
 
 #ifdef API_ENABLE

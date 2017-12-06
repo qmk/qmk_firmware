@@ -240,7 +240,6 @@ static const USBEndpointConfig raw_out_ep_config = {
 #endif
 
 #ifdef MIDI_ENABLE
-#error "Midi interfaces not yet supported on ChibiOS"
 #endif
 
 #ifdef VIRTSER_ENABLE

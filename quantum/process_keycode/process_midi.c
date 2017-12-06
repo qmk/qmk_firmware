@@ -17,10 +17,11 @@
 
 #ifdef MIDI_ENABLE
 #include "midi.h"
+#include "qmk_midi.h"
 
 #ifdef MIDI_BASIC
 
-void process_midi_basic_noteon(uint8_t note) 
+void process_midi_basic_noteon(uint8_t note)
 {
     midi_send_noteon(&midi_device, 0, note, 128);
 }
