@@ -74,6 +74,16 @@ void console_queue_onotify(io_buffers_queue_t *bqp);
 static void console_flush_cb(void *arg);
 #endif /* CONSOLE_ENABLE */
 
+#ifdef RAW_ENABLE
+#define RAW_QUEUE_CAPACITY 4
+static input_buffers_queue_t raw_buf_queue;
+static void raw_queue_inotify(io_buffers_queue_t *bqp);
+static void raw_in_cb(USBDriver *usbp, usbep_t ep);
+static void raw_out_cb(USBDriver *usbp, usbep_t ep);
+static void configure_raw_interface(void);
+static uint8_t raw_queue_buffer[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
+#endif
+
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
  * ---------------------------------------------------------
@@ -197,7 +207,36 @@ static const USBEndpointConfig nkro_ep_config = {
 #endif /* NKRO_ENABLE */
 
 #ifdef RAW_ENABLE
-#error "Raw interfaces not yet supported on ChibiOS"
+/* console endpoint state structure */
+static USBInEndpointState raw_in_ep_state;
+static USBOutEndpointState raw_out_ep_state;
+
+/* console endpoint initialization structure (IN) */
+static const USBEndpointConfig raw_in_ep_config = {
+  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
+  NULL,                         /* SETUP packet notification callback */
+  raw_in_cb,                    /* IN notification callback */
+  NULL,                         /* OUT notification callback */
+  RAW_EPSIZE,                   /* IN maximum packet size */
+  0,                            /* OUT maximum packet size */
+  &raw_in_ep_state,             /* IN Endpoint state */
+  NULL,                         /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
+
+static const USBEndpointConfig raw_out_ep_config = {
+  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
+  NULL,                         /* SETUP packet notification callback */
+  NULL,                         /* IN notification callback */
+  &raw_out_cb,                  /* OUT notification callback */
+  0,                            /* IN maximum packet size */
+  RAW_EPSIZE,                   /* OUT maximum packet size */
+  NULL,                         /* IN Endpoint state */
+  &raw_out_ep_state,             /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
 #endif
 
 #ifdef MIDI_ENABLE
@@ -288,6 +327,11 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef NKRO_ENABLE
     usbInitEndpointI(usbp, NKRO_IN_EPNUM, &nkro_ep_config);
 #endif /* NKRO_ENABLE */
+#ifdef RAW_ENABLE
+    usbInitEndpointI(usbp, RAW_IN_EPNUM, &raw_in_ep_config);
+    usbInitEndpointI(usbp, RAW_OUT_EPNUM, &raw_out_ep_config);
+    configure_raw_interface();
+#endif
 #ifdef VIRTSER_ENABLE
     /* Enables the endpoints specified into the configuration.
        Note, this callback is invoked from an ISR so I-Class functions
@@ -531,8 +575,10 @@ static const USBConfig usbcfg = {
  * Initialize the USB driver
  */
 void init_usb_driver(USBDriver *usbp) {
+#ifdef VIRTSER_ENABLE
   sduObjectInit(&SDU1);
   sduStart(&SDU1, &serusbcfg);
+#endif
 
   /*
    * Activates the USB driver and then the USB bus pull-up on D+.
@@ -548,6 +594,9 @@ void init_usb_driver(USBDriver *usbp) {
 #ifdef CONSOLE_ENABLE
   obqObjectInit(&console_buf_queue, false, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
   chVTObjectInit(&console_flush_timer);
+#endif
+#ifdef RAW_ENABLE
+  ibqObjectInit(&raw_buf_queue, raw_queue_buffer, RAW_EPSIZE, RAW_QUEUE_CAPACITY, raw_queue_inotify, (void*)usbp);
 #endif
 }
 
@@ -875,6 +924,91 @@ void sendchar_pf(void *p, char c) {
   (void)p;
   sendchar((uint8_t)c);
 }
+
+#ifdef RAW_ENABLE
+void raw_hid_send( uint8_t *data, uint8_t length ) {
+	// TODO: implement variable size packet
+	if ( length != RAW_EPSIZE )
+	{
+		return;
+
+	}
+  osalSysLock();
+  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+    osalSysUnlock();
+    return;
+  }
+  if(usbGetTransmitStatusI(&USB_DRIVER, RAW_IN_EPNUM)) {
+    /* Need to either suspend, or loop and call unlock/lock during
+    * every iteration - otherwise the system will remain locked,
+    * no interrupts served, so USB not going through as well.
+    * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+    osalThreadSuspendS(&(&USB_DRIVER)->epc[RAW_IN_EPNUM]->in_state->thread);
+  }
+
+  usbStartTransmitI(&USB_DRIVER, RAW_IN_EPNUM, data, length);
+  osalSysUnlock();
+}
+
+__attribute__ ((weak))
+void raw_hid_receive( uint8_t *data, uint8_t length ) {
+	// Users should #include "raw_hid.h" in their own code
+	// and implement this function there. Leave this as weak linkage
+	// so users can opt to not handle data coming in.
+}
+
+void raw_hid_task(void) {
+  uint8_t buffer[RAW_EPSIZE];
+  size_t size = 0;
+  do {
+    size = ibqReadTimeout(&raw_buf_queue, buffer, RAW_EPSIZE, TIME_IMMEDIATE);
+    if (size == RAW_EPSIZE) {
+      raw_hid_receive(buffer, size);
+    }
+  } while(size>0);
+}
+
+static void raw_in_cb(USBDriver* usbp, usbep_t ep) {
+}
+
+static void start_receive_raw(void) {
+  return;
+  /* If the USB driver is not in the appropriate state then transactions
+     must not be started.*/
+  if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+    return;
+  }
+
+  /* Checking if there is already a transaction ongoing on the endpoint.*/
+  if (!usbGetReceiveStatusI(&USB_DRIVER, RAW_IN_EPNUM)) {
+    /* Trying to get a free buffer.*/
+    uint8_t *buf = ibqGetEmptyBufferI(&raw_buf_queue);
+    if (buf != NULL) {
+      /* Buffer found, starting a new transaction.*/
+      usbStartReceiveI(&USB_DRIVER, RAW_IN_EPNUM, buf, RAW_EPSIZE);
+    }
+  }
+}
+
+static void raw_out_cb(USBDriver* usbp, usbep_t ep) {
+  osalSysLockFromISR();
+
+  /* Posting the filled buffer in the queue.*/
+  ibqPostFullBufferI(&raw_buf_queue, usbGetReceiveTransactionSizeX(usbp, ep));
+  start_receive_raw();
+
+  osalSysUnlockFromISR();
+}
+
+static void raw_queue_inotify(io_buffers_queue_t *bqp) {
+  start_receive_raw();
+}
+
+static void configure_raw_interface(void) {
+  ibqResetI(&raw_buf_queue);
+  start_receive_raw();
+}
+#endif
 
 #ifdef VIRTSER_ENABLE
 

@@ -69,6 +69,9 @@ host_driver_t chibios_driver = {
 void virtser_task(void);
 #endif
 
+#ifdef RAW_HID_ENABLE
+void raw_hid_task(void);
+#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
@@ -188,6 +191,9 @@ int main(void) {
     keyboard_task();
 #ifdef VIRTSER_ENABLE
     virtser_task();
+#endif
+#ifdef RAW_HID_ENABLE
+    raw_hid_task();
 #endif
   }
 }
