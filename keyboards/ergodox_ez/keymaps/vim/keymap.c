@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             KC_HOME,KC_END ,
                                             TO(SYMB),
-                                            GUI_T(KC_SPC),  KC_ESC ,_______,
+                                            GUI_T(KC_SPC),  KC_ESC ,KC_ESC,
 
 
     // Layer 2 Right Hand
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             KC_HOME,KC_END ,
                                             TO(SYMB),
-                                            GUI_T(KC_SPC),  KC_ESC ,LT(NOR_MOD, KC_ESC),
+                                            GUI_T(KC_SPC),  KC_ESC ,TO(NORMAL_MODE),
 
 
     // Right Hand
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 _______,_______,
                                                                         _______,
-                                                        _______,_______,TT(NOR_MOD),
+                                                        _______,_______,TO(NORMAL_MODE),
 
     // Right Hand
                               KC_ATP , KC_6, KC_7,   KC_8,    KC_9,   KC_0,   KC_MINS,
@@ -122,6 +122,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_H, KC_J,   KC_K,    KC_L,   KC_SCLN,KC_QUOT,
                               KC_PLUS, KC_N, KC_M,   KC_COMM, KC_DOT, KC_SLSH,KC_RSFT,
                                              KC_RCBR,KC_RBRC, KC_RPRN,KC_RALT,KC_RCTL,
+
+    _______,_______,
+    _______,
+    _______,_______,_______
+  ),
+
+  [MOUSE] = KEYMAP(
+    // Left Hand
+    _______,_______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,
+
+                                                                _______,_______,
+                                                                        _______,
+                                                        _______,_______,_______,
+
+    // Right Hand
+                              _______,_______,_______,_______,_______,_______,_______,
+                              _______,_______,KC_BTN1,KC_BTN3,KC_BTN2,_______,_______,
+                                      KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,
+                              _______,_______,_______,_______,_______,_______,_______,
+                                              _______,_______,_______,_______,_______,
 
     _______,_______,
     _______,
