@@ -862,23 +862,37 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
             #endif
         }
     };
-
-    void backlight_disable(void){
-        if(!is_backlight_on()){
-            return;
-        }
-
-        TIMSK1 &= ~_BV(OCIE1A);
-    };
-
-    void backlight_enable(void){
-        if(is_backlight_on()){
-            return;
-        }
-
-        TIMSK1 |= _BV(OCIE1A);
-    };
 #endif
+
+void backlight_disable(void){
+    #ifndef NO_BACKLIGHT_CLOCK
+        // Turn off PWM control on backlight pin, revert to output low.
+        TCCR1A &= ~(_BV(COM1x1));
+        OCR1x = 0x0;
+    #else
+        if(!is_backlight_on()){ // Don't turn off if already off.
+            return;
+        }
+        //Turn off Compare Timer for non-PWM pin backlighting
+        TIMSK1 &= ~_BV(OCIE1A);
+    #endif
+};
+
+void backlight_enable(void){
+    #ifndef NO_BACKLIGHT_CLOCK
+        // Turn on PWM control of backlight pin
+        TCCR1A |= _BV(COM1x1);
+        // Set the brightness
+        OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2));
+    #else
+        if(is_backlight_on()){ // Don't turn on if already on.
+            return;
+        }
+        //Turn on Compare Timer for non-PWM pin backlighting
+        TIMSK1 |= _BV(OCIE1A);
+    #endif
+};
+
 
 bool is_backlight_on(void) {
     return (TIMSK1 && _BV(OCIE1A));
