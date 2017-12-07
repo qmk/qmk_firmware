@@ -73,6 +73,8 @@ void midi_init(void)
 
 void midi_task(void)
 {
+    midi_device_process(&midi_device);
+#ifdef MIDI_ADVANCED
     if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval)
         return;
     midi_modulation_timer = timer_read();
@@ -93,6 +95,7 @@ void midi_task(void)
         if (midi_modulation > 127)
             midi_modulation = 127;
     }
+#endif
 }
 
 uint8_t midi_compute_note(uint16_t keycode)

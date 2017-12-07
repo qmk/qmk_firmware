@@ -22,7 +22,7 @@
 //implementations of the typedef and these functions
 
 #include "interrupt_setting.h"
-#ifdef PLATFORM_AVR
+#if defined(__AVR__)
 #include <avr/interrupt.h>
 
 interrupt_setting_t store_and_clear_interrupt(void) {
@@ -34,7 +34,7 @@ interrupt_setting_t store_and_clear_interrupt(void) {
 void restore_interrupt_setting(interrupt_setting_t setting) {
    SREG = setting;
 }
-#elif PLATFORM_CHIBIOS
+#elif defined(__arm__)
 
 interrupt_setting_t store_and_clear_interrupt(void) {
   chSysLock();

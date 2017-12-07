@@ -67,10 +67,6 @@ typedef struct {
     uint16_t usage;
 } __attribute__ ((packed)) report_extra_t;
 
-#ifdef MIDI_ENABLE
-  void MIDI_Task(void);
-#endif
-
 #ifdef API_ENABLE
   #include "api.h"
 #endif
