@@ -773,7 +773,8 @@ void tap_random_base64(void) {
 
 void matrix_init_quantum() {
   #ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
+    backlight_init_timer();
+    backlight_init_ports();    
   #endif
   #ifdef AUDIO_ENABLE
     audio_init();
@@ -792,11 +793,7 @@ void matrix_scan_quantum() {
 
   #ifdef COMBO_ENABLE
     matrix_scan_combo();
-  #endif
-
-  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
-    backlight_task();
-  #endif
+  #endif  
 
   matrix_scan_kb();
 }
@@ -816,7 +813,90 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define OCR1x  OCR1A
 #else
 #  define NO_BACKLIGHT_CLOCK
+#  define BACKLIGHT_TIMER_TOP F_CPU/(256*96)
+
+    static const uint8_t PWM_table[23] PROGMEM = {
+    255, 252, 245, 233, 218, 199, 179, 157, 135, 113, 93, 74, 58, 44, 32, 23, 15, 10, 6, 4, 2, 1, 0
+    };
+
+    // 0, 1, 2, 4, 6, 10, 15, 23, 32, 44, 58, 74, 93, 113, 135, 157, 179, 199, 218, 233, 245, 252, 255
+
+    ISR(TIMER1_COMPA_vect)
+    {
+        /* Software PWM
+         * timer:1111 1111 1111 1111
+         *       \_____/\/ \_______/____  count(0-255)
+         *          \    \______________  duration of step(4)
+         *           \__________________  index of step table(0-63)
+         */
+        static union {
+            uint16_t row;
+            struct {
+                uint8_t count:8;
+                uint8_t duration:2;
+                uint8_t index:6;
+            } pwm;
+        } timer = { .row = 0 };
+
+        timer.row++;
+    
+        // LED on
+        if (timer.pwm.count == 0) {        
+            #if BACKLIGHT_ON_STATE == 0
+              // PORTx |= n
+              _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+            #else
+              // PORTx &= ~n
+              _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+            #endif
+        }
+
+        // LED off -   ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))
+        if (timer.pwm.count == pgm_read_byte(&PWM_table[backlight_config.level])) {       
+            #if BACKLIGHT_ON_STATE == 0
+              // PORTx &= ~n
+              _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+            #else
+              // PORTx |= n
+              _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+            #endif
+        }
+    };
 #endif
+
+void backlight_disable(void){
+    #ifndef NO_BACKLIGHT_CLOCK
+        // Turn off PWM control on backlight pin, revert to output low.
+        TCCR1A &= ~(_BV(COM1x1));
+        OCR1x = 0x0;
+    #else
+        if(!is_backlight_on()){ // Don't turn off if already off.
+            return;
+        }
+        //Turn off Compare Timer for non-PWM pin backlighting
+        TIMSK1 &= ~_BV(OCIE1A);
+    #endif
+};
+
+void backlight_enable(void){
+    #ifndef NO_BACKLIGHT_CLOCK
+        // Turn on PWM control of backlight pin
+        TCCR1A |= _BV(COM1x1);
+        // Set the brightness
+        OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2));
+    #else
+        if(is_backlight_on()){ // Don't turn on if already on.
+            return;
+        }
+        //Turn on Compare Timer for non-PWM pin backlighting
+        TIMSK1 |= _BV(OCIE1A);
+    #endif
+};
+
+
+bool is_backlight_on(void) {
+    return (TIMSK1 && _BV(OCIE1A));
+};
 
 #ifndef BACKLIGHT_ON_STATE
 #define BACKLIGHT_ON_STATE 0
@@ -829,15 +909,25 @@ void backlight_init_ports(void)
   // Setup backlight pin as output and output to on state.
   // DDRx |= n
   _SFR_IO8((backlight_pin >> 4) + 1) |= _BV(backlight_pin & 0xF);
-  #if BACKLIGHT_ON_STATE == 0
-    // PORTx &= ~n
-    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-  #else
-    // PORTx |= n
-    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+  #ifdef NO_BACKLIGHT_CLOCK
+    #if BACKLIGHT_ON_STATE == 0    
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #else
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #endif
   #endif
 
   #ifndef NO_BACKLIGHT_CLOCK
+    #if BACKLIGHT_ON_STATE == 0
+      // PORTx &= ~n
+      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
+    #else
+      // PORTx |= n
+      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
+    #endif
+
     // Use full 16-bit resolution.
     ICR1 = 0xFFFF;
 
@@ -859,7 +949,23 @@ void backlight_init_ports(void)
   #ifdef BACKLIGHT_BREATHING
     breathing_defaults();
   #endif
-}
+};
+
+void backlight_init_timer() {
+  #ifdef NO_BACKLIGHT_CLOCK
+    /* Timer1 setup */
+    /* CTC mode */
+    TCCR1B |= _BV(WGM12);
+    /* Clock selelct: clk/1 */
+    TCCR1B |= _BV(CS10);
+    /* Set TOP value */
+    uint8_t sreg = SREG;
+    cli();
+    OCR1AH = (BACKLIGHT_TIMER_TOP>>8)&0xff;
+    OCR1AL = BACKLIGHT_TIMER_TOP&0xff;
+    SREG = sreg;
+  #endif
+};
 
 __attribute__ ((weak))
 void backlight_set(uint8_t level)
@@ -874,62 +980,37 @@ void backlight_set(uint8_t level)
   // #endif
 
   if ( level == 0 ) {
-    #ifndef NO_BACKLIGHT_CLOCK
-      // Turn off PWM control on backlight pin, revert to output low.
-      TCCR1A &= ~(_BV(COM1x1));
-      OCR1x = 0x0;
-    #else
-      // #if BACKLIGHT_ON_STATE == 0
-      //   // PORTx |= n
-      //   _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-      // #else
-      //   // PORTx &= ~n
-      //   _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-      // #endif
-    #endif
+      #ifndef NO_BACKLIGHT_CLOCK
+          // Turn off PWM control on backlight pin, revert to output low.
+          TCCR1A &= ~(_BV(COM1x1));
+          OCR1x = 0x0;
+      #else            
+          // Disable Backlight Timer Interupt if not already off.
+          backlight_disable();        
+      #endif
   }
   #ifndef NO_BACKLIGHT_CLOCK
-    else if ( level == BACKLIGHT_LEVELS ) {
-      // Turn on PWM control of backlight pin
-      TCCR1A |= _BV(COM1x1);
-      // Set the brightness
-      OCR1x = 0xFFFF;
-    }
-    else {
-      // Turn on PWM control of backlight pin
-      TCCR1A |= _BV(COM1x1);
-      // Set the brightness
-      OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
-    }
+      else if ( level == BACKLIGHT_LEVELS ) {
+          // Turn on PWM control of backlight pin
+          TCCR1A |= _BV(COM1x1);
+          // Set the brightness
+          OCR1x = 0xFFFF;
+      }
+      else {
+          // Turn on PWM control of backlight pin
+          TCCR1A |= _BV(COM1x1);
+          // Set the brightness
+          OCR1x = 0xFFFF >> ((BACKLIGHT_LEVELS - level) * ((BACKLIGHT_LEVELS + 1) / 2));
+      }
+  #else
+      else {
+          // Enable Backlight Timer Interupt if not already on.
+          backlight_enable();
+      }
   #endif
 
   #ifdef BACKLIGHT_BREATHING
     breathing_intensity_default();
-  #endif
-}
-
-uint8_t backlight_tick = 0;
-
-void backlight_task(void) {
-  #ifdef NO_BACKLIGHT_CLOCK
-  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
-    #if BACKLIGHT_ON_STATE == 0
-      // PORTx &= ~n
-      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-    #else
-      // PORTx |= n
-      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-    #endif
-  } else {
-    #if BACKLIGHT_ON_STATE == 0
-      // PORTx |= n
-      _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
-    #else
-      // PORTx &= ~n
-      _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
-    #endif
-  }
-  backlight_tick = (backlight_tick + 1) % 16;
   #endif
 }
 
