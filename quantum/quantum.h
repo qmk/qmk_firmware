@@ -162,8 +162,12 @@ void register_code16 (uint16_t code);
 void unregister_code16 (uint16_t code);
 
 #ifdef BACKLIGHT_ENABLE
+bool is_backlight_on(void);
 void backlight_init_ports(void);
+void backlight_init_timer(void);
 void backlight_task(void);
+void backlight_disable(void);
+void backlight_enable(void);
 
 #ifdef BACKLIGHT_BREATHING
 void breathing_enable(void);
