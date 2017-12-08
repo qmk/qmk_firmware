@@ -19,7 +19,7 @@
 // The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
 #define TAP_MACRO 0
 
-// A 'transparent' key code (that fallsback to the layers below it).
+// A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
 
 // A 'blocking' key code. Does nothing but prevent falling back to another layer.
@@ -33,7 +33,7 @@
 #define SPC_RALT  MT(MOD_RALT, KC_SPC)  // SPACE key and right alt modifier.
 #define PERC_FN    LT(FN, BP_PERC)      // '%' key and FN layer toggle.
 
-// The most portable copy/paste keys (windows, linux, and some terminal emulators).
+// The most portable copy/paste keys (windows (mostly), linux, and some terminal emulators).
 #define MK_CUT    LSFT(KC_DEL)  // shift + delete
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
@@ -42,7 +42,7 @@
 enum {
   // SAFE_RANGE must be used to tag the first element of the enum.
   // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
-  // values are added (as its value is used to create a couple of othe keycodes
+  // values are added (as its value is used to create a couple of other keycodes
   // after it).
   DYNAMIC_MACRO_RANGE = SAFE_RANGE,
 };
@@ -193,6 +193,9 @@ static bool is_macro1_recording = false;
 static uint32_t current_layer_state = 0;
 uint32_t layer_state_set_user(uint32_t state);
 
+// Method called at the end of the tap dance on the TAP_MACRO key. That key is
+// used to start recording a macro (double tap or more), to stop recording (any
+// number of tap), or to play the recorded macro (1 tap).
 void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
   uint16_t keycode;
   keyrecord_t record;
@@ -224,10 +227,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Runs for each key down or up event.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (keycode != TD(TAP_MACRO)) {
-    // That key is processed by the macro_tapdance_fn. Not ignoring it here is mostly a
-    // no-op except that it is recorded in the macros (and uses space).
-    // We can't just return false when the key is a tap dance, because process_record_user,
-    // is called before the tap dance processing (and returning false would eat the tap dance).
+    // That key is processed by the macro_tapdance_fn. Not ignoring it here is
+    // mostly a no-op except that it is recorded in the macros (and uses space).
+    // We can't just return false when the key is a tap dance, because
+    // process_record_user, is called before the tap dance processing (and
+    // returning false would eat the tap dance).
     if (!process_record_dynamic_macro(keycode, record)) {
       return false;
     }
@@ -289,10 +293,9 @@ void led_3_off(void) {
   ergodox_right_led_3_off();
 }
 
-// Called by the system to set the state of the keyboard led.
-// Use led_sed_kb if this is not called.
+// Called when the computer wants to change the state of the keyboard LEDs.
 void led_set_user(uint8_t usb_led) {
-    sys_led_state = usb_led;
+  sys_led_state = usb_led;
   if (LAYER_ON(SYSLEDS)) {
     if (sys_led_state & sys_led_mask_caps_lock) {
       led_1_on();
