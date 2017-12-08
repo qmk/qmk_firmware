@@ -26,14 +26,8 @@
 #define NO_AE   KC_QUOT  // ä
 #undef  NO_CIRC
 #define NO_CIRC LSFT(KC_RBRC)  // ^
-#undef  NO_GRV
-#define NO_GRV  LSFT(NO_BSLS)  //
 #undef  NO_OSLH
 #define NO_OSLH KC_SCLN  // ö
-
-// Additional Swedish keys not defined in the nordic keyset
-#define NO_AA   KC_LBRC  // å
-#define NO_ASTR LSFT(KC_BSLS)  // *
 
 // Norwegian unique MAC characters (not vetted for Swedish)
 #define NO_ACUT_MAC KC_EQL  // =
@@ -49,4 +43,3 @@
 #define NO_RCBR_MAC ALGR(LSFT(KC_9))  // }
 
 #endif
-

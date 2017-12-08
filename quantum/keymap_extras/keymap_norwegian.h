@@ -38,7 +38,6 @@
 
 // Additional norwegian keys not defined in the nordic keyset
 #define NO_AA	KC_LBRC  // å
-#define NO_ASTR LSFT(KC_BSLS)  // *
 
 // Norwegian unique MAC characters
 #define NO_ACUT_MAC KC_EQL  // =
