@@ -538,7 +538,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_set_green;
       rgblight_mode(22);
       break;
-    case _OVERWATCH:
+    case _GAMEPAD:
       rgblight_set_orange;
       rgblight_mode(17);
       break;
