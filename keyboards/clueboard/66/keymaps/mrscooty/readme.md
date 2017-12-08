@@ -10,4 +10,6 @@ I have a most of my media keys on the function layer as well as a second set of 
 #### Fn Layer
 ![Fn Layout Image] (https://imgur.com/IPa8gFg)
 
-https://imgur.com/a/dAwXq
+
+
+Both layers (https://imgur.com/a/dAwXq)
