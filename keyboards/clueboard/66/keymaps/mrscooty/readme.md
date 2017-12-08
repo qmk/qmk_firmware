@@ -4,7 +4,7 @@ My personal layout for everyday typing and coding.
 I have a most of my media keys on the function layer as well as a second set of arrows as IJKL when holding CAPS. 
 
 #### Base Layer
-![Base Layout Image] (baseLayer.jpg)
+![Base Layout Image] (https://imgur.com/a/dAwXq)
 
 #### Fn Layer
-![Fn Layout Image] (fnLayer.jpg)
+![Fn Layout Image] (https://imgur.com/a/dAwXq)
