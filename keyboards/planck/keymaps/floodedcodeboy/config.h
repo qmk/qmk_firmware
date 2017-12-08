@@ -4,7 +4,7 @@
 #include "../../config.h"
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(PLANCK_SOUND)
+#define STARTUP_SONG SONG(VIOLIN_SOUND)
 #define TAPPING_TERM 200
 // #define STARTUP_SONG SONG(NO_SOUND)
 

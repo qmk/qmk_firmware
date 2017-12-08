@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | TBC1 | Ctrl | Alt  | GUI  |Lower |Space |Space |Raise |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
- *
+ * 
  * TBC1 - toggle Iterm
  * LShift - Shift when held / Caps when tapped
  * Enter - MOD TAP with ENTER / R.SHIFT If held
@@ -51,18 +51,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = {
             {KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC},
             {KC_GESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT},
-            {KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_UP, MT(MOD_RSFT, KC_ENTER)},
+            {KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_UP, MT(MOD_RSFT, KC_ENTER)},
             {LCTL(KC_GRAVE), KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC, RAISE, KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}},
 
         /* Lower
  * ,-----------------------------------------------------------------------------------.
- * | Mute |  F1  |  F2  |  F3  |      |   {  |   }  |   /  |   *  |  7   |  8   |  9   |
+ * | Mute |  F1  |  F2  |  F3  |   [  |   *  |   +  |   ]  |      |  7   |  8   |  9   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Vol+ |  F4  |  F5  |  F6  |      |   (  |   )  |   -  |   +  |  4   |  5   |  6   |
+ * | Vol+ |  F4  |  F5  |  F6  |   {  |   /  |   -  |   }  |      |  4   |  5   |  6   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Vol- |  F7  |  F8  |  F9  |      |   |  |   \  |      |   0  |  1   |  2   |  3   |
+ * | Vol- |  F7  |  F8  |  F9  |   (  |   |  |   \  |   )  |   0  |  1   |  2   |  3   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F10 |  F11 |  F12 |      |      |      |      | Home |PG Up |PG Dn | End  |
+ * |      |  F10 |  F11 |  F12 | |||| |             | |||| | Home |PG Up |PG Dn | End  |
  * `-----------------------------------------------------------------------------------'
  *
  * Proposed Additions:
@@ -80,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | DEL  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Acc0 | RClk |  Mup | LClk |MWhlU |   {  |   }  |   -  |   =  |   [  |   ]  |  \   |
+ * |      |      |      |      |      | PgUp |PgDwn |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Acc1 | MLft | MDwn | MRt  |MWhlD |   (  |   )  |   _  |ISO / |Pg Up |Pg Dn |      |
+ * |      |      |      |      |      | Home | End  |   _  |   {  |   }  |   (  |  )   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Acc2 |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
+ * |      |      |      |      |      |             |      | Prev | Vol- | Vol+ | Next |
  * `-----------------------------------------------------------------------------------'
  */
         [_RAISE] = {
@@ -136,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float plover_song[][2] = SONG(PLOVER_SOUND);
-float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
-#endif
+//#ifdef AUDIO_ENABLE
+//#float plover_song[][2] = SONG(PLOVER_SOUND);
+//#float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+//#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -154,7 +154,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         break;
     case LOWER:
         if (record->event.pressed)
-        {
+        {   
             layer_on(_LOWER);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
         }
@@ -175,13 +175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         {
             layer_off(_RAISE);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
-        return false;
-        break;
-    case AMYTHEST:
-        if (record->event.pressed)
-        {
-            set_single_persistent_default_layer(_AMYTHEST);
         }
         return false;
         break;
