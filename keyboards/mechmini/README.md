@@ -1,4 +1,4 @@
-mechmini
+mechmini 
 ========
 
 A compact ortholinear/staggered keyboard.
