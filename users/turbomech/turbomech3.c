@@ -348,3 +348,39 @@ uint32_t layer_state_set_user(uint32_t state) {
 #endif
   return state;
 }
+
+
+!!** possible for later
+
+void set_single_persistent_default_layer(uint8_t default_layer);
+
+void set_single_persistent_default_layer(uint8_t default_layer) {
+  #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
+    PLAY_SONG(default_layer_songs[default_layer]);
+  #endif
+  eeconfig_update_default_layer(1U<<default_layer);
+  default_layer_set(1U<<default_layer);
+
+void matrix_init_kb(void);
+
+void matrix_init_user(void);
+
+!!** line 31
+
+__attribute__ ((weak))
+void matrix_init_keymap(void) {}
+
+__attribute__ ((weak))
+void matrix_scan_keymap(void) {}
+
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+

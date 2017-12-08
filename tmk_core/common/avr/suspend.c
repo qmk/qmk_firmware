@@ -19,6 +19,9 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
+#ifdef RGBLIGHT_ANIMATIONS
+#include "../../quantum/rgblight.h"
+#endif
 
 
 #define wdt_intr_enable(value)   \
@@ -100,6 +103,12 @@ static void power_down(uint8_t wdto)
 
     // Disable watchdog after sleep
     wdt_disable();
+    
+#ifdef RGBLIGHT_ANIMATIONS
+    rgblight_timer_disable();
+    _delay_ms(50);
+    rgblight_setrgb(0, 0, 0);
+#endif
 }
 #endif
 
@@ -132,6 +141,12 @@ void suspend_wakeup_init(void)
     backlight_init();
 #endif
 	led_set(host_keyboard_leds());
+    
+#ifdef RGBLIGHT_ANIMATIONS
+    rgblight_timer_enable();
+    _delay_ms(50);
+    rgblight_set();
+#endif
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
