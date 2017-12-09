@@ -28,7 +28,7 @@ This is where all the custom logic for your keyboard goes. Many keyboards do not
 
 ## `<keyboard>.h`
 
-This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minumum you should have a `#define LAYOUT` for your keyboard that looks something like this:
+This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minimum you should have a `#define LAYOUT` for your keyboard that looks something like this:
 
 ```
 #define LAYOUT(          \
@@ -44,7 +44,7 @@ The first half of the `LAYOUT` pre-processor macro defines the physical arrangem
 
 Each of the `k__` variables needs to be unique, and typically they follow the format `k<row><col>`.
 
-The physical matrix (the second half) must have a number of rows equalling `MATRIX_ROWS`, and each row must have exactly `MATRIX_COLS` elements in it. If you do not have this many physical keys you can use `KC_NO` to fill in the blank spots.
+The physical matrix (the second half) must have a number of rows equaling `MATRIX_ROWS`, and each row must have exactly `MATRIX_COLS` elements in it. If you do not have this many physical keys you can use `KC_NO` to fill in the blank spots.
 
 ## `config.h`
 

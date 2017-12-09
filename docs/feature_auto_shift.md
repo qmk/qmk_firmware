@@ -75,7 +75,7 @@ is the default value. Then work down from there. The idea is to have the shortes
 
 Play with this value until things are perfect. Many find that all will work well
 at a given value, but one or two keys will still emit the shifted state on
-occassion. This is simply due to habit and holding some keys a little longer
+occasion. This is simply due to habit and holding some keys a little longer
 than others. Once you find this value, work on tapping your problem keys a little
 quicker than normal and you will be set.
 
@@ -99,7 +99,7 @@ Do not Auto Shift alpha characters, which include A through Z.
 
 ## Using Auto Shift Setup
 
-This will enable you to define three keys temporailiy to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
 
 ### Setup
 

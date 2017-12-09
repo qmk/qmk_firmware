@@ -21,7 +21,7 @@ layouts/
 | + ...
 ```
 
-The `layouts/default/` and `layouts/community/` are two examples of layout "repositories" - currently `default` will contain all of the information concerning the layout, and one default keymap named `default_<layout>`, for users to use as a reference. `community` contains all of the community keymaps, with the eventual goal of being split-off into a separate repo for users to clone into `layouts/`. QMK searches through all folders in `layouts/`, so it's possible to have multiple reposistories here. 
+The `layouts/default/` and `layouts/community/` are two examples of layout "repositories" - currently `default` will contain all of the information concerning the layout, and one default keymap named `default_<layout>`, for users to use as a reference. `community` contains all of the community keymaps, with the eventual goal of being split-off into a separate repo for users to clone into `layouts/`. QMK searches through all folders in `layouts/`, so it's possible to have multiple repositories here. 
 
 Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layout, in the most generic way possible, and contains a `readme.md` with the layout to be defined by the keyboard:
 
@@ -35,7 +35,7 @@ New names should try to stick to the standards set by existing layouts, and can 
 
 ## Supporting a Layout
 
-For a keyboard to support a layout, the variable (`[a-z0-9_]`) must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferrably the physical layout):
+For a keyboard to support a layout, the variable (`[a-z0-9_]`) must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferably the physical layout):
 
     #define LAYOUT_60_ansi KEYMAP_ANSI
 

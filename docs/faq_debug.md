@@ -11,7 +11,7 @@ When debug console of your device is not ready you will see like this:
 Waiting for device:.........
 ```
 
-once the device is pluged in then *hid_listen* finds it you will get this message:
+once the device is plugged in then *hid_listen* finds it you will get this message:
 
 ```
 Waiting for new device:.........................
@@ -82,23 +82,23 @@ Size after:
     consume extra memory; watch out for BOOTMAGIC_ENABLE,
     MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE
 - DFU tools do /not/ allow you to write into the bootloader (unless
-  you throw in extra fruitsalad of options), so there is little risk
+  you throw in extra fruit salad of options), so there is little risk
   there.
 - EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
   firmware repeatedly and continually; that'll burn the EEPROM
   eventually.
 ## NKRO Doesn't work
-First you have to compile frimware with this build option `NKRO_ENABLE` in **Makefile**.
+First you have to compile firmware with this build option `NKRO_ENABLE` in **Makefile**.
 
 Try `Magic` **N** command(`LShift+RShift+N` by default) when **NKRO** still doesn't work. You can use this command to toggle between **NKRO** and **6KRO** mode temporarily. In some situations **NKRO** doesn't work you need to switch to **6KRO** mode, in particular when you are in BIOS.
 
-If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and keeped over power cycles.
+If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by `BootMagic` **N** command(`Space+N` by default). This setting is stored in EEPROM and kept over power cycles.
 
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
 ## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
-Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware. See circuit schematic of TPM754.
+Without reset circuit you will have inconsistent result due to improper initialize of the hardware. See circuit schematic of TPM754.
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
@@ -107,7 +107,7 @@ Without reset circuit you will have inconsistent reuslt due to improper initiali
 ## Can't Read Column of Matrix Beyond 16
 Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
 
-In C `1` means one of [int] type which is [16bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
+In C `1` means one of [int] type which is [16 bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
 
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
@@ -181,11 +181,11 @@ Pressing any key during sleep should wake host.
 - http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf
 - http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf
 
-Arduino leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
+Arduino Leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
 
 ## Using PF4-7 Pins of USB AVR?
-You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affeteced with this.
+You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affected with this.
 
 If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
 
