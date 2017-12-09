@@ -1,6 +1,6 @@
 # How to Customize Your Keyboard's Behavior
 
-For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations. 
+For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations.
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
@@ -66,7 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ### `process_record_*` Function Documentation
 
-* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` 
+* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 * Keymap: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
 
 The `keycode` argument is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. You should use a `switch...case` block to handle these events.
@@ -130,7 +130,7 @@ void led_set_kb(uint8_t usb_led) {
 
 ### `led_set_*` Function Documentation
 
-* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)` 
+* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
 # Matrix Initialization Code
@@ -155,7 +155,7 @@ void matrix_init_kb(void) {
 
 ### `matrix_init_*` Function Documentation
 
-* Keyboard/Revision: `void matrix_init_kb(void)` 
+* Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
 # Matrix Scanning Code

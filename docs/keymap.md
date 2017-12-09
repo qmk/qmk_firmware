@@ -35,8 +35,8 @@ The state of the Keymap layer is determined by two 32 bit parameters:
 
 Keymap layer '0' is usually `default_layer`, wither other layers initially off after booting up the firmware, although this can configured differently in `config.h`. It is useful to change `default_layer` when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.
 
-    Initial state of Keymap          Change base layout              
-    -----------------------          ------------------              
+    Initial state of Keymap          Change base layout
+    -----------------------          ------------------
 
       31                               31
       30                               30
@@ -98,7 +98,7 @@ At the top of the file you'll find this:
     // Each layer gets a name for readability.
     // The underscores don't mean anything - you can
     // have a layer called STUFF or any other name.
-    // Layer names don't all need to be of the same 
+    // Layer names don't all need to be of the same
     // length, and you can also skip them entirely
     // and just use numbers.
     #define _BL 0
@@ -113,9 +113,9 @@ The main part of this file is the `keymaps[]` definition. This is where you list
 
     const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-After this you'll find a list of KEYMAP() macros. A KEYMAP() is simply a list of keys to define a single layer. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer. 
+After this you'll find a list of KEYMAP() macros. A KEYMAP() is simply a list of keys to define a single layer. Typically you'll have one or more "base layers" (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more "function" layers. Due to the way layers are processed you can't overlay a "lower" layer on top of a "higher" layer.
 
-`keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard. 
+`keymaps[][MATRIX_ROWS][MATRIX_COLS]` in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.
 
 > TMK from which QMK was forked uses `const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]` instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the `fn_actions[]` array.
 
@@ -153,11 +153,11 @@ Our function layer is, from a code point of view, no different from the base lay
 Some interesting things to note:
 
 * We have used our `_______` definition to turn `KC_TRNS` into `_______`. This makes it easier to spot the keys that have changed on this layer.
-* While in this layer if you press one of the `_______` keys it will activate the key in the next lowest active layer. 
+* While in this layer if you press one of the `_______` keys it will activate the key in the next lowest active layer.
 
 ### Custom Functions
 
-At the bottom of the file we've defined a single custom function. This function defines a key that sends `KC_ESC` when pressed without modifiers and `KC_GRAVE` when modifiers are held. There are a couple pieces that need to be in place for this to work, and we will go over both of them. 
+At the bottom of the file we've defined a single custom function. This function defines a key that sends `KC_ESC` when pressed without modifiers and `KC_GRAVE` when modifiers are held. There are a couple pieces that need to be in place for this to work, and we will go over both of them.
 
 #### `fn_actions[]`
 

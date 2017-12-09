@@ -135,7 +135,7 @@ These enable settings supported by the PS/2 mouse protocol: http://www.computer-
 
 ```
 /* Use remote mode instead of the default stream mode (see link) */
-#define PS2_MOUSE_USE_REMOTE_MODE  
+#define PS2_MOUSE_USE_REMOTE_MODE
 
 /* Enable the scrollwheel or scroll gesture on your mouse or touchpad */
 #define PS2_MOUSE_ENABLE_SCROLLING
