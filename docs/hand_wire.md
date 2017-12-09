@@ -133,7 +133,7 @@ Starting at the top-left switch, place the diode (with tweezers if you have them
      │o
     ┌┴┐         o
     │ │    O
-    ├─┤      
+    ├─┤
     └┬┘
      └─────────────
 ```
@@ -150,7 +150,7 @@ When the first diode is complete, the next one will need to be soldered to both 
      │o               │o
     ┌┴┐         o    ┌┴┐         o
     │ │    O         │ │    O
-    ├─┤              ├─┤      
+    ├─┤              ├─┤
     └┬┘              └┬┘
      └────────────────┴─────────────
 ```

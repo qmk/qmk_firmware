@@ -116,12 +116,12 @@ http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad
 Properly configure bootloader size in **Makefile**. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
 ```
 # Size of Bootloaders in bytes:
-#   Atmel DFU loader(ATmega32U4)   4096    
-#   Atmel DFU loader(AT90USB128)   8192    
-#   LUFA bootloader(ATmega32U4)    4096             
-#   Arduino Caterina(ATmega32U4)   4096             
-#   USBaspLoader(ATmega***)        2048             
-#   Teensy   halfKay(ATmega32U4)   512              
+#   Atmel DFU loader(ATmega32U4)   4096
+#   Atmel DFU loader(AT90USB128)   8192
+#   LUFA bootloader(ATmega32U4)    4096
+#   Arduino Caterina(ATmega32U4)   4096
+#   USBaspLoader(ATmega***)        2048
+#   Teensy   halfKay(ATmega32U4)   512
 #   Teensy++ halfKay(AT90USB128)   2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ```
@@ -135,14 +135,14 @@ byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
          |               |                        |               |
          |               |                        |               |
          |  Application  |                        |  Application  |
-         |               |                        |               | 
+         |               |                        |               |
          =               =                        =               =
          |               | 32KB-4KB               |               | 128KB-8KB
 0x6000   +---------------+               0x1E000  +---------------+
          |  Bootloader   | 4KB                    |  Bootloader   | 8KB
 0x7FFF   +---------------+               0x1FFFF  +---------------+
 
- 
+
 byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
 0x0000   +---------------+               0x00000  +---------------+
          |               |                        |               |
@@ -230,7 +230,7 @@ https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 ## Problem on BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles
 Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
 
-As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others. 
+As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others.
 
 https://github.com/tmk/tmk_keyboard/issues/266
 https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778

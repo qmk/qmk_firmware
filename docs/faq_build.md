@@ -6,7 +6,7 @@ This page covers questions about building QMK. If you have not yet you should re
 You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
 
 In short when your controller is ATMega32u4,
-    
+
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
@@ -81,11 +81,11 @@ make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
 
 ```
-# Boot Section Size in *bytes*    
-#   Teensy halfKay   512          
-#   Teensy++ halfKay 2048         
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 2048
 #   Atmel DFU loader 4096       (TMK Alt Controller)
-#   LUFA bootloader  4096         
-#   USBaspLoader     2048         
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```

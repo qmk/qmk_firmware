@@ -1,6 +1,6 @@
 # Macros
 
-Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code. 
+Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.
 
 {% hint style='danger' %}
 **Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
@@ -245,7 +245,7 @@ This will clear all keys besides the mods currently pressed.
 
 ## Advanced Example: Single-Key Copy/Paste
 
-This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released. 
+This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

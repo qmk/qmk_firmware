@@ -1,6 +1,6 @@
 # US ANSI Shifted Symbols
 
-These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboards. They do not have dedicated keycodes but are instead typed by holding down shift and then sending a keycode. 
+These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboards. They do not have dedicated keycodes but are instead typed by holding down shift and then sending a keycode.
 
 It's important to remember that all of these keycodes send a left shift - this may cause unintended actions if unaccounted for. The short code is preferred in most situations.
 

@@ -187,9 +187,9 @@ enum {
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4, 
+  DOUBLE_HOLD = 4,
   DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
-  // Add more enums here if you want for triple, quadruple, etc. 
+  // Add more enums here if you want for triple, quadruple, etc.
 };
 
 typedef struct {
@@ -209,14 +209,14 @@ int cur_dance (qk_tap_dance_state_t *state) {
     if (state->interrupted) return DOUBLE_SINGLE_TAP;
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
-  } 
+  }
   else return 6; //magic number. At some point this method will expand to work for more presses
 }
 
 //**************** Definitions needed for quad function to work *********************//
 
 //instanalize an instance of 'tap' for the 'x' tap dance.
-static tap xtap_state = { 
+static tap xtap_state = {
   .is_press_action = true,
   .state = 0
 };

@@ -91,7 +91,7 @@ All key positions and rotations are specified in relation to the top-left corner
 * `RY`
   * The absolute position of the point to rotate the key around in the vertical axis. Default: `y`
 * `KS`
-  * Key Shape: define a polygon by providing a list of points, in Key Units. 
+  * Key Shape: define a polygon by providing a list of points, in Key Units.
   * **Important**: These are relative to the top-left of the key, not absolute.
   * Example ISO Enter: `[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]`
 
