@@ -92,7 +92,7 @@ static void power_down(uint8_t wdto)
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_disable();
 #endif
-  rgblight_setrgb(0, 0, 0);
+  rgblight_disable();
 #endif
     // TODO: more power saving
     // See PicoPower application note
@@ -141,10 +141,10 @@ void suspend_wakeup_init(void)
 #endif
 	led_set(host_keyboard_leds());
 #ifdef RGBLIGHT_SLEEP
+  rgblight_enable();
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
 #endif
-  rgblight_init();
 #endif
 }
 
