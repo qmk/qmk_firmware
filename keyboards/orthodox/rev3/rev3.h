@@ -19,8 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_H
-#define REV1_H
+#ifndef REV3_H
+#define REV3_H
 
 #include "orthodox.h"
 
@@ -44,5 +44,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	}
 
 #endif
-
 
