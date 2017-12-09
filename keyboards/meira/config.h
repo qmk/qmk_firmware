@@ -43,11 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 15    // Number of LEDs
 
-#ifdef SUBPROJECT_promicro
-    #include "promicro/config.h"
-#endif
-#ifdef SUBPROJECT_featherble
-    #include "featherble/config.h"
-#endif
-
 #endif
