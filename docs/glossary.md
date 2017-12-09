@@ -167,4 +167,4 @@ The USB Host is your computer, or whatever device your keyboard is plugged into.
 
 # Couldn't Find the Term You're Looking For?
 
-[Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)  
+[Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)

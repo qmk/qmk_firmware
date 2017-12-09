@@ -75,7 +75,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
 
-* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature. 
+* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
   * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
@@ -111,7 +111,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 
 Keyboards are the raison d'être for QMK. Some keyboards are community maintained, while others are maintained by the people responsible for making a particular keyboard. The `readme.md` should tell you who maintains a particular keyboard. If you have questions relating to a particular keyboard you can [Open An Issue](https://github.com/qmk/qmk_firmware/issues) and tag the maintainer in your question.
 
-We also ask that you follow these guidelines: 
+We also ask that you follow these guidelines:
 
 * Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
 * Keep the number of commits reasonable or we will squash your PR
@@ -136,7 +136,7 @@ Here are some things to keep in mind when working on your feature or bug fix.
 * **Consider revisions and different chip-bases** - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.
 * **Explain your feature** - Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.
 
-We also ask that you follow these guidelines: 
+We also ask that you follow these guidelines:
 
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
