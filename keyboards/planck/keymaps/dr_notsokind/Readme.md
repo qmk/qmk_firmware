@@ -1,3 +1,7 @@
+# Dr NotSoKind's layout
+
+Feel free to ask questions or send suggestions to [me on Twitter](https://twitter.com/pnikosis)
+
 I love some features from the default layout*, although there are things that definitively I can't get used to. The *circuit* layout gave me some good ideas, so I combined both, with some own ideas to fit better my needs. BTW, I don't use Dvorak or other layouts than QWERTY, and I'm too old and grumpy for learning something new (I'm lying a bit here, I learn new stuff every day), so nay for other typing layouts
 
 ## Things I love about the default layout
