@@ -8,7 +8,7 @@ If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.
 
 Atmel's DFU bootloader comes on all atmega32u4 chips by default, and is used by many keyboards that have their own ICs on their PCBs (Older OLKB boards, Clueboards). Some keyboards may also use LUFA's DFU bootloader (or QMK's fork) (Newer OLKB boards) that adds in additional features specific to that hardware.
 
-To ensure compatability with the DFU bootloader, make sure this block is present your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
+To ensure compatibility with the DFU bootloader, make sure this block is present your `rules.mk` (optionally with `lufa-dfu` or `qmk-dfu` instead):
 
     # Bootloader
     #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -19,7 +19,7 @@ To ensure compatability with the DFU bootloader, make sure this block is present
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` in QMK (recommended commandline)
+* [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` in QMK (recommended command line)
 * [Atmel's Flip](http://www.atmel.com/tools/flip.aspx) (not recommended)
 
 Flashing sequence:
@@ -53,7 +53,7 @@ To generate a production-ready .hex file (containing the application and the boo
 
 Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
 
-To ensure compatability with the Caterina bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the Caterina bootloader, make sure this block is present your `rules.mk`:
 
     # Bootloader
     #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -64,7 +64,7 @@ To ensure compatability with the Caterina bootloader, make sure this block is pr
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [avrdude](http://www.nongnu.org/avrdude/) with avr109 / `:avrdude` (recommended commandline)
+* [avrdude](http://www.nongnu.org/avrdude/) with avr109 / `:avrdude` (recommended command line)
 * [AVRDUDESS](https://github.com/zkemble/AVRDUDESS)
 
 Flashing sequence:
@@ -82,7 +82,7 @@ or
 
 Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on all Teensys (namely the 2.0).
 
-To ensure compatability with the Halfkay bootloader, make sure this block is present your `rules.mk`:
+To ensure compatibility with the Halfkay bootloader, make sure this block is present your `rules.mk`:
 
     # Bootloader
     #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -94,7 +94,7 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
-* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) (recommended commandline)
+* [Teensy Loader Command Line](https://www.pjrc.com/teensy/loader_cli.html) (recommended command line)
 
 Flashing sequence:
 

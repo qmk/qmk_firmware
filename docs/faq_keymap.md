@@ -33,7 +33,7 @@ Use `KC_PWR` instead of `KC_POWER` or vice versa.
 More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
 
 ## One Shot Modifier
-Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  Oneshot Shift mitgates this for me.
+Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
 https://github.com/tmk/tmk_keyboard/issues/67
 
 ## Modifier/Layer Stuck
@@ -120,7 +120,7 @@ https://pqrs.org/osx/karabiner/seil.html
 Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
-See these for the deail of this problem.
+See these for the detail of this problem.
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
 
@@ -130,7 +130,7 @@ https://github.com/tekezo/Karabiner/issues/403
 See the [Grave Escape](feature_grave_escape.md) feature.
 
 ## Arrow on Right Modifier Keys with Dual-Role
-This turns right modifer keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
+This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
 ```
 
 #include "keymap_common.h"
@@ -185,14 +185,14 @@ Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F2
 ___TO BE IMPROVED___
 
 real_mods is intended to retains state of real/physical modifier key state, while
-weak_mods retains state of virtual or temprary modifiers which should not affect state real modifier key.
+weak_mods retains state of virtual or temporary modifiers which should not affect state real modifier key.
 
 Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A), 
 
 with weak_mods,
 * (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
 * (2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
-* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): waek_mods &= ~MOD_BIT(LSHIFT)
+* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
 real_mods still keeps modifier state.
 
 without weak mods,

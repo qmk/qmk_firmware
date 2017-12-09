@@ -44,7 +44,7 @@ You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/bl
 
 ## Configuring the Behavior of Mousekeys
 
-The default speed for controlling the mouse with the keyboard is intentionaly slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in miliseconds (ms).
+The default speed for controlling the mouse with the keyboard is intentionally slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in milliseconds (ms).
 
 ```
 #define MOUSEKEY_DELAY             300
@@ -78,4 +78,4 @@ The top speed for scrolling movements.
 
 ### `MOUSEKEY_WHEEL_TIME_TO_MAX`
 
-How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickling your scrolling will accelerate.
+How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickly your scrolling will accelerate.
