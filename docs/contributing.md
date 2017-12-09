@@ -1,4 +1,4 @@
-# How To Contribute
+# How to Contribute
 
 👍🎉 First off, thanks for taking the time to read this and contribute! 🎉👍
 
@@ -9,7 +9,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 * [General Guidelines](#general-guidelines)
 * [What does the Code of Conduct mean for me?](#what-does-the-code-of-conduct-mean-for-me)
 
-## I Don't Want To Read This Whole Thing I Just Have a Question!
+## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
 If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Gitter](https://gitter.im/qmk/qmk_firmware).
 
@@ -27,7 +27,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
-# Where can I go for help?
+# Where Can I Go for Help?
 
 If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on gitter](http://gitter.im/QMK/qmk_firmware).
 
@@ -52,7 +52,7 @@ Never made an open source contribution before? Wondering how contributions work 
 14. Make changes to the pull request if the reviewing maintainer recommends them.
 15. Celebrate your success after your pull request is merged!
 
-# Coding conventions
+# Coding Conventions
 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
@@ -64,7 +64,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Optional Braces: Always include optional braces.
     * Good: if (condition) { return false; }
     * Bad: if (condition) return false;
-* We use C style comments: /* */
+* We use C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
@@ -147,6 +147,6 @@ We also ask that you follow these guidelines:
 
 To maintain a clear vision of how things are laid out in QMK we try to plan out refactors in-depth and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, [open an issue](https://github.com/qmk/qmk_firmware/issues), we'd love to talk about how QMK can be improved.
 
-# What does the Code of Conduct mean for me?
+# What Does the Code of Conduct Mean for Me?
 
 Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.

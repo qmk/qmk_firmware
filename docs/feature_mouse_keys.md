@@ -3,11 +3,11 @@
 
 Mousekeys is a feature that allows you to emulate a mouse using your keyboard. You can move the pointer around, click up to 5 buttons, and even scroll in all 4 directions. QMK uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 
-## Adding Mousekeys To a Keymap
+## Adding Mousekeys to a Keymap
 
 There are two steps to adding Mousekeys support to your keyboard. You must enable support in the Makefile and you must map mouse actions to keys on your keyboard.
 
-### Adding Mousekeys support in the `Makefile`
+### Adding Mousekeys Support in the `Makefile`
 
 To add support for Mousekeys you simply need to add a single line to your keymap's `Makefile`:
 
@@ -17,7 +17,7 @@ MOUSEKEY_ENABLE = yes
 
 You can see an example here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/Makefile
 
-### Mapping Mouse Actions To Keyboard Keys
+### Mapping Mouse Actions to Keyboard Keys
 
 You can use these keycodes within your keymap to map button presses to mouse actions:
 
@@ -42,7 +42,7 @@ You can use these keycodes within your keymap to map button presses to mouse act
 
 You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/keymap.c#L46
 
-## Configuring the behavior of Mousekeys
+## Configuring the Behavior of Mousekeys
 
 The default speed for controlling the mouse with the keyboard is intentionaly slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in miliseconds (ms).
 

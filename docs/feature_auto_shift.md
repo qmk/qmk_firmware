@@ -1,4 +1,4 @@
-# Auto Shift: Why do we need a shift key?
+# Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
 and you get its shifted state. Viola! No shift key needed!
@@ -10,7 +10,7 @@ fingers repetitively long distances. For us on the keyboard, the pinky does that
 all too often when reaching for the shift key. Auto Shift looks to alleviate that
 problem.
 
-## How does it work?
+## How Does It Work?
 
 When you tap a key, it stays depressed for a short period of time before it is
 then released. This depressed time is a different length for everyone. Auto Shift
@@ -20,7 +20,7 @@ when you release the key. If the time depressed is greater than or equal to the
 `AUTO_SHIFT_TIMEOUT`, then a shifted version of the key is emitted. If the time
 is less than the `AUTO_SHIFT_TIMEOUT` time, then the normal state is emitted.
 
-## Are there limitations to Auto Shift?
+## Are There Limitations to Auto Shift?
 
 Yes, unfortunately.
 
@@ -38,7 +38,7 @@ Yes, unfortunately.
    tapping the keys, but really we have held it for a little longer than
    anticipated.
 
-## How do I enable Auto Shift?
+## How Do I Enable Auto Shift?
 
 Add to your `rules.mk` in the keymap folder:
 
@@ -66,7 +66,7 @@ A sample is
 
     #endif
 
-### AUTO_SHIFT_TIMEOUT (value in ms)
+### AUTO_SHIFT_TIMEOUT (Value in ms)
 
 This controls how long you have to hold a key before you get the shifted state.
 Obviously, this is different for everyone. For the common person, a setting of
@@ -86,7 +86,7 @@ quick. See "Auto Shift Setup" for more details!
 
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
-Do not Auto Shift special keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>,
+Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
 and /?
 
 ### NO_AUTO_SHIFT_NUMERIC (simple define)
@@ -134,7 +134,7 @@ completely normal and with no intention of shifted keys.
 9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
 10. Compile and upload your new firmware.
 
-#### An example run
+#### An Example Run
 
     hello world. my name is john doe. i am a computer programmer playing with
     keyboards right now.

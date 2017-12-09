@@ -1,4 +1,4 @@
-# More detailed make instruction
+# More Detailed `make` Instructions
 
 The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, where:
 
@@ -33,7 +33,7 @@ Here are some examples commands
 * `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard. 
 * `make planck/rev4:default:dfu COLOR=false` builds and uploads the keymap without color output.
 
-## `rules.mk` options
+## `rules.mk` Options
 
 Set these variables to `no` to disable them, and `yes` to enable them.
 
@@ -133,7 +133,7 @@ This consumes about 5390 bytes.
 
 This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
 
-## Customizing Makefile options on a per-keymap basis
+## Customizing Makefile Options on a Per-Keymap Basis
 
 If your keymap directory has a file called `rules.mk` any options you set in that file will take precedence over other `rules.mk` options for your particular keyboard.
 
