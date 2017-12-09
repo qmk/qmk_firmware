@@ -48,7 +48,7 @@ For Modifier keys and layer actions you have to place `KC_TRANS` on same positio
 ## Mechanical Lock Switch Support
 
 This feature is for *mechanical lock switch* like [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
- 
+
 ```
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
@@ -187,7 +187,7 @@ ___TO BE IMPROVED___
 real_mods is intended to retains state of real/physical modifier key state, while
 weak_mods retains state of virtual or temporary modifiers which should not affect state real modifier key.
 
-Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A), 
+Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A),
 
 with weak_mods,
 * (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)

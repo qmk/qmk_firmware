@@ -52,7 +52,7 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 
 ```c
 	uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
-	
+
 	if (!process_record_dynamic_macro(macro_kc, record)) {
 		return false;
 	}
