@@ -21,11 +21,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "rev2/config.h"
-#endif
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x3060
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    unknown
+#define PRODUCT         Splinter
+#define DESCRIPTION     QMK Firmware for Splinter
+
+/* key matrix size     */
+/* Rows are doubled-up */
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 5
+
+#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { F7, B1, B3, B2, B6 }
+
+#define CATERINA_BOOTLOADER
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCING_DELAY 5
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
+/* key combination for command */
+#define IS_COMMAND() ( \
+  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+)
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D3
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 50
+#define ws2812_PORTREG  PORTD
+#define ws2812_DDRREG   DDRD
 
 #endif
