@@ -25,7 +25,6 @@ typedef struct {
 #define _______ KC_TRNS
 #define KC_RGUP RGUP
 #define KC_RGDWN RGDWN
-#define TOTAL_MATRIX_POINTS (MATRIX_ROWS * MATRIX_COLS)
 
 #define _BL 0  // The base layer.
 #define _UL 1  // The up layer.
@@ -146,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   (LED_TYPE *)&led[p])
 
 void set_layer_led(uint32_t c) {
-  for (uint8_t i = 0; i < TOTAL_MATRIX_POINTS; i++) {
+  for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     SET_LED_RGB_HEX(c, i);
   }
 }
