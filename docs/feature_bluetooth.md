@@ -10,8 +10,8 @@ This requires [some hardware changes](https://www.reddit.com/r/MechanicalKeyboar
 
 This is used when multiple keyboard outputs can be selected. Currently this only allows for switching between USB and Bluetooth on keyboards that support both.
 
-|Name|Description|
-|----|-----------|
-|`OUT_AUTO`|auto mode|
-|`OUT_USB`|usb only|
-|`OUT_BT`|bluetooth|
+|Name      |Description                                   |
+|----------|----------------------------------------------|
+|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
+|`OUT_USB` |USB only                                      |
+|`OUT_BT`  |Bluetooth only                                |

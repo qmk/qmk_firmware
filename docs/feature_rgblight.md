@@ -98,25 +98,25 @@ rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 
 These control the RGB Lighting functionality.
 
-| Long Name | Short Name | Description |
-|-----------|------------|-------------|
-||`RGB_TOG`|toggle on/off|
-|`RGB_MODE_FORWARD`|`RGB_MOD`|cycle through modes, use reverse direction when shift is held|
-|`RGB_MODE_REVERSE`|`RGB_RMOD`|cycle through modes in reverse (also suppost shift to go forward)|
-||`RGB_HUI`|hue increase|
-||`RGB_HUD`|hue decrease|
-||`RGB_SAI`|saturation increase|
-||`RGB_SAD`|saturation decrease|
-||`RGB_VAI`|value (brightness) increase|
-||`RGB_VAD`|value (brightness) decrease|
-|`RGB_MODE_PLAIN`|`RGB_M_P `| Switch to the static no animation mode |
-|`RGB_MODE_BREATHE`|`RGB_M_B`| Switch to the breathing mode |
-|`RGB_MODE_RAINBOW`|`RGB_M_R`| Switch to the rainbow mode ||
-|`RGB_MODE_SWIRL`|`RGB_M_SW`| Switch to the swirl mode |
-|`RGB_MODE_SNAKE`|`RGB_M_SN`| Switch to the snake mode |
-|`RGB_MODE_KNIGHT`|`RGB_M_K`| Switch to the knight animation |
-|`RGB_MODE_XMAS`|`RGB_M_X`| Switch to the Christmas animation |
-|`RGB_MODE_GRADIENT`|`RGB_M_G`| Switch to the static gradient mode |
+|Key                |Aliases   |Description                                                         |
+|-------------------|----------|--------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
+|`RGB_HUI`          |          |Increase hue                                                        |
+|`RGB_HUD`          |          |Decrease hue                                                        |
+|`RGB_SAI`          |          |Increase saturation                                                 |
+|`RGB_SAD`          |          |Decrease saturation                                                 |
+|`RGB_VAI`          |          |Increase value (brightness)                                         |
+|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
+|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
+|`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
+|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Swirl animation mode                                                |
+|`RGB_MODE_SNAKE`   |`RGB_M_SN`|Snake animation mode                                                |
+|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
+|`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
+|`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 
 note: for backwards compatibility, `RGB_SMOD` is an alias for `RGB_MOD`.
 
