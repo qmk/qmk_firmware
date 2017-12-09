@@ -149,9 +149,9 @@ void set_key_led(keyrecord_t *record) {
   }
 }
 
-void set_layer_led(void) {
+void set_layer_led(uint8_t d) {
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-    SET_LED_RGB(_LC[c_lyr][0], _LC[c_lyr][1], _LC[c_lyr][2], dim, i);
+    SET_LED_RGB(_LC[c_lyr][0], _LC[c_lyr][1], _LC[c_lyr][2], d, i);
   }
 }
 
@@ -177,7 +177,12 @@ void layer_action(uint8_t layer) {
     p_lyr = layer;
     p_dim = dim;
 
-    set_layer_led();
+    if (p_dim < 2 && p_lyr == _VL) {
+      set_layer_led(2);
+    } else {
+      set_layer_led(p_dim);
+    }
+
     shifted_layer();
     rgblight_set();
   }
