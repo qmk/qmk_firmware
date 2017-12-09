@@ -1,28 +1,31 @@
-meira keyboard firmware
-======================
+# Meira
 
-## Quantum MK Firmware
+![Miera](https://imgur.com/kF4MFlW)
 
-For the full Quantum feature list, see [the parent readme](/).
+A 4x12 ortholinear low-profile keyboard.
 
-## Building
+Keyboard Maintainer: [Cole Markham](https://github.com/colemarkham)  
+Hardware Supported: Meira/ProMicro, Meira/FeatherBLE  
+Hardware Availability: [WoodKeys.click](https://woodkeys.click/meira)  
 
-Download or clone the whole firmware and navigate to the keyboards/meira folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Two controllers are support: the Pro Micro, and the Adafruit Feather BLE 32u4. Support for each is defined as a hardware revision subfolder in QMK. Main differences include processor frequencies and matrix pinouts.
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
+Make example for this keyboard (after setting up your build environment):
 
-### Default
+    make meira/promicro:default
 
-To build with the default keymap, simply run `make default`.
+or
 
-### Other Keymaps
+    make meira/featherble:default
 
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information on generic QMK configuration and setup.
 
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
+Both the Pro Micro and the Feather BLE use the Catalina bootloader, which is typically programmed using avrdude.
 
-```
-$ make [default|jack|<name>]
-```
+## Matrix
 
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
+In order to have enough pins for the matrix and other functions, a custom matrix is implemented using a demultiplexer to scan the columns. Since the demux is active low, the diodes must be oriented with the cathode connected to the demux pin. When looking at the bottom of the board with the controller at the top right, the cathode mark on the diode should be toward the left.
+
+## LED Controller
+
+The in-switch LEDs are driven by an ISSI LED controller (IS31FL3731). The micro controller communicates with this chip using I2C. Individual LED control is possible, but currently only general backlighting support is implemented. This functionality is located in lighting.c, issi.c, and TWILib.c.
