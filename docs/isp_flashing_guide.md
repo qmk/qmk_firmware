@@ -21,7 +21,7 @@ If you're having trouble flashing/erasing your board, and running into cryptic e
     
 You're likely going to need to ISP flash your board/device to get it working again. Luckily, this process is pretty straight-forward, provided you have any extra programmable keyboard, Arduino, or Teensy 2.0/Teensy 2.0++. There are also dedicated ISP flashers available for this, but most cost >$15, and it's assumed that if you are googling this error, this is the first you've heard about ISP flashing, and don't have one readily available (whereas you might have some other AVR board). __We'll be using a Teensy 2.0 with Windows 10 in this guide__ - if you are comfortable doing this on another system, please consider editing this guide and contributing those instructions!
 
-## Software needed
+## Software Needed
 
 * [The Arduino IDE](https://www.arduino.cc/en/Main/Software)
 * [Teensyduino](https://www.pjrc.com/teensy/td_download.html) (if you're using a Teensy)
@@ -38,7 +38,7 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
     Flasher VCC <-> Keyboard VCC
     Flasher GND <-> Keyboard GND
     
-## The ISP firmware
+## The ISP Firmware
 
 Make sure your keyboard is unplugged from any device, and plug in your Teensy.
 
@@ -62,13 +62,13 @@ And make the changes in the last four lines. If you're using something besides t
 
 Once you've made your changes, you can click the Upload button (right arrow), which will open up the Teensy flasher app - you'll need to press the reset button on the Teensy the first time, but after that, it's automatic (you shouldn't be flashing this more than once, though). Once flashed, the orange LED on the Teensy will flash on and off, indicating it's ready for some action. 
 
-## The .hex file
+## The `.hex` File
 
 Before flashing your firmware, you're going to need to and do a little preparation. We'll be appending [this bootloader (also a .hex file)](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) to the end of our firmware by opening the original .hex file in a text editor, and removing the last line, which should be `:00000001FF` (this is an EOF message). After that's been removed, copy the entire bootloader's contents and paste it at the end of the original file, and save it. 
 
 It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to ISP to write new firmware to your keyboard.
 
-## Flashing your firmware
+## Flashing Your Firmware
 
 Make sure your keyboard is unplugged from any device, and plug in your Teensy.
 

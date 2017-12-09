@@ -1,4 +1,4 @@
-# Layouts: Using a keymap with multiple keyboards
+# Layouts: Using a Keymap with Multiple Keyboards
 
 The `layouts/` folder contains different physical key layouts that can apply to different keyboards. 
 
@@ -33,7 +33,7 @@ Each layout folder is named (`[a-z0-9_]`) after the physical aspects of the layo
 
 New names should try to stick to the standards set by existing layouts, and can be discussed in the PR/Issue.
 
-## Supporting a layout
+## Supporting a Layout
 
 For a keyboard to support a layout, the variable (`[a-z0-9_]`) must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferrably the physical layout):
 
@@ -49,7 +49,7 @@ The folder name must be added to the keyboard's `rules.mk`:
 
 but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
 
-## Tips for making layouts keyboard-agnostic
+## Tips for Making Layouts Keyboard-Agnostic
 
 Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<folder>.h` should not be included here) file that is being compiled:
 

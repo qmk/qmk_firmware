@@ -1,6 +1,6 @@
 # Grave Escape
 
-Grave Escape is a feature that allows you to share the grave key (`\`` and `~`) on the same key as Escape. When `KC_GESC` is used it will act as `KC_ESC`, unless Shift or GUI is pressed, in which case it will act as `KC_GRAVE`.
+Grave Escape is a feature that allows you to share the grave key (<code>&#96;</code> and `~`) on the same key as Escape. When `KC_GESC` is used it will act as `KC_ESC`, unless Shift or GUI is pressed, in which case it will act as `KC_GRAVE`.
 
 
 | Key | Alias | Description |

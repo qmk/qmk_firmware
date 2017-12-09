@@ -1,4 +1,4 @@
-# Unicode support
+# Unicode Support
 
 There are three Unicode keymap definition method available in QMK:
 
@@ -29,7 +29,7 @@ This is the current list of Unicode input method in QMK:
 * UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
 * UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
-# Additional language support
+# Additional Language Support
 
 In `quantum/keymap_extras/`, you'll see various language files - these work the same way as the alternative layout ones do. Most are defined by their two letter country/language code followed by an underscore and a 4-letter abbreviation of its name. `FR_UGRV` which will result in a `ù` when using a software-implemented AZERTY layout. It's currently difficult to send such characters in just the firmware.
 
@@ -52,4 +52,3 @@ In the default script of AutoHotkey you can define custom hotkeys.
 
 The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
 AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
-

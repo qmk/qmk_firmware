@@ -82,7 +82,7 @@ You will need to clone the repository to your Windows file system using the norm
 
 Once Git is installed, open the Git Bash command and change the directory to where you want to clone QMK; note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
 
-### Toolchain setup
+### Toolchain Setup
 The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.
 
 1. Open "Bash On Ubuntu On Windows" from the start menu. 
@@ -91,13 +91,13 @@ The Toolchain setup is done through the Windows Subsystem for Linux, and the pro
 4. Close the Bash command window, and re-open it.
 5. You are ready to compile and flash the firmware!
 
-### Some important things to keep in mind
+### Some Important Things to Keep in Mind
 * You can run `util/wsl_install.sh` again to get all the newest updates.
 * Your QMK repository need to be on a Windows file system path, since WSL can't run executables outside it.
 * The WSL Git is **not** compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations
 * You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
 
-## Windows (Vista and later) (Deprecated)
+## Windows (Vista and Later) (Deprecated)
 
 These are the old instructions for Windows Vista and later. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
 

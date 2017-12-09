@@ -1,4 +1,4 @@
-# Glossary of QMK terms
+# Glossary of QMK Terms
 
 ## ARM
 A line of 32-bit MCU's produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
@@ -165,6 +165,6 @@ Universal Serial Bus, the most common wired interface for a keyboard.
 ## USB Host (or simply Host)
 The USB Host is your computer, or whatever device your keyboard is plugged into.
 
-# Couldn't find the term you're looking for?
+# Couldn't Find the Term You're Looking For?
 
 [Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)  
