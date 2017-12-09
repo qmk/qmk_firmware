@@ -82,3 +82,5 @@ endif
 ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
     TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 endif
+
+DEFAULT_FOLDER = meira/promicro
