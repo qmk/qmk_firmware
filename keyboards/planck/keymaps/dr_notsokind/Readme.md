@@ -19,9 +19,11 @@ I love some features from the default layout*, although there are things that de
 
 Layers:
 
-Main Layout / QWERTY:
+### Main Layout / QWERTY
 
 Has four modes: The default, Lower, Raise and Media.
+
+![Main](https://i.imgur.com/x4wSt76.png)
 
 Media gives access to most media keys, and some keyboard actions such as Print Screen, Insert, Calculator or Power/Sleep/Wake. Also in the Media layer, you can record two different macros and reproduce them.
 
@@ -29,16 +31,22 @@ http://www.keyboard-layout-editor.com/#/gists/4cfb26f84bbb4fabe5e6c7cc22c85e24
 
 Additionally, Lower + Raise gives access to the layer switching, plus keyboard modes (such as music mode), reset, SysReq and Lock Mode, which disables the double shift tap for CapsLock (taken from the *circuit* layout). Also provides another distribution for the F keys.
 
-Lower + Raise:
+### Lower + Raise (adjust)
+
+![Adjust](https://i.imgur.com/ADNLR6n.png)
+
 http://www.keyboard-layout-editor.com/#/gists/12462bfba17d16bb40b54ed914209d92
 
-Numpad:
+### Numpad
+
+![Numpad](https://i.imgur.com/iTyhjNZ.png)
+
 http://www.keyboard-layout-editor.com/#/gists/5ab730ab278d2050c5250498806e8edc
 
 --------------------------------------
 Notes taken from the circuit layout:
 
-###Special keys:
+### Special keys:
 * `RSHFT` and `ENTER` are combined. Tap once for `ENTER` and hold for `RSHFT`. `ENTER` will be registered on release if released within 200 ms, else `RSHFT` is registered starting at 201 ms until release.
 * If for some reason, this interferes with the normal usage of the `ENTER` key in any way, (some problem that may never happen), I have added a regular non-modified `ENTER` key on the same key in the [LOWER] and [RAISE] layers.
 * `LSHFT` and `CAPS` are also combined. The key works like a normal `LSHFT` unless double-tapped, in which case it counts as `CAPS`. This functionality unfortunately delays all key presses by at most 200 ms, but I have added ways to disable this both temporarily or permanently, described below.
@@ -48,4 +56,3 @@ Notes taken from the circuit layout:
 ##Game lock:
 **TL;DR** the game lock toggle disables the double-tap `CAPS`, and disables `GUI` keys (WINDOWS key).
 
-![keyboard-layout](https://i.imgur.com/HHSZSQq.png)
