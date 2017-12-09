@@ -161,8 +161,6 @@ void set_key_led(keyrecord_t *record) {
     active_key_pos[pos] = false;
     SET_LED_RGB(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, pos);
   }
-
-  rgblight_set();
 }
 
 void rainbow_loop(void) {
@@ -260,7 +258,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (led_brightness(keycode, record)) {
     set_layer_led(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, cur_lyr);
     return false;
+    rgblight_set();
   }
+
+  rgblight_set();
 
   return true;
 }
