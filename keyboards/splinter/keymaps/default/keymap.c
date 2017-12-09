@@ -47,13 +47,13 @@ static rbw_key_led rbw_leds[_RBWC] = {
   [_RBW_SCRLK] = { DEFAULT, 42 }
 };
 
-const uint32_t _PC = 0xFF0000;  // LED Red, pressed LED.
+const uint32_t _PC[3] = { 0xFF, 0x00, 0x00};  // LED Red, pressed LED.
 
-const uint32_t _LC[5] = {
-  [_BL] = 0x000000,  // LED off
-  [_UL] = 0x0000FF,  // LED Blue
-  [_VL] = 0xFFFF00,  // LED Yellow
-  [_DL] = 0x00FF00   // LED Green
+const uint8_t _LC[5][3] = {
+  [_BL] = { 0x00, 0x00, 0x00 },
+  [_UL] = { 0x00, 0x00, 0xFF },
+  [_VL] = { 0xFF, 0xFF, 0x00 },
+  [_DL] = { 0x00, 0xFF, 0x00 }
 };
 
 const uint8_t _LIGHTS[360] = {
@@ -132,33 +132,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-#define SET_LED_RGB_HEX(v, p) setrgb( \
-  ((v >> 16) & 0xFF) >> dim, \
-  ((v >> 8) & 0xFF) >> dim,  \
-  (v & 0xFF) >> dim,         \
-  (LED_TYPE *)&led[p])
+#define SET_LED_RGB(r, g, b, d, p) setrgb(r >> d, g >> d, b >> d, (LED_TYPE *)&led[p])
 
-#define SET_LED_RGB(r, g, b, p) setrgb( \
-  r >> dim, \
-  g >> dim, \
-  b >> dim, \
-  (LED_TYPE *)&led[p])
+void set_layer_led(uint8_t r, uint8_t g, uint8_t b, uint8_t dim, uint8_t layer) {
+  static uint8_t pl = 0; // previous layer
 
-void set_layer_led(uint32_t c) {
-  for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-    SET_LED_RGB_HEX(c, i);
+  if (pl != layer) {
+    pl = layer;
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+      SET_LED_RGB(r, g, b, dim, i);
+    }
+
+    rgblight_set();
   }
-}
-
-void layer_led(void) {
-  static uint8_t pl = 0;
-
-  if (pl != cur_lyr) {
-    pl = cur_lyr;
-    set_layer_led(_LC[cur_lyr]);
-  }
-
-  rgblight_set();
 }
 
 void set_key_led(keyrecord_t *record) {
@@ -170,10 +156,10 @@ void set_key_led(keyrecord_t *record) {
 
   if (record->event.pressed) {
     active_key_pos[pos] = true;
-    SET_LED_RGB_HEX(_PC, pos);
+    SET_LED_RGB(_PC[0], _PC[1], _PC[2], dim, pos);
   } else {
     active_key_pos[pos] = false;
-    SET_LED_RGB_HEX(_LC[cur_lyr], pos);
+    SET_LED_RGB(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, pos);
   }
 
   rgblight_set();
@@ -206,13 +192,13 @@ void rainbow_loop(void) {
     switch(rbw_leds[i].status){
     case ENABLED:
       if (!active_key_pos[pos]) {
-        SET_LED_RGB(r, g, b, pos);
+        SET_LED_RGB(r, g, b, dim, pos);
       }
 
       break;
     case DISABLED:
       if (!active_key_pos[pos]) {
-        SET_LED_RGB_HEX(_LC[cur_lyr], pos);
+        SET_LED_RGB(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, pos);
       }
 
       rbw_leds[i].status = DEFAULT;
@@ -272,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   set_key_led(record);
 
   if (led_brightness(keycode, record)) {
-    set_layer_led(_LC[cur_lyr]);
+    set_layer_led(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, cur_lyr);
     return false;
   }
 
@@ -282,7 +268,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
   cur_lyr = biton32(layer_state);
   shifted_layer();
-  layer_led();
+  set_layer_led(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, cur_lyr);
   rainbow_loop();
 }
 
