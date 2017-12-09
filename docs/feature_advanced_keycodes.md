@@ -75,29 +75,29 @@ You can also chain these, like this:
 
 The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
 
-|Name|Description|
-|----|-----------|
-| KC_TILD | ~ |
-| KC_EXLM | ! |
-| KC_QUES | ? |
-| KC_AT | @ |
-| KC_HASH | # |
-| KC_DLR  | $ |
-| KC_PERC | % |
-| KC_CIRC | ^ |
-| KC_AMPR | & |
-| KC_ASTR | * |
-| KC_LPRN | ( |
-| KC_RPRN | ) |
-| KC_UNDS | _ |
-| KC_PLUS | + |
-| KC_DQUO | " |
-| KC_LCBR | { |
-| KC_RCBR | } |
-| KC_LABK | < |
-| KC_RABK | > |
-| KC_PIPE | &#x7C; |
-| KC_COLN | : |
+|Key                     |Aliases           |Description        |
+|------------------------|------------------|-------------------|
+|`KC_TILDE`              |`KC_TILD`         |`~`                |
+|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
+|`KC_AT`                 |                  |`@`                |
+|`KC_HASH`               |                  |`#`                |
+|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
+|`KC_PERCENT`            |`KC_PERC`         |`%`                |
+|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
+|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
+|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
+|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
+|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
+|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
+|`KC_PLUS`               |                  |`+`                |
+|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
+|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
+|`KC_PIPE`               |                  |<code>&#124;</code>|
+|`KC_COLON`              |`KC_COLN`         |`:`                |
+|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
+|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
+|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
+|`KC_QUESTION`           |`KC_QUES`         |`?`                |
 
 # Mod Tap
 
