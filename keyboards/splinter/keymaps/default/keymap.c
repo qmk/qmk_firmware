@@ -36,9 +36,8 @@ typedef struct {
 #define _RBW_RCAPS 1
 #define _RBW_SCRLK 2
 
-static uint8_t cur_lyr = 0;  // current selected layer.
-static uint8_t dim = 0;      // rgb dimming level.
-
+static uint8_t c_lyr = 0;  // current layer.
+static uint8_t dim = 0;    // rgb dimming level.
 static bool active_key_pos[50] = {};
 
 static rbw_key_led rbw_leds[_RBWC] = {
@@ -134,19 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define SET_LED_RGB(r, g, b, d, p) setrgb(r >> d, g >> d, b >> d, (LED_TYPE *)&led[p])
 
-void set_layer_led(uint8_t r, uint8_t g, uint8_t b, uint8_t dim, uint8_t layer) {
-  static uint8_t pl = 0; // previous layer
-
-  if (pl != layer) {
-    pl = layer;
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      SET_LED_RGB(r, g, b, dim, i);
-    }
-
-    rgblight_set();
-  }
-}
-
 void set_key_led(keyrecord_t *record) {
   static const uint8_t base = 5;
 
@@ -159,7 +145,41 @@ void set_key_led(keyrecord_t *record) {
     SET_LED_RGB(_PC[0], _PC[1], _PC[2], dim, pos);
   } else {
     active_key_pos[pos] = false;
-    SET_LED_RGB(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, pos);
+    SET_LED_RGB(_LC[c_lyr][0], _LC[c_lyr][1], _LC[c_lyr][2], dim, pos);
+  }
+}
+
+void set_layer_led(void) {
+  for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+    SET_LED_RGB(_LC[c_lyr][0], _LC[c_lyr][1], _LC[c_lyr][2], dim, i);
+  }
+}
+
+void shifted_layer(void) {
+  static bool is_shifted = false;
+
+  if (c_lyr == _VL) {
+    register_code(KC_LSFT);
+    is_shifted = true;
+  } else {
+    if (is_shifted) {
+      unregister_code(KC_LSFT);
+      is_shifted = false;
+    }
+  }
+}
+
+void layer_action(uint8_t layer) {
+  static uint8_t p_lyr = 0; // current layer;
+  static uint8_t p_dim = 0; // current dim;
+
+  if (p_lyr != layer || p_dim != dim) {
+    p_lyr = layer;
+    p_dim = dim;
+
+    set_layer_led();
+    shifted_layer();
+    rgblight_set();
   }
 }
 
@@ -167,7 +187,7 @@ void rainbow_loop(void) {
   static uint16_t last_timer = 0;
   static uint16_t i = 0;
   static uint8_t r, g, b;
-  uint8_t pos;
+  static uint8_t pos;
 
   if (timer_elapsed(last_timer) < 8) {
     return;
@@ -191,12 +211,14 @@ void rainbow_loop(void) {
     case ENABLED:
       if (!active_key_pos[pos]) {
         SET_LED_RGB(r, g, b, dim, pos);
+        rgblight_set();
       }
 
       break;
     case DISABLED:
       if (!active_key_pos[pos]) {
-        SET_LED_RGB(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, pos);
+        SET_LED_RGB(_LC[c_lyr][0], _LC[c_lyr][1], _LC[c_lyr][2], dim, pos);
+        rgblight_set();
       }
 
       rbw_leds[i].status = DEFAULT;
@@ -205,8 +227,6 @@ void rainbow_loop(void) {
       break;
     }
   }
-
-  rgblight_set();
 }
 
 bool led_brightness(uint16_t keycode, keyrecord_t *record) {
@@ -231,19 +251,6 @@ bool led_brightness(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-void shifted_layer(void) {
-  static bool is_shifted = false;
-
-  if (cur_lyr == _VL) {
-    register_code(KC_LSFT);
-    is_shifted = true;
-  } else {
-    if (is_shifted) {
-      unregister_code(KC_LSFT);
-      is_shifted = false;
-    }
-  }
-}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
@@ -256,20 +263,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   set_key_led(record);
 
   if (led_brightness(keycode, record)) {
-    set_layer_led(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, cur_lyr);
-    return false;
+    layer_action(c_lyr);
     rgblight_set();
+    return false;
   }
 
   rgblight_set();
-
   return true;
 }
 
 void matrix_scan_user(void) {
-  cur_lyr = biton32(layer_state);
-  shifted_layer();
-  set_layer_led(_LC[cur_lyr][0], _LC[cur_lyr][1], _LC[cur_lyr][2], dim, cur_lyr);
+  c_lyr = biton32(layer_state);
+
+  layer_action(c_lyr);
   rainbow_loop();
 }
 
