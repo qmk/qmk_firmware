@@ -16,7 +16,7 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 
 ## Future Ideas
 
-* Keyboard/user-extendable commands
+* Keyboard/user-extensible commands
 * Smaller footprint
 * Arrow key support
 * Command history

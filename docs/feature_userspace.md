@@ -34,9 +34,9 @@ For a brief example, checkout `/users/_example/` , or for a more detailed exampl
 
 ### Consolidated Macros 
 
-If you wanted to consoludate macros and other functions into your userspace for all of your keymaps, you can do that.  The issue is that you then cannot call any function defined in your userspace, or it gets complicated.  To better handle this, you can call the functions here and create new functions to use in individual keymaps. 
+If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  The issue is that you then cannot call any function defined in your userspace, or it gets complicated.  To better handle this, you can call the functions here and create new functions to use in individual keymaps. 
 
-First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlappind keycodes
+First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlapping keycodes
 
 Then add `#include <name.h>` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
 

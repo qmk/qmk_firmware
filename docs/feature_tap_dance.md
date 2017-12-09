@@ -150,7 +150,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// if the flash state didnt happen, then turn off leds, left to right
+// if the flash state didn't happen, then turn off LEDs, left to right
 void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_1_off();
   _delay_ms(50);
