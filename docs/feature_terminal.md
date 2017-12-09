@@ -14,7 +14,7 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 
 `#define TERMINAL_HELP` enables some other output helpers that aren't really needed with this page.
 
-## Future ideas
+## Future Ideas
 
 * Keyboard/user-extendable commands
 * Smaller footprint
@@ -30,7 +30,7 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 * EEPROM read/write
 * Audio control
 
-## Current commands
+## Current Commands
 
 ### `about`
 

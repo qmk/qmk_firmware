@@ -1,4 +1,4 @@
-# Tap Dance: A single key can do 3, 5, or 100 different things
+# Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things
 
 <!-- FIXME: Break this up into multiple sections -->
 
@@ -78,7 +78,7 @@ enum {
  X_TAP_DANCE
 };
 ```
-### Example 1: Send `:` on single tap, `;` on double tap
+### Example 1: Send `:` on Single Tap, `;` on Double Tap
 ```c
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
@@ -103,7 +103,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
 };
 ```
-### Example 2: Send "Safety Dance!" after 100 taps
+### Example 2: Send "Safety Dance!" After 100 Taps
 ```c
 void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count >= 100) {
@@ -117,7 +117,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-### Example 3: Turn LED lights on then off, one at a time
+### Example 3: Turn LED Lights On Then Off, One at a Time
 
 ```c
 // on each tap, light up one led, from right to left
