@@ -3,7 +3,7 @@
 Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code. 
 
 {% hint style='danger' %}
-**Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets ahold of your keyboard will be able to access that information by opening a text editor.
+**Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
 {% endhint %}
 
 ## The New Way: `SEND_STRING()` & `process_record_user`
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ### TAP, DOWN and UP
 
 You may want to use keys in your macros that you can't write down, such as `Ctrl` or `Home`.
-You can send arbitary keycodes by wrapping them in:
+You can send arbitrary keycodes by wrapping them in:
 
 * `SS_TAP()` presses and releases a key.
 * `SS_DOWN()` presses (but does not release) a key.

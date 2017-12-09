@@ -71,7 +71,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 The `keycode` argument is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. You should use a `switch...case` block to handle these events.
 
-The `record` argument contains infomation about the actual press:
+The `record` argument contains information about the actual press:
 
 ```
 keyrecord_t record {

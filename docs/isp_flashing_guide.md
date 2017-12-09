@@ -58,7 +58,7 @@ Then scroll down until you see something that looks like this block of code:
     #define LED_ERR   8  // This won't be used unless you have an LED hooked-up to 8 (D3)
     #define LED_PMODE 7  // This won't be used unless you have an LED hooked-up to 7 (D2)
     
-And make the changes in the last four lines. If you're using something besides the Teenys 2.0, you'll want to choose something else that makes sense for `LED_HB`. We define `RESET` as `0`/`B0` because that's what's close - if you want to use another pin for some reason, [you can use the pinouts to choose something else](https://www.pjrc.com/teensy/pinout.html). 
+And make the changes in the last four lines. If you're using something besides the Teensy 2.0, you'll want to choose something else that makes sense for `LED_HB`. We define `RESET` as `0`/`B0` because that's what's close - if you want to use another pin for some reason, [you can use the pinouts to choose something else](https://www.pjrc.com/teensy/pinout.html). 
 
 Once you've made your changes, you can click the Upload button (right arrow), which will open up the Teensy flasher app - you'll need to press the reset button on the Teensy the first time, but after that, it's automatic (you shouldn't be flashing this more than once, though). Once flashed, the orange LED on the Teensy will flash on and off, indicating it's ready for some action. 
 
