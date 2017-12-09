@@ -1,4 +1,4 @@
-# Flashing Intrustructions / Bootloader Information
+# Flashing Instructions and Bootloader Information
 
 There are quite a few different types of bootloaders that keyboards use, and just about all of the use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
@@ -102,4 +102,3 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 4. Flash a .hex file
 5. Reset the device into application mode (may be done automatically)
-

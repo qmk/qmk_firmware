@@ -4,7 +4,7 @@ This page details various common questions people have about troubleshooting the
 
 # Debug Console
 
-## hid_listen can't recognize device
+## `hid_listen` Can't Recognize Device
 When debug console of your device is not ready you will see like this:
 
 ```
@@ -23,7 +23,7 @@ If you can't get this 'Listening:' message try building with `CONSOLE_ENABLE=yes
 You may need privilege to access the device on OS like Linux.
 - try `sudo hid_listen`
 
-## Can't get message on console
+## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.
 - Enable debug with pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
@@ -31,7 +31,7 @@ Check:
 - try using 'print' function instead of debug print. See **common/print.h**.
 - disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).
 
-## Linux or UNIX like system requires Super User privilege
+## Linux or UNIX Like System Requires Super User Privilege
 Just use 'sudo' to execute *hid_listen* with privilege.
 ```
 $ sudo hid_listen
@@ -97,14 +97,14 @@ If your firmware built with `BOOTMAGIC_ENABLE` you need to turn its switch on by
 https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch
 
 
-## TrackPoint needs reset circuit(PS/2 mouse support)
+## TrackPoint Needs Reset Circuit (PS/2 Mouse Support)
 Without reset circuit you will have inconsistent reuslt due to improper initialize of the hardware. See circuit schematic of TPM754.
 
 - http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447
 - http://www.mikrocontroller.net/attachment/52583/tpm754.pdf
 
 
-## Can't read column of matrix beyond 16 
+## Can't Read Column of Matrix Beyond 16
 Use `1UL<<16` instead of `1<<16` in `read_cols()` in [matrix.h] when your columns goes beyond 16.
 
 In C `1` means one of [int] type which is [16bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say `1<<16`. You have to use [unsigned long] type with `1UL`.
@@ -112,7 +112,7 @@ In C `1` means one of [int] type which is [16bit] in case of AVR so you can't sh
 http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279
 
 
-## Bootloader jump doesn't work
+## Bootloader Jump Doesn't Work
 Properly configure bootloader size in **Makefile**. With wrong section size bootloader won't probably start with **Magic command** and **Boot Magic**.
 ```
 # Size of Bootloaders in bytes:
@@ -161,14 +161,14 @@ https://github.com/tmk/tmk_keyboard/issues/179
 
 If you are using a TeensyUSB, there is a [known bug](https://github.com/qmk/qmk_firmware/issues/164) in which the hardware reset button prevents the RESET key from working. Unplugging the keyboard and plugging it back in should resolve the problem.
 
-## Special Extra key doesn't work(System, Audio control keys)
+## Special Extra Key Doesn't Work (System, Audio Control Keys)
 You need to define `EXTRAKEY_ENABLE` in `rules.mk` to use them in QMK.
 
 ```
 EXTRAKEY_ENABLE = yes          # Audio control and System control
 ```
 
-## Wakeup from sleep doesn't work
+## Wakeup from Sleep Doesn't Work
 
 In Windows check `Allow this device to wake the computer` setting in Power **Management property** tab of **Device Manager**. Also check BIOS setting.
 
@@ -184,7 +184,7 @@ Pressing any key during sleep should wake host.
 Arduino leonardo and micro have **ATMega32U4** and can be used for TMK, though Arduino bootloader may be a problem.
 
 
-## Using PF4-7 pins of USB AVR?
+## Using PF4-7 Pins of USB AVR?
 You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega*U* or AT90USB* are affeteced with this.
 
 If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.
@@ -200,7 +200,7 @@ https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67
 And read **26.5.1 MCU Control Register – MCUCR** of ATMega32U4 datasheet.
 
 
-## Adding LED indicators of Lock keys
+## Adding LED Indicators of Lock Keys
 You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.
 
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560
@@ -218,16 +218,16 @@ http://arduino.cc/en/Main/ArduinoBoardMicro
 https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867
 
 
-## USB 3 compatibility
+## USB 3 Compatibility
 I heard some people have a problem with USB 3 port, try USB 2 port.
 
 
-## Mac compatibility
+## Mac Compatibility
 ### OS X 10.11 and Hub
 https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034
 
 
-## Problem on BIOS(UEFI)/Resume(Sleep&Wake)/Power cycles
+## Problem on BIOS (UEFI)/Resume (Sleep & Wake)/Power Cycles
 Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).
 
 As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like `CONSOLE_ENABLE`, `NKRO_ENABLE`, `SLEEP_LED_ENABLE` and/or others. 
@@ -237,7 +237,7 @@ https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778
 
 
 
-## FLIP doesn't work
-### AtLibUsbDfu.dll not found
+## FLIP Doesn't Work
+### `AtLibUsbDfu.dll` Not Found
 Remove current driver and reinstall one FLIP provides from DeviceManager.
 http://imgur.com/a/bnwzy

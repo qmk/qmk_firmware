@@ -1,4 +1,4 @@
-# Basic keycodes
+# Basic Keycodes
 
 Basic keycodes are based on [HID Usage Keyboard/Keypad Page(0x07)](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) with following exceptions:
 

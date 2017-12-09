@@ -1,4 +1,4 @@
-# Userspace: sharing code between keymaps
+# Userspace: Sharing Code Between Keymaps
 
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
 
@@ -93,4 +93,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time. 
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
-

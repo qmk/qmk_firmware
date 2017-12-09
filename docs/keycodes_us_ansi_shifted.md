@@ -1,4 +1,4 @@
-# US ANSI Shifted symbols
+# US ANSI Shifted Symbols
 
 These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboards. They do not have dedicated keycodes but are instead typed by holding down shift and then sending a keycode. 
 

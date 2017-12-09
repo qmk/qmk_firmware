@@ -80,7 +80,7 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 ```
 
-### LED control
+### LED Control
 
 Look in `rgblights.h` for all available functions, but if you want to control all or some LEDs your goto functions are:
 

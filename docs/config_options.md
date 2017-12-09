@@ -25,7 +25,7 @@ Some keyboards have folders and sub-folders to allow for different hardware conf
 
 This level contains all of the options for that particular keymap. If you wish to override a previous declaration, you can use `#undef <variable>` to undefine it, where you can then redefine it without an error.
 
-# The `config.h` file
+# The `config.h` File
 
 This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
 
@@ -164,7 +164,7 @@ If you define these options you will enable the associated feature, which may in
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
 
-## `rules.mk` options
+## `rules.mk` Options
 
 ### Build Options
 
