@@ -20,6 +20,8 @@
 #include "quantum.h"
 #define BACKLIGHT_BREATHING
 
+extern void backlight_set(uint8_t level);
+
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);
     float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -54,7 +56,6 @@ void matrix_init_kb(void)
     // we should get a flashing red light
     wdt_enable(WDTO_500MS);
 #endif
-
 
     // put your keyboard start-up code here
     // runs once when the firmware starts up
