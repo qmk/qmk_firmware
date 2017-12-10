@@ -9,6 +9,7 @@
 #define X_____X KC_TRNS
 #define KC_ATM LGUI(LSFT(KC_P))
 #define KC_ATP LGUI(LCTL(KC_P))
+#define TO_NORM TO(NORMAL_MODE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -89,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             KC_HOME,KC_END ,
                                             TO(SYMB),
-                                            GUI_T(KC_SPC),  KC_ESC ,LT(NOR_MOD, KC_ESC),
+                                            GUI_T(KC_SPC),KC_ESC ,TO_NORM,
 
 
     // Right Hand
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 _______,_______,
                                                                         _______,
-                                                        _______,_______,TT(NOR_MOD),
+                                                        _______,_______,TO_NORM,
 
     // Right Hand
                               KC_ATP , KC_6, KC_7,   KC_8,    KC_9,   KC_0,   KC_MINS,
