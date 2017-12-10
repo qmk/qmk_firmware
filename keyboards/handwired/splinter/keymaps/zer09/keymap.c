@@ -1,11 +1,6 @@
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "splinter.h"
 #include "tap_dance.h"
-#include "avr/eeprom.h"
 #include "zer09.h"
-
-extern keymap_config_t keymap_config;
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
