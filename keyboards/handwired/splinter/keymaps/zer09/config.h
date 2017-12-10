@@ -25,7 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D3
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 50
+#define ws2812_PORTREG PORTD
+#define ws2812_DDRREG DDRD
+
+/* Will hold the RGB brightness level */
+#define EECONFIG_RGB_DIM (uint8_t *)15
 #endif

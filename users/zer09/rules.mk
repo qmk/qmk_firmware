@@ -1,1 +1,1 @@
-SRC += zer09.c
+SRC += zer09.c tap_dance.c
