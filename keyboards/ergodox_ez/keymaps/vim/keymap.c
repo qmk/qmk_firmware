@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             KC_HOME,KC_END ,
                                             TO(SYMB),
-                                            GUI_T(KC_SPC),  KC_ESC ,KC_ESC,
+                                            GUI_T(KC_SPC),  KC_ESC ,_______,
 
 
     // Layer 2 Right Hand
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                             KC_HOME,KC_END ,
                                             TO(SYMB),
-                                            GUI_T(KC_SPC),  KC_ESC ,TO(NORMAL_MODE),
+                                            GUI_T(KC_SPC),  KC_ESC ,LT(NOR_MOD, KC_ESC),
 
 
     // Right Hand
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 _______,_______,
                                                                         _______,
-                                                        _______,_______,TO(NORMAL_MODE),
+                                                        _______,_______,TT(NOR_MOD),
 
     // Right Hand
                               KC_ATP , KC_6, KC_7,   KC_8,    KC_9,   KC_0,   KC_MINS,
@@ -142,8 +142,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Right Hand
                               _______,_______,_______,_______,_______,_______,_______,
-                              _______,_______,KC_BTN1,KC_BTN3,KC_BTN2,_______,_______,
-                                      KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,
+                              _______,_______,_______,KC_BTN1,KC_BTN3,KC_BTN2,_______,
+                                      _______,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,
                               _______,_______,_______,_______,_______,_______,_______,
                                               _______,_______,_______,_______,_______,
 
@@ -172,141 +172,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
 
-    case NORMAL_MODE:
-
-      // START switch(vim_queue)
-      switch (vim_queue) {
-
-        case KC_NO: print("⍉");
-
-          // START switch(is_vim_leader(keycode))
-          switch (is_vim_leader(keycode)) {
-
-            case true:
-              switch (SHIFTED) {
-                case true:
-                  // START switch keycode when leader and shifted
-                  switch (keycode) {
-
-                    case VIM_D:
-                      if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }
-                      return false;
-
-                    case VIM_C:
-                      if (record->event.pressed) { VIM_COMMAND_SHIFT_C(); }
-                      return false;
-
-                  }
-                  // END switch keycode when leader and shifted
-                case false: print("☞");
-                  if (record->event.pressed) { ENQUEUE_VIM_LEADER(keycode); }
-                  return false;
-              }
-
-            case false:
-
-              // START switch(keycode) when no vim leader
-              switch (keycode) {
-                case VIM_A:
-                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_A() : VIM_COMMAND_A(); }
-                  return false;
-
-                case VIM_B:
-                  if (record->event.pressed) { VIM_COMMAND_B(); }
-                  return false;
-
-                case VIM_E:
-                  if (record->event.pressed) { VIM_COMMAND_E(); }
-                  return false;
-
-                case VIM_H:
-                  if (record->event.pressed) { VIM_LEFT(); }
-                  return false;
-
-                case VIM_J:
-                  if (record->event.pressed) { SHIFTED ? VIM_JOIN() : VIM_DOWN(); }
-                  return false;
-
-                case VIM_K:
-                  if (record->event.pressed) { VIM_UP(); }
-                  return false;
-
-                case VIM_L:
-                  if (record->event.pressed) { VIM_RIGHT(); }
-                  return false;
-
-                case VIM_O:
-                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_O() : VIM_COMMAND_O(); }
-                  return false;
-
-                case VIM_P:
-                  if (record->event.pressed) { VIM_COMMAND_P(); }
-                  return false;
-
-                case VIM_S:
-                  if (record->event.pressed) { SHIFTED ? VIM_COMMAND_SHIFT_S() : VIM_COMMAND_S(); }
-                  return false;
-
-                case VIM_U:
-                  if (record->event.pressed) { VIM_COMMAND_U(); }
-                  return false;
-
-                case VIM_W:
-                  if (record->event.pressed) { VIM_COMMAND_W(); }
-                  return false;
-
-                case VIM_Y:
-                  if (record->event.pressed) { VIM_COMMAND_Y(); }
-                  return false;
-
-              }
-              // END switch(keycode) when no vim leader
-            }
-            // END switch(is_vim_leader(keycode))
-
-            case VIM_D: print("|vim D|");
-                if (record->event.pressed) { VIM_COMMAND_SHIFT_D(); }
-                return false;
-
-        case VIM_D:
-          // START switch(keycode) for case vim_queue != VIM_QUEUE_D
-          switch (keycode) {
-
-            case VIM_D:
-                if (record->event.pressed) { VIM_COMMAND_DD(); }
-                return false;
-
-            case VIM_W:
-                if (record->event.pressed) { VIM_COMMAND_DW(); }
-                return false;
-
-            case VIM_B:
-                if (record->event.pressed) { VIM_COMMAND_DB(); }
-                return false;
-
-            default:
-              return true;
-          }
-          // END switch(keycode) for case vim_queue != VIM_QUEUE_D
-
-        case VIM_V:
-          // START switch(keycode) for vim_queue == VIM_QUEUE_V
-          switch (keycode) {
-
-            case VIM_W:
-                if (record->event.pressed) { VIM_COMMAND_VW(); }
-                return false;
-
-            case VIM_B:
-                if (record->event.pressed) { VIM_COMMAND_VB(); }
-                return false;
-
-          }
-          // END switch(keycode) for vim_queue == VIM_QUEUE_V
-
-        case VIM_C:
-            ENQUEUE_VIM_LEADER(KC_NO);
-            return true; // placeholder until VIM_C queue is implemented
+    case VIM_A:
+      if (record->event.pressed) { SHIFTED ? VIM_APPEND_LINE() : VIM_APPEND(); }
+      return false;
 
     case VIM_B:
       if (record->event.pressed) {
