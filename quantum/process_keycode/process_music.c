@@ -279,7 +279,9 @@ void midi_on(void) {
 }
 
 void midi_off(void) {
-    process_midi_all_notes_off();
+    #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+      process_midi_all_notes_off();
+    #endif
     midi_activated = 0;
     #ifdef AUDIO_ENABLE
       PLAY_SONG(midi_off_song);
