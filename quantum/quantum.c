@@ -132,7 +132,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+  process_midi_all_notes_off();
+#endif  
+#if defined(AUDIO_ENABLE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
