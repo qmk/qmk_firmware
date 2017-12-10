@@ -1,20 +1,16 @@
-#include "splinter.h"
 #include "tap_dance.h"
+#include "splinter.h"
 
 tap ts[CT_SAFE_END] = {};
 
 void init_tap_dance(void) {
-  for (int i = CT_SAFE_START + 1; i < CT_SAFE_END; i++){
-    static tap t = {
-      .is_press_action = true,
-      .state = 0
-    };
-
+  for (int i = CT_SAFE_START + 1; i < CT_SAFE_END; i++) {
+    static tap t = {.is_press_action = true, .state = 0};
     ts[i] = t;
   }
 }
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance(qk_tap_dance_state_t *state) {
   switch (state->count) {
   case 1:
     return state->pressed ? SINGLE_HOLD : SINGLE_TAP;

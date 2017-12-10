@@ -1,10 +1,10 @@
 #ifndef SPLIT_KEYBOARD_UTIL_H
 #define SPLIT_KEYBOARD_UTIL_H
 
-#include <stdbool.h>
 #include "eeconfig.h"
+#include <stdbool.h>
 
-#define SLAVE_I2C_ADDRESS           0x32
+#define SLAVE_I2C_ADDRESS 0x32
 
 extern volatile bool isLeftHand;
 

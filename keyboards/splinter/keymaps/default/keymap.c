@@ -1,15 +1,11 @@
-#include "splinter.h"
 #include "action_layer.h"
 #include "eeconfig.h"
+#include "splinter.h"
 #include "tap_dance.h"
 
 extern keymap_config_t keymap_config;
 
-enum custom_keycodes {
-  CK_SAFE = SAFE_RANGE,
-  RGUP,
-  RGDWN
-};
+enum custom_keycodes { CK_SAFE = SAFE_RANGE, RGUP, RGDWN };
 
 typedef enum {
   DEFAULT,
@@ -26,82 +22,56 @@ typedef struct {
 #define KC_RGUP RGUP
 #define KC_RGDWN RGDWN
 
-#define _BL 0  // The base layer.
-#define _UL 1  // The up layer.
-#define _VL 3  // This is for up layer but should be used by MO with the shift key pressed.
-#define _DL 2  // The down layer.
+#define _BL 0 // The base layer.
+#define _UL 1 // The up layer.
+#define _VL 3 // This shifted up layer on MO.
+#define _DL 2 // The down layer.
 
-#define _RBWC 3  // The count of rainbow leds.
+#define _RBWC 3 // The count of rainbow leds.
 #define _RBW_LCAPS 0
 #define _RBW_RCAPS 1
 #define _RBW_SCRLK 2
 
-static uint8_t c_lyr = 0;  // current layer.
-static uint8_t dim = 0;    // rgb dimming level.
+static uint8_t c_lyr = 0; // current layer.
+static uint8_t dim = 0;   // rgb dimming level.
 static bool active_key_pos[50] = {};
 
-static rbw_key_led rbw_leds[_RBWC] = {
-  [_RBW_LCAPS] = { DEFAULT, 22 },
-  [_RBW_RCAPS] = { DEFAULT, 47 },
-  [_RBW_SCRLK] = { DEFAULT, 42 }
-};
+static rbw_key_led rbw_leds[_RBWC] = {[_RBW_LCAPS] = {DEFAULT, 22},
+                                      [_RBW_RCAPS] = {DEFAULT, 47},
+                                      [_RBW_SCRLK] = {DEFAULT, 42}};
 
-const uint32_t _PC[3] = { 0xFF, 0x00, 0x00};  // LED Red, pressed LED.
+const uint32_t _PC[3] = {0xFF, 0x00, 0x00}; // LED Red, pressed LED.
 
-const uint8_t _LC[5][3] = {
-  [_BL] = { 0x00, 0x00, 0x00 },
-  [_UL] = { 0x00, 0x00, 0xFF },
-  [_VL] = { 0xFF, 0xFF, 0x00 },
-  [_DL] = { 0x00, 0xFF, 0x00 }
-};
+const uint8_t _LC[5][3] = {[_BL] = {0x00, 0x00, 0x00},
+                           [_UL] = {0x00, 0x00, 0xFF},
+                           [_VL] = {0xFF, 0xFF, 0x00},
+                           [_DL] = {0x00, 0xFF, 0x00}};
 
 const uint8_t _LIGHTS[360] = {
-    0,   0,   0,   0,   0,   1,   1,   2,
-    2,   3,   4,   5,   6,   7,   8,  11,
-   12,   9,  13,  15,  17,  18,  20,  22,
-   24,  26,  28,  30,  32,  35,  37,  39,
-   42,  44,  47,  49,  52,  55,  58,  60,
-   63,  66,  69,  72,  75,  78,  81,  85,
-   88,  91,  94,  97, 101, 104, 107, 111,
-  114, 117, 121, 124, 127, 131, 134, 137,
-  141, 144, 147, 150, 154, 157, 160, 163,
-  167, 170, 173, 176, 179, 182, 185, 188,
-  191, 194, 197, 200, 202, 205, 208, 210,
-  213, 215, 217, 220, 222, 224, 226, 229,
-  231, 232, 234, 236, 238, 239, 241, 242,
-  244, 245, 246, 248, 249, 250, 251, 251,
-  252, 253, 253, 254, 254, 255, 255, 255,
-  255, 255, 255, 255, 254, 254, 253, 253,
-  252, 251, 251, 250, 249, 248, 246, 245,
-  244, 242, 241, 239, 238, 236, 234, 232,
-  231, 229, 226, 224, 222, 220, 217, 215,
-  213, 210, 208, 205, 202, 200, 197, 194,
-  191, 188, 185, 182, 179, 176, 173, 170,
-  167, 163, 160, 157, 154, 150, 147, 144,
-  141, 137, 134, 131, 127, 124, 121, 117,
-  114, 111, 107, 104, 101,  97,  94,  91,
-   88,  85,  81,  78,  75,  72,  69,  66,
-   63,  60,  58,  55,  52,  49,  47,  44,
-   42,  39,  37,  35,  32,  30,  28,  26,
-   24,  22,  20,  18,  17,  15,  13,  12,
-   11,   9,   8,   7,   6,   5,   4,   3,
-    2,   2,   1,   1,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,   0,   0,   0,   0,   0,   0,   0
-};
+    0,   0,   0,   0,   0,   1,   1,   2,   2,   3,   4,   5,   6,   7,   8,
+    11,  12,  9,   13,  15,  17,  18,  20,  22,  24,  26,  28,  30,  32,  35,
+    37,  39,  42,  44,  47,  49,  52,  55,  58,  60,  63,  66,  69,  72,  75,
+    78,  81,  85,  88,  91,  94,  97,  101, 104, 107, 111, 114, 117, 121, 124,
+    127, 131, 134, 137, 141, 144, 147, 150, 154, 157, 160, 163, 167, 170, 173,
+    176, 179, 182, 185, 188, 191, 194, 197, 200, 202, 205, 208, 210, 213, 215,
+    217, 220, 222, 224, 226, 229, 231, 232, 234, 236, 238, 239, 241, 242, 244,
+    245, 246, 248, 249, 250, 251, 251, 252, 253, 253, 254, 254, 255, 255, 255,
+    255, 255, 255, 255, 254, 254, 253, 253, 252, 251, 251, 250, 249, 248, 246,
+    245, 244, 242, 241, 239, 238, 236, 234, 232, 231, 229, 226, 224, 222, 220,
+    217, 215, 213, 210, 208, 205, 202, 200, 197, 194, 191, 188, 185, 182, 179,
+    176, 173, 170, 167, 163, 160, 157, 154, 150, 147, 144, 141, 137, 134, 131,
+    127, 124, 121, 117, 114, 111, 107, 104, 101, 97,  94,  91,  88,  85,  81,
+    78,  75,  72,  69,  66,  63,  60,  58,  55,  52,  49,  47,  44,  42,  39,
+    37,  35,  32,  30,  28,  26,  24,  22,  20,  18,  17,  15,  13,  12,  11,
+    9,   8,   7,   6,   5,   4,   3,   2,   2,   1,   1,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0};
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,            KC_Y,              KC_F,           KC_G,            KC_C,            KC_R,           KC_L,        \
@@ -131,7 +101,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_VL] = _upLayer
 };
 
-#define SET_LED_RGB(r, g, b, d, p) setrgb(r >> d, g >> d, b >> d, (LED_TYPE *)&led[p])
+#define SET_LED_RGB(r, g, b, d, p)                                             \
+  setrgb(r >> d, g >> d, b >> d, (LED_TYPE *)&led[p])
 
 void set_key_led(keyrecord_t *record) {
   static const uint8_t base = 5;
@@ -212,7 +183,7 @@ void rainbow_loop(void) {
   for (uint8_t i = 0; i < _RBWC; i++) {
     pos = rbw_leds[i].pos;
 
-    switch(rbw_leds[i].status){
+    switch (rbw_leds[i].status) {
     case ENABLED:
       if (!active_key_pos[pos]) {
         SET_LED_RGB(r, g, b, dim, pos);
@@ -256,13 +227,15 @@ bool led_brightness(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_N_TILDE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
-  [CT_ESC_GRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset),
-  [CT_LGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lgui_alt_finished, lgui_alt_reset),
-  [CT_RGUI_ALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)
-};
+qk_tap_dance_action_t tap_dance_actions[] =
+    {[CT_N_TILDE] =
+         ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
+     [CT_ESC_GRV] =
+         ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset),
+     [CT_LGUI_ALT] =
+         ACTION_TAP_DANCE_FN_ADVANCED(NULL, lgui_alt_finished, lgui_alt_reset),
+     [CT_RGUI_ALT] =
+         ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   set_key_led(record);
@@ -284,9 +257,7 @@ void matrix_scan_user(void) {
   rainbow_loop();
 }
 
-void matrix_init_user(void) {
-  init_tap_dance();
-}
+void matrix_init_user(void) { init_tap_dance(); }
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {

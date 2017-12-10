@@ -25,16 +25,16 @@ typedef struct {
 } tap;
 
 void init_tap_dance(void);
-int cur_dance(qk_tap_dance_state_t*);
+int cur_dance(qk_tap_dance_state_t *);
 
-void n_tilde_finished(qk_tap_dance_state_t*, void*);
-void n_tilde_reset(qk_tap_dance_state_t*, void*);
+void n_tilde_finished(qk_tap_dance_state_t *, void *);
+void n_tilde_reset(qk_tap_dance_state_t *, void *);
 
-void esc_grv_finished(qk_tap_dance_state_t*, void*);
-void esc_grv_reset(qk_tap_dance_state_t*, void*);
+void esc_grv_finished(qk_tap_dance_state_t *, void *);
+void esc_grv_reset(qk_tap_dance_state_t *, void *);
 
-void lgui_alt_finished(qk_tap_dance_state_t*, void*);
-void lgui_alt_reset(qk_tap_dance_state_t*, void*);
+void lgui_alt_finished(qk_tap_dance_state_t *, void *);
+void lgui_alt_reset(qk_tap_dance_state_t *, void *);
 
-void rgui_alt_finished(qk_tap_dance_state_t*, void*);
-void rgui_alt_reset(qk_tap_dance_state_t*, void*);
+void rgui_alt_finished(qk_tap_dance_state_t *, void *);
+void rgui_alt_reset(qk_tap_dance_state_t *, void *);
