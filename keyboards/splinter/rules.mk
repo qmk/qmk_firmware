@@ -50,6 +50,12 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = caterina
+
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
