@@ -143,7 +143,8 @@ void reset_keyboard(void) {
 #else
   wait_ms(250);
 #endif
-#ifdef CATERINA_BOOTLOADER
+// this is also done later in bootloader.c - not sure if it's neccesary here
+#ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
 #endif
   bootloader_jump();
@@ -235,8 +236,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
+  #ifdef AUTO_SHIFT_ENABLE
+    process_auto_shift(keycode, record) &&
+  #endif
   #ifdef UNICODEMAP_ENABLE
     process_unicode_map(keycode, record) &&
+  #endif
+  #ifdef TERMINAL_ENABLE
+    process_terminal(keycode, record) &&
   #endif
       true)) {
     return false;
@@ -279,9 +286,26 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_toggle();
     }
     return false;
-  case RGB_MOD:
+  case RGB_MODE_FORWARD:
     if (record->event.pressed) {
-      rgblight_step();
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgblight_step_reverse();
+      }
+      else {
+        rgblight_step();
+      }
+    }
+    return false;
+  case RGB_MODE_REVERSE:
+    if (record->event.pressed) {
+      uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
+      if(shifted) {
+        rgblight_step();
+      }
+      else {
+        rgblight_step_reverse();
+      }
     }
     return false;
   case RGB_HUI:
@@ -529,11 +553,34 @@ bool process_record_quantum(keyrecord_t *record) {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
 
-#ifdef GRAVE_ESC_CTRL_OVERRIDE
-      // if CTRL is pressed, ESC is always read as ESC, even if SHIFT or GUI is pressed.
-      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
-      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
+#ifdef GRAVE_ESC_ALT_OVERRIDE
+      // if ALT is pressed, ESC is always sent
+      // this is handy for the cmd+opt+esc shortcut on macOS, among other things.
+      if (get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))) {
         shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_CTRL_OVERRIDE
+      // if CTRL is pressed, ESC is always sent
+      // this is handy for the ctrl+shift+esc shortcut on windows, among other things.
+      if (get_mods() & (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))) {
+        shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_GUI_OVERRIDE
+      // if GUI is pressed, ESC is always sent
+      if (get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))) {
+        shifted = 0;
+      }
+#endif
+
+#ifdef GRAVE_ESC_SHIFT_OVERRIDE
+      // if SHIFT is pressed, ESC is always sent
+      if (get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) {
+        shifted = 0;
+      }
 #endif
 
       if (record->event.pressed) {
@@ -600,26 +647,74 @@ void send_string(const char *str) {
   send_string_with_delay(str, 0);
 }
 
+void send_string_P(const char *str) {
+  send_string_with_delay_P(str, 0);
+}
+
 void send_string_with_delay(const char *str, uint8_t interval) {
     while (1) {
-        uint8_t keycode;
-        uint8_t ascii_code = pgm_read_byte(str);
+        char ascii_code = *str;
         if (!ascii_code) break;
-        keycode = pgm_read_byte(&ascii_to_keycode_lut[ascii_code]);
-        if (pgm_read_byte(&ascii_to_shift_lut[ascii_code])) {
-            register_code(KC_LSFT);
-            register_code(keycode);
-            unregister_code(keycode);
-            unregister_code(KC_LSFT);
-        }
-        else {
-            register_code(keycode);
-            unregister_code(keycode);
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = *(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = *(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
         }
         ++str;
         // interval
         { uint8_t ms = interval; while (ms--) wait_ms(1); }
     }
+}
+
+void send_string_with_delay_P(const char *str, uint8_t interval) {
+    while (1) {
+        char ascii_code = pgm_read_byte(str);
+        if (!ascii_code) break;
+        if (ascii_code == 1) {
+          // tap
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+          unregister_code(keycode);
+        } else if (ascii_code == 2) {
+          // down
+          uint8_t keycode = pgm_read_byte(++str);
+          register_code(keycode);
+        } else if (ascii_code == 3) {
+          // up
+          uint8_t keycode = pgm_read_byte(++str);
+          unregister_code(keycode);
+        } else {
+          send_char(ascii_code);
+        }
+        ++str;
+        // interval
+        { uint8_t ms = interval; while (ms--) wait_ms(1); }
+    }
+}
+
+void send_char(char ascii_code) {
+  uint8_t keycode;
+  keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
+  if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) {
+      register_code(KC_LSFT);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_LSFT);
+  } else {
+      register_code(keycode);
+      unregister_code(keycode);
+  }
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
@@ -840,6 +935,11 @@ void backlight_task(void) {
 
 #ifdef BACKLIGHT_BREATHING
 
+#ifdef NO_BACKLIGHT_CLOCK
+void breathing_defaults(void) {}
+void breathing_intensity_default(void) {}
+#else
+
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
 #define BREATHING_HALT_ON  2
@@ -1039,8 +1139,7 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
-
-
+#endif // NO_BACKLIGHT_CLOCK
 #endif // breathing
 
 #else // backlight
@@ -1102,6 +1201,7 @@ void send_nibble(uint8_t number) {
 __attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex)
 {
+  hex = hex & 0xF;
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {

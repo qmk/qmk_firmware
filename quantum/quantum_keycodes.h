@@ -121,6 +121,11 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
+    // Auto Shift setup
+    KC_ASUP,
+    KC_ASDN,
+    KC_ASRP,
+
     // Audio on/off/toggle
     AU_ON,
     AU_OFF,
@@ -394,7 +399,8 @@ enum quantum_keycodes {
 
     // RGB functionality
     RGB_TOG,
-    RGB_MOD,
+    RGB_MODE_FORWARD,
+    RGB_MODE_REVERSE,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
@@ -429,6 +435,11 @@ enum quantum_keycodes {
 
 #ifdef KEY_LOCK_ENABLE
     KC_LOCK,
+#endif
+
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
 #endif
 
     // always leave at the end
@@ -541,6 +552,10 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define RGB_MOD RGB_MODE_FORWARD
+#define RGB_SMOD RGB_MODE_FORWARD
+#define RGB_RMOD RGB_MODE_REVERSE
 
 #define RGB_M_P RGB_MODE_PLAIN
 #define RGB_M_B RGB_MODE_BREATHE

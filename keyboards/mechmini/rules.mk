@@ -20,10 +20,15 @@ PROTOCOL = VUSB
 # unsupported features for now
 NO_UART = yes
 NO_SUSPEND_POWER_DOWN = yes
-BACKLIGHT_ENABLE = no
 
 # processor frequency
 F_CPU = 12000000
+
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = atmel-dfu
 
 # build options
 BOOTMAGIC_ENABLE = yes
@@ -31,13 +36,15 @@ MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c
+SRC = matrix.c i2c.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/mechmini/program $(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

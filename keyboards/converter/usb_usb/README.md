@@ -9,17 +9,22 @@ Hardware Availability: [GH thread](https://geekhack.org/index.php?topic=72052.0)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make converter-usb_usb-default
+    make converter/usb_usb:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
+Note that you have to choose the right hardware variant as your subproject, otherwise you will probably have issues.
+
 Troubleshooting & Known Issues
 ------------------------------
-The Pro Micro variant runs at 8MHz, hence the following line in `usb_usb/rules.mk`:
-`F_CPU ?= 8000000`
-If the firmware doesn't work, try changing that line to
-`F_CPU ?= 16000000`
-or override the `F_CPU` variable in the `rules.mk` of your keymap.
+If something doesn't work, it's probably because of the CPU clock. 
+Be sure to select the correct subproject (the middle part of the `make` argument) according to your hardware. 
+If you are sure you have this correct, try changeing the default in `usb_usb/rules.mk` or overriding the value in the `rules.mk` of your keymap.
+
+The Pro Micro variant uses a 3.3V Pro Micro and thus runs at 8MHz, hence the following line in `usb_usb/pro_micro/rules.mk`:
+`F_CPU = 8000000`
+The converter sold by Hasu runs at 16MHz and so the corresponding line in `usb_usb/hasu/rules.mk` is:
+`F_CPU = 16000000`
 
 Getting the Hardware
 --------------------
