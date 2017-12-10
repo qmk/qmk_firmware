@@ -2,6 +2,7 @@
 #include "eeconfig.h"
 #include "splinter.h"
 #include "tap_dance.h"
+#include "avr/eeprom.h"
 
 extern keymap_config_t keymap_config;
 
@@ -210,6 +211,7 @@ bool led_brightness(uint16_t keycode, keyrecord_t *record) {
   case RGUP:
     if (record->event.pressed && dim > 0) {
       dim--;
+      eeprom_write_byte(EECONFIG_RGB_DIM, dim);
     }
 
     return true;
@@ -217,6 +219,7 @@ bool led_brightness(uint16_t keycode, keyrecord_t *record) {
   case RGDWN:
     if (record->event.pressed && dim < 8) {
       dim++;
+      eeprom_write_byte(EECONFIG_RGB_DIM, dim);
     }
 
     return true;
@@ -257,7 +260,20 @@ void matrix_scan_user(void) {
   rainbow_loop();
 }
 
-void matrix_init_user(void) { init_tap_dance(); }
+void read_eeprom(void) {
+  /* read RGB dim value */
+  dim = eeprom_read_byte(EECONFIG_RGB_DIM);
+
+  if (dim > 8 || dim < 0) {
+    dim = 0;
+    eeprom_write_byte(EECONFIG_RGB_DIM, 0);
+  }
+}
+
+void matrix_init_user(void) {
+  init_tap_dance();
+  read_eeprom();
+}
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1 << USB_LED_CAPS_LOCK)) {

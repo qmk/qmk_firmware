@@ -59,4 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
+/* Will hold the RGB brightness level */
+#define EECONFIG_RGB_DIM         				(uint8_t *)15
+
 #endif
