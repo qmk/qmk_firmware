@@ -71,13 +71,10 @@
     Q__NOTE(_B4), Q__NOTE(_C4), Q__NOTE(_B4), E__NOTE(_A4), Q__NOTE(_G3), M__NOTE(_G3, 8+32), Q__NOTE(_REST), \
     Q__NOTE(_B4), Q__NOTE(_C4), Q__NOTE(_B4), E__NOTE(_A4), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), E__NOTE(_A4), E__NOTE(_C4), QD_NOTE(_B4), HD_NOTE(_B4)
 
-/*
 #define STARTUP_SOUND  \
     E__NOTE(_E6),     \
     E__NOTE(_A6),     \
     ED_NOTE(_E7),
-*/
-#define STARTUP_SOUND CLUEBOARD_SOUND
 
 #define GOODBYE_SOUND \
     E__NOTE(_E7),     \
