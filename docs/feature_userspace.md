@@ -1,4 +1,4 @@
-# Userspace: sharing code between keymaps
+# Userspace: Sharing Code Between Keymaps
 
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
 
@@ -18,7 +18,7 @@ All this only happens when you build a keymap named `<name>`, like this:
 
     make planck:<name>
 
-For example, 
+For example,
 
     make planck:jack
 
@@ -32,11 +32,11 @@ Please include authorship (your name, github username, email), and optionally [a
 
 For a brief example, checkout `/users/_example/` , or for a more detailed examples check out [`template.h`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.h) and [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in `/users/drashna/` .
 
-### Consolidated Macros 
+### Consolidated Macros
 
-If you wanted to consoludate macros and other functions into your userspace for all of your keymaps, you can do that.  The issue is that you then cannot call any function defined in your userspace, or it gets complicated.  To better handle this, you can call the functions here and create new functions to use in individual keymaps. 
+If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  The issue is that you then cannot call any function defined in your userspace, or it gets complicated.  To better handle this, you can call the functions here and create new functions to use in individual keymaps.
 
-First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlappind keycodes
+First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlapping keycodes
 
 Then add `#include <name.h>` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
 
@@ -47,7 +47,7 @@ Once you've done that, you'll want to set the keycode definitions that you need 
 
 #include "quantum.h"
 
-// Define all of 
+// Define all of
 enum custom_keycodes {
   KC_MAKE = SAFE_RANGE,
   NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE" for keymap specific codes
@@ -90,7 +90,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time. 
+This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
-

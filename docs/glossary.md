@@ -1,4 +1,4 @@
-# Glossary of QMK terms
+# Glossary of QMK Terms
 
 ## ARM
 A line of 32-bit MCU's produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
@@ -50,7 +50,7 @@ The software that controls your MCU.
 Software provided by Atmel for flashing AVR devices. We generally recommend [QMK Flasher](https://github.com/qmk/qmk_flasher) instead, but for some advanced use cases FLIP is required.
 
 ## git
-Versioning software used at the commandline
+Versioning software used at the command line
 
 ## GitHub
 The website that hosts most of the QMK project. It provides integration with git, issue tracking, and other features that help us run QMK.
@@ -91,7 +91,7 @@ Software package that is used to compile all the source files. You run `make` wi
 A wiring pattern of columns and rows that enables the MCU to detect keypresses with a fewer number of pins. The matrix often incorporates diodes to allow for NKRO.
 
 ## Macro
-A feature that lets you send muiltple keypress events (hid reports) after having pressed only a single key.
+A feature that lets you send multiple keypress events (hid reports) after having pressed only a single key.
 
 * [Macro Documentation](feature_macros.md)
 
@@ -139,12 +139,12 @@ A special set of shift keys which allow you to type various types of braces by t
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.
 
 ## Tap Dance
-A feature that lets you assign muiltple keycodes to the same key based on how many times you press it.
+A feature that lets you assign multiple keycodes to the same key based on how many times you press it.
 
 * [Tap Dance Documentation](feature_tap_dance.md)
 
 ## Teensy
-A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollors more due to its halfkay bootloader, which makes flashing very simple.
+A low-cost AVR development board that is commonly used for hand-wired builds. A teensy is often chosen despite costing a few dollars more due to its halfkay bootloader, which makes flashing very simple.
 
 ## Underlight
 A generic term for LEDs that light the underside of the board. These LED's typically shine away from the bottom of the PCB and towards the surface the keyboard rests on.
@@ -165,6 +165,6 @@ Universal Serial Bus, the most common wired interface for a keyboard.
 ## USB Host (or simply Host)
 The USB Host is your computer, or whatever device your keyboard is plugged into.
 
-# Couldn't find the term you're looking for?
+# Couldn't Find the Term You're Looking For?
 
-[Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)  
+[Open an issue](https://github.com/qmk/qmk_firmware/issues) with your question and the term in question could be added here. Better still, open a pull request with the definition. :)
