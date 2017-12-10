@@ -11,3 +11,6 @@
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest
+[submodule "lib/I2C-master-lib"]
+	path = lib/I2C-master-lib
+	url = git@github.com:BalzGuenat/I2C-master-lib.git
