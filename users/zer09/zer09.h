@@ -16,6 +16,9 @@ typedef struct {
   uint8_t pos;
 } rbw_key_led;
 
+/* Will hold the RGB brightness level */
+#define EECONFIG_RGB_DIM (uint8_t *)15
+
 #define _______ KC_TRNS
 #define KC_RGUP RGUP
 #define KC_RGDWN RGDWN
