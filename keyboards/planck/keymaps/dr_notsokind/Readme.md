@@ -16,7 +16,7 @@ BTW, I don't use Dvorak or other layouts than QWERTY and I'm too old and grumpy 
 3. Alt and Super. Switched them too.
 
 ## Needs, changes and goals
-1. Arrow keys and distributed "traditionally".
+1. Arrow keys distributed "traditionally".
 2. Media keys easily accessible.
 3. A button for Sleep/Power.
 4. As close as possible to a US QWERTY layout.
@@ -31,6 +31,10 @@ I've been experimenting a lot and I think I'm getting closer to my customization
 ### Main Layer / QWERTY
 
 Apart from the default, lower and raise, I added an extra Media/Action layer, for volume and playback control, plus some keyboard actions such as Print Screen, Insert, Calculator or Power/Sleep/Wake. Also in the Media layer, you can record two different macros and reproduce them.
+
+### About the volume up and down
+
+That was a hard deciusion. I wanted the vol up, down and mute easily accessible, and in an obvious palce. I finally decided to use the `Raise` and `Lower` modifier keys to manage the volume, in combination with the `Media` key. This could look a little weird, since the modifier keys are having a different function than modify the layer, but ended up working fairly well, so while pressing `Media` you have the `Lower` key to put the volume down, `Raise` to raise the volume, and `Space` for mute.
 
 #### How to record and play dynamic Macros
 
