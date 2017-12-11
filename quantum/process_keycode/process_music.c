@@ -25,6 +25,7 @@
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
 bool music_activated = false;
+bool midi_activated = false;
 uint8_t music_starting_note = 0x0C;
 int music_offset = 7;
 uint8_t music_mode = MUSIC_MODE_CHROMATIC;
@@ -47,6 +48,12 @@ static uint16_t music_sequence_interval = 100;
   #ifndef MUSIC_OFF_SONG
     #define MUSIC_OFF_SONG SONG(MUSIC_OFF_SOUND)
   #endif
+  #ifndef MIDI_ON_SONG
+    #define MIDI_ON_SONG SONG(MUSIC_ON_SOUND)
+  #endif
+  #ifndef MIDI_OFF_SONG
+    #define MIDI_OFF_SONG SONG(MUSIC_OFF_SOUND)
+  #endif
   #ifndef CHROMATIC_SONG
     #define CHROMATIC_SONG SONG(CHROMATIC_SOUND)
   #endif
@@ -67,6 +74,8 @@ static uint16_t music_sequence_interval = 100;
   };
   float music_on_song[][2] = MUSIC_ON_SONG;
   float music_off_song[][2] = MUSIC_OFF_SONG;
+  float midi_on_song[][2] = MIDI_ON_SONG;
+  float midi_off_song[][2] = MIDI_OFF_SONG;
 #endif
 
 #ifndef MUSIC_MASK
@@ -75,28 +84,34 @@ static uint16_t music_sequence_interval = 100;
 
 static void music_noteon(uint8_t note) {
     #ifdef AUDIO_ENABLE
-    process_audio_noteon(note);
+    if (music_activated)
+      process_audio_noteon(note);
     #endif
     #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_basic_noteon(note);
+    if (midi_activated)
+      process_midi_basic_noteon(note);
     #endif
 }
 
 static void music_noteoff(uint8_t note) {
     #ifdef AUDIO_ENABLE
-    process_audio_noteoff(note);
+    if (music_activated)
+      process_audio_noteoff(note);
     #endif
     #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_basic_noteoff(note);
+    if (midi_activated)
+      process_midi_basic_noteoff(note);
     #endif
 }
 
 void music_all_notes_off(void) {
     #ifdef AUDIO_ENABLE
-    process_audio_all_notes_off();
+    if (music_activated)
+      process_audio_all_notes_off();
     #endif
     #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-    process_midi_all_notes_off();
+    if (midi_activated)
+      process_midi_all_notes_off();
     #endif
 }
 
@@ -105,7 +120,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
     if (keycode == MU_ON && record->event.pressed) {
         music_on();
         return false;
-    }
+    }    
 
     if (keycode == MU_OFF && record->event.pressed) {
         music_off();
@@ -121,12 +136,31 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    if (keycode == MI_ON && record->event.pressed) {
+        midi_on();
+        return false;
+    }    
+
+    if (keycode == MI_OFF && record->event.pressed) {
+        midi_off();
+        return false;
+    }
+
+    if (keycode == MI_TOG && record->event.pressed) {
+        if (midi_activated) {
+            midi_off();
+        } else {
+            midi_on();
+        }
+        return false;
+    }
+
     if (keycode == MU_MOD && record->event.pressed) {
       music_mode_cycle();
       return false;
     }
 
-    if (music_activated) {
+    if (music_activated || midi_activated) {
       if (record->event.pressed) {
         if (keycode == KC_LCTL) { // Start recording
           music_all_notes_off();
@@ -224,6 +258,36 @@ void music_off(void) {
     #endif
 }
 
+bool is_midi_on(void) {
+    return (midi_activated != 0);
+}
+
+void midi_toggle(void) {
+    if (!midi_activated) {
+        midi_on();
+    } else {
+        midi_off();
+    }
+}
+
+void midi_on(void) {
+    midi_activated = 1;
+    #ifdef AUDIO_ENABLE
+      PLAY_SONG(midi_on_song);
+    #endif
+    midi_on_user();
+}
+
+void midi_off(void) {
+    #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+      process_midi_all_notes_off();
+    #endif
+    midi_activated = 0;
+    #ifdef AUDIO_ENABLE
+      PLAY_SONG(midi_off_song);
+    #endif
+}
+
 void music_mode_cycle(void) {
   music_all_notes_off();
   music_mode = (music_mode + 1) % NUMBER_OF_MODES;
@@ -247,6 +311,9 @@ void matrix_scan_music(void) {
 
 __attribute__ ((weak))
 void music_on_user() {}
+
+__attribute__ ((weak))
+void midi_on_user() {}
 
 __attribute__ ((weak))
 void music_scale_user() {}

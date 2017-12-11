@@ -5,9 +5,12 @@
 
 #ifdef KEYBOARD_lets_split_rev1
     #include "rev1.h"
-#else
+#elif KEYBOARD_lets_split_rev2
     #include "rev2.h"
+#elif KEYBOARD_lets_split_sockets
+    #include "sockets.h"
 #endif
+
 
 // Used to create a keymap using only KC_ prefixed keys
 #define KC_KEYMAP( \

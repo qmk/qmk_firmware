@@ -51,6 +51,8 @@ void default_layer_xor(uint32_t state);
 extern uint32_t layer_state;
 void layer_debug(void);
 void layer_clear(void);
+bool layer_state_is(uint8_t layer);
+bool layer_state_cmp(uint32_t layer1, uint8_t layer2);
 void layer_move(uint8_t layer);
 void layer_on(uint8_t layer);
 void layer_off(uint8_t layer);
@@ -72,6 +74,8 @@ void layer_xor(uint32_t state);
 #define layer_xor(state)
 #define layer_debug()
 
+__attribute__((weak))
+uint32_t layer_state_set_user(uint32_t state);
 __attribute__((weak))
 uint32_t layer_state_set_kb(uint32_t state);
 #endif

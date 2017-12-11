@@ -13,11 +13,11 @@ People often define custom names using `#define`. For example:
 
 This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
 
-### Limits of these aliases
+### Limits of These Aliases
 
-Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.html), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.html).
+Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.md), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.md).
 
-# Switching and toggling layers
+# Switching and Toggling Layers
 
 These functions allow you to activate layers in various ways.
 
@@ -27,7 +27,7 @@ These functions allow you to activate layers in various ways.
 * `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
 
-# Working With Layers
+# Working with Layers
 
 Care must be taken when switching layers, it's possible to lock yourself into a layer with no way to deactivate that layer (without unplugging your keyboard.) We've created some guidelines to help users avoid the most common problems.
 
@@ -41,7 +41,7 @@ If you are just getting started with QMK you will want to keep everything simple
 
 ### Intermediate Users
 
-Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off. 
+Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off.
 
 ### Advanced Users
 
@@ -49,7 +49,9 @@ Once you have a good feel for how layers work and what you can do, you can get m
 
 Layers stack on top of each other in numerical order. When determining what a keypress does, QMK scans the layers from the top down, stopping when it reaches the first active layer that is not set to `KC_TRNS`. As a result if you activate a layer that is numerically lower than your current layer, and your current layer (or another layer that is active and higher than your target layer) has something other than `KC_TRNS`, that is the key that will be sent, not the key on the layer you just activated. This is the cause of most people's "why doesn't my layer get switched" problem.
 
-# Modifier keys
+Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](../tmk_core/common/action_layer.h).
+
+# Modifier Keys
 
 These functions allow you to combine a mod with a keycode. When pressed the keydown for the mod will be sent first, and then *kc* will be sent. When released the keyup for *kc* will be sent and then the mod will be sent.
 
@@ -73,29 +75,29 @@ You can also chain these, like this:
 
 The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
 
-|Name|Description|
-|----|-----------|
-| KC_TILD | ~ |
-| KC_EXLM | ! |
-| KC_QUES | ? |
-| KC_AT | @ |
-| KC_HASH | # |
-| KC_DLR  | $ |
-| KC_PERC | % |
-| KC_CIRC | ^ |
-| KC_AMPR | & |
-| KC_ASTR | * |
-| KC_LPRN | ( |
-| KC_RPRN | ) |
-| KC_UNDS | _ |
-| KC_PLUS | + |
-| KC_DQUO | " |
-| KC_LCBR | { |
-| KC_RCBR | } |
-| KC_LABK | < |
-| KC_RABK | > |
-| KC_PIPE | &#x7C; |
-| KC_COLN | : |
+|Key                     |Aliases           |Description        |
+|------------------------|------------------|-------------------|
+|`KC_TILDE`              |`KC_TILD`         |`~`                |
+|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
+|`KC_AT`                 |                  |`@`                |
+|`KC_HASH`               |                  |`#`                |
+|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
+|`KC_PERCENT`            |`KC_PERC`         |`%`                |
+|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
+|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
+|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
+|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
+|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
+|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
+|`KC_PLUS`               |                  |`+`                |
+|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
+|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
+|`KC_PIPE`               |                  |<code>&#124;</code>|
+|`KC_COLON`              |`KC_COLN`         |`:`                |
+|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
+|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
+|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
+|`KC_QUESTION`           |`KC_QUES`         |`?`                |
 
 # Mod Tap
 
@@ -129,7 +131,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 # One Shot Keys
 
-One shot keys are keys that remain active until the next key is pressed, and then are releasd. This allows you to type keyboard combinations without pressing more than one key at a time.
+One shot keys are keys that remain active until the next key is pressed, and then are released. This allows you to type keyboard combinations without pressing more than one key at a time. These keys are usually called "Sticky keys" or "Dead keys".
 
 For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A character by first pressing and releasing shift, and then pressing and releasing A. Your computer will see the shift key being held the moment shift is pressed, and it will see the shift key being released immediately after A is released.
 
@@ -144,6 +146,8 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
+
+Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](../tmk_core/common/action.c#L429).
 
 ## Permissive Hold
 

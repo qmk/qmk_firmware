@@ -61,5 +61,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#endif
 
 #endif
