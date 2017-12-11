@@ -1,4 +1,4 @@
-# kloki daily driver
+#kloki
 
 -workman
 -qwerty layer
