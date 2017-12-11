@@ -25,7 +25,7 @@ Some keyboards have folders and sub-folders to allow for different hardware conf
 
 This level contains all of the options for that particular keymap. If you wish to override a previous declaration, you can use `#undef <variable>` to undefine it, where you can then redefine it without an error.
 
-# The `config.h` file
+# The `config.h` File
 
 This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
 
@@ -84,7 +84,7 @@ This is a C header file that is one of the first things included, and will persi
 If you define these options you will disable the associated feature, which can save on code size.
 
 * `#define NO_DEBUG`
-  * disable debuging
+  * disable debugging
 * `#define NO_PRINT`
   * disable printing/debugging using hid_listen
 * `#define NO_ACTION_LAYER`
@@ -103,7 +103,7 @@ If you define these options you will disable the associated feature, which can s
 If you define these options you will enable the associated feature, which may increase your code size.
 
 * `#define FORCE_NKRO`
-  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of eeprom setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
+  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define PREVENT_STUCK_MODIFIERS`
   * when switching layers, this will release all mods
 
@@ -146,11 +146,11 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
-  * units to step when in/decresing saturation
+  * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
 * `#define RGBW_BB_TWI`
-  * bit-bangs twi to EZ RGBW LEDs (only required for Ergodox EZ)
+  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
 
 ### Mouse Key Options
 
@@ -164,7 +164,7 @@ If you define these options you will enable the associated feature, which may in
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
 
-## `rules.mk` options
+## `rules.mk` Options
 
 ### Build Options
 
@@ -204,7 +204,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `NKRO_ENABLE`
-  * USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+  * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `RGBLIGHT_ENABLE`

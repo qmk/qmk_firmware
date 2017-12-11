@@ -244,9 +244,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_MAKE,        KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
                 KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
                 KC_TRNS,          KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
-                                                                  KC_TRNS, KC_TRNS,
-                                                                  KC_TRNS,
-                                                                  KC_TRNS, KC_TRNS, KC_TRNS,
+                                                                  RGB_SMOD, KC_RGB_T,
+                                                                  RGB_HUI,
+                                                                  RGB_M_R, RGB_M_SW, RGB_HUD,
                 
                 KC_QWERTY,   KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_F11,
                 KC_DVORAK,   KC_KP_PLUS, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_ASTERISK, KC_F12,
