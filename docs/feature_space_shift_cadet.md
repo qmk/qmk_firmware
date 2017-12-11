@@ -10,7 +10,7 @@ It's defaulted to work on US keyboards, but if you'd like to use a different key
     #define SFTENT_KEY KC_ENT
 
 
-The only other thing you're going to want to do is create a `Makefile` in your keymap directory and set the following:
+The only other thing you're going to want to do is create a `rules.mk` in your keymap directory and set the following:
 
 ```
 COMMAND_ENABLE   = no  # Commands for debug and configuration
