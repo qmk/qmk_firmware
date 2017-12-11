@@ -1,4 +1,4 @@
-# kloki daily driver
+# Kloki's ergodone layout
 
 -workman
 -qwerty layer

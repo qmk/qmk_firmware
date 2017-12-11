@@ -1,4 +1,4 @@
-#kloki
+# Kloki's xd75 layout
 
 -workman
 -qwerty layer
