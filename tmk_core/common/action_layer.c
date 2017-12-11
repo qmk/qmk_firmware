@@ -88,6 +88,16 @@ void layer_clear(void)
     layer_state_set(0);
 }
 
+bool layer_state_is(uint8_t layer)
+{
+    return layer_state_cmp(layer_state, layer);
+}
+
+bool layer_state_cmp(uint32_t cmp_layer_state, uint8_t layer) {
+    if (layer == 0) { return cmp_layer_state == 0; }
+    return (cmp_layer_state & (1UL<<layer)) > 0;
+}
+
 void layer_move(uint8_t layer)
 {
     layer_state_set(1UL<<layer);

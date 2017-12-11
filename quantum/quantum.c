@@ -132,7 +132,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void reset_keyboard(void) {
   clear_keyboard();
-#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_ENABLE_BASIC))
+#if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
+  process_midi_all_notes_off();
+#endif  
+#if defined(AUDIO_ENABLE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
@@ -935,6 +938,11 @@ void backlight_task(void) {
 
 #ifdef BACKLIGHT_BREATHING
 
+#ifdef NO_BACKLIGHT_CLOCK
+void breathing_defaults(void) {}
+void breathing_intensity_default(void) {}
+#else
+
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
 #define BREATHING_HALT_ON  2
@@ -1134,6 +1142,7 @@ ISR(TIMER1_COMPA_vect)
 
 }
 
+#endif // NO_BACKLIGHT_CLOCK
 #endif // breathing
 
 #else // backlight
