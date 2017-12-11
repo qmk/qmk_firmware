@@ -73,7 +73,7 @@ uint32_t layer_state_set_kb(uint32_t state) {
     return layer_state_set_user(state);
 }
 
-static void layer_state_set(uint32_t state)
+void layer_state_set(uint32_t state)
 {
     state = layer_state_set_kb(state);
     dprint("layer_state: ");
