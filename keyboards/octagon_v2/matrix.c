@@ -28,7 +28,7 @@ static uint8_t debouncing = DEBOUNCING_DELAY;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static uint8_t read_rows(void);
+static uint8_t read_rows(uint8_t col);
 static uint8_t read_fwkey(void);
 static void init_rows(void);
 static void unselect_cols(void);
@@ -87,7 +87,7 @@ uint8_t matrix_scan(void) {
     select_col(col);
     _delay_us(3);
 
-    uint8_t rows = read_rows();
+    uint8_t rows = read_rows(col);
     if(col == 0) {
       rows |= read_fwkey();
     }
@@ -134,23 +134,27 @@ void matrix_print(void) {
  * Esc uses its own pin PE2
  */
 static void init_rows(void) {
-  DDRB  &= ~0b10000000;
-  PORTB &= ~0b10000000;
+    DDRD  &= ~0b00101111;
+    PORTD &= ~0b00101111;
 
-  DDRD  &= ~0b00101111;
-  PORTD &= ~0b00101111;
+    DDRB  &= ~0b10000000;
+    PORTB &= ~0b10000000;
 
-  DDRE  &= ~0b00000100;
-  PORTE |=  0b00000100;
+    DDRE  &= ~0b00000100;
+    PORTE |=  0b00000100;
 }
 
-static uint8_t read_rows() {
-  return (PINB&(1<<7) ? (1<<0) : 0) |
-    (PIND&(1<<0) ? (1<<1) : 0) |
-    (PIND&(1<<1) ? (1<<2) : 0) |
-    (PIND&(1<<2) ? (1<<3) : 0) |
-    (PIND&(1<<3) ? (1<<4) : 0) |
-    (PIND&(1<<5) ? (1<<5) : 0);
+static uint8_t read_rows(uint8_t col) {
+  if (col == 16) {
+    return PINE&(1<<2) ? 0 : (1<<0);
+  } else {
+      return (PIND&(1<<0) ? (1<<0) : 0) |
+             (PIND&(1<<1) ? (1<<1) : 0) |
+             (PIND&(1<<2) ? (1<<2) : 0) |
+             (PIND&(1<<3) ? (1<<3) : 0) |
+             (PIND&(1<<5) ? (1<<4) : 0) |
+             (PINB&(1<<7) ? (1<<5) : 0);
+    }
 }
 
 static uint8_t read_fwkey(void)
@@ -188,97 +192,82 @@ static uint8_t read_fwkey(void)
  * pin: PD7
  */
 static void unselect_cols(void) {
-  DDRB  |=  0b01110000;
-  PORTB &= ~0b01110000;
+  DDRB  |=  0b01000000;
+  PORTB &= ~0b01000000;
 
-  DDRC |= (1<<6) | (1<<7);
-  PORTC &= ~((1<<6) | (1<<7));
+  DDRC  |=  0b11000000;
+  PORTC &= ~0b11000000;
 
-  DDRF |= (1<<0) | (1<<1);
-  PORTF &= ~((1<<0) | (1<<1));
-
-  DDRD |= (1<<7);
-  PORTD &= ~(1<<7);
+  DDRF  |=  0b00000011;
+  PORTF &= ~0b00000011;
 }
 
 static void select_col(uint8_t col) {
-  switch (col) {
-    case 0:
-      PORTC |= (1<<6);
-      break;
-    case 1:
-      PORTC |= (1<<6);
-      PORTF |= (1<<0);
-      break;
-    case 2:
-      PORTC |= (1<<6);
-      PORTF |= (1<<1);
-      break;
-    case 3:
-      PORTC |= (1<<6);
-      PORTF |= (1<<0) | (1<<1);
-      break;
-    case 4:
-      PORTC |= (1<<6);
-      PORTC |= (1<<7);
-      break;
-    case 5:
-      PORTC |= (1<<6);
-      PORTF |= (1<<0);
-      PORTC |= (1<<7);
-      break;
-    case 6:
-      PORTC |= (1<<6);
-      PORTF |= (1<<1);
-      PORTC |= (1<<7);
-      break;
-    case 7:
-      PORTC |= (1<<6);
-      PORTF |= (1<<0) | (1<<1);
-      PORTC |= (1<<7);
-      break;
-    case 8:
-      PORTB |= (1<<6);
-      break;
-    case 9:
-      PORTB |= (1<<6);
-      PORTF |= (1<<0);
-      break;
-    case 10:
-      PORTB |= (1<<6);
-      PORTF |= (1<<1);
-      break;
-    case 11:
-      PORTB |= (1<<6);
-      PORTF |= (1<<0) | (1<<1);
-      break;
-    case 12:
-      PORTB |= (1<<6);
-      PORTC |= (1<<7);
-      break;
-    case 13:
-      PORTB |= (1<<6);
-      PORTF |= (1<<0);
-      PORTC |= (1<<7);
-      break;
-    case 14:
-      PORTB |= (1<<6);
-      PORTF |= (1<<1);
-      PORTC |= (1<<7);
-      break;
-    case 15:
-      PORTB |= (1<<6);
-      PORTF |= (1<<0) | (1<<1);
-      PORTC |= (1<<7);
-      break;
-    case 16:
-      PORTB |= (1<<5);
-      break;
-    case 17:
-      PORTB |= (1<<4);
-      break;
-    case 18:
-      PORTD |= (1<<7);
-      break;
-  }
+ 
+   switch (col) {
+        case 0:
+            PORTC |= 0b01000000;
+            break;
+        case 1:
+            PORTC |= 0b01000000;
+            PORTF |= 0b00000001;
+            break;
+        case 2:
+            PORTC |= 0b01000000;
+            PORTF |= 0b00000010;
+            break;
+        case 3:
+            PORTC |= 0b01000000;
+            PORTF |= 0b00000011;
+            break;
+        case 4:
+            PORTC |= 0b11000000;
+            break;
+        case 5:
+            PORTC |= 0b11000000;
+            PORTF |= 0b00000001;
+            break;
+        case 6:
+            PORTC |= 0b11000000;
+            PORTF |= 0b00000010;
+            break;
+        case 7:
+            PORTC |= 0b11000000;
+            PORTF |= 0b00000011;
+            break;
+        case 8:
+            PORTB |= 0b01000000;
+            break;
+        case 9:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000001;
+            break;
+        case 10:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000010;
+            break;
+        case 11:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000011;
+            break;
+        case 12:
+            PORTB |= 0b01000000;
+            PORTC |= 0b10000000;
+            break;
+        case 13:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000001;
+            PORTC |= 0b10000000;
+            break;
+        case 14:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000010;
+            PORTC |= 0b10000000;
+            break;
+        case 15:
+            PORTB |= 0b01000000;
+            PORTF |= 0b00000011;
+            PORTC |= 0b10000000;
+            break;
+    }
 }
