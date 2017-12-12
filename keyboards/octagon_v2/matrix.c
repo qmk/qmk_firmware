@@ -65,9 +65,12 @@ void matrix_scan_user(void) {
 void matrix_init(void) {
   DDRD  |=  0b11010000;
   PORTD &= ~0b01010000;
+  PORTD |=  0b10000000;
+
   DDRB  |=  0b00011111;
   PORTB &= ~0b00001110;
   PORTB |=  0b00010001;
+
   DDRE  |=  0b01000000;
   PORTE &= ~0b01000000;
 
