@@ -21,6 +21,10 @@
     #define MUSIC_MASK (keycode != KC_NO)
 #endif
 
+// Additional Options
+#define TAPPING_TOGGLE 2
+#define IGNORE_MOD_TAP_INTERRUPT
+
 /*
  * MIDI options
  */
