@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * AMY - Amythest Layer
  */
         [_LOWER] = {
-            {KC_MUTE, KC_F1, KC_F2, KC_F3, KC_LBRC, KC_ASTERISK, KC_PLUS, KC_RCBR, _______, KC_KP_7, KC_KP_8, KC_KP_9}, 
+            {KC_MUTE, KC_F1, KC_F2, KC_F3, KC_LBRC, KC_ASTERISK, KC_PLUS, KC_RBRC, _______, KC_KP_7, KC_KP_8, KC_KP_9}, 
             {KC_VOLU, KC_F4, KC_F5, KC_F6, KC_LCBR, KC_SLSH, KC_MINUS, KC_RCBR, _______, KC_KP_4, KC_KP_5, KC_KP_6}, 
             {KC_VOLD, KC_F7, KC_F8, KC_F9, KC_LPRN, KC_PIPE, KC_BSLASH, KC_RPRN, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3}, 
             {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
