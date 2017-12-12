@@ -3,18 +3,23 @@
 
 #include "../../config.h"
 
-#ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(VIOLIN_SOUND)
-#define TAPPING_TERM 200
-// #define STARTUP_SONG SONG(NO_SOUND)
+// Enabled these to help keep filesize down. 
+#define NO_DEBUG
+#define NO_PRINT
 
-#define DEFAULT_LAYER_SONGS \
+#define TAPPING_TERM 200
+
+#ifdef AUDIO_ENABLE
+    #define STARTUP_SONG SONG(VIOLIN_SOUND)
+    // #define STARTUP_SONG SONG(NO_SOUND)
+
+    #define DEFAULT_LAYER_SONGS \
     {                       \
         SONG(QWERTY_SOUND)  \
     }
-#endif
 
-#define MUSIC_MASK (keycode != KC_NO)
+    #define MUSIC_MASK (keycode != KC_NO)
+#endif
 
 /*
  * MIDI options
