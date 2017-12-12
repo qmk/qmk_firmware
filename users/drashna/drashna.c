@@ -19,7 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
-#include "sensitive.h"
+
+#if (__has_include("secrets.h"))
+#include "secrets.h"
+#else
+const char secret[][64] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
