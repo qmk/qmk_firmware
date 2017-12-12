@@ -1,5 +1,4 @@
 #include "tap_dance.h"
-#include "splinter.h"
 
 tap ts[CT_SAFE_END] = {};
 
