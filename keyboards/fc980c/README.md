@@ -32,6 +32,16 @@ The keyboard is very similar electronically to its sibling model FC660C you can 
 FC660C Alt Controller: https://geekhack.org/index.php?topic=88439.0
 
 
+Actuation Point adjustment
+--------------------------
+You can adjust the actuation point of the keys by setting `ACTUATION_DEPTH_ADJUSTMENT` in `config.h`.
+A value above 0 will result in a deeper, less sensitive actuation whereas a value above 1 will result in a more shallow, more sensitive actuation.
+Be careful with this setting and use small values (+/-5).
+See the `actuation-point-example` keymap for an example.
+For more information, inspect the `fc660c_i2c` branch of TMK [here](https://github.com/tmk/tmk_keyboard/tree/fc660c_i2c).
+Functionality for writing to the EEPROM has deliberately not been included to reduce the chance of people messing up their boards.
+
+
 Hardware
 --------
 This project uses common and familiar ATmega32u4 but any microcontroller with 5V I/O will work.
