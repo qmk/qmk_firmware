@@ -149,6 +149,7 @@ COMPILEFLAGS += -falign-functions=16
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
+COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
 
 CFLAGS += $(COMPILEFLAGS)
@@ -159,6 +160,7 @@ CPPFLAGS += $(COMPILEFLAGS)
 CPPFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
+LDFLAGS +=-Wl,--no-wchar-size-warning
 LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
