@@ -25,18 +25,87 @@ enum BACKLIGHT_AREAS {
   BACKLIGHT_SWITCH   = 0b0001111
 };
 
-void backlight_set(uint8_t level) {
-  if (level > 0) {
-    // Turn on leds
-    PORTB &= ~BACKLIGHT_ALPHA;
-    PORTB &= ~BACKLIGHT_FROW;
-    PORTB &= ~BACKLIGHT_MODNUM;
+uint8_t backlight_rgb_r = 255;
+uint8_t backlight_rgb_g = 0;
+uint8_t backlight_rgb_b = 0;
+uint8_t backlight_os_state = 0;
+uint32_t backlight_layer_state = 0;
+
+void backlight_toggle_rgb(bool enabled)
+{
+  if(enabled) {
+    uint8_t rgb[17][3] = {
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
+    };
+    backlight_set_rgb(rgb);
   } else {
-    // Turn off leds
-    PORTB |= BACKLIGHT_ALPHA;
-    PORTB |= BACKLIGHT_FROW;
-    PORTB |= BACKLIGHT_MODNUM;
+    uint8_t rgb[17][3] = {
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0}
+    };
+    backlight_set_rgb(rgb);
   }
+}
+
+void backlight_set_rgb(uint8_t cfg[17][3])
+{
+  cli();
+  for(uint8_t i = 0; i < 17; ++i) {
+    send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
+  }
+  sei();
+  show();
+}
+
+void backlight_set(uint8_t level) {
+  // if (level > 0) {
+  //   // Turn on leds
+  //   PORTB &= ~BACKLIGHT_ALPHA;
+  //   PORTB &= ~BACKLIGHT_FROW;
+  //   PORTB &= ~BACKLIGHT_MODNUM;
+  // } else {
+  //   // Turn off leds
+  //   PORTB |= BACKLIGHT_ALPHA;
+  //   PORTB |= BACKLIGHT_FROW;
+  //   PORTB |= BACKLIGHT_MODNUM;
+  // }
+
+  level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
+  level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
+  level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
+  level & BACKLIGHT_FROW ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
+  level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
 }
 
 void led_set_kb(uint8_t usb_led) {

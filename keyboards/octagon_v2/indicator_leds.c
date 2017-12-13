@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <stdbool.h>
 #include <util/delay.h>
+#include "indicator_leds.h"
 
 #define T1H  900
 #define T1L  600
@@ -29,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CYCLES_PER_SEC (F_CPU)
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
-
-enum Device {
-  Device_PCBRGB,
-  Device_STATUSLED
-};
 
 void send_bit_d4(bool bitVal) {
   if(bitVal) {
