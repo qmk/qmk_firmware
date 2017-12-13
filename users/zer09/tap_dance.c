@@ -1,6 +1,17 @@
 #include "tap_dance.h"
 
-tap ts[CT_SAFE_END] = {};
+static tap ts[CT_SAFE_END] = {};
+
+qk_tap_dance_action_t tap_dance_actions[] =
+  {[CT_N_TILDE] =
+   ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
+   [CT_ESC_GRV] =
+   ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset),
+   [CT_LGUI_ALT] =
+   ACTION_TAP_DANCE_FN_ADVANCED(NULL, lgui_alt_finished, lgui_alt_reset),
+   [CT_RGUI_ALT] =
+   ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)};
+
 
 void init_tap_dance(void) {
   for (int i = CT_SAFE_START + 1; i < CT_SAFE_END; i++) {
