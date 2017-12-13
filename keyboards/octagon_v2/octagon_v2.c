@@ -108,20 +108,34 @@ void backlight_set(uint8_t level) {
   level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
 }
 
+// Port from backlight_update_state
 void led_set_kb(uint8_t usb_led) {
-  bool leds[8] = {
-    usb_led & (1<<USB_LED_CAPS_LOCK),
-    usb_led & (1<<USB_LED_SCROLL_LOCK),
-    usb_led & (1<<USB_LED_NUM_LOCK),
-    layer_state & (1<<1),
-    layer_state & (1<<2),
-    layer_state & (1<<3),
-    layer_state & (1<<4),
-    layer_state & (1<<5)
-  };
-  indicator_leds_set(leds);
+  // bool leds[8] = {
+  //   usb_led & (1<<USB_LED_CAPS_LOCK),
+  //   usb_led & (1<<USB_LED_SCROLL_LOCK),
+  //   usb_led & (1<<USB_LED_NUM_LOCK),
+  //   layer_state & (1<<1),
+  //   layer_state & (1<<2),
+  //   layer_state & (1<<3),
+  //   layer_state & (1<<4),
+  //   layer_state & (1<<5)
+  // };
+  // indicator_leds_set(leds);
 
-  led_set_user(usb_led);
+  // led_set_user(usb_led);
+
+    bool status[7] = {
+    backlight_os_state & (1<<USB_LED_CAPS_LOCK),
+    backlight_os_state & (1<<USB_LED_SCROLL_LOCK),
+    backlight_os_state & (1<<USB_LED_NUM_LOCK),
+    backlight_layer_state & (1<<1),
+    backlight_layer_state & (1<<2),
+    backlight_layer_state & (1<<3),
+    backlight_layer_state & (1<<4)
+  };
+  indicator_leds_set(status);
+  backlight_os_state & (1<<USB_LED_CAPS_LOCK) ? (PORTB &= ~0b00000001) : (PORTB |= 0b00000001);
+  backlight_os_state & (1<<USB_LED_SCROLL_LOCK) ? (PORTB &= ~0b00010000) : (PORTB |= 0b00010000);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
