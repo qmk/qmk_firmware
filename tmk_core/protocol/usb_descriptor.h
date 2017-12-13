@@ -93,25 +93,26 @@ typedef struct
 #endif
 
 #ifdef MIDI_ENABLE
-      // MIDI Audio Control Interface
-      USB_Descriptor_Interface_t                Audio_ControlInterface;
-      USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+    USB_Descriptor_Interface_Association_t    Audio_Interface_Association;
+    // MIDI Audio Control Interface
+    USB_Descriptor_Interface_t                Audio_ControlInterface;
+    USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
 
-      // MIDI Audio Streaming Interface
-      USB_Descriptor_Interface_t                Audio_StreamInterface;
-      USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
-      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
-      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
-      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
-      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
-      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
-      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
-      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
-      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
+    // MIDI Audio Streaming Interface
+    USB_Descriptor_Interface_t                Audio_StreamInterface;
+    USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
+    USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
+    USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
+    USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
+    USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
+    USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
+    USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
+    USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
+    USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
 #endif
 
 #ifdef VIRTSER_ENABLE
-        USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
+  USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
 
 	// CDC Control Interface
 	USB_Descriptor_Interface_t               CDC_CCI_Interface;
