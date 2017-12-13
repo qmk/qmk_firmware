@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Wake | NULL |WbSrch| NULL | Find | NULL | NULL | NULL | Calc | NULL |PlyMc1|PlyMc2|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NULL | Undo |  Cut | Copy | Paste| NULL | NULL | NULL |ZoomOu|ZoomIn| Prev | NULL |
+ * |LShift| Undo |  Cut | Copy | Paste| NULL | NULL | NULL |ZoomOu|ZoomIn| Prev | NULL |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | NULL | NULL | NULL |      | Vol- |     Mute    | Vol+ | NULL | Stop | Next | Play |
  * `-----------------------------------------------------------------------------------'
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MEDIA] = {
 	{KC_SLEP, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, KC_PWR},
 	{KC_WAKE, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, KC_CALC,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
-	{XXXXXXX, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
+	{KC_LSFT, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
 	{ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
 },
 
