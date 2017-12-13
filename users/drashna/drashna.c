@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (__has_include("secrets.h"))
 #include "secrets.h"
 #else
-const char secret[][64] = {
+PROGMEM const char secret[][64] = {
   "test1",
   "test2",
   "test3",
@@ -497,7 +497,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
-      send_string(secret[keycode - KC_SECRET_1]);
+      send_string_P(secret[keycode - KC_SECRET_1]);
     }
     return false;
     break;
