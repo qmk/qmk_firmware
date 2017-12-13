@@ -61,8 +61,7 @@ extern bool is_overwatch;
 extern bool rgb_layer_change;
 
 enum userspace_custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
+  EPRM = SAFE_RANGE, // can always be here
   VRSN,
   KC_QWERTY,
   KC_COLEMAK,
