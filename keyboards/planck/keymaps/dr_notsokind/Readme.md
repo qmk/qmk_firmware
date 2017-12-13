@@ -50,7 +50,7 @@ If for some reason, this interferes with the normal usage of the `ENTER` key in 
 
 `LSHFT` and `CAPS` are also combined. The key works like a normal `LSHFT` unless double-tapped, in which case it counts as `CAPS`. This functionality unfortunately delays all key presses by at most 200 ms, but I have added ways to disable this both temporarily or permanently, described below.
 
-A failsafe `CAPS` key is on the same key in the [LOWER] and [RAISE] layers. For regular use of `LSHFT` (so you can double tap it, as in IntelliJ IDEA), you can use the [LOCK] mode or the [MEDIA] layer.
+A normal behavior for `LSHFT` key is on the same key in the [LOWER], [RAISE] and [MEDIA] layers (so you can double tap it, as in IntelliJ IDEA), you can also use the [LOCK] mode.
 
 ### Copy/Paste
 

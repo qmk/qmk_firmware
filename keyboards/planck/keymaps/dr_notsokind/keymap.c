@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CAPS |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | NULL | PgUp | Enter|
+ * |LShift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      | Vol+ |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {KC_GRV ,  KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_DEL ,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_CAPS,  KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
+  {KC_LSFT,  KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
   {_______, _______, _______, KC_VOLU, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CAPS |  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |ISO ~ |ISO | | NULL | PgUp | Enter|
+ * |LShift|  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |ISO ~ |ISO | | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      | Vol- |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
 	{KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
 	{KC_DEL,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-	{KC_CAPS, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
+	{KC_LSFT, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
 	{_______, _______, _______, KC_VOLD, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
