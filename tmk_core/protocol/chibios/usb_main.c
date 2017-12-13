@@ -74,22 +74,6 @@ void console_queue_onotify(io_buffers_queue_t *bqp);
 static void console_flush_cb(void *arg);
 #endif /* CONSOLE_ENABLE */
 
-#ifdef RAW_ENABLE
-#define RAW_QUEUE_CAPACITY 4
-static input_buffers_queue_t raw_buf_queue;
-static void raw_queue_inotify(io_buffers_queue_t *bqp);
-static void raw_in_cb(USBDriver *usbp, usbep_t ep);
-static void raw_out_cb(USBDriver *usbp, usbep_t ep);
-static void configure_raw_interface(void);
-static uint8_t raw_queue_buffer[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
-#endif
-
-#ifdef MIDI_ENABLE
-#define MIDI_QUEUE_CAPACITY 4
-static uint8_t midi_queue_buffer_in[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
-static uint8_t midi_queue_buffer_out[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
-#endif
-
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
  * ---------------------------------------------------------
@@ -213,13 +197,17 @@ static const USBEndpointConfig nkro_ep_config = {
 #endif /* NKRO_ENABLE */
 
 #ifdef RAW_ENABLE
+#define RAW_QUEUE_CAPACITY 4
+static uint8_t raw_queue_buffer_in[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
+static uint8_t raw_queue_buffer_out[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
+
 static USBInEndpointState raw_in_ep_state;
 static USBOutEndpointState raw_out_ep_state;
 
 static const USBEndpointConfig raw_in_ep_config = {
   USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
   NULL,                         /* SETUP packet notification callback */
-  raw_in_cb,                    /* IN notification callback */
+  sduDataTransmitted,           /* IN notification callback */
   NULL,                         /* OUT notification callback */
   RAW_EPSIZE,                   /* IN maximum packet size */
   0,                            /* OUT maximum packet size */
@@ -233,7 +221,7 @@ static const USBEndpointConfig raw_out_ep_config = {
   USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
   NULL,                         /* SETUP packet notification callback */
   NULL,                         /* IN notification callback */
-  &raw_out_cb,                  /* OUT notification callback */
+  &sduDataReceived,             /* OUT notification callback */
   0,                            /* IN maximum packet size */
   RAW_EPSIZE,                   /* OUT maximum packet size */
   NULL,                         /* IN Endpoint state */
@@ -241,9 +229,21 @@ static const USBEndpointConfig raw_out_ep_config = {
   2,                            /* IN multiplier */
   NULL                          /* SETUP buffer (not a SETUP endpoint) */
 };
+
+SerialUSBDriver raw_driver;
+const SerialUSBConfig raw_driver_conf = {
+  &USB_DRIVER,
+  RAW_IN_EPNUM,
+  RAW_OUT_EPNUM,
+  0,
+};
 #endif
 
 #ifdef MIDI_ENABLE
+#define MIDI_QUEUE_CAPACITY 4
+static uint8_t midi_queue_buffer_in[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
+static uint8_t midi_queue_buffer_out[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
+
 static USBInEndpointState midi_in_ep_state;
 static USBOutEndpointState midi_out_ep_state;
 
@@ -369,7 +369,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef RAW_ENABLE
     usbInitEndpointI(usbp, RAW_IN_EPNUM, &raw_in_ep_config);
     usbInitEndpointI(usbp, RAW_OUT_EPNUM, &raw_out_ep_config);
-    configure_raw_interface();
+    sduConfigureHookI(&raw_driver);
 #endif
 #ifdef MIDI_ENABLE
     usbInitEndpointI(usbp, MIDI_STREAM_IN_EPNUM, &midi_in_ep_config);
@@ -393,6 +393,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     //TODO: from ISR! print("[S]");
 #ifdef VIRTSER_ENABLE
     sduDisconnectI(&SDU1);
+#endif
+#ifdef RAW_ENABLE
+    sduDisconnectI(&raw_driver);
 #endif
 #ifdef MIDI_ENABLE
     sduDisconnectI(&midi_driver);
@@ -602,10 +605,13 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
-#if defined(VIRTSER_ENABLE) || defined(MIDI_ENABLE)
+#if defined(VIRTSER_ENABLE) || defined(MIDI_ENABLE) || defined(RAW_ENABLE)
   osalSysLockFromISR();
   #ifdef VIRTSER_ENABLE
   sduSOFHookI(&SDU1);
+  #endif
+  #ifdef RAW_ENABLE
+  sduSOFHookI(&raw_driver);
   #endif
   #ifdef MIDI_ENABLE
   sduSOFHookI(&midi_driver);
@@ -623,6 +629,15 @@ static const USBConfig usbcfg = {
   usb_sof_cb                    /* Start Of Frame callback */
 };
 
+static void init_usb_stream(SerialUSBDriver* driver, const SerialUSBConfig* config, uint8_t* queue_buffer_in, uint8_t* queue_buffer_out, uint16_t epsize, uint16_t queue_size) {
+  sduObjectInit(driver);
+  bqnotify_t notify = driver->ibqueue.notify;
+  ibqObjectInit(&driver->ibqueue, queue_buffer_in, epsize, queue_size, notify, driver);
+  notify = driver->obqueue.notify;
+  obqObjectInit(&driver->obqueue, queue_buffer_out, epsize, queue_size, notify, driver);
+  sduStart(driver, config);
+}
+
 /*
  * Initialize the USB driver
  */
@@ -632,13 +647,12 @@ void init_usb_driver(USBDriver *usbp) {
   sduStart(&SDU1, &serusbcfg);
 #endif
 
+#ifdef RAW_ENABLE
+  init_usb_stream(&raw_driver, &raw_driver_conf, raw_queue_buffer_in, raw_queue_buffer_out, RAW_EPSIZE, RAW_QUEUE_CAPACITY);
+#endif
+
 #ifdef MIDI_ENABLE
-  sduObjectInit(&midi_driver);
-  bqnotify_t notify = midi_driver.ibqueue.notify;
-  ibqObjectInit(&midi_driver.ibqueue, midi_queue_buffer_in, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY, notify, &midi_driver);
-  notify = midi_driver.obqueue.notify;
-  obqObjectInit(&midi_driver.obqueue, midi_queue_buffer_out, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY, notify, &midi_driver);
-  sduStart(&midi_driver, &midi_driver_conf);
+  init_usb_stream(&midi_driver, &midi_driver_conf, midi_queue_buffer_in, midi_queue_buffer_out, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY);
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -657,9 +671,6 @@ void init_usb_driver(USBDriver *usbp) {
   usbConnectBus(usbp);
 
   chVTObjectInit(&keyboard_idle_timer);
-#ifdef RAW_ENABLE
-  ibqObjectInit(&raw_buf_queue, raw_queue_buffer, RAW_EPSIZE, RAW_QUEUE_CAPACITY, raw_queue_inotify, (void*)usbp);
-#endif
 }
 
 /* ---------------------------------------------------------
@@ -995,21 +1006,7 @@ void raw_hid_send( uint8_t *data, uint8_t length ) {
 		return;
 
 	}
-  osalSysLock();
-  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-    osalSysUnlock();
-    return;
-  }
-  if(usbGetTransmitStatusI(&USB_DRIVER, RAW_IN_EPNUM)) {
-    /* Need to either suspend, or loop and call unlock/lock during
-    * every iteration - otherwise the system will remain locked,
-    * no interrupts served, so USB not going through as well.
-    * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-    osalThreadSuspendS(&(&USB_DRIVER)->epc[RAW_IN_EPNUM]->in_state->thread);
-  }
-
-  usbStartTransmitI(&USB_DRIVER, RAW_IN_EPNUM, data, length);
-  osalSysUnlock();
+  chnWrite(&raw_driver, data, length);
 }
 
 __attribute__ ((weak))
@@ -1023,53 +1020,13 @@ void raw_hid_task(void) {
   uint8_t buffer[RAW_EPSIZE];
   size_t size = 0;
   do {
-    size = ibqReadTimeout(&raw_buf_queue, buffer, RAW_EPSIZE, TIME_IMMEDIATE);
-    if (size == RAW_EPSIZE) {
-      raw_hid_receive(buffer, size);
+    size_t size = chnReadTimeout(&raw_driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+    if (size > 0) {
+        raw_hid_receive(buffer, size);
     }
-  } while(size>0);
+  } while(size > 0);
 }
 
-static void raw_in_cb(USBDriver* usbp, usbep_t ep) {
-}
-
-static void start_receive_raw(void) {
-  return;
-  /* If the USB driver is not in the appropriate state then transactions
-     must not be started.*/
-  if (usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-    return;
-  }
-
-  /* Checking if there is already a transaction ongoing on the endpoint.*/
-  if (!usbGetReceiveStatusI(&USB_DRIVER, RAW_IN_EPNUM)) {
-    /* Trying to get a free buffer.*/
-    uint8_t *buf = ibqGetEmptyBufferI(&raw_buf_queue);
-    if (buf != NULL) {
-      /* Buffer found, starting a new transaction.*/
-      usbStartReceiveI(&USB_DRIVER, RAW_IN_EPNUM, buf, RAW_EPSIZE);
-    }
-  }
-}
-
-static void raw_out_cb(USBDriver* usbp, usbep_t ep) {
-  osalSysLockFromISR();
-
-  /* Posting the filled buffer in the queue.*/
-  ibqPostFullBufferI(&raw_buf_queue, usbGetReceiveTransactionSizeX(usbp, ep));
-  start_receive_raw();
-
-  osalSysUnlockFromISR();
-}
-
-static void raw_queue_inotify(io_buffers_queue_t *bqp) {
-  start_receive_raw();
-}
-
-static void configure_raw_interface(void) {
-  ibqResetI(&raw_buf_queue);
-  start_receive_raw();
-}
 #endif
 
 #ifdef MIDI_ENABLE
