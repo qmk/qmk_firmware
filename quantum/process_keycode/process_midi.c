@@ -47,6 +47,7 @@ static uint8_t tone_status[MIDI_TONE_COUNT];
 static uint8_t midi_modulation;
 static int8_t midi_modulation_step;
 static uint16_t midi_modulation_timer;
+midi_config_t midi_config;
 
 inline uint8_t compute_velocity(uint8_t setting)
 {
@@ -69,33 +70,6 @@ void midi_init(void)
     midi_modulation = 0;
     midi_modulation_step = 0;
     midi_modulation_timer = 0;
-}
-
-void midi_task(void)
-{
-    midi_device_process(&midi_device);
-#ifdef MIDI_ADVANCED
-    if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval)
-        return;
-    midi_modulation_timer = timer_read();
-
-    if (midi_modulation_step != 0)
-    {
-        dprintf("midi modulation %d\n", midi_modulation);
-        midi_send_cc(&midi_device, midi_config.channel, 0x1, midi_modulation);
-
-        if (midi_modulation_step < 0 && midi_modulation < -midi_modulation_step) {
-            midi_modulation = 0;
-            midi_modulation_step = 0;
-            return;
-        }
-
-        midi_modulation += midi_modulation_step;
-
-        if (midi_modulation > 127)
-            midi_modulation = 127;
-    }
-#endif
 }
 
 uint8_t midi_compute_note(uint16_t keycode)
@@ -253,5 +227,34 @@ bool process_midi(uint16_t keycode, keyrecord_t *record)
 }
 
 #endif // MIDI_ADVANCED
+
+void midi_task(void)
+{
+    midi_device_process(&midi_device);
+#ifdef MIDI_ADVANCED
+    if (timer_elapsed(midi_modulation_timer) < midi_config.modulation_interval)
+        return;
+    midi_modulation_timer = timer_read();
+
+    if (midi_modulation_step != 0)
+    {
+        dprintf("midi modulation %d\n", midi_modulation);
+        midi_send_cc(&midi_device, midi_config.channel, 0x1, midi_modulation);
+
+        if (midi_modulation_step < 0 && midi_modulation < -midi_modulation_step) {
+            midi_modulation = 0;
+            midi_modulation_step = 0;
+            return;
+        }
+
+        midi_modulation += midi_modulation_step;
+
+        if (midi_modulation > 127)
+            midi_modulation = 127;
+    }
+#endif
+}
+
+
 
 #endif // MIDI_ENABLE

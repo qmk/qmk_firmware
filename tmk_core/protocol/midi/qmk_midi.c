@@ -3,6 +3,7 @@
 #include "sysex_tools.h"
 #include "midi.h"
 #include "usb_descriptor.h"
+#include "process_midi.h"
 
 /*******************************************************************************
  * MIDI

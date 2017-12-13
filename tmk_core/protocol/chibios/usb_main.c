@@ -84,6 +84,12 @@ static void configure_raw_interface(void);
 static uint8_t raw_queue_buffer[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
 #endif
 
+#ifdef MIDI_ENABLE
+#define MIDI_QUEUE_CAPACITY 4
+static uint8_t midi_queue_buffer_in[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
+static uint8_t midi_queue_buffer_out[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
+#endif
+
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
  * ---------------------------------------------------------
@@ -207,11 +213,9 @@ static const USBEndpointConfig nkro_ep_config = {
 #endif /* NKRO_ENABLE */
 
 #ifdef RAW_ENABLE
-/* console endpoint state structure */
 static USBInEndpointState raw_in_ep_state;
 static USBOutEndpointState raw_out_ep_state;
 
-/* console endpoint initialization structure (IN) */
 static const USBEndpointConfig raw_in_ep_config = {
   USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
   NULL,                         /* SETUP packet notification callback */
@@ -240,6 +244,42 @@ static const USBEndpointConfig raw_out_ep_config = {
 #endif
 
 #ifdef MIDI_ENABLE
+static USBInEndpointState midi_in_ep_state;
+static USBOutEndpointState midi_out_ep_state;
+
+static const USBEndpointConfig midi_in_ep_config = {
+  USB_EP_MODE_TYPE_BULK,        /* Bulk EP */
+  NULL,                         /* SETUP packet notification callback */
+  sduDataTransmitted,           /* IN notification callback */
+  NULL,                         /* OUT notification callback */
+  MIDI_STREAM_EPSIZE,           /* IN maximum packet size */
+  0,                            /* OUT maximum packet size */
+  &midi_in_ep_state,             /* IN Endpoint state */
+  NULL,                         /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
+
+static const USBEndpointConfig midi_out_ep_config = {
+  USB_EP_MODE_TYPE_BULK,        /* Bulk EP */
+  NULL,                         /* SETUP packet notification callback */
+  NULL,                         /* IN notification callback */
+  sduDataReceived,              /* OUT notification callback */
+  0,                            /* IN maximum packet size */
+  MIDI_STREAM_EPSIZE,           /* OUT maximum packet size */
+  NULL,                         /* IN Endpoint state */
+  &midi_out_ep_state,           /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
+
+SerialUSBDriver midi_driver;
+const SerialUSBConfig midi_driver_conf = {
+  &USB_DRIVER,
+  MIDI_STREAM_IN_EPNUM,
+  MIDI_STREAM_OUT_EPNUM,
+  0,
+};
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -331,6 +371,11 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     usbInitEndpointI(usbp, RAW_OUT_EPNUM, &raw_out_ep_config);
     configure_raw_interface();
 #endif
+#ifdef MIDI_ENABLE
+    usbInitEndpointI(usbp, MIDI_STREAM_IN_EPNUM, &midi_in_ep_config);
+    usbInitEndpointI(usbp, MIDI_STREAM_OUT_EPNUM, &midi_out_ep_config);
+    sduConfigureHookI(&midi_driver);
+#endif
 #ifdef VIRTSER_ENABLE
     /* Enables the endpoints specified into the configuration.
        Note, this callback is invoked from an ISR so I-Class functions
@@ -348,6 +393,9 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     //TODO: from ISR! print("[S]");
 #ifdef VIRTSER_ENABLE
     sduDisconnectI(&SDU1);
+#endif
+#ifdef MIDI_ENABLE
+    sduDisconnectI(&midi_driver);
 #endif
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
@@ -554,9 +602,14 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
-#ifdef VIRTSER_ENABLE
+#if defined(VIRTSER_ENABLE) || defined(MIDI_ENABLE)
   osalSysLockFromISR();
+  #ifdef VIRTSER_ENABLE
   sduSOFHookI(&SDU1);
+  #endif
+  #ifdef MIDI_ENABLE
+  sduSOFHookI(&midi_driver);
+  #endif
   osalSysUnlockFromISR();
 #endif
 }
@@ -579,6 +632,20 @@ void init_usb_driver(USBDriver *usbp) {
   sduStart(&SDU1, &serusbcfg);
 #endif
 
+#ifdef MIDI_ENABLE
+  sduObjectInit(&midi_driver);
+  bqnotify_t notify = midi_driver.ibqueue.notify;
+  ibqObjectInit(&midi_driver.ibqueue, midi_queue_buffer_in, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY, notify, &midi_driver);
+  notify = midi_driver.obqueue.notify;
+  obqObjectInit(&midi_driver.obqueue, midi_queue_buffer_out, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY, notify, &midi_driver);
+  sduStart(&midi_driver, &midi_driver_conf);
+#endif
+
+#ifdef CONSOLE_ENABLE
+  obqObjectInit(&console_buf_queue, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
+  chVTObjectInit(&console_flush_timer);
+#endif
+
   /*
    * Activates the USB driver and then the USB bus pull-up on D+.
    * Note, a delay is inserted in order to not have to disconnect the cable
@@ -590,10 +657,6 @@ void init_usb_driver(USBDriver *usbp) {
   usbConnectBus(usbp);
 
   chVTObjectInit(&keyboard_idle_timer);
-#ifdef CONSOLE_ENABLE
-  obqObjectInit(&console_buf_queue, false, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
-  chVTObjectInit(&console_flush_timer);
-#endif
 #ifdef RAW_ENABLE
   ibqObjectInit(&raw_buf_queue, raw_queue_buffer, RAW_EPSIZE, RAW_QUEUE_CAPACITY, raw_queue_inotify, (void*)usbp);
 #endif
@@ -1007,6 +1070,19 @@ static void configure_raw_interface(void) {
   ibqResetI(&raw_buf_queue);
   start_receive_raw();
 }
+#endif
+
+#ifdef MIDI_ENABLE
+
+void send_midi_packet(MIDI_EventPacket_t* event) {
+  chnWrite(&midi_driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t));
+}
+
+bool recv_midi_packet(MIDI_EventPacket_t* const event) {
+  size_t size = chnReadTimeout(&midi_driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
+  return size == sizeof(MIDI_EventPacket_t);
+}
+
 #endif
 
 #ifdef VIRTSER_ENABLE

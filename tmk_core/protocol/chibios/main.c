@@ -41,6 +41,9 @@
 #ifdef VISUALIZER_ENABLE
 #include "visualizer/visualizer.h"
 #endif
+#ifdef MIDI_ENABLE
+#include "qmk_midi.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -110,6 +113,10 @@ int main(void) {
 
   /* init printf */
   init_printf(NULL,sendchar_pf);
+
+#ifdef MIDI_ENABLE
+  setup_midi();
+#endif
 
 #ifdef SERIAL_LINK_ENABLE
   init_serial_link();

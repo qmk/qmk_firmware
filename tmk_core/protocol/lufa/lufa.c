@@ -977,7 +977,6 @@ int main(void)
         keyboard_task();
 
 #ifdef MIDI_ENABLE
-        midi_task();
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
