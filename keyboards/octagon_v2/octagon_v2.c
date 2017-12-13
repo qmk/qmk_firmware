@@ -17,25 +17,25 @@
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
-  BACKLIGHT_ALPHAS = 0b00000010, // Alpha keys
-  BACKLIGHT_FKEYS =  0b00000100, // Function row keys
-  BACKLIGHT_MODNUM = 0b00001000, // Modifiers and number row
-  BACKLIGHT_NUMPAD = 0b01000000  // Numpad area
+  BACKLIGHT_ALPHA    = 0b0000001,
+  BACKLIGHT_EXTRA    = 0b0000010,
+  BACKLIGHT_MODNUM   = 0b0000100,
+  BACKLIGHT_FROW     = 0b0001000,
+  BACKLIGHT_RGB      = 0b0010000,
+  BACKLIGHT_SWITCH   = 0b0001111
 };
 
 void backlight_set(uint8_t level) {
   if (level > 0) {
     // Turn on leds
-    PORTB &= ~BACKLIGHT_ALPHAS;
-    PORTB &= ~BACKLIGHT_FKEYS;
+    PORTB &= ~BACKLIGHT_ALPHA;
+    PORTB &= ~BACKLIGHT_FROW;
     PORTB &= ~BACKLIGHT_MODNUM;
-    PORTE &= ~BACKLIGHT_NUMPAD;
   } else {
     // Turn off leds
-    PORTB |= BACKLIGHT_ALPHAS;
-    PORTB |= BACKLIGHT_FKEYS;
+    PORTB |= BACKLIGHT_ALPHA;
+    PORTB |= BACKLIGHT_FROW;
     PORTB |= BACKLIGHT_MODNUM;
-    PORTE |= BACKLIGHT_NUMPAD;
   }
 }
 
