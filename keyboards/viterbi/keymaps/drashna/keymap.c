@@ -17,7 +17,7 @@ extern keymap_config_t keymap_config;
 
 #define LMACRO   TG(_MACROS)
 #define DIABLO   TG(_DIABLO)
-#define GAMEPAD  TG(_OVERWATCH)
+#define GAMEPAD  TG(_GAMEPAD)
 #define MEDIA    TG(_MEDIA)
 #define COVECUBE TG(_COVECUBE)
 
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LALT,     KC_F4,       KC_F5,       KC_F8,       KC_F9,       KC_F10,      SFT_T(KC_SPACE),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
-  [_OVERWATCH] = KEYMAP(  // Game pad layout designed primarily for Overwatch
+  [_GAMEPAD] = KEYMAP(  // Game pad layout designed primarily for Overwatch
       LMACRO,      KC_ESC,      GAMEPAD,     KC_1,        KC_2,        KC_3,        KC_4,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,       KC_TAB,      KC_Q,        KC_W,        KC_E,        KC_R,        KC_T,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_Z,        KC_LCTL,     KC_A,        KC_S,        KC_D,        KC_F,        KC_G,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
