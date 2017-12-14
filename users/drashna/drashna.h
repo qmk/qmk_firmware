@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USERSPACE
 
 #include "quantum.h"
-#include "song_list.h"
 
 // Define layer names 
 #define _QWERTY 0
@@ -30,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _NAV 5
 #define _COVECUBE 6
 #define _SYMB 8
-#define _OVERWATCH 9
+#define _GAMEPAD 9
 #define _DIABLO 10
 #define _MOUS 11
 #define _MACROS 12
@@ -55,14 +54,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
 #endif
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
 
-enum userrpace_custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
+enum userspace_custom_keycodes {
+  EPRM = SAFE_RANGE, // can always be here
   VRSN,
   KC_QWERTY,
   KC_COLEMAK,
@@ -105,7 +104,7 @@ enum {
 #endif
 
 
-#define QMK_KEYS_PER_SCAN 4
+#define QMK_KEYS_PER_SCAN 8
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
