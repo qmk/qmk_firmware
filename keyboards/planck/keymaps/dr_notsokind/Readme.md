@@ -1,8 +1,10 @@
 # Dr NotSoKind's layout
 
-Feel free to ask questions or send suggestions to [me on Twitter](https://twitter.com/pnikosis)
+*Feel free to ask questions or send suggestions to [me on Twitter](https://twitter.com/pnikosis)*
 
-I love some features from the default layout, although there are things that definitively I can't get used to. The *circuit* layout gave me some good ideas, so I combined both, plus some own ideas to fit better my needs. BTW, I don't use Dvorak or other layouts than QWERTY and I'm too old and grumpy for learning something new (I'm lying a bit here, I learn new stuff every day), so I removed the ther typing layouts
+I love some features from the default layout, although there are things that definitively I can't get used to. Other layouts such as *circuit* gave me some good ideas, so I combined them all plus some own stuff to fit better my needs.
+
+BTW, I don't use Dvorak or other layouts than QWERTY and I'm too old and grumpy for learning something new (I'm lying a bit here, I learn new stuff every day), so I removed the ther typing layouts
 
 ## Things I love about the default layout
 1. I love the consistency between the raise and lower layers, like one is the shifted version of the other.
@@ -14,53 +16,81 @@ I love some features from the default layout, although there are things that def
 3. Alt and Super. Switched them too.
 
 ## Needs, changes and goals
-1. Arrow keys and distributed "traditionally".
+1. Arrow keys distributed "traditionally".
 2. Media keys easily accessible.
 3. A button for Sleep/Power.
 4. As close as possible to a US QWERTY layout.
 5. A Numpad, for when I want to feel like an accountant.
 6. Be able to record Dynamic Macros.
+7. Zoom in and Zoom out (basically Ctrl - and Ctrl +)
 
-Layers:
+I've been experimenting a lot and I think I'm getting closer to my customization end game.
 
-### Main Layout / QWERTY
+## Layers:
 
-Has four modes: The default, Lower, Raise and Media.
+## Main Layer / QWERTY
 
-![Main](https://i.imgur.com/x4wSt76.png)
+Apart from the default, lower and raise, I added an extra Media/Action layer, for volume and playback control, plus some keyboard actions such as Print Screen, Insert, Calculator or Power/Sleep/Wake. Also in the [MEDIA] layer, you can record two different macros and reproduce them.
+
+### About the volume up and down
+
+That was a hard decision. I wanted the vol up, down and mute easily accessible, and in an obvious palce. I finally decided to use the `Raise` and `Lower` modifier keys to manage the volume, in combination with the [MEDIA] modifier key. This could look a little weird, since the modifier keys are having a different function than modify the layer, but ended up working fairly well, so while pressing [MEDIA] you have the `Lower` key to put the volume down, `Raise` to raise the volume, and `Space` for mute.
+
+### Zoom in and Zoom out
+
+Using the [MEDIA] modifier you can zoom in and zoom out in browsers and other applications using `,` (for zooming out) and `.` (for zooming in). These keys are mapped to `LCTRL -` and `LCTRL =`. I initially thought about mapping zoom in to `LCTRL +` but most apps also map the zoom in using the `=` key, and some they don't event support zooming in with `+` (I'm looking at you Sublime Text).
+
+### Right Shift and Enter
+
+`RSHFT` and `ENTER` are combined. Tap once for `ENTER` and hold for `RSHFT`. `ENTER` will be registered on release if released within 200 ms, else `RSHFT` is registered starting at 201 ms until release.
+
+If for some reason, this interferes with the normal usage of the `ENTER` key in any way, (some problem that may never happen), there is a regular non-modified `ENTER` key on the same key in the [LOWER] and [RAISE] layers, as well in the [LOCK] mode (see below).
+
+### Caps Lock
+
+`LSHFT` and `CAPS` are also combined. The key works like a normal `LSHFT` unless double-tapped, in which case it counts as `CAPS`. This functionality unfortunately delays all key presses by at most 200 ms, but I have added ways to disable this both temporarily or permanently, described below.
+
+A normal behavior for `LSHFT` key is on the same key in the [LOWER], [RAISE] and [MEDIA] layers (so you can double tap it, as in IntelliJ IDEA), you can also use the [LOCK] mode.
+
+### Copy/Paste
+
+There are `UNDO`, `CUT`, `COPY`, and `PASTE` keys with the [MEDIA] modifier. This was intended to be a universal way to use these commands since in macOS cut is `⌘ + C` but in Windows it is `⌃ + C`. Unfortunately these special keys only work in Windows.
+
+### How to record and play dynamic Macros
+
+I wanted the macros a little "harder" to start recording than usual, since I didn't want to accidentally delete a macro. Also I wanted to share the same key for storing and reproducing the macros, made more sense for me than using one key for storing the Macro1, and use another one for reproducing that Macro.
+
+**Record a Macro**
+
+Press `Media` and `LCtrl` (that's left control), you will hear a beep if you have the audio on. Then choose where you want to store the Macro, in `;` or `'`, so press that key, you will now hear a tone for the macro start being recorded.
+
+When you are done, press `Media` and `Enter`. You will finally hear a tune confirming that the macro has been stored.
+
+**Play a Macro**
+
+Press `Media` and the key where you stored your Macro, either `;` or `'`. The Macro will play.
+
+![Imgur](https://i.imgur.com/TCsD6Ro.png)
 
 http://www.keyboard-layout-editor.com/#/gists/4cfb26f84bbb4fabe5e6c7cc22c85e24
 
-Media gives access to most media keys, and some keyboard actions such as Print Screen, Insert, Calculator or Power/Sleep/Wake. Also in the Media layer, you can record two different macros and reproduce them.
+## Lock Mode
 
-Record the Macro with `Media` + `;` (or `Media` + `'` for the Macro 2), you will hear a beep (if the audio is enabled). Do your stuff, finish recording with `Media` + `Enter`. For reproducing the Macro, press `Media` + `,` (or `Media` + `.` for the second Macro).
+The Lock mode toggle disables the double-tap `CAPS` and disables `GUI` keys (WINDOWS key), also makes `ENTER` behave normally (not `RSHIFT` when hold).
 
-Additionally, Lower + Raise gives access to the layer switching, plus keyboard modes (such as music mode), reset, SysReq and Lock Mode, which disables the double shift tap for CapsLock (taken from the *circuit* layout). Also provides another distribution for the F keys.
+## Lower + Raise (adjust) Layer
 
-### Lower + Raise (adjust)
+Lower + Raise gives access to the layer switching, plus keyboard modes (such as enabling music mode for annoying your coworkers), reset, SysReq and Lock Mode, which disables the double shift tap for CapsLock (taken from the *circuit* layout, see the comments below). Also provides another distribution for the F keys.
 
 ![Adjust](https://i.imgur.com/ADNLR6n.png)
 
 http://www.keyboard-layout-editor.com/#/gists/12462bfba17d16bb40b54ed914209d92
 
-### Numpad
-
-Pressing Esc exits the numpad layer (also you can go to the QWERTY layer through the adjust layer)
+## Numpad Layer
 
 ![Numpad](https://i.imgur.com/iTyhjNZ.png)
 
 http://www.keyboard-layout-editor.com/#/gists/5ab730ab278d2050c5250498806e8edc
 
---------------------------------------
-Notes taken from the circuit layout:
-
-### Special keys:
-* `RSHFT` and `ENTER` are combined. Tap once for `ENTER` and hold for `RSHFT`. `ENTER` will be registered on release if released within 200 ms, else `RSHFT` is registered starting at 201 ms until release.
-* If for some reason, this interferes with the normal usage of the `ENTER` key in any way, (some problem that may never happen), I have added a regular non-modified `ENTER` key on the same key in the [LOWER] and [RAISE] layers.
-* `LSHFT` and `CAPS` are also combined. The key works like a normal `LSHFT` unless double-tapped, in which case it counts as `CAPS`. This functionality unfortunately delays all key presses by at most 200 ms, but I have added ways to disable this both temporarily or permanently, described below.
-* A failsafe `CAPS` key is on the same key in the [LOWER] and [RAISE] layers.
-* There are `UNDO`, `CUT`, `COPY`, and `PASTE` keys. This was intended to be a universal way to use these commands since in macOS cut is `⌘ + C` but in Windows it is `⌃ + C`. Unfortunately these special keys only work in Windows. ¯\\\_(ツ)\_/¯
-
-##Game lock:
-**TL;DR** the game lock toggle disables the double-tap `CAPS`, and disables `GUI` keys (WINDOWS key).
+This layer is mostly for quick typing numbers using the numpad. You have NumLock available to switch before the keypad numbers or the actions (movement, del, insert, etc). Esc serves as a quick way to go abck to the QWERTY layer (also you can go to the QWERTY layer through the adjust layer).
 

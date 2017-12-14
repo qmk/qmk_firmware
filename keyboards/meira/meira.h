@@ -16,14 +16,6 @@
 #ifndef MEIRA_H
 #define MEIRA_H
 
-
-#ifdef SUBPROJECT_featherble
-    #include "featherble.h"
-#endif
-#ifdef SUBPROJECT_promicro
-    #include "promicro.h"
-#endif
-
 #include "quantum.h"
 
 void reset_keyboard_kb(void);
@@ -46,3 +38,5 @@ void reset_keyboard_kb(void);
 }
 
 #endif
+
+#define LAYOUT_ortho_4x12 KEYMAP

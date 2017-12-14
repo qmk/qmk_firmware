@@ -423,6 +423,9 @@ enum quantum_keycodes {
     // Right shift, close paren
     KC_RSPC,
 
+    // Shift, Enter
+    KC_SFTENT,
+
     // Printing
     PRINT_ON,
     PRINT_OFF,
