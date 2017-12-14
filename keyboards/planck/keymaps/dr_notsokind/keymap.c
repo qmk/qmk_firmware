@@ -13,13 +13,14 @@ extern keymap_config_t keymap_config;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _NUMPAD 1
-#define _LOCKED 2
-#define _RAISE  3
-#define _LOWER  4
-#define _FUNCTN 5
-#define _MEDIA  6
+#define _QWERTY  0
+#define _NUMPAD  1
+#define _LOCKED  2
+#define _RAISE   3
+#define _LOWER   4
+#define _FUNCTN  5
+#define _MEDIA   6
+#define _ONESHOT 7
 
 enum planck_keycodes {
 	QWERTY = SAFE_RANGE,
@@ -27,23 +28,27 @@ enum planck_keycodes {
 	RAISE,
 	LOWER,
 	MEDIA,
+	ONESHOT,
 	DYNAMIC_MACRO_RANGE
 };
 
 #include "dynamic_macro.h"
 
 // Key code names
-#define SFT_ENT FUNC(0)	// Tap for enter, hold for right shift
-#define LOCK    FUNC(1)
-#define KC_PSTE KC_PASTE
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#define SFT_ENT  FUNC(0)	// Tap for enter, hold for right shift
+#define LOCK     FUNC(1)
+#define KC_PSTE  KC_PASTE
+#define _______  KC_TRNS
+#define XXXXXXX  KC_NO
+#define ZOOM_IN  LCTL(KC_EQL)
+#define ZOOM_OUT LCTL(KC_MINS)
+#define ZOOM_NML LCTL(KC_0)
 
 #ifdef TAP_DANCE_ENABLE
-#define SFT_CAP TD(0)	// Left shift, double tap for caps
+#define SFT_CAP  TD(0)	// Left shift, double tap for caps
 #endif
 #ifndef TAP_DANCE_ENABLE
-#define SFT_CAP KC_LSFT // Regular left shift
+#define SFT_CAP  KC_LSFT // Regular left shift
 #endif
 
 // Tap Dance Definitions
@@ -117,13 +122,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 /* RAISE
- 
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | BKSP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CAPS |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | NULL | PgUp | Enter|
+ * |LShift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      | Vol+ |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
@@ -131,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {KC_GRV ,  KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_DEL ,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_CAPS,  KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
+  {KC_LSFT,  KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
   {_______, _______, _______, KC_VOLU, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
@@ -141,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CAPS |  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |ISO ~ |ISO | | NULL | PgUp | Enter|
+ * |LShift|  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |ISO ~ |ISO | | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      | Vol- |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
@@ -149,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
 	{KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
 	{KC_DEL,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-	{KC_CAPS, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
+	{KC_LSFT, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
 	{_______, _______, _______, KC_VOLD, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
@@ -157,18 +161,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |Sleep | NULL |WbHome| NULL | NULL | NULL |Again | NULL |Insert| NULL |PrntSc|Power |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Wake | NULL |WbSrch| NULL | Find | NULL | NULL | NULL | Calc | NULL |RecMc1|RecMc2|
+ * | Wake | NULL |WbSrch| NULL | Find | NULL | NULL | NULL | Calc | NULL |PlyMc1|PlyMc2|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NULL | Undo |  Cut | Copy | Paste| NULL | NULL | NULL |Macro1|Macro2| Prev | NULL |
+ * |LShift| Undo |  Cut | Copy | Paste| NULL | NULL | NULL |ZoomOu|ZoomIn| Prev | NULL |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | NULL | NULL | NULL |      | Vol- |     Mute    | Vol+ | NULL | Stop | Next | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_MEDIA] = {
-	{KC_SLEP, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,  XXXXXXX, KC_PSCR, KC_PWR},
-	{KC_WAKE, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, KC_CALC, XXXXXXX, DYN_REC_START1, DYN_REC_START2 },
-	{XXXXXXX, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, KC_MPRV, DYN_REC_STOP },
-	{XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, XXXXXXX, KC_MSTP, KC_MNXT, KC_MPLY }
+	{KC_SLEP, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, KC_PWR},
+	{KC_WAKE, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, KC_CALC,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
+	{KC_LSFT, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
+	{ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
+},
+
+/* ONESHOT
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |RecMc1|RecMc2|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ONESHOT] = {
+	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2},
+	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* FUNCTIONS
@@ -177,9 +199,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NULL | NULL | NULL |AudOff|MusOff|QWERTY|NUMPAD|Mus On|Aud On| NULL |Voice+|SysReq|
+ * | NULL | Reset| NULL |AudOff|MusOff|QWERTY|NUMPAD|Mus On|Aud On| NULL |Voice+|SysReq|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Reset| NULL | Lock | NULL |      |     NULL    |      | NULL |AGNorm|Voice-|AGSwap|
+ * | NULL | NULL | Lock | NULL |      |     NULL    |      | NULL |AGNorm|Voice-|AGSwap|
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNCTN] = {
@@ -195,30 +217,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_startup[][2] = SONG(STARTUP_SOUND);
 float tone_qwerty[][2] = SONG(QWERTY_SOUND);
 float tone_numpad[][2] = SONG(NUM_LOCK_ON_SOUND);
-float tone_dyn_macro_rec[][2] = SONG(TERMINAL_SOUND);
+float tone_oneshot[][2] = SONG(TERMINAL_SOUND);
+float tone_dyn_macro_rec[][2] = SONG(SONIC_RING);
 float tone_dyn_macro_stop[][2] = SONG(COIN_SOUND);
 float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
+void press_key(uint16_t key) {
+    register_code(key);
+    unregister_code(key);
+} 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	uint16_t macro_kc = (keycode == NUMPAD ? DYN_REC_STOP : keycode);
-	if (!process_record_dynamic_macro(macro_kc, record)) {
+	// uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
+	if (!process_record_dynamic_macro(keycode, record)) {
+		switch(keycode) {
+		  case DYN_REC_START1:
+		  case DYN_REC_START2:
+#ifdef AUDIO_ENABLE
+              PLAY_SONG(tone_dyn_macro_rec);
+#endif
+		      break;
+		  case DYN_REC_STOP:
+#ifdef AUDIO_ENABLE
+              PLAY_SONG(tone_dyn_macro_stop);
+#endif
+		      break;
+		}
 		return false;
 	}
 	switch (keycode) {
-		case DYN_REC_START1:
-		case DYN_REC_START2:
+		case ONESHOT:
+			if (record->event.pressed) {
+				layer_on(_ONESHOT);
+				set_oneshot_layer(_ONESHOT, ONESHOT_START);
+				clear_oneshot_layer_state(ONESHOT_PRESSED);
 #ifdef AUDIO_ENABLE
-		    PLAY_SONG(tone_dyn_macro_rec);
+		        PLAY_SONG(tone_oneshot);
 #endif
-		    break;
-		case DYN_REC_STOP:
-#ifdef AUDIO_ENABLE
-		    PLAY_SONG(tone_dyn_macro_stop);
-#endif
-		    break;
+			}
+			return false;
+			break;
 		case QWERTY:
 			if (record->event.pressed) {
 				if (IS_LAYER_ON(_NUMPAD)) {
