@@ -29,7 +29,6 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static uint8_t read_rows(uint8_t col);
-static uint8_t read_fwkey(void);
 static void init_rows(void);
 static void unselect_cols(void);
 static void select_col(uint8_t col);
@@ -62,18 +61,20 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
-void matrix_init(void) {
+void backlight_init_ports(void)
+{
   DDRD  |=  0b11010000;
   PORTD &= ~0b01010000;
   PORTD |=  0b10000000;
-
   DDRB  |=  0b00011111;
   PORTB &= ~0b00001110;
   PORTB |=  0b00010001;
-
   DDRE  |=  0b01000000;
   PORTE &= ~0b01000000;
+}
 
+void matrix_init(void) {
+  backlight_init_ports();
   unselect_cols();
   init_rows();
 
@@ -91,9 +92,7 @@ uint8_t matrix_scan(void) {
     _delay_us(3);
 
     uint8_t rows = read_rows(col);
-    if(col == 0) {
-      rows |= read_fwkey();
-    }
+
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
       bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
       bool curr_bit = rows & (1<<row);
@@ -160,7 +159,7 @@ static uint8_t read_rows(uint8_t col) {
     }
 }
 
-static uint8_t read_fwkey(void)
+uint8_t read_fwkey(void)
 {
   return PINE&(1<<2) ? 0 : (1<<0);
 }
@@ -185,14 +184,6 @@ static uint8_t read_fwkey(void)
  * 14:            0    1    0    1    1
  * 15:            0    1    1    1    1
  *
- * col: 16
- * pin: PB5
- *
- * col: 17
- * pin: PB4
- *
- * col: 18
- * pin: PD7
  */
 static void unselect_cols(void) {
   DDRB  |=  0b01000000;

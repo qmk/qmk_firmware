@@ -89,18 +89,6 @@ void backlight_set_rgb(uint8_t cfg[17][3])
 }
 
 void backlight_set(uint8_t level) {
-  // if (level > 0) {
-  //   // Turn on leds
-  //   PORTB &= ~BACKLIGHT_ALPHA;
-  //   PORTB &= ~BACKLIGHT_FROW;
-  //   PORTB &= ~BACKLIGHT_MODNUM;
-  // } else {
-  //   // Turn off leds
-  //   PORTB |= BACKLIGHT_ALPHA;
-  //   PORTB |= BACKLIGHT_FROW;
-  //   PORTB |= BACKLIGHT_MODNUM;
-  // }
-
   level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
   level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
   level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
@@ -110,20 +98,6 @@ void backlight_set(uint8_t level) {
 
 // Port from backlight_update_state
 void led_set_kb(uint8_t usb_led) {
-  // bool leds[8] = {
-  //   usb_led & (1<<USB_LED_CAPS_LOCK),
-  //   usb_led & (1<<USB_LED_SCROLL_LOCK),
-  //   usb_led & (1<<USB_LED_NUM_LOCK),
-  //   layer_state & (1<<1),
-  //   layer_state & (1<<2),
-  //   layer_state & (1<<3),
-  //   layer_state & (1<<4),
-  //   layer_state & (1<<5)
-  // };
-  // indicator_leds_set(leds);
-
-  // led_set_user(usb_led);
-
     bool status[7] = {
     backlight_os_state & (1<<USB_LED_CAPS_LOCK),
     backlight_os_state & (1<<USB_LED_SCROLL_LOCK),
