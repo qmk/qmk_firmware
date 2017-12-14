@@ -26,6 +26,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
+  KC_ARRW,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Tab  |   $  |   %  |   ^  |   [  |   ]  |   4  |   5  |   6  |   -  |   +  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   `  |   !  |   @  |   #  |   {  |   }  |   1  |   2  |   3  |   .  |   \  |  |   |
+ * |  ->  |   !  |   @  |   #  |   {  |   }  |   1  |   2  |   3  |   .  |   \  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl |  OS  | Alt  |      |Shift |      |      0      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
@@ -79,7 +80,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = KEYMAP( \
   KC_CAPS, KC_AMPR, KC_ASTR, KC_UNDS, KC_LPRN, KC_RPRN, KC_7,    KC_8,    KC_9,    KC_EQL,  KC_BSPC, KC_DEL, \
   KC_TAB,  KC_DLR,  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_4,    KC_5,    KC_6,    KC_MINS, KC_PLUS, _______, \
-  _______, KC_EXLM, KC_AT,   KC_HASH, KC_LCBR, KC_RCBR, KC_1,    KC_2,    KC_3,    _______, KC_BSLS, KC_PIPE, \
+  KC_ARRW, KC_EXLM, KC_AT,   KC_HASH, KC_LCBR, KC_RCBR, KC_1,    KC_2,    KC_3,    _______, KC_BSLS, KC_PIPE, \
   _______, _______, _______, _______, _______, _______, KC_0,    KC_HOME, KC_PGDN, KC_PGUP, KC_END \
 )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case KC_ARRW:
+        SEND_STRING("->");
+        return false;
+    }
+  }
+  return true;
+}
