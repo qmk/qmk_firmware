@@ -196,146 +196,118 @@ static const USBEndpointConfig nkro_ep_config = {
 };
 #endif /* NKRO_ENABLE */
 
+typedef struct {
+  size_t queue_capacity_in;
+  size_t queue_capacity_out;
+  uint8_t* queue_buffer_in;
+  uint8_t* queue_buffer_out;
+  USBInEndpointState in_ep_state;
+  USBOutEndpointState out_ep_state;
+  USBInEndpointState int_ep_state;
+  USBEndpointConfig in_ep_config;
+  USBEndpointConfig out_ep_config;
+  USBEndpointConfig int_ep_config;
+  const SerialUSBConfig config;
+  SerialUSBDriver driver;
+} stream_driver_t;
+
+#define STREAM_DRIVER(stream, notification) { \
+    .queue_capacity_in = stream##_IN_CAPACITY, \
+    .queue_capacity_out = stream##_OUT_CAPACITY, \
+    .queue_buffer_in = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
+    .queue_buffer_out = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
+    .in_ep_config = { \
+      .ep_mode = stream##_IN_MODE, \
+      .setup_cb = NULL, \
+      .in_cb = sduDataTransmitted, \
+      .out_cb = NULL, \
+      .in_maxsize = stream##_EPSIZE, \
+      .out_maxsize = 0, \
+      /* The pointer to the states will be filled during initialization */ \
+      .in_state = NULL, \
+      .out_state = NULL, \
+      .ep_buffers = 2, \
+      .setup_buf = NULL \
+    }, \
+    .out_ep_config = { \
+      .ep_mode = stream##_OUT_MODE, \
+      .setup_cb = NULL, \
+      .in_cb = NULL, \
+      .out_cb = sduDataReceived, \
+      .in_maxsize = 0, \
+      .out_maxsize = stream##_EPSIZE, \
+      /* The pointer to the states will be filled during initialization */ \
+      .in_state = NULL, \
+      .out_state = NULL, \
+      .ep_buffers = 2, \
+      .setup_buf = NULL, \
+    }, \
+    .int_ep_config = { \
+      .ep_mode = USB_EP_MODE_TYPE_INTR, \
+      .setup_cb = NULL, \
+      .in_cb = sduInterruptTransmitted, \
+      .out_cb = NULL, \
+      .in_maxsize = CDC_NOTIFICATION_EPSIZE, \
+      .out_maxsize = 0, \
+      /* The pointer to the states will be filled during initialization */ \
+      .in_state = NULL, \
+      .out_state = NULL, \
+      .ep_buffers = 2, \
+      .setup_buf = NULL, \
+  }, \
+  .config = { \
+    .usbp = &USB_DRIVER, \
+    .bulk_in = stream##_IN_EPNUM, \
+    .bulk_out = stream##_OUT_EPNUM, \
+    .int_in = notification \
+  } \
+}
+
+typedef struct {
+  union {
+    struct {
 #ifdef RAW_ENABLE
-#define RAW_QUEUE_CAPACITY 4
-static uint8_t raw_queue_buffer_in[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
-static uint8_t raw_queue_buffer_out[BQ_BUFFER_SIZE(RAW_QUEUE_CAPACITY, RAW_EPSIZE)];
+      stream_driver_t raw_driver;
+#endif
+#ifdef MIDI_ENABLE
+      stream_driver_t midi_driver;
+#endif
+#ifdef VIRTSER_ENABLE
+      stream_driver_t serial_driver;
+#endif
+    };
+    stream_driver_t array[0];
+  };
+} stream_drivers_t;
 
-static USBInEndpointState raw_in_ep_state;
-static USBOutEndpointState raw_out_ep_state;
-
-static const USBEndpointConfig raw_in_ep_config = {
-  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
-  NULL,                         /* SETUP packet notification callback */
-  sduDataTransmitted,           /* IN notification callback */
-  NULL,                         /* OUT notification callback */
-  RAW_EPSIZE,                   /* IN maximum packet size */
-  0,                            /* OUT maximum packet size */
-  &raw_in_ep_state,             /* IN Endpoint state */
-  NULL,                         /* OUT endpoint state */
-  2,                            /* IN multiplier */
-  NULL                          /* SETUP buffer (not a SETUP endpoint) */
-};
-
-static const USBEndpointConfig raw_out_ep_config = {
-  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
-  NULL,                         /* SETUP packet notification callback */
-  NULL,                         /* IN notification callback */
-  &sduDataReceived,             /* OUT notification callback */
-  0,                            /* IN maximum packet size */
-  RAW_EPSIZE,                   /* OUT maximum packet size */
-  NULL,                         /* IN Endpoint state */
-  &raw_out_ep_state,             /* OUT endpoint state */
-  2,                            /* IN multiplier */
-  NULL                          /* SETUP buffer (not a SETUP endpoint) */
-};
-
-SerialUSBDriver raw_driver;
-const SerialUSBConfig raw_driver_conf = {
-  &USB_DRIVER,
-  RAW_IN_EPNUM,
-  RAW_OUT_EPNUM,
-  0,
-};
+static stream_drivers_t drivers = {
+#ifdef RAW_ENABLE
+  #define RAW_IN_CAPACITY 4
+  #define RAW_OUT_CAPACITY 4
+  #define RAW_IN_MODE USB_EP_MODE_TYPE_INTR
+  #define RAW_OUT_MODE USB_EP_MODE_TYPE_INTR
+  .raw_driver = STREAM_DRIVER(RAW, 0),
 #endif
 
 #ifdef MIDI_ENABLE
-#define MIDI_QUEUE_CAPACITY 4
-static uint8_t midi_queue_buffer_in[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
-static uint8_t midi_queue_buffer_out[BQ_BUFFER_SIZE(MIDI_QUEUE_CAPACITY, MIDI_STREAM_EPSIZE)];
-
-static USBInEndpointState midi_in_ep_state;
-static USBOutEndpointState midi_out_ep_state;
-
-static const USBEndpointConfig midi_in_ep_config = {
-  USB_EP_MODE_TYPE_BULK,        /* Bulk EP */
-  NULL,                         /* SETUP packet notification callback */
-  sduDataTransmitted,           /* IN notification callback */
-  NULL,                         /* OUT notification callback */
-  MIDI_STREAM_EPSIZE,           /* IN maximum packet size */
-  0,                            /* OUT maximum packet size */
-  &midi_in_ep_state,             /* IN Endpoint state */
-  NULL,                         /* OUT endpoint state */
-  2,                            /* IN multiplier */
-  NULL                          /* SETUP buffer (not a SETUP endpoint) */
-};
-
-static const USBEndpointConfig midi_out_ep_config = {
-  USB_EP_MODE_TYPE_BULK,        /* Bulk EP */
-  NULL,                         /* SETUP packet notification callback */
-  NULL,                         /* IN notification callback */
-  sduDataReceived,              /* OUT notification callback */
-  0,                            /* IN maximum packet size */
-  MIDI_STREAM_EPSIZE,           /* OUT maximum packet size */
-  NULL,                         /* IN Endpoint state */
-  &midi_out_ep_state,           /* OUT endpoint state */
-  2,                            /* IN multiplier */
-  NULL                          /* SETUP buffer (not a SETUP endpoint) */
-};
-
-SerialUSBDriver midi_driver;
-const SerialUSBConfig midi_driver_conf = {
-  &USB_DRIVER,
-  MIDI_STREAM_IN_EPNUM,
-  MIDI_STREAM_OUT_EPNUM,
-  0,
-};
+  #define MIDI_STREAM_IN_CAPACITY 4
+  #define MIDI_STREAM_OUT_CAPACITY 4
+  #define MIDI_STREAM_IN_MODE USB_EP_MODE_TYPE_BULK
+  #define MIDI_STREAM_OUT_MODE USB_EP_MODE_TYPE_BULK
+  .midi_driver = STREAM_DRIVER(MIDI_STREAM, 0),
 #endif
 
 #ifdef VIRTSER_ENABLE
-SerialUSBDriver SDU1;
-
-static USBOutEndpointState virtser_out_ep_state;
-static USBInEndpointState virtser_in_ep_state;
-static USBInEndpointState virtser_int_ep_state;
-
-static const USBEndpointConfig virtser_in_ep_config = {
-  USB_EP_MODE_TYPE_BULK,
-  NULL,
-  sduDataTransmitted,
-  NULL,
-  CDC_EPSIZE,
-  0,
-  &virtser_in_ep_state,
-  NULL,
-  2,
-  NULL
-};
-
-static const USBEndpointConfig virtser_out_ep_config = {
-  USB_EP_MODE_TYPE_BULK,
-  NULL,
-  NULL,
-  sduDataReceived,
-  0,
-  CDC_EPSIZE,
-  NULL,
-  &virtser_out_ep_state,
-  2,
-  NULL
-};
-
-static const USBEndpointConfig virtser_int_ep_config = {
-  USB_EP_MODE_TYPE_INTR,
-  NULL,
-  sduInterruptTransmitted,
-  NULL,
-  CDC_NOTIFICATION_EPSIZE,
-  0,
-  &virtser_int_ep_state,
-  NULL,
-  1,
-  NULL
-};
-
-const SerialUSBConfig serusbcfg = {
-  &USB_DRIVER,
-  CDC_IN_EPNUM,
-  CDC_OUT_EPNUM,
-  CDC_NOTIFICATION_EPNUM
-};
-
+  #define CDC_IN_CAPACITY 4
+  #define CDC_OUT_CAPACITY 4
+  #define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
+  #define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
+  .serial_driver = STREAM_DRIVER(CDC, CDC_NOTIFICATION_EPNUM),
 #endif
+};
+
+#define NUM_STREAM_DRIVERS (sizeof(drivers) / sizeof(stream_driver_t))
+
 
 /* ---------------------------------------------------------
  *                  USB driver functions
@@ -366,40 +338,21 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef NKRO_ENABLE
     usbInitEndpointI(usbp, NKRO_IN_EPNUM, &nkro_ep_config);
 #endif /* NKRO_ENABLE */
-#ifdef RAW_ENABLE
-    usbInitEndpointI(usbp, RAW_IN_EPNUM, &raw_in_ep_config);
-    usbInitEndpointI(usbp, RAW_OUT_EPNUM, &raw_out_ep_config);
-    sduConfigureHookI(&raw_driver);
-#endif
-#ifdef MIDI_ENABLE
-    usbInitEndpointI(usbp, MIDI_STREAM_IN_EPNUM, &midi_in_ep_config);
-    usbInitEndpointI(usbp, MIDI_STREAM_OUT_EPNUM, &midi_out_ep_config);
-    sduConfigureHookI(&midi_driver);
-#endif
-#ifdef VIRTSER_ENABLE
-    /* Enables the endpoints specified into the configuration.
-       Note, this callback is invoked from an ISR so I-Class functions
-       must be used.*/
-    usbInitEndpointI(usbp, CDC_IN_EPNUM, &virtser_in_ep_config);
-    usbInitEndpointI(usbp, CDC_OUT_EPNUM, &virtser_out_ep_config);
-    usbInitEndpointI(usbp, CDC_NOTIFICATION_EPNUM, &virtser_int_ep_config);
-
-    /* Resetting the state of the CDC subsystem.*/
-    sduConfigureHookI(&SDU1);
-#endif
+    for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+      usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].in_ep_config);
+      usbInitEndpointI(usbp, drivers.array[i].config.bulk_out, &drivers.array[i].out_ep_config);
+      if (drivers.array[i].config.int_in) {
+        usbInitEndpointI(usbp, drivers.array[i].config.int_in, &drivers.array[i].int_ep_config);
+      }
+      sduConfigureHookI(&drivers.array[i].driver);
+    }
     osalSysUnlockFromISR();
     return;
   case USB_EVENT_SUSPEND:
-    //TODO: from ISR! print("[S]");
-#ifdef VIRTSER_ENABLE
-    sduDisconnectI(&SDU1);
-#endif
-#ifdef RAW_ENABLE
-    sduDisconnectI(&raw_driver);
-#endif
-#ifdef MIDI_ENABLE
-    sduDisconnectI(&midi_driver);
-#endif
+    for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+      sduDisconnectI(&drivers.array[i].driver);
+    }
+
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -595,9 +548,13 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
     usbSetupTransfer(usbp, (uint8_t *)dp->ud_string, dp->ud_size, NULL);
     return TRUE;
   }
-  #ifdef VIRTSER_ENABLE
-    return sduRequestsHook(usbp);
-  #endif
+
+  for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+    if (drivers.array[i].config.int_in) {
+      // NOTE: Assumes that we only have one serial driver
+      return sduRequestsHook(usbp);
+    }
+  }
 
   return FALSE;
 }
@@ -605,19 +562,11 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 /* Start-of-frame callback */
 static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
-#if defined(VIRTSER_ENABLE) || defined(MIDI_ENABLE) || defined(RAW_ENABLE)
   osalSysLockFromISR();
-  #ifdef VIRTSER_ENABLE
-  sduSOFHookI(&SDU1);
-  #endif
-  #ifdef RAW_ENABLE
-  sduSOFHookI(&raw_driver);
-  #endif
-  #ifdef MIDI_ENABLE
-  sduSOFHookI(&midi_driver);
-  #endif
+  for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
+    sduSOFHookI(&drivers.array[i].driver);
+  }
   osalSysUnlockFromISR();
-#endif
 }
 
 
@@ -629,31 +578,22 @@ static const USBConfig usbcfg = {
   usb_sof_cb                    /* Start Of Frame callback */
 };
 
-static void init_usb_stream(SerialUSBDriver* driver, const SerialUSBConfig* config, uint8_t* queue_buffer_in, uint8_t* queue_buffer_out, uint16_t epsize, uint16_t queue_size) {
-  sduObjectInit(driver);
-  bqnotify_t notify = driver->ibqueue.notify;
-  ibqObjectInit(&driver->ibqueue, queue_buffer_in, epsize, queue_size, notify, driver);
-  notify = driver->obqueue.notify;
-  obqObjectInit(&driver->obqueue, queue_buffer_out, epsize, queue_size, notify, driver);
-  sduStart(driver, config);
-}
-
 /*
  * Initialize the USB driver
  */
 void init_usb_driver(USBDriver *usbp) {
-#ifdef VIRTSER_ENABLE
-  sduObjectInit(&SDU1);
-  sduStart(&SDU1, &serusbcfg);
-#endif
-
-#ifdef RAW_ENABLE
-  init_usb_stream(&raw_driver, &raw_driver_conf, raw_queue_buffer_in, raw_queue_buffer_out, RAW_EPSIZE, RAW_QUEUE_CAPACITY);
-#endif
-
-#ifdef MIDI_ENABLE
-  init_usb_stream(&midi_driver, &midi_driver_conf, midi_queue_buffer_in, midi_queue_buffer_out, MIDI_STREAM_EPSIZE, MIDI_QUEUE_CAPACITY);
-#endif
+  for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
+    SerialUSBDriver* driver = &drivers.array[i].driver;
+    drivers.array[i].in_ep_config.in_state = &drivers.array[i].in_ep_state;
+    drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
+    drivers.array[i].int_ep_config.in_state = &drivers.array[i].int_ep_state;
+    sduObjectInit(driver);
+    bqnotify_t notify = driver->ibqueue.notify;
+    ibqObjectInit(&driver->ibqueue, drivers.array[i].queue_buffer_in, drivers.array[i].in_ep_config.in_maxsize, drivers.array[i].queue_capacity_in, notify, driver);
+    notify = driver->obqueue.notify;
+    ibqObjectInit(&driver->ibqueue, drivers.array[i].queue_buffer_out, drivers.array[i].out_ep_config.out_maxsize, drivers.array[i].queue_capacity_out, notify, driver);
+    sduStart(driver, &drivers.array[i].config);
+  }
 
 #ifdef CONSOLE_ENABLE
   obqObjectInit(&console_buf_queue, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
@@ -1006,7 +946,7 @@ void raw_hid_send( uint8_t *data, uint8_t length ) {
 		return;
 
 	}
-  chnWrite(&raw_driver, data, length);
+  chnWrite(&drivers.raw_driver.driver, data, length);
 }
 
 __attribute__ ((weak))
@@ -1020,7 +960,7 @@ void raw_hid_task(void) {
   uint8_t buffer[RAW_EPSIZE];
   size_t size = 0;
   do {
-    size_t size = chnReadTimeout(&raw_driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+    size_t size = chnReadTimeout(&drivers.raw_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
     if (size > 0) {
         raw_hid_receive(buffer, size);
     }
@@ -1032,11 +972,11 @@ void raw_hid_task(void) {
 #ifdef MIDI_ENABLE
 
 void send_midi_packet(MIDI_EventPacket_t* event) {
-  chnWrite(&midi_driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t));
+  chnWrite(&drivers.midi_driver.driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t));
 }
 
 bool recv_midi_packet(MIDI_EventPacket_t* const event) {
-  size_t size = chnReadTimeout(&midi_driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
+  size_t size = chnReadTimeout(&drivers.midi_driver.driver, (uint8_t*)event, sizeof(MIDI_EventPacket_t), TIME_IMMEDIATE);
   return size == sizeof(MIDI_EventPacket_t);
 }
 
@@ -1045,7 +985,7 @@ bool recv_midi_packet(MIDI_EventPacket_t* const event) {
 #ifdef VIRTSER_ENABLE
 
 void virtser_send(const uint8_t byte) {
-  chnWrite(&SDU1, &byte, 1);
+  chnWrite(&drivers.serial_driver.driver, &byte, 1);
 }
 
 __attribute__ ((weak))
@@ -1058,7 +998,7 @@ void virtser_task(void) {
   uint8_t numBytesReceived = 0;
   uint8_t buffer[16];
   do {
-    numBytesReceived = chnReadTimeout(&SDU1, buffer, sizeof(buffer), TIME_IMMEDIATE);
+    numBytesReceived = chnReadTimeout(&drivers.serial_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
     for (int i=0;i<numBytesReceived;i++) {
       virtser_recv(buffer[i]);
     }
