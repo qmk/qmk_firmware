@@ -1,4 +1,4 @@
-# Tap Dance: A single key can do 3, 5, or 100 different things
+# Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things
 
 <!-- FIXME: Break this up into multiple sections -->
 
@@ -78,7 +78,7 @@ enum {
  X_TAP_DANCE
 };
 ```
-### Example 1: Send `:` on single tap, `;` on double tap
+### Example 1: Send `:` on Single Tap, `;` on Double Tap
 ```c
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
@@ -103,7 +103,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
 };
 ```
-### Example 2: Send "Safety Dance!" after 100 taps
+### Example 2: Send "Safety Dance!" After 100 Taps
 ```c
 void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count >= 100) {
@@ -117,7 +117,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-### Example 3: Turn LED lights on then off, one at a time
+### Example 3: Turn LED Lights On Then Off, One at a Time
 
 ```c
 // on each tap, light up one led, from right to left
@@ -150,7 +150,7 @@ void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// if the flash state didnt happen, then turn off leds, left to right
+// if the flash state didn't happen, then turn off LEDs, left to right
 void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
   ergodox_right_led_1_off();
   _delay_ms(50);
@@ -187,9 +187,9 @@ enum {
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4, 
+  DOUBLE_HOLD = 4,
   DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
-  // Add more enums here if you want for triple, quadruple, etc. 
+  // Add more enums here if you want for triple, quadruple, etc.
 };
 
 typedef struct {
@@ -200,23 +200,23 @@ typedef struct {
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
     //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
-    if (state->interrupted || state->!pressed) return SINGLE_TAP;
+    if (state->interrupted || state->pressed==0) return SINGLE_TAP;
     else return SINGLE_HOLD;
   }
   //If count = 2, and it has been interrupted - assume that user is trying to type the letter associated
   //with single tap. In example below, that means to send `xx` instead of `Escape`.
-  else if (state->count = 2) {
+  else if (state->count == 2) {
     if (state->interrupted) return DOUBLE_SINGLE_TAP;
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
-  } 
+  }
   else return 6; //magic number. At some point this method will expand to work for more presses
 }
 
 //**************** Definitions needed for quad function to work *********************//
 
 //instanalize an instance of 'tap' for the 'x' tap dance.
-static tap xtap_state = { 
+static tap xtap_state = {
   .is_press_action = true,
   .state = 0
 };

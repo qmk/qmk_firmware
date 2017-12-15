@@ -25,9 +25,11 @@ Some keyboards have folders and sub-folders to allow for different hardware conf
 
 This level contains all of the options for that particular keymap. If you wish to override a previous declaration, you can use `#undef <variable>` to undefine it, where you can then redefine it without an error.
 
-# The `config.h` file
+# The `config.h` File
 
-This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere.
+This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The `config.h` file shouldn't be including other `config.h` files, or anything besides this:
+
+    #include "config_common.h"
 
 ## `config.h` Options
 
@@ -82,7 +84,7 @@ This is a C header file that is one of the first things included, and will persi
 If you define these options you will disable the associated feature, which can save on code size.
 
 * `#define NO_DEBUG`
-  * disable debuging
+  * disable debugging
 * `#define NO_PRINT`
   * disable printing/debugging using hid_listen
 * `#define NO_ACTION_LAYER`
@@ -101,7 +103,7 @@ If you define these options you will disable the associated feature, which can s
 If you define these options you will enable the associated feature, which may increase your code size.
 
 * `#define FORCE_NKRO`
-  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of eeprom setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
+  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define PREVENT_STUCK_MODIFIERS`
   * when switching layers, this will release all mods
 
@@ -109,6 +111,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold
+* `#define RETRO_TAPPING`
+  * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
@@ -121,6 +125,15 @@ If you define these options you will enable the associated feature, which may in
   * how many taps before oneshot toggle is triggered
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+* `#define QMK_KEYS_PER_SCAN 4`
+  * Allows sending more than one key per scan. By default, only one key event gets
+    sent via `process_record()` per scan. This has little impact on most typing, but
+    if you're doing a lot of chords, or your scan rate is slow to begin with, you can
+    have some delay in processing key events. Each press and release is a separate
+    event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
+    going to produce the 500 keystrokes a second needed to actually get more than a
+    few ms of delay from this. But if you're doing chording on something with 3-4ms
+    scan times? You probably want this.
 
 ### RGB Light Configuration
 
@@ -133,11 +146,11 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
-  * units to step when in/decresing saturation
+  * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
 * `#define RGBW_BB_TWI`
-  * bit-bangs twi to EZ RGBW LEDs (only required for Ergodox EZ)
+  * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
 
 ### Mouse Key Options
 
@@ -151,7 +164,7 @@ If you define these options you will enable the associated feature, which may in
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
 
-## `rules.mk` options
+## `rules.mk` Options
 
 ### Build Options
 
@@ -168,7 +181,13 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `ARCH = AVR8`
 * `F_USB = $(F_CPU)`
 * `OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT`
-* `OPT_DEFS += -DBOOTLOADER_SIZE=4096`
+* `BOOTLOADER = atmel-dfu` with the following options:
+  * `atmel-dfu`
+  * `lufa-dfu`
+  * `qmk-dfu`
+  * `halfkay`
+  * `caterina`
+  * `bootloadHID`
 
 ### Feature Options
 
@@ -185,7 +204,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
 * `NKRO_ENABLE`
-  * USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+  * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `RGBLIGHT_ENABLE`
