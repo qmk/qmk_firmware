@@ -10,12 +10,11 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _DV 0
-#define _QW 1
-#define _NM 2
-#define _NV 3
-#define _G1 4
-#define _G2 5
-#define _FN 6
+#define _NM 1
+#define _NV 2
+#define _G1 3
+#define _G2 4
+#define _FN 5
 
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define NM_SP   LT(_NM, KC_SPC)
@@ -66,27 +65,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
     MO(_FN), KC_LGUI, KC_LALT,                   NM_SP,   NV_SP,            KC_RALT, KC_SLSH, KC_BSLS, KC_ESC
    ),
-
-
-
-/* QWERTY
- * ,---------+------+------+------+------+------+------+------+------+------+------+------------.
- * |  TAB    |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  BACKSPACE |
- * |---------`------`------`------`------`------`------`------`------`------`------`------------|
- * |  LCTL    |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |     ENTER |
- * |----------`------`------`------`------`------`------`------`------`------`------`-----------|
- * |  LSHFT    |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   UP  |   RSHFT |
- * |-----------`------`------`------`------`------`-------`------`------`------`------`---------|
- * |  MO FN   |   GUI    |    ALT   |  NM / SPACE  |    SPACE   |  RALT |  LEFT | DOWN  | RIGHT |
- *  `---------+----------+----------+-----^^^------+----^^^-----+-------+-------+-------+-------'
- */
-  [_QW] = KEYMAP_ARROW(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_RSFT,
-    MO(_FN), KC_LGUI, KC_LALT,                   NM_SP,   NV_SP,            KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT
-   ),
-
 
 
 
@@ -176,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------`------`------`------`------`------`------`------`------`------`------`------------|
  * |   LCTL   |  F11 |  F12 |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 |           |
  * |----------`------`------`------`------`------`------`------`------`------`------`-----------|
- * |   LSFT    |  _DV |  _G1 |  _QW |      |      |      |      |      |      |       |         |
+ * |   LSFT    |  _DV |  _G1 |      |      |      |      |      |      |      |       |         |
  * |-----------`------`------`------`------`------`-------`------`------`------`------`---------|
  * |---TRNS---|   CAPS   |   LALT   |              |            |  RALT |       | RESET |--TRNS-|
  *  `---------+----------+----------+-----^^^------+----^^^-----+-------+-------+-------+-------'
@@ -184,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = KEYMAP_ARROW(
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
     _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  xxxxxxx,
-    _______, TO(_DV), TO(_G1), TO(_QW), xxxxxxx, xxxxxxx, KC_PWR,  KC_SLEP, KC_WAKE, xxxxxxx, xxxxxxx, xxxxxxx,
+    _______, TO(_DV), TO(_G1), xxxxxxx, xxxxxxx, xxxxxxx, KC_PWR,  KC_SLEP, KC_WAKE, xxxxxxx, xxxxxxx, xxxxxxx,
     _______, KC_CAPS, _______,                   xxxxxxx, xxxxxxx,          KC_RALT, xxxxxxx, RESET,   _______
   )
 
