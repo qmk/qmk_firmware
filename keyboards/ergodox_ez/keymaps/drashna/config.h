@@ -4,6 +4,8 @@
 
 
 #define TAPPING_TERM 200
+#undef PERMISSIVE_HOLD
+//#define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLIGHT_SAT_STEP 
@@ -13,6 +15,5 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-#define FORCE_NKRO
 
 #endif

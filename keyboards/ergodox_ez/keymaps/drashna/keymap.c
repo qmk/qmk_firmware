@@ -16,13 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 #include "debug.h"
-#include "action_layer.h"
 #include "version.h"
 #include "drashna.h"
-
-#include "keymap_german.h"
-
-#include "keymap_nordic.h"
 
 
 
@@ -294,7 +289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_I,       KC_O,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(_GAMEPAD),   KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,      KC_NO,
-                KC_NO,          KC_NO,
+                KC_NO,          MAGIC_TOGGLE_NKRO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
