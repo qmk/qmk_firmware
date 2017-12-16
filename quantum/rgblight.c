@@ -370,6 +370,18 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   }
 }
 
+uint16_t rgblight_get_hue(void) {
+  return rgblight_config.hue;
+}
+
+uint8_t rgblight_get_sat(void) {
+  return rgblight_config.sat;
+}
+
+uint8_t rgblight_get_val(void) {
+  return rgblight_config.val;
+}
+
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   if (!rgblight_config.enable) { return; }
 
