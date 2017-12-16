@@ -30,10 +30,8 @@ void led_set_kb(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         // Turn numlock on
         PORTB &= ~(1<<2);
-        rgblight_sethsv((rgblight_get_hue()+180)%360,rgblight_get_sat(),rgblight_get_val());
     } else {
         // Turn numlock off
         PORTB |= (1<<2);
-        rgblight_sethsv((rgblight_get_hue()+180)%360,rgblight_get_sat(),rgblight_get_val());
     }    
 }
