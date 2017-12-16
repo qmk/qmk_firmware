@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 14
+#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS 6
 
 #define MOUSEKEY_INTERVAL       20
@@ -61,8 +62,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
 
+#ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
+#endif
+#ifndef LED_BRIGHTNESS_HI
 #define LED_BRIGHTNESS_HI       255
+#endif
+#define LED_BRIGHTNESS_DEFAULT (LED_BRIGHTNESS_HI)
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D7
@@ -80,7 +86,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBW 1
 
-/* Set 0 if debouncing isn't needed */
+/* "debounce" is measured in keyboard scans. Some users reported
+ * needing values as high as 15, which was at the time around 50ms.
+ * If you don't define it here, the matrix code will default to
+ * 5, which is now closer to 10ms, but still plenty according to
+ * manufacturer specs.
+ *
+ * Default is quite high, because of reports with some production
+ * runs seeming to need it. This may change when configuration for
+ * this is more directly exposed.
+ */
 #define DEBOUNCE    15
 
 #define PREVENT_STUCK_MODIFIERS

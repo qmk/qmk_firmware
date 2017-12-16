@@ -152,8 +152,9 @@ enum quantum_keycodes {
 
     // Midi
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
+    MI_ON,
+    MI_OFF,
+    MI_TOG,
 #endif
 
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
@@ -399,8 +400,8 @@ enum quantum_keycodes {
 
     // RGB functionality
     RGB_TOG,
-    RGB_MOD,
-    RGB_SMOD,
+    RGB_MODE_FORWARD,
+    RGB_MODE_REVERSE,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
@@ -421,6 +422,9 @@ enum quantum_keycodes {
 
     // Right shift, close paren
     KC_RSPC,
+
+    // Shift, Enter
+    KC_SFTENT,
 
     // Printing
     PRINT_ON,
@@ -552,6 +556,10 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define RGB_MOD RGB_MODE_FORWARD
+#define RGB_SMOD RGB_MODE_FORWARD
+#define RGB_RMOD RGB_MODE_REVERSE
 
 #define RGB_M_P RGB_MODE_PLAIN
 #define RGB_M_B RGB_MODE_BREATHE
