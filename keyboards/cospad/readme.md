@@ -7,6 +7,8 @@ Keyboard Maintainer: QMK Community
 Hardware Supported: COSPAD
 Hardware Availability: https://aliexpress.com/item/cospad-Custom-Mechanical-Keyboard-Kit-up-tp-24-keys-Supports-TKG-TOOLS-Underglow-RGB-PCB-20/32818383873.html
 
+Only supports on and off for the backlight leds, as they are not connected to a PWM pin.
+
 Supported Layouts:
 
 ![Numpad Layout of COSPAD](https://i.imgur.com/t03lXJ4.png)
