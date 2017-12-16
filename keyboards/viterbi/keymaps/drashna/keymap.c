@@ -22,7 +22,7 @@ extern keymap_config_t keymap_config;
 #define COVECUBE TG(_COVECUBE)
 
 enum more_custom_keycodes {
-  KC_KP_00 = NEW_SAFE_RANGE
+  KC_P00 = NEW_SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEDIA,       KC_CALC,     COVECUBE,    KC_P7,   KC_P8,   KC_P9,   KC_PAST,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_HOME,     KC_DEL,      KC_PGUP,     KC_P4,   KC_P5,   KC_P6,   KC_PMNS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_END,      KC_UP,       KC_PGDN,     KC_P1,   KC_P2,   KC_P3,   KC_PPLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_LEFT,     KC_DOWN,     KC_RGHT,     KC_P0,   KC_KP_00,KC_PDOT, KC_PENT,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+      KC_LEFT,     KC_DOWN,     KC_RGHT,     KC_P0,   KC_P00, KC_PDOT, KC_PENT,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
   [_DIABLO] = KEYMAP(
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case KC_KP_00:
+  case KC_P00:
     if (record->event.pressed) {
       register_code(KC_KP_0);
       unregister_code(KC_KP_0);
