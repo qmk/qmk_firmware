@@ -3,8 +3,8 @@ mechmini
 
 A compact ortholinear/staggered keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: mechmini PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: mechmini PCB  
 Hardware Availability: https://mechkeys.ca/collections/keyboards/products/mechmini-2-0-pcb
 
 Make example for this keyboard (after setting up your build environment):
