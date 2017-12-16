@@ -60,6 +60,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PLAY_NOTE_ARRAY(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
+    default:
+      return true; // Process all other keycodes normally
   }
 }
 ```
