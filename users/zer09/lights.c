@@ -101,7 +101,7 @@ void rainbow_loop(uint8_t lyr) {
   for (uint8_t j = 0; j < RBW; j++) {
     pos = rbw_led_keys[j].pos;
 
-    switch (rbw_led_keys[i].status) {
+    switch (rbw_led_keys[j].status) {
     case ENABLED:
       if (!active_key_pos[pos]) {
         SET_LED_RGB(r, g, b, led_dim, pos);
@@ -115,7 +115,7 @@ void rainbow_loop(uint8_t lyr) {
         set_rbw = true;
       }
 
-      rbw_led_keys[i].status = DEFAULT;
+      rbw_led_keys[j].status = DEFAULT;
       break;
     default:
       break;
