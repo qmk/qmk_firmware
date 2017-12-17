@@ -58,12 +58,12 @@ void set_key_led(keyrecord_t *record, uint8_t lyr) {
   }
 }
 
-void set_layer_led(uint8_t lyr) {
+bool set_layer_led(uint8_t lyr) {
   static uint8_t p_lyr = 0; // Previous layer.
   static uint8_t p_dim = 0; // Previous dim.
 
   if (p_lyr == lyr && p_dim == led_dim) {
-    return;
+    return false;
   }
 
   p_lyr = lyr;
@@ -76,15 +76,17 @@ void set_layer_led(uint8_t lyr) {
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     SET_LED_RGB(r, g, b, d, i);
   }
+
+  return true;
 }
 
-void rainbow_loop(uint8_t lyr) {
+bool rainbow_loop(uint8_t lyr) {
   static uint16_t last_timer = 0;
   static uint16_t i = 0;
   static uint8_t r, g, b, pos;
 
   if (timer_elapsed(last_timer) < 8) {
-    return;
+    return false;
   }
 
   if (i >= 360) {
@@ -124,9 +126,7 @@ void rainbow_loop(uint8_t lyr) {
     }
   }
 
-  if (set_rbw) {
-    rgblight_set();
-  }
+  return set_rbw;
 }
 
 bool led_brightness(uint16_t keycode, keyrecord_t *record) {

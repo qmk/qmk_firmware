@@ -15,18 +15,24 @@ __attribute__((weak)) void led_set_keymap(uint8_t usb_led) {}
 
 static uint8_t c_lyr = 0; // current layer.
 
-void shifted_layer(void) {
+bool shifted_layer(void) {
   static bool is_shifted = false;
 
   if (c_lyr == _VL) {
-    register_code(KC_LSFT);
-    is_shifted = true;
+    if (!is_shifted) {
+      register_code(KC_LSFT);
+      is_shifted = true;
+      return true;
+    }
   } else {
     if (is_shifted) {
       unregister_code(KC_LSFT);
       is_shifted = false;
+      return true;
     }
   }
+
+  return false;
 }
 
 void matrix_init_user(void) {
@@ -37,8 +43,17 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+  static uint8_t is_leds_changes = 1;
   c_lyr = biton32(layer_state);
-  rainbow_loop(c_lyr);
+
+  is_leds_changes = is_leds_changes << set_layer_led(c_lyr);
+  is_leds_changes = is_leds_changes << shifted_layer();
+  is_leds_changes = is_leds_changes << rainbow_loop(c_lyr);
+
+  if (is_leds_changes > 1) {
+    rgblight_set();
+    is_leds_changes = 1;
+  }
 
   matrix_scan_keymap();
 }
@@ -51,8 +66,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
-  set_layer_led(c_lyr);
-  shifted_layer();
   rgblight_set();
   return process_record_keymap(keycode, record);
 }

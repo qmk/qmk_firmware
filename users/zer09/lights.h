@@ -23,7 +23,7 @@ enum rbw_keys { RBW_LCAPS, RBW_RCAPS, RBW_SCRLK, RBW };
 extern volatile led_key rbw_led_keys[RBW];
 
 void set_key_led(keyrecord_t *record, uint8_t lyr);
-void set_layer_led(uint8_t lyr);
-void rainbow_loop(uint8_t lyr);
+bool set_layer_led(uint8_t lyr);
+bool rainbow_loop(uint8_t lyr);
 bool led_brightness(uint16_t keycode, keyrecord_t *record);
 void eeprom_read_led_dim_lvl(void);
