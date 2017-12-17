@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
+#define USB_MAX_POWER_CONSUMPTION 50
+
 /* Select hand configuration */
 #define MASTER_LEFT
 
