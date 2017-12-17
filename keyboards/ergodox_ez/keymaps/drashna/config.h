@@ -2,8 +2,8 @@
 #define CONFIG_USER_H
 #include "../../config.h"
 
-
-#define TAPPING_TERM 200
+#undef TAPPING_TERM
+#define TAPPING_TERM 150
 #undef PERMISSIVE_HOLD
 //#define IGNORE_MOD_TAP_INTERRUPT
 
