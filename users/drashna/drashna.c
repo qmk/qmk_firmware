@@ -448,8 +448,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
       ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-       ":avrdude"
+//#elif defined(BOOTLOADER_CATERINA)
+//       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
         " RGBLIGHT_ENABLE=yes"
