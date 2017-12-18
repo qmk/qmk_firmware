@@ -31,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 14
 
-#define CATERINA_BOOTLOADER
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 

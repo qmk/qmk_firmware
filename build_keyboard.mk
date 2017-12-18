@@ -94,6 +94,23 @@ endif
 
 OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE)
 
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).h)","")
+    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/$(KEYBOARD_FOLDER_2).h)","")
+    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_2).h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/$(KEYBOARD_FOLDER_3).h)","")
+    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_3).h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/$(KEYBOARD_FOLDER_4).h)","")
+    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_4).h
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
+    QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
+endif
+
 # We can assume a ChibiOS target When MCU_FAMILY is defined , since it's not used for LUFA
 ifdef MCU_FAMILY
     PLATFORM=CHIBIOS
@@ -183,6 +200,10 @@ else
     # this state should never be reached
 endif
 
+# User space stuff
+USER_PATH := users/$(KEYMAP)
+-include $(USER_PATH)/rules.mk
+
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
@@ -204,10 +225,12 @@ SRC += $(KEYBOARD_SRC) \
 VPATH += $(KEYMAP_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
+VPATH += $(USER_PATH)
 
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
+include bootloader.mk
 
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
@@ -228,10 +251,12 @@ ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     include $(VISUALIZER_PATH)/visualizer.mk
 endif
 
+ALL_CONFIGS := $(PROJECT_CONFIG) $(CONFIG_H)
+
 OUTPUTS := $(KEYMAP_OUTPUT) $(KEYBOARD_OUTPUT)
 $(KEYMAP_OUTPUT)_SRC := $(SRC)
 $(KEYMAP_OUTPUT)_DEFS := $(OPT_DEFS) $(GFXDEFS) \
--DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(KEYBOARD_FOLDER_1).h\" -DQMK_KEYBOARD_CONFIG_H=\"$(KEYBOARD_PATH_1)/config.h\" \
+-DQMK_KEYBOARD=\"$(KEYBOARD)\" -DQMK_KEYBOARD_H=\"$(QMK_KEYBOARD_H)\" -DQMK_KEYBOARD_CONFIG_H=\"$(KEYBOARD_PATH_1)/config.h\" \
 -DQMK_KEYMAP=\"$(KEYMAP)\" -DQMK_KEYMAP_H=\"$(KEYMAP).h\" -DQMK_KEYMAP_CONFIG_H=\"$(KEYMAP_PATH)/config.h\" \
 -DQMK_SUBPROJECT -DQMK_SUBPROJECT_H -DQMK_SUBPROJECT_CONFIG_H
 $(KEYMAP_OUTPUT)_INC :=  $(VPATH) $(EXTRAINCDIRS)
@@ -242,10 +267,10 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-all: build sizeafter
+all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf hex
+build: elf cphex
 #build: elf hex eep lss sym
 #build: lib
 
