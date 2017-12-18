@@ -6,13 +6,13 @@ _todo_
 
 ## Includes
 
-- Music & Audio
 - Media Keys
+- Music & Audio
 
 ## Layouts
 
 - **qwerty** as on the Vortex Core keyboard
 
-- **azerty** as a Vortex Core's qwerty variant
+- **azerty** _todo_
 
-- **bépo**
+- **bépo** _todo_
