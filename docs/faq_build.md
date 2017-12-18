@@ -1,12 +1,12 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](make_instructions.md) guides.
+This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
 
-## Can't program on Linux
+## Can't Program on Linux
 You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
 
 In short when your controller is ATMega32u4,
-    
+
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
@@ -17,7 +17,7 @@ or just
 
 But to run `make` with root privilege is not good idea. Use former method if possible.
 
-## WINAVR is obsolete
+## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
 See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
 
@@ -33,7 +33,7 @@ You can buy a really unique VID:PID here. I don't think you need this for person
 - http://www.obdev.at/products/vusb/license.html
 - http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
-## Linux udev rules
+## Linux `udev` Rules
 On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
 
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
@@ -53,7 +53,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
 
 
-## Cortex: cstddef: No such file or directory
+## Cortex: `cstddef: No such file or directory`
 GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
 https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
 
@@ -62,7 +62,7 @@ https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstdd
 https://developer.mbed.org/forum/mbed/topic/5205/
 
 
-## `clock_prescale_set` and `clock_div_1` not available
+## `clock_prescale_set` and `clock_div_1` Not Available
 Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
 
 ```
@@ -81,11 +81,11 @@ make: *** [obj_alps64/protocol/lufa/lufa.o] Error 1
 Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong comment.
 
 ```
-# Boot Section Size in *bytes*    
-#   Teensy halfKay   512          
-#   Teensy++ halfKay 2048         
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 2048
 #   Atmel DFU loader 4096       (TMK Alt Controller)
-#   LUFA bootloader  4096         
-#   USBaspLoader     2048         
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```

@@ -1,3 +1,20 @@
+/*
+Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef USERSPACE
 #define USERSPACE
 
@@ -12,7 +29,7 @@
 #define _NAV 5
 #define _COVECUBE 6
 #define _SYMB 8
-#define _OVERWATCH 9
+#define _GAMEPAD 9
 #define _DIABLO 10
 #define _MOUS 11
 #define _MACROS 12
@@ -26,6 +43,7 @@
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 #ifdef RGBLIGHT_ENABLE
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
@@ -36,14 +54,14 @@
 #define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
 #define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
 #define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
 #endif
 
-__attribute__ ((weak))
-bool is_overwatch = false;
+extern bool is_overwatch;
+extern bool rgb_layer_change;
 
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
+enum userspace_custom_keycodes {
+  EPRM = SAFE_RANGE, // can always be here
   VRSN,
   KC_QWERTY,
   KC_COLEMAK,
@@ -59,15 +77,37 @@ enum custom_keycodes {
   KC_SALTHARD,
   KC_GOODGAME,
   KC_SYMM,
-  KC_DOOMFIST,
   KC_JUSTGAME,
   KC_GLHF,
   KC_TORB,
   KC_AIM,
+  KC_C9,
+  KC_GGEZ,
   KC_MAKE,
   KC_RESET,
-  KC_P00,
-  NEWPLACEHOLDER
+  KC_RGB_T,
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
+  NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
+
+#ifdef TAP_DANCE_ENABLE
+enum {
+  TD_D3_1 = 0,
+  TD_D3_2,
+  TD_D3_3,
+  TD_D3_4
+};
+#endif
+
+
+#define QMK_KEYS_PER_SCAN 8
+
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT_SLEEP
+#endif
 
 #endif
