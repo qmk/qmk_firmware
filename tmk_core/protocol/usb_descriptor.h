@@ -207,8 +207,14 @@ typedef struct
 
 #ifdef CONSOLE_ENABLE
 #   define CONSOLE_IN_EPNUM         (RAW_OUT_EPNUM + 1)
-//#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+#ifdef PROTOCOL_CHIBIOS
+// ChibiOS has enough memory and descriptor to actually enable the endpoint
+// It could use the same endpoint numbers, as that's supported by ChibiOS
+// But the QMK code currently assumes that the endpoint numbers are different
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+#else
 #   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
+#endif
 #else
 #   define CONSOLE_OUT_EPNUM        RAW_OUT_EPNUM
 #endif

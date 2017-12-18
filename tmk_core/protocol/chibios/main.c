@@ -76,6 +76,10 @@ void virtser_task(void);
 void raw_hid_task(void);
 #endif
 
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
+
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
  */
@@ -196,6 +200,9 @@ int main(void) {
     }
 
     keyboard_task();
+#ifdef CONSOLE_ENABLE
+    console_task();
+#endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif

@@ -64,16 +64,6 @@ report_mouse_t mouse_report_blank = {0};
 uint8_t extra_report_blank[3] = {0};
 #endif /* EXTRAKEY_ENABLE */
 
-#ifdef CONSOLE_ENABLE
-/* The emission buffers queue */
-output_buffers_queue_t console_buf_queue;
-static uint8_t console_queue_buffer[BQ_BUFFER_SIZE(CONSOLE_QUEUE_CAPACITY, CONSOLE_EPSIZE)];
-
-static virtual_timer_t console_flush_timer;
-void console_queue_onotify(io_buffers_queue_t *bqp);
-static void console_flush_cb(void *arg);
-#endif /* CONSOLE_ENABLE */
-
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
  * ---------------------------------------------------------
@@ -139,25 +129,6 @@ static const USBEndpointConfig mouse_ep_config = {
 };
 #endif /* MOUSE_ENABLE */
 
-#ifdef CONSOLE_ENABLE
-/* console endpoint state structure */
-static USBInEndpointState console_ep_state;
-
-/* console endpoint initialization structure (IN) */
-static const USBEndpointConfig console_ep_config = {
-  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
-  NULL,                         /* SETUP packet notification callback */
-  console_in_cb,                /* IN notification callback */
-  NULL,                         /* OUT notification callback */
-  CONSOLE_EPSIZE,               /* IN maximum packet size */
-  0,                            /* OUT maximum packet size */
-  &console_ep_state,            /* IN Endpoint state */
-  NULL,                         /* OUT endpoint state */
-  2,                            /* IN multiplier */
-  NULL                          /* SETUP buffer (not a SETUP endpoint) */
-};
-#endif /* CONSOLE_ENABLE */
-
 #ifdef EXTRAKEY_ENABLE
 /* extrakey endpoint state structure */
 static USBInEndpointState extra_ep_state;
@@ -212,48 +183,48 @@ typedef struct {
 } stream_driver_t;
 
 #define STREAM_DRIVER(stream, notification) { \
-    .queue_capacity_in = stream##_IN_CAPACITY, \
-    .queue_capacity_out = stream##_OUT_CAPACITY, \
-    .queue_buffer_in = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
-    .queue_buffer_out = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
-    .in_ep_config = { \
-      .ep_mode = stream##_IN_MODE, \
-      .setup_cb = NULL, \
-      .in_cb = sduDataTransmitted, \
-      .out_cb = NULL, \
-      .in_maxsize = stream##_EPSIZE, \
-      .out_maxsize = 0, \
-      /* The pointer to the states will be filled during initialization */ \
-      .in_state = NULL, \
-      .out_state = NULL, \
-      .ep_buffers = 2, \
-      .setup_buf = NULL \
-    }, \
-    .out_ep_config = { \
-      .ep_mode = stream##_OUT_MODE, \
-      .setup_cb = NULL, \
-      .in_cb = NULL, \
-      .out_cb = sduDataReceived, \
-      .in_maxsize = 0, \
-      .out_maxsize = stream##_EPSIZE, \
-      /* The pointer to the states will be filled during initialization */ \
-      .in_state = NULL, \
-      .out_state = NULL, \
-      .ep_buffers = 2, \
-      .setup_buf = NULL, \
-    }, \
-    .int_ep_config = { \
-      .ep_mode = USB_EP_MODE_TYPE_INTR, \
-      .setup_cb = NULL, \
-      .in_cb = sduInterruptTransmitted, \
-      .out_cb = NULL, \
-      .in_maxsize = CDC_NOTIFICATION_EPSIZE, \
-      .out_maxsize = 0, \
-      /* The pointer to the states will be filled during initialization */ \
-      .in_state = NULL, \
-      .out_state = NULL, \
-      .ep_buffers = 2, \
-      .setup_buf = NULL, \
+  .queue_capacity_in = stream##_IN_CAPACITY, \
+  .queue_capacity_out = stream##_OUT_CAPACITY, \
+  .queue_buffer_in = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
+  .queue_buffer_out = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
+  .in_ep_config = { \
+    .ep_mode = stream##_IN_MODE, \
+    .setup_cb = NULL, \
+    .in_cb = sduDataTransmitted, \
+    .out_cb = NULL, \
+    .in_maxsize = stream##_EPSIZE, \
+    .out_maxsize = 0, \
+    /* The pointer to the states will be filled during initialization */ \
+    .in_state = NULL, \
+    .out_state = NULL, \
+    .ep_buffers = 2, \
+    .setup_buf = NULL \
+  }, \
+  .out_ep_config = { \
+    .ep_mode = stream##_OUT_MODE, \
+    .setup_cb = NULL, \
+    .in_cb = NULL, \
+    .out_cb = sduDataReceived, \
+    .in_maxsize = 0, \
+    .out_maxsize = stream##_EPSIZE, \
+    /* The pointer to the states will be filled during initialization */ \
+    .in_state = NULL, \
+    .out_state = NULL, \
+    .ep_buffers = 2, \
+    .setup_buf = NULL, \
+  }, \
+  .int_ep_config = { \
+    .ep_mode = USB_EP_MODE_TYPE_INTR, \
+    .setup_cb = NULL, \
+    .in_cb = sduInterruptTransmitted, \
+    .out_cb = NULL, \
+    .in_maxsize = CDC_NOTIFICATION_EPSIZE, \
+    .out_maxsize = 0, \
+    /* The pointer to the states will be filled during initialization */ \
+    .in_state = NULL, \
+    .out_state = NULL, \
+    .ep_buffers = 2, \
+    .setup_buf = NULL, \
   }, \
   .config = { \
     .usbp = &USB_DRIVER, \
@@ -266,6 +237,9 @@ typedef struct {
 typedef struct {
   union {
     struct {
+#ifdef CONSOLE_ENABLE
+      stream_driver_t console_driver;
+#endif
 #ifdef RAW_ENABLE
       stream_driver_t raw_driver;
 #endif
@@ -281,6 +255,13 @@ typedef struct {
 } stream_drivers_t;
 
 static stream_drivers_t drivers = {
+#ifdef CONSOLE_ENABLE
+  #define CONSOLE_IN_CAPACITY 4
+  #define CONSOLE_OUT_CAPACITY 4
+  #define CONSOLE_IN_MODE USB_EP_MODE_TYPE_INTR
+  #define CONSOLE_OUT_MODE USB_EP_MODE_TYPE_INTR
+  .console_driver = STREAM_DRIVER(CONSOLE, 0),
+#endif
 #ifdef RAW_ENABLE
   #define RAW_IN_CAPACITY 4
   #define RAW_OUT_CAPACITY 4
@@ -328,10 +309,6 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef MOUSE_ENABLE
     usbInitEndpointI(usbp, MOUSE_IN_EPNUM, &mouse_ep_config);
 #endif /* MOUSE_ENABLE */
-#ifdef CONSOLE_ENABLE
-    usbInitEndpointI(usbp, CONSOLE_IN_EPNUM, &console_ep_config);
-    /* don't need to start the flush timer, it starts from console_in_cb automatically */
-#endif /* CONSOLE_ENABLE */
 #ifdef EXTRAKEY_ENABLE
     usbInitEndpointI(usbp, EXTRAKEY_IN_EPNUM, &extra_ep_config);
 #endif /* EXTRAKEY_ENABLE */
@@ -433,13 +410,6 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
           return TRUE;
           break;
 #endif /* MOUSE_ENABLE */
-
-#ifdef CONSOLE_ENABLE
-        case CONSOLE_INTERFACE:
-          usbSetupTransfer(usbp, console_queue_buffer, CONSOLE_EPSIZE, NULL);
-          return TRUE;
-          break;
-#endif /* CONSOLE_ENABLE */
 
 #ifdef EXTRAKEY_ENABLE
         case EXTRAKEY_INTERFACE:
@@ -595,11 +565,6 @@ void init_usb_driver(USBDriver *usbp) {
     sduStart(driver, &drivers.array[i].config);
   }
 
-#ifdef CONSOLE_ENABLE
-  obqObjectInit(&console_buf_queue, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
-  chVTObjectInit(&console_flush_timer);
-#endif
-
   /*
    * Activates the USB driver and then the USB bus pull-up on D+.
    * Note, a delay is inserted in order to not have to disconnect the cable
@@ -617,7 +582,6 @@ void init_usb_driver(USBDriver *usbp) {
  *                  Keyboard functions
  * ---------------------------------------------------------
  */
-
 /* keyboard IN callback hander (a kbd report has made it IN) */
 void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
   /* STUB */
@@ -815,115 +779,28 @@ void send_consumer(uint16_t data) {
 
 #ifdef CONSOLE_ENABLE
 
-/* console IN callback hander */
-void console_in_cb(USBDriver *usbp, usbep_t ep) {
-  (void)ep; /* should have ep == CONSOLE_IN_EPNUM, so use that to save time/space */
-  uint8_t *buf;
-  size_t n;
-
-  osalSysLockFromISR();
-
-  /* rearm the timer */
-  chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
-
-  /* Freeing the buffer just transmitted, if it was not a zero size packet.*/
-  if (usbp->epc[CONSOLE_IN_EPNUM]->in_state->txsize > 0U) {
-    obqReleaseEmptyBufferI(&console_buf_queue);
-  }
-
-  /* Checking if there is a buffer ready for transmission.*/
-  buf = obqGetFullBufferI(&console_buf_queue, &n);
-
-  if (buf != NULL) {
-    /* The endpoint cannot be busy, we are in the context of the callback,
-       so it is safe to transmit without a check.*/
-    /* Should have n == CONSOLE_EPSIZE; check it? */
-    usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
-  } else {
-    /* Nothing to transmit.*/
-  }
-
-  osalSysUnlockFromISR();
-}
-
-/* Callback when data is inserted into the output queue
- * Called from a locked state */
-void console_queue_onotify(io_buffers_queue_t *bqp) {
-  size_t n;
-  USBDriver *usbp = bqGetLinkX(bqp);
-
-  if(usbGetDriverStateI(usbp) != USB_ACTIVE)
-    return;
-
-  /* Checking if there is already a transaction ongoing on the endpoint.*/
-  if (!usbGetTransmitStatusI(usbp, CONSOLE_IN_EPNUM)) {
-    /* Trying to get a full buffer.*/
-    uint8_t *buf = obqGetFullBufferI(&console_buf_queue, &n);
-    if (buf != NULL) {
-      /* Buffer found, starting a new transaction.*/
-      /* Should have n == CONSOLE_EPSIZE; check this? */
-      usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
-    }
-  }
-}
-
-/* Flush timer code
- * callback (called from ISR, unlocked state) */
-static void console_flush_cb(void *arg) {
-  USBDriver *usbp = (USBDriver *)arg;
-  osalSysLockFromISR();
-
-  /* check that the states of things are as they're supposed to */
-  if(usbGetDriverStateI(usbp) != USB_ACTIVE) {
-    /* rearm the timer */
-    chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
-    osalSysUnlockFromISR();
-    return;
-  }
-
-  /* If there is already a transaction ongoing then another one cannot be
-     started.*/
-  if (usbGetTransmitStatusI(usbp, CONSOLE_IN_EPNUM)) {
-    /* rearm the timer */
-    chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
-    osalSysUnlockFromISR();
-    return;
-  }
-
-  /* Checking if there only a buffer partially filled, if so then it is
-     enforced in the queue and transmitted.*/
-  if(obqTryFlushI(&console_buf_queue)) {
-    size_t n,i;
-    uint8_t *buf = obqGetFullBufferI(&console_buf_queue, &n);
-
-    osalDbgAssert(buf != NULL, "queue is empty");
-
-    /* zero the rest of the buffer (buf should point to allocated space) */
-    for(i=n; i<CONSOLE_EPSIZE; i++)
-      buf[i]=0;
-    usbStartTransmitI(usbp, CONSOLE_IN_EPNUM, buf, CONSOLE_EPSIZE);
-  }
-
-  /* rearm the timer */
-  chVTSetI(&console_flush_timer, MS2ST(CONSOLE_FLUSH_MS), console_flush_cb, (void *)usbp);
-  osalSysUnlockFromISR();
-}
-
-
 int8_t sendchar(uint8_t c) {
-  osalSysLock();
-  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-    osalSysUnlock();
-    return 0;
-  }
-  osalSysUnlock();
-  /* Timeout after 100us if the queue is full.
-   * Increase this timeout if too much stuff is getting
-   * dropped (i.e. the buffer is getting full too fast
-   * for USB/HIDRAW to dequeue). Another possibility
-   * for fixing this kind of thing is to increase
-   * CONSOLE_QUEUE_CAPACITY. */
-  return(obqPutTimeout(&console_buf_queue, c, US2ST(100)));
+  // The previous implmentation had timeouts, but I think it's better to just slow down
+  // and make sure that everything is transferred, rather than dropping stuff
+  return chnWrite(&drivers.console_driver.driver, &c, 1);
+}
+
+// Just a dummy function for now, this could be exposed as a weak function
+// Or connected to the actual QMK console
+static void console_receive( uint8_t *data, uint8_t length ) {
+  (void)data;
+  (void)length;
+}
+
+void console_task(void) {
+  uint8_t buffer[CONSOLE_EPSIZE];
+  size_t size = 0;
+  do {
+    size_t size = chnReadTimeout(&drivers.console_driver.driver, buffer, sizeof(buffer), TIME_IMMEDIATE);
+    if (size > 0) {
+        console_receive(buffer, size);
+    }
+  } while(size > 0);
 }
 
 #else /* CONSOLE_ENABLE */

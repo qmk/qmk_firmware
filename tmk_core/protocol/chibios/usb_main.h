@@ -89,20 +89,12 @@ typedef struct {
 
 #ifdef CONSOLE_ENABLE
 
-/* Number of IN reports that can be stored inside the output queue */
-#define CONSOLE_QUEUE_CAPACITY 4
-
-/* Console flush time */
-#define CONSOLE_FLUSH_MS 50
-
 /* Putchar over the USB console */
 int8_t sendchar(uint8_t c);
 
 /* Flush output (send everything immediately) */
 void console_flush_output(void);
 
-/* console IN request callback handler */
-void console_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* CONSOLE_ENABLE */
 
 void sendchar_pf(void *p, char c);
