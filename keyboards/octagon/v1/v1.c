@@ -96,7 +96,9 @@ void backlight_set(uint8_t level) {
   level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
   level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
   level & BACKLIGHT_FROW ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
-  level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
+  level & BACKLIGHT_RGBRED ? (PORTD |= 0b01000000) : (PORTD &= ~0b01000000);
+  level & BACKLIGHT_RGBGREEN ? (PORTD |= 0b10000000) : (PORTD &= ~0b10000000);
+  level & BACKLIGHT_RGBBLUE ? (PORTD |= 0b00010000) : (PORTD &= ~0b00010000);
 }
 
 // Port from backlight_update_state
