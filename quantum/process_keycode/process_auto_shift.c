@@ -34,8 +34,6 @@ uint16_t autoshift_time = 0;
 uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
 uint16_t autoshift_lastkey = KC_NO;
 
-bool autoshift_enabled = true;
-
 void autoshift_timer_report(void) {
   char display[8];
 
@@ -69,6 +67,30 @@ void autoshift_flush(void) {
   }
 }
 
+bool autoshift_enabled = true;
+
+void autoshift_enable(void) {
+    autoshift_enabled = true;
+}
+void autoshift_disable(void) {
+  autoshift_enabled = false;
+  autoshift_flush();
+}
+
+void autoshift_toggle(void) {
+  if (autoshift_enabled) {
+    autoshift_enabled = false;
+    autoshift_flush();
+  }
+  else {
+    autoshift_enabled = true;
+  }
+}
+
+bool autoshift_state(void) {
+  return autoshift_enabled;
+}
+
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
   static uint8_t any_mod_pressed;
 
@@ -87,13 +109,14 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         return false;
 
       case KC_ASTG:
-        if (autoshift_enabled) {
-          autoshift_enabled = false;
-          autoshift_flush();
-        }
-        else {
-          autoshift_enabled = true;
-        }
+        autoshift_toggle();
+        return false;
+      case KC_ASON:
+        autoshift_enable();
+        return false;
+      case KC_ASOFF:
+        autoshift_disable();
+        return false;
 
 #ifndef NO_AUTO_SHIFT_ALPHA
       case KC_A:
@@ -148,9 +171,9 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
       case KC_DOT:
       case KC_SLSH:
 #endif
-        if (!autoshift_enabled) return true;
 
         autoshift_flush();
+        if (!autoshift_enabled) return true;
 
         any_mod_pressed = get_mods() & (
           MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|
