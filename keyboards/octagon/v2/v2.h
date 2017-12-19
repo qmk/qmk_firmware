@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef OCTAGON_V2_H
-#define OCTAGON_V2_H
+#ifndef V2_H
+#define V2_H
 
-#include "quantum.h"
 #include "../octagon.h"
 
 #define KEYMAP( \

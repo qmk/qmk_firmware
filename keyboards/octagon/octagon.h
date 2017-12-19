@@ -4,7 +4,7 @@
 #include "quantum.h"
 
 #ifdef KEYBOARD_octagon_v2
-    #include "octagon_v2.h"
+    #include "v2.h"
 #endif
 
 #endif
