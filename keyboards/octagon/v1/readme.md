@@ -1,21 +1,21 @@
-# Duck Octagon V2
+# Duck Octagon V1
 
 Non official firmware for custom Korean keyboard with 75% key layout made by Duck.  
-Group buy was run January 2016 via [geekhack](https://geekhack.org/index.php?topic=78549.0) with 2 rounds, 100 keyboards total. 
+Group buy was run October 2014 via [geekhack](https://geekhack.org/index.php?topic=65036.0) 35 keyboards total. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Duck Octagon PCB Ver 2.0, Atmega32u4  
+Hardware Supported: Duck Octagon PCB Ver 1.0, Atmega32u4  
 Hardware Availability: Wait until GB of the next revision
 
 Make example for this keyboard (after setting up your build environment):
 
-    make octagon/v2:default
+    make octagon/v1:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
 ## Hardware Notes
 
-The Duck Octagon V2 PCB consists of:
+The Duck Octagon V1 PCB consists of:
 
 ### Microchips
 2 74HC237D 3-to-8 line decoders
