@@ -1077,7 +1077,7 @@ void breathing_intensity_set(uint8_t value)
 
 void breathing_speed_default(void)
 {
-    breath_speed = 4;
+    breath_speed = 5;
 }
 
 void breathing_speed_set(uint8_t value)
@@ -1133,6 +1133,7 @@ void breathing_defaults(void)
     breathing_intensity_default();
     breathing_speed_default();
     breathing_halt = BREATHING_NO_HALT;
+    breathing_enable();
 }
 
 /* Breathing Sleep LED brighness(PWM On period) table
