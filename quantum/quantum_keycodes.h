@@ -121,10 +121,13 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
+#ifdef AUTO_SHIFT_ENABLE
     // Auto Shift setup
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,
+    KC_ASTG,
+#endif // AUTO_SHIFT_ENABLE
 
     // Audio on/off/toggle
     AU_ON,

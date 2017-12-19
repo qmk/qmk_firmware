@@ -294,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_I,       KC_O,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(_GAMEPAD),   KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,      KC_NO,
-                KC_NO,          KC_NO,
+                KC_ASTG,          KC_NO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
