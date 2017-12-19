@@ -63,14 +63,9 @@ void matrix_scan_user(void) {
 
 void backlight_init_ports(void)
 {
-  DDRD  |=  0b11010000;
-  PORTD &= ~0b01010000;
-  PORTD |=  0b10000000;
-  DDRB  |=  0b00011111;
-  PORTB &= ~0b00001110;
-  PORTB |=  0b00010001;
-  DDRE  |=  0b01000000;
-  PORTE &= ~0b01000000;
+    DDRB |= 0b00011111;  // PB0 (caps), PB1 (alpha), PB2 (extra), PB3 (modnum), PB4 (caps)
+    DDRD |= 0b11010000;  // PD4, (rgb blue), PD6 (rgb red), PD7 (rgb green)
+    DDRE |= 0b01000000;  // PE6 (frow)
 }
 
 void matrix_init(void) {
@@ -136,26 +131,26 @@ void matrix_print(void) {
  * Esc uses its own pin PE2
  */
 static void init_rows(void) {
-    DDRD  &= ~0b00101111;
-    PORTD &= ~0b00101111;
+    DDRD  &= ~0b00101111; // PD0, PD1, PD2, PD3, PD5 input
+    PORTD &= ~0b00101111; // PD0, PD1, PD2, PD3, PD5 low
 
-    DDRB  &= ~0b10000000;
-    PORTB &= ~0b10000000;
+    DDRB  &= ~0b10000000; // PB7 input
+    PORTB &= ~0b10000000; // PB7 low
 
-    DDRE  &= ~0b00000100;
-    PORTE |=  0b00000100;
+    DDRE  &= ~0b00000100; // PE2 input
+    PORTE |=  0b00000100; // PE2 high
 }
 
 static uint8_t read_rows(uint8_t col) {
-  if (col == 16) {
-    return PINE&(1<<2) ? 0 : (1<<0);
+  if (col == 14) {
+    return PINE&(1<<2) ? 0 : (1<<0);        // PE2 (Row 0)
   } else {
-      return (PIND&(1<<0) ? (1<<0) : 0) |
-             (PIND&(1<<1) ? (1<<1) : 0) |
-             (PIND&(1<<2) ? (1<<2) : 0) |
-             (PIND&(1<<3) ? (1<<3) : 0) |
-             (PIND&(1<<5) ? (1<<4) : 0) |
-             (PINB&(1<<7) ? (1<<5) : 0);
+      return (PIND&(1<<0) ? (1<<0) : 0) |   // PD0 (Row 0)
+             (PIND&(1<<1) ? (1<<1) : 0) |   // PD1 (Row 1)
+             (PIND&(1<<2) ? (1<<2) : 0) |   // PD2 (Row 2)
+             (PIND&(1<<3) ? (1<<3) : 0) |   // PD3 (Row 3)
+             (PIND&(1<<5) ? (1<<4) : 0) |   // PD5 (Row 4)
+             (PINB&(1<<7) ? (1<<5) : 0);    // PB7 (Row 5)
     }
 }
 
@@ -186,82 +181,77 @@ uint8_t read_fwkey(void)
  *
  */
 static void unselect_cols(void) {
-  DDRB  |=  0b01000000;
-  PORTB &= ~0b01000000;
+    DDRB  |=  0b01000000; // PB6 (U2) output
+    PORTB &= ~0b01000000; // PB6 (U2) low
 
-  DDRC  |=  0b11000000;
-  PORTC &= ~0b11000000;
+    DDRC  |=  0b11000000; // PC6 (U1), PC7 (A2) output
+    PORTC &= ~0b11000000; // PC6 (U1), PC7 (A2) low
 
-  DDRF  |=  0b00000011;
-  PORTF &= ~0b00000011;
+    DDRF  |=  0b00000011; // PF0 (A0), PF1 (A1) output
+    PORTF &= ~0b00000011; // PF0 (A0), PF1 (A1) low
 }
 
 static void select_col(uint8_t col) {
  
    switch (col) {
         case 0:
-            PORTC |= 0b01000000;
+            PORTC |= 0b01000000; // PC6 high
             break;
         case 1:
-            PORTC |= 0b01000000;
-            PORTF |= 0b00000001;
+            PORTC |= 0b01000000; // PC6 high
+            PORTF |= 0b00000001; // PF0 high
             break;
         case 2:
-            PORTC |= 0b01000000;
-            PORTF |= 0b00000010;
+            PORTC |= 0b01000000; // PC6 high
+            PORTF |= 0b00000010; // PF1 high
             break;
         case 3:
-            PORTC |= 0b01000000;
-            PORTF |= 0b00000011;
+            PORTC |= 0b01000000; // PC6 high
+            PORTF |= 0b00000011; // PF0, PF1 high
             break;
         case 4:
-            PORTC |= 0b11000000;
+            PORTC |= 0b11000000; // PC6, PC7 high
             break;
         case 5:
-            PORTC |= 0b11000000;
-            PORTF |= 0b00000001;
+            PORTC |= 0b11000000; // PC6, PC7 high
+            PORTF |= 0b00000001; // PF0 high
             break;
         case 6:
-            PORTC |= 0b11000000;
-            PORTF |= 0b00000010;
+            PORTC |= 0b11000000; // PC6, PC7 high
+            PORTF |= 0b00000010; // PF1 high
             break;
         case 7:
-            PORTC |= 0b11000000;
-            PORTF |= 0b00000011;
+            PORTC |= 0b11000000; // PC6, PC7 high
+            PORTF |= 0b00000011; // PF0, PF1 high
             break;
         case 8:
-            PORTB |= 0b01000000;
+            PORTB |= 0b01000000; // PB6 high
             break;
         case 9:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000001;
+            PORTB |= 0b01000000; // PB6 high
+            PORTF |= 0b00000001; // PF0 high
             break;
         case 10:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000010;
+            PORTB |= 0b01000000; // PB6 high
+            PORTF |= 0b00000010; // PF1 high
             break;
         case 11:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000011;
+            PORTB |= 0b01000000; // PB6 high
+            PORTF |= 0b00000011; // PF0, PF1 high
             break;
         case 12:
-            PORTB |= 0b01000000;
-            PORTC |= 0b10000000;
+            PORTB |= 0b01000000; // PB6 high
+            PORTC |= 0b10000000; // PC7 high
             break;
         case 13:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000001;
-            PORTC |= 0b10000000;
-            break;
-        case 14:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000010;
-            PORTC |= 0b10000000;
+            PORTB |= 0b01000000; // PB6 high
+            PORTF |= 0b00000001; // PF0 high
+            PORTC |= 0b10000000; // PC7 high
             break;
         case 15:
-            PORTB |= 0b01000000;
-            PORTF |= 0b00000011;
-            PORTC |= 0b10000000;
+            PORTB |= 0b01000000; // PB6 high
+            PORTF |= 0b00000010; // PF1 high
+            PORTC |= 0b10000000; // PC7 high
             break;
     }
 }
