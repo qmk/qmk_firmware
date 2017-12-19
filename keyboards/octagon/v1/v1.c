@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v2.h"
+#include "v1.h"
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
@@ -22,6 +22,9 @@ enum BACKLIGHT_AREAS {
   BACKLIGHT_MODNUM   = 0b0000100,
   BACKLIGHT_FROW     = 0b0001000,
   BACKLIGHT_RGB      = 0b0010000,
+  BACKLIGHT_RGBRED   = 0b0010000,
+  BACKLIGHT_RGBGREEN = 0b0100000,
+  BACKLIGHT_RGBBLUE  = 0b1000000,
   BACKLIGHT_SWITCH   = 0b0001111
 };
 
