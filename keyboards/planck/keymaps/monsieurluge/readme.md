@@ -2,17 +2,24 @@
 
 ## Design goals
 
-_todo_
-
-## Includes
-
-- Media Keys
-- Music & Audio
+- qwerty, azerty and bépo layouts
+- increase the accessibility to the main coding symbols
+- move the multimedia keys to a dedicated layer
+- _todo:_ add some useful symbols to the _adjust_ layer (lower + raise)
 
 ## Layouts
 
-- **qwerty** as on the Vortex Core keyboard
+### qwerty
 
-- **azerty** _todo_
+_todo description_
+_todo layout picture_
 
-- **bépo** _todo_
+### azerty
+
+_todo description_
+_todo layout picture_
+
+### bépo
+
+_todo description_
+_todo layout picture_
