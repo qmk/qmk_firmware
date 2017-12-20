@@ -68,5 +68,5 @@ FAUXCLICKY_ENABLE ?= no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = yes
 
 CUSTOM_MATRIX = yes
-SRC += indicator_leds.c \
-			 matrix.c
+SRC += matrix.c \
+		
