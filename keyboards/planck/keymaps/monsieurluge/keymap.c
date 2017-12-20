@@ -17,7 +17,7 @@
 #include "planck.h"
 #include "action_layer.h"
 #include "keymap_bepo.h"
-#include "keymap_french.h"
+// #include "keymap_french.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------------------------------.
    * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |  `   |   '  |   {  |   [  |   (  |   <  |   >  |   )  |   ]  |   }  |   "  |   =  |
+   * |  `   |   '  |   {  |   [  |   (  |   !  |   ?  |   )  |   ]  |   }  |   "  |   =  |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |      |      |   |  |   /  |   _  |   -  |   \  |   +  |      | PgUp |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_LOWER] = {
     {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DELETE},
-    {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_LT,   KC_GT,   KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,  KC_EQUAL},
+    {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,  KC_EQUAL},
     {XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_SLSH, KC_UNDS, KC_MINS, KC_BSLS, KC_PLUS, XXXXXXX, KC_PGUP, XXXXXXX},
     {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, KC_HOME, KC_PGDN, KC_END}
   },
@@ -105,9 +105,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] = {
-    {XXXXXXX, XXXXXXX ,FR_EURO ,XXXXXXX ,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {XXXXXXX, XXXXXXX, XXXXXXX, BP_EURO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
     {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, XXXXXXX, FR_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {XXXXXXX, XXXXXXX, XXXXXXX, BP_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
     {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
   },
 
