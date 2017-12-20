@@ -159,27 +159,6 @@ uint8_t read_fwkey(void)
   return PINE&(1<<2) ? 0 : (1<<0);
 }
 
-/* Columns 0 - 15
- * These columns uses two 74HC237D 3 to 8 bit demultiplexers.
- * col / pin:    PC6  PB6  PF0  PF1  PC7
- * 0:             1    0    0    0    0
- * 1:             1    0    1    0    0
- * 2:             1    0    0    1    0
- * 3:             1    0    1    1    0
- * 4:             1    0    0    0    1
- * 5:             1    0    1    0    1
- * 6:             1    0    0    1    1
- * 7:             1    0    1    1    1
- * 8:             0    1    0    0    0
- * 9:             0    1    1    0    0
- * 10:            0    1    0    1    0
- * 11:            0    1    1    1    0
- * 12:            0    1    0    0    1
- * 13:            0    1    1    0    1
- * 14:            0    1    0    1    1
- * 15:            0    1    1    1    1
- *
- */
 static void unselect_cols(void) {
     DDRB  |=  0b01000000; // PB6 (U2) output
     PORTB &= ~0b01000000; // PB6 (U2) low
