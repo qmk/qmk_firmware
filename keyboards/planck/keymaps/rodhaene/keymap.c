@@ -21,6 +21,7 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
+  _NUMPAD,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -28,9 +29,11 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
+  NUMPAD,
   LOWER,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  EXT_NUMPAD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -51,6 +54,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT },
   {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_ENT,  KC_SPC,  RAISE,   KC_LEFT, KC_UP, KC_DOWN,   KC_RGHT}
+},
+
+/* Number Pad
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |  7   |  8   |  9   | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |  4   |  5   |  6   |Enter |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |  1   |  2   |  3   |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |      |      |      |      |      |  0   |  .   |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NUMPAD] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_7   , KC_8   , KC_9   , KC_BSPC },
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_4   , KC_5   , KC_6   , KC_ENT  },
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_1   , KC_2   , KC_3   , _______},
+  {EXT_NUMPAD, _______, _______, _______, _______, _______, _______, _______, KC_0   , KC_DOT , _______, _______}
 },
 
 /* Lower
@@ -93,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Numpad|      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -102,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______,  _______},
+  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  NUMPAD, _______, _______,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -147,6 +168,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(KC_RSFT);
         PORTE |= (1<<6);
+      }
+      return false;
+      break;
+    case NUMPAD:
+      if(record->event.pressed) {
+        layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_NUMPAD);
+        if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+        }
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.nkro = 1;
+        eeconfig_update_keymap(keymap_config.raw);
+      }
+      return false;
+      break;
+    case EXT_NUMPAD:
+      if(record->event.pressed) {
+        layer_off(_NUMPAD);
       }
       return false;
       break;
