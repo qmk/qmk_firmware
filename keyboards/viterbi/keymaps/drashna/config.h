@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_CONFIG_H
 
-/* Use I2C or Serial, not both */
 
+/* Use I2C or Serial, not both */
 #define USE_SERIAL
 // #define USE_I2C
 
@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+#ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
@@ -40,7 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 300
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 
+#endif // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
