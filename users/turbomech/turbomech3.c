@@ -384,3 +384,7 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
+Alt +30C4
+¯\_(ツ)_/¯
+
+Alt +00AF

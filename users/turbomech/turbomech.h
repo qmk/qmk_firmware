@@ -38,15 +38,12 @@
 #define rgblight_set_white       rgblight_sethsv (0, 0, 255)
 #endif
 
-extern bool rgb_layer_change;
-
-void rgblight_setrgb_indicator_caps(uint8_t r, uint8_t g, uint8_t b);
-
 //must use KC_RESET in order to have RESET indicate a color/mode
 enum userspace_custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,  //should always be here
   KC_RESET,
   KC_MAKE_ALU84,
   KC_QMK,
+  _FLIP,
 };
 #endif
