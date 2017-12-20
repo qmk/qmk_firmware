@@ -38,7 +38,7 @@ void shutdown_kb(void) {
       	stop_all_notes();
     #endif
 }
-
+/*
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 
@@ -55,3 +55,4 @@ void rgblight_set(void) {
   }
 }
 #endif
+*/
