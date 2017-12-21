@@ -1,4 +1,4 @@
-/* Copyright 2017 Jeremy Cowgar
+/* Copyright 2017 REPLACE_WITH_YOUR_NAME
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,20 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_AUTO_SHIFT_H
-#define PROCESS_AUTO_SHIFT_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-#include "quantum.h"
+#include QMK_KEYBOARD_CONFIG_H
 
-#ifndef AUTO_SHIFT_TIMEOUT
-  #define AUTO_SHIFT_TIMEOUT 175
-#endif
-
-bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
-
-void autoshift_enable(void);
-void autoshift_disable(void);
-void autoshift_toggle(void);
-bool autoshift_state(void);
+// place overrides here
+#undef BACKLIGHT_BREATHING
 
 #endif
