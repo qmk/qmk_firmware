@@ -625,7 +625,7 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
-#ifdef BACKLIGHT_BREATHING
+#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
       if (record->event.pressed)
         breathing_toggle();
