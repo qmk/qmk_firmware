@@ -1,0 +1,7 @@
+{
+  "keyboard_name": "Planck Light",
+  "keyboard_folder": "planck/light",
+  "identifier": "FEED:6065:0001",
+  "processor": "at90usb1286",
+  "bootloader": "qmk-dfu",
+}

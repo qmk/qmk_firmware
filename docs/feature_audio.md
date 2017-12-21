@@ -47,9 +47,9 @@ PLAY_LOOP(my_song);
 
 It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
-## Music mode
+## Music Mode
 
-The music mode maps your columns to a chromatic scale, and your rows to octaves. This works best with ortholinear keyboards, but can be made to work with others. All keycodes less than `0xFF` get blocked, so you won't type while playing notes - if you have special keys/mods, those will still work. A work-around for this is to jump to a different layer with KC_NOs before (or after) enabling music mode.  
+The music mode maps your columns to a chromatic scale, and your rows to octaves. This works best with ortholinear keyboards, but can be made to work with others. All keycodes less than `0xFF` get blocked, so you won't type while playing notes - if you have special keys/mods, those will still work. A work-around for this is to jump to a different layer with KC_NOs before (or after) enabling music mode.
 
 Recording is experimental due to some memory issues - if you experience some weird behavior, unplugging/replugging your keyboard will fix things.
 
@@ -82,7 +82,7 @@ The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, a
 
     #define PITCH_STANDARD_A 432.0f
 
-## MIDI functionalty
+## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
 

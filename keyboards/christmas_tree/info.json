@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Christmas Tree",
+    "keyboard_folder": "christmas_tree",
+    "manufacturer": "Maple Computing",
+    "identifier": "FEED:3070:2017",
+    "url": "https://www.reddit.com/r/MechanicalKeyboards/comments/7cqxpf/gb_christmas_tree_pcb_gb_now_live/",
+    "processor": "atmega32u4",
+    "bootloader": "catarina",
+    "maintainer": "That-Canadian",
+    "width": 3,
+    "height": 3,
+    "layouts": {
+        "2017": {
+            "key_count": 6
+        }
+    }
+}

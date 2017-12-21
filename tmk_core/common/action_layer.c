@@ -64,11 +64,16 @@ void default_layer_xor(uint32_t state)
 uint32_t layer_state = 0;
 
 __attribute__((weak))
-uint32_t layer_state_set_kb(uint32_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
     return state;
 }
 
-static void layer_state_set(uint32_t state)
+__attribute__((weak))
+uint32_t layer_state_set_kb(uint32_t state) {
+    return layer_state_set_user(state);
+}
+
+void layer_state_set(uint32_t state)
 {
     state = layer_state_set_kb(state);
     dprint("layer_state: ");
@@ -81,6 +86,16 @@ static void layer_state_set(uint32_t state)
 void layer_clear(void)
 {
     layer_state_set(0);
+}
+
+bool layer_state_is(uint8_t layer)
+{
+    return layer_state_cmp(layer_state, layer);
+}
+
+bool layer_state_cmp(uint32_t cmp_layer_state, uint8_t layer) {
+    if (!cmp_layer_state) { return layer == 0; }
+    return (cmp_layer_state & (1UL<<layer)) != 0;
 }
 
 void layer_move(uint8_t layer)

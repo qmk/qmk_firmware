@@ -36,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int tp_buttons;
 
+#ifdef RETRO_TAPPING
+int retro_tapping_counter = 0;
+#endif
+
 #ifdef FAUXCLICKY_ENABLE
 #include <fauxclicky.h>
 #endif
@@ -45,6 +49,9 @@ void action_exec(keyevent_t event)
     if (!IS_NOEVENT(event)) {
         dprint("\n---- action_exec: start -----\n");
         dprint("EVENT: "); debug_event(event); dprintln();
+#ifdef RETRO_TAPPING
+        retro_tapping_counter++;
+#endif
     }
 
 #ifdef FAUXCLICKY_ENABLE
@@ -586,6 +593,32 @@ void process_action(keyrecord_t *record, action_t action)
     }
 #endif
 
+#ifndef NO_ACTION_TAPPING
+  #ifdef RETRO_TAPPING
+  if (!is_tap_key(record->event.key)) {
+    retro_tapping_counter = 0;
+  } else {
+    if (event.pressed) {
+        if (tap_count > 0) {
+          retro_tapping_counter = 0;
+        } else {
+
+        }
+    } else {
+      if (tap_count > 0) {
+        retro_tapping_counter = 0;
+      } else {
+        if (retro_tapping_counter == 2) {
+          register_code(action.layer_tap.code);
+          unregister_code(action.layer_tap.code);
+        }
+        retro_tapping_counter = 0;
+      }
+    }
+  }
+  #endif
+#endif
+
 #ifndef NO_ACTION_ONESHOT
     /* Because we switch layers after a oneshot event, we need to release the
      * key before we leave the layer or no key up event will be generated.
@@ -619,7 +652,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_CAPSLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_CAPSLOCK);
         send_keyboard_report();
     }
@@ -630,7 +663,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_NUMLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_NUMLOCK);
         send_keyboard_report();
     }
@@ -641,7 +674,7 @@ void register_code(uint8_t code)
 #endif
         add_key(KC_SCROLLLOCK);
         send_keyboard_report();
-        wait_ms(100);        
+        wait_ms(100);
         del_key(KC_SCROLLLOCK);
         send_keyboard_report();
     }

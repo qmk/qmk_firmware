@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 // #define EE_HANDS
 
 #undef RGBLED_NUM
@@ -37,5 +37,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
+#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+
+
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#endif
+
 
 #endif
