@@ -397,6 +397,7 @@ enum quantum_keycodes {
     BL_INC,
     BL_TOGG,
     BL_STEP,
+    BL_BRTG,
 
     // RGB functionality
     RGB_TOG,
