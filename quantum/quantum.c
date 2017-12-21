@@ -1003,6 +1003,10 @@ void breathing_period_set(uint8_t value)
   breathing_period = value;
 }
 
+void breathing_period_default(void) {
+  breathing_period_set(BREATHING_PERIOD);
+}
+
 void breathing_period_inc(void)
 {
   breathing_period_set(breathing_period+1);
