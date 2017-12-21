@@ -247,6 +247,12 @@
     Q__NOTE(_GS5),     \
     HD_NOTE(_C6),
 
+#define ZELDA_TREASURE \
+    Q__NOTE(_A4), \
+    Q__NOTE(_AS4), \
+    Q__NOTE(_B4), \
+    HD_NOTE(_C5), \
+
 #define TERMINAL_SOUND \
     E__NOTE(_C5 )
 
