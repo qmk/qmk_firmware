@@ -10,9 +10,8 @@ These keycodes control the backlight. Most keyboards use this for single color i
 |---------|------------------------------------------|
 |`BL_TOGG`|Turn the backlight on or off              |
 |`BL_STEP`|Cycle through backlight levels            |
-|`BL_x`   |Set a specific backlight level between 0-9|
-|`BL_ON`  |An alias for `BL_9`                       |
-|`BL_OFF` |An alias for `BL_0`                       |
+|`BL_ON`  |Set backlight to max brightness           |
+|`BL_OFF` |Turn backlight off                        |
 |`BL_INC` |Increase backlight level                  |
 |`BL_DEC` |Decrease backlight level                  |
 |`BL_BRTG`|Toggle backlight breathing				 |
