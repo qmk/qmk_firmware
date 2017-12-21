@@ -886,7 +886,7 @@ void backlight_set(uint8_t level) {}
 uint8_t backlight_tick = 0;
 
 void backlight_task(void) {
-  if ((0xFFFF >> ((BACKLIGHT_LEVELS - backlight_config.level) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
+  if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
       // PORTx &= ~n
       _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
