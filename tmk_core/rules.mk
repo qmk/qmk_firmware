@@ -371,7 +371,7 @@ show_path:
 	@echo OBJ=$(OBJ)
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | grep -oP "(?<=AVR_SIZE: ).+"`; echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | grep -v '^#' | grep -A3 AVR_SIZE | grep -v AVR_SIZE`; echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
