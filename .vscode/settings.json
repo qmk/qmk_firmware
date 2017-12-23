@@ -11,6 +11,10 @@
         "*.h": "c",
         "*.c": "c",
         "*.cpp": "cpp",
-        "*.hpp": "cpp"
+        "*.hpp": "cpp",
+        "array": "c",
+        "vector": "c",
+        "xstring": "c",
+        "xutility": "c"
     }
 }
