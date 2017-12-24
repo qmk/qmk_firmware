@@ -1,4 +1,4 @@
-#include "avr/eeprom.h"
+#include "eeprom.h"
 #include "zer09.h"
 
 /* Will hold the RGB brightness level */
