@@ -10,7 +10,7 @@ enum {
   TP_RALT,
   TP_TILD,
   TP_EGRV,
-  TP_SAFET_END
+  TP_SAFE_END
 };
 
 enum {
