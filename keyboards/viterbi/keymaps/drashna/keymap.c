@@ -30,6 +30,16 @@ extern keymap_config_t keymap_config;
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
+float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
+#define AUD_ON  FC_ON
+#define AUD_OFF FC_OFF
+#else
+#define AUD_ON  AU_ON
+#define AUD_OFF AU_OFF
+#endif 
 
 enum more_custom_keycodes {
   KC_P00 = NEW_SAFE_RANGE
@@ -78,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MEDIA] = KEYMAP(
-      KC_MAKE, KC_RESET,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SAD,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      KC_MAKE, KC_RESET,XXXXXXX, AUD_ON,  AUD_OFF, XXXXXXX, RGB_SAD,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       MEDIA,   XXXXXXX, KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       RGB_TOG, RGB_MOD, RGB_RMOD,RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_HUD,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       KC_MPLY, KC_MPRV, KC_MNXT, RGB_M_X, RGB_M_G, RGB_M_P, RGB_HUI,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -88,7 +98,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
 
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+}
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case KC_P00:
