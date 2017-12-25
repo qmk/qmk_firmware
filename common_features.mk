@@ -69,6 +69,12 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/fauxclicky.c
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+	OPT_DEFS += -DMOUSE_ENABLE
+	SRC += $(QUANTUM_DIR)/pointing_device.c
+endif
+
 ifeq ($(strip $(UCIS_ENABLE)), yes)
     OPT_DEFS += -DUCIS_ENABLE
     UNICODE_COMMON = yes
@@ -119,6 +125,11 @@ ifeq ($(strip $(PRINTING_ENABLE)), yes)
     SRC += $(TMK_DIR)/protocol/serial_uart.c
 endif
 
+ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    OPT_DEFS += -DAUTO_SHIFT_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
+endif
+
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
     OPT_DEFS += $(SERIAL_DEFS)
@@ -160,6 +171,10 @@ endif
 ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
     OPT_DEFS += -DTERMINAL_ENABLE
+endif
+
+ifeq ($(strip $(USB_HID_ENABLE)), yes)
+    include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
 QUANTUM_SRC:= \
