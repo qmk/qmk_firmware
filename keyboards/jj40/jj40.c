@@ -29,11 +29,12 @@ void matrix_scan_user(void) {
 
 void matrix_init_kb(void) {
 
+  // Turn status LED on
+  DDRE |= (1<<6);
+  PORTE |= (1<<6);
+
   // Call the keymap level matrix init.
   matrix_init_user();
-
-  // Set our LED pins as output
-  DDRB |= (1<<6);
 }
 
 void matrix_init_user(void) {
