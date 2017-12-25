@@ -2,9 +2,14 @@
 
 static bool active_key_pos[50] = {};
 static uint8_t led_dim = 0;
-volatile led_key rbw_led_keys[RBW] = {[RBW_LCAP] = {DEFAULT, 22},
-                                      [RBW_RCAP] = {DEFAULT, 47},
-                                      [RBW_SCRL] = {DEFAULT, 42}};
+
+volatile led_key rbw_led_keys[RBW] = {[RBW_LCTL] = {DEFAULT, 21, true},
+                                      [RBW_LCAP] = {DEFAULT, 22, false},
+                                      [RBW_LSPR] = {DEFAULT, 23, true},
+                                      [RBW_RCTL] = {DEFAULT, 46, true},
+                                      [RBW_RCAP] = {DEFAULT, 47, false},
+                                      [RBW_RALT] = {DEFAULT, 48, true},
+                                      [RBW_SCRL] = {DEFAULT, 42, true}};
 
 /* Pressed led color. */
 const uint32_t _PC[3] = {0xFF, 0x00, 0x00};
@@ -107,14 +112,14 @@ bool rainbow_loop(uint8_t lyr) {
 
     switch (rbw_led_keys[j].status) {
     case ENABLED:
-      if (!active_key_pos[pos]) {
+      if (!active_key_pos[pos] || rbw_led_keys[j].forced) {
         SET_LED_RGB(r, g, b, led_dim, pos);
         set_rbw = true;
       }
 
       break;
     case DISABLED:
-      if (!active_key_pos[pos]) {
+      if (!active_key_pos[pos] || rbw_led_keys[j].forced) {
         SET_LED_RGB(_LC[lyr][0], _LC[lyr][1], _LC[lyr][2], led_dim, pos);
         set_rbw = true;
       }

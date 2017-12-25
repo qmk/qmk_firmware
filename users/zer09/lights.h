@@ -20,6 +20,7 @@ typedef enum {
 typedef struct {
   led_status status;
   uint8_t pos;
+  bool forced;
 } led_key;
 
 enum rbw_keys {
