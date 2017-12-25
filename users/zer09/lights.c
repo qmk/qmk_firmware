@@ -2,9 +2,9 @@
 
 static bool active_key_pos[50] = {};
 static uint8_t led_dim = 0;
-volatile led_key rbw_led_keys[RBW] = {[RBW_LCAPS] = {DEFAULT, 22},
-                                      [RBW_RCAPS] = {DEFAULT, 47},
-                                      [RBW_SCRLK] = {DEFAULT, 42}};
+volatile led_key rbw_led_keys[RBW] = {[RBW_LCAP] = {DEFAULT, 22},
+                                      [RBW_RCAP] = {DEFAULT, 47},
+                                      [RBW_SCRL] = {DEFAULT, 42}};
 
 /* Pressed led color. */
 const uint32_t _PC[3] = {0xFF, 0x00, 0x00};

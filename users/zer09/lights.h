@@ -1,4 +1,8 @@
+#ifndef LIGHTS_H
+#define LIGHTS_H
+
 #include "eeprom.h"
+#include "tap_dance.h"
 #include "zer09.h"
 
 /* Will hold the RGB brightness level */
@@ -18,7 +22,16 @@ typedef struct {
   uint8_t pos;
 } led_key;
 
-enum rbw_keys { RBW_LCAPS, RBW_RCAPS, RBW_SCRLK, RBW };
+enum rbw_keys {
+  RBW_LCTL,
+  RBW_LCAP,
+  RBW_LSPR,
+  RBW_RCTL,
+  RBW_RCAP,
+  RBW_RALT,
+  RBW_SCRL,
+  RBW
+};
 
 extern volatile led_key rbw_led_keys[RBW];
 
@@ -27,3 +40,5 @@ bool set_layer_led(uint8_t lyr);
 bool rainbow_loop(uint8_t lyr);
 bool led_brightness(uint16_t keycode, keyrecord_t *record);
 void eeprom_read_led_dim_lvl(void);
+
+#endif

@@ -1,24 +1,18 @@
 #include "tap_dance.h"
+#include "lights.h"
 
-static tap ts[CT_SAFE_END] = {};
-
-qk_tap_dance_action_t tap_dance_actions[] =
-  {[CT_N_TILDE] =
-   ACTION_TAP_DANCE_FN_ADVANCED(NULL, n_tilde_finished, n_tilde_reset),
-   [CT_ESC_GRV] =
-   ACTION_TAP_DANCE_FN_ADVANCED(NULL, esc_grv_finished, esc_grv_reset),
-   [CT_LGUI_ALT] =
-   ACTION_TAP_DANCE_FN_ADVANCED(NULL, lgui_alt_finished, lgui_alt_reset),
-   [CT_RGUI_ALT] =
-   ACTION_TAP_DANCE_FN_ADVANCED(NULL, rgui_alt_finished, rgui_alt_reset)};
-
-
-void init_tap_dance(void) {
-  for (int i = CT_SAFE_START + 1; i < CT_SAFE_END; i++) {
-    static tap t = {.is_press_action = true, .state = 0};
-    ts[i] = t;
-  }
-}
+qk_tap_dance_action_t tap_dance_actions[] = {
+        [DA_LCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lctl_finished,
+                                                 dance_lctl_reset),
+        [DA_LSPR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lspr_finished,
+                                                 dance_lspr_reset),
+        [DA_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rctl_finished,
+                                                 dance_rctl_reset),
+        [DA_RALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ralt_finished,
+                                                 dance_ralt_reset),
+        [DA_EGRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_egrv_finished,
+                                                 dance_egrv_reset),
+};
 
 int cur_dance(qk_tap_dance_state_t *state) {
   switch (state->count) {
@@ -29,125 +23,102 @@ int cur_dance(qk_tap_dance_state_t *state) {
   case 3:
     return state->pressed ? TRIPLE_HOLD : TRIPLE_TAP;
   default:
-    return NO_TAP;
+    return state->pressed ? DEFAULT_HOLD : DEFAULT_TAP;
   }
 }
 
-void n_tilde_finished(qk_tap_dance_state_t *state, void *user_data) {
-  ts[CT_N_TILDE].state = cur_dance(state);
-  switch (ts[CT_N_TILDE].state) {
-  case SINGLE_TAP:
-    SEND_STRING(SS_TAP(X_N));
-    break;
-  case SINGLE_HOLD:
-    register_code(KC_RSFT);
-    break;
-  case DOUBLE_TAP:
-    SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_U))));
-    SEND_STRING("f1 ");
-    break;
-  case DOUBLE_HOLD:
-    register_code(KC_RSFT);
-    break;
-  case TRIPLE_TAP:
-    SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_U))));
-    SEND_STRING("d1 ");
-    break;
-  case TRIPLE_HOLD:
-    register_code(KC_RSFT);
-    break;
-  }
-}
+void dance_lctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+  rbw_led_keys[RBW_LCTL].status = ENABLED;
+  register_code(KC_LCTRL);
+};
 
-void n_tilde_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (ts[CT_N_TILDE].state) {
-  case SINGLE_HOLD:
-  case DOUBLE_HOLD:
-  case TRIPLE_HOLD:
-    unregister_code(KC_RSFT);
-    break;
-  }
+void dance_lctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+  unregister_code(KC_LCTRL);
+  rbw_led_keys[RBW_LCTL].status = DISABLED;
+};
 
-  ts[CT_N_TILDE].state = NO_TAP;
-}
-
-void esc_grv_finished(qk_tap_dance_state_t *state, void *user_data) {
-  ts[CT_ESC_GRV].state = cur_dance(state);
-  switch (ts[CT_ESC_GRV].state) {
+void dance_lspr_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
   case DOUBLE_TAP:
   case DOUBLE_HOLD:
-    register_code(KC_GRV);
-    break;
-  default:
-    register_code(KC_ESCAPE);
-    break;
-  }
-}
-
-void esc_grv_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (ts[CT_ESC_GRV].state) {
-  case DOUBLE_TAP:
-  case DOUBLE_HOLD:
-    unregister_code(KC_GRV);
-    break;
-  default:
-    unregister_code(KC_ESCAPE);
-    break;
-  }
-
-  ts[CT_ESC_GRV].state = NO_TAP;
-}
-
-void lgui_alt_finished(qk_tap_dance_state_t *state, void *user_data) {
-  ts[CT_LGUI_ALT].state = cur_dance(state);
-  switch (ts[CT_LGUI_ALT].state) {
-  case DOUBLE_TAP:
-  case DOUBLE_HOLD:
+    rbw_led_keys[RBW_LSPR].status = ENABLED;
     register_code(KC_LALT);
     break;
   default:
     register_code(KC_LGUI);
     break;
   }
-}
+};
 
-void lgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (ts[CT_LGUI_ALT].state) {
+void dance_lspr_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
   case DOUBLE_TAP:
   case DOUBLE_HOLD:
     unregister_code(KC_LALT);
+    rbw_led_keys[RBW_LSPR].status = DISABLED;
     break;
   default:
     unregister_code(KC_LGUI);
     break;
   }
+};
 
-  ts[CT_LGUI_ALT].state = NO_TAP;
-}
+void dance_rctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+  rbw_led_keys[RBW_RCTL].status = ENABLED;
+  register_code(KC_RCTRL);
+};
 
-void rgui_alt_finished(qk_tap_dance_state_t *state, void *user_data) {
-  ts[CT_RGUI_ALT].state = cur_dance(state);
-  switch (ts[CT_RGUI_ALT].state) {
+void dance_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+  unregister_code(KC_RCTRL);
+  rbw_led_keys[RBW_RCTL].status = DISABLED;
+};
+
+void dance_ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
   case DOUBLE_TAP:
   case DOUBLE_HOLD:
+    rbw_led_keys[RBW_RALT].status = ENABLED;
     register_code(KC_RGUI);
     break;
   default:
     register_code(KC_RALT);
     break;
   }
-}
+};
 
-void rgui_alt_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (ts[CT_RGUI_ALT].state) {
+void dance_ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
   case DOUBLE_TAP:
   case DOUBLE_HOLD:
     unregister_code(KC_RGUI);
+    rbw_led_keys[RBW_RALT].status = DISABLED;
     break;
   default:
     unregister_code(KC_RALT);
     break;
   }
+};
 
-  ts[CT_RGUI_ALT].state = NO_TAP;
-}
+void dance_egrv_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    register_code(KC_GRAVE);
+    break;
+  default:
+    register_code(KC_ESCAPE);
+    break;
+  }
+};
+
+void dance_egrv_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (cur_dance(state)) {
+  case DOUBLE_TAP:
+  case DOUBLE_HOLD:
+    unregister_code(KC_GRAVE);
+    break;
+  default:
+    unregister_code(KC_ESCAPE);
+    break;
+  }
+};
