@@ -125,6 +125,9 @@ enum quantum_keycodes {
     KC_ASUP,
     KC_ASDN,
     KC_ASRP,
+    KC_ASTG,
+    KC_ASON,
+    KC_ASOFF,
 
     // Audio on/off/toggle
     AU_ON,

@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef OCTAGON_V2_H
-#define OCTAGON_V2_H
+#ifndef V2_H
+#define V2_H
 
-#include "quantum.h"
+#include "../octagon.h"
 
 #define KEYMAP( \
     K5A, K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M, K5N, K5O,     K5Q, \
