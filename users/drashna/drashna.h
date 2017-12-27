@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
-#ifdef DRASHNA_SETRGB // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
+#ifndef RGBLIGHT_ANIMATIONS // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
 #define rgblight_set_blue        rgblight_setrgb (0x00,  0x00, 0xFF);
 #define rgblight_set_red         rgblight_setrgb (0xFF,  0x00, 0x00);
 #define rgblight_set_green       rgblight_setrgb (0x00,  0xFF, 0x00);
@@ -120,11 +120,6 @@ enum {
 #define RGBLIGHT_SLEEP
 #endif
 
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 175
-#undef PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
 #endif

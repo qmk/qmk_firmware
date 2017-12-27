@@ -273,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [_GAMEPAD] = LAYOUT_ergodox(
-                KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    HYPR(KC_GRV),
+                KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    HYPR(KC_D), HYPR(KC_Q), HYPR(KC_GRV),
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
                 KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
@@ -287,7 +287,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_I,       KC_O,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(_GAMEPAD),   KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,      KC_NO,
-                KC_NO,          MAGIC_TOGGLE_NKRO,
+                KC_HYPR,         MAGIC_TOGGLE_NKRO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
