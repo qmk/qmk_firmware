@@ -1296,3 +1296,35 @@ __attribute__ ((weak))
 void shutdown_user() {}
 
 //------------------------------------------------------------------------------
+
+#ifdef CONSOLE_ENABLE
+
+__attribute__ ((weak))
+void process_console_data_user(uint8_t * data, uint8_t length) {
+}
+
+__attribute__ ((weak))
+void process_console_data_kb(uint8_t * data, uint8_t length) {
+  process_console_data_user(data, length);
+}
+
+void process_console_data_quantum(uint8_t * data, uint8_t length) {
+  // print("Received message:\n  ");
+  // while (*data) {
+  //   sendchar(*data);
+  //   data++;
+  // }
+  switch (data[0]) {
+    case 0xFE:
+      print("Entering bootloader\n");
+      reset_keyboard();
+      break;
+    case 0x01:
+      print("Saying hello\n");
+      audio_on();
+      break;
+  }
+  process_console_data_kb(data, length);
+}
+
+#endif
