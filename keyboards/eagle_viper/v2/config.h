@@ -25,12 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6050
 #define DEVICE_VER      0x0104
 #define MANUFACTURER    Duck
-#define PRODUCT         Octagon V2
-#define DESCRIPTION     Duck Octagon V2
+#define PRODUCT         Eagle/Viper V2
+#define DESCRIPTION     60% Korean custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 #define DIODE_DIRECTION COL2ROW
 
