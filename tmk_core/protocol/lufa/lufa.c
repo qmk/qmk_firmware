@@ -274,41 +274,43 @@ static bool console_flush = false;
 
 static void Console_Task(void)
 {
- 
     /* Device must be connected and configured for the task to run */
     if (USB_DeviceState != DEVICE_STATE_Configured)
         return;
 
-
-    /* Create a temporary buffer to hold the read in report from the host */
-    uint8_t ConsoleData[CONSOLE_EPSIZE];
-    bool data_read = false;
     uint8_t ep = Endpoint_GetCurrentEndpoint();
 
-    // TODO: impl receivechar()/recvchar()
-    Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
+    #ifdef CONSOLE_IN_ENABLE
+      /* Create a temporary buffer to hold the read in report from the host */
+      uint8_t ConsoleData[CONSOLE_EPSIZE];
+      bool data_read = false;
 
-    /* Check to see if a packet has been sent from the host */
-    if (Endpoint_IsOUTReceived())
-    {
-        /* Check to see if the packet contains data */
-        if (Endpoint_IsReadWriteAllowed())
-        {
+      // TODO: impl receivechar()/recvchar()
+      Endpoint_SelectEndpoint(CONSOLE_OUT_EPNUM);
 
-            /* Read Console Report Data */
-            Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
-            data_read = true;
-        }
+      /* Check to see if a packet has been sent from the host */
+      if (Endpoint_IsOUTReceived())
+      {
+          /* Check to see if the packet contains data */
+          if (Endpoint_IsReadWriteAllowed())
+          {
 
-        /* Finalize the stream transfer to send the last packet */
-        Endpoint_ClearOUT();
+              /* Read Console Report Data */
+              Endpoint_Read_Stream_LE(&ConsoleData, sizeof(ConsoleData), NULL);
+              data_read = true;
+          }
 
-        if (data_read) {
-          /* Process Console Report Data */
-          process_console_data_quantum(ConsoleData, sizeof(ConsoleData));
-        }
+          /* Finalize the stream transfer to send the last packet */
+          Endpoint_ClearOUT();
 
-    }
+          if (data_read) {
+            /* Process Console Report Data */
+            process_console_data_quantum(ConsoleData, sizeof(ConsoleData));
+          }
+
+      }
+
+    #endif
 
     if (console_flush) {
       /* IN packet */
@@ -454,10 +456,10 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     /* Setup Console HID Report Endpoints */
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
-// #if 0
+  #ifdef CONSOLE_IN_ENABLE
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
-// #endif
+  #endif
 #endif
 
 #ifdef NKRO_ENABLE

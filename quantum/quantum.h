@@ -193,7 +193,7 @@ void led_set_kb(uint8_t usb_led);
 
 void api_send_unicode(uint32_t unicode);
 
-#ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_IN_ENABLE
 void process_console_data_user(uint8_t * data, uint8_t length);
 void process_console_data_kb(uint8_t * data, uint8_t length);
 void process_console_data_quantum(uint8_t * data, uint8_t length);

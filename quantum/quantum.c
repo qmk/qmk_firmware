@@ -1297,7 +1297,7 @@ void shutdown_user() {}
 
 //------------------------------------------------------------------------------
 
-#ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_IN_ENABLE
 
 __attribute__ ((weak))
 void process_console_data_user(uint8_t * data, uint8_t length) {
@@ -1309,19 +1309,26 @@ void process_console_data_kb(uint8_t * data, uint8_t length) {
 }
 
 void process_console_data_quantum(uint8_t * data, uint8_t length) {
+  // This can be used for testing - it echos back the information received
   // print("Received message:\n  ");
   // while (*data) {
   //   sendchar(*data);
   //   data++;
   // }
   switch (data[0]) {
-    case 0xFE:
-      print("Entering bootloader\n");
-      reset_keyboard();
-      break;
     case 0x01:
       print("Saying hello\n");
-      audio_on();
+      #ifdef AUDIO_ENABLE
+        audio_on();
+      #endif
+      break;
+    case 0xFE:
+    #ifdef CONSOLE_IN_BOOTLOADER
+      print("Entering bootloader\n");
+      reset_keyboard();
+    #else
+      print("Unable to enter bootloader\n");
+    #endif
       break;
   }
   process_console_data_kb(data, length);
