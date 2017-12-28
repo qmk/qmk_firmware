@@ -1,5 +1,8 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,12 +18,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include "../../config.h"
+
+/* Use I2C or Serial, not both */
+
 #define USE_I2C
 //#define USE_SERIAL
-//#define MASTER_RIGHT
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
 #define FLIP_HALF
 
 #define SSD1306OLED
+//#define OLED_ROTATE180
 
 
 #define PREVENT_STUCK_MODIFIERS
@@ -40,3 +56,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
+
+#endif

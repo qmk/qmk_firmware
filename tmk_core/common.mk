@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
 endif
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
@@ -16,6 +18,7 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/debug.c \
 	$(COMMON_DIR)/util.c \
 	$(COMMON_DIR)/eeconfig.c \
+	$(COMMON_DIR)/report.c \
 	$(PLATFORM_COMMON_DIR)/suspend.c \
 	$(PLATFORM_COMMON_DIR)/timer.c \
 	$(PLATFORM_COMMON_DIR)/bootloader.c \
@@ -26,6 +29,10 @@ endif
 
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+endif
+
+ifeq ($(PLATFORM),TEST)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 

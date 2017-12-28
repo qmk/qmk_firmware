@@ -42,7 +42,7 @@
 #include "visualizer/visualizer.h"
 #endif
 #include "suspend.h"
-
+#include "wait.h"
 
 /* -------------------------
  *   TMK host driver defs
@@ -70,19 +70,19 @@ host_driver_t chibios_driver = {
  * Amber LED blinker thread, times are in milliseconds.
  */
 /* set this variable to non-zero anywhere to blink once */
-// uint8_t blinkLed = 0;
-// static THD_WORKING_AREA(waBlinkerThread, 128);
-// static THD_FUNCTION(blinkerThread, arg) {
+// static THD_WORKING_AREA(waThread1, 128);
+// static THD_FUNCTION(Thread1, arg) {
+
 //   (void)arg;
-//   chRegSetThreadName("blinkOrange");
-//   while(true) {
-//     if(blinkLed) {
-//       blinkLed = 0;
-//       palSetPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
-//       chThdSleepMilliseconds(100);
-//       palClearPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
-//     }
-//     chThdSleepMilliseconds(100);
+//   chRegSetThreadName("blinker");
+//   while (true) {
+//     systime_t time;
+
+//     time = USB_DRIVER.state == USB_ACTIVE ? 250 : 500;
+//     palClearLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
+//     palSetLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
 //   }
 // }
 
@@ -96,7 +96,7 @@ int main(void) {
   chSysInit();
 
   // TESTING
-  // chThdCreateStatic(waBlinkerThread, sizeof(waBlinkerThread), NORMALPRIO, blinkerThread, NULL);
+  // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
@@ -128,7 +128,7 @@ int main(void) {
     }
     serial_link_update();
 #endif
-    chThdSleepMilliseconds(50);
+    wait_ms(50);
   }
 
   /* Do need to wait here!
@@ -136,7 +136,7 @@ int main(void) {
    * before the USB is completely ready, which sometimes causes
    * HardFaults.
    */
-  chThdSleepMilliseconds(50);
+  wait_ms(50);
 
   print("USB configured.\n");
 

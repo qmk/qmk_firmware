@@ -5,7 +5,6 @@ ifdef TEENSY2
     ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 else
     OPT_DEFS += -DATREUS_ASTAR
-    OPT_DEFS += -DCATERINA_BOOTLOADER
     ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                             avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 endif
@@ -27,7 +26,6 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
-
 #
 # LUFA specific
 #
@@ -47,36 +45,34 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+ifdef TEENSY2
+    BOOTLOADER = halfkay
+else
+    BOOTLOADER = caterina
+endif
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
 #   comment out to disable the options.
 #
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
-CONSOLE_ENABLE ?= yes	# Console for debug(+400)
-COMMAND_ENABLE ?= yes    # Commands for debug and configuration
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = yes	# Console for debug(+400)
+COMMAND_ENABLE = yes    # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-# SLEEP_LED_ENABLE ?= yes  # Breathing sleep LED during USB suspend
-NKRO_ENABLE ?= yes		# USB Nkey Rollover - not yet supported in LUFA
-# BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality
-# MIDI_ENABLE ?= YES 		# MIDI controls
-UNICODE_ENABLE ?= YES 		# Unicode
-# BLUETOOTH_ENABLE ?= yes # Enable Bluetooth with the Adafruit EZ-Key HID
+# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
+# BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+# MIDI_ENABLE = YES 		# MIDI controls
+UNICODE_ENABLE = YES 		# Unicode
+# BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
-USB ?= /dev/cu.usbmodem1411
-
-upload: build
-	$(ATREUS_UPLOAD_COMMAND)
+USB = /dev/cu.usbmodem1411

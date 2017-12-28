@@ -26,6 +26,10 @@
 #endif
 #endif
 
+// Fillers to make layering more clear
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
 enum quantum_keycodes {
     // Ranges used in shortucuts - not to be used directly
     QK_TMK                = 0x0000,
@@ -67,6 +71,12 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
+#ifdef STENO_ENABLE
+    QK_STENO              = 0x5A00,
+    QK_STENO_BOLT         = 0x5A30,
+    QK_STENO_GEMINI       = 0x5A31,
+    QK_STENO_MAX          = 0x5A3F,
+#endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
@@ -104,11 +114,20 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    GRAVE_ESC,
 
     // Leader key
 #ifndef DISABLE_LEADER
     KC_LEAD,
 #endif
+
+    // Auto Shift setup
+    KC_ASUP,
+    KC_ASDN,
+    KC_ASRP,
+    KC_ASTG,
+    KC_ASON,
+    KC_ASOFF,
 
     // Audio on/off/toggle
     AU_ON,
@@ -127,14 +146,18 @@ enum quantum_keycodes {
     MU_OFF,
     MU_TOG,
 
+    // Music mode cycle
+    MU_MOD,
+
     // Music voice iterate
     MUV_IN,
     MUV_DE,
 
     // Midi
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
+    MI_ON,
+    MI_OFF,
+    MI_TOG,
 #endif
 
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
@@ -380,19 +403,31 @@ enum quantum_keycodes {
 
     // RGB functionality
     RGB_TOG,
-    RGB_MOD,
+    RGB_MODE_FORWARD,
+    RGB_MODE_REVERSE,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
     RGB_SAD,
     RGB_VAI,
     RGB_VAD,
+    RGB_MODE_PLAIN,
+    RGB_MODE_BREATHE,
+    RGB_MODE_RAINBOW,
+    RGB_MODE_SWIRL,
+    RGB_MODE_SNAKE,
+    RGB_MODE_KNIGHT,
+    RGB_MODE_XMAS,
+    RGB_MODE_GRADIENT,
 
     // Left shift, open paren
     KC_LSPO,
 
     // Right shift, close paren
     KC_RSPC,
+
+    // Shift, Enter
+    KC_SFTENT,
 
     // Printing
     PRINT_ON,
@@ -403,6 +438,15 @@ enum quantum_keycodes {
     OUT_USB,
 #ifdef BLUETOOTH_ENABLE
     OUT_BT,
+#endif
+
+#ifdef KEY_LOCK_ENABLE
+    KC_LOCK,
+#endif
+
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
 #endif
 
     // always leave at the end
@@ -514,6 +558,20 @@ enum quantum_keycodes {
 #define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
+#define KC_GESC GRAVE_ESC
+
+#define RGB_MOD RGB_MODE_FORWARD
+#define RGB_SMOD RGB_MODE_FORWARD
+#define RGB_RMOD RGB_MODE_REVERSE
+
+#define RGB_M_P RGB_MODE_PLAIN
+#define RGB_M_B RGB_MODE_BREATHE
+#define RGB_M_R RGB_MODE_RAINBOW
+#define RGB_M_SW RGB_MODE_SWIRL
+#define RGB_M_SN RGB_MODE_SNAKE
+#define RGB_M_K RGB_MODE_KNIGHT
+#define RGB_M_X RGB_MODE_XMAS
+#define RGB_M_G RGB_MODE_GRADIENT
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
@@ -547,13 +605,13 @@ enum quantum_keycodes {
 #define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
 
 // One-shot mod
-#define OSM(mod) (mod | QK_ONE_SHOT_MOD)
+#define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
 
 // Layer tap-toggle
 #define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | ((mod & 0x1F) << 8))
+#define MT(mod, kc) (kc | QK_MOD_TAP | (((mod) & 0x1F) << 8))
 
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define LCTL_T(kc) MT(MOD_LCTL, kc)

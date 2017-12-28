@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef REV1_CONFIG_H
+#define REV1_CONFIG_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCEEB
@@ -36,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-
-#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

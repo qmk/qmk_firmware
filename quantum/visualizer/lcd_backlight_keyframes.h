@@ -20,11 +20,11 @@
 #include "visualizer.h"
 
 // Animates the LCD backlight color between the current color and the target color (of the state)
-bool backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_backlight_keyframe_animate_color(keyframe_animation_t* animation, visualizer_state_t* state);
 // Sets the backlight color to the target color
-bool backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_backlight_keyframe_set_color(keyframe_animation_t* animation, visualizer_state_t* state);
 
-bool backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
-bool backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_backlight_keyframe_disable(keyframe_animation_t* animation, visualizer_state_t* state);
+bool lcd_backlight_keyframe_enable(keyframe_animation_t* animation, visualizer_state_t* state);
 
 #endif /* QUANTUM_VISUALIZER_LCD_BACKLIGHT_KEYFRAMES_H_ */

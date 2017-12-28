@@ -1,28 +1,42 @@
-## READ FIRST
-https://github.com/tmk/tmk_core/blob/master/doc/keymap.md
+# Keymap FAQ
 
-## How to get keycode
-See [Keycodes](Keycodes). Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+This page covers questions people often have about keymaps. If you haven't you should read [Keymap Overview](keymap.md) first.
 
-## Sysrq key
+## What Keycodes Can I Use?
+See [Keycodes](keycodes.md) for an index of keycodes available to you. These link to more extensive documentation when available.
+
+Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+
+## What Are the Default Keycodes?
+
+There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
+
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/9ce023dc6caadc0cf11c88c782350a8c -->
+![Keyboard Layout Image](https://i.imgur.com/45m4mRf.png)
+
+## The Menu Key Isn't Working
+
+The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
+
+## `KC_SYSREQ` Isn't Working
 Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 - http://en.wikipedia.org/wiki/Magic_SysRq_key
 - http://en.wikipedia.org/wiki/System_request
 
-## Power key doesn't work
+## Power Key Doesn't Work
 Use `KC_PWR` instead of `KC_POWER` or vice versa.
 - `KC_PWR` works with Windows and Linux, not with OSX.
 - `KC_POWER` works with OSX and Linux, not with Windows.
 
-http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
+More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
 
-## Oneshot modifier
-Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  Oneshot Shift mitgates this for me.
+## One Shot Modifier
+Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
 https://github.com/tmk/tmk_keyboard/issues/67
 
-## Modifier/Layer stuck
+## Modifier/Layer Stuck
 Modifier keys or layers can be stuck unless layer switching is configured properly.
 For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
@@ -32,17 +46,19 @@ For Modifier keys and layer actions you have to place `KC_TRANS` on same positio
 
 
 ## Mechanical Lock Switch Support
-https://github.com/tmk/tmk_keyboard#mechanical-locking-support
 
-This feature is for *mechanical lock switch* like this Alps one.
-http://deskthority.net/wiki/Alps_SKCL_Lock
+This feature is for *mechanical lock switch* like [this Alps one](http://deskthority.net/wiki/Alps_SKCL_Lock). You can enable it by adding this to your `config.h`:
 
-Using enabling this feature and using keycodes `LCAP`, `LNUM` or `LSCR` in keymap you can use physical locking CapsLock, NumLock or ScrollLock keys as you expected.
+```
+#define LOCKING_SUPPORT_ENABLE
+#define LOCKING_RESYNC_ENABLE
+```
 
-Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `CAPS`, `NLCK` and `SLCK`.***
+After enabling this feature use keycodes `KC_LCAP`, `KC_LNUM` and `KC_LSCR` in your keymap instead.
 
+Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. ***You don't need this feature in most case and just use keycodes `KC_CAPS`, `KC_NLCK` and `KC_SLCK`.***
 
-## Input special charactors other than ASCII like Cédille 'Ç'
+## Input Special Characters Other Than ASCII like Cédille 'Ç'
 NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define **MACRO** in way specific to your OS or layout.
 
 See this post for example **MACRO** code.
@@ -63,7 +79,7 @@ And see this for **Unicode** input.
 - http://en.wikipedia.org/wiki/Unicode_input
 
 
-## Apple/Mac keyboard Fn
+## Apple/Mac Keyboard `Fn`
 Not supported.
 
 Apple/Mac keyboard sends keycode for Fn unlike most of other keyboards.
@@ -72,13 +88,13 @@ I think you can send Apple Fn key using Apple venter specific Page 0xff01 and us
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
 
 
-## Media control keys in Mac OSX
-#### KC_MNXT and KC_MPRV does not work on Mac
+## Media Control Keys in Mac OSX
+#### KC_MNXT and KC_MPRV Does Not Work on Mac
 Use `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) and `KC_MRWD`(`KC_MEDIA_REWIND`) instead of `KC_MNXT` and `KC_MPRV`.
 See https://github.com/tmk/tmk_keyboard/issues/195
 
 
-## Keys supported in Mac OSX?
+## Keys Supported in Mac OSX?
 You can know which keycodes are supported in OSX from this source code.
 
 `usb_2_adb_keymap` array maps Keyboard/Keypad Page usages to ADB scancodes(OSX internal keycodes).
@@ -90,7 +106,7 @@ And `IOHIDConsumer::dispatchConsumerEvent` handles Consumer page usages.
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
 
 
-## JIS keys in Mac OSX
+## JIS Keys in Mac OSX
 Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)` are not recognized on OSX. You can use **Seil** to enable those keys, try following options.
 
 * Enable NFER Key on PC keyboard
@@ -100,79 +116,23 @@ Japanese JIS keyboard specific keys like `無変換(Muhenkan)`, `変換(Henkan)`
 https://pqrs.org/osx/karabiner/seil.html
 
 
-## RN-42 Bluetooth doesn't work with Karabiner
+## RN-42 Bluetooth Doesn't Work with Karabiner
 Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
 https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
 
-See these for the deail of this problem.
+See these for the detail of this problem.
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
 
 
-## Esc and `~ on a key
+## Esc and <code>&#96;</code> on a Single Key
 
-You can define FC660 and Poker style ESC with `ACTION_LAYER_MODS`.
-https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
+See the [Grave Escape](feature_grave_escape.md) feature.
 
-```
-#include "keymap_common.h"
-
-
-/* Leopold FC660
- * https://elitekeyboards.com/products.php?sub=leopold,compact&pid=fc660c
- * Shift + Esc = ~
- * Fn    + Esc = `
- *
- * Votex Poker II
- * https://adprice.fedorapeople.org/poker2_manual.pdf
- * Fn         + Esc = `
- * Fn + Shift + Esc = ~
- */
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* 0: qwerty */
-    [0] = KEYMAP( \
-        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
-        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
-        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
-        FN0, NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,RSFT,ESC, \
-        LCTL,LGUI,LALT,          SPC,                     RALT,FN1, RGUI,RCTL),
-    [1] = KEYMAP( \
-        GRV, TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,TRNS,TRNS),
-    [2] = KEYMAP( \
-        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
-        TRNS,TRNS,TRNS,          TRNS,                    TRNS,TRNS,TRNS,TRNS),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    // https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#35-momentary-switching-with-modifiers
-    [0] = ACTION_LAYER_MODS(1, MOD_LSFT),
-    [1] = ACTION_LAYER_MOMENTARY(2),
-};
+## Arrow on Right Modifier Keys with Dual-Role
+This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
 ```
 
-Otherwise, you can write code, see this.
-https://github.com/p3lim/keyboard_firmware/commit/fd799c12b69a5ab5addd1d4c03380a1b8ef8e9dc
-
-
-## 32 Fn keys are not enough?
-### actionmap
-It uses 16 bit codes and has no limitation of 32 Fn at the expense of memory space. TMK keymap is actually is 8 bit codes as subset of the actionmap.
-https://github.com/tmk/tmk_keyboard/issues?utf8=%E2%9C%93&q=is%3Aissue+actionmap
-
-### extension for modified keys
-https://geekhack.org/index.php?topic=41989.msg1885526#msg1885526
-
-
-## Arrow on Right Modifier keys with Dual-Role
-This turns right modifer keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
-```
 #include "keymap_common.h"
 
 
@@ -211,30 +171,28 @@ const uint16_t PROGMEM fn_actions[] = {
 
 ```
 
-
 Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
 
 
 ## Eject on Mac OSX
-`EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
+`KC_EJCT` keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
 It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.
 
 Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses `F20` for Eject key(`Fn+f`) on Mac mode but this is not same as Apple Eject keycode probably.
 
 
-
-## What's weak_mods and real_mods in action_util.c
+## What's `weak_mods` and `real_mods` in `action_util.c`
 ___TO BE IMPROVED___
 
 real_mods is intended to retains state of real/physical modifier key state, while
-weak_mods retains state of virtual or temprary modifiers which should not affect state real modifier key.
+weak_mods retains state of virtual or temporary modifiers which should not affect state real modifier key.
 
-Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A), 
+Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A),
 
 with weak_mods,
 * (1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)
 * (2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
-* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): waek_mods &= ~MOD_BIT(LSHIFT)
+* (3) release ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
 real_mods still keeps modifier state.
 
 without weak mods,
@@ -246,7 +204,7 @@ here real_mods lost state for 'physical left shift'.
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
 
-## Timer functionality
+## Timer Functionality
 
 It's possible to start timers and read values for time-specific events - here's an example:
 
@@ -262,4 +220,3 @@ if (timer_elapsed(key_timer) < 100) {
 ```
 
 It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.
-

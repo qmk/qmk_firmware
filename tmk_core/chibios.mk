@@ -46,13 +46,32 @@ endif
 include $(PLATFORM_MK)
 
 
-BOARD_MK = $(KEYBOARD_PATH)/boards/$(BOARD)/board.mk
+BOARD_MK := 
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_5)
+    BOARD_MK += $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_4)
+    BOARD_MK += $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_3)
+    BOARD_MK += $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_2)
+    BOARD_MK += $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_1)
+    BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
+endif
+
 ifeq ("$(wildcard $(BOARD_MK))","")
 	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
 	ifeq ("$(wildcard $(BOARD_MK))","")
 		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
 	endif
 endif
+
 include $(BOARD_MK)
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
@@ -72,10 +91,18 @@ RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 endif
 
 # Define linker script file here
-ifneq ("$(wildcard $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld)","")
-LDSCRIPT = $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
 else
-LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
+    LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
 CHIBISRC = $(STARTUPSRC) \
@@ -143,7 +170,7 @@ MCUFLAGS = -mcpu=$(MCU)
 
 DEBUG = gdb
 
-DFU_ARGS =
+DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
@@ -153,5 +180,32 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).bin
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
+	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
+	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
+	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
+
 dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
