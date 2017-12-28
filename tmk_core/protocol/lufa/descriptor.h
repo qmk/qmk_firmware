@@ -208,8 +208,8 @@ typedef struct
 
 #ifdef CONSOLE_ENABLE
 #   define CONSOLE_IN_EPNUM         (RAW_OUT_EPNUM + 1)
-//#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
-#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+//#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
 #else
 #   define CONSOLE_OUT_EPNUM        RAW_OUT_EPNUM
 #endif

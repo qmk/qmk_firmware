@@ -327,6 +327,7 @@ static void Console_Task(void)
           Endpoint_ClearIN();
       }
       // CONSOLE_FLUSH_SET(false);
+      console_flush = false;
     }
 
     Endpoint_SelectEndpoint(ep);
@@ -398,7 +399,8 @@ void EVENT_USB_Device_WakeUp()
 
 
 
-#ifdef CONSOLE_ENABLE
+// #ifdef CONSOLE_ENABLE
+#if 0
 
 // called every 1ms
 void EVENT_USB_Device_StartOfFrame(void)
@@ -1113,7 +1115,7 @@ static void setup_usb(void)
     USB_Init();
 
     // for Console_Task
-    USB_Device_EnableSOFEvents();
+    //USB_Device_EnableSOFEvents();
     print_set_sendchar(sendchar);
 }
 
@@ -1226,6 +1228,10 @@ int main(void)
 
 #ifdef RAW_ENABLE
         raw_hid_task();
+#endif
+
+#ifdef CONSOLE_ENABLE
+        Console_Task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
