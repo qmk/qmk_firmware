@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "quantum.h"
 
+#include "i2c.h"
+
 // custom RGB driver
 extern rgblight_config_t rgblight_config;
 void rgblight_set(void) {
@@ -40,17 +42,5 @@ void rgblight_set(void) {
 __attribute__ ((weak))
 void matrix_scan_user(void) {
     rgblight_task();
-    /* add other tasks to be done on each matrix scan */
-}
-
-void matrix_init_kb(void) {
-
-  // Call the keymap level matrix init.
-  matrix_init_user();
-
-  // Set our LED pins as output
-  DDRB |= (1<<6);
-}
-
-void matrix_init_user(void) {
+    /* Nothing else for now. */
 }

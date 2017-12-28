@@ -37,8 +37,11 @@ EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = no
+
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
+DISABLE_WS2812 = yes  # TODO check if this is necessary
+
 KEY_LOCK_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
