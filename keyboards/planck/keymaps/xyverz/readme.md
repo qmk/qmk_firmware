@@ -2,7 +2,7 @@
 
 ## About this keymap:
 
-This keymap really isn't too far different from the default Planck layout. The biggest changes are with the shift keys being on the third row, and with a fairly revamped bottom row that takes its queues from the Kinesis Advantage. I share the bottom row with all layers; using `GUI_T(KC_BSPC)` on the backspace key; It's GUI when held and Backspace when tapped. This helps using keyboard shortcuts on the Mac so much easier. Function keys can be found on the `ADJUST` layer.
+This keymap really isn't too far different from the default Planck layout. The biggest changes are the placement of shift keys on both sides of the third row, and with a fairly revamped bottom row that takes its layout queues from the Kinesis Advantage. I share the bottom row with all layers; using `GUI_T(KC_BSPC)` on the backspace key; It's GUI when held and Backspace when tapped. This helps using keyboard shortcuts on the Mac so much easier. Function keys can be found on the `ADJUST` layer.
 
 This revision includes documentation and some significant clean-up / unification of the middle two rows in the `RAISE` & `LOWER` layers.
 
