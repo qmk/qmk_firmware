@@ -19,17 +19,6 @@ extern keymap_config_t keymap_config;
 #define MEDIA    TG(_MEDIA)
 #define COVECUBE TG(_COVECUBE)
 
-#ifdef TAP_DANCE_ENABLE
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
-#else
-#define KC_D3_1 KC_1
-#define KC_D3_2 KC_2
-#define KC_D3_3 KC_3
-#define KC_D3_4 KC_4
-#endif
 #ifdef FAUXCLICKY_ENABLE
 float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
 float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);

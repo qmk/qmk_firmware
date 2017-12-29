@@ -24,18 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool skip_leds = false;
 
 
-#ifdef TAP_DANCE_ENABLE
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
-#else
-#define KC_D3_1 KC_1
-#define KC_D3_2 KC_2
-#define KC_D3_3 KC_3
-#define KC_D3_4 KC_4
-#endif
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
