@@ -18,9 +18,9 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+-------------+------+------+------+------+------|
     | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
     |------+------+------+------+------+------|------+------+------+------+------+------|
-    | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+    | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Shift|
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Enter |
+    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI | Enter|
     `-----------------------------------------------------------------------------------'
  ```
 	 
@@ -32,9 +32,9 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+-------------+------+------+------+------+------|
     | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
     |------+------+------+------+------+------|------+------+------+------+------+------|
-    | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+    | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Shift|
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Enter |
+    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI | Enter|
     `-----------------------------------------------------------------------------------'
  ```
 	 
@@ -48,7 +48,7 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+------|------+------+------+------+------+------|
     | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Shift|
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI |Enter |
+    | Ctrl | Alt  | Left |Right |Lower | Bksp |Space |Raise |  Up  | Down |  GUI | Enter|
     `-----------------------------------------------------------------------------------'
  ```
 	 
@@ -62,7 +62,7 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | Brite|      | Home |  End |      |  Del |  Ins |      | PgUp | PgDN |      |Enter |
+    | Brite|      | Home |  End |      |  Del |  Ins |      | PgUp | PgDN |      |      |
     `-----------------------------------------------------------------------------------'
  ```
 	 
@@ -76,7 +76,7 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |      |      | Prev | Play | Next |      |      |      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | Brite|      | Home |  End |      |  Del |  Ins |      | PgUp | PgDN |      |Enter |
+    | Brite|      | Home |  End |      |  Del |  Ins |      | PgUp | PgDN |      |      |
     `-----------------------------------------------------------------------------------'
  ```
 	 
@@ -90,6 +90,6 @@ This revision includes documentation and some significant clean-up / unification
     |------+------+------+------+------+------|------+------+------+------+------+------|
     |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    | PWR  |      |      |      |      |             |      |      |      |      |      |
+    | Power|      |      |      |      |             |      |      |      |      |      |
     `-----------------------------------------------------------------------------------'
  ```
