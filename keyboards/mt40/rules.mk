@@ -9,6 +9,12 @@ NO_SUSPEND_POWER_DOWN = yes
 # processor frequency
 F_CPU = 12000000
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = bootloadHID
+
 # build options
 BOOTMAGIC_ENABLE ?= yes # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE ?= no   # Mouse keys(+4700)
@@ -26,11 +32,10 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 TAP_DANCE_ENABLE = no
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/mt40/program $(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
