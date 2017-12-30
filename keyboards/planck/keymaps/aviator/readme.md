@@ -1,8 +1,8 @@
-#The Aviator
+# The Aviator
 
 Designed for aeronautical data entry on the OLKB Planck.
 
-##Layers
+## Layers
 
 ````Qwerty
 ,-----------------------------------------------------------------------------------.
@@ -60,6 +60,6 @@ Adjust (Lower + Raise)
 `-----------------------------------------------------------------------------------'
 ````
 
-##Notes
+## Notes
 
 Supports LED backlighting.
