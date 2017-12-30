@@ -23,3 +23,13 @@ _todo layout picture_
 
 _todo description_
 _todo layout picture_
+
+## Commands
+
+Make
+
+> make planck/rev4:monsieurluge
+
+Flash
+
+> sudo dfu-programmer atmega32u4 flash planck_rev4_monsieurluge.hex

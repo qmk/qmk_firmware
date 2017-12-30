@@ -16,11 +16,17 @@
 
 #include "planck.h"
 #include "action_layer.h"
-#include "keymap_bepo.h"
-// #include "keymap_french.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+
+#define UC_EURO	UC(0x20AC)
+#define UC_CCED	UC(0x00E7)
+#define UC_RTDM	UC(0x00AE)
+#define UC_CPRT	UC(0x00A9)
+#define UC_OQUT	UC(0x00AB)
+#define UC_CQUT	UC(0x00BB)
 
 extern keymap_config_t keymap_config;
 
@@ -95,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------------------------------------------------.
-   * |      |      |      |  €   |      |      |      |      |      |      |      |      |
+   * |      |      |      |  €   |   ®  |   ©  |      |      |      |      |      |      |
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |      |   «  |      |      |      |      |      |      |      |      |   »  |      |
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |      |      |  ç   |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -105,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] = {
-    {XXXXXXX, XXXXXXX, XXXXXXX, BP_EURO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, XXXXXXX, BP_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {XXXXXXX, XXXXXXX, XXXXXXX, UC_EURO, UC_RTDM, UC_CPRT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {XXXXXXX, UC_OQUT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_CQUT, XXXXXXX},
+    {XXXXXXX, XXXXXXX, XXXXXXX, UC_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
     {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
   },
 
