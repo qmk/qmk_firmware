@@ -17,6 +17,10 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+<<<<<<< HEAD
+=======
+#define TAPPING_TOGGLE 2
+>>>>>>> 72b27e8a8... added alu84 and TurboMech userspace
 #include "../../config.h"
 
 // place overrides here

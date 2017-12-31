@@ -1,4 +1,4 @@
-#include "kb.h"
+#include "alu84.h"
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 #define _BL 0
