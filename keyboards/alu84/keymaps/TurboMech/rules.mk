@@ -7,13 +7,9 @@ SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE ?= yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE ?= no
-<<<<<<< HEAD
-RGBLIGHT_ENABLE ?= yes
-=======
 RGBLIGHT_ENABLE ?= yes
 UNICODE_ENABLE ?= yes
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
->>>>>>> 72b27e8a8... added alu84 and TurboMech userspace
