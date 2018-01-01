@@ -16,16 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "mechmini.h"
-#include "rgblight.h"
-
 #include <avr/pgmspace.h>
 
 #include "action_layer.h"
 #include "i2c.h"
 #include "quantum.h"
 
-extern rgblight_config_t rgblight_config;
+#include "rgblight.h"
 
+// custom RGB driver
+extern rgblight_config_t rgblight_config;
 void rgblight_set(void) {
     if (!rgblight_config.enable) {
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
@@ -42,4 +42,5 @@ void rgblight_set(void) {
 __attribute__ ((weak))
 void matrix_scan_user(void) {
     rgblight_task();
+    /* add other tasks to be done on each matrix scan */
 }
