@@ -147,8 +147,8 @@ static void init_rows(void) {
 }
 
 static uint8_t read_rows(uint8_t col) {
-  if (col == 16) {
-    return PINE&(1<<2) ? 0 : (1<<0);
+  if (col == 0) {
+    return PINE&(1<<2) ? 0 : (1<<2);
   } else {
       return (PIND&(1<<0) ? (1<<0) : 0) |
              (PIND&(1<<1) ? (1<<1) : 0) |
@@ -161,7 +161,7 @@ static uint8_t read_rows(uint8_t col) {
 
 uint8_t read_fwkey(void)
 {
-  return PINE&(1<<2) ? 0 : (1<<0);
+  return PINE&(1<<2) ? 0 : (1<<2);
 }
 
 /* Columns 0 - 15

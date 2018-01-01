@@ -26,3 +26,5 @@ The Duck Eagle/Viper V2 PCB consists of:
 Thanks to Ralf Schmitt for previous implementations in his [TMK fork](https://github.com/xauser/tmk_keyboard/tree/xauser/) and few helping words.
 
 Based heavily on Rasmus Schults [Duck Lightsaver QMK Port](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lightsaver)
+
+Special thanks to profanum429 for debugging help and contributions to getting my Eagle code to work for the Viper. 
