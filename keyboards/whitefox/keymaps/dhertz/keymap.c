@@ -12,13 +12,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "whitefox.h"
-
-enum custom_keycodes {
-    HSH_TLD = SAFE_RANGE,
-    CTRL_A,
-    CMD_ALT_C,
-    CMD_SFT_L,
-};
+#include "dhertz.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
@@ -62,74 +56,3 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_LALT,                        KC_TRNS,                KC_TRNS,KC_TRNS,KC_TRNS,     KC_HOME,KC_PGDN,KC_END  \
     ),
 };
-
-enum function_id {
-    CMD_TAB_CMD,
-    CMD_GRV_CMD
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-            case HSH_TLD:
-                if (get_mods()&(MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) {
-                    SEND_STRING("`");
-                } else {
-                    SEND_STRING(SS_LALT("3"));
-                }
-                break;
-            case CTRL_A:
-                SEND_STRING(SS_LCTRL("a"));
-                break;
-            case CMD_ALT_C:
-                SEND_STRING(SS_LGUI(SS_LALT("c")));
-                break;
-            case CMD_SFT_L:
-                SEND_STRING(SS_LGUI("L"));
-                break;
-            default:
-                return true;
-        }
-        return false;
-    }
-    return true;
-};
-
-/*
- * Fn action definition
- */
-const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
-    [0]  = ACTION_FUNCTION_TAP(CMD_TAB_CMD),           // tap cmd tab or cmd
-    [1]  = ACTION_FUNCTION_TAP(CMD_GRV_CMD),                    // grave tab
-};
-
-void cmd_or_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
-    if (record->event.pressed) {
-        if (record->tap.count > 0 && !record->tap.interrupted) {
-            if (record->tap.interrupted) {
-                register_mods(MOD_BIT(kc_mod));
-            }
-        } else {
-            register_mods(MOD_BIT(kc_mod));
-        }
-    } else {
-        if (record->tap.count > 0 && !(record->tap.interrupted)) {
-            SEND_STRING(macro);
-            record->tap.count = 0;  // ad hoc: cancel tap
-        } else {
-            unregister_mods(MOD_BIT(kc_mod));
-        }
-    }
-}
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch (id) {
-        case CMD_TAB_CMD:
-            cmd_or_macro(record, KC_LGUI, SS_LGUI(SS_TAP(X_TAB)));
-            break;
-        case CMD_GRV_CMD:
-            cmd_or_macro(record, KC_RGUI, SS_LGUI(SS_TAP(X_TAB)));
-            break;
-    }
-}
