@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 @TurboMech /u/TurboMech <discord> @A9entOran9e#6134
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,31 +14,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
 
-#include QMK_KEYBOARD_CONFIG_H
-
-#ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 200
-#endif // TAP_DANCE_ENABLE
+#include "alu84.h"
+#include "rgblight.h"
+#include "action_layer.h"
+#include "quantum.h"
+#include "action.h"
 
 
-#define B5_AUDIO
+void matrix_scan_kb(void) {
+	// put your looping keyboard code here
+	// runs every cycle (a lot)
+
+	matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+	// put your per-action keyboard code here
+	// runs for every action, just before processing by the firmware
+
+	return process_record_user(keycode, record);
+}
+
+void led_set_kb(uint8_t usb_led) {
+	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+
+	led_set_user(usb_led);
+}
 
 
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 14     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 12
-#define RGBLIGHT_VAL_STEP 12
-#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 4
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 3
-#define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#endif // RGBLIGHT_ENABLE
 
-#define FORCE_NKRO
-
-#endif
