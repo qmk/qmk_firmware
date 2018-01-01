@@ -14,16 +14,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "mechmini.h"
-#include "rgblight.h"
 #include "quantum.h"
 
-#define MAX_BRIGHTNESS 15
-#define MAX_BRIGHTNESS_IOS 5  // max brightness suitable for iOS devices
-
-#define _BL 0
-#define _FN1 1
-#define _FN2 2
-#define _FN3 3
+#define _BL  0   // base layer
+#define _FN1 1  // function layer 1
+#define _FN2 2  // function layer 2
+#define _FN3 3  // function layer 3
 #define _____ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,109 +48,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
    )
 };
-
-/**
- * Blank keymap
- [0] = KEYMAP(
-   _____,      _____,      _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____
-   _____,      _____,      _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,
-   _____,      _____,      _____,      _____,    _____,    _____,    _____,    _____,    _____,    _____,    _____,
-   _____,      _____,      _____,            _____,        _____,         _____,                   _____,    _____
- )
- */
-
-uint8_t current_level = 4;
-int is_on = 0;
-
-uint8_t r = 0xFF;
-uint8_t g = 0xFF;
-uint8_t b = 0xFF;
-
-uint8_t max_brightness = MAX_BRIGHTNESS_IOS;
-
-enum macro_id {
-  TOGGLE_RGB,
-  BRIGHTNESS_DOWN,
-  BRIGHTNESS_UP,
-  COLOR_1,
-  COLOR_2,
-  COLOR_3,
-  ENABLE_MAX_BRIGHTNESS
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  keyevent_t event = record->event;
-
-  switch (id) {
-    case TOGGLE_RGB:
-      if (event.pressed) {
-       if (!is_on) {
-         current_level = 4;
-         is_on = 1;
-       } else {
-         is_on = 0;
-       }
-      }
-    case BRIGHTNESS_DOWN:
-      if (event.pressed && current_level > 0) {
-        current_level--;
-      }
-      break;
-    case BRIGHTNESS_UP:
-      if (event.pressed && current_level < max_brightness) {
-        current_level++;
-      }
-      break;
-    case COLOR_1:  // set to pink
-      if (event.pressed) {
-        r = 0xFF;
-        g = 0x81;
-        b = 0xC2;
-      }
-      break;
-    case COLOR_2:  // set to cyan
-      if (event.pressed) {
-        r = 0x00;
-        g = 0xE0;
-        b = 0xFF;
-      }
-      break;
-    case COLOR_3:  // set to white
-      if (event.pressed) {
-        r = 0xFF;
-        g = 0xFF;
-        b = 0xFF;
-      }
-      break;
-    case ENABLE_MAX_BRIGHTNESS: // enable all 16 brightness steps
-      if (event.pressed) {
-        max_brightness = MAX_BRIGHTNESS;
-      }
-      break;
-  }
-
-  return MACRO_NONE;
-}
-
-const uint16_t fn_actions[] PROGMEM = {
-};
-
-void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
-
-uint8_t dim(uint8_t color, uint8_t opacity) {
-   return ((uint16_t) color * opacity / 0xFF) & 0xFF;
-}
-
-void user_setrgb(uint8_t r, uint8_t g, uint8_t b) {
-   uint8_t alpha = current_level * 0x11;
-   rgblight_setrgb(dim(r, alpha), dim(g, alpha), dim(b, alpha));
-}
-
-void matrix_scan_user(void) {
-  if (!is_on) {
-    current_level = 0;
-    user_setrgb(r, g, b);
-  } else {
-    user_setrgb(r, g, b);
-  }
-}

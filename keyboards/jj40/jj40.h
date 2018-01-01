@@ -65,6 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   { K312, K311, K310, K39, K35, K36, K3X, KC_NO, K34, K33, K32, K31 }  \
 }
 
-#define KEYMAP KEYMAP_OFFSET
+#define KEYMAP KEYMAP_MIT
 
 #endif
