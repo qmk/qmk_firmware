@@ -127,7 +127,7 @@ https://github.com/tekezo/Karabiner/issues/403
 
 ## Esc and <code>&#96;</code> on a Single Key
 
-See the [Grave Escape](feature_grave_escape.md) feature.
+See the [Grave Escape](feature_grave_esc.md) feature.
 
 ## Arrow on Right Modifier Keys with Dual-Role
 This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed **TAP**.
