@@ -2,7 +2,8 @@
 
 Designed for aeronautical data entry on the OLKB Planck.
 
-[Imgur](https://i.imgur.com/lj6uMYI.png)
+![Imgur]
+(https://i.imgur.com/lj6uMYI.png)
 
 ## Layers
 
