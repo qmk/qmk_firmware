@@ -147,16 +147,15 @@ static void init_rows(void) {
 }
 
 static uint8_t read_rows(uint8_t col) {
-  if (col == 0) {
-    return PINE&(1<<2) ? 0 : (1<<2);
-  } else {
-      return (PIND&(1<<0) ? (1<<0) : 0) |
-             (PIND&(1<<1) ? (1<<1) : 0) |
-             (PIND&(1<<2) ? (1<<2) : 0) |
-             (PIND&(1<<3) ? (1<<3) : 0) |
-             (PIND&(1<<5) ? (1<<4) : 0) |
-             (PINB&(1<<7) ? (1<<5) : 0);
-    }
+
+    return (PIND&(1<<0) ? (1<<0) : 0) |
+            (PIND&(1<<1) ? (1<<1) : 0) |
+            (PIND&(1<<2) ? (1<<2) : 0) |
+            (PIND&(1<<3) ? (1<<3) : 0) |
+            (PIND&(1<<5) ? (1<<4) : 0) |
+            (PINB&(1<<7) ? (1<<5) : 0) |
+            (col==0 ? ((PINE&(1<<2) ? 0 : (1<<2))) : 0);
+    
 }
 
 uint8_t read_fwkey(void)
