@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-#include "quantum.h"
-#include "action.h"
 #include "version.h"
 
 #if (__has_include("secrets.h"))
@@ -450,8 +448,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
       ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-       ":avrdude"
+//#elif defined(BOOTLOADER_CATERINA)
+//       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
         " RGBLIGHT_ENABLE=yes"
@@ -572,6 +570,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     case _COVECUBE:
       rgblight_set_green;
       rgblight_mode(2);
+      break;
     default:
       if (default_layer & (1UL << _COLEMAK)) {
         rgblight_set_magenta;
