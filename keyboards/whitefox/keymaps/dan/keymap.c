@@ -13,6 +13,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "whitefox.h"
 
+enum custom_keycodes {
+    HSH_TLD = SAFE_RANGE,
+};
+
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,---------------------------------------------------------------.
@@ -30,9 +34,9 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = KEYMAP_ISO( \
         KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS, KC_EQL, KC_BSPC,    KC_DEL, \
         KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,             KC_PGUP,\
-        CTL_T(KC_F19), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NUHS,     KC_ENT, KC_PGDN,\
-        KC_LSFT,KC_FN1, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,     KC_UP,  KC_HOME,\
-        CTL_T(KC_F18),KC_LALT, KC_FN6,                     LT(1, KC_SPC),              KC_FN7, KC_FN8, KC_FN10,     KC_LEFT,KC_DOWN,KC_RGHT \
+  CTL_T(KC_F19),KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_NUHS,     KC_ENT, KC_PGDN,\
+        KC_LSFT,HSH_TLD, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,     KC_UP,  KC_HOME,\
+  CTL_T(KC_F18),KC_LALT,KC_FN6,                  LT(1, KC_SPC),                 KC_FN7, KC_FN8, KC_FN10,     KC_LEFT,KC_DOWN,KC_RGHT \
     ),
     /* Layer 1: HHKB mode (Space)
      * ,---------------------------------------------------------------.
@@ -59,7 +63,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 enum macro_id {
     CMD_TAB,
     CMD_GRAVE,
-    HASH_TILDE,
     CTRL_A,
     CMD_ALT_C,
     CMD_SHIFT_L,
@@ -67,7 +70,22 @@ enum macro_id {
 
 enum function_id {
     CMD_TAB_CMD,
-    CMD_GRV_CMD,
+    CMD_GRV_CMD
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch(keycode) {
+            case HSH_TLD:
+                if (get_mods()&(MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) {
+                    SEND_STRING("`");
+                } else {
+                    SEND_STRING(SS_LALT("3"));
+                }
+                return false; break;
+        }
+    }
+    return true;
 };
 
 /*
@@ -75,7 +93,7 @@ enum function_id {
  */
 const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
  //   [0]  = ACTION_LAYER_TAP_KEY(1, KC_SPC),            // function layer with Space
-    [1]  = ACTION_MACRO(HASH_TILDE),                   // hash / tilde
+ //   [1]  = ACTION_MACRO(HASH_TILDE),                   // hash / tilde
  //   [2]  = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_F18),      // notification centre
  //   [3]  = ACTION_LAYER_TAP_KEY(2, MOD_RCTL),          // wasd mouse mode
  //   [4]  = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),          // tilde
@@ -96,16 +114,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO( D(LGUI), T(TAB), U(LGUI), END );
         case CMD_GRAVE:
             return MACRO( D(LGUI), T(GRV), U(LGUI), END );
-        case HASH_TILDE:
-            if (get_mods()&(MOD_LSFT|MOD_RSFT)) {
-                return (record->event.pressed ?
-                       MACRO( D(GRV), END ) :
-                       MACRO( U(GRV), END ));
-            } else {
-                return (record->event.pressed ?
-                       MACRO( D(LALT), D(3), U(LALT), END ) :
-                       MACRO( U(LALT), U(3), END ));
-            }
        case CTRL_A:
             return (record->event.pressed ?
                        MACRO( D(LCTL), T(A), U(LCTL), END ) :
