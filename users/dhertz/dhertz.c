@@ -75,7 +75,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
             cmd_or_macro(record, KC_LGUI, SS_LGUI(SS_TAP(X_TAB)));
             break;
         case CMD_GRV_CMD:
-            cmd_or_macro(record, KC_RGUI, SS_LGUI(SS_TAP(X_TAB)));
+            cmd_or_macro(record, KC_RGUI, SS_LGUI(SS_TAP(X_GRAVE)));
             break;
         default:
             action_function_keymap(record, id, opt);
@@ -93,7 +93,7 @@ void cmd_or_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
         }
     } else {
         if (record->tap.count > 0 && !(record->tap.interrupted)) {
-            SEND_STRING(macro);
+            send_string(macro);
             record->tap.count = 0;  // ad hoc: cancel tap
         } else {
             unregister_mods(MOD_BIT(kc_mod));

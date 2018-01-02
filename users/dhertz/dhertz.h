@@ -16,6 +16,6 @@ enum function_id {
     CMD_GRV_CMD
 };
 
-void cmd_or_macro(keyrecord_t *record, uint16_t kc_mod, char* macro);
+void cmd_or_macro(keyrecord_t *record, uint16_t kc_mod, char* cmd_or_macro);
 
 #endif
