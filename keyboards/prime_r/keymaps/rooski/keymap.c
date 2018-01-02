@@ -97,9 +97,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case AR_UP:
 			if(record->event.pressed){
 				if(arrow_toggle == 1){
-					SEND_STRING(SS_TAP(X_UP));
+//					SEND_STRING(SS_TAP(X_UP));
+					register_code(KC_UP);
+					unregister_code(KC_UP);
 				} else {
-					SEND_STRING(SS_TAP(X_KP_2));					
+//					SEND_STRING(SS_TAP(X_KP_2));
+					register_code(KC_P2);
+					unregister_code(KC_P2);					
 				}
 				break;
 			}
