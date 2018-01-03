@@ -30,6 +30,15 @@ PROGMEM const char secret[][64] = {
 };
 #endif
 
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
+float fauxclicky_beep_note[2]     = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
+#else
+float tone_chirp[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+#endif 
+bool faux_click_enabled = true;
+
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
@@ -226,6 +235,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
+
+  if (record->event.pressed && faux_click_enabled) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(tone_chirp);
+#endif
+  }
 
   switch (keycode) {
   case KC_QWERTY:
@@ -505,6 +520,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgb_layer_change = !rgb_layer_change;
     }
 #endif
+    return false;
+    break;
+  case KC_FXCL:
+    if (!record->event.pressed) {
+      faux_click_enabled = !faux_click_enabled;
+    }
     return false;
     break;
 #ifdef RGBLIGHT_ENABLE

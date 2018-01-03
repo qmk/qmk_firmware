@@ -32,18 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
-#define AUD_ON  FC_ON
-#define AUD_OFF FC_OFF
-#else
-#define AUD_ON  AU_ON
-#define AUD_OFF AU_OFF
-
-#endif 
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
