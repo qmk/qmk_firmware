@@ -20,7 +20,6 @@
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-
 #define UC_EURO	UC(0x20AC)
 #define UC_CCED	UC(0x00E7)
 #define UC_RTDM	UC(0x00AE)
@@ -134,6 +133,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
     {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
   }
+};
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+    set_unicode_input_mode(UC_LNX); // Linux
+    //set_unicode_input_mode(UC_OSX); // Mac OSX
+    //set_unicode_input_mode(UC_WIN); // Windows (with registry key, see wiki)
+    //set_unicode_input_mode(UC_WINC); // Windows (with WinCompose, see wiki)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
