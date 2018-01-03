@@ -22,8 +22,7 @@ enum BACKLIGHT_AREAS {
 };
 
 void backlight_set(uint8_t level) {
-  switch(level)
-  {
+  switch(level) {
   case 0:
     PORTB |= BACKLIGHT_ALPHAS;
     PORTB |= BACKLIGHT_MODNUM;
