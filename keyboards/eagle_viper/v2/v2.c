@@ -31,6 +31,7 @@ uint8_t backlight_rgb_b = 0;
 
 void backlight_toggle_rgb(bool enabled)
 {
+/*
   if(enabled) {
     uint8_t rgb[17][3] = {
       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
@@ -74,16 +75,19 @@ void backlight_toggle_rgb(bool enabled)
     };
     backlight_set_rgb(rgb);
   }
+*/
 }
 
 void backlight_set_rgb(uint8_t cfg[17][3])
 {
+/*
   cli();
   for(uint8_t i = 0; i < 17; ++i) {
     send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
   }
   sei();
   show();
+*/
 }
 
 void backlight_set(uint8_t level) {
