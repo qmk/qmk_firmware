@@ -29,67 +29,6 @@ uint8_t backlight_rgb_r = 255;
 uint8_t backlight_rgb_g = 0;
 uint8_t backlight_rgb_b = 0;
 
-void backlight_toggle_rgb(bool enabled)
-{
-/*
-  if(enabled) {
-    uint8_t rgb[17][3] = {
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
-    };
-    backlight_set_rgb(rgb);
-  } else {
-    uint8_t rgb[17][3] = {
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0}
-    };
-    backlight_set_rgb(rgb);
-  }
-*/
-}
-
-void backlight_set_rgb(uint8_t cfg[17][3])
-{
-/*
-  cli();
-  for(uint8_t i = 0; i < 17; ++i) {
-    send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
-  }
-  sei();
-  show();
-*/
-}
-
 void backlight_set(uint8_t level) {
 /*
  * DISABLE for now -> this causes issues with initial rgb setup
@@ -114,7 +53,7 @@ void led_set_kb(uint8_t usb_led) {
     layer_state & (1<<2),                            /* LED 6 */
     layer_state & (1<<1),                            /* LED 5 */
     layer_state & (1<<0) ? 0: 1,                     /* LED 4 */
-    
+
     layer_state & (1<<5),                            /* LED 8 */
     layer_state & (1<<4)                             /* LED 7 */
   };
