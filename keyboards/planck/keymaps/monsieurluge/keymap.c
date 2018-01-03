@@ -118,20 +118,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Misc Functions
    * ,-----------------------------------------------------------------------------------.
-   * |reset |      |      |      | vol- |audoff|audon | vol+ |      |      |      |prtscr|
+   * |reset |      |      |      |      |      |      |      |      |      |      |prtscr|
    * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |      |      |      |      | prev | play | stop | next |      |      |      |      |
-   * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      | stop |audoff|audon | play |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |Lower |    Space    |Raise |      |      |      |      |
+   * |      |      |      |      |      |      |      |      | prev | vol- | vol+ | next |
    * `-----------------------------------------------------------------------------------'
    */
   [_FN] = {
-    {RESET,   XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_VOLD, KC_MUTE, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCREEN},
-    {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {RESET,   XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCREEN},
     {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
+    {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MSTP, KC_MUTE, KC_MUTE, KC_MPLY},
+    {XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_VOLU, KC_VOLD, KC_MNXT}
   }
 };
 
