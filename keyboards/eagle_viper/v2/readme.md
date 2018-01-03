@@ -27,4 +27,4 @@ Thanks to Ralf Schmitt for previous implementations in his [TMK fork](https://gi
 
 Based heavily on Rasmus Schults [Duck Lightsaver QMK Port](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lightsaver)
 
-Special thanks to profanum429 for debugging help and contributions to getting my Eagle code to work for the Viper. 
+Special thanks to profanum429 for debugging help and contributions to support the Viper and LED indicators. 

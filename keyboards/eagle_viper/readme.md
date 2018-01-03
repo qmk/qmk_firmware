@@ -8,5 +8,5 @@ Newest version is the [Eagle/Viper V2](http://duck0113.tistory.com/127)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make octagon/v2:default
+    make eagle_viper/v2:default
 
