@@ -30,11 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
+#define NO_UART 1
+
+/* RGB underglow */
+// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
+// The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN E2
-
-#define NO_UART 1
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

@@ -242,7 +242,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             layer_on(_LOWER);
             #ifdef BACKLIGHT_ENABLE
-                breathing_speed_set(2);
+                breathing_period_set(2);
                 breathing_pulse();
             #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -256,7 +256,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
             layer_on(_RAISE);
             #ifdef BACKLIGHT_ENABLE
-                breathing_speed_set(2);
+                breathing_period_set(2);
                 breathing_pulse();
             #endif
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
