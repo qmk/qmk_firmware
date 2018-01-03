@@ -19,12 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include "indicator_leds.h"
+#include "quantum.h"
 
 #define T1H  900
 #define T1L  600
 #define T0H  400
 #define T0L  900
 #define RES 6000
+
+#define LED_T1H	600
+#define LED_T1L 650
+#define LED_T0H 250
+#define LED_T0L 1000
 
 #define NS_PER_SEC (1000000000L)
 #define CYCLES_PER_SEC (F_CPU)
@@ -45,8 +51,8 @@ void send_bit_d4(bool bitVal) {
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T1H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T1L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T1H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T1L) - 2));
   } else {
     asm volatile (
         "sbi %[port], %[bit] \n\t"
@@ -60,8 +66,8 @@ void send_bit_d4(bool bitVal) {
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
 }
 
@@ -124,10 +130,26 @@ void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device) {
 
 // Port from backlight_set_state
 void indicator_leds_set(bool leds[8]) {
+  uint8_t send_bytes[9];
+  uint8_t led_cnt;
+
+  for(led_cnt = 0; led_cnt < 8; led_cnt++)
+    send_bytes[led_cnt] = leds[led_cnt] ? 255 : 0;
+
+/*
+  send_bytes[0] = 255; // LED 3 
+  send_bytes[1] = 0; // LED 2
+  send_bytes[2] = 255; // LED 1
+  send_bytes[3] = 0; // LED 6
+  send_bytes[4] = 255; // LED 5
+  send_bytes[5] = 0; // LED 4
+  send_bytes[6] = 0; // LED 8 
+  send_bytes[7] = 255; // LED 7
+  send_bytes[8] = 0; // NC
+*/
   cli();
-  send_color(leds[1] ? 255 : 0, leds[2] ? 255 : 0, leds[0] ? 255 : 0, Device_STATUSLED);
-  send_color(leds[4] ? 255 : 0, leds[3] ? 255 : 0, leds[5] ? 255 : 0, Device_STATUSLED);
-  leds[6] ? (PORTD &= ~0b10000000) : (PORTD |= 0b10000000);
+  for(led_cnt = 0; led_cnt < 8; led_cnt++)
+    send_value(send_bytes[led_cnt], Device_STATUSLED);
   sei();
   show();
 }
