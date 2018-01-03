@@ -28,11 +28,10 @@ enum BACKLIGHT_AREAS {
 uint8_t backlight_rgb_r = 255;
 uint8_t backlight_rgb_g = 0;
 uint8_t backlight_rgb_b = 0;
-uint8_t backlight_os_state = 0;
-uint32_t backlight_layer_state = 0;
 
 void backlight_toggle_rgb(bool enabled)
 {
+/*
   if(enabled) {
     uint8_t rgb[17][3] = {
       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
@@ -76,40 +75,51 @@ void backlight_toggle_rgb(bool enabled)
     };
     backlight_set_rgb(rgb);
   }
+*/
 }
 
 void backlight_set_rgb(uint8_t cfg[17][3])
 {
+/*
   cli();
   for(uint8_t i = 0; i < 17; ++i) {
     send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
   }
   sei();
   show();
+*/
 }
 
 void backlight_set(uint8_t level) {
+/*
+ * DISABLE for now -> this causes issues with initial rgb setup
+ */
+
+/*
   level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
   level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
   level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
   level & BACKLIGHT_FROW ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
   level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
+*/
 }
 
 // Port from backlight_update_state
 void led_set_kb(uint8_t usb_led) {
-    bool status[7] = {
-    backlight_os_state & (1<<USB_LED_CAPS_LOCK),
-    backlight_os_state & (1<<USB_LED_SCROLL_LOCK),
-    backlight_os_state & (1<<USB_LED_NUM_LOCK),
-    backlight_layer_state & (1<<1),
-    backlight_layer_state & (1<<2),
-    backlight_layer_state & (1<<3),
-    backlight_layer_state & (1<<4)
+    bool status[8] = {
+    host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK), /* LED 3 */
+    host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK),   /* LED 2 */
+    host_keyboard_leds() & (1<<USB_LED_NUM_LOCK),    /* LED 1 */
+
+    layer_state & (1<<2),                            /* LED 6 */
+    layer_state & (1<<1),                            /* LED 5 */
+    layer_state & (1<<0) ? 0: 1,                     /* LED 4 */
+    
+    layer_state & (1<<5),                            /* LED 8 */
+    layer_state & (1<<4)                             /* LED 7 */
   };
+
   indicator_leds_set(status);
-  backlight_os_state & (1<<USB_LED_CAPS_LOCK) ? (PORTB &= ~0b00000001) : (PORTB |= 0b00000001);
-  backlight_os_state & (1<<USB_LED_SCROLL_LOCK) ? (PORTB &= ~0b00010000) : (PORTB |= 0b00010000);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
