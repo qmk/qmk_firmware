@@ -1,6 +1,6 @@
 # Prime_R
 
-![Prime_R](https://imgur.com/a/gkWO0)
+![Prime_R](https://i.imgur.com/ldOVlLG.jpg)
 
 A compact layout with the footprint of your typical 65% board, featuring a right mini-numpad. Produced by /u/holtenc at www.primekb.com
 [Additional resources here](https://www.primekb.com/pages/programming)
