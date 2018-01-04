@@ -1,1 +1,1 @@
-# The default keymap for xd75
+# Modified keymap for xd75 with numpad on right
