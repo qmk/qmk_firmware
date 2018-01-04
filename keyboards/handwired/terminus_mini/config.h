@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 1
 
 //define maximum duration of hold required to register a tap vs hold default is 200
-#define TAPPING_TERM 150 //reduce time required so fast typing doesn't disrupt
+#define TAPPING_TERM 150 //reduce time required to register a held key
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5

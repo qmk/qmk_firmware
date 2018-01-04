@@ -2,7 +2,7 @@
 
 This document attempts to explain how the QMK firmware works from a very high level. It assumes you understand basic programming concepts but does not (except where needed to demonstrate) assume familiarity with C. It assumes that you have a basic understanding of the following documents:
 
-* [QMK Overview](qmk_overview.md)
+* [Introduction](getting_started_introduction.md)
 * [How Keyboards Work](how_keyboards_work.md)
 * [FAQ](faq.md)
 
@@ -94,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 ```
 
-Notice how all of these arguments match up with the first half of the `KEYMAP()` macro from the last section? This is how we take a keycode and map it to our Matrix Scan from earlier. 
+Notice how all of these arguments match up with the first half of the `KEYMAP()` macro from the last section? This is how we take a keycode and map it to our Matrix Scan from earlier.
 
 ##### State Change Detection
 
-The matrix scanning described above tells us the state of the matrix at a given moment, but your computer only wants to know about changes, it doesn't care about the current state. QMK stores the results from the last matrix scan and compares the results from this matrix to determine when a key has been pressed or released. 
+The matrix scanning described above tells us the state of the matrix at a given moment, but your computer only wants to know about changes, it doesn't care about the current state. QMK stores the results from the last matrix scan and compares the results from this matrix to determine when a key has been pressed or released.
 
 Let's look at an example. We'll hop into the middle of a keyboard scanning loop to find that our previous scan looks like this:
 
@@ -150,7 +150,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_auto_shift.c#L47)
     * [`bool process_unicode_map(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicodemap.c#L47)
     * [Identify and process quantum specific keycodes](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum.c#L211)
-  
+
 At any step during this chain of events a function (such as `process_record_kb()`) can `return false` to halt all further processing.
 
 <!--

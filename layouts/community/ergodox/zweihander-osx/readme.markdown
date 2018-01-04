@@ -20,7 +20,6 @@ I tend to have my mouse in my left hand, but I like to use my other hand to make
 - Open and Close Parent Folder (⌥⌘↓)
 - Go Up and Close Just-Left Folder (⌥⌘↑)
 - Cycle through open windows in current application (⌘\` and ⌘⇧\`)
-- Cycle through tabs in current window (⌥⇥ and ⌥⇧⇥)
 
 Because moving letter-by-letter is way slower than moving word-by-word, I added Option (⌥) to the bottommost button on the left side. This key can be held easily while holding ; (activate media layer) and pressing J and L to move left and right by word.
 
@@ -30,7 +29,6 @@ Because moving letter-by-letter is way slower than moving word-by-word, I added 
 I wanted to preserve the feel of a number of shortcuts that involve pressing lots of modifier keys at once; this is why the bottom left of the keyboard has shift, control, option, and command in the usual spaces. Further, some common shortcuts I press have a key on the right side of the keyboard. These shortcuts include:
 
 - Empty Trash Without Asking for Confirmation (⇧⌥⌘⌫)
-- Shut Down Without Asking for Confirmation (⇧⌥⌘ power)
 
 ⇧⌥⌘⌫, when you press the backspace on the right half of the keyboard, is much more satisfying than if you curl your left hand into a claw to press all the keys on the left. Try both; you’ll agree.
 
