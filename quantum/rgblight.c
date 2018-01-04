@@ -46,6 +46,12 @@ bool rgblight_timer_enabled = false;
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
 
+  #ifdef RGBLIGHT_LIMIT_VAL
+    if (val > RGBLIGHT_LIMIT_VAL) {
+      val=RGBLIGHT_LIMIT_VAL; // limit the val
+    }
+  #endif
+
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
     g = val;
