@@ -87,54 +87,78 @@ void matrix_scan_user(void) {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch(keycode) {
-		case AR_TOG:
-			if(record->event.pressed){
+	if(record->event.pressed){
+		switch(keycode) {
+			case AR_TOG:
 				arrow_toggle = !arrow_toggle;
-				backlight_toggle();				
-			}
-			break;
-		case AR_UP:
-			if(record->event.pressed){
+				backlight_toggle();	
+				return false; break;
+			
+			case AR_UP:
 				if(arrow_toggle == 1){
-//					SEND_STRING(SS_TAP(X_UP));
-					register_code(KC_UP);
-					unregister_code(KC_UP);
+					SEND_STRING(SS_DOWN(X_UP));
 				} else {
-//					SEND_STRING(SS_TAP(X_KP_2));
-					register_code(KC_P2);
-					unregister_code(KC_P2);					
+					SEND_STRING(SS_DOWN(X_KP_2));
 				}
-				break;
-			}
-		case AR_DN:
-			if(record->event.pressed){
+				return false; break;
+			
+			case AR_DN:
 				if(arrow_toggle == 1){
-					SEND_STRING(SS_TAP(X_DOWN));
+					SEND_STRING(SS_DOWN(X_DOWN));
 				} else {
-					SEND_STRING(SS_TAP(X_KP_DOT));
+					SEND_STRING(SS_DOWN(X_KP_DOT));
 				}
-				break;
-			}
-		case AR_LT:
-			if(record->event.pressed){
+				return false; break;
+			
+			case AR_LT:
 				if(arrow_toggle == 1){
-					SEND_STRING(SS_TAP(X_LEFT));
+					SEND_STRING(SS_DOWN(X_LEFT));
 				} else {
-					SEND_STRING(SS_TAP(X_KP_0));
+					SEND_STRING(SS_DOWN(X_KP_0));
 				}
-				break;
-			}
-		case AR_RT:
-			if(record->event.pressed){
+				return false; break;
+			
+			case AR_RT:
 				if(arrow_toggle == 1){
-					SEND_STRING(SS_TAP(X_RIGHT));
+					SEND_STRING(SS_DOWN(X_RIGHT));
 				} else {
-					SEND_STRING(SS_TAP(X_KP_ENTER));
+					SEND_STRING(SS_DOWN(X_KP_ENTER));
 				}
-				break;
-			}
-	}		
+				return false; break;
+		}
+	}
+	if(!record->event.pressed){
+		switch(keycode) {
+			case AR_UP:
+				if(arrow_toggle == 1){
+					SEND_STRING(SS_UP(X_UP));
+				} else {
+					SEND_STRING(SS_UP(X_KP_2));
+				}
+				return false; break;
+			case AR_DN:
+				if(arrow_toggle == 1){
+					SEND_STRING(SS_UP(X_DOWN));
+				} else {
+					SEND_STRING(SS_UP(X_KP_DOT));
+				}
+				return false; break;
+			case AR_LT:
+				if(arrow_toggle == 1){
+					SEND_STRING(SS_UP(X_LEFT));
+				} else {
+					SEND_STRING(SS_UP(X_KP_0));
+				}
+				return false; break;
+			case AR_RT:
+				if(arrow_toggle == 1){
+					SEND_STRING(SS_UP(X_RIGHT));
+				} else {
+					SEND_STRING(SS_UP(X_KP_ENTER));
+				}
+				return false; break;
+		}
+	}
 	return true;
 };
 
