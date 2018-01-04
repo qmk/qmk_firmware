@@ -17,30 +17,29 @@
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
-  BACKLIGHT_ALPHA    = 0b0000001,
-  BACKLIGHT_EXTRA    = 0b0000010,
-  BACKLIGHT_MODNUM   = 0b0000100,
-  BACKLIGHT_FROW     = 0b0001000,
-  BACKLIGHT_RGB      = 0b0010000,
-  BACKLIGHT_SWITCH   = 0b0001111
+  BACKLIGHT_ALPHAS   = 0b00000010,
+  BACKLIGHT_MODNUM   = 0b00001000
 };
 
-uint8_t backlight_rgb_r = 255;
-uint8_t backlight_rgb_g = 0;
-uint8_t backlight_rgb_b = 0;
-
 void backlight_set(uint8_t level) {
-/*
- * DISABLE for now -> this causes issues with initial rgb setup
- */
-
-/*
-  level & BACKLIGHT_ALPHA ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
-  level & BACKLIGHT_EXTRA ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
-  level & BACKLIGHT_MODNUM ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
-  level & BACKLIGHT_FROW ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
-  level & BACKLIGHT_RGB ? backlight_toggle_rgb(true) : backlight_toggle_rgb(false);
-*/
+  switch(level) {
+  case 0:
+    PORTB |= BACKLIGHT_ALPHAS;
+    PORTB |= BACKLIGHT_MODNUM;
+  break;
+  case 1:
+    PORTB &= ~BACKLIGHT_ALPHAS;
+    PORTB |= BACKLIGHT_MODNUM;
+  break;
+  case 2:
+    PORTB |= BACKLIGHT_ALPHAS;
+    PORTB &= ~BACKLIGHT_MODNUM;
+  break;
+  case 3:
+    PORTB &= ~BACKLIGHT_ALPHAS;
+    PORTB &= ~BACKLIGHT_MODNUM;
+  break;
+  }
 }
 
 // Port from backlight_update_state
