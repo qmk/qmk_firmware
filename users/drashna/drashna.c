@@ -33,9 +33,9 @@ PROGMEM const char secret[][64] = {
 #ifdef FAUXCLICKY_ENABLE
 float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
 float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-float fauxclicky_beep_note[2]     = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
 #else
-float tone_chirp[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+float fauxclicky_pressed[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+float fauxclicky_released[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
 #endif 
 bool faux_click_enabled = true;
 
@@ -231,16 +231,21 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's recod handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  
+
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
 
-  if (record->event.pressed && faux_click_enabled) {
 #ifdef AUDIO_ENABLE
-    PLAY_SONG(tone_chirp);
-#endif
+  if (faux_click_enabled) {
+    if (record->event.pressed) {
+      PLAY_SONG(fauxclicky_pressed);
+    } else {
+      stop_note(NOTE_A6);
+      PLAY_SONG(fauxclicky_released);
+    }
   }
+#endif
 
   switch (keycode) {
   case KC_QWERTY:
@@ -476,11 +481,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #else
         " AUDIO_ENABLE=no"
 #endif
-#ifdef FAUXCLICKY_ENABLE
-        " FAUXCLICKY_ENABLE=yes"
-#else
-        " FAUXCLICKY_ENABLE=no" 
-#endif
         SS_TAP(X_ENTER));
     }
     return false;
@@ -514,18 +514,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case KC_FXCL:
+    if (!record->event.pressed) {
+      faux_click_enabled = !faux_click_enabled;
+    }
+    return false;
+    break;
   case KC_RGB_T:  // Because I want the option to go back to normal RGB mode rather than always layer indication
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
       rgb_layer_change = !rgb_layer_change;
     }
 #endif
-    return false;
-    break;
-  case KC_FXCL:
-    if (!record->event.pressed) {
-      faux_click_enabled = !faux_click_enabled;
-    }
     return false;
     break;
 #ifdef RGBLIGHT_ENABLE
