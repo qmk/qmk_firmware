@@ -1,4 +1,20 @@
-// Prime_R Rev 1.0
+/* Copyright 2018  Andrew Heaston  @rooski15
+ *
+ * Developed by /u/holtenc at www.primekb.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */// Prime_R Rev 1.0
 
 #include "prime_r.h"
 #include "action_layer.h"
@@ -8,7 +24,10 @@
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-//Custom Keys
+//Arrow Cluster Toggle
+static bool arrow_toggle = false;
+
+//Arrow Keys
 enum custom_keycodes{
 	AR_TOG = SAFE_RANGE, //Toggle Arrow Keys
 	AR_LT,	//Num0 or Left Arrow
@@ -20,9 +39,6 @@ enum custom_keycodes{
 // Tap/Hold Space Layer
 #define SPC_LT LT(1, KC_SPC)
 
-//Arrow Cluster Toggle
-static bool arrow_toggle = false;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* (Base Layer) Default Layer
    * ,---------------------------------------------------------------.
@@ -32,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  '|Return|  4|  5|  6|
    * |---------------------------------------------------------------|
-   * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|  2|  3|
+   * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|ARU|  3|  AR - U/D/L/R & Toggle
    * |---------------------------------------------------------------|
-   * |Ctrl|Gui |Alt|TO1| 1/SP |  1/SP  |TO3|App|Alt|Ctrl |  0|  .|Ret|
+   * |Ctrl|Gui |Alt|TO1| 1/SP |  1/SP  |ART|App|Alt|Ctrl |ARL|ARD|ARR|  Arrow keys operate on AR Toggle to be numpad keys
    * `---------------------------------------------------------------'
    */
   // 0: Base Layer
@@ -53,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  '|Return|  4|  5|  6|
    * |---------------------------------------------------------------|
-   * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1| UP|  3|
+   * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|ARU|  3|
    * |---------------------------------------------------------------|
-   * |Ctrl|Gui |Alt|TO0| 1/SP |  1/SP  |ART|App|Alt|Ctrl |LFT|DWN| RT|
+   * |Ctrl|Gui |Alt|TO0| 1/SP |  1/SP  |ART|App|Alt|Ctrl |ARL|ARD|ARR|
    * `---------------------------------------------------------------'
    */
   // 1: Function Layer

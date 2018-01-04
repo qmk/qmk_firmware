@@ -1,12 +1,25 @@
+/* Copyright 2018  Andrew Heaston  @rooski15
+ *
+ * Developed by /u/holtenc at www.primekb.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 // Prime_R Rev 1.0
 
 #include "prime_r.h"
 #include "action_layer.h"
 #include "backlight.h"
-
-//#include "action_tapping.h"
-// Define tapping term
-//#define TAPPING_TERM    150
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -34,6 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,   KC_M,    KC_LABK, KC_RABK, KC_QUES, KC_LSFT, KC_1,    KC_2,    KC_3,    \
 		KC_LCTL,          KC_LGUI, KC_APP,  KC_LALT, MO(0),           KC_SPC,          KC_RALT, KC_APP,  KC_RGUI, KC_RCTL, KC_0,    KC_DOT,  KC_ENT), \
 
+		// 1: Function Layer
 	KEYMAP(
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
@@ -62,35 +76,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-		
-	} else {
-		
-	}
 
 }
