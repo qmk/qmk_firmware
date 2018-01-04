@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCING_DELAY 5
 
 /* number of backlight levels */
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_LEVELS 3
 
 /* key combination for magic key command */
 #define IS_COMMAND() ( \
