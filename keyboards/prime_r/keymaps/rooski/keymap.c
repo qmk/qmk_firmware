@@ -46,11 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |Grv|  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  7|  8|  9|
    * |---------------------------------------------------------------|
-<<<<<<< HEAD
-   * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|Return|  4|  5|  6|
-=======
    * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  '|Return|  4|  5|  6|
->>>>>>> 4c4af0956d6bc3e11e1619ba3b39acdb321ae171
    * |---------------------------------------------------------------|
    * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|ARU|  3|  AR - U/D/L/R & Toggle
    * |---------------------------------------------------------------|
@@ -59,23 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   // 0: Base Layer
 	KEYMAP(
-<<<<<<< HEAD
 		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC, KC_DEL,  KC_HOME, KC_END,   \
 		KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_P7,   KC_P8,   KC_P9,    \
 		KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,          KC_ENT,  KC_P4,   KC_P5,   KC_P6,    \
 		KC_LSPO,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, KC_P1,   AR_UP,   KC_P3,    \
 		KC_LCTL,          KC_LGUI, KC_LALT, TO(1),   SPC_LT,           SPC_LT,           AR_TOG,  KC_APP,  KC_RALT, KC_RCTL, AR_LT,   AR_DN,   AR_RT),   \
 
-  /* (Function Layer)		
-=======
-		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC, KC_DEL,  KC_HOME, KC_END,   \
-		KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_P7,   KC_P8,   KC_P9,    \
-		KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,    KC_J,   KC_K,    KC_L,    KC_QUOT,          KC_ENT,  KC_P4,   KC_P5,   KC_P6,    \
-		KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT, KC_P1,   AR_UP,   KC_P3,    \
-		KC_LCTL,          KC_LGUI, KC_LALT, TO(1),   SPC_LT,          SPC_LT,          AR_TOG,  KC_APP,  KC_RALT, KC_RCTL, AR_LT,   AR_DN,   AR_RT),   \
-
-  /* (Base Layer) Default Layer
->>>>>>> 4c4af0956d6bc3e11e1619ba3b39acdb321ae171
+  /* (Function Layer)
    * ,---------------------------------------------------------------.
    * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9| F0|  =|BSP|HOM|END|DEL|
    * |---------------------------------------------------------------|
@@ -83,7 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  '|Return|  4|  5|  6|
    * |---------------------------------------------------------------|
-<<<<<<< HEAD
    * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|VUP|  3|
    * |---------------------------------------------------------------|
    * |Ctrl|Gui |Alt|TO0| 1/SP |  1/SP  |ART|TO2|Alt|Ctrl |MUT|VDN|STP|
@@ -105,14 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |Tab |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|Return|  4|  5|  6|
    * |---------------------------------------------------------------|
-=======
->>>>>>> 4c4af0956d6bc3e11e1619ba3b39acdb321ae171
    * |Shift|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  ?|Shift|  1|ARU|  3|
    * |---------------------------------------------------------------|
    * |Ctrl|Gui |Alt|TO0| 1/SP |  1/SP  |ART|App|Alt|Ctrl |ARL|ARD|ARR|
    * `---------------------------------------------------------------'
    */
-<<<<<<< HEAD
     // 2: Numpad Mods
 	KEYMAP(
 		_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, _______, KC_PSLS, KC_PAST, KC_PPLS, 
@@ -122,18 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,          _______, _______, TO(0),   _______,          _______,          _______, KC_APP,  _______, _______, AR_LT,   AR_DN,   AR_RT ),
 		
   // 3: Extra
-=======
-  // 1: Function Layer
-
-	KEYMAP(
-		_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_EQL,  _______, KC_PAST, KC_PMNS, KC_PPLS, 
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLS, _______, _______, _______, 
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SCLN,          _______, _______, _______, _______, 
-		_______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
-		_______,          _______, _______, TO(0),   _______,          _______,          _______, _______, _______, _______, _______, _______, _______),	
-		
-  // 2: Extra
->>>>>>> 4c4af0956d6bc3e11e1619ba3b39acdb321ae171
 	KEYMAP(
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, 

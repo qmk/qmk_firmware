@@ -20,9 +20,8 @@
 #include "config_common.h"
 
 // place overrides here
-<<<<<<< HEAD
+
 #define DISABLE_SPACE_CADET_ROLLOVER
-=======
->>>>>>> 4c4af0956d6bc3e11e1619ba3b39acdb321ae171
+
 
 #endif
