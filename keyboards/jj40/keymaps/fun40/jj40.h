@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYMAP_COMMON_H
 
 #include "quantum.h"
-// #include "keycode.h"
-// #include "action.h"
+#include "keycode.h"
+#include "action.h"
 
 #define KEYMAP_GRID( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K010, K011, K012, \
@@ -65,6 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #define KEYMAP KEYMAP_GRID
-#define LAYOUT_ortho_4x12 LAYOUT_planck_grid
+#define LAYOUT_ortho_4x12 LAYOUT_JJ40_grid
 
 #endif

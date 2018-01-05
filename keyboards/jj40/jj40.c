@@ -34,7 +34,9 @@ void matrix_init_kb(void) {
 
   // Turn status LED on
   // DDRE |= (1<<6);
-  DDRB |= (1<<6);
+  // DDRB |= (1<<6);
+  DDRD |= (1<<6);
+  PORTD |= (1<<6);
   // PORTE |= (1<<6);
 }
 
