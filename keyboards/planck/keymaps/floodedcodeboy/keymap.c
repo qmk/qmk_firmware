@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
     [_LOWER] = {
-        {KC_MUTE, KC_F1, KC_F2, KC_F3, _______, KC_LCBR, KC_RCBR, KC_SLASH, KC_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9},
-        {KC_VOLU, KC_F4, KC_F5, KC_F6, _______, KC_LPRN, KC_RPRN, KC_MINUS, KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6},
-        {KC_VOLD, KC_F7, KC_F8, KC_F9, _______, KC_PIPE, KC_BSLASH, _______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3},
+        {KC_MUTE, KC_F1, KC_F2, KC_F3, KC_LCBR, KC_ASTERISK, KC_PLUS, KC_RCBR, KC_KP_7, KC_KP_8, KC_KP_9},
+        {KC_VOLU, KC_F4, KC_F5, KC_F6, KC_LPRN, KC_BSLASH, KC_SLASH, KC_RPRN, KC_KP_4, KC_KP_5, KC_KP_6},
+        {KC_VOLD, KC_F7, KC_F8, KC_F9, _______, KC_PIPE, KC_MINUS, _______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3},
         {_______, KC_F10, KC_F11, KC_F12, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
     },
 
