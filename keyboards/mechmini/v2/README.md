@@ -6,8 +6,10 @@ A 40% compact ortholinear/staggered keyboard.
 Version 2 (Mechmini 2.0) was shipped powered by QMK [More info on MECHKEYS](https://mechkeys.ca).
 
 Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)
+
 Hardware Supported: Mechmini 2.0 keyboard
-Hardware Availability: https://mechkeys.ca/collections/keyboards/products/mechmini-2-0
+
+Hardware Availability: [MECHKEYS Mechmini 2.0](https://mechkeys.ca/collections/keyboards/products/mechmini-2-0)
 
 Make example for this keyboard (after setting up your build environment), this will make the Mechmini 2.0 default keymap (split space):
 
