@@ -18,9 +18,10 @@ function install_utils {
     wget 'https://www.pjrc.com/teensy/teensy_loader_cli_windows.zip'
     unzip teensy_loader_cli_windows.zip
 
-    echo "Installing Atmel Flip"
-    wget 'http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe'
-    mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
+    # This URL has changed and I can't find the new location. Commenting out until we figure out the new URL or determine this isn't needed. -skullY
+    #echo "Installing Atmel Flip"
+    #wget 'http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe'
+    #mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
 
     echo "Downloading the QMK driver installer"
     wget -qO- https://api.github.com/repos/qmk/qmk_driver_installer/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | wget -i -
