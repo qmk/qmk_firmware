@@ -52,12 +52,12 @@ extern keymap_config_t keymap_config;
 
 enum splitography_layers {
   _QWERTY = 0
+ ,_TXBOLT
+ ,_PLOVER
  ,_BLUE
  ,_ORANGE
  ,_GREEN
  ,_NUM
- ,_PLOVER
- ,_TXBOLT
  ,_END_LAYERS
 };
 
@@ -65,10 +65,10 @@ enum splitography_keycodes {
   QWERTY = SAFE_RANGE
  ,QWERTY1
  ,QWERTY2
+ ,TXBOLT
+ ,PLOVER
  ,BLUE
  ,ORANGE
- ,PLOVER
- ,TXBOLT
 };
 
 // keycodes
@@ -77,6 +77,8 @@ enum splitography_keycodes {
 #undef _______
 #endif
 #define _______ KC_NO
+
+#define ST_BOLT QK_STENO_BOLT
 
 #define COPY    LCTL(KC_C)
 #define CUT     LCTL(KC_X)
@@ -230,6 +232,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM, STN_NUM},
     {QWERTY1, STN_SL,  STN_TL,  STN_PL,  STN_HL,  STN_STR, STN_STR, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
     {QWERTY2, STN_SL,  STN_KL,  STN_WL,  STN_RL,  STN_STR, STN_STR, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
+    // {STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC },
+    // {QWERTY1, STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
+    // {QWERTY2, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
     {_______, _______, _______, _______, STN_A,   STN_O,   STN_E,   STN_U,   _______, _______, _______, _______},
   },
 
@@ -257,11 +262,11 @@ void qwerty(void)
   set_single_persistent_default_layer(_QWERTY);
 }
 
-void steno(keyrecord_t *record, uint8_t layer)
+void plover(keyrecord_t *record)
 {
   if (record->event.pressed) {
     clear_layers();
-    layer_on(layer);
+    layer_on(_PLOVER);
     if (!eeconfig_is_enabled()) {
       eeconfig_init();
     }
@@ -269,6 +274,12 @@ void steno(keyrecord_t *record, uint8_t layer)
     keymap_config.nkro = 1;
     eeconfig_update_keymap(keymap_config.raw);
   }
+}
+
+void txbolt(void)
+{
+  clear_layers();
+  layer_on(_TXBOLT);
 }
 
 // ........................................................... User Keycode Trap
@@ -320,10 +331,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
       return false;
     case PLOVER:
-      steno(record, _PLOVER);
+      plover(record);
       return false;
     case TXBOLT:
-      steno(record, _TXBOLT);
+      if (record->event.pressed) {
+        txbolt();
+      }
       return false;
   }
   return true;

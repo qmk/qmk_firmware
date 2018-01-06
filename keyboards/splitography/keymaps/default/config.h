@@ -19,12 +19,7 @@
 
 #include "../../config.h"
 
-// place overrides here
-
-// default shift and control key placement (0) normal (1) reversed
-#define TOGGLE_SHIFT 0
-
-// default one shot modifier action (0) enabled (1) disabled
-#define TOGGLE_ONESHOT 0
+// prevent holdback of 1-3 key TxBolt chords
+#define PREVENT_STUCK_MODIFIERS
 
 #endif
