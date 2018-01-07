@@ -127,7 +127,7 @@ bool     playing_note = false;
 float    note_frequency = 0;
 float    note_length = 0;
 uint8_t  note_tempo = TEMPO_DEFAULT;
-float    note_timbre = TIMBRE_DEFAULT;
+float    note_timbre[NUMBER_OF_TIMERS] = {TIMBRE_DEFAULT};
 uint16_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
@@ -149,8 +149,8 @@ static bool audio_initialized = false;
 
 audio_config_t audio_config;
 
-uint16_t envelope_index = 0;
-bool glissando = true;
+uint16_t envelope_index[NUMBER_OF_TIMERS] = {0};
+bool glissando[NUMBER_OF_TIMERS] = {true};
 
 #ifndef STARTUP_SONG
     #define STARTUP_SONG SONG(STARTUP_SOUND)
@@ -211,7 +211,7 @@ void audio_init()
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
         
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+        #ifdef B_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -223,14 +223,17 @@ void audio_init()
         #ifdef C6_AUDIO
             TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
             TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
+
+            TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre[TIMER_3_INDEX]);
         #endif
 
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+        #ifdef B_AUDIO
             TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
 
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre[TIMER_1_INDEX]);
         #endif
 
         audio_initialized = true;
@@ -257,7 +260,7 @@ void stop_all_notes()
         DISABLE_AUDIO_COUNTER_3_OUTPUT;
     #endif
 
-    #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+    #ifdef B_AUDIO
         DISABLE_AUDIO_COUNTER_1_ISR;
         DISABLE_AUDIO_COUNTER_1_OUTPUT;
     #endif
@@ -302,12 +305,18 @@ void stop_note(float freq)
         if (voice_place >= voices) {
             voice_place = 0;
         }
+        if (voices == 1) {
+            #if defined(C6_AUDIO) && defined(B_AUDIO)
+                DISABLE_AUDIO_COUNTER_1_ISR;
+                DISABLE_AUDIO_COUNTER_1_OUTPUT;
+            #endif
+        }
         if (voices == 0) {
             #ifdef C6_AUDIO
                 DISABLE_AUDIO_COUNTER_3_ISR;
                 DISABLE_AUDIO_COUNTER_3_OUTPUT;
             #endif
-            #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+            #ifdef B_AUDIO
                 DISABLE_AUDIO_COUNTER_1_ISR;
                 DISABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
@@ -347,11 +356,11 @@ ISR(TIMER3_COMPA_vect)
     if (playing_note) {
         if (voices > 0) {
 
-            #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+            #ifdef B_AUDIO
             float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
-                        if (glissando) {
+                        if (glissando[TIMER_1_INDEX] && NUMBER_OF_TIMERS == 1) {
                             if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
                                 frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
                             } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
@@ -374,18 +383,18 @@ ISR(TIMER3_COMPA_vect)
                         #endif
                     }
 
-                    if (envelope_index < 65535) {
-                        envelope_index++;
+                    if (envelope_index[TIMER_1_INDEX] < 65535) {
+                        envelope_index[TIMER_1_INDEX]++;
                     }
 
-                    freq_alt = voice_envelope(freq_alt);
+                    freq_alt = voice_envelope(freq_alt,TIMER_1_INDEX);
 
                     if (freq_alt < 30.517578125) {
                         freq_alt = 30.52;
                     }
 
                     TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq_alt * CPU_PRESCALER));
-                    TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre);
+                    TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq_alt * CPU_PRESCALER)) * note_timbre[TIMER_1_INDEX]);
                 }
             #endif
 
@@ -408,7 +417,7 @@ ISR(TIMER3_COMPA_vect)
                     freq = frequencies[voice_place];
                 #endif
             } else {
-                if (glissando) {
+                if (glissando[TIMER_3_INDEX] && NUMBER_OF_TIMERS == 1) {
                     if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
                         frequency = frequency * pow(2, 440/frequency/12/2);
                     } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
@@ -431,18 +440,18 @@ ISR(TIMER3_COMPA_vect)
                 #endif
             }
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_3_INDEX] < 65535) {
+                envelope_index[TIMER_3_INDEX]++;
             }
 
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_3_INDEX);
 
             if (freq < 30.517578125) {
                 freq = 30.52;
             }
 
             TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre[TIMER_3_INDEX]);
         }
     }
 
@@ -458,13 +467,13 @@ ISR(TIMER3_COMPA_vect)
                     freq = note_frequency;
             #endif
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_3_INDEX] < 65535) {
+                envelope_index[TIMER_3_INDEX]++;
             }
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_3_INDEX);
 
             TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+            TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre[TIMER_3_INDEX]);
         } else {
             TIMER_3_PERIOD = 0;
             TIMER_3_DUTY_CYCLE = 0;
@@ -505,7 +514,7 @@ ISR(TIMER3_COMPA_vect)
                 }
             } else {
                 note_resting = false;
-                envelope_index = 0;
+                envelope_index[TIMER_3_INDEX] = 0;
                 note_frequency = (*notes_pointer)[current_note][0];
                 note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
             }
@@ -521,10 +530,16 @@ ISR(TIMER3_COMPA_vect)
 }
 #endif
 
-#if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+#ifdef B_AUDIO
+#ifdef B5_AUDIO
 ISR(TIMER1_COMPA_vect)
+#elif defined(B6_AUDIO)
+ISR(TIMER1_COMPB_vect)
+#elif defined(B7_AUDIO)
+ISR(TIMER1_COMPC_vect)
+#endif
 {
-    #if (defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)) && !defined(C6_AUDIO)
+    #if defined(B_AUDIO) && !defined(C6_AUDIO)
     float freq = 0;
 
     if (playing_note) {
@@ -548,7 +563,7 @@ ISR(TIMER1_COMPA_vect)
                     freq = frequencies[voice_place];
                 #endif
             } else {
-                if (glissando) {
+                if (glissando[TIMER_1_INDEX] && NUMBER_OF_TIMERS == 1) {
                     if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
                         frequency = frequency * pow(2, 440/frequency/12/2);
                     } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
@@ -571,18 +586,18 @@ ISR(TIMER1_COMPA_vect)
                 #endif
             }
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_1_INDEX] < 65535) {
+                envelope_index[TIMER_1_INDEX]++;
             }
 
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_1_INDEX);
 
             if (freq < 30.517578125) {
                 freq = 30.52;
             }
 
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre[TIMER_1_INDEX]);
         }
     }
 
@@ -598,13 +613,13 @@ ISR(TIMER1_COMPA_vect)
                     freq = note_frequency;
             #endif
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_1_INDEX] < 65535) {
+                envelope_index[TIMER_1_INDEX]++;
             }
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_1_INDEX);
 
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (freq * CPU_PRESCALER));
-            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre);
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (freq * CPU_PRESCALER)) * note_timbre[TIMER_1_INDEX]);
         } else {
             TIMER_1_PERIOD = 0;
             TIMER_1_DUTY_CYCLE = 0;
@@ -645,7 +660,7 @@ ISR(TIMER1_COMPA_vect)
                 }
             } else {
                 note_resting = false;
-                envelope_index = 0;
+                envelope_index[TIMER_1_INDEX] = 0;
                 note_frequency = (*notes_pointer)[current_note][0];
                 note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
             }
@@ -674,7 +689,7 @@ void play_note(float freq, int vol) {
         #ifdef C6_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+        #ifdef B_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -684,7 +699,6 @@ void play_note(float freq, int vol) {
 
         playing_note = true;
 
-        envelope_index = 0;
 
         if (freq > 0) {
             frequencies[voices] = freq;
@@ -696,16 +710,23 @@ void play_note(float freq, int vol) {
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+
+        #ifdef B_AUDIO
             #ifdef C6_AUDIO
             if (voices > 1) {
+                envelope_index[TIMER_3_INDEX] = 0;
                 ENABLE_AUDIO_COUNTER_1_ISR;
                 ENABLE_AUDIO_COUNTER_1_OUTPUT;
+            } else {
+                envelope_index[TIMER_3_INDEX] = 0;
             }
             #else
+            envelope_index[TIMER_1_INDEX] = 0;
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
+        #else
+            envelope_index[TIMER_3_INDEX] = 0;
         #endif
     }
 
@@ -723,7 +744,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
         #ifdef C6_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+        #ifdef B_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -749,7 +770,7 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+        #ifdef B_AUDIO
             #ifndef C6_AUDIO
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
@@ -847,8 +868,8 @@ void decrease_polyphony_rate(float change) {
 
 // Timbre function
 
-void set_timbre(float timbre) {
-    note_timbre = timbre;
+void set_timbre(float timbre, uint8_t timer_index) {
+    note_timbre[timer_index] = timbre;
 }
 
 // Tempo functions

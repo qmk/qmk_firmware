@@ -38,13 +38,13 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (keycode == MUV_IN && record->event.pressed) {
-        voice_iterate();
+        all_voices_iterate();
         PLAY_SONG(voice_change_song);
         return false;
     }
 
     if (keycode == MUV_DE && record->event.pressed) {
-        voice_deiterate();
+        all_voices_deiterate();
         PLAY_SONG(voice_change_song);
         return false;
     }

@@ -28,7 +28,7 @@ bool music_activated = false;
 bool midi_activated = false;
 uint8_t music_starting_note = 0x0C;
 int music_offset = 7;
-uint8_t music_mode = MUSIC_MODE_CHROMATIC;
+uint8_t music_mode = MUSIC_MODE_MAJOR;
 
 // music sequencer
 static bool music_sequence_recording = false;

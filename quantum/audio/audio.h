@@ -36,6 +36,27 @@
 // Enable vibrato strength/amplitude - slows down ISR too much
 // #define VIBRATO_STRENGTH_ENABLE
 
+#ifdef B_AUDIO
+#error Please define B5_AUDIO, B6_AUDIO, or B7_AUDIO instead
+#endif
+
+#if defined(B5_AUDIO) || defined(B6_AUDIO) || defined(B7_AUDIO)
+    #define B_AUDIO
+#endif
+
+#if defined(C6_AUDIO) && defined (B_AUDIO)
+  #define NUMBER_OF_TIMERS 2
+#elif defined(C6_AUDIO)
+  #define NUMBER_OF_TIMERS 1
+#elif defined(B_AUDIO)
+  #define NUMBER_OF_TIMERS 1
+#else
+  #define NUMBER_OF_TIMERS 0
+#endif
+
+#define TIMER_1_INDEX 0
+#define TIMER_3_INDEX 1 
+
 typedef union {
     uint8_t raw;
     struct {
@@ -75,7 +96,7 @@ void disable_polyphony(void);
 void increase_polyphony_rate(float change);
 void decrease_polyphony_rate(float change);
 
-void set_timbre(float timbre);
+void set_timbre(float timbre, uint8_t timer_index);
 void set_tempo(uint8_t tempo);
 
 void increase_tempo(uint8_t tempo_change);

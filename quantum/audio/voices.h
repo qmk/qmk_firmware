@@ -24,7 +24,7 @@
 #ifndef VOICES_H
 #define VOICES_H
 
-float voice_envelope(float frequency);
+float voice_envelope(float frequency, uint8_t timer_index);
 
 typedef enum {
     default_voice,
@@ -45,8 +45,12 @@ typedef enum {
     number_of_voices // important that this is last
 } voice_type;
 
-void set_voice(voice_type v);
-void voice_iterate(void);
-void voice_deiterate(void);
+void set_all_voices(voice_type v);
+void all_voices_iterate(void);
+void all_voices_deiterate(void);
+
+void set_voice(voice_type v, uint8_t timer_index);
+void voice_iterate(uint8_t timer_index);
+void voice_deiterate(uint8_t timer_index);
 
 #endif
