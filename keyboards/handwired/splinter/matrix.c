@@ -50,10 +50,11 @@ static bool debouncing = false;
 #error "Currently only supports 8 COLS"
 #endif
 
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+
 #define ERROR_DISCONNECT_COUNT 5
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static uint8_t error_count = 0;
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -98,14 +99,18 @@ void matrix_init(void) {
   debug_enable = true;
   debug_matrix = true;
   debug_mouse = true;
-
-  /* initialize row and col */
+// initialize row and col
+#if (DIODE_DIRECTION == COL2ROW)
   unselect_rows();
   init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
+  unselect_cols();
+  init_rows();
+#endif
 
   TX_RX_LED_INIT;
 
-  /* initialize matrix state: all keys off */
+  // initialize matrix state: all keys off
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     matrix[i] = 0;
     matrix_debouncing[i] = 0;
@@ -116,9 +121,8 @@ void matrix_init(void) {
 
 uint8_t _matrix_scan(void) {
   int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
-
 #if (DIODE_DIRECTION == COL2ROW)
-  /* Set row, read cols */
+  // Set row, read cols
   for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #if (DEBOUNCING_DELAY > 0)
     bool matrix_changed =
@@ -136,7 +140,7 @@ uint8_t _matrix_scan(void) {
   }
 
 #elif (DIODE_DIRECTION == ROW2COL)
-  /* Set col, read rows */
+  // Set col, read rows
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #if (DEBOUNCING_DELAY > 0)
     bool matrix_changed =
@@ -156,7 +160,6 @@ uint8_t _matrix_scan(void) {
     for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
       matrix[i + offset] = matrix_debouncing[i + offset];
     }
-
     debouncing = false;
   }
 #endif
@@ -164,39 +167,34 @@ uint8_t _matrix_scan(void) {
   return 1;
 }
 
-/* Get rows from other half over i2c */
+// Get rows from other half over i2c
 int i2c_transaction(void) {
   int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
   int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-  if (err) {
+  if (err)
     goto i2c_error;
-  }
 
-  /* start of matrix stored at 0x00 */
+  // start of matrix stored at 0x00
   err = i2c_master_write(0x00);
-  if (err) {
+  if (err)
     goto i2c_error;
-  }
 
-  /* Start read */
+  // Start read
   err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-  if (err) {
+  if (err)
     goto i2c_error;
-  }
 
   if (!err) {
     int i;
     for (i = 0; i < ROWS_PER_HAND - 1; ++i) {
       matrix[slaveOffset + i] = i2c_master_read(I2C_ACK);
     }
-
     matrix[slaveOffset + i] = i2c_master_read(I2C_NACK);
     i2c_master_stop();
   } else {
   i2c_error: // the cable is disconnceted, or something else went wrong
     i2c_reset_state();
-
     return err;
   }
 
@@ -207,26 +205,24 @@ uint8_t matrix_scan(void) {
   uint8_t ret = _matrix_scan();
 
   if (i2c_transaction()) {
-    /* turn on the indicator led when halves are disconnected */
+    // turn on the indicator led when halves are disconnected
     TXLED1;
 
     error_count++;
 
     if (error_count > ERROR_DISCONNECT_COUNT) {
-      /* reset other half if disconnected */
+      // reset other half if disconnected
       int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
       for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset + i] = 0;
       }
     }
   } else {
-    /* turn off the indicator led on no error */
+    // turn off the indicator led on no error
     TXLED0;
     error_count = 0;
   }
-
   matrix_scan_quantum();
-
   return ret;
 }
 
@@ -241,10 +237,8 @@ void matrix_slave_scan(void) {
 }
 
 bool matrix_is_modified(void) {
-  if (debouncing) {
+  if (debouncing)
     return false;
-  }
-
   return true;
 }
 
@@ -269,7 +263,6 @@ uint8_t matrix_key_count(void) {
   for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
     count += bitpop16(matrix[i]);
   }
-
   return count;
 }
 
@@ -285,28 +278,28 @@ static void init_cols(void) {
 
 static bool read_cols_on_row(matrix_row_t current_matrix[],
                              uint8_t current_row) {
-  /* Store last value of row prior to reading */
+  // Store last value of row prior to reading
   matrix_row_t last_row_value = current_matrix[current_row];
 
-  /* Clear data in matrix row */
+  // Clear data in matrix row
   current_matrix[current_row] = 0;
 
-  /* Select row and wait for row selecton to stabilize */
+  // Select row and wait for row selecton to stabilize
   select_row(current_row);
   wait_us(30);
 
-  /* For each col... */
+  // For each col...
   for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
 
-    /* Select the col pin to read (active low) */
+    // Select the col pin to read (active low)
     uint8_t pin = col_pins[col_index];
     uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
 
-    /* Populate the matrix row with the state of the col pin */
+    // Populate the matrix row with the state of the col pin
     current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
   }
 
-  /* Unselect row */
+  // Unselect row
   unselect_row(current_row);
 
   return (last_row_value != current_matrix[current_row]);
@@ -346,33 +339,33 @@ static bool read_rows_on_col(matrix_row_t current_matrix[],
                              uint8_t current_col) {
   bool matrix_changed = false;
 
-  /* Select col and wait for col selecton to stabilize */
+  // Select col and wait for col selecton to stabilize
   select_col(current_col);
   wait_us(30);
 
-  /* For each row... */
+  // For each row...
   for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
 
-    /* Store last value of row prior to reading */
+    // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[row_index];
 
-    /* Check row pin state */
+    // Check row pin state
     if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) ==
         0) {
-      Pin LO, set col bit
+      // Pin LO, set col bit
       current_matrix[row_index] |= (ROW_SHIFTER << current_col);
     } else {
-      /* Pin HI, clear col bit */
+      // Pin HI, clear col bit
       current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
     }
 
-    /* Determine if the matrix changed state */
+    // Determine if the matrix changed state
     if ((last_row_value != current_matrix[row_index]) && !(matrix_changed)) {
       matrix_changed = true;
     }
   }
 
-  /* Unselect col */
+  // Unselect col
   unselect_col(current_col);
 
   return matrix_changed;
