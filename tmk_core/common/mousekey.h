@@ -22,6 +22,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include "host.h"
 
+#ifndef MK_3_SPEED
+
+/* max value on report descriptor */
+#ifndef MOUSEKEY_MOVE_MAX
+  #define MOUSEKEY_MOVE_MAX       127
+#elif MOUSEKEY_MOVE_MAX > 127
+  #error MOUSEKEY_MOVE_MAX needs to be smaller than 127
+#endif
+
+#ifndef MOUSEKEY_WHEEL_MAX
+  #define MOUSEKEY_WHEEL_MAX      127
+#elif MOUSEKEY_WHEEL_MAX > 127
+  #error MOUSEKEY_WHEEL_MAX needs to be smaller than 127
+#endif
+
+#ifndef MOUSEKEY_MOVE_DELTA
+#define MOUSEKEY_MOVE_DELTA     5
+#endif
+#ifndef MOUSEKEY_WHEEL_DELTA
+#define MOUSEKEY_WHEEL_DELTA    1
+#endif
+#ifndef MOUSEKEY_DELAY
+#define MOUSEKEY_DELAY 300
+#endif
+#ifndef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL 50
+#endif
+#ifndef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED 10
+#endif
+#ifndef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX 20
+#endif
+#ifndef MOUSEKEY_WHEEL_MAX_SPEED
+#define MOUSEKEY_WHEEL_MAX_SPEED 8
+#endif
+#ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+#endif
+
+#else /* #ifndef MK_3_SPEED */
+
 #ifndef MK_C_OFFSET_SLOW
 #define MK_C_OFFSET_SLOW 1
 #endif
@@ -59,6 +101,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MK_W_INTERVAL_FAST
 #define MK_W_INTERVAL_FAST 100
 #endif
+
+#endif /* #ifndef MK_3_SPEED */
 
 #ifdef __cplusplus
 extern "C" {
