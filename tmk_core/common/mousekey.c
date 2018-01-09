@@ -23,6 +23,112 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "mousekey.h"
 
+inline int8_t times_inv_sqrt2(int8_t x) {
+  // 181/256 is pretty close to 1/sqrt(2)
+  // 0.70703125                 0.707106781
+  // 1 too small for x=99 and x=198
+  // This ends up being a mult and discard lower 8 bits
+  return (x * 181) >> 8;
+}
+
+static report_mouse_t mouse_report = {};
+static void mousekey_debug(void);
+static uint8_t mousekey_accel = 0;
+
+
+
+#ifndef MK_3_SPEED
+
+
+
+/*
+ * Mouse keys  acceleration algorithm
+ *  http://en.wikipedia.org/wiki/Mouse_keys
+ *
+ *  speed = delta * max_speed * (repeat / time_to_max)**((1000+curve)/1000)
+ */
+/* milliseconds between the initial key press and first repeated motion event (0-2550) */
+uint8_t mk_delay = MOUSEKEY_DELAY/10;
+/* milliseconds between repeated motion events (0-255) */
+uint8_t mk_interval = MOUSEKEY_INTERVAL;
+/* steady speed (in action_delta units) applied each event (0-255) */
+uint8_t mk_max_speed = MOUSEKEY_MAX_SPEED;
+/* number of events (count) accelerating to steady speed (0-255) */
+uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
+/* ramp used to reach maximum pointer speed (NOT SUPPORTED) */
+//int8_t mk_curve = 0;
+/* wheel params */
+uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
+uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
+static uint8_t mousekey_repeat =  0;
+static uint16_t last_timer = 0;
+
+static uint8_t move_unit(void) {
+  uint16_t unit;
+  if (mousekey_accel & (1<<0)) {
+    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/4;
+  } else if (mousekey_accel & (1<<1)) {
+    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
+  } else if (mousekey_accel & (1<<2)) {
+    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+  } else if (mousekey_repeat == 0) {
+    unit = MOUSEKEY_MOVE_DELTA;
+  } else if (mousekey_repeat >= mk_time_to_max) {
+    unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
+  } else {
+    unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+  }
+  return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
+}
+
+static uint8_t wheel_unit(void) {
+  uint16_t unit;
+  if (mousekey_accel & (1<<0)) {
+    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/4;
+  } else if (mousekey_accel & (1<<1)) {
+    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
+  } else if (mousekey_accel & (1<<2)) {
+    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
+  } else if (mousekey_repeat == 0) {
+    unit = MOUSEKEY_WHEEL_DELTA;
+  } else if (mousekey_repeat >= mk_wheel_time_to_max) {
+    unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
+  } else {
+    unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+  }
+  return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
+}
+
+void mousekey_task(void) {
+  if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay*10)) {
+    return;
+  }
+  if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
+    return;
+	}
+  if (mousekey_repeat != UINT8_MAX) mousekey_repeat++;
+  if (mouse_report.x > 0) mouse_report.x = move_unit();
+  if (mouse_report.x < 0) mouse_report.x = move_unit() * -1;
+  if (mouse_report.y > 0) mouse_report.y = move_unit();
+  if (mouse_report.y < 0) mouse_report.y = move_unit() * -1;
+  /* diagonal move [1/sqrt(2)] */
+  if (mouse_report.x && mouse_report.y) {
+    mouse_report.x = times_inv_sqrt2(mouse_report.x);
+    mouse_report.y = times_inv_sqrt2(mouse_report.y);
+  }
+  if (mouse_report.v > 0) mouse_report.v = wheel_unit();
+  if (mouse_report.v < 0) mouse_report.v = wheel_unit() * -1;
+  if (mouse_report.h > 0) mouse_report.h = wheel_unit();
+  if (mouse_report.h < 0) mouse_report.h = wheel_unit() * -1;
+  mousekey_send();
+}
+
+
+
+#else  /* #ifndef MK_3_SPEED */
+
+
+
 static report_mouse_t mouse_report = {};
 enum {
   mkspd_slow,
@@ -33,7 +139,7 @@ enum {
 #ifdef MK_MOMENTARY_ACCEL
 static uint8_t mkspd_DEFAULT = mkspd_med;
 #endif
-static uint8_t mk_speed = mkspd_med;
+static uint8_t mousekey_accel = mkspd_med;
 static uint16_t last_timer   = 0;
 static uint16_t last_timer_c = 0;
 static uint16_t last_timer_w = 0;
@@ -50,25 +156,18 @@ uint16_t w_intervals[mkspd_COUNT] = {
   MK_W_INTERVAL_SLOW, MK_W_INTERVAL_MED, MK_W_INTERVAL_FAST
 };
 
-inline int8_t times_inv_sqrt2(int8_t x) {
-  // 181/256 is pretty close to 1/sqrt(2)
-  // 0.70703125                 0.707106781
-  // 1 too small for x=99 and x=198
-  // This ends up being a mult and discard lower 8 bits
-  return (x * 181) >> 8;
-}
 
 void mousekey_task(void) {
   // report cursor and scroll movement independently
   report_mouse_t const tmpmr = mouse_report;
-  if ((mouse_report.x  ||  mouse_report.y)  &&  timer_elapsed(last_timer_c) > c_intervals[mk_speed]) {
+  if ((mouse_report.x  ||  mouse_report.y)  &&  timer_elapsed(last_timer_c) > c_intervals[mousekey_accel]) {
   mouse_report.h = 0;
   mouse_report.v = 0;
   mousekey_send();
   last_timer_c = last_timer;
   mouse_report = tmpmr;
   }
-  if ((mouse_report.h  ||  mouse_report.v)  &&  timer_elapsed(last_timer_w) > w_intervals[mk_speed]) {
+  if ((mouse_report.h  ||  mouse_report.v)  &&  timer_elapsed(last_timer_w) > w_intervals[mousekey_accel]) {
   mouse_report.x = 0;
   mouse_report.y = 0;
   mousekey_send();
@@ -78,8 +177,8 @@ void mousekey_task(void) {
 }
 
 void adjust_speed(void) {
-  uint16_t const c_offset = c_offsets[mk_speed];
-  uint16_t const w_offset = w_offsets[mk_speed];
+  uint16_t const c_offset = c_offsets[mousekey_accel];
+  uint16_t const w_offset = w_offsets[mousekey_accel];
   if (mouse_report.x > 0) mouse_report.x = c_offset;
   if (mouse_report.x < 0) mouse_report.x = c_offset * -1;
   if (mouse_report.y > 0) mouse_report.y = c_offset;
@@ -99,10 +198,18 @@ void adjust_speed(void) {
   }
 }
 
+
+
+#endif /* #ifndef MK_3_SPEED */
+
+
+
 void mousekey_on(uint8_t code) {
-  uint16_t const c_offset = c_offsets[mk_speed];
-  uint16_t const w_offset = w_offsets[mk_speed];
-  uint8_t const old_speed = mk_speed;
+#ifdef MK_3_SPEED
+  uint16_t const c_offset = c_offsets[mousekey_accel];
+  uint16_t const w_offset = w_offsets[mousekey_accel];
+  uint8_t const old_speed = mousekey_accel;
+#endif
   if      (code == KC_MS_UP)       mouse_report.y = c_offset * -1;
   else if (code == KC_MS_DOWN)     mouse_report.y = c_offset;
   else if (code == KC_MS_LEFT)     mouse_report.x = c_offset * -1;
@@ -116,15 +223,21 @@ void mousekey_on(uint8_t code) {
   else if (code == KC_MS_BTN3)     mouse_report.buttons |= MOUSE_BTN3;
   else if (code == KC_MS_BTN4)     mouse_report.buttons |= MOUSE_BTN4;
   else if (code == KC_MS_BTN5)     mouse_report.buttons |= MOUSE_BTN5;
-  else if (code == KC_MS_ACCEL0)   mk_speed = mkspd_slow;
-  else if (code == KC_MS_ACCEL1)   mk_speed = mkspd_med;
-  else if (code == KC_MS_ACCEL2)   mk_speed = mkspd_fast;
-  if (mk_speed != old_speed) adjust_speed();
+#ifdef MK_3_SPEED
+  else if (code == KC_MS_ACCEL0)   mousekey_accel = mkspd_slow;
+  else if (code == KC_MS_ACCEL1)   mousekey_accel = mkspd_med;
+  else if (code == KC_MS_ACCEL2)   mousekey_accel = mkspd_fast;
+  if (mousekey_accel != old_speed) adjust_speed();
+#else
+	else if (code == KC_MS_ACCEL0)   mousekey_accel |= (1<<0);
+	else if (code == KC_MS_ACCEL1)   mousekey_accel |= (1<<1);
+	else if (code == KC_MS_ACCEL2)   mousekey_accel |= (1<<2);
+#endif
 }
 
 void mousekey_off(uint8_t code) {
 #ifdef MK_MOMENTARY_ACCEL
-  uint8_t const old_speed = mk_speed;
+  uint8_t const old_speed = mousekey_accel;
 #endif
   if      (code == KC_MS_UP       && mouse_report.y < 0) mouse_report.y = 0;
   else if (code == KC_MS_DOWN     && mouse_report.y > 0) mouse_report.y = 0;
@@ -139,12 +252,33 @@ void mousekey_off(uint8_t code) {
   else if (code == KC_MS_BTN3) mouse_report.buttons &= ~MOUSE_BTN3;
   else if (code == KC_MS_BTN4) mouse_report.buttons &= ~MOUSE_BTN4;
   else if (code == KC_MS_BTN5) mouse_report.buttons &= ~MOUSE_BTN5;
+#ifndef MK_3_SPEED
+	else if (code == KC_MS_ACCEL0) mousekey_accel &= ~(1<<0);
+	else if (code == KC_MS_ACCEL1) mousekey_accel &= ~(1<<1);
+	else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
+	if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0) {
+		mousekey_repeat = 0;
+	}
+#else /* #ifndef MK_3_SPEED */
 #ifdef MK_MOMENTARY_ACCEL
-  else if (code == KC_MS_ACCEL0) mk_speed = mkspd_DEFAULT;
-  else if (code == KC_MS_ACCEL1) mk_speed = mkspd_DEFAULT;
-  else if (code == KC_MS_ACCEL2) mk_speed = mkspd_DEFAULT;
-  if (mk_speed != old_speed) adjust_speed();
-#endif
+  else if (code == KC_MS_ACCEL0) mousekey_accel = mkspd_DEFAULT;
+  else if (code == KC_MS_ACCEL1) mousekey_accel = mkspd_DEFAULT;
+  else if (code == KC_MS_ACCEL2) mousekey_accel = mkspd_DEFAULT;
+  if (mousekey_accel != old_speed) adjust_speed();
+#endif /* #ifdef MK_MOMENTARY_ACCEL */
+#endif /* #ifndef MK_3_SPEED */
+}
+
+void mousekey_send(void) {
+  mousekey_debug();
+  host_mouse_send(&mouse_report);
+  last_timer = timer_read();
+}
+
+void mousekey_clear(void) {
+  mouse_report = (report_mouse_t){};
+  mousekey_repeat = 0;
+  mousekey_accel = 0;
 }
 
 static void mousekey_debug(void) {
@@ -155,14 +289,6 @@ static void mousekey_debug(void) {
   print_decs(mouse_report.y); print(" ");
   print_decs(mouse_report.v); print(" ");
   print_decs(mouse_report.h); print("](");
-}
-
-void mousekey_send(void) {
-  mousekey_debug();
-  host_mouse_send(&mouse_report);
-  last_timer = timer_read();
-}
-
-void mousekey_clear(void) {
-  mouse_report = (report_mouse_t){0};
+  print_dec(mousekey_repeat); print("/");
+  print_dec(mousekey_accel); print(")\n");
 }
