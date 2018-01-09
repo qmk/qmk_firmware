@@ -52,51 +52,54 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
-  [BASE] = KEYMAP(  
+  [BASE] = KEYMAP(
     /* left hand */
-    BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL,
-    KC_TAB,   BP_B,    BP_ECUT, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
-    KC_LSFT,  BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,
-    KC_LCTRL, BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT,
-    ESC_FN,   BP_ECRC, KC_LGUI, KC_LALT, SPC_RALT,
-                                                          TT(SWAP), KC_MNXT,
-                                                                    KC_MPLY,
-                                                  TT(FN), TT(NUMS), KC_MPRV,
+    KC_DLR,   KC_AMPR,  KC_LBRC, KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,
+    KC_LGUI,  KC_SCOLON,KC_COMMA,KC_DOT,  KC_P,    KC_Y,    KC_PERC,
+    MO(FN),  KC_A,     KC_O,    KC_E,    KC_U,    KC_I,
+    KC_LSPO,  KC_QUOTE, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LALT,
+    KC_AT,    KC_HASH,  KC_GRAVE,KC_LEFT, KC_RIGHT,
+                                             ALT_T(KC_APPLICATION), KC_LABK,
+                                                                    KC_RABK,
+                                          KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),
     /* right hand */
-        KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
-        KC_BSPC, BP_DCRC, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
-                 BP_C,    BP_T,     BP_S,    BP_R,        BP_N,    M_RSFT,
-        KC_ENT,  BP_APOS, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
-                          SPC_RALT, KC_LALT, TT(SYSLEDS), BP_CCED, PERC_FN,
-    KC_LEFT, KC_RIGHT,
-    KC_UP,
-    KC_DOWN, TD(TAP_MACRO), TT(MOUSE)),
+      KC_F4,        KC_EQUAL,KC_ASTR,  KC_RPRN, KC_PLUS,     KC_RBRACKET, KC_EXLM,
+      KC_DELETE,    KC_F,    KC_G,     KC_C,    KC_R,        KC_L,        KC_SLASH,
+                    KC_D,    KC_H,     KC_T,    KC_N,        KC_S,        KC_MINUS,
+      TD(TAP_MACRO),KC_B,    KC_M,     KC_W,    KC_V,        KC_Z,        KC_RSPC,
+                                              //TODO KC_Q needs to map to layer
+                             KC_UP,    KC_DOWN, KC_HOME,     KC_END,      KC_Q,
+    KC_PGUP, KC_LGUI,
+    KC_PGDOWN,
+    CTL_T(KC_ESCAPE),   KC_BSPACE,   KC_SPACE),
 
-  // Layer 1: function and media keys.
-  [FN] = KEYMAP(  
+  // Layer 1: function and numpad keys.
+  [FN] = KEYMAP(
     /* left hand */
-    KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
-    ___,     ___,   ___,    ___,     ___,      ___,      ___,
-    ___,     ___,   ___,    ___,     ___,      KC_LSFT,
-    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, KC_LCTRL, ___,
+    ___,     KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,
+    ___,     KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,
+    // TODO make first key a layer toggle
+    ___,     KC_HASH, KC_DLR,   KC_LPRN,     KC_RPRN,     KC_GRAVE,
+    ___,     KC_PERC, KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,
     ___,     ___,   ___,    ___,     ___,
-                                                     ___, KC_VOLU,
-                                                          KC_VOLD,
-                                             ___,    ___, KC_MUTE,
+                                            //TODO make first key layer 2 toggle
+                                                          ___, ___,
+                                                           KC_LCTL,
+                               KC_KP_PLUS,  KC_KP_MINUS, KC_DELETE,
     /* right hand */
-        ___, KC_F6, KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,
-        ___, ___,   KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_F12,
-             ___,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, ___,
-        ___, ___,   ___,     ___,     ___,      ___,     ___,
-                    ___,     ___,     ___,      ___,     ___,
-    KC_HOME, KC_END,
-    KC_PGUP,
-    KC_PGDN, ___,    ___),
+        ___, KC_F6,   KC_F7,   KC_F8,   KC_F9,      KC_F10,       KC_F11,
+        ___, KC_UP,   KC_7,    KC_8,    KC_9,       KC_ASTR,      KC_F12,
+             KC_DOWN, KC_4,    KC_5,    KC_6,       KC_PLUS,      KC_UNDS,
+        ___, KC_0,    KC_1,    KC_2,    KC_3,       KC_KP_SLASH,  KC_BSLASH,
+                      ___,     KC_0,    KC_KP_DOT,  KC_EQUAL,     ___,
+    KC_KP_ASTERISK, KC_KP_SLASH,
+    KC_RSHIFT,
+    KC_DELETE, KC_BSPACE,  KC_SPACE),
     // Note that any change to the FN layer above must be added to
     // the MOUSE layer below (except for the arrow keys).
 
   // Layer 2: Mouse control.
-  [MOUSE] = KEYMAP(  
+  [MOUSE] = KEYMAP(
     /* left hand */
     KC_SLEP, KC_F1, KC_F2,   KC_F3,   KC_F4,    KC_F5,    ___,
     ___,     ___,   KC_BTN4, KC_MS_U, KC_BTN5,  ___,      ___,
@@ -117,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 
   // Layer 3: Numeric keypad and system keys.
-  [NUMS] = KEYMAP(  
+  [NUMS] = KEYMAP(
     /* left hand */
     KC_PSCR, KC_INS, KC_PAUS,    ___,     ___,      ___, ___,
     ___,     ___,    ___,        ___,     ___,      ___, ___,
@@ -140,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 4: hand swap, all keys are mirrored to the other side of the keyboard
   // except for the layer toggle itself (so there is no right arrow when this
   // layer is activated).
-  [SWAP] = KEYMAP(  
+  [SWAP] = KEYMAP(
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___,
@@ -159,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, TT(SWAP),
     ___,
     ___, ___,      ___),
- 
+
   // Layer 5: The LEDs are showing the "standard" caps/num/scroll lock indicator
   // instead of their default which shows the currently active layers (FN, NUMS,
   // and MOUSE in that order).
-  [SYSLEDS] = KEYMAP(  
+  [SYSLEDS] = KEYMAP(
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___,
