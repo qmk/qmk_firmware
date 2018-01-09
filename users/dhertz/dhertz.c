@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode) {
             case HSH_TLD:
                 if (get_mods()&(MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) {
-                    SEND_STRING("`");
+                    SEND_STRING(SS_TAP(X_NONUS_BSLASH));
                 } else {
                     SEND_STRING(SS_LALT("3"));
                 }
