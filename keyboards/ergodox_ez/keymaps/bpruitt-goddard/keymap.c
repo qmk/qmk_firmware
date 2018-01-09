@@ -6,7 +6,6 @@
 // See the README.md file for an image of this keymap.
 
 #include QMK_KEYBOARD_H
-#include "keymap_bepo.h"
 
 // The layers that we are defining for this keyboards.
 #define BASE 0
@@ -27,11 +26,7 @@
 
 // Some combined keys (one normal keycode when tapped and one modifier or layer
 // toggle when held).
-#define ESC_FN    LT(FN, KC_ESC)        // ESC key and FN layer toggle.
-#define M_RSFT    MT(MOD_RSFT, BP_M)    // 'M' key and right shift modifier.
-#define W_RCTL    MT(MOD_RCTL, BP_W)    // 'W' key and right control modifier.
 #define SPC_RALT  MT(MOD_RALT, KC_SPC)  // SPACE key and right alt modifier.
-#define PERC_FN    LT(FN, BP_PERC)      // '%' key and FN layer toggle.
 
 // The most portable copy/paste keys (windows (mostly), linux, and some terminal emulators).
 #define MK_CUT    LSFT(KC_DEL)  // shift + delete
@@ -78,7 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     ___,     KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,
     ___,     KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,
-    // TODO make first key a layer toggle
     ___,     KC_HASH, KC_DLR,   KC_LPRN,     KC_RPRN,     KC_GRAVE,
     ___,     KC_PERC, KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,
     ___,     ___,   ___,    ___,     ___,
