@@ -72,6 +72,9 @@
 #include "eeconfig.h"
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 #include "ws2812.h"
+#ifdef RGBW_BB_TWI
+#include "ledbbtwi.h"
+#endif
 #endif
 #include "rgblight_types.h"
 

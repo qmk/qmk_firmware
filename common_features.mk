@@ -105,7 +105,8 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-	    SRC += ws2812.c
+	    SRC += ws2812.c \
+             ledbbtwi.c
     endif
 endif
 
