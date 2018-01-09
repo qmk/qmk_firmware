@@ -15,7 +15,7 @@ install:
 before_script:
   - avr-gcc --version
 script:
-- make ergodox_ez:bepo_tm_style
+- make ergodox_ez:bpruitt-goddard
 after_success:
   ls
 addons:
@@ -31,4 +31,4 @@ addons:
   artifacts:
     s3_region: "us-west-2"
     paths:
-      - ergodox_ez_bepo_tm_style.hex
+      - ergodox_ez_bpruitt-goddard.hex
