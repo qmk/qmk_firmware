@@ -29,31 +29,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
 #define UNUSED_PINS
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
+/*
+ * MIDI options
+ */
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+/* Prevent use of disabled MIDI features in the keymap */
+//#define MIDI_ENABLE_STRICT 1
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
+/* enable basic MIDI features:
+   - MIDI notes can be sent when in Music mode is on
+*/
+#define MIDI_BASIC
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+/* enable advanced MIDI features:
+   - MIDI notes can be added to the keymap
+   - Octave shift and transpose
+   - Virtual sustain, portamento, and modulation wheel
+   - etc.
+*/
+//#define MIDI_ADVANCED
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-
+/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
+//#define MIDI_TONE_KEYCODE_OCTAVES 2
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -72,6 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Only print user print statements */
 #define USER_PRINT
 
+#define BACKLIGHT_BREATHING
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -79,5 +77,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
 #endif

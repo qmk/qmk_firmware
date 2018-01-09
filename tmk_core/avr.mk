@@ -96,23 +96,47 @@ ifndef TEENSY_LOADER_CLI
     endif
 endif
 
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).hex
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.hex\n" | zipnote -w $(TARGET).qmk
+	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
+	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
+	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
+
 # Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
+program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
 	$(PROGRAM_CMD)
 
-teensy: $(BUILD_DIR)/$(TARGET).hex
+teensy: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 	
 BATCHISP ?= batchisp 
 
-flip: $(BUILD_DIR)/$(TARGET).hex
+flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
 	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
 	
 DFU_PROGRAMMER ?= dfu-programmer
 
-dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
+dfu: $(BUILD_DIR)/$(TARGET).hex check-size
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
@@ -144,7 +168,7 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 	if grep -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
@@ -219,4 +243,24 @@ coff: $(BUILD_DIR)/$(TARGET).elf
 extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
+
+bootloader: 
+	make -C lib/lufa/Bootloaders/DFU/ clean
+	echo "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo `grep "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	make -C lib/lufa/Bootloaders/DFU/
+	echo "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
+	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
+
+production: $(BUILD_DIR)/$(TARGET).hex bootloader
+	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
+	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
+	echo "File sizes:"
+	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
 
