@@ -93,9 +93,6 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
         break;
     }
   }
-  r = pgm_read_byte(&CIE1931_CURVE[r]);
-  g = pgm_read_byte(&CIE1931_CURVE[g]);
-  b = pgm_read_byte(&CIE1931_CURVE[b]);
 
   setrgb(r, g, b, led1);
 }
@@ -427,7 +424,16 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
-  if (!rgblight_config.enable) {
+  if (rgblight_config.enable) {
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+      led[i].r = pgm_read_byte(&CIE1931_CURVE[led[i].r]);
+      led[i].g = pgm_read_byte(&CIE1931_CURVE[led[i].g]);
+      led[i].b = pgm_read_byte(&CIE1931_CURVE[led[i].b]);
+      #ifdef RGBW
+      led[i].w = pgm_read_byte(&CIE1931_CURVE[led[i].w]);
+      #endif
+    }
+  } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
       led[i].g = 0;
