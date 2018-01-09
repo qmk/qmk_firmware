@@ -39,7 +39,6 @@ You can use these keycodes within your keymap to map button presses to mouse act
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1(medium)|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2(fast)  |
 
-The mouse acceleration keys will have no effect when the auto-acceleration behavior is used.
 
 ## Configuring the Behavior of Mousekeys with auto-accelerated movement
 

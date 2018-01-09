@@ -1,4 +1,5 @@
 
+#define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL // comment this out for tap-to-select acceleration
 // medium values will be used as default
 #define MK_C_OFFSET_SLOW     1 // pixels
