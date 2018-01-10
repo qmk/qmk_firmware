@@ -9,9 +9,6 @@
 #define BASE 0
 #define FN 1
 #define QWERTY 2
-#define NUMS 3
-#define SWAP 4
-#define SYSLEDS 5
 
 // The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
 #define TAP_MACRO 0
@@ -109,73 +106,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, KC_ESCAPE,
     KC_PGUP,
     KC_PGDOWN, KC_BSPACE, KC_SPACE),
-
-  // Layer 3: Numeric keypad and system keys.
-  [NUMS] = KEYMAP(
-    /* left hand */
-    KC_PSCR, KC_INS, KC_PAUS,    ___,     ___,      ___, ___,
-    ___,     ___,    ___,        ___,     ___,      ___, ___,
-    ___,     ___,    ___,        ___,     ___,      ___,
-    ___,     ___,    MK_CUT,     MK_COPY, MK_PASTE, ___, ___,
-    ___,     ___,    ___,        ___,     ___,
-                                              ___, ___,
-                                                   ___,
-                                         ___, ___, ___,
-    /* right hand */
-         ___,     ___,     ___,   ___,   ___,     ___,     KC_NLCK,
-         ___,     KC_PEQL, KC_P7, KC_P8, KC_P9,   KC_PMNS, KC_SLCK,
-                  KC_PCMM, KC_P4, KC_P5, KC_P6,   KC_PPLS, ___,
-         KC_PENT, KC_P0,   KC_P1, KC_P2, KC_P3,   KC_PAST, ___,
-                           ___,   ___,   ___,     KC_PSLS, ___,
-    ___, ___,
-    ___,
-    ___, ___, ___),
-
-  // Layer 4: hand swap, all keys are mirrored to the other side of the keyboard
-  // except for the layer toggle itself (so there is no right arrow when this
-  // layer is activated).
-  [SWAP] = KEYMAP(
-    /* left hand */
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___,
-                             TT(SWAP), ___,
-                                       ___,
-                             ___, ___, ___,
-    /* right hand */
-         ___, ___, ___, ___, ___, ___, ___,
-         ___, ___, ___, ___, ___, ___, ___,
-              ___, ___, ___, ___, ___, ___,
-         ___, ___, ___, ___, ___, ___, ___,
-                   ___, ___, ___, ___, ___,
-    ___, TT(SWAP),
-    ___,
-    ___, ___,      ___),
-
-  // Layer 5: The LEDs are showing the "standard" caps/num/scroll lock indicator
-  // instead of their default which shows the currently active layers (FN, NUMS,
-  // and QWERTY in that order).
-  [SYSLEDS] = KEYMAP(
-    /* left hand */
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___, ___, ___,
-    ___, ___, ___, ___, ___,
-                                  ___, ___,
-                                       ___,
-                             ___, ___, ___,
-    /* right hand */
-         ___, ___, ___, ___, ___,         ___, ___,
-         ___, ___, ___, ___, ___,         ___, ___,
-              ___, ___, ___, ___,         ___, ___,
-         ___, ___, ___, ___, ___,         ___, ___,
-                   ___, ___, TT(SYSLEDS), ___, ___,
-    ___, ___,
-    ___,
-    ___, ___, ___),
 };
 
 // Whether the macro 1 is currently being recorded.
@@ -246,14 +176,6 @@ void matrix_scan_user(void) {
 
 };
 
-// The state of the LEDs requested by the system, as a bitmask.
-static uint8_t sys_led_state = 0;
-
-// Use these masks to read the system LEDs state.
-static const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-static const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
-static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
-
 // Value to use to switch LEDs on. The default value of 255 is far too bright.
 static const uint8_t max_led_value = 20;
 
@@ -287,31 +209,8 @@ void led_3_off(void) {
   ergodox_right_led_3_off();
 }
 
-// Called when the computer wants to change the state of the keyboard LEDs.
-void led_set_user(uint8_t usb_led) {
-  sys_led_state = usb_led;
-  if (LAYER_ON(SYSLEDS)) {
-    if (sys_led_state & sys_led_mask_caps_lock) {
-      led_1_on();
-    } else {
-      led_1_off();
-    }
-    if (sys_led_state & sys_led_mask_num_lock) {
-      led_2_on();
-    } else {
-      led_2_off();
-    }
-    if (sys_led_state & sys_led_mask_scroll_lock) {
-      led_3_on();
-    } else {
-      led_3_off();
-    }
-  }
-}
-
 uint32_t layer_state_set_user(uint32_t state) {
   current_layer_state = state;
-  swap_hands = LAYER_ON(SWAP);
 
   if (is_macro1_recording) {
     led_1_on();
@@ -320,21 +219,10 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
   }
 
-  if (LAYER_ON(SYSLEDS)) {
-    led_set_user(sys_led_state);
-    return state;
-  }
-
   if (LAYER_ON(FN)) {
     led_1_on();
   } else {
     led_1_off();
-  }
-
-  if (LAYER_ON(NUMS)) {
-    led_2_on();
-  } else {
-    led_2_off();
   }
 
   if (LAYER_ON(QWERTY)) {
