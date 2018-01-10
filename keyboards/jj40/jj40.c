@@ -39,8 +39,17 @@ void rgblight_set(void) {
   i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
 }
 
+bool rgb_init = false;
+
 __attribute__ ((weak))
 void matrix_scan_user(void) {
+    // if LEDs were previously on before poweroff, turn them back on
+    if (rgb_init == false && rgblight_config.enable) {
+      i2c_init();
+      i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+      rgb_init = true;
+    }
+
     rgblight_task();
     /* Nothing else for now. */
 }
