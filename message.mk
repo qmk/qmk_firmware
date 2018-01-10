@@ -9,7 +9,7 @@ ifeq ($(COLOR),true)
 	BOLD=\033[1m
 endif
 
-ifneq ($(shell awk --version 2>/dev/null),)
+ifneq ($(shell echo "1 2 3" | awk '{ printf "%2s", $$3; }' 2>/dev/null)," 3")
 	AWK=awk
 else
 	AWK=cat && test
@@ -43,9 +43,9 @@ MSG_SIZE_BEFORE = Size before:
 MSG_SIZE_AFTER = Size after:
 MSG_COFF = Converting to AVR COFF:
 MSG_EXTENDED_COFF = Converting to AVR Extended COFF:
-MSG_FLASH = Creating load file for Flash:
+MSG_FLASH = Creating load file for flashing:
 MSG_EEPROM = Creating load file for EEPROM:
-MSG_BIN = Creating binary load file for Flash:
+MSG_BIN = Creating binary load file for flashing:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
@@ -76,3 +76,7 @@ define GENERATE_MSG_MAKE_TEST
 endef
 MSG_MAKE_TEST = $(eval $(call GENERATE_MSG_MAKE_TEST))$(MSG_MAKE_TEST_ACTUAL)
 MSG_TEST = Testing $(BOLD)$(TEST_NAME)$(NO_COLOR)
+MSG_CHECK_FILESIZE = Checking file size of $(TARGET).hex
+MSG_FILE_TOO_BIG = $(ERROR_COLOR)Your file is too big!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE)\n
+MSG_FILE_TOO_SMALL = Your file is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
+MSG_FILE_JUST_RIGHT = File size is fine - $(CURRENT_SIZE)/$(MAX_SIZE)\n

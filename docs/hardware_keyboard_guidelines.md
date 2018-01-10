@@ -2,7 +2,7 @@
 
 We welcome all keyboard projects into QMK, but ask that you try to stick to a couple guidelines that help us keep things organised and consistent.
 
-## Naming your keyboard/project
+## Naming Your Keyboard/Project
 
 All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Your directory and your `.h` and `.c` files should have exactly the same name. All folders should follow the same format.
 
@@ -10,7 +10,7 @@ All names should be lowercase alphanumeric, and separated by an underscore (`_`)
 
 All projects need to have a `readme.md` file that explains what the keyboard is, who made it, where it is available, and links to more information. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
 
-## Image/Hardware files
+## Image/Hardware Files
 
 In an effort to keep the repo size down, we're no longer accepting images of any format in the repo, with few exceptions. Hosting them elsewhere (imgur) and linking them in the `readme.md` is the preferred method.
 
@@ -91,11 +91,11 @@ All key positions and rotations are specified in relation to the top-left corner
 * `RY`
   * The absolute position of the point to rotate the key around in the vertical axis. Default: `y`
 * `KS`
-  * Key Shape: define a polygon by providing a list of points, in Key Units. 
+  * Key Shape: define a polygon by providing a list of points, in Key Units.
   * **Important**: These are relative to the top-left of the key, not absolute.
   * Example ISO Enter: `[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]`
 
-### How Is The Metadata Exposed?
+### How is the Metadata Exposed?
 
 This metadata is primarily used in two ways:
 
@@ -104,11 +104,11 @@ This metadata is primarily used in two ways:
 
 Configurator authors can see the [QMK Compiler](https://docs.compile.qmk.fm/api_docs.html) docs for more information on using the JSON API.
 
-## Non-production/handwired projects
+## Non-Production/Handwired Projects
 
 We're happy to accept any project that uses QMK, including prototypes and handwired ones, but we have a separate `/keyboards/handwired/` folder for them, so the main `/keyboards/` folder doesn't get overcrowded. If a prototype project becomes a production project at some point in the future, we'd be happy to move it to the main `/keyboards/` folder!
 
-## Warnings as errors
+## Warnings as Errors
 
 When developing your keyboard, keep in mind that all warnings will be treated as errors - these small warnings can build-up and cause larger errors down the road (and keeping them is generally a bad practice).
 
@@ -132,6 +132,6 @@ The core of QMK is licensed under the [GNU General Public License](https://www.g
 
 If your keyboard makes use of the [uGFX](https://ugfx.io) features within QMK you must comply with the [uGFX License](https://ugfx.io/license.html), which requires a separate commercial license before selling a device containing uGFX.
 
-## Technical details
+## Technical Details
 
 If you're looking for more information on making your keyboard work with QMK, [check out the hardware section](hardware.md)!
