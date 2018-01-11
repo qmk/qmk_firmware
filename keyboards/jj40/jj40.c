@@ -1,5 +1,6 @@
 /*
 Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Modified 2018 by Kenneth <github.com/krusli>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,8 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "i2c.h"
 
-// custom RGB driver
+// for keyboard subdirectory level init functions
+void matrix_init_kb(void) {
+  // call user level keymaps
+  matrix_init_user();
+}
+
+#include "backlight.h"
+
 extern rgblight_config_t rgblight_config;
+
+// custom RGB driver
 void rgblight_set(void) {
   if (!rgblight_config.enable) {
     for (uint8_t i=0; i<RGBLED_NUM; i++) {
@@ -49,6 +59,13 @@ void matrix_scan_user(void) {
       i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
       rgb_init = true;
     }
+
+    // activate backlighting pin?
+    // if (backlight_config.enable == 1) { // turn on
+      DDRD &= ~(1 << 4); PORTD &= ~(1 << 4);
+    // } else {  // turn off
+      // DDRD |= (1 << 4); PORTD |= (1 << 4);
+    // }
 
     rgblight_task();
     /* Nothing else for now. */
