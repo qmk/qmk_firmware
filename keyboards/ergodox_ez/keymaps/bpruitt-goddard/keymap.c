@@ -13,6 +13,15 @@
 // The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
 #define TAP_MACRO 0
 
+// SAFE_RANGE must be used to tag the first element of the enum.
+// DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
+// values are added (as its value is used to create a couple of other keycodes
+// after it).
+enum custom_keycodes {
+    MC_ARROW = SAFE_RANGE,
+    DYNAMIC_MACRO_RANGE
+};
+
 // A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
 
@@ -28,15 +37,6 @@
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
 
-// Custom keycodes
-enum {
-  // SAFE_RANGE must be used to tag the first element of the enum.
-  // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
-  // values are added (as its value is used to create a couple of other keycodes
-  // after it).
-  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
 // This file must be included after DYNAMIC_MACRO_RANGE is defined...
 #include "dynamic_macro.h"
 
@@ -44,20 +44,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
   [BASE] = KEYMAP(
     /* left hand */
-    KC_DLR,   KC_AMPR,  KC_LBRC, KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,
-    KC_LGUI,  KC_SCOLON,KC_COMMA,KC_DOT,  KC_P,    KC_Y,    KC_PERC,
-    MO(FN),  KC_A,     KC_O,    KC_E,    KC_U,    KC_I,
-    KC_LSPO,  KC_QUOTE, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LALT,
-    KC_AT,    KC_HASH,  KC_GRAVE,KC_LEFT, KC_RIGHT,
-                                             ALT_T(KC_APPLICATION), KC_LABK,
-                                                                    KC_RABK,
+    KC_DLR,   KC_AMPR,  KC_LBRC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,
+    GUI_T(KC_BSLASH),   KC_SCOLON,KC_COMMA,KC_DOT,  KC_P,    KC_Y,    KC_PERC,
+    MO(FN),  KC_A,      KC_O,     KC_E,    KC_U,    KC_I,
+    KC_LSPO,  KC_QUOTE, KC_Q,     KC_J,    KC_K,    KC_X,    KC_LALT,
+    KC_AT,    KC_HASH,  KC_GRAVE, KC_LEFT, KC_RIGHT,
+                                             ALT_T(KC_APPLICATION), ALL_T(KC_NO),
+                                                                    KC_BSLASH,
                                           KC_ENTER, KC_TAB, CTL_T(KC_ESCAPE),
     /* right hand */
-        KC_F4,        KC_EQUAL,KC_ASTR,  KC_RPRN, KC_PLUS,     KC_RBRACKET, KC_EXLM,
-        KC_DELETE,    KC_F,    KC_G,     KC_C,    KC_R,        KC_L,        KC_SLASH,
-                      KC_D,    KC_H,     KC_T,    KC_N,        KC_S,        KC_MINUS,
-        TD(TAP_MACRO),KC_B,    KC_M,     KC_W,    KC_V,        KC_Z,        KC_RSPC,
-                               KC_UP,    KC_DOWN, KC_HOME,     KC_END,      TO(QWERTY),
+        KC_F4,        KC_EQUAL,KC_ASTR,  KC_BSLASH, KC_PLUS,        KC_RBRACKET, KC_EXLM,
+        KC_DELETE,    KC_F,    KC_G,     KC_C,      KC_R,           KC_L,        KC_SLASH,
+                      KC_D,    KC_H,     KC_T,      KC_N,           KC_S,        KC_MINUS,
+        TD(TAP_MACRO),KC_B,    KC_M,     KC_W,      KC_V,           KC_Z,        KC_RSPC,
+                               KC_UP,    KC_DOWN,   KC_HOME,        KC_END,      TO(QWERTY),
     KC_PGUP, KC_LGUI,
     KC_PGDOWN,
     CTL_T(KC_ESCAPE),   KC_BSPACE,   KC_SPACE),
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     ___,     KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,
     ___,     KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,
-    XXX,     KC_HASH, KC_DLR,   KC_LPRN,     KC_RPRN,     KC_GRAVE,
+    XXX,     KC_HASH, KC_LCBR,  KC_RCBR,     MC_ARROW,    KC_GRAVE,
     ___,     KC_PERC, KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,
     ___,     ___,   ___,    ___,     ___,
                                             //TODO make first key layer 2 toggle
@@ -145,7 +145,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
 // The definition of the tap dance actions:
 qk_tap_dance_action_t tap_dance_actions[] = {
   // This Tap dance plays the macro 1 on TAP and records it on double tap.
-  [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
+  [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn)
 };
 
 // Runs for each key down or up event.
@@ -158,6 +158,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // returning false would eat the tap dance).
     if (!process_record_dynamic_macro(keycode, record)) {
       return false;
+    }
+
+    if(record->event.pressed) {
+      switch(keycode) {
+        case MC_ARROW:
+          SEND_STRING("=>");
+          return false;
+          break;
+      }
     }
   }
 
