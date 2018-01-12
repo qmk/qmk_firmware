@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 // Port D: digital pins of the AVR chipset
 #define NUMLOCK_PORT    (1 << 1)  // 1st pin of Port D (digital)
 #define CAPSLOCK_PORT   (1 << 2)  // 2nd pin
@@ -39,6 +38,7 @@ Port Registers: https://www.arduino.cc/en/Reference/PortManipulation
 TCCR1A: https://electronics.stackexchange.com/questions/92350/what-is-the-difference-between-tccr1a-and-tccr1b
 Timers: http://www.avrbeginners.net/architecture/timers/timers.html
 16-bit timer setup: http://sculland.com/ATmega168/Interrupts-And-Timers/16-Bit-Timer-Setup/
+PS2AVRGB firmware: https://github.com/showjean/ps2avrU/tree/master/firmware
 */
 
 // uint16_t getBrightness(uint16_t value);
@@ -120,7 +120,7 @@ void timer1UnInit(void) {
 //! Interrupt handler for tcnt1 overflow interrupt
 ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 {
-	// sei(); // NOTE Not necessary
+	// sei();
 
   // handle breathing here
   #ifdef BACKLIGHT_BREATHING
