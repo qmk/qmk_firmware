@@ -112,7 +112,7 @@ void timer1Stop(void) {
 }
 
 // enable timer 1 PWM
-void timer1PWMEnable(void) {
+void timer1PWMBEnable(void) {
   // timer1PWMBOn()
   // turn on channel B (OC1B) PWM output
   // set OC1B as non-inverted PWM
@@ -150,7 +150,7 @@ void b_led_init_ports(void) {
   #endif
 
   /* initialise timers */
-  timer1PWMInit();
+  timer1Init();
 
   // only if USB
   timer1PWMBEnable();
