@@ -76,5 +76,6 @@ void matrix_scan_user(void) {
   }
 
   // b_led_task();  // TODO DEBUG just to see if code works
+  rgblight_task();
   /* Nothing else for now. */
 }
