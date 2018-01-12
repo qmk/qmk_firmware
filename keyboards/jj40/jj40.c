@@ -22,18 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "action_layer.h"
 #include "quantum.h"
+#include "backlight.h"
 
+#include "backlight_PS2AVRGB.h"
 #include "i2c.h"
+
+extern rgblight_config_t rgblight_config;
 
 // for keyboard subdirectory level init functions
 void matrix_init_kb(void) {
   // call user level keymaps
   matrix_init_user();
 }
-
-#include "backlight.h"
-
-extern rgblight_config_t rgblight_config;
 
 // custom RGB driver
 void rgblight_set(void) {
@@ -51,22 +51,15 @@ void rgblight_set(void) {
 
 bool rgb_init = false;
 
-__attribute__ ((weak))
 void matrix_scan_user(void) {
-    // if LEDs were previously on before poweroff, turn them back on
-    if (rgb_init == false && rgblight_config.enable) {
-      i2c_init();
-      i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
-      rgb_init = true;
-    }
+  // if LEDs were previously on before poweroff, turn them back on
+  if (rgb_init == false && rgblight_config.enable) {
+    i2c_init();
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+    rgb_init = true;
 
-    // activate backlighting pin?
-    // if (backlight_config.enable == 1) { // turn on
-      DDRD &= ~(1 << 4); PORTD &= ~(1 << 4);
-    // } else {  // turn off
-      // DDRD |= (1 << 4); PORTD |= (1 << 4);
-    // }
+    // send_string("Hello world\n"); // can be used for debugging
+  }
 
-    rgblight_task();
-    /* Nothing else for now. */
+  /* Nothing else for now. */
 }
