@@ -1,6 +1,3 @@
-#ifndef BACKLIGHT_CUSTOM_H
-#define BACKLIGHT_CUSTOM_H
-
 #ifdef BACKLIGHT_ENABLE
 #ifdef BACKLIGHT_BREATHING
 
@@ -132,5 +129,3 @@ void custom_breathing_handler(void) {
 
 #endif // BACKLIGHT_BREATHING
 #endif  // BACKLIGHT_ENABLE
-
-#endif // BACKLIGHT_CUSTOM_H

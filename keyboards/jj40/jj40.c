@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "action_layer.h"
 #include "quantum.h"
-#include "backlight.h"
 
 #include "i2c.h"
 
+#include "backlight.h"
 #include "backlight_custom.h"
 
 extern rgblight_config_t rgblight_config;

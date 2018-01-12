@@ -213,4 +213,4 @@ void setPWM(uint16_t xValue) {
   }
   OCR1B = xValue; // timer1PWMBSet(xValue);
 }
-#endif
+#endif  // BACKLIGHT_ENABLE
