@@ -37,10 +37,7 @@ References
 Port Registers: https://www.arduino.cc/en/Reference/PortManipulation
 TCCR1A: https://electronics.stackexchange.com/questions/92350/what-is-the-difference-between-tccr1a-and-tccr1b
 Timers: http://www.avrbeginners.net/architecture/timers/timers.html
-
-TCCR: Timer/Counter Control Register - used to set timer mode, prescaler, other options
-7      6       5       4       3       2       1       0
-COM1A1 COM1A0                                  PWM11   PWM10
+16-bit timer setup: http://sculland.com/ATmega168/Interrupts-And-Timers/16-Bit-Timer-Setup/
 */
 
 // Function signatures
@@ -77,8 +74,8 @@ void led_set_user(uint8_t usb_led) {
 }
 
 // sets up Timer 1 for 8-bit PWM
-void timer1PWMSetup(void) {
-  // default 8bit mode
+void timer1PWMSetup(void) { // NOTE ONLY CALL THIS ONCE
+  // default 8 bit mode
   TCCR1A &= ~(1 << 1); // cbi(TCCR1A,PWM11); <- set PWM11 bit to HIGH
   TCCR1A |= (1 << 0);  // sbi(TCCR1A,PWM10); <- set PWM10 bit to LOW
 
@@ -91,9 +88,14 @@ void timer1PWMSetup(void) {
 	OCR1BL = 0; // outb(OCR1BL, 0);
 }
 
+bool is_init = false;
 void timer1Init(void) {
   // timer1SetPrescaler(TIMER1PRESCALE)
+  // set to DIV/64
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | TIMER1PRESCALE;
+  // TCCR1B &= ~(1 << 2);  // set CS12 to 0
+  // TCCR1B |= (1 << 1);   // set CS11 to 1
+  // TCCR1B |= (1 << 0);   // set CS10 to 1
 
   // reset TCNT1
   TCNT1H = 0;  // outb(TCNT1H, 0);
@@ -104,43 +106,56 @@ void timer1Init(void) {
   // If this bit is set and if global interrupts are enabled,
   // the micro will jump to the Timer Overflow 1 interrupt vector
   // upon Timer 1 Overflow.
+  // NOTE need to define ISR handler.
 	TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
+
+  is_init = true;
 }
 
 void timer1UnInit(void) {
   // set prescaler back to NONE
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
+  // TCCR1B &= ~(1 << 2);  // set CS12 to 0
+  // TCCR1B &= ~(1 << 1);  // set CS11 to 0
+  // TCCR1B &= ~(1 << 0);  // set CS10 to 0
 
   // disable timer overflow interrupt
   TIMSK &= ~_BV(TOIE1); // overflow bit?
 
-  // setPWM(0);
+  setPWM(0);
+
+  is_init = false;
 }
 
 // handle TCNT1 overflow
 //! Interrupt handler for tcnt1 overflow interrupt
-
 ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 {
-	sei();
+	sei(); // TODO check what it's for
 
   // TODO call user defined function
 }
 
 // enable timer 1 PWM
+// timer1PWMBOn()
 void timer1PWMBEnable(void) {
   // timer1PWMBOn()
   // turn on channel B (OC1B) PWM output
   // set OC1B as non-inverted PWM
-  TCCR1A |= _BV(COM1B1);  // sbi(TCCR1A,COM1B1);
-  TCCR1A &= ~_BV(COM1B0); // cbi(TCCR1A,COM1B0);
+  // TCCR1A |= (1 << 5);  // sbi(TCCR1A,COM1B1);
+  // TCCR1A &= ~(1 << 4); // cbi(TCCR1A,COM1B0);
+  TCCR1A |= _BV(COM1B1);
+  TCCR1A &= ~_BV(COM1B0);
 }
 
 // disable timer 1 PWM
+// timer1PWMBOff()
 void timer1PWMBDisable(void) {
   /* timer1PWMBOff() */
-  TCCR1A &= ~_BV(COM1B1);  // cbi(TCCR1A,COM1B1);
-  TCCR1A &= ~_BV(COM1B0);  // cbi(TCCR1A,COM1B0);
+  // TCCR1A &= ~(1 << 5);  // cbi(TCCR1A,COM1B1);
+  // TCCR1A &= ~(1 << 4);  // cbi(TCCR1A,COM1B0);
+  TCCR1A &= ~_BV(COM1B1);
+  TCCR1A &= ~_BV(COM1B0);
 }
 
 //
@@ -154,6 +169,18 @@ void disableBacklight(void) {
   PORTD &= ~BACKLIGHT_PORT;  // set digital pin 4 to low
 }
 
+void startPWM(void) {
+  timer1Init();
+  timer1PWMBEnable();
+  enableBacklight();
+}
+
+void stopPWM(void) {
+  timer1UnInit();
+  disableBacklight();
+  timer1PWMBDisable();
+}
+
 void b_led_init_ports(void) {
   /* turn backlight on/off depending on user preference */
   #if BACKLIGHT_ON_STATE == 0
@@ -165,12 +192,8 @@ void b_led_init_ports(void) {
     PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
   #endif
 
-  /* initialise timers */
-  timer1Init();
-
-  // only if USB
-  // timer1PWMBEnable();
-  enableBacklight();
+  timer1PWMSetup();
+  startPWM();
 }
 
 // @Override
@@ -180,20 +203,16 @@ void b_led_set(uint8_t level) {
   }
 
   setPWM((int)(TIMER_TOP * (float) level / BACKLIGHT_LEVELS));
-  // setPWM(0);
 }
-
 
 // @Override
 // called every matrix scan
 void b_led_task(void) {
-  if (backlight_config.enable) {
-    timer1Init();
-    enableBacklight();
-  } else {
-    timer1UnInit();
-    disableBacklight();
-  }
+  // if (backlight_config.enable) {
+  //   startPWM();
+  // } else {
+  //   stopPWM();
+  // }
 }
 
 void setPWM(uint16_t xValue) {
