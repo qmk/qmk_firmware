@@ -33,19 +33,21 @@ extern rgblight_config_t rgblight_config;
 // for keyboard subdirectory level init functions
 // @Override
 void matrix_init_kb(void) {
-  // call user level keymaps
+  // call user level keymaps, if any
   // matrix_init_user();
-
-  b_led_init_ports();
 }
 
-
+void backlight_init_ports(void) {
+  b_led_init_ports();
+}
 
 void backlight_task(void) {
   b_led_task();
 }
 
-
+void backlight_set(uint8_t level) {
+  b_led_set(level);
+}
 
 // custom RGB driver
 void rgblight_set(void) {

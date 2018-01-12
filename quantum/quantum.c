@@ -937,6 +937,7 @@ static inline void set_pwm(uint16_t val) {
   OCR1x = val;
 }
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 __attribute__ ((weak))
 void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
@@ -953,9 +954,8 @@ void backlight_set(uint8_t level) {
   set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
-#ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_task(void) {}
-#endif
+#endif  // BACKLIGHT_CUSTOM_DRIVER
 
 #ifdef BACKLIGHT_BREATHING
 

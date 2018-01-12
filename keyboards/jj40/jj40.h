@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 
+void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
+
 #define KEYMAP_GRID( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K010, K011, K012, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K110, K111, K112, \
