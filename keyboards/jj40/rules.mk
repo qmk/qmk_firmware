@@ -42,7 +42,7 @@ BACKLIGHT_CUSTOM_DRIVER = yes
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
-DISABLE_WS2812 = yes  # TODO check if this is necessary
+# DISABLE_WS2812 = no
 
 KEY_LOCK_ENABLE = yes
 
