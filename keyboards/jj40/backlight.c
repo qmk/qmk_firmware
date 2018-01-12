@@ -72,6 +72,7 @@ void led_set_user(uint8_t usb_led) {
     }
 }
 
+#ifdef BACKLIGHT_ENABLE
 // sets up Timer 1 for 8-bit PWM
 void timer1PWMSetup(void) { // NOTE ONLY CALL THIS ONCE
   // default 8 bit mode
@@ -212,3 +213,4 @@ void setPWM(uint16_t xValue) {
   }
   OCR1B = xValue; // timer1PWMBSet(xValue);
 }
+#endif

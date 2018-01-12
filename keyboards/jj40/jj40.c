@@ -37,6 +37,7 @@ void matrix_init_kb(void) {
   // matrix_init_user();
 }
 
+#ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void) {
   b_led_init_ports();
 }
@@ -48,6 +49,7 @@ void backlight_task(void) {
 void backlight_set(uint8_t level) {
   b_led_set(level);
 }
+#endif
 
 // custom RGB driver
 void rgblight_set(void) {
