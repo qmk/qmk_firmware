@@ -95,10 +95,16 @@ uint8_t matrix_scan(void) {
         }
     }
 
-    matrix_scan_user();
+    matrix_scan_quantum();  // also missing in original PS2AVRGB implementation
 
     return 1;
 }
+
+void matrix_scan_kb(void) {
+  // Looping keyboard code goes here
+  // This runs every cycle (a lot)
+  matrix_scan_user();
+};
 
 inline matrix_row_t matrix_get_row(uint8_t row) {
     return matrix[row];

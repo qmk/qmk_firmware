@@ -39,6 +39,14 @@ void matrix_init_kb(void) {
   b_led_init_ports();
 }
 
+
+
+void backlight_task(void) {
+  b_led_task();
+}
+
+
+
 // custom RGB driver
 void rgblight_set(void) {
   if (!rgblight_config.enable) {
@@ -63,6 +71,6 @@ void matrix_scan_user(void) {
     rgb_init = true;
   }
 
-  b_led_task();
+  // b_led_task();  // TODO DEBUG just to see if code works
   /* Nothing else for now. */
 }

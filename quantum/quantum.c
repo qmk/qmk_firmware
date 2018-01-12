@@ -885,6 +885,7 @@ void backlight_set(uint8_t level) {}
 
 uint8_t backlight_tick = 0;
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_task(void) {
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
@@ -905,6 +906,7 @@ void backlight_task(void) {
   }
   backlight_tick = backlight_tick + 1 % 16;
 }
+#endif
 
 #ifdef BACKLIGHT_BREATHING
 #error "Backlight breathing only available with hardware PWM. Please disable."
@@ -951,7 +953,9 @@ void backlight_set(uint8_t level) {
   set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
 }
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_task(void) {}
+#endif
 
 #ifdef BACKLIGHT_BREATHING
 
