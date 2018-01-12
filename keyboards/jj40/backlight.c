@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 
 #include "backlight_custom.h"
+#include "breathing_custom.h"
 
 // DEBUG
 #include <stdlib.h>
@@ -40,8 +41,6 @@ Timers: http://www.avrbeginners.net/architecture/timers/timers.html
 16-bit timer setup: http://sculland.com/ATmega168/Interrupts-And-Timers/16-Bit-Timer-Setup/
 */
 
-// Function signatures
-void setPWM(uint16_t xValue);
 // uint16_t getBrightness(uint16_t value);
 
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
@@ -93,20 +92,12 @@ void timer1Init(void) {
   // timer1SetPrescaler(TIMER1PRESCALE)
   // set to DIV/64
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | TIMER1PRESCALE;
-  // TCCR1B &= ~(1 << 2);  // set CS12 to 0
-  // TCCR1B |= (1 << 1);   // set CS11 to 1
-  // TCCR1B |= (1 << 0);   // set CS10 to 1
 
   // reset TCNT1
   TCNT1H = 0;  // outb(TCNT1H, 0);
 	TCNT1L = 0;  // outb(TCNT1L, 0);
 
-  // enable TCNT1 overflow
   // TOIE1: Timer Overflow Interrupt Enable (Timer 1);
-  // If this bit is set and if global interrupts are enabled,
-  // the micro will jump to the Timer Overflow 1 interrupt vector
-  // upon Timer 1 Overflow.
-  // NOTE need to define ISR handler.
 	TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
 
   is_init = true;
@@ -115,9 +106,6 @@ void timer1Init(void) {
 void timer1UnInit(void) {
   // set prescaler back to NONE
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
-  // TCCR1B &= ~(1 << 2);  // set CS12 to 0
-  // TCCR1B &= ~(1 << 1);  // set CS11 to 0
-  // TCCR1B &= ~(1 << 0);  // set CS10 to 0
 
   // disable timer overflow interrupt
   TIMSK &= ~_BV(TOIE1); // overflow bit?
@@ -127,11 +115,19 @@ void timer1UnInit(void) {
   is_init = false;
 }
 
+
 // handle TCNT1 overflow
 //! Interrupt handler for tcnt1 overflow interrupt
 ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 {
-	sei(); // TODO check what it's for
+	// sei(); // NOTE Not necessary
+
+  // handle breathing here
+  #ifdef BACKLIGHT_BREATHING
+  if (is_breathing()) {
+    custom_breathing_handler();
+  }
+  #endif
 
   // TODO call user defined function
 }
@@ -142,8 +138,6 @@ void timer1PWMBEnable(void) {
   // timer1PWMBOn()
   // turn on channel B (OC1B) PWM output
   // set OC1B as non-inverted PWM
-  // TCCR1A |= (1 << 5);  // sbi(TCCR1A,COM1B1);
-  // TCCR1A &= ~(1 << 4); // cbi(TCCR1A,COM1B0);
   TCCR1A |= _BV(COM1B1);
   TCCR1A &= ~_BV(COM1B0);
 }
@@ -151,9 +145,6 @@ void timer1PWMBEnable(void) {
 // disable timer 1 PWM
 // timer1PWMBOff()
 void timer1PWMBDisable(void) {
-  /* timer1PWMBOff() */
-  // TCCR1A &= ~(1 << 5);  // cbi(TCCR1A,COM1B1);
-  // TCCR1A &= ~(1 << 4);  // cbi(TCCR1A,COM1B0);
   TCCR1A &= ~_BV(COM1B1);
   TCCR1A &= ~_BV(COM1B0);
 }
@@ -194,6 +185,10 @@ void b_led_init_ports(void) {
 
   timer1PWMSetup();
   startPWM();
+
+  #ifdef BACKLIGHT_BREATHING
+  breathing_enable();
+  #endif
 }
 
 // @Override

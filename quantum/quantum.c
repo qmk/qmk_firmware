@@ -909,7 +909,9 @@ void backlight_task(void) {
 #endif
 
 #ifdef BACKLIGHT_BREATHING
-#error "Backlight breathing only available with hardware PWM. Please disable."
+  #ifndef BACKLIGHT_CUSTOM_DRIVER
+  #error "Backlight breathing only available with hardware PWM. Please disable."
+  #endif
 #endif
 
 #else // pwm through timer
