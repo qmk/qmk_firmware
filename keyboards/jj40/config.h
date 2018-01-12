@@ -34,7 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN D4 // NOTE does not affect custom implementation.
+#define BACKLIGHT_LEVELS 12
+
+// NOTE does not affect custom implementation.
+// but still has to be defined for backlighting stuff to work
+#define BACKLIGHT_PIN D4
 
 #define TAPPING_TOGGLE 3
 

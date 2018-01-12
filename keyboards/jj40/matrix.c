@@ -47,6 +47,8 @@ void matrix_init(void) {
         matrix[row] = 0x00;
         matrix_debouncing[row] = 0x00;
     }
+
+    matrix_init_quantum();  // missing from original port by Luiz
 }
 
 void matrix_set_row_status(uint8_t row) {

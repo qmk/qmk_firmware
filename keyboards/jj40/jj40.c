@@ -24,15 +24,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "backlight.h"
 
-#include "backlight_PS2AVRGB.h"
 #include "i2c.h"
+
+#include "backlight_custom.h"
 
 extern rgblight_config_t rgblight_config;
 
 // for keyboard subdirectory level init functions
+// @Override
 void matrix_init_kb(void) {
   // call user level keymaps
-  matrix_init_user();
+  // matrix_init_user();
+
+  b_led_init_ports();
 }
 
 // custom RGB driver
@@ -57,9 +61,8 @@ void matrix_scan_user(void) {
     i2c_init();
     i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
     rgb_init = true;
-
-    // send_string("Hello world\n"); // can be used for debugging
   }
 
+  b_led_task();
   /* Nothing else for now. */
 }

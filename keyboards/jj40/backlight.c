@@ -7,14 +7,14 @@
 #include "quantum.h"
 #include <avr/pgmspace.h>
 
+#include "backlight_custom.h"
+
+
 // Port D: digital pins of the AVR chipset
 #define NUMLOCK_PORT    (1 << 1)  // 1st pin of Port D (digital)
 #define CAPSLOCK_PORT   (1 << 2)  // 2nd pin
 #define BACKLIGHT_PORT  (1 << 4)  // 4th pin
 #define SCROLLLOCK_PORT (1 << 6)  // 6th pin
-
-#define BACKLIGHT_CUSTOM_DRIVER
-#define BACKLIGHT_LEVELS 12 // downLevelMax
 
 #define PWM_MAX 0xFF
 
@@ -63,37 +63,43 @@ void led_set_user(uint8_t usb_led) {
     }
 }
 
+void b_led_init_ports(void) {
+  send_string("Initialising backlight ports.\n");
+
+    /* turn backlight on/off depending on user preference */
+    #if BACKLIGHT_ON_STATE == 0
+      // DDRx register: sets the direction of Port D
+      DDRD  &= ~BACKLIGHT_PORT;  // set digital pin 4 as input
+      PORTD &= ~BACKLIGHT_PORT;  // set digital pin 4 to low
+    #else
+      DDRD  |= BACKLIGHT_PORT;  // set digital pin 4 as output
+      PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
+    #endif
+
+    // DEBUG: force backlight to be on
+    DDRD  |= (1 << 4);  // set digital pin 4 as output
+    PORTD |= (1 << 4);  // set digital pin 4 to high
+
+    /* initialise timers */
+      /* set prescaler on timer 1 */
+      // set timer resolution to 8 bits
+      TCCR1A &= ~(1 << 1);  // cbi(TCCR1A, PWM11);
+      TCCR1A |= (1 << 0);   // sbi(TCCR1A, PWM10);
+
+      // commented out in source/timer.c; enabled in AVR's original code
+    	// clear output compare value A
+      // outb(OCR1AH, 0);
+      // outb(OCR1AL, 0);
+
+    	// clear output compare value B
+    	(OCR1BH) = 0;  // outb(OCR1BH, 0);
+    	(OCR1BL) = 0;  // outb(OCR1BL, 0);
+    /* END initialise timers */
+  }
+
+
 // @Override
-void backlight_init_ports(void) {
-  /* turn backlight on/off depending on user preference */
-  #if BACKLIGHT_ON_STATE == 0
-    // DDRx register: sets the direction of Port D
-    DDRD  |= BACKLIGHT_PORT;  // set digital pin 4 as output
-    PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
-  #else
-    DDRD  &= ~BACKLIGHT_PORT;  // set digital pin 4 as input
-    PORTD &= ~BACKLIGHT_PORT;  // set digital pin 4 to low
-  #endif
-
-  /* initialise timers */
-    /* set prescaler on timer 1 */
-    // set timer resolution to 8 bits
-    TCCR1A &= ~(1 << 1);  // cbi(TCCR1A, PWM11);
-    TCCR1A |= (1 << 0);   // sbi(TCCR1A, PWM10);
-
-    // commented out in source/timer.c; enabled in AVR's original code
-  	// clear output compare value A
-    // outb(OCR1AH, 0);
-    // outb(OCR1AL, 0);
-
-  	// clear output compare value B
-  	(OCR1BH) = 0;  // outb(OCR1BH, 0);
-  	(OCR1BL) = 0;  // outb(OCR1BL, 0);
-  /* END initialise timers */
-}
-
-// @Override
-void backlight_set(uint8_t level) {
+void b_led_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS) {
     level = BACKLIGHT_LEVELS;
   }
@@ -110,7 +116,7 @@ void backlight_set(uint8_t level) {
 
 // @Override
 // called every matrix scan
-void backlight_task(void) {
+void b_led_task(void) {
   if (backlight_config.enable) {
     DDRD  |= BACKLIGHT_PORT;  // set digital pin 4 as output
     PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
@@ -118,16 +124,8 @@ void backlight_task(void) {
     DDRD  &= ~BACKLIGHT_PORT;  // set digital pin 4 as input
     PORTD &= ~BACKLIGHT_PORT;  // set digital pin 4 to low
   }
-
   // update backlight: update/compare against PWM registers
 }
-
-/*
-void backlight_toggle(void);  // update state, store in EEPROM (eeconfig_update_backlight)
-void backlight_step(void);    // update state
-void backlight_increase(void);  // also only updates state
-void backlight_decrease(void);  // also only updates state
-*/
 
 void setPWM(int xValue){
     // if(_ledOff) return;  // TODO check backlight_config
