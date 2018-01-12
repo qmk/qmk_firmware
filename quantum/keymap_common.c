@@ -127,8 +127,11 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
             break;
     #ifdef BACKLIGHT_ENABLE
-        case BL_0 ... BL_15:
-            action.code = ACTION_BACKLIGHT_LEVEL(keycode - BL_0);
+        case BL_ON:
+            action.code = ACTION_BACKLIGHT_ON();
+            break;
+        case BL_OFF:
+            action.code = ACTION_BACKLIGHT_OFF();
             break;
         case BL_DEC:
             action.code = ACTION_BACKLIGHT_DECREASE();
@@ -169,6 +172,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 }
 
 // translates key to keycode
+__attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
     // Read entire word (16bits)

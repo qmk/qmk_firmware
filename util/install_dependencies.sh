@@ -111,4 +111,8 @@ elif [[ -n "$(type -P pkg)" ]]; then
     arm-none-eabi-binutils \
     arm-none-eabi-newlib \
     diffutils
+elif [[ -n "$(type -P emerge)" ]]; then
+    echo 'Please check that your gcc is built with the multilib use flag enabled.'
+    emerge -vq sys-devel/crossdev
+    USE="-openmp -hardened -sanitize -vtv" crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
 fi

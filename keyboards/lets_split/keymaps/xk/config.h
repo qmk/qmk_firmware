@@ -16,14 +16,11 @@ the Free Software Foundation, either version 2 of the License, or
 #include "../../config.h"
 
 #define TAPPING_TOGGLE 1
-#define TAPPING_TERM 200
+#define TAPPING_TERM 300
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_LAYER_TOGGLE 2
-#define ONESHOT_TIMEOUT 300
+#define ONESHOT_TIMEOUT 800
 
-/* Use I2C or Serial, not both */
-
-// #define USE_SERIAL
 #define USE_I2C
 
 #define MOUSEKEY_INTERVAL 50
@@ -36,12 +33,12 @@ the Free Software Foundation, either version 2 of the License, or
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 // #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 #define EE_HANDS
 
 
 #define PREVENT_STUCK_MODIFIERS
-//#define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
 #endif
