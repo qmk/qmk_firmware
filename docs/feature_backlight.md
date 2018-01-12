@@ -10,11 +10,11 @@ These keycodes control the backlight. Most keyboards use this for single color i
 |---------|------------------------------------------|
 |`BL_TOGG`|Turn the backlight on or off              |
 |`BL_STEP`|Cycle through backlight levels            |
-|`BL_ON`  |Set backlight to max brightness           |
-|`BL_OFF` |Turn backlight off                        |
-|`BL_INC` |Increase backlight level                  |
-|`BL_DEC` |Decrease backlight level                  |
-|`BL_BRTG`|Toggle backlight breathing				 |
+|`BL_ON`  |Set the backlight to max brightness       |
+|`BL_OFF` |Turn the backlight off                    |
+|`BL_INC` |Increase the backlight level              |
+|`BL_DEC` |Decrease the backlight level              |
+|`BL_BRTG`|Toggle backlight breathing                |
 
 Note that for backlight breathing, you need to have `#define BACKLIGHT_BREATHING` in your config.h.
 
