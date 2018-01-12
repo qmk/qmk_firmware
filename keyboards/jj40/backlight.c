@@ -73,59 +73,61 @@ void led_set_user(uint8_t usb_led) {
     }
 }
 
+// sets up Timer 1 for 8-bit PWM
+void timer1PWMSetup(void) {
+  // default 8bit mode
+  TCCR1A &= ~(1 << 1); // cbi(TCCR1A,PWM11); <- set PWM11 bit to HIGH
+  TCCR1A |= (1 << 0);  // sbi(TCCR1A,PWM10); <- set PWM10 bit to LOW
 
-// // see quantum.c backlight_init_ports()
-// void timer1PWMInit(void) {
-//   // default 8bit mode
-//   TCCR1A &= ~WGM11; // cbi(TCCR1A,PWM11);
-//   TCCR1A |= WGM10;  // sbi(TCCR1A,PWM10);
-//
-// // unused
-// // clear output compare value A
-// //	outb(OCR1AH, 0);
-// //	outb(OCR1AL, 0);
-//
-// 	// clear output compare value B
-// 	OCR1BH = 0; // outb(OCR1BH, 0);
-// 	OCR1BL = 0; // outb(OCR1BL, 0);
-// }
-//
-// void timer1Init(void) {
-//   // timer1SetPrescaler(TIMER1PRESCALE`)
-//   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | TIMER1PRESCALE;
-//
-//   // reset TCNT1
-//   TCNT1H = 0;  // outb(TCNT1H, 0);
-// 	TCNT1L = 0;  // outb(TCNT1L, 0);
-//
-//   // enable TCNT1 overflow
-// 	TIMSK |= TOIE1; // sbi(TIMSK, TOIE1);
-// }
-//
-// void timer1PWMBOn(void) {
-//   // timer1PWMBOn()
-//   // turn on channel B (OC1B) PWM output
-//   // set OC1B as non-inverted PWM
-//   TCCR1A |= COM1B1;  // sbi(TCCR1A,COM1B1);
-//   TCCR1A &= ~COM1B0; // cbi(TCCR1A,COM1B0);
-// }
-//
-// void timer1PWMBOff(void) {
-//   /* timer1PWMBOff() */
-//   TCCR1A &= ~COM1B1;  // cbi(TCCR1A,COM1B1);
-//   TCCR1A &= ~COM1B0;  // cbi(TCCR1A,COM1B0);
-// }
-//
-// void timer1Stop(void) {
-//   // set prescaler
-//   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
-//
-//   // disable timer overflow interrupt
-//   TIMSK &= ~TOIE1; // overflow bit?
-//
-//   setPWM(0);
-// }
+// unused
+// clear output compare value A
+//	outb(OCR1AH, 0);
+//	outb(OCR1AL, 0);
 
+  // clear output compare registers for B
+	OCR1BH = 0; // outb(OCR1BH, 0);
+	OCR1BL = 0; // outb(OCR1BL, 0);
+}
+
+void timer1Init(void) {
+  // timer1SetPrescaler(TIMER1PRESCALE`)
+  (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | TIMER1PRESCALE;
+
+  // reset TCNT1
+  TCNT1H = 0;  // outb(TCNT1H, 0);
+	TCNT1L = 0;  // outb(TCNT1L, 0);
+
+  // enable TCNT1 overflow
+	TIMSK |= TOIE1; // sbi(TIMSK, TOIE1);
+}
+
+void timer1Stop(void) {
+  // set prescaler back to NONE
+  (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
+
+  // disable timer overflow interrupt
+  TIMSK &= ~TOIE1; // overflow bit?
+
+  setPWM(0);
+}
+
+// enable timer 1 PWM
+void timer1PWMEnable(void) {
+  // timer1PWMBOn()
+  // turn on channel B (OC1B) PWM output
+  // set OC1B as non-inverted PWM
+  TCCR1A |= COM1B1;  // sbi(TCCR1A,COM1B1);
+  TCCR1A &= ~COM1B0; // cbi(TCCR1A,COM1B0);
+}
+
+// disable timer 1 PWM
+void timer1PWMBDisable(void) {
+  /* timer1PWMBOff() */
+  TCCR1A &= ~COM1B1;  // cbi(TCCR1A,COM1B1);
+  TCCR1A &= ~COM1B0;  // cbi(TCCR1A,COM1B0);
+}
+
+//
 void enableBacklight(void) {
   DDRD  |= BACKLIGHT_PORT;  // set digital pin 4 as output
   PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
@@ -135,7 +137,6 @@ void disableBacklight(void) {
   // DDRD  &= ~BACKLIGHT_PORT;  // set digital pin 4 as input
   PORTD &= ~BACKLIGHT_PORT;  // set digital pin 4 to low
 }
-
 
 void b_led_init_ports(void) {
   /* turn backlight on/off depending on user preference */
@@ -149,10 +150,10 @@ void b_led_init_ports(void) {
   #endif
 
   /* initialise timers */
-  // timer1PWMInit();
+  timer1PWMInit();
 
   // only if USB
-  // turnOnPWMLED();
+  timer1PWMBEnable();
   enableBacklight();
 }
 
@@ -163,14 +164,15 @@ void b_led_set(uint8_t level) {
   }
 
   if (level == 0) {
-    disableBacklight();
+    timer1PWMBDisable();
+    // enabled in task()
   }
-  // else {
-  //   // timer1Init();
-  //   enableBacklight();
-  // }
+  else {
+    timer1PWMBEnable();
+    // enabled in task()
+  }
 
-  // setPWM((int)(TIMER_TOP * (float) level / BACKLIGHT_LEVELS));
+  setPWM((int)(TIMER_TOP * (float) level / BACKLIGHT_LEVELS));
 }
 
 
