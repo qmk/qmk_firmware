@@ -84,7 +84,7 @@ void timer1PWMSetup(void) {
 //	outb(OCR1AH, 0);
 //	outb(OCR1AL, 0);
 
-  // clear output compare registers for B
+  // clear output comparator registers for B
 	OCR1BH = 0; // outb(OCR1BH, 0);
 	OCR1BL = 0; // outb(OCR1BL, 0);
 }
@@ -98,7 +98,7 @@ void timer1Init(void) {
 	TCNT1L = 0;  // outb(TCNT1L, 0);
 
   // enable TCNT1 overflow
-	TIMSK |= TOIE1; // sbi(TIMSK, TOIE1);
+	TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
 }
 
 void timer1Stop(void) {
@@ -106,7 +106,7 @@ void timer1Stop(void) {
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
 
   // disable timer overflow interrupt
-  TIMSK &= ~TOIE1; // overflow bit?
+  TIMSK &= ~_BV(TOIE1); // overflow bit?
 
   setPWM(0);
 }
@@ -116,15 +116,15 @@ void timer1PWMBEnable(void) {
   // timer1PWMBOn()
   // turn on channel B (OC1B) PWM output
   // set OC1B as non-inverted PWM
-  TCCR1A |= COM1B1;  // sbi(TCCR1A,COM1B1);
-  TCCR1A &= ~COM1B0; // cbi(TCCR1A,COM1B0);
+  TCCR1A |= _BV(COM1B1);  // sbi(TCCR1A,COM1B1);
+  TCCR1A &= ~_BV(COM1B0); // cbi(TCCR1A,COM1B0);
 }
 
 // disable timer 1 PWM
 void timer1PWMBDisable(void) {
   /* timer1PWMBOff() */
-  TCCR1A &= ~COM1B1;  // cbi(TCCR1A,COM1B1);
-  TCCR1A &= ~COM1B0;  // cbi(TCCR1A,COM1B0);
+  TCCR1A &= ~_BV(COM1B1);  // cbi(TCCR1A,COM1B1);
+  TCCR1A &= ~_BV(COM1B0);  // cbi(TCCR1A,COM1B0);
 }
 
 //
@@ -179,6 +179,10 @@ void b_led_set(uint8_t level) {
 // @Override
 // called every matrix scan
 void b_led_task(void) {
+  // char buffer[20];
+  // snprintf(buffer, 20, "%d\n", OCR1B);
+  // send_string(buffer);
+
   if (backlight_config.enable) {
     enableBacklight();
   } else {
@@ -187,9 +191,11 @@ void b_led_task(void) {
 }
 
 void setPWM(int xValue) {
-  char buffer[20];
-  snprintf(buffer, 20, "%d\n", xValue);
-  send_string(buffer);
+  // char buffer[20];
+  // snprintf(buffer, 20, "%d\n", xValue);
+  // send_string(buffer);
+  //
+  // _delay_ms(10);
 
   if (xValue > TIMER_TOP) {
     xValue = TIMER_TOP;
