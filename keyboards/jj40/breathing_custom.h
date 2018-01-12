@@ -61,7 +61,8 @@ void breathing_pulse(void) {
 
 void breathing_disable(void) {
   breathing = false;
-  // TODO backlight_set original level
+  // backlight_set(get_backlight_level());
+  b_led_set(get_backlight_level()); // custom implementation of backlight_set()
 }
 
 void breathing_self_disable(void)
