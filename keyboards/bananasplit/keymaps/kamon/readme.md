@@ -1,4 +1,5 @@
 # Kamon's keymap for the Bananasplit
+A simple layout to get you started with the BananaSplit60.
 
 Default layer:
 
