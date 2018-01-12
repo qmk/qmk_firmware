@@ -208,11 +208,7 @@ void b_led_set(uint8_t level) {
 // @Override
 // called every matrix scan
 void b_led_task(void) {
-  // if (backlight_config.enable) {
-  //   startPWM();
-  // } else {
-  //   stopPWM();
-  // }
+  // do nothing for now
 }
 
 void setPWM(uint16_t xValue) {
