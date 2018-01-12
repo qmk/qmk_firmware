@@ -5,7 +5,9 @@
 
 #include "backlight.h"
 #include "quantum.h"
+
 #include <avr/pgmspace.h>
+#include <avr/interrupt.h>
 
 #include "backlight_custom.h"
 
@@ -20,9 +22,10 @@
 #define BACKLIGHT_PORT  (1 << 4)  // 4th pin
 #define SCROLLLOCK_PORT (1 << 6)  // 6th pin
 
-#define TIMER_PRESCALE_MASK		0x07	///< Timer Prescaler Bit-Mask
 #define TIMER_CLK_DIV64			  0x03	///< Timer clocked at F_CPU/64
 #define TIMER1PRESCALE	TIMER_CLK_DIV64 ///< timer 1 prescaler default
+
+#define TIMER_PRESCALE_MASK		0x07	///< Timer Prescaler Bit-Mask
 
 #define PWM_MAX 0xFF
 #define TIMER_TOP 255 // 8 bit PWM
@@ -41,7 +44,7 @@ COM1A1 COM1A0                                  PWM11   PWM10
 */
 
 // Function signatures
-void setPWM(int xValue);
+void setPWM(uint16_t xValue);
 // uint16_t getBrightness(uint16_t value);
 
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
@@ -79,10 +82,9 @@ void timer1PWMSetup(void) {
   TCCR1A &= ~(1 << 1); // cbi(TCCR1A,PWM11); <- set PWM11 bit to HIGH
   TCCR1A |= (1 << 0);  // sbi(TCCR1A,PWM10); <- set PWM10 bit to LOW
 
-// unused
-// clear output compare value A
-//	outb(OCR1AH, 0);
-//	outb(OCR1AL, 0);
+  // clear output compare value A
+  // outb(OCR1AH, 0);
+  // outb(OCR1AL, 0);
 
   // clear output comparator registers for B
 	OCR1BH = 0; // outb(OCR1BH, 0);
@@ -90,7 +92,7 @@ void timer1PWMSetup(void) {
 }
 
 void timer1Init(void) {
-  // timer1SetPrescaler(TIMER1PRESCALE`)
+  // timer1SetPrescaler(TIMER1PRESCALE)
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | TIMER1PRESCALE;
 
   // reset TCNT1
@@ -98,17 +100,31 @@ void timer1Init(void) {
 	TCNT1L = 0;  // outb(TCNT1L, 0);
 
   // enable TCNT1 overflow
+  // TOIE1: Timer Overflow Interrupt Enable (Timer 1);
+  // If this bit is set and if global interrupts are enabled,
+  // the micro will jump to the Timer Overflow 1 interrupt vector
+  // upon Timer 1 Overflow.
 	TIMSK |= _BV(TOIE1); // sbi(TIMSK, TOIE1);
 }
 
-void timer1Stop(void) {
+void timer1UnInit(void) {
   // set prescaler back to NONE
   (TCCR1B) = ((TCCR1B) & ~TIMER_PRESCALE_MASK) | 0x00;  // TIMERRTC_CLK_STOP
 
   // disable timer overflow interrupt
   TIMSK &= ~_BV(TOIE1); // overflow bit?
 
-  setPWM(0);
+  // setPWM(0);
+}
+
+// handle TCNT1 overflow
+//! Interrupt handler for tcnt1 overflow interrupt
+
+ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
+{
+	sei();
+
+  // TODO call user defined function
 }
 
 // enable timer 1 PWM
@@ -153,7 +169,7 @@ void b_led_init_ports(void) {
   timer1Init();
 
   // only if USB
-  timer1PWMBEnable();
+  // timer1PWMBEnable();
   enableBacklight();
 }
 
@@ -163,40 +179,24 @@ void b_led_set(uint8_t level) {
     level = BACKLIGHT_LEVELS;
   }
 
-  if (level == 0) {
-    timer1PWMBDisable();
-    // enabled in task()
-  }
-  else {
-    timer1PWMBEnable();
-    // enabled in task()
-  }
-
   setPWM((int)(TIMER_TOP * (float) level / BACKLIGHT_LEVELS));
+  // setPWM(0);
 }
 
 
 // @Override
 // called every matrix scan
 void b_led_task(void) {
-  // char buffer[20];
-  // snprintf(buffer, 20, "%d\n", OCR1B);
-  // send_string(buffer);
-
   if (backlight_config.enable) {
+    timer1Init();
     enableBacklight();
   } else {
+    timer1UnInit();
     disableBacklight();
   }
 }
 
-void setPWM(int xValue) {
-  // char buffer[20];
-  // snprintf(buffer, 20, "%d\n", xValue);
-  // send_string(buffer);
-  //
-  // _delay_ms(10);
-
+void setPWM(uint16_t xValue) {
   if (xValue > TIMER_TOP) {
     xValue = TIMER_TOP;
   }
