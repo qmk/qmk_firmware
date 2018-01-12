@@ -21,7 +21,7 @@ Note that for backlight breathing, you need to have `#define BACKLIGHT_BREATHING
 ## Configuration Options in `config.h`
 
 * `BACKLIGHT_PIN B7` defines the pin that controlls the LEDs. Unless you design your own keyboard, you don't need to set this.
-* `BACKLIGHT_LEVELS 3` defines the number of brightness levels (excluding OFF).
+* `BACKLIGHT_LEVELS 3` defines the number of brightness levels (maximum 15 excluding off).
 * `BACKLIGHT_BREATHING` if defined, enables backlight breathing. Note that this is only available if `BACKLIGHT_PIN` is B5, B6 or B7.
 * `BREATHING_PERIOD 6` defines the length of one backlight "breath" in seconds.
 
