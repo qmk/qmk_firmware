@@ -38,6 +38,8 @@ void matrix_init_kb(void) {
 }
 
 #ifdef BACKLIGHT_ENABLE
+/// Overrides functions in `quantum.c`
+
 void backlight_init_ports(void) {
   b_led_init_ports();
 }

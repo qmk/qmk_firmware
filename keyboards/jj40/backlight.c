@@ -41,8 +41,7 @@ Timers: http://www.avrbeginners.net/architecture/timers/timers.html
 PS2AVRGB firmware: https://github.com/showjean/ps2avrU/tree/master/firmware
 */
 
-// uint16_t getBrightness(uint16_t value);
-
+// @Override
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {
@@ -122,7 +121,6 @@ void timer1UnInit(void) {
 ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 {
 	// sei();
-
   // handle breathing here
   #ifdef BACKLIGHT_BREATHING
   if (is_breathing()) {
@@ -136,7 +134,6 @@ ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 // enable timer 1 PWM
 // timer1PWMBOn()
 void timer1PWMBEnable(void) {
-  // timer1PWMBOn()
   // turn on channel B (OC1B) PWM output
   // set OC1B as non-inverted PWM
   TCCR1A |= _BV(COM1B1);
@@ -150,7 +147,6 @@ void timer1PWMBDisable(void) {
   TCCR1A &= ~_BV(COM1B0);
 }
 
-//
 void enableBacklight(void) {
   DDRD  |= BACKLIGHT_PORT;  // set digital pin 4 as output
   PORTD |= BACKLIGHT_PORT;  // set digital pin 4 to high
@@ -192,7 +188,6 @@ void b_led_init_ports(void) {
   #endif
 }
 
-// @Override
 void b_led_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS) {
     level = BACKLIGHT_LEVELS;
@@ -201,7 +196,6 @@ void b_led_set(uint8_t level) {
   setPWM((int)(TIMER_TOP * (float) level / BACKLIGHT_LEVELS));
 }
 
-// @Override
 // called every matrix scan
 void b_led_task(void) {
   // do nothing for now
