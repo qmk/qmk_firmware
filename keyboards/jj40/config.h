@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_LEVELS 12
-#define BACKLIGHT_BREATHING
+// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
 
 #define TAPPING_TOGGLE 3
 
