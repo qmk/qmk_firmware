@@ -1,6 +1,6 @@
 /**
  * Backlighting code for PS2AVRGB boards (ATMEGA32A)
- * By Kenneth (github.com/krusli | krusli.me)
+ * Kenneth A. (github.com/krusli | krusli.me)
  */
 
 #include "backlight.h"
@@ -30,16 +30,16 @@
 #define PWM_MAX 0xFF
 #define TIMER_TOP 255 // 8 bit PWM
 
-
 extern backlight_config_t backlight_config;
-/*
-References
-Port Registers: https://www.arduino.cc/en/Reference/PortManipulation
-TCCR1A: https://electronics.stackexchange.com/questions/92350/what-is-the-difference-between-tccr1a-and-tccr1b
-Timers: http://www.avrbeginners.net/architecture/timers/timers.html
-16-bit timer setup: http://sculland.com/ATmega168/Interrupts-And-Timers/16-Bit-Timer-Setup/
-PS2AVRGB firmware: https://github.com/showjean/ps2avrU/tree/master/firmware
-*/
+
+/**
+ * References
+ * Port Registers: https://www.arduino.cc/en/Reference/PortManipulation
+ * TCCR1A: https://electronics.stackexchange.com/questions/92350/what-is-the-difference-between-tccr1a-and-tccr1b
+ * Timers: http://www.avrbeginners.net/architecture/timers/timers.html
+ * 16-bit timer setup: http://sculland.com/ATmega168/Interrupts-And-Timers/16-Bit-Timer-Setup/
+ * PS2AVRGB firmware: https://github.com/showjean/ps2avrU/tree/master/firmware
+ */
 
 // @Override
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
@@ -72,6 +72,7 @@ void led_set_user(uint8_t usb_led) {
 }
 
 #ifdef BACKLIGHT_ENABLE
+
 // sets up Timer 1 for 8-bit PWM
 void timer1PWMSetup(void) { // NOTE ONLY CALL THIS ONCE
   // default 8 bit mode
@@ -207,4 +208,5 @@ void setPWM(uint16_t xValue) {
   }
   OCR1B = xValue; // timer1PWMBSet(xValue);
 }
+
 #endif  // BACKLIGHT_ENABLE

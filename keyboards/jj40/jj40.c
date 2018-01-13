@@ -1,6 +1,6 @@
 /*
 Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-Modified 2018 by Kenneth <github.com/krusli>
+Modified 2018 Kenneth A. <github.com/krusli>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,7 +39,6 @@ void matrix_init_kb(void) {
 
 #ifdef BACKLIGHT_ENABLE
 /// Overrides functions in `quantum.c`
-
 void backlight_init_ports(void) {
   b_led_init_ports();
 }

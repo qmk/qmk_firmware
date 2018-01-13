@@ -1,3 +1,12 @@
+/**
+ * Breathing effect code for PS2AVRGB boards (ATMEGA32A)
+ * Works in conjunction with `backlight.c`.
+ *
+ * Code adapted from `quantum.c` to register with the existing TIMER1 overflow
+ * handler in `backlight.c` instead of setting up its own timer.
+ * Kenneth A. (github.com/krusli | krusli.me)
+ */
+
 #ifdef BACKLIGHT_ENABLE
 #ifdef BACKLIGHT_BREATHING
 
