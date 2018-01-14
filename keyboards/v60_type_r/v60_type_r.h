@@ -18,6 +18,23 @@
 
 #include "quantum.h"
 
+#include "rgblight.h"
+
+#ifdef V60_POLESTAR
+
+void rgb_init(void);
+void set_rgb_color(uint8_t pin, uint8_t value, uint8_t timer_value);
+
+enum my_keycodes {
+  RGB_RI = SAFE_RANGE,
+  RGB_RD,
+  RGB_GI,
+  RGB_GD,
+  RGB_BI,
+  RGB_BD
+};
+#endif
+
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array

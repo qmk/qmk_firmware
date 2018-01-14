@@ -275,7 +275,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 
     .ManufacturerStrIndex   = 0x01,
     .ProductStrIndex        = 0x02,
-    .SerialNumStrIndex      = NO_DESCRIPTOR,
+    .SerialNumStrIndex      = 0x03,
 
     .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
@@ -860,6 +860,18 @@ const USB_Descriptor_String_t PROGMEM ProductString =
     .UnicodeString          = LSTR(PRODUCT)
 };
 
+#ifndef SERIAL_NUMBER
+    #define SERIAL_NUMBER 0
+#endif
+
+const USB_Descriptor_String_t PROGMEM SerialNumberString =
+{
+    /* subtract 1 for null terminator */
+    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1), .Type = DTYPE_String},
+
+    .UnicodeString          = LSTR(SERIAL_NUMBER)
+};
+
 
 /** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
  *  documentation) by the application code so that the address and size of a requested descriptor can be given
@@ -901,6 +913,10 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
                 case 0x02:
                     Address = &ProductString;
                     Size    = pgm_read_byte(&ProductString.Header.Size);
+                    break;
+                case 0x03:
+                    Address = &SerialNumberString;
+                    Size    = pgm_read_byte(&SerialNumberString.Header.Size);
                     break;
             }
             break;

@@ -138,7 +138,7 @@ enum layer_id {
 void clueboard_set_led(uint8_t id, uint8_t val) {
   switch (id) {
     case LAYER_BASE:
-      rgblight_sethsv_noeeprom(0, 0, val);
+      rgblight_sethsv_noeeprom(190, 255, val);
       break;
     case LAYER_FUNCTION:
       rgblight_sethsv_noeeprom(46, 255, val);

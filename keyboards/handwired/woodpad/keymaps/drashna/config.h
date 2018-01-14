@@ -17,13 +17,14 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 #ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 200
 #endif // TAP_DANCE_ENABLE
 
 
+#define B5_AUDIO
 
 
 #ifdef RGBLIGHT_ENABLE
@@ -38,6 +39,6 @@
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-
+#define FORCE_NKRO
 
 #endif

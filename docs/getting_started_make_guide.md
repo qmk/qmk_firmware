@@ -1,10 +1,10 @@
-# More detailed make instruction
+# More Detailed `make` Instructions
 
 The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, where:
 
 * `<keyboard_folder>` is the path of the keyboard, for example `planck`
   * Use `all` to compile all keyboards
-  * Specify the path to compile a revision, for example `planck/rev4` or `planck/rev3` 
+  * Specify the path to compile a revision, for example `planck/rev4` or `planck/rev3`
   * If the keyboard doesn't have any folders, it can be left out
   * To compile the default folder, you can leave it out
 * `<keymap>` is the name of the keymap, for example `algernon`
@@ -13,8 +13,8 @@ The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, 
 
 The `<target>` means the following
 * If no target is given, then it's the same as `all` below
-* `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default:all` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
-* `dfu`, `teensy` or `dfu-util`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme. 
+* `all` compiles as many keyboard/revision/keymap combinations as specified. For example, `make planck/rev4:default` will generate a single .hex, while `make planck/rev4:all` will generate a hex for every keymap available to the planck.
+* `dfu`, `teensy` or `dfu-util`, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's `dfu`, but for ChibiOS keyboards you should use `dfu-util`, and `teensy` for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.
  * **Note**: some operating systems need root access for these commands to work, so in that case you need to run for example `sudo make planck/rev4:default:dfu`.
 * `clean`, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.
 
@@ -30,10 +30,10 @@ The make command itself also has some additional options, type `make --help` for
 Here are some examples commands
 
 * `make all:all` builds everything (all keyboard folders, all keymaps). Running just `make` from the `root` will also run this.
-* `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard. 
+* `make ergodox_infinity:algernon:clean` will clean the build output of the Ergodox Infinity keyboard.
 * `make planck/rev4:default:dfu COLOR=false` builds and uploads the keymap without color output.
 
-## `rules.mk` options
+## `rules.mk` Options
 
 Set these variables to `no` to disable them, and `yes` to enable them.
 
@@ -53,9 +53,9 @@ This allows you to use the system and audio control key codes.
 
 `CONSOLE_ENABLE`
 
-This allows you to print messages that can be read using [`hid_listen`](https://www.pjrc.com/teensy/hid_listen.html). 
+This allows you to print messages that can be read using [`hid_listen`](https://www.pjrc.com/teensy/hid_listen.html).
 
-By default, all debug (*dprint*) print (*print*, *xprintf*), and user print (*uprint*) messages will be enabled. This will eat up a significant portion of the flash and may make the keyboard .hex file too big to program. 
+By default, all debug (*dprint*) print (*print*, *xprintf*), and user print (*uprint*) messages will be enabled. This will eat up a significant portion of the flash and may make the keyboard .hex file too big to program.
 
 To disable debug messages (*dprint*) and reduce the .hex file size, include `#define NO_DEBUG` in your `config.h` file.
 
@@ -65,7 +65,7 @@ To disable print messages (*print*, *xprintf*) and **KEEP** user print messages 
 
 To see the text, open `hid_listen` and enjoy looking at your printed messages.
 
-**NOTE:** Do not include *uprint* messages in anything other than your keymap code. It must not be used within the QMK system framework. Otherwise, you will bloat other people's .hex files. 
+**NOTE:** Do not include *uprint* messages in anything other than your keymap code. It must not be used within the QMK system framework. Otherwise, you will bloat other people's .hex files.
 
 Consumes about 400 bytes.
 
@@ -133,7 +133,7 @@ This consumes about 5390 bytes.
 
 This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
 
-## Customizing Makefile options on a per-keymap basis
+## Customizing Makefile Options on a Per-Keymap Basis
 
 If your keymap directory has a file called `rules.mk` any options you set in that file will take precedence over other `rules.mk` options for your particular keyboard.
 
