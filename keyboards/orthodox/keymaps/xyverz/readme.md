@@ -1,4 +1,4 @@
-# Xyverz's Atreus Keymap
+# Xyverz's Orthodox Keymap
 
 ## About this keymap:
 
