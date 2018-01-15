@@ -209,7 +209,9 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
-  preprocess_tap_dance(keycode, record);
+  #ifdef TAP_DANCE_ENABLE
+    preprocess_tap_dance(keycode, record);
+  #endif
 
   if (!(
   #if defined(KEY_LOCK_ENABLE)
