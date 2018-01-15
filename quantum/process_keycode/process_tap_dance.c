@@ -122,6 +122,8 @@ void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
   for (int i = 0; i <= highest_td; i++) {
     action = &tap_dance_actions[i];
     if (action->state.count) {
+      if (keycode == action->state.keycode && keycode == last_td)
+        continue;
       action->state.interrupted = true;
       process_tap_dance_action_on_dance_finished (action);
       reset_tap_dance (&action->state);
