@@ -209,6 +209,8 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  preprocess_tap_dance(keycode, record);
+
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
