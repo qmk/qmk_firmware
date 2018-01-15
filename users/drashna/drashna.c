@@ -16,10 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-#include "quantum.h"
-#include "action.h"
 #include "version.h"
-#include "sensitive.h"
+
+#if (__has_include("secrets.h"))
+#include "secrets.h"
+#else
+PROGMEM const char secret[][64] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -439,8 +448,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
       ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-       ":avrdude"
+//#elif defined(BOOTLOADER_CATERINA)
+//       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
         " RGBLIGHT_ENABLE=yes"
@@ -486,7 +495,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
-      send_string(secret[keycode - KC_SECRET_1]);
+      send_string_P(secret[keycode - KC_SECRET_1]);
     }
     return false;
     break;
@@ -538,7 +547,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_set_green;
       rgblight_mode(22);
       break;
-    case _OVERWATCH:
+    case _GAMEPAD:
       rgblight_set_orange;
       rgblight_mode(17);
       break;
@@ -561,6 +570,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     case _COVECUBE:
       rgblight_set_green;
       rgblight_mode(2);
+      break;
     default:
       if (default_layer & (1UL << _COLEMAK)) {
         rgblight_set_magenta;

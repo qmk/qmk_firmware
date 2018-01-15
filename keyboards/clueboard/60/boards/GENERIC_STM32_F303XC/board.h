@@ -416,7 +416,7 @@
                                      PIN_PUPDR_PULLUP(GPIOB_PIN4) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN5) |         \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN6) |   \
-                                     PIN_PUPDR_PULLUP(GPIOB_PIN7) |   \
+                                     PIN_PUPDR_PULLDOWN(GPIOB_PIN7) |   \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN8) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN9) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN10) |        \
@@ -432,7 +432,7 @@
                                      PIN_ODR_HIGH(GPIOB_PIN4) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN5) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN6) |         \
-                                     PIN_ODR_HIGH(GPIOB_PIN7) |         \
+                                     PIN_ODR_LOW(GPIOB_PIN7) |         \
                                      PIN_ODR_HIGH(GPIOB_PIN8) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN9) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN10) |            \
