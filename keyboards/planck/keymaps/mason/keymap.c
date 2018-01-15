@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {_______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, _______},
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, _______},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_GRV),  S(KC_BSLS), _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,   KC_ASTR,    KC_LPRN, KC_RPRN, _______},
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,   KC_PLUS,    KC_LCBR, KC_RCBR, _______},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_GRV), S(KC_BSLS), _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______,   KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
 /* Raise
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_POWER},
   {_______, BL_TOGG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, RGB_TOG, RGB_HUI, RGB_HUD, RGB_MOD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
