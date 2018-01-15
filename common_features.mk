@@ -34,7 +34,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
-    SRC += $(QUANTUM_DIR)/audio/audio.c
+    ifeq ($(PLATFORM),AVR)
+        SRC += $(QUANTUM_DIR)/audio/audio.c
+    else
+        SRC += $(QUANTUM_DIR)/audio/audio_arm.c
+    endif
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
