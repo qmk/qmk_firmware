@@ -36,6 +36,10 @@
 // Enable vibrato strength/amplitude - slows down ISR too much
 // #define VIBRATO_STRENGTH_ENABLE
 
+#if defined(__AVR__)
+
+// avr
+
 #ifdef B_AUDIO
 #error Please define B5_AUDIO, B6_AUDIO, or B7_AUDIO instead
 #endif
@@ -56,6 +60,17 @@
 
 #define TIMER_1_INDEX 0
 #define TIMER_3_INDEX 1 
+
+#else
+
+// chibios
+
+#define NUMBER_OF_TIMERS 2
+
+#define TIMER_6_INDEX 0
+#define TIMER_7_INDEX 1 
+
+#endif
 
 typedef union {
     uint8_t raw;

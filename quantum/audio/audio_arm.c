@@ -47,7 +47,7 @@ bool     playing_note = false;
 float    note_frequency = 0;
 float    note_length = 0;
 uint8_t  note_tempo = TEMPO_DEFAULT;
-float    note_timbre = TIMBRE_DEFAULT;
+float    note_timbre[NUMBER_OF_TIMERS] = {TIMBRE_DEFAULT};
 uint16_t note_position = 0;
 float (* notes_pointer)[][2];
 uint16_t notes_count;
@@ -69,8 +69,8 @@ static bool audio_initialized = false;
 
 audio_config_t audio_config;
 
-uint16_t envelope_index = 0;
-bool glissando = true;
+uint16_t envelope_index[NUMBER_OF_TIMERS] = {0};
+bool glissando[NUMBER_OF_TIMERS] = {true};
 
 #ifndef STARTUP_SONG
     #define STARTUP_SONG SONG(STARTUP_SOUND)
@@ -384,7 +384,7 @@ static void gpt_cb8(GPTDriver *gptp) {
             float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
-                        if (glissando) {
+                        if (glissando[TIMER_6_INDEX]) {
                             if (frequency_alt != 0 && frequency_alt < frequencies[voices - 2] && frequency_alt < frequencies[voices - 2] * pow(2, -440/frequencies[voices - 2]/12/2)) {
                                 frequency_alt = frequency_alt * pow(2, 440/frequency_alt/12/2);
                             } else if (frequency_alt != 0 && frequency_alt > frequencies[voices - 2] && frequency_alt > frequencies[voices - 2] * pow(2, 440/frequencies[voices - 2]/12/2)) {
@@ -407,11 +407,11 @@ static void gpt_cb8(GPTDriver *gptp) {
                         #endif
                     }
 
-                    if (envelope_index < 65535) {
-                        envelope_index++;
+                    if (envelope_index[TIMER_6_INDEX] < 65535) {
+                        envelope_index[TIMER_6_INDEX]++;
                     }
 
-                    freq_alt = voice_envelope(freq_alt);
+                    freq_alt = voice_envelope(freq_alt, TIMER_6_INDEX);
 
                     if (freq_alt < 30.517578125) {
                         freq_alt = 30.52;
@@ -444,7 +444,7 @@ static void gpt_cb8(GPTDriver *gptp) {
                     freq = frequencies[voice_place];
                 #endif
             } else {
-                if (glissando) {
+                if (glissando[TIMER_7_INDEX]) {
                     if (frequency != 0 && frequency < frequencies[voices - 1] && frequency < frequencies[voices - 1] * pow(2, -440/frequencies[voices - 1]/12/2)) {
                         frequency = frequency * pow(2, 440/frequency/12/2);
                     } else if (frequency != 0 && frequency > frequencies[voices - 1] && frequency > frequencies[voices - 1] * pow(2, 440/frequencies[voices - 1]/12/2)) {
@@ -467,11 +467,11 @@ static void gpt_cb8(GPTDriver *gptp) {
                 #endif
             }
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_7_INDEX] < 65535) {
+                envelope_index[TIMER_7_INDEX]++;
             }
 
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_7_INDEX);
 
             if (freq < 30.517578125) {
                 freq = 30.52;
@@ -499,10 +499,10 @@ static void gpt_cb8(GPTDriver *gptp) {
                     freq = note_frequency;
             #endif
 
-            if (envelope_index < 65535) {
-                envelope_index++;
+            if (envelope_index[TIMER_6_INDEX] < 65535) {
+                envelope_index[TIMER_6_INDEX]++;
             }
-            freq = voice_envelope(freq);
+            freq = voice_envelope(freq, TIMER_6_INDEX);
 
 
             if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
@@ -551,7 +551,7 @@ static void gpt_cb8(GPTDriver *gptp) {
                 }
             } else {
                 note_resting = false;
-                envelope_index = 0;
+                envelope_index[TIMER_6_INDEX] = 0;
                 note_frequency = (*notes_pointer)[current_note][0];
                 note_length = ((*notes_pointer)[current_note][1] / 4) * (((float)note_tempo) / 100);
             }
@@ -582,7 +582,8 @@ void play_note(float freq, int vol) {
 
         playing_note = true;
 
-        envelope_index = 0;
+        envelope_index[TIMER_6_INDEX] = 0;
+        envelope_index[TIMER_7_INDEX] = 0;
 
         if (freq > 0) {
             frequencies[voices] = freq;
@@ -715,8 +716,8 @@ void decrease_polyphony_rate(float change) {
 
 // Timbre function
 
-void set_timbre(float timbre) {
-    note_timbre = timbre;
+void set_timbre(float timbre, uint8_t timer_index) {
+    note_timbre[timer_index] = timbre;
 }
 
 // Tempo functions
