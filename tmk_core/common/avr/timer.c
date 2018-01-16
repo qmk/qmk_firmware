@@ -43,6 +43,7 @@ void timer_init(void)
 #   error "Timer prescaler value is NOT vaild."
 #endif
 
+#ifndef __AVR_XMEGA__
 #ifndef __AVR_ATmega32A__
     // Timer0 CTC mode
     TCCR0A = 0x02;
@@ -57,6 +58,13 @@ void timer_init(void)
 
     OCR0 = TIMER_RAW_TOP;
     TIMSK = (1 << OCIE0);
+#endif
+#else
+    TCC0.CTRLE = 0x01;         // set timer in 8bit mode (default is 16 bits)
+    TCC0.INTCTRLA = 0x02;     // Interrupt Enable register A (enable INT for tc0 (medium level))
+    TCC0.PER = 132;                // set period to 228 khz
+    TCC0.PERBUF = 132;         // buffer for writing to TCC0.PER.
+    TCC0.CTRLA = prescaler;         // clk=30324000 H
 #endif
 }
 
@@ -117,10 +125,14 @@ uint32_t timer_elapsed32(uint32_t last)
 }
 
 // excecuted once per 1ms.(excess for just timer count?)
+#ifndef __AVR_XMEGA__
 #ifndef __AVR_ATmega32A__
 #define TIMER_INTERRUPT_VECTOR TIMER0_COMPA_vect
 #else
 #define TIMER_INTERRUPT_VECTOR TIMER0_COMP_vect
+#endif
+#else
+#define TIMER_INTERRUPT_VECTOR TCE0_OVF_vect
 #endif
 ISR(TIMER_INTERRUPT_VECTOR, ISR_NOBLOCK)
 {

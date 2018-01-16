@@ -6,7 +6,9 @@
 #include <avr/wdt.h>
 #include <util/delay.h>
 #include "bootloader.h"
-#include <avr/boot.h>
+#ifndef __AVR_XMEGA__
+    #include <avr/boot.h>
+#endif
 
 #ifdef PROTOCOL_LUFA
 #include <LUFA/Drivers/USB/USB.h>
@@ -152,7 +154,7 @@ void bootloader_jump(void) {
 
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
-        #ifndef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+        #ifdef BOOTLOADER_BOOTLOADHID // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
             UDCON = 1;
             USBCON = (1<<FRZCLK);  // disable USB
             UCSR1B = 0;
@@ -176,6 +178,11 @@ void bootloader_jump(void) {
 #ifdef __AVR_ATmega32A__
     // MCUSR is actually called MCUCSR in ATmega32A
     #define MCUSR MCUCSR
+#endif
+
+#ifdef __AVR_XMEGA__
+    #define MCUSR RST_STATUS
+    #define WDRF RST_WDRF_bp
 #endif
 
 /* this runs before main() */

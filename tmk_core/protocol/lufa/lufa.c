@@ -1082,6 +1082,7 @@ void virtser_send(const uint8_t byte)
  ******************************************************************************/
 static void setup_mcu(void)
 {
+  #ifndef __AVR_XMEGA__
     /* Disable watchdog if enabled by bootloader/fuses */
     MCUSR &= ~(1 << WDRF);
     wdt_disable();
@@ -1091,6 +1092,7 @@ static void setup_mcu(void)
 
     CLKPR = (1 << CLKPCE);
     CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
+  #endif
 }
 
 static void setup_usb(void)

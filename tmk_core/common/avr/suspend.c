@@ -20,6 +20,11 @@
 #endif /* AUDIO_ENABLE */
 
 
+#ifdef __AVR_XMEGA__
+
+#define wdt_intr_enable(value) wdt_enable(value)
+
+#else
 
 #define wdt_intr_enable(value)   \
 __asm__ __volatile__ (  \
@@ -37,6 +42,7 @@ __asm__ __volatile__ (  \
     : "r0"  \
 )
 
+#endif
 
 void suspend_idle(uint8_t time)
 {
@@ -134,6 +140,7 @@ void suspend_wakeup_init(void)
 	led_set(host_keyboard_leds());
 }
 
+#ifndef __AVR_XMEGA__
 #ifndef NO_SUSPEND_POWER_DOWN
 /* watchdog timeout */
 ISR(WDT_vect)
@@ -147,4 +154,5 @@ ISR(WDT_vect)
             ;
     }
 }
+#endif
 #endif

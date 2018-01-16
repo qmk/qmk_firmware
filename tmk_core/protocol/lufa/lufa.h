@@ -61,6 +61,11 @@ extern host_driver_t lufa_driver;
 }
 #endif
 
+#ifdef __AVR_XMEGA__
+    #define MCUSR RST_STATUS
+    #define WDRF RST_WDRF_bp
+#endif
+
 /* extra report structure */
 typedef struct {
     uint8_t  report_id;
