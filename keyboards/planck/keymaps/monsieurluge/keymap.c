@@ -70,14 +70,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |      |      |   |  |   /  |   _  |   -  |   \  |   +  |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |Lower |    Space    |Raise | Home | PgUp |PgDwn | End  |
+   * |      |      |  Fn  |      |Lower |    Space    |Raise | Home | PgUp |PgDwn | End  |
    * `-----------------------------------------------------------------------------------'
    */
   [_LOWER] = {
     {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DELETE},
     {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,  KC_EQUAL},
-    {XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_SLSH, KC_UNDS, KC_MINS, KC_BSLS, KC_PLUS, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
+    {_______, XXXXXXX, XXXXXXX, KC_PIPE, KC_SLSH, KC_UNDS, KC_MINS, KC_BSLS, KC_PLUS, XXXXXXX, XXXXXXX, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
   },
 
   /* Raise
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_RAISE] = {
     {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
-    {XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX},
-    {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
+    {_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
   },
 
   /* Adjust (Lower + Raise)
@@ -110,10 +110,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_ADJUST] = {
-    {XXXXXXX, XXXXXXX, XXXXXXX, UC_EURO, UC_RTDM, UC_CPRT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, UC_OQUT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_CQUT, XXXXXXX},
-    {XXXXXXX, XXXXXXX, XXXXXXX, UC_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX, _______, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
+    {_______, XXXXXXX, XXXXXXX, UC_EURO, UC_RTDM, UC_CPRT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+    {_______, UC_OQUT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_CQUT, _______},
+    {_______, XXXXXXX, XXXXXXX, UC_CCED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
   /* Misc Functions
