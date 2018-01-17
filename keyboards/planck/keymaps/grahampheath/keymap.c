@@ -25,8 +25,8 @@ enum planck_layers {
   _DVORAK,
   _LOWER,
   _RAISE,
-  _PLOVER,
   _MOUSE,
+  _PLOVER,
   _ADJUST
 };
 
@@ -57,6 +57,8 @@ enum planck_keycodes {
 #define KC_X2 MT(MOD_RSFT, LGUI(KC_ENT))  // Send Command Enter
 #define KC_MOUS TT(_MOUSE)  // Hold for Mouse Layer, or tap 5 times.
 #define KC_QS LGUI(KC_SPC)  // Send Command + Space (for QuickSilver).
+#define KC_TABR LGUI(KC_RCBR)  // Send Command + } (for tab changing).
+#define KC_TABL LGUI(KC_LCBR)  // Send Command + { (for tab changing).
 #define HYPR_0 HYPR(KC_TILD)  // Send Hyper + ~.
 #define HYPR_1 HYPR(KC_EXLM)  // Send Hyper + !.
 #define HYPR_2 HYPR(KC_AT)  // Send Hyper + @.
@@ -69,18 +71,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc* |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shft*|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift*|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift*|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | GUI  | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
- * - Left shift: Tap for (, hold for shift.
  * - Right Shift: Tap for Enter, hold for shift.
  * - Escape: Tap for Esc, hold for Ctrl.
  */
 [_QWERTY] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_X0,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_X1  },
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_X1  },
   {KC_MOUS, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -125,21 +126,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  *        Mouse keys -----/```````````````````\
  *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- *                │HYPR0│Ms B2│Ms Up│Ms B1│Ms WD│     │     │LLAP │CRY  │FLIP │     │     │
+ *                │HYPR0│Ms B2│Ms Up│Ms B1│Ms WD│     │     │LLAP │:'-( │FLIP │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │HYPR1│Ms L │Ms Dn│Ms R │Ms WU│     │     │SMILE│FROWN│HEART│SHRUG│     │
+ *                │HYPR1│Ms L │Ms Dn│Ms R │Ms WU│     │     │ :-) │ :-( │  <3 │SHRUG│     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │HYPR2│Ms WL│Ms B3│Ms WR│     │     │     │GRIN │SHIT │TOUNGE│     │     │
+ *                │HYPR2│Ms WL│Ms B3│Ms WR│     │     │     │ :-D │ SHIT│ :-P │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
- *                │     │     │     │     │Brig-│   Sleep   │Brig+│     │     │     │     │
+ *                │     │     │     │     │Brig-│   Sleep   │Brig+│     │ 👎  |  👍 │     │
  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
- *                        \___ Media ___/   \___ Screen/sleep __/   \___ Volume __/
  */
 [_MOUSE] = {
   {HYPR_0, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, LLAP,    CRY,     FLIP,     _______, _______},
   {HYPR_1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, SMILE,   FROWN,   HEART,    SHRUG,   _______},
   {HYPR_2, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, GRIN,    SHIT,    TOUNGE,   _______, _______},
-  {_______, _______, _______, _______, KC_SLCK, KC_SLEP, KC_SLEP, KC_PAUS, _______, _______, _______, _______}
+  {_______, _______, _______, _______, KC_SLCK, KC_SLEP, KC_SLEP, KC_PAUS, _______,THMBDN,  THMBUP, _______}
 },
 
 
@@ -149,16 +149,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shft*|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | | Mute | Vol+ |Shift*|
+ * | Shft |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Play | Prev | Vol- | Next |
+ * |      |      |      |      |      |             |      |Tab-L |  👎  |  👍  |Tab-R |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {KC_LSPO, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_MUTE, KC_VOLU, KC_RSPC},
-  {_______, _______, _______, _______, _______, KC_QS,   KC_QS,   _______,    KC_MPLY,    KC_MPRV, KC_VOLD, KC_MNXT}
+  {KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), _______, _______, _______},
+  {_______, _______, _______, _______, _______, KC_QS,   KC_QS,   _______,    KC_TABL,    THMBDN,  THMBUP, KC_TABR}
 },
 
 /* Raise
@@ -167,16 +167,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shft*|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | Home | PgUp |      |  Up  |CTLENT|
+ * | Shft |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |  Up  |CTLENT|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |PgDown| Left | Down | Right|
+ * |      |      |      |      |      |             |      |      | Left | Down | Right|
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,    KC_0,    KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_LSPO, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_HOME, KC_PGUP,  _______,  KC_UP,   KC_X2},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT}
+  {KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,  _______,  KC_UP,   KC_X2},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_LEFT, KC_DOWN, KC_RGHT}
 },
 
 /* Plover layer (http://opensteno.org)
@@ -394,6 +394,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SHRUG:
       if (record->event.pressed) {
         SEND_STRING("&shrug; ");
+      }
+      return false;
+      break;
+    case THMBUP:
+      if (record->event.pressed) {
+        SEND_STRING("&thumbup; ");
+      }
+      return false;
+      break;
+    case THMBDN:
+      if (record->event.pressed) {
+        SEND_STRING("&thumbdown; ");
       }
       return false;
       break;
