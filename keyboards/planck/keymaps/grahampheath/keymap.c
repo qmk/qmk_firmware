@@ -43,6 +43,8 @@ enum planck_keycodes {
   SMILE,
   FROWN,
   HEART,
+  THMBUP,
+  THMBDN,
   SHRUG,
   GRIN,
   LLAP,
