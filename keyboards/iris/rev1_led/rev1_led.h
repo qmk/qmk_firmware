@@ -1,5 +1,5 @@
-#ifndef REV2_H
-#define REV2_H
+#ifndef REV1_LED_H
+#define REV1_LED_H
 
 #include "iris.h"
 
