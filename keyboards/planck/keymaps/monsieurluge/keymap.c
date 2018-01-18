@@ -17,6 +17,7 @@
 #include "planck.h"
 #include "action_layer.h"
 #include "keymap_french.h"
+#include "audio.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -184,11 +185,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     //set_unicode_input_mode(UC_WINC); // Windows (with WinCompose, see wiki)
 // };
 
+#ifdef AUDIO_ENABLE
+  float tone_coin[][2]   = SONG(COIN_SOUND);
+  float tone_one_up[][2] = SONG(ONE_UP_SOUND);
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
         print("mode just switched to the qwerty layout\n");
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_coin);
+        #endif
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
@@ -196,6 +205,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case AZERTY:
       if (record->event.pressed) {
         print("mode just switched to the azerty layout\n");
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_coin);
+        #endif
         set_single_persistent_default_layer(_AZERTY);
       }
       return false;
@@ -203,6 +215,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case GAMING:
       if (record->event.pressed) {
         print("mode just switched to the gaming layout\n");
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_one_up);
+        #endif
         set_single_persistent_default_layer(_GAMING);
       }
       return false;

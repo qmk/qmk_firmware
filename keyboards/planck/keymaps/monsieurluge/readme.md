@@ -6,26 +6,33 @@
 - increase the accessibility to the main coding symbols
 - use a function key to access the multimedia functions
 - the gaming layout gives access to more keys when playing with the fingers on the WASD keys
-- todo: fix the azerty layout
-- todo: play a sound when switching layout
-- todo: more useful symbols
+- plays a sound when switching layout
 
 ## Layouts
 
 ### qwerty
 
 _todo description_
+
 _todo layout picture_
 
 ### azerty
 
 _todo description_
+
 _todo layout picture_
 
 ### gaming
 
 _todo description_
+
 _todo layout picture_
+
+## Todos
+
+- fix the azerty layout
+- more useful symbols
+- remove the startup sound
 
 ## Build
 

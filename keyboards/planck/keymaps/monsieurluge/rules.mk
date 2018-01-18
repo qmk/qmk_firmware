@@ -1,4 +1,4 @@
-AUDIO_ENABLE = no
+AUDIO_ENABLE = yes
 # UNICODE_ENABLE = yes
 
 ifndef QUANTUM_DIR
