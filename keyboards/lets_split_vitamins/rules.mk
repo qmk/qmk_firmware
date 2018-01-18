@@ -5,7 +5,6 @@ SRC += matrix.c \
 	   ssd1306.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -42,7 +41,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -74,4 +73,4 @@ CUSTOM_MATRIX = yes
 
 LAYOUTS = ortho_4x12
 
-DEFAULT_FOLDER = lets_split/rev2
+DEFAULT_FOLDER = lets_split/rev1
