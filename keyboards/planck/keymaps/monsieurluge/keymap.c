@@ -16,6 +16,7 @@
 
 #include "planck.h"
 #include "action_layer.h"
+#include "keymap_french.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -31,6 +32,8 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
+  _AZERTY,
+  _GAMING,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -39,6 +42,8 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
+  AZERTY,
+  GAMING,
   LOWER,
   RAISE
 };
@@ -60,6 +65,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
     {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+  },
+
+  /* Azerty
+   * ,-----------------------------------------------------------------------------------.
+   * | Esc  |   A  |   Z  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Tab  |   Q  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   M  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   W  |   X  |   C  |   V  |   B  |   N  |   ,  |   ;  |   :  |   !  |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Ctrl | GUI  | Fn   | Alt  |Lower |Space |Space |Raise | Left | Up   | Down |Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+  [_AZERTY] = {
+    {KC_ESC,  FR_A,    FR_Z,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  FR_Q,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    FR_M,    KC_ENT},
+    {KC_LSFT, FR_W,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+  },
+
+  /* Gaming
+   * ,-----------------------------------------------------------------------------------.
+   * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | Fn   |Shift |
+   * |------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Ctrl | GUI  | Alt  |Space |Lower |Space |Space |Raise | Left | Up   | Down |Right |
+   * `-----------------------------------------------------------------------------------'
+   */
+  [_GAMING] = {
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  MO(_FN), KC_RSFT},
+    {KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
   },
 
   /* Lower
@@ -102,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------------------------------------.
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |      |      |      |      |qwerty|azerty|gaming|      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -111,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, QWERTY,  AZERTY,  GAMING,  _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
@@ -147,8 +188,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
+        print("mode just switched to the qwerty layout\n");
         set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case AZERTY:
+      if (record->event.pressed) {
+        print("mode just switched to the azerty layout\n");
+        set_single_persistent_default_layer(_AZERTY);
+      }
+      return false;
+      break;
+    case GAMING:
+      if (record->event.pressed) {
+        print("mode just switched to the gaming layout\n");
+        set_single_persistent_default_layer(_GAMING);
       }
       return false;
       break;
