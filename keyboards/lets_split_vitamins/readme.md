@@ -1,4 +1,4 @@
-Let's Split
+Let's Split Vitamins Included
 ======
 ![Let's Split Vitamins included, assmebled in 3D printed case](https://i.imgur.com/btl0vNQ.jpg)
 
