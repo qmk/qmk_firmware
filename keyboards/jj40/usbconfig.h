@@ -119,7 +119,7 @@ section at the end of this file).
  * device is powered from the USB bus.
  */
 // max power draw with maxed white underglow measured at 120 mA (peaks)
-#define USB_CFG_MAX_BUS_POWER           150
+#define USB_CFG_MAX_BUS_POWER           100
 /* Set this variable to the maximum USB bus power consumption of your device.
  * The value is in milliamperes. [It will be divided by two since USB
  * communicates power requirements in units of 2 mA.]
