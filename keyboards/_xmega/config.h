@@ -16,8 +16,8 @@
 #define MATRIX_COLS 1
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { D0}
-#define MATRIX_COL_PINS { F0 }
+#define MATRIX_ROW_PINS { D0 }
+#define MATRIX_COL_PINS { A0 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
