@@ -1,6 +1,6 @@
-![mitosis:datagrok layout image](https://i.imgur.com/Lt0t0nq.png)
+![mitosis:datagrok layout image](https://i.imgur.com/MnzeKjZ.png)
 
-[Keyboard layout editor source](http://www.keyboard-layout-editor.com/#/gists/e1a6a7a480fd4984c0bed38ee35f6c4f)
+[Keyboard layout editor source](http://www.keyboard-layout-editor.com/#/gists/9cf33be8a8e773647cfa44a0dbc44b31)
 
 # a layout for the Mitosis
 
