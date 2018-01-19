@@ -21,11 +21,11 @@ Before RGB Lighting can be used you have to enable it in `rules.mk`:
 
     RGBLIGHT_ENABLE = yes
 
-You can configure the behavior of the RGB lighting by defining values inside `config.h`. 
+You can configure the behavior of the RGB lighting by defining values inside `config.h`.
 
 ### Required Configuration
 
-At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected. 
+At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected.
 
 ```c
 #define RGB_DI_PIN D7     // The pin the LED strip is connected to
