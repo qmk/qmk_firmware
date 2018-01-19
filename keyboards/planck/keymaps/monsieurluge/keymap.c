@@ -58,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | GUI  | Fn   | Alt  |Lower |Space |Space |Raise | Left | Up   | Down |Right |
+   * | Ctrl | GUI  | Fn   | Alt  |Lower |Shift |Space |Raise | Left | Up   | Down |Right |
    * `-----------------------------------------------------------------------------------'
    */
   [_QWERTY] = {
-    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_LSFT, KC_SPC, RAISE, KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
   },
 
   /* Azerty
@@ -76,14 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   W  |   X  |   C  |   V  |   B  |   N  |   ,  |   ;  |   :  |   !  |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | GUI  | Fn   | Alt  |Lower |Space |Space |Raise | Left | Up   | Down |Right |
+   * | Ctrl | GUI  | Fn   | Alt  |Lower |Shift |Space |Raise | Left | Up   | Down |Right |
    * `-----------------------------------------------------------------------------------'
    */
   [_AZERTY] = {
-    {KC_ESC,  FR_A,    FR_Z,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  FR_Q,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    FR_M,    KC_ENT},
-    {KC_LSFT, FR_W,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, KC_RSFT},
-    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+    {KC_ESC,  FR_A,    FR_Z,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  FR_Q,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,    KC_K,    KC_L,    FR_M,    KC_ENT},
+    {KC_LSFT, FR_W,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, KC_LSFT, KC_SPC, RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
   },
 
   /* Gaming
