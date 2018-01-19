@@ -35,9 +35,11 @@ New names should try to stick to the standards set by existing layouts, and can 
 
 ## Supporting a Layout
 
-For a keyboard to support a layout, the variable (`[a-z0-9_]`) must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferably the physical layout):
+For a keyboard to support a layout, the variable must be defined in it's `<keyboard>.h`, and match the number of arguments/keys (and preferably the physical layout):
 
     #define LAYOUT_60_ansi KEYMAP_ANSI
+
+The name of the layout must match this regex: `[a-z0-9_]+`
 
 The folder name must be added to the keyboard's `rules.mk`:
 
