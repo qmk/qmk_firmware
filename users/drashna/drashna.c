@@ -471,16 +471,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //#elif defined(BOOTLOADER_CATERINA)
 //       ":avrdude"
 #endif
-#ifdef RGBLIGHT_ENABLE
-        " RGBLIGHT_ENABLE=yes"
-#else
-        " RGBLIGHT_ENABLE=no"
-#endif
-#ifdef AUDIO_ENABLE
-        " AUDIO_ENABLE=yes"
-#else
-        " AUDIO_ENABLE=no"
-#endif
         SS_TAP(X_ENTER));
     }
     return false;
