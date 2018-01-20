@@ -778,10 +778,6 @@ static const USBEndpointConfig nkro_ep_config = {
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   switch(event) {
-  case USB_EVENT_RESET:
-    //TODO: from ISR! print("[R]");
-    return;
-
   case USB_EVENT_ADDRESS:
     return;
 
@@ -804,12 +800,15 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #endif /* NKRO_ENABLE */
     osalSysUnlockFromISR();
     return;
-
   case USB_EVENT_SUSPEND:
     //TODO: from ISR! print("[S]");
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
+    /* Falls into.*/
+  case USB_EVENT_UNCONFIGURED:
+    /* Falls into.*/
+  case USB_EVENT_RESET:
     return;
 
   case USB_EVENT_WAKEUP:
@@ -1032,7 +1031,7 @@ void init_usb_driver(USBDriver *usbp) {
 
   chVTObjectInit(&keyboard_idle_timer);
 #ifdef CONSOLE_ENABLE
-  obqObjectInit(&console_buf_queue, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
+  obqObjectInit(&console_buf_queue, false, console_queue_buffer, CONSOLE_EPSIZE, CONSOLE_QUEUE_CAPACITY, console_queue_onotify, (void*)usbp);
   chVTObjectInit(&console_flush_timer);
 #endif
 }
