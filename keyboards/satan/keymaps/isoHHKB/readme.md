@@ -4,6 +4,8 @@ This layout combines the split Right Shift ISO layout with the popular HHKB layo
 
 This version is designed to have in its base layer letter 'Ñ' for Spanish writing. Also, 'ç' is included for those who have to write in French, Catalan or other languages that may need it.
 
+This keymap also supports control for a WS2812B RGB led strip connected to pin E2 of the microcontroller. However, only the Toggle ON or OFF is defined in this keymap. If you want more functionalities, pls check RGB documentation at [QMK Docs]( https://docs.qmk.fm/feature_rgblight.html#rgb-lighting). This also goes for backlighting functionalities, only toggle is defined. If you want more control, check [QMK Docs](https://docs.qmk.fm/feature_backlight.html#backlighting) on that.
+
 Base Layer:
 
 ```
@@ -27,7 +29,7 @@ Function Layer
 |-----------------------------------------------------------|
 |     |   |VUP|   |   |   |   |   |   |   |   |   |   |     |
 |-----------------------------------------------------------|
-|CapsLck|PRV|VDN|NXT|   |   |   |   |   |   |   |   |   |   |
+|CapsLck|PRV|VDN|NXT|   |RGB|   |   |   |   |   |   |   |   |
 |-----------------------------------------------------------|
 |        |   |   |  Ç|   |BTG|   |MUT|   |   |   |      |   |
 |-----------------------------------------------------------|
@@ -43,4 +45,5 @@ Where:
 - `MUT` is `KC_AUDIO_MUTE`
 - `PLY/PAU` is `KC_MEDIA_PLAY_PAUSE`
 - `BTG` is `BL_TOGG`
-- `PSR` is `KC_PSCREEN` 
+- `PSR` is `KC_PSCREEN`
+- `RGB` is `RGB_TOG`
