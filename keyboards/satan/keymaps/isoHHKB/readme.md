@@ -4,7 +4,7 @@ This layout combines the split Right Shift ISO layout with the popular HHKB layo
 
 This version is designed to have in its base layer letter 'Ñ' for Spanish writing. Also, 'ç' is included for those who have to write in French, Catalan or other languages that may need it.
 
-This keymap also supports control for a WS2812B RGB led strip connected to pin E2 of the microcontroller. However, only the Toggle ON or OFF is defined in this keymap. If you want more functionalities, pls check RGB documentation at [QMK Docs]( https://docs.qmk.fm/feature_rgblight.html#rgb-lighting). This also goes for backlighting functionalities, only toggle is defined. If you want more control, check [QMK Docs](https://docs.qmk.fm/feature_backlight.html#backlighting) on that.
+This keymap also supports control for a WS2812B RGB led strip connected to pin E2 of the microcontroller. If you want more functionalities, pls check RGB documentation at [QMK Docs]( https://docs.qmk.fm/feature_rgblight.html#rgb-lighting). This also goes for backlighting functionalities. If you want more control, check [QMK Docs](https://docs.qmk.fm/feature_backlight.html#backlighting) on that.
 
 Base Layer:
 
@@ -29,7 +29,7 @@ Function Layer
 |-----------------------------------------------------------|
 |     |   |VUP|   |   |   |   |   |   |   |   |   |   |     |
 |-----------------------------------------------------------|
-|CapsLck|PRV|VDN|NXT|   |RGB|   |   |   |   |   |   |   |   |
+|CapsLck|PRV|VDN|NXT|   |RGB|FRW|BRT|VAI|VAD|INC|DEC|   |   |
 |-----------------------------------------------------------|
 |        |   |   |  Ç|   |BTG|   |MUT|   |   |   |      |   |
 |-----------------------------------------------------------|
@@ -44,6 +44,12 @@ Where:
 - `VDN` is `KC_AUDIO_VOL_DOWN`
 - `MUT` is `KC_AUDIO_MUTE`
 - `PLY/PAU` is `KC_MEDIA_PLAY_PAUSE`
-- `BTG` is `BL_TOGG`
+- `BTG` is `BL_TOGG` (toggles key backlighting)
+- `INC` increases backlighting brightness
+- `DEC` decreases backlighting brightness
 - `PSR` is `KC_PSCREEN`
 - `RGB` is `RGB_TOG`
+- `FRW` jumps to next RGB mode
+- `BRT` activates RGB breathing mode directly
+- `VAI` increases RGB brightness
+- `VAD` decreases RGB brightness
