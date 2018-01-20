@@ -1,20 +1,20 @@
-![mitosis:datagrok layout image](https://i.imgur.com/MnzeKjZ.png)
+![mitosis:datagrok layout image](https://i.imgur.com/eum3fsc.png)
 
 [Keyboard layout editor source](http://www.keyboard-layout-editor.com/#/gists/9cf33be8a8e773647cfa44a0dbc44b31)
 
 # a layout for the Mitosis
 
 - Emphasis on momentary modifiers, all usable from either hand, arranged
-  symmetrically, but distinguishable left/right by the OS. Shift, Fn1
-  ("Lower"), Fn2 ("Raise"), Super ("Windows"), Meta ("Alt"), Hyper.
+  symmetrically, but distinguishable left/right by the OS. Shift, Red
+  ("Lower"), Blue ("Raise"), Super ("Windows"), Meta ("Alt"), Hyper.
 
 - Fn1 and Fn2 are used to momentary-enable (like a shift key) one of three layers:
 
-    - Fn1 (Red): Symbols layer
-    - Fn2 (Blue): Numbers layer
+    - Red: Symbols layer
+    - Blue: Numbers layer
     - Both: Functions layer
 
-- The base layer is a slight variant of [Workman][]. QWERTY may be toggled-on.
+- The base layer is QWERTY. A slight variant of [Workman][] may be toggled-on.
 
 - Paired programming symbols (braces, brackets, parentheses) are arranged
   symmetrically in the symbols layer. `?` and `!` are moved to take the place
