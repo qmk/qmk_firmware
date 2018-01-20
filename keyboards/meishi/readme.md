@@ -1,15 +1,19 @@
-# meishi
+# Meishi - The micro macro keyboard
 
-![meishi](imgur.com image replace me!)
+_Meishi_ means name cards.
 
-A short description of the keyboard/project
+![meishi](https://raw.githubusercontent.com/Biacco42/meishi/readme/readme_image/P1210037.JPG)
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Only four keys keyboard for self made keyboard beginners.
+
+Keyboard Maintainer: [Biacco42](https://github.com/biacco42)  
+Hardware Supported: [Meishi keyboard PCB](https://github.com/Biacco42/meishi), Pro Micro supported  
+Hardware Availability: [Tanoshi life - Booth](https://biacco42.booth.pm/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make meishi:default
+```
+$ make meishi:default:avrdude
+```
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
