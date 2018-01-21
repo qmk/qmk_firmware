@@ -9,7 +9,7 @@
 #ifdef SSD1306OLED
 void led_set_kb(uint8_t usb_led) {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    led_set_user(usb_led);
+    //led_set_user(usb_led);
 }
 #endif
 
@@ -19,14 +19,6 @@ void matrix_init_kb(void) {
         _delay_ms(20); // gets rid of tick
         PLAY_SONG(tone_startup);
     #endif
-
-    // // green led on
-    // DDRD |= (1<<5);
-    // PORTD &= ~(1<<5);
-
-    // // orange led on
-    // DDRB |= (1<<0);
-    // PORTB &= ~(1<<0);
 
 	matrix_init_user();
 };
@@ -38,13 +30,18 @@ void shutdown_kb(void) {
       	stop_all_notes();
     #endif
 }
-/*
+
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 
 void rgblight_set(void) {
-    if (!rgblight_config.enable) {
-      ws2812_setleds(led, RGBLED_NUM);
+  if (rgblight_config.enable) {
+    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+      led[i].r *= RGBLED_POWER;
+      led[i].g *= RGBLED_POWER;
+      led[i].b *= RGBLED_POWER;
+    }
+    ws2812_setleds(led, RGBLED_NUM);
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
@@ -55,4 +52,3 @@ void rgblight_set(void) {
   }
 }
 #endif
-*/

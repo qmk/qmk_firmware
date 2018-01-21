@@ -329,7 +329,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     #ifdef RGBLIGHT_ENABLE
-      rgblight_mode(RGB_current_mode);
+      //rgblight_mode(RGB_current_mode);
     #endif
     layer_on(layer3);
   } else {
@@ -339,7 +339,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-/*    case QWERTY:
+    case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
@@ -366,7 +366,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-*/    case LOWER:
+    case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
           //uses another variable that would be set to true after the first time a reactive key is pressed.
@@ -374,14 +374,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           TOG_STATUS = !TOG_STATUS;
           #ifdef RGBLIGHT_ENABLE
-            rgblight_mode(16);
+            //rgblight_mode(16);
           #endif
         }
         layer_on(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
+          //rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
         #endif
         TOG_STATUS = false;
         layer_off(_LOWER);
@@ -397,14 +397,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           TOG_STATUS = !TOG_STATUS;
           #ifdef RGBLIGHT_ENABLE
-            rgblight_mode(15);
+            //rgblight_mode(15);
           #endif
         }
         layer_on(_RAISE);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
+          //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
         #endif
         layer_off(_RAISE);
         TOG_STATUS = false;
@@ -482,13 +482,6 @@ void matrix_init_user(void) {
     #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-void matrix_scan_user(void) {
-     iota_gfx_task();  // this is what updates the display continuously
-}
-#endif
 
 #ifdef AUDIO_ENABLE
 
@@ -515,27 +508,13 @@ void music_scale_user(void)
 
 #endif
 
-/*
- * Macro definition
- */
-/*
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
 
-    switch (id) {
-      case KC_SAMPLEMACRO:
-        if (record->event.pressed){
-          return MACRO (I(10), T(H), T(E), T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D), END);
-        }
+//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
+#ifdef SSD1306OLED
 
-    }
-
-    return MACRO_NONE;
+void matrix_scan_user(void) {
+     iota_gfx_task();  // this is what updates the display continuously
 }
-*/
 
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
@@ -571,33 +550,8 @@ static void render_logo(struct CharacterMatrix *matrix) {
 
 
 void render_status(struct CharacterMatrix *matrix) {
-/*
-  matrix_write_P(matrix, PSTR("USB: "));
-#ifdef PROTOCOL_LUFA
-  switch (USB_DeviceState) {
-    case DEVICE_STATE_Unattached:
-      matrix_write_P(&matrix, PSTR("Unattached"));
-      break;
-    case DEVICE_STATE_Suspended:
-      matrix_write_P(&matrix, PSTR("Suspended"));
-      break;
-    case DEVICE_STATE_Configured:
-      matrix_write_P(&matrix, PSTR("Connected"));
-      break;
-    case DEVICE_STATE_Powered:
-      matrix_write_P(&matrix, PSTR("Powered"));
-      break;
-    case DEVICE_STATE_Default:
-      matrix_write_P(&matrix, PSTR("Default"));
-      break;
-    case DEVICE_STATE_Addressed:
-      matrix_write_P(&matrix, PSTR("Addressed"));
-      break;
-    default:
-      matrix_write_P(matrix, PSTR("Invalid"));
-  }
-#endif
-*/
+
+  // Render to mode icon
   static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
   if(keymap_config.swap_lalt_lgui==false){
     matrix_write(matrix, logo[0][0]);
@@ -658,3 +612,5 @@ void iota_gfx_task_user(void) {
   }
   matrix_update(&display, &matrix);
 }
+
+#endif
