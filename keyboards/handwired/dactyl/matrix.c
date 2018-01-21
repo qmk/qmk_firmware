@@ -45,11 +45,11 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static void init_cols(void);
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-static void unselect_rows(void);
-static void select_row(uint8_t row);
-static void unselect_row(uint8_t row);
+static void init_rows(void);
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
+static void unselect_cols(void);
+static void select_col(uint8_t col);
+static void unselect_col(uint8_t col);
 
 static uint8_t mcp23018_reset_loop;
 
@@ -58,6 +58,7 @@ uint32_t matrix_timer;
 uint32_t matrix_scan_count;
 #endif
 
+#define ROW_SHIFTER ((matrix_row_t)1)
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -89,13 +90,11 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    // initialize row and col
-
     mcp23018_status = init_mcp23018();
 
 
-    unselect_rows();
-    init_cols();
+    unselect_cols();
+    init_rows();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -109,14 +108,13 @@ void matrix_init(void)
 #endif
 
     matrix_init_quantum();
-
 }
 
 void matrix_power_up(void) {
     mcp23018_status = init_mcp23018();
 
-    unselect_rows();
-    init_cols();
+    unselect_cols();
+    init_rows();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -159,16 +157,16 @@ uint8_t matrix_scan(void)
     }
 #endif
 
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
+            bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
 
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
             }
 #       else
-            read_cols_on_row(matrix, current_row);
+            read_rows_on_col(matrix, current_col);
 #       endif
 
     }
@@ -225,17 +223,17 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-/* Column pin configuration
+/* Row pin configuration
  *
  * Teensy
- * col: 0   1   2   3   4   5
+ * row: 0   1   2   3   4   5
  * pin: F0  F1  F4  F5  F6  F7
  *
  * MCP23018
- * col: 0   1   2   3   4   5
+ * row: 0   1   2   3   4   5
  * pin: B5  B4  B3  B2  B1  B0
  */
-static void  init_cols(void)
+static void init_rows(void)
 {
     // init on mcp23018
     // not needed, already done as part of init_mcp23018()
@@ -247,82 +245,97 @@ static void  init_cols(void)
 }
 
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
-    // Store last value of row prior to reading
-    matrix_row_t last_row_value = current_matrix[current_row];
+    bool matrix_changed = false;
 
-    // Clear data in matrix row
-    current_matrix[current_row] = 0;
+    uint8_t column_state = 0;
 
-    //select row and wait for row selection to stabilize
-    select_row(current_row);
+    //select col and wait for selection to stabilize
+    select_col(current_col);
     wait_us(30);
 
-    if (current_row < 6) {
-        // read cols from mcp23018
+    if (current_col < 6) {
+        // read rows from mcp23018
         if (mcp23018_status) {
             // it's already in an error state; nothing we can do
             return false;
         }
 
-        uint8_t data = 0;
-
         mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
         mcp23018_status = i2c_write(GPIOB);          if (mcp23018_status) goto out;
         mcp23018_status = i2c_start(I2C_ADDR_READ);  if (mcp23018_status) goto out;
-        data = i2c_readNak();
+        column_state = i2c_readNak();
 
         out:
             i2c_stop();
 
-        current_matrix[current_row] = ~data;
+        column_state = ~column_state;
+
     } else {
-        // read cols from teensy
-        current_matrix[current_row] =
+        // read rows from teensy
+        column_state = (
             (PINF&(1<<0) ? 0 : (1<<0)) |
             (PINF&(1<<1) ? 0 : (1<<1)) |
             (PINF&(1<<4) ? 0 : (1<<2)) |
             (PINF&(1<<5) ? 0 : (1<<3)) |
             (PINF&(1<<6) ? 0 : (1<<4)) |
-            (PINF&(1<<7) ? 0 : (1<<5)) ;
-
+            (PINF&(1<<7) ? 0 : (1<<5)) );
     }
 
-    unselect_row(current_row);
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[row_index];
 
-    return (last_row_value != current_matrix[current_row]);
+        uint8_t key_state = column_state & (1 << row_index);
+
+        if (key_state) {
+            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+        } else {
+            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+        }
+
+        // Determine if the matrix changed state
+        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed))
+        {
+            matrix_changed = true;
+        }
+    }
+
+    unselect_col(current_col);
+
+    return matrix_changed;
 }
 
-/* Row pin configuration
+/* Column pin configuration
  *
  * Teensy
- * row: 6   7   8   9   10  11
+ * col: 6   7   8   9   10  11
  * pin: B1  B2  B3  D2  D3  C6
  *
  * MCP23018
- * row: 0   1   2   3   4   5
+ * col: 0   1   2   3   4   5
  * pin: A0  A1  A2  A3  A4  A5
  */
-static void select_row(uint8_t row)
+static void select_col(uint8_t col)
 {
-    if (row < 6) {
+    if (col < 6) {
         // select on mcp23018
         if (mcp23018_status) { // if there was an error
             // do nothing
         } else {
-            // set active row low  : 0
-            // set other rows hi-Z : 1
+            // set active col low  : 0
+            // set other cols hi-Z : 1
             mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(GPIOA);            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<col)); if (mcp23018_status) goto out;
         out:
             i2c_stop();
         }
     } else {
         // select on teensy
         // Output low(DDR:1, PORT:0) to select
-        switch (row) {
+        switch (col) {
             case 6:
                 DDRB  |= (1<<1);
                 PORTB &= ~(1<<1);
@@ -350,23 +363,24 @@ static void select_row(uint8_t row)
         }
     }
 }
-/* Row pin configuration
+
+/* Column pin configuration
  *
  * Teensy
- * row: 6   7   8   9   10  11
+ * col: 6   7   8   9   10  11
  * pin: B1  B2  B3  D2  D3  C6
  *
  * MCP23018
- * row: 0   1   2   3   4   5
+ * col: 0   1   2   3   4   5
  * pin: A0  A1  A2  A3  A4  A5
  */
-static void unselect_row(uint8_t row)
+static void unselect_col(uint8_t col)
 {
     // unselect on mcp23018
     if (mcp23018_status) { // if there was an error
         // do nothing
     } else {
-        // set all rows hi-Z : 1
+        // set all cols hi-Z : 1
         mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
         mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
         mcp23018_status = i2c_write(0xFF);           if (mcp23018_status) goto out;
@@ -384,10 +398,10 @@ static void unselect_row(uint8_t row)
     PORTC &= ~(1<<6);
 }
 
-static void unselect_rows(void)
+static void unselect_cols(void)
 {
-    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        unselect_row(x);
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        unselect_col(x);
     }
 }
 
