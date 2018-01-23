@@ -7,7 +7,7 @@
 - use a function key to access the multimedia functions
 - the gaming layout gives access to more keys when playing with the fingers on the WASD keys
 - plays a sound when switching layout
-- do not use any of the 4 main fingers to WRITE IN UPPERCASE (use the thumb instead)
+- do not use any of the 4 main fingers to WRITE IN UPPERCASE (use the thumb instead): one tap on the spacebar for a space character, hold for the SHIFT modifier
 
 ## Layouts
 
