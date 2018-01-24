@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
+#undef USE_I2C
 
 /* Select hand configuration */
 
@@ -71,4 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STARTUP_SONG SONG(ZELDA_TREASURE)
 #endif
 
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Drashna Hacked Orthodox Rev.3
+#endif
 #endif
