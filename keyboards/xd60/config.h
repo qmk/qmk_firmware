@@ -50,6 +50,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PIN F5
 #define BACKLIGHT_LEVELS 6
 
+/* allows tap dance -- https://docs.qmk.fm/feature_tap_dance.html */
+#define TAPPING_TERM 200
+
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
