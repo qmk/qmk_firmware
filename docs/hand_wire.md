@@ -1,4 +1,4 @@
-# Quantum Hand-wiring Guide
+# Quantum Hand-Wiring Guide
 
 Parts list:
 * *x* keyswitches (MX, Matias, Gateron, etc)
@@ -6,12 +6,12 @@ Parts list:
 * Keyboard plate (metal, plastic, cardboard, etc)
 * Wire (strained for wiring to the Teensy, anything for the rows/columns)
 * Soldering iron set at 600ºF or 315ºC (if temperature-controlled)
-* Resin-cored solder (leaded or lead-free)
+* Rosin-cored solder (leaded or lead-free)
 * Adequate ventilation/a fan
 * Tweezers (optional)
 * Wire cutters/snippers
 
-## How the matrix works (why we need diodes)
+## How the Matrix Works (Why We Need Diodes)
 
 The microcontroller (in this case, the Teensy 2.0) will be setup up via the firmware to send a logical 1 to the columns, one at a time, and read from the rows, all at once - this process is called matrix scanning. The matrix is a bunch of open switches that, by default, don't allow any current to pass through - the firmware will read this as no keys being pressed. As soon as you press one key down, the logical 1 that was coming from the column the keyswitch is attached to gets passed through the switch and to the corresponding row - check out the following 2x2 example:
 
@@ -100,9 +100,9 @@ Things act as they should! Which will get us the following data:
 
 The firmware can then use this correct data to detect what it should do, and eventually, what signals it needs to send to the OS.
 
-# The actual hand-wiring
+# The Actual Hand-Wiring
 
-## Getting things in place
+## Getting Things in Place
 
 When starting this, you should have all of your stabilisers and keyswitches already installed (and optionally keycaps). If you're using a Cherry-type stabiliser (plate-mounted only, obviously), you'll need to install that before your keyswitches. If you're using Costar ones, you can installed them afterwards.
 
@@ -112,7 +112,7 @@ Get your soldering iron heated-up and collect the rest of the materials from the
 
 Before continuing, plan out where you're going to place your Teensy. If you're working with a board that has a large (6.25u) spacebar, it may be a good idea to place it in-between switches against the plate. Otherwise, you may want to trim some of the leads on the keyswitches where you plan on putting it - this will make it a little harder to solder the wire/diodes, but give you more room to place the Teensy.
 
-## Preparing the diodes
+## Preparing the Diodes
 
 It's a little easier to solder the diodes in place if you bend them at a 90º angle immediately after the black line - this will help to make sure you put them on the right way (direction matters), and in the correct position. The diodes will look like this when bent (with longer leads):
 
@@ -125,7 +125,7 @@ It's a little easier to solder the diodes in place if you bend them at a 90º an
 
 We'll be using the long lead at the bent end to connect it to the elbow (bent part) of the next diode, creating the row.
 
-## Soldering the diodes
+## Soldering the Diodes
 
 Starting at the top-left switch, place the diode (with tweezers if you have them) on the switch so that the diode itself is vertically aligned, and the black line is facing toward you. The straight end of the diode should be touching the left contact on the switch, and the bent end should be facing to the right and resting on the switch there, like this:
 
@@ -133,7 +133,7 @@ Starting at the top-left switch, place the diode (with tweezers if you have them
      │o
     ┌┴┐         o
     │ │    O
-    ├─┤      
+    ├─┤
     └┬┘
      └─────────────
 ```
@@ -142,7 +142,7 @@ Letting the diode rest, grab your solder, and touch both it and the soldering ir
 
 The smoke that the rosin releases is harmful, so be careful not to breath it or get it in your eyes/face.
 
-After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face, and cool the solder quicker. You should see the solder develop a matte (not shiney) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blow on it will accelerate this process.
+After soldering things in place, it may be helpful to blow on the joint to push the smoke away from your face, and cool the solder quicker. You should see the solder develop a matte (not shiny) surface as it solidifies. Keep in mind that it will still be very hot afterwards, and will take a couple minutes to be cool to touch. Blow on it will accelerate this process.
 
 When the first diode is complete, the next one will need to be soldered to both the keyswitch, and the previous diode at the new elbow. That will look something like this:
 
@@ -150,7 +150,7 @@ When the first diode is complete, the next one will need to be soldered to both 
      │o               │o
     ┌┴┐         o    ┌┴┐         o
     │ │    O         │ │    O
-    ├─┤              ├─┤      
+    ├─┤              ├─┤
     └┬┘              └┬┘
      └────────────────┴─────────────
 ```
@@ -159,7 +159,7 @@ After completing a row, use the wire cutters to trim the excess wire from the to
 
 When all of the diodes are completely soldered, it's a good idea to quickly inspect each one to ensure that your solder joints are solid and sturdy - repairing things after this is possible, but more difficult.
 
-## Soldering the columns
+## Soldering the Columns
 
 You'll have some options in the next process - it's a good idea to insulate the column wires (since the diodes aren't), but if you're careful enough, you can use exposed wires for the columns - it's not recommended, though. If you're using single-cored wire, stripping the plastic off of the whole wire and feeding it back on is probably the best option, but can be difficult depending on the size and materials. You'll want to leave parts of the wire exposed where you're going to be solder it onto the keyswitch.
 
@@ -169,7 +169,7 @@ Before beginning to solder, it helps to have your wire pre-bent (if using single
 
 If you're not using any insulation, you can try to keep the column wires elevated, and solder them near the tips of the keyswitch contacts - if the wires are sturdy enough, they won't short out to the row wiring an diodes.
 
-## Wiring things to the Teensy
+## Wiring Things to the Teensy
 
 Now that the matrix itself is complete, it's time to connect what you've done to the Teensy. You'll be needing the number of pins equal to your number of columns + your number of rows. There are some pins on the Teensy that are special, like D6 (the LED on the chip), or some of the UART, SPI, I2C, or PWM channels, but only avoid those if you're planning something in addition to a keyboard. If you're unsure about wanting to add something later, you should have enough pins in total to avoid a couple.
 
@@ -185,7 +185,7 @@ When you're done with the columns, start with the rows in the same process, from
 
 As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
 
-# Getting some basic firmware set-up
+# Getting Some Basic Firmware Set Up
 
 From here, you should have a working keyboard once you program a firmware. Before we attach the Teensy permanently to the keyboard, let's quickly get some firmware loaded onto the Teensy so we can test each keyswitch.
 
@@ -201,13 +201,13 @@ You'll want to navigate to the `keyboards/<project_name>/` folder by typing, lik
 
     cd keyboards/<project_name>
 
-### config.h
+### `config.h`
 
 The first thing you're going to want to modify is the `config.h` file. Find `MATRIX_ROWS` and `MATRIX_COLS` and change their definitions to match the dimensions of your keyboard's matrix.
 
 Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitions to match how you wired up your matrix (looking from the top of the keyboard, the rows run top-to-bottom and the columns run left-to-right). Likewise, change the definition of `UNUSED_PINS` to match the pins you did not use (this will save power).
 
-### \<project_name\>.h
+### `<project_name>.h`
 
 The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `KEYMAP` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
 
@@ -271,7 +271,7 @@ This would require our `KEYMAP` definition to look like this:
 
 Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `KEYMAP` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
 
-### keymaps/<variant>/default.c
+### `keymaps/<variant>/default.c`
 
 This is the actual keymap for your keyboard, and the main place you'll make changes as you perfect your layout. `default.c` is the file that gets pull by default when typing `make`, but you can make other files as well, and specify them by typing `make handwired/<keyboard>:<variant>`, which will pull `keymaps/<variant>/keymap.c`.
 
@@ -302,7 +302,7 @@ Note that the layout of the keycodes is similar to the physical layout of our ke
 
 It's also important to use the `KEYMAP` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
 
-## Compiling your firmware
+## Compiling Your Firmware
 
 After you've written out your entire keymap, you're ready to get the firmware compiled and onto your Teensy. Before compiling, you'll need to get your [development environment set-up](getting_started_build_tools.md) - you can skip the dfu-programmer instructions, but you'll need to download and install the [Teensy Loader](https://www.pjrc.com/teensy/loader.html) to get the firmware on your Teensy.
 
@@ -310,7 +310,7 @@ Once everything is installed, running `make` in the terminal should get you some
 
 Once you have your `<project_name>.hex` file, open up the Teensy loader application, and click the file icon. From here, navigate to your `QMK/keyboards/<project_name>/` folder, and select the `<project_name>.hex` file. Plug in your keyboard and press the button on the Teensy - you should see the LED on the device turn off once you do. The Teensy Loader app will change a little, and the buttons should be clickable - click the download button (down arrow), and then the reset button (right arrow), and your keyboard should be ready to go!
 
-## Testing your firmware
+## Testing Your Firmware
 
 Carefully flip your keyboard over, open up a new text document, and try typing - you should get the characters that you put into your keymap. Test each key, and note the ones that aren't working. Here's a quick trouble-shooting guide for non-working keys:
 
@@ -324,7 +324,7 @@ Carefully flip your keyboard over, open up a new text document, and try typing -
 
 If you've done all of these things, keep in mind that sometimes you might have had multiple things affecting the keyswitch, so it doesn't hurt to test the keyswitch by shorting it out at the end.
 
-# Securing the Teensy, finishing your hardware, getting fancier firmware
+# Securing the Teensy, Finishing Your Hardware, Getting Fancier Firmware
 
 Now that you have a working board, it's time to get things in their permanent positions. I've often used liberal amounts of hot glue to secure and insulate things, so if that's your style, start spreading that stuff like butter. Otherwise, double-sided tape is always an elegant solution, and electrical tape is a distant second. Due to the nature of these builds, a lot of this part is up to you and how you planned (or didn't plan) things out.
 
