@@ -30,25 +30,3 @@ void shutdown_kb(void) {
       	stop_all_notes();
     #endif
 }
-
-#ifdef RGBLIGHT_ENABLE
-extern rgblight_config_t rgblight_config;
-
-void rgblight_set(void) {
-  if (rgblight_config.enable) {
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      led[i].r *= RGBLED_POWER;
-      led[i].g *= RGBLED_POWER;
-      led[i].b *= RGBLED_POWER;
-    }
-    ws2812_setleds(led, RGBLED_NUM);
-  } else {
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      led[i].r = 0;
-      led[i].g = 0;
-      led[i].b = 0;
-    }
-    ws2812_setleds(led, RGBLED_NUM);
-  }
-}
-#endif
