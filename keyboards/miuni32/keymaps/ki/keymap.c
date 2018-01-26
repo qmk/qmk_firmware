@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      * |   Q   |   I   |   E   |   A   |   Y   | RAISE |   D   |   S   |   T   |  N    |  B    |
      * |---------------------------------------------------------------------------------------|
-     * |   /   |   ,   |   '   |   .   |   X   |  SPC  |   W   |   M   |   L   |  P   |    V   |
+     * |   /   |   ,   |   '   |   .   |   X   |SPC\SHF|   W   |   M   |   L   |  P   |    V   |
      * |---------------------------------------------------------------------------------------|
      */
 	[_BEAKL] ={
@@ -31,9 +31,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		{KC_Q,    KC_I,    KC_E,    KC_A,   KC_Y, RAISE,   KC_D, KC_S, KC_T, KC_N, KC_B},
 		{KC_SLSH, KC_COMM, KC_QUOT, KC_DOT, KC_X, SPC_SHF, KC_W, KC_M, KC_L, KC_P, KC_V}
 	},
-	/* Level 1: Numbers Layer
+	/* Lower
      * ,---------------------------------------------------------------------------------------.
-     * |  Tab  |   {   |   _   |   }   |   &   |       |  Gui  |   [   |       |   ]   | Bkspc |
+     * |  Tab  |   {   |   _   |   }   |   &   |       |  Gui  |   [   |   %   |   ]   | Bkspc |
      * |---------------------------------------------------------------------------------------|
      * |   \   |   (   |   1   |   )   |   #   |       |   $   |   <   |   0   |   >   |   |   |
      * |---------------------------------------------------------------------------------------|
@@ -41,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      */
 	[_LOWER] ={
-		{KC_TAB,  KC_LCBR, KC_UNDS, KC_RBRC, KC_AMPR, _______, KC_RGUI, KC_LBRC, KC_LPRN, KC_RBRC, KC_BSPC},
+		{KC_TAB,  KC_LCBR, KC_UNDS, KC_RBRC, KC_AMPR, _______, KC_RGUI, KC_LBRC, KC_PERC, KC_RBRC, KC_BSPC},
 		{KC_BSLS, KC_LPRN, KC_1,    KC_RPRN, KC_HASH, _______, KC_DLR,  KC_LT,   KC_0,    KC_GT,   KC_PIPE},
 		{KC_5,    KC_4,    KC_3,    KC_2,    KC_LCTL, _______, KC_RALT, KC_9,    KC_8,    KC_7,    KC_6}
 	},
-	/* Level 2: Symbols Layer
+	/* Raise
      * ,---------------------------------------------------------------------------------------.
      * |       |       |       |       |       |       |       |       |       |       |  Del  |
      * |---------------------------------------------------------------------------------------|
@@ -59,35 +59,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		{_______, _______, KC_EXLM, KC_MINS, KC_PLUS, _______, KC_EQL,  KC_SCLN, KC_RPRN, KC_GRV,  KC_QUES},
 		{KC_PERC, KC_DLR,  KC_HASH, KC_AT,   _______, _______, _______, KC_LPRN, KC_ASTR, KC_AMPR, KC_CIRC}
 	},
-	/* Level 3: RGB Layer
+	/* Union
      * ,---------------------------------------------------------------------------------------.
-     * | RESET |  TRNS |  TRNS |  TRNS |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
+     * | RESET |       |       |       |       |       |       |       |       |       |       |
      * |---------------------------------------------------------------------------------------|
-     * |RGB_TOG|RGB_MOD|RGB_HUI|RGB_HUD|   NO  |RGB_SAI|RGB_SAD|RGB_VAI|RGB_VAD|  TRNS |  TRNS |
+     * |       |       |       |       |       |       |       |       |       |       |       |
      * |---------------------------------------------------------------------------------------|
-     * |  TRNS |  TRNS |  TRNS |  TRNS |   NO  |   F7  |   F8  |   F9  |  F10  |  F11  |  F12  |
+     * |       |       |       |       |       |       |       |       |       |       |       |
      * |---------------------------------------------------------------------------------------|
      */
 	[_UNION] ={
-		{RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6},
-		{RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, KC_NO, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS},
-		{KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,  KC_F12}
+		{RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+		{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+		{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 	}
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 void matrix_init_user(void) {
@@ -96,7 +81,36 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 }
 
+//planck like tri layer
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case BEAKL:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_BEAKL);
+    }
+    return false;
+    break;
+  case LOWER:
+    if (record->event.pressed) {
+      layer_on(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _UNION);
+    } else {
+      layer_off(_LOWER);
+      update_tri_layer(_LOWER, _RAISE, _UNION);
+    }
+    return false;
+    break;
+  case RAISE:
+    if (record->event.pressed) {
+      layer_on(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _UNION);
+    } else {
+      layer_off(_RAISE);
+      update_tri_layer(_LOWER, _RAISE, _UNION);
+    }
+    return false;
+    break;
+  }
 	return true;
 }
 
