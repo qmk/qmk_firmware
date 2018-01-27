@@ -1,9 +1,9 @@
-# Default Keymap for XIUDI's 60% XD60 PCB
+# LEdiodes Keymap for XD60 60% PCB
 
-![Default Keymap for XD60](https://img.alicdn.com/imgextra/i1/1713761720/TB2K0gTalPxQeBjy1XcXXXHzVXa_!!1713761720.png)
+![LEdiodes Layer 0 Keymap for XD60](https://imgur.com/a/Iv5cC)
 
 ## Additional Notes
-Default Keymap for XD60 as indicated on the original sale page.
+Layer 0(default) Keymap for LEdiodes XD60.
 
 ## Build
-To build the default keymap, simply run `make xd60-default`.
+To build the default keymap, simply run `make xd60:LEdiodes_V2`.

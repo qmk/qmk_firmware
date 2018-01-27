@@ -54,3 +54,4 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https:/
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes # If the time depressed is greater than or equal to the AUTO_SHIFT_TIMEOUT, then a shifted version of the key is emitted. If the time is less than the AUTO_SHIFT_TIMEOUT time, then the normal state is emitted
