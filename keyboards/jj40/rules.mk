@@ -36,11 +36,13 @@ MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = no
+
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_CUSTOM_DRIVER = yes
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
-DISABLE_WS2812 = yes  # TODO check if this is necessary
+# DISABLE_WS2812 = no
 
 KEY_LOCK_ENABLE = yes
 
@@ -51,7 +53,7 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC = matrix.c i2c.c backlight.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
