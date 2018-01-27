@@ -89,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [HALFQWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_BSPC,        KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_LEFT,
-        KC_TAB,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   TG(SYMB),
-        KC_BSPC,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
+        KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   TG(SYMB),
+        KC_ENT,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
         KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_TRANSPARENT,
         KC_LCTRL, 		KC_LALT,	  LCTL(KC_TAB), LCTL(LSFT(KC_TAB)),  KC_LGUI,
                                               KC_LALT,  KC_TRANSPARENT,
@@ -154,9 +154,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  BSPC  |   0  |   9  |   8  |   7  |   6  | LEFT |           | RIGHT|   5  |   4  |   3  |   2  |   1  |  ESC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | TAB    |   L  |   R  |   C  |   G  |   F  |  L1  |           |  L1  |   Y  |   P  |   .  |   ,  |   '  |   /    |
+ * |   	/   |   L  |   R  |   C  |   G  |   F  |  L1  |           |  L1  |   Y  |   P  |   .  |   ,  |   '  |   TAB  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   -  |   S  |   T  |   H  |   D  |------|           |------|   I  |   U  |   E  |   O  |   A  |ENTER   |
+ * | ENTER  |   S  |   N  |   T  |   H  |   D  |------|           |------|   I  |   U  |   E  |   O  |   A  |BSPC    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |   Z  |   V  |   W  |   M  |   B  |      |           |      |   X  |   K  |   J  |   Q  |   ;  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_ESC,
              TG(SYMB),    KC_Y,   KC_P,  KC_DOT, KC_COMM,KC_P,             KC_TAB,
-                          KC_I,   KC_U,  KC_E,   KC_O,   KC_A,		 	   KC_ENT,
+                          KC_I,   KC_U,  KC_E,   KC_O,   KC_A,		 	   KC_BSPC,
              MEH_T(KC_NO),KC_X,   KC_K,  KC_J,	 KC_Q,   KC_SCLN,	   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        KC_RALT,
