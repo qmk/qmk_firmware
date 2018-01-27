@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | TAB    |   '  |   ,  |   .  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   S  |  -   |ENTER   |
+ * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |ENTER   |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -138,11 +138,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL, 		KC_LALT,	  LCTL(KC_TAB), LCTL(LSFT(KC_TAB)),  KC_LGUI,
                                               KC_LALT,  KC_TRANSPARENT,
                                                               KC_HOME,
-                                         LT(HALFDVORAK, KC_SPACE),KC_BSPC,KC_END,
+                              LT(HALFDVORAK, KC_SPACE),KC_BSPC,KC_END,
         // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              TG(SYMB),    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_BSLS,
-                          KC_D,   KC_H,  KC_T,   KC_S,   KC_MINUS,		   KC_ENT,
+                          KC_D,   KC_H,  KC_T,   KC_N,   KC_S,		   KC_ENT,
              MEH_T(KC_NO),KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        KC_RALT,
