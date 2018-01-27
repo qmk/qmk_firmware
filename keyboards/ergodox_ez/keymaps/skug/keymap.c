@@ -14,19 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+
+
+
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
 #include "keymap_swedish.h"
+#include "song_list.h"
 
 #define _______ KC_TRNS
 
 #define BASE 0 // default layer
-#define ZUDVP 1
-#define SYMB 2 // symbols
-#define MDIA 3 // media keys
-#define ARRW 4 // arrow + soon mouse
+#define SYMB 1 // symbols
+#define MDIA 2 // media keys
+#define ARRW 3 // arrow + soon mouse
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -39,27 +43,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   ½    |   !  |  "   |  #   |  #   |  %   | LEFT |           | RIGHT|   &  |  /   |  (   |  )   |  =   |  ?     |
+ * |   ½    |   !  |  "   |  #   |  #   |  %   | Ins  |           |  L1  |   &  |  /   |  (   |  )   |  =   |  ?     |
  * |   §    |   1  |  2 @ |  3 £ |  4 $ |  5   |      |           |      |   6  |  7 { |  8 [ |  9 ] |  0 } |  + \   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   Å    |
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * | Tab/   |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   Å    |
+ * | L4     |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ö / L2|   Ä    |
- * |        |      |      |      |      |      | Hyper|           | Meh  |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Left   |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ;  |   :  |_/Ctrl| RShift |
- * | Shift  |      |      |      |      |      |      |           |      |      |      |   ,  |   .  |-     |        |
+ * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |Ö / L3|   Ä    |
+ * |        |      |      |      |      |      | Hypr/|           | Meh/ |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------| Esc  |           | Ent  |------+------+------+------+------+--------|
+ * | LShift/|Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ;  |   :  |_/Ctrl| RShift/|
+ * |    (   |      |      |      |      |      |      |           |      |      |      |   ,  |   .  |-     |   )    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | '/L1 |  `   |Alt   | Left | Right|                                       |  Up  | Down |  ^   |  *   | ~L1  |
+ *   | '/L2 |  `   |Alt   | Left | Right|                                       |  Spc | Bksp | AltGr|  *   | ~L2  |
  *   |      |  '   |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        | Esc  | LGui |       | PgUp |Ctrl/Esc|
+ *                                        | <>|  | End  |       | Home |   ^    |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 | <>|  | Del  | Home |       | PgDn |        |      |
+ *                                 | Left | Right| PgDn |       | PgUp |   Up   | Down |
  *                                 |------|------|------|       |------|--------|------|
- *                                 | Space| Bksp | End  |       | AltGr|  Meta  | Enter|
+ *                                 | Ctrl/| Alt/ |      |       |      |  Alt/  | Ctrl/|
+ *                                 | Enter| Esc  | Lgui |       | Lgui |  Esc   | Enter|
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_
@@ -68,65 +73,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // left hand
     NO_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
     KC_TAB,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
-    MO(ARRW),          KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
-    KC_LSFT,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),
+    MO(ARRW),         KC_A,           KC_S,          KC_D,    KC_F,    KC_G,
+    KC_LSPO,          CTL_T(KC_Z),    KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_ESC),
     LT(SYMB,NO_APOS), NO_ACUT,        KC_LALT, KC_BSPC, KC_SPC,
-                                                                    NO_LESS,  KC_END,
-                                                                KC_LEFT, KC_RIGHT,  KC_PGDN,
-                                                        CTL_T(KC_ESC),ALT_T(KC_ENT),KC_LGUI,    // right hand
-         TO(ZUDVP),      KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              NO_PLUS,
-         TG(SYMB),     KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              NO_AA,
-                       KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), NO_AE,
-         MEH_T(KC_NO), KC_N,   KC_M,   KC_COMM, KC_DOT,  CTL_T(NO_MINS),    KC_RSFT,
-                               KC_SPC,  KC_BSPC, NO_ALGR, NO_ASTR,           KC_FN1,
-        KC_HOME, NO_CIRC,
-        KC_PGUP, KC_UP, KC_DOWN,
-        KC_LGUI,ALT_T(KC_ENT), CTL_T(KC_ESC)
+                                                                             NO_LESS,   KC_END,
+                                                              KC_LEFT,      KC_RIGHT,  KC_PGDN,
+                                                        CTL_T(KC_ENT), ALT_T(KC_ESC),  KC_LGUI,    // right hand
+         TO(ARRW),       KC_6,   KC_7,   KC_8,    KC_9,    KC_0,              NO_PLUS,
+         TG(SYMB),       KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              NO_AA,
+                         KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), NO_AE,
+         MEH_T(KC_ENT),  KC_N,   KC_M,   KC_COMM, KC_DOT,  CTL_T(NO_MINS),    KC_RSPC,
+                                 KC_SPC,  KC_BSPC, NO_ALGR, NO_ASTR,          KC_FN1,
+        KC_HOME,  NO_CIRC,
+        KC_PGUP,  KC_UP,         KC_DOWN,
+        KC_LGUI,  ALT_T(KC_ESC), CTL_T(KC_ENT)
 ),
-/* Keymap 1: Zudvp
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   \    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |  :;  |  ,<  |  .>  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  | S/L2 |   -    |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift | '"/L1|   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |Z/Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  '"  |AltShf|BKSPC | SPC  |                                       |  SPC | Del  |   [  |   ]  | ~L1  |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,---------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 |LCtrl | LAlt |------|       |------| LAlt   |LCtrl |
- *                                 |/Esc  |/Enter| End  |       | PgDn | /Enter |/Esc  |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[ZUDVP] = KEYMAP_80(  // layer 0 : default
-        // left hand
-        KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TO(BASE),
-        KC_DEL,        KC_COLN,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(SYMB),
-        KC_TAB,         KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
-        KC_RSFT,           LT(SYMB,KC_QUOT),       KC_Q,    KC_J,   KC_K,   KC_X,   ALL_T(KC_NO),
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_BSPC,   KC_SPC,
-                                              ALT_T(KC_APP),  KC_END,
-                                       _______, _______,  KC_PGDN,
-	                                 CTL_T(KC_ESC),ALT_T(KC_ENT),KC_LGUI,
-        // right hand
-             TO(BASE),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_BSLS,
-             TG(SYMB),       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             KC_SLSH,
-                          KC_D,   KC_H,   KC_T,   KC_N,   LT(MDIA, KC_S),   KC_MINS,
-	MEH_T(KC_NO),KC_B,   KC_M,   KC_W,   KC_V,   LT(SYMB,KC_Z),           KC_LSFT,
-                                  KC_SPC, KC_DELETE,KC_LBRC,KC_RBRC,          KC_FN1,
-             KC_HOME,        CTL_T(KC_ESC),
-             KC_PGUP, _______, _______,
-	     KC_LGUI,ALT_T(KC_ENT), CTL_T(KC_ESC)
-),
-/* Keymap 1: Symbol Layer
+/* Keymap: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |Version |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
@@ -135,20 +97,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |       |   &  |   1  |   2  |   3  |   \  |        |
+ * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |    . |   0  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |Animat|      |       |Toggle|Solid |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |Bright|Bright|      |       |      |Hue-  |Hue+  |
- *                                 |ness- |ness+ |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
+ *                                 |------|------|------|       |------|------|------|
+ *                                 |BNess-|Bness+|      |       |      |Hue-  |Hue+  |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] =  KEYMAP_80(
+[SYMB] = KEYMAP_80(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
        _______,KC_EXLM,NO_AT,  NO_LCBR,NO_RCBR,NO_PIPE,_______,
@@ -169,14 +131,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, RGB_HUD, RGB_HUI
 ),
 
-/* Keymap 2: Media and mouse keys
+/* Keymap: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      | MsUp |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |      |      |  Play  |
+ * |        |MsLeft|MsDown|MsRght|      |      |------|           |------|      |      |      |      |      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -185,16 +147,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |Brwser|
- *                                 |      |      |------|       |------|      |Back  |
  *                                 |      |      |      |       |      |      |      |
+ *                                 |      |------|------|       |------|------|------|
+ *                                 |      |      |      |       |      |      |BrBck |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [MDIA] = KEYMAP_80(
         _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, KC_MS_U, _______, _______, _______,
-        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
+        _______, _______, KC_MS_U, _______, _______, _______, _______,
+        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, KC_BTN1, KC_BTN2,
                                             _______, _______,
@@ -210,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,
         _______, _______, KC_WBAK
 ),
- // Ducky Style arrows
+ // Keymap: Ducky Style arrows
 [ARRW] = KEYMAP_80(
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_UP  , _______, _______, _______, _______,
@@ -221,11 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______,
                                    _______, _______, _______,
      // right hand
-        _______,  _______, _______, _______, _______, _______, _______,
-        _______,  _______, _______, _______, _______, _______, _______,
-                  _______, _______, _______, _______, _______, _______,
-        _______,  _______, _______, _______, _______, _______, _______,
-                           _______, _______, _______, _______, _______,
+        TO(BASE),  _______, _______, _______, _______, _______, _______,
+        _______,   _______, _______, _______, _______, _______, _______,
+                   _______, _______, _______, _______, _______, _______,
+        _______,   _______, _______, _______, _______, _______, _______,
+                            _______, _______, _______, _______, _______,
         _______, _______,
         _______, _______, _______,
         _______, _______, _______
@@ -300,16 +262,13 @@ void matrix_scan_user(void) {
     switch (layer) {
       // Binary: lsb at bottom
         case 1:
-            ergodox_right_led_3_on();
+          ergodox_right_led_3_on();
             break;
         case 2:
             ergodox_right_led_2_on();
             break;
         case 3:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-        case 4:
-            ergodox_right_led_1_on();
+            ergodox_board_led_on();
         default:
             // none
             break;
