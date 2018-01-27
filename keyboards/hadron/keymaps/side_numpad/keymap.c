@@ -81,14 +81,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   ~  | Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | RAlt | Ins  |  Del |NumLay|   0  |   .  |  ENT |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_QWERTY] = KEYMAP( 
+[_QWERTY] = KEYMAP(
   KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,          KC_MINS,\
   KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,           KC_BSPC,    KC_P7,   KC_P8,   KC_P9, \
   KC_CAPS,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LT_MC(KC_SCLN), CTL_ENT,    KC_P4,   KC_P5,   KC_P6, \
   KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,         KC_EQL,    KC_P1,   KC_P2,   KC_P3, \
   KC_GRV,    KC_RCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_RALT, KC_INS,  KC_DEL,       TG_NUMLAY,    KC_P0,   KC_PDOT, KC_PENT \
 ),
- 
+
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -102,14 +102,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_LOWER] = KEYMAP( 
+[_LOWER] = KEYMAP(
   KC_ESC,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO, \
   KC_1,       KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,       KC_8,       KC_9,    KC_0,  KC_GRV, KC_BSLS, _______, _______, _______, \
   KC_CAPS,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_PIPE, _______, _______, _______, \
   _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______,    _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______\
 ),
- 
+
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
@@ -123,14 +123,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |Space |   0  |      | Left | Down | Right|      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_RAISE] = KEYMAP( 
+[_RAISE] = KEYMAP(
   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,   KC_F6, KC_F7,   KC_F8,      KC_F9,  KC_F10,   KC_F11,  KC_F12, \
   KC_1,    KC_2,    KC_3,    KC_4,     KC_5,        KC_6,  KC_7,    KC_8,       KC_9,    KC_0,  KC_PLUS, KC_BSLS, _______, _______, _______, \
   _______, KC_A,    KC_UP,   KC_D,     KC_PSCR,  _______,  KC_4,    KC_5,       KC_6, KC_PAST,  KC_COLN, KC_QUOT, _______, _______, _______, \
   _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC__MUTE, _______,  KC_1,    KC_2,       KC_3,   KC_UP,  KC_SLSH, _______, _______, _______, _______, \
   _______, _______, _______, _______,   _______,  KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______  \
 ),
- 
+
 /* FN layer on Esc key
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -144,14 +144,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_FNLAYER] = KEYMAP( 
+[_FNLAYER] = KEYMAP(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,\
   _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC,   KC_AMPR,    KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS, _______, _______, _______, \
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,     KC_EQL, KC_LBRC, KC_RBRC, KC_QUOT, _______, _______, _______, \
   _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,S(KC_NUHS), S(KC_NUBS), KC_LCBR, KC_RCBR, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______,   _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, _______, _______ \
 ),
- 
+
 /* Num Layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -165,14 +165,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      | Exit | Left | Down | Rght |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_NUMLAY] = KEYMAP( 
+[_NUMLAY] = KEYMAP(
   _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______,\
   _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_INS,  KC_HOME,  KC_PGUP,   \
   _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_DEL,   KC_END,  KC_PGDN,   \
   _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_PMNS,    KC_UP,   KC_PPLS,   \
   _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT \
 ),
- 
+
 /* Mouse Layer (semi-col)
  * ,-----------------------------------------------------------------------------------.
  * |      |ACCL0| ACCL1| ACCL2 |      |      |      |      |      |      |      |      |
@@ -186,17 +186,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      | BTN1 |      |      |      | BTN1 |      |      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
- 
-[_MOUSECURSOR] = KEYMAP( 
+
+[_MOUSECURSOR] = KEYMAP(
   _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,\
   _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, DEMOMACRO, _______, _______, _______, _______, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R,   _______, _______, _______, _______, _______, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,   _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______ \
 ),
- 
+
 /* Adjust (Lower + Raise)
- 
+
  * ,-----------------------------------------------------------------------------------.
  * | Reset|      |      |      |      |      |      |      |      | VolD | VolU | Mute |
  * |------+------+------+------+------+------+------+------+------+------+------+------+--------------------.
@@ -209,14 +209,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_ADJUST] = KEYMAP( 
+[_ADJUST] = KEYMAP(
   RESET,     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU, KC_MUTE, \
   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,  KC_DEL, _______, _______, _______, \
   _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP,  QWERTY, _______, _______, _______, _______, _______, _______, _______, \
   _______,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
- 
+
 
 
 };
@@ -257,7 +257,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
@@ -332,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(4);
         layer_on(_NUMLAY);
         } else {
-        rgblight_mode(RGB_current_mode);  
+        rgblight_mode(RGB_current_mode);
         layer_off(_NUMLAY); }
       }
       return false;
@@ -376,12 +376,12 @@ void matrix_scan_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {cc
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -393,7 +393,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
@@ -407,11 +407,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       eeconfig_init();
     }
 
-    switch (id) {  
+    switch (id) {
       case KC_DEMOMACRO:
         if (record->event.pressed){
           return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }  
+        }
     }
 
     return MACRO_NONE;
@@ -493,7 +493,7 @@ void iota_gfx_task_user(void) {
         default:
            matrix_write(&matrix, buf);
  }
-  
+
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",

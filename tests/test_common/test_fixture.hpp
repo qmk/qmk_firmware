@@ -26,5 +26,5 @@ public:
     static void TearDownTestCase();
 
     void run_one_scan_loop();
-    void idle_for(uint ms);
+    void idle_for(unsigned ms);
 };

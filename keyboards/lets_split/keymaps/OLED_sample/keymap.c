@@ -206,7 +206,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+          PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
@@ -215,7 +215,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+          PLAY_SONG(tone_colemak);
         #endif
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
@@ -224,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+          PLAY_SONG(tone_dvorak);
         #endif
         persistent_default_layer_set(1UL<<_DVORAK);
       }
@@ -296,14 +296,14 @@ void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
-    RGB_current_mode = rgblight_config.mode; 
+    RGB_current_mode = rgblight_config.mode;
 }
 
 //SSD1306 OLED init and update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 void matrix_master_OLED_init (void) {
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-    iota_gfx_init();   // turns on the display   
+    iota_gfx_init();   // turns on the display
 }
 
 void matrix_scan_user(void) {
@@ -316,12 +316,12 @@ void matrix_scan_user(void) {
 void startup_user()
 {
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -333,7 +333,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
@@ -352,7 +352,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         if (record->event.pressed){
           return MACRO (I(10), T(H), T(E), T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D), END);
         }
- 
+
     }
 
     return MACRO_NONE;
@@ -435,7 +435,7 @@ void iota_gfx_task_user(void) {
         default:
            matrix_write(&matrix, buf);
  }
-  
+
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
