@@ -26,7 +26,7 @@ F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = bootloadHID
 
@@ -36,9 +36,14 @@ MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = no
-RGBLIGHT_CUSTOM_DRIVER = no
+
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_CUSTOM_DRIVER = yes
+
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_CUSTOM_DRIVER = yes
+# DISABLE_WS2812 = no
+
 KEY_LOCK_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -48,7 +53,7 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC = matrix.c i2c.c backlight.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

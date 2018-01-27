@@ -15,14 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
 #include "drashna.h"
-
-#include "keymap_german.h"
-
-#include "keymap_nordic.h"
 
 
 
@@ -30,18 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
 
-
-#ifdef TAP_DANCE_ENABLE
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
-#else
-#define KC_D3_1 KC_1
-#define KC_D3_2 KC_2
-#define KC_D3_3 KC_3
-#define KC_D3_4 KC_4
-#endif
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_EQUAL,       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       TG(_MOUS),
                 KC_TAB,         KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       TG(_DIABLO),
                 KC_BSPACE,      KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-                KC_LSHIFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(_GAMEPAD),
+                KC_LSFT,      LCTL_T(KC_Z),KC_X,       KC_C,       KC_V,       KC_B,       TG(_GAMEPAD),
                 LT(_SYMB,KC_GRAVE),KC_QUOTE, KC_LGUI,    KC_LBRACKET,KC_RBRACKET,
                 
                                     ALT_T(KC_APPLICATION),  KC_LGUI,
@@ -81,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 TG(_MOUS),       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,           KC_MINUS,
                 TG(_DIABLO),     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,           KC_BSLASH,
                                 KC_H,       KC_J,       KC_K,       KC_L,       KC_SCOLON,      GUI_T(KC_QUOTE),
-                TG(_GAMEPAD),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),KC_RSHIFT,
+                TG(_GAMEPAD),  KC_N,       KC_M,       KC_COMMA,   KC_DOT,     RCTL_T(KC_SLASH),OSM(MOD_RSFT),
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
                 KC_RGUI,    CTL_T(KC_ESCAPE),
                 KC_PGUP,
@@ -124,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(_MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(_DIABLO),  KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
                           KC_H,   KC_N,   KC_E,   KC_I,   KC_O,             GUI_T(KC_QUOTE),
-             TG(_GAMEPAD),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
+             TG(_GAMEPAD),KC_K,  KC_M,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), OSM(MOD_RSFT),
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
              KC_RGUI,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -156,9 +137,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DVORAK] = LAYOUT_ergodox(  
         // left hand
         KC_EQL,         KC_1,           KC_2,    KC_3,   KC_4,   KC_5,   TG(_MOUS),
-        KC_TAB,        KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(_DIABLO),
+        KC_TAB,         KC_QUOT,        KC_COMM, KC_DOT, KC_P,   KC_Y,   TG(_DIABLO),
         KC_BSPC,        KC_A,           KC_O,    KC_E,   KC_U,   KC_I,
-        KC_LSFT,        LCTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(_GAMEPAD),
+        KC_LSFT,  LCTL_T(KC_SCLN), KC_Q,    KC_J,   KC_K,   KC_X,   TG(_GAMEPAD),
         LT(_SYMB,KC_GRV),KC_QUOT, KC_LGUI, KC_LBRACKET, KC_RBRACKET,
                                               ALT_T(KC_APP),  KC_LEAD,
                                                               KC_HOME,
@@ -167,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(_MOUS),     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,        KC_BSLS,
              TG(_DIABLO),   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,        KC_SLSH,
                            KC_D,   KC_H,   KC_T,   KC_N,   KC_S,        KC_MINS,
-             TG(_GAMEPAD),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), KC_RSHIFT,
+             TG(_GAMEPAD),KC_B,   KC_M,   KC_W,   KC_V,   RCTL_T(KC_Z), OSM(MOD_RSFT),
                                    KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,    TT(_SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -178,11 +159,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
+ * | Del    |   Q  |   D  |   R  |   W  |   B  |  L1  |           |  L1  |   J  |   F  |   U  |   P  |   ;  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
+ * | BkSp   |   A  |   S  |   H  |   T  |   D  |------|           |------|   Y  |   N  |   E  |   O  |   I  |   '    |
  * |--------+------+------+------+------+------| OVER |           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | LShift |Z/Ctrl|   X  |   M  |   C  |   V  |      |           |      |   K  |   L  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -210,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(_MOUS),    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TG(_DIABLO),  KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOTE,
-             TG(_GAMEPAD),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), KC_RSHIFT,
+             TG(_GAMEPAD),KC_K,  KC_L,   KC_COMM,KC_DOT, RCTL_T(KC_SLASH), OSM(MOD_RSFT),
                           KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,       TT(_SYMB),
              KC_LALT,        CTL_T(KC_ESC),
              KC_PGUP,
@@ -239,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                 `--------------------'       `--------------------'
 */
   [_SYMB] = LAYOUT_ergodox(
-                KC_ESCAPE,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
+                EPRM,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_WORKMAN,
                 VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_DVORAK,
                 KC_MAKE,        KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
                 KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
@@ -280,7 +261,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [_GAMEPAD] = LAYOUT_ergodox(
-                KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+                KC_ESCAPE,      KC_TRNS,    KC_TRNS,    KC_TRNS,    HYPR(KC_D), HYPR(KC_Q), HYPR(KC_GRV),
                 KC_F1,          KC_K,       KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
                 KC_TAB,         KC_G,       KC_A,       KC_S,       KC_D,       KC_F,
                 KC_LCTL,        KC_LSHIFT,  KC_Z,       KC_X,       KC_C,       KC_V,       KC_TRNS,
@@ -294,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 KC_I,       KC_O,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                 TG(_GAMEPAD),   KC_N,       KC_M,       KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                             KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,      KC_NO,
-                KC_NO,          KC_NO,
+                KC_HYPR,         MAGIC_TOGGLE_NKRO,
                 KC_NO,
                 KC_PGDOWN,      KC_DELETE, KC_ENTER
             ),
@@ -364,7 +345,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [_MOUS] = LAYOUT_ergodox(
-                KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
+                KC_NO,      KC_SECRET_1,KC_SECRET_2,KC_SECRET_3,KC_SECRET_4,KC_SECRET_5,KC_TRNS,
                 KC_NO,      KC_NO,      KC_MS_U,    KC_NO,      KC_NO,      KC_NO,      KC_TRNS,
                 KC_NO,      KC_MS_L,    KC_MS_D,    KC_MS_R,    KC_NO,      KC_NO,
                 KC_NO,      KC_ACL0,    KC_ACL1,    KC_ACL2,    KC_NO,      KC_NO,      KC_TRNS,

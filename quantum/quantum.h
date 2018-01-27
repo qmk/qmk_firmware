@@ -173,12 +173,11 @@ void breathing_self_disable(void);
 void breathing_toggle(void);
 bool is_breathing(void);
 
-void breathing_defaults(void);
 void breathing_intensity_default(void);
-void breathing_speed_default(void);
-void breathing_speed_set(uint8_t value);
-void breathing_speed_inc(uint8_t value);
-void breathing_speed_dec(uint8_t value);
+void breathing_period_default(void);
+void breathing_period_set(uint8_t value);
+void breathing_period_inc(void);
+void breathing_period_dec(void);
 #endif
 
 #endif

@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-#include "quantum.h"
-#include "action.h"
 #include "version.h"
 
 #if (__has_include("secrets.h"))
@@ -31,6 +29,15 @@ PROGMEM const char secret[][64] = {
   "test5"
 };
 #endif
+
+#ifdef FAUXCLICKY_ENABLE
+float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
+float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
+#else
+float fauxclicky_pressed[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+float fauxclicky_released[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+#endif 
+bool faux_click_enabled = true;
 
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
@@ -224,9 +231,20 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's recod handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  
+
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
+
+#ifdef AUDIO_ENABLE
+  if (faux_click_enabled) {
+    if (record->event.pressed) {
+      PLAY_SONG(fauxclicky_pressed);
+    } else {
+      stop_note(NOTE_A6);
+      PLAY_SONG(fauxclicky_released);
+    }
+  }
 #endif
 
   switch (keycode) {
@@ -297,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_ergodox_ez))
+#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
   case KC_OVERWATCH:
     if (record->event.pressed) {
       is_overwatch = !is_overwatch;
@@ -450,8 +468,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
       ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-       ":avrdude"
+//#elif defined(BOOTLOADER_CATERINA)
+//       ":avrdude"
 #endif
 #ifdef RGBLIGHT_ENABLE
         " RGBLIGHT_ENABLE=yes"
@@ -462,11 +480,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         " AUDIO_ENABLE=yes"
 #else
         " AUDIO_ENABLE=no"
-#endif
-#ifdef FAUXCLICKY_ENABLE
-        " FAUXCLICKY_ENABLE=yes"
-#else
-        " FAUXCLICKY_ENABLE=no" 
 #endif
         SS_TAP(X_ENTER));
     }
@@ -498,6 +511,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
       send_string_P(secret[keycode - KC_SECRET_1]);
+    }
+    return false;
+    break;
+  case KC_FXCL:
+    if (!record->event.pressed) {
+      faux_click_enabled = !faux_click_enabled;
     }
     return false;
     break;
@@ -572,6 +591,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     case _COVECUBE:
       rgblight_set_green;
       rgblight_mode(2);
+      break;
     default:
       if (default_layer & (1UL << _COLEMAK)) {
         rgblight_set_magenta;

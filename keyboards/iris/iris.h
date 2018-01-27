@@ -3,6 +3,8 @@
 
 #ifdef KEYBOARD_iris_rev1
     #include "rev1.h"
+#elif KEYBOARD_iris_rev1_led
+    #include "rev1_led.h"
 #else
     #include "rev2.h"
 #endif
