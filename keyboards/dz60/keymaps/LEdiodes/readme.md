@@ -6,4 +6,4 @@
 Layer 0(default) Keymap for LEdiodes XD60.
 
 ## Build
-To build the default keymap, simply run `make xd60:LEdiodes_V2`.
+To build the default keymap, simply run `make xd60:LEdiodes`.
