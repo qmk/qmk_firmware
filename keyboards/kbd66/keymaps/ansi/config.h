@@ -1,4 +1,4 @@
-/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+/* Copyright 2018 Alex Peters
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
-
-#define USE_I2C
-#define SSD1306OLED
-//#define OLED_ROTATE180
-#define SSD1306_ADDRESS 0x3C
+#include "config_common.h"
 
 // place overrides here
 
