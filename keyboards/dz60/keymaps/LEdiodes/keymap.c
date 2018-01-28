@@ -4,7 +4,8 @@
 #Define _L0 0
 #Define _L1 1
 #Define _L2 2
-
+#Define _L3 3
+#Define _L4 4
 
 #define _______ KC_TRNS
 
@@ -26,16 +27,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * LT(_L1, KC_1) means that when the "1" key is long touched then it will activate the layer _L1 key(F1) but if the key is just tapped it will activate the "1" key.
  * KC_GESC = Escape when tapped, ` when pressed with Shift or GUI
  * KC_LSPO = Left Shift when held, ( when tapped
+ * TD(LT(_L3,KC_SPACE)) = This is a test... hoping it will tap dance if double tapped it does enter if single tap it does space if long hold down it does _L3(Layer 3).
+ * LT(_L3,KC_SPACE) = if tapped it does space, is long touch it does _L3(Layer 3)
+ * BL_TOGG = Toggles the LEDs.
  * ,-----------------------------------------------------------------------------------------.
  * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
  * |-----------------------------------------------------------------------------------------+
  * | Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
  * |-----------------------------------------------------------------------------------------+
- * | Caps    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
+ * | _L4    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
  * |-----------------------------------------------------------------------------------------+
- * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RSh |  U  | Fn1 |
+ * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RSh |  U  | _L1 |
  * |-----------------------------------------------------------------------------------------+
- * | Ctrl |  Win  |  Alt  |  Space   | Space |     Space      | Win  | Fn2 |  L  |  D  |  R  |
+ * | Ctrl |  Win  |  Alt  |  _L3[Space]  |LEdiodes|      Space       |Win | _L2|  L |  D |  R |
  * `-----------------------------------------------------------------------------------------'
  */
 [_L0] = KEYMAP(
@@ -43,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,   \
       KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,  KC_NO,             KC_ENT,    \
       KC_LSPO, KC_NO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSPO, KC_UP,    M0(_L1), \
-      KC_LCTL,             KC_LGUI, KC_LALT, TD(TD_SPC_ENT),TD(TD_SPC_ENT),TD(TD_SPC_ENT),     KC_RGUI, M0(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
+      KC_LCTL,             KC_LGUI, KC_LALT, TD(LT(_L3,KC_SPACE)),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, M0(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
 
 /* Keymap _L1: (Layer 1) This is function layer 1
  * This layer is activated while the Fn key is being held down.
@@ -65,7 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,  _______,                      _______,   \
       _______,          _______, _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,   \
       _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDOWN, KC_END),
-
 
 /* Keymap _L2: (Layer 2) This is function layer 2
  * This layer is activated while the Fn2 key is being held down.
@@ -132,8 +135,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_KC_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   //Tap once for Right Shift, twice for Caps Lock
   [TD_KC_RSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS)
-    
-    
+   
 // Other declarations would go here, separated by commas, if you have them
     
 };
