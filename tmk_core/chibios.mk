@@ -220,8 +220,8 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
-bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
+bin: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
