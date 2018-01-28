@@ -25,7 +25,7 @@ enum planck_layers {
   _DVORAK,
   _LOWER,
   _RAISE,
-  _MOUSE,
+  _EMOJI,
   _PLOVER,
   _ADJUST
 };
@@ -62,7 +62,7 @@ enum planck_keycodes {
 #define KC_X0 MT(MOD_LCTL, KC_ESC)  // Hold for Left Ctrl, Tap for ESC
 #define KC_X1 MT(MOD_RSFT, KC_ENT)  // Hold for Right Shift, Tap for Enter
 #define KC_X2 MT(MOD_RSFT, LGUI(KC_ENT))  // Send Command Enter
-#define KC_MOUS TT(_MOUSE)  // Hold for Mouse Layer, or tap 5 times.
+#define KC_MOUS TT(_EMOJI)  // Hold for Mouse Layer, or tap 5 times.
 #define KC_QS LGUI(KC_SPC)  // Send Command + Space (for QuickSilver).
 #define KC_TABR LGUI(KC_RCBR)  // Send Command + } (for tab changing).
 #define KC_TABL LGUI(KC_LCBR)  // Send Command + { (for tab changing).
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  */
-[_MOUSE] = {
+[_EMOJI] = {
   {HYPR_0,  _______, WINK,    _______, _______,  TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______},
   {HYPR_1,  _______, SHRUG,   _______, FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______},
   {HYPR_2,  _______, _______, _______, CONFUSED, _______, _______, GRIN,    SHIT,    _______, _______, _______},
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shft |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |  Up  |CTLENT|
+ * | Shft |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |  Up  |CTLENT|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      | Left | Down | Right|
  * `-----------------------------------------------------------------------------------'
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,     KC_9,    KC_0,    KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,   KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,  _______,  KC_UP,   KC_X2},
+  {KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS,  _______,  KC_UP,   KC_X2},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_LEFT, KC_DOWN, KC_RGHT}
 },
 
@@ -323,7 +323,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         layer_off(_LOWER);
         layer_off(_ADJUST);
-        layer_off(_MOUSE);
+        layer_off(_EMOJI);
         layer_on(_PLOVER);
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
