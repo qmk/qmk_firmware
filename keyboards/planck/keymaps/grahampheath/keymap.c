@@ -40,17 +40,22 @@ enum planck_keycodes {
   BACKLIT,
   EXT_PLV,
   TOUNGE,
-  SMILE,
+  JOY,
   FROWN,
   HEART,
   THMBUP,
   THMBDN,
   SHRUG,
+  WINK,
   GRIN,
   LLAP,
   CRY,
   SHIT,
-  FLIP
+  FLIP,
+  FNGLEFT,
+  ABOVE,
+  FNGRIGHT,
+  CONFUSED
 };
 
 
@@ -124,24 +129,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 
-/* GUI (window management/mouse/media controls) layer
+/* Emoji Layer
  *
- *        Mouse keys -----/```````````````````\
  *                ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- *                │HYPR0│Ms B2│Ms Up│Ms B1│Ms WD│     │     │LLAP │:'-( │FLIP │     │     │
+ *                │HYPR0│     │ ;-) │     │     │ :-P │     │     │:'-( │FLIP │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │HYPR1│Ms L │Ms Dn│Ms R │Ms WU│     │     │ :-) │ :-( │  <3 │SHRUG│     │
+ *                │HYPR1│  👆 │SHRUG│     │ :-( │     │ <3  │ :-) │     │LLAP │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- *                │HYPR2│Ms WL│Ms B3│Ms WR│     │     │     │ :-D │ SHIT│ :-P │     │     │
+ *                │HYPR2│     │     │     | :-\ │     │     │ :-D │ SHIT│     │     │     │
  *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
- *                │     │     │     │     │Brig-│   Sleep   │Brig+│     │ 👎  |  👍 │     │
+ *                │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
  *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  */
 [_MOUSE] = {
-  {HYPR_0, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_D, _______, _______, LLAP,    CRY,     FLIP,     _______, _______},
-  {HYPR_1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, SMILE,   FROWN,   HEART,    SHRUG,   _______},
-  {HYPR_2, KC_WH_L, KC_BTN3, KC_WH_R, _______, _______, _______, GRIN,    SHIT,    TOUNGE,   _______, _______},
-  {_______, _______, _______, _______, KC_SLCK, KC_SLEP, KC_SLEP, KC_PAUS, _______,THMBDN,  THMBUP, _______}
+  {HYPR_0,  _______, WINK,    _______, _______,  TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______},
+  {HYPR_1,  _______, SHRUG,   _______, FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______},
+  {HYPR_2,  _______, _______, _______, CONFUSED, _______, _______, GRIN,    SHIT,    _______, _______, _______},
+  {_______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT}
 },
 
 
@@ -345,6 +349,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case CONFUSED:
+      if (record->event.pressed) {
+        SEND_STRING(":-\\");
+      }
+      return false;
+      break;
     case SHIT:
       if (record->event.pressed) {
         SEND_STRING("&shit; ");
@@ -375,7 +385,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case SMILE:
+    case JOY:
       if (record->event.pressed) {
         SEND_STRING(":-) ");
       }
@@ -408,6 +418,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case THMBDN:
       if (record->event.pressed) {
         SEND_STRING("&thumbdown; ");
+      }
+      return false;
+      break;
+    case FNGLEFT:
+      if (record->event.pressed) {
+        SEND_STRING("&fingerleft; ");
+      }
+      return false;
+      break;
+    case FNGRIGHT:
+      if (record->event.pressed) {
+        SEND_STRING("&fingerright; ");
+      }
+      return false;
+      break;
+    case WINK:
+      if (record->event.pressed) {
+        SEND_STRING(";-) ");
+      }
+      return false;
+      break;
+    case ABOVE:
+      if (record->event.pressed) {
+        SEND_STRING("&above; ");
       }
       return false;
       break;
