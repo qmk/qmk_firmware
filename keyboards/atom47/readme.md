@@ -20,6 +20,7 @@ CapsLock indicator
 
 ## Build
 To build the default keymap, simply run `make atom47:default`.
+
 For an alternative, heavily modified layout you would just need to run `make atom47:LEdiodes`.
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
