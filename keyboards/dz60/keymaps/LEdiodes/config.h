@@ -1,11 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
- 
-#include "config_common.h"
-
 #include "config.h"
- 
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x2260
@@ -51,13 +48,11 @@
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
-@@ -51,4 +51,8 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
- 
+
 /* sets 'Auto Shift' timeouts */
 #define AUTO_SHIFT_TIMEOUT 150
 #define NO_AUTO_SHIFT_SPECIAL
- 
+
 #endif
-#endif 

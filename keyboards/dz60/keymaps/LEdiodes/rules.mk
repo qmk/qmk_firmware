@@ -1,7 +1,5 @@
 # MCU name
-# MCU = at90usb1287
 MCU = atmega32u4
-
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -16,11 +14,11 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
-
+#
 # LUFA specific
+#
 # Target architecture (see library "Board Types" documentation).
 ARCH = AVR8
-
 
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
@@ -35,31 +33,25 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
-
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
 # Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
-BOOTMAGIC_ENABLE = yes      # Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug(+400)
-COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
-MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
-UNICODE_ENABLE = no         # Unicode
-BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+#   comment out to disable the options.
+#
+BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes	# Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes	# Audio control and System control(+450)
+CONSOLE_ENABLE = no	# Console for debug(+400)
+COMMAND_ENABLE = no    # Commands for debug and configuration
+SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
+AUDIO_ENABLE = no
+RGBLIGHT_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes # If the time depressed is greater than or equal to the AUTO_SHIFT_TIMEOUT, then a shifted version of the key is emitted. If the time is less than the AUTO_SHIFT_TIMEOUT time, then the normal state is emitted

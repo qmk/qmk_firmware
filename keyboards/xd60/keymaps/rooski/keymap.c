@@ -6,7 +6,7 @@
 #include "backlight.h"
 
 // Define tapping term
-#define TAPPING_TERM    150
+// commented out as it is causing errors int Travis CI -- #define TAPPING_TERM    150
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
