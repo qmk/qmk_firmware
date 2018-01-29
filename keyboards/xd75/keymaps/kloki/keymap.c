@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  },
  [_FUN] = { /* FUN */
   { _______,  RGB_RMOD,RGB_MOD, RGB_TOG, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, RESET   },
-  { _______,  RGB_HUD, RGB_HUI, _______, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, _______ },
+  { _______,  RGB_HUD, RGB_HUI, RGB_MODE_PLAIN, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, _______ },
   { _______,  RGB_SAD, RGB_SAI, _______, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, _______ },
   { _______,  RGB_VAD, RGB_VAI, _______, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, _______ },
   { _______,  _______, _______, _______, _______,_______,_______, _______, _______, _______,_______,_______, _______, _______, _______ },
@@ -84,4 +84,79 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
       }
     return MACRO_NONE;
+};
+
+bool CTRLDOWN = false;
+bool WINDOWN = false;
+bool SHIFTDOWN = false;
+void matrix_scan_user(void) {
+
+    uint8_t layer = biton32(layer_state);
+
+    switch (layer) {
+        case 0:
+            rgblight_setrgb(0,240, 255);
+            break;
+        case 1:
+            rgblight_setrgb(0,255, 100);
+            break;
+        case 2:
+            rgblight_setrgb(10,255, 0);
+            break;
+        case 3:
+            rgblight_setrgb(255,0, 85);
+            break;
+        case 4:
+            rgblight_setrgb(240,255, 0);
+            break;
+        default:
+            // none
+            break;
+    }
+    if ( SHIFTDOWN) {
+        rgblight_setrgb(255,255, 255);
+        }
+    if ( CTRLDOWN) {
+        rgblight_setrgb(255,0, 0);
+        }
+    if ( WINDOWN) {
+        rgblight_setrgb(255,255, 255);
+        }
+
+    
+
+};
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LGUI_T(KC_ENT):
+      if (record->event.pressed) {
+        WINDOWN = true;
+        } else {
+        WINDOWN = false;
+      }
+      return true; 
+    case CTL_T(KC_ESC):
+      if (record->event.pressed) {
+        CTRLDOWN = true;
+        } else {
+        CTRLDOWN = false;
+      }
+      return true; 
+    case KC_LSFT:
+      if (record->event.pressed) {
+        SHIFTDOWN = true;
+        } else {
+        SHIFTDOWN = false;
+      }
+      return true; 
+    case KC_RSFT:
+      if (record->event.pressed) {
+        SHIFTDOWN = true;
+        } else {
+        SHIFTDOWN = false;
+      }
+      return true; 
+    default:
+      return true; // Process all other keycodes normally
+  }
 };
