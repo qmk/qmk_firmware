@@ -44,6 +44,8 @@ RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 # DISABLE_WS2812 = no
 
+TAP_DANCE_ENABLE = yes
+
 KEY_LOCK_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
