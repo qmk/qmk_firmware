@@ -81,3 +81,8 @@ void matrix_scan_kb(void) {
   matrix_scan_user();
   /* Nothing else for now. */
 }
+
+__attribute__((weak)) // overridable
+void matrix_scan_user(void) {
+
+}
