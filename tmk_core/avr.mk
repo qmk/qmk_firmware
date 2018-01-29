@@ -136,7 +136,7 @@ flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	
 DFU_PROGRAMMER ?= dfu-programmer
 
-dfu: $(BUILD_DIR)/$(TARGET).hex check-size
+dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
