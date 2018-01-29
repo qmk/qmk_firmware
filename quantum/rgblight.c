@@ -46,6 +46,12 @@ bool rgblight_timer_enabled = false;
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
 
+  #ifdef RGBLIGHT_LIMIT_VAL
+    if (val > RGBLIGHT_LIMIT_VAL) {
+      val=RGBLIGHT_LIMIT_VAL; // limit the val
+    }
+  #endif
+
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
     g = val;
@@ -368,6 +374,18 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
     eeconfig_update_rgblight(rgblight_config.raw);
     xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
   }
+}
+
+uint16_t rgblight_get_hue(void) {
+  return rgblight_config.hue;
+}
+
+uint8_t rgblight_get_sat(void) {
+  return rgblight_config.sat;
+}
+
+uint8_t rgblight_get_val(void) {
+  return rgblight_config.val;
 }
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {

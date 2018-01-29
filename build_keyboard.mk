@@ -113,9 +113,11 @@ endif
 
 # We can assume a ChibiOS target When MCU_FAMILY is defined , since it's not used for LUFA
 ifdef MCU_FAMILY
+    FIRMWARE_FORMAT=bin
     PLATFORM=CHIBIOS
 else
     PLATFORM=AVR
+    FIRMWARE_FORMAT=hex
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
@@ -270,7 +272,7 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf cphex
+build: elf cpfirmware
 #build: elf hex eep lss sym
 #build: lib
 

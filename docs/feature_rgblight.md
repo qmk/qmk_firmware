@@ -41,6 +41,7 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 | `RGBLIGHT_HUE_STEP` | 10 | How many hues you want to have available. |
 | `RGBLIGHT_SAT_STEP` | 17 | How many steps of saturation you'd like. |
 | `RGBLIGHT_VAL_STEP` | 17 | The number of levels of brightness you want. |
+| `RGBLIGHT_LIMIT_VAL` | 255 | Limit the val of HSV to limit the maximum brightness simply. |
 
 ### Animations
 
