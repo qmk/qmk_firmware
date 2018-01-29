@@ -138,13 +138,13 @@ void reset_keyboard(void) {
   clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
-#endif  
+#endif
 #if defined(AUDIO_ENABLE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
   shutdown_user();
-  while(timer_elapsed(timer_start) < 250) 
+  while(timer_elapsed(timer_start) < 250)
     wait_ms(1);
   stop_all_notes();
 #else
@@ -885,6 +885,7 @@ void backlight_set(uint8_t level) {}
 
 uint8_t backlight_tick = 0;
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_task(void) {
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
@@ -905,9 +906,12 @@ void backlight_task(void) {
   }
   backlight_tick = backlight_tick + 1 % 16;
 }
+#endif
 
 #ifdef BACKLIGHT_BREATHING
-#error "Backlight breathing only available with hardware PWM. Please disable."
+  #ifndef BACKLIGHT_CUSTOM_DRIVER
+  #error "Backlight breathing only available with hardware PWM. Please disable."
+  #endif
 #endif
 
 #else // pwm through timer
@@ -935,6 +939,7 @@ static inline void set_pwm(uint16_t val) {
   OCR1x = val;
 }
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 __attribute__ ((weak))
 void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
@@ -952,6 +957,7 @@ void backlight_set(uint8_t level) {
 }
 
 void backlight_task(void) {}
+#endif  // BACKLIGHT_CUSTOM_DRIVER
 
 #ifdef BACKLIGHT_BREATHING
 
