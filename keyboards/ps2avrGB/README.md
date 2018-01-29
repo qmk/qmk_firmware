@@ -37,7 +37,7 @@ Then, with the keyboard plugged in, simply run this command from the
 `qmk_firmware` directory:
 
 ```
-$ make ps2avrGB-program
+$ make ps2avrGB:program
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
@@ -49,13 +49,26 @@ $ make ps2avrGB
 $ bootloadHID -r ps2avrGB_default.hex
 ```
 
+## Setting the board to bootloader mode
+
+If you're lucky, the programming script does this automagically for you. If
+however this doesn't work for you, you need to enter the bootloader mode manually
+by plugging the keyboard in while holding the bootloader key. If you did this
+correctly the LEDs will blink and you'll be able to flash your firmware.
+
+The bootloader key is the top left key of your matrix. For a standard board
+from winkeyless.kr this is `L_Ctrl`, but for some custom boards running ps2avrGB
+this might be different. For the Pearl it's `Esc`, for a b.fake it is `q`. If 
+you're unsure you should be able to see the key in the bootmapper client.
+
+
 ## Troubleshooting
 
 From my experience, it's really hard to brick these boards. But these
 tricks have been useful when it got stuck in a weird scenario.
 
-1. Try plugging the board in while pressing `L_Ctrl`. This will force it
-   to boot only the bootloader without loading the firmware. Once this is
+1. Try plugging the board in while holding the bootloader key. This will force 
+   it to boot only the bootloader without loading the firmware. Once this is
    done, just reflash the board with the original firmware.
 2. Sometimes USB hubs can act weird, so try connecting the board directly
    to your computer or plugging/unplugging the USB hub.

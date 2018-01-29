@@ -6,7 +6,7 @@ To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest fr
 
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
-### Busywait version
+### Busywait Version
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
 
@@ -32,7 +32,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt version
+### Interrupt Version
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
@@ -70,7 +70,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### USART version
+### USART Version
 
 To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
 
@@ -129,13 +129,13 @@ In your keyboard config.h:
 
 ### Additional Settings
 
-#### PS/2 mouse features
+#### PS/2 Mouse Features
 
 These enable settings supported by the PS/2 mouse protocol: http://www.computer-engineering.org/ps2mouse/
 
 ```
 /* Use remote mode instead of the default stream mode (see link) */
-#define PS2_MOUSE_USE_REMOTE_MODE  
+#define PS2_MOUSE_USE_REMOTE_MODE
 
 /* Enable the scrollwheel or scroll gesture on your mouse or touchpad */
 #define PS2_MOUSE_ENABLE_SCROLLING
@@ -170,7 +170,7 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ```
 
-#### Fine control
+#### Fine Control
 
 Use the following defines to change the sensitivity and speed of the mouse.
 Note: you can also use `ps2_mouse_set_resolution` for the same effect (not supported on most touchpads).
@@ -181,7 +181,7 @@ Note: you can also use `ps2_mouse_set_resolution` for the same effect (not suppo
 #define PS2_MOUSE_V_MULTIPLIER 1
 ```
 
-#### Scroll button
+#### Scroll Button
 
 If you're using a trackpoint, you will likely want to be able to use it for scrolling.
 Its possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
@@ -227,7 +227,27 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
-#### Debug settings
+#### Invert Mouse and Scroll Axes
+
+To invert the X and Y axes you can put:
+
+```
+#define PS2_MOUSE_INVERT_X
+#define PS2_MOUSE_INVERT_Y
+```
+
+into config.h.
+
+To reverse the scroll axes you can put:
+
+```
+#define PS2_MOUSE_INVERT_H
+#define PS2_MOUSE_INVERT_V
+```
+
+into config.h.
+
+#### Debug Settings
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 

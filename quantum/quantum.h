@@ -124,6 +124,7 @@ extern uint32_t default_layer_state;
 #define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
 #define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
 #define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
+#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
@@ -172,12 +173,11 @@ void breathing_self_disable(void);
 void breathing_toggle(void);
 bool is_breathing(void);
 
-void breathing_defaults(void);
 void breathing_intensity_default(void);
-void breathing_speed_default(void);
-void breathing_speed_set(uint8_t value);
-void breathing_speed_inc(uint8_t value);
-void breathing_speed_dec(uint8_t value);
+void breathing_period_default(void);
+void breathing_period_set(uint8_t value);
+void breathing_period_inc(void);
+void breathing_period_dec(void);
 #endif
 
 #endif
