@@ -17,7 +17,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 #ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 200

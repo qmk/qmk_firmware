@@ -25,6 +25,7 @@ typedef struct
 {
   uint8_t count;
   uint8_t oneshot_mods;
+  uint8_t weak_mods;
   uint16_t keycode;
   uint16_t timer;
   bool interrupted;

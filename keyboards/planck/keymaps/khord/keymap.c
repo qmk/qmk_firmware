@@ -128,12 +128,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     case MACRO_BREATH_SPEED_INC:
       if (record->event.pressed) {
-        breathing_speed_inc(1);
+        breathing_period_inc();
       }
       break;
     case MACRO_BREATH_SPEED_DEC:
       if (record->event.pressed) {
-        breathing_speed_dec(1);
+        breathing_period_dec();
       }
       break;
     case MACRO_BREATH_DEFAULT:
