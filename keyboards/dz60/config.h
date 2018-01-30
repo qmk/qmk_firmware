@@ -24,8 +24,9 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* number of backlight levels */
+/* Changing this temp for my lime layour with weird caps */
 #define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_LEVELS 1
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
