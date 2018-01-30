@@ -117,45 +117,52 @@ void matrix_scan_user(void) {
         rgblight_setrgb(255,255, 255);
         }
     if ( CTRLDOWN) {
-        rgblight_setrgb(255,0, 0);
+        rgblight_setrgb(240,255, 0);
         }
     if ( WINDOWN) {
         rgblight_setrgb(255,255, 255);
         }
 
-    
+
 
 };
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case KC_LGUI:
+      if (record->event.pressed) {
+        WINDOWN = true;
+        } else {
+        WINDOWN = false;
+      }
+      return true;
     case LGUI_T(KC_ENT):
       if (record->event.pressed) {
         WINDOWN = true;
         } else {
         WINDOWN = false;
       }
-      return true; 
+      return true;
     case CTL_T(KC_ESC):
       if (record->event.pressed) {
         CTRLDOWN = true;
         } else {
         CTRLDOWN = false;
       }
-      return true; 
+      return true;
     case KC_LSFT:
       if (record->event.pressed) {
         SHIFTDOWN = true;
         } else {
         SHIFTDOWN = false;
       }
-      return true; 
+      return true;
     case KC_RSFT:
       if (record->event.pressed) {
         SHIFTDOWN = true;
         } else {
         SHIFTDOWN = false;
       }
-      return true; 
+      return true;
     default:
       return true; // Process all other keycodes normally
   }
