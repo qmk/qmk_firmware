@@ -8,3 +8,5 @@
 #define MOUSE 3
 
 #include "../../config.h"
+
+#undef RGBLIGHT_ANIMATIONS
