@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "action.h"
-#include "jrolfs.h"
+#include "users/jrolfs/jrolfs.h"
 
 // Layer names
 #define _BASE     0
