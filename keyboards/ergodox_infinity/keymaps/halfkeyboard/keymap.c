@@ -10,7 +10,7 @@
 #define SYMB 5 // symbols
 #define HALFSYMB 6 // media keys
 #define PLVR 7 // steno plover layout
-#define SHORTCUTS //layer with shortcut keys
+#define SHORTCUTS 8 //layer with shortcut keys
 
 
 enum custom_keycodes {
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
-             KC_EQL),KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
+             KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              TG(PLVR),        KC_RALT,
              KC_PGUP,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_LEFT,
         KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   TG(SYMB),
         KC_ENT,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
-        KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_TRANSPARENT,
+        KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_EQL,
         KC_LCTRL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_LGUI,
                                               KC_LALT,  KC_TRANSPARENT,
                                                               KC_HOME,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_5,   KC_4,  KC_3,   KC_2,   KC_1,             KC_BSPC,
              TG(SYMB),    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
                           KC_G,   KC_F,  KC_D,   KC_S,   KC_A,  		   KC_ENT,
-             KC_TRANSPARENT,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
+             KC_MINUS,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        KC_RALT,
              KC_PGUP,
@@ -357,7 +357,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
-             KC_EQL),KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
+             KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              TG(PLVR),        KC_RALT,
              KC_PGUP,
