@@ -1,5 +1,5 @@
-#ifndef HAND_SQUEEZED_H
-#define HAND_SQUEEZED_H
+#ifndef HANDSQUEEZED_H
+#define HANDSQUEEZED_H
 
 #include "quantum.h"
 
