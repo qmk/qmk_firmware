@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include QUANTUM_KEYCODES_H
+
 #include "action_layer.h"
 #include "eeconfig.h"
 

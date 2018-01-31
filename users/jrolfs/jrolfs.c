@@ -1,7 +1,4 @@
 #include "jrolfs.h"
-#include "quantum.h"
-#include "action.h"
-#include "version.h"
 
 
 //
@@ -37,32 +34,10 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    case RAISE: // Raised layer
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _BOTH);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _BOTH);
-      }
-      return false;
-
-    case LOWER: // Lowered layer
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _BOTH);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _BOTH);
-      }
-      return false;
-
-    case FUNCTION:
-      if (record->event.pressed) {
-        layer_on(_FUNCTION);
-      } else {
-        layer_off(_FUNCTION);
+  switch (keycode) {
+    case KC_RESET:
+      if (!record->event.pressed) {
+        reset_keyboard();
       }
       return false;
   }
@@ -77,12 +52,3 @@ uint32_t layer_state_set_user (uint32_t state) {
 void led_set_user(uint8_t usb_led) {
    led_set_keymap(usb_led);
 }
-
-
-//
-// Shared
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_ESC),
-    [1] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT)
-};
