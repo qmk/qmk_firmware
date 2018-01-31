@@ -1,27 +1,60 @@
-MF68
-====
+# Hand-squeezed
 
-Magicforce 68 with [replacement PCB](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68) designed by [di0ib](https://github.com/di0ib).
+Hand wired Planck with Bluetooth squeezed into official OLKB [high profile wood case](https://olkb.com/planck/hi-pro-wooden-milled-bottom). The keyboard is also, *ahem*, squeezed onto as few pins as possible using a 6x8 matrix instead of the typical 4x12.
 
-Keyboard Maintainer: [di0ib](http://www.40percent.club)  
+Keyboard Maintainer: [jrolfs](https://github.com/jrolfs)
 Hardware Supported: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/) 
-Please note: This is 32u4 and not M0
-Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68/pcb)  
-[MF68 thicc case files](https://github.com/harshitgoel96/mf68-case-thicc)  
-Story
------
 
-The story and the idea behind this mod is available on [my reddit post](https://www.reddit.com/r/MechanicalKeyboards/comments/7eiiht/guide_i_built_a_bluetooth_enabled_magicforce68_no/)
+# Wiring
 
-Wiring
-------
+```
 
-Below is how you wire the Feather to PCB
+                ┌────┬─────┬────┐
+                │ ◯  └─────┘ ◯  │
+                │ ⚬ RST         │
+                │ ⚬ 3V     ┌────┤
+                │ ⚬ AREF   │    │
+                │ ⚬ GND    └────┤
+      {1}[F7] → │ ⚬ A0    BAT ⚬ │
+      {2}[F6] → │ ⚬ A1    LED ⚬ │
+      {3}[F5] → │ ⚬ A2    USB ⚬ │
+      {4}[F4] → │ ⚬ A3     13 ⚬ │ ← [C7](4)
+      {5}[F1] → │ ⚬ A4     12 ⚬ │ ← [D6](8)
+      {6}[F0] → │ ⚬ A5     11 ⚬ │ ← [B7](3)
+                │ ⚬ SCK    10 ⚬ │ ← [B6](7)
+                │ ⚬ MOSI    9 ⚬ │
+                │ ⚬ MISO    6 ⚬ │ ← [D7](6)
+                │ ⚬ RX ────┐5 ⚬ │ ← [C6](2)
+                │ ⚬ TX    SCL ⚬ │ ← [D0](5)
+                │ ⚬ DFU   SDA ⚬ │ ← [D1](1)
+                │ ◯  │─────│ ◯  │
+                └────┴─────┴────┘
 
-![wire map](https://i.imgur.com/zYOjlTA.png)
 
-Make example for this keyboard (after setting up your build environment):
+          [F7] [F6] [F5] [F4] [F1] [F0]
+          {01} {02} {03} {04} {05} {06}
+         ┌────┬────┬────┬────┬────┬────┐
+  [D1](1)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [C6](2)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [B7](3)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [C7](4)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [D0](5)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [D7](6)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [B6](7)│    │    │    │    │    │    │
+         ├────┼────┼────┼────┼────┼────┤
+  [D6](8)│    │    │    │    │    │    │
+         └────┴────┴────┴────┴────┴────┘
 
-    make mf68_ble:default
+```
+
+```terminal
+    make hand_squeezed:default
+```
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
