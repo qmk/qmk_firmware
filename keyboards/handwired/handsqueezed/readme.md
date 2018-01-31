@@ -1,11 +1,14 @@
+<img align="right" src="https://i.imgur.com/swEUv9K.png" width="36px" />
+
 # Hand-squeezed
 
-Hand wired Planck with Bluetooth squeezed into official OLKB [high profile wood case](https://olkb.com/planck/hi-pro-wooden-milled-bottom). The keyboard is also, *ahem*, squeezed onto as few pins as possible using a 6x8 matrix instead of the typical 4x12.
+Hand-wired Planck with Bluetooth squeezed into official OLKB [high profile wood case](https://olkb.com/planck/hi-pro-wooden-milled-bottom). The keyboard is also, *ahem*, squeezed onto as few pins as possible using a 6x8 matrix instead of the typical 4x12.
 
-Keyboard Maintainer: [jrolfs](https://github.com/jrolfs)
-Hardware Supported: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/) 
+**Keyboard Maintainer:** Jamie Rolfs / [gh](https://github.com/jrolfs) / [site](https://jamie.rolfs.sh)
 
-# Wiring
+**Hardware Supported**: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le/) 
+
+## Wiring
 
 ```
 
@@ -52,9 +55,3 @@ Hardware Supported: [Feather 32u4 Bluefruit](https://learn.adafruit.com/adafruit
          └────┴────┴────┴────┴────┴────┘
 
 ```
-
-```terminal
-    make hand_squeezed:default
-```
-
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
