@@ -33,3 +33,6 @@ UNICODE_ENABLE ?= no
 BLUETOOTH_ENABLE ?= no
 AUDIO_ENABLE ?= no
 BLUETOOTH = AdafruitBLE
+
+# Layouts
+LAYOUTS = ortho_4x12

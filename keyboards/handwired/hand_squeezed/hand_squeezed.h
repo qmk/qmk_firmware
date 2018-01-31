@@ -20,4 +20,6 @@
   { k70, k71, k72, k73, k74, k75 } \
 }
 
+#define LAYOUT_ortho_4x12 KEYMAP
+
 #endif
