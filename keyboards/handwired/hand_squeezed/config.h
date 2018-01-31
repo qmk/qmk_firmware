@@ -13,7 +13,7 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
 
-#define MATRIX_ROW_PINS { D1, B6, D0, B7, C6, D6, D7, C7 }
+#define MATRIX_ROW_PINS { D1, C6, B7, C7, D0, D7, B6, D6 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7 }
 #define UNUSED_PINS
 
