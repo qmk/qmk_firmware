@@ -7,8 +7,8 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Jamie
-#define PRODUCT         Viajero 47
-#define DESCRIPTION     Keyboard
+#define PRODUCT         Hand Squeezed
+#define DESCRIPTION     Handwired Planck Keyboard
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6

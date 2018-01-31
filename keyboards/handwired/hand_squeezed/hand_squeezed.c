@@ -1,4 +1,4 @@
-#include "viajero.h"
+#include "hand_squeezed.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here

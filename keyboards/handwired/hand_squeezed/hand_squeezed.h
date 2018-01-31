@@ -1,5 +1,5 @@
-#ifndef VIAJERO_H
-#define VIAJERO_H
+#ifndef HAND_SQUEEZED_H
+#define HAND_SQUEEZED_H
 
 #include "quantum.h"
 
