@@ -31,12 +31,12 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /* if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
         saturation = 255;
     } */
-    if (state->status.layer & 0x41) {
-        state->target_lcd_color = LCD_COLOR(PURPLE, saturation, 0xFF);
+    if (state->status.layer & 0x80) {
+        state->target_lcd_color = LCD_COLOR(CYAN, saturation, 0xFF);
         state->layer_text = "Plover";
     }
     else if (state->status.layer & 0x40) {
-        state->target_lcd_color = LCD_COLOR(ORANGE, saturation, 0xFF);
+        state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
         state->layer_text = "Mirrored Symbols";
     }
     else if (state->status.layer & 0x20) {
@@ -44,7 +44,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->layer_text = "Symbols";
     }
     else if (state->status.layer & 0x8) {
-        state->target_lcd_color = LCD_COLOR(CYAN, saturation, 0xFF);
+        state->target_lcd_color = LCD_COLOR(ORANGE, saturation, 0xFF);
         state->layer_text = "Mirrored Dvorak";
     }
     else if (state->status.layer & 0x4) {
@@ -52,11 +52,11 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->layer_text = "Dvorak";
     }
     else if (state->status.layer & 0x2) {
-        state->target_lcd_color = LCD_COLOR(YELLOW, saturation, 0xFF);
+        state->target_lcd_color = LCD_COLOR(PURPLE, saturation, 0xFF);
         state->layer_text = "Mirrored Qwerty";
     }
     else {
-        state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
+        state->target_lcd_color = LCD_COLOR(YELLOW, saturation, 0xFF);
         state->layer_text = "Qwerty";
     }
 }
