@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [QWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TILD,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_GRAV,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
         KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                          LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
         // right hand
-             KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
+             KC_BLSL,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [HALFQWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_BSPC,        KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_LEFT,
+        KC_BSPC,        KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_BLSL,
         KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   KC_RBRC,
         KC_ENT,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
         KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_EQL,
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
         // right hand
-             KC_RGHT,     KC_5,   KC_4,  KC_3,   KC_2,   KC_1,             KC_BSPC,
+             KC_GRAV,     KC_5,   KC_4,  KC_3,   KC_2,   KC_1,             KC_BSPC,
              KC_LBRC,    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
                           KC_G,   KC_F,  KC_D,   KC_S,   KC_A,  		   KC_ENT,
              KC_MINUS,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
@@ -132,8 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [DVORAK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-<<<<<<< HEAD
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TILD,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_GRAV,
         KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_LBRC,
         KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
         KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   KC_MINUS,
@@ -148,23 +147,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_EQL,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        TG(HALFSYMB),
-=======
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   TG(SYMB),
-        KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
-        KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   ALL_T(KC_NO),
-        KC_LCTRL, 		KC_LALT,	  LCTL(KC_TAB), LCTL(LSFT(KC_TAB)),  KC_LGUI,
-                                              KC_LALT,  KC_TRANSPARENT,
-                                                              KC_HOME,
-                                         LT(HALFDVORAK, KC_SPACE),KC_BSPC,KC_END,
-        // right hand
-             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
-             TG(SYMB),    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_BSLS,
-                          KC_D,   KC_H,  KC_T,   KC_S,   KC_MINUS,		   KC_ENT,
-             MEH_T(KC_NO),KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
-                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        KC_RALT,
->>>>>>> upstream/master
              KC_PGUP,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
     ),
