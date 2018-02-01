@@ -904,7 +904,7 @@ void backlight_task(void) {
       _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
     #endif
   }
-  backlight_tick = backlight_tick + 1 % 16;
+  backlight_tick = (backlight_tick + 1) % 16;
 }
 #endif
 
