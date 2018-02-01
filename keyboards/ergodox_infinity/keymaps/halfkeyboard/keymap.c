@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: qwerty
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  ESC   |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |  BSPC  |
+ * |  ESC   |   1  |   2  |   3  |   4  |   5  | `    |           | \    |   6  |   7  |   8  |   9  |   0  |  BSPC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | TAB    |   Q  |   W  |   E  |   R  |   T  |  [   |           | ]    |   Y  |   U  |   I  |   O  |   P  |   '    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |ENTER   |
  * |--------+------+------+------+------+------| -    |           | =    |------+------+------+------+------+--------|
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       |  RGui| UP   | DOWN |  ALT | RCTRL  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Alt  |Dvorak|       |Plover|Alt   |
+ *                                        |Symbol|Dvorak|       |Plover|HalfSymb|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space|DELETE|------|       |------|  Tab   |Enter |
@@ -46,30 +46,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [QWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TILD,
+        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
         KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_LGUI,
-                                              KC_LALT,  TG(DVORAK),
+        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
+                                              TG(SYMB),  TG(DVORAK),
                                                               KC_HOME,
                                          LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
-             TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
+             KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
+             KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             TG(PLVR),        KC_RALT,
+             TG(PLVR),        TG(HALFSYMB),
              KC_PGUP,
              KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
     ),
 /* Keymap 1: mirrored qwerty
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  BSPC  |   0  |   9  |   8  |   7  |   6  | LEFT |           | RIGHT|   5  |   4  |   3  |   2  |   1  |  ESC  |
+ * |  BSPC  |   0  |   9  |   8  |   7  |   6  | \    |           |   `  |   5  |   4  |   3  |   2  |   1  |  ESC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  \     |   P  |   O  |   I  |   U  |   Y  |  L1  |           |  L1  |   T  |   R  |   E  |   W  |   Q  |   TAB  |
+ * |  '     |   P  |   O  |   I  |   U  |   Y  |  ]   |           |  [   |   T  |   R  |   E  |   W  |   Q  |   TAB  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | ENTER  |   ;  |   L  |   K  |   J  |   H  |------|           |------|   G  |   F  |   D  |   S  |   A  | BSPC   |
  * |--------+------+------+------+------+------| -    |           | =    |------+------+------+------+------+--------|
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       |  RGui| UP   | DOWN |  ALT | RCTRL  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Alt  |      |       |      |Alt   |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space|DELETE|------|       |------|  Tab   |Enter |
@@ -90,29 +90,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [HALFQWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_BSPC,        KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_LEFT,
-        KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   TG(SYMB),
+        KC_BSLS,         KC_P,         KC_O,   KC_I,   KC_U,   KC_Y,   KC_RBRC,
         KC_ENT,        KC_SCLN,      KC_L,   KC_K,   KC_J,   KC_H,
         KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_EQL,
-        KC_LCTRL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_LGUI,
-                                              KC_LALT,  KC_TRANSPARENT,
+        KC_LCTRL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+                                              KC_TRNS,  KC_TRANSPARENT,
                                                               KC_HOME,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
         // right hand
              KC_RGHT,     KC_5,   KC_4,  KC_3,   KC_2,   KC_1,             KC_BSPC,
-             TG(SYMB),    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
+             KC_LBRC,    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
                           KC_G,   KC_F,  KC_D,   KC_S,   KC_A,  		   KC_ENT,
              KC_MINUS,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        KC_RALT,
+             KC_TRANSPARENT,        KC_TRNS,
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_TRANSPARENT
     ),
 /* Keymap 3: dvorak
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  ESC   |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |  BSPC  |
+ * |  ESC   |   1  |   2  |   3  |   4  |   5  | `    |           | \    |   6  |   7  |   8  |   9  |   0  |  BSPC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | TAB    |   '  |   ,  |   .  |   P  |   Y  |  L1  |           |  L1  |   F  |   G  |   C  |   R  |   L  |   /    |
+ * | TAB    |   '  |   ,  |   .  |   P  |   Y  |  [   |           |  ]   |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | BkSp   |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |ENTER   |
  * |--------+------+------+------+------+------| -    |           | =    |------+------+------+------+------+--------|
@@ -132,28 +132,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [DVORAK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   TG(SYMB),
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TILD,
+        KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_LBRC,
         KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
         KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   KC_MINUS,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_LGUI,
-                                              KC_LALT,  KC_TRANSPARENT,
+        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+                                              TG(SYMB),  KC_TRANSPARENT,
                                                               KC_HOME,
                               LT(HALFDVORAK, KC_SPACE),KC_DEL,KC_END,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
-             TG(SYMB),    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_BSLS,
+             KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
+             KC_RBRC,    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_SLASH,
                           KC_D,   KC_H,  KC_T,   KC_N,   KC_S,		   KC_ENT,
              KC_EQL,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        KC_RALT,
+             KC_TRANSPARENT,        TG(HALFSYMB),
              KC_PGUP,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
     ),
 /* Keymap 3: mirrored dvorak
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  BSPC  |   0  |   9  |   8  |   7  |   6  | LEFT |           | RIGHT|   5  |   4  |   3  |   2  |   1  |  ESC  |
+ * |  BSPC  |   0  |   9  |   8  |   7  |   6  | \    |           | `|   5  |   4  |   3  |   2  |   1  |  ESC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   	/   |   L  |   R  |   C  |   G  |   F  |  L1  |           |  L1  |   Y  |   P  |   .  |   ,  |   '  |   TAB  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -175,107 +175,107 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [HALFDVORAK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_BSPC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_SLASH,         KC_L,         KC_R,   KC_C,   KC_G,   KC_F,   TG(SYMB),
+        KC_BSPC,         KC_0,         KC_9,   KC_8,   KC_7,   KC_6,   KC_BSLS,
+        KC_SLASH,         KC_L,         KC_R,   KC_C,   KC_G,   KC_F,   KC_RBRC,
         KC_ENT,        KC_S,         KC_N,   KC_T,   KC_H,   KC_D,
         KC_LSFT,        KC_Z,  		  KC_V,   KC_W,   KC_M,   KC_B,   KC_EQL,
-        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_LGUI,
-                                              KC_LALT,  KC_TRANSPARENT,
+        KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
+                                              KC_TRANSPARENT,  KC_TRANSPARENT,
                                                               KC_HOME,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_ESC,
-             TG(SYMB),    KC_Y,   KC_P,  KC_DOT, KC_COMM,KC_P,             KC_TAB,
+             KC_TILD,     KC_5,   KC_4,  KC_3,   KC_2,   KC_5,             KC_ESC,
+             KC_LBRC,    KC_Y,   KC_P,  KC_DOT, KC_COMM,KC_P,             KC_TAB,
                           KC_I,   KC_U,  KC_E,   KC_O,   KC_A,		 	   KC_BSPC,
              KC_MINUS,KC_X,   KC_K,  KC_J,	 KC_Q,   KC_SCLN,	   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        KC_RALT,
+             KC_TRANSPARENT,        KC_TRNS,
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_TRANSPARENT
     ),
 /* Keymap 5: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |   F6 |           |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |BkSp    |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   /  |   \  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
+ * |         |   /  |   \  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   /    |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   '  |   ;  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   -  |        |
+ * |         |   '  |   ;  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   -  | ENTER  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   -  |   =  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   +  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | EPRM  |      |      |      |      |                                       |      |    . |   0  |   =  |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |Animat|      |       |      |Solid |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |Bright|Bright|      |       |      |Hue-  |Hue+  |
- *                                 |ness- |ness+ |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
+ *                                 |mirror|      |------|       |------|      |mirror|
+ *                                 |space |      |      |       |      |      |enter |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_SLASH,KC_BSLS,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_TRNS,KC_QUOT,KC_SCLN, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_MINUS,KC_EQL,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-          EPRM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       RGB_MOD,KC_TRNS,
-                                               KC_TRNS,
-                               RGB_VAD,RGB_VAI,KC_TRNS,
+       VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
+       KC_NO,KC_SLASH,KC_BSLS,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
+       KC_NO,KC_QUOT,KC_SCLN, KC_LPRN,KC_RPRN,KC_GRV,
+       KC_NO,KC_MINUS,KC_EQL,KC_LBRC,KC_RBRC,KC_TILD,KC_NO,
+          EPRM,KC_NO,KC_NO,KC_NO,KC_TRNS,
+                                         KC_TRNS,KC_NO,
+                                               KC_NO,
+                          LT(HALFSYMB, KC_SPACE),KC_NO,KC_NO,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_MINUS, KC_TRNS,
-       KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_PLUS, KC_TRNS,
-                         KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       KC_TRANSPARENT, RGB_SLD,
-       KC_TRNS,
-       KC_TRNS, RGB_HUD, RGB_HUI
+       KC_F7, KC_F8,   KC_F9,  KC_F10,   KC_F11,   KC_F12,  KC_BSPC,
+       KC_NO, KC_UP, KC_KP_7, KC_KP_8,  KC_KP_9,KC_KP_ASTERISK, KC_KP_SLASH,
+            KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
+       KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
+                         KC_NO,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
+       KC_NO, KC_TRNS,
+       KC_NO,
+       KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |Version  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |delete   |  F12 |  F11 |  F10 |  F9  |  F8  |   F7 |           |  F6  |  F5  |  F4  |  F3  |  F2  |  F1  |BkSp    |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
+ * |         |      |   7  |   8  |   9  |   *  |   /  |           |      |   |  |   {  |   }  |   /  |   \  |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   -  |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   +  |        |
+ * |         |      |   4  |   5  |   6  |   -  |------|           |------|   `  |   (  |   )  |   ;  |   '  |        |
+ * |---------+------+------+------+------+------|enter |           |      |------+------+------+------+------+--------|
+ * |         |      |   1  |   2  |   3  |   +  |      |           |      |   ~  |   [  |   ]  |   =  |   -  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | EPRM  |      |      |      |      |                                       |      |    . |   0  |   =  |      |
+ *   | EPRM  |      |   0  |  .   |  =   |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |Animat|      |       |      |Solid |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |Bright|Bright|      |       |      |Hue-  |Hue+  |
- *                                 |ness- |ness+ |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
 [HALFSYMB] = LAYOUT_ergodox(
        // left hand
-       VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-          EPRM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       RGB_MOD,KC_TRNS,
-                                               KC_TRNS,
-                               RGB_VAD,RGB_VAI,KC_TRNS,
+       KC_BSPC,     KC_F12,  KC_F11,  KC_F10,  KC_F9,  KC_F8,  KC_F7,
+       KC_NO,KC_NO,KC_KP_7, KC_KP_8, KC_KP_9,KC_KP_ASTERISK,KC_KP_SLASH,
+       KC_ENTER,KC_NO,KC_KP_4, KC_KP_5, KC_KP_6,KC_KP_MINUS,
+       KC_NO,KC_NO,KC_KP_1, KC_KP_2, KC_KP_3,KC_KP_PLUS,KC_KP_ENTER,
+          EPRM,KC_NO,KC_KP_0,KC_KP_DOT,KC_KP_EQUAL,
+                                         KC_TRNS,KC_NO,
+                                               KC_NO,
+                          KC_TRANSPARENT,KC_NO,KC_NO,
        // right hand
-       KC_TRNS, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_TRNS, KC_UP,   KC_7,   KC_8,    KC_9,    KC_ASTR, KC_F12,
-                KC_DOWN, KC_4,   KC_5,    KC_6,    KC_MINUS, KC_TRNS,
-       KC_TRNS, KC_AMPR, KC_1,   KC_2,    KC_3,    KC_PLUS, KC_TRNS,
-                         KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
-       RGB_TOG, RGB_SLD,
-       KC_TRNS,
-       KC_TRNS, RGB_HUD, RGB_HUI
+       KC_F6, KC_F5,   KC_F4,  KC_F3,   KC_F2,   KC_F1,  KC_BSPC,
+       KC_NO,KC_PIPE,KC_LCBR,KC_RCBR, KC_SLASH, KC_BSLS, KC_NO,
+             KC_GRV,KC_LPRN,KC_RPRN,  KC_SCLN, KC_QUOT, KC_NO,
+       KC_NO, KC_TILD,KC_LBRC,KC_RBRC, KC_EQL,  KC_MINUS, KC_NO,
+                         KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,
+       KC_NO, KC_TRNS,
+       KC_NO,
+       KC_NO, KC_NO, KC_TRANSPARENT
 ),
 
 /* Keymap 7: Steno for Plover from https://github.com/shayneholmes/tmk_keyboard/commit/11290f8489013018f778627db725160c745e75bd
@@ -343,25 +343,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[QWERTY] = LAYOUT_ergodox(  // layer 0 : default
+[SHORTCUTS] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
-        KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        KC_Z,  		  KC_X,   LCTL(KC_C),   LCTL(KC_V),   KC_B,   KC_MINUS,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_NO,
+        KC_TAB,   LCTL(KC_Q),   LCTL(KC_W),LCTL(KC_E),LCTL(KC_R),LCTL(KC_T),   KC_NO,
+        KC_BSPC,  LCTL(KC_A),   LCTL(KC_S),LCTL(KC_D),LCTL(KC_F),LCTL(KC_G),
+        KC_LSFT,  LCTL(KC_Z),  	LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),LCTL(KC_B),   KC_MINUS,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRANSPARENT,
-                                              KC_LALT,  TG(DVORAK),
-                                                              KC_HOME,
-                                         LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
+                                              KC_NO,  KC_NO,
+
+                                                              KC_NO,
+                                         KC_NO,KC_NO,KC_NO,
         // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             TG(PLVR),        KC_RALT,
-             KC_PGUP,
-             KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
+             KC_NO,        KC_NO,
+             KC_NO,
+             KC_NO,KC_NO, KC_NO
     ),
 };
 
