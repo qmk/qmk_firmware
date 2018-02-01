@@ -132,6 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [DVORAK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
+<<<<<<< HEAD
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TILD,
         KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_LBRC,
         KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
@@ -147,13 +148,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_EQL,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
                                   KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        TG(HALFSYMB),
+=======
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        KC_TAB,         KC_QUOTE,	  KC_COMM,KC_DOT, KC_P,   KC_Y,   TG(SYMB),
+        KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
+        KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   ALL_T(KC_NO),
+        KC_LCTRL, 		KC_LALT,	  LCTL(KC_TAB), LCTL(LSFT(KC_TAB)),  KC_LGUI,
+                                              KC_LALT,  KC_TRANSPARENT,
+                                                              KC_HOME,
+                                         LT(HALFDVORAK, KC_SPACE),KC_BSPC,KC_END,
+        // right hand
+             KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
+             TG(SYMB),    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_BSLS,
+                          KC_D,   KC_H,  KC_T,   KC_S,   KC_MINUS,		   KC_ENT,
+             MEH_T(KC_NO),KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
+                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
+             KC_TRANSPARENT,        KC_RALT,
+>>>>>>> upstream/master
              KC_PGUP,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
     ),
 /* Keymap 3: mirrored dvorak
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  BSPC  |   0  |   9  |   8  |   7  |   6  | \    |           | `|   5  |   4  |   3  |   2  |   1  |  ESC  |
+ * |  BSPC  |   0  |   9  |   8  |   7  |   6  | \    |           | `    |   5  |   4  |   3  |   2  |   1  |  ESC  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   	/   |   L  |   R  |   C  |   G  |   F  |  L1  |           |  L1  |   Y  |   P  |   .  |   ,  |   '  |   TAB  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -168,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
  *                                 | Space|DELETE|------|       |------|  Tab   |Enter |
- *                                 |mirror|ace   | End  |       | PgDn |        |mirror|
+ *                                 |mirror|      | End  |       | PgDn |        |mirror|
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
