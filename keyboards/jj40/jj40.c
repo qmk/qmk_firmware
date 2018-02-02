@@ -34,7 +34,7 @@ extern rgblight_config_t rgblight_config;
 // @Override
 void matrix_init_kb(void) {
   // call user level keymaps, if any
-  // matrix_init_user();
+  matrix_init_user();
 }
 
 #ifdef BACKLIGHT_ENABLE
@@ -67,7 +67,8 @@ void rgblight_set(void) {
 }
 
 bool rgb_init = false;
-void matrix_scan_user(void) {
+
+void matrix_scan_kb(void) {
   // if LEDs were previously on before poweroff, turn them back on
   if (rgb_init == false && rgblight_config.enable) {
     i2c_init();
@@ -76,5 +77,18 @@ void matrix_scan_user(void) {
   }
 
   rgblight_task();
+
+  matrix_scan_user();
   /* Nothing else for now. */
+}
+
+__attribute__((weak)) // overridable
+void matrix_init_user(void) {
+
+}
+
+
+__attribute__((weak)) // overridable
+void matrix_scan_user(void) {
+
 }
