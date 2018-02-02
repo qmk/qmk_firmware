@@ -29,3 +29,5 @@ In order to have enough pins for the matrix and other functions, a custom matrix
 ## LED Controller
 
 The in-switch LEDs are driven by an ISSI LED controller (IS31FL3731). The micro controller communicates with this chip using I2C. Individual LED control is possible, but currently only general backlighting support is implemented. This functionality is located in lighting.c, issi.c, and TWILib.c.
+
+this thing works
