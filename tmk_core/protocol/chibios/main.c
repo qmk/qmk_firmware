@@ -165,8 +165,8 @@ int main(void) {
 #endif
         suspend_power_down(); // on AVR this deep sleeps for 15ms
         /* Remote wakeup */
-        if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-          send_remote_wakeup(&USB_DRIVER);
+        if(suspend_wakeup_condition()) {
+          usbWakeupHost(&USB_DRIVER);
         }
       }
       /* Woken up */
