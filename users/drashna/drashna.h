@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _COLEMAK 1
 #define _DVORAK 2
 #define _WORKMAN 3
+#define _MODS 4
 #define _NAV 5
 #define _COVECUBE 6
 #define _SYMB 8
