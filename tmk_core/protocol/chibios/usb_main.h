@@ -36,9 +36,6 @@
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
 
-/* Send remote wakeup packet */
-void send_remote_wakeup(USBDriver *usbp);
-
 /* ---------------
  * Keyboard header
  * ---------------
