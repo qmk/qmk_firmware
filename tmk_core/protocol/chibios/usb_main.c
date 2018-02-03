@@ -326,10 +326,6 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     osalSysUnlockFromISR();
     return;
   case USB_EVENT_SUSPEND:
-    for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
-      sduDisconnectI(&drivers.array[i].driver);
-    }
-
 #ifdef SLEEP_LED_ENABLE
     sleep_led_enable();
 #endif /* SLEEP_LED_ENABLE */
@@ -337,10 +333,22 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   case USB_EVENT_UNCONFIGURED:
     /* Falls into.*/
   case USB_EVENT_RESET:
+      for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+        chSysLockFromISR();
+        /* Disconnection event on suspend.*/
+        sduSuspendHookI(&drivers.array[i].driver);
+        chSysUnlockFromISR();
+      }
     return;
 
   case USB_EVENT_WAKEUP:
     //TODO: from ISR! print("[W]");
+      for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+        chSysLockFromISR();
+        /* Disconnection event on suspend.*/
+        sduWakeupHookI(&drivers.array[i].driver);
+        chSysUnlockFromISR();
+      }
     suspend_wakeup_init();
 #ifdef SLEEP_LED_ENABLE
     sleep_led_disable();
@@ -559,9 +567,9 @@ void init_usb_driver(USBDriver *usbp) {
     drivers.array[i].int_ep_config.in_state = &drivers.array[i].int_ep_state;
     sduObjectInit(driver);
     bqnotify_t notify = driver->ibqueue.notify;
-    ibqObjectInit(&driver->ibqueue, drivers.array[i].queue_buffer_in, drivers.array[i].in_ep_config.in_maxsize, drivers.array[i].queue_capacity_in, notify, driver);
+    ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_in, drivers.array[i].in_ep_config.in_maxsize, drivers.array[i].queue_capacity_in, notify, driver);
     notify = driver->obqueue.notify;
-    ibqObjectInit(&driver->ibqueue, drivers.array[i].queue_buffer_out, drivers.array[i].out_ep_config.out_maxsize, drivers.array[i].queue_capacity_out, notify, driver);
+    ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_out, drivers.array[i].out_ep_config.out_maxsize, drivers.array[i].queue_capacity_out, notify, driver);
     sduStart(driver, &drivers.array[i].config);
   }
 
