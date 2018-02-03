@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef REV1_CONFIG_H
 #define REV1_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -50,8 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D0, C6, C7, }
 #define MATRIX_COL_PINS { D2, F5, F6, F7, B6, B5, B4, D7, D6 }
 /*/
-
-#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

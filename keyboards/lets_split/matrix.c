@@ -124,12 +124,23 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+#ifdef DISABLE_JTAG
+  // JTAG disable for PORT F. write JTD bit twice within four cycles.
+  MCUCR |= (1<<JTD);
+  MCUCR |= (1<<JTD);
+#endif
+
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
     // initialize row and col
+#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
+    unselect_cols();
+    init_rows();
+#endif
 
     TX_RX_LED_INIT;
 

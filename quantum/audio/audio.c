@@ -17,9 +17,11 @@
 #include <stdio.h>
 #include <string.h>
 //#include <math.h>
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
-#include <avr/io.h>
+#if defined(__AVR__)
+  #include <avr/pgmspace.h>
+  #include <avr/interrupt.h>
+  #include <avr/io.h>
+#endif
 #include "print.h"
 #include "audio.h"
 #include "keymap.h"
@@ -149,16 +151,16 @@ void audio_init()
 
         #ifdef C6_AUDIO
             DDRC |= _BV(PORTC6);
-        #else
-            DDRC |= _BV(PORTC6);
-            PORTC &= ~_BV(PORTC6);
+        //#else
+        //    DDRC |= _BV(PORTC6); // Why is PC6 being set as output low, if C6_audio isn't defined?
+        //    PORTC &= ~_BV(PORTC6); 
         #endif
 
         #ifdef B5_AUDIO
             DDRB |= _BV(PORTB5);
-        #else
-            DDRB |= _BV(PORTB5);
-            PORTB &= ~_BV(PORTB5);
+        //#else
+        //    DDRB |= _BV(PORTB5); // Same as with PC6
+        //    PORTB &= ~_BV(PORTB5);
         #endif
 
         #ifdef C6_AUDIO
@@ -182,6 +184,9 @@ void audio_init()
         #ifdef B5_AUDIO
             TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
+
+            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
         #endif
 
         audio_initialized = true;
@@ -190,7 +195,7 @@ void audio_init()
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
-
+    
 }
 
 void stop_all_notes()
