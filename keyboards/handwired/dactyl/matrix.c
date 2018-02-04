@@ -195,7 +195,7 @@ bool matrix_is_modified(void) // deprecated and evidently not called.
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<<col));
+    return (matrix[row] & (ROW_SHIFTER << col));
 }
 
 inline
@@ -271,7 +271,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             i2c_stop();
 
         column_state = ~column_state;
-
     } else {
         // read rows from teensy
         column_state = (
@@ -283,20 +282,20 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             (PINF&(1<<7) ? 0 : (1<<5)) );
     }
 
-    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[row_index];
+        matrix_row_t last_row_value = current_matrix[current_row];
 
-        uint8_t key_state = column_state & (1 << row_index);
-
-        if (key_state) {
-            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+        if (column_state & (1 << current_row)) {
+            // key closed; set state bit in matrix
+            current_matrix[current_row] |= (ROW_SHIFTER << current_col);
         } else {
-            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+            // key open; clear state bit in matrix
+            current_matrix[current_row] &= ~(ROW_SHIFTER << current_col);
         }
 
-        // Determine if the matrix changed state
-        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed))
+        // Determine whether the matrix changed state
+        if ((last_row_value != current_matrix[current_row]) && !(matrix_changed))
         {
             matrix_changed = true;
         }
