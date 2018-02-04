@@ -144,4 +144,61 @@ enum {
 #define AUD_OFF AU_OFF
 #endif 
 
+
+
+// Since our quirky block definitions are basically a list of comma separated 
+// arguments, we need a wrapper in order for these definitions to be 
+// expanded before being used as arguments to the LAYOUT_xxx macro.
+#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
+#define KEYMAP_wrapper(...)           KEYMAP(__VA_ARGS__)
+
+// Blocks for each of the four major keyboard layouts
+// Organized so we can quickly adapt and modify all of them
+// at once, rather than for each keyboard, one at a time.
+// And this allows wor much cleaner blocks in the keymaps.
+// For instance Tap/Hold for Control on all of the layouts
+
+#define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L3_________________  CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
+
+#define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+#define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+#define _________________COLEMAK_L3________________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
+
+#define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________DVORAK_L3_________________  CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+
+#define _________________DVORAK_R1_________________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+
+
+#define _________________WORKMAN_L1________________       KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________WORKMAN_L2________________       KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________WORKMAN_L3________________ CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+
+#define _________________WORKMAN_R1________________       KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________WORKMAN_R2________________       KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+
+
+
+// Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
+// this allows us to quickly modify the bottom row for all of the layouts
+// so we don't have to alter it 4 times and hope that we haven't missed
+// anything
+#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_QUOT, KC_LGUI, KC_LBRC, KC_RBRC
+#define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 #endif
