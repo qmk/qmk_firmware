@@ -27,8 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _DVORAK 2
 #define _WORKMAN 3
 #define _MODS 4
-#define _NAV 5
-#define _COVECUBE 6
+//#define _MISC 5
+#define _NAV 6
+#define _COVECUBE 7
 #define _SYMB 8
 #define _GAMEPAD 9
 #define _DIABLO 10
