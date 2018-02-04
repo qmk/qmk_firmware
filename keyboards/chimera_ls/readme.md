@@ -1,6 +1,6 @@
 # Chimera LS
 
-![Chimera LS](https://imgur.com/FOGlO4M)
+![Chimera LS](https://imgur.com/FOGlO4M.jpg)
 
 A wireless version of the let's split: a split 40% ortholinear keyboard 
 

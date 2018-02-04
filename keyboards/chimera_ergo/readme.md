@@ -1,6 +1,6 @@
 # Chimera Ergo
 
-![Chimera Ergo](https://imgur.com/AA6ycMQ)
+![Chimera Ergo](https://imgur.com/AA6ycMQ.jpg)
 
 A split wireless 40% ergonomic keyboard 
 
