@@ -252,7 +252,6 @@ static void init_rows(void)
     PORTF |=  (1<<7 | 1<<6 | 1<<5 | 1<<4 | 1<<1 | 1<<0);
 }
 
-
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
     bool matrix_changed = false;
@@ -383,26 +382,40 @@ static void select_col(uint8_t col)
  */
 static void unselect_col(uint8_t col)
 {
-    // unselect on mcp23018
-    if (mcp23018_status) { // if there was an error
-        // do nothing
+    if (col < 6) {
+        // No need to explicitly unselect mcp23018 pins--their I/O state is
+        // set simultaneously, with a single bitmask sent to i2c_write. When
+        // select_col selects a single pin, it implicitly unselects all the
+        // other ones.
     } else {
-        // set all cols hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF);           if (mcp23018_status) goto out;
-    out:
-        i2c_stop();
+        // unselect on teensy
+        switch (col) {
+            case 6:
+                DDRB  &= ~(1<<1);
+                PORTB &= ~(1<<1);
+                break;
+            case 7:
+                DDRB  &= ~(1<<2);
+                PORTB &= ~(1<<2);
+                break;
+            case 8:
+                DDRB  &= ~(1<<3);
+                PORTB &= ~(1<<3);
+                break;
+            case 9:
+                DDRD  &= ~(1<<2);
+                PORTD &= ~(1<<2);
+                break;
+            case 10:
+                DDRD  &= ~(1<<3);
+                PORTD &= ~(1<<3);
+                break;
+            case 11:
+                DDRC  &= ~(1<<6);
+                PORTC &= ~(1<<6);
+                break;
+        }
     }
-
-    // unselect on teensy
-    // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(1<<1 | 1<<2 | 1<<3);
-    PORTB &= ~(1<<1 | 1<<2 | 1<<3);
-    DDRD  &= ~(1<<2 | 1<<3);
-    PORTD &= ~(1<<2 | 1<<3);
-    DDRC  &= ~(1<<6);
-    PORTC &= ~(1<<6);
 }
 
 static void unselect_cols(void)
