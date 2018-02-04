@@ -12,12 +12,14 @@ extern keymap_config_t keymap_config;
 #define _LOWER 3
 #define _RAISE 4
 #define _ADJUST 16
+#define _DOTA 1
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   ADJUST,
+  DOTA,
 };
 
 // Fillers to make layering more clear
@@ -55,16 +57,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Del  |   _  |   +  |   {  |   }  |      |      |   4  |   5  |   6  |   -  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NumLk|   -  |   =  |   [  |   ]  |      |      |   1  |   2  |   3  |   +  |Enter |
+ * |      |   -  |   =  |   [  |   ]  |      |      |   1  |   2  |   3  |   +  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      | Alt  |      |             |      |   0  |   .  | Enter|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
-  KC_TILD, _______, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PAST, KC_DEL,  \
-  KC_DEL,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_BSLS, \
-  KC_NLCK, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, _______, \
-  _______, _______, _______, KC_LALT, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_PENT, _______  \
+  KC_TILD, _______, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______, KC_7,    KC_8,    KC_9,    KC_ASTR, KC_DEL,  \
+  KC_DEL,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______, _______, KC_4,    KC_5,    KC_6,    KC_MINS, KC_BSLS, \
+  KC_NLCK, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______, _______, KC_1,    KC_2,    KC_3,    KC_PLUS, _______, \
+  _______, _______, _______, KC_LALT, _______, _______, _______, _______, KC_0,    KC_PDOT, KC_ENT,  _______  \
 ),
 
 /* Raise: featuring vim-style hjkl arrow keys
@@ -85,9 +87,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
+/* DotA
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   1  |   2  |   3  |   4  |   5  |  F9  |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |  H   |   Q  |   W  |   E  |   R  |   T  |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |  F1  |   A  |   S  |   D  |   F  |   G  |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      | Ctrl |  Alt |Space |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_DOTA] = KEYMAP( \
+  KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_F9,   _______, _______, _______, _______, _______,  \
+  KC_H,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, _______, _______, _______, _______,  \
+  KC_F1,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, _______, _______, _______, _______, _______,  \
+  ADJUST,  _______, _______, KC_LCTL, KC_LALT, KC_SPC,  _______, _______, _______, _______, _______, _______   \
+),
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      | Prev | Pl/Ps| Next |      | Del  |
+ * |      | Reset| DotA |QWERTY|      |      |      | Prev | Pl/Ps| Next |      | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | Mute | VolDn| VolUp|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -97,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_DEL,  \
+  _______, RESET,   DOTA,    QWERTY,  _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_DEL,  \
   _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
@@ -128,24 +148,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    // case COLEMAK:
-    //   if (record->event.pressed) {
-    //     #ifdef AUDIO_ENABLE
-    //       PLAY_SONG(tone_colemak);
-    //     #endif
-    //     persistent_default_layer_set(1UL<<_COLEMAK);
-    //   }
-    //   return false;
-    //   break;
-    // case DVORAK:
-    //   if (record->event.pressed) {
-    //     #ifdef AUDIO_ENABLE
-    //       PLAY_SONG(tone_dvorak);
-    //     #endif
-    //     persistent_default_layer_set(1UL<<_DVORAK);
-    //   }
-    //   return false;
-    //   break;
+    case DOTA:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_colemak);
+        #endif
+        persistent_default_layer_set(1UL<<_DOTA);
+      }
+      return false;
+      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
