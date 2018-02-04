@@ -216,9 +216,9 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
-cphex: hex
-	$(SILENT) || printf "Copying $(TARGET).hex to qmk_firmware folder" | $(AWK_CMD)
-	$(COPY) $(BUILD_DIR)/$(TARGET).hex $(TARGET).hex && $(PRINT_OK)
+cpfirmware: $(FIRMWARE_FORMAT)
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
 lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
@@ -371,7 +371,7 @@ show_path:
 	@echo OBJ=$(OBJ)
 
 check-size:
-	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | grep -oP "(?<=AVR_SIZE: ).+"`; echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | perl -ne 'print "$&\n" if /(?<=AVR_SIZE: ).+/'`; echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
