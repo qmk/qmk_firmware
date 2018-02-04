@@ -95,7 +95,7 @@ enum gordon_layers
 };
 
 
-
+#ifdef TAP_DANCE_ENABLE
 void register_hyper (void);
 void unregister_hyper (void);
 
@@ -131,6 +131,7 @@ void comma_reset (qk_tap_dance_state_t *state, void *user_data);
 
 void bt_finished (qk_tap_dance_state_t *state, void *user_data);
 void bt_reset (qk_tap_dance_state_t *state, void *user_data);
+#endif
 
 // Macro Declarations
 enum {

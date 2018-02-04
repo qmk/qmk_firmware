@@ -127,6 +127,7 @@ enum {
   CALC_PRINTSCREEN
 };
 
+#ifdef TAP_DANCE_ENABLE
 static xtap ttt_state = { 
   .is_press_action = true,
   .state = 0
@@ -202,7 +203,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [HOME_END] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_HOME),
   [TTT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,TTT_finished, TTT_reset),
 };
-
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

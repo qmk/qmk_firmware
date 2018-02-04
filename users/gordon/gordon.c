@@ -17,6 +17,7 @@ const char secret[][64] = {
 
 
 
+#ifdef TAP_DANCE_ENABLE
 
 void register_hyper (void) { //Helper function to invoke Hyper
   register_code (KC_LSFT);
@@ -261,6 +262,7 @@ void bt_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   S1_state.state = 0;
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
