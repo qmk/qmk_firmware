@@ -826,7 +826,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
-  #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
+  #if defined(AUDIO_ENABLE)
     matrix_scan_music();
   #endif
 
