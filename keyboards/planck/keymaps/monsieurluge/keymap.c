@@ -16,18 +16,14 @@
 
 #include "planck.h"
 #include "action_layer.h"
-#include "keymap_french.h"
 #include "audio.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-// #define UC_EURO	UC(0x20AC)
-// #define UC_CCED	UC(0x00E7)
-// #define UC_RTDM	UC(0x00AE)
-// #define UC_CPRT	UC(0x00A9)
-// #define UC_OQUT	UC(0x00AB)
-// #define UC_CQUT	UC(0x00BB)
+#define SP_LESS LSFT(KC_COMMA)
+#define SP_MORE LSFT(KC_DOT)
+#define SP_SPC  MT(MOD_LSFT, KC_SPC)
 
 extern keymap_config_t keymap_config;
 
@@ -62,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_QWERTY] = {
-    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_UP,   KC_RSFT},
-    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, MT(MOD_LSFT, KC_SPC), MT(MOD_LSFT, KC_SPC), RAISE, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_UP,   KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, SP_SPC, SP_SPC, RAISE, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
   /* Azerty
@@ -80,10 +76,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_AZERTY] = {
-    {KC_ESC,  FR_A,    FR_Z,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  FR_Q,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,    KC_K,    KC_L,    FR_M,    KC_ENT},
-    {KC_LSFT, FR_W,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   FR_COMM, FR_SCLN, FR_COLN, KC_UP,   KC_RSFT},
-    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, MT(MOD_LSFT, KC_SPC), MT(MOD_LSFT, KC_SPC), RAISE, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_A,    KC_Z,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_Q,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    KC_M,    KC_ENT},
+    {KC_LSFT, KC_W,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_COMM, KC_SCLN, KC_COLN, KC_UP,   KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, SP_SPC, SP_SPC, RAISE,   KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
   /* Gaming
@@ -98,28 +94,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_GAMING] = {
-    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_UP,   KC_RSFT},
-    {KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  LOWER, MT(MOD_LSFT, KC_SPC), MT(MOD_LSFT, KC_SPC), RAISE, MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,   KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_UP,   KC_RSFT},
+    {KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LOWER, SP_SPC, SP_SPC, RAISE, MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
   /* Lower
    * ,-----------------------------------------------------------------------------------.
-   * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
+   * |   ^  |   @  |   #  |   $  |   %  |   &  |   *  |   _  |   -  |   +  |   =  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |  `   |   '  |   {  |   [  |   (  |   !  |   ?  |   )  |   ]  |   }  |   "  |   =  |
+   * |  `   |   '  |   {  |   [  |   (  |   !  |   ?  |   )  |   ]  |   }  |   "  |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |   |  |   /  |   _  |   -  |   \  |   +  |      | PgUp |      |
+   * |      |      |      |   |  |   /  |   <  |   >  |   \  |   |  |      | PgUp |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      | Home |PgDwn | End  |
    * `-----------------------------------------------------------------------------------'
    */
   [_LOWER] = {
-    {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DELETE},
-    {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,  KC_EQUAL},
-    {_______, _______, _______, KC_PIPE, KC_SLSH, KC_UNDS, KC_MINS, KC_BSLS, KC_PLUS, _______, KC_PGUP, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END}
+    {KC_CIRC, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_AMPR, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_EQUAL, KC_DELETE},
+    {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,   _______},
+    {_______, _______, _______, KC_PIPE, KC_SLSH, SP_LESS, SP_MORE, KC_BSLS, KC_PIPE, _______, KC_PGUP,  _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,  KC_END}
   },
 
   /* Raise

@@ -31,9 +31,7 @@ _todo layout picture_
 
 ## Todos
 
-- fix the azerty layout
 - more useful symbols
-- remove the startup sound
 
 ## Build
 
