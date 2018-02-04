@@ -40,6 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     static bool debouncing = false;
 #endif
 
+#ifdef MATRIX_MASKED
+    extern const matrix_row_t matrix_mask[];
+#endif
+
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
@@ -201,7 +205,11 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
+#ifdef MATRIX_MASKED
+    return matrix[row] & matrix_mask[row];
+#else
     return matrix[row];
+#endif
 }
 
 void matrix_print(void)
