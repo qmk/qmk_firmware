@@ -1,6 +1,6 @@
 
-OPT_DEFS += -DCHIMERA_LETS_SPLIT_PROMICRO
-CHIMERA_LETS_SPLIT_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+OPT_DEFS += -DCHIMERA_ORTHO_PROMICRO
+CHIMERA_ORTHO_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
@@ -23,6 +23,7 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
+
 
 #
 # LUFA specific
@@ -67,10 +68,6 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 # MIDI_ENABLE = YES 		# MIDI controls
 UNICODE_ENABLE = YES 		# Unicode
-USB_MAX_POWER_CONSUMPTION = 50
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
 
 USB = /dev/ttyACM0
-
-# upload: build
-# 	$(CHIMERA_LETS_SPLIT_UPLOAD_COMMAND)
