@@ -22,6 +22,14 @@
 	#define RGBLIGHT_MODES 1
 #endif
 
+#ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
+#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1-2.7
+#endif
+
+#ifndef RGBLIGHT_EFFECT_BREATHE_MAX
+#define RGBLIGHT_EFFECT_BREATHE_MAX 255   // 0-255
+#endif
+
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
 #endif
@@ -62,7 +70,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "eeconfig.h"
+#ifndef RGBLIGHT_CUSTOM_DRIVER
 #include "ws2812.h"
+#endif
+#include "rgblight_types.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
@@ -88,6 +99,7 @@ void rgblight_increase(void);
 void rgblight_decrease(void);
 void rgblight_toggle(void);
 void rgblight_enable(void);
+void rgblight_disable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
 uint32_t rgblight_get_mode(void);
@@ -101,7 +113,12 @@ void rgblight_decrease_sat(void);
 void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+uint16_t rgblight_get_hue(void);
+uint8_t rgblight_get_sat(void);
+uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
+void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);

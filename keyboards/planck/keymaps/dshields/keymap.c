@@ -1,14 +1,11 @@
 #include "planck.h"
 #include "backlight.h"
 #include "config.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
 enum planck_layers { DEF, LWR, RSE, FUN };
 enum planck_keycodes { DYNAMIC_MACRO_RANGE = SAFE_RANGE };
-enum tap_dance_keys { TDK_SCLN, TDK_COMM, TDK_DOT, TDK_SLSH };
 
 #include "dynamic_macro.h"
 
@@ -26,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [DEF] = {
         {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ESC,  KC_BSPC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   },
-        {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,  KC_ENT,  KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN},
-        {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OSM_SFT, DM_PLAY, KC_N,    KC_M,    TD_COMM, TD_DOT,  TD_SLSH},
-        {OSM_CTL, KC_LGUI, OSM_ALT, OSL_FUN, OSL_LWR, KC_SPC,  KC_SPC,  OSL_RSE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+        {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_TAB,  KC_ENT,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
+        {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OSM_SFT, DM_PLAY, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH},
+        {OSM_CTL, KC_LGUI, OSM_ALT, OSL_FUN, OSL_LWR, MT_SPC,  MT_SPC,  OSL_RSE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
     },
     /* Lower
      * ,-----------------------------------------------------------------------------------.
@@ -81,33 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {BL_TOGG, BL_STEP, _______, _______, _______, DM_STRT, DM_STOP, _______, _______, KC_BTN1, KC_BTN2, KC_BTN3},
         {_______, _______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R}
     },
-};
-
-void tap_dance_triple(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
-    uint16_t keycode = pair->kc1;
-
-    switch(state->count) {
-        case 2:
-            register_code(KC_LSFT);
-            TAP(keycode);
-            unregister_code(KC_LSFT);
-            break;
-        case 3: // fall through
-            if (pair->kc2) {
-                keycode = pair->kc2;
-            }
-            TAP(keycode);
-        default:
-            TAP(keycode);
-    }
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TDK_SCLN]  = ACTION_TAP_DANCE_FN_KEYCODE2(tap_dance_triple, KC_SCLN, KC_COLN),
-    [TDK_COMM]  = ACTION_TAP_DANCE_FN_KEYCODE2(tap_dance_triple, KC_COMM, KC_LABK),
-    [TDK_DOT]   = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_DOT),
-    [TDK_SLSH]  = ACTION_TAP_DANCE_FN_KEYCODE (tap_dance_triple, KC_SLSH)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

@@ -304,7 +304,8 @@ enum backlight_opt {
     BACKLIGHT_DECREASE = 1,
     BACKLIGHT_TOGGLE   = 2,
     BACKLIGHT_STEP     = 3,
-    BACKLIGHT_LEVEL    = 4,
+    BACKLIGHT_ON       = 4,
+    BACKLIGHT_OFF      = 5,
 };
 
 /* Macro */
@@ -316,7 +317,8 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_DECREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE << 8)
 #define ACTION_BACKLIGHT_TOGGLE()       ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE << 8)
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
-#define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
+#define ACTION_BACKLIGHT_ON()           ACTION(ACT_BACKLIGHT, BACKLIGHT_ON << 8)
+#define ACTION_BACKLIGHT_OFF()          ACTION(ACT_BACKLIGHT, BACKLIGHT_OFF << 8)
 /* Command */
 #define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (id))
 /* Function */

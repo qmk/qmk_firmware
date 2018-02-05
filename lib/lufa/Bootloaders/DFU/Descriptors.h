@@ -189,6 +189,12 @@
 		                                    const uint16_t wIndex,
 		                                    const void** const DescriptorAddress)
 		                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
-
+		// convert to L string
+		#define LSTR(s) XLSTR(s)
+		#define XLSTR(s) L ## #s
+		// convert to string
+		#define STR(s) XSTR(s)
+		#define XSTR(s) #s
+		                                    
 #endif
 
