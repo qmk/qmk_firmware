@@ -5,7 +5,7 @@ This nyquist layout is based on my Ergodox Infinity Layout, which is [here](../.
 ## Layers
 
 ### QWERTY
-The shift modifiers on this layer all use OSM to allow for quick single capitalization. Press and hold F to go to the VIM movement layer. Layer is also a one-shot layer toggle, and can be held down to type multiple characters on the Lower layer. Game is a regular toggle layer.
+The shift modifiers on this layer all use OSM to allow for quick single capitalization. LwrVIM acts a combo one-shot toggle and momentary layer toggle. Tap once to make the next key be sent on the Lower. Hold to move to the Lower layer until release. Tap and hold (so press, release, press and hold) to move to the VIM layer until release. Game is a regular toggle layer.
 
 ```
 Qwerty
@@ -14,11 +14,11 @@ Qwerty
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  \   |
 |------+------+------+------+------+-------------+------+------+------+------+------|
-| Esc  |   A  |   S  |   D  |LTVIMF|   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+| Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |/ Ctrl| Shift|
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Ctrl |  Alt |  F4  | GUI  |Lower | Bksp | Spc  | Ent  | Lock |   =  | Game | Del  |
+| Ctrl |  Alt |  F4  | GUI  |LwrVIM| Bksp | Spc  | Ent  | Lock |   =  | RAlt | Del  |
 `-----------------------------------------------------------------------------------'
 ```
 
@@ -36,7 +36,7 @@ Lower
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | APscr|   %  |   ^  |   [  |   ]  |   ~  |   1  |   2  |   3  |   \  | Vol- | Vol+ |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Pscr |      |      |      |      |      |   0  |   .  |   =  | Prev | Next | Play |
+| Pscr |      |      |      |      | GAME |   0  |   .  |   =  | Prev | Next | Play |
 `-----------------------------------------------------------------------------------'
 ```
 

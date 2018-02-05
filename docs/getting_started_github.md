@@ -1,4 +1,4 @@
-# How to use Github with QMK
+# How to Use Github with QMK
 
 Github can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
 
@@ -52,7 +52,7 @@ To https://github.com/whoeveryouare/qmk_firmware.git
  + 20043e64...7da94ac5 master -> master
 ```
 
-Your changes now exist on your fork on Github - if you go back there (https://github.com/<whoeveryouare>/qmk_firmware), you can create a "New Pull Request" by clicking this button:
+Your changes now exist on your fork on Github - if you go back there (`https://github.com/<whoeveryouare>/qmk_firmware`), you can create a "New Pull Request" by clicking this button:
 
 ![New Pull Request](http://i.imgur.com/DxMHpJ8.jpg)
 

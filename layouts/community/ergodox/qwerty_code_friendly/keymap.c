@@ -15,23 +15,36 @@
 #define CFQ_USE_DYNAMIC_MACRO
 
 #if !defined(CFQ_USER_KEY1)
-#define CFQ_USER_KEY1 KC_SPC
+#  define CFQ_USER_KEY1 CFQ_KC_FN1
 #endif
 #if !defined(CFQ_USER_KEY2)
-#define CFQ_USER_KEY2 KC_ENT
+#  define CFQ_USER_KEY2 KC_INS
 #endif
 #if !defined(CFQ_USER_KEY3)
-#define CFQ_USER_KEY3 CFQ_KC_FN3
+#  ifdef CFQ_USE_EXPEREMENTAL_LAYER
+#    define CFQ_USER_KEY3 CFQ_KC_FN3
+#  else
+#    define CFQ_USER_KEY3 KC_CAPS
+#  endif
 #endif
 #if !defined(CFQ_USER_KEY4)
-#define CFQ_USER_KEY4 KC_APP
+#  define CFQ_USER_KEY4 KC_SPC
+#endif
+#if !defined(CFQ_USER_KEY5)
+#  define CFQ_USER_KEY5 KC_ENT
+#endif
+#if !defined(CFQ_USER_KEY6)
+#  define CFQ_USER_KEY6 CFQ_KC_FN2
+#endif
+#if !defined(CFQ_USER_KEY7)
+#  define CFQ_USER_KEY7 CFQ_KC_FN1
 #endif
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #ifdef CFQ_USE_EXPEREMENTAL_LAYER
-#define EXPR 3 // experimental keys
+#  define EXPR 3 // experimental keys
 #endif
 
 enum custom_keycodes {
@@ -93,16 +106,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | USR4 |Space |                                       | Left | Down | Up   |Right | Del  |
+ *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Ins  | USR3 |       | Home | End  |
+ *                                        | Ins  |CapsLk|       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      | ~L2  |       | PgUp |      |      |
- *                                 | USR1 | USR2 |------|       |------|Enter |Space |
+ *                                 |Space |Enter |------|       |------|Enter |Space |
  *                                 |      |      | ~L1  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
+ *
+ * Optional overrides: see CFQ_USER_KEY# defines.
+ *
+ *   -------+------+------+------+------+
+ *   |      |      |      | USR1 |      |
+ *   `----------------------------------'
+ *
+ *                                        ,-------------.
+ *                                        | USR2 | USR3 |
+ *                                 ,------|------|------|
+ *                                 |      |      | USR6 |
+ *                                 | USR4 | USR5 |------|
+ *                                 |      |      | USR7 |
+ *                                 `--------------------'
  */
+
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
@@ -111,10 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,          KC_R,   KC_T,    KC_LPRN,
   KC_ESC,  KC_A,    KC_S,    KC_D,          KC_F,   KC_G,
   KC_LSFT, KC_Z,    KC_X,    KC_C,          KC_V,   KC_B,    KC_LBRC,
-  KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY4, KC_SPC,
-                                                    KC_INS,        CFQ_USER_KEY3,
-                                                                   CFQ_KC_FN2,
-                                     CFQ_USER_KEY1, CFQ_USER_KEY2, CFQ_KC_FN1,
+  KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY1, KC_SPC,
+                                                    CFQ_USER_KEY2, CFQ_USER_KEY3,
+                                                                   CFQ_USER_KEY6,
+                                     CFQ_USER_KEY4, CFQ_USER_KEY5, CFQ_USER_KEY7,
   // right hand
   KC_RCBR,     KC_CIRC, KC_AMPR, KC_ASTR,KC_MINS, KC_EQL,    KC_BSPC,
   KC_RPRN,     KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,      KC_BSLS,
@@ -182,10 +210,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      | MsUp |      |      |MWhlUp|           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|      |------|           |------| Left | Down | Up   |Right |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|MWhlDn|           |      |------+------+------+------+------+--------|
  * |        |      | Rclk | Mclk | Lclk |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -202,9 +230,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
   // left hand
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_WH_U,
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                       KC_MRWD, KC_MFFD,
                                                KC_TRNS,

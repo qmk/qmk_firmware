@@ -26,7 +26,7 @@ endif
 # Imported source files and paths
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
-# Startup files. Try a few different locations, for compability with old versions and 
+# Startup files. Try a few different locations, for compability with old versions and
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
 ifeq ("$(wildcard $(STARTUP_MK))","")
@@ -46,7 +46,7 @@ endif
 include $(PLATFORM_MK)
 
 
-BOARD_MK := 
+BOARD_MK :=
 
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_5)
@@ -115,14 +115,14 @@ CHIBISRC = $(STARTUPSRC) \
        $(STREAMSSRC) \
 	   $(STARTUPASM) \
 	   $(PORTASM) \
-	   $(OSALASM)         
+	   $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
-	   
+
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various 
+         $(STREAMSINC) $(CHIBIOS)/os/various
 
 #
 # Project, sources and paths
@@ -139,17 +139,17 @@ SIZE = arm-none-eabi-size
 AR = arm-none-eabi-ar
 NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
-EEP = 
+EEP =
 BIN = $(OBJCOPY) -O binary
 
-THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB 
+THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
-COMPILEFLAGS += -fomit-frame-pointer 
+COMPILEFLAGS += -fomit-frame-pointer
 COMPILEFLAGS += -falign-functions=16
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
-COMPILEFLAGS += $(THUMBFLAGS) 
+COMPILEFLAGS += $(THUMBFLAGS)
 
 CFLAGS += $(COMPILEFLAGS)
 
@@ -168,6 +168,22 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 
 MCUFLAGS = -mcpu=$(MCU)
 
+# FPU options default (Cortex-M4 and Cortex-M7 single precision).
+ifeq ($(USE_FPU_OPT),)
+  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+endif
+
+# FPU-related options
+ifeq ($(USE_FPU),)
+  USE_FPU = no
+endif
+ifneq ($(USE_FPU),no)
+  OPT    += $(USE_FPU_OPT)
+  OPT_DEFS  += -DCORTEX_USE_FPU=TRUE
+else
+  OPT_DEFS  += -DCORTEX_USE_FPU=FALSE
+endif
+
 DEBUG = gdb
 
 DFU_ARGS ?=
@@ -180,7 +196,31 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).bin
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
+	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
+	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
+	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
+
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
