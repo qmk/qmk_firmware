@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * | Caps |  +   |  -   |  =   |   (  |   )  |      |   7  |   8  |   9  | Bksp | Del  |
+ * | Caps |  -   |  +   |  =   |   (  |   )  |      |   7  |   8  |   9  | Bksp | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Lock |  ~   |  _   |      |   {  |   }  |      |   4  |   5  |   6  |      |Enter |
+ * | Lock |  _   |   ~  |      |   {  |   }  |      |   4  |   5  |   6  |      |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Ins  |  `   |   \  |   |  |   [  |   ]  |      |   1  |   2  |   3  |   .  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = KEYMAP( \
   KC_CAPS, KC_MINS, KC_PLUS, KC_EQL,  KC_LPRN, KC_RPRN, _______, KC_7,  KC_8,    KC_9, KC_BSPC, KC_DEL, \
-  KC_LOCK,  KC_TILD, KC_UNDS, _______, KC_LCBR, KC_RCBR, _______, KC_4,  KC_5,    KC_6, _______, _______, \
+  KC_LOCK, KC_UNDS, KC_TILD,  _______, KC_LCBR, KC_RCBR, _______, KC_4,  KC_5,    KC_6, _______, _______, \
   KC_INS, KC_GRV, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC,_______, KC_1,  KC_2,    KC_3, KC_DOT, KC_ENT, \
   KC_LCTL, _______, KC_LALT, _______, _______, KC_PGDN, KC_PGUP, _______, KC_0, _______, _______, _______ \
 )
