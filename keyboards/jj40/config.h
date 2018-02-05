@@ -22,20 +22,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
+
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
 #define MANUFACTURER    winkeyless.kr
 #define PRODUCT         jj40
+#define DESCRIPTION     ortholinear keyboard
 
 /* matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
+
+/* PCB default pin-out */
+#define MATRIX_ROW_PINS { D0, D5, B5, B7 }
+#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
+#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_LEVELS 12
 // #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCING_DELAY 5
 
 #define TAPPING_TOGGLE 3
 
