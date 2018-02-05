@@ -39,8 +39,9 @@ enum custom_keycodes {
 #define KEYSEL       2 // arrow navigation + shift (allow text selection)
 #define SHELL_NAV    3 // bash shortcuts
 #define SHELL_SCREEN 4 // linux screen shortcuts
-#define MOUSE        5 // mouse layer (can be locked with lock key)
-#define COMBINED     6 // combined numbers and symbols layer
+#define SCREEN_NAV   5
+#define MOUSE        6 // mouse layer (can be locked with lock key)
+#define COMBINED     7 // combined numbers and symbols layer
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -64,7 +65,8 @@ enum custom_keycodes {
 #define SCREEN_8 20
 #define SCREEN_9 21
 #define SCREEN_DETACH 22
-#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
+#define SCREEN_UP_JUMP 23
+#define SCREEN_DOWN_JUMP 24
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -79,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = KEYMAP(
       // left hand
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      KC_TAB,            KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
@@ -162,10 +164,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SWITCH_NDS),
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    RCTL(KC_R),
-                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), LALT(KC_DOT),
-       RCTL(KC_C), RCTL(KC_U), M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),  RCTL(KC_K), M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    KC_TRNS,
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    KC_TRNS,
+                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), KC_TAB,
+       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      KC_TRNS,    RCTL(KC_K), KC_TRNS,
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
@@ -200,6 +202,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
   ),
+
+  // navigation within screen (for copy/paste)
+  [SCREEN_NAV] = KEYMAP(
+       // left hand
+       // left hand
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,    		  KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          M(SCREEN_UP_JUMP),   KC_TRNS,
+                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  M(SCREEN_COPY_MODE),
+       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         M(SCREEN_PASTE), M(SCREEN_DOWN_JUMP), MEH(KC_V),
+                   // bottom row (match functionality of base layer)
+                   KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
+  
+
 
   
   [COMBINED] = KEYMAP(
@@ -328,6 +359,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         MACRO_SCREEN_NUM(SCREEN_8,8);
         MACRO_SCREEN_NUM(SCREEN_9,9);
         
+		case SCREEN_UP_JUMP:
+            if (record->event.pressed) {
+                return MACRO( T(5), T(UP), END);
+            }		
+		break;
+		
+		case SCREEN_DOWN_JUMP:
+            if (record->event.pressed) {
+                return MACRO( T(5), T(DOWN), END);
+            }		
+		break;		
+		
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
@@ -338,23 +381,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END); 
             }
         break;        
-        case SWITCH_NDS:
-            if (record->event.pressed) {
-                return MACRO( D(LSFT), 
-                              T(F11), 
-                              U(LSFT), 
-                              W(255), 
-                              D(LALT), 
-                              T(TAB), 
-                              U(LALT), 
-                              END); 
-            }                                
-        break;        
-        case SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND:
-            if (record->event.pressed) {
-                return MACRO( T(UP), T(HOME), D(LALT), T(D), U(LALT), END);
-            }
-        break;                                
+   
       }
     return MACRO_NONE;
 };
@@ -474,6 +501,7 @@ void matrix_scan_user(void) {
         case SHELL_SCREEN:
         case KEYNAV:
         case KEYSEL:
+		case SCREEN_NAV:
             ergodox_right_led_3_on();
             break;
         case MOUSE:
