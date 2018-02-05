@@ -67,6 +67,13 @@ enum custom_keycodes {
 #define SCREEN_DETACH 22
 #define SCREEN_UP_JUMP 23
 #define SCREEN_DOWN_JUMP 24
+#define SCREEN_READREG_1 25
+#define SCREEN_READREG_2 26
+#define SCREEN_READREG_3 27
+#define SCREEN_PASTEREG_1 28
+#define SCREEN_PASTEREG_2 29
+#define SCREEN_PASTEREG_3 30
+
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -207,10 +214,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SCREEN_NAV] = KEYMAP(
        // left hand
        // left hand
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,               KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     M(SCREEN_READREG_1),   KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     M(SCREEN_PASTEREG_1),  KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,               KC_TRNS,   KC_TRNS,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
@@ -348,6 +355,36 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }                                
         break;        
 
+        case SCREEN_READREG_1:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
+                              T(R),
+                              T(E),
+                              T(A),
+                              T(D),
+                              T(R),
+                              T(E),
+							  T(G),
+                              T(SPC),
+							  T(1),
+							  T(ENTER),
+                             END);
+            }                                
+        break;        		
+        case SCREEN_PASTEREG_1:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
+                              T(P),
+                              T(A),
+                              T(S),
+                              T(T),
+                              T(E),
+                              T(SPC),
+							  T(1),
+							  T(ENTER),
+                             END);
+            }                                
+        break;        		
         MACRO_SCREEN_NUM(SCREEN_0,0);
         MACRO_SCREEN_NUM(SCREEN_1,1);
         MACRO_SCREEN_NUM(SCREEN_2,2);
