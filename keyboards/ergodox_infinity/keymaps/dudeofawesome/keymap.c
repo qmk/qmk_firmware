@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSPO,  KC_Z,    KC_X,    KC_C,    KC_V,  KC_B, KC_FN1,
   TG(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
 
-                                                  KC_MPLY,   TG(_MOUSE),
-                                                             KC_LALT,
-                                          LOWER,  KC_BSPACE, KC_LGUI,
+                                                  KC_MPLY,  TG(_MOUSE),
+                                                            KC_LALT,
+                                      KC_BSPACE,  LOWER,    KC_LGUI,
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_EQUAL,
@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_FN1,      KC_N, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), KC_ENTER,
                      RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
 
-  TG(_NUM), TG(_MOUSE),
+  NUM,     TG(_MOUSE),
   KC_LALT,
-  KC_LGUI,  KC_SPACE,   RAISE
+  KC_LGUI, RAISE,      KC_SPACE
 ),
 
 /* Keymap 0: Basic Dvorak layer
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSPO,  KC_SCOLON, KC_Q,    KC_J,    KC_K,  KC_X, KC_FN1,
   TG(_NUM), KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
 
-                                                  KC_MPLY, TG(_MOUSE),
-                                                           KC_LALT,
-                                      KC_BSPACE,  LOWER,   KC_LGUI,
+                                                  KC_MPLY,  TG(_MOUSE),
+                                                            KC_LALT,
+                                      KC_BSPACE,  LOWER,    KC_LGUI,
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,  KC_EQUAL,
@@ -149,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSPO,  KC_Z,    KC_X,    KC_M,    KC_C,    KC_V, KC_FN1,
   TG(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
 
-                                                  KC_MPLY, TG(_MOUSE),
+                                                  KC_MPLY,  TG(_MOUSE),
                                                             KC_LALT,
-                                      KC_BSPACE,  LOWER,   KC_LGUI,
+                                      KC_BSPACE,  LOWER,    KC_LGUI,
 
   // right hand
   KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_EQUAL,
