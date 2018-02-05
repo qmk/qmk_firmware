@@ -17,6 +17,7 @@ enum custom_keycodes {
   // shell nav macros
   SHELL_LS,
   SHELL_LSLTR,
+  SHELL_LSLA, 
   SHELL_CDPRE,
   SHELL_LESS,
   SHELL_PLESS,
@@ -30,7 +31,8 @@ enum custom_keycodes {
   SHELL_SCREEN_NEW,
   SHELL_SCREEN_LIST,
   SHELL_MKE,
-  SHELL_HTCSTATUS,
+  SHELL_HTCSTATUS
+
 };
 
 
@@ -73,6 +75,9 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_1 28
 #define SCREEN_PASTEREG_2 29
 #define SCREEN_PASTEREG_3 30
+#define SHELL_WRITE_LOGPATTERN 31
+#define SHELL_WRITE_TRANPATTERN 32
+#define SHELL_EXPAND_PATTERN 33
 
 
 
@@ -196,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        KC_TRNS,KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
        KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,         SHELL_H3,
-       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_PWD,
+       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
        KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -205,10 +210,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    KC_TRNS,
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_WRITE_TRANPATTERN),
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_WRITE_LOGPATTERN),
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), KC_TAB,
-       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      KC_TRNS,    RCTL(KC_K), KC_TRNS,
+       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      KC_TRNS,    RCTL(KC_K), M(SHELL_EXPAND_PATTERN),
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
@@ -430,6 +435,38 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END); 
             }
         break;        
+		
+		case SHELL_WRITE_LOGPATTERN:
+            if (record->event.pressed) {
+                return MACRO( D(LSFT),
+							  T(8), 
+				              T(8), 
+							  U(LSFT),
+							  T(L),  
+							  T(O), 
+							  T(G), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  END); 
+            }		
+		break;
+		
+		case SHELL_WRITE_TRANPATTERN:
+            if (record->event.pressed) {
+                return MACRO( D(LSFT),
+							  T(8), 
+				              T(8), 
+							  U(LSFT), T(T), T(R), T(A), T(N), T(LEFT), T(LEFT), T(LEFT), T(LEFT), T(LEFT), END); 
+            }		
+		break;		
+		
+		case SHELL_EXPAND_PATTERN:
+            if (record->event.pressed) {
+                return MACRO( D(LALT), T(F), U(LALT), D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT), END); 
+            }		
+		break;				
    
       }
     return MACRO_NONE;
