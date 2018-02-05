@@ -146,8 +146,5 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TOGGLE(_AL),           // Toggle Arrow Layer overlay
   [4] = ACTION_LAYER_TAP_KEY(_FL, KC_BSPC), // Tap to Backspace and hold to activate function layer
   [5] = ACTION_LAYER_TOGGLE(_UL),           // Toggle Underglow Layer overlay
-<<<<<<< HEAD
-=======
 
->>>>>>> added colemak to kelorean s65x keymap
 };
