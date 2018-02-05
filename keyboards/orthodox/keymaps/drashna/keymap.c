@@ -19,12 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "orthodox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "drashna.h"
 
-extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -34,88 +31,56 @@ extern keymap_config_t keymap_config;
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-
-
-#ifdef TAP_DANCE_ENABLE
-enum {
-  TD_FLSH = 0,
-};
-
-
-
-
-
-// on the fourth tap, set the keyboard on flash state
-// and set the underglow to red, because red == bad
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 4) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_mode(1);
-    rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-    reset_tap_dance(state);
-    reset_keyboard();
-  }
-}
-
-
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Once for Blue, Twice for Green, Thrice for Red, and four to flash
-  [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_flsh_finished, NULL),
-
-};
-#endif
+#define KC_MSHF OSM(MOD_LSFT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = KEYMAP(\
-  KC_ESC,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_TAB,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,    CTL_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_N,    KC_M,    KC_COMM, KC_DOT, CTL_T(KC_SLASH), KC_LGUI \
+[_QWERTY] = KEYMAP_wrapper(\
+  KC_ESC,  _________________QWERTY_L1_________________,                                                               _________________QWERTY_R1_________________, KC_BSPC, \
+  KC_TAB,  _________________QWERTY_L2_________________,          KC_UP,   KC_DOWN,         KC_LEFT, KC_RIGHT,         _________________QWERTY_R2_________________, KC_QUOT, \
+  KC_LSFT, _________________QWERTY_L3_________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________QWERTY_R3_________________, KC_LGUI \
 ),
 
-[_COLEMAK] = KEYMAP(\
-  KC_ESC,     KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-  KC_TAB,     KC_A,    KC_R,    KC_S,    KC_T,    KC_D,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT,    CTL_T(KC_Z), KC_X, KC_C,   KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH), KC_LGUI \
+[_COLEMAK] = KEYMAP_wrapper(\
+  KC_ESC,  _________________COLEMAK_L1________________,                                                               _________________COLEMAK_R1________________, KC_BSPC, \
+  KC_TAB,  _________________COLEMAK_L2________________,          KC_UP,   KC_DOWN,         KC_LEFT, KC_RIGHT,         _________________COLEMAK_R2________________, KC_QUOT, \
+  KC_LSFT, _________________COLEMAK_L3________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________COLEMAK_R3________________, KC_LGUI \
 ),
 
-[_DVORAK] = KEYMAP(\
-    KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-    KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-    KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
+[_DVORAK] = KEYMAP_wrapper(\
+  KC_ESC,  _________________DVORAK_L1_________________,                                                               _________________DVORAK_R1_________________, KC_BSPC, \
+  KC_TAB,  _________________DVORAK_L2_________________,          KC_UP,   KC_DOWN,         KC_LEFT, KC_RIGHT,         _________________DVORAK_R2_________________, KC_MINS, \
+  KC_LSFT, _________________DVORAK_L3_________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________DVORAK_R3_________________, KC_LGUI \
 ),
-[_WORKMAN] = KEYMAP(\
-    KC_ESC,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-    KC_TAB,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,      KC_UP, XXXXXXX,  KC_DOWN,        KC_LEFT, XXXXXXX, KC_RIGHT, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-    KC_LSFT, CTL_T(KC_SCLN), KC_Q, KC_J, KC_K,    KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z), KC_LGUI \
+[_WORKMAN] = KEYMAP_wrapper(\
+  KC_ESC,  _________________WORKMAN_L1________________,                                                               _________________WORKMAN_R1________________, KC_BSPC, \
+  KC_TAB,  _________________WORKMAN_L2________________,          KC_UP,   KC_DOWN,         KC_LEFT, KC_RIGHT,         _________________WORKMAN_R2________________, KC_MINS, \
+  KC_LSFT, _________________WORKMAN_L3________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________WORKMAN_R3________________, KC_LGUI \
+),
+[_MODS] = KEYMAP(\
+  _______, _______, _______, _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,  \
+  _______, _______, _______, _______, _______, _______,          _______, _______,         _______, _______,          _______, _______, _______, _______, _______, _______, \
+  OSM(MOD_LSFT), _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
 
 [_LOWER] = KEYMAP(\
-  KC_TILD,    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
-  KC_DEL,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,   XXXXXXX, KC_F12,          _______, XXXXXXX, KC_RCTL, XXXXXXX, KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE, \
-  TD(TD_FLSH),KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, XXXXXXX, KC_HOME,    KC_COMM,    KC_DOT,  KC_END,  _______ \
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                               KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F11,  KC_F12,          _______, KC_RCTL,          XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,         _______, _______, _______, XXXXXXX, KC_HOME, KC_COMM, KC_DOT,  KC_END,  _______ \
 ),
 
 [_RAISE] = KEYMAP(\
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,  XXXXXXX, KC_F12,           _______, XXXXXXX, _______, XXXXXXX, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,          _______, _______, _______, XXXXXXX, KC_PGUP, KC_COMM, KC_DOT,  KC_PGDN, _______ \
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F11,  KC_F12,          _______, _______,          XXXXXXX, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
+  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______,         _______, _______, _______, XXXXXXX, KC_PGUP, KC_COMM, KC_DOT,  KC_PGDN, _______ \
 ),
 
 [_ADJUST] = KEYMAP(\
-  KC_MAKE,    KC_RESET, TD(TD_FLSH), _______, _______, _______,                                                                _______, _______, _______, _______, _______, _______,  \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, XXXXXXX, _______,          _______, XXXXXXX, _______, AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
+  KC_MAKE,KC_RESET, _______, _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,  \
+  RGB_SMOD,RGB_HUI, KC_FXCL, AUD_ON,  AUD_OFF, AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS), \
+  KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______, _______, _______,         _______, _______, _______, MAGIC_TOGGLE_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY  \
 )
 
 
 };
-
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
 

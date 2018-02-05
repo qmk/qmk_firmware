@@ -18,7 +18,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#include <stdio.h>
 #include <string.h>
 #include "print.h"
 #include "keymap.h"
