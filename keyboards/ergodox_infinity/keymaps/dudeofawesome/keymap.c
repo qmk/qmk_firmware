@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|  L2  |           |  L2  |------+------+------+------+------+--------|
  * |         |  F7  |  F8  |  F9  | F10  | F11  |      |           |      | F12  |ISO ~ |ISO | | Home | End  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |      | Next | Vol- | Vol+ | Play |
+ *   |       |      |      |      |      |                                       |      | Play | Vol- | Vol+ | Next |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                       ,-------------.           ,-------------.
  *                                       |Animat|      |           |Toggle|Solid |
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, _______,
            KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
   _______, KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______,
-                    _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY,
+                    _______,    KC_MPLY,    KC_VOLD, KC_VOLU, KC_MNXT,
 
   _______, _______,
   _______,
@@ -221,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|  L2  |           |  L2  |------+------+------+------+------+--------|
  * |         |  F7  |  F8  |  F9  | F10  | F11  |      |           |      | F12  |ISO # |ISO / |Pg Up |Pg Dn |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |      | Next | Vol- | Vol+ | Play |
+ *   |       |      |      |      |      |                                       |      | Play | Vol- | Vol+ | Next |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                       ,-------------.           ,-------------.
  *                                       |Animat|      |           |Toggle|Solid |
@@ -248,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
            KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
   _______, KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______,
-                    _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY,
+                    _______, KC_MPLY, KC_VOLD, KC_VOLU, KC_MNXT,
 
   _______, _______,
   _______,
