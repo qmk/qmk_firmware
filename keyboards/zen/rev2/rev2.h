@@ -18,11 +18,11 @@
 //void promicro_bootloader_jmp(bool program);
 
 #define KEYMAP( \
-    k00, k01, k02, k03, k04, k05, k06, k56, k55, k54, k53, k52, k51, k50, \
-    k10, k11, k12, k13, k14, k15, k16, k66, k65, k64, k63, k62, k61, k60, \
-    k20, k21, k22, k23, k24, k25, k26, k76, k75, k74, k73, k72, k71, k70, \
-    k30, k31, k32, k33, k34, k35, k36, k86, k85, k84, k83, k82, k81, k80, \
-    k40, k41, k42, k43, k44, k45, k46, k96, k95, k94, k93, k92, k91, k90 \
+    k00, k01, k02, k03, k04, k05, KC_NO, KC_NO, k55, k54, k53, k52, k51, k50, \
+    k10, k11, k12, k13, k14, k15, KC_NO, KC_NO, k65, k64, k63, k62, k61, k60, \
+    k20, k21, k22, k23, k24, k25, KC_NO, KC_NO, k75, k74, k73, k72, k71, k70, \
+    k30, k31, k32, k33, k34, k35, KC_NO, KC_NO, k85, k84, k83, k82, k81, k80, \
+    k40, k41, k42, k43, k44, k45, k46,   k96,   k95, k94, k93, k92, k91, k90 \
     ) \
     { \
         { k00, k01, k02, k03, k04, k05, k06 }, \
