@@ -37,7 +37,11 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /* if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
         saturation = 255;
     } */
-    if (state->status.layer & 0x100) {
+    if (state->status.layer & 0x200) {
+        state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
+        state->layer_text = "MOUSE";
+    }
+    else if (state->status.layer & 0x100) {
         state->target_lcd_color = LCD_COLOR(MAGENTA, saturation, 0xFF);
         state->layer_text = "Shortcuts Layer";
     }
