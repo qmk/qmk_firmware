@@ -555,7 +555,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
       break;
     case _MEDIA:
-      rgblight_set_green;
+      rgblight_set_chartreuse;
       rgblight_mode(22);
       break;
     case _GAMEPAD:
@@ -590,7 +590,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_set_green;
       }
       else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_purple;
+        rgblight_set_goldenrod;
       }
       else {
         rgblight_set_teal;
