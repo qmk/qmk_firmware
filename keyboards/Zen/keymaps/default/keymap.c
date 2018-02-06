@@ -10,7 +10,6 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 #define _QWERTY 0
 #define _NAV 2
-//#define _COLEMAK 2
 
 
 enum custom_keycodes {
