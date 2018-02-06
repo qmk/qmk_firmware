@@ -70,4 +70,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-DEFAULT_FOLDER = Zen/rev2
+DEFAULT_FOLDER = zen/rev2
