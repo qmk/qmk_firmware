@@ -23,9 +23,10 @@ SOFTWARE.
 */
 #include "gfx.h"
 #include "math.h"
-#include "led_backlight_keyframes.h"
+#include "my_keyframes.h"
+#include "my_animations.h"
 
-#define ONESIDESCAN 7
+#define ONESIDESCAN 9
 #define FULL_ON LUMA2COLOR(255)
 #define THREE_QUARTER LUMA2COLOR(200)
 #define HALF_ON LUMA2COLOR(150)
@@ -48,25 +49,25 @@ bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualize
     float frame_length = animation->frame_lengths[animation->current_frame];
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/ONESIDESCAN);
-    int row = 1;
+    int row = 0;
     //4 states per light. 100%, 60%, 30%, off
     // coordinates going to be 1,1 to 1,5.  1 row above home
     // 1 2 3 4 5 <- coordinates
-    // 0 0 0 0 0    0
-    // 3 0 0 0 0    1
-    // 2 3 0 0 0    2
-    // 1 2 3 0 0    3
-    // 0 1 2 3 0    4
-    // 0 0 1 2 3    5
-    // 0 0 0 1 2    6
-    // 0 0 0 0 1    7
+    // 0 0 0 0 0 0 0    0
+    // 3 0 0 0 0 0 0    1
+    // 2 3 0 0 0 0 0    2
+    // 1 2 3 0 0 0 0    3
+    // 0 1 2 3 0 0 0    4
+    // 0 0 1 2 3 0 0    5
+    // 0 0 0 1 2 3 0    6
+    // 0 0 0 0 1 2 3    7
+    // 0 0 0 0 0 1 2    8
+    // 0 0 0 0 0 0 1    9
     gdispGClear(LED_DISPLAY, QUARTER_ON);
     gdispGDrawPixel(LED_DISPLAY, row, phase, FULL_ON);
     gdispGDrawPixel(LED_DISPLAY, row, phase-1, THREE_QUARTER);
     gdispGDrawPixel(LED_DISPLAY, row, phase-2, HALF_ON);
     gdispGDrawPixel(LED_DISPLAY, row, 0, QUARTER_ON);
-    gdispGDrawPixel(LED_DISPLAY, row, 6, QUARTER_ON);
-    gdispGDrawPixel(LED_DISPLAY, row, 7, QUARTER_ON);
 }
 
 bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualizer_state_t* state) {

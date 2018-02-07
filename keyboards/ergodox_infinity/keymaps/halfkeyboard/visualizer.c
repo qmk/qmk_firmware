@@ -12,7 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "simple_visualizer.h"
+#include "visualizer.h"
+#include "my_keyframes.h"
+#include "my_animations.h"
+
 
 #define RED 0
 #define ORANGE 21
@@ -48,7 +51,6 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     else    if (state->status.layer & 0x80) {
         state->target_lcd_color = LCD_COLOR(VIOLET, saturation, 0xFF);
         state->layer_text = "Plover";
-        //KITT Scanner
     }
     else if (state->status.layer & 0x40) {
         state->target_lcd_color = LCD_COLOR(RASPBERRY, saturation, 0xFF);
