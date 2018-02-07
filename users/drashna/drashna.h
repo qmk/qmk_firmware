@@ -73,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
 #define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
 #define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
-#define rgblight_set_purple      rgblight_sethsv (300, 255, 128);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
 #define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
 #define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
 
