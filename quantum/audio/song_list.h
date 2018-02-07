@@ -53,6 +53,30 @@
     E__NOTE(_CS4), E__NOTE(_B4),  QD_NOTE(_AS4), \
     E__NOTE(_AS4), E__NOTE(_AS4), QD_NOTE(_B4),
 
+#define IMPERIAL_MARCH \
+  HD_NOTE(_A4), HD_NOTE(_A4), HD_NOTE(_A4), QD_NOTE(_F4), QD_NOTE(_C5), \
+  HD_NOTE(_A4), QD_NOTE(_F4),  QD_NOTE(_C5), WD_NOTE(_A4), \
+  HD_NOTE(_E5), HD_NOTE(_E5), HD_NOTE(_E5), QD_NOTE(_F5), QD_NOTE(_C5), \
+  HD_NOTE(_A4), QD_NOTE(_F4),  QD_NOTE(_C5), WD_NOTE(_A4)
+
+#define CLUEBOARD_SOUND \
+    HD_NOTE(_C3), HD_NOTE(_D3), HD_NOTE(_E3), HD_NOTE(_F3), HD_NOTE(_G3), HD_NOTE(_A4), HD_NOTE(_B4), HD_NOTE(_C4)
+/*
+    HD_NOTE(_G3), HD_NOTE(_E3), HD_NOTE(_C3), \
+    Q__NOTE(_E3), Q__NOTE(_C3), Q__NOTE(_G3), \
+    Q__NOTE(_E3)
+*/
+/*
+    HD_NOTE(_C3), HD_NOTE(_G3), HD_NOTE(_E3), \
+    Q__NOTE(_G3), Q__NOTE(_E3), Q__NOTE(_G3), \
+    Q__NOTE(_F3)
+*/
+
+#define BASKET_CASE \
+    QD_NOTE(_G3), E__NOTE(_F3), E__NOTE(_E3), Q__NOTE(_F3), M__NOTE(_G3, 8+32), Q__NOTE(_REST), \
+    Q__NOTE(_B4), Q__NOTE(_C4), Q__NOTE(_B4), E__NOTE(_A4), Q__NOTE(_G3), M__NOTE(_G3, 8+32), Q__NOTE(_REST), \
+    Q__NOTE(_B4), Q__NOTE(_C4), Q__NOTE(_B4), E__NOTE(_A4), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), Q__NOTE(_G3), E__NOTE(_A4), E__NOTE(_C4), QD_NOTE(_B4), HD_NOTE(_B4)
+
 #define STARTUP_SOUND  \
     E__NOTE(_E6),     \
     E__NOTE(_A6),     \
@@ -246,6 +270,12 @@
     Q__NOTE(_E5),     \
     Q__NOTE(_GS5),     \
     HD_NOTE(_C6),
+
+#define ZELDA_TREASURE \
+    Q__NOTE(_A4), \
+    Q__NOTE(_AS4), \
+    Q__NOTE(_B4), \
+    HD_NOTE(_C5), \
 
 #define TERMINAL_SOUND \
     E__NOTE(_C5 )

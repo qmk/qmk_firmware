@@ -33,7 +33,7 @@ $ pip install pyusb
 ```
 
 If you prefer, you can just build it and flash the firmware directly with
-`bootloadHID` if you boot the board while holding down `L_Ctrl` to keep it
+`bootloadHID` if you boot the board while holding down `Backspace` (`Top Right Key`) to keep it
 in the bootloader:
 
 ```
@@ -59,7 +59,7 @@ bootloaderHID jj40_default.hex
 ## Troubleshooting
 
 1. Default keymap isn't the MIT layout. If you find yourself "missing" the `raise` key, edit `jj40.h` change the define at the bottom of the file from `#define KEYMAP KEYMAP_OFFSET`  to `#define KEYMAP KEYMAP_MIT`
-2. Try plugging the board in while pressing `L_Ctrl` or `BSPACE`. This will force it
+2. Try plugging the board in while pressing `L_Ctrl` or `Backspace` (`Top Right Key`). This will force it
    to boot only the bootloader without loading the firmware. Once this is
    done, just reflash the board with the original firmware.
 3. Sometimes USB hubs can act weird, so try connecting the board directly

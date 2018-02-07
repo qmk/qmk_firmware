@@ -121,22 +121,22 @@ qmk: $(BUILD_DIR)/$(TARGET).hex
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
 # Program the device.
-program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
+program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
 	$(PROGRAM_CMD)
 
-teensy: $(BUILD_DIR)/$(TARGET).hex
+teensy: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
 	
 BATCHISP ?= batchisp 
 
-flip: $(BUILD_DIR)/$(TARGET).hex
+flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
 	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
 	
 DFU_PROGRAMMER ?= dfu-programmer
 
-dfu: $(BUILD_DIR)/$(TARGET).hex sizeafter
+dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
@@ -168,15 +168,15 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 	if grep -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
 		ls /dev/tty* > /tmp/1; \
-		echo "Detecting USB port, reset your controller now.\c"; \
+		echo -e "Detecting USB port, reset your controller now.\c"; \
 		while [ -z $$USB ]; do \
 			sleep 1; \
-			echo ".\c"; \
+			echo -e ".\c"; \
 			ls /dev/tty* > /tmp/2; \
 			USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
 		done; \

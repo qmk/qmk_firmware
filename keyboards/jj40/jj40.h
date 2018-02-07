@@ -18,9 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYMAP_COMMON_H
 #define KEYMAP_COMMON_H
 
+#include "quantum.h"
 #include "quantum_keycodes.h"
 #include "keycode.h"
 #include "action.h"
+
+void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
 #define KEYMAP_GRID( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K010, K011, K012, \
