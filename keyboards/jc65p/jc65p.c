@@ -16,7 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "jc65p.h"
+#ifdef BACKLIGHT_ENABLE
+#include "backlight.h"
+#endif
+#ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
+#endif
 
 #include <avr/pgmspace.h>
 
@@ -42,4 +47,19 @@ void rgblight_set(void) {
 __attribute__ ((weak))
 void matrix_scan_user(void) {
     rgblight_task();
+}
+
+void backlight_init_ports(void) {
+	DDRD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
+	PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
+}
+
+void backlight_set(uint8_t level) {
+	if (level == 0) {
+		// Turn out the lights
+		PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
+	} else {
+		// Turn on the lights
+		PORTD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
+	}
 }
