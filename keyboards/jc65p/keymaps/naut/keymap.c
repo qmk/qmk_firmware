@@ -12,10 +12,12 @@
 #define M_MSSN  M(2)
 #define M_APPS  M(3)
 #define M_SPOT  M(4)
-#define RGB_WHT M(5)
-#define RGB_TEA M(6)
-#define RGB_BLU M(7)
-#define RGB_PRP M(8)
+#define M_LEFT  M(5)
+#define M_RGHT  M(6)
+#define RGB_WHT M(7)
+#define RGB_TEA M(8)
+#define RGB_BLU M(9)
+#define RGB_PRP M(10)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base Layer
@@ -39,16 +41,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           TO(0), KC_F14, KC_F15, M_APPS, M_MSSN, KC_F11, KC_F12,KC_MRWD,KC_MPLY,KC_MFFD,KC_MUTE,KC_VOLD,KC_VOLU,KC_EJCT,  KC_NO,  KC_NO,
         KC_TRNS, M_PRTS, M_PRTA,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,         M_SPOT, M_SPOT, M_SPOT,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,          TO(0), M_MSSN,KC_TRNS,
+        KC_TRNS,KC_TRNS,KC_TRNS,         M_SPOT, M_SPOT, M_SPOT,                        KC_TRNS,KC_TRNS,KC_TRNS, M_LEFT, M_APPS, M_RGHT
     ),
-    // RGB Layer
+    // RGB and BL Layer
     [_RGB] = KEYMAP(
-          TO(0),RGB_WHT,RGB_TEA,RGB_BLU,RGB_PRP,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_TOG,
-          KC_NO,RGB_HUD,RGB_HUI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,RGB_M_P,
-          KC_NO,RGB_SAD,RGB_SAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,RGB_M_R,
-          KC_NO,  KC_NO,RGB_VAD,RGB_VAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_MOD,RGB_RMOD,         KC_NO,  KC_NO,RGB_M_G,
-          KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,  KC_NO,                          KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_M_SW
+          TO(0),RGB_WHT,RGB_TEA,RGB_BLU,RGB_PRP,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TO(0),
+          KC_NO,RGB_HUD,RGB_HUI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,BL_TOGG,
+          KC_NO,RGB_SAD,RGB_SAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,RGB_TOG,
+          KC_NO,  KC_NO,RGB_VAD,RGB_VAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_MOD,RGB_RMOD,         KC_NO,RGB_M_P,RGB_M_R,
+          KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,  KC_NO,                          KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_M_G,RGB_M_SW
     ),
 };
 
@@ -72,15 +74,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return MACRO(D(LGUI), T(SPC), U(LGUI), END);                 //Mac spotlight search
                 break;
             case 5:
-                rgblight_setrgb(0xff, 0xff, 0xff);                           //White Shortcut
+                return MACRO(D(LCTL), T(LEFT), U(LCTL), END);                //Mac mission left
                 break;
             case 6:
-                rgblight_setrgb(0x00, 0x80, 0x80);                           //Teal Shortcut
+                return MACRO(D(LGUI), T(RGHT), U(LGUI), END);                //Mac mission right
                 break;
             case 7:
-                rgblight_setrgb(0x00, 0x00, 0xff);                           //Blue Shortcut
+                rgblight_setrgb(0xff, 0xff, 0xff);                           //White Shortcut
                 break;
             case 8:
+                rgblight_setrgb(0x00, 0x80, 0x80);                           //Teal Shortcut
+                break;
+            case 9:
+                rgblight_setrgb(0x00, 0x00, 0xff);                           //Blue Shortcut
+                break;
+            case 10:
                 rgblight_setrgb(0x4b, 0x00, 0x82);                           //Indigo Shortcut
                 break;
         }
