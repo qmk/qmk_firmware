@@ -1,4 +1,4 @@
-﻿### 1  ANSI
+### 1  ANSI
 A Mac ANSI layout that assumes standard sized shifts, enter, and backspace keys, Arrow layer, FN layers and Lighting functions layer...
 I added Colemak and Dvorak layer as layer 1 & 2 under base QWERTY layer. 
 
