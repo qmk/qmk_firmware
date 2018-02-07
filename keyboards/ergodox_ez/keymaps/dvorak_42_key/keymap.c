@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_WRITE_TRANPATTERN),
        RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_WRITE_LOGPATTERN),
-                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), KC_TAB,
+                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
        RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), M(SHELL_EXPAND_PATTERN),
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
