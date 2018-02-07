@@ -29,7 +29,7 @@
 #define DESCRIPTION     "Handwire protoboard"
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 12
 #define MATRIX_COLS 7
 
 /*
