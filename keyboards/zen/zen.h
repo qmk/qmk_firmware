@@ -1,7 +1,7 @@
 #ifndef ZEN_H
 #define ZEN_H
 
-#include "rev2.h"
+#include "rev1.h"
 #include "quantum.h"
 
 // Used to create a keymap using only KC_ prefixed keys
