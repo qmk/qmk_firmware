@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "jc65p.h"
+#include "jc65_32a.h"
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
 #endif
