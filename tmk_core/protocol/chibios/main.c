@@ -41,6 +41,9 @@
 #ifdef VISUALIZER_ENABLE
 #include "visualizer/visualizer.h"
 #endif
+#ifdef MIDI_ENABLE
+#include "qmk_midi.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -65,6 +68,17 @@ host_driver_t chibios_driver = {
   send_consumer
 };
 
+#ifdef VIRTSER_ENABLE
+void virtser_task(void);
+#endif
+
+#ifdef RAW_HID_ENABLE
+void raw_hid_task(void);
+#endif
+
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
@@ -103,6 +117,10 @@ int main(void) {
 
   /* init printf */
   init_printf(NULL,sendchar_pf);
+
+#ifdef MIDI_ENABLE
+  setup_midi();
+#endif
 
 #ifdef SERIAL_LINK_ENABLE
   init_serial_link();
@@ -182,5 +200,14 @@ int main(void) {
     }
 
     keyboard_task();
+#ifdef CONSOLE_ENABLE
+    console_task();
+#endif
+#ifdef VIRTSER_ENABLE
+    virtser_task();
+#endif
+#ifdef RAW_HID_ENABLE
+    raw_hid_task();
+#endif
   }
 }
