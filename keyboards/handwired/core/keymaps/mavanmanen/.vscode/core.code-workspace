@@ -12,9 +12,7 @@
       "editor.tabSize": 2
     },
     "files.associations": {
-      "keymap.h": "c",
-      "core.h": "c",
-      "quantum.h": "c"
+      "_keymap.h": "c"
     },
   }
 }
