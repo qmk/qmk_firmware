@@ -45,6 +45,9 @@
 #define _DESCRIPTORS_H_
 
 #include <LUFA/Drivers/USB/USB.h>
+#ifdef PROTOCOL_CHIBIOS
+#include "hal.h"
+#endif
 
 typedef struct
 {
@@ -246,19 +249,19 @@ typedef struct
 #   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
-#if (defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4) || \
-    (defined(__AVR_ATmega32U4__) && CDC_OUT_EPNUM > 6)
-# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
+#if (defined(PROTOCOL_LUFA) && CDC_OUT_EPNUM > (ENDPOINT_TOTAL_ENDPOINTS - 1)) || \
+  (defined(PROTOCOL_CHIBIOS) && CDC_OUT_EPNUM > USB_MAX_ENDPOINTS)
+# error "There are not enough available endpoints to support all functions. Remove some in the rules.mk file.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)"
 #endif
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
-#define RAW_EPSIZE              	32
+#define RAW_EPSIZE              	  32
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
-#define CDC_NOTIFICATION_EPSIZE     8
+#define CDC_NOTIFICATION_EPSIZE     32
 #define CDC_EPSIZE                  16
 
 uint16_t get_usb_descriptor(const uint16_t wValue,
