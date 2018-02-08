@@ -16,6 +16,7 @@
 #include "api_sysex.h"
 #include "sysex_tools.h"
 #include "print.h"
+#include "qmk_midi.h"
 
 void send_bytes_sysex(uint8_t message_type, uint8_t data_type, uint8_t * bytes, uint16_t length) {
     // SEND_STRING("\nTX: ");

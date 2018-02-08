@@ -45,8 +45,9 @@
 #define _DESCRIPTORS_H_
 
 #include <LUFA/Drivers/USB/USB.h>
-#include <avr/pgmspace.h>
-
+#ifdef PROTOCOL_CHIBIOS
+#include "hal.h"
+#endif
 
 typedef struct
 {
@@ -95,25 +96,26 @@ typedef struct
 #endif
 
 #ifdef MIDI_ENABLE
-      // MIDI Audio Control Interface
-      USB_Descriptor_Interface_t                Audio_ControlInterface;
-      USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
+    USB_Descriptor_Interface_Association_t    Audio_Interface_Association;
+    // MIDI Audio Control Interface
+    USB_Descriptor_Interface_t                Audio_ControlInterface;
+    USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
 
-      // MIDI Audio Streaming Interface
-      USB_Descriptor_Interface_t                Audio_StreamInterface;
-      USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
-      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
-      USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
-      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
-      USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
-      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
-      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
-      USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
-      USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
+    // MIDI Audio Streaming Interface
+    USB_Descriptor_Interface_t                Audio_StreamInterface;
+    USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
+    USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Emb;
+    USB_MIDI_Descriptor_InputJack_t           MIDI_In_Jack_Ext;
+    USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Emb;
+    USB_MIDI_Descriptor_OutputJack_t          MIDI_Out_Jack_Ext;
+    USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_In_Jack_Endpoint;
+    USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_In_Jack_Endpoint_SPC;
+    USB_Audio_Descriptor_StreamEndpoint_Std_t MIDI_Out_Jack_Endpoint;
+    USB_MIDI_Descriptor_Jack_Endpoint_t       MIDI_Out_Jack_Endpoint_SPC;
 #endif
 
 #ifdef VIRTSER_ENABLE
-        USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
+  USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
 
 	// CDC Control Interface
 	USB_Descriptor_Interface_t               CDC_CCI_Interface;
@@ -208,8 +210,14 @@ typedef struct
 
 #ifdef CONSOLE_ENABLE
 #   define CONSOLE_IN_EPNUM         (RAW_OUT_EPNUM + 1)
-//#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+#ifdef PROTOCOL_CHIBIOS
+// ChibiOS has enough memory and descriptor to actually enable the endpoint
+// It could use the same endpoint numbers, as that's supported by ChibiOS
+// But the QMK code currently assumes that the endpoint numbers are different
+#   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 2)
+#else
 #   define CONSOLE_OUT_EPNUM        (RAW_OUT_EPNUM + 1)
+#endif
 #else
 #   define CONSOLE_OUT_EPNUM        RAW_OUT_EPNUM
 #endif
@@ -241,27 +249,24 @@ typedef struct
 #   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
 #endif
 
-#if (defined(__AVR_ATmega32U2__) && CDC_OUT_EPNUM > 4) || \
-    (defined(__AVR_ATmega32U4__) && CDC_OUT_EPNUM > 6)
-# error "Endpoints are not available enough to support all functions. Remove some in Makefile.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL)"
+#if (defined(PROTOCOL_LUFA) && CDC_OUT_EPNUM > (ENDPOINT_TOTAL_ENDPOINTS - 1)) || \
+  (defined(PROTOCOL_CHIBIOS) && CDC_OUT_EPNUM > USB_MAX_ENDPOINTS)
+# error "There are not enough available endpoints to support all functions. Remove some in the rules.mk file.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)"
 #endif
 
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
-#define RAW_EPSIZE              	32
+#define RAW_EPSIZE              	  32
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
-#define CDC_NOTIFICATION_EPSIZE     8
+#define CDC_NOTIFICATION_EPSIZE     32
 #define CDC_EPSIZE                  16
 
-
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-                                    const uint16_t wIndex,
-                                    const void** const DescriptorAddress)
-                                    ATTR_WARN_UNUSED_RESULT ATTR_NON_NULL_PTR_ARG(3);
-
+uint16_t get_usb_descriptor(const uint16_t wValue,
+                            const uint16_t wIndex,
+                            const void** const DescriptorAddress);
 
 /* new API */
 #if LUFA_VERSION_INTEGER < 0x140302
