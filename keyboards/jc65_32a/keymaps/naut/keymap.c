@@ -1,4 +1,4 @@
-#include "jc65p.h"
+#include "jc65_32a.h"
 
 // Define Layers
 #define _BASE 0
@@ -14,10 +14,6 @@
 #define M_SPOT  M(4)
 #define M_LEFT  M(5)
 #define M_RGHT  M(6)
-#define RGB_WHT M(7)
-#define RGB_TEA M(8)
-#define RGB_BLU M(9)
-#define RGB_PRP M(10)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base Layer
@@ -46,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // RGB and BL Layer
     [_RGB] = KEYMAP(
-          TO(0),RGB_WHT,RGB_TEA,RGB_BLU,RGB_PRP,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TO(0),
+          TO(0),  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TO(0),
           KC_NO,RGB_HUD,RGB_HUI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,BL_TOGG,
           KC_NO,RGB_SAD,RGB_SAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,RGB_TOG,
           KC_NO,  KC_NO,RGB_VAD,RGB_VAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_MOD,RGB_RMOD,         KC_NO,RGB_M_P,RGB_M_R,
@@ -78,18 +74,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 break;
             case 6:
                 return MACRO(D(LGUI), T(RGHT), U(LGUI), END);                //Mac mission right
-                break;
-            case 7:
-                rgblight_setrgb(0xff, 0xff, 0xff);                           //White Shortcut
-                break;
-            case 8:
-                rgblight_setrgb(0x00, 0x80, 0x80);                           //Teal Shortcut
-                break;
-            case 9:
-                rgblight_setrgb(0x00, 0x00, 0xff);                           //Blue Shortcut
-                break;
-            case 10:
-                rgblight_setrgb(0x4b, 0x00, 0x82);                           //Indigo Shortcut
                 break;
         }
     }
