@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+      "name": "Core",
+			"path": "../"
+		}
+  ],
+	"settings": {
+    "[c]": {
+      "editor.autoIndent": false,
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    "files.associations": {
+      "keymap.h": "c",
+      "core.h": "c",
+      "quantum.h": "c"
+    },
+  }
+}
