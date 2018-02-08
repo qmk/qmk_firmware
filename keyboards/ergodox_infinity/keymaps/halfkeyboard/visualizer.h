@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KEYBOARDS_ERGODOX_INFINITY_SIMPLE_VISUALIZER_H_
-#define KEYBOARDS_ERGODOX_INFINITY_SIMPLE_VISUALIZER_H_
+#ifndef VISUALIZER_H_
+#define VISUALIZER_H_
 
 // Currently we are assuming that both the backlight and LCD are enabled
 // But it's entirely possible to write a custom visualizer that use only
@@ -42,6 +42,7 @@ static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
 static bool initial_update = true;
 
 // Feel free to modify the animations below, or even add new ones if needed
+extern keyframe_animation_t KITT_Scanner_animation;
 
 static keyframe_animation_t lcd_layer_display = {
     .num_frames = 1,
@@ -103,9 +104,7 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
     // You can also stop existing animations, and start your custom ones here
     // remember that you should normally have only one animation for the LCD
     // and one for the background. But you can also combine them if you want.
-    if(initial_update ){
-      start_keyframe_animation(&led_test_animation);
-    }
+
 }
 
 void user_visualizer_suspend(visualizer_state_t* state) {
@@ -123,4 +122,4 @@ void user_visualizer_resume(visualizer_state_t* state) {
     start_keyframe_animation(&default_startup_animation);
 }
 
-#endif /* KEYBOARDS_ERGODOX_INFINITY_SIMPLE_VISUALIZER_H_ */
+#endif /* VISUALIZER_H_ */
