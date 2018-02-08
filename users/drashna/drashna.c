@@ -166,7 +166,7 @@ void matrix_init_user(void) {
   }
 #endif
 #ifdef AUDIO_ENABLE
-//  _delay_ms(21); // gets rid of tick
+//  wait_ms(21); // gets rid of tick
 //  stop_all_notes();
 //  PLAY_SONG(tone_hackstartup);
 #endif
@@ -329,7 +329,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Salt, salt, salt...");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -340,7 +340,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Please sir, can I have some more salt?!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -351,7 +351,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Your salt only makes me harder, and even more aggressive!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -362,7 +362,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Good game, everyone!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -373,7 +373,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Good luck, have fun!!!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -384,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("Left click to win!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -395,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -406,7 +406,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("That was positively riveting!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -417,9 +417,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
-      _delay_ms(3000);
+      wait_ms(3000);
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
       SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
@@ -430,7 +430,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("OMG!!!  C9!!!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -441,7 +441,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       register_code(is_overwatch ? KC_BSPC : KC_ENTER);
       unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      _delay_ms(50);
+      wait_ms(50);
       SEND_STRING("That was a fantastic game, though it was a bit easy. Try harder next time!");
       register_code(KC_ENTER);
       unregister_code(KC_ENTER);
@@ -470,16 +470,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       ":teensy"
 //#elif defined(BOOTLOADER_CATERINA)
 //       ":avrdude"
-#endif
-#ifdef RGBLIGHT_ENABLE
-        " RGBLIGHT_ENABLE=yes"
-#else
-        " RGBLIGHT_ENABLE=no"
-#endif
-#ifdef AUDIO_ENABLE
-        " AUDIO_ENABLE=yes"
-#else
-        " AUDIO_ENABLE=no"
 #endif
         SS_TAP(X_ENTER));
     }
