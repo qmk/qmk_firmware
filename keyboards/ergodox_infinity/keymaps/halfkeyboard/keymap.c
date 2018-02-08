@@ -3,10 +3,10 @@
 #include "action_layer.h"
 #include "version.h"
 
-#define QWERTY 0 // qwerty layer 
-#define HALFQWERTY 1 // mirrored qwerty layer 
-#define DVORAK 2 // dvorak layer 
-#define HALFDVORAK 3 // mirrored dvorak layer 
+#define QWERTY 0 // qwerty layer
+#define HALFQWERTY 1 // mirrored qwerty layer
+#define DVORAK 2 // dvorak layer
+#define HALFDVORAK 3 // mirrored dvorak layer
 #define SYMB 5 // symbols
 #define HALFSYMB 6 // media keys
 #define PLVR 7 // steno plover layout
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |Symbol|Dvorak|       |Plover|HalfSymb|
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 |      |      |MU_TOG|       | PgUp |        |      |
  *                                 | Space|DELETE|------|       |------|  Tab   |Enter |
  *                                 |mirror|      | End  |       | PgDn |        |mirror|
  *                                 `--------------------'       `----------------------'
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
                                               TG(SYMB),  TG(DVORAK),
-                                                              KC_HOME,
+                                                              MU_TOG,
                                          LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
         // right hand
              KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,

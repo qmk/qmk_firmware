@@ -35,7 +35,6 @@
 #include "system/serial_link.h"
 #include "led.h"
 #include "default_animations.h"
-#include "my_animations.h"
 
 static const uint32_t logo_background_color = LCD_COLOR(0x00, 0x00, 0xFF);
 static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
@@ -43,6 +42,7 @@ static const uint32_t initial_color = LCD_COLOR(0, 0, 0);
 static bool initial_update = true;
 
 // Feel free to modify the animations below, or even add new ones if needed
+extern keyframe_animation_t KITT_Scanner_animation;
 
 static keyframe_animation_t lcd_layer_display = {
     .num_frames = 1,
@@ -104,9 +104,7 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
     // You can also stop existing animations, and start your custom ones here
     // remember that you should normally have only one animation for the LCD
     // and one for the background. But you can also combine them if you want.
-    if(initial_update ){
-      start_keyframe_animation(&KITT_scanner_animation);
-    }
+
 }
 
 void user_visualizer_suspend(visualizer_state_t* state) {
