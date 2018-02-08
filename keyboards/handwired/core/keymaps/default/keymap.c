@@ -1,5 +1,5 @@
 #include "_keymap.h"
-#include "../../repeat_command.h"
+#include "repeat_command.h"
 
 void run_command(const char string[]) {
   SEND_STRING(SS_LGUI("r"));

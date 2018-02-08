@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_H
 
 #include "../../../quantum/config_common.h"
-#include "songs.h"
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x1337
@@ -35,15 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
 #define B5_AUDIO // enables audio on pin B5
-// #define STARTUP_SONG SONG(IMPERIAL_MARCH)
 
 #define DEBOUNCING_DELAY 0
 #define TAPPING_TOGGLE 2
-#define TAPPING_TERM 300 // how long before a tap becomes a hold
-// #define RETRO_TAPPING // tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+#define TAPPING_TERM 250 // how long before a tap becomes a hold
 #define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
 #define FORCE_NKRO
-
-#define NO_MUSIC_MODE
 
 #endif
