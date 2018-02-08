@@ -147,7 +147,7 @@ void reset_keyboard(void) {
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
 #endif
-#if defined(AUDIO_ENABLE)
+#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
@@ -236,7 +236,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE) 
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -834,7 +834,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
-  #ifdef AUDIO_ENABLE
+  #if defined(AUDIO_ENABLE)
     matrix_scan_music();
   #endif
 
