@@ -16,6 +16,7 @@
 #include "process_midi.h"
 
 #ifdef MIDI_ENABLE
+#include <LUFA/Drivers/USB/USB.h>
 #include "midi.h"
 #include "qmk_midi.h"
 
