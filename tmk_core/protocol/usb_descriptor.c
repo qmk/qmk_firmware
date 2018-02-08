@@ -38,7 +38,7 @@
 
 #include "util.h"
 #include "report.h"
-#include "descriptor.h"
+#include "usb_descriptor.h"
 
 #ifndef USB_MAX_POWER_CONSUMPTION
 #define USB_MAX_POWER_CONSUMPTION 500
@@ -571,6 +571,19 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 #endif
 
 #ifdef MIDI_ENABLE
+    .Audio_Interface_Association =
+        {
+            .Header                   = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
+
+            .FirstInterfaceIndex      = AC_INTERFACE,
+            .TotalInterfaces          = 2,
+
+            .Class                    = AUDIO_CSCP_AudioClass,
+            .SubClass                 = AUDIO_CSCP_ControlSubclass,
+            .Protocol                 = AUDIO_CSCP_ControlProtocol,
+
+            .IADStrIndex              = NO_DESCRIPTOR,
+        },
     .Audio_ControlInterface =
         {
             .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
@@ -622,8 +635,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
             .AudioSpecification       = VERSION_BCD(1,0,0),
 
-            .TotalLength              = (sizeof(USB_Descriptor_Configuration_t) -
-                                         offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC))
+            .TotalLength              = offsetof(USB_Descriptor_Configuration_t, MIDI_Out_Jack_Endpoint_SPC)
+                                        + sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t)
+                                        - offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC)
         },
 
     .MIDI_In_Jack_Emb =
@@ -879,9 +893,9 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString =
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  */
-uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
-                                    const uint16_t wIndex,
-                                    const void** const DescriptorAddress)
+uint16_t get_usb_descriptor(const uint16_t wValue,
+                            const uint16_t wIndex,
+                            const void** const DescriptorAddress)
 {
     const uint8_t  DescriptorType   = (wValue >> 8);
     const uint8_t  DescriptorIndex  = (wValue & 0xFF);
