@@ -1,9 +1,13 @@
 {
 	"folders": [
-		{
+    {
       "name": "Core",
+      "path": "../../../"
+    },
+    {
+      "name": "Keymap: mavanmanen",
 			"path": "../"
-		}
+    },
   ],
 	"settings": {
     "[c]": {
