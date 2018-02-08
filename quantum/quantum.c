@@ -38,6 +38,10 @@ extern backlight_config_t backlight_config;
 #include "api.h"
 #endif
 
+#ifdef MIDI_ENABLE
+#include "process_midi.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
