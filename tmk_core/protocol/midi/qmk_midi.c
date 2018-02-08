@@ -4,6 +4,9 @@
 #include "midi.h"
 #include "usb_descriptor.h"
 #include "process_midi.h"
+#if API_SYSEX_ENABLE
+#include "api.h"
+#endif
 
 /*******************************************************************************
  * MIDI

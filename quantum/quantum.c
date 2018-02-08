@@ -34,6 +34,10 @@ extern backlight_config_t backlight_config;
 #include "fauxclicky.h"
 #endif
 
+#ifdef API_ENABLE
+#include "api.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
