@@ -241,7 +241,7 @@ static const dacsample_t dac_buffer_2[DAC_BUFFER_SIZE] = {
  * DAC streaming callback.
  */
 size_t nx = 0, ny = 0, nz = 0;
-static void end_cb1(DACDriver *dacp, const dacsample_t *buffer, size_t n) {
+static void end_cb1(DACDriver *dacp, dacsample_t *buffer, size_t n) {
 
   (void)dacp;
 
@@ -564,7 +564,7 @@ static void gpt_cb8(GPTDriver *gptp) {
         note_position++;
         bool end_of_note = false;
         if (GET_CHANNEL_1_FREQ > 0) {
-            if (!note_resting) 
+            if (!note_resting)
                 end_of_note = (note_position >= (note_length*16 - 1));
             else
                 end_of_note = (note_position >= (note_length*16));
