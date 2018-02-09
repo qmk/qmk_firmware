@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef JC65_32A_H
-#define JC65_32A_H
+#ifndef V32A_H
+#define V32A_H
 
 #include "quantum.h"
 

@@ -1,5 +1,5 @@
-#ifndef JC65_H
-#define JC65_H
+#ifndef V32U4_H
+#define V32U4_H
 
 #include "quantum.h"
 
