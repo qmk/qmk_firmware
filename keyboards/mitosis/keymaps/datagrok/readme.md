@@ -74,6 +74,8 @@
 
 ## To do
 
+- Figure out where to place non-numpad numbers so we don't need num lock turned
+  on to type them?
 - Improve LED indications (may require modding bluetooth firmware):
     - Is any board nonresponsive (which one?)
     - Does either board have a low battery?
