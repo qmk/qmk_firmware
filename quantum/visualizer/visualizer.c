@@ -296,12 +296,15 @@ static DECLARE_THREAD_FUNCTION(visualizerThread, arg) {
     #if BACKLIGHT_ENABLE
             if(current_status.backlight_level != state.status.backlight_level) {
                 if (current_status.backlight_level != 0) {
-                    gdispGSetPowerMode(LED_DISPLAY, powerOn);
                     uint16_t percent = (uint16_t)current_status.backlight_level * 100 / BACKLIGHT_LEVELS;
                     gdispGSetBacklight(LED_DISPLAY, percent);
+                    gdispGFlush(LED_DISPLAY);
+                    gdispGSetPowerMode(LED_DISPLAY, powerOn);
                 }
                 else {
+                    gdispGSetBacklight(LED_DISPLAY, 0);
                     gdispGSetPowerMode(LED_DISPLAY, powerOff);
+                    gdispGFlush(LED_DISPLAY);
                 }
                 state.status.backlight_level = current_status.backlight_level;
             }
