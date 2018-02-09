@@ -2,7 +2,9 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-
+#ifndef MIDI_ENABLE
+#error "Midi is not enabled"
+#endif
 #define QWERTY 0 // qwerty layer
 #define HALFQWERTY 1 // mirrored qwerty layer
 #define DVORAK 2 // dvorak layer
@@ -11,10 +13,7 @@
 #define HALFSYMB 6 // media keys
 #define PLVR 7 // steno plover layout
 #define SHORTCUTS 8 //layer with shortcut keys
-<<<<<<< HEAD
-=======
 #define MDIA 9
->>>>>>> master
 
 
 enum custom_keycodes {
@@ -41,11 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |Symbol|Dvorak|       |Plover|HalfSymb|
  *                                 ,------|------|------|       |------+--------+------.
-<<<<<<< HEAD
- *                                 |      |      | Home |       | PgUp |        |      |
-=======
  *                                 |      |      |MU_TOG|       | PgUp |        |      |
->>>>>>> master
  *                                 | Space|DELETE|------|       |------|  Tab   |Enter |
  *                                 |mirror|      | End  |       | PgDn |        |mirror|
  *                                 `--------------------'       `----------------------'
@@ -60,25 +55,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
                                               TG(SYMB),  TG(DVORAK),
-<<<<<<< HEAD
-                                                              KC_HOME,
-=======
-                                                              MU_TOG,
->>>>>>> master
+                                                              MU_ON,
                                          LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
         // right hand
              KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
-<<<<<<< HEAD
-                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             TG(PLVR),        TG(HALFSYMB),
-=======
                                   MO(MDIA), KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              TG(PLVR),        TG(MDIA),
->>>>>>> master
-             KC_PGUP,
+             MU_OFF,
              KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
     ),
 /* Keymap 1: mirrored qwerty
@@ -112,20 +98,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_SLASH,  	  KC_DOT, KC_COMM,KC_M,   KC_N,   KC_EQL,
         KC_LCTRL, 		KC_LALT,	   LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               KC_TRNS,  KC_TRANSPARENT,
-                                                              KC_HOME,
+                                                              KC_TRNS,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
         // right hand
              KC_GRAVE,     KC_5,   KC_4,  KC_3,   KC_2,   KC_1,             KC_BSPC,
              KC_LBRC,    KC_T,   KC_R,  KC_E,   KC_W,   KC_Q,             KC_BSLS,
                           KC_G,   KC_F,  KC_D,   KC_S,   KC_A,  		   KC_ENT,
              KC_MINUS,KC_B,   KC_V,  KC_C,   KC_X,   KC_Z,		   	   KC_RSFT,
-<<<<<<< HEAD
-                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-=======
                                   KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
->>>>>>> master
              KC_TRANSPARENT,        KC_TRNS,
-             KC_PGUP,
+             KC_TRNS,
              KC_PGDN,KC_TAB, KC_TRANSPARENT
     ),
 /* Keymap 3: dvorak
@@ -139,11 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| -    |           | =    |------+------+------+------+------+--------|
  * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-<<<<<<< HEAD
- *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       |  RGui| UP   | DOWN |  ALT | RCTRL  |
-=======
  *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       | Mouse| UP   | DOWN |  ALT | RCTRL  |
->>>>>>> master
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Alt  |      |       |      |Alt   |
@@ -163,21 +141,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_SCLN,	  KC_Q,   KC_J,   KC_K,   KC_X,   KC_MINUS,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               TG(SYMB),  KC_TRANSPARENT,
-                                                              KC_HOME,
+                                                              KC_TRNS,
                               LT(HALFDVORAK, KC_SPACE),KC_DEL,KC_END,
         // right hand
              KC_BSLS,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              KC_RBRC,    KC_F,   KC_G,  KC_C,   KC_R,   KC_L,             KC_SLASH,
                           KC_D,   KC_H,  KC_T,   KC_N,   KC_S,		   KC_ENT,
              KC_EQL,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
-<<<<<<< HEAD
-                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        TG(HALFSYMB),
-=======
                                   KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
              KC_TRANSPARENT,        TG(MDIA),
->>>>>>> master
-             KC_PGUP,
+             KC_TRNS,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
     ),
 /* Keymap 3: mirrored dvorak
@@ -191,11 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| =    |           | -    |------+------+------+------+------+--------|
  * | LShift |   Z  |   V  |   W  |   M  |   B  |      |           |      |   X  |   K  |   J  |   Q  |   ;  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-<<<<<<< HEAD
- *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       |  RGui| UP   | DOWN |  ALT | RCTRL  |
-=======
  *   |LCTRL|ALT  |CTLShTab|CTL-TAB| LGui|                                       | MOUSE| UP   | DOWN |  ALT | RCTRL  |
->>>>>>> master
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Alt  |      |       |      |Alt   |
@@ -215,20 +184,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,        KC_Z,  		  KC_V,   KC_W,   KC_M,   KC_B,   KC_EQL,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRNS,
                                               KC_TRANSPARENT,  KC_TRANSPARENT,
-                                                              KC_HOME,
+                                                              KC_TRNS,
                                          KC_TRANSPARENT,KC_DEL,KC_END,
         // right hand
              KC_GRAVE,     KC_5,   KC_4,  KC_3,   KC_2,   KC_5,             KC_ESC,
              KC_LBRC,    KC_Y,   KC_P,  KC_DOT, KC_COMM,KC_P,             KC_TAB,
                           KC_I,   KC_U,  KC_E,   KC_O,   KC_A,		 	   KC_BSPC,
              KC_MINUS,KC_X,   KC_K,  KC_J,	 KC_Q,   KC_SCLN,	   	   KC_RSFT,
-<<<<<<< HEAD
-                                  KC_RGUI, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-=======
                                   KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
->>>>>>> master
              KC_TRANSPARENT,        KC_TRNS,
-             KC_PGUP,
+             KC_TRNS,
              KC_PGDN,KC_TAB, KC_TRANSPARENT
     ),
 /* Keymap 5: Symbol Layer
@@ -263,60 +228,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          KC_TRNS,KC_NO,
                                                KC_NO,
                           LT(HALFSYMB, KC_SPACE),KC_NO,KC_NO,
-<<<<<<< HEAD
-       // right hand
-       KC_F7, KC_F8,   KC_F9,  KC_F10,   KC_F11,   KC_F12,  KC_BSPC,
-       KC_NO, KC_UP, KC_KP_7, KC_KP_8,  KC_KP_9,KC_KP_ASTERISK, KC_KP_SLASH,
-            KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
-       KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
-                         KC_NO,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       KC_NO, KC_TRNS,
-       KC_NO,
-       KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
-),
-/* Keymap 6: Mirrored Symbol Layer
- *
- * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |delete   |  F12 |  F11 |  F10 |  F9  |  F8  |   F7 |           |  F6  |  F5  |  F4  |  F3  |  F2  |  F1  |BkSp    |
- * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |   7  |   8  |   9  |   *  |   /  |           |      |   |  |   {  |   }  |   /  |   \  |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |   4  |   5  |   6  |   -  |------|           |------|   `  |   (  |   )  |   ;  |   '  |        |
- * |---------+------+------+------+------+------|enter |           |      |------+------+------+------+------+--------|
- * |         |      |   1  |   2  |   3  |   +  |      |           |      |   ~  |   [  |   ]  |   =  |   -  |        |
- * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | EPRM  |      |   0  |  .   |  =   |                                       |      |      |      |      |      |
- *   `-----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-// SYMBOLS
-[HALFSYMB] = LAYOUT_ergodox(
-       // left hand
-       KC_BSPC,     KC_F12,  KC_F11,  KC_F10,  KC_F9,  KC_F8,  KC_F7,
-       KC_NO,KC_NO,KC_KP_7, KC_KP_8, KC_KP_9,KC_KP_ASTERISK,KC_KP_SLASH,
-       KC_ENTER,KC_NO,KC_KP_4, KC_KP_5, KC_KP_6,KC_KP_MINUS,
-       KC_NO,KC_NO,KC_KP_1, KC_KP_2, KC_KP_3,KC_KP_PLUS,KC_KP_ENTER,
-          EPRM,KC_NO,KC_KP_0,KC_KP_DOT,KC_KP_EQUAL,
-                                         KC_TRNS,KC_NO,
-                                               KC_NO,
-                          KC_TRANSPARENT,KC_NO,KC_NO,
-       // right hand
-       KC_F6, KC_F5,   KC_F4,  KC_F3,   KC_F2,   KC_F1,  KC_BSPC,
-       KC_NO,KC_PIPE,KC_LCBR,KC_RCBR, KC_SLASH, KC_BSLS, KC_NO,
-             KC_GRV,KC_LPRN,KC_RPRN,  KC_SCLN, KC_QUOT, KC_NO,
-       KC_NO, KC_TILD,KC_LBRC,KC_RBRC, KC_EQL,  KC_MINUS, KC_NO,
-                         KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,
-       KC_NO, KC_TRNS,
-       KC_NO,
-       KC_NO, KC_NO, KC_TRANSPARENT
-),
-=======
        // right hand
        KC_F7, KC_F8,   KC_F9,  KC_F10,   KC_F11,   KC_F12,  KC_BSPC,
        KC_NO, KC_UP, KC_KP_7, KC_KP_8,  KC_KP_9,KC_KP_ASTERISK, KC_KP_SLASH,
@@ -357,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,KC_NO,KC_KP_1, KC_KP_2, KC_KP_3,KC_KP_PLUS,KC_KP_ENTER,
           EPRM,KC_NO,KC_KP_0,KC_KP_DOT,KC_KP_EQUAL,
                                          KC_TRNS,KC_NO,
-                                               KC_NO,
+                                               KC_TRNS,
                           KC_TRANSPARENT,KC_NO,KC_NO,
        // right hand
        KC_F6, KC_F5,   KC_F4,  KC_F3,   KC_F2,   KC_F1,  KC_BSPC,
@@ -366,10 +277,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO, KC_TILD,KC_LBRC,KC_RBRC, KC_EQL,  KC_MINUS, KC_NO,
                          KC_TRNS,KC_NO,  KC_NO,    KC_NO,  KC_NO,
        KC_NO, KC_TRNS,
-       KC_NO,
+       KC_TRNS,
        KC_NO, KC_NO, KC_TRANSPARENT
 ),
->>>>>>> master
 
 /* Keymap 7: Steno for Plover from https://github.com/shayneholmes/tmk_keyboard/commit/11290f8489013018f778627db725160c745e75bd
  *
@@ -389,7 +299,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
  *                                 |   c  |   v  |------|       |------|  n   |  m   |
-<<<<<<< HEAD
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -402,31 +311,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_NO,
         KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
                                       KC_FN4, KC_NO,
-                                           KC_NO,
-                                 KC_C,   KC_V,   KC_NO,
-        // right hand
-             KC_TRNS,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_TRNS,
-             KC_TRNS,   KC_6,    KC_7,    KC_8,   KC_9,    KC_0,   KC_TRNS,
-                        KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_LBRC,
-               KC_NO,   KC_H,    KC_J,    KC_K,   KC_L, KC_SCLN,   KC_QUOT,
-                              KC_TRNS, KC_TRNS,  KC_NO,   KC_NO,     KC_NO,
-        KC_TRNS, KC_TRNS,
-        KC_TRNS,
-        KC_NO,  KC_N,   KC_M
-=======
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-
-[PLVR] = LAYOUT_ergodox(  // layout: layer 4: Steno for Plover
-        // left hand
-        KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-        KC_NO,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_TRNS,
-        KC_NO,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,
-        KC_NO,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_NO,
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-                                      KC_FN4, KC_NO,
-                                           KC_NO,
+                                           KC_TRNS,
                                  KC_C,   KC_V,   KC_NO,
         // right hand
              KC_TRNS,  KC_NO,   KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_TRNS,
@@ -522,7 +407,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_WH_L, KC_WH_R
->>>>>>> master
 ),
 /* Keymap 8: shortcuts
  *
