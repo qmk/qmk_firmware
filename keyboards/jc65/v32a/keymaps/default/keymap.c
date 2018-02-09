@@ -1,4 +1,4 @@
-#include "jc65_32a.h"
+#include "v32a.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = KEYMAP(        

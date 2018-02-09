@@ -1,4 +1,4 @@
-#include "jc65_32a.h"
+#include "v32a.h"
 
 // Define Layers
 #define _BASE 0
