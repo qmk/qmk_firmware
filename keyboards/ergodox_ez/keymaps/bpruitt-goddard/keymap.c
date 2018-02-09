@@ -7,7 +7,7 @@
 
 // The layers that we are defining for this keyboards.
 #define BASE 0
-#define FN 1
+#define NUM 1
 #define QWERTY 2
 
 // The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     KC_DLR,   KC_AMPR,  KC_LBRC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,
     GUI_T(KC_BSLASH),   KC_SCOLON,KC_COMMA,KC_DOT,  KC_P,    KC_Y,    KC_PERC,
-    MO(FN),  KC_A,      KC_O,     KC_E,    KC_U,    KC_I,
+    MO(NUM),  KC_A,      KC_O,     KC_E,    KC_U,    KC_I,
     KC_LSPO,  KC_QUOTE, KC_Q,     KC_J,    KC_K,    KC_X,    KC_LALT,
     KC_AT,    KC_HASH,  KC_GRAVE, KC_LEFT, KC_RIGHT,
                                              ALT_T(KC_APPLICATION), ALL_T(KC_NO),
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CTL_T(KC_ESCAPE),   KC_BSPACE,   KC_SPACE),
 
   // Layer 1: function and numpad keys.
-  [FN] = KEYMAP(
+  [NUM] = KEYMAP(
     /* left hand */
     ___,     KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,
     ___,     KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_KP_ASTERISK, KC_KP_SLASH,
     ___,
     KC_DELETE, KC_BSPACE,  KC_SPACE),
-    // Note that any change to the FN layer above must be added to
+    // Note that any change to the NUM layer above must be added to
     // the QWERTY layer below (except for the arrow keys).
 
   // Layer 2: QWERTY control.
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     KC_EQUAL,   KC_1,     KC_2,           KC_3,     KC_4,  KC_5,    KC_LEFT,
     KC_DELETE,  KC_Q,     KC_W,           KC_E,     KC_R,  KC_T,    KC_Y,
-    MO(FN),     KC_A,     KC_S,           KC_D,     KC_F,  KC_G,
+    MO(NUM),     KC_A,     KC_S,           KC_D,     KC_F,  KC_G,
     KC_LSFT,    KC_Z,     KC_X,           KC_C,     KC_V,  KC_B, ALT_T(KC_NO),
     KC_GRAVE,   KC_QUOTE, LALT(KC_TAB),   KC_LEFT,  KC_RIGHT,
                                                   ___, KC_LGUI,
@@ -228,7 +228,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
   }
 
-  if (LAYER_ON(FN)) {
+  if (LAYER_ON(NUM)) {
     led_1_on();
   } else {
     led_1_off();
