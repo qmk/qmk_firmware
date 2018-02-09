@@ -1,0 +1,44 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "make",
+      "type": "shell",
+      "command": ".vscode/make.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": [
+          "relative",
+          "${workspaceRoot}"
+        ]
+      }
+    },
+    {
+      "label": "flash",
+      "type": "shell",
+      "command": ".vscode/flash.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "make & flash",
+      "type": "shell",
+      "dependsOn": "make",
+      "command": ".vscode/flash.sh",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

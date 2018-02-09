@@ -1,0 +1,22 @@
+{
+	"folders": [
+    {
+      "name": "Core",
+      "path": "../../../"
+    },
+    {
+      "name": "Keymap: mavanmanen",
+			"path": "../"
+    },
+  ],
+	"settings": {
+    "[c]": {
+      "editor.autoIndent": false,
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    "files.associations": {
+      "_keymap.h": "c"
+    },
+  }
+}
