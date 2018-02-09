@@ -15,7 +15,7 @@ These docs are for the PS2AVRGB version of the PCB. More info on qmk.fm
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jc65/32a:default
+    make jc65/v32a:default
     
 Flash example for this keyboard:
 
