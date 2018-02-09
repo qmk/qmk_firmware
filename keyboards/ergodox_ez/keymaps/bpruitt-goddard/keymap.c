@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     ___,     KC_F1,   KC_F2,    KC_F3,       KC_F4,       KC_F5,      ___,
     ___,     KC_EXLM, KC_COMMA, KC_DOT,      KC_MS_BTN1,  KC_MS_BTN2, ___,
-    XXX,     KC_HASH, KC_LCBR,  KC_RCBR,     MC_ARROW,    KC_GRAVE,
-    ___,     KC_PERC, KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,
-    ___,     ___,   ___,    ___,     ___,
+    XXX,     ___,     KC_LCBR,  KC_RCBR,     MC_ARROW,    KC_GRAVE,
+    ___,     ___,     KC_CIRC,  KC_LBRACKET, KC_RBRACKET, KC_TILD,    ___,
+    ___,     ___,     ___,      ___,         ___,
                                             //TODO make first key layer 2 toggle
                                                           ___, ___,
                                                            KC_LCTL,
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, KC_0,    KC_1,    KC_2,    KC_3,       KC_KP_SLASH,  KC_BSLASH,
                       ___,     KC_0,    KC_KP_DOT,  KC_EQUAL,     ___,
     KC_KP_ASTERISK, KC_KP_SLASH,
-    KC_RSHIFT,
+    ___,
     KC_DELETE, KC_BSPACE,  KC_SPACE),
     // Note that any change to the FN layer above must be added to
     // the QWERTY layer below (except for the arrow keys).
