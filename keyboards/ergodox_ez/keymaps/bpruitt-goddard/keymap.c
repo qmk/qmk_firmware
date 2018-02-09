@@ -9,6 +9,7 @@
 #define BASE 0
 #define NUM 1
 #define QWERTY 2
+#define MAC 3
 
 // The Tap Dance identifiers, used in the TD keycode and tap_dance_actions array.
 #define TAP_MACRO 0
@@ -46,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     KC_DLR,   KC_AMPR,  KC_LBRC,  KC_LCBR, KC_RCBR, KC_LPRN, KC_CIRC,
     GUI_T(KC_BSLASH),   KC_SCOLON,KC_COMMA,KC_DOT,  KC_P,    KC_Y,    KC_PERC,
-    MO(NUM),  KC_A,      KC_O,     KC_E,    KC_U,    KC_I,
+    MO(NUM),  KC_A,     KC_O,     KC_E,    KC_U,    KC_I,
     KC_LSPO,  KC_QUOTE, KC_Q,     KC_J,    KC_K,    KC_X,    KC_LALT,
     KC_AT,    KC_HASH,  KC_GRAVE, KC_LEFT, KC_RIGHT,
                                              ALT_T(KC_APPLICATION), ALL_T(KC_NO),
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TAP_MACRO),KC_B,    KC_M,     KC_W,      KC_V,           KC_Z,        KC_RSPC,
                                KC_UP,    KC_DOWN,   KC_HOME,        KC_END,      TO(QWERTY),
     KC_PGUP, KC_LGUI,
-    KC_PGDOWN,
+    TO(MAC),
     CTL_T(KC_ESCAPE),   KC_BSPACE,   KC_SPACE),
 
   // Layer 1: function and numpad keys.
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* left hand */
     KC_EQUAL,   KC_1,     KC_2,           KC_3,     KC_4,  KC_5,    KC_LEFT,
     KC_DELETE,  KC_Q,     KC_W,           KC_E,     KC_R,  KC_T,    KC_Y,
-    MO(NUM),     KC_A,     KC_S,           KC_D,     KC_F,  KC_G,
+    MO(NUM),    KC_A,     KC_S,           KC_D,     KC_F,  KC_G,
     KC_LSFT,    KC_Z,     KC_X,           KC_C,     KC_V,  KC_B, ALT_T(KC_NO),
     KC_GRAVE,   KC_QUOTE, LALT(KC_TAB),   KC_LEFT,  KC_RIGHT,
                                                   ___, KC_LGUI,
@@ -106,6 +107,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, KC_ESCAPE,
     KC_PGUP,
     KC_PGDOWN, KC_BSPACE, KC_SPACE),
+
+    // Layer 3: Mac layer
+    [MAC] = KEYMAP(
+      /* left hand */
+      ___,     KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   ___,
+      ___,     ___,     ___,    ___,    ___,    ___,    ___,
+      ___,     ___,     ___,    ___,    ___,    ___,
+      ___,     ___,     ___,    ___,    ___,    ___,    ___,
+      ___,     ___,     ___,    ___,    ___,
+                                                            ___,      ___,
+                                                                      ___,
+                                                  KC_LGUI,  KC_LALT,  KC_LGUI,
+      /* right hand */
+          ___, KC_6,  KC_7,   KC_8,  KC_9,  KC_0,   ___,
+          ___, ___,   ___,    ___,   ___,   ___,    ___,
+               ___,   ___,    ___,   ___,   ___,    ___,
+          ___, ___,   ___,    ___,   ___,   ___,    ___,
+                      ___,    ___,   ___,   ___,    ___,
+      ___, ___,
+      TO(BASE),
+      KC_LGUI, KC_LALT, KC_LGUI),
 };
 
 // Whether the macro 1 is currently being recorded.
@@ -232,6 +254,12 @@ uint32_t layer_state_set_user(uint32_t state) {
     led_1_on();
   } else {
     led_1_off();
+  }
+
+  if (LAYER_ON(MAC)) {
+    led_2_on();
+  } else {
+    led_2_off();
   }
 
   if (LAYER_ON(QWERTY)) {
