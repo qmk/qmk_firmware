@@ -15,10 +15,10 @@ These docs are for the PS2AVRGB version of the PCB. More info on qmk.fm
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jc65p:default
+    make jc65/32a:default
     
 Flash example for this keyboard:
 
-    bootloadHID -r jc65p_default.hex
+    bootloadHID -r jc65_v32a_default.hex
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
