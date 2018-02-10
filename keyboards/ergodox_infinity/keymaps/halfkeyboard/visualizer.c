@@ -37,14 +37,32 @@ keyframe_animation_t Fade_in_all_leds = {
         led_backlight_keyframe_fade_in_all,
     },
 };
-// int[] scan_coords1 = {0,1,2,3,4,5,6,0,0,0,0,0,0,0,0}
-// int[] scan_coords2 = {0,0,1,2,3,4,5,6,0,0,0,0,0,0,0}
-// int[] scan_coords3 = {0,0,0,1,2,3,4,5,6,0,0,0,0,0,0}
+/*
+ *  one set left to right.  then reverse to go back.
+ *  |    left side              |       right side          |       |
+    |---|---|---|---|---|---|---|:-:|---|---|---|---|---|---|-------|
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | phase |
+    _________________________________________________________________
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0     |
+    | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1     |
+    | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2     |
+    | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3     |
+    | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4     |
+    | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5     |
+    | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6     |
+    | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7     |
+    | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 8     |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 0 | 9     |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 0 | 10    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 0 | 11    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 0 | 12    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 0 | 13    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 3 | 14    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 15    |
+    | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 16    |
+  */
 
 #ifdef MASTER_IS_ON_RIGHT /*right side*/
-// int[] scan_coords1 = {0,0,0,0,0,0,0,6,5,4,3,2,1,0,0}
-// int[] scan_coords2 = {0,0,0,0,0,0,0,0,6,5,4,3,2,1,0}
-// int[] scan_coords3 = {0,0,0,0,0,0,0,0,0,6,5,4,3,2,1}
 
 keyframe_animation_t KITT_Scanner_animation = {
     .num_frames = 2,
@@ -65,19 +83,6 @@ bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualize
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/BOTHSIDESCAN);
     int row = 0;
-    //4 states per light. 100%, 60%, 30%, off
-    // coordinates going to be 1,1 to 1,5.  1 row above home
-    // 1 2 3 4 5 <- coordinates
-    // 0 0 0 0 0 0 0    0
-    // 3 0 0 0 0 0 0    1
-    // 2 3 0 0 0 0 0    2
-    // 1 2 3 0 0 0 0    3
-    // 0 1 2 3 0 0 0    4
-    // 0 0 1 2 3 0 0    5
-    // 0 0 0 1 2 3 0    6
-    // 0 0 0 0 1 2 3    7
-    // 0 0 0 0 0 1 2    8
-    // 0 0 0 0 0 0 1    9
     gdispGClear(LED_DISPLAY, ONE_QUARTER);
     gdispGDrawPixel(LED_DISPLAY, 14-phase, row, FULL_ON);
     gdispGDrawPixel(LED_DISPLAY, 15-phase, row, THREE_QUARTER);
@@ -92,19 +97,6 @@ bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualize
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/BOTHSIDESCAN);
     int row = 0;
-    //4 states per light. 100%, 60%, 30%, off
-    // coordinates going to be 1,1 to 1,5.  1 row above home
-    // 1 2 3 4 5 6 7 <- coordinates
-    // 0 0 0 0 0 0 0    0
-    // 0 0 0 0 0 0 3    1
-    // 0 0 0 0 0 3 2    2
-    // 0 0 0 0 3 2 1    3
-    // 0 0 0 3 2 1 0    4
-    // 0 0 3 2 1 0 0    5
-    // 0 3 2 1 0 0 0    6
-    // 3 2 1 0 0 0 0    7
-    // 2 1 0 0 0 0 0    8
-    // 1 0 0 0 0 0 0    9
     gdispGClear(LED_DISPLAY, ONE_QUARTER);
     gdispGDrawPixel(LED_DISPLAY, phase, row, FULL_ON);
     gdispGDrawPixel(LED_DISPLAY, phase-1, row, THREE_QUARTER);
@@ -132,19 +124,6 @@ bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualize
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/BOTHSIDESCAN);
     int row = 0;
-    //4 states per light. 100%, 60%, 30%, off
-    // coordinates going to be 1,1 to 1,5.  1 row above home
-    // 1 2 3 4 5 <- coordinates
-    // 0 0 0 0 0 0 0    0
-    // 3 0 0 0 0 0 0    1
-    // 2 3 0 0 0 0 0    2
-    // 1 2 3 0 0 0 0    3
-    // 0 1 2 3 0 0 0    4
-    // 0 0 1 2 3 0 0    5
-    // 0 0 0 1 2 3 0    6
-    // 0 0 0 0 1 2 3    7
-    // 0 0 0 0 0 1 2    8
-    // 0 0 0 0 0 0 1    9
     gdispGClear(LED_DISPLAY, ONE_QUARTER);
     gdispGDrawPixel(LED_DISPLAY, phase, row, FULL_ON);
     gdispGDrawPixel(LED_DISPLAY, phase-1, row, THREE_QUARTER);
@@ -159,19 +138,6 @@ bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualize
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/BOTHSIDESCAN);
     int row = 0;
-    //4 states per light. 100%, 60%, 30%, off
-    // coordinates going to be 1,1 to 1,5.  1 row above home
-    // 1 2 3 4 5 6 7 <- coordinates
-    // 0 0 0 0 0 0 0    0
-    // 0 0 0 0 0 0 3    1
-    // 0 0 0 0 0 3 2    2
-    // 0 0 0 0 3 2 1    3
-    // 0 0 0 3 2 1 0    4
-    // 0 0 3 2 1 0 0    5
-    // 0 3 2 1 0 0 0    6
-    // 3 2 1 0 0 0 0    7
-    // 2 1 0 0 0 0 0    8
-    // 1 0 0 0 0 0 0    9
     gdispGClear(LED_DISPLAY, ONE_QUARTER);
     gdispGDrawPixel(LED_DISPLAY, (14 - phase), row, FULL_ON);
     gdispGDrawPixel(LED_DISPLAY, 14 - (phase-1), row, THREE_QUARTER);
@@ -180,38 +146,6 @@ bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualize
     return true;
 }
 #endif
-// bool kitt_scan_both_side(keyframe_animation_t* animation, visualizer_state_t* state) {
-//     (void)state;
-//     float frame_length = animation->frame_lengths[animation->current_frame];
-//     float current_pos = frame_length - animation->time_left_in_frame;
-//     float t = current_pos / frame_length;
-//     //4 states per light. 100%, 60%, 30%, off
-//     //2 phases per scan
-//     if(current_pos < frame_length/2){
-//       //phase one.  scan from right
-//       // 0 0 0 0 0 0 0 1 2 3
-//       // 0 0 0 0 0 0 0 0 3 2
-//       // 0 0 0 0 0 0 0 3 2 1
-//       // 0 0 0 0 0 0 3 2 1 0
-//       // 0 0 0 0 0 3 2 1 0 0
-//       // 0 0 0 0 3 2 1 0 0 0
-//       // 0 0 0 3 2 1 0 0 0 0
-//       // 0 0 3 2 1 0 0 0 0 0
-//       // 0 3 2 1 0 0 0 0 0 0
-//       // next phase
-//       // 3 2 1 0 0 0 0 0 0 0
-//       // 2 3 0 0 0 0 0 0 0 0
-//       // 1 2 3 0 0 0 0 0 0 0
-//       // 0 1 2 3 0 0 0 0 0 0
-//       // 0 0 1 2 3 0 0 0 0 0
-//       // 0 0 0 1 2 3 0 0 0 0
-//       // 0 0 0 0 1 2 3 0 0 0
-//       // 0 0 0 0 0 1 2 3 0 0
-//       // 0 0 0 0 0 0 1 2 3 0
-//       // repeat
-//     }
-//     return true;
-// }
 
 #define RED 0
 #define ORANGE 21
