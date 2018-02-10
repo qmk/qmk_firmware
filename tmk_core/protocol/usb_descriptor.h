@@ -261,7 +261,7 @@ typedef struct
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64
-#define CDC_NOTIFICATION_EPSIZE     32
+#define CDC_NOTIFICATION_EPSIZE     8
 #define CDC_EPSIZE                  16
 
 uint16_t get_usb_descriptor(const uint16_t wValue,
