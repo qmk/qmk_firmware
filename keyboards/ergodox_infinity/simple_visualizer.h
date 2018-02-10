@@ -103,9 +103,6 @@ void update_user_visualizer_state(visualizer_state_t* state, visualizer_keyboard
     // You can also stop existing animations, and start your custom ones here
     // remember that you should normally have only one animation for the LCD
     // and one for the background. But you can also combine them if you want.
-    if(initial_update ){
-      start_keyframe_animation(&led_test_animation);
-    }
 }
 
 void user_visualizer_suspend(visualizer_state_t* state) {
