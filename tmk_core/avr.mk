@@ -172,13 +172,14 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 	if grep -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
+		printf "Detecting USB port, reset your controller now."; \
 		ls /dev/tty* > /tmp/1; \
-		echo -e "Detecting USB port, reset your controller now.\c"; \
 		while [ -z $$USB ]; do \
-			sleep 1; \
-			echo -e ".\c"; \
+			sleep 0.5; \
+			printf "."; \
 			ls /dev/tty* > /tmp/2; \
-			USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+			USB=`comm -13 /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
 		echo "Detected controller on USB port at $$USB"; \

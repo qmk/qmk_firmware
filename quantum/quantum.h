@@ -49,7 +49,6 @@ extern uint32_t default_layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
-	#include <lufa.h>
 #ifdef MIDI_ADVANCED
 	#include "process_midi.h"
 #endif
