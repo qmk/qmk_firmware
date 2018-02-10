@@ -36,20 +36,32 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE);  if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA);          if (mcp23018_status) goto out;
+
+#if (DIODE_DIRECTION == COL2ROW)
+    mcp23018_status = i2c_write(0b00111111);      if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000);      if (mcp23018_status) goto out;
+#elif (DIODE_DIRECTION == ROW2COL)
+    mcp23018_status = i2c_write(0b00000000);      if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111);      if (mcp23018_status) goto out;
+#endif
+
     i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE);  if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA);           if (mcp23018_status) goto out;
+#if (DIODE_DIRECTION == COL2ROW)
+    mcp23018_status = i2c_write(0b00111111);      if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000);      if (mcp23018_status) goto out;
+#elif (DIODE_DIRECTION == ROW2COL)
+    mcp23018_status = i2c_write(0b00000000);      if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111);      if (mcp23018_status) goto out;
+#endif
 
 out:
     i2c_stop();

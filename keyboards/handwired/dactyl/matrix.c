@@ -49,11 +49,19 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-static void init_rows(void);
-static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
-static void unselect_cols(void);
-static void select_col(uint8_t col);
-static void unselect_col(uint8_t col);
+#if (DIODE_DIRECTION == COL2ROW)
+    static void init_cols(void);
+    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+    static void unselect_rows(void);
+    static void select_row(uint8_t row);
+    static void unselect_row(uint8_t row);
+#elif (DIODE_DIRECTION == ROW2COL)
+    static void init_rows(void);
+    static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
+    static void unselect_cols(void);
+    static void select_col(uint8_t col);
+    static void unselect_col(uint8_t col);
+#endif
 
 static uint8_t mcp23018_reset_loop;
 
@@ -63,6 +71,10 @@ uint32_t matrix_scan_count;
 #endif
 
 #define ROW_SHIFTER ((matrix_row_t)1)
+#if (DIODE_DIRECTION == COL2ROW)
+// bitmask to ensure the row state from the mcp23018 only applies to its columns
+#define EXPANDER_MASK ((matrix_row_t)0b00111111)
+#endif
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -96,9 +108,13 @@ void matrix_init(void)
 {
     mcp23018_status = init_mcp23018();
 
-
+#if (DIODE_DIRECTION == COL2ROW)
+    unselect_rows();
+    init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
     unselect_cols();
     init_rows();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -117,8 +133,13 @@ void matrix_init(void)
 void matrix_power_up(void) {
     mcp23018_status = init_mcp23018();
 
+#if (DIODE_DIRECTION == COL2ROW)
+    unselect_rows();
+    init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
     unselect_cols();
     init_rows();
+#endif
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -161,6 +182,21 @@ uint8_t matrix_scan(void)
     }
 #endif
 
+#if (DIODE_DIRECTION == COL2ROW)
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+#       if (DEBOUNCING_DELAY > 0)
+            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
+
+            if (matrix_changed) {
+                debouncing = true;
+                debouncing_time = timer_read();
+            }
+#       else
+            read_cols_on_row(matrix, current_row);
+#       endif
+    }
+
+#elif (DIODE_DIRECTION == ROW2COL)
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #       if (DEBOUNCING_DELAY > 0)
             bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
@@ -174,6 +210,7 @@ uint8_t matrix_scan(void)
 #       endif
 
     }
+#endif
 
 #   if (DEBOUNCING_DELAY > 0)
         if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
@@ -230,6 +267,162 @@ uint8_t matrix_key_count(void)
     }
     return count;
 }
+
+#if (DIODE_DIRECTION == COL2ROW)
+
+/* Column pin configuration
+ *
+ * Teensy
+ * col: 6   7   8   9   10  11
+ * pin: B1  B2  B3  D2  D3  C6
+ *
+ * MCP23018
+ * col: 0   1   2   3   4   5
+ * pin: A0  A1  A2  A3  A4  A5
+ */
+static void init_cols(void) {
+    DDRB  &= ~(1<<1 | 1<<2 | 1<<3);
+    PORTB |=  (1<<1 | 1<<2 | 1<<3);
+
+    DDRD  &= ~(1<<2 | 1<<3);
+    PORTD |=  (1<<2 | 1<<3);
+
+    DDRC  &= ~(1<<6);
+    PORTC |=  (1<<6);
+}
+
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
+
+    // Select row and wait for row selection to stabilize
+    select_row(current_row);
+    wait_us(30);
+
+    // Read columns from mcp23018, unless it's in an error state
+    if (! mcp23018_status) {
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
+        mcp23018_status = i2c_start(I2C_ADDR_READ);  if (mcp23018_status) goto out;
+
+        current_matrix[current_row] |= (~i2c_readNak()) & EXPANDER_MASK;
+
+        out:
+            i2c_stop();
+    }
+
+    // Read columns from onboard pins
+    current_matrix[current_row] |= (
+        (PINB&(1<<1) ? 0 : (1<<6 )) |
+        (PINB&(1<<2) ? 0 : (1<<7 )) |
+        (PINB&(1<<3) ? 0 : (1<<8 )) |
+        (PIND&(1<<2) ? 0 : (1<<9 )) |
+        (PIND&(1<<3) ? 0 : (1<<10)) |
+        (PINC&(1<<6) ? 0 : (1<<11)) );
+
+    unselect_row(current_row);
+
+    return (last_row_value != current_matrix[current_row]);
+}
+
+/* Row pin configuration
+ *
+ * Teensy
+ * row: 0   1   2   3   4   5
+ * pin: F0  F1  F4  F5  F6  F7
+ *
+ * MCP23018
+ * row: 0   1   2   3   4   5
+ * pin: B5  B4  B3  B2  B1  B0
+ */
+static void select_row(uint8_t row) {
+    // select on mcp23018, unless it's in an error state
+    if (! mcp23018_status) {
+        // set active row low  : 0
+        // set other rows hi-Z : 1
+        mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(GPIOB);            if (mcp23018_status) goto out;
+        mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
+    out:
+        i2c_stop();
+    }
+
+    // select on teensy
+    // Output low(DDR:1, PORT:0) to select
+    switch (row) {
+        case 0:
+            DDRF  |= (1<<0);
+            PORTF &= ~(1<<0);
+            break;
+        case 1:
+            DDRF  |= (1<<1);
+            PORTF &= ~(1<<1);
+            break;
+        case 2:
+            DDRF  |= (1<<4);
+            PORTF &= ~(1<<4);
+            break;
+        case 3:
+            DDRF  |= (1<<5);
+            PORTF &= ~(1<<5);
+            break;
+        case 4:
+            DDRF  |= (1<<6);
+            PORTF &= ~(1<<6);
+            break;
+        case 5:
+            DDRF  |= (1<<7);
+            PORTF &= ~(1<<7);
+            break;
+    }
+}
+
+static void unselect_row(uint8_t row)
+{
+    // No need to explicitly unselect mcp23018 pins--their I/O state is
+    // set simultaneously, with a single bitmask sent to i2c_write. When
+    // select_row selects a single pin, it implicitly unselects all the
+    // other ones.
+
+    // unselect on teensy
+    switch (row) {
+        case 0:
+            DDRF  &= ~(1<<0);
+            PORTF &= ~(1<<0);
+            break;
+        case 1:
+            DDRF  &= ~(1<<1);
+            PORTF &= ~(1<<1);
+            break;
+        case 2:
+            DDRF  &= ~(1<<4);
+            PORTF &= ~(1<<4);
+            break;
+        case 3:
+            DDRF  &= ~(1<<5);
+            PORTF &= ~(1<<5);
+            break;
+        case 4:
+            DDRF  &= ~(1<<6);
+            PORTF &= ~(1<<6);
+            break;
+        case 5:
+            DDRF  &= ~(1<<7);
+            PORTF &= ~(1<<7);
+            break;
+    }
+}
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        unselect_row(x);
+    }
+}
+
+#elif (DIODE_DIRECTION == ROW2COL)
 
 /* Row pin configuration
  *
@@ -424,4 +617,4 @@ static void unselect_cols(void)
         unselect_col(x);
     }
 }
-
+#endif
