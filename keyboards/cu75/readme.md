@@ -1,4 +1,4 @@
-# CU24
+# CU75
 
 ![CU75](https://geekhack.org/index.php?action=dlattach;topic=91767.0;attach=179167;image)
 
