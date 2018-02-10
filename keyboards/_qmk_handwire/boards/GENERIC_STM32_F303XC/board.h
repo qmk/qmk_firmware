@@ -539,7 +539,7 @@
                                      PIN_PUPDR_PULLUP(GPIOC_PIN10) |        \
                                      PIN_PUPDR_PULLUP(GPIOC_PIN11) |        \
                                      PIN_PUPDR_PULLUP(GPIOC_PIN12) |        \
-                                     PIN_PUPDR_PULLUP(GPIOC_PIN13) |        \
+                                     PIN_PUPDR_FLOATING(GPIOC_PIN13) |        \
                                      PIN_PUPDR_FLOATING(GPIOC_PIN14) |   \
                                      PIN_PUPDR_FLOATING(GPIOC_PIN15))
 #define VAL_GPIOC_ODR               (PIN_ODR_HIGH(GPIOC_PIN0) |             \
@@ -1164,7 +1164,7 @@
 /*
  * USB bus activation macro, required by the USB driver.
  */
-// #define usb_lld_connect_bus(usbp) 
+// #define usb_lld_connect_bus(usbp)
 #define usb_lld_connect_bus(usbp) (palSetPadMode(GPIOA, GPIOA_USB_DP, PAL_MODE_ALTERNATE(14)))
 // #define usb_lld_connect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_INPUT)
 /*

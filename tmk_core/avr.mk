@@ -9,10 +9,8 @@ SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
-EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
+EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
-
-COMMON_VPATH += $(DRIVER_PATH)/avr
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
@@ -126,14 +124,14 @@ program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
 
 teensy: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
-	
-BATCHISP ?= batchisp 
+
+BATCHISP ?= batchisp
 
 flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
 	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-	
+
 DFU_PROGRAMMER ?= dfu-programmer
 
 dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
@@ -194,7 +192,7 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 
 # copy bin to FLASH.bin
 flashbin: bin
-	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin;
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set
@@ -245,7 +243,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
-bootloader: 
+bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	echo "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
 	echo `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h

@@ -135,7 +135,10 @@ int main(void) {
 
   /* Wait until the USB or serial link is active */
   while (true) {
-    if(USB_DRIVER.state == USB_ACTIVE) {
+    #if !defined(NO_USB_STARTUP_CHECK)
+      if(USB_DRIVER.state == USB_ACTIVE)
+    #endif
+    {
       driver = &chibios_driver;
       break;
     }

@@ -8,6 +8,7 @@
 #include "backlight.h"
 #include "matrix.h"
 
+#include "usb_main.h"
 
 /* QMK Handwire
  *
@@ -23,6 +24,9 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
+
+static bool master = false;
+static bool right_hand = false;
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -43,6 +47,14 @@ void matrix_scan_kb(void) {
 void matrix_init(void) {
     printf("matrix init\n");
     //debug_matrix = true;
+
+    // C13 is connected to VCC on the right hand
+    palSetPadMode(GPIOC, 13, PAL_MODE_INPUT);
+    wait_us(20);
+    right_hand = palReadPad(GPIOC, 13);
+
+    // if USB is active, this is the master
+    master = (USB_DRIVER.state == USB_ACTIVE);
 
     /* Column(sense) */
     palSetPadMode(GPIOA, 13, PAL_MODE_INPUT_PULLDOWN);
@@ -68,42 +80,60 @@ void matrix_init(void) {
     matrix_init_quantum();
 }
 
+matrix_row_t matrix_scan_common(uint8_t row) {
+  matrix_row_t data;
+
+  // strobe row { A6, A7, B0, B1, B2, B10 }
+  switch (row) {
+      case 5: palSetPad(GPIOA, 6); break;
+      case 4: palSetPad(GPIOA, 7); break;
+      case 3: palSetPad(GPIOB, 0); break;
+      case 2: palSetPad(GPIOB, 1); break;
+      case 1: palSetPad(GPIOB, 2); break;
+      case 0: palSetPad(GPIOB, 10); break;
+  }
+
+  // need wait to settle pin state
+  wait_us(20);
+
+  // read col data {  B6, B5, B4, B3, A15, A14, A13 }
+  data = (
+      (palReadPad(GPIOB, 6)  << 6 ) |
+      (palReadPad(GPIOB, 5)  << 5 ) |
+      (palReadPad(GPIOB, 4)  << 4 ) |
+      (palReadPad(GPIOB, 3)  << 3 ) |
+      (palReadPad(GPIOA, 15) << 2 ) |
+      (palReadPad(GPIOA, 14) << 1 ) |
+      (palReadPad(GPIOA, 13) << 0 )
+  );
+
+  // unstrobe row { A6, A7, B0, B1, B2, B10 }
+  switch (row) {
+      case 5: palClearPad(GPIOA, 6); break;
+      case 4: palClearPad(GPIOA, 7); break;
+      case 3: palClearPad(GPIOB, 0); break;
+      case 2: palClearPad(GPIOB, 1); break;
+      case 1: palClearPad(GPIOB, 2); break;
+      case 0: palClearPad(GPIOB, 10); break;
+  }
+
+  return data;
+}
+
+uint8_t matrix_scan_master(void) {
+
+}
+
+uint8_t matrix_scan_slave(void) {
+
+}
+
 uint8_t matrix_scan(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data = 0;
 
-        // strobe row { A6, A7, B0, B1, B2, B10 }
-        switch (row) {
-            case 5: palSetPad(GPIOA, 6); break;
-            case 4: palSetPad(GPIOA, 7); break;
-            case 3: palSetPad(GPIOB, 0); break;
-            case 2: palSetPad(GPIOB, 1); break;
-            case 1: palSetPad(GPIOB, 2); break;
-            case 0: palSetPad(GPIOB, 10); break;
-        }
-
-        // need wait to settle pin state
-        wait_us(20);
-
-        // read col data {  B6, B5, B4, B3, A15, A14, A13 }
-        data = (
-            (palReadPad(GPIOB, 6)  << 6 ) |
-            (palReadPad(GPIOB, 5)  << 5 ) |
-            (palReadPad(GPIOB, 4)  << 4 ) |
-            (palReadPad(GPIOB, 3)  << 3 ) |
-            (palReadPad(GPIOA, 15) << 2 ) |
-            (palReadPad(GPIOA, 14) << 1 ) |
-            (palReadPad(GPIOA, 13) << 0 )
-        );
-
-        // unstrobe row { A6, A7, B0, B1, B2, B10 }
-        switch (row) {
-            case 5: palClearPad(GPIOA, 6); break;
-            case 4: palClearPad(GPIOA, 7); break;
-            case 3: palClearPad(GPIOB, 0); break;
-            case 2: palClearPad(GPIOB, 1); break;
-            case 1: palClearPad(GPIOB, 2); break;
-            case 0: palClearPad(GPIOB, 10); break;
+        if (right_hand && row >= 6) {
+          data = matrix_scan_common(row % 6);
         }
 
         if (matrix_debouncing[row] != data) {

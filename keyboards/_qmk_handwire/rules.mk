@@ -53,3 +53,4 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
+I2C_SLAVE_ENABLE = yes

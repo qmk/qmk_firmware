@@ -126,8 +126,11 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#endif
-
  /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1
+
+#define NO_USB_STARTUP_CHECK
+
+#endif
+

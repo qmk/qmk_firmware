@@ -20,6 +20,12 @@ SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 SERIAL_DEFS += -DSERIAL_LINK_ENABLE
 COMMON_VPATH += $(SERIAL_PATH)
 
+ifeq ($(PLATFORM),AVR)
+  COMMON_VPATH += $(DRIVER_PATH)/avr
+else
+  COMMON_VPATH += $(DRIVER_PATH)/arm
+endif
+
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
     SRC += $(QUANTUM_DIR)/api/api_sysex.c
@@ -182,6 +188,11 @@ endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+ifeq ($(strip $(I2C_SLAVE_ENABLE)), yes)
+    SRC += twi2c.c
+    OPT_DEFS += -DI2C_SLAVE_ENABLE
 endif
 
 QUANTUM_SRC:= \
