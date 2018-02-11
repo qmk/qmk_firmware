@@ -65,7 +65,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef PRODUCT
 #define PRODUCT   Drashnas Viterbi Macro Pad
 
-#ifdef KEYBOARD_viterbi_rev1
 #define USE_I2C
 #define NO_MUSIC_MODE
 #define half_KEYMAP( \
@@ -82,7 +81,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         L30, L31, L32, L33, L34, L35, L36, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
         L40, L41, L42, L43, L44, L45, L46, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
     )
-#else
-#define half_KEYMAP(...)           KEYMAP(__VA_ARGS__)
-#endif
 #endif
