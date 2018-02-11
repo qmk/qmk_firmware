@@ -1,19 +1,8 @@
 # Waples Let's Split keymap
 
-
 ## My (forever) Work-In-Progress keymap for my Let's Split keyboard. 
 My keymap is much like the default, I just personally like to have my Enter and Escape key to be on my home row. The Escape key doubles as a Control key when held down, my Enter key functions as (right)Shift when held down.
 Everything you see below here is constantly *under construction*, so there may be some dumb things in this, which are already gotten taken out, or are still in there :P.
-
-### To Do!
-- [x] Qwerty; where do I put the GUI and shall I include Capslock somewhere?
-- [x] Create a basic gaming layer
-- [ ] Update said gaming layer
-- [x] Add Volume controls to keymap and Arch Linux(sxhkd)
-- [ ] Test NKRO support
-- [ ] Change the special keys on lefty & righty (lower/raise), some are just weird.
-- [ ] LEARN DVORAK
-
 
 ### Layers
 I currently have the following layers in my keymap:
