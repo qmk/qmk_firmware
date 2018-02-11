@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT   Drashnas Viterbi Macro Pad
 
 #ifdef KEYBOARD_viterbi_rev1
-#define USE_SERIAL
+#define USE_I2C
 #define NO_MUSIC_MODE
 #define half_KEYMAP( \
     L00, L01, L02, L03, L04, L05, L06, \
