@@ -7,13 +7,15 @@
 #define _RGB  3
 
 // Define Macros
-#define M_PRTS  M(0)
-#define M_PRTA  M(1)
-#define M_MSSN  M(2)
-#define M_APPS  M(3)
-#define M_SPOT  M(4)
-#define M_LEFT  M(5)
-#define M_RGHT  M(6)
+#define M_PRTS   M(0)
+#define M_PRTA   M(1)
+#define M_PRTSC  M(2)
+#define M_PRTAC  M(3)
+#define M_MSSN   M(4)
+#define M_APPS   M(5)
+#define M_SPOT   M(6)
+#define M_LEFT   M(7)
+#define M_RGHT   M(8)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base Layer
@@ -35,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac Layer
     [_MAC] = KEYMAP(
           TO(0), KC_F14, KC_F15, M_APPS, M_MSSN, KC_F11, KC_F12,KC_MRWD,KC_MPLY,KC_MFFD,KC_MUTE,KC_VOLD,KC_VOLU,KC_EJCT,  KC_NO,  KC_NO,
-        KC_TRNS, M_PRTS, M_PRTA,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,        KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,          TO(0), M_MSSN,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_TRNS,         M_SPOT, M_SPOT, M_SPOT,                        KC_TRNS,KC_TRNS,KC_TRNS, M_LEFT, M_APPS, M_RGHT
+          KC_NO, M_PRTS, M_PRTA,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_BSPC,  KC_NO,
+          KC_NO,M_PRTSC,M_PRTAC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,         KC_ENT,  KC_NO,
+          KC_NO,  KC_NO,  KC_NO,   KC_X,   KC_C,   KC_V,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          TO(0), M_MSSN,  KC_NO,
+          KC_NO,  KC_NO,KC_LGUI,         M_SPOT, M_SPOT, M_SPOT,                        KC_RGUI,  KC_NO,  KC_NO, M_LEFT, M_APPS, M_RGHT
     ),
     // RGB and BL Layer
     [_RGB] = KEYMAP(
@@ -55,26 +57,23 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     if (record->event.pressed) {
         switch(id) {
             case 0:
-                return MACRO(D(LGUI), D(LSFT), T(3), U(LSFT), U(LGUI), END); //Mac print screen
-                break;
+                return MACRO(D(LGUI), D(LSFT), T(3), U(LSFT), U(LGUI), END);                   // Mac print screen
             case 1:
-                return MACRO(D(LGUI), D(LSFT), T(4), U(LSFT), U(LGUI), END); //Mac print area
-                break;
+                return MACRO(D(LGUI), D(LSFT), T(4), U(LSFT), U(LGUI), END);                   // Mac print area
             case 2:
-                return MACRO(D(LCTL), T(UP), U(LCTL), END);                  //Mac mission control
-                break;
+                return MACRO(D(LCTL), D(LSFT), D(LGUI), T(3), D(LCTL), D(LSFT), D(LGUI), END); // Mac print screen to clipboard
             case 3:
-                return MACRO(D(LCTL), T(DOWN), U(LCTL), END);                //Mac applications
-                break;
+                return MACRO(D(LCTL), D(LSFT), D(LGUI), T(4), D(LCTL), D(LSFT), D(LGUI), END); // Mac print area to clipboard
             case 4:
-                return MACRO(D(LGUI), T(SPC), U(LGUI), END);                 //Mac spotlight search
-                break;
+                return MACRO(D(LCTL), T(UP), U(LCTL), END);                                    // Mac mission control
             case 5:
-                return MACRO(D(LCTL), T(LEFT), U(LCTL), END);                //Mac mission left
-                break;
+                return MACRO(D(LCTL), T(DOWN), U(LCTL), END);                                  // Mac app windows
             case 6:
-                return MACRO(D(LGUI), T(RGHT), U(LGUI), END);                //Mac mission right
-                break;
+                return MACRO(D(LGUI), T(SPC), U(LGUI), END);                                   // Mac spotlight search
+            case 7:
+                return MACRO(D(LCTL), T(LEFT), U(LCTL), END);                                  // Mac mission left
+            case 8:
+                return MACRO(D(LCTL), T(RGHT), U(LCTL), END);                                  // Mac mission right
         }
     }
     return MACRO_NONE;
