@@ -12,5 +12,11 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp"
-    }
+    },
+    "editor.wordWrap": "off",
+    "cSpell.words": [
+        "numpad",
+        "spacebar",
+        "unintuitive"
+    ]
 }
