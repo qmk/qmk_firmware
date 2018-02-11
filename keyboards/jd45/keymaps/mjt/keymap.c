@@ -50,13 +50,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             // action_function_tap may also handle this...
             if (record->event.pressed)
             {
-                breathing_speed_set(3);
+                breathing_period_set(3);
                 breathing_enable();
                 layer_on(1);
             }
             else
             {
-                breathing_speed_set(1);
+                breathing_period_set(1);
                 breathing_self_disable();
                 layer_off(1);
             }
@@ -64,13 +64,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case M_LAYER2:
             if (record->event.pressed)
             {
-                breathing_speed_set(2);
+                breathing_period_set(2);
                 breathing_pulse();
                 layer_on(2);
             }
             else
             {
-                breathing_speed_set(1);
+                breathing_period_set(1);
                 breathing_self_disable();
                 layer_off(2);
             }

@@ -54,7 +54,7 @@ void matrix_init_kb(void) {
 void ergodox_blink_all_leds(void)
 {
     ergodox_led_all_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_HI);
+    ergodox_led_all_set(LED_BRIGHTNESS_DEFAULT);
     ergodox_right_led_1_on();
     _delay_ms(50);
     ergodox_right_led_2_on();

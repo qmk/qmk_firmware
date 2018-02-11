@@ -512,8 +512,11 @@ void process_action(keyrecord_t *record, action_t action)
                     case BACKLIGHT_STEP:
                         backlight_step();
                         break;
-                    case BACKLIGHT_LEVEL:
-                        backlight_level(action.backlight.level);
+                    case BACKLIGHT_ON:
+                        backlight_level(BACKLIGHT_LEVELS);
+                        break;
+                    case BACKLIGHT_OFF:
+                        backlight_level(0);
                         break;
                 }
             }

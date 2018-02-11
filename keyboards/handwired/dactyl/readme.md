@@ -12,8 +12,8 @@ Linux page].  Some distributions provide a binary, maybe called
 
 To flash the firmware:
 
-  - Build the firmware with `make handwired-dactyl-keymapname`, for example `make handwired-dactyl-default`
-  - This will result in a hex file called `handwired_dactyl_keymapname.hex`, e.g.
+  - Build the firmware with `make handwired/dactyl:<keymapname>`, for example `make handwired/dactyl:default`
+  - This will result in a hex file called `handwired_dactyl_<keymapname>.hex`, e.g.
     `handwired_dactyl_default.hex`
 
   - Start the teensy loader.
@@ -30,7 +30,9 @@ To flash with ´teensy-loader-cli´:
 
   - Build the firmware as above
 
-  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymap>.hex`
+  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymapname>.hex`
+
+  - If you like, you can do both at once: `make handwired/dactyl:<keymapname>:teensy`
 
   - Put the Teensy in firmware-loading mode:
     * If your current layout has a RESET key, press it.

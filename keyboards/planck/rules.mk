@@ -34,6 +34,23 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+ifeq ($(strip $(KEYBOARD)), planck/rev3)
+    BOOTLOADER = atmel-dfu
+endif
+ifeq ($(strip $(KEYBOARD)), planck/rev4)
+    BOOTLOADER = atmel-dfu
+endif
+ifeq ($(strip $(KEYBOARD)), planck/rev5)
+    BOOTLOADER = qmk-dfu
+endif
+ifeq ($(strip $(KEYBOARD)), planck/light)
+    BOOTLOADER = qmk-dfu
+endif
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
@@ -46,7 +63,7 @@ MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes         # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
-NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = yes            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port C6

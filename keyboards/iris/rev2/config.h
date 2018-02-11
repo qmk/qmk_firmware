@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { D7, E6, B4, D2, D4 }
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-
-#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
