@@ -549,7 +549,7 @@ static void select_col(uint8_t col)
                 break;
             case 9:
                 DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                PORTD &= ~(1<<2);
                 break;
             case 10:
                 DDRD  |= (1<<3);
