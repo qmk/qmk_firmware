@@ -23,8 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
-#define MANUFACTURER Input Club
-#define PRODUCT Ergodox Infinity (QMK)
+/* in python2: list(u"whatever".encode('utf-16-le')) */
+/*   at most 32 characters or the ugly hack in usb_main.c borks */
+#define MANUFACTURER "TMK"
+#define USBSTR_MANUFACTURER    'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00'
+#define PRODUCT "Infinity keyboard/TMK"
+#define USBSTR_PRODUCT         'I', '\x00', 'n', '\x00', 'f', '\x00', 'i', '\x00', 'n', '\x00', 'i', '\x00', 't', '\x00', 'y', '\x00', ' ', '\x00', 'k', '\x00', 'e', '\x00', 'y', '\x00', 'b', '\x00', 'o', '\x00', 'a', '\x00', 'r', '\x00', 'd', '\x00', '/', '\x00', 'T', '\x00', 'M', '\x00', 'K', '\x00'
 
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
@@ -72,6 +76,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_LINK_THREAD_PRIORITY (NORMALPRIO - 1)
 
 #define VISUALIZER_USER_DATA_SIZE 16
+/*
+ * music mode options
+ * midi enabled
+ * keymask disabled
+ * so typing normally will result in music
+ *
+ */
+#define MUSIC_MASK keycode != KC_NO
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
