@@ -34,16 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS {B3, B2, B6, B1, B4, E6, D7, C6, D4, D0, D1, D2, D3}
 #define UNUSED_PINS
 #define DIODE_DIRECTION COL2ROW
-#define B5_AUDIO // enables audio on pin B5
-// #define STARTUP_SONG SONG(IMPERIAL_MARCH)
 
-#define DEBOUNCING_DELAY 0
+#define DEBOUNCING_DELAY 4
 #define TAPPING_TOGGLE 2
-#define TAPPING_TERM 300 // how long before a tap becomes a hold
-// #define RETRO_TAPPING // tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+#define TAPPING_TERM 200 // how long before a tap becomes a hold
 #define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-#define FORCE_NKRO
-
-#define NO_MUSIC_MODE
 
 #endif

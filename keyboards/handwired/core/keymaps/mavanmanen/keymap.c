@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 KEYMAPS = {
 [_MA] = KC_KEYMAP(
   ESC,      Q,    W,	  E,   R,	 T,   Y,   U,   I,	  O,	  P,	   EQL,    BACKSPACE,
-  HYPR_TAB,	 A,    S,   D,   F,   G,   H,   J,   K,     L,    SCLN,        ENTER,
+  GUI_TAB,	 A,    S,   D,   F,   G,   H,   J,   K,     L,    SCLN,        ENTER,
   LSHFT_SLSH, Z,    X,	  C,	  V,   B,	  N,   M,  COMM, DOT,  RSHFT_QUOT, PN,
   LCTRL,   LGUI, LALT, FN2, SPC_FN1,   SPC_FN,     LEFT, DOWN, UP,      RIGHT),
 

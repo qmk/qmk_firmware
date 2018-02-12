@@ -22,8 +22,8 @@ enum layers { _MA, _FN, _FN1, _FN2, _PN };
 #define RCTL_GRV MT(MOD_RCTL, KC_GRV)
 #define KC_RCTL_GRV RCTL_GRV
 
-#define HYPR_TAB ALL_T(KC_TAB)
-#define KC_HYPR_TAB HYPR_TAB
+#define GUI_TAB GUI_T(KC_TAB)
+#define KC_GUI_TAB GUI_TAB
 
 #define RSHFT_QUOT MT(MOD_RSFT, KC_QUOT)
 #define KC_RSHFT_QUOT RSHFT_QUOT
