@@ -224,6 +224,7 @@ void led_set_user(uint8_t usb_led) {
 }
 
 void send_game_macro(const char *str) {
+  clear_keyboard();
   register_code(is_overwatch ? KC_BSPC : KC_ENTER);
   unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
   wait_ms(50);
@@ -454,6 +455,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
       send_string_P(secret[keycode - KC_SECRET_1]);
     }
     return false;

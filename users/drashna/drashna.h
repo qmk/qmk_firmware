@@ -139,6 +139,9 @@ enum {
 #define KC_D3_4 KC_4
 #endif
 
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+
 #define QMK_KEYS_PER_SCAN 8
 
 #ifdef RGBLIGHT_ENABLE
