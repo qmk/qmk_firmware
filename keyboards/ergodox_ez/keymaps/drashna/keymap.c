@@ -19,6 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+//enum more_custom_keycodes {
+//    KC_P00 = NEW_SAFE_RANGE
+//};
+
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -49,20 +53,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `---------------------'       `---------------------'
  */
   [_QWERTY] = LAYOUT_ergodox_wrapper(
-                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    TT(_MOUS),
+                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),
                 KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),
                 KC_BSPC, _________________QWERTY_L2_________________,
-                KC_LSFT, _________________QWERTY_L3_________________, TG(_GAMEPAD),
+                KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),
        LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,
                 
                                             ALT_T(KC_APP),   KC_LGUI,
                                                              KC_HOME,
                                            KC_SPACE,KC_BSPC, KC_END,
                                     
-           TT(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
+           OSL(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
            TG(_DIABLO),  _________________QWERTY_R1_________________, KC_BSLS,
                          _________________QWERTY_R2_________________, GUI_T(KC_QUOT),
-           TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_RSFT,
+           TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
                          ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
            KC_RGUI,      CTL_T(KC_ESCAPE),
            KC_PGUP,
@@ -93,19 +97,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [_COLEMAK] = LAYOUT_ergodox_wrapper(  
         // left hand
-                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    TT(_MOUS),
+                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),
                 KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),
                 KC_BSPC, _________________COLEMAK_L2________________,
-                KC_LSFT, _________________COLEMAK_L3________________, TG(_GAMEPAD),
+                KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),
        LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,
                                             ALT_T(KC_APP),   KC_LGUI,
                                                              KC_HOME,
                                            KC_SPACE,KC_BSPC, KC_END,
         // right hand
-           TT(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
+           OSL(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
            TG(_DIABLO),  _________________COLEMAK_R1________________, KC_BSLS,
                          _________________COLEMAK_R2________________, GUI_T(KC_QUOT),
-           TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_RSFT,
+           TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
                          ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
            KC_RGUI,      CTL_T(KC_ESCAPE),
            KC_PGUP,
@@ -136,19 +140,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [_DVORAK] = LAYOUT_ergodox_wrapper(  
         // left hand
-                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    TT(_MOUS),
+                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),
                 KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),
                 KC_BSPC, _________________DVORAK_L2_________________,
-                KC_LSFT, _________________DVORAK_L3_________________, TG(_GAMEPAD),
+                KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),
        LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,
                                             ALT_T(KC_APP),   KC_LGUI,
                                                              KC_HOME,
                                            KC_SPACE,KC_BSPC, KC_END,
         // right hand
-           TT(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
+           OSL(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
            TG(_DIABLO),  _________________DVORAK_R1_________________, KC_SLSH,
                          _________________DVORAK_R2_________________, GUI_T(KC_MINS),
-           TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_RSFT,
+           TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
                          ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
            KC_RGUI,      CTL_T(KC_ESCAPE),
            KC_PGUP,
@@ -179,19 +183,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [_WORKMAN] = LAYOUT_ergodox_wrapper(  
         // left hand
-                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    TT(_MOUS),
+                KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),
                 KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),
                 KC_BSPC, _________________WORKMAN_L2________________,
-                KC_LSFT, _________________WORKMAN_L3________________, TG(_GAMEPAD),
+                KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),
        LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,
                                             ALT_T(KC_APP),   KC_LGUI,
                                                              KC_HOME,
                                            KC_SPACE,KC_BSPC, KC_END,
         // right hand
-           TT(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+           OSL(_MOUS),    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
            TG(_DIABLO),  _________________WORKMAN_R1________________, KC_BSLS,
                          _________________WORKMAN_R2________________, GUI_T(KC_QUOT),
-           TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_RSFT,
+           TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
                          ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
            KC_RGUI,      CTL_T(KC_ESCAPE),
            KC_PGUP,
@@ -202,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,
                 KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,
                 KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,      KC_TRNS,
-                OSM(MOD_LSFT),KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,
+                KC_LSFT,KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,
                 KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                                                                                 KC_TRNS,      KC_TRNS,
                                                                                               KC_TRNS,
@@ -211,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,
                 KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,
                             KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,
-                KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      OSM(MOD_RSFT),
+                KC_TRNS,    KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_RSFT,
                                           KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,
                 KC_TRNS,    KC_TRNS,
                 KC_TRNS,
@@ -387,10 +391,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+
+  //switch (keycode) {
+  //  case KC_P00:
+  //    if (!record->event.pressed) {
+  //      register_code(KC_KP_0);
+  //      unregister_code(KC_KP_0);
+  //      register_code(KC_KP_0);
+  //      unregister_code(KC_KP_0);
+  //    }
+  //    return false;
+  //    break;
+  //}
   return true;
 }
+
 
 
 void matrix_init_keymap(void) { // Runs boot tasks for keyboard
