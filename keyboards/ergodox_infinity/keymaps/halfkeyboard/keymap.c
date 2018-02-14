@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_D,   KC_H,  KC_T,   KC_N,   KC_S,		   KC_ENT,
              KC_EQL,KC_B,   KC_M,  KC_W,	 KC_V,	 KC_Z,		   	   KC_RSFT,
                                   KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_TRANSPARENT,        TG(MDIA),
+             KC_TRANSPARENT,        KC_TRANSPARENT,
              KC_TRNS,
              KC_PGDN,KC_TAB, LT(HALFDVORAK, KC_ENT)
     ),
