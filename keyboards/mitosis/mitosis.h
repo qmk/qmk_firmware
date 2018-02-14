@@ -47,7 +47,7 @@
 */
 
 // This a shortcut to help you visually see your layout.
-// The first section contains all of the arguements
+// The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define KEYMAP( \
   k00, k01, k02, k03, k04,      k05, k06, k07, k08, k09, \
