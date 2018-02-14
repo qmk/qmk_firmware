@@ -21,6 +21,7 @@
 #include "chprintf.h"
 #include "memstreams.h"
 #include "printf.h"
+#include "matrix.h"
 
 #ifndef I2C_DRIVER
 	#define I2C_DRIVER I2CD1
@@ -37,13 +38,7 @@
  *          Stretches clock until reply available.
  */
 
-
-#define slaveI2Caddress  0x30       /* Address in our terms - halved by later code */
-//#define myOtherI2Caddress 0x19
-
-I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
-
-static const I2CConfig slaveI2Cconfig = {
+static const I2CConfig uniI2CConfig = {
   STM32_TIMINGR_PRESC(15U) |
   STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
   STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
@@ -119,10 +114,9 @@ void catchError(I2CDriver *i2cp)
   noteI2cError(i2cp->errors);
 }
 
-
+extern void matrix_copy(matrix_row_t * copy);
 
 const char hexString[16] = "0123456789abcdef";
-
 
 /**
  *  Message processor - looks at received message, determines reply as quickly as possible
@@ -132,36 +126,18 @@ const char hexString[16] = "0123456789abcdef";
  *  Note: Called in interrupt context, so need to be quick!
  */
 void twi2c_slave_message_process(I2CDriver *i2cp) {
-  uint8_t i;
-  uint8_t *txPtr = txBody + 8;
+  uint8_t *txPtr = txBody;
   uint8_t txLen;
-  uint32_t curCount;
 
   size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
-  if (len >= sizeof(rxBody))
-      len = sizeof(rxBody)-1;
-  rxBody[len]=0;                            // String termination sometimes useful
 
-  /* A real-world application would read and decode the message in rxBody, then generate an appropriate reply in txBody */
-
-  curCount = ++messageCounter;
-  txLen = len + 11;                         // Add in the overhead
-
-  for (i = 0; i < 8; i++)
-  {
-    *--txPtr = hexString[curCount & 0xf];
-    curCount = curCount >> 4;
+  if (len >= 2 && rxBody[0] == 0x01 && rxBody[1] == 0x00) {
+    matrix_row_t matrix[MATRIX_ROWS / 2];
+    matrix_copy(matrix);
+    memcpy(txPtr, matrix, MATRIX_ROWS / 2);
+    txLen = MATRIX_ROWS / 2;
   }
 
-  txPtr = txBody + 8;
-  *txPtr++ = ' ';
-  *txPtr++ = '[';
-  memcpy(txPtr, rxBody, len);               // Echo received message
-  txPtr += len;
-  *txPtr++ = ']';
-  *txPtr = '\0';
-
-  /** Message ready to go here */
   echoReply.size = txLen;
   i2cSlaveReplyI(i2cp, &echoReply);
 }
@@ -193,7 +169,7 @@ void twi2c_slave_init(void) {
   palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
 
 
-  i2cStart(&I2C_DRIVER, &slaveI2Cconfig);
+  i2cStart(&I2C_DRIVER, &uniI2CConfig);
 #if HAL_USE_I2C_SLAVE
   I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
 #endif
@@ -214,4 +190,12 @@ void twi2c_slave_task(void) {
       gotI2cError = 0;
         printf("I2cError: %04x\r\n", lastI2cErrorFlags);
     }
+}
+
+void twi2c_master_init(void) {
+  i2cStart(&I2C_DRIVER, &uniI2CConfig);
+}
+
+msg_t twi2c_master_send(i2caddr_t address, const uint8_t * txbuf, uint8_t * rxbuf, systime_t timeout) {
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, address, txbuf, sizeof(txbuf), rxbuf, sizeof(rxbuf), timeout);
 }

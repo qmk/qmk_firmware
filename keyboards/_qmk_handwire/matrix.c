@@ -9,6 +9,7 @@
 #include "matrix.h"
 
 #include "usb_main.h"
+#include "twi2c.h"
 
 /* QMK Handwire
  *
@@ -46,7 +47,7 @@ void matrix_scan_kb(void) {
 
 void matrix_init(void) {
     printf("matrix init\n");
-    //debug_matrix = true;
+    // debug_matrix = true;
 
     // C13 is connected to VCC on the right hand
     palSetPadMode(GPIOC, 13, PAL_MODE_INPUT);
@@ -55,6 +56,12 @@ void matrix_init(void) {
 
     // if USB is active, this is the master
     master = (USB_DRIVER.state == USB_ACTIVE);
+
+    if (master) {
+      twi2c_master_init();
+    } else {
+      twi2c_slave_init();
+    }
 
     /* Column(sense) */
     palSetPadMode(GPIOA, 13, PAL_MODE_INPUT_PULLDOWN);
@@ -120,19 +127,31 @@ matrix_row_t matrix_scan_common(uint8_t row) {
   return data;
 }
 
-uint8_t matrix_scan_master(void) {
+void matrix_scan_master(void) {
 
-}
+  const uint8_t command[2] = { 0x01, 0x00 };
+  uint8_t other_matrix[MATRIX_ROWS];
 
-uint8_t matrix_scan_slave(void) {
+  msg_t resp;
+  resp = twi2c_master_send(slaveI2Caddress/2, command, other_matrix, TIME_INFINITE);
+  printf("%x\n", resp);
 
+  uint8_t * matrix_pointer;
+  if (right_hand) {
+    matrix_pointer = matrix;
+  } else {
+    matrix_pointer = matrix + (MATRIX_ROWS / 2);
+  }
+
+  memcpy(matrix_pointer, other_matrix, MATRIX_ROWS / 2);
 }
 
 uint8_t matrix_scan(void) {
+
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data = 0;
 
-        if (right_hand && row >= 6) {
+        if ((right_hand && row >= 6) || (!right_hand && row < 6)) {
           data = matrix_scan_common(row % 6);
         }
 
@@ -149,6 +168,11 @@ uint8_t matrix_scan(void) {
         }
         debouncing = false;
     }
+
+    if (master) {
+      matrix_scan_master();
+    }
+
     matrix_scan_quantum();
 
     return 1;
@@ -160,6 +184,16 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
 
 matrix_row_t matrix_get_row(uint8_t row) {
     return matrix[row];
+}
+
+void matrix_copy(matrix_row_t * copy) {
+  uint8_t * matrix_pointer;
+  if (right_hand) {
+    matrix_pointer = matrix + (MATRIX_ROWS / 2);
+  } else {
+    matrix_pointer = matrix;
+  }
+  memcpy(copy, matrix_pointer, MATRIX_ROWS / 2);
 }
 
 void matrix_print(void) {
