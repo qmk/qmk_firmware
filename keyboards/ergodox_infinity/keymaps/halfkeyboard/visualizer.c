@@ -170,7 +170,12 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     /* if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
         saturation = 255;
     } */
-    if (state->status.layer & 0x200) {
+    if (state->status.layer & 0x400) {
+        state->target_lcd_color = LCD_COLOR(OCEAN, saturation, 0xFF);
+        state->layer_text = "STENOGRAPHY";
+        start_keyframe_animation(&KITT_Scanner_animation);
+    }
+    else if (state->status.layer & 0x200) {
         state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
         state->layer_text = "MOUSE";
     }
@@ -182,7 +187,6 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(VIOLET, saturation, 0xFF);
         state->layer_text = "Plover";
         start_keyframe_animation(&KITT_Scanner_animation);
-
     }
     else if (state->status.layer & 0x40) {
         state->target_lcd_color = LCD_COLOR(RASPBERRY, saturation, 0xFF);
