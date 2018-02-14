@@ -4,7 +4,7 @@ This differs quite a bit from the stock layout but leaves keys in a more familia
 
 ## Base Layer (0)
 
-The base layer is pretty simple, straight qwerty layout where available. Of note: /? is to the right of the arrow keys. Yes this is kinda weird sometimes, but you get used to it. Tab is tab when pressed and fn2 when held. GESC is esc when used alone, but ~ when shifted.
+The base layer is pretty simple, straight qwerty layout where available. Of note: /? is to the right of the arrow keys. Yes this is kinda weird sometimes, but you get used to it. Tab is tab when pressed and fn2 when held, Enter is the same. GESC is esc when used alone, but ~ when shifted. Tapping FN 1 is space
 ```
 |GESC| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | BSPC |
 | TAB | A  | S  | D  | F  | G  | H  | J  | K  | L  | ;  |ENTER|
@@ -17,7 +17,7 @@ This layer has the numrow as well as swapping the arrow keys for a nav cluster, 
 ```
 | `  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  |  DEL |
 |     |    |    |    |    |    |    |    | -  | =  | '  |     |
-|      |    |    |    |    |    |    |    |    |    |PGUP| \  |
+|      |    |    |    |    |    |    |    | [  |  ] |PGUP| \  |
 |    |    |    |    |          |        |      |HOME|PGDN|END |
 ```
 ## Symbolic Layer (2)
@@ -26,7 +26,7 @@ I don't want to be using two key combos constantly, so I also added this symbol 
 ```
 | ~  | !  | @  | #  | $  | %  | ^  | &  | *  | (  | )  |  DEL |
 |     |    |    |    |    |    |    |    | _  | +  | "  |     |
-|      |    |    |    |    |    |    |    |    |    |PGUP| |  |
+|      |    |    |    |    |    |    |    | {  |  } |PGUP| |  |
 |    |    |    |    |          |        |      |HOME|PGDN|END |
 ```
 ## Fkeys (3)
@@ -34,7 +34,7 @@ I don't want to be using two key combos constantly, so I also added this symbol 
 I very rarely use Fkeys, but figured I'd throw them on anyway just in case. The setup basically mimics the way Fkeys are usually done on a 60%, with F11 and F12 still on - and =, even though the location of those keys has moved.
 ```
 |    | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 |F10 |      |
-|     |    |    |    |    |    |    |    |    |F11 |F12 |     |
+|     |    |    |    |    |    |    |    |F11 |F12 |    |     |
 |      |    |    |    |    |    |    |    |    |    |    |    |
 |    |    |    |    |          |        |      |    |    |    |
 ```

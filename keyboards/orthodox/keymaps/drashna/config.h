@@ -22,27 +22,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
+#undef USE_I2C
 
 /* Select hand configuration */
 
 // #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
 #endif
+#define TAPPING_TERM 150
+#undef PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
+#define ONESHOT_TAP_TOGGLE 2
+
+
+
+/* key combination for command */
+#ifdef IS_COMMAND
+#undef IS_COMMAND
+#endif
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+)
 
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 12     // Number of LEDs
+#define RGBLED_NUM 16     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -52,11 +66,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-#define FORCE_NKRO
-#ifdef FORCE_NKRO
-#define NKRO_EPSIZE 32
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#define STARTUP_SONG SONG(IMPERIAL_MARCH)
+#define NO_MUSIC_MODE
 #endif
 
-#define PERMISSIVE_HOLD
-
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Drashna Hacked Orthodox Rev.3
+#endif
 #endif

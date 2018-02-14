@@ -34,7 +34,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
-    SRC += $(QUANTUM_DIR)/audio/audio.c
+    ifeq ($(PLATFORM),AVR)
+        SRC += $(QUANTUM_DIR)/audio/audio.c
+    else
+        SRC += $(QUANTUM_DIR)/audio/audio_arm.c
+    endif
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -70,6 +74,8 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+	OPT_DEFS += -DMOUSE_ENABLE
 	SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
@@ -149,6 +155,9 @@ endif
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
+    endif
+		ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
 
