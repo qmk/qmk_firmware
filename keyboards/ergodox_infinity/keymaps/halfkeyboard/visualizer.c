@@ -171,6 +171,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         saturation = 255;
     } */
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (state->status.layer & 0x400) {
         state->target_lcd_color = LCD_COLOR(OCEAN, saturation, 0xFF);
         state->layer_text = "STENOGRAPHY";
@@ -180,6 +181,9 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
 =======
     if (state->status.layer & 0x200) {
 >>>>>>> 43592fa51c7f592735c0d54f6d67a69d018d5338
+=======
+    if (state->status.layer & 0x200) {
+>>>>>>> b89e318d35b295465a14679f27d71077a51daa3b
         state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
         state->layer_text = "MOUSE";
     }
@@ -192,9 +196,13 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->layer_text = "Plover";
         start_keyframe_animation(&KITT_Scanner_animation);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 43592fa51c7f592735c0d54f6d67a69d018d5338
+=======
+
+>>>>>>> b89e318d35b295465a14679f27d71077a51daa3b
     }
     else if (state->status.layer & 0x40) {
         state->target_lcd_color = LCD_COLOR(RASPBERRY, saturation, 0xFF);
