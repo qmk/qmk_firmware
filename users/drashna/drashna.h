@@ -189,6 +189,10 @@ enum {
 // And this allows wor much cleaner blocks in the keymaps.
 // For instance Tap/Hold for Control on all of the layouts
 
+// NOTE: These are all the same length.  If you do a search/replace
+//       then you need to add/remove underscores to keep the
+//       lengths consistent. 
+
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
 #define _________________QWERTY_L3_________________  CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
