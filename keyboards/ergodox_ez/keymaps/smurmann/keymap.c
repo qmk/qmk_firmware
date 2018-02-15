@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | Esc    |   1  |   2  |   3  |   4  |   5  |   6  |           |   7  |   8  |   9  |   0  |   -  |   =  |  Bksp  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | LT1{ |           |  }   |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  {   |           |  }   |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |HyperCaps|  A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L1| Enter  |
  * |--------+------+------+------+------+------| Alt  |           |  L1  |------+------+------+------+------+--------|
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_6,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   LT(MDIA,KC_LCBR),
+        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LCBR,
         ALL_T(KC_CAPS), KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        LT(MDIA,KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
         KC_LCTRL,       KC_LBRC,      KC_RBRC,        KC_GRV, KC_QUOT,
