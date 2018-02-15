@@ -53,7 +53,7 @@ char initialReplyBody[50] = "Initial reply";        // 'Status' response if read
 uint32_t messageCounter = 0;                /* Counts number of messages received to return as part of response */
 
 uint8_t  rxBody[240];                       /* stores last message master sent us (intentionally a few bytes smaller than txBody) */
-uint8_t  txBody[256];                       /* Return message buffer for computed replies */
+uint8_t  txBody[MATRIX_ROWS/2];                       /* Return message buffer for computed replies */
 
 BaseSequentialStream *chp = NULL;           // Used for serial logging
 
@@ -126,19 +126,12 @@ const char hexString[16] = "0123456789abcdef";
  *  Note: Called in interrupt context, so need to be quick!
  */
 void twi2c_slave_message_process(I2CDriver *i2cp) {
-  uint8_t *txPtr = txBody;
-  uint8_t txLen;
 
-  size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
+  // size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
 
-  if (len >= 2 && rxBody[0] == 0x01 && rxBody[1] == 0x00) {
-    matrix_row_t matrix[MATRIX_ROWS / 2];
-    matrix_copy(matrix);
-    memcpy(txPtr, matrix, MATRIX_ROWS / 2);
-    txLen = MATRIX_ROWS / 2;
-  }
+  matrix_copy(txBody);
 
-  echoReply.size = txLen;
+  echoReply.size =  MATRIX_ROWS / 2;
   i2cSlaveReplyI(i2cp, &echoReply);
 }
 

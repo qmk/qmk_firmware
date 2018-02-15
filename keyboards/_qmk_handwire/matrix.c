@@ -55,7 +55,8 @@ void matrix_init(void) {
     right_hand = palReadPad(GPIOC, 13);
 
     // if USB is active, this is the master
-    master = (USB_DRIVER.state == USB_ACTIVE);
+    // master = usbGetDriverStateI(&USB_DRIVER) == USB_ACTIVE;
+    master = right_hand;
 
     if (master) {
       twi2c_master_init();
@@ -127,23 +128,25 @@ matrix_row_t matrix_scan_common(uint8_t row) {
   return data;
 }
 
+const uint8_t command[2] = { 0x01, 0x00 };
+uint8_t other_matrix[MATRIX_ROWS] = { 0 };
+
 void matrix_scan_master(void) {
 
-  const uint8_t command[2] = { 0x01, 0x00 };
-  uint8_t other_matrix[MATRIX_ROWS];
-
   msg_t resp;
-  resp = twi2c_master_send(slaveI2Caddress/2, command, other_matrix, TIME_INFINITE);
-  printf("%x\n", resp);
+  resp = twi2c_master_send(slaveI2Caddress/2, command, other_matrix, TIME_IMMEDIATE);
+  // printf("%x\n", resp);
 
-  uint8_t * matrix_pointer;
-  if (right_hand) {
-    matrix_pointer = matrix;
-  } else {
-    matrix_pointer = matrix + (MATRIX_ROWS / 2);
+  if (resp == MSG_OK) {
+    uint8_t * matrix_pointer;
+    if (right_hand) {
+      matrix_pointer = matrix;
+    } else {
+      matrix_pointer = matrix + (MATRIX_ROWS / 2);
+    }
+
+    memcpy(matrix_pointer, other_matrix, MATRIX_ROWS / 2);
   }
-
-  memcpy(matrix_pointer, other_matrix, MATRIX_ROWS / 2);
 }
 
 uint8_t matrix_scan(void) {
