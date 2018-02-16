@@ -125,38 +125,54 @@ enum {
   TD_D3_3,
   TD_D3_4
 };
-#endif
+#endif // TAP_DANCE_ENABLE
 
+
+// Custom Keycodes for Diablo 3 layer
+// But since TD() doesn't work when tapdance is disabled
+// We use custom codes here, so we can substituet the right stuff
 #ifdef TAP_DANCE_ENABLE
 #define KC_D3_1 TD(TD_D3_1)
 #define KC_D3_2 TD(TD_D3_2)
 #define KC_D3_3 TD(TD_D3_3)
 #define KC_D3_4 TD(TD_D3_4)
-#else
+#else // TAP_DANCE_ENABLE
 #define KC_D3_1 KC_1
 #define KC_D3_2 KC_2
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
-#endif
+#endif // TAP_DANCE_ENABLE
+
+// OSM keycodes, to keep things clean and easy to change
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
 
 #define QMK_KEYS_PER_SCAN 8
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
-#endif
+#endif // RGBLIGHT_ENABLE
 
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
+// this makes it possible to do rolling combos (zx) with keys that
+// convert to other keys on hold (z becomes ctrl when you hold it,
+// and when this option isn't enabled, z rapidly followed by x
+// actually sends Ctrl-x. That's bad.)
+#define IGNORE_MOD_TAP_INTERRUPT
 
+// Disable action_get_macro and fn_actions, since we don't use these
+// and it saves on space in the firmware.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
+// If we're still using the official Faux Clicky feature, substituet codes
+// so that we don't have any unused/blank keys.
 #ifdef FAUXCLICKY_ENABLE
 #define AUD_ON  FC_ON
 #define AUD_OFF FC_OFF
-#else
+#else // FAUXCLICKY_ENABLE
 #define AUD_ON  AU_ON
 #define AUD_OFF AU_OFF
-#endif 
+#endif // FAUXCLICKY_ENABLE
 
 
 
@@ -166,11 +182,16 @@ enum {
 #define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
 #define KEYMAP_wrapper(...)           KEYMAP(__VA_ARGS__)
 
+
 // Blocks for each of the four major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
 // at once, rather than for each keyboard, one at a time.
 // And this allows wor much cleaner blocks in the keymaps.
 // For instance Tap/Hold for Control on all of the layouts
+
+// NOTE: These are all the same length.  If you do a search/replace
+//       then you need to add/remove underscores to keep the
+//       lengths consistent. 
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
