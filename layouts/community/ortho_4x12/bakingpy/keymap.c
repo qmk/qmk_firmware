@@ -1,4 +1,4 @@
-#include "levinson.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -9,8 +9,7 @@ extern keymap_config_t keymap_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _FN3 5
-#define _FN4 6
+#define _FKEYS 5
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -19,8 +18,6 @@ enum custom_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  FN3,
-  FN4,
   ADJUST,
 };
 
@@ -31,52 +28,52 @@ enum custom_keycodes {
 #define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
 #define KC_CAPP LGUI(LSFT(KC_4))        // Capture portion of screen
 #define KC_CPYP LGUI(LSFT(LCTL(KC_4)))  // Copy portion of screen
-#define KC_X0 MT(MOD_LCTL, KC_ESC)
-#define KC_X1 LOWER
-#define KC_X2 RAISE
-#define KC_X3 LT(_FN3, KC_GRV)
-#define KC_X4 MT(MOD_LSFT, KC_ENT)
-#define KC_X5 BL_STEP
+#define KC_ESCC MT(MOD_LCTL, KC_ESC)
+#define KC_LOWR LOWER
+#define KC_RASE RAISE
+#define KC_GRVF LT(_FKEYS, KC_GRV)
+#define KC_ENTS MT(MOD_LSFT, KC_ENT)
+#define KC_BL_S BL_STEP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X0 , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
+     ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH, X4 ,
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X5 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_COLEMAK] = KC_KEYMAP(
+  [_COLEMAK] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X0 , A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
+     ESCC, A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH, X4 ,
+     LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH,ENTS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X3 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_DVORAK] = KC_KEYMAP(
+  [_DVORAK] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X0 , A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
+     ESCC, A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  , X4 ,
+     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  ,ENTS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X3 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_LOWER] = KC_KEYMAP(
+  [_LOWER] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -84,11 +81,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,     DEL ,    , P0 ,PDOT,    ,
+     BL_S,    ,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_RAISE] = KC_KEYMAP(
+  [_RAISE] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -100,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_FN3] = KC_KEYMAP(
+  [_FKEYS] = KC_LAYOUT_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -123,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-  [_ADJUST] = KEYMAP( \
+  [_ADJUST] = LAYOUT_ortho_4x12( \
     _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
     _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
