@@ -15,8 +15,8 @@ KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
 cp -r quantum/template keyboards/$KEYBOARD
 mv keyboards/$KEYBOARD/template.c keyboards/$KEYBOARD/$KEYBOARD.c
 mv keyboards/$KEYBOARD/template.h keyboards/$KEYBOARD/$KEYBOARD.h
-find keyboards/${KEYBOARD} -type f -exec sed -i "s;%KEYBOARD%;$KEYBOARD;g" {} \;
-find keyboards/${KEYBOARD} -type f -exec sed -i "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" {} \;
+find keyboards/${KEYBOARD} -type f -exec sed -i'' -e "s;%KEYBOARD%;$KEYBOARD;g" {} \;
+find keyboards/${KEYBOARD} -type f -exec sed -i'' -e "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" {} \;
 
 echo "######################################################"
 echo "# /keyboards/$KEYBOARD project created. To start"

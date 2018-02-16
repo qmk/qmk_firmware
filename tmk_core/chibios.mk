@@ -6,7 +6,7 @@
 # Stack size to be allocated to the Cortex-M process stack. This stack is
 # the stack used by the main() thread.
 ifeq ($(USE_PROCESS_STACKSIZE),)
-  USE_PROCESS_STACKSIZE = 0x200
+  USE_PROCESS_STACKSIZE = 0x800
 endif
 
 # Stack size to the allocated to the Cortex-M main/exceptions stack. This
@@ -149,6 +149,7 @@ COMPILEFLAGS += -falign-functions=16
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
+COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
 
 CFLAGS += $(COMPILEFLAGS)
@@ -159,6 +160,7 @@ CPPFLAGS += $(COMPILEFLAGS)
 CPPFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
+LDFLAGS +=-Wl,--no-wchar-size-warning
 LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
@@ -220,7 +222,7 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
 	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
