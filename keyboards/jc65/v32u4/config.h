@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    dou
-#define PRODUCT         KEYCLACK65-V1
+#define PRODUCT         KEYCLACK QMK65-V1
 #define DESCRIPTION     JC65 PCB
 
 /* key matrix size */
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B6
 #ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 8
 #endif
 
 #define DIODE_DIRECTION COL2ROW
