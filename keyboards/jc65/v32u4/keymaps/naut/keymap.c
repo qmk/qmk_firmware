@@ -8,15 +8,16 @@
 #define _OFF  4
 
 // Define Macros
-#define M_PRTS   M(0)
-#define M_PRTA   M(1)
-#define M_PRTSC  M(2)
-#define M_PRTAC  M(3)
-#define M_MSSN   M(4)
-#define M_APPS   M(5)
-#define M_SPOT   M(6)
-#define M_LEFT   M(7)
-#define M_RGHT   M(8)
+#define M_PRTS  M(0)
+#define M_PRTA  M(1)
+#define M_PRTSC M(2)
+#define M_PRTAC M(3)
+#define M_MSSN  M(4)
+#define M_APPS  M(5)
+#define M_SPOT  M(6)
+#define M_LEFT  M(7)
+#define M_RGHT  M(8)
+#define RGB_WHT M(9)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base Layer
@@ -46,11 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // RGB and BL Layer
     [_RGB] = KEYMAP(
           TO(0),  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TO(0),
-          KC_NO,RGB_HUD,RGB_HUI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,BL_TOGG,
+          KC_NO,RGB_HUD,RGB_HUI,RGB_WHT,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,BL_TOGG,
           KC_NO,RGB_SAD,RGB_SAI,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,                  KC_NO,RGB_TOG,
           KC_NO,  KC_NO,RGB_VAD,RGB_VAI, BL_DEC, BL_INC,  KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_MOD,RGB_RMOD,         KC_NO,RGB_M_P,RGB_M_R,
           KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,  KC_NO,                          KC_NO,  KC_NO,  KC_NO,  KC_NO,RGB_M_G,RGB_M_SW
     ),
+    // Mash Layer
     [_OFF] = KEYMAP(
           TO(0),  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
           KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,
@@ -82,6 +84,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return MACRO(D(LCTL), T(LEFT), U(LCTL), END);                                  // Mac mission left
             case 8:
                 return MACRO(D(LCTL), T(RGHT), U(LCTL), END);                                  // Mac mission right
+            case 9:
+                rgblight_setrgb(0xff, 0xff, 0xff);                                             // White rgb shortcut
+                break;
         }
     }
     return MACRO_NONE;
