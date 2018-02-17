@@ -3,10 +3,10 @@
 ## Design goals
 
 - qwerty, azerty and gaming layouts
+- (todo) ergonomic layout
 - increase the accessibility to the main coding symbols
 - use a function key to access the multimedia functions
-- the gaming layout gives access to more keys when playing with the fingers on the WASD keys
-- plays a sound when switching layout
+- (90% done) the gaming layout gives access to more keys when playing with the fingers on the WASD keys
 - do not use any of the 4 main fingers to WRITE IN UPPERCASE (use the thumb instead): one tap on the spacebar for a space character, hold for the SHIFT modifier
 
 ## Layouts
@@ -28,10 +28,6 @@ _todo layout picture_
 _todo description_
 
 _todo layout picture_
-
-## Todos
-
-- more useful symbols
 
 ## Build
 
