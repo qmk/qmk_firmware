@@ -1,4 +1,4 @@
-![Gherkin Wanleg Layout Image](https://i.imgur.com/RpN5N42.png)
+![Gherkin Wanleg Layout Image](https://i.imgur.com/mXsgoro.png)
 
 # Gherkin Wanleg Layout
 
