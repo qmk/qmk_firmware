@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,                N  , M  ,COMM,DOT ,SLSH,RSFT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LCTL,LALT,GRV ,LEFT,RGHT,HOME,END ,     PGDN,PGUP,UP  ,DOWN,BSLS,RGUI,RCTL,
+     LCTL,LALT,LEFT,RGHT,HOME,END ,LGUI,     RALT,PGUP,PGDN,UP  ,DOWN,RGUI,RCTL,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LOWR,BSPC,LGUI,         ENT ,SPC ,RASE
+                       LOWR,BSPC,DEL ,         ENT ,SPC ,RASE
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -53,9 +53,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,                K  , M  ,COMM,DOT ,SLSH,RSFT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LCTL,LALT,GRV ,LEFT,RGHT,HOME,END ,     PGDN,PGUP,UP  ,DOWN,BSLS,RGUI,RCTL,
+     LCTL,LALT,LEFT,RGHT,HOME,END ,LGUI,     RALT,PGUP,PGDN,UP  ,DOWN,RGUI,RCTL,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LOWR,BSPC,LGUI,         ENT ,SPC ,RASE
+                       LOWR,BSPC,DEL ,         ENT ,SPC ,RASE
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -67,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      LSFT,SCLN, Q  , J  , K  , X  ,                B  , M  , W  , V  , Z  ,RSFT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LCTL,LALT,GRV ,LEFT,RGHT,HOME,END ,     PGDN,PGUP,UP  ,DOWN,BSLS,RGUI,RCTL,
+     LCTL,LALT,LEFT,RGHT,HOME,END ,LGUI,     RALT,PGUP,PGDN,UP  ,DOWN,RGUI,RCTL,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LOWR,BSPC,LGUI,         ENT ,SPC ,RASE
+                       LOWR,BSPC,DEL ,         ENT ,SPC ,RASE
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      DEL ,____,MPRV,MPLY,MNXT,____,               ____,____,____,____,____,____,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     BL_S,____,____,HOME,END ,____,____,     ____,____,PGUP,PGDN,____,____,____,
+     BL_S,____,HOME,END ,____,____,____,     ____,____,____,PGUP,PGDN,____,____,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        ____,DEL ,____,         ____,INS ,____
   //                  `----+----+----'        `----+----+----'
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      DEL ,____,MPRV,MPLY,MNXT,____,               ____,____,____,____,____,____,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     BL_S,____,____,HOME,END ,____,____,     ____,____,PGUP,PGDN,____,____,____,
+     BL_S,____,HOME,END ,____,____,____,     ____,____,____,PGUP,PGDN,____,____,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        ____,DEL ,____,         ____,INS ,____
   //                  `----+----+----'        `----+----+----'
@@ -125,6 +125,14 @@ void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
+
+void matrix_init_user(void) {
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
