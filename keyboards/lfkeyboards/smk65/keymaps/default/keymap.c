@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------------------------------------------------------------|----|
    * |AudTgl|Hz+|MS+| |  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgUp|
    * |------------------------------------------------------------|----|
-   * |ClickTgl|Hz-|MS-|| C|  V|  B| N|MuTgl|  ,|  .|  /|Shift  |Up |PgDn|
+   * |ClickTgl|Hz-|MS-|| C|  V|  B| N|MuTgl|  ,|  .|  /|Shift |Up |PgDn|
    * |-----------------------------------------------------------------|
    * |Ctrl|Win |Alt |       Space         |Alt |Ctrl|Func|Lft| Dn |Rig |
    * `-----------------------------------------------------------------'
