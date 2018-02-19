@@ -6,7 +6,7 @@ Here is the layout I came up with to preserve a standard QWERTY layout as much a
 I originally set up a few Tap Dance keys, but eventually dropped most of them in favor of chorded versions, since in actual use, they tended to impede typing speed more than their (current) two-key versions.
 I've left them in my layout ready for use if anyone wants to try them out:
 
-Single tap | Double tap | Hold
+Single Tap | Double Tap | Hold
 --- | --- | ---
 space | enter | shift
 backspace | delete | control
