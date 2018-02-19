@@ -34,7 +34,7 @@ I don't want to be using two key combos constantly, so I also added this symbol 
 I very rarely use Fkeys, but figured I'd throw them on anyway just in case. The setup basically mimics the way Fkeys are usually done on a 60%, with F11 and F12 still on - and =, even though the location of those keys has moved.
 ```
 |    | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 |F10 |      |
-|     |    |    |    |    |    |    |    |    |F11 |F12 |     |
+|     |    |    |    |    |    |    |    |F11 |F12 |    |     |
 |      |    |    |    |    |    |    |    |    |    |    |    |
 |    |    |    |    |          |        |      |    |    |    |
 ```

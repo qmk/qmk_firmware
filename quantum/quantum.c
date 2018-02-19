@@ -34,6 +34,14 @@ extern backlight_config_t backlight_config;
 #include "fauxclicky.h"
 #endif
 
+#ifdef API_ENABLE
+#include "api.h"
+#endif
+
+#ifdef MIDI_ENABLE
+#include "process_midi.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -138,13 +146,13 @@ void reset_keyboard(void) {
   clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
-#endif  
-#if defined(AUDIO_ENABLE)
+#endif
+#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
   shutdown_user();
-  while(timer_elapsed(timer_start) < 250) 
+  while(timer_elapsed(timer_start) < 250)
     wait_ms(1);
   stop_all_notes();
 #else
@@ -209,6 +217,10 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  #ifdef TAP_DANCE_ENABLE
+    preprocess_tap_dance(keycode, record);
+  #endif
+
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
@@ -224,7 +236,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE) 
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -822,7 +834,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
-  #ifdef AUDIO_ENABLE
+  #if defined(AUDIO_ENABLE)
     matrix_scan_music();
   #endif
 
@@ -885,6 +897,7 @@ void backlight_set(uint8_t level) {}
 
 uint8_t backlight_tick = 0;
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 void backlight_task(void) {
   if ((0xFFFF >> ((BACKLIGHT_LEVELS - get_backlight_level()) * ((BACKLIGHT_LEVELS + 1) / 2))) & (1 << backlight_tick)) {
     #if BACKLIGHT_ON_STATE == 0
@@ -903,11 +916,14 @@ void backlight_task(void) {
       _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
     #endif
   }
-  backlight_tick = backlight_tick + 1 % 16;
+  backlight_tick = (backlight_tick + 1) % 16;
 }
+#endif
 
 #ifdef BACKLIGHT_BREATHING
-#error "Backlight breathing only available with hardware PWM. Please disable."
+  #ifndef BACKLIGHT_CUSTOM_DRIVER
+  #error "Backlight breathing only available with hardware PWM. Please disable."
+  #endif
 #endif
 
 #else // pwm through timer
@@ -935,6 +951,7 @@ static inline void set_pwm(uint16_t val) {
   OCR1x = val;
 }
 
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 __attribute__ ((weak))
 void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
@@ -952,6 +969,7 @@ void backlight_set(uint8_t level) {
 }
 
 void backlight_task(void) {}
+#endif  // BACKLIGHT_CUSTOM_DRIVER
 
 #ifdef BACKLIGHT_BREATHING
 
