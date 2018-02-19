@@ -47,7 +47,7 @@ Here's a simple example for a single definition:
 3. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
 ```c
-//Tap Dance Declarations
+//Tap Dance Declarations. Put this above your keymap. 
 enum {
   TD_ESC_CAPS = 0
 };
