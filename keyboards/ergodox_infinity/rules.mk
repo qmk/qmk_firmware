@@ -86,4 +86,4 @@ LED_DRIVER = is31fl3731c
 LED_WIDTH = 7 
 LED_HEIGHT = 7
 
-LAYOUTS = ergodox ergodox_80
+LAYOUTS = ergodox

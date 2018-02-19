@@ -14,16 +14,33 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
+  // shell nav macros
+  SHELL_LS,
+  SHELL_LSLTR,
+  SHELL_CDPRE,
+  SHELL_LESS,
+  SHELL_PLESS,
+  SHELL_PGREP,
+  SHELL_TAILF,  
   
+  SHELL_PWD,
+  SHELL_H3,
+  SHELL_AMMCOLO,
+  SHELL_SCREENRD,
+  SHELL_SCREEN_NEW,
+  SHELL_SCREEN_LIST,
+  SHELL_MKE,
+  SHELL_HTCSTATUS,
 };
 
 
-#define BASE      0 // base dvorak layer
-#define KEYNAV    1 // arrow navigation (right hand)
-#define KEYSEL    2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV 3 // bash shortcuts
-#define MOUSE     4 // mouse layer (can be locked with lock key)
-#define COMBINED  5 // combined numbers and symbols layer
+#define BASE         0 // base dvorak layer
+#define KEYNAV       1 // arrow navigation (right hand)
+#define KEYSEL       2 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV    3 // bash shortcuts
+#define SHELL_SCREEN 4 // linux screen shortcuts
+#define MOUSE        5 // mouse layer (can be locked with lock key)
+#define COMBINED     6 // combined numbers and symbols layer
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -34,103 +51,123 @@ enum custom_keycodes {
 #define SWITCH_NDS 7
 #define SCREEN_COPY_MODE 8
 #define SCREEN_PASTE 9
-#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 15
+#define SCREEN_RENAME 10
+#define SCREEN_NUMBER 11
+#define SCREEN_0 12
+#define SCREEN_1 13
+#define SCREEN_2 14
+#define SCREEN_3 15
+#define SCREEN_4 16
+#define SCREEN_5 17
+#define SCREEN_6 18
+#define SCREEN_7 19
+#define SCREEN_8 20
+#define SCREEN_9 21
+#define SCREEN_DETACH 22
+#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
 
+
+#define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
+        case MACRO_NAME:\
+             if (record->event.pressed) {\
+                return MACRO( D(LCTL), T(A), U(LCTL), T(NUM), END);\
+            }\
+        break;\
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = KEYMAP(
-	  // left hand
-	  KC_ESC,         KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-	  KC_TAB,         KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
-	  MO(SHELL_NAV),  KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-	  MEH(KC_0),      KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
-	  MEH(KC_1),      OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
-	  
-	  // left thumb cluster
-	            MEH(KC_4),      MEH(KC_5),
-	                            MEH(KC_6),
-	  MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
-	  
-	  // right hand
-	  KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_9),
-	  MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   MEH(KC_F1),
-			     KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   MEH(KC_F2),
-	  MEH(KC_8), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_F3),
-	  KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_F4),
+      // left hand
+      KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
+      KC_TAB,            KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+      OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
+      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
+      MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
+      
+      // left thumb cluster
+                MEH(KC_4),      MEH(KC_5),
+                                MEH(KC_6),
+      MO(COMBINED),MO(KEYNAV),  OSM(MOD_LALT),
+      
+      // right hand
+      KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_9),
+      MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   MEH(KC_F1),
+                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   MEH(KC_F2),
+      MEH(KC_8), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_F3),
+      KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_F4),
     
-	  // right thumb cluster
-	  MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
+      // right thumb cluster
+      MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
   
   ),
   
   [KEYNAV] = KEYMAP(
-	// left hand
-	KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,    KC_TRNS,     KC_TRNS,
-	KC_TRNS,KC_ESC,      MEH(KC_F9),  RCTL(KC_Z),   RCTL(KC_S), MEH(KC_F10), KC_TRNS,
-	KC_TRNS,MEH(KC_F11), MEH(KC_F12), RSFT(KC_TAB), KC_TAB,     MEH(KC_A),
-	KC_TRNS,MEH(KC_B),   MEH(KC_C),   MEH(KC_D),    MEH(KC_E),  MEH(KC_F),   KC_TRNS,
-	KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,
-	// left thumb cluster
-	KC_TRNS,KC_TRNS,KC_TRNS,TO(MOUSE),KC_TRNS,KC_TRNS,
-	
-	// right hand
-	KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
-	KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
-	        LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
-	KC_TRNS,KC_NO,         RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
-	                       KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
-	
-	// right thumb cluster
-	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+    // left hand
+    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,    KC_TRNS,     KC_TRNS,
+    KC_TRNS,KC_ESC,      MEH(KC_F9),  RCTL(KC_Z),   RCTL(KC_S), MEH(KC_F10), KC_TRNS,
+    KC_TRNS,MEH(KC_F11), MEH(KC_F12), RSFT(KC_TAB), KC_TAB,     MEH(KC_A),
+    KC_TRNS,MEH(KC_B),   MEH(KC_C),   MEH(KC_D),    MEH(KC_E),  MEH(KC_F),   KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,
+    // left thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,TO(MOUSE),KC_TRNS,KC_TRNS,
+    
+    // right hand
+    KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
+    KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
+            LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
+    KC_TRNS,KC_NO,         RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
+                           KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
+    
+    // right thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
   ),  
   
-	// key selection layer
-	[KEYSEL] = KEYMAP(
-		   // left hand
-		   KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-		   KC_TRNS,MEH(KC_G), MEH(KC_H),MEH(KC_I), MEH(KC_J), MEH(KC_K), KC_TRNS,
-		   KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
-		   KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
-				   // bottom row
-				   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-										   // thumb cluster
-										   KC_TRNS,KC_TRNS,
-												   KC_TRNS,
-								   KC_TRNS,KC_TRNS,KC_TRNS,
-		   // right hand
-		   KC_TRNS,       KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,              MEH(KC_Q),
-		   RSFT(KC_PGUP), KC_TRNS,             RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),        MEH(KC_R),
-						  RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)), MEH(KC_S),
-		   RSFT(KC_PGDN), KC_TRNS,             RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RSFT(KC_PGDN),        MEH(KC_T),
-					// bottom row
-					KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE),                                      MEH(KC_U),
-		   // thumb cluster
-		   KC_TRNS, KC_TRNS,
-		   KC_TRNS,
-		   KC_TRNS, KC_TRNS, KC_TRNS
-	),  
+    // key selection layer
+    [KEYSEL] = KEYMAP(
+           // left hand
+           KC_TRNS,KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+           KC_TRNS,MEH(KC_G), MEH(KC_H),MEH(KC_I), MEH(KC_J), MEH(KC_K), KC_TRNS,
+           KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
+           KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
+                   // bottom row
+                   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                           // thumb cluster
+                                           KC_TRNS,KC_TRNS,
+                                                   KC_TRNS,
+                                   KC_TRNS,KC_TRNS,KC_TRNS,
+           // right hand
+           KC_TRNS,       KC_TRNS,             KC_TRNS,       KC_TRNS,       KC_TRNS,        KC_TRNS,              MEH(KC_Q),
+           RSFT(KC_PGUP), KC_TRNS,             RSFT(KC_HOME), RSFT(KC_UP),   RSFT(KC_END),   RSFT(KC_PGUP),        MEH(KC_R),
+                          RSFT(RCTL(KC_LEFT)), RSFT(KC_LEFT), RSFT(KC_DOWN), RSFT(KC_RIGHT), RSFT(RCTL(KC_RIGHT)), MEH(KC_S),
+           RSFT(KC_PGDN), KC_TRNS,             RCTL(KC_C),    RCTL(KC_X),    RCTL(KC_V),     RSFT(KC_PGDN),        MEH(KC_T),
+                    // bottom row
+                    KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE),                                      MEH(KC_U),
+           // thumb cluster
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, KC_TRNS, KC_TRNS
+    ),  
   
   // shell navigation layer
   [SHELL_NAV] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+       KC_TRNS,KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
+       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,         SHELL_H3,
+       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_PWD,
+       KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                        // thumb cluster
                                        KC_TRNS,KC_TRNS,
-                                               LALT(KC_D),
-                               KC_TRNS,RCTL(KC_W),KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,        KC_TRNS,             KC_TRNS,         KC_TRNS,         KC_TRNS,        M(SWITCH_NDS),
-       RCTL(KC_L), RCTL(KC_W),     KC_HOME,             KC_UP,           KC_END,          LALT(KC_D),     RCTL(KC_R),
-                   LALT(KC_B),     KC_LEFT,             KC_DOWN,         KC_RIGHT,        LALT(KC_F),     LALT(KC_DOT),
-       RCTL(KC_C), RCTL(KC_U),     M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),      RCTL(KC_K),     M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
-                // bottom row
-                 M(SCREEN_TAB_LEFT), M(SCREEN_TAB_RIGHT), M(SCREEN_NEW_TAB),  KC_TRNS,    KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SWITCH_NDS),
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    RCTL(KC_R),
+                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), LALT(KC_DOT),
+       RCTL(KC_C), RCTL(KC_U), M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),  RCTL(KC_K), M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
+                   // bottom row (match functionality of base layer)
+                   KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -138,52 +175,78 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   
 
+    // linux screen layer
+  [SHELL_SCREEN] = KEYMAP(
+       // left hand
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS,            KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       KC_TRNS, M(SCREEN_NEW_TAB),  M(SCREEN_7), M(SCREEN_8), M(SCREEN_9), M(SCREEN_RENAME),    KC_TRNS,
+                M(SCREEN_TAB_LEFT), M(SCREEN_4), M(SCREEN_5), M(SCREEN_6), M(SCREEN_TAB_RIGHT), KC_TRNS,
+       KC_TRNS, KC_TRNS,            M(SCREEN_1), M(SCREEN_2), M(SCREEN_3), M(SCREEN_NUMBER),    KC_TRNS,
+                                    // bottom row
+                                    M(SCREEN_0), KC_TRNS,     KC_TRNS,     KC_TRNS,             M(SCREEN_DETACH),
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
+
   
   [COMBINED] = KEYMAP(
   
-	// left hand
-	KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,KC_TRNS,
-	KC_TRNS,KC_ESC,  KC_LABK,    KC_RABK,     KC_DQUO,     KC_GRAVE,KC_TRNS,
-	KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
-	KC_TRNS,KC_LCBR, KC_RCBR,    KC_BSLS,     KC_PIPE,     KC_TILD,KC_TRNS,
-	// bottom row
-	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-	// thumb cluster
-	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-	
-	// right hand
-	KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     MEH(KC_L),
-	KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     MEH(KC_M),
-	         KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     MEH(KC_N),
-	KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     MEH(KC_O),
-	// bottom row 
-	                      KC_0,  KC_DOT,  KC_TRNS, KC_TRNS,     MEH(KC_P),
-	// thumb cluster
-	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+    // left hand
+    KC_NO,  KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS,
+    KC_TRNS,KC_EXLM, KC_AT,      KC_HASH,     KC_DLR,      KC_PERC, KC_TRNS,
+    KC_TRNS,KC_LPRN, KC_RPRN,    KC_LBRACKET, KC_RBRACKET, KC_UNDS,
+    KC_TRNS,KC_COLN, KC_DQUO,    KC_LCBR,     KC_RCBR,     KC_AMPR, KC_TRNS,
+    // bottom row
+    KC_TRNS,KC_TRNS, KC_TILD,    KC_GRAVE,    KC_CIRC,
+    // thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+    
+    // right hand
+    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     MEH(KC_L),
+    KC_TRNS, KC_PLUS,     KC_7,    KC_8,    KC_9,    KC_ASTR,     MEH(KC_M),
+             KC_MINS,     KC_4,    KC_5,    KC_6,    KC_SLSH,     MEH(KC_N),
+    KC_TRNS, KC_EQUAL,    KC_1,    KC_2,    KC_3,    KC_QUES,     MEH(KC_O),
+    // bottom row 
+                          KC_0,    KC_DOT,  KC_PIPE, KC_BSLS,     MEH(KC_P),
+    // thumb cluster
+    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
   
   
-	[MOUSE] = KEYMAP(
-		   KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
-		   KC_TRNS, KC_TRNS,      KC_PGUP,       KC_MS_WH_UP,   KC_UP,        KC_TRNS, KC_TRNS,
-		   KC_TRNS, KC_MS_ACCEL0, KC_PGDN,       KC_MS_WH_DOWN, KC_DOWN,      KC_TRNS,
-		   KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
-		   KC_TRNS, KC_TRNS,      M(MOUSE_LOCK), KC_TRNS,       KC_MS_ACCEL0,
-		   
-											   KC_TRNS, KC_TRNS,
-														KC_TRNS,
-									  KC_TRNS, KC_BTN3, KC_TRNS,
-		// right hand
-		   KC_TRNS,  KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,       KC_TRNS,
-		   KC_TRNS,  KC_UP,     KC_HOME,      KC_MS_U,      KC_END,       KC_MS_WH_UP,   KC_TRNS,
-					 KC_DOWN,   KC_MS_L,      KC_MS_D,      KC_MS_R,      KC_MS_WH_DOWN, KC_TRNS,
-		   KC_TRNS,  MEH(KC_X), MEH(KC_Y),    MEH(KC_Z),    KC_F5,        RCTL(KC_W),    KC_TRNS,
-									// browser tab control
-							        RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), KC_TRNS,
-		   KC_TRNS, KC_TRNS,
-		   KC_TRNS,
-		   KC_TRNS, KC_BTN1, KC_BTN2
-	),  
-	
+    [MOUSE] = KEYMAP(
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_PGUP,       KC_MS_WH_UP,   KC_UP,        KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_MS_ACCEL0, KC_PGDN,       KC_MS_WH_DOWN, KC_DOWN,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      M(MOUSE_LOCK), KC_TRNS,       KC_MS_ACCEL0,
+           
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_BTN3, KC_TRNS,
+        // right hand
+           KC_TRNS,  KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_HOME,      KC_MS_U,      KC_END,       KC_MS_WH_UP,   KC_TRNS,
+                     KC_DOWN,   KC_MS_L,      KC_MS_D,      KC_MS_R,      KC_MS_WH_DOWN, KC_TRNS,
+           KC_TRNS,  MEH(KC_X), MEH(KC_Y),    MEH(KC_Z),    KC_F5,        RCTL(KC_W),    KC_TRNS,
+                                    // browser tab control
+                                    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), KC_TRNS,
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, KC_BTN1, KC_BTN2
+    ),  
+    
 
 };
 
@@ -195,26 +258,26 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-		case MOUSE_TOGGLE:
+        case MOUSE_TOGGLE:
             if (record->event.pressed) {
-				layer_on(MOUSE);
+                layer_on(MOUSE);
             } else {
-				if(!mouse_lock)
-					layer_off(MOUSE);
-			}
-			break;
-		case MOUSE_LOCK:
-			if (record->event.pressed)
-			{
-				if(mouse_lock)
-				{
-					mouse_lock = false;
-					layer_off(MOUSE);
-				}
-				else
-					mouse_lock = true;
-			}
-			break;
+                if(!mouse_lock)
+                    layer_off(MOUSE);
+            }
+            break;
+        case MOUSE_LOCK:
+            if (record->event.pressed)
+            {
+                if(mouse_lock)
+                {
+                    mouse_lock = false;
+                    layer_off(MOUSE);
+                }
+                else
+                    mouse_lock = true;
+            }
+            break;
         case SCREEN_TAB_LEFT:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(P), END);
@@ -230,6 +293,41 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(C), END);
             }                                
         break;
+        case SCREEN_DETACH:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), T(D), END);
+            }
+        break;        
+        case SCREEN_RENAME:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(A), U(LSFT), END);
+            }                                
+        break;        
+        case SCREEN_NUMBER:
+             if (record->event.pressed) {
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),
+                              T(N),
+                              T(U),
+                              T(M),
+                              T(B),
+                              T(E),
+                              T(R),
+                              T(SPC),
+                             END);
+            }                                
+        break;        
+
+        MACRO_SCREEN_NUM(SCREEN_0,0);
+        MACRO_SCREEN_NUM(SCREEN_1,1);
+        MACRO_SCREEN_NUM(SCREEN_2,2);
+        MACRO_SCREEN_NUM(SCREEN_3,3);
+        MACRO_SCREEN_NUM(SCREEN_4,4);
+        MACRO_SCREEN_NUM(SCREEN_5,5);
+        MACRO_SCREEN_NUM(SCREEN_6,6);
+        MACRO_SCREEN_NUM(SCREEN_7,7);
+        MACRO_SCREEN_NUM(SCREEN_8,8);
+        MACRO_SCREEN_NUM(SCREEN_9,9);
+        
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
@@ -243,13 +341,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case SWITCH_NDS:
             if (record->event.pressed) {
                 return MACRO( D(LSFT), 
-							  T(F11), 
-							  U(LSFT), 
-							  W(255), 
-							  D(LALT), 
-							  T(TAB), 
-							  U(LALT), 
-							  END); 
+                              T(F11), 
+                              U(LSFT), 
+                              W(255), 
+                              D(LALT), 
+                              T(TAB), 
+                              U(LALT), 
+                              END); 
             }                                
         break;        
         case SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND:
@@ -282,8 +380,74 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    
   }
+  
+  // shell macros
+  if(record->event.pressed) {
+    switch (keycode) {
+        case SHELL_LS:
+            SEND_STRING("ls\n");
+            return true;
+            break;
+        case SHELL_LSLTR:
+            SEND_STRING("ls -ltr\n");
+            return true;
+            break;
+        case SHELL_CDPRE:
+            SEND_STRING("cd ..\n");
+            return true;
+            break;
+        case SHELL_LESS:
+            SEND_STRING("less ");
+            return true;
+            break;
+        case SHELL_PLESS:
+            SEND_STRING(" | less");
+            return true;
+            break;
+        case SHELL_PGREP:
+            SEND_STRING(" | grep ");
+            return true;
+            break;            
+        case SHELL_TAILF:
+            SEND_STRING("tail -f ");
+            return true;
+            break;
+        case SHELL_PWD:
+            SEND_STRING("echo `pwd`/");
+            return true;
+            break;            
+        case SHELL_H3:
+            SEND_STRING("h3\n");
+            return true;
+            break;            
+        case SHELL_AMMCOLO:
+            SEND_STRING("ammcolo\n");
+            return true;
+            break;            
+        case SHELL_SCREENRD:
+            SEND_STRING("screen -r -d ");
+            return true;
+            break;                    
+        case SHELL_SCREEN_NEW:
+            SEND_STRING("screen -S ");
+            return true;
+            break;
+        case SHELL_SCREEN_LIST:
+            SEND_STRING("screen -list\n");
+            return true;
+            break;            
+        case SHELL_MKE:
+            SEND_STRING("mke\n");
+            return true;
+            break;     
+        case SHELL_HTCSTATUS:
+            SEND_STRING("htcStatus -j ");
+            return true;
+            break;               
+    }
+  }
+  
   return true;
 }
 
@@ -303,13 +467,15 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
-		case COMBINED:
-		    ergodox_right_led_2_on();		
-			break;
-	    case KEYNAV:
-		case KEYSEL:
-		    ergodox_right_led_3_on();
-			break;
+        case COMBINED:
+            ergodox_right_led_2_on();        
+            break;
+        case SHELL_NAV:            
+        case SHELL_SCREEN:
+        case KEYNAV:
+        case KEYSEL:
+            ergodox_right_led_3_on();
+            break;
         case MOUSE:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();

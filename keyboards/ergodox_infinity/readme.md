@@ -19,7 +19,7 @@ for the left and right halves seperately.  To flash them:
 
   - Press the program button (back of keyboard, above thumb pad).
 
-  - Install the firmware with `sudo make ergodox_infinity-keymapname-dfu-util MASTER=right`
+  - Install the firmware with `sudo make ergodox_infinity:keymapname:dfu-util MASTER=right`
 
 More information on the Infinity firmware is available in the [TMK/chibios for
 Input Club Infinity Ergodox](https://github.com/fredizzimo/infinity_ergodox/blob/master/README.md)
