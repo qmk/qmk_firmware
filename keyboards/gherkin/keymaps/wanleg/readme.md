@@ -15,7 +15,7 @@ Q//Esc | KC_Q | escape | *null*
 
 # Gherkin Flashing
 ## Linux
-The ProMicro doesn't like dfu-programmer, so we have to use AVRdude. What follows below are instructions for linux taken from https://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html
+The ProMicro doesn't like dfu-programmer, so we have to use AVRdude. What follows below are instructions for Linux taken from https://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html
 
 `ls /dev/tty*`
 
