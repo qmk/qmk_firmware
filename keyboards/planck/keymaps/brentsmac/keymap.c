@@ -74,6 +74,8 @@ enum {
 	H__NOTE(_AS4), H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), W__NOTE(_F4),  
 //	H__NOTE(_REST), H__NOTE(_G4), H__NOTE(_REST), H__NOTE(_B4), H__NOTE(_REST), W__NOTE(_C5),
 
+#define STARTUP_SOUND_MUTE \
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -165,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, _______},
-  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, _______},
-  {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, _______},
+  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, LGUI(LSFT(KC_3)), _______},
+  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, LGUI(KC_UP), LGUI(KC_LEFT), _______},
+  {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Z), LGUI(LSFT(KC_Z)), XXXXXXX, XXXXXXX, LGUI(KC_DOWN),  LGUI(KC_RGHT), _______},
   {_______, _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______}
 },
 
@@ -195,8 +197,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
 
 //float tone_startup[][2]    = SONG(VOLTRON_CLASSIC_OPEN);
-float tone_startup[][2]    = SONG(VOLTRON_LD_OPEN);
-//float tone_startup[][2]    = SONG(STARTUP_SOUND);
+//float tone_startup[][2]    = SONG(VOLTRON_LD_OPEN);
+float tone_startup[][2]    = SONG(STARTUP_SOUND_MUTE);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
@@ -220,27 +222,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
-        #endif
+        #endif*/
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
-        #endif
+        #endif*/
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
-        #endif
+        #endif*/
 		persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
@@ -373,9 +375,9 @@ void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(3);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_dvorak);
-    #endif
+    #endif*/
 	layer_on(_DVORAK);
 	layer_off(_QWERTY);
 	layer_off(_COLEMAK);
@@ -452,9 +454,9 @@ void _td_alb_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(2);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_lower);
-    #endif
+    #endif*/
 	layer_on(_LOWER);
 	layer_off(_RAISE);
 	layer_off(_ADJUST);
@@ -487,9 +489,9 @@ void _td_cr_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(1);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_raise);
-    #endif
+    #endif*/
 	layer_off(_LOWER);
 	layer_on(_RAISE);
 	layer_off(_ADJUST);
@@ -524,9 +526,9 @@ void _td_ma_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(0);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_adjust);
-    #endif
+    #endif*/
 	layer_off(_LOWER);
 	layer_off(_RAISE);
 	layer_on(_ADJUST);
@@ -560,9 +562,9 @@ void _td_qw_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(3);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_qwerty);
-    #endif
+    #endif*/
 	layer_off(_DVORAK);
 	layer_on(_QWERTY);
 	layer_off(_COLEMAK);
@@ -599,9 +601,9 @@ void _td_co_finished (qk_tap_dance_state_t *state, void *user_data) {
 	#ifdef BACKLIGHT_ENABLE
 		backlight_set(3);
 	#endif
-	#ifdef AUDIO_ENABLE
+	/*#ifdef AUDIO_ENABLE
         PLAY_SONG(tone_colemak);
-    #endif
+    #endif*/
 	layer_off(_DVORAK);
 	layer_off(_QWERTY);
 	layer_on(_COLEMAK);
