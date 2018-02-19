@@ -7,6 +7,10 @@
 // to build this keymap
 // make ergodox_ez:dvorak_42_key:teensy
 
+// keeping fork up to date:
+// https://help.github.com/articles/configuring-a-remote-for-a-fork/
+// https://help.github.com/articles/syncing-a-fork/
+
 static bool mouse_lock = false;
 
 enum custom_keycodes {
@@ -31,8 +35,16 @@ enum custom_keycodes {
   SHELL_SCREEN_NEW,
   SHELL_SCREEN_LIST,
   SHELL_MKE,
-  SHELL_HTCSTATUS
-
+  SHELL_HTCSTATUS,
+  
+  // Cloud9 macros
+  CLOUD9_TAB_LEFT,
+  CLOUD9_TAB_RIGHT,
+  CLOUD9_TAB_CLOSE,
+  CLOUD9_GOTO_SYMBOL,
+  CLOUD9_GOTO_LINE,
+  CLOUD9_NAVIGATE,
+  
 };
 
 
@@ -151,11 +163,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [KEYNAV] = KEYMAP(
     // left hand
-    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,    KC_TRNS,     KC_TRNS,
-    KC_TRNS,KC_ESC,      MEH(KC_F9),  RCTL(KC_Z),   RCTL(KC_S), MEH(KC_F10), KC_TRNS,
-    KC_TRNS,MEH(KC_F11), MEH(KC_F12), RSFT(KC_TAB), KC_TAB,     MEH(KC_A),
-    KC_TRNS,MEH(KC_B),   MEH(KC_C),   MEH(KC_D),    MEH(KC_E),  MEH(KC_F),   KC_TRNS,
-    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_ESC,      CLOUD9_GOTO_LINE,   RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_F10),      KC_TRNS,
+    KC_TRNS,MEH(KC_F11), CLOUD9_GOTO_SYMBOL, RSFT(KC_TAB),    KC_TAB,           MEH(KC_A),
+    KC_TRNS,MEH(KC_B),   CLOUD9_NAVIGATE,    CLOUD9_TAB_LEFT, CLOUD9_TAB_RIGHT, CLOUD9_TAB_CLOSE, KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,TO(MOUSE),KC_TRNS,KC_TRNS,
     
@@ -564,6 +576,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("htcStatus -j ");
             return true;
             break;               
+		// Cloud9 macros
+		case CLOUD9_TAB_LEFT:
+            SEND_STRING(SS_LCTRL("["));
+            return true;		
+			break;
+		case CLOUD9_TAB_RIGHT:
+            SEND_STRING(SS_LCTRL("]"));
+            return true;				
+			break;
+		case CLOUD9_TAB_CLOSE:
+            SEND_STRING(SS_LALT("w"));
+            return true;				
+			break;
+		case CLOUD9_GOTO_SYMBOL:
+            SEND_STRING(SS_LSFT(SS_LCTRL("e")));
+            return true;		
+			break;
+		case CLOUD9_GOTO_LINE:
+            SEND_STRING(SS_LCTRL("g"));
+            return true;						
+			break;
+		case CLOUD9_NAVIGATE:
+            SEND_STRING(SS_LCTRL("e"));
+            return true;
+			break;
+  		
     }
   }
   
