@@ -10,5 +10,5 @@ Single Tap | Double Tap | Hold
 --- | --- | ---
 space | enter | shift
 backspace | delete | control
-shift | caps lock | XXXX
-KC_Q | escape | XXXX
+shift | caps lock | *null*
+KC_Q | escape | *null*
