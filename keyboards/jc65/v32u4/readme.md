@@ -1,7 +1,7 @@
 JC65
 ===
 
-![JC65](https://imgur.com/a/C2oa5)
+![JC65](https://i.imgur.com/I4hCyBI.jpg)
 
 The JC65 PCB actually has two revisions: A QMK native version, and a PS2AVRGB version. Jchan offered both PCBs as options during the M65-A Round 1 group buy, and were also available choices for the 65% acrylic case group buy. In the near future both PCB versions should be available from keyclack.com when the storefront part opens.
 
