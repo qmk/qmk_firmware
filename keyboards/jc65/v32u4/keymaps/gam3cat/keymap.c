@@ -51,15 +51,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* _WL: Workman Layer.
     *  .---------------------------------------------------------------.
-    *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
     *  |---------------------------------------------------------------|
-    *  |Tab  |  Q|  D|  R|  W|  B|  J|  F|  U|  P|  ;|  [|  ]|    \|Del|
+    *  |     |  Q|  D|  R|  W|  B|  J|  F|  U|  P|  ;|  [|  ]|    \|   |
     *  |---------------------------------------------------------------|
-    *  |FnCaps|  A|  S|  H|  T|  G|  Y|  N|  E|  O|  I|  '|Return  |PgU|
+    *  |      |  A|  S|  H|  T|  G|  Y|  N|  E|  O|  I|  '|        |   |
     *  |---------------------------------------------------------------|
-    *  |Shift   |  Z|  X|  M|  C|  V|  K|  L|  ,|  .|  /|Shift |Up |PgD|
+    *  |        |  Z|  X|  M|  C|  V|  K|  L|  ,|  .|  /|      |   |   |
     *  |---------------------------------------------------------------|
-    *  |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
+    *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
     */
     [_WL] = KEYMAP(
@@ -72,15 +72,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* _NL: Norman Layer.
     *  .---------------------------------------------------------------.
-    *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
     *  |---------------------------------------------------------------|
-    *  |Tab  |  Q|  W|  D|  F|  K|  J|  U|  R|  L|  ;|  [|  ]|    \|Del|
+    *  |     |  Q|  W|  D|  F|  K|  J|  U|  R|  L|  ;|  [|  ]|    \|   |
     *  |---------------------------------------------------------------|
-    *  |FnCaps|  A|  S|  E|  T|  G|  Y|  N|  I|  O|  H|  '|Return  |PgU|
+    *  |      |  A|  S|  E|  T|  G|  Y|  N|  I|  O|  H|  '|        |   |
     *  |---------------------------------------------------------------|
-    *  |Shift   |  Z|  X|  C|  V|  B|  P|  M|  ,|  .|  /|Shift |Up |PgD|
+    *  |        |  Z|  X|  C|  V|  B|  P|  M|  ,|  .|  /|      |   |   |
     *  |---------------------------------------------------------------|
-    *  |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
+    *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
     */
     [_NL] = KEYMAP(
@@ -93,15 +93,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* _DL: Dvorak Layer.
     *  .---------------------------------------------------------------.
-    *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  [|  ]|Backsp |Ins|
+    *  |   |   |   |   |   |   |   |   |   |   |   |  [|  ]|       |   |
     *  |---------------------------------------------------------------|
-    *  |Tab  |  '|  ,|  .|  P|  Y|  F|  G|  C|  R|  L|  /|  =|    \|Del|
+    *  |     |  '|  ,|  .|  P|  Y|  F|  G|  C|  R|  L|  /|  =|    \|   |
     *  |---------------------------------------------------------------|
-    *  |FnCaps|  A|  O|  E|  U|  I|  D|  H|  T|  N|  S|  -|Return  |PgU|
+    *  |      |  A|  O|  E|  U|  I|  D|  H|  T|  N|  S|  -|        |   |
     *  |---------------------------------------------------------------|
-    *  |Shift   |  ;|  Q|  J|  K|  X|  B|  M|  W|  V|  Z|Shift |Up |PgD|
+    *  |        |  ;|  Q|  J|  K|  X|  B|  M|  W|  V|  Z|      |   |   |
     *  |---------------------------------------------------------------|
-    *  |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
+    *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
     */
     [_DL] = KEYMAP(
@@ -114,15 +114,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* _CL: Colmak Layer.
     *  .---------------------------------------------------------------.
-    *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
     *  |---------------------------------------------------------------|
-    *  |Tab  |  Q|  W|  F|  P|  G|  J|  L|  U|  Y|  ;|  [|  ]|    \|Del|
+    *  |     |  Q|  W|  F|  P|  G|  J|  L|  U|  Y|  ;|  [|  ]|    \|   |
     *  |---------------------------------------------------------------|
-    *  |FnCaps|  A|  R|  S|  T|  D|  H|  N|  E|  I|  O|  '|Return  |PgU|
+    *  |      |  A|  R|  S|  T|  D|  H|  N|  E|  I|  O|  '|        |   |
     *  |---------------------------------------------------------------|
-    *  |Shift   |  Z|  X|  C|  V|  B|  K|  M|  ,|  .|  /|Shift |Up |PgD|
+    *  |        |  Z|  X|  C|  V|  B|  K|  M|  ,|  .|  /|      |   |   |
     *  |---------------------------------------------------------------|
-    *  |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
+    *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
     */
     [_CL] = KEYMAP(
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(_AL),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS,
         _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,          KC_HOME,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_MUTE, KC_VOLU, KC_END,
-        XXXXXXX, XXXXXXX,          KC_MENU, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, KC_VOLD, KC_WFWD
+        XXXXXXX, XXXXXXX,          KC_MENU, M(1),             M(1),             M(1),             XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, KC_VOLD, KC_WFWD
     ),
 
     /* _AL: Adjust Layer.
@@ -189,6 +189,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return false;
             }
         break;
+        case 1:
+            if (record->event.pressed) {
+                return MACRO(I(0), T(SPC), T(SPC), T(SPC), T(SPC), END);
+            }
+            else {
+                return false;
+            }
+        break;
     }
     return MACRO_NONE;
 };
@@ -201,7 +209,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
         case 0:
             if (record->event.pressed) {
-                SEND_STRING ("[Keyboard: " QMK_KEYBOARD "]  --  [QMK Version: " QMK_VERSION "]  --  [Keymap: " QMK_KEYMAP "]");
+                SEND_STRING ("[QMK:" QMK_KEYBOARD ":" QMK_KEYMAP ":" QMK_VERSION "]");
             }
         break;
     }
@@ -209,8 +217,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void matrix_init_user(void) {
     #ifdef BACKLIGHT_ENABLE
-        //This is a guess, not sure if pin needs to be in or out for CAPS LED, currently out.
-        DDRB |= (1<<2);
         backlight_level(0);
     #endif
     #ifdef RGBLIGHT_ENABLE
@@ -230,31 +236,31 @@ void matrix_scan_user(void) {
         switch (layer) {
             case 0:
                 backlight_level(0);
-                rgblight_sethsv(180,100,100);
+                rgblight_sethsv(180,100,255);
                 break;
             case 1:
                 backlight_level(1);
-                rgblight_sethsv(180,95,95);
+                rgblight_sethsv(180,95,240);
                 break;
             case 2:
                 backlight_level(1);
-                rgblight_sethsv(180,90,90);
+                rgblight_sethsv(180,90,225);
                 break;
             case 3:
                 backlight_level(1);
-                rgblight_sethsv(180,85,85);
+                rgblight_sethsv(180,85,210);
                 break;
             case 4:
                 backlight_level(1);
-                rgblight_sethsv(180,80,80);
+                rgblight_sethsv(180,80,195);
                 break;
             case 5:
                 backlight_level(2);
-                rgblight_sethsv(33,100,100);
+                rgblight_sethsv(230,255,255);
                 break;
             case 6:
                 backlight_level(3);
-                rgblight_sethsv(300,50,50);
+                rgblight_sethsv(350,255,255);
                 break;
             default:
                 backlight_level(0);
@@ -270,14 +276,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-    //This is a guess, not sure correct setup for CAPS.
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        PORTB &= ~(1<<2);
-    }
-    else {
-        PORTB |= (1<<2);
-    }
 }

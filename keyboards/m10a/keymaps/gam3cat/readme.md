@@ -1,5 +1,5 @@
 # Keymap Maintainer: Gam3cat
-make m10a-gam3cat
+make m10a:gam3cat
 ## Layout Config:
     .-----------.  .-----------.  .-----------.  .-----------.  .-----------.
     |  7|  8|  9|  |  +|  -|  *|  |  ^|  &|  !|  |VLU|Ver|WFD|  |VLU|NXT|FFD|
