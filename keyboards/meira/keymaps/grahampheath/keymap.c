@@ -16,8 +16,6 @@
 #include "meira.h"
 #include "action_layer.h"
 #include "action_code.h"
-#include "issi.h"
-#include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -66,6 +64,7 @@ int RGB_current_mode;
 #define KC_X0 MT(MOD_LCTL, KC_ESC)  // Hold for Left Ctrl, Tap for ESC
 #define KC_X1 MT(MOD_RSFT, KC_ENT)  // Hold for Right Shift, Tap for Enter
 #define KC_X2 MT(MOD_RSFT, LGUI(KC_ENT))  // Send Command Enter
+#define KC_X3 MT(KC_LGUI, KC_SPC)  // Hold for Left GUI, Tap for Space
 #define KC_EMOJ TT(_EMOJI)  // Hold for Emoji Layer, or tap 5 times.
 #define KC_QS LGUI(KC_SPC)  // Send Command + Space (for QuickSilver).
 #define KC_TABR LGUI(KC_RCBR)  // Send Command + } (for tab changing).
@@ -90,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,     KC_W,    KC_E,    KC_R,   KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
     KC_X0,   KC_A,     KC_S,    KC_D,    KC_F,   KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
     KC_LSFT, KC_Z,     KC_X,    KC_C,    KC_V,   KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_X1, \
-    KC_EMOJ, MOD_LCTL, KC_LALT, KC_LGUI, LOWER,  KC_LGUI,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+    KC_EMOJ, MOD_LCTL, KC_LALT, KC_LGUI, LOWER,  KC_X3,    KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
   ),
 
   /* Colemak
@@ -158,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------+------+------+------+------+------|
    * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+   * |      |      |      |      |      |             |      | Tab- | Vol- | Vol+ | Tab+ |
    * `-----------------------------------------------------------------------------------'
    */
   [_LOWER] = KEYMAP( \
@@ -224,6 +223,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+#ifdef AUDIO_ENABLE
+
+  float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+  float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+  float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+
+
+  float plover_song[][2]     = SONG(PLOVER_SOUND);
+  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#endif
 
 void matrix_init_user(void) {
 
