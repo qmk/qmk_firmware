@@ -1,4 +1,4 @@
-Hexwire's Let's Split Layout
+Bakingpy's Let's Split Layout
 ============================
 
 ### Changes from default layout
@@ -29,11 +29,11 @@ Hexwire's Let's Split Layout
 ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
  TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X0 , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
+ ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
- LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH, X4 ,
+ LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X3 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+ GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
 `----+----+----+----+----+----'    `----+----+----+----+----+----'
 ```
 
@@ -43,11 +43,11 @@ Hexwire's Let's Split Layout
 ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
  TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X0 , A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
+ ESCC, A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
- LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH, X4 ,
+ LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH,ENTS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X3 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+ GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
 `----+----+----+----+----+----'    `----+----+----+----+----+----'
 ```
 
@@ -57,11 +57,11 @@ Hexwire's Let's Split Layout
 ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
  TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X0 , A  , O  , E  , U  , I  ,      D  , H  , R  , N  , S  ,SLSH,
+ ESCC, A  , O  , E  , U  , I  ,      D  , H  , R  , N  , S  ,SLSH,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
- LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  , X4 ,
+ LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  ,ENTS,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-  X3 ,LCTL,LALT,LGUI, X1 ,SPC ,     BSPC, X2 ,LEFT,DOWN, UP ,RGHT
+ GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
 `----+----+----+----+----+----'    `----+----+----+----+----+----'
 ```
 
@@ -75,7 +75,7 @@ Hexwire's Let's Split Layout
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
      ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
 |----+----+----+----+----+----|    |----+----+----+----+----+----|
-     ,    ,    ,    ,    ,    ,     DEL ,    , P0 ,PDOT,    ,
+     ,    ,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
 `----+----+----+----+----+----'    `----+----+----+----+----+----'
 ```
 

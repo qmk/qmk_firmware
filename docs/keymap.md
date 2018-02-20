@@ -33,7 +33,7 @@ The state of the Keymap layer is determined by two 32 bit parameters:
 * **`default_layer_state`** indicates a base keymap layer (0-31) which is always valid and to be referred (the default layer).
 * **`layer_state`** has current on/off status of each layer in its bits.
 
-Keymap layer '0' is usually `default_layer`, wither other layers initially off after booting up the firmware, although this can configured differently in `config.h`. It is useful to change `default_layer` when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.
+Keymap layer '0' is usually the `default_layer`, with other layers initially off after booting up the firmware, although this can configured differently in `config.h`. It is useful to change `default_layer` when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.
 
     Initial state of Keymap          Change base layout
     -----------------------          ------------------
