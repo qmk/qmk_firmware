@@ -27,3 +27,38 @@ Shortcuts for bootmagic options. You can use these even when bootmagic is off.
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Left Alt and GUI             |
 |`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
+
+
+## Bootmagc Hotkeys
+
+Use this by holding the SPACEBAR and the documented key while
+plugging in the USB connection. e.g. to get into bootloader mode
+hold `SPACE` and `B` while plugging in USB.
+
+
+|Key        |Description                                                             |
+|-----------|------------------------------------------------------------------------|
+|`ESC`      | Skip bootmagic and saved eeprom configuration                          |
+|`B`        | Enter bootloader instead of firmware                                   |
+|`BACKSPACE`| Clear the saved settings from flash                                    |
+|`LCTRL`    | Swap `Control` and `Capslock` and save into flash                      |
+|`CAPSLOCK` | Swap `Capslock` and `Control` and save into flash                      |
+|`LALT`     | Swap Left `Alt` and `GUI` and save into flash, e.g. for OSX Opt and Cmd|
+|`RALT`     | Swap Right `Alt` and `GUI` and save into flash                         |
+|`LGUI`     | Disable GUI key - e.g. disable Windows key during gaming               |
+|`GRAVE`    | Swap &#39; and `ESC` and save into flash                               |
+|`BACKSLASH`| Swap Blackslash and Backspace and save into flash                      |
+|`N`        | Enable NKRO (N Key Roll Over)                                          |
+|`0`        | Make Layer 0 the default layer at bootup, e.g. switch to dvorak        |
+|`1`        | Make Layer 1 the default layer at bootup                               |
+|`2`        | Make Layer 2 the default layer at bootup                               |
+|`3`        | Make Layer 3 the default layer at bootup                               |
+|`4`        | Make Layer 4 the default layer at bootup                               |
+|`5`        | Make Layer 5 the default layer at bootup                               |
+|`6`        | Make Layer 6 the default layer at bootup                               |
+|`7`        | Make Layer 7 the default layer at bootup                               |
+
+
+
+
+
