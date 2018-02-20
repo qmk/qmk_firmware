@@ -1,1 +1,1 @@
-# The split shift keymap for LFK78
+# The split bs keymap for LFK78
