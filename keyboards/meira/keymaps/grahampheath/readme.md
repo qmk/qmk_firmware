@@ -1,4 +1,4 @@
-# Graham's Keymap for the Meira.
+# Graham's Meira.
 
 Don't expect this to work for you unaltered! For the record, these are my notes, not a guide for you :-)
 
