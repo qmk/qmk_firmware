@@ -22,10 +22,8 @@
 #define VENDOR_ID       0x125A
 #define PRODUCT_ID      0x1770
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    "QMK"
-#define USBSTR_MANUFACTURER 'Q', '\x00', 'M', '\x00', 'K', '\x00'
-#define PRODUCT         "Handwire"
-#define USBSTR_PRODUCT 'H', '\x00', 'a', '\x00', 'n', '\x00', 'd', '\x00', 'w', '\x00', 'i', '\x00', 'r', '\x00', 'e', '\x00'
+#define MANUFACTURER    QMK
+#define PRODUCT         Handwire
 #define DESCRIPTION     "Handwire protoboard"
 
 /* key matrix size */
