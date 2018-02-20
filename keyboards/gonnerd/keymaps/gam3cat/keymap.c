@@ -25,7 +25,7 @@ enum gonnerd_keycodes {
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
 
-//static uint8_t current_layer;
+static uint8_t current_layer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* _BL: Base Layer, mostly standard TKL QWERTY layout.
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |-----------------------------------------------------------|-----------|
     *  |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |   | Up|   |
     *  |-----------------------------------------------------------|-----------|
-    *  |Ctrl |||||Alt  |      Space                |RAlt |||||Ctrl |Lft|Dwn|Rgt|
+    *  |Ctrl |||||Win  |      Space                |RAlt |||||Ctrl |Lft|Dwn|Rgt|
     *  *-----------------------------------------------------------------------*
     */
     [_BL] = KEYMAP_TKL( \
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN, \
         FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT,                             \
         KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, MO(_FL),          KC_UP,            \
-        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, MO(_FL), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT \
+        KC_LCTL, KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, KC_RALT, MO(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT \
     ),
 
     /* _WL: Workman Layer.
@@ -155,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  .-----------------------------------------------------------|-----------|
     *  | M0|   |   |   |   |   |   |   |   |   |   |   |   |       |   |   |   |
     *  |-----------------------------------------------------------|-----------|
-    *  |     |   |   |   |   |   |   |   |   |   |   |   |   |     |   |   |   |
+    *  |Fn_AL|   |   |   |   |   |   |   |   |   |   |   |   |     |   |   |   |
     *  |-----------------------------------------------------------|-----------|
-    *  |      |   |   |   |   |   |   |Lft|Dwn|Up |Rgt|   |        |           |
+    *  |FnCaps|   |   |   |   |   |   |Lft|Dwn|Up |Rgt|   |        |           |
     *  |-----------------------------------------------------------|-----------|
     *  |        |   |   |   |   |   |   |   |   |   |   |      |   |   |   |   |
     *  |-----------------------------------------------------------|-----------|
@@ -236,54 +236,48 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
 }
 
-//void matrix_init_user(void) {
-//    #ifdef BACKLIGHT_ENABLE
-//        backlight_level(0);
-//    #endif
-//    #ifdef RGBLIGHT_ENABLE
-//        rgblight_mode(1);
-//        rgblight_sethsv(180,100,100);
-//    #endif
-//}
-//
-//// Runs constantly in the background, in a loop.
-//void matrix_scan_user(void) {
-//    uint8_t layer = biton32(layer_state);
-//
-//    #ifdef BACKLIGHT_ENABLE
-//        if (current_layer == layer) {
-//        }
-//        else {
-//            current_layer = layer;
-//            switch (layer) {
-//                case 0:
-//                    backlight_level(0);
-//                    break;
-//                case 1:
-//                    backlight_level(1);
-//                    break;
-//                case 2:
-//                    backlight_level(1);
-//                    break;
-//                case 3:
-//                    backlight_level(1);
-//                    break;
-//                case 4:
-//                    backlight_level(1);
-//                    break;
-//                case 5:
-//                    backlight_level(2);
-//                    break;
-//                case 6:
-//                    backlight_level(3);
-//                    break;
-//                default:
-//                    backlight_level(0);
-//                    break;
-//            }
-//        }
-//    #endif
-//}
+void matrix_init_user(void) {
+    #ifdef BACKLIGHT_ENABLE
+        backlight_level(0);
+    #endif
+}
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    if (current_layer == layer) {
+    }
+    else {
+        current_layer = layer;
+        switch (layer) {
+            case 0:
+                backlight_level(0);
+                break;
+            case 1:
+                backlight_level(1);
+                break;
+            case 2:
+                backlight_level(1);
+                break;
+            case 3:
+                backlight_level(1);
+                break;
+            case 4:
+                backlight_level(1);
+                break;
+            case 5:
+                backlight_level(2);
+                break;
+            case 6:
+                backlight_level(3);
+                break;
+            default:
+                backlight_level(0);
+                break;
+        }
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Enable Dynamic Macros.
