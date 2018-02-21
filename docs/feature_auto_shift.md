@@ -1,7 +1,7 @@
 # Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Viola! No shift key needed!
+and you get its shifted state. Voilà! No shift key needed!
 
 ## Why Auto Shift?
 

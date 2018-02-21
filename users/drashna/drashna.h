@@ -26,8 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _COLEMAK 1
 #define _DVORAK 2
 #define _WORKMAN 3
-#define _NAV 5
-#define _COVECUBE 6
+#define _MODS 4
+//#define _MISC 5
+#define _NAV 6
+#define _COVECUBE 7
 #define _SYMB 8
 #define _GAMEPAD 9
 #define _DIABLO 10
@@ -56,15 +58,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define rgblight_set_purple      rgblight_setrgb (0x7A,  0x00, 0xFF);
 #define rgblight_set_white       rgblight_setrgb (0xFF,  0xFF, 0xFF);
 #else
-#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
-#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
-#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
-#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
-#define rgblight_set_teal        rgblight_sethsv (0xB4,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
-#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
+#define rgblight_set_red         rgblight_sethsv (0,  255, 255);
+#define rgblight_set_coral       rgblight_sethsv (16, 176, 255);
+#define rgblight_set_orange      rgblight_sethsv (39,  255, 255);
+#define rgblight_set_goldenrod   rgblight_sethsv (43,  218, 218);
+#define rgblight_set_gold        rgblight_sethsv (51,  255, 255);
+#define rgblight_set_yellow      rgblight_sethsv (60,  255, 255);
+#define rgblight_set_chartreuse  rgblight_sethsv (90, 255, 255);
+#define rgblight_set_green       rgblight_sethsv (120,  255, 255);
+#define rgblight_set_springgreen rgblight_sethsv (150,  255, 255);
+#define rgblight_set_turquoise   rgblight_sethsv (174,  90, 112);
+#define rgblight_set_teal        rgblight_sethsv (180,  255, 128);
+#define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
+#define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
+#define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
+#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
+#define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
+
+//#define rgblight_set_        rgblight_sethsv (0, 255, 255);
 #endif // DRASHNA_SETRGB
 
 extern bool is_overwatch;
@@ -134,6 +147,9 @@ enum {
 
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 #ifdef FAUXCLICKY_ENABLE
 #define AUD_ON  FC_ON
 #define AUD_OFF FC_OFF
@@ -141,5 +157,64 @@ enum {
 #define AUD_ON  AU_ON
 #define AUD_OFF AU_OFF
 #endif 
+
+
+
+// Since our quirky block definitions are basically a list of comma separated 
+// arguments, we need a wrapper in order for these definitions to be 
+// expanded before being used as arguments to the LAYOUT_xxx macro.
+#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
+#define KEYMAP_wrapper(...)           KEYMAP(__VA_ARGS__)
+
+// Blocks for each of the four major keyboard layouts
+// Organized so we can quickly adapt and modify all of them
+// at once, rather than for each keyboard, one at a time.
+// And this allows wor much cleaner blocks in the keymaps.
+// For instance Tap/Hold for Control on all of the layouts
+
+#define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
+#define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+#define _________________QWERTY_L3_________________  CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
+#define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
+
+#define _________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
+#define _________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
+#define _________________COLEMAK_L3________________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
+#define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
+
+#define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________DVORAK_L3_________________  CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+
+#define _________________DVORAK_R1_________________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________DVORAK_R2_________________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+
+
+#define _________________WORKMAN_L1________________       KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________WORKMAN_L2________________       KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________WORKMAN_L3________________ CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+
+#define _________________WORKMAN_R1________________       KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________WORKMAN_R2________________       KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+
+
+
+// Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
+// this allows us to quickly modify the bottom row for all of the layouts
+// so we don't have to alter it 4 times and hope that we haven't missed
+// anything
+#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_QUOT, KC_LGUI, KC_LBRC, KC_RBRC
+#define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+
 
 #endif
