@@ -34,6 +34,8 @@ extern uint8_t is_master;
 #define _RAISE 4
 #define _ADJUST 16
 
+#define DisplayOffFromLastKeyPressed 5000 // msec
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
@@ -319,6 +321,8 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
+static uint16_t last_key_pressed;
+static bool oled_gfx_offed = false;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -338,6 +342,16 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (oled_gfx_offed == true) {
+    iota_gfx_on();
+    oled_gfx_offed = false;
+  }
+
+  if (record->event.pressed) {
+    last_key_pressed = timer_read();
+  }
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -465,6 +479,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       break;
   }
+
   return true;
 }
 
@@ -545,9 +560,12 @@ static void render_logo(struct CharacterMatrix *matrix) {
     0};
   matrix_write(matrix, logo);
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
+  // debug start
+  char elapsed[40];
+  snprintf(elapsed, sizeof(elapsed), "\n%d", timer_elapsed(last_key_pressed) / 1000);
+  matrix_write(matrix, elapsed);
+  // debug end
 }
-
-
 
 void render_status(struct CharacterMatrix *matrix) {
 
@@ -585,13 +603,19 @@ void render_status(struct CharacterMatrix *matrix) {
            matrix_write(matrix, buf);
     }
 
+  // debug start
+  char elapsed[40];
+  snprintf(elapsed, sizeof(elapsed), "\n%d", timer_elapsed(last_key_pressed) / 1000);
+  matrix_write(matrix, elapsed);
+  // debug end
+
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(matrix, led);
+  // matrix_write(matrix, led);
 }
 
 
@@ -604,13 +628,18 @@ void iota_gfx_task_user(void) {
   }
 #endif
 
-  matrix_clear(&matrix);
-  if(is_master){
-    render_status(&matrix);
-  }else{
-    render_logo(&matrix);
+  if (timer_elapsed(last_key_pressed) > DisplayOffFromLastKeyPressed) {
+    iota_gfx_off();
+    oled_gfx_offed = true;
+  } else {
+    matrix_clear(&matrix);
+    if(is_master){
+      render_status(&matrix);
+    }else{
+      render_logo(&matrix);
+    }
+    matrix_update(&display, &matrix);
   }
-  matrix_update(&display, &matrix);
 }
 
 #endif
