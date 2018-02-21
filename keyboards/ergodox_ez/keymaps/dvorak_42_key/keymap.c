@@ -10,6 +10,8 @@
 // keeping fork up to date:
 // https://help.github.com/articles/configuring-a-remote-for-a-fork/
 // https://help.github.com/articles/syncing-a-fork/
+// pushing dev branch
+// git push origin dev:dev
 
 static bool mouse_lock = false;
 
