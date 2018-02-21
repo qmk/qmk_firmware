@@ -53,9 +53,11 @@ enum custom_keycodes {
 #define KEYSEL       2 // arrow navigation + shift (allow text selection)
 #define SHELL_NAV    3 // bash shortcuts
 #define SHELL_SCREEN 4 // linux screen shortcuts
-#define SCREEN_NAV   5
-#define MOUSE        6 // mouse layer (can be locked with lock key)
-#define COMBINED     7 // combined numbers and symbols layer
+#define SCREEN_NAV   5 // navigate between linux screen tabs 
+#define MOUSE        6 // mouse layer (can be locked with lock key), unmapped for now
+#define BROWSER_CONTROL 7 // control browser and mouse
+#define COMBINED      	8 // combined numbers and symbols layer
+
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -337,6 +339,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,
            KC_TRNS, KC_BTN1, KC_BTN2
     ),  
+	
+    [BROWSER_CONTROL] = KEYMAP(
+		   // left hand
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+		   // bottom row
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
+          // right hand
+           KC_TRNS,  KC_TRNS,   KC_TRNS,            KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
+                     KC_DOWN,   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
+           KC_TRNS,  KC_TRNS,   RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,         KC_TRNS,
+                                // bottom row
+                                KC_TRNS,            KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, RCTL(KC_W), RCTL(KC_T)
+    ),  	
     
 
 };
