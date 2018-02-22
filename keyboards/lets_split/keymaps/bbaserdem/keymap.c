@@ -1,13 +1,18 @@
 /*
- * PLANCK - Dvorak turkish
+ * Let's Split - Dvorak turkish
  * Keymap by @bbaserdem
  * Dvorak layout with multiple features
  * Most of the code is in the "user" directory.
  * Check qmk_firmware/users/bbaserdem for the main part of the code
  */
 
-#include "planck.h"
+#include "lets_split.h"
 #include "bbaserdem.h"
+
+
+void matrix_init_keymap (void) {
+
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Main Dvorak layer
@@ -46,10 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MOUSE_L2,       MOUSE_R2,
         MOUSE_L3,       MOUSE_R3,
         MOUSE_L4,       MOUSE_R4 ),
-    // Music mode
-    [_MU] = KM(
-        MASK,           MASK,
-        MASK,           MASK,
-        MASK,           MASK,
-        MUSIC_4 ),
 };
+
+
+
