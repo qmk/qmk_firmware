@@ -1,3 +1,3 @@
 # tiydal iso TADA68 layout
 
-ISO UK layout of tada 68, with backlight breathing. 
+ISO UK layout of tada 68.

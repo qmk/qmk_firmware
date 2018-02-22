@@ -4,15 +4,6 @@
 #define _FL 1
 
 #define _______ KC_TRNS
-enum keyboard_macros {
-  MACRO_BACKLIGHT,
-  MACRO_BREATH_PERIOD_INC,
-  MACRO_BREATH_PERIOD_DEC,
- 
-};
-#define M_BACKL             M(MACRO_BACKLIGHT)
-#define M_BPI             M(MACRO_BREATH_PERIOD_INC)
-#define M_BPD             M(MACRO_BREATH_PERIOD_DEC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -50,47 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = KEYMAP_ISO(
   _______, KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_DEL,KC_PSCR,  \
-  _______,BL_DEC,BL_INC,BL_TOGG,_______,_______,_______,_______,_______,_______,KC_PSCR,_______,_______, _______,KC_INS, \
-  _______,M_BPD,M_BPI,BL_BRTG,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME, \
-  _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,_______,KC_END, \
-  _______,_______,_______,                 _______,               _______,_______,_______,KC_MPRV,KC_MPLY, KC_MNXT),
+  _______,KC_VOLD,_______,KC_VOLU,_______,_______,_______,_______,_______,_______,KC_PSCR,_______,_______, _______,KC_INS, \
+  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_INS,_______,_______,_______,KC_HOME, \
+  _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT,_______,_______,_______,_______,_______,_______,_______,_______,KC_END, \
+  _______,_______,_______,                 _______,               _______,_______,_______,BL_DEC,BL_TOGG, BL_INC),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-
-    // MACRODOWN only works in this function
-    switch(id)
-    {
-
-        case MACRO_BREATH_PERIOD_INC:
-            if (record->event.pressed)
-            {
-                breathing_period_inc();
-            }
-            break;
-
-        case MACRO_BREATH_PERIOD_DEC:
-            if (record->event.pressed)
-            {
-                breathing_period_dec();
-            }
-            break;
-
-     
-
-#ifdef BACKLIGHT_ENABLE
-        case MACRO_BACKLIGHT:
-            if (record->event.pressed)
-            {
-                backlight_step();
-            }
-#endif
-
-        default:
-            break;
-
-    }
-    return MACRO_NONE;
-};
-
