@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
@@ -12,6 +13,14 @@ enum dz60_keycodes {
 >>>>>>> Fixed issue with my keymap not compiling.
 =======
 >>>>>>> Fixed issue with my keymap not compiling.
+=======
+=======
+enum dz60_keycodes {
+
+    _space = 1
+};
+>>>>>>> New DZ60 Keymap
+>>>>>>> New DZ60 Keymap
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
@@ -51,13 +60,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> New DZ60 Keymap
 =======
 }
 qk_tap_dance_action_t tap_dance_actions[] = {
     //Tap once for Esc, twice for Caps Lock
     [_space]=ACTION_TAP_DANCE_DOUBLE(TO(2), TO(4))
 >>>>>>> New DZ60 Keymap
+<<<<<<< HEAD
 =======
 >>>>>>> More backlight settings and no tapdance in my keymap.
+=======
+>>>>>>> New DZ60 Keymap
     // Other declarations would go here, separated by commas, if you have them
 };
