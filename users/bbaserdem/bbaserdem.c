@@ -133,6 +133,10 @@ void matrix_init_user (void) {
     base_val = 255;
     base_mod = 2;
     base_tog = false;
+    rgblight_enable();
+    rgblight_mode(2);
+    rgblight_sethsv(100,0,255);
+    rgblight_disable();
     rgblight_loadBase();
 #endif
 
@@ -553,35 +557,27 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     
     // Change RGB light
-    switch( biton32(state) ) {
-        case _DV:
-            // Base mode is loaded
-            rgblight_loadBase();
-            break;
-        case _AL:
-            // Do yellow for alternate
-            rgblight_colorStatic( 60,255,255);
-            break;
-        case _GA:
-            // Do purple for game
-            rgblight_colorStatic(285,255,255);
-            break;
-        case _NU:
-            // Do azure for number
-            rgblight_colorStatic(186,102,255);
-            break;
-        case _SE:
-            // Do red for settings
-            rgblight_colorStatic(  0,255,255);
-            break;
-        case _MO:
-            // Do green for mouse
-            rgblight_colorStatic(120,255,255);
-            break;
-        case _MU:
-            // Do orange for music
-            rgblight_colorStatic( 39,255,255);
-            break;
+    if ( biton32(state) == _DV ) {
+        // Reload base layer
+        rgblight_loadBase();
+    } else if ( biton32(state) == _AL ) {
+        // Do yellow for alternate
+        rgblight_colorStatic( 60,255,255);
+    } else if ( biton32(state) == _GA ) {
+        // Do purple for game
+        rgblight_colorStatic(285,255,255);
+    } else if ( biton32(state) == _NU ) {
+        // Do azure for number
+        rgblight_colorStatic(186,102,255);
+    } else if ( biton32(state) == _SE ) {
+        // Do red for settings
+        rgblight_colorStatic(  0,255,255);
+    } else if ( biton32(state) == _MO ) {
+        // Do green for mouse
+        rgblight_colorStatic(120,255,255);
+    } else if ( biton32(state) == _MU ) {
+        // Do orange for music
+        rgblight_colorStatic( 39,255,255);
     }
 #endif
     return layer_state_set_keymap (state);

@@ -1,4 +1,5 @@
 SRC += bbaserdem.c
+EXTRAFLAGS += -flto
 
 # ENABLE
 UNICODE_ENABLE = yes		# Used for unicode character emulation

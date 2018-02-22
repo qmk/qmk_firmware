@@ -8,8 +8,13 @@
 
 // LED strip stuff
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B2
+
+// Who thought it was a good idea to predefine these in the rev2/config.h ???
+#ifdef RGBLED_NUM
+#undef RGBLED_NUM
+#endif
 #define RGBLED_NUM 12
+
 #define RGBLIGHT_HUE_STEP 6
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 20
