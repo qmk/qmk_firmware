@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 Brian Fong
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,37 +13,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "planck.h"
+#include "action_layer.h"
 
-/* Add this line to config.h
-#define PREVENT_STUCK_MODIFIERS
-*/
+extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
+enum planck_layers {
+  _QW,
+  _GK,
+  SUB,
+  SUP,
+  gNUM,
+  gDIR,
+  gETC
+};
 
-#define _GK 0
-#define gDIR 1
-#define gNUM 2
-#define gETC 3
-#define _QW 4
-#define _LW 5
-#define _RS 6
-#define nada 7
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+enum planck_keycodes {
+  QWERTY = SAFE_RANGE,
+  GHERKIN,
+  SUBTER,
+  SUPRA,
+  gNUMBER,
+  gDIRECTION,
+  gETCETERA,
+};
 
 /////////////// TAP DANCE SECTION START ///////////////
 //Tap Dance Declarations (list of my tap dance configurations)
 enum {
   TD_SFT_CAPS = 0
   ,TD_Q_ESC
-  ,ENT_TAP_DANCE
-  ,DEL_TAP_DANCE
 };
 
 ///// QUAD FUNCTION TAP DANCE GENERAL SETUP SECTION START /////
@@ -79,67 +79,6 @@ int cur_dance (qk_tap_dance_state_t *state) {
   }
   else return 6; //magic number. At some point this method will expand to work for more presses
 }
-///// QUAD FUNCTION TAP DANCE GENERAL SETUP SECTION END /////
-///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION START /////
-//instanalize an instance of 'tap' for the 'ENT' tap dance.
-static tap ENTtap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void ENT_finished (qk_tap_dance_state_t *state, void *user_data) {
-  ENTtap_state.state = cur_dance(state);
-  switch (ENTtap_state.state) {
-    case SINGLE_TAP: register_code(KC_SPC); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); break;
-    case DOUBLE_TAP: register_code(KC_ENT); break;
-    case DOUBLE_HOLD: register_code(KC_NO); break; // setting double hold to do nothing (change this if you want)
-    case DOUBLE_SINGLE_TAP: register_code(KC_SPC); unregister_code(KC_SPC); register_code(KC_SPC);
-    //Last case is for fast typing. Assuming your key is `f`:
-    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-  }
-}
-
-void ENT_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (ENTtap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_SPC); break;
-    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
-    case DOUBLE_TAP: unregister_code(KC_ENT); break;
-    case DOUBLE_HOLD: unregister_code(KC_NO);
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_SPC);
-  }
-  ENTtap_state.state = 0;
-}
-
-//instanalize an instance of 'tap' for the 'DEL' tap dance.
-static tap DELtap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void DEL_finished (qk_tap_dance_state_t *state, void *user_data) {
-  DELtap_state.state = cur_dance(state);
-  switch (DELtap_state.state) {
-    case SINGLE_TAP: register_code(KC_BSPC); break;
-    case SINGLE_HOLD: register_code(KC_LCTL); break;
-    case DOUBLE_TAP: register_code(KC_DEL); break;
-    case DOUBLE_HOLD: register_code(KC_NO); break;
-    case DOUBLE_SINGLE_TAP: register_code(KC_BSPC); unregister_code(KC_BSPC); register_code(KC_BSPC);
-  }
-}
-
-void DEL_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (DELtap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_BSPC); break;
-    case SINGLE_HOLD: unregister_code(KC_LCTL); break;
-    case DOUBLE_TAP: unregister_code(KC_DEL); break;
-    case DOUBLE_HOLD: unregister_code(KC_NO);
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_BSPC);
-  }
-  DELtap_state.state = 0;
-}
-///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
 //THIS SECTION HAS TO BE AT THE END OF THE TAP DANCE SECTION
@@ -147,8 +86,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 // Other declarations would go here, separated by commas, if you have them
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
- ,[ENT_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ENT_finished, ENT_reset)
- ,[DEL_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, DEL_finished, DEL_reset)
 };
 
 //In Layer declaration, add tap dance item in place of a key code
@@ -158,134 +95,200 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-
-/* myQwerty
- * .-----------------------------------------------------------------------------------------------------------.
- * | ESC    | Q      | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BACKSP |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | ;      | '      |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |SFT/CAPS| Z      | X      | C      | V      | B      | N      | M      | ,      | .      | /      | ENTER  |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | LCTRL  | LGUI   | ALT    | ALT    | LOWER  | SHIFT  | SPACE  | RAISE  | RALT   | RGUI   | DEL    | CTRL   |
- * '-----------------------------------------------------------------------------------------------------------'
+/* Qwerty
+ * ,-------------------------------------------------------------------------------------.
+ * | Esc   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp  |
+ * |-------+------+------+------+------+-------------+------+------+------+------+-------|
+ * | Tab   |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '    |
+ * |-------+------+------+------+------+------|------+------+------+------+------+-------|
+ * |Sft/Cps|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |ENT/SFT|
+ * |-------+------+------+------+------+------+------+------+------+------+------+-------|
+ * | LCTRL | LGUI | ALT  | ALT  | SUB  | SHIFT| SPACE| SUP  | RGUI | RALT | DEL  | CTRL  |
+ * `-------------------------------------------------------------------------------------'
  */
-
-[_QW] = { /* QWERTY */
+[_QW] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {TD(TD_SFT_CAPS),
-			KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT)},
-  {KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, MO(_LW), KC_LSFT, KC_SPC,  MO(_RS), KC_LALT, KC_RGUI, KC_DEL,  KC_RCTL}
+  {TD(TD_SFT_CAPS), 
+            KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT) },
+  {KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER,  KC_LSFT, KC_SPC,  SUPRA,   KC_RGUI, KC_RALT, KC_DEL,  KC_RCTL}
 },
 
-[_LW] = { /* LOWER */
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______},
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______},
-  {_______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, DF(_GK), _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-[_RS] = { /* RAISE */
-  {RESET,   _______, KC_UP,   _______, KC_INS,  _______, _______, KC_PGUP, KC_HOME, KC_MINS, KC_EQL,  KC_DEL },
-  {_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, _______, _______, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC, KC_BSLS},
-//no music line
-//  {_______, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-//enable music
-  {_______, KC_PAUS, _______, _______, _______, _______, _______, DF(7),   _______, _______, _______, _______},  
-  {_______, _______, DF(_QW), _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-[nada] = { /*nothing layer for use with music mode */
-  {MU_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},  
-  {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_QW), MU_ON}
-},
-
- /* myGherkin 
+/* Gherkin
  * .-----------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |
+ * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      |        |
- * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | A      | S      | D      | F      | G      | H      | J      | K      | L      | ENTER  |        |
+ * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | ENTER  |  '     |
  * |        |        |        |        |        |        |        |        |        |        |SFThold |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | Z      | X      | C      | V/gNUM | B/gETC | N      | M/gDIR | ,/GUI  | ./ALT  | BKSC   |        |
+ * |SFT/CAPS| Z      | X      | C      | V/gNUM | B/gETC | N      | M/gDIR | ,/GUI  | ./ALT  | BKSC   | ENT/SFT|
  * |        |SFThold |        |        |        |        |        |        |        |        |CTRLhold|        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * | LCTRL  | LGUI   | ALT    | ALT    | gNUM   | gETC   | SPACE  | gDIR   | RGUI   | ALT    | DEL    | CTRL   |
  * '-----------------------------------------------------------------------------------------------------------'
  */
+[_GK] = {
+  { KC_ESC, TD(TD_Q_ESC),   KC_W,    KC_E,    KC_R,           KC_T,          KC_Y,  KC_U,            KC_I,           KC_O,          KC_P,           KC_BSPC    },
+  { KC_TAB, KC_A,           KC_S,    KC_D,    KC_F,           KC_G,          KC_H,  KC_J,            KC_K,           KC_L,          SFT_T(KC_SPC),  KC_QUOT    },
+  { TD(TD_SFT_CAPS), 
+			SFT_T(KC_Z),    KC_X,    KC_C,    LT(gNUM, KC_V), LT(gETC, KC_B),KC_N,  LT(gDIR, KC_M),  GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT)},
+  {KC_LCTL, KC_LGUI,        KC_LALT, KC_LALT, gNUMBER,        gETCETERA,     KC_SPC,gDIRECTION,      KC_RGUI,        KC_RALT,       KC_DEL,         KC_RCTL}
+},
 
- [_GK] = { /* myGherkin*/
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  { XXXXXXX, TD(TD_Q_ESC), KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,	   XXXXXXX},
-  { XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G, KC_H,    KC_J,    KC_K,    KC_L,   SFT_T(KC_SPC),       XXXXXXX},
-  { XXXXXXX, SFT_T(KC_Z),    KC_X,    KC_C,    LT(gNUM, KC_V), LT(gETC, KC_B), KC_N, LT(gDIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), XXXXXXX}
- },
-
-
-/*
- *  myGherkin Directional Modifiers
+/* myGherkin Directional Modifiers
  * .-----------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |        | TAB    |   up   |        | INS    | CTRL   | SHIFT  | PgUp   | HOME   |  -     |  =     | DEL    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | TAB    |   up   |        | INS    |  CTRL  | SHIFT  | PgUp   | HOME   |  -     |  =     |        |
+ * |        | left   |  down  | right  | PrScr  | SHIFT  | CTRL   | PgDn   | END    |  [     |  ]     |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | left   |  down  | right  | PrScr  | SHIFT  |  CTRL  | PgDn   | END    |  [     |  ]     |        |
+ * |        | P-Brk  |        |        |        |        |        |        | RGUI   | ALT    |  /     |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        | QWERTY |        |        |        |        |        |        | ALT    |  /     |        |
+ * |        |        | qwerty |        |        |        |        |        |        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
  */
 
  [gDIR] = { /* myGherkin Directional Modifiers */
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, KC_TAB,  KC_UP,   KC_TRNS, KC_INS,  KC_LCTL, KC_LSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL , _______  },
-  { _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_LCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC, _______  },
-  { _______, _______, DF(_QW), _______, _______, _______, _______, _______, _______, KC_LALT, KC_SLSH, _______  }
+  { _______, KC_TAB,  KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL , KC_DEL   },
+  { _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_RCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC, _______  },
+  { _______, KC_PAUS, _______, _______, _______, _______, _______, _______, KC_RGUI, KC_RALT, KC_SLSH, _______  },
+  { _______, _______, QWERTY,  _______, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
 
- /*
-  *  myGherkin Numbers
-  * .-----------------------------------------------------------------------------------------------------------.
-  * |        |        |        |        |        |        |        |        |        |        |        |        |
-  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-  * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    |        |
-  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-  * |        | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
-  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-  * |        | F11    | F12    |        |        |        | ENTER  | SHIFT  | SUPER  | ./ALT  | BKSC   |        |
-  * |        |        |        |        |        |        |        |        |        |        |CTRLhold|        |
-  * '-----------------------------------------------------------------------------------------------------------'
-  */
+/* myGherkin Numbers
+ * .-----------------------------------------------------------------------------------------------------------.
+ * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | F11    | F12    |        |        |        | ENTER  | SHIFT  | RGUI   | ./ALT  | BKSC   |        |
+ * |        |        |        |        |        |        |        |        |        |        |CTRLhold|		   |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        |        |        |        |        |        | ENTER  | SHIFT  | RGUI   |        |        |        |
+ * '-----------------------------------------------------------------------------------------------------------'
+ */
 
-  [gNUM] = { /* myGherkin Numbers */
-   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-   { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______  },
-   { _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______  },
-   { _______, KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_TRNS, KC_ENT,  KC_LSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC), _______  }
-  },
+ [gNUM] = { /* myGherkin Numbers */
+  { _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______  },
+  { _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______  },
+  { _______, KC_F11,  KC_F12,  _______, _______, _______, KC_ENT,  KC_RSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC), _______  },
+  { _______, _______, _______, _______, _______, _______, KC_ENT,  KC_RSFT, KC_RGUI, _______, _______, _______  },
+ },
 
+/* myGherkin ETC
+ * .-----------------------------------------------------------------------------------------------------------.
+ * | RESET  |  `     | mUP    |        |        |        | SHIFT  | mUp    | mDown  |        |  \     | DEL    |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | mLeft  | mDown  | mRight |        | SHIFT  |        | mBtn1  | mBtn2  |  ;     |  '     |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | Sft//Cp|        |        |        |        | C-A-D  |        |        | ALT    |  DEL   |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        |        |        |        |        |        | C-A-D  |        |        |        |        |        |
+ * '-----------------------------------------------------------------------------------------------------------'
+ */
 
-  /*
-   *  myGherkin ETC
-   * .-----------------------------------------------------------------------------------------------------------.
-   * |        |        |        |        |        |        |        |        |        |        |        |        |
-   * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-   * |        |  `     |        |        |        |        | RESET  |        |        |        |  \     |        |
-   * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-   * |        | CAPS   | P-Brk  |        |        |        |        |        |        |  ;     |  '     |        |
-   * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-   * |        | SHIFT  |        |        |        |        | C-A-D  |        | SUPER  |        |  DEL   |        |
-   * '-----------------------------------------------------------------------------------------------------------'
-   */
+ [gETC] = { /* myGherkin ETC */
+  { RESET,   KC_GRV,  KC_MS_U, _______, _______, _______, KC_RSFT, _______, _______, _______, KC_BSLS, KC_DEL   },
+  { _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_TRNS, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT, _______  },
+  { _______, TD(TD_SFT_CAPS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_LALT, KC_DEL,  _______  },
+  { _______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______  },
+ },
 
-   [gETC] = { /* myGherkin ETC */
-    { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-    { _______, KC_GRV,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS, _______  },
-    { _______, KC_CAPS, KC_PAUS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SCLN, KC_QUOT, _______  },
-    { _______, KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_TRNS, KC_LGUI, KC_TRNS, KC_DEL, _______  }
-    
-   },
+/* SUB
+ * .-----------------------------------------------------------------------------------------------------------.
+ * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |    `   | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | F11    | F12    |        |        |        |        |musicOFF| RGUI   | ./ALT  | BKSC   |        |
+ * |        |        |        |        |        |        |        |        |        |        |CTRLhold|		   |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        |        | gherkin|        |        |        | ENTER  | SHIFT  |        |        |        |        |
+ * '-----------------------------------------------------------------------------------------------------------'
+ */
+[SUB] = {
+  { _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,  KC_F7,   KC_F8,  KC_F9,          KC_F10,         _______  },
+  { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,   KC_9,           KC_0,           _______  },
+  { _______, KC_F11,  KC_F12,  _______, _______, _______, _______, MU_OFF,  KC_RGUI,ALT_T(KC_DOT),  CTL_T(KC_BSPC), _______  },
+  { _______, _______, GHERKIN, _______, _______, _______, KC_ENT,  KC_LSFT, _______, _______,       _______,        _______  }
+},
 
+/* SUPRA
+ * .-----------------------------------------------------------------------------------------------------------.
+ * | RESET  | TAB    |   up   |        | INS    | CTRL   | SHIFT  | PgUp   | Home   |   -    |   =    |  DEL   |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        |  left  |  down  | right  | PrScr  | SHIFT  | CTRL   | PgDn   | End    |   [    |   ]    |   \    |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        | P-Brk  |        |        |        |        |        | musicON| RGUI   | ALT    |        |        |
+ * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+ * |        |        |        |        |        |        |        |        |        |        |        |        |
+ * '-----------------------------------------------------------------------------------------------------------'
+ */
+[SUP] = {
+  { RESET,   KC_TAB,  KC_UP,   _______, KC_INS,  KC_LCTL, KC_RSFT, KC_PGUP, KC_HOME, KC_MINS, KC_EQL,  KC_DEL   },
+  { _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PSCR, KC_LSFT, KC_RCTL, KC_PGDN, KC_END,  KC_LBRC, KC_RBRC, KC_BSLS  },
+  { _______, KC_PAUS, _______, _______, _______, _______, _______, MU_ON,   KC_RGUI, KC_RALT, _______, _______  },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  }
+},
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        print("mode just switched to qwerty and this is a huge string\n");
+        set_single_persistent_default_layer(_QW);
+      }
+      return false;
+      break;
+    case GHERKIN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_GK);
+      }
+      return false;
+      break;
+    case SUBTER:
+      if (record->event.pressed) {
+        layer_on(SUB);
+      } else {
+        layer_off(SUB);
+      }
+      return false;
+      break;
+    case SUPRA:
+      if (record->event.pressed) {
+        layer_on(SUP);
+      } else {
+        layer_off(SUP);
+      }
+      return false;
+      break;
+	case gNUMBER:
+      if (record->event.pressed) {
+        layer_on(gNUM);
+
+      } else {
+        layer_off(gNUM);
+      }
+      return false;
+      break;
+	case gDIRECTION:
+      if (record->event.pressed) {
+        layer_on(gDIR);
+
+      } else {
+        layer_off(gDIR);
+      }
+      return false;
+      break;
+	case gETCETERA:
+      if (record->event.pressed) {
+        layer_on(gETC);
+
+      } else {
+        layer_off(gETC);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
