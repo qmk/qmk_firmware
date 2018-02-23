@@ -34,7 +34,7 @@ extern uint8_t is_master;
 #define _RAISE 4
 #define _ADJUST 16
 
-#define DisplayOffFromLastKeyPressed 30 * 1000
+#define DisplayOffFromLastKeyPressed 5000 // msec
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -564,9 +564,9 @@ static void render_logo(struct CharacterMatrix *matrix) {
   matrix_write(matrix, logo);
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
   // debug start
-  // char elapsed[40];
-  // snprintf(elapsed, sizeof(elapsed), "\n%d", timer_elapsed(last_key_pressed) / 1000);
-  // matrix_write(matrix, elapsed);
+  char elapsed[40];
+  snprintf(elapsed, sizeof(elapsed), "\n%d", timer_elapsed(last_key_pressed) / 1000);
+  matrix_write(matrix, elapsed);
   // debug end
 }
 
@@ -606,14 +606,11 @@ void render_status(struct CharacterMatrix *matrix) {
            matrix_write(matrix, buf);
     }
 
-  // // debug start
-  // char elapsed[40];
-  // // snprintf(elapsed, sizeof(elapsed), "\n%04d", timer_elapsed(last_key_pressed));
-  // if ((timer_elapsed(last_key_pressed) % 100) == 0) {
-  //   snprintf(elapsed, sizeof(elapsed), "\n%04d", timer_elapsed(last_key_pressed) / 100);
-  // }
-  // matrix_write(matrix, elapsed);
-  // // debug end
+  // debug start
+  char elapsed[40];
+  snprintf(elapsed, sizeof(elapsed), "\n%d", timer_elapsed(last_key_pressed) / 1000);
+  matrix_write(matrix, elapsed);
+  // debug end
 
   // Host Keyboard LED Status
   char led[40];
@@ -621,7 +618,7 @@ void render_status(struct CharacterMatrix *matrix) {
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(matrix, led);
+  // matrix_write(matrix, led);
 }
 
 
