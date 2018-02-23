@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,  KC_T, KC_LBRACKET,
   KC_ESC,   KC_A,    KC_S,    KC_D,    KC_F,  KC_G,
   KC_LSPO,  KC_Z,    KC_X,    KC_C,    KC_V,  KC_B, KC_FN1,
-  TG(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
+  NUM,      KC_LCTL, KC_LALT, KC_LGUI, LOWER,
 
                                                   KC_MPLY,  TG(_MOUSE),
                                                             KC_LALT,
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_QUOT,   KC_COMM, KC_DOT,  KC_P,  KC_Y, KC_LBRACKET,
   KC_ESC,   KC_A,      KC_O,    KC_E,    KC_U,  KC_I,
   KC_LSPO,  KC_SCOLON, KC_Q,    KC_J,    KC_K,  KC_X, KC_FN1,
-  TG(_NUM), KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
+  NUM,      KC_LCTL,   KC_LALT, KC_LGUI, LOWER,
 
                                                   KC_MPLY,  TG(_MOUSE),
                                                             KC_LALT,
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,    KC_D,    KC_R,    KC_W,    KC_B, KC_LBRACKET,
   KC_ESC,   KC_A,    KC_S,    KC_H,    KC_T,    KC_G,
   KC_LSPO,  KC_Z,    KC_X,    KC_M,    KC_C,    KC_V, KC_FN1,
-  TG(_NUM), KC_LCTL, KC_LALT, KC_LGUI, LOWER,
+  NUM,      KC_LCTL, KC_LALT, KC_LGUI, LOWER,
 
                                                   KC_MPLY,  TG(_MOUSE),
                                                             KC_LALT,
@@ -511,7 +511,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-      break;
+    case NUM:
+      if (record->event.pressed) {
+        layer_on(_NUM);
+      } else {
+        layer_off(_NUM);
+      }
+      return false;
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
