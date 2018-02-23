@@ -1,22 +1,23 @@
-# Bépo compatible keymap for the Ergodox EZ, *TypeMatrix* style.
+# Ergodox EZ Layout by bpruitt-goddard
+![Layout Image](https://i.imgur.com/7vRFdZm.png)
 
-This keymap is meant to be used with a [Bépo](http://bepo.fr) layout. It is
-designed to be somewhat similar to a TypeMatrix keyboard so that switching
-between one and the other is easy.
+[KLE link](http://www.keyboard-layout-editor.com/#/gists/5896c5a729a64633d3f63de71e7e0e79)
 
-![The Keymap](https://i.imgur.com/yChIbaK.png)
+## Layers
+| Layer | Legend |
+| ----- | ------ |
+| Base  |  Top (black) |
+| Num | Center (blue) |
+| QWERTY | Bottom (Red) |
+| MAC | Front/Bottom-most (Yellow) |
 
-## Build instruction
-
-To build this on Windows, under Cygwin, provided that you have installed the
-Arduino environment and Teensy loaded in the default path, you can do:
-
-```shell
-PATH=/cygdrive/c/Program\ Files\ \(x86\)/Arduino/hardware/tools/avr/bin:$PATH
-make ergodox_ez:bepo_tm_style:all
-```
-
-## Debug
-
-See https://github.com/tmk/tmk_keyboard#magic-commands for command that can help
-debug, together with the hid_listen tool (https://docs.qmk.fm/faq_debug.html).
+## Features
+* Tap-dance dynamic macro key.
+  * Tap twice for starting macro. Then tap once to complete the macro
+  * Tap one for replaying macro
+* Numpad on right hand with momentary Num layer
+* QWERTY layer for non-dvorak users
+* Mac layer for changing thumbpad modifier keys with Command
+* Uses the following dual function keys
+    * Space Cadet shifts (shift/paren)
+    * Ctrl/Esc
