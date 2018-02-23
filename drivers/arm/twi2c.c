@@ -92,7 +92,7 @@ I2CSlaveMsg initialReply =
 
 // Response to received messages
 I2CSlaveMsg echoReply = {  /* this is in RAM so size may be updated */
-  0,                    /* filled in with the length of the message to send */
+  MATRIX_ROWS / 2,                    /* filled in with the length of the message to send */
   txBody,               /* Response message */
   NULL,                 /* do nothing special on address match */
   clearAfterSend,       /* Clear receive buffer once replied */
@@ -140,8 +140,8 @@ void twi2c_slave_message_process(I2CDriver *i2cp) {
 
   // size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
 
-  memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
-  // matrix_copy(txBody);
+  // memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
+  matrix_copy(txBody);
 
   echoReply.size =  MATRIX_ROWS / 2;
   i2cSlaveReplyI(i2cp, &echoReply);
@@ -153,8 +153,8 @@ void twi2c_slave_message_process(I2CDriver *i2cp) {
  */
 void clearAfterSend(I2CDriver *i2cp)
 {
-  echoReply.size = 0;               // Clear receive message
-  i2cSlaveReplyI(i2cp, &initialReply);
+  // echoReply.size = 0;               // Clear receive message
+  // i2cSlaveReplyI(i2cp, &initialReply);
 }
 
 
@@ -179,13 +179,16 @@ void twi2c_slave_init(void) {
   I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
 #endif
 
-  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
-  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
+  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
+
+  memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
+
+  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
 
   // Enable match address after everything else set up
-  // i2cMatchAddress(&I2C_DRIVER, slaveI2Caddress/2);
+  i2cMatchAddress(&I2C_DRIVER, slaveI2Caddress/2);
 //  i2cMatchAddress(&I2C_DRIVER, myOtherI2Caddress/2);
- i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
+ // i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
 
   printf("Slave I2C started\n\r");
 

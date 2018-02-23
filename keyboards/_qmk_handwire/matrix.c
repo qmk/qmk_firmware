@@ -135,8 +135,8 @@ void matrix_scan_master(void) {
 
   msg_t resp;
   // resp = twi2c_master_send(slaveI2Caddress/2, command, 2, other_matrix, US2ST(100));
-  // resp = i2cMasterTransmitTimeout(&I2C_DRIVER, slaveI2Caddress/2, command, 2, other_matrix, MATRIX_ROWS / 2, US2ST(100));
-  resp = i2cMasterReceiveTimeout(&I2C_DRIVER, slaveI2Caddress/2, other_matrix, MATRIX_ROWS / 2, US2ST(100));
+  resp = i2cMasterTransmitTimeout(&I2C_DRIVER, slaveI2Caddress/2, command, 2, other_matrix, MATRIX_ROWS / 2, MS2ST(100));
+  // resp = i2cMasterReceiveTimeout(&I2C_DRIVER, slaveI2Caddress/2, other_matrix, MATRIX_ROWS / 2, US2ST(100));
   // printf("%x\n", resp);
   // if (resp != MSG_OK) {
   //   for (i = 0; i < MATRIX_ROWS / 2; i++) {
