@@ -179,13 +179,13 @@ void twi2c_slave_init(void) {
   I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
 #endif
 
-  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
-  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
+  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
+  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
 
   // Enable match address after everything else set up
-  i2cMatchAddress(&I2C_DRIVER, slaveI2Caddress/2);
+  // i2cMatchAddress(&I2C_DRIVER, slaveI2Caddress/2);
 //  i2cMatchAddress(&I2C_DRIVER, myOtherI2Caddress/2);
- // i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
+ i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
 
   printf("Slave I2C started\n\r");
 
