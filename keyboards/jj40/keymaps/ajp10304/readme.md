@@ -1,4 +1,5 @@
-# AJP10304 Custom Planck Layout
+# AJP10304 Custom JJ40 Layout
+###Based on my Planck layout of the same name.
 
 **Note:** In the tables below where there are two characters on a key, 
 the second is the output when shift is applied.
@@ -84,3 +85,7 @@ To finish the recording, press STOP. To replay the macro, press either PLAY1 or 
 |       |      |      |      |      | PLAY1| PLAY2|      |      |      |      |      |
 |       |      |      |      |      | STOP | STOP |      |      |      |      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
+
+
+####Manual Flashing of hex file
+`bootloadHID -r .build/jj40_ajp10304.hex`
