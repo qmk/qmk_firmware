@@ -9,22 +9,22 @@ EXTRAKEY_ENABLE = yes           # Audio control and System control(+450)
 CONSOLE_ENABLE = no             # Console for debug(+400)
 COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = yes               # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes           # Enable keyboard backlight functionality
 MIDI_ENABLE = no                # MIDI controls
-AUDIO_ENABLE = yes               # Audio output on port C6
+AUDIO_ENABLE = yes              # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
 BLUETOOTH_ENABLE = no           # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not qmk base
+RGBLIGHT_ENABLE = yes           # Enable RGB underlight
+RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not WS2812
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = no
 
-ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled
-WATCHDOG_ENABLE = no            # Resets keyboard if matrix_scan isn't run every 250ms
-CAPSLOCK_LED = no              # Toggle back light LED of Caps Lock
+ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
+WATCHDOG_ENABLE = no		# Resets keyboard if matrix_scan isn't run every 250ms
+
 
 ifndef QUANTUM_DIR
-    include ../../../../Makefile
+	include ../../../../Makefile
 endif
 
 ifeq ($(strip $(ISSI_ENABLE)), yes)
@@ -35,13 +35,20 @@ ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
     TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 endif
 
-ifeq ($(strip $(CAPSLOCK_LED)), yes)
-    TMK_COMMON_DEFS += -DCAPSLOCK_LED
-endif
 
-# Override the LFK78 hardware version:
+# Override the LFK87 hardware version.
 #
-# B   - first public release, uses atmega32u4, has audio, ISSI matrix split between RGB and backlight
-# C-H - at90usb1286, no audio, ISSI device 0 is backlight, 4 is RGB
-# J   - at90usb646, C6 audio, ISSI device 0 is backlight, 4 is RGB
-# LFK_REV = J
+# A - Green PCB. at90usb1286 Only 3 exist
+# B - We don't talk about RevB
+# C-D - Black PCB. at90usb646 First public release
+#
+# LFK_REV = C
+
+# ifeq ($(LFK_REV), A)
+# 	MCU = at90usb1286
+# 	OPT_DEFS += -DBOOTLOADER_SIZE=8192
+# else
+# 	MCU = at90usb646
+# 	OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# endif
+# OPT_DEFS += -DLFK_TKL_REV_$(LFK_REV)
