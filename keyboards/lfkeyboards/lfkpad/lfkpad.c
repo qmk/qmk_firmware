@@ -1,34 +1,22 @@
 #include <avr/sfr_defs.h>
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
-#include "lfk78.h"
+#include "lfkpad.h"
 #include "keymap.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
 #include "debug.h"
-#include <audio/audio.h>
+#include "quantum.h"
 
 uint16_t click_hz = CLICK_HZ;
 uint16_t click_time = CLICK_MS;
 uint8_t click_toggle = CLICK_ENABLED;
 
+
 void matrix_init_kb(void)
 {
     matrix_init_user();
-
-    // Configure the Layer LED
-    // Set up 16 bit PWM: Fast PWM, mode 15, inverted
-    TCCR1A = 0b11111110;
-    TCCR1B = 0b00011001;
-    ICR1 = 0xFFFF;
-    // PWM values - 0xFFFF = off, 0x0000 = max
-    OCR1C = 0x0000; // B7 - Blue
-    OCR1B = 0x0000; // B6 - Green
-    OCR1A = 0x0FFF; // B5 - Red
-    // Set as output
-    DDRB |= 0b11100000;
-
 #ifndef AUDIO_ENABLE
     // If we're not using the audio pin, drive it low
     sbi(DDRC, 6);
@@ -75,24 +63,6 @@ void matrix_scan_kb(void)
         twi_last_ready++;
     }
 #endif
-    // Update layer indicator LED
-    //
-    // Not sure how else to reliably do this... TMK has the 'hook_layer_change'
-    // but can't find QMK equiv
-    static uint32_t layer_indicator = -1;
-    if(layer_indicator != layer_state){
-        for(uint32_t i=0;; i++){
-            // the layer_info list should end with layer 0xFFFFFFFF
-            // it will break this out of the loop and define the unknown layer color
-            if((layer_info[i].layer == (layer_state & layer_info[i].mask)) || (layer_info[i].layer == 0xFFFFFFFF)){
-                OCR1A = layer_info[i].color.red;
-                OCR1B = layer_info[i].color.green;
-                OCR1C = layer_info[i].color.blue;
-                layer_indicator = layer_state;
-                break;
-            }
-        }
-    }
     matrix_scan_user();
 }
 
@@ -145,11 +115,6 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 // Go back to default layer
                 layer_clear();
                 break;
-#ifdef ISSI_ENABLE
-            case LFK_LED_TEST:
-                led_test();
-                break;
-#endif
 #ifdef AUDIO_ENABLE
             case LFK_CLICK_FREQ_LOWER:
                 sign = -1;  // continue to next statement
@@ -175,12 +140,6 @@ void action_function(keyrecord_t *event, uint8_t id, uint8_t opt)
                 click(click_hz, click_time);
                 break;
 #endif
-            case LFK_DEBUG_SETTINGS:
-                dprintf("Click:\n");
-                dprintf("  toggle: %d\n", click_toggle);
-                dprintf("  freq(hz): %d\n", click_hz);
-                dprintf("  duration(ms): %d\n", click_time);
-                break;
         }
     }
 }
@@ -191,43 +150,27 @@ void reset_keyboard_kb(){
     wdt_disable();
     wdt_reset();
 #endif
-    OCR1A = 0x0000; // B5 - Red
-    OCR1B = 0x0FFF; // B6 - Green
-    OCR1C = 0x0FFF; // B7 - Blue
     reset_keyboard();
 }
 
 void led_set_kb(uint8_t usb_led)
 {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-#ifdef ISSI_ENABLE
-#ifdef CAPSLOCK_LED
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        activateLED(0, 3, 7, 255);
-    }else{
-        activateLED(0, 3, 7, 0);
-    }
-#endif // CAPSLOCK_LED
-#endif // ISS_ENABLE
     led_set_user(usb_led);
 }
 
 // LFK lighting info
-const uint8_t switch_matrices[] = {0, 1};
-const uint8_t rgb_matrices[] = {6, 7};
+const uint8_t rgb_matrices[] = {0, 1};
 const uint8_t rgb_sequence[] = {
-    12, 11, 10, 9, 16, 32, 31, 30, 28, 25, 24, 22, 21,
-    20, 19, 18, 17, 1, 2, 3, 4, 5, 6, 7, 8, 14, 13
+    32,  1,  2,  3,
+    31, 30,  5,  6,
+    28, 27,  7,  8,
+    17, 18,  9,
+    19, 21, 11, 12,
+      22,   14,
+
+    16,         26,
+     4,         25,
+    13,         24,
+          20
+
 };
-// Maps switch LEDs from Row/Col to ISSI matrix.
-// Value breakdown:
-//     Bit     | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-//            /    \ ISSI Col  |    ISSI Row   |
-//          matrix idx
-const uint8_t switch_leds[MATRIX_ROWS][MATRIX_COLS] =
-KEYMAP(
-  0x19, 0x18,   0x17, 0x16, 0x15, 0x14, 0x13, 0x12, 0x11, 0x99, 0x98, 0x97, 0x96, 0x95, 0x94,   0x93,   0x92, 0x91,
-  0x29, 0x28,    0x27,  0x26, 0x25, 0x24, 0x23, 0x22, 0x21, 0xA9, 0xA8, 0xA7, 0xA6, 0xA5, 0xA4, 0xA3,   0xA2, 0xA1,
-  0x39, 0x38,      0x37,  0x36, 0x35, 0x34, 0x33, 0x32, 0x31, 0xB9, 0xB8, 0xB7, 0xB6, 0xB5,     0xB3,
-  0x49, 0x48,    0x47,     0x45, 0x44, 0x43, 0x42, 0x41, 0xC9, 0xC8, 0xC7, 0xC6, 0xC5,          0xC4,   0xC2,
-  0x59, 0x58,   0x57,  0x56,  0x55,             0x51,                   0xD6, 0xE5, 0xE4,         0xE3, 0xE2, 0xE1);
