@@ -23,10 +23,6 @@
 #include "printf.h"
 #include "matrix.h"
 
-#ifndef I2C_DRIVER
-	#define I2C_DRIVER I2CD1
-#endif
-
 /**
  * I2C slave test routine.
  *
@@ -37,8 +33,13 @@
  *  b) A write then read transaction - calls a message processor and returns the generated reply.
  *          Stretches clock until reply available.
  */
+// static const I2CConfig masterI2CConfig = {
+//   400000
+// };
 
-static const I2CConfig uniI2CConfig = {
+I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
+
+static const I2CConfig slaveI2CConfig = {
   STM32_TIMINGR_PRESC(15U) |
   STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
   STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
@@ -52,7 +53,7 @@ char initialReplyBody[50] = "Initial reply";        // 'Status' response if read
 
 uint32_t messageCounter = 0;                /* Counts number of messages received to return as part of response */
 
-uint8_t  rxBody[240];                       /* stores last message master sent us (intentionally a few bytes smaller than txBody) */
+uint8_t  rxBody[2];                       /* stores last message master sent us (intentionally a few bytes smaller than txBody) */
 uint8_t  txBody[MATRIX_ROWS/2];                       /* Return message buffer for computed replies */
 
 BaseSequentialStream *chp = NULL;           // Used for serial logging
@@ -68,15 +69,25 @@ const I2CSlaveMsg echoRx =
 };
 
 
-// 'Empty' reply when nothing to say, and no message received. In RAM, to allow update
+// // 'Empty' reply when nothing to say, and no message received. In RAM, to allow update
 I2CSlaveMsg initialReply =
 {
-  sizeof(initialReplyBody),  /* trailing zero byte will be repeated as needed */
+  sizeof(initialReplyBody),   /* trailing zero byte will be repeated as needed */
   (uint8_t *)initialReplyBody,
   NULL,                 /* do nothing on address match */
   NULL,                 /* do nothing after reply sent */
   catchError            /* Error hook */
 };
+
+// // 'Empty' reply when nothing to say, and no message received. In RAM, to allow update
+// I2CSlaveMsg initialReply =
+// {
+//   0,  /* trailing zero byte will be repeated as needed */
+//   NULL,
+//   NULL,                 /* do nothing on address match */
+//   NULL,                 /* do nothing after reply sent */
+//   catchError            /* Error hook */
+// };
 
 
 // Response to received messages
@@ -129,7 +140,8 @@ void twi2c_slave_message_process(I2CDriver *i2cp) {
 
   // size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
 
-  matrix_copy(txBody);
+  memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
+  // matrix_copy(txBody);
 
   echoReply.size =  MATRIX_ROWS / 2;
   i2cSlaveReplyI(i2cp, &echoReply);
@@ -162,17 +174,18 @@ void twi2c_slave_init(void) {
   palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
 
 
-  i2cStart(&I2C_DRIVER, &uniI2CConfig);
+  i2cStart(&I2C_DRIVER, &slaveI2CConfig);
 #if HAL_USE_I2C_SLAVE
   I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
 #endif
 
-  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
+  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
+  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
 
   // Enable match address after everything else set up
   i2cMatchAddress(&I2C_DRIVER, slaveI2Caddress/2);
 //  i2cMatchAddress(&I2C_DRIVER, myOtherI2Caddress/2);
-//  i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
+ // i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
 
   printf("Slave I2C started\n\r");
 
@@ -186,9 +199,18 @@ void twi2c_slave_task(void) {
 }
 
 void twi2c_master_init(void) {
-  i2cStart(&I2C_DRIVER, &uniI2CConfig);
-}
 
-msg_t twi2c_master_send(i2caddr_t address, const uint8_t * txbuf, uint8_t * rxbuf, systime_t timeout) {
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, address, txbuf, sizeof(txbuf), rxbuf, sizeof(rxbuf), timeout);
+  palSetGroupMode(GPIOB,8,9, PAL_MODE_INPUT);       // Try releasing special pins for a short time
+  chThdSleepMilliseconds(10);
+
+  palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+  palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+
+  i2cStart(&I2C_DRIVER, &slaveI2CConfig);
+
+  // try high drive (from kiibohd)
+  // I2C_DRIVER.i2c->C2 |= I2Cx_C2_HDRS;
+  // try glitch fixing (from kiibohd)
+  // I2C_DRIVER.i2c->FLT = 4;
+
 }

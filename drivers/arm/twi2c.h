@@ -17,6 +17,10 @@
 #include "ch.h"
 #include "hal.h"
 
+#ifndef I2C_DRIVER
+  #define I2C_DRIVER I2CD1
+#endif
+
 #define slaveI2Caddress  0x30       /* Address in our terms - halved by later code */
 //#define myOtherI2Caddress 0x19
 
@@ -25,4 +29,3 @@ I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
 void twi2c_slave_init(void);
 
 void twi2c_master_init(void);
-msg_t twi2c_master_send(i2caddr_t address, const uint8_t * txbuf, uint8_t * rxbuf, systime_t timeout);
