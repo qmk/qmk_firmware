@@ -7,7 +7,7 @@
 #define _BL  0
 #define _HLa 1
 #define _HLb 2
-#define _HL  3
+#define _HL  3  
 #define _XL  4
 
 enum hype_keycodes {
