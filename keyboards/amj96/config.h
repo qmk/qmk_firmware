@@ -22,11 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x6074
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Han Chen
-#define PRODUCT         amj96
-#define DESCRIPTION     A custom keyboard
+#define PRODUCT         AMJ96
+#define DESCRIPTION     96 key custom keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 7
