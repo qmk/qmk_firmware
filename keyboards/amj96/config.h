@@ -49,9 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -186,5 +186,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
+
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 16
+#define RGB_DI_PIN D6
 
 #endif
