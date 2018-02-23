@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
@@ -21,6 +22,8 @@ enum dz60_keycodes {
 };
 >>>>>>> New DZ60 Keymap
 >>>>>>> New DZ60 Keymap
+=======
+>>>>>>> disabled locking caps lock again, and cleaned up my keymap for 60%
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
@@ -61,6 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> New DZ60 Keymap
 =======
@@ -74,5 +78,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 >>>>>>> More backlight settings and no tapdance in my keymap.
 =======
 >>>>>>> New DZ60 Keymap
+=======
+>>>>>>> disabled locking caps lock again, and cleaned up my keymap for 60%
     // Other declarations would go here, separated by commas, if you have them
 };
