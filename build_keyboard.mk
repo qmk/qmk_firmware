@@ -113,13 +113,14 @@ endif
 
 # We can assume a ChibiOS target When MCU_FAMILY is defined , since it's not used for LUFA
 ifdef MCU_FAMILY
+    FIRMWARE_FORMAT=bin
     PLATFORM=CHIBIOS
 else
     PLATFORM=AVR
+    FIRMWARE_FORMAT=hex
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/protocol/chibios.mk
     include $(TMK_PATH)/chibios.mk
     OPT_OS = chibios
     ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
@@ -195,7 +196,7 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
     include build_layout.mk
-else 
+else
     $(error Could not find keymap)
     # this state should never be reached
 endif
@@ -245,6 +246,10 @@ endif
     include $(TMK_PATH)/avr.mk
 endif
 
+ifeq ($(PLATFORM),CHIBIOS)
+    include $(TMK_PATH)/protocol/chibios.mk
+endif
+
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
     VISUALIZER_DIR = $(QUANTUM_DIR)/visualizer
     VISUALIZER_PATH = $(QUANTUM_PATH)/visualizer
@@ -270,7 +275,7 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf cphex
+build: elf cpfirmware
 #build: elf hex eep lss sym
 #build: lib
 
