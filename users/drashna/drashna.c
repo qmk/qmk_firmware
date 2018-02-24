@@ -48,7 +48,7 @@ float fauxclicky_pressed[][2]             = SONG(E__NOTE(_A6)); // change to you
 float fauxclicky_released[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
 #endif
 
-bool faux_click_enabled = true;
+bool faux_click_enabled = false;
 bool is_overwatch = false;
 #ifdef RGBLIGHT_ENABLE
 bool rgb_layer_change = true;
@@ -436,6 +436,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
       rgb_layer_change = !rgb_layer_change;
+      if (rgb_layer_change) {
+        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks beetter)
+      }
     }
 #endif // RGBLIGHT_ENABLE
     return false; break;

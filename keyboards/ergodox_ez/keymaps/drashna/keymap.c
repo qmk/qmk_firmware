@@ -245,9 +245,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SYMB] = LAYOUT_ergodox(
                 EPRM,           KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      TG(_MODS),
-                VRSN,           KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_WORKMAN,
+                KC_RESET,       KC_EXLM,    KC_AT,      KC_LCBR,    KC_RCBR,    KC_PIPE,    KC_WORKMAN,
                 KC_MAKE,        KC_HASH,    KC_DLR,     KC_LPRN,    KC_RPRN,    KC_GRAVE,
-                KC_RESET,       KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
+                VRSN,           KC_PERC,    KC_CIRC,    KC_LBRACKET,KC_RBRACKET,KC_TILD,    KC_COLEMAK,
                 KC_TRNS,        KC_AMPR,    KC_ASTR,    KC_COLN,    KC_SCOLON,
                                                                   RGB_SMOD, KC_RGB_T,
                                                                   RGB_HUI,
