@@ -37,7 +37,17 @@ enum planck_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  MUTESONG,
+  VOLTLD,
+  VOLTCO,
+  IMPERIAL,
+  ODE,
+  COIN,
+  SONIC,
+  ZELDAP,
+  ZELDAT,
+  ONEUP
 };
 
 //Tap Dance Declarations
@@ -71,11 +81,13 @@ enum {
 	//Voltron Legendary Defender Netflix opening song
 #define VOLTRON_LD_OPEN  \
 	QD_NOTE(_C4),  H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), Q__NOTE(_F4),  H__NOTE(_REST),\
-	H__NOTE(_AS4), H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), W__NOTE(_F4),  
-//	H__NOTE(_REST), H__NOTE(_G4), H__NOTE(_REST), H__NOTE(_B4), H__NOTE(_REST), W__NOTE(_C5),
+	H__NOTE(_AS4), H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), W__NOTE(_F4), H__NOTE(_REST), H__NOTE(_G4), H__NOTE(_REST), H__NOTE(_B4), H__NOTE(_REST), W__NOTE(_C5),
 
 #define STARTUP_SOUND_MUTE \
 	
+
+#define SHORT_SOUND \
+	S__NOTE(_C3),
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -95,10 +107,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,    KC_Q,      KC_W,      KC_E,      KC_R,            KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+  {KC_ESC,        KC_Q,      KC_W,      KC_E,      KC_R,            KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
   {CTL_T(KC_TAB), KC_A,      KC_S,      KC_D,      KC_F,            KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {TD(TD_QW), KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
-  {KC_LGUI,   TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {TD(TD_QW),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
+  {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Colemak
@@ -113,10 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_ESC,    KC_Q,      KC_W,      KC_F,      KC_P,            KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC},
+  {KC_ESC,        KC_Q,      KC_W,      KC_F,      KC_P,            KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC},
   {CTL_T(KC_TAB), KC_A,      KC_R,      KC_S,      KC_T,            KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {TD(TD_CO), KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
-  {KC_LGUI,   TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {TD(TD_CO),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
+  {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Dvorak
@@ -132,10 +144,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               Meh    Ctrl   Alt   Shift
  */
 [_DVORAK] = {
-  {KC_ESC,    KC_QUOT,    KC_COMM,   KC_DOT,    KC_P,            KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
+  {KC_ESC,        KC_QUOT,    KC_COMM,   KC_DOT,    KC_P,            KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
   {CTL_T(KC_TAB), KC_A,       KC_O,      KC_E,      KC_U,            KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS},
-  {TD(TD_DV), KC_SCLN,    KC_Q,      KC_J,      KC_K,            KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP},
-  {KC_LGUI,   TD(TD_MA),  TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {TD(TD_DV),     KC_SCLN,    KC_Q,      KC_J,      KC_K,            KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP},
+  {KC_LGUI,       TD(TD_MA),  TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Lower
@@ -168,8 +180,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, _______},
-  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, _______},
+  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,        XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, _______},
+  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,     XXXXXXX,    XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, _______},
   {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, _______},
   {_______, _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______}
 },
@@ -186,10 +198,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {KC_SLEP, RESET,   TD(TD_QW), TD(TD_CO), TD(TD_DV), XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______},
-  {_______, XXXXXXX, XXXXXXX,   AU_ON,     AU_OFF,    XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______},
-  {_______, MUV_DE,  MUV_IN,    MU_ON,     MU_OFF,    MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______},
-  {_______, _______, _______,   _______,   _______,   _______, _______, _______, _______, _______, _______, _______}
+  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______},
+  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
 
@@ -206,11 +218,20 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_lower[][2]      = SONG(TERMINAL_SOUND);
 float tone_raise[][2]      = SONG(UNICODE_WINDOWS);
-float tone_adjust[][2]       = SONG(COIN_SOUND);
+float tone_adjust[][2]     = SONG(COIN_SOUND);
 float tone_caps_off[][2]   = SONG(NUM_LOCK_OFF_SOUND);
 float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
 float tone_voltld[][2]     = SONG(VOLTRON_LD_OPEN);
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+float tone_voltco[][2]     = SONG(VOLTRON_CLASSIC_OPEN);
+float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
+float tone_short[][2]      = SONG(SHORT_SOUND);
+float tone_imperial[][2]   = SONG(IMPERIAL_MARCH);
+float tone_ode[][2]        = SONG(ODE_TO_JOY);
+float tone_coin[][2]       = SONG(COIN_SOUND);
+float tone_sonic[][2]      = SONG(SONIC_RING);
+float tone_zeldap[][2]     = SONG(ZELDA_PUZZLE);
+float tone_zeldat[][2]     = SONG(ZELDA_TREASURE);
+float tone_oneup[][2]      = SONG(ONE_UP_SOUND);
 #endif
 
 
@@ -223,27 +244,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        /*#ifdef AUDIO_ENABLE
+        #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
-        #endif*/
+        #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        /*#ifdef AUDIO_ENABLE
+        #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
-        #endif*/
+        #endif
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        /*#ifdef AUDIO_ENABLE
+        #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
-        #endif*/
+        #endif
 		persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
@@ -279,6 +300,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+	case MUTESONG:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_short);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case VOLTLD:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_voltld);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case VOLTCO:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_voltco);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case IMPERIAL:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_imperial);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case ODE:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_ode);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case COIN:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_coin);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case SONIC:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_sonic);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case ZELDAP:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_zeldap);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case ZELDAT:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_zeldat);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
+	case ONEUP:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_oneup);
+        #endif
+      } else { 
+      }
+      return false;
+      break;
   }
   return true;
 }
@@ -296,7 +407,7 @@ void matrix_init_user(void) {
 
 void startup_user()
 {
-   // _delay_ms(20); // gets rid of tick
+    //_delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
