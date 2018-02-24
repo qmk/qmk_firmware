@@ -1,4 +1,7 @@
 //TO DO: 
+//2.5 get working with ipad
+//3 insert î UC(0xEE), ä UC(0xE4), ø UC(0xF8) keys somewhere?
+//4 insert °, and math symbols/functions?
 
 
 
@@ -25,10 +28,7 @@ enum planck_layers {
   _DVORAK,
   _LOWER,
   _RAISE,
-  _ADJUST,
-  _TABL,
-  _ALPHAL,
-  _MINUSL
+  _ADJUST
 };
 
 enum planck_keycodes {
@@ -37,37 +37,20 @@ enum planck_keycodes {
   DVORAK,
   LOWER,
   RAISE,
-  TABL,
-  ALPHAL,
-  MINUSL,
-  BACKLIT,
-  MUTESONG,
-  VOLTLD,
-  VOLTCO,
-  IMPERIAL,
-  ODE,
-  COIN,
-  SONIC,
-  ZELDAP,
-  ZELDAT,
-  ONEUP
+  BACKLIT
 };
 
 //Tap Dance Declarations
 
 enum {
 
-  TD_DV,       //Dvorak layer tap, ALPHAL hold
+  TD_DV,       //Dvorak layer tap, super hold
   TD_SFT_CAPS, //Capslock tap, shift hold
   TD_AL,       //Lower layer tap, alt hold
   TD_CR,       //Raise layer tap, ctrl hold
   TD_MA,       //Adjust layer tap, meh hold
-  TD_QW,       //Qwerty layer tap, ALPHAL hold
-  TD_CO,       //Colemak layer tap, ALPHAL hold
-  TD_TAB,       //Tab tap, TABL hold
-//  TD_ESC       //Esc tap, ESCL hold
-//  TD_SLASH     //Slash tap, SLASHL hold
-  TD_MINUS     //Minus tap, MINUSL hold
+  TD_QW,       //Qwerty layer tap, super hold
+  TD_CO,       //Colemak layer tap, super hold
 
 };
 
@@ -88,13 +71,10 @@ enum {
 	//Voltron Legendary Defender Netflix opening song
 #define VOLTRON_LD_OPEN  \
 	QD_NOTE(_C4),  H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), Q__NOTE(_F4),  H__NOTE(_REST),\
-	H__NOTE(_AS4), H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), W__NOTE(_F4), H__NOTE(_REST), H__NOTE(_G4), H__NOTE(_REST), H__NOTE(_B4), H__NOTE(_REST), W__NOTE(_C5),
+	H__NOTE(_AS4), H__NOTE(_REST), QD_NOTE(_G4), H__NOTE(_REST), W__NOTE(_F4),  
+//	H__NOTE(_REST), H__NOTE(_G4), H__NOTE(_REST), H__NOTE(_B4), H__NOTE(_REST), W__NOTE(_C5),
 
 #define STARTUP_SOUND_MUTE \
-	
-
-#define SHORT_SOUND \
-	S__NOTE(_C3),
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -114,10 +94,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,        KC_Q,      KC_W,      KC_E,      KC_R,            KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {TD(TD_TAB),    KC_A,      KC_S,      KC_D,      KC_F,            KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {TD(TD_QW),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
-  {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {KC_ESC,    KC_Q,      KC_W,      KC_E,      KC_R,            KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+  {CTL_T(KC_TAB), KC_A,      KC_S,      KC_D,      KC_F,            KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {TD(TD_QW), KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
+  {KC_LGUI,   TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Colemak
@@ -132,10 +112,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_ESC,        KC_Q,      KC_W,      KC_F,      KC_P,            KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC},
-  {TD(TD_TAB),    KC_A,      KC_R,      KC_S,      KC_T,            KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
-  {TD(TD_CO),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
-  {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {KC_ESC,    KC_Q,      KC_W,      KC_F,      KC_P,            KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC},
+  {CTL_T(KC_TAB), KC_A,      KC_R,      KC_S,      KC_T,            KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {TD(TD_CO), KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
+  {KC_LGUI,   TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Dvorak
@@ -151,10 +131,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               Meh    Ctrl   Alt   Shift
  */
 [_DVORAK] = {
-  {KC_ESC,        KC_QUOT,    KC_COMM,   KC_DOT,    KC_P,            KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
-  {TD(TD_TAB),    KC_A,       KC_O,      KC_E,      KC_U,            KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    TD(TD_MINUS)},
-  {TD(TD_DV),     KC_SCLN,    KC_Q,      KC_J,      KC_K,            KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP},
-  {KC_LGUI,       TD(TD_MA),  TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
+  {KC_ESC,    KC_QUOT,    KC_COMM,   KC_DOT,    KC_P,            KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
+  {CTL_T(KC_TAB), KC_A,       KC_O,      KC_E,      KC_U,            KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS},
+  {TD(TD_DV), KC_SCLN,    KC_Q,      KC_J,      KC_K,            KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP},
+  {KC_LGUI,   TD(TD_MA),  TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
 /* Lower
@@ -187,82 +167,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,        XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, _______},
-  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,     XXXXXXX,    XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, _______},
-  {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, _______},
-  {_______, _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______}
+  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,       LGUI(LSFT(KC_3)), _______},
+  {_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,          XXXXXXX, XXXXXXX, LGUI(KC_UP),   LGUI(KC_LEFT),    _______},
+  {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), LGUI(KC_Z), LGUI(LSFT(KC_Z)), XXXXXXX, XXXXXXX, LGUI(KC_DOWN), LGUI(KC_RGHT),    _______},
+  {_______, _______,    _______,    _______,    _______,    _______,    _______,          _______, _______, _______,       _______,          _______}
 },
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Sleep | Reset|Qwerty|Colemk|Dvorak|      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
+ * |Sleep | Reset|Qwerty|Colemk|Dvorak|      |      |  F1  |  F2  |  F3  |  F4  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |VolDn |
+ * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|  F9  |  F10 |  F11 |  F12 |Mute  |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|  F9  |  F10 |  F11 |  F12 |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_VOLU},
-  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_VOLD},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MUTE},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-/* Tab
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      | Home | Up   | End  |Pg Up |VolUp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | Left | Down |Right |Pg Dn |VolDn |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | Undo | Redo |      |      |Mute  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_TABL] = {
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME,    KC_UP,      KC_END,  KC_PGUP, KC_VOLU},
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT,    KC_DOWN,    KC_RGHT, KC_PGDN, KC_VOLD},
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, XXXXXXX, KC_MUTE},
-  {_______, _______, _______, _______, _______, _______, _______, _______,    _______,    _______, _______, _______}
-},
-
-/* Alpha
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |   @  |   [  |   ]  |   &  |   ~  |   %  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |   \  |   (  |   )  |   !  |   ^  |   `  |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |   $  |   {  |   }  |   |  |   #  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_ALPHAL] = {
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_AT,   KC_LBRC, KC_RBRC, KC_AMPR, KC_TILD, KC_PERC},
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, KC_LPRN, KC_RPRN, KC_EXLM, KC_CIRC, KC_GRV },
-  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DLR,  KC_LCBR, KC_RCBR, KC_PIPE, KC_HASH, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-
-/* Minus
- * ,-----------------------------------------------------------------------------------.
- * |NUMLK |   -  |   7  |   8  |   9  |   /  |      |      |      |      |      |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   +  |   4  |   5  |   6  |   *  |      |      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   .  |   0  |   1  |   2  |   3  |   =  |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_MINUSL] = {
-  {KC_NLCK,   KC_MINS, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
-  {_______,   KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_ASTR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
-  {KC_KP_DOT, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______},
-  {_______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {KC_SLEP, RESET,   TD(TD_QW), TD(TD_CO), TD(TD_DV), XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______},
+  {_______, XXXXXXX, XXXXXXX,   AU_ON,     AU_OFF,    XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______},
+  {_______, MUV_DE,  MUV_IN,    MU_ON,     MU_OFF,    MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______},
+  {_______, _______, _______,   _______,   _______,   _______, _______, _______, _______, _______, _______, _______}
 }
 
 
@@ -279,20 +205,11 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_lower[][2]      = SONG(TERMINAL_SOUND);
 float tone_raise[][2]      = SONG(UNICODE_WINDOWS);
-float tone_adjust[][2]     = SONG(COIN_SOUND);
+float tone_adjust[][2]       = SONG(COIN_SOUND);
 float tone_caps_off[][2]   = SONG(NUM_LOCK_OFF_SOUND);
 float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
 float tone_voltld[][2]     = SONG(VOLTRON_LD_OPEN);
-float tone_voltco[][2]     = SONG(VOLTRON_CLASSIC_OPEN);
-float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-float tone_short[][2]      = SONG(SHORT_SOUND);
-float tone_imperial[][2]   = SONG(IMPERIAL_MARCH);
-float tone_ode[][2]        = SONG(ODE_TO_JOY);
-float tone_coin[][2]       = SONG(COIN_SOUND);
-float tone_sonic[][2]      = SONG(SONIC_RING);
-float tone_zeldap[][2]     = SONG(ZELDA_PUZZLE);
-float tone_zeldat[][2]     = SONG(ZELDA_TREASURE);
-float tone_oneup[][2]      = SONG(ONE_UP_SOUND);
+float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
@@ -305,27 +222,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
-        #endif
+        #endif*/
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
-        #endif
+        #endif*/
         persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
+        /*#ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
-        #endif
+        #endif*/
 		persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
@@ -350,30 +267,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case ALPHAL:
-      if (record->event.pressed) {
-        layer_on(_ALPHAL);
-      } else {
-        layer_off(_ALPHAL);
-      }
-      return false;
-      break;
-	case TABL:
-      if (record->event.pressed) {
-        layer_on(_TABL);
-      } else {
-        layer_off(_TABL);
-      }
-      return false;
-      break;
-	case MINUSL:
-      if (record->event.pressed) {
-        layer_on(_MINUSL);
-      } else {
-        layer_off(_MINUSL);
-      }
-      return false;
-      break;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -382,96 +275,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       } else {
         unregister_code(KC_RSFT);
-      }
-      return false;
-      break;
-	case MUTESONG:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_short);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case VOLTLD:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_voltld);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case VOLTCO:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_voltco);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case IMPERIAL:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_imperial);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case ODE:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_ode);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case COIN:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_coin);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case SONIC:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_sonic);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case ZELDAP:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_zeldap);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case ZELDAT:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_zeldat);
-        #endif
-      } else { 
-      }
-      return false;
-      break;
-	case ONEUP:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_oneup);
-        #endif
-      } else { 
       }
       return false;
       break;
@@ -492,7 +295,7 @@ void matrix_init_user(void) {
 
 void startup_user()
 {
-    //_delay_ms(20); // gets rid of tick
+   // _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
@@ -556,17 +359,7 @@ typedef struct {
   bool finished_once;
 } td_co_state_t;
 
-typedef struct {
-  bool alt;
-  bool finished_once;
-} td_tab_state_t;
-
-typedef struct {
-  bool alt;
-  bool finished_once;
-} td_minus_state_t;
-
-//TD ALPHAL on hold, dvorak layer on tap
+//TD shift on hold, dvorak layer on tap
 void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_dv_state_t *s = (td_dv_state_t *)user_data;
   
@@ -576,7 +369,7 @@ void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    layer_on(_ALPHAL);
+    register_code (KC_LSFT);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -599,7 +392,7 @@ void _td_dv_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_dv_state_t *s = (td_dv_state_t *)user_data;
 
   if (s->alt) {
-	layer_off(_ALPHAL);
+	unregister_code (KC_LSFT);
   } 
   
   s->finished_once = false;
@@ -754,8 +547,6 @@ void _td_ma_reset (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = false;
 }
 
-
-//TD ALPHAL on hold, qwerty layer on tap
 void _td_qw_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_qw_state_t *s = (td_qw_state_t *)user_data;
   
@@ -765,7 +556,7 @@ void _td_qw_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    layer_on(_ALPHAL);
+    register_code (KC_LSFT);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -788,13 +579,13 @@ void _td_qw_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_qw_state_t *s = (td_qw_state_t *)user_data;
 
   if (s->alt) {
-	layer_off(_ALPHAL);
+	unregister_code (KC_LSFT);
   } 
   
   s->finished_once = false;
 }
 
-//TD ALPHAL on hold, colemak layer on tap
+//TD shift on hold, colemak layer on tap
 void _td_co_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_co_state_t *s = (td_co_state_t *)user_data;
   
@@ -804,7 +595,7 @@ void _td_co_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    layer_on(_ALPHAL);
+    register_code (KC_LSFT);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -827,69 +618,12 @@ void _td_co_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_co_state_t *s = (td_co_state_t *)user_data;
 
   if (s->alt) {
-	layer_off(_ALPHAL);
+	unregister_code (KC_LSFT);
   } 
   
   s->finished_once = false;
 }
 
-//TD TABL on hold, tab on tap
-void _td_tab_finished (qk_tap_dance_state_t *state, void *user_data) {
-  td_tab_state_t *s = (td_tab_state_t *)user_data;
-  
-  if (s->finished_once)
-    return;
-    
-  s->finished_once = true;
-  if (state->pressed) {
-    s->alt = true;
-    layer_on(_TABL);
-  } else {
-    s->alt = false;
-	register_code (KC_TAB);
-  }
-}
-
-void _td_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
-  td_tab_state_t *s = (td_tab_state_t *)user_data;
-
-  if (s->alt) {
-	layer_off(_TABL);
-  } else {
-    unregister_code (KC_TAB);
-  }
-  
-  s->finished_once = false;
-}
-
-//TD MINUSL on hold, minus on tap
-void _td_minus_finished (qk_tap_dance_state_t *state, void *user_data) {
-  td_minus_state_t *s = (td_minus_state_t *)user_data;
-  
-  if (s->finished_once)
-    return;
-    
-  s->finished_once = true;
-  if (state->pressed) {
-    s->alt = true;
-    layer_on(_MINUSL);
-  } else {
-    s->alt = false;
-	register_code (KC_MINS);
-  }
-}
-
-void _td_minus_reset (qk_tap_dance_state_t *state, void *user_data) {
-  td_minus_state_t *s = (td_minus_state_t *)user_data;
-
-  if (s->alt) {
-	layer_off(_MINUSL);
-  } else {
-    unregister_code (KC_MINS);
-  }
-  
-  s->finished_once = false;
-}
 
 //TD Actions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -925,14 +659,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CO] = {
     .fn = { NULL, _td_co_finished, _td_co_reset },
     .user_data = (void *)&((td_co_state_t) { false, false })
-  },
-  [TD_TAB] = {
-    .fn = { NULL, _td_tab_finished, _td_tab_reset },
-    .user_data = (void *)&((td_tab_state_t) { false, false })
-  },
-  [TD_MINUS] = {
-    .fn = { NULL, _td_minus_finished, _td_minus_reset },
-    .user_data = (void *)&((td_minus_state_t) { false, false })
   }
 };
 
