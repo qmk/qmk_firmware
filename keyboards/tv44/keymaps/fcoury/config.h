@@ -3,5 +3,10 @@
 
 #include "../../config.h"
 
+#ifdef BACKLIGHT_ENABLE
+  #define BACKLIGHT_PIN B2
+  #define BACKLIGHT_LEVELS 7
+#endif
+
 #define PERMISSIVE_HOLD
 #endif
