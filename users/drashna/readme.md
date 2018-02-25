@@ -4,19 +4,42 @@ Overview
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared. 
 
 
-Custom handlers
----------------
+Custom userspace handlers
+-------------------------
+
+Specifically QMK works by using customized handlers for everything. This allows for multiple levels of customization.
+
+`matrix_scan` calls `matrix_scan_quantum`, which alls `matrix_scan_kb`, which calls `matrix_scan_user`. 
+`process_record` calls a bunch of stuff, but eventually calls `process_record_kb` which calls `process_record_user`
+The same goes for `matrix_init`, `layer_state_set`, `led_set`, and a few other functions.  
 
 All (most) `_user` functions are handled here instead.  To allow keyboard specific configuration, I've created `_keymap` functions that can be called by the keymap.c files instead.
 
 This allows for keyboard specific configuration while maintaining the ability to customize the board. 
 
-My Ergodox EZ Keymap is a good example of this, as it uses the LEDs as modifier indicators.
+My [Ergodox EZ Keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/drashna/keymap.c#L399) is a good example of this, as it uses the LEDs as modifier indicators.
+
+
+Keyboard Layout Templates
+-------------------------
+
+This borrows from @jola5's "Not quite neo" code.  This allows me to maintain blocks of keymaps in the userspace, so that I can modify the userspace, and this is reflected in all of the keyboards that use it, at once. 
+
+This makes adding tap/hold mods, or other special keycodes or functions to all keyboards super easy, as it's done to all of them at once. 
+
+The caveat here is that the keymap needs a processor/wrapper, as it doesn't like the substitutions.  However, this is as simple as just pushing it through a define. For instance: 
+
+`#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)`
+
+Once that's been done and you've switched the keymaps to use the "wrapper", it will read the substitution blocks just fine. 
+
+Credit goes to @jola5 for first implementing this awesome idea.
+
 
 Custom Keycodes
 ---------------
 
-Keycods are defined in the drashna.h file and need to be included in the keymap.c files, so that they can be used there. 
+Keycodes are defined in the drashna.h file and need to be included in the keymap.c files, so that they can be used there. 
 
 A bunch of macros are present and are only included on boards that are not the Ergodox EZ or Orthodox, as they are not needed for those boards. 
 

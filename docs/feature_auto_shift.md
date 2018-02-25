@@ -1,7 +1,7 @@
 # Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Viola! No shift key needed!
+and you get its shifted state. Voilà! No shift key needed!
 
 ## Why Auto Shift?
 
@@ -110,6 +110,9 @@ Map three keys temporarily in your keymap:
 | KC_ASDN  | Lower the Auto Shift timeout variable (down)        |
 | KC_ASUP  | Raise the Auto Shift timeout variable (up)          |
 | KC_ASRP  | Report your current Auto Shift timeout value        |
+| KC_ASON  | Turns on the Auto Shift Function                    |
+| KC_ASOFF | Turns off the Auto Shift Function                   |
+| KC_ASTG  | Toggles the statn of the Auto Shift feature         |
 
 Compile and upload your new firmware.
 
