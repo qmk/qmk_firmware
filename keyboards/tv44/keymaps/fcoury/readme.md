@@ -1,6 +1,8 @@
-# Jetpacktuxedo's minivan layout
+# Felipe Coury | MrKeeb's minivan layout
 
 This differs quite a bit from the stock layout but leaves keys in a more familiar position in my opinion. It is designed to use the arrow+command layout, but I used a fairly similar layout for the normal arrow layout. Additionally, I use an mx lock switch on the key between the right space key and the arrow cluster. If you don't want to use a lock switch you should change MO(4) on the base layer to use TG(4) instead for a similar effect.
+
+This layout has also been customized to better suit macOS in a few ways: the Alt and Win keys have been refersed and both volume and brightness controls have been added to Layer 2.
 
 ## Base Layer (0)
 
