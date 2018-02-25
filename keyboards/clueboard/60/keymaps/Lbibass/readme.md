@@ -1,3 +1,7 @@
 # heyo, this is my AEK layout for the Clueboard 60%
 #this one actually has arrow keys, and it also has mouse keys on WASD, and scrolling on T and G, because R is taken by Reset. 
 # a little notice to those who want to use my layout: BE SURE TO RE-ENABLE LOCKING CAPS LOCK IN THE CONFIG.h FILE. Locking caps lock will not work otherwise.
+=======
+#this one actually has arrow keys.
+# a little notice to those who want to use my layout: BE SURE TO RE-ENABLE LOCKING CAPS LOCK IN THE CONFIG.h FILE. Locking caps lock will not work otherwise. 
+>>>>>>> 00aa941e351aae9b9f777f63894e82cb20f84329
