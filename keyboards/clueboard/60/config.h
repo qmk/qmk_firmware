@@ -53,25 +53,8 @@
 #define PREVENT_STUCK_MODIFIERS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 //#define LOCKING_SUPPORT_ENABLE
 //#define LOCKING_RESYNC_ENABLE
-=======
-/#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-/#define LOCKING_RESYNC_ENABLE
->>>>>>> Fixed locking caps lock issue.
-=======
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
->>>>>>> Fixed config
-=======
-//#define LOCKING_SUPPORT_ENABLE
-//#define LOCKING_RESYNC_ENABLE
->>>>>>> disabled locking caps lock again
 
 /*
  * Force NKRO
