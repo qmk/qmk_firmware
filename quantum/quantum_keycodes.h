@@ -456,6 +456,7 @@ enum quantum_keycodes {
 #define ALTG(kc) (kc | QK_RCTL | QK_RALT)
 #define SCMD(kc) (kc | QK_LGUI | QK_LSFT)
 #define SWIN(kc) SCMD(kc)
+#define SGUI(kc) SCMD(kc)
 #define LCA(kc) (kc | QK_LCTL | QK_LALT)
 
 #define MOD_HYPR 0xf
