@@ -622,6 +622,7 @@ enum quantum_keycodes {
 #define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
 #define SCMD_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
 #define SWIN_T(kc) SCMD_T(kc)
+#define SGUI_T(kc) SCMD_T(kc)
 #define LCA_T(kc) MT((MOD_LCTL | MOD_LALT), kc) // Left control and left alt
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
