@@ -7,6 +7,7 @@
 #define KEYSEL    2
 #define MOUSE     3
 #define COMBINED  4
+#define BROWSER_CONTROL 5
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -39,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_QUOTE,      KC_COMMA,      KC_DOT,    KC_P,       KC_Y,         KC_TRNS,    KC_F,  KC_G,  KC_C,   KC_R,   KC_L, },
   {KC_A,          KC_O,          KC_E,      KC_U,       KC_I,         KC_TRNS,    KC_D,  KC_H,  KC_T,   KC_N,   KC_S, },
   {KC_SCOLON,     KC_Q,          KC_J,      KC_K,       KC_X,         MO(KEYNAV), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z, },
-  {OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL), MO(COMBINED), KC_ENTER,   KC_SPACE,  KC_BSPC, RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT), }
+  {OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL), MO(COMBINED), KC_ENTER,   KC_SPACE,  KC_BSPC, RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT), }
 },	
 
 [KEYNAV] = { 
@@ -68,6 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_MS_ACCEL0, KC_PGDN, KC_MS_WH_DOWN, KC_DOWN,      KC_TRNS, KC_TRNS, KC_DOWN,   KC_MS_L,   KC_MS_D,   KC_MS_R, KC_MS_WH_DOWN, },
   {KC_TRNS,      KC_TRNS, KC_TRNS,       KC_TRNS,      KC_TRNS, KC_BTN3, MEH(KC_X), MEH(KC_Y), MEH(KC_Z), KC_F5,   RCTL(KC_W), },
   {KC_TRNS, M(MOUSE_LOCK), KC_TRNS, KC_MS_ACCEL0, KC_TRNS, KC_BTN1, KC_BTN2, RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), }
+},	
+
+[BROWSER_CONTROL] = { 
+  {KC_TRNS, KC_BTN3, KC_MS_U, KC_BTN1, KC_BTN2, KC_TRNS,    KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   KC_TRNS, },
+  {KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS,    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT), },
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,    RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5, },
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS,  }
 },	
 
 
