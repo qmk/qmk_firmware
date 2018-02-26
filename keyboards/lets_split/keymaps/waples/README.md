@@ -1,4 +1,5 @@
 # Waples Let's Split keymap
+[Waples](https://www.github.com/Waples)
 
 ## My (forever) Work-In-Progress keymap for my Let's Split keyboard. 
 My keymap is much like the default, I just personally like to have my Enter and Escape key to be on my home row. The Escape key doubles as a Control key when held down, my Enter key functions as (right)Shift when held down.
