@@ -1,11 +1,14 @@
 #include "dz60.h"
 #include "action_layer.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
 };
 >>>>>>> More backlight settings and no tapdance in my keymap.
+=======
+>>>>>>> Fixed issue with my keymap not compiling.
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
