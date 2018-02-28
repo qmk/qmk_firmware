@@ -2,7 +2,6 @@
 #include "action_layer.h"
 enum dz60_keycodes {
 
-    _space = 1
 };
 
 const uint16_t PROGMEM keymaps[][5][15] = {
@@ -41,9 +40,5 @@ KEYMAP_DIRECTIONAL(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,
 uint16_t custom_lt_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
-}
-qk_tap_dance_action_t tap_dance_actions[] = {
-    //Tap once for Esc, twice for Caps Lock
-    [_space]=ACTION_TAP_DANCE_DOUBLE(TO(2), TO(4))
     // Other declarations would go here, separated by commas, if you have them
 };
