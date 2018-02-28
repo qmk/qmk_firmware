@@ -2,11 +2,14 @@
 #include "action_layer.h"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
 };
 >>>>>>> New DZ60 Keymap
+=======
+>>>>>>> Fixed issue with my keymap not compiling.
 =======
 >>>>>>> Fixed issue with my keymap not compiling.
 
