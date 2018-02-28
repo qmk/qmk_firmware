@@ -1,11 +1,14 @@
 #include "dz60.h"
 #include "action_layer.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
 };
 >>>>>>> New DZ60 Keymap
+=======
+>>>>>>> Fixed issue with my keymap not compiling.
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
