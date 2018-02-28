@@ -235,7 +235,7 @@ enum {
 // this allows us to quickly modify the bottom row for all of the layouts
 // so we don't have to alter it 4 times and hope that we haven't missed
 // anything
-#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_QUOT, KC_MEH, KC_LBRC, KC_RBRC
+#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_QUOT, KC_MEH,  KC_LBRC, KC_RBRC
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
