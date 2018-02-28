@@ -4,7 +4,6 @@
 =======
 enum dz60_keycodes {
 
-    _space = 1
 };
 >>>>>>> New DZ60 Keymap
 
@@ -45,11 +44,14 @@ uint16_t custom_lt_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 }
 qk_tap_dance_action_t tap_dance_actions[] = {
     //Tap once for Esc, twice for Caps Lock
     [_space]=ACTION_TAP_DANCE_DOUBLE(TO(2), TO(4))
 >>>>>>> New DZ60 Keymap
+=======
+>>>>>>> More backlight settings and no tapdance in my keymap.
     // Other declarations would go here, separated by commas, if you have them
 };
