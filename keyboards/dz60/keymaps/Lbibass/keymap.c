@@ -1,8 +1,5 @@
 #include "dz60.h"
 #include "action_layer.h"
-enum dz60_keycodes {
-
-};
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
