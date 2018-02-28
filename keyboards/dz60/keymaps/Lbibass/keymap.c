@@ -1,29 +1,11 @@
 #include "dz60.h"
 #include "action_layer.h"
 <<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 =======
 enum dz60_keycodes {
 
 };
->>>>>>> New DZ60 Keymap
-=======
->>>>>>> Fixed issue with my keymap not compiling.
-=======
->>>>>>> Fixed issue with my keymap not compiling.
-=======
-=======
-enum dz60_keycodes {
-
-    _space = 1
-};
->>>>>>> New DZ60 Keymap
->>>>>>> New DZ60 Keymap
-=======
->>>>>>> disabled locking caps lock again, and cleaned up my keymap for 60%
+>>>>>>> More backlight settings and no tapdance in my keymap.
 
 const uint16_t PROGMEM keymaps[][5][15] = {
 // layer 0
@@ -61,24 +43,5 @@ KEYMAP_DIRECTIONAL(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,
 uint16_t custom_lt_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> New DZ60 Keymap
-=======
-}
-qk_tap_dance_action_t tap_dance_actions[] = {
-    //Tap once for Esc, twice for Caps Lock
-    [_space]=ACTION_TAP_DANCE_DOUBLE(TO(2), TO(4))
->>>>>>> New DZ60 Keymap
-<<<<<<< HEAD
-=======
->>>>>>> More backlight settings and no tapdance in my keymap.
-=======
->>>>>>> New DZ60 Keymap
-=======
->>>>>>> disabled locking caps lock again, and cleaned up my keymap for 60%
     // Other declarations would go here, separated by commas, if you have them
 };
