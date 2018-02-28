@@ -1,6 +1,8 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+#define FORCE_NKRO
+
 #include "config_common.h"
 
 #ifdef AUDIO_ENABLE
