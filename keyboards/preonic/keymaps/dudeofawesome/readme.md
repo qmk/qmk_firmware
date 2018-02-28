@@ -5,11 +5,12 @@
 ## Features
 
 - Base Layers
-  - QWERTY
-  - Workman
-  - Dvorak
-  - Colemak
+    - QWERTY
+    - Workman
+    - Dvorak
+    - Colemak
 - Numpad layer
+    ![numpad layer](https://i.imgur.com/44gpVkx.png)
 - Audio
 
 ## Building and flashing
