@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |XXXXXX|XXXXXX|XXXXXX|NUM 4 |XXXXXX|NUM 6 |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |XXXXXX|  UP  |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
+ * |      |  UP  |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | LEFT |XXXXXX|XXXXXX|XXXXXX|XXXXXX|NUM . |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|Qwerty|
  * `-----------------------------------------------------------------------------------'
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {KC_ESC , XXXXXXX, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC},
   {XXXXXXX, XXXXXXX, XXXXXXX, KC_KP_4, XXXXXXX, KC_KP_6,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {_______,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
   {KC_LEFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,KC_KP_DOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TO(_QWERTY)}
 },
 
