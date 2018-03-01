@@ -2,6 +2,7 @@
 #define CONFIG_USER_H
 
 #include "../../config.h"
+#include "dudeofawesome.h"
 
 #define WORKMAN_SOUND COLEMAK_SOUND
 
