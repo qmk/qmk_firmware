@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-				return false; break;
+				return false;
 		}
 	}
 	return true;
@@ -56,10 +56,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!");
-				return false; break;
+				return false;
 			case MY_OTHER_MACRO:
 				SEND_STRING(SS_LCTRL("ac")); // selects all and copies
-				return false; break;
+				return false;
 		}
 	}
 	return true;

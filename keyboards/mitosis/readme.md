@@ -3,7 +3,7 @@ Mitosis
 
 A wireless split compact keyboard.
 
-Keyboard Maintainer: [@reversebias](https://github.com/reversebias]
+Keyboard Maintainer: [@reversebias](https://github.com/reversebias)
 Hardware Supported: Mitosis PCB
 Hardware Availability: https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/
 

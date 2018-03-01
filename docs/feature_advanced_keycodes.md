@@ -116,7 +116,7 @@ These are the values you can use for the `mod` in `MT()` and `OSM()`:
   * MOD_HYPR
   * MOD_MEH
 
-These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped. Note however, that you cannot mix right and left side modifiers.
+These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
 
 We've added shortcuts to make common modifier/tap (mod-tap) mappings more compact:
 
@@ -128,6 +128,12 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
+
+{% hint style='info' %}
+Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
+
+Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
+{% endhint %}
 
 # One Shot Keys
 
