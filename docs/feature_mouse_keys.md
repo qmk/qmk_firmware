@@ -40,7 +40,7 @@ You can use these keycodes within your keymap to map button presses to mouse act
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/keymap.c#L46
+You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/66/keymaps/mouse_keys/keymap.c#L46
 
 ## Configuring the Behavior of Mousekeys
 
