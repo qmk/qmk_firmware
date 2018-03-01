@@ -7,9 +7,10 @@ A basic Planck layout with simultaneous RGB and audio support.
 ## Features
 
 - Base Layers
-  - QWERTY
-  - Workman
-  - Dvorak
+    - QWERTY
+    - Workman
+    - Dvorak
+    - Colemak
 - Audio
 
 ## Building and flashing
