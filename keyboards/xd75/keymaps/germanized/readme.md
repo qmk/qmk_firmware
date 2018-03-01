@@ -2,7 +2,7 @@
 
 Copyright 2018 Kolja Brauns  
 
-### Current release: 1.6
+### Current release: 1.7
 
 **Features**  
 A keymap for German users of the XD75RE keyboard, customized to my needs. Not optimized for ten-finger typing. Some choices are due to me being a lefty.  
@@ -16,20 +16,20 @@ Designed to be used with an additional macropad, no numpad configured.
  
  
   .-----------------------------------------------------------------------------------------------------------------------.
-  |  Esc/ |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |   ß   |   ´   | BkSpc | BkSpc |
-  |CtlAlDl|       |       |       |       |       |       |       |       |       |       |       |       |       |       | 
+  |  Esc  |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |   9   |   0   |   ß   |   ´   | BckSpc|  Esc  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  |  Tab  |   Q   |   W   |   E   |   R   |   T   |   Z   |   U   |   I   |   O   |   P   |   Ü   |   +   | Enter |  PgUp |
+  |  Tab  |   Q   |   W   |   E   |   R   |   T   |   Z   |   U   |   I   |   O   |   P   |   Ü   |   +   |       |  PgUp |
+  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------| Enter |-------|
+  | Ctrl/ |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   Ö   |   Ä   |   #   |       |  PgDn |
+  | GUITab|       |       |       |       |       |       |       |       |       |       |       |       |       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  | MO(1)/|   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   Ö   |   Ä   |   #   | Enter |  PgDn |
-  |  Esc  |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
+  | LShift|   Y   |   X   |    C  |   V   |   B   |   N   |   M   |   ,   |   .   |   -   |   ^   | Home/ |  Up   |  End  |
+  |       |       |       |       |       |       |       |       |       |       |       |       | RShift|       |       |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  |LShift/|   Y   |   X   |    C  |   V   |   B   |   N   |   M   |   ,   |   .   |   -   |   ^   | Home/ |  Up   |  End  |
-  |CpsLck |       |       |       |       |       |       |       |       |       |       |       | RShift|       |       |
-  |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  | LCtrl | LAlt  | MO(1)/| Space | Space | BkSpc | BkSpc | MO(1)/|AltGr/ |  Win  |   <   |  Del  | Left  | Down  | Right |
-  |       |       | Enter |       |       |       |       | TO(1) | Pause |       |       |       |       |       |       |
+  | LCtrl | LAlt  | MO(1)/|     Space     |   Backspace   | MO(1)/|AltGr/ |  Win  |   <   |  Del  | Left  | Down  | Right |
+  |       |       | Enter |               |               | TO(1) |Pause  |       |       |       |       |       |       |
   °-----------------------------------------------------------------------------------------------------------------------°
+ 
 
  
  
@@ -43,7 +43,7 @@ Designed to be used with an additional macropad, no numpad configured.
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
   | _____ | _____ | _____ |RGB Tog|RGB Mod| _____ | _____ | _____ | Left  |  Down | Right | _____ | _____ | Play  | _____ |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
-  | _____ | _____ | _____ |Bright-| _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | VolUp | Mute  |
+  | CpsLck| _____ | _____ |Bright-| _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | VolUp | Mute  |
   |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
   | TO(0) | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ | Prev  | VolDn | Next  |
   °-----------------------------------------------------------------------------------------------------------------------°
@@ -74,4 +74,10 @@ Left lower MO(1) is now Enter on tap. Right lower Layer(1) is now Tap-Toggle (To
 Media keys moved to nav section - Enter=Play, Up=VolUp, Down=VolDn, Left=Prev, Right=Next, End=Mute.  
 Added PrintScreen on P on Layer 1.  
 Added cleaner visual representation since the multi-function keys make the actual keymap messy.  
-Moved old versions into folder together, only current version in root keymap directory now.  
+Moved old versions into folder together, only current version in root keymap directory now. 
+
+*Release 1.7*  
+Backspace split, includes Esc now.  
+Capslock moved to function layer to keep smoother LShift operation.  
+Original Caps key now Ctrl, Alt+GUI on double-tap - inspired by Android.  
+Cleaned up visual representation in readme.
