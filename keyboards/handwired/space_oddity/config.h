@@ -11,8 +11,6 @@
 #define PRODUCT         Space Odyssey
 #define DESCRIPTION     Keyboard
 
-#define CATERINA_BOOTLOADER
-
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60

@@ -116,12 +116,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {XXXXXXX, KC_MAIL, S(KC_VOLD),  KC_INS,   S(KC_VOLU),  KC_PSCR, MFN_R3},
   {XXXXXXX, MUV_DE,  MUV_IN,      AU_ON,    AU_OFF,      RESET,   MFN_R4},
 },
+[LY_0011] = {
+  {UC(L'็'),  UC(L'์'),  UC(L'่'),  UC(L'้'),  UC(L'๊'),  UC(L'๋'), MFN_R1},
+  {UC(L'โ'),  UC(L'แ'),  UC(L'เ'),  UC(L'า'),  UC(L'ั'),  UC(L'ะ'), MFN_R2},
+  {UC(L'ไ'),  UC(L'ใ'),  UC(L'ิ'),  UC(L'ี'),  UC(L'ึ'),  UC(L'ื'), MFN_R3},
+  {UC(L'ๅ'),  UC(L'ฺ'),  UC(L'ํ'),  UC(L'ุ'),  UC(L'ู'),  UC(L'ำ'), MFN_R4},
+},
+[LY_1011] = {
+  {UC(L'ฐ'),  UC(L'ฎ'),  UC(L'ฏ'),  UC(L'ฮ'),  UC(L'ข'),  UC(L'ฃ'), MFN_R1},
+  {UC(L'ถ'),  UC(L'ด'),  UC(L'ต'),  UC(L'อ'),  UC(L'ก'),  UC(L'จ'), MFN_R2},
+  {UC(L'ภ'),  UC(L'บ'),  UC(L'ป'),  UC(L'ส'),  UC(L'ห'),  UC(L'ฉ'), MFN_R3},
+  {UC(L'ฯ'),  UC(L'ผ'),  UC(L'ฝ'),  UC(L'ศ'),  UC(L'ษ'),  UC(L'ๆ'), MFN_R4},
+},
+[LY_0111] = {
+  {UC(L'ฒ'),  UC(L'ฤ'),  UC(L'ฦ'),  UC(L'ม'),  UC(L'ค'),  UC(L'ฅ'), MFN_R1},
+  {UC(L'ณ'),  UC(L'ร'),  UC(L'ล'),  UC(L'น'),  UC(L'ว'),  UC(L'ง'), MFN_R2},
+  {UC(L'ญ'),  UC(L'ช'),  UC(L'ซ'),  UC(L'ย'),  UC(L'ท'),  UC(L'ฑ'), MFN_R3},
+  {UC(L'ฌ'),  UC(L'ฬ'),  UC(L'ฟ'),  UC(L'พ'),  UC(L'ธ'),  UC(L'ฆ'), MFN_R4},
+},
 [LY_0001] = UNUSED_LAYER
-[LY_0011] = UNUSED_LAYER
 [LY_0101] = UNUSED_LAYER
-[LY_0111] = UNUSED_LAYER
 [LY_1001] = UNUSED_LAYER
-[LY_1011] = UNUSED_LAYER
 };
 
 #ifdef AUDIO_ENABLE

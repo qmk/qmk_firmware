@@ -28,14 +28,16 @@ MCU  = cortex-m4
 # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
 ARMV = 7
 
+USE_FPU = yes
+
 # Vector table for application
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
-OPT_DEFS = 
+OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000 -R
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
 # Build Options
 #   comment out to disable the options.
@@ -50,5 +52,5 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
-#AUDIO_ENABLE = yes
+AUDIO_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
