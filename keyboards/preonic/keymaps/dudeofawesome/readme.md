@@ -10,7 +10,7 @@
     - Dvorak
     - Colemak
 - Numpad layer
-    ![numpad layer](https://i.imgur.com/44gpVkx.png)
+    ![numpad layer](https://i.imgur.com/V5iGHZg.png)
 - Audio
 
 ## Building and flashing
