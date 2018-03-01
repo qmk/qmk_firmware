@@ -1,7 +1,5 @@
 # DudeOfAwesome's Planck Layout
 
-A basic Planck layout with simultaneous RGB and audio support.
-
 ![Planck Layout](https://i.imgur.com/mOc2Sbd.png)
 
 ## Features
