@@ -218,25 +218,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             set_single_persistent_default_layer(_QWERTY);
           }
           return false;
-          break;
         case WORKMAN:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_WORKMAN);
           }
           return false;
-          break;
         case COLEMAK:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_COLEMAK);
           }
           return false;
-          break;
         case DVORAK:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_DVORAK);
           }
           return false;
-          break;
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -246,7 +242,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
-          break;
         case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
@@ -256,7 +251,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
           }
           return false;
-          break;
         case BACKLIT:
           if (record->event.pressed) {
             register_code(KC_RSFT);
@@ -269,7 +263,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             PORTE |= (1<<6);
           }
           return false;
-          break;
       }
     return true;
 };
