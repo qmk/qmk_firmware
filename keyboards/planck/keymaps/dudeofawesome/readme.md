@@ -11,6 +11,8 @@ A basic Planck layout with simultaneous RGB and audio support.
     - Workman
     - Dvorak
     - Colemak
+- Numpad layer
+    ![numpad layer](https://i.imgur.com)
 - Audio
 
 ## Building and flashing
