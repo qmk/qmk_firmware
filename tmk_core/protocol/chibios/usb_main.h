@@ -36,27 +36,10 @@
 /* Initialize the USB driver and bus */
 void init_usb_driver(USBDriver *usbp);
 
-/* Send remote wakeup packet */
-void send_remote_wakeup(USBDriver *usbp);
-
 /* ---------------
  * Keyboard header
  * ---------------
  */
-
-/* main keyboard (6kro) */
-#define KBD_INTERFACE   0
-#define KBD_ENDPOINT    1
-#define KBD_EPSIZE      8
-#define KBD_REPORT_KEYS (KBD_EPSIZE - 2)
-
-/* secondary keyboard */
-#ifdef NKRO_ENABLE
-#define NKRO_INTERFACE    4
-#define NKRO_ENDPOINT     5
-#define NKRO_EPSIZE       16
-#define NKRO_REPORT_KEYS  (NKRO_EPSIZE - 1)
-#endif
 
 /* extern report_keyboard_t keyboard_report_sent; */
 
@@ -78,10 +61,6 @@ void nkro_in_cb(USBDriver *usbp, usbep_t ep);
 
 #ifdef MOUSE_ENABLE
 
-#define MOUSE_INTERFACE         1
-#define MOUSE_ENDPOINT          2
-#define MOUSE_EPSIZE            8
-
 /* mouse IN request callback handler */
 void mouse_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* MOUSE_ENABLE */
@@ -92,10 +71,6 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep);
  */
 
 #ifdef EXTRAKEY_ENABLE
-
-#define EXTRA_INTERFACE         3
-#define EXTRA_ENDPOINT          4
-#define EXTRA_EPSIZE            8
 
 /* extrakey IN request callback handler */
 void extra_in_cb(USBDriver *usbp, usbep_t ep);
@@ -114,24 +89,12 @@ typedef struct {
 
 #ifdef CONSOLE_ENABLE
 
-#define CONSOLE_INTERFACE      2
-#define CONSOLE_ENDPOINT       3
-#define CONSOLE_EPSIZE         16
-
-/* Number of IN reports that can be stored inside the output queue */
-#define CONSOLE_QUEUE_CAPACITY 4
-
-/* Console flush time */
-#define CONSOLE_FLUSH_MS 50
-
 /* Putchar over the USB console */
 int8_t sendchar(uint8_t c);
 
 /* Flush output (send everything immediately) */
 void console_flush_output(void);
 
-/* console IN request callback handler */
-void console_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* CONSOLE_ENABLE */
 
 void sendchar_pf(void *p, char c);

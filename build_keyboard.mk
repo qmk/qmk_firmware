@@ -121,7 +121,6 @@ else
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/protocol/chibios.mk
     include $(TMK_PATH)/chibios.mk
     OPT_OS = chibios
     ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
@@ -197,7 +196,7 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
     include build_layout.mk
-else 
+else
     $(error Could not find keymap)
     # this state should never be reached
 endif
@@ -245,6 +244,10 @@ else
     include $(TMK_PATH)/protocol/lufa.mk
 endif
     include $(TMK_PATH)/avr.mk
+endif
+
+ifeq ($(PLATFORM),CHIBIOS)
+    include $(TMK_PATH)/protocol/chibios.mk
 endif
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
