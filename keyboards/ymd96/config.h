@@ -31,10 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION ROW2COL
 
-#define RGBLED_NUM 20
+#define RGB_DI_PIN C4
+#define RGBLED_NUM 18
 #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_VAL_STEP 20
 
 #define NO_UART 1
+#define BOOTLOADHID_BOOTLOADER 1
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
