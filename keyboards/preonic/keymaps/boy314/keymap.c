@@ -34,22 +34,6 @@
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-
-/* 
-enum preonic_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-};
-
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  BACKLIT
-};
- */
  
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -74,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LCTL,TG(_OSU), KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT}
 },
 
-/* OSU ONLY 
+/* OSU ONLY
 
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
@@ -83,17 +67,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |XXXXXX|XXXXXX|XXXXXX|NUM 4 |XXXXXX|NUM 6 |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  UP  |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
+ * |      |  UP  |XXXXXX|XXXXXX|XXXXXX|XXXXXX|NumENT|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | LEFT |XXXXXX|XXXXXX|XXXXXX|XXXXXX|NUM . |XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|Qwerty|
+ * | LEFT | DOWN | RIGHT|XXXXXX|XXXXXX|NUM . |NumENT|XXXXXX|XXXXXX|XXXXXX|XXXXXX|Qwerty|
  * `-----------------------------------------------------------------------------------'
  */
 [_OSU] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {KC_ESC,KC_BSLASH, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC},
   {XXXXXXX, XXXXXXX, XXXXXXX, KC_KP_4, XXXXXXX, KC_KP_6,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {_______,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {KC_LEFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,KC_KP_DOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TO(_QWERTY)}
+  {_______,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,KC_KP_ENTER,XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+  {KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX, KC_KP_DOT,KC_KP_ENTER,XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,TO(_QWERTY)}
 },
 
 /* Lower
