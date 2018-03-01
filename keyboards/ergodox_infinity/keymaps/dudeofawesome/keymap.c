@@ -6,21 +6,21 @@
 enum custom_layers {
   _QWERTY,
   _WORKMAN,
-  _COLEMAK,
   _DVORAK,
-  _GAME,
-  _MOUSE,
-  _NUM,
+  _COLEMAK,
   _LOWER,
   _RAISE,
   _ADJUST,
+  _GAME,
+  _MOUSE,
+  _NUM,
 };
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   WORKMAN,
-  COLEMAK,
   DVORAK,
+  COLEMAK,
   LOWER,
   RAISE,
   GAME,
