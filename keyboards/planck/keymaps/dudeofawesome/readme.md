@@ -2,7 +2,7 @@
 
 A basic Planck layout with simultaneous RGB and audio support.
 
-![Planck Layout](https://i.imgur.com/2p1TEEH.png)
+![Planck Layout](https://i.imgur.com/mOc2Sbd.png)
 
 ## Features
 
@@ -12,7 +12,7 @@ A basic Planck layout with simultaneous RGB and audio support.
     - Dvorak
     - Colemak
 - Numpad layer
-    ![numpad layer](https://i.imgur.com)
+    ![numpad layer](https://i.imgur.com/PQENcut.png)
 - Audio
 
 ## Building and flashing
