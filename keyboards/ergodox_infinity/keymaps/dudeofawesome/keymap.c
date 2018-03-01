@@ -4,29 +4,31 @@
 #include "version.h"
 
 enum custom_layers {
-    _QWERTY,
-    _DVORAK,
-    _WORKMAN,
-    _GAME,
-    _MOUSE,
-    _NUM,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
+  _QWERTY,
+  _WORKMAN,
+  _COLEMAK,
+  _DVORAK,
+  _GAME,
+  _MOUSE,
+  _NUM,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
 };
 
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    DVORAK,
-    WORKMAN,
-    LOWER,
-    RAISE,
-    GAME,
-    MOUSE,
-    NUM,
-    EPRM,
-    VRSN,
-    RGB_SLD
+  QWERTY = SAFE_RANGE,
+  WORKMAN,
+  COLEMAK,
+  DVORAK,
+  LOWER,
+  RAISE,
+  GAME,
+  MOUSE,
+  NUM,
+  EPRM,
+  VRSN,
+  RGB_SLD,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -165,6 +167,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LGUI,  RAISE,      KC_SPACE
 ),
 
+/* Keymap 0: Basic Colemak layer
+ *
+ * ,---------------------------------------------.           ,--------------------------------------------.
+ * |   `    |  1  |  2  |  3  |  4  |  5  | Esc  |           | Esc  |  6  |  7  |  8  |  9  |  0  |   Del  |
+ * |--------+-----+-----+-----+-----+------------|           |------+-----+-----+-----+-----+-----+--------|
+ * |  Tab   |  Q  |  W  |  F  |  P  |  G  |  [{  |           |  ]}  |  J  |  L  |  U  |  Y  |  ;  |  BSPC  |
+ * |--------+-----+-----+-----+-----+-----|      |           |      |-----+-----+-----+-----+-----+--------|
+ * |  ESC   |  A  |  R  |  S  |  T  |  D  |------|           |------|  H  |  N  |  E  |  I  |  O  |    '   |
+ * |--------+-----+-----+-----+-----+-----|  L1  |           |  L1  |-----+-----+-----+-----+-----+--------|
+ * | LShift |  Z  |  X  |  C  |  V  |  B  |      |           |      |  K  |  M  |  ,  |  .  |  /  | Enter  |
+ * `--------+-----+-----+-----+-----+------------'           `------------+-----+-----+-----+-----+--------'
+ *   | Num  |Ctrl | Alt |LGUI |Lower|                                     |Raise|Left |Down | Up  |Right |
+ *   `------------------------------'                                     `------------------------------'
+ *                                   ,------------.          ,------------.
+ *                                   |Play |Mouse |          | Num  |Mouse|
+ *                              ,----|-----|------|          |------+-----+-----.
+ *                              |    |     | Alt  |          | Alt  |     |     |
+ *                              |BSPC|LOWER|------|          |------|RAISE|Space|
+ *                              |    |     | LGUI |          | LGUI |     |     |
+ *                              `-----------------'          `------------------'
+ */
+[_COLEMAK] = LAYOUT_ergodox(
+  // left hand
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_ESC,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G, KC_LBRACKET,
+  KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
+  KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_FN1,
+  NUM,     KC_LCTL, KC_LALT, KC_LGUI, LOWER,
+
+                                                  KC_MPLY,  TG(_MOUSE),
+                                                            KC_LALT,
+                                      KC_BSPACE,  LOWER,    KC_LGUI,
+
+  // right hand
+  KC_ESC,      KC_6, KC_7,  KC_8,    KC_9,    KC_0,                KC_DEL,
+  KC_RBRACKET, KC_J, KC_L,  KC_U,    KC_Y,    KC_SCOLON,           KC_BSPACE,
+               KC_H, KC_N,  KC_E,    KC_I,    KC_O,                KC_QUOTE,
+  KC_FN1,      KC_K, KC_M,  KC_COMM, KC_DOT,  LT(_MOUSE, KC_SLSH), RSFT_T(KC_ENT),
+                     RAISE, KC_LEFT, KC_DOWN, KC_UP,               KC_RIGHT,
+
+  NUM,     TG(_MOUSE),
+  KC_LALT,
+  KC_LGUI, RAISE,      KC_SPACE
+),
+
 /* Lower
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
@@ -291,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   _______, _______, _______, _______,  _______, _______, _______,
   _______, _______, TERM_ON, TERM_OFF, _______, _______, KC_DEL,
-           AG_SWAP, QWERTY,  WORKMAN,  DVORAK,  _______, _______,
+           AG_SWAP, QWERTY,  WORKMAN,  DVORAK,  COLEMAK, _______,
   _______, _______, _______, _______,  _______, _______, _______,
                     _______, _______,  _______, _______, _______,
 
@@ -473,6 +520,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
+      }
+      return false;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
     case LOWER:
