@@ -1,5 +1,9 @@
 #include "66.h"
 
+enum custom_keycodes {
+   M_SHRUG = SAFE_RANGE
+};
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -30,9 +34,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _CL: Control layer
    */
 [_CL] = LAYOUT(
-  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______, RGB_TOG,              RGB_VAI,
+  M_SHRUG, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______, RGB_TOG,              RGB_VAI,
   _______, _______, _______,_______,RESET,  _______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                       RGB_VAD,
   _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,
   MO(_FL), _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  MO(_FL),               RGB_SAI,
   _______, _______, _______,_______,        RGB_MOD,RGB_MOD,                            _______,  _______,  _______,  _______, RGB_HUD,RGB_SAD,RGB_HUI),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+   if (record->event.pressed) {
+       switch(keycode) {
+           case M_SHRUG:
+               SEND_STRING("/shrug"SS_TAP(X_ENTER));
+               return false; break;
+       }
+   }
+   return true;
 };
