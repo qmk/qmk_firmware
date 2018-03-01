@@ -58,15 +58,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define rgblight_set_purple      rgblight_setrgb (0x7A,  0x00, 0xFF);
 #define rgblight_set_white       rgblight_setrgb (0xFF,  0xFF, 0xFF);
 #else
-#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
-#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
-#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
-#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
-#define rgblight_set_teal        rgblight_sethsv (0xB4,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
-#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
+#define rgblight_set_red         rgblight_sethsv (0,  255, 255);
+#define rgblight_set_coral       rgblight_sethsv (16, 176, 255);
+#define rgblight_set_orange      rgblight_sethsv (39,  255, 255);
+#define rgblight_set_goldenrod   rgblight_sethsv (43,  218, 218);
+#define rgblight_set_gold        rgblight_sethsv (51,  255, 255);
+#define rgblight_set_yellow      rgblight_sethsv (60,  255, 255);
+#define rgblight_set_chartreuse  rgblight_sethsv (90, 255, 255);
+#define rgblight_set_green       rgblight_sethsv (120,  255, 255);
+#define rgblight_set_springgreen rgblight_sethsv (150,  255, 255);
+#define rgblight_set_turquoise   rgblight_sethsv (174,  90, 112);
+#define rgblight_set_teal        rgblight_sethsv (180,  255, 128);
+#define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
+#define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
+#define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
+#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
+#define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
+
+//#define rgblight_set_        rgblight_sethsv (0, 255, 255);
 #endif // DRASHNA_SETRGB
 
 extern bool is_overwatch;
@@ -136,6 +147,9 @@ enum {
 
 #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
 #ifdef FAUXCLICKY_ENABLE
 #define AUD_ON  FC_ON
 #define AUD_OFF FC_OFF
@@ -201,4 +215,6 @@ enum {
 // anything
 #define ___________ERGODOX_BOTTOM_LEFT_____________       KC_QUOT, KC_LGUI, KC_LBRC, KC_RBRC
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+
+
 #endif

@@ -366,7 +366,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`         |`?`                |
 
-## [Switching and Toggling Layers](feature_common_shortcuts.md#switching-and-toggling-layers)
+## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key            |Description                                                                       |
 |---------------|----------------------------------------------------------------------------------|
