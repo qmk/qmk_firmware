@@ -5,17 +5,17 @@ Mousekeys is a feature that allows you to emulate a mouse using your keyboard. Y
 
 ## Adding Mousekeys to a Keymap
 
-There are two steps to adding Mousekeys support to your keyboard. You must enable support in the Makefile and you must map mouse actions to keys on your keyboard.
+There are two steps to adding Mousekeys support to your keyboard. You must enable support in the `rules.mk` file and you must map mouse actions to keys on your keyboard.
 
-### Adding Mousekeys Support in the `Makefile`
+### Adding Mousekeys Support in the `rules.mk`
 
-To add support for Mousekeys you simply need to add a single line to your keymap's `Makefile`:
+To add support for Mousekeys you simply need to add a single line to your keymap's `rules.mk`:
 
 ```
 MOUSEKEY_ENABLE = yes
 ```
 
-You can see an example here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/keymaps/mouse_keys/Makefile
+You can see an example here: https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/66/keymaps/mouse_keys/rules.mk
 
 ### Mapping Mouse Actions to Keyboard Keys
 

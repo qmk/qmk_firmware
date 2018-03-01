@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (__has_include("secrets.h"))
 #include "secrets.h"
 #else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familar enough to know which is better or why...
 PROGMEM const char secret[][64] = {
   "test1",
   "test2",
@@ -221,7 +223,14 @@ void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
 }
 
-
+void send_game_macro(const char *str) {
+  register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+  unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+  wait_ms(50);
+  send_string(str);
+  register_code(KC_ENTER);
+  unregister_code(KC_ENTER);
+}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -327,124 +336,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_SALT:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Salt, salt, salt...");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Salt, salt, salt...");
     }
     return false;
     break;
   case KC_MORESALT:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Please sir, can I have some more salt?!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Please sir, can I have some more salt?!");
     }
     return false;
     break;
   case KC_SALTHARD:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Your salt only makes me harder, and even more aggressive!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Your salt only makes me harder, and even more aggressive!");
     }
     return false;
     break;
   case KC_GOODGAME:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Good game, everyone!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Good game, everyone!");
     }
     return false;
     break;
   case KC_GLHF:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Good luck, have fun!!!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Good luck, have fun!!!");
     }
     return false;
     break;
   case KC_SYMM:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("Left click to win!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("Left click to win!");
     }
     return false;
     break;
   case KC_JUSTGAME:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
     }
     return false;
     break;
   case KC_TORB:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("That was positively riveting!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("That was positively riveting!");
     }
     return false;
     break;
   case KC_AIM:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
+      send_game_macro("That aim is absolutely amazing. It's almost like you're a machine!");
       wait_ms(3000);
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
+      send_game_macro("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!");
     }
     return false;
     break;
   case KC_C9:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("OMG!!!  C9!!!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("OMG!!!  C9!!!");
     }
     return false;
     break;
   case KC_GGEZ:
     if (!record->event.pressed) {
-      register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-      wait_ms(50);
-      SEND_STRING("That was a fantastic game, though it was a bit easy. Try harder next time!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
+      send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!");
     }
     return false;
     break;
@@ -555,7 +509,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
       break;
     case _MEDIA:
-      rgblight_set_green;
+      rgblight_set_chartreuse;
       rgblight_mode(22);
       break;
     case _GAMEPAD:
@@ -590,12 +544,16 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_set_green;
       }
       else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_purple;
+        rgblight_set_goldenrod;
       }
       else {
         rgblight_set_teal;
       }
-      rgblight_mode(1);
+      if (biton32(state) == _MODS) {
+        rgblight_mode(2);
+      } else {
+        rgblight_mode(1);
+      }
       break;
     }
   }
