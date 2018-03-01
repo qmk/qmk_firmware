@@ -10,7 +10,7 @@ achieve a higher level of productivity if you take the time to learn its functio
 
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent readme.md](/doc/readme.md).
+For the full Quantum feature list, see [the parent readme.md](/docs/README.md).
 
 ## Building
 
