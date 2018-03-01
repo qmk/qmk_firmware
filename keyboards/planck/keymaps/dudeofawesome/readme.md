@@ -11,7 +11,6 @@ A basic Planck layout with simultaneous RGB and audio support.
   - Workman
   - Dvorak
 - Audio
-- WS2812b RGB backlight
 
 ## Building and flashing
 
