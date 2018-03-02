@@ -1,8 +1,6 @@
 Stanley Lai's Split Right Shift with Dedicated Arrow Keys
 ======================
 
-![Image of KC60 with RGB Underglow](../ws2812/ws2812_example.jpg)
-
 ## Quantum MK Firmware
 For the full Quantum feature list, see [the parent readme.md](/readme.md).
 
@@ -20,7 +18,7 @@ For the full Quantum feature list, see [the parent readme.md](/readme.md).
 ![RGB Layer](http://imgur.com/ZWIfuPM)
 
 ## WS2812 Support
-By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included image](../ws2812/ws2812_wiring.jpg) for wiring reference.
+By default, it is now setup for 16 LEDs on the PF5 breakout pin.
 
 ### Build
 To build this keymap, simply run `make KEYMAP=stanleylai`.

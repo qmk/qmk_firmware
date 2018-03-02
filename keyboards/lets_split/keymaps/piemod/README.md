@@ -17,9 +17,6 @@ A keymap for users that need:
 
 Still a work-in-progress. Suggestions welcome @ https://github.com/dwrz/piemod.
 
-### Keymap
-
-![PieMod Keymap](./keymap.png)
 
 ### TODO
 
