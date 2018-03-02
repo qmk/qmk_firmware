@@ -131,3 +131,45 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 }
 
+#ifdef RGBLIGHT_ENABLE
+bool rgb_layer_change = true;
+#endif
+
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
+#define rgblight_set_black       rgblight_sethsv (0x00,  0x00, 0x00);
+
+uint32_t layer_state_set_user(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (rgb_layer_change) {
+    switch (biton32(state)) {
+    case _LOWER:
+      rgblight_set_purple;
+      rgblight_mode(5);
+      break;
+    case _VIM:
+	  rgblight_set_green;
+      rgblight_mode(23);
+      break;
+	case _GAME:
+      rgblight_mode(8);
+      break;
+    default:
+      if (default_layer & (1UL << _GAME)) {
+      }
+      else 
+      rgblight_mode(14);
+      break;
+    }
+  }
+#endif
+  return state;
+}

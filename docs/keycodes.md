@@ -256,11 +256,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |---------|------------------------------------------|
 |`BL_TOGG`|Turn the backlight on or off              |
 |`BL_STEP`|Cycle through backlight levels            |
-|`BL_x`   |Set a specific backlight level between 0-9|
-|`BL_ON`  |An alias for `BL_9`                       |
-|`BL_OFF` |An alias for `BL_0`                       |
-|`BL_INC` |Increase backlight level                  |
-|`BL_DEC` |Decrease backlight level                  |
+|`BL_ON`  |Set the backlight to max brightness       |
+|`BL_OFF` |Turn the backlight off                    |
+|`BL_INC` |Increase the backlight level              |
+|`BL_DEC` |Decrease the backlight level              |
+|`BL_BRTG`|Toggle backlight breathing                |
 
 ## [RGB Lighting](feature_rgblight.md)
 
@@ -366,7 +366,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`         |`?`                |
 
-## [Switching and Toggling Layers](feature_common_shortcuts.md#switching-and-toggling-layers)
+## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key            |Description                                                                       |
 |---------------|----------------------------------------------------------------------------------|

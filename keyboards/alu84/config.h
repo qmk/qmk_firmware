@@ -21,11 +21,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define PRODUCT_ID      0xCA75
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    mechkeys.ca
+#define MANUFACTURER    MECHKEYS
 #define PRODUCT         ALU84
-#define DESCRIPTION     A 75% keyboard
+#define DESCRIPTION     75% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
