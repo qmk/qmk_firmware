@@ -77,12 +77,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,KC_BSLASH, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC},
   {XXXXXXX, XXXXXXX, XXXXXXX, KC_KP_4, XXXXXXX, KC_KP_6,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
   {_______,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,KC_KP_ENTER,XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  {KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX, KC_KP_DOT,KC_KP_ENTER,XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,TO(_QWERTY)}
+  {KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX, KC_KP_DOT,KC_KP_ENTER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO(_QWERTY)}
 },
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
+  {KC_GRV , KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_HOME, KC_END, _______},
