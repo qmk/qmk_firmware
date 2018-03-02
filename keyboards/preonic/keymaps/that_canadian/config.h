@@ -3,7 +3,6 @@
 
 #include "../../config.h"
 
-// Number of backlight levels
 #define PREVENT_STUCK_MODIFIERS
 
 #endif
