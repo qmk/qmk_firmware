@@ -183,6 +183,10 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 		done; \
 		echo ""; \
 		echo "Detected controller on USB port at $$USB"; \
+		if grep -q -s 'MINGW\|MSYS' /proc/version; then \
+			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
+			echo "Remapped MSYS2 USB port to $$USB"; \
+		fi; \
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
