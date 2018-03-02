@@ -102,23 +102,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  | Home | End  | Bksp |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   <  |   >  |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   ~  |   !  |  Up  |   #  |   $  |   %  |   ^  |   &  |   *  |   {  |   }  |  |   |
+ * |   ~  |   !  |   @  |  Up  |   $  |   `  |      |   {  |   }  |      |      |  |   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  | Left | Down | Right| Del  |   `  |   ~  |   -  |   =  |   (  |   )  |  "   |
+ * |      | Del  | Left | Down | Right|   ~  |   =  |   (  |   )  |  +   |      |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Prev | Play | Next | Vol- | Vol+ | VolM |   _  |   +  |   [  |   ]  |      |
+ * |      | Prev | Play | Next |      |      |   -  |   [  |   ]  |  _   |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |   <  |   >  |      |
+ * |      | Vol- | Vol+ | Mute |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_HOME, KC_END,  KC_BSPC},
-  {KC_TILD, KC_EXLM, KC_UP,   KC_HASH,  KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_PIPE},
-  {KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_DEL,  KC_GRV,  KC_TILD, KC_MINS, KC_EQL,  KC_LPRN, KC_RPRN, KC_DQT },
-  {_______, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLD, KC_VOLU, KC_MUTE, KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, _______},
-  {_______, _______, _______, _______,  _______, _______, _______, _______, _______, KC_LT,   KC_GT,   _______}
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH,  KC_DLR,   KC_PERC, KC_CIRC, KC_LT,   KC_GT,   _______, _______, _______},
+  {KC_TILD, KC_EXLM, KC_AT,   KC_UP,    KC_DLR,   KC_GRV,  _______, KC_LCBR, KC_RCBR, _______, _______, KC_PIPE},
+  {_______, KC_DEL,  KC_LEFT, KC_DOWN,  KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, _______, KC_DQT },
+  {_______, KC_MRWD, KC_MPLY, KC_MFFD,  _______, _______,  KC_MINS, KC_LBRC, KC_RBRC, KC_UNDS, _______, _______},
+  {_______, KC_VOLD,  KC_VOLU, KC_MUTE, _______, _______,  _______, _______, _______, _______, _______, _______}
 },
 
 /* Raise
