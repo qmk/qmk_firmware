@@ -22,9 +22,11 @@
 // define layers
 #define _QWERTY 0
 #define _OSU 1
+#define _MEMES 2
 #define _LOWER 10
 #define _RAISE 11
-#define _ADJUST 12
+#define _PLOVER 12
+#define _ADJUST 13
 
 // macro shortcuts
 #define QWERTY M(_QWERTY)
@@ -37,7 +39,9 @@
 
 enum custom_keycodes
 {
-	MEME = SAFE_RANGE
+	MEME = SAFE_RANGE,
+	PLOVER,
+	EXT_PLV
 };
  
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,12 +63,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT},
   {KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT },
-  {KC_LCTL,TG(_OSU), KC_LALT, KC_LGUI, LOWER, KC_SPC,  KC_SPC,    RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT}
+  {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC },
+  {KC_LCTL, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC,  KC_SPC,    RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT}
 },
 
 /* OSU ONLY
-
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -85,6 +88,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, XXXXXXX, KC_KP_DOT,KC_KP_ENTER,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,TO(_QWERTY)}
 },
 
+/* 
+ * MEMES
+ */
+[_MEMES] = {
+  {MEME,   MEME,   MEME,   MEME,   MEME,   MEME,   MEME,   MEME,   MEME,   MEME,  MEME,  MEME},
+  {MEME,MEME, MEME, MEME, MEME, MEME,  MEME, MEME, MEME, MEME, MEME, MEME},
+  {MEME, MEME, MEME, MEME, MEME, MEME,  MEME, MEME, MEME, MEME, MEME, MEME},
+  {MEME,   MEME, MEME, MEME, MEME, MEME,MEME,MEME,MEME, MEME, MEME, MEME},
+  {MEME, MEME,MEME, MEME, MEME, MEME,MEME,MEME,MEME,MEME,MEME,TO(_QWERTY)}
+},
+
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
@@ -95,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |  OSU |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
@@ -103,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_HOME, KC_END, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, TO(_OSU), _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
 /* Raise
@@ -127,25 +141,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_PLOVER] = {
+  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+},
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      | shit |
+ * |      |      |      |      |      |             |      |      |      |      | MEMES|
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL},
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______},
+  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, PLOVER, _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MEME   }
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_MEMES)}
 }
 
 };
@@ -182,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 			{
 				layer_off(_LOWER);
 				update_tri_layer(_LOWER, _RAISE, _ADJUST);
-			}	
+			}
 			return false;
 			break;
 		case RAISE:
@@ -195,6 +231,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 			{
 				layer_off(_RAISE);
 				update_tri_layer(_LOWER, _RAISE, _ADJUST);
+			}
+			return false;
+			break;
+		case PLOVER:
+			if (record->event.pressed)
+			{
+				layer_off(_RAISE);
+				layer_off(_LOWER);
+				layer_off(_ADJUST);
+				layer_on(_PLOVER);
+			}
+			return false;
+			break;
+		case EXT_PLV:
+			if (record->event.pressed)
+			{
+				layer_off(_PLOVER);
 			}
 			return false;
 			break;
