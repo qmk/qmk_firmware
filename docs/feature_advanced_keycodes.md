@@ -26,6 +26,7 @@ These functions allow you to activate layers in various ways.
 * `TG(layer)` - toggles a layer on or off.
 * `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
 * `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+* `LM(layer, mod)` - Momentary switch to *layer* (like MO), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
 
 # Working with Layers
 
