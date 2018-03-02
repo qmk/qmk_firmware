@@ -37,6 +37,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define SSD1306OLED
 
+/* Select rows configuration */
+// Rows are 4 or 5
+#define HELIX_ROWS 5
+
+/* key matrix size */
+// Rows are doubled-up
+#if  HELIX_ROWS == 4
+  #define MATRIX_ROWS 8
+  #define MATRIX_COLS 7
+  #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
+#elif HELIX_ROWS == 5
+  #define MATRIX_ROWS 10
+  #define MATRIX_COLS 7
+  #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+#else
+  #error "expected HELIX_ROWS 4 or 5"
+#endif
+
 #define USE_SERIAL_PD2
 
 #define PREVENT_STUCK_MODIFIERS
