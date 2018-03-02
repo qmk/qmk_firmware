@@ -91,12 +91,6 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-void matrix_scan_kb(void) {
-  // Looping keyboard code goes here
-  // This runs every cycle (a lot)
-  matrix_scan_user();
-};
-
 // declarations
 void matrix_set_row_status(uint8_t row) {
     DDRB = (1 << row);
