@@ -25,6 +25,7 @@
   * [Auto Shift](feature_auto_shift.md)
   * [Backlight](feature_backlight.md)
   * [Bootmagic](feature_bootmagic.md)
+  * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Grave Escape](feature_grave_esc.md)
   * [Key Lock](feature_key_lock.md)
