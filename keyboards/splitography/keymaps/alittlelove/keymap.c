@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
     {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
     {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
-    {_______, _______, _______, _______, KC_LCTL, BLUE,    ORANGE,  KC_SPC, _______, _______, _______, _______},
+    {_______, _______, _______, _______, KC_LCTL, BLUE,    ORANGE,  BLUE, _______, _______, _______, _______},
   },
 
 // .................................................................. Blue Layer
@@ -174,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ................................................................... Num Layer
 //
-// http://www.keyboard-layout-editor.com/#/gists/bc7902f1eada4d7d34d3445aa1eccdab
+// http://www.keyboard-layout-editor.com/#/gists/bc7902f1eada4d7d34d3445aa1eccdabsdffdswerwere
 
   // .-----------------------------------------------------------------------------------.
   // |      |      |      |      |      |      |   /  |   7  |   8  |   9  |   -  |      |
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // http://www.keyboard-layout-editor.com/#/gists/27b8f8649393a8ba4071ba946a9306f4
 
   // ,-----------------------------------------------------------------------------------.
-  // |   1  |   1  |   1  |   1  |   1  |   1  |   1  |   1  |   1  |   1  |   1  |   1  |
+  // |   1  |   1  |   1  |   1  |   1  |   1  | Left | Down | Up   | Right|   1  |  bs  |
   // +-------------+------+------+------+------+------+------+------+------+------+------|
   // |Qwerty|   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
   // +------|------+------+------+------+------+------+------+------+------+------+------|
@@ -208,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // `-----------------------------------------------------------------------------------'
 
   [_PLOVER] = {
-    {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+    {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_1,    KC_BSPC},
     {QWERTY1, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
     {QWERTY2, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
     {_______, _______, _______, _______, KC_C,    KC_V,    KC_N,    KC_M,    _______, _______, _______, _______},
