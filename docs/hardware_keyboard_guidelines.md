@@ -4,7 +4,7 @@ We welcome all keyboard projects into QMK, but ask that you try to stick to a co
 
 ## Naming Your Keyboard/Project
 
-All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Your directory and your `.h` and `.c` files should have exactly the same name. All folders should follow the same format.
+All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Your directory and your `.h` and `.c` files should have exactly the same name. All folders should follow the same format. `test`, `keyboard`, and `all` are reserved by make and are not a valid name for a keyboard.
 
 ## `readme.md`
 
