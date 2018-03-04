@@ -213,56 +213,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-        case WORKMAN:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_WORKMAN);
-          }
-          return false;
-        case COLEMAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_COLEMAK);
-          }
-          return false;
-        case DVORAK:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_DVORAK);
-          }
-          return false;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-        case BACKLIT:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-            PORTE &= ~(1<<6);
-          } else {
-            unregister_code(KC_RSFT);
-            PORTE |= (1<<6);
-          }
-          return false;
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
       }
-    return true;
+      return false;
+    case WORKMAN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_WORKMAN);
+      }
+      return false;
+    case COLEMAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
+      }
+      return false;
+    case DVORAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_DVORAK);
+      }
+      return false;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+    case BACKLIT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        #ifdef BACKLIGHT_ENABLE
+          backlight_step();
+        #endif
+        PORTE &= ~(1<<6);
+      } else {
+        unregister_code(KC_RSFT);
+        PORTE |= (1<<6);
+      }
+      return false;
+  }
+  return true;
 };
