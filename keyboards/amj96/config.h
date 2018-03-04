@@ -42,17 +42,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-// #define MATRIX_ROW_PINS { D0, D5 }
-// #define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0, E6, D7, D6, D5, D1, D0, B7, B6, B0, C7  }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
+// #define BACKLIGHT_PIN D4
+// #define BACKLIGHT_BREATHING
+// #define BACKLIGHT_LEVELS 3
 
+/* number of backlight levels */
+#ifdef BREATHING_LED_ENABLE
+#ifdef FADING_LED_ENABLE
+#define BACKLIGHT_LEVELS 8
+#else
+#define BACKLIGHT_LEVELS 6
+#endif
+#else
+#define BACKLIGHT_LEVELS 3
+#endif
+#define BACKLIGHT_CUSTOM
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5

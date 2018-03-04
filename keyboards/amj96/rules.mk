@@ -59,8 +59,9 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE = no            # USB Nkey Rollover
-BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
+NKRO_ENABLE ?= yes          # USB Nkey Rollover
+# BACKLIGHT_ENABLE ?= yes     # Enable keyboard backlight functionality on B7 by default
+RGBLIGHT_ENABLE = yes
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
@@ -68,4 +69,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 CUSTOM_MATRIX = yes
-SRC += matrix.c
+SRC += matrix.c 
