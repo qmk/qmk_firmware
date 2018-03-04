@@ -1,12 +1,10 @@
 # AMJ96
 
-![amj96](imgur.com image replace me!)
-
-A short description of the keyboard/project
+The AMD96 is a 96 key custom keyboard with anodized aluminum case, twin usb ports, and support for backlight LEDs and RGB underglow via SMD LEDs.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: AMJ96 
+Hardware Availability: Was previously available on a GB via [Flashquark](https://flashquark.com/product/amj96/)
 
 Make example for this keyboard (after setting up your build environment):
 
