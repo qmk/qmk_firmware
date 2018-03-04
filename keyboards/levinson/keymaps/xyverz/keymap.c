@@ -30,6 +30,8 @@ enum planck_keycodes {
 
 // Aliases to keep the keymap tidy
 #define GUIBSPC GUI_T(KC_BSPC) // GUI when held, BSPC when tapped.
+#define RGB_SWR RGB_M_SW // Swirl Animation alias
+#define RGB_SNK RGB_M_SN // Snake Animation alias
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -127,17 +129,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | Reset|      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+ * |      | Reset|RGB PL|RGB BR|RGB RB|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |RGB ON| MODE | HUE+ | HUE- | SAT+ | SAT- | VAL+ | VAL- |      |      |      |
+ * |RGB ON| MODE |RGB SW|RGB KN|RGB GR| HUE- | HUE+ | HUE- | SAT+ | SAT- | VAL+ | VAL- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = KEYMAP ( \
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
-  _______, RESET,   _______, _______, _______, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, \
+  _______, RESET,   RGB_M_P, RGB_M_B, RGB_M_R, AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+  RGB_TOG, RGB_MOD, RGB_SWR, RGB_M_K, RGB_M_G, RGB_HUI, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
@@ -148,6 +150,14 @@ void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
+
+void matrix_init_user(void) {
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
