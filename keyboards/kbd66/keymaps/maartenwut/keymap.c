@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,  		TRNS,  		TRNS, 		TRNS,		TRNS,		TRNS,					TRNS,
 	TRNS,		TRNS, 		TRNS,   	TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS, 		TRNS,	  	TRNS, 		TRNS, 	 				TRNS,
 	TRNS,		TRNS,		TRNS,		TRNS,		TRNS,		TRNS,	 	TRNS, 		TRNS, 		TRNS, 		TRNS, 		TRNS,		TRNS, 		TRNS,   	TRNS,		TRNS,
-	TRNS, 		TRNS, 		TRNS,								TRNS,					TRNS,								TRNS,		TRNS, 		M(0),		TRNS, 		TRNS, 		TRNS),
+	TRNS, 		TRNS, 		TRNS,								TRNS,					TRNS,								TRNS,		TRNS, 		TRNS,		TRNS, 		TRNS, 		TRNS),
 
 //Game layer (fn + g)
 [_GA] = KEYMAP(
@@ -46,18 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TRNS, 		TRNS, 		TRNS,								KC_SPC,					KC_SPC,								TRNS,		TRNS, 		MO(_FL),	TRNS, 		TRNS, 		TRNS),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-				SEND_STRING("AdminF123!");
-			}
-			break;
-	}
-    return MACRO_NONE;
-};
-
 void matrix_init_user() {
+	//Set led port to output
 	DDRB |= (1<<2);
 }
 
