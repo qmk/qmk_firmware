@@ -109,6 +109,48 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
     rgblight_mode(1);
     rgblight_sethsv(hu,sa,va);
 }
+// Set RGBLIGHT state depending on layer
+void rgblight_change( uint8_t last_layer ) {
+    // Save state, if saving is requested
+    if ( base_sta ) {
+        rgblight_saveBase();
+    }
+    
+    // Change RGB light
+    switch ( last_layer ) {
+        case _AL:
+            // Do yellow for alternate
+            rgblight_colorStatic( 60,255,255);
+            break;
+        case _GA:
+            // Do purple for game
+            rgblight_colorStatic(285,255,255);
+            break;
+        case _NU:
+            // Do azure for number
+            rgblight_colorStatic(186,102,255);
+            break;
+        case _SE:
+            // Do red for settings
+            rgblight_colorStatic(  0,255,255);
+            break;
+        case _MO:
+            // Do green for mouse
+            rgblight_colorStatic(120,255,255);
+            break;
+#ifdef AUDIO_ENABLE
+        case _MU:
+            // Do orange for music
+            rgblight_colorStatic( 39,255,255);
+            break;
+#endif
+        default:
+            // Reload base layer
+            rgblight_loadBase();
+            break;
+    }
+}
+
 #endif
 
 /*---------------------*\
@@ -549,36 +591,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  */
 uint32_t layer_state_set_user(uint32_t state) {
 
-//--RGB layer indication
+    state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE
-    // Save state, if saving is requested
-    if ( base_sta ) {
-        rgblight_saveBase();
-    }
-    
-    // Change RGB light
-    if ( biton32(state) == _DV ) {
-        // Reload base layer
-        rgblight_loadBase();
-    } else if ( biton32(state) == _AL ) {
-        // Do yellow for alternate
-        rgblight_colorStatic( 60,255,255);
-    } else if ( biton32(state) == _GA ) {
-        // Do purple for game
-        rgblight_colorStatic(285,255,255);
-    } else if ( biton32(state) == _NU ) {
-        // Do azure for number
-        rgblight_colorStatic(186,102,255);
-    } else if ( biton32(state) == _SE ) {
-        // Do red for settings
-        rgblight_colorStatic(  0,255,255);
-    } else if ( biton32(state) == _MO ) {
-        // Do green for mouse
-        rgblight_colorStatic(120,255,255);
-    } else if ( biton32(state) == _MU ) {
-        // Do orange for music
-        rgblight_colorStatic( 39,255,255);
-    }
+    // Change RGB lighting depending on the last layer activated
+    rgblight_change( biton32(state) );
 #endif
-    return layer_state_set_keymap (state);
+    return state;
 }

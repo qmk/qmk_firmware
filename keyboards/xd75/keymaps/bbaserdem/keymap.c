@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
                                KC_F12,  BL_STEP, BL_BRTG,
     TG(_MO), MO_NW,   MO_N,    MO_NE,   XXX,     UNI_LI,
-    UNI_WN,  KC_WAKE, MO_S_NW, MO_S_N,  MO_S_NE, _______
+    UNI_WN,  KC_WAKE, MO_S_NW, MO_S_N,  MO_S_NE, _______,
                                MO_AC_0, MO_AC_1, MO_AC_2,
     _______, MO_W,    MO_CL_M, MO_E,    MO_CL_4, KC_MUTE,
     KC_PSCR, MO_CL_5, MO_S_W,  MO_CL_M, MO_S_E,  _______,
