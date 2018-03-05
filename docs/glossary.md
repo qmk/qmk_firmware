@@ -4,7 +4,7 @@
 A line of 32-bit MCU's produced by a number of companies, such as Atmel, Cypress, Kinetis, NXP, ST, and TI.
 
 ## AVR
-A line of 8-bit MCU's produced by [Atmel](http://atmel.com). AVR was the original platform that TMK supported.
+A line of 8-bit MCU's produced by [Atmel](http://www.microchip.com/). AVR was the original platform that TMK supported.
 
 ## AZERTY
 The standard Français (French) keyboard layout. Named for the first 6 keys on the keyboard.

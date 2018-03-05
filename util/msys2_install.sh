@@ -16,6 +16,7 @@ function install_avr {
     wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
     7z x avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
     rm avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
+    pacman --needed -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
