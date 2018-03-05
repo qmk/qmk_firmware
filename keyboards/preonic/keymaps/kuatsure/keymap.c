@@ -17,6 +17,9 @@
 #include "preonic.h"
 #include "action_layer.h"
 
+#undef LEADER_TIMEOUT
+#define LEADER_TIMEOUT 300
+
 enum preonic_layers {
   _QWERTY,
   _COLEMAK,
