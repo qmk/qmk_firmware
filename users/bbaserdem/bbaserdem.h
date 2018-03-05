@@ -107,11 +107,10 @@ enum userspace_custom_keycodes {
     MO_S_SE,
     MO_S_SW,
     // Layer switches and lock functionality
-    MOUSE,
-    NUMBERS,
-    LOCK,
-    GAME,
-    MUSIC,
+    K_MOUSE,
+    K_NUMBR,
+    K_LOCK,
+    K_GAMES,
     // Secret macros
     SECRET1,
     SECRET2,
@@ -143,14 +142,15 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Ctl | Alt |  OS | Tur | SYM | Spc || Ent |Funct|Mouse| Lft | Dwn | Rgt |
  * `------------------------------------------------------------------------' */
-#define DVORAK_L1       KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y
-#define DVORAK_R1       KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC
-#define DVORAK_L2       KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I
-#define DVORAK_R2       KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH
-#define DVORAK_L3       KC_LSFT, MY_SCL,  KC_Q,    KC_J,    KC_K,    KC_X
-#define DVORAK_R3       KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP
-#define DVORAK_L4       KC_LCTL, KC_LALT, KC_LGUI, MO(_AL), NUMBERS, KC_SPC
-#define DVORAK_R4       KC_ENT,  MO(_SE), MOUSE,   KC_LEFT, KC_DOWN, KC_RGHT
+#define DVORAK_1 \
+    KC_ESC, KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_BSPC
+#define DVORAK_2 \
+    KC_TAB, KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_SLSH
+#define DVORAK_3 \
+    KC_LSFT,MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   KC_UP
+#define DVORAK_4 \
+    KC_LCTL,KC_LALT,KC_LGUI,MO(_AL),K_NUMBR,KC_SPC, KC_ENT, MO(_SE),K_MOUSE,KC_LEFT,KC_DOWN,KC_RGHT
+#define DVORAK KM(DVORAK_1,DVORAK_2,DVORAK_3,DVORAK_4)
 
 /* Alternative character overlay
  * ,------------------------------------------------------------------------.
@@ -162,14 +162,15 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |     |     |     |     |     ||     |     |     | Home|PgDwn| End |
  * `------------------------------------------------------------------------' */
-#define ALTCHAR_L1      _______, _______, UNDO,    REDO,    CUR_BPN, CUR_YEN
-#define ALTCHAR_R1      _______, TUR_G,   TUR_C,   _______, CUR_LIR, KC_DEL
-#define ALTCHAR_L2      _______, TUR_A,   TUR_O,   CUR_EUR, TUR_U,   TUR_I
-#define ALTCHAR_R2      PHY_DEG, PHY_HBR, _______, _______, TUR_S,   KC_INS
-#define ALTCHAR_L3      _______, _______, CUT,     COPY,    PASTE,   _______
-#define ALTCHAR_R3      CUR_BIT, _______, SECRET1, SECRET2, SECRET3, KC_PGUP
-#define ALTCHAR_L4      _______, _______, _______, _______, _______, _______
-#define ALTCHAR_R4      _______, _______, _______, KC_HOME, KC_PGDN, KC_END
+#define ALTCHAR_1 \
+    _______,_______,UNDO,   REDO,   CUR_BPN,CUR_YEN,_______,TUR_G,  TUR_C,  _______,CUR_LIR,KC_DEL
+#define ALTCHAR_2 \
+    _______,TUR_A,  TUR_O,  CUR_EUR,TUR_U,  TUR_I, PHY_DEG,PHY_HBR,_______,_______,TUR_S,  KC_INS
+#define ALTCHAR_3 \
+    _______,_______,CUT,    COPY,   PASTE,  _______,CUR_BIT,_______,SECRET1,SECRET2,SECRET3,KC_PGUP
+#define ALTCHAR_4 \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_END
+#define ALTCHAR KM(ALTCHAR_1,ALTCHAR_2,ALTCHAR_3,ALTCHAR_4)
 
 /* Game layer
  * ,------------------------------------------------------------------------.
@@ -181,14 +182,15 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Ctrl| Alt | ` ~ |  /  |     | Spc || Spc |     |  0  |  <  |  v  |  >  |
  * `------------------------------------------------------------------------' */
-#define GAME_L1         GAME,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define GAME_R1         KC_ESC,  KC_P7,   KC_P8,   KC_P9,   KC_NLCK, KC_BSPC
-#define GAME_L2         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define GAME_R2         KC_F1,   KC_P4,   KC_P5,   KC_P6,   KC_BSLS, KC_ENT
-#define GAME_L3         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#define GAME_R3         KC_F2,   KC_P1,   KC_P2,   KC_P3,   KC_UP,   KC_ENT
-#define GAME_L4         KC_LCTL, KC_LALT, KC_GRV,  KC_SLSH, _______, KC_SPC
-#define GAME_R4         KC_SPC,  _______, KC_P0,   KC_LEFT, KC_DOWN, KC_RGHT
+#define GAME_1 \
+    K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC
+#define GAME_2 \
+    KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT 
+#define GAME_3 \
+    KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,  KC_ENT 
+#define GAME_4 \
+    KC_LCTL,KC_LALT,KC_GRV, KC_SLSH,_______,KC_SPC, KC_SPC, _______,KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
+#define GAME KM(GAME_1,GAME_2,GAME_3,GAME_4)
 
 /* Symbols layer
  * ,------------------------------------------------------------------------.
@@ -200,14 +202,15 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |     |     |  |  |     |     ||     | LCK |     |     |     |     |
  * `------------------------------------------------------------------------' */
-#define NUMBERS_L1      NUMBERS, KC_GRV,  KC_TILD, KC_LBRC, KC_RBRC, KC_LCBR
-#define NUMBERS_R1      KC_RCBR, KC_EQL,  KC_PLUS, KC_MINS, KC_UNDS, _______
-#define NUMBERS_L2      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define NUMBERS_R2      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS
-#define NUMBERS_L3      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
-#define NUMBERS_R3      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______
-#define NUMBERS_L4      _______, _______, _______, KC_PIPE, _______, _______
-#define NUMBERS_R4      _______, LOCK,    _______, _______, _______, _______
+#define NUMBERS_1 \
+    K_NUMBR,KC_GRV, KC_TILD,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_EQL, KC_PLUS,KC_MINS,KC_UNDS,_______
+#define NUMBERS_2 \
+    _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSLS
+#define NUMBERS_3 \
+    _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______
+#define NUMBERS_4 \
+    _______,_______,_______,KC_PIPE,_______,_______,_______,K_LOCK, _______,_______,_______,_______
+#define NUMBERS KM(NUMBERS_1,NUMBERS_2,NUMBERS_3,NUMBERS_4)
 
 /* Settings layer
  * ,------------------------------------------------------------------------.
@@ -219,14 +222,15 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |PwOff|     |     |Music| Game|Vol -||Vol +|     |     | Prev|TogMu| Next|
  * `------------------------------------------------------------------------' */
-#define SETTINGS_L1     BL_STEP, KC_F1,   KC_F2,   KC_F3,   KC_F4,   UNI_LI
-#define SETTINGS_R1     UNI_WN,  KC_WAKE, _______, RGB_HUD, RGB_HUI, RESET
-#define SETTINGS_L2     _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______
-#define SETTINGS_R2     _______, _______, RGB_TOG, RGB_SAD, RGB_SAI, _______
-#define SETTINGS_L3     _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MUTE
-#define SETTINGS_R3     KC_PSCR, _______, RGB_MOD, RGB_VAD, RGB_VAI, KC_MSTP
-#define SETTINGS_L4     KC_PWR,  _______, _______, MU_TOG,  GAME,    KC_VOLD
-#define SETTINGS_R4     KC_VOLU, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
+#define SETTINGS_1 \
+    BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,RESET  
+#define SETTINGS_2 \
+    _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  _______,_______,_______,RGB_TOG,RGB_SAD,RGB_SAI,_______
+#define SETTINGS_3 \
+    _______,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,KC_PSCR,_______,RGB_MOD,RGB_VAD,RGB_VAI,KC_MSTP
+#define SETTINGS_4 \
+    KC_PWR, _______,_______,MU_TOG, K_GAMES,KC_VOLD,KC_VOLU,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT
+#define SETTINGS KM(SETTINGS_1,SETTINGS_2,SETTINGS_3,SETTINGS_4)
 
 /* Mouse layer
  * ,------------------------------------------------------------------------.
@@ -236,16 +240,17 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |  /  |  v  |  \  |.....|.....||.....|.....| |/| | |v| | |\| |     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     | Left||Right|     |     |Accl0|Accl1|Accl2|
+ * |     |     |     |     |     | Left||Right| LCK |     |Accl0|Accl1|Accl2|
  * `------------------------------------------------------------------------' */
-#define MOUSE_L1        TG(_MO), MO_NW,   MO_N,    MO_NE,   XXX,     XXX
-#define MOUSE_R1        XXX,     XXX,     MO_S_NW, MO_S_N,  MO_S_NE, _______
-#define MOUSE_L2        _______, MO_W,    MO_CL_M, MO_E,    MO_CL_4, XXX
-#define MOUSE_R2        XXX,     MO_CL_5, MO_S_W,  MO_CL_M, MO_S_E,  _______
-#define MOUSE_L3        _______, MO_SW,   MO_S,    MO_SE,   XXX,     XXX
-#define MOUSE_R3        XXX,     XXX,     MO_S_SW, MO_S_S,  MO_S_SE, _______
-#define MOUSE_L4        _______, _______, _______, _______, _______, MO_CL_L
-#define MOUSE_R4        MO_CL_R, _______, _______, MO_AC_0, MO_AC_1, MO_AC_2
+#define MOUSE_1 \
+    K_MOUSE,MO_NW,  MO_N,   MO_NE,  XXX,    XXX    ,XXX,    XXX,    MO_S_NW,MO_S_N, MO_S_NE,_______
+#define MOUSE_2 \
+    _______,MO_W,   MO_CL_M,MO_E,   MO_CL_4,XXX    ,XXX,    MO_CL_5,MO_S_W, MO_CL_M,MO_S_E, _______
+#define MOUSE_3 \
+    _______,MO_SW,  MO_S,   MO_SE,  XXX,    XXX    ,XXX,    XXX,    MO_S_SW,MO_S_S, MO_S_SE,_______
+#define MOUSE_4 \
+    _______,_______,_______,_______,_______,MO_CL_L,MO_CL_R,K_LOCK, _______,MO_AC_0,MO_AC_1,MO_AC_2
+#define MOUSE KM(MOUSE_1,MOUSE_2,MOUSE_3,MOUSE_4)
 
 /* Music layer
  * ,------------------------------------------------------------------------.
@@ -258,7 +263,8 @@ enum {
  * | rec | stop|plbck|ulock| slow| fast||modes|.....|.....|.....|.....|.....|
  * `------------------------------------------------------------------------'
  */
-#define MASK XXX, XXX, XXX, XXX, XXX, XXX
+#define MASK XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX
 #define MUSIC_4 KC_LCTL, KC_LALT, KC_LGUI, MU_TOG, KC_DOWN, KC_UP, MU_MOD, XXX, XXX, XXX, XXX, XXX
+#define MUSIC KM(MASK,MASK,MASK,MUSIC_4)
 
 #endif

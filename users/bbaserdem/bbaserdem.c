@@ -109,15 +109,40 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
     rgblight_mode(1);
     rgblight_sethsv(hu,sa,va);
 }
+/* HSV values, thank you @drashna!
+ * white        (  0,   0, 255)
+ * red          (  0, 255, 255)
+ * coral        ( 16, 176, 255)
+ * orange       ( 39, 255, 255)
+ * goldenrod    ( 43, 218, 218)
+ * gold         ( 51, 255, 255)
+ * yellow       ( 60, 255, 255)
+ * chartreuse   ( 90, 255, 255)
+ * green        (120, 255, 255)
+ * springgreen  (150, 255, 255)
+ * turquoise    (174,  90, 112)
+ * teal         (180, 255, 128)
+ * cyan         (180, 255, 255)
+ * azure        (186, 102, 255)
+ * blue         (240, 255, 255)
+ * purple       (270, 255, 255)
+ * magenta      (300, 255, 255)
+ * pink         (330, 128, 255)
+ */
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t last_layer ) {
     // Save state, if saving is requested
+    /*
     if ( base_sta ) {
         rgblight_saveBase();
     }
-    
+    */
     // Change RGB light
     switch ( last_layer ) {
+        case _DV:
+            // Load base layer
+            rgblight_loadBase();
+            break;
         case _AL:
             // Do yellow for alternate
             rgblight_colorStatic( 60,255,255);
@@ -128,11 +153,11 @@ void rgblight_change( uint8_t last_layer ) {
             break;
         case _NU:
             // Do azure for number
-            rgblight_colorStatic(186,102,255);
+            rgblight_colorStatic(186,200,255);
             break;
         case _SE:
             // Do red for settings
-            rgblight_colorStatic(  0,255,255);
+            rgblight_colorStatic( 16,255,255);
             break;
         case _MO:
             // Do green for mouse
@@ -145,8 +170,8 @@ void rgblight_change( uint8_t last_layer ) {
             break;
 #endif
         default:
-            // Reload base layer
-            rgblight_loadBase();
+            // Something went wrong
+            rgblight_colorStatic(  0,255,255);
             break;
     }
 }
@@ -176,8 +201,8 @@ void matrix_init_user (void) {
     base_mod = 2;
     base_tog = false;
     rgblight_enable();
-    rgblight_mode(2);
-    rgblight_sethsv(100,0,255);
+    rgblight_mode(base_mod);
+    rgblight_sethsv(base_hue,base_sat,base_val);
     rgblight_disable();
     rgblight_loadBase();
 #endif
@@ -232,13 +257,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
-        case LOCK:
+        case K_LOCK:
             if (record->event.pressed) {
                 lock_flag = !lock_flag;
             }
             return false;
             break;
-        case MOUSE:
+        case K_MOUSE:
 #ifdef MOUSEKEY_ENABLE
             if (record->event.pressed) {
                 layer_on(_MO);
@@ -253,7 +278,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
             return false;
             break;
-        case NUMBERS:
+        case K_NUMBR:
             if (record->event.pressed) {
                 layer_on(_NU);
                 lock_flag = false;
@@ -268,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
             
         // Layer switches with sound
-        case GAME:
+        case K_GAMES:
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _GA ) {
@@ -569,26 +594,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 |*-----LAYER CHANGE-----*|
 \*----------------------*/
 
-/* HSV values, thank you @drashna!
- * white        (  0,   0, 255)
- * red          (  0, 255, 255)
- * coral        ( 16, 176, 255)
- * orange       ( 39, 255, 255)
- * goldenrod    ( 43, 218, 218)
- * gold         ( 51, 255, 255)
- * yellow       ( 60, 255, 255)
- * chartreuse   ( 90, 255, 255)
- * green        (120, 255, 255)
- * springgreen  (150, 255, 255)
- * turquoise    (174,  90, 112)
- * teal         (180, 255, 128)
- * cyan         (180, 255, 255)
- * azure        (186, 102, 255)
- * blue         (240, 255, 255)
- * purple       (270, 255, 255)
- * magenta      (300, 255, 255)
- * pink         (330, 128, 255)
- */
 uint32_t layer_state_set_user(uint32_t state) {
 
     state = layer_state_set_keymap (state);
