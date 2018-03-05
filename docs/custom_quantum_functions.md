@@ -139,7 +139,7 @@ void led_set_user(uint8_t usb_led) {
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
-### Example `matrix_init_kb()` Implementation
+### Example `matrix_init_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
@@ -177,3 +177,39 @@ This function gets called at every matrix scan, which is basically as often as t
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
 
+# Layer Change Code
+
+Thir runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling. 
+
+### Example `layer_state_set_*` Implementation
+
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+
+```
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+```
+### `matrix_init_*` Function Documentation
+
+* Keyboard/Revision: `void uint32_t layer_state_set_kb(uint32_t state)`
+* Keymap: `uint32_t layer_state_set_user(uint32_t state)`
+
+The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
