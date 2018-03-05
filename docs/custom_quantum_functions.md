@@ -98,10 +98,10 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-### Example `led_set_kb()` Implementation
+### Example `led_set_user()` Implementation
 
 ```
-void led_set_kb(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         PORTB |= (1<<0);
     } else {
@@ -144,9 +144,8 @@ Before a keyboard can be used the hardware must be initialized. QMK handles init
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```
-void matrix_init_kb(void) {
+void matrix_init_user(void) {
   // Call the keymap level matrix init.
-  matrix_init_user();
 
   // Set our LED pins as output
   DDRB |= (1<<1);
@@ -176,3 +175,5 @@ This example has been deliberately omitted. You should understand enough about Q
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
+
+
