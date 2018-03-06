@@ -275,7 +275,7 @@ bootloaderhid:
 	echo "\n#endif" >> lib/lufa/Bootloaders/HID/Keyboard.h
 	make -C lib/lufa/Bootloaders/HID/ MCU=$(MCU) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	echo "BootloaderHID.hex copied to $(TARGET)_bootloaderhid.hex"
-	cp lib/lufa/Bootloaders/HID/BootloaderHID.hex $(TARGET)_bootloader.hex
+	cp lib/lufa/Bootloaders/HID/BootloaderHID.hex $(TARGET)_bootloaderhid.hex
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader
 	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
