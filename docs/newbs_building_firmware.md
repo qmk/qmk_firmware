@@ -32,7 +32,7 @@ Open up your `keymap.c`. Inside this file you'll find the structure that control
 
 This line indicates the start of the list of Layers. Below that you'll find lines containing either `LAYOUT` or `KEYMAP`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a that particular layer.
 
-{% hint style='warn' %}
+{% hint style='danger' %}
 When editing your keymap file be careful not to add or remove any commas. If you do you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
 {% endhint %}
 
