@@ -212,6 +212,14 @@ enum {
 #define _________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O
 #define _________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
+#define ______________COLEMAK_MOD_DH_L1____________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
+#define ______________COLEMAK_MOD_DH_L2____________       KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+#define ______________COLEMAK_MOD_DH_L3____________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_D,    KC_V
+
+#define ______________COLEMAK_MOD_DH_R1____________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
+#define ______________COLEMAK_MOD_DH_R2____________       KC_K,    KC_N,    KC_E,    KC_I,    KC_O
+#define ______________COLEMAK_MOD_DH_R3____________       KC_M,    KC_H,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
 
 #define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
 #define _________________DVORAK_L2_________________        KC_A,    KC_O,    KC_E,   KC_U,     KC_I
