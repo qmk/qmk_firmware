@@ -124,6 +124,12 @@ generate-keyboards-file:
 	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
 	exit 0
 
+clean:
+	echo -n 'Deleting .build ... '
+	rm -rf $(BUILD_DIR)
+	echo 'done'
+	exit 0
+
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
 ifdef keyboard
