@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | Prev | Play | Next | Vol- | Vol+ |   -  |   [  |   ]  |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Mute |      |      |      |             |      |      |      |      |      |
+ * |      | Mute |      |      |      |     Esc     |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,   KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE},
   {_______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, _______, KC_DQT },
   {_______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, _______, _______},
-  {_______, KC_MUTE, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______}
+  {_______, KC_MUTE, _______, _______, _______,  KC_ESC,  KC_ESC,  _______, _______, _______, _______, _______}
 },
 
 /* Raise
