@@ -3,9 +3,16 @@
   * [Install Build Tools](getting_started_build_tools.md)
     * Alternative: [Vagrant Guide](getting_started_vagrant.md)
   * [Build/Compile Instructions](getting_started_make_guide.md)
-  * [Flashing Instructions](flashing.md)
+  * [Flashing Firmware](flashing.md)
   * [Contributing to QMK](contributing.md)
   * [How to Use Github](getting_started_github.md)
+  * [Getting Help](getting_started_getting_help.md)
+
+* [Complete Newbs Guide](newbs.md)
+  * [Getting Started](newbs_getting_started.md)
+  * [Building Your First Firmware](newbs_building_firmware.md)
+  * [Flashing Firmware](newbs_flashing.md)
+  * [Testing and Debugging](newbs_testing_debugging.md)
 
 * [FAQ](faq.md)
   * [General FAQ](faq_general.md)
