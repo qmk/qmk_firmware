@@ -78,11 +78,33 @@ int main(void)
 	/* Setup hardware required for the bootloader */
 	SetupHardware();
 
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	LEDs_SetAllLEDs(LEDS_LED1 | LEDS_LED2);
+
+	/* Turn on first LED on the board to indicate that the bootloader has started */
+	// LEDs_SetAllLEDs(LEDS_LED1 | LEDS_LED2);
+
 	/* Enable global interrupts so that the USB stack can function */
 	GlobalInterruptEnable();
 
-	while (RunBootloader)
-	  USB_USBTask();
+	#if (BOARD == BOARD_QMK)
+		uint16_t keypress = 0;
+	#endif
+
+	while (RunBootloader) {
+		USB_USBTask();
+		#if (BOARD == BOARD_QMK)
+			bool pressed = (PIN(QMK_ESC_INPUT) & NUM(QMK_ESC_INPUT));
+		if ((keypress > 5000) && pressed) {
+			break;
+		}
+		if (pressed) {
+			keypress++;
+		} else {
+			keypress = 0;
+		}
+		#endif
+	}
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
 	USB_Detach();
@@ -110,8 +132,28 @@ static void SetupHardware(void)
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
 
+	#if (BOARD == BOARD_QMK)
+		// output setup
+		DDR(QMK_ESC_OUTPUT) |= NUM(QMK_ESC_OUTPUT);
+		PORT(QMK_ESC_OUTPUT) |= NUM(QMK_ESC_OUTPUT);
+
+		// input setup
+		DDR(QMK_ESC_INPUT) |= NUM(QMK_ESC_INPUT);
+	#endif
+
 	/* Initialize USB subsystem */
 	USB_Init();
+	LEDs_Init();
+
+	/* Bootloader active LED toggle timer initialization */
+	TIMSK1 = (1 << TOIE1);
+	TCCR1B = ((1 << CS11) | (1 << CS10));
+}
+
+/** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
+ISR(TIMER1_OVF_vect, ISR_BLOCK)
+{
+	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
