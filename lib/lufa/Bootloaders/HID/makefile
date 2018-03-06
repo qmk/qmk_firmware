@@ -11,10 +11,10 @@
 
 # Run "make help" for target help.
 
-MCU          = at90usb1287
+MCU          = atmega32u4
 ARCH         = AVR8
-BOARD        = USBKEY
-F_CPU        = 8000000
+BOARD        = QMK
+F_CPU        = 16000000
 F_USB        = $(F_CPU)
 OPTIMIZATION = s
 TARGET       = BootloaderHID
@@ -26,8 +26,8 @@ LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET)
 # Flash size and bootloader section sizes of the target, in KB. These must
 # match the target's total FLASH size and the bootloader size set in the
 # device's fuses.
-FLASH_SIZE_KB        := 128
-BOOT_SECTION_SIZE_KB := 8
+FLASH_SIZE_KB        := 32
+BOOT_SECTION_SIZE_KB := 4
 
 # Bootloader address calculation formulas
 # Do not modify these macros, but rather modify the dependent values above.
