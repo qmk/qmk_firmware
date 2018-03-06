@@ -239,6 +239,15 @@ enum {
 #define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
 
 
+#define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
+#define _________________NORMAN_L2_________________       KC_A,    KC_S,    KC_E,    KC_T,    KC_G
+#define _________________NORMAN_L3_________________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
+
+#define _________________NORMAN_R1_________________       KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN
+#define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
+#define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+
+
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
