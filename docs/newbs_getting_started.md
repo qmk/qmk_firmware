@@ -6,9 +6,19 @@ QMK tries to put a lot of power into your hands by making easy things easy, and 
 
 # Getting Started
 
-Before you can build keymaps you need to setup your build environment. This only has to be done one time no matter how many keyboards you want to compile firmware for.
+Before you can build keymaps you need to install some software and setup your build environment. This only has to be done one time no matter how many keyboards you want to compile firmware for.
 
-## Download QMK Toolbox
+## Download Software
+
+### Text Editor
+
+You'll need a program that can edit and save **plain text** files. If you are on Windows you can make due with Notepad, and on Linux you can use Gedit, both of which are simple but functional text editors. On macOS you can not use TextEdit.app, it will not save plain text files. You will need to install another program such as Sublime Text.
+
+{% hint style='info' %}
+Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
+{% endhint %}
+
+### QMK Toolbox
 
 QMK Toolbox is a Windows and macOS program that allows you to both program and debug your custom keyboard. You will want to install it so that you can easily flash your keyboard and receive the debugging messages that your keyboard will print.
 
@@ -43,8 +53,8 @@ You will need to install git. It's extremely likely you already have it, but if 
 
 Once you have setup your Linux/Unix environment you are ready to download QMK. We will do this by using git to "clone" the QMK repository. Open a Terminal or MSYS2 Console window and leave it open for the remainder of this guide. Inside that window run these two commands:
 
-* `git clone https://github.com/qmk/qmk_firmware.git`
-* `cd qmk_firmware`
+    git clone https://github.com/qmk/qmk_firmware.git
+    cd qmk_firmware
 
 {% hint style='info' %}
 If you already know [how to use GitHub](getting_started_github.md) we recommend you create and clone your own fork instead. If you don't know what that means you can safely ignore this message.
@@ -52,19 +62,19 @@ If you already know [how to use GitHub](getting_started_github.md) we recommend 
 
 ## Setup QMK
 
-QMK comes with a script to help you setup the rest of what you'll need. You should run it now:
+QMK comes with a script to help you setup the rest of what you'll need. You should run it now by typing in this command:
 
-* `./util/qmk_install.sh`
+    ./util/qmk_install.sh
 
 ## Test Your Build Environment
 
 Now that your QMK build environment is setup you can build a firmware for your keyboard. Start by trying to build the default layout for your keyboard. You should be able to do that with a command in this format:
 
-* `make <keyboard>:default`
+    make <keyboard>:default
 
 For example, to build a firmware for a Clueboard 66% use:
 
-* `make clueboard/66:default`
+    make clueboard/66/rev3:default
 
 When it is done you should have a lot of output that ends similar to this:
 
@@ -75,3 +85,7 @@ Copying clueboard_66_rev2_default.hex to qmk_firmware folder                    
 Checking file size of clueboard_66_rev2_default.hex                                                 [OK]
  * File size is fine - 25174/28672
 ```
+
+## Creating Your Layout
+
+Now you are ready to create your own personal layout. Move on to [Building Your First Firmware](newbs_building_firmware.md) for that.
