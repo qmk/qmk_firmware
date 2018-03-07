@@ -29,6 +29,13 @@ QMK Toolbox is a Windows and macOS program that allows you to both program and d
 
 We've tried to make QMK as easy to setup as possible. You only have to prepare your Linux or Unix environment and let QMK install the rest.
 
+{% hint style="info" %}
+If you haven't worked with the Linux/Unix command line before there are a few basic concepts and commands you should learn. These resources will teach you enough to work with QMK:
+
+* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)
+* [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
+{% endhint %}
+
 ### Windows
 
 You will need to install msys2 and git.
