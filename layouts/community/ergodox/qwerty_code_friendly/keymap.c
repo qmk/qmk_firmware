@@ -12,6 +12,9 @@
 /* Personal preference (enable by passing EXTRAFLAGS=... to make). */
 /* #define CFQ_USE_MOMENTARY_LAYER_KEYS */
 
+/* Holding right/left or left/right shift for single or double quote pair */
+/* #define CFQ_USE_SHIFT_QUOTES */
+
 #define CFQ_USE_DYNAMIC_MACRO
 
 #if !defined(CFQ_USER_KEY0)
@@ -21,10 +24,10 @@
 #  define CFQ_USER_KEY1 CFQ_KC_FN1
 #endif
 #if !defined(CFQ_USER_KEY2)
-#  define CFQ_USER_KEY2 KC_LT
+#  define CFQ_USER_KEY2 KC_INS
 #endif
 #if !defined(CFQ_USER_KEY3)
-#  define CFQ_USER_KEY3 KC_GT
+#  define CFQ_USER_KEY3 KC_NLCK
 #endif
 #if !defined(CFQ_USER_KEY4)
 #  define CFQ_USER_KEY4 KC_BSPC
@@ -37,6 +40,9 @@
 #endif
 #if !defined(CFQ_USER_KEY7)
 #  define CFQ_USER_KEY7 CFQ_KC_FN3
+#endif
+#if !defined(CFQ_USER_KEY8)
+#  define CFQ_USER_KEY8 KC_DEL
 #endif
 
 #ifndef CFQ_WORD_A
@@ -186,13 +192,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Ins  |
+ *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |   <  |  >   |       | Home | End  |
+ *                                        | Ins  |NumClk|       | Home | End  |
  *                                 ,------+------+------|       |------+------+------.
  *                                 |      |      |CapsLk|       | PgUp |      |      |
- *                                 |BSpace| Del  |------|       |------| ~L2  |Space |
+ *                                 |BSpace| Del  |------|       |------| ~L2  |Enter |
  *                                 |      |      | ~L3  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  *
@@ -207,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      | USR1 |      |                                       |      |      |      |      |      |
+ *   |      |      |      | USR1 |      |                                       |      |      |      |      | USR8 |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | USR2 | USR3 |       |      |      |
@@ -235,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RPRN,     KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,      KC_BSLS,
                KC_H,    KC_J,    KC_K,   KC_L,    KC_SCLN,   KC_QUOT,
   KC_RBRC,     KC_N,    KC_M,    KC_COMM,KC_DOT,  KC_SLSH,   KC_RSFT,
-                        KC_LEFT, KC_DOWN,KC_UP,   KC_RGHT,   KC_INS,
+                        KC_LEFT, KC_DOWN,KC_UP,   KC_RGHT,   CFQ_USER_KEY8,
   KC_HOME, KC_END,
   KC_PGUP,
   KC_PGDN, CFQ_KC_FN2, KC_ENT
@@ -468,6 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+#ifdef CFQ_USE_SHIFT_QUOTES
     case KC_LSHIFT:  /* '' */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RSFT)))) {
         clear_mods();
@@ -482,7 +489,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
-
+#endif  /* CFQ_USE_SHIFT_QUOTES */
     case M_WORD_A...M_WORD_Z:
     {
       const char *word = cfq_word_lut[keycode - M_WORD_A];
