@@ -26,7 +26,7 @@
 #define _FN 2 // Function
 #define _SYL 3 // Symbols left
 #define _SYR 4 // Symbols right
-#define _NAV 7 // Navigation
+#define _NAV 5 // Navigation
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
