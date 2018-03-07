@@ -4,11 +4,6 @@ QMK is a powerful Open Source firmware for your mechanical keyboard. You can use
 
 Not sure if your keyboard can run QMK? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](http://qmk.fm/keyboards/), so even if your current keyboard can't run QMK you shouldn't have trouble finding one to suit your needs.
 
-We assume you are familiar with the basics of working in a Linux/Unix command line environment. If you are not these resources will teach you enough to work with QMK:
-
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)
-* [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
-
 ## Overview
 
 There are 4 main sections to this guide:
