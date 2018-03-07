@@ -24,6 +24,7 @@ if [ ! -e Doxyfile ]; then
 fi
 
 # Generate the doxygen XML files
+rm -rf doxygen
 doxygen Doxyfile
 
 # Generate the moxygen Markdown files
