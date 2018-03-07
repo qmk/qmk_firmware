@@ -63,3 +63,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+// USB_MAX_POWER_CONSUMPTION value for Helix keyboard
+//  120  RGBoff, OLEDoff
+//  120  OLED
+//  330  RGB 6
+//  300  RGB 32
+//  310  OLED & RGB 32
+  #define USB_MAX_POWER_CONSUMPTION 330
+#else
+  // fix iPhone and iPad power adapter issue
+  // iOS device need lessthan 100
+  #define USB_MAX_POWER_CONSUMPTION 100
+#endif
