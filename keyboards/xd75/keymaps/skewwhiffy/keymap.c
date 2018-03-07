@@ -22,12 +22,10 @@
 
 // Layer shorthand
 #define _CM 0 // Colemak
-#define _QW 1 // Qwerty
-#define _DV 2 // Dvorak
-#define _NB 3 // Numbers
-#define _FN 4 // Function
-#define _SYL 5 // Symbols left
-#define _SYR 6 // Symbols right
+#define _NB 1 // Numbers
+#define _FN 2 // Function
+#define _SYL 3 // Symbols left
+#define _SYR 4 // Symbols right
 #define _NAV 7 // Navigation
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
