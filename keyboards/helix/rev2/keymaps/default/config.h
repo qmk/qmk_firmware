@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+// Helix keyboard OLED support
 //#define SSD1306OLED
 
 #define USE_SERIAL_PD2
@@ -46,8 +47,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
+// Helix keyboard : see ./rules.mk: RGBLIGHT_ENABLE = yes or no
+// Helix keyboard : RGBLED_NUM 6 or 32
 #define RGBLED_NUM 6
-#define RGBLIGHT_LIMIT_VAL 255
+#if RGBLED_NUM <= 6
+  #define RGBLIGHT_LIMIT_VAL 255
+#else
+  #if HELIX_ROWS == 5
+    #define RGBLIGHT_LIMIT_VAL 120
+  #else
+    #define RGBLIGHT_LIMIT_VAL 130
+  #endif
+#endif
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
