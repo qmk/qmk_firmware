@@ -45,6 +45,7 @@
   * [RGB Lighting](feature_rgblight.md)
   * [Space Cadet](feature_space_cadet.md)
   * [Stenography](feature_stenography.md)
+  * [Swap Hands](feature_swap_hands.md)
   * [Tap Dance](feature_tap_dance.md)
   * [Terminal](feature_terminal.md)
   * [Thermal Printer](feature_thermal_printer.md)
