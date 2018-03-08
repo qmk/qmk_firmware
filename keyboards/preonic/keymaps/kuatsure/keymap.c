@@ -255,5 +255,53 @@ void matrix_scan_user(void) {
           unregister_code(KC_LSFT);
           unregister_code(KC_LGUI);
         }
+
+        // TMUX - shift to pane 1 and zoom
+        SEQ_ONE_KEY(KC_1) {
+          register_code(KC_LCTL);
+          register_code(KC_SPC);
+
+          unregister_code(KC_LCTL);
+          unregister_code(KC_SPC);
+
+          register_code(KC_Q);
+          unregister_code(KC_Q);
+
+          register_code(KC_1);
+          unregister_code(KC_1);
+
+          register_code(KC_LCTL);
+          register_code(KC_SPC);
+
+          unregister_code(KC_LCTL);
+          unregister_code(KC_SPC);
+
+          register_code(KC_Z);
+          unregister_code(KC_Z);
+        }
+
+        // TMUX - shift to pane 2 and zoom
+        SEQ_ONE_KEY(KC_2) {
+          register_code(KC_LCTL);
+          register_code(KC_SPC);
+
+          unregister_code(KC_LCTL);
+          unregister_code(KC_SPC);
+
+          register_code(KC_Q);
+          unregister_code(KC_Q);
+
+          register_code(KC_2);
+          unregister_code(KC_2);
+
+          register_code(KC_LCTL);
+          register_code(KC_SPC);
+
+          unregister_code(KC_LCTL);
+          unregister_code(KC_SPC);
+
+          register_code(KC_Z);
+          unregister_code(KC_Z);
+        }
     }
 }
