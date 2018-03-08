@@ -174,6 +174,8 @@ eg: `-DCFQ_WORD_E=\"my@email.com\"`
   Add `CFQ_USE_SHIFT_QUOTES` option.
   Add `CFQ_USER_KEY8` key.
 
+  When holding shift `CFQ_WORD_[A-Z]` use title caps.
+
 - 2018/03/06
   Add layer for user defined words (replaces `CFQ_USE_EXPEREMENTAL_LAYER`).
 
