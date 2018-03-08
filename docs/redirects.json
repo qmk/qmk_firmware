@@ -17,8 +17,8 @@
                 "to": "feature_advanced_keycodes.html"
             },
             {
-                "from": "flashing.html",
-                "to": "newbs_flashing.html"
+                "from": "glossary.html",
+                "to": "reference_glossary.html"
             },
             {
                 "from": "key_lock.html",
