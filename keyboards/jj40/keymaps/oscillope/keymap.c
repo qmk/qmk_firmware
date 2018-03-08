@@ -18,6 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "jj40.h"
 #include "action_layer.h"
 
+#ifdef KEYMAP
+#undef KEYMAP
+#endif
+#define KEYMAP KEYMAP_OFFSET
+
 #define _QWERTY 0
 #define _LOWER  1
 #define _RAISE  2
