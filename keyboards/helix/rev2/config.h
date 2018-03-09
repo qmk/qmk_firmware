@@ -29,21 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Helix Beta
 #define DESCRIPTION     A split keyboard for the cheap makers
 
-#define HELIX_ROWS 5
-
-/* key matrix size */
-// Rows are doubled-up
-#if  HELIX_ROWS == 4
-  #define MATRIX_ROWS 8
-  #define MATRIX_COLS 7
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-#elif HELIX_ROWS == 5
-  #define MATRIX_ROWS 10
-  #define MATRIX_COLS 7
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#else
-  #error "expected HELIX_ROWS 4 or 5"
-#endif
 
 // wiring of each half
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
