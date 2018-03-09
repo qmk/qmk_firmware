@@ -16,7 +16,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 # Helix keyboard : see ./config.h: RGBLED_NUM 6 or 32
 # Helix keyboard : RGBLIGHT_ENABLE = no or yes
-RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = yes-but-local        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 ONEHAND_ENABLE = no        # Enable one-hand typing
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
@@ -25,3 +25,14 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
+
+#copy from common_features.mk and modify rgblight.c
+    OPT_DEFS += -DRGBLIGHT_ENABLE
+    SRC += rgblight.c
+    CIE1931_CURVE = yes
+    LED_BREATHING_TABLE = yes
+    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    else
+         SRC += ws2812.c
+    endif
