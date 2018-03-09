@@ -138,7 +138,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
     case MACRO_BREATH_DEFAULT:
       if (record->event.pressed) {
-        breathing_defaults();
+        breathing_period_default();
       }
       break;
   }
