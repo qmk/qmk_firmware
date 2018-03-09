@@ -12,6 +12,9 @@
 /* Personal preference (enable by passing EXTRAFLAGS=... to make). */
 /* #define CFQ_USE_MOMENTARY_LAYER_KEYS */
 
+/* Holding right/left or left/right shift for single or double quote pair */
+/* #define CFQ_USE_SHIFT_QUOTES */
+
 #define CFQ_USE_DYNAMIC_MACRO
 
 #if !defined(CFQ_USER_KEY0)
@@ -21,10 +24,10 @@
 #  define CFQ_USER_KEY1 CFQ_KC_FN1
 #endif
 #if !defined(CFQ_USER_KEY2)
-#  define CFQ_USER_KEY2 KC_LT
+#  define CFQ_USER_KEY2 KC_INS
 #endif
 #if !defined(CFQ_USER_KEY3)
-#  define CFQ_USER_KEY3 KC_GT
+#  define CFQ_USER_KEY3 KC_NLCK
 #endif
 #if !defined(CFQ_USER_KEY4)
 #  define CFQ_USER_KEY4 KC_BSPC
@@ -37,6 +40,9 @@
 #endif
 #if !defined(CFQ_USER_KEY7)
 #  define CFQ_USER_KEY7 CFQ_KC_FN3
+#endif
+#if !defined(CFQ_USER_KEY8)
+#  define CFQ_USER_KEY8 KC_DEL
 #endif
 
 #ifndef CFQ_WORD_A
@@ -118,13 +124,28 @@
 #define CFQ_WORD_Z ""
 #endif
 
-static const char *cfq_word_lut[26] = {
-  CFQ_WORD_A, CFQ_WORD_B, CFQ_WORD_C, CFQ_WORD_D, CFQ_WORD_E, CFQ_WORD_F,
-  CFQ_WORD_G, CFQ_WORD_H, CFQ_WORD_I, CFQ_WORD_J, CFQ_WORD_K, CFQ_WORD_L,
-  CFQ_WORD_M, CFQ_WORD_N, CFQ_WORD_O, CFQ_WORD_P, CFQ_WORD_Q, CFQ_WORD_R,
-  CFQ_WORD_S, CFQ_WORD_T, CFQ_WORD_U, CFQ_WORD_V, CFQ_WORD_W, CFQ_WORD_X,
-  CFQ_WORD_Y, CFQ_WORD_Z,
+/* lower and title capitals versions (setup at start). */
+static char *cfq_word_lut[2][26] = {
+  {
+    CFQ_WORD_A, CFQ_WORD_B, CFQ_WORD_C, CFQ_WORD_D, CFQ_WORD_E, CFQ_WORD_F,
+    CFQ_WORD_G, CFQ_WORD_H, CFQ_WORD_I, CFQ_WORD_J, CFQ_WORD_K, CFQ_WORD_L,
+    CFQ_WORD_M, CFQ_WORD_N, CFQ_WORD_O, CFQ_WORD_P, CFQ_WORD_Q, CFQ_WORD_R,
+    CFQ_WORD_S, CFQ_WORD_T, CFQ_WORD_U, CFQ_WORD_V, CFQ_WORD_W, CFQ_WORD_X,
+    CFQ_WORD_Y, CFQ_WORD_Z,
+  },
+  {NULL}
 };
+
+/* Storage for title-caps strings. */
+static char cfq_word_lut_title_caps[
+    sizeof(CFQ_WORD_A) + sizeof(CFQ_WORD_B) + sizeof(CFQ_WORD_C) + sizeof(CFQ_WORD_D) +
+    sizeof(CFQ_WORD_E) + sizeof(CFQ_WORD_F) + sizeof(CFQ_WORD_G) + sizeof(CFQ_WORD_H) +
+    sizeof(CFQ_WORD_I) + sizeof(CFQ_WORD_J) + sizeof(CFQ_WORD_K) + sizeof(CFQ_WORD_L) +
+    sizeof(CFQ_WORD_M) + sizeof(CFQ_WORD_N) + sizeof(CFQ_WORD_O) + sizeof(CFQ_WORD_P) +
+    sizeof(CFQ_WORD_Q) + sizeof(CFQ_WORD_R) + sizeof(CFQ_WORD_S) + sizeof(CFQ_WORD_T) +
+    sizeof(CFQ_WORD_U) + sizeof(CFQ_WORD_V) + sizeof(CFQ_WORD_W) + sizeof(CFQ_WORD_X) +
+    sizeof(CFQ_WORD_Y) + sizeof(CFQ_WORD_Z)
+];
 
 #define BASE 0 /* default layer */
 #define SYMB 1 /* symbols */
@@ -186,13 +207,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Ins  |
+ *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |   <  |  >   |       | Home | End  |
+ *                                        | Ins  |NumClk|       | Home | End  |
  *                                 ,------+------+------|       |------+------+------.
  *                                 |      |      |CapsLk|       | PgUp |      |      |
- *                                 |BSpace| Del  |------|       |------| ~L2  |Space |
+ *                                 |BSpace| Del  |------|       |------| ~L2  |Enter |
  *                                 |      |      | ~L3  |       | PgDn |      |      |
  *                                 `--------------------'       `--------------------'
  *
@@ -207,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      | USR1 |      |                                       |      |      |      |      |      |
+ *   |      |      |      | USR1 |      |                                       |      |      |      |      | USR8 |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | USR2 | USR3 |       |      |      |
@@ -235,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RPRN,     KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,      KC_BSLS,
                KC_H,    KC_J,    KC_K,   KC_L,    KC_SCLN,   KC_QUOT,
   KC_RBRC,     KC_N,    KC_M,    KC_COMM,KC_DOT,  KC_SLSH,   KC_RSFT,
-                        KC_LEFT, KC_DOWN,KC_UP,   KC_RGHT,   KC_INS,
+                        KC_LEFT, KC_DOWN,KC_UP,   KC_RGHT,   CFQ_USER_KEY8,
   KC_HOME, KC_END,
   KC_PGUP,
   KC_PGDN, CFQ_KC_FN2, KC_ENT
@@ -380,6 +401,15 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TAP_TOGGLE(WORD),               /* FN3 - Momentary Layer 3 (Words) */
 };
 
+
+    #define WITHOUT_MODS(...) \
+      do { \
+        uint8_t _real_mods = get_mods(); \
+        clear_mods(); \
+        { __VA_ARGS__ } \
+        set_mods(_real_mods); \
+      } while (0)
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CFQ_USE_DYNAMIC_MACRO
   if (!process_record_dynamic_macro(keycode, record)) {
@@ -468,27 +498,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
+#ifdef CFQ_USE_SHIFT_QUOTES
     case KC_LSHIFT:  /* '' */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_RSFT)))) {
-        clear_mods();
-        SEND_STRING("''" SS_TAP(X_LEFT) SS_DOWN(X_RSHIFT) SS_DOWN(X_LSHIFT));
+        WITHOUT_MODS({
+            SEND_STRING("''" SS_TAP(X_LEFT) SS_DOWN(X_RSHIFT) SS_DOWN(X_LSHIFT));
+          });
         return false;
       }
       break;
     case KC_RSHIFT:  /* "" */
       if (record->event.pressed && (keyboard_report->mods & (MOD_BIT(KC_LSFT)))) {
-        clear_mods();
-        SEND_STRING("\x22\x22" SS_TAP(X_LEFT) SS_DOWN(X_LSHIFT) SS_DOWN(X_RSHIFT));
+        WITHOUT_MODS({
+            SEND_STRING("\x22\x22" SS_TAP(X_LEFT) SS_DOWN(X_LSHIFT) SS_DOWN(X_RSHIFT));
+          });
         return false;
       }
       break;
-
+#endif  /* CFQ_USE_SHIFT_QUOTES */
     case M_WORD_A...M_WORD_Z:
     {
-      const char *word = cfq_word_lut[keycode - M_WORD_A];
+      uint8_t shift_index = (keyboard_report->mods & (MOD_BIT(KC_RSFT) | MOD_BIT(KC_LSFT))) ? 1 : 0;
+      const char *word = cfq_word_lut[shift_index][keycode - M_WORD_A];
       if (record->event.pressed) {
         if (*word) {
-          send_string(word);
+          WITHOUT_MODS({
+              send_string(word);
+            });
         }
         return false;
       }
@@ -502,6 +538,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /* Runs just one time when the keyboard initializes. */
 void matrix_init_user(void) {
 
+  /* Duplicate 'cfq_word_lut[0][...]' into 'cfq_word_lut[1][...]' */
+  {
+    char *d = cfq_word_lut_title_caps;
+    for (uint16_t i = 0; i < 26; i++) {
+      char *s = cfq_word_lut[0][i];
+      cfq_word_lut[1][i] = d;
+      while ((*d++ = *s++)) {}
+    }
+  }
+  /* Title caps. */
+  for (uint16_t i = 0; i < 26; i++) {
+    char *w = cfq_word_lut[1][i];
+    bool prev_is_alpha = false;
+    if (*w) {
+      while (*w) {
+        bool is_lower = (*w >= 'a' && *w <= 'z');
+        bool is_upper = (*w >= 'A' && *w <= 'Z');
+        if (prev_is_alpha == false && is_lower) {
+          *w -= ('a' - 'A');
+        }
+        prev_is_alpha = is_lower || is_upper;
+        w++;
+      }
+    }
+  }
 };
 
 /* Runs constantly in the background, in a loop. */
