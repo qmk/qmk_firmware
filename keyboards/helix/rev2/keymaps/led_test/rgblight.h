@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 34
+	#define RGBLIGHT_MODES 5
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -77,7 +77,7 @@
 
 extern LED_TYPE led[RGBLED_NUM];
 
-extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
+extern const uint16_t RGBLED_BREATHING_INTERVALS[4] PROGMEM; //modify for led_test
 extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
