@@ -3,6 +3,9 @@
 - This layout aims to balance muscle memory from a typical QWERTY layout
   with having keys used for software development easily accessible.
 
+  The this layout is a normalized qwerty,
+  with some configurable keys left thumb cluster so you can use it more as needed.
+
 - Arrow keys follow VIM convention
   (the media layer even uses arrow keys for HJKL).
 
@@ -21,13 +24,6 @@
   however using the larger thumb cluster
   ended up being more of a reach while typing.
 
-- There is a handy shortcut for writing quotes that inserts the cursor
-  between the quotation marks.
-
-  Holding LShift, then RShift types: "" (then presses left).
-
-  Holding RShift, then LShift types: '' (then presses left).
-
 ## Configuration
 
 Some optional behavior is configurable without editing the code
@@ -37,6 +33,14 @@ using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
   (0..7) are used for custom-keys
 - `CFQ_USE_MOMENTARY_LAYER_KEYS`
   is used to prevent layer keys from toggling when tapped.
+- `CFQ_USE_SHIFT_QUOTES`
+  an optional handy shortcut for writing quotes that inserts the
+  cursor between the quotation marks.
+
+  Holding LShift, then RShift types: "" (then presses left).
+
+  Holding RShift, then LShift types: '' (then presses left).
+
 - `CFQ_WORD_[A-Z]`
   defines can bind a key to an entire user defined word.
 
@@ -54,13 +58,13 @@ using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
 | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Ins  |
+  | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
-                                       |   <  |  >   |       | Home | End  |
+                                       | Ins  |NumClk|       | Home | End  |
                                 ,------+------+------|       |------+------+------.
                                 |      |      |CapsLk|       | PgUp |      |      |
-                                |BSpace| Del  |------|       |------| ~L2  |Space |
+                                |BSpace| Del  |------|       |------| ~L2  |Enter |
                                 |      |      | ~L3  |       | PgDn |      |      |
                                 `--------------------'       `--------------------'
 
@@ -75,7 +79,7 @@ Optional overrides: see CFQ_USER_KEY# defines.
 |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
 `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  |      |      |      | USR1 |      |                                       |      |      |      |      |      |
+  |      |      |      | USR1 |      |                                       |      |      |      |      | USR8 |
   `----------------------------------'                                       `----------------------------------'
                                        ,-------------.       ,-------------.
                                        | USR2 | USR3 |       |      |      |
@@ -165,6 +169,12 @@ eg: `-DCFQ_WORD_E=\"my@email.com\"`
 ```
 
 ## Changelog
+
+- 2018/03/08
+  Add `CFQ_USE_SHIFT_QUOTES` option.
+  Add `CFQ_USER_KEY8` key.
+
+  When holding shift `CFQ_WORD_[A-Z]` use title caps.
 
 - 2018/03/06
   Add layer for user defined words (replaces `CFQ_USE_EXPEREMENTAL_LAYER`).
