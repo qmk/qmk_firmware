@@ -24,7 +24,7 @@
 #include "led_tables.h"
 
 __attribute__ ((weak))
-const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+const uint16_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {1024, 20, 10, 5}; //modify for led_test
 __attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
 __attribute__ ((weak))
@@ -480,11 +480,18 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void rgblight_task(void) {
+  if (rgblight_inited == 1) { //modify for led_test
+      /* first call */
+      rgblight_inited = 2;
+      rgblight_enable();
+      rgblight_mode(2);
+  }
   if (rgblight_timer_enabled) {
     // mode = 1, static light, do nothing here
     if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
       // mode = 2 to 5, breathing mode
       rgblight_effect_breathing(rgblight_config.mode - 2);
+#if 0
     } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
       // mode = 6 to 8, rainbow mood mod
       rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
@@ -500,6 +507,7 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode == 24) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
+#endif
     }
   }
 }
@@ -508,19 +516,19 @@ void rgblight_task(void) {
 void rgblight_effect_breathing(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
-  float val;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_BREATHING_INTERVALS[interval])) {//modify for led_test
     return;
   }
   last_timer = timer_read();
 
 
-  // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
-  val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
-  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, val);
-  pos = (pos + 1) % 256;
+  //modify for led_test
+  rgblight_config.hue = (pos*120)%360;
+  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+  pos = (pos + 1) % 3;
 }
+#if 0
 void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
@@ -654,5 +662,5 @@ void rgblight_effect_christmas(void) {
   }
   rgblight_set();
 }
-
-#endif
+#endif /* 0 */
+#endif /* RGBLIGHT_ANIMATIONS */
