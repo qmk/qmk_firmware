@@ -1,8 +1,5 @@
 #include "dz60.h"
 #include "action_layer.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 enum dz60_keycodes {
 
 };
