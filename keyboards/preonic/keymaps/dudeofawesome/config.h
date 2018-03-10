@@ -17,6 +17,12 @@
         S__NOTE(_REST),   \
         ED_NOTE(_GS6),
 
+    #define NUMPAD_ON_SOUND \
+        E__NOTE(_C6),       \
+        ED_NOTE(_BF5),      \
+        S__NOTE(_C6),       \
+        ED_NOTE(_BF5),
+
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(WORKMAN_SOUND), \
                                   SONG(COLEMAK_SOUND), \

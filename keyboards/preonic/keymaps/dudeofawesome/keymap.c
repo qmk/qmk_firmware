@@ -266,3 +266,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
+
+bool numpadActive = false;
+
+float tone_numpad_on[][2] = SONG(NUMPAD_ON_SOUND);
+
+void matrix_scan_user (void) {
+  uint8_t layer = biton32(layer_state);
+
+  switch (layer) {
+    case _NUMPAD:
+      if (!numpadActive) {
+        numpadActive = true;
+        PLAY_SONG(tone_numpad_on);
+      }
+      break;
+    default:
+      if (numpadActive) {
+        numpadActive = false;
+      }
+  }
+};
