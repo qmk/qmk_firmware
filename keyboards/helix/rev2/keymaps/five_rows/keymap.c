@@ -319,6 +319,12 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
+static uint32_t current_default_layer_state;
+
+uint32_t default_layer_state_set_kb(uint32_t state) {
+    current_default_layer_state = state;
+    return state;
+}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -569,7 +575,13 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLayer: "));
     switch (layer_state) {
         case L_BASE:
-           matrix_write_P(matrix, PSTR("Default"));
+	    switch(current_default_layer_state) {
+	    case 1UL<<_QWERTY: matrix_write_P(matrix, PSTR("Qwerty")); break;
+	    case 1UL<<_DVORAK: matrix_write_P(matrix, PSTR("Dvorak")); break;
+	    case 1UL<<_COLEMAK: matrix_write_P(matrix, PSTR("Colemak")); break;
+	    default:
+		matrix_write_P(matrix, PSTR("Unkown ?"));
+	    }
            break;
         case L_RAISE:
            matrix_write_P(matrix, PSTR("Raise"));
