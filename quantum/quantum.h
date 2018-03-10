@@ -124,6 +124,7 @@ extern uint32_t default_layer_state;
 #define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
 #define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
 #define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
+#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
