@@ -10,7 +10,7 @@ using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.  
 
 Here is the default layout, it is fairly simple with a few function keys: 
-![YMD96 Layout](https://i.imgur.com/qCwE2ns.png)  
+![YMD96 Layout](https://i.imgur.com/3QnqVPn.png)  
 If you have a different layout (since there were many options during the GB), please feel free to contribute!  
 
 Keyboard maintainer: [Andrew](https://github.com/sparkyman215)  
@@ -29,26 +29,17 @@ This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/t
 
 ## Installing and Building
 
-First, install the requirements. These commands are for OSX, but all you
-need is the AVR toolchain and `bootloadHID` for flashing:
+Since the YMD96 uses an ATmega32a chip instead of the 32u4, you need to download [HIDBootFlash v.1.0](http://vusb.wikidot.com/project:hidbootflash) for Windows. If anyone knows of a Linux/Mac bootflasher that works, edit this readme!  
+On Windows, I use [MINGw](http://www.mingw.org/) to compile the keymaps. On Linux, you can simply use the terminal. 
 
-```
-$ brew cask install crosspack-avr
-$ brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
-```
-
-In order to use the `./program` script, which can reboot the board into
-the bootloader, you'll need Python 2 with PyUSB installed:
-
-```
-$ pip install pyusb
-```
-
+Once you have those two pieces of software:
 Build the keyboard with  
 ```
-$ make ymd96:default  
+$ make ymd96-default  
 ```  
 If you make your own layout, change the `default` word to whatever your layout is.  
+
+And flash the compiled hex file with `HIDBootFlash`. Simply put the board in flashing mode by plugging it in while holding control, and click `find device`. Then you can specify the .hex file and flash it to the device. 
 
 ## Troubleshooting
 
@@ -60,3 +51,5 @@ tricks have been useful when it got stuck in a weird scenario.
    done, just reflash the board with the original firmware.
 2. Sometimes USB hubs can act weird, so try connecting the board directly
    to your computer or plugging/unplugging the USB hub.
+   
+Lastly, if you still need help, you can add me on Discord and I'll be happy to help.

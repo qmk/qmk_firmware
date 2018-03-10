@@ -62,16 +62,15 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 NKRO_ENABLE = no            # USB Nkey Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-
-ISSI_ENABLE = no			# If the I2C pullup resistors aren't install this must be disabled
-#WATCHDOG_ENABLE = yes		# Resets keyboard if matrix_scan isn't run every 250ms
+BACKLIGHT_CUSTOM_DRIVER = yes
+BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
+ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
 
 CUSTOM_MATRIX = yes
 

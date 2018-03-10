@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-				return false; break;
+				return false;
 		}
 	}
 	return true;
@@ -56,10 +56,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!");
-				return false; break;
+				return false;
 			case MY_OTHER_MACRO:
 				SEND_STRING(SS_LCTRL("ac")); // selects all and copies
-				return false; break;
+				return false;
 		}
 	}
 	return true;
@@ -97,6 +97,7 @@ There's also a couple of mod shortcuts you can use:
 * `SS_LGUI(string)`
 * `SS_LALT(string)`
 * `SS_LSFT(string)`
+* `SS_RALT(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
