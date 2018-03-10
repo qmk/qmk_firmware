@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-------------------------------------------------------------------------------|
     * |     |   |   |   |RST|   |   |   |   |Prv|Ply|Nxt|   |     |    |    |    |    |
     * |-------------------------------------------------------------------------------|
-    * |Caps   |   |   |   |Hu+|Va+|Sa+|   |   |Vod|Vou|Mut|  |    |    |    |    |    |
+    * |Caps   |   |   |uln|Hu+|Va+|Sa+|   |   |Vod|Vou|Mut|  |    |    |    |    |    |
     * |-------------------------------------------------------------------------------|
     * |         |   |   |RGB|Hu-|Va-|Sa-|Bl-|Bl+|Stp|   |    |    |    |    |    |    |
     * |-------------------------------------------------------------------------------|
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FL2] = KEYMAP(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, BL_DEC,  BL_INC,  KC_MSTP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_APP,  KC_APP,                             BL_TOGG,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
