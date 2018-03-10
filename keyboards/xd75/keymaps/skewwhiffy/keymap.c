@@ -22,13 +22,11 @@
 
 // Layer shorthand
 #define _CM 0 // Colemak
-#define _QW 1 // Qwerty
-#define _DV 2 // Dvorak
-#define _NB 3 // Numbers
-#define _FN 4 // Function
-#define _SYL 5 // Symbols left
-#define _SYR 6 // Symbols right
-#define _NAV 7 // Navigation
+#define _NB 1 // Numbers
+#define _FN 2 // Function
+#define _SYL 3 // Symbols left
+#define _SYR 4 // Symbols right
+#define _NAV 5 // Navigation
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -42,15 +40,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------------+--------------+---------------+--------------+--------------+--------+--------+--------+----------------+--------+------------------+----------------+------------------------|
  * |        | sft or Z     | nb or X      | sym or C      | V            | nav or B     |        |        |        | nav or K       | M      | sym or ,         | nb or .        | sft or /      |        |
  * |--------+--------------+--------------+---------------+--------------+--------------+--------+--------+--------+----------------+--------+------------------+----------------+------------------------|
- * | LSHIFT | LCTRL        |   LALT       | LGUI          |              | SPACE        | LCTRL  | DEL    | LALT   | BACKSP         |        | RGUI             | RALT           | RCTRL         | RSHIFT |
+ * | LSHIFT | LCTRL        |   LALT       | LGUI          | CTRL '       | SPACE        | LCTRL  | DEL    | LALT   | BACKSP         | RGUI   | RGUI             | RALT           | RCTRL         | RSHIFT |
  * '------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
- */	
+ */
  [_CM] = {
   { _______, _______,       _______,       _______,        _______,       _______,        _______, _______, _______, _______,        _______, _______,           _______,          _______,        _______ },
   { _______, KC_Q,          KC_W,          KC_F,           KC_P,          KC_G,           _______, _______, _______, KC_J,           KC_L,    KC_U,              KC_Y,             KC_SCLN,        _______ },
   { _______, KC_A,          KC_R,          KC_S,           KC_T,          KC_D,           _______, _______, _______, KC_H,           KC_N,    KC_E,              KC_I,             KC_O,           KC_ENT  },
   { _______, SFT_T(KC_Z),   LT(_NB, KC_X), LT(_SYL, KC_C), KC_V,          LT(_NAV, KC_B), _______, _______, _______, LT(_NAV, KC_K), KC_M,    LT(_SYR, KC_COMM), LT(_FN, KC_DOT),  SFT_T(KC_SLSH), _______ },
-  { KC_LSFT, KC_LCTL,       KC_LALT,       KC_LGUI,        LCTL(KC_QUOT), KC_SPC,         KC_LCTL, KC_DEL , KC_LALT, KC_BSPC,        _______, KC_RGUI,           KC_RALT,          KC_RCTL,        KC_RSFT },
+  { KC_LSFT, KC_LCTL,       KC_LALT,       KC_LGUI,        LCTL(KC_QUOT), KC_SPC,         KC_LCTL, KC_DEL , KC_LALT, KC_BSPC,        KC_RGUI, KC_RGUI,           KC_RALT,          KC_RCTL,        KC_RSFT },
  },
 
 /* Numbers _NB / Functions _FN
@@ -93,14 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+---------------+--------+--------+--------+--------+--------+--------+--------+------------------+--------+--------+--------|
  * |        |        |        |               |        |        |        |        |        |        |        |                  |        |        |        |
  * '-------------------------------------------------------------------------------------------------------------------------------------------------------'
- */ 
+ */
  [_SYL] = {
   { _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______  },
   { _______, KC_EXLM, UK_PND,  KC_UNDS,        KC_MINS, KC_TILD, _______, _______, _______, UK_BSLS, KC_LCBR, KC_RCBR,           KC_SLSH, UK_HASH, _______  },
   { _______, KC_DLR,  KC_PERC, KC_PLUS,        KC_EQL,  _______, _______, _______, _______, UK_QUOT, KC_LPRN, KC_RPRN,           KC_QUOT, UK_AT,   _______  },
   { _______, KC_CIRC, KC_AMPR, LT(_SYL, KC_C), UK_PIPE, _______, _______, _______, _______, KC_LABK, KC_LBRC, KC_RBRC,           KC_RABK, KC_GRV,  _______  },
   { _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______  },
- }, 
+ },
  [_SYR] = {
   { _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______  },
   { _______, KC_EXLM, UK_PND,  KC_UNDS,        KC_MINS, KC_TILD, _______, _______, _______, KC_BSLS, KC_LCBR, KC_RCBR,           KC_SLSH, UK_HASH, _______  },
