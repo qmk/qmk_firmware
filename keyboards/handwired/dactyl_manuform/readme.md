@@ -1,68 +1,35 @@
-Let's Split
+Dactyl manuform
 ======
 
-This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
-
-Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
-based boards.
-
-**Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
-**Hardware files for the sockets version can be found at https://github.com/dumle29/let-s-Split-v2/tree/socket-reverseable**
-
-## Build Guide
-
-A build guide for putting together the Let's Split v2 can be found here: [An Overly Verbose Guide to Building a Let's Split Keyboard](https://github.com/nicinabox/lets-split-guide)
-
-There is additional information there about flashing and adding RGB underglow.
-
-A build guide for putting together the sockets version can be found here: *Guide will be made and linked here when the PCBs have been received and tested*
+the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 
 ## First Time Setup
 
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make lets_split/rev2:default
+$ make dactyl_manuform:dvorak
 ```
 
 You will see a lot of output and if everything worked correctly you will see the built hex file:
 
 ```
-lets_split_rev2_default.hex
+dactyl_manuform_dvorak.hex
 ```
 
 If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
 
-
 ```
-$ make lets_split/rev2:YOUR_KEYMAP_NAME
+$ make dactyl_manuform:YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-lets_split_rev2_YOUR_KEYMAP_NAME.hex
+dactyl_manuform_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
-
-### Let's split 1.0
-If you have a first generation Let's Split you will need to use the revision 1 code. To do so, use `rev1` in all your commands instead.
-
-Features
---------
-
-For the full Quantum Mechanical Keyboard feature list, see [the parent readme.md](/readme.md).
-
-Some features supported by the firmware:
-
-* Either half can connect to the computer via USB, or both halves can be used
-  independently.
-* You only need 3 wires to connect the two halves. Two for VCC and GND and one
-  for serial communication.
-* Optional support for I2C connection between the two halves if for some
-  reason you require a faster connection between the two halves. Note this
-  requires an extra wire between halves and pull-up resistors on the data lines.
 
 Required Hardware
 -----------------
@@ -79,7 +46,6 @@ cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 
 Optional Hardware
 -----------------
-
 A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
 
 Wiring
@@ -108,13 +74,7 @@ You can change your configuration between serial and i2c by modifying your `conf
 Notes on Software Configuration
 -------------------------------
 
-Configuring the firmware is similar to any other QMK project. One thing
-to note is that `MATRIX_ROWS` in `config.h` is the total number of rows between
-the two halves, i.e. if your split keyboard has 4 rows in each half, then use
-`MATRIX_ROWS=8`.
-
-Also, the current implementation assumes a maximum of 8 columns, but it would
-not be very difficult to adapt it to support more if required.
+the keymaps in here are for the 4x5 layout of the keyboard only.
 
 Flashing
 -------
