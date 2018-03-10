@@ -591,19 +591,19 @@ void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
 
   ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
+  ergodox_led_lower_off();
+  ergodox_led_raise_off();
+  ergodox_led_adjust_off();
 
   switch (layer) {
     case _LOWER:
-      ergodox_right_led_1_on();
+      ergodox_led_lower_on();
       break;
     case _RAISE:
-      ergodox_right_led_2_on();
+      ergodox_led_raise_on();
       break;
     case _ADJUST:
-      ergodox_right_led_3_on();
+      ergodox_led_adjust_on();
       break;
   }
 };
