@@ -11,6 +11,12 @@
         E__NOTE(_A6),     \
         S__NOTE(_REST),   \
         ED_NOTE(_GS6),
+
+    #define NUMPAD_ON_SOUND \
+        E__NOTE(_C6),       \
+        ED_NOTE(_BF5),      \
+        S__NOTE(_C6),       \
+        ED_NOTE(_BF5),
 #endif
 
 #endif
