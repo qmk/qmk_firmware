@@ -474,10 +474,10 @@ void render_status(struct CharacterMatrix *matrix) {
 	    }
            break;
         case L_RAISE:
-           matrix_write_P(matrix, PSTR("Raise"));
+           matrix_write_P(matrix, PSTR("Extra char"));
            break;
         case L_LOWER:
-           matrix_write_P(matrix, PSTR("Lower"));
+           matrix_write_P(matrix, PSTR("Function"));
            break;
         case L_ADJUST:
         case L_ADJUST_TRI:
