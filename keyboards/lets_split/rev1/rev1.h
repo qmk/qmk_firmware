@@ -1,7 +1,7 @@
 #ifndef REV1_H
 #define REV1_H
 
-#include "../lets_split.h"
+#include "lets_split.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -25,4 +25,6 @@
 		{ R30, R31, R32, R33, R34, R35 } \
 	}
 
+#define LAYOUT_ortho_4x12 KEYMAP
+	
 #endif
