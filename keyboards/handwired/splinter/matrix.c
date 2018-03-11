@@ -96,6 +96,12 @@ inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
 inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
 
 void matrix_init(void) {
+#ifdef DISABLE_JTAG
+  // JTAG disable for PORT F. write JTD bit twice within four cycles.
+  MCUCR |= (1 << JTD);
+  MCUCR |= (1 << JTD);
+#endif
+
   debug_enable = true;
   debug_matrix = true;
   debug_mouse = true;
