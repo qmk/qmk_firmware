@@ -86,10 +86,10 @@ This revision includes documentation and some significant clean-up / unification
     ,-----------------------------------------------------------------------------------.
     |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
     |------+------+------+------+------+-------------+------+------+------+------+------|
-    |      | Reset|      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
+    |      | Reset|RGB PL|RGB BR|RGB RB|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
     |------+------+------+------+------+------|------+------+------+------+------+------|
-    |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+    |RGB ON| MODE |RGB SW|RGB KN|RGB GR| HUE- | HUE+ | HUE- | SAT+ | SAT- | VAL+ | VAL- |
     |------+------+------+------+------+------+------+------+------+------+------+------|
-    |      |      |      |      |      |             |      |      |      |      |      |
+    |      |      |      |      |      |      |      |      |      |      |      |      |
     `-----------------------------------------------------------------------------------'
  ```
