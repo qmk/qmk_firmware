@@ -1,41 +1,11 @@
 #include QMK_KEYBOARD_H
-
-enum layers {
-    _BASE = 0,
-    _WORKMAN,
-    _NORMAN,
-    _DVORAK,
-    _COLMAK,
-    _GAME,
-    _NAV,
-    _ADJUST,
-    _RESET,
-};
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-#define NV_SPC  LT(_NAV, KC_SPC)
-#define AD_GRV  LT(_ADJUST, KC_GRV)
-
-#define MO_NAV    MO(_NAV)
-#define MO_ADJ    MO(_ADJUST)
-#define MO_RST    MO(_RESET)
-#define TG_ADJ    TG(_ADJUST)
-#define TG_GAME   TG(_GAME)
-#define LY_QWER   DF(_BASE)
-#define LY_WORK   DF(_WORKMAN)
-#define LY_NRMN   DF(_NORMAN)
-#define LY_DVRK   DF(_DVORAK)
-#define LY_CLMK   DF(_COLMAK)
-#define TG_NKRO   MAGIC_TOGGLE_NKRO
-#define KC_PTT    KC_F24
+#include "talljoe.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = KM(
       KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV,
       KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
-      KC_LCTL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,          KC_ENT ,
+      MS_MID , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,          KC_ENT ,
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          KC_RSFT, AD_GRV ,
       KC_LCTL, KC_LGUI, KC_LALT,                            NV_SPC ,                            KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_WORKMAN] = KM(
@@ -79,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO_RST , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJ ,
-      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_GAME,          XXXXXXX, XXXXXXX,
+      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, XXXXXXX, XXXXXXX, KC_MAKE, TG_GAME,          XXXXXXX, XXXXXXX,
       MO_RST , AG_NORM, AG_SWAP,                            BL_TOGG,                            XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS),
   // To Reset hit FN + ` + Esc
   [_RESET] = KM(
@@ -98,16 +68,4 @@ void matrix_scan_user(void) {
       gh60_wasd_leds_off();
     }
   #endif
-}
-
-void matrix_init_user(void) {
-  if (!eeconfig_is_enabled()) {
-    eeconfig_init();
-  }
-}
-
-uint32_t default_layer_state_set_kb(uint32_t state) {
-  // persist changes to default layers
-  eeconfig_update_default_layer(state);
-  return state;
 }
