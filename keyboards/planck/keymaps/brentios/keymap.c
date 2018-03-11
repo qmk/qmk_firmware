@@ -179,10 +179,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, LGUI(KC_UP), KC_UP,            LGUI(KC_DOWN), LGUI(KC_LEFT),    KC_VOLU},
-  {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,     KC_DOWN,          KC_RGHT,       LGUI(KC_RGHT),    KC_VOLD},
-  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LGUI(KC_Z),  LGUI(LSFT(KC_Z)), XXXXXXX,       LGUI(LSFT(KC_3)), KC_MUTE},
-  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,     _______,          _______,       _______,          _______}
+  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, LGUI(KC_LEFT), KC_UP,            LGUI(KC_RGHT), KC_PGUP,          KC_VOLU},
+  {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,       KC_DOWN,          KC_RGHT,       KC_PGDN,          KC_VOLD},
+  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LGUI(KC_Z),    LGUI(LSFT(KC_Z)), XXXXXXX,       LGUI(LSFT(KC_3)), KC_MUTE},
+  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,       _______,          _______,       _______,          _______}
 },
 
 /* Adjust (Lower + Raise)

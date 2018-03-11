@@ -179,10 +179,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, KC_HOME,    KC_UP,      KC_END,  KC_PGUP, KC_VOLU},
-  {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,    KC_DOWN,    KC_RGHT, KC_PGDN, KC_VOLD},
-  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, KC_PSCR, KC_MUTE},
-  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,    _______,    _______, _______, _______}
+  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, LGUI(KC_LEFT), KC_UP,            LGUI(KC_RGHT), KC_PGUP,          KC__VOLUP},
+  {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,       KC_DOWN,          KC_RGHT,       KC_PGDN,          KC__VOLDOWN},
+  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LGUI(KC_Z),    LGUI(LSFT(KC_Z)), XXXXXXX,       LGUI(LSFT(KC_3)), KC__MUTE},
+  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,       _______,          _______,       _______,          _______}
 },
 
 /* Adjust (Lower + Raise)
@@ -197,9 +197,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_VOLU},
-  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_VOLD},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MUTE},
+  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC__VOLUP},
+  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC__VOLDOWN},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC__MUTE},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
