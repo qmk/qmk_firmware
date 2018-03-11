@@ -5,16 +5,14 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _FUNC 3
-#define _ADJUST 16
-#define _DYN 6
+enum planck_layers {
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _FUNC,
+  _ADJUST,
+  _DYN
+};
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
