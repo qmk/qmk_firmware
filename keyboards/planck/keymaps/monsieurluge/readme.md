@@ -2,8 +2,7 @@
 
 ## Design goals
 
-- qwerty, azerty and gaming layouts
-- (todo) ergonomic layout
+- qwerty, custom and gaming layouts
 - increase the accessibility to the main coding symbols
 - use a function key to access the multimedia functions
 - (90% done) the gaming layout gives access to more keys when playing with the fingers on the WASD keys
@@ -17,7 +16,7 @@ _todo description_
 
 _todo layout picture_
 
-### azerty
+### custom
 
 _todo description_
 

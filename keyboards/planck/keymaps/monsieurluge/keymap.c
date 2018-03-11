@@ -28,7 +28,7 @@ extern keymap_config_t keymap_config;
 
 enum planck_layers {
   _QWERTY,
-  _AZERTY,
+  _CUSTOM,
   _GAMING,
   _LOWER,
   _RAISE,
@@ -38,14 +38,14 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  AZERTY,
+  CUSTOM,
   GAMING,
   LOWER,
   RAISE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Qwerty
+  /* qwerty
    * ,-----------------------------------------------------------------------------------.
    * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -63,25 +63,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, RAISE, RAISE, SP_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
-  /* Azerty
+  /* custom
    * ,-----------------------------------------------------------------------------------.
-   * | Esc  |   A  |   Z  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * | Esc  |   G  |   M  |   D  |   L  |   V  |   H  |   U  |   C  |   P  |   B  | Bksp |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Tab  |   Q  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   M  |Enter |
+   * | Tab  |   T  |   N  |   I  |   E  |   ,  |   .  |   A  |   S  |   R  |   O  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   W  |   X  |   C  |   V  |   B  |   N  |   ,  |   ;  |   :  | Up   |Shift |
+   * | Shift|   ;  |   W  |   J  |   F  |   X  |   Y  |   Q  |   K  |   Z  | Up   |Shift |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * | Ctrl | GUI  | Fn   | Alt  |Lower |    Raise    |Space | Alt  | Left | Down |Right |
    * `-----------------------------------------------------------------------------------'
    */
-  [_AZERTY] = {
-    {KC_ESC,  KC_A,    KC_Z,    KC_E,    KC_R,  KC_T,  KC_Y,  KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  KC_Q,    KC_S,    KC_D,    KC_F,  KC_G,  KC_H,  KC_J,    KC_K,    KC_L,    KC_M,    KC_ENT},
-    {KC_LSFT, KC_W,    KC_X,    KC_C,    KC_V,  KC_B,  KC_N,  KC_COMM, KC_SCLN, KC_COLN, KC_UP,   KC_RSFT},
-    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, RAISE, RAISE, SP_SPC,  KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
+  [_CUSTOM] = {
+    {KC_ESC,  KC_G,    KC_M,    KC_D,    KC_L,  KC_V,    KC_H,   KC_U,   KC_C,    KC_P,    KC_B,    KC_BSPC},
+    {KC_TAB,  KC_T,    KC_N,    KC_I,    KC_E,  KC_COMM, KC_DOT, KC_A,   KC_S,    KC_R,    KC_O,    KC_ENT},
+    {KC_LSFT, KC_SCLN, KC_W,    KC_J,    KC_F,  KC_X,    KC_Y,   KC_Q,   KC_K,    KC_Z,    KC_UP,   KC_RSFT},
+    {KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, LOWER, RAISE,   RAISE,  SP_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
-  /* Gaming
+  /* gaming
    * ,-----------------------------------------------------------------------------------.
    * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, LOWER, RAISE, RAISE, SP_SPC, MO(_FN), KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
-  /* Lower
+  /* lower
    * ,-----------------------------------------------------------------------------------.
    * |   ^  |   @  |   #  |   $  |   %  |   &  |   *  |   _  |   -  |   +  |   =  | Del  |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,  KC_END}
   },
 
-  /* Raise
+  /* raise
    * ,-----------------------------------------------------------------------------------.
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -135,11 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
-  /* Adjust (Lower + Raise)
+  /* adjust (lower + raise)
    * ,-----------------------------------------------------------------------------------.
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |qwerty|azerty|gaming|      |      |      |      |      |
+   * |      |      |      |      |qwerty|custom|gaming|      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -148,12 +148,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] = {
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, QWERTY,  AZERTY,  GAMING,  _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, QWERTY,  CUSTOM,  GAMING,  _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
   },
 
-  /* Misc Functions
+  /* misc functions
    * ,-----------------------------------------------------------------------------------.
    * |reset |      |      |      |      |      |      |      |      |      |      |prtscr|
    * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -181,10 +181,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case AZERTY:
+    case CUSTOM:
       if (record->event.pressed) {
-        print("mode just switched to the azerty layout\n");
-        set_single_persistent_default_layer(_AZERTY);
+        print("mode just switched to the custom layout\n");
+        set_single_persistent_default_layer(_CUSTOM);
       }
       return false;
       break;
