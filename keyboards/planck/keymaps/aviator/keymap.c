@@ -134,7 +134,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DATA);
         #ifdef BACKLIGHT_ENABLE
-          breathing_speed_set(3);
           breathing_enable();
         #endif
       }
@@ -146,7 +145,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_ENABLE
-            breathing_speed_set(3);
             breathing_enable();
           #endif
         }
@@ -167,7 +165,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
           #ifdef BACKLIGHT_ENABLE
-            breathing_speed_set(3);
             breathing_enable();
           #endif
         }
