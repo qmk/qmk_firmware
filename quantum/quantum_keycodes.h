@@ -77,6 +77,10 @@ enum quantum_keycodes {
     QK_STENO_GEMINI       = 0x5A31,
     QK_STENO_MAX          = 0x5A3F,
 #endif
+#ifdef SWAP_HANDS_ENABLE
+    QK_SWAP_HANDS         = 0x5B00,
+    QK_SWAP_HANDS_MAX     = 0x5BFF,
+#endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
 #if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
@@ -639,6 +643,16 @@ enum quantum_keycodes {
 
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (n | QK_UNICODE_MAP)
+#endif
+
+#ifdef SWAP_HANDS_ENABLE
+  #define SH_T(key)  (QK_SWAP_HANDS | key)
+  #define SH_TG      (QK_SWAP_HANDS | OP_SH_TOGGLE)
+  #define SH_TT      (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+  #define SH_MON     (QK_SWAP_HANDS | OP_SH_ON_OFF)
+  #define SH_MOFF    (QK_SWAP_HANDS | OP_SH_OFF_ON)
+  #define SH_ON      (QK_SWAP_HANDS | OP_SH_ON)
+  #define SH_OFF     (QK_SWAP_HANDS | OP_SH_OFF)
 #endif
 
 #endif // QUANTUM_KEYCODES_H
