@@ -5,7 +5,7 @@
 #
 # make clean = Clean out built project files.
 #
-# That's pretty much all you need. To compile, always go make clean, 
+# That's pretty much all you need. To compile, always go make clean,
 # followed by make.
 #
 # For advanced users only:
@@ -88,7 +88,7 @@ FADING_LED_ENABLE       = no  # Enable fading backlight
 BREATHING_LED_ENABLE    = no  # Enable breathing backlight
 LEDMAP_ENABLE           = no	# Enable LED mapping
 LEDMAP_IN_EEPROM_ENABLE = no  # Read LED mapping from eeprom
-ONEHAND_ENABLE          = no  # Disable Onehand
+SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
 MIDI_ENABLE             = no
 

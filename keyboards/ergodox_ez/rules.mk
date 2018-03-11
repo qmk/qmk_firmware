@@ -5,7 +5,7 @@
 #
 # make clean = Clean out built project files.
 #
-# That's pretty much all you need. To compile, always go make clean, 
+# That's pretty much all you need. To compile, always go make clean,
 # followed by make.
 #
 # For advanced users only:
@@ -56,7 +56,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = halfkay
 
@@ -79,7 +79,7 @@ COMMAND_ENABLE   = yes # Commands for debug and configuration
 CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
 NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 UNICODE_ENABLE   = yes # Unicode
-ONEHAND_ENABLE   = yes # Allow swapping hands of keyboard
+SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = yes
