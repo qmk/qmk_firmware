@@ -64,7 +64,7 @@ void action_exec(keyevent_t event)
     fauxclicky_check();
 #endif
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
     if (!IS_NOEVENT(event)) {
         process_hand_swap(&event);
     }
@@ -91,7 +91,7 @@ void action_exec(keyevent_t event)
 #endif
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 bool swap_hands = false;
 
 void process_hand_swap(keyevent_t *event) {
@@ -524,7 +524,7 @@ void process_action(keyrecord_t *record, action_t action)
 #endif
         case ACT_COMMAND:
             break;
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
                 case OP_SH_TOGGLE:

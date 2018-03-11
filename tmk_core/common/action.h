@@ -67,7 +67,7 @@ extern bool disable_action_cache;
 #endif
 
 /* Code for handling one-handed key modifiers. */
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 extern bool swap_hands;
 extern const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
 #if (MATRIX_COLS <= 8)
