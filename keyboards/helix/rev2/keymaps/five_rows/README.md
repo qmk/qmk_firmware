@@ -8,7 +8,7 @@
 以下に、Qwerty配列時の、文字配列の図を示します。
 
 
-![fig1](helix-five_rows.jpg)
+![fig1](helix-five_rows.png)
 
 ## レイヤー
 
