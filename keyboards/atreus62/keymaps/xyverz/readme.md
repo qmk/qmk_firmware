@@ -1,20 +1,30 @@
-# Xyverz's Atreus Keymap
+# Xyverz's Atreus62 Keymap
 
 ## About this keymap:
 
-This is the second iteration of my Atreus keymap. The first one was as close to the planck as I could get at the
-time, but still very much like the original Atreus keymap. I've managed to get things working better now and have
-implemented (more like copied) the RAISE/LOWER/ADJUST layers. This is a work in progress, but I think I'm closer
-to a final go with this.
+This is the Atreus62 keyboard layout by Xyverz aka u/Zrevyx on r/mk. I've blatantly stolen what works for me from the Planck and Preonic layouts and modified this file to fit me. Initial credet goes to u/profet23 for the doing all the work and adding this keyboard to QMK in the first place.
 
-I'm using MOD_TAP quite a bit in this keymap. On all layers, R4 pinky keys use mod-tap and are SHIFT when held
-and their normal keys when tapped. In addition, ESC and TAB are also set as Ctrl and ALT respectively when held,
-and Enter/ALT on the right thumb key for all layers.
+I've got Dvorak, Qwerty, and Colemak layouts at this time, with the possibility of adding more in the future.
 
-I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
+The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards have been my daily drivers for the last 17 years. I hope You can get some enjoyment out of this layout should you chose it!
 
-Recently added: Documentation, Formatting, and another Dvorak layer that has Command on the left thumb, instead of
-Control.
+CHANGELOG:
+
+### 0.1
+ *  Initial commit. Based off of Profet's default keymap.
+### 0.2
+ * Converted to a more Planck/Preonic keymap style file with persistent layers enabled. Renamed layers to reflect OLKB maps.
+ * Added a TODO list.
+### 0.3
+ * Moved location of media & volume keys. Added Print Screen, Scroll Lock and Pause keys.
+ * Added a WOW gaming layer that changes the location of Ctrl & Alt to the thumb keys.
+ * Added readme.
+
+TODO:
+
+ * Make the layout more efficient, even if it means changing the RAISE
+   and LOWER functionality.
+ * Add legends in comments for each layer. Maybe.
 
 ## Still to do:
 
