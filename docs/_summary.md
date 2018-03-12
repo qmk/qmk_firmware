@@ -73,7 +73,7 @@
   * [Customizing Functionality](custom_quantum_functions.md)
   * [Documentation Best Practices](documentation_best_practices.md)
   * [Documentation Templates](documentation_templates.md)
-  * [Glossary](glossary.md)
+  * [Glossary](reference_glossary.md)
   * [Keymap Overview](keymap.md)
   * [Unit Testing](unit_testing.md)
 
