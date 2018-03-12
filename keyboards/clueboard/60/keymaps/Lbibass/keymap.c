@@ -5,7 +5,6 @@
 enum keyboard_layers {
   _BL,
   _FL,
-  _CL
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -28,12 +27,11 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LGUI,     KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,  KC_QUOT,    KC_ENT,   \
       KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,  KC_DOT, KC_SLSH,     KC_RSFT,     \
       KC_LCAP,  KC_LALT,  KC_LCTL,                        KC_SPC,                           KC_RGUI,  KC_RALT,   KC_RCTL),
+
     [_FL] = KEYMAP_AEK(
       KC_GRAVE, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,  KC_DELETE,  \
       _______,   KC_BTN1,KC_MS_UP,KC_BTN2,RESET,KC_MS_WH_UP,_______,_______,_______,_______,_______,KC_UP,_______,_______,\
       _______,     KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,_______,KC_MS_WH_DOWN,_______,_______,_______,_______,KC_LEFT,KC_RIGHT,    _______,  \
       _______,       _______,_______,_______,_______,_______,_______,_______,_______,_______,KC_DOWN,       _______,     \
       _______,  _______,  _______,                        _______,                          _______, KC_RALT,   _______),
-      KC_LCAP,  KC_LALT,  KC_LCTL,                        KC_SPC,                           KC_RGUI,  KC_RALT,   KC_RCTL),
-
 };
