@@ -17,7 +17,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
  * Added a TODO list.
 #### 0.3
  * Moved location of media & volume keys. Added Print Screen, Scroll Lock and Pause keys.
- * Added a WOW gaming layer that changes the location of Ctrl & Alt to the thumb keys.
+ * Added a WOW gaming layer that changes the location of Ctrl & Alt to the thumb keys. Right thumb is Ctrl when held, Enter when tapped.
  * Added readme.
 
 ### TODO:
@@ -69,7 +69,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 
-### Keymap 3: Dvorak for Mac layout
+### Keymap 3: WoW gaming layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   \  |
@@ -78,8 +78,8 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	| Caps |   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |   -  |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
-	| Shft |   ;  |   Q  |   J  |   K  |   X  | Gui  ||Enter |   B  |   M  |   W  |   V  |   Z  | Shft |
-	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	| Shft |   ;  |   Q  |   J  |   K  |   X  | Alt  ||Ctrl/ |   B  |   M  |   W  |   V  |   Z  | Shft |
+	|------+------+------+------+------+------|      ||Enter |------+------+------+------+------+------|
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 
@@ -105,7 +105,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	|  ~   |  `   |      |      |      |      |              |      |      |      |      |      |   \  |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	|      |      | Mute | Vol- | Vol+ |      |              |      |      |   +  |   {  |   }  |      |
+	|      |      | Mute | Vol- | Vol+ |      |              |      |      |   =  |   [  |   ]  |      |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
 	|      |      | Prev | Play | Next |      |      ||      |      |      | PScr | ScLk | Pause|      |
 	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
