@@ -8,26 +8,23 @@ I've got Dvorak, Qwerty, and Colemak layouts at this time, with the possibility 
 
 The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards have been my daily drivers for the last 17 years. I hope You can get some enjoyment out of this layout should you chose it!
 
-CHANGELOG:
+### CHANGELOG:
 
-### 0.1
+#### 0.1
  *  Initial commit. Based off of Profet's default keymap.
-### 0.2
+#### 0.2
  * Converted to a more Planck/Preonic keymap style file with persistent layers enabled. Renamed layers to reflect OLKB maps.
  * Added a TODO list.
-### 0.3
+#### 0.3
  * Moved location of media & volume keys. Added Print Screen, Scroll Lock and Pause keys.
  * Added a WOW gaming layer that changes the location of Ctrl & Alt to the thumb keys.
  * Added readme.
 
-TODO:
+### TODO:
 
  * Make the layout more efficient, even if it means changing the RAISE
    and LOWER functionality.
  * Add legends in comments for each layer. Maybe.
-
-## Still to do:
-
  * Enjoy this revision; figure out new things later.
 
 ### Layer 0: Dvorak layer
