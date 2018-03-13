@@ -1,6 +1,9 @@
 #ifndef USERSPACE
 #define USERSPACE
 
+#ifdef TAPPING_TOGGLE
+#undef TAPPING_TOGGLE
+#endif
 #define TAPPING_TOGGLE 2
 
 #ifdef AUDIO_ENABLE
