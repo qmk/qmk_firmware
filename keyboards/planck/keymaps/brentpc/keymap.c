@@ -1,6 +1,6 @@
 //TO DO: 
 //1) sound for mumlock (like capslock)
-//2) Make separate mac and ios versions
+//2) think about possibly using bootmagic to combine pc and mac versions (may be too big)
 
 
 
