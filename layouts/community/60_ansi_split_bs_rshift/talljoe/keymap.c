@@ -5,9 +5,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = KM_(
       KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV,
       KC_TAB , _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_LBRC, KC_RBRC, KC_BSPC,
-      MS_MID , _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,          KC_ENT ,
+      US_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, US_QUOT,          KC_ENT ,
       KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,          KC_RSFT, AD_GRV ,
-      KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC1,                            KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+      _________MODS_L__________,                            KC_SPC1,                            ______________MODS_R______________),
   [_WORKMAN] = KM_(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _________________WORKMAN_L1________________, _________________WORKMAN_R1________________, _______, _______, _______,
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = KM_(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
       _______, _________________DVORAK_L1_________________, _________________DVORAK_R1_________________, KC_SLSH, KC_EQL , _______,
-      _______, _________________DVORAK_L2_________________, _________________DVORAK_R2_________________, KC_MINS,          _______,
+      _______, _________________DVORAK_L2_________________, _________________DVORAK_R2_________________, US_MINS,          _______,
       _______, _________________DVORAK_L3_________________, _________________DVORAK_R3_________________,          _______, _______,
       _______, _______, _______,                            _______,                            _______, _______, _______, _______),
   [_COLMAK] = KM_(
@@ -40,10 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_PTT , KC_PGDN,                            KC_SPC ,                            KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_NAV] = KM_(
       KC_GRV , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, ________________NAVLAYER_L1________________, ________________NAVLAYER_R1________________, XXXXXXX, XXXXXXX, KC_DEL ,
-      XXXXXXX, ________________NAVLAYER_L2________________, ________________NAVLAYER_R2________________, XXXXXXX,          TG_ADJ ,
+      KC_TAB , ________________NAVLAYER_L1________________, ________________NAVLAYER_R1________________, XXXXXXX, XXXXXXX, KC_DEL ,
+      US_CAPS, ________________NAVLAYER_L2________________, ________________NAVLAYER_R2________________, XXXXXXX,          TG_ADJ ,
       KC_LSFT, ________________NAVLAYER_L3________________, ________________NAVLAYER_R3________________,          KC_RSFT, XXXXXXX,
-      KC_LCTL, KC_LGUI, KC_LALT,                            _______,                            KC_RALT, KC_RGUI, KC_RCTL, _______),
+      _________MODS_L__________,                            NV_SPC1,                            ______________MODS_R______________),
   // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
   [_ADJUST] = KM_(
       MO_RST , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

@@ -20,8 +20,6 @@ enum layers {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define NV_SPC  LT(_NAV, KC_SPC)
-#define NV_ENT  LT(_NAV, KC_ENT)
 #define AD_GRV  LT(_ADJUST, KC_GRV)
 
 #define MO_NAV    MO(_NAV)
@@ -38,16 +36,23 @@ enum layers {
 #define KC_PTT    KC_F24
 #define MS_MID    KC_MS_BTN3
 
+#define US_CAPS   CTL_T(KC_ESC)
+#define US_QUOT   MT(MOD_RCTL, KC_QUOT)
+#define US_MINS   MT(MOD_RCTL, KC_QUOT)
 
 #ifndef SPACE_COUNT
   #define SPACE_COUNT 1
 #endif
 #if (SPACE_COUNT == 1)
-  #define KC_SPC1   NV_SPC
+  #define KC_SPC1   LT(_NAV, KC_SPC)
+  #define NV_SPC1   _______
 #elif (SPACE_COUNT == 3)
-  #define KC_SPC1   KC_ENT
-  #define KC_SPC2   TT(_NAV)
-  #define KC_SPC3   KC_SPC
+  #define KC_SPC1   LT(_NAV,KC_ENT)
+  #define NV_SPC1   MT(MOD_LSFT | MOD_LCTL, KC_ENT)
+  #define KC_SPC2   KC_SPC
+  #define NV_SPC2   KC_BSPC
+  #define KC_SPC3   LT(_NAV,KC_SPC)
+  #define NV_SPC3   KC_SPC
 #else
   #error "Unsupported space count:" SPACE_COUNT
 #endif
@@ -58,6 +63,9 @@ enum userspace_custom_keycodes {
 };
 
 #define SAFE_RANGE NEW_SAFE_RANGE
+
+#define _________MODS_L__________ KC_LCTL, KC_LGUI, KC_LALT
+#define ______________MODS_R______________ KC_RALT, KC_RGUI, KC_RCTL, KC_PTT
 
 #define _________________QWERTY_L1_________________  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________  KC_A,    KC_S,    KC_D,    KC_F,    KC_G
