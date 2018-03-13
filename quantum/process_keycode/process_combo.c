@@ -22,7 +22,7 @@
 
 
 __attribute__ ((weak))
-combo_t key_combos[] = {
+combo_t key_combos[COMBO_COUNT] = {
 
 };
 
