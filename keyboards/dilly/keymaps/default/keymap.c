@@ -13,16 +13,22 @@ extern keymap_config_t keymap_config;
 #define KC_ KC_TRNS
 #define _______ KC_TRNS
 
+// Tap-Hold keys
+#define KC_ASFT MT(MOD_LSFT, KC_A)
+#define KC_F_L3 LT(_FN3, KC_F)
 #define KC_ZCTL MT(MOD_LCTL, KC_Z)
 #define KC_XALT MT(MOD_LALT, KC_X)
-#define KC_C_L3 LT(_FN3, KC_C)
+#define KC_CGUI MT(MOD_LGUI, KC_C)
 #define KC_V_L4 LT(_FN4, KC_V)
 #define KC_SPL2 LT(_FN2, KC_SPC)
-#define KC_BSL1 LT(_FN1, KC_BSPC)
-#define KC_B_L5 LT(_FN5, KC_B)
-#define KC_NALT MT(MOD_RALT, KC_N)
-#define KC_MCTL MT(MOD_RCTL, KC_M)
+#define KC_B_L1 LT(_FN1, KC_B)
+#define KC_N_L5 LT(_FN5, KC_N)
+#define KC_MALT MT(MOD_RALT, KC_M)
+#define KC_BSCT MT(MOD_RCTL, KC_BSPC)
 #define KC_ENTS MT(MOD_RSFT, KC_ENT)
+#define KC_ESCS MT(MOD_RSFT, KC_ESC)
+
+#define KC_GUIC LGUI(KC_C)
 
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
@@ -42,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----+----+----+----+----.
       Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,
   //|----+----+----+----+----+----+----+----+----+----|
-      A  , S  , D  , F  , G  , H  , J  , K  , L  ,ESC ,
+     ASFT, S  , D  ,F_L3, G  , H  , J  , K  , L  ,ESCS,
   //|----+----+----+----+----+----+----+----+----+----|
-     ZCTL,XALT,C_L3,V_L4,SPL2,BSL1,B_L5,NALT,MCTL,ENTS
+     ZCTL,XALT,CGUI,V_L4,SPL2,B_L1,N_L5,MALT,BSCT,ENTS
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -54,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
       F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,DEL ,    ,    ,    ,    
+         ,    ,    ,    ,BSPC,    ,    ,    ,    ,    
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -64,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
      F11 ,F12 ,    ,    ,    ,    ,    ,    ,    ,GRV ,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,    ,    ,    
+         ,    ,    ,    ,    ,DEL ,    ,    ,    ,    
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -74,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
      TAB ,    ,    ,    ,    ,COMM,DOT ,SLSH,SCLN,QUOT,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,LEFT,DOWN, UP ,RGHT
+         ,    ,    ,    ,BSPC,    ,LEFT,DOWN, UP ,RGHT
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -84,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
      TAB ,    ,    ,    ,    , LT , GT ,QUES,COLN,DQUO,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,HOME,PGDN,PGUP,END 
+         ,    ,GUIC,    ,BSPC,    ,HOME,PGDN,PGUP,END 
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -94,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
          ,    ,DBUG,    ,RHUD,RSAD,RVAD,    ,    ,    ,
   //|----+----+----+----+----+----+----+----+----+----|
-     BL_S,    ,    ,    ,    ,    ,    ,    ,    ,    
+     BL_S,    ,GUIC,    ,    ,    ,    ,    ,    ,    
   //`----+----+----+----+----+----+----+----+----+----'
   )
 
