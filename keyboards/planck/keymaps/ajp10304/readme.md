@@ -65,12 +65,14 @@ Activated when `Lower` and `Raise` are held together the above `qwerty` layer.
 * Reset: Enter bootloader for flashing firmware to the keyboard.
 * CAPS: Toggle caps lock.
 * DYN: Enter `DYN` layer.
+* MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER, 
+MRSE with RAISE and MFNC with FUNC respectively.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |      
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| 
 | ????  | Reset|Qwerty|      |      |      |      |      |      |      |      |  Del |
 | CAPS  |      |      |      |      |      |      | Mute | Vol+ | Play |      |      |
-|       |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
+| MAC   |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
 |       |      |      |      |      |      |      |      | DYN  |      |      |      |
  
 ##### DYN
