@@ -19,4 +19,4 @@ make ergodox_ez:bepo_tm_style:all
 ## Debug
 
 See https://github.com/tmk/tmk_keyboard#magic-commands for command that can help
-debug, together with the hid_listen tool (https://docs.qmk.fm/faq_debug.html).
+debug, together with the [hid_listen tool](https://docs.qmk.fm/faq_debug.html).

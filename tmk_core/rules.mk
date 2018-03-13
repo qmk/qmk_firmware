@@ -370,13 +370,18 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+ifeq ($(CC),avr-gcc)
 check-size:
-	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | perl -ne 'print "$&\n" if /(?<=AVR_SIZE: ).+/'`; echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'`; echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
 		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then $(PRINT_WARNING_PLAIN); $(SILENT) || printf " * $(MSG_FILE_TOO_BIG)" ; else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
 	fi
+else
+check-size:
+	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+endif
 
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)

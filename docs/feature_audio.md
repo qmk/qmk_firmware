@@ -82,6 +82,10 @@ The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, a
 
     #define PITCH_STANDARD_A 432.0f
 
+You can completely disable Music Mode as well. This is useful, if you're pressed for space on your controller.  To disable it, add this to your `config.h`:
+
+    #define NO_MUSIC_MODE
+
 ## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
