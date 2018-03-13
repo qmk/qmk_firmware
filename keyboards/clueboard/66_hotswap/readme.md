@@ -1,7 +1,5 @@
 # Clueboard 66% HotSwap
 
-![Clueboard](https://static1.squarespace.com/static/55c13bdee4b099be5dcb82eb/t/5867eeaad2b857fd0d196f4b/1494021396651/IMGP4201.jpg?format=1500w)
-
 A fully customizable 66% keyboard with Hot Swap sockets.
 
 * Keyboard Maintainer: [Zach White](https://github.com/skullydazed)

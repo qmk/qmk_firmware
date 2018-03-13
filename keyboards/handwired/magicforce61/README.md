@@ -6,7 +6,7 @@ teensy++ 2.0 to make it a ~60% board.
 
 ## Wiring Layout
 
-![Wiring Layout](https://imgur.com/gallery/RxYyA)
+**Image Unavailable**
 
 ## Pinout
 
