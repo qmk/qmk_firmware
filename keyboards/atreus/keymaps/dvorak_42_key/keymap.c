@@ -14,6 +14,19 @@
 
 static bool mouse_lock = false;
 
+enum custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+
+  // Cloud9 macros
+  CLOUD9_TAB_LEFT,
+  CLOUD9_TAB_RIGHT,
+  CLOUD9_TAB_CLOSE,
+  CLOUD9_GOTO_SYMBOL,
+  CLOUD9_GOTO_LINE,
+  CLOUD9_NAVIGATE,
+  
+};
+
 // building instructions:
 // make atreus:dvorak_42_key
 
@@ -30,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },	
 
 [KEYNAV] = { 
-  {KC_ESC,      MEH(KC_F9),  RCTL(KC_Z),   RCTL(KC_S), MEH(KC_F10), KC_TRNS,    KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP, },
-  {MEH(KC_F11), MEH(KC_F12), RSFT(KC_TAB), KC_TAB,     MEH(KC_A),   KC_TRNS,    LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT), },
-  {MEH(KC_B),   MEH(KC_C),   MEH(KC_D),    MEH(KC_E),  MEH(KC_F),   KC_TRNS,    KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN, },
-  {KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,    KC_TRNS,     KC_ENTER,   KC_SPACE,      KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), }
+  {KC_ESC,      CLOUD9_GOTO_LINE,   RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_F10),      KC_TRNS,    KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP, },
+  {MEH(KC_F11), CLOUD9_GOTO_SYMBOL, RSFT(KC_TAB),    KC_TAB,           MEH(KC_A),        KC_TRNS,    LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT), },
+  {MEH(KC_B),   CLOUD9_NAVIGATE,    CLOUD9_TAB_LEFT, CLOUD9_TAB_RIGHT, CLOUD9_TAB_CLOSE, KC_TRNS,    KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN, },
+  {KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_ENTER,   KC_SPACE,      KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), }
 },	
 
 [KEYSEL] = { 
@@ -63,6 +76,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
 
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(record->event.pressed) {
+    switch (keycode) {
+		// Cloud9 macros
+		case CLOUD9_TAB_LEFT:
+            SEND_STRING(SS_LCTRL("["));
+            return true;		
+			break;
+		case CLOUD9_TAB_RIGHT:
+            SEND_STRING(SS_LCTRL("]"));
+            return true;				
+			break;
+		case CLOUD9_TAB_CLOSE:
+            SEND_STRING(SS_LALT("w"));
+            return true;				
+			break;
+		case CLOUD9_GOTO_SYMBOL:
+            SEND_STRING(SS_LSFT(SS_LCTRL("e")));
+            return true;		
+			break;
+		case CLOUD9_GOTO_LINE:
+            SEND_STRING(SS_LCTRL("g"));
+            return true;						
+			break;
+		case CLOUD9_NAVIGATE:
+            SEND_STRING(SS_LCTRL("e"));
+            return true;
+			break;		
+	}
+  }
+	
+  return true;
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

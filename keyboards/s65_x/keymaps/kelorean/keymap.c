@@ -30,7 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,       KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,    KC_RSFT, KC_UP, KC_PGDN, \
         KC_LCTL, KC_LALT, KC_LGUI,            KC_SPC,            KC_RALT, MO(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT),
 
-
   /* 1: Colemak layer
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    * │ ESC │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│DEL  │
@@ -89,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *  │     │     │     │█████│█████│█████│     │█████│█████│█████│     │     │     │     │     │     │
    *  └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
    */
-
+ /* 3: Locking arrow keys to WASD*/
   [_AL] = ANSI_KEYMAP(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  \
       _______, _______, KC_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
@@ -138,9 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______,               _______,                _______, _______, _______, _______, _______, _______),
-
-
-
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -152,4 +148,3 @@ const uint16_t PROGMEM fn_actions[] = {
   [5] = ACTION_LAYER_TOGGLE(_UL),           // Toggle Underglow Layer overlay
 
 };
-

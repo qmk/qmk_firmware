@@ -1,0 +1,12 @@
+    /* Column pin configuration
+    * col: 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14
+    * pin: D0  D1  D2  D3  D5  B6  C6  C7  F1  F0  E6  B3  B2  B1  B0
+    */
+
+    /* Row pin configuration
+    * row: 0   1   2   3   4
+    * pin: B5  B4  D7  D6  D4
+    */
+
+    B7 LED backlight
+    F6 WS2812 Strip
