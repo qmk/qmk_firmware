@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "backlight_custom.h"
 
-extern rgblight_config_t rgblight_config;
-
 // for keyboard subdirectory level init functions
 // @Override
 void matrix_init_kb(void) {
@@ -51,6 +49,9 @@ void backlight_set(uint8_t level) {
   b_led_set(level);
 }
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
 
 // custom RGB driver
 void rgblight_set(void) {
@@ -77,7 +78,9 @@ void matrix_scan_kb(void) {
   }
 
   rgblight_task();
-
+#else
+void matrix_scan_kb(void) {
+#endif
   matrix_scan_user();
   /* Nothing else for now. */
 }
