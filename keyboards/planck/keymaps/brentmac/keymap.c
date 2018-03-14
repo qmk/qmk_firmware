@@ -246,6 +246,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_qwerty);
         #endif
         persistent_default_layer_set(1UL<<_QWERTY);
+		layer_off(_DVORAK);
+		layer_on(_QWERTY);
+		layer_off(_COLEMAK);
       }
       return false;
       break;
@@ -255,6 +258,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_colemak);
         #endif
         persistent_default_layer_set(1UL<<_COLEMAK);
+		layer_off(_DVORAK);
+		layer_off(_QWERTY);
+		layer_on(_COLEMAK);
       }
       return false;
       break;
@@ -264,6 +270,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_dvorak);
         #endif
 		persistent_default_layer_set(1UL<<_DVORAK);
+		layer_on(_DVORAK);
+		layer_off(_QWERTY);
+		layer_off(_COLEMAK);
       }
       return false;
       break;

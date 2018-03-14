@@ -1,7 +1,6 @@
 //TO DO: 
-//2.5 get working with ipad
-//3 insert î UC(0xEE), ä UC(0xE4), ø UC(0xF8) keys somewhere?
-//4 insert °, and math symbols/functions?
+//1) sound for mumlock (like capslock)
+//2) think about possibly using bootmagic to combine pc and mac versions (may be too big)
 
 
 
@@ -54,13 +53,15 @@ enum planck_keycodes {
 
 enum {
 
-  TD_DV,       //Dvorak layer tap, super hold
+  TD_DV,       //Dvorak layer tap, Lower hold
   TD_SFT_CAPS, //Capslock tap, shift hold
   TD_AL,       //Lower layer tap, alt hold
   TD_CR,       //Raise layer tap, ctrl hold
   TD_MA,       //Adjust layer tap, meh hold
-  TD_QW,       //Qwerty layer tap, super hold
-  TD_CO,       //Colemak layer tap, super hold
+  TD_QW,       //Qwerty layer tap, Lower hold
+  TD_CO,       //Colemak layer tap, Lower hold
+  TD_TAB,       //Tab tap, Raise hold
+  TD_MINUS     //Minus tap, Lower hold
 
 };
 
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = {
   {KC_ESC,        KC_Q,      KC_W,      KC_E,      KC_R,            KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {CTL_T(KC_TAB), KC_A,      KC_S,      KC_D,      KC_F,            KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {TD(TD_TAB),    KC_A,      KC_S,      KC_D,      KC_F,            KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
   {TD(TD_QW),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
   {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
@@ -126,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = {
   {KC_ESC,        KC_Q,      KC_W,      KC_F,      KC_P,            KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC},
-  {CTL_T(KC_TAB), KC_A,      KC_R,      KC_S,      KC_T,            KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
+  {TD(TD_TAB),    KC_A,      KC_R,      KC_S,      KC_T,            KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {TD(TD_CO),     KC_Z,      KC_X,      KC_C,      KC_V,            KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP},
   {KC_LGUI,       TD(TD_MA), TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
@@ -135,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *      ,-----------------------------------------------------------------------------------.
  *      | Esc  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  /   |
  *      |------+------+------+------+------+-------------+------+------+------+------+------|
- *  Ctrl| Tab  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  -   |
+ *      | Tab  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  -   |
  *      |------+------+------+------+------+------|------+------+------+------+------+------|
  *Dvorak|Super |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Up   |
  *      |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -145,65 +146,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DVORAK] = {
   {KC_ESC,        KC_QUOT,    KC_COMM,   KC_DOT,    KC_P,            KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH},
-  {CTL_T(KC_TAB), KC_A,       KC_O,      KC_E,      KC_U,            KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS},
+  {TD(TD_TAB),    KC_A,       KC_O,      KC_E,      KC_U,            KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    TD(TD_MINUS)},
   {TD(TD_DV),     KC_SCLN,    KC_Q,      KC_J,      KC_K,            KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_UP},
   {KC_LGUI,       TD(TD_MA),  TD(TD_CR), TD(TD_AL), TD(TD_SFT_CAPS), KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN}
 },
 
-/* Lower
+/* Lower, minus hold, alpha hold
  * ,-----------------------------------------------------------------------------------.
- * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  ~   |
+ * |NUMLK |   -  |   7  |   8  |   9  |   /  |   @  |   [  |   ]  |   &  |   ~  |   %  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  |   |
+ * |   `  |   +  |   4  |   5  |   6  |   *  |   \  |   (  |   )  |   !  |   ^  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   -  |   =  |   [  |   ]  |   _  |   +  |   {  |   }  |   `  |   \  |      |
+ * |      |   0  |   1  |   2  |   3  |   =  |   $  |   {  |   }  |   |  |   #  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TILD},
-  {_______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE},
-  {_______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_GRV,  KC_BSLS, _______},
+  {KC_NLCK, KC_MINS, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLSH, KC_AT,   KC_LBRC, KC_RBRC, KC_AMPR, KC_TILD, KC_PERC},
+  {KC_GRV,  KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_ASTR, KC_BSLS, KC_LPRN, KC_RPRN, KC_EXLM, KC_CIRC, _______},
+  {_______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_EQL,  KC_DLR,  KC_LCBR, KC_RCBR, KC_PIPE, KC_HASH, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* Raise
+/* Raise, tab hold
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |PrtScr|      |
+ * |      |      |      |      |      |      |      | Home | Up   | End  |Pg Up |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      | Home |Pg Up |      |
+ * |      |SelAll| Cut  | Copy |Paste |      |      | Left | Down |Right |Pg Dn |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |SelAll| Cut  | Copy |Paste | Undo | Redo |      |      | End  |Pg Dn |      |
+ * |      |      |      |      |      |      |      | Undo | Redo |      |PrtScr|Mute  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,        XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, _______},
-  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,     XXXXXXX,    XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, _______},
-  {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, _______},
-  {_______, _______,    _______,    _______,    _______,    _______,    _______,    _______, _______, _______, _______, _______}
+  {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, KC_HOME,    KC_UP,      KC_END,  KC_PGUP, KC_VOLU},
+  {_______, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,    KC_DOWN,    KC_RGHT, KC_PGDN, KC_VOLD},
+  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LCTL(KC_Z), LCTL(KC_Y), XXXXXXX, KC_PSCR, KC_MUTE},
+  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,    _______,    _______, _______, _______}
 },
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |Sleep | Reset|Qwerty|Colemk|Dvorak|      |      |  F1  |  F2  |  F3  |  F4  |      |
+ * |Sleep | Reset|Qwerty|Colemk|Dvorak|      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |      |
+ * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|  F9  |  F10 |  F11 |  F12 |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|  F9  |  F10 |  F11 |  F12 |Mute  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______},
-  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______},
+  {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_VOLU},
+  {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_VOLD},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MUTE},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
-
 
 };
 
@@ -471,7 +471,17 @@ typedef struct {
   bool finished_once;
 } td_co_state_t;
 
-//TD shift on hold, dvorak layer on tap
+typedef struct {
+  bool alt;
+  bool finished_once;
+} td_tab_state_t;
+
+typedef struct {
+  bool alt;
+  bool finished_once;
+} td_minus_state_t;
+
+//TD Lower on hold, dvorak layer on tap
 void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_dv_state_t *s = (td_dv_state_t *)user_data;
   
@@ -481,7 +491,7 @@ void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    register_code (KC_LSFT);
+    layer_on(_LOWER);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -504,7 +514,7 @@ void _td_dv_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_dv_state_t *s = (td_dv_state_t *)user_data;
 
   if (s->alt) {
-	unregister_code (KC_LSFT);
+	layer_off(_LOWER);
   } 
   
   s->finished_once = false;
@@ -659,6 +669,8 @@ void _td_ma_reset (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = false;
 }
 
+
+//TD Lower on hold, qwerty layer on tap
 void _td_qw_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_qw_state_t *s = (td_qw_state_t *)user_data;
   
@@ -668,7 +680,7 @@ void _td_qw_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    register_code (KC_LSFT);
+    layer_on(_LOWER);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -691,13 +703,13 @@ void _td_qw_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_qw_state_t *s = (td_qw_state_t *)user_data;
 
   if (s->alt) {
-	unregister_code (KC_LSFT);
+	layer_off(_LOWER);
   } 
   
   s->finished_once = false;
 }
 
-//TD shift on hold, colemak layer on tap
+//TD Lower on hold, colemak layer on tap
 void _td_co_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_co_state_t *s = (td_co_state_t *)user_data;
   
@@ -707,7 +719,7 @@ void _td_co_finished (qk_tap_dance_state_t *state, void *user_data) {
   s->finished_once = true;
   if (state->pressed) {
     s->alt = true;
-    register_code (KC_LSFT);
+    layer_on(_LOWER);
   } else {
     s->alt = false;
 	#ifdef BACKLIGHT_ENABLE
@@ -730,12 +742,69 @@ void _td_co_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_co_state_t *s = (td_co_state_t *)user_data;
 
   if (s->alt) {
-	unregister_code (KC_LSFT);
+	layer_off(_LOWER);
   } 
   
   s->finished_once = false;
 }
 
+//TD Raise on hold, tab on tap
+void _td_tab_finished (qk_tap_dance_state_t *state, void *user_data) {
+  td_tab_state_t *s = (td_tab_state_t *)user_data;
+  
+  if (s->finished_once)
+    return;
+    
+  s->finished_once = true;
+  if (state->pressed) {
+    s->alt = true;
+    layer_on(_RAISE);
+  } else {
+    s->alt = false;
+	register_code (KC_TAB);
+  }
+}
+
+void _td_tab_reset (qk_tap_dance_state_t *state, void *user_data) {
+  td_tab_state_t *s = (td_tab_state_t *)user_data;
+
+  if (s->alt) {
+	layer_off(_RAISE);
+  } else {
+    unregister_code (KC_TAB);
+  }
+  
+  s->finished_once = false;
+}
+
+//TD Lower on hold, minus on tap
+void _td_minus_finished (qk_tap_dance_state_t *state, void *user_data) {
+  td_minus_state_t *s = (td_minus_state_t *)user_data;
+  
+  if (s->finished_once)
+    return;
+    
+  s->finished_once = true;
+  if (state->pressed) {
+    s->alt = true;
+    layer_on(_LOWER);
+  } else {
+    s->alt = false;
+	register_code (KC_MINS);
+  }
+}
+
+void _td_minus_reset (qk_tap_dance_state_t *state, void *user_data) {
+  td_minus_state_t *s = (td_minus_state_t *)user_data;
+
+  if (s->alt) {
+	layer_off(_LOWER);
+  } else {
+    unregister_code (KC_MINS);
+  }
+  
+  s->finished_once = false;
+}
 
 //TD Actions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -771,6 +840,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CO] = {
     .fn = { NULL, _td_co_finished, _td_co_reset },
     .user_data = (void *)&((td_co_state_t) { false, false })
+  },
+  [TD_TAB] = {
+    .fn = { NULL, _td_tab_finished, _td_tab_reset },
+    .user_data = (void *)&((td_tab_state_t) { false, false })
+  },
+  [TD_MINUS] = {
+    .fn = { NULL, _td_minus_finished, _td_minus_reset },
+    .user_data = (void *)&((td_minus_state_t) { false, false })
   }
 };
 
