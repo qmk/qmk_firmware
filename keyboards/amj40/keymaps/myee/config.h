@@ -2,7 +2,7 @@
 #define CONFIG_USER_H
 #include "../../config.h"
 
-#define TAPPING_TERM 100
+#define TAPPING_TERM 120
 #define PERMISSIVE_HOLD
 
 
