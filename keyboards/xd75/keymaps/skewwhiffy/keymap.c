@@ -28,6 +28,9 @@
 #define _SYR 4 // Symbols right
 #define _NAV 5 // Navigation
 
+#define _Z SFT_T(KC_Z)
+#define _SLSH SFT_T(KC_SLSH)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak _CM
@@ -47,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______,       _______,       _______,        _______,       _______,        _______, _______, _______, _______,        _______, _______,           _______,          _______,        _______ },
   { _______, KC_Q,          KC_W,          KC_F,           KC_P,          KC_G,           _______, _______, _______, KC_J,           KC_L,    KC_U,              KC_Y,             KC_SCLN,        _______ },
   { _______, KC_A,          KC_R,          KC_S,           KC_T,          KC_D,           _______, _______, _______, KC_H,           KC_N,    KC_E,              KC_I,             KC_O,           KC_ENT  },
-  { _______, SFT_T(KC_Z),   LT(_NB, KC_X), LT(_SYL, KC_C), KC_V,          LT(_NAV, KC_B), _______, _______, _______, LT(_NAV, KC_K), KC_M,    LT(_SYR, KC_COMM), LT(_FN, KC_DOT),  SFT_T(KC_SLSH), _______ },
+  { _______, _Z,            LT(_NB, KC_X), LT(_SYL, KC_C), KC_V,          LT(_NAV, KC_B), _______, _______, _______, LT(_NAV, KC_K), KC_M,    LT(_SYR, KC_COMM), LT(_FN, KC_DOT),  _SLSH,          _______ },
   { KC_LSFT, KC_LCTL,       KC_LALT,       KC_LGUI,        LCTL(KC_QUOT), KC_SPC,         KC_LCTL, KC_DEL , KC_LALT, KC_BSPC,        KC_RGUI, KC_RGUI,           KC_RALT,          KC_RCTL,        KC_RSFT },
  },
 
