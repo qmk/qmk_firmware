@@ -66,3 +66,5 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+lib/chibios
+lib/chibios-contrib
