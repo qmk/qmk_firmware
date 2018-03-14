@@ -187,7 +187,7 @@ void matrix_scan_user(void) {
         }
 
         // TMUX - shift to pane 1 and zoom
-        SEQ_ONE_KEY(KC_1) {
+        SEQ_ONE_KEY(KC_J) {
           register_code(KC_LCTL);
           register_code(KC_SPC);
 
@@ -211,7 +211,7 @@ void matrix_scan_user(void) {
         }
 
         // TMUX - shift to pane 2 and zoom
-        SEQ_ONE_KEY(KC_2) {
+        SEQ_ONE_KEY(KC_K) {
           register_code(KC_LCTL);
           register_code(KC_SPC);
 
