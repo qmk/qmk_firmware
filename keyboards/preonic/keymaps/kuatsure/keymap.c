@@ -33,6 +33,14 @@ enum preonic_keycodes {
   RAISE
 };
 
+void tmux_prefix(void) {
+  register_code(KC_LCTL);
+  register_code(KC_SPC);
+
+  unregister_code(KC_LCTL);
+  unregister_code(KC_SPC);
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -188,11 +196,7 @@ void matrix_scan_user(void) {
 
         // TMUX - shift to pane 1 and zoom
         SEQ_ONE_KEY(KC_J) {
-          register_code(KC_LCTL);
-          register_code(KC_SPC);
-
-          unregister_code(KC_LCTL);
-          unregister_code(KC_SPC);
+          tmux_prefix();
 
           register_code(KC_Q);
           unregister_code(KC_Q);
@@ -200,11 +204,7 @@ void matrix_scan_user(void) {
           register_code(KC_1);
           unregister_code(KC_1);
 
-          register_code(KC_LCTL);
-          register_code(KC_SPC);
-
-          unregister_code(KC_LCTL);
-          unregister_code(KC_SPC);
+          tmux_prefix();
 
           register_code(KC_Z);
           unregister_code(KC_Z);
@@ -212,11 +212,7 @@ void matrix_scan_user(void) {
 
         // TMUX - shift to pane 2 and zoom
         SEQ_ONE_KEY(KC_K) {
-          register_code(KC_LCTL);
-          register_code(KC_SPC);
-
-          unregister_code(KC_LCTL);
-          unregister_code(KC_SPC);
+          tmux_prefix();
 
           register_code(KC_Q);
           unregister_code(KC_Q);
@@ -224,11 +220,7 @@ void matrix_scan_user(void) {
           register_code(KC_2);
           unregister_code(KC_2);
 
-          register_code(KC_LCTL);
-          register_code(KC_SPC);
-
-          unregister_code(KC_LCTL);
-          unregister_code(KC_SPC);
+          tmux_prefix();
 
           register_code(KC_Z);
           unregister_code(KC_Z);
