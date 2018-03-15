@@ -28,29 +28,31 @@
 #define _NAV 4 // Navigation
 
 // Layer buttons
-#define _Z_SFT SFT_T(KC_Z)
-#define _SLSH SFT_T(KC_SLSH)
-#define _X_NB LT(_NB, KC_X)
-#define _DOT_NB LT(_NB, KC_DOT)
-#define _C_SY LT(_SYL, KC_C)
-#define _COM_SY LT(_SYR, KC_COMM)
-#define _B_NAV LT(_NAV, KC_B)
-#define _K_NAV LT(_NAV, KC_K)
-#define _F1_NB LT(_NB, KC_F1)
-#define _3_NB LT(_NB, KC_3)
+#define _Z_SFT SFT_T(UK_Z)
+#define _SLSH SFT_T(UK_SLSH)
+#define _X_NB LT(_NB, UK_X)
+#define _DOT_NB LT(_NB, UK_DOT)
+#define _C_SY LT(_SYL, UK_C)
+#define _COM_SY LT(_SYR, UK_COMM)
+#define _B_NAV LT(_NAV, UK_B)
+#define _K_NAV LT(_NAV, UK_K)
+#define _F1_NB LT(_NB, UK_F1)
+#define _3_NB LT(_NB, UK_3)
 
 // Custom hotkeys
-#define _TERM LCTL(KC_QUOT)
-#define _S_TAB S(KC_TAB)
-#define _C_LEFT LCTL(KC_LEFT)
-#define _C_RGHT LCTL(KC_RGHT)
-#define _A_LEFT LALT(KC_LEFT)
-#define _A_RGHT LALT(KC_RGHT)
+#define _TERM LCTL(UK_QUOT)
+#define _S_TAB S(UK_TAB)
+#define _C_LEFT LCTL(UK_LEFT)
+#define _C_RGHT LCTL(UK_RGHT)
+#define _A_LEFT LALT(UK_LEFT)
+#define _A_RGHT LALT(UK_RGHT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak _CM
  * .--------------------------------------------------------------------------------------------------------------------------------------.
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        | Q      | W      | F      | P      | G      |        |        |        | J      | L      | U      | Y      | ;      |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        | A      | R      | S      | T      | D      |        |        |        | H      | N      | E      | I      | O      | ENT    |
@@ -63,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_CM] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, _______, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, _______ },
-  { _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, _______, _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT  },
-  { _______, _Z_SFT,  _X_NB,   _C_SY,   KC_V,    _B_NAV,  _______, _______, _______, _K_NAV,  KC_M,    _COM_SY, _DOT_NB, _SLSH,   _______ },
-  { KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _TERM,   KC_SPC,  KC_LCTL, KC_DEL , KC_LALT, KC_BSPC, KC_RGUI, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT },
+  { _______, UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN, _______ },
+  { _______, UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O,    UK_ENT  },
+  { _______, _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _K_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH,   _______ },
+  { UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, _TERM,   UK_SPC,  UK_LCTL, UK_DEL , UK_LALT, UK_BSPC, UK_RGUI, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT },
  },
 
 /* Numbers _NB
@@ -84,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_NB] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    _______, _______ },
-  { _______, _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,  _______, _______, _______, _______, KC_4,    KC_5,    KC_6,    _______, _______ },
-  { _______, _______, _F1_NB,  KC_F2,   KC_F3,   KC_F12,  _______, _______, _______, _______, KC_1,    KC_2,    _3_NB,   _______, _______ },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_0,    KC_0,    KC_DOT,  _______, _______ },
+  { _______, _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______, _______ },
+  { _______, _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______, _______ },
+  { _______, _______, _F1_NB,  UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, UK_1,    UK_2,    _3_NB,   _______, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, UK_0,    UK_0,    UK_DOT,  _______, _______ },
  },
 
 /* Symbols _SYL and _SYR - For some reason, combining this into the same layer causes problems.
@@ -105,16 +107,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_SYL] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { _______, KC_EXLM, UK_PND,  KC_UNDS, KC_MINS, UK_TILD, _______, _______, _______, UK_BSLS, KC_LCBR, KC_RCBR, KC_SLSH, UK_HASH, _______ },
-  { _______, KC_DLR,  KC_PERC, KC_PLUS, KC_EQL,  _______, _______, _______, _______, UK_QUOT, KC_LPRN, KC_RPRN, KC_QUOT, UK_AT,   _______ },
-  { _______, KC_CIRC, KC_AMPR, _C_SY,   UK_PIPE, _______, _______, _______, _______, KC_LABK, KC_LBRC, KC_RBRC, KC_RABK, KC_GRV,  _______ },
+  { _______, UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, _______ },
+  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_QUOT, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT,   _______ },
+  { _______, UK_CIRC, UK_AMPR, _C_SY,   UK_PIPE, _______, _______, _______, _______, UK_LABK, UK_LBRC, UK_RBRC, UK_RABK, UK_GRV,  _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
  },
  [_SYR] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { _______, KC_EXLM, UK_PND,  KC_UNDS, KC_MINS, UK_TILD, _______, _______, _______, KC_BSLS, KC_LCBR, KC_RCBR, KC_SLSH, UK_HASH, _______ },
-  { _______, KC_DLR,  KC_PERC, KC_PLUS, KC_EQL,  _______, _______, _______, _______, UK_QUOT, KC_LPRN, KC_RPRN, KC_QUOT, UK_AT,   _______ },
-  { _______, KC_CIRC, KC_AMPR, KC_ASTR, UK_PIPE, _______, _______, _______, _______, KC_LABK, KC_LBRC, _COM_SY, KC_RABK, KC_GRV,  _______ },
+  { _______, UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, _______ },
+  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_QUOT, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT,   _______ },
+  { _______, UK_CIRC, UK_AMPR, UK_ASTR, UK_PIPE, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV,  _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
  },
 /*
@@ -132,11 +134,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  [_NAV] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______  },
-  { _______, KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______, _______  },
-  { _______, _S_TAB,  _A_LEFT, _______, _A_RGHT, _B_NAV,  _______, _______, _______, _K_NAV,  KC_SLCK, KC_END,  KC_PGDN, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  { _______, KC_ESC,  _C_LEFT, KC_UP  , _C_RGHT, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______ },
+  { _______, KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP, _______, _______ },
+  { _______, _S_TAB,  _A_LEFT, _______, _A_RGHT, _B_NAV,  _______, _______, _______, _K_NAV,  KC_SLCK, KC_END,  KC_PGDN, _______, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET   },
  },
 };
 
