@@ -101,21 +101,21 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Modifiers
 
-|Key                |Aliases  |Description                         |
-|-------------------|---------|------------------------------------|
-|`KC_LCTRL`         |`KC_LCTL`|Left Control                        |
-|`KC_LSHIFT`        |`KC_LSFT`|Left Shift                          |
-|`KC_LALT`          |         |Left Alt                            |
-|`KC_LGUI`          |         |Left GUI (Windows/Command/Meta key) |
-|`KC_RCTRL`         |`KC_RCTL`|Right Control                       |
-|`KC_RSHIFT`        |`KC_RSFT`|Right Shift                         |
-|`KC_RALT`          |         |Right Alt                           |
-|`KC_RGUI`          |         |Right GUI (Windows/Command/Meta key)|
-|`KC_LOCKING_CAPS`  |`KC_LCAP`|Locking Caps Lock                   |
-|`KC_LOCKING_NUM`   |`KC_LNUM`|Locking Num Lock                    |
-|`KC_LOCKING_SCROLL`|`KC_LSCR`|Locking Scroll Lock                 |
-|`KC_INT4`          |`KC_HENK`|JIS Henkan                          |
-|`KC_INT5`          |`KC_MHEN`|JIS Muhenkan                        |
+|Key                |Aliases             |Description                         |
+|-------------------|--------------------|------------------------------------|
+|`KC_LCTRL`         |`KC_LCTL`           |Left Control                        |
+|`KC_LSHIFT`        |`KC_LSFT`           |Left Shift                          |
+|`KC_LALT`          |                    |Left Alt                            |
+|`KC_LGUI`          |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
+|`KC_RCTRL`         |`KC_RCTL`           |Right Control                       |
+|`KC_RSHIFT`        |`KC_RSFT`           |Right Shift                         |
+|`KC_RALT`          |                    |Right Alt                           |
+|`KC_RGUI`          |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
+|`KC_LOCKING_CAPS`  |`KC_LCAP`           |Locking Caps Lock                   |
+|`KC_LOCKING_NUM`   |`KC_LNUM`           |Locking Num Lock                    |
+|`KC_LOCKING_SCROLL`|`KC_LSCR`           |Locking Scroll Lock                 |
+|`KC_INT4`          |`KC_HENK`           |JIS Henkan                          |
+|`KC_INT5`          |`KC_MHEN`           |JIS Muhenkan                        |
 
 ## Commands
 

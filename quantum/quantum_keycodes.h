@@ -445,10 +445,14 @@ enum quantum_keycodes {
 #define LSFT(kc) (kc | QK_LSFT)
 #define LALT(kc) (kc | QK_LALT)
 #define LGUI(kc) (kc | QK_LGUI)
+#define LCMD(kc) LGUI(kc)
+#define LWIN(kc) LGUI(kc)
 #define RCTL(kc) (kc | QK_RCTL)
 #define RSFT(kc) (kc | QK_RSFT)
 #define RALT(kc) (kc | QK_RALT)
 #define RGUI(kc) (kc | QK_RGUI)
+#define RCMD(kc) RGUI(kc)
+#define RWIN(kc) RGUI(kc)
 
 #define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
 #define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
@@ -612,8 +616,14 @@ enum quantum_keycodes {
 #define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
 
 #define GUI_T(kc) MT(MOD_LGUI, kc)
+#define CMD_T(kc) GUI_T(kc)
+#define WIN_T(kc) GUI_T(kc)
 #define LGUI_T(kc) MT(MOD_LGUI, kc)
+#define LCMD_T(kc) LGUI_T(kc)
+#define LWIN_T(kc) LGUI_T(kc)
 #define RGUI_T(kc) MT(MOD_RGUI, kc)
+#define RCMD_T(kc) RGUI_T(kc)
+#define RWIN_T(kc) RGUI_T(kc)
 
 #define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl

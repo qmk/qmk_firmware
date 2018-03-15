@@ -167,6 +167,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Transparent */
 #define KC_TRANSPARENT  1
 #define KC_TRNS KC_TRANSPARENT
+/* GUI key aliases */
+#define KC_LCMD KC_LGUI
+#define KC_LWIN KC_LGUI
+#define KC_RCMD KC_RGUI
+#define KC_RWIN KC_RGUI
 
 
 
