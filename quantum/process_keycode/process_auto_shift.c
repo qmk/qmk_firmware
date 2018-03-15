@@ -92,7 +92,9 @@ bool autoshift_state(void) {
 }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
-  // static uint8_t any_mod_pressed;
+#ifndef AUTO_SHIFT_MODIFIERS
+  static uint8_t any_mod_pressed;
+#endif
 
   if (record->event.pressed) {
     switch (keycode) {
