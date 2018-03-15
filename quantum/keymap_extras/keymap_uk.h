@@ -28,7 +28,7 @@
 
 // Shifted characters
 #define UK_NOT	LSFT(KC_GRV)
-#define UK_QUOT	LSFT(KC_2)
+#define UK_DQUO	LSFT(KC_2)
 #define UK_PND	LSFT(KC_3)
 #define UK_AT	LSFT(KC_QUOT)
 #define UK_TILD	LSFT(KC_NUHS)
@@ -116,10 +116,10 @@
 #define UK_MINS KC_MINS
 #define UK_LCBR KC_LCBR
 #define UK_RCBR KC_RCBR
-#define UK_DLR  KC_DLR
+#define UK_DLR KC_DLR
 #define UK_PERC KC_PERC
 #define UK_PLUS KC_PLUS
-#define UK_EQL  KC_EQL
+#define UK_EQL KC_EQL
 #define UK_LPRN KC_LPRN
 #define UK_RPRN KC_RPRN
 #define UK_CIRC KC_CIRC
@@ -128,8 +128,9 @@
 #define UK_LBRC KC_LBRC
 #define UK_RBRC KC_RBRC
 #define UK_RABK KC_RABK
-#define UK_GRV  KC_GRV
+#define UK_GRV KC_GRV
 #define UK_ASTR KC_ASTR
+#define UK_QUOT KC_QUOT
 
 #define UK_TAB KC_TAB
 #define UK_ENT KC_ENT
@@ -144,7 +145,15 @@
 #define UK_RCTL KC_RCTL
 #define UK_RALT KC_RALT
 #define UK_RGUI KC_RGUI
-
+#define UK_ESC KC_ESC
+#define UK_PSCR KC_PSCR
+#define UK_SLCK KC_SLCK
+#define UK_PAUS KC_PAUS
+#define UK_INS KC_INS
+#define UK_HOME KC_HOME
+#define UK_PGUP KC_PGUP
+#define UK_END KC_END
+#define UK_PGDN KC_PGDN
 #define UK_LEFT KC_LEFT
 #define UK_RGHT KC_RGHT
 #define UK_UP KC_UP
