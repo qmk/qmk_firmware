@@ -1,12 +1,12 @@
 # AJP10304 Custom JJ40 Layout
 ###Based on my Planck layout of the same name.
 
-**Note:** In the tables below where there are two characters on a key, 
+**Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
-  
+
 **Note:** The below tables assume a UK layout.
 
-##### Main Qwerty Layer 
+##### Main Qwerty Layer
 
 * Tab: when held, operates as shift.
 * Enter: when held, operates as shift.
@@ -33,7 +33,7 @@ Activated when `fn` held in the above `qwerty` layer.
 Activated when `Lower` is held in the above `qwerty` layer.
 
 * Numbers are along the top row, their shifted counterparts are on row 2.
-* WrdBks: `backspace` with `ctrl` applied. I.e. delete a word.  
+* WrdBks: `backspace` with `ctrl` applied. I.e. delete a word.
 * WrdDel: `delete` with `ctrl` applied. I.e. forward delete a word.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
@@ -42,45 +42,47 @@ Activated when `Lower` is held in the above `qwerty` layer.
 |  !    |   "  |   £  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |WrdDel|WrdBks|
 | Shift |  \|  |  `¬  |  #~  |  '@  |  -_  |  =+  |  #~  |  [{  |  ]}  |  '@  |Shift |
 |       |      |      |      |Lower | Del  |Space |      | Next | Vol- | Vol+ | Play |
- 
+
  ##### Raise Layer
  Activated when `Raise` is held in the above `qwerty` layer.
- 
+
  * Preferred layer for typing brackets.
  * Allows for cursor navigation to be used solely with the right hand.
  * WRDSEL: Select the word where the cursor is.
  * |< and >|: Apply `ctrl` to `left` and `right` respectively for word jumping.
 
-|       |      |      |      |      |      |       |      |      |      |       |      |      
-| :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:| 
+|       |      |      |      |      |      |       |      |      |      |       |      |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
 |   `   |      |WRDSEL|  [   |   ]  |      |       | PGUP | HOME |PGDOWN|       |PRNTSC|
 |   `   |      |      |  (   |   )  |      |       | HOME |  UP  | END  |       |ZOOM +|
 |       |      |      |  {   |   }  |      |&#124;<| LEFT | DOWN |RIGHT |>&#124;|ZOOM -|
-|       |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |     
- 
+|       |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |
+
 ##### Lower + Raise
 Activated when `Lower` and `Raise` are held together the above `qwerty` layer.
 
-* Audio controls in the same position as cursor keys from the `Raise` layer.  
+* Audio controls in the same position as cursor keys from the `Raise` layer.
 * ????: Runs a macro for outputting a text string.  Do not use this store passwords.
 * Reset: Enter bootloader for flashing firmware to the keyboard.
 * CAPS: Toggle caps lock.
 * DYN: Enter `DYN` layer.
+* MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
+MRSE with RAISE and MFNC with FUNC respectively.
 
-|       |      |      |      |      |      |      |      |      |      |      |      |      
-| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| 
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
 | ????  | Reset|Qwerty|      |      |      |      |      |      |      |      |  Del |
 | CAPS  |      |      |      |      |      |      | Mute | Vol+ | Play |      |      |
-|       |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
+| MAC   |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
 |       |      |      |      |      |      |      |      | DYN  |      |      |      |
- 
+
 ##### DYN
 Activated when `DYN` held along with `Lower` and `Raise`
-Allows recording of macros.  To start recording the macro, press either REC1 or REC2. 
-To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.  
+Allows recording of macros.  To start recording the macro, press either REC1 or REC2.
+To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.
 
-|       |      |      |      |      |      |      |      |      |      |      |      |      
-| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| 
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
 |       |      |      |      |      | REC1 | REC2 |      |      |      |      |      |
 |       |      |      |      |      | PLAY1| PLAY2|      |      |      |      |      |
 |       |      |      |      |      | STOP | STOP |      |      |      |      |      |
