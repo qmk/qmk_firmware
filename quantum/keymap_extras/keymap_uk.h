@@ -24,7 +24,6 @@
 
 // Normal characters
 #define UK_HASH KC_NUHS
-
 #define UK_BSLS	KC_NUBS
 
 // Shifted characters
