@@ -17,8 +17,6 @@
 #include "keymap_uk.h"
 // Fillers to make layering more clear
 #define _______ KC_TRNS
-#define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Layer shorthand
 #define _CM 0 // Colemak
@@ -40,7 +38,7 @@
 #define _3_NB LT(_NB, UK_3)
 
 // Custom hotkeys
-#define _TERM LCTL(UK_QUOT)
+#define _TERM LCTL(UK_QUOT) // Hotkey for Cmder or iTerm
 #define _S_TAB S(UK_TAB)
 #define _C_LEFT LCTL(UK_LEFT)
 #define _C_RGHT LCTL(UK_RGHT)
@@ -58,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        | A      | R      | S      | T      | D      |        |        |        | H      | N      | E      | I      | O      | ENT    |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        | Z      | X      | C      | V      | B      |        |        |        | K      | M      | ,      | .      | /      |        |
- * |        | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        | NAV    | M      | SYMBOL | FUNC   | SHIFT  |        |
+ * |        | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | LSHIFT | LCTRL  | LALT   | LGUI   | TERM   | SPACE  | LCTRL  | DEL    | LALT   | BACKSP | RGUI   | RGUI   | RALT   | RCTRL  | RSHIFT |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -108,14 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_SYL] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { _______, UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, _______ },
-  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, KC_QUOT, UK_AT,   _______ },
+  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT,   _______ },
   { _______, UK_CIRC, UK_AMPR, _C_SY,   UK_PIPE, _______, _______, _______, _______, UK_LABK, UK_LBRC, UK_RBRC, UK_RABK, UK_GRV,  _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
  },
  [_SYR] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { _______, UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, _______ },
-  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, KC_QUOT, UK_AT,   _______ },
+  { _______, UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT,   _______ },
   { _______, UK_CIRC, UK_AMPR, UK_ASTR, UK_PIPE, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV,  _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
  },
@@ -128,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | Tab    | Left   | Down   | Right  |        |        |        |        |        | Insert | Home   | PgUp   |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | ShTab  |        |        |        |        |        |        |        |        | ScLk   | End    | PgDn   |        |        |
+ * |        | ShTab  | Alt L  |        | Alt R  |        |        |        |        |        | ScLk   | End    | PgDn   |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        | RESET  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
