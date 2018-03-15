@@ -454,8 +454,9 @@ enum quantum_keycodes {
 #define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
 #define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
 #define ALTG(kc) (kc | QK_RCTL | QK_RALT)
-#define SCMD(kc) (kc | QK_LGUI | QK_LSFT)
-#define SWIN(kc) SCMD(kc)
+#define SGUI(kc) (kc | QK_LGUI | QK_LSFT)
+#define SCMD(kc) SGUI(kc)
+#define SWIN(kc) SGUI(kc)
 #define LCA(kc) (kc | QK_LCTL | QK_LALT)
 
 #define MOD_HYPR 0xf
@@ -619,8 +620,9 @@ enum quantum_keycodes {
 #define LCAG_T(kc) MT((MOD_LCTL | MOD_LALT | MOD_LGUI), kc) // Left control alt and gui
 #define RCAG_T(kc) MT((MOD_RCTL | MOD_RALT | MOD_RGUI), kc) // Right control alt and gui
 #define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SCMD_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
-#define SWIN_T(kc) SCMD_T(kc)
+#define SGUI_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
+#define SCMD_T(kc) SGUI_T(kc)
+#define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT((MOD_LCTL | MOD_LALT), kc) // Left control and left alt
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
