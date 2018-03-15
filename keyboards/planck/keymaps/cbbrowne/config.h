@@ -27,7 +27,10 @@
 #include "../../config.h"
 
 #define LEADER_TIMEOUT 300
+
+#ifndef LIGHT_CONFIG_H
 #define BACKLIGHT_BREATHING
+#endif
 
 /* cbbrowne user configuration */
 
