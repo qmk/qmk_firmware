@@ -9,7 +9,7 @@
     #define STARTUP_SONG SONG(PREONIC_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define GAME_SOUND ZELDA_PUZZLE
+    #define GAME_SOUND VICTORY_FANFARE_SHORT
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(GAME_SOUND) \
