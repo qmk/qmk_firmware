@@ -225,7 +225,7 @@ float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -236,49 +236,49 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case _QWERTY:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+              PLAY_SONG(tone_qwerty);
             #endif
-            persistant_default_layer_set(1UL<<_QWERTY);
+            persistent_default_layer_set(1UL<<_QWERTY);
           }
           break;
         case _COLEMAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
-            persistant_default_layer_set(1UL<<_COLEMAK);
+            persistent_default_layer_set(1UL<<_COLEMAK);
           }
           break;
         case _DVORAK:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+              PLAY_SONG(tone_dvorak);
             #endif
-            persistant_default_layer_set(1UL<<_DVORAK);
+            persistent_default_layer_set(1UL<<_DVORAK);
           }
           break;
         case _GAME:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
-            persistant_default_layer_set(1UL<<_GAME);
+            persistent_default_layer_set(1UL<<_GAME);
           }
           break;
         case _NUMPAD:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+              PLAY_SONG(tone_dvorak);
             #endif
-            persistant_default_layer_set(1UL<<_NUMPAD);
+            persistent_default_layer_set(1UL<<_NUMPAD);
           }
           break;
         case _ARROW:
           if (record->event.pressed) {
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
-            persistant_default_layer_set(1UL<<_LOWER);
+            persistent_default_layer_set(1UL<<_LOWER);
           }
           break;
         case _LOWER:
@@ -317,7 +317,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
   #ifdef AUDIO_ENABLE
     _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(start_up, false, 0);
+    PLAY_SONG(start_up);
   #endif
 }
 
@@ -325,7 +325,7 @@ void matrix_init_user(void) {
 
 void play_goodbye_tone(void)
 {
-  PLAY_NOTE_ARRAY(goodbye, false, 0);
+  PLAY_SONG(goodbye);
   _delay_ms(150);
 }
 

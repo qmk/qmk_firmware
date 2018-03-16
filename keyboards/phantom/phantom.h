@@ -1,40 +1,105 @@
+/* Copyright 2017 Mathias Andersson <wraul@dbox.se>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef PHANTOM_H
 #define PHANTOM_H
 
 #include "quantum.h"
 
-/* Phantom matrix layout
-   * ,-----------------------------------------------------------------------------.
-   * |00   |02| 03| 04| 05|  | 06| 07| 08| 09|   | 0a|0b |0c |0d |	|0e  |0f  |0g  |
-   * |-----------------------------------------------------------|	|--------------|
-   * | 01| 10| 11| 12| 13| 14| 15| 16| 17| 18| 19| 1a| 1b|  1d   |	|1e  |1f  |1g  |
-   * |-----------------------------------------------------------|	|--------------|
-   * |20   | 21| 22| 23| 24| 25| 26| 27| 28| 29| 2a| 2b| 2c|   2d|	| 2e | 2f | 2g |
-   * |-----------------------------------------------------------|	`--------------'
-   * |30     | 31| 32| 33| 34| 35| 36| 37| 38| 39| 3a| 3b| 3d    |
-   * |-----------------------------------------------------------|		 ,----.
-   * | 40     | 42| 43| 44| 45| 46| 47| 48| 49| 4a| 4b| 4d       |		 | 4f |
-   * |-----------------------------------------------------------|	 ,-------------.
-   * | 50 | 51 | 52 |      57               |5a  | 5b | 5c | 5d  |	 | 5e| 5f | 5g |
-   * `-----------------------------------------------------------'	 `-------------'
- */
-// The first section contains all of the arguments
-// The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
-	k00, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, k0f, k0g, \
-	k01, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1d, k1e, k1f, k1g, \
-	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g, \
-	k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3d, \
-	k40, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4d, k4f, \
-	k50, k51, k52, k57, k5a, k5b, k5c, k5d, k5e, k5f, k5g  \
-) \
-{ \
-		{k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, k0f, k0g}, \
-		{k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1d, k1d, k1e, k1f, k1g}, \
-		{k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k2e, k2f, k2g}, \
-		{k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3d, k3d, k3d, k3d, k3d}, \
-		{k40, k40, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4d, k4d, k4f, k4f, k4f},  \
-		{k50, k51, k52, k57, k57, k57, k57, k57, k57, k57, k5a, k5b, k5c, k5d, k5e, k5f, k5g} \
+// Keymap utilizing all the possible keys on the PCB.
+#define KEYMAP_7BIT( \
+    K00, K53, K02, K03, K04, K05, K56, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K0F, K0G, \
+    K01, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, K1F, K1G, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      K2E, K2F, K2G, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,      K3E, K3F, K3G, \
+    K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B, K4C, K4D,      K4E, K4F, K4G, \
+    K50, K51, K52, K54,      K55, K57, K58,           K5A, K5B, K5C, K5D,      K5E, K5F, K5G  \
+) { \
+/*          0      1      2      3      4      5      6      7      8      9      A      B      C      D      E      F      G    */  \
+/* 0 */   { K00,   K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F,   K0G   }, \
+/* 1 */   { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   K1C,   K1D,   K1E,   K1F,   K1G   }, \
+/* 2 */   { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   K2D,   K2E,   K2F,   K2G   }, \
+/* 3 */   { K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,   K3E,   K3F,   K3G   }, \
+/* 4 */   { K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   K4C,   K4D,   K4E,   K4F,   K4G   }, \
+/* 5 */   { K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58,   KC_NO, K5A,   K5B,   K5C,   K5D,   K5E,   K5F,   K5G   }  \
 }
+
+
+// Keymap for a standard ANSI layout.
+#define KEYMAP( \
+    K00,      K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,      K0E, K0F, K0G, \
+    K01, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1D,      K1E, K1F, K1G, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      K2E, K2F, K2G, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3D,                     \
+    K40,      K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,      K4D,           K4F,      \
+    K50, K51, K52,                K57,                K5A, K5B, K5C, K5D,      K5E, K5F, K5G  \
+) KEYMAP_7BIT( \
+    K00,   KC_NO, K02,   K03,   K04,   K05,   KC_NO, K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F,   K0G,   \
+    K01,   K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   KC_NO, K1D,   K1E,   K1F,   K1G,   \
+    K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   K2D,          K2E,   K2F,   K2G,   \
+    K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   KC_NO, K3D,          KC_NO, KC_NO, KC_NO, \
+    K40,   KC_NO, K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   KC_NO, K4D,          KC_NO, K4F,   KC_NO, \
+    K50,   K51,   K52,   KC_NO,        KC_NO, K57,   KC_NO,               K5A,   K5B,   K5C,   K5D,          K5E,   K5F,   K5G    \
+)
+
+#define KEYMAP_WINKEYLESS( \
+    K00,      K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,      K0E, K0F, K0G, \
+    K01, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1D,      K1E, K1F, K1G, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D,      K2E, K2F, K2G, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B,      K3D,                     \
+    K40,      K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,      K4D,           K4F,      \
+    K50, K51, K52,                K57,                     K5B, K5C, K5D,      K5E, K5F, K5G  \
+) KEYMAP_7BIT( \
+    K00,   KC_NO, K02,   K03,   K04,   K05,   KC_NO, K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F,   K0G,   \
+    K01,   K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   KC_NO, K1D,   K1E,   K1F,   K1G,   \
+    K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   K2D,          K2E,   K2F,   K2G,   \
+    K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   KC_NO, K3D,          KC_NO, KC_NO, KC_NO, \
+    K40,   KC_NO, K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   KC_NO, K4D,          KC_NO, K4F,   KC_NO, \
+    K50,   K51,   K52,   KC_NO,        KC_NO, K57,   KC_NO,               KC_NO, K5B,   K5C,   K5D,          K5E,   K5F,   K5G    \
+)
+
+#define KEYMAP_ISO( \
+    K00,      K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,      K0E, K0F, K0G, \
+    K01, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1D,      K1E, K1F, K1G, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,           K2E, K2F, K2G, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,                     \
+    K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,      K4D,           K4F,      \
+    K50, K51, K52,                K57,                K5A, K5B, K5C, K5D,      K5E, K5F, K5G  \
+) KEYMAP_7BIT( \
+    K00,   KC_NO, K02,   K03,   K04,   K05,   KC_NO, K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F,   K0G,   \
+    K01,   K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   KC_NO, K1D,   K1E,   K1F,   K1G,   \
+    K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   KC_NO,        K2E,   K2F,   K2G,   \
+    K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,          KC_NO, KC_NO, KC_NO, \
+    K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   KC_NO, K4D,          KC_NO, K4F,   KC_NO, \
+    K50,   K51,   K52,   KC_NO,        KC_NO, K57,   KC_NO,               K5A,   K5B,   K5C,   K5D,          K5E,   K5F,   K5G    \
+)
+
+#define KEYMAP_ISO_WINKEYLESS( \
+    K00,      K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,      K0E, K0F, K0G, \
+    K01, K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1D,      K1E, K1F, K1G, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,           K2E, K2F, K2G, \
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,                     \
+    K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4A, K4B,      K4D,           K4F,      \
+    K50, K51, K52,                K57,                     K5B, K5C, K5D,      K5E, K5F, K5G  \
+) KEYMAP_7BIT( \
+    K00,   KC_NO, K02,   K03,   K04,   K05,   KC_NO, K06,   K07,   K08,   K09,   K0A,   K0B,   K0C,   K0D,   K0E,   K0F,   K0G,   \
+    K01,   K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K1B,   KC_NO, K1D,   K1E,   K1F,   K1G,   \
+    K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   K2C,   KC_NO,        K2E,   K2F,   K2G,   \
+    K30,   K31,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   K3D,          KC_NO, KC_NO, KC_NO, \
+    K40,   K41,   K42,   K43,   K44,   K45,   K46,   K47,   K48,   K49,   K4A,   K4B,   KC_NO, K4D,          KC_NO, K4F,   KC_NO, \
+    K50,   K51,   K52,   KC_NO,        KC_NO, K57,   KC_NO,               KC_NO, K5B,   K5C,   K5D,          K5E,   K5F,   K5G    \
+)
 
 #endif

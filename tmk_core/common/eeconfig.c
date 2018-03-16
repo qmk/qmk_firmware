@@ -19,6 +19,9 @@ void eeconfig_init(void)
 #ifdef RGBLIGHT_ENABLE
     eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
 #endif
+#ifdef STENO_ENABLE
+    eeprom_update_byte(EECONFIG_STENOMODE,      0);
+#endif
 }
 
 void eeconfig_enable(void)

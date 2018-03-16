@@ -1,5 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
@@ -107,7 +105,8 @@ const uint16_t PROGMEM fn_actions[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer;
 
-    if (!process_record_dynamic_macro(keycode, record)) {
+    uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
+    if (!process_record_dynamic_macro(macro_kc, record)) {
         return false;
     }
 

@@ -73,22 +73,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* key report size(NKRO or boot mode) */
-#if defined(PROTOCOL_PJRC) && defined(NKRO_ENABLE)
-#   include "usb.h"
-#   define KEYBOARD_REPORT_SIZE KBD2_SIZE
-#   define KEYBOARD_REPORT_KEYS (KBD2_SIZE - 2)
-#   define KEYBOARD_REPORT_BITS (KBD2_SIZE - 1)
-
-#elif defined(PROTOCOL_LUFA) && defined(NKRO_ENABLE)
-#   include "protocol/lufa/descriptor.h"
-#   define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-#   define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
-#   define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
-#elif defined(PROTOCOL_CHIBIOS) && defined(NKRO_ENABLE)
-#   include "protocol/chibios/usb_main.h"
-#   define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-#   define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
-#   define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+#if defined(NKRO_ENABLE)
+  #if defined(PROTOCOL_PJRC)
+    #include "usb.h"
+    #define KEYBOARD_REPORT_SIZE KBD2_SIZE
+    #define KEYBOARD_REPORT_KEYS (KBD2_SIZE - 2)
+    #define KEYBOARD_REPORT_BITS (KBD2_SIZE - 1)
+  #elif defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
+    #include "protocol/usb_descriptor.h"
+    #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
+    #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
+    #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+  #else
+    #error "NKRO not supported with this protocol"
+#endif
 
 #else
 #   define KEYBOARD_REPORT_SIZE 8
@@ -173,6 +171,20 @@ typedef struct {
     (key == KC_WWW_STOP         ?  AC_STOP : \
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
     (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))
+
+uint8_t has_anykey(report_keyboard_t* keyboard_report);
+uint8_t get_first_key(report_keyboard_t* keyboard_report);
+
+void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
+void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
+#ifdef NKRO_ENABLE
+void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code);
+#endif
+
+void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key);
+void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key);
+void clear_keys_from_report(report_keyboard_t* keyboard_report);
 
 #ifdef __cplusplus
 }

@@ -83,3 +83,7 @@ void lcd_backlight_brightness(uint8_t b) {
     current_brightness = b;
     lcd_backlight_color(current_hue, current_saturation, current_intensity);
 }
+
+uint8_t lcd_get_backlight_brightness(void) {
+	return current_brightness;
+}

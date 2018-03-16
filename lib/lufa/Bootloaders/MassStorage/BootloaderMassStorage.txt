@@ -1,0 +1,240 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Mass Storage Class USB AVR Bootloader
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4) - <i>See \ref SSec_Aux_Space</i>
+ *  \li ATMEGA32U2 - <i>See \ref SSec_Aux_Space</i>
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Mass Storage Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Bulk-Only Transport</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  This bootloader enumerates to the host as a Mass Storage device, capable of reading and writing a new binary
+ *  firmware image file, to load firmware onto the AVR.
+ *
+ *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
+ *  into 6KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
+ *  edit the MCU, FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
+ *
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \warning <b>THIS BOOTLOADER IS NOT SECURE.</b> Malicious entities can recover written data, even if the device
+ *           lockbits are set.
+ *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  On the USB AVR8 devices, setting the \c HWBE device fuse will cause the bootloader to run if the \c HWB pin of
+ *  the AVR is grounded when the device is reset.
+ *
+ *  The are two behaviours of this bootloader, depending on the device's fuses:
+ *
+ *  <b>If the device's BOOTRST fuse is set</b>, the bootloader will run any time the system is reset from
+ *  the external reset pin, unless no valid user application has been loaded. To initiate the bootloader, the
+ *  device's external reset pin should be grounded momentarily.
+ *
+ *  <b>If the device's BOOTRST fuse is not set</b>, the bootloader will run only if initiated via a software
+ *  jump, or if the \c HWB pin was low during the last device reset (if the \c HWBE fuse is set).
+ *
+ *  For board specific exceptions to the above, see below.
+ *
+ *  \subsection SSec_XPLAIN Atmel Xplain Board
+ *  Ground the USB AVR JTAG's \c TCK pin to ground when powering on the board to start the bootloader. This assumes the
+ *  \c HWBE fuse is cleared and the \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \subsection SSec_Leonardo Arduino Leonardo Board
+ *  Ground \c IO13 when powering the board to start the bootloader. This assumes the \c HWBE fuse is cleared and the
+ *  \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader uses the Mass Storage drivers inbuilt into all modern operating systems, thus no additional
+ *  drivers need to be supplied for correct operation.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  This bootloader is compatible with all operating systems that support the FAT12 file system format. To reprogram the
+ *  device, overwrite a file stored on the virtual FAT filesystem with a new binary (BIN format) image. Remember to safely
+ *  remove your device from the host using the host OS's ejection APIs, to ensure all data is correctly flushed to the
+ *  bootloader's virtual filesystem and not cached in the OS's file system driver.
+ *
+ *  The current device firmware can be read from the device by reading a file from the virtual FAT filesystem. Two files will
+ *  be present:
+ *    - <b>FLASH.BIN</b>, representing the AVR's internal flash memory
+ *    - <b>EEPROM.BIN</b>, representing the AVR's internal EEPROM memory
+ *
+ *  To convert an existing Intel HEX (.HEX) program file to a binary (.BIN) file suitable for this bootloader, run:
+ *    \code
+ *		avr-objcopy -O binary -R .eeprom -R .fuse -R .lock -R .signature input.hex output.bin
+ *    \endcode
+ *  From a terminal, replacing <tt>input.hex</tt> and <tt>output.bin</tt> with the respective input and output filenames.
+ *  AVR EEPROM data files in Intel HEX format (.EEP) uses a similar technique:
+ *    \code
+ *		avr-objcopy -O binary input.eep output.bin
+ *    \endcode
+ *
+ *  \warning This bootloader is currently <b>incompatible with the Apple MacOS X OS Finder GUI</b>, due to the
+ *           large amount of meta files this OS attempts to write to the disk along with the new binaries. On
+ *           this platform, firmwares must be copied to the disk via the Terminal application only to prevent
+ *           firmware corruption.
+ *
+ *  \section Sec_API User Application API
+ *
+ *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
+ *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
+ *
+ *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
+ *  following layout:
+ *
+ *  \code
+ *  #define BOOTLOADER_API_TABLE_SIZE          32
+ *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
+ *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
+ *
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_CALL(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
+ *
+ *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
+ *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
+ *
+ *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
+ *  #define BOOTLOADER_MASS_STORAGE_SIGNATURE  0xDF30
+ *
+ *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
+ *  #define BOOTLOADER_ADDRESS_LENGTH          4
+ *  \endcode
+ *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_MASS_STORAGE_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes
+ *  of FLASH memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
+ *  \subsection SSec_Aux_Space Auxiliary Bootloader Section
+ *  To make the bootloader function on smaller devices (those with a physical bootloader section of smaller than 6KB) a second
+ *  section of memory (called the <i>Auxiliary Bootloader Section</i>) is added before the start of the real bootloader section,
+ *  and is filled with a portion of the bootloader code. This allows smaller devices to run the bootloader, at the cost of an
+ *  additional portion of the device's FLASH (the bootloader section size in KB subtracted from the 6KB total size). A small
+ *  trampoline is inserted at the start of the auxiliary section so that the bootloader will run normally in the case of a blank
+ *  application section.
+ *
+ *  On devices supporting a 8KB bootloader section size, the AUX section is not created in the final binary.
+ *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE - BOOT_AUX_SECTION_SIZE
+ *  | Booloader Start Trampoline |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE - BOOT_AUX_SECTION_SIZE + 4
+ *  |                            |
+ *  |     Auxiliary Bootloader   |
+ *  |  Space for Smaller Devices |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par In some cases, the application is not fully loaded into the device.
+ *  Write-caching on some operating systems may interfere with the normal
+ *  operation of the bootloader. Write caching should be disabled when using the
+ *  Mass Storage bootloader, or the file system synced via an appropriate command
+ *  (such as the OS's normal disk ejection command) before disconnecting the device.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>NO_APP_START_ON_EJECT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Define to disable automatic start of the loaded application when the virtual
+ *        Mass Storage disk is ejected on the host.</td>
+ *   </tr>
+ *  </table>
+ */
+
