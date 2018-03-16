@@ -29,3 +29,15 @@ Note that the array indices are reversed same as the matrix and the values are o
 | `ACTION_SWAP_HANDS_OFF_ON()` | Momentarily turns off swap. |
 | `ACTION_SWAP_HANDS_ON()` | Turns on swapping and leaves it on. |
 | `ACTION_SWAP_HANDS_OFF()` | Turn off swapping and leaves it off. Good for returning to a known state. |
+
+## Including in Your Keymap
+
+If you include the action command directly in your keymap it won't fire. Instead you must activate it via a function action.
+
+```C
+const uint16_t PROGMEM fn_actions[] = {
+  ACTION_SWAP_HANDS_TAP_KEY(KC_SPC),
+};
+```
+
+Then you can include KC_FN0 in your keymap to activate the mirroing feature.
