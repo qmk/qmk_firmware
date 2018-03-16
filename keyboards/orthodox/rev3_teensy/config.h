@@ -19,8 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV3_CONFIG_H
-#define REV3_CONFIG_H
+#ifndef REV3_TEENSY_CONFIG_H
+#define REV3_TEENSY_CONFIG_H
 
 #include "config_common.h"
 
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    deductivemonkee
-#define PRODUCT         Monkeebs Orthodox Rev.3
+#define PRODUCT         Monkeebs Orthodox Rev.3 (Teensy)
 #define DESCRIPTION     Bananadox
 
 /* key matrix size */
@@ -39,17 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 
-//REV.3 PRO MICRO
-#define MATRIX_ROW_PINS { D2, B4, B5, }
-#define MATRIX_COL_PINS { D7, F4, F5, B6, B2, B3, B1, F7, F6 }
-
-/*/
 //REV.3 TEENSY
 #define MATRIX_ROW_PINS { B0, C6, C7, }
 #define MATRIX_COL_PINS { D2, F5, F6, D6, D7, B4, B5, B6, F7 }
-/*/
-
-#define CATERINA_BOOTLOADER
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
