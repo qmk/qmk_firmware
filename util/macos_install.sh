@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if brew --version 2>&1 > /dev/null; then
+if ! brew --version 2>&1 > /dev/null; then
 	echo "Error! Homebrew not installed or broken!"
 	echo -n "Would you like to install homebrew now? [y/n] "
 	while read ANSWER; do
@@ -15,7 +15,7 @@ if brew --version 2>&1 > /dev/null; then
 			*)
 				echo -n "Would you like to install homebrew now? [y/n] "
 			;;
-                esac
+		esac
 	done
 fi
 
