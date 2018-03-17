@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "timer.h"
 
+
 #ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
@@ -181,6 +182,7 @@ void matrix_init(void)
       matrix_slave_scan();
     }
   }
+
 }
 
 uint8_t _matrix_scan(void)

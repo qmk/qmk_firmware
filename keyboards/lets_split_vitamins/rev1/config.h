@@ -60,9 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F0
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_NUM 16    // Number of LEDs
 #define ws2812_PORTREG  PORTF
 #define ws2812_DDRREG   DDRF
+#define RGBLIGHT_ANIMATIONS
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE
@@ -82,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* disable action features */
 //#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
+#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
