@@ -92,7 +92,9 @@ bool autoshift_state(void) {
 }
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
+#ifndef AUTO_SHIFT_MODIFIERS
   static uint8_t any_mod_pressed;
+#endif
 
   if (record->event.pressed) {
     switch (keycode) {
@@ -175,6 +177,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         autoshift_flush();
         if (!autoshift_enabled) return true;
 
+#ifndef AUTO_SHIFT_MODIFIERS
         any_mod_pressed = get_mods() & (
           MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|
           MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT)|
@@ -185,6 +188,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         if (any_mod_pressed) {
           return true;
         }
+#endif
 
         autoshift_on(keycode);
         return false;

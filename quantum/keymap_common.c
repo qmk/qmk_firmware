@@ -146,6 +146,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = ACTION_BACKLIGHT_STEP();
             break;
     #endif
+    #ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            action.code = ACTION(ACT_SWAP_HANDS, keycode & 0xff);
+            break;
+    #endif
+
         default:
             action.code = ACTION_NO;
             break;
