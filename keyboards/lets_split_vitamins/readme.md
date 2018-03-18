@@ -8,7 +8,7 @@ This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 
 ## First Time Setup
 
-Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html) as for windows build environment, you'll be able to generate the default .hex using:
+Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html), you'll be able to generate the default .hex using:
 
 ```bash
 make lets_split_vitamins/rev1:default
@@ -33,13 +33,13 @@ If everything worked correctly you will see a file:
 lets_split_vitamins_rev1_YOUR_KEYMAP_NAME.hex
 ```
 
-If you are on linux, you can also flash the hex file to the keyboard right after compilation, by adding `:avrdude` to the end of the make command like so:
+If you want, you can flash the hex file to the keyboard right after compilation, by adding `:avrdude` to the end of the make command like so:
 
 ```bash
 make lets_split_vitamins/rev1:default:avrdude
 ```
 
-If you are on windows, scroll down to flashing, to see how to handle that.
+This will both compile the hex, and flash the connected half.
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
 
@@ -99,9 +99,8 @@ the two halves, so because the let's split vitamins included has 4 rows in each 
 Also, the current implementation assumes a maximum of 8 columns, but it would
 not be very difficult to adapt it to support more if required.
 
-Flashing
--------
-### Entering bootloader  
+
+## Entering bootloader  
 If the keyboard isn't new, and has been flashed before, you need to enter bootloader.
 To enter bootloader, either use the assigned keys on the keymap, or if none have been put in the keymap, quickly short the reset to gnd twice. (Bottom pins of programming header, see image) ![Reset pins](https://i.imgur.com/LCXlv9W.png)
 
@@ -112,48 +111,31 @@ It is recommended to add such reset keys to any custom keymaps. It shouldn't be 
 
 The board exits bootloader mode after 8 seconds, if you haven't started flashing.
 
-### Linux
+## EEPROM
 
-If this is the first time you're flashing the boards, it's easier to also flash EEPROM at the same time.
+If this is the first time you're flashing the boards, you have to flash EEPROM
 
 0. If your keyboard is plugged in, unplug it
 1. Open a terminal, and navigate to the qmk_firmware folder
-2. Run `make lets_split_vitamins/rev1:default`
-3. Plug the keyboard in, if it's new, it should enter bootloader, if it's not new, see **Entering bootloader** on how to enter bootloader mode
-4. Run `dmesg | tail -10 | grep tty`
-5. Note the port the port the bootloader has connected to. If nothing shows see **Entering bootloader** on how to enter bootloader mode
-6. Run  `avrdude -c avr109 -p m32u4 -P /dev/ttyACM0 -U flash:w:"lets_split_vitamins_rev1_default.hex":a -U eeprom:w:"./keyboards/lets_split_vitamins/eeprom-lefthand.eep":a`
-for the left hand. Replace ***/dev/ttyACM0*** with the port you noted down earlier. For the right hand, change it to ***eeprom-righthand.eep***
+2. Run `ls /dev | grep tty` Note down which ports you see
+2. Plug the keyboard in, if it's new, it should enter bootloader, if it's not new, see **Entering bootloader** on how to enter bootloader mode
+4. Right after entering bootloader, run `ls /dev | grep tty` again. There should be a new tty, this is the bootloader TTY, note it down. If nothing shows see **Entering bootloader** on how to enter bootloader mode
+6. For the left hand side, run  `avrdude -c avr109 -p m32u4 -P /dev/ttyS1 -U eeprom:w:"./keyboards/lets_split_vitamins/eeprom-lefthand.eep":a`
+Replace ***/dev/ttyS1*** with the port you noted down earlier. If you're on windows using msys2, replace ***/dev/ttyS1*** with COM2, note that the number is one higher than the tty number.  
+Do the same For the right hand, but change the file to ***eeprom-righthand.eep***
 
-Your keyboard should be flashed :)
+Your EEPROM should be flashed :)
 
 In the future, you shouldn't need to flash EEPROM (it will in fact wear the eeprom memory, so don't)
-In the future just run: 
+
+## Flashing
+If you haven't flashed EEPROM before, do that first.  
+
+To flash keymaps onto the keyboard, use:
 ```bash
 make lets_split_vitamins/rev1:[KEYMAP]:avrdude
 ```
-from the qmk_firmware folder.
-
-### Windows 10  
-
-Install [AVRDUDESS](http://blog.zakkemble.co.uk/avrdudess-a-gui-for-avrdude/).
-
-0. If your keyboard is plugged in, unplug it
-1. Open AVRDUDESS
-2. Pick ***Atmel AppNote AVR109 Boot Loader*** as the programmer
-3. Select ATMega32U4 as the MCU.
-4. Check which COM ports are available under Port. Note these down if there's too many to remember.
-5. Plug in the keyboard, If you just got the PCBs, there's only the bootloader on there, and it it will connect in bootloader mode automatically. If it's not new, see **Entering bootloader** on how to enter bootloader mode
-6. Check the Port drop-down in AVRDUDESS, and see which new COM port has appeared. Do this within 8 seconds of entering bootloader. Pick the new COM port. If none have shown, try entering bootloader again.
-7. compile the default hex
-8. Run `make lets_split_vitamins/rev1:default`
-9. Go back into AVRDUDESS when it has finished compiling, and pick the .hex file in the **flash** field
-10. In the EEPROM field,  navigate into `keyboards/lets_split_vitamins/` and pick `eeprom-lefthand.eep` or `eeprom-righthand.eep` depending on which half you are flashing.
-11. Make sure the board is in bootloader mode, and hit the **Program!** button.
-12. Repeat for the other half.
-
-Your board should be flashed :)
-For further flashes, you should clear the eeprom field, as you shouldn't wear the eeprom unnecessarily.
+from the qmk_firmware folder. Default being the default keymap.
 
 You can plug either half into USB and it will work. you can also remove the TRS/TRRS cable, and plug both halves in. (which is why the default layout has reset on both halves)
 
