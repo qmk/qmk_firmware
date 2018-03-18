@@ -1,8 +1,5 @@
 // Can't Remember Sh*t Keymap for Planck
-// Trying to fit as many characters as possible on the default layer
-// 	as its easier for me to remember logical functions than characters
-// Also, I like me some numpad
-
+// http://www.keyboard-layout-editor.com/#/gists/c6c0ac051b2b118a34ef84ebadab54c7
 
 #include "planck.h"
 #include "action_layer.h"
@@ -13,22 +10,27 @@
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _GAME   1
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+
+enum planck_layers {
+  _QWERTY,
+  _ARROW,
+  _GAME,
+  _LOWER,
+  _RAISE,
+  _PLOVER,
+  _ADJUST
+};
+
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
+  ARROW,
   GAME,
   LOWER,
   RAISE,
   BACKLIT,
+  PLOVER,
+  EXT_PLV
 };
 
 // Fillers to make layering more clear
@@ -52,9 +54,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,    KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT, KC_SLSH, SFT_T(KC_ENT) },
-  {KC_LCTL, KC_LGUI, KC_BSLS, KC_LALT, LOWER, KC_SPC,  KC_SPC,  RAISE,  LT(3, KC_LBRC), KC_MINS, KC_EQL, CTL_T(KC_RBRC)}
+  {KC_LCTL, KC_LGUI, KC_BSLS, KC_LALT, LOWER, KC_SPC,  KC_SPC,  RAISE,  LT(_LOWER, KC_LBRC), KC_MINS, KC_EQL, MT(MOD_RCTL, KC_RBRC)}
 },
 
+ /* Arrow
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |  GUI |  \   | Alt  | Lower|    Space    |Raise | Left | Down |  Up  | Right|
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ARROW] = {
+  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,    KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_BSPC},
+  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,    KC_H,    KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT, KC_SLSH, SFT_T(KC_ENT) },
+  {KC_LCTL, KC_LGUI, KC_BSLS, KC_LALT, LOWER, KC_SPC,  KC_SPC,  RAISE,  KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT}
+},
+ 
+ 
 /* Game
  * ,-----------------------------------------------------------------------------------.
  * |   1  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
@@ -80,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  Tab |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   4  |   5  |   6  |   .  |  *   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NumLk|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   1  |   2  |   3  |   /  |Enter |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   1  |   2  |   3  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Esc |      |      |      |      |      0      |      |      |      | KP_+ |      |
  * `-----------------------------------------------------------------------------------'
@@ -98,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  | Wh Up|RightC| M-Up | LeftC|QWERTY| Left | Down |  Up  | Right|  |   |   `  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Wh Dn| M-L  | M-Dn | M-R  | ACL0 | ACL1 | ACL2 |      |      |  \   |      |
+ * |      | Wh Dn| M-L  | M-Dn | M-R  |      |   -  |   =  |   [  |   ]  |  \   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | App  |      |      |      |     Ins     |      | Home | PGDN | PGUP |  End |
  * `-----------------------------------------------------------------------------------'
@@ -106,26 +127,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {KC_TILD,   KC_EXLM,     KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN,   KC_RPRN, KC_DEL},
   { KC_DEL,   KC_WH_U,   KC_BTN2, KC_MS_U, KC_BTN1, QWERTY, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   KC_PIPE,  KC_GRV},
-  {_______,   KC_WH_D,   KC_MS_L, KC_MS_D, KC_MS_R, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, KC_BSLASH, _______},
+  {_______,   KC_WH_D,   KC_MS_L, KC_MS_D, KC_MS_R, _______,  KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLASH, _______},
   {_______,   KC_APP,   _______, _______, _______, KC_INS, KC_INS, _______, KC_HOME, KC_PGDN,   KC_PGUP,  KC_END}
+},
+
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_PLOVER] = {
+  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
 },
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * | C-A-I|Qwerty|      |      |Reset |Macro0|      |      |      |      |      |C-A-D |
+ * | C-A-I|Qwerty|      |      |Reset |Macro0|      |      |      |      |PLOVER|C-A-D |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff| Game |AGswap|AGnorm|      |      |      |      |
+ * | Caps | Arrow|      |Aud on|Audoff| Game |AGswap|AGnorm| PrtSc|ScrLck| Break|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff| Prev | Next | Mute | VolDn| VolUp|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite|      |      |      |      |             |      | BL_T |BL_DEC|BL_INC|BL_ST |
+ * | Brite|      |      |      |      | Play/Pause  |      | BL_T |BL_DEC|BL_INC|BL_ST |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {LALT(LCTL(KC_INS)), QWERTY,   _______, _______, RESET, M(0),  _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL))},
-  {_______, _______, _______, AU_ON,   AU_OFF,  GAME, AG_SWAP, AG_NORM,  _______, _______,  _______,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {BACKLIT, _______, _______, _______, _______, _______, _______, _______, BL_TOGG, BL_DEC , BL_INC , BL_STEP}
+  {LALT(LCTL(KC_INS)), QWERTY,   _______, _______, RESET, M(0),  _______, _______, _______, _______, PLOVER, LALT(LCTL(KC_DEL))},
+  {KC_CAPS, ARROW, _______, AU_ON,   AU_OFF,  GAME, AG_SWAP, AG_NORM,  KC_PSCR, KC_SLCK, KC_PAUS,  _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  KC_MPRV, KC_MNXT,  KC_MUTE, KC_VOLD, KC_VOLU, _______, _______},
+  {BACKLIT, _______, _______, _______, _______, KC_MPLY, KC_MPLY, _______, BL_TOGG, BL_DEC , BL_INC , BL_STEP}
 }
 
 
@@ -143,52 +183,40 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) //
   return MACRO_NONE;
 };
 
-
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+  float plover_song[][2]     = SONG(PLOVER_SOUND);
+  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
-
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        print("mode just switched to qwerty and this is a huge string\n");
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case ARROW:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_ARROW);
       }
       return false;
       break;
     case GAME:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(music_scale);
-        #endif
-        persistant_default_layer_set(1UL<<_GAME);
+        set_single_persistent_default_layer(_GAME);
       }
       return false;
       break;
-
-
-      case LOWER:
-        if (record->event.pressed) {
-          layer_on(_LOWER);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        } else {
-          layer_off(_LOWER);
-          update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        }
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
       return false;
       break;
     case RAISE:
@@ -212,39 +240,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-     }
+    case PLOVER:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+          PLAY_SONG(plover_song);
+        #endif
+        layer_off(_RAISE);
+        layer_off(_LOWER);
+        layer_off(_ADJUST);
+        layer_on(_PLOVER);
+        if (!eeconfig_is_enabled()) {
+            eeconfig_init();
+        }
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.nkro = 1;
+        eeconfig_update_keymap(keymap_config.raw);
+      }
+      return false;
+      break;
+    case EXT_PLV:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(plover_gb_song);
+        #endif
+        layer_off(_PLOVER);
+      }
+      return false;
+      break;
+  }
   return true;
 }
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
