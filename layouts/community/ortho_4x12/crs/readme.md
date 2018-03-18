@@ -4,7 +4,7 @@ Since I started with a Planck and a 2u space, it's not as optimal on a split or 
 
 Goals:
 
-*Maximum compatibility with standard keyboards
+* Maximum compatibility with standard keyboards
   * I have to work on other staggered Qwerty keyboards all the time so I wanted to keep essentially the same layout instead of optimizing too much.
 * Trying to fit as many characters as possible on the default layer
   * its easier for me to remember logical functions than characters
