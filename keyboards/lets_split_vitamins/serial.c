@@ -122,7 +122,6 @@ void serial_write_byte(uint8_t data) {
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
-  is_slave = true;
   sync_send();
 
   uint8_t checksum = 0;

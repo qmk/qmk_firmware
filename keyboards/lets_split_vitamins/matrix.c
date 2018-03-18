@@ -32,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-#include "Device.h"
-#include "pincontrol.h"
 
 
 #ifdef USE_I2C
@@ -43,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Seconds to keep checking if USB has been enumearted, before settling for being slave half.
-volatile bool is_slave = false;
+#define USBTIMEOUT 3
 
 #ifndef DEBOUNCING_DELAY
 #   define DEBOUNCING_DELAY 5
@@ -133,7 +131,7 @@ uint8_t matrix_cols(void)
 }
 
 bool has_usb(void) {
-  return USB_DeviceState == DEVICE_STATE_Configured;
+  return UDADDR & _BV(ADDEN); // This will return true if a USB connection has been established
 }
 
 void timer_reset(void) {
@@ -152,20 +150,20 @@ void timer_reset(void) {
 
 void matrix_init(void)
 {
-  #ifdef DISABLE_JTAG
-    // JTAG disable for PORT F. write JTD bit twice within four cycles.
-    MCUCR |= (1<<JTD);
-    MCUCR |= (1<<JTD);
-  #endif
+#ifdef DISABLE_JTAG
+  // JTAG disable for PORT F. write JTD bit twice within four cycles.
+  MCUCR |= (1<<JTD);
+  MCUCR |= (1<<JTD);
+#endif
 
-  // initialize row and col
-  #if (DIODE_DIRECTION == COL2ROW)
+    // initialize row and col
+#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
-  #elif (DIODE_DIRECTION == ROW2COL)
+#elif (DIODE_DIRECTION == ROW2COL)
     unselect_cols();
     init_rows();
-  #endif
+#endif
 
   TX_RX_LED_INIT;
 
@@ -175,6 +173,7 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
+  // initialize as slave
   timer_init();
   #ifdef USE_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
@@ -182,26 +181,26 @@ void matrix_init(void)
     serial_slave_init();
   #endif
 
-  while (USB_DeviceState != DEVICE_STATE_Configured && !is_slave) {
-      USB_USBTask();
-  }
-
-
   sei();
 
   matrix_init_quantum();
 
-  // If we have USB, switch to master
+  /* Wait USBTIMEOUT for USB
+  uint32_t timeout_start = timer_count;
+  while(!has_usb() && USBTIMEOUT > timer_count - timeout_start) {
+    matrix_slave_scan();
+  }*/
 
+  // If we have USB, switch to master
   if(has_usb()) {
-    timer_reset();
+    //timer_reset();
     #ifdef USE_I2C
       i2c_master_init();
     #else
       serial_master_init();
     #endif
   }
-  else {
+  else{
     while (1) {
       matrix_slave_scan();
     }
