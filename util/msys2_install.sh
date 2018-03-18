@@ -30,6 +30,10 @@ function extract_flip {
     7z -oflip x FlipInstaller.exe
 }
 
+function install_avrdude {
+    pacman -S mingw-w64-x86_64-avrdude
+}
+
 pushd "$download_dir"
 
 if [ -f "FlipInstaller.exe" ]; then
@@ -63,11 +67,37 @@ else
     done
 fi
 
+pacman -q -Q mingw-w64-x86_64-avrdude
+if [ ! $? -eq 0 ]; then
+  while true; do
+        echo
+        echo "AVRDUDE is not installed."
+        echo "This is needed for flashing AVR based keyboards."
+        read -p "Do you want to install it? (Y/N) " res
+        case $res in
+            [Yy]* ) install_avrdude; break;;
+            [Nn]* ) break;;
+            * ) echo "Invalid answer";;
+        esac
+    done
+else
+  while true; do
+        echo
+        echo "AVRDUDE is already installed"
+        read -p "Do you want to reinstall? (Y/N) " res
+        case $res in
+            [Yy]* ) install_avrdude; break;;
+            [Nn]* ) break;;
+            * ) echo "Invalid answer";;
+        esac
+    done
+fi
+
 if [ ! -d "$armtools" ]; then
     while true; do
         echo
         echo "The ARM toolchain is not installed."
-        echo "This is needed for building ARM based keboards."
+        echo "This is needed for building ARM based keyboards."
         read -p "Do you want to install it? (Y/N) " res
         case $res in
             [Yy]* ) install_arm; break;;
