@@ -158,5 +158,6 @@ ISR(TWI_vect) {
   }
   // Reset everything, so we are ready for the next TWI interrupt
   TWCR |= (1<<TWIE) | (1<<TWINT) | (ack<<TWEA) | (1<<TWEN);
+  contacted_by_master = true;
 }
 #endif

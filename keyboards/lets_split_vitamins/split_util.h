@@ -7,6 +7,7 @@
 #define SLAVE_I2C_ADDRESS           0x32
 
 extern volatile bool isLeftHand;
+extern volatile bool contacted_by_master;
 
 bool has_usb(void);
 

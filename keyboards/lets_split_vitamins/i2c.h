@@ -2,6 +2,7 @@
 #define I2C_H
 
 #include <stdint.h>
+#include "split_util.h"
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
