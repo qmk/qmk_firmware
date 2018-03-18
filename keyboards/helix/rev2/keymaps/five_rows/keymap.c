@@ -141,11 +141,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOWER] = KEYMAP( \
-      _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-      _______, _______, KC_PAUS, KC_SLCK, KC_INS,  _______,                   _______, KC_INS,  KC_SLCK, KC_PAUS, _______, KC_F12, \
-      _______, KC_PGUP, _______, KC_UP,   KC_DEL,  KC_HOME,                   KC_HOME, KC_DEL,  KC_UP,   _______, KC_PGUP, _______, \
-      _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, _______, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, \
-      _______, _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______ \
+      XXXXXXX,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
+      XXXXXXX, XXXXXXX, KC_PAUS, KC_SLCK, KC_INS,  XXXXXXX,                   XXXXXXX, KC_INS,  KC_SLCK, KC_PAUS, XXXXXXX, KC_F12, \
+      _______, KC_PGUP, XXXXXXX, KC_UP,   KC_DEL,  KC_HOME,                   KC_HOME, KC_DEL,  KC_UP,   XXXXXXX, KC_PGUP, _______, \
+      _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  XXXXXXX, XXXXXXX, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, \
+      XXXXXXX, _______, KC_PSCR, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______ \
       ),
 
   /* Raise
@@ -156,17 +156,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      |      |  {   |  [   |             |  ]   |  }   |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      | EISU | KANA |      | Next | Vol- | Vol+ | Play |      |
+   * |      |      |      |      |      | EISU | EISU | KANA | KANA | Next | Vol- | Vol+ | Play |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAISE] = KEYMAP( \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, LSFT(KC_MINS), KC_MINS,         KC_EQL, LSFT(KC_EQL), _______, _______, _______, _______, \
-      _______, _______, _______, _______, LSFT(KC_LBRC), KC_LBRC,       KC_RBRC, LSFT(KC_RBRC), _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, EISU,    KANA,    _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_MINS), KC_MINS,         KC_EQL, LSFT(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_LBRC), KC_LBRC,       KC_RBRC, LSFT(KC_RBRC), XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    EISU,    EISU,    KANA,    KANA, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, \
+      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX \
       ),
 
   /* Adjust (Lower + Raise)
@@ -184,10 +184,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_ADJUST] =  KEYMAP( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, RESET,   RGBRST,  _______, _______, _______,                   _______, _______, _______, _______, _______, KC_DEL, \
-      _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
+      XXXXXXX, RESET,   RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, \
+      XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
       )
 };
 
