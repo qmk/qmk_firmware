@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "keymap_plover.h"
+#include "keymap_steno.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -42,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SYMB),       KC_NO,        KC_GRV, KC_LEFT,KC_RGHT,
                                                       KC_PGUP,KC_PGDN,
                                                               KC_NO,
-                                              KC_LALT,KC_ENT ,KC_LGUI,
+                                              KC_LALT,KC_ENT ,M(1),
         // right hand
              KC_NO,       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSLS,
              KC_CAPS,     KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
@@ -121,23 +122,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [STEN] = LAYOUT_ergodox(  // layout: layer 2: Steno for Plover
         // left hand
-        KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  KC_TRNS,
-        KC_NO,  KC_NO,  PV_LS,  PV_LT,   PV_LP,  PV_LH,   PV_STAR,
-        KC_NO,  KC_NO,  PV_LS,  PV_LK,   PV_LW,  PV_LR,
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   PV_STAR,
+        KC_NO,  STN_N1, STN_N2, STN_N3,  STN_N4, STN_N5,  KC_TRNS,
+        KC_NO,  KC_NO,  STN_S1, STN_TL,  STN_PL, STN_HL,  STN_ST1,
+        KC_NO,  KC_NO,  STN_S2, STN_KL,  STN_WL, STN_RL,
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   STN_ST2,
         KC_TRNS,KC_NO,  KC_NO,  KC_TRNS, KC_TRNS,
                                           KC_NO, KC_NO,
                                                  KC_NO,
-                                   PV_A,  PV_O,  KC_NO,
+                                 STN_A,  STN_O,  KC_TRNS,
         // right hand
-          KC_NO,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,   KC_NO,
-        PV_STAR,   PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,   KC_NO,
-                   PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,   KC_NO,
-        PV_STAR,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+          KC_NO,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,   KC_NO,
+        STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,   KC_NO,
+                  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,   KC_NO,
+        STN_ST4,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                           KC_TRNS, KC_TRNS,   KC_NO,   KC_NO, KC_TRNS,
         KC_NO,  KC_NO,
         KC_NO,
-        KC_TRNS, PV_E,  PV_U
+        KC_TRNS, STN_E, STN_U
 ),
 
 /* Keymap 3: Media and mouse keys
@@ -163,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(0),
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(STEN),
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -187,41 +188,34 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(MDIA)                // FN1 - Momentary Layer 3 (Media)
 };
 
-void toggle_steno(int pressed)
+// press `key`, but deactivate `layer` whilst it's held
+void press_without(int pressed, int key, uint8_t layer)
 {
+  static bool was_on;
   if (pressed) {
-    if (layer_state & (1 << STEN)) layer_off(STEN); else layer_on(STEN);
-
-    register_code(PV_LP);
-    register_code(PV_LH);
-    register_code(PV_LR);
-    register_code(PV_O);
-    register_code(PV_RL);
-    register_code(PV_RG);
+    was_on = layer_state_is(layer);
+    layer_off(layer);
+    register_code(key);
   } else {
-    unregister_code(PV_LP);
-    unregister_code(PV_LH);
-    unregister_code(PV_LR);
-    unregister_code(PV_O);
-    unregister_code(PV_RL);
-    unregister_code(PV_RG);
+    if (was_on) layer_on(layer);
+    unregister_code(key);
   }
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        toggle_steno(record->event.pressed);
-        break;
-      }
-    return MACRO_NONE;
+  switch(id) {
+  case 1:
+    press_without(record->event.pressed, KC_LGUI, STEN);
+    break;
+  }
+  return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+  steno_set_mode(STENO_MODE_BOLT);
 };
 
 // Runs constantly in the background, in a loop.
