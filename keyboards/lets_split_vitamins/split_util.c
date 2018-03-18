@@ -12,6 +12,7 @@
 #include "debug.h"
 
 volatile bool isLeftHand = true;
+volatile bool contacted_by_master = false;
 
 // this code runs before the usb and keyboard is initialized
 void matrix_setup(void) {

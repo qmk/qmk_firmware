@@ -155,6 +155,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   } else {
     status &= ~SLAVE_DATA_CORRUPT;
   }
+  contacted_by_master = true;
 }
 
 inline

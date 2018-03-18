@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include <stdbool.h>
+#include "split_util.h"
 
 /* TODO:  some defines for interrupt setup */
 #define SERIAL_PIN_DDR DDRD

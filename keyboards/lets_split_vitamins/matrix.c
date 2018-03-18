@@ -32,6 +32,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
+#include <print.h>
+
+#if (defined(RGB_MIDI) | defined(RGBLIGHT_ANIMATIONS)) & defined(RGBLIGHT_ENABLE)
+    #include "rgblight.h"
+#endif
 
 
 #ifdef USE_I2C
@@ -116,14 +121,12 @@ void matrix_scan_user(void) {
 }
 
 inline
-uint8_t matrix_rows(void)
-{
+uint8_t matrix_rows(void) {
     return MATRIX_ROWS;
 }
 
 inline
-uint8_t matrix_cols(void)
-{
+uint8_t matrix_cols(void) {
     return MATRIX_COLS;
 }
 
@@ -156,33 +159,31 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  _delay_ms(2000); // Give USB 2 seconds to establish a connection
+  #ifdef RGBLIGHT_ENABLE
+    rgblight_init();
+  #endif
 
-  if (has_usb()) { // Set up as master
-    #ifdef USE_I2C
-      i2c_master_init();
-    #else
-      serial_master_init();
-    #endif
+  timer_init();
+  #ifdef USE_I2C
+    i2c_slave_init(SLAVE_I2C_ADDRESS);
+  #else
+    serial_slave_init();
+  #endif
 
-  } else { // Set up as slave
-    timer_init();
-    #ifdef USE_I2C
-      i2c_slave_init(SLAVE_I2C_ADDRESS);
-    #else
-      serial_slave_init();
-    #endif
-  }
   sei();
 
   matrix_init_quantum();
-
-  if(!has_usb()){
-    while (1) {
-      matrix_slave_scan();
-    }
+  while(!has_usb() || contacted_by_master){
+    matrix_slave_scan();
   }
 
+  // Set up as master
+  #ifdef USE_I2C
+    i2c_reset_state();
+    i2c_master_init();
+  #else
+    serial_master_init();
+  #endif
 }
 
 uint8_t _matrix_scan(void)
@@ -314,9 +315,12 @@ uint8_t matrix_scan(void)
 }
 
 void matrix_slave_scan(void) {
-    _matrix_scan();
+  #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
+    rgblight_task();
+  #endif
+  _matrix_scan();
 
-    int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
+  int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
