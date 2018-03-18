@@ -40,9 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  include "serial.h"
 #endif
 
-// Seconds to keep checking if USB has been enumearted, before settling for being slave half.
-#define USBTIMEOUT 3
-
 #ifndef DEBOUNCING_DELAY
 #   define DEBOUNCING_DELAY 5
 #endif
@@ -131,21 +128,7 @@ uint8_t matrix_cols(void)
 }
 
 bool has_usb(void) {
-  return UDADDR & _BV(ADDEN); // This will return true if a USB connection has been established
-}
-
-void timer_reset(void) {
-  #ifndef __AVR_ATmega32A__
-    TCCR0A = 0;
-    TCCR0B = 0;
-    OCR0A = 0;
-    TIMSK0 = 0;
-#else
-    // Timer0 CTC mode
-    TCCR0 = 0;
-    OCR0 = 0;
-    TIMSK = 0;
-#endif
+  return UDADDR & _BV(ADDEN); // This will return true of a USB connection has been established
 }
 
 void matrix_init(void)
@@ -173,34 +156,28 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  // initialize as slave
-  timer_init();
-  #ifdef USE_I2C
-    i2c_slave_init(SLAVE_I2C_ADDRESS);
-  #else
-    serial_slave_init();
-  #endif
+  _delay_ms(2000); // Give USB 2 seconds to establish a connection
 
-  sei();
-
-  matrix_init_quantum();
-
-  /* Wait USBTIMEOUT for USB
-  uint32_t timeout_start = timer_count;
-  while(!has_usb() && USBTIMEOUT > timer_count - timeout_start) {
-    matrix_slave_scan();
-  }*/
-
-  // If we have USB, switch to master
-  if(has_usb()) {
-    //timer_reset();
+  if (has_usb()) { // Set up as master
     #ifdef USE_I2C
       i2c_master_init();
     #else
       serial_master_init();
     #endif
+
+  } else { // Set up as slave
+    timer_init();
+    #ifdef USE_I2C
+      i2c_slave_init(SLAVE_I2C_ADDRESS);
+    #else
+      serial_slave_init();
+    #endif
   }
-  else{
+  sei();
+
+  matrix_init_quantum();
+
+  if(!has_usb()){
     while (1) {
       matrix_slave_scan();
     }
