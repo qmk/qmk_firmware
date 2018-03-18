@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "i2c.h"
 
-#ifndef USE_I2C
+#ifdef USE_I2C
 
 // Limits the amount of we wait for any one i2c transaction.
 // Since were running SCL line 100kHz (=> 10μs/bit), and each transactions is
@@ -36,9 +36,6 @@ void i2c_delay(void) {
 
 // Setup twi to run at 100kHz
 void i2c_master_init(void) {
-  // Reset the registers set by slave mode
-  TWAR = 0xFE;
-  TWCR = 0;
   // no prescaler
   TWSR = 0;
   // Set TWI clock frequency to SCL_CLOCK. Need TWBR>10.
