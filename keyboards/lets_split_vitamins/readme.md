@@ -8,7 +8,7 @@ This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 
 ## First Time Setup
 
-Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html), you'll be able to generate the default .hex using:
+Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html) as for windows build environment, you'll be able to generate the default .hex using:
 
 ```bash
 make lets_split_vitamins/rev1:default
@@ -38,6 +38,9 @@ If you are on linux, you can also flash the hex file to the keyboard right after
 ```bash
 make lets_split_vitamins/rev1:default:avrdude
 ```
+
+If you are on windows, scroll down to flashing, to see how to handle that.
+
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
 
 
@@ -133,9 +136,7 @@ from the qmk_firmware folder.
 
 ### Windows 10  
 
-Follow this guide [here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to get ubuntu bash on windows. Then, in ubuntu bash for windows, follow the linux instructions [here](https://docs.qmk.fm/getting_started_build_tools.html)
-
-Then install [AVRDUDESS](http://blog.zakkemble.co.uk/avrdudess-a-gui-for-avrdude/).
+Install [AVRDUDESS](http://blog.zakkemble.co.uk/avrdudess-a-gui-for-avrdude/).
 
 0. If your keyboard is plugged in, unplug it
 1. Open AVRDUDESS
@@ -144,7 +145,7 @@ Then install [AVRDUDESS](http://blog.zakkemble.co.uk/avrdudess-a-gui-for-avrdude
 4. Check which COM ports are available under Port. Note these down if there's too many to remember.
 5. Plug in the keyboard, If you just got the PCBs, there's only the bootloader on there, and it it will connect in bootloader mode automatically. If it's not new, see **Entering bootloader** on how to enter bootloader mode
 6. Check the Port drop-down in AVRDUDESS, and see which new COM port has appeared. Do this within 8 seconds of entering bootloader. Pick the new COM port. If none have shown, try entering bootloader again.
-7. Open a ubuntu bash terminal, and navigate to the qmk_firmware folder. Windows drives are in `/mnt/[DRIVE LETTER no caps]/`
+7. compile the default hex
 8. Run `make lets_split_vitamins/rev1:default`
 9. Go back into AVRDUDESS when it has finished compiling, and pick the .hex file in the **flash** field
 10. In the EEPROM field,  navigate into `keyboards/lets_split_vitamins/` and pick `eeprom-lefthand.eep` or `eeprom-righthand.eep` depending on which half you are flashing.
