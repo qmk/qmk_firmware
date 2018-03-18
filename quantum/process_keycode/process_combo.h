@@ -21,22 +21,24 @@
 #include "progmem.h"
 #include "quantum.h"
 
+#ifdef EXTRA_EXTRA_LONG_COMBOS
+# define MAX_COMBO_LENGTH 32
+#elif EXTRA_LONG_COMBOS
+# define MAX_COMBO_LENGTH 16
+#else
+# define MAX_COMBO_LENGTH 8
+#endif
+
 typedef struct
 {
     const uint16_t *keys;
-    uint16_t keycode;        
+    uint16_t keycode;
 #ifdef EXTRA_EXTRA_LONG_COMBOS
     uint32_t state;
 #elif EXTRA_LONG_COMBOS
     uint16_t state;
 #else
     uint8_t state;
-#endif
-    uint16_t timer;
-#ifdef COMBO_ALLOW_ACTION_KEYS
-    keyrecord_t prev_record;
-#else
-    uint16_t prev_key;
 #endif
 } combo_t;
 
