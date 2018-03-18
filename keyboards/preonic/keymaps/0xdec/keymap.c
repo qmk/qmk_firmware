@@ -109,10 +109,10 @@ float music_scale[][2]  = SONG(MUSIC_SCALE_SOUND);
 
 void startup_user() {
   _delay_ms(20); // gets rid of tick
-  PLAY_NOTE_ARRAY(tone_startup, false, 0);
+  PLAY_SONG(tone_startup);
 }
 void shutdown_user() {
-  PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+  PLAY_SONG(tone_goodbye);
   _delay_ms(150);
   stop_all_notes();
 }
@@ -121,7 +121,7 @@ void music_on_user(void) {
   music_scale_user();
 }
 void music_scale_user(void) {
-  PLAY_NOTE_ARRAY(music_scale, false, 0);
+  PLAY_SONG(music_scale);
 }
 
 #endif
@@ -134,7 +134,7 @@ void matrix_init_user(void) {
   #endif
 }
 
-void persistant_default_layer_set(uint16_t default_layer) {
+void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -144,17 +144,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+        PLAY_SONG(tone_colemak);
         #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       break;
     case GAME:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-        PLAY_NOTE_ARRAY(tone_game, false, STACCATO);
+        PLAY_SONG(tone_game);
         #endif
-        persistant_default_layer_set(1UL<<_GAME);
+        persistent_default_layer_set(1UL<<_GAME);
       }
       break;
     case RAISE:

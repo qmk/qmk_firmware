@@ -31,6 +31,6 @@ in the default qwertz layout
 * Keymap has been based on TerryMathews' fork of Aqoush's fork of qmk-satan-rgb. [here](https://github.com/TerryMathews/qmk-satan-rgb/tree/master/keyboard/satan)
 * nice visualization of the layers [here](http://www.keyboard-layout-editor.com/#/gists/aba4e4396459ede85bc66a22cee88e48)
 * no-need-to-solder-on-chip picture:
-![no need to solder directly on the chip anymore](LEDpinSatan.jpg)
+![no need to solder directly on the chip anymore](https://i.imgur.com/AitpDoB.jpg)
 * special thanks to /u/TerryMathews  who suggested the pin PB2, so soldering
 directly on the atmega is not needed anymore. Happened on [reddit](https://www.reddit.com/r/MechanicalKeyboards/comments/4ghq9z/photos_satan_rgb60_w1976/d2k5tra)

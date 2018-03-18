@@ -14,10 +14,10 @@ For the full Quantum feature list, see [the parent readme.md](/readme.md).
 - Fn Layer indicated on keycap front legends.
 - Tapping Caps Lock key toggles Caps. Holding it down momentarily switches us to the Fn Layer.
 - Holding down "Fn" and "Page Down" momentarily switches us to the RGB Layer. Tapping "Page Down" behaves as expected.
-![Base Layer](base_layer.jpg)
+![Base Layer](http://imgur.com/aAi6lDe)
 
 ### RGB Layer Reference
-![RGB Layer](rgb_layer.jpg)
+![RGB Layer](http://imgur.com/ZWIfuPM)
 
 ## WS2812 Support
 By default, it is now setup for 16 LEDs on the PF5 breakout pin. See [included image](../ws2812/ws2812_wiring.jpg) for wiring reference.

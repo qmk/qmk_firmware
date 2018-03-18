@@ -1,8 +1,8 @@
 # cheese's Layout
 Customized xd60 keymap 
 
-![Base Layout](base_layout.png "Base Layout")
-![Fn Layout](fn_layout.png "Fn Layout")
+![Base Layout](https://i.imgur.com/oSg0DPf.png "Base Layout")
+![Fn Layout](https://i.imgur.com/kOOQgVx.png "Fn Layout")
 
 ## Programming Instructions:
 `cd` into keymap directory, `make dfu`

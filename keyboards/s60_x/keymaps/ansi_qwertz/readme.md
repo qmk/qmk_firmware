@@ -24,12 +24,12 @@ one can also use AltGr to input the characters as intended by the US-Intl layout
 
 The illustration below shows the "US International" layout available in the Language settings of Windows, Linux and Mac OS.
 
-![KB_US-International](docs/KB_US-International.png)
+![KB_US-International](https://i.imgur.com/dBQ9dOo.png)
 
 Not all languages are supported by this layout. Linux also offers the "US International Alternative" layout, 
 which contains more dead keys to input pretty much every diacritic character in a language using latin letters. More information can be found [here](http://web.archive.org/web/20160818101234/http://dry.sailingissues.com/us-international-keyboard-layout.html).
 
-![KB_US-International-Alternative](docs/KB_US-International-Alternative.png)
+![KB_US-International-Alternative](https://i.imgur.com/CaLuEUP.png)
 
 ####0.0.0 Explicitly Supported Languages
 * German
@@ -77,17 +77,17 @@ If you don't want this to be the case, uncomment the following line in `keymap.c
 The base layer is shown here for ANSI keysm, HHKB-style right shift and split backspace. If you use a 2U backspace key there, `Del` will not be available.
 Again, the Y and Z keys are swapped, so you get the QWERTZ-positions of Y and Z when using the US-International layout.
 
-![base_layer](docs/base_layer.PNG)
+![base_layer](https://i.imgur.com/gDvJT2n.png)
 
 ###1.1 Gaming layer
 To turn this layer on, please use the combination `Fn+RShift`, not `Space+RShift`. If you do the latter, the Function layer will become stuck. You can press `Fn` once to unstick it if this happens to you. A solution is being worked on.
 
-![gaming_layer](docs/gaming_layer.PNG)
+![gaming_layer](https://i.imgur.com/mPBElHc.png)
 
 ###1.2 Function Layer
 This is the function layer for German diacritics. It can be accessed via the `Fn` or by holding `Space` on the base layer.
 
-![function_layer](docs/function_layer.PNG)
+![function_layer](https://i.imgur.com/abpqBDE.png)
 
 
 

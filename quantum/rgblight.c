@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <math.h>
 #include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -21,7 +22,6 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
-
 
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
@@ -32,7 +32,7 @@ const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
-const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {100, 50, 20};
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
@@ -45,6 +45,12 @@ bool rgblight_timer_enabled = false;
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
+
+  #ifdef RGBLIGHT_LIMIT_VAL
+    if (val > RGBLIGHT_LIMIT_VAL) {
+      val=RGBLIGHT_LIMIT_VAL; // limit the val
+    }
+  #endif
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -197,6 +203,14 @@ void rgblight_step_reverse(void) {
   rgblight_mode(mode);
 }
 
+uint32_t rgblight_get_mode(void) {
+  if (!rgblight_config.enable) {
+    return false;
+  }
+
+  return rgblight_config.mode;
+}
+
 void rgblight_mode(uint8_t mode) {
   if (!rgblight_config.enable) {
     return;
@@ -220,6 +234,8 @@ void rgblight_mode(uint8_t mode) {
     // MODE 9-14, rainbow swirl
     // MODE 15-20, snake
     // MODE 21-23, knight
+    // MODE 24, xmas
+    // MODE 25-34, static rainbow
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -235,17 +251,12 @@ void rgblight_mode(uint8_t mode) {
 }
 
 void rgblight_toggle(void) {
-  rgblight_config.enable ^= 1;
-  eeconfig_update_rgblight(rgblight_config.raw);
-  xprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
+  xprintf("rgblight toggle: rgblight_config.enable = %u\n", !rgblight_config.enable);
   if (rgblight_config.enable) {
-    rgblight_mode(rgblight_config.mode);
-  } else {
-    #ifdef RGBLIGHT_ANIMATIONS
-      rgblight_timer_disable();
-    #endif
-    _delay_ms(50);
-    rgblight_set();
+    rgblight_disable();
+  }
+  else {
+    rgblight_enable();
   }
 }
 
@@ -254,6 +265,17 @@ void rgblight_enable(void) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight enable: rgblight_config.enable = %u\n", rgblight_config.enable);
   rgblight_mode(rgblight_config.mode);
+}
+
+void rgblight_disable(void) {
+  rgblight_config.enable = 0;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight disable: rgblight_config.enable = %u\n", rgblight_config.enable);
+  #ifdef RGBLIGHT_ANIMATIONS
+    rgblight_timer_disable();
+  #endif
+  _delay_ms(50);
+  rgblight_set();
 }
 
 
@@ -354,8 +376,21 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   }
 }
 
+uint16_t rgblight_get_hue(void) {
+  return rgblight_config.hue;
+}
+
+uint8_t rgblight_get_sat(void) {
+  return rgblight_config.sat;
+}
+
+uint8_t rgblight_get_val(void) {
+  return rgblight_config.val;
+}
+
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
-  // dprintf("rgblight set rgb: %u,%u,%u\n", r,g,b);
+  if (!rgblight_config.enable) { return; }
+
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     led[i].r = r;
     led[i].g = g;
@@ -364,7 +399,24 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
-__attribute__ ((weak))
+void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
+  if (!rgblight_config.enable || index >= RGBLED_NUM) { return; }
+
+  led[index].r = r;
+  led[index].g = g;
+  led[index].b = b;
+  rgblight_set();
+}
+
+void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
+  if (!rgblight_config.enable) { return; }
+
+  LED_TYPE tmp_led;
+  sethsv(hue, sat, val, &tmp_led);
+  rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
+}
+
+#ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
   if (rgblight_config.enable) {
     #ifdef RGBW
@@ -385,6 +437,7 @@ void rgblight_set(void) {
     #endif
   }
 }
+#endif
 
 #ifdef RGBLIGHT_ANIMATIONS
 
@@ -455,13 +508,17 @@ void rgblight_task(void) {
 void rgblight_effect_breathing(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
+  float val;
 
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
     return;
   }
   last_timer = timer_read();
 
-  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, pgm_read_byte(&LED_BREATHING_TABLE[pos]));
+
+  // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+  val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
+  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, val);
   pos = (pos + 1) % 256;
 }
 void rgblight_effect_rainbow_mood(uint8_t interval) {
@@ -480,7 +537,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
     return;
   }
   last_timer = timer_read();
@@ -539,56 +596,44 @@ void rgblight_effect_snake(uint8_t interval) {
   }
 }
 void rgblight_effect_knight(uint8_t interval) {
-  static int8_t pos = 0;
   static uint16_t last_timer = 0;
-  uint8_t i, j, cur;
-  int8_t k;
-  LED_TYPE preled[RGBLED_NUM];
-  static int8_t increment = -1;
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
   }
   last_timer = timer_read();
+
+  static int8_t low_bound = 0;
+  static int8_t high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
+  static int8_t increment = 1;
+  uint8_t i, cur;
+
+  // Set all the LEDs to 0
   for (i = 0; i < RGBLED_NUM; i++) {
-    preled[i].r = 0;
-    preled[i].g = 0;
-    preled[i].b = 0;
-    for (j = 0; j < RGBLIGHT_EFFECT_KNIGHT_LENGTH; j++) {
-      k = pos + j * increment;
-      if (k < 0) {
-        k = 0;
-      }
-      if (k >= RGBLED_NUM) {
-        k = RGBLED_NUM - 1;
-      }
-      if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&preled[i]);
-      }
-    }
+    led[i].r = 0;
+    led[i].g = 0;
+    led[i].b = 0;
   }
-  if (RGBLIGHT_EFFECT_KNIGHT_OFFSET) {
-    for (i = 0; i < RGBLED_NUM; i++) {
-      cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
-      led[i].r = preled[cur].r;
-      led[i].g = preled[cur].g;
-      led[i].b = preled[cur].b;
+  // Determine which LEDs should be lit up
+  for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
+    cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
+
+    if (i >= low_bound && i <= high_bound) {
+      sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
+    } else {
+      led[cur].r = 0;
+      led[cur].g = 0;
+      led[cur].b = 0;
     }
   }
   rgblight_set();
-  if (increment == 1) {
-    if (pos - 1 < 0 - RGBLIGHT_EFFECT_KNIGHT_LENGTH) {
-      pos = 0 - RGBLIGHT_EFFECT_KNIGHT_LENGTH;
-      increment = -1;
-    } else {
-      pos -= 1;
-    }
-  } else {
-    if (pos + 1 > RGBLED_NUM + RGBLIGHT_EFFECT_KNIGHT_LENGTH) {
-      pos = RGBLED_NUM + RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
-      increment = 1;
-    } else {
-      pos += 1;
-    }
+
+  // Move from low_bound to high_bound changing the direction we increment each
+  // time a boundary is hit.
+  low_bound += increment;
+  high_bound += increment;
+
+  if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
+    increment = -increment;
   }
 }
 

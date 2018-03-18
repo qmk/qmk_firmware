@@ -1,4 +1,4 @@
-#include "light_ws2812.h"
+#include "ws2812.h"
 #include "rgbsps.h"
 
 struct cRGB led[RGBSPS_NUM];
