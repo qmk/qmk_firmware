@@ -146,9 +146,18 @@ enum {
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
-#define ONESHOT_TIMEOUT 3000
 
+#ifndef ONESHOT_TAP_TOGGLE
+#define ONESHOT_TAP_TOGGLE 2
+#endif // !ONESHOT_TAP_TOGGLE
+#ifndef ONESHOT_TIMEOUT
+#define ONESHOT_TIMEOUT 3000
+#endif// !ONESHOT_TIMEOUT
+
+#ifndef QMK_KEYS_PER_SCAN
 #define QMK_KEYS_PER_SCAN 8
+#endif // !QMK_KEYS_PER_SCAN
+
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
