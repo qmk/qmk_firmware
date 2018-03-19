@@ -4,6 +4,9 @@
 #include "../../config.h"
 
 // place overrides here
+#ifdef DEBOUNCING_DELAY
+#undef DEBOUNCING_DELAY
+#endif
 #define DEBOUNCING_DELAY 2
 #define MOUSEKEY_INTERVAL           10
 #define MOUSEKEY_DELAY              0
