@@ -97,6 +97,7 @@ There's also a couple of mod shortcuts you can use:
 * `SS_LGUI(string)`
 * `SS_LALT(string)`
 * `SS_LSFT(string)`
+* `SS_RALT(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
