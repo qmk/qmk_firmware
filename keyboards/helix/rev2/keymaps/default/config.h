@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select rows configuration */
 // Rows are 4 or 5
-#define HELIX_ROWS 5
+// #define HELIX_ROWS 5 see ./rules.mk
 
 /* key matrix size */
 // Rows are doubled-up
