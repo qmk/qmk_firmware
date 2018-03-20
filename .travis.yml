@@ -15,11 +15,13 @@ before_install:
 install:
   - tar -zxf avr8-gnu-toolchain-3.5.4.1709-linux.any.x86_64.tar.gz
   - export PATH="$PATH:$TRAVIS_BUILD_DIR/avr8-gnu-toolchain-linux_x86_64/bin"
+  - npm install -g moxygen
 before_script:
   - avr-gcc --version
 script:
 - make test:all AUTOGEN=false
 - bash util/travis_build.sh
+- bash util/travis_docs.sh
 addons:
   apt:
     packages:
@@ -30,6 +32,7 @@ addons:
     - libnewlib-arm-none-eabi
     - diffutils
     - dos2unix
+    - doxygen
 after_success: 
   bash util/travis_compiled_push.sh
 notifications:
