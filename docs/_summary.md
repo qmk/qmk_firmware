@@ -87,3 +87,12 @@
 
 * Other Topics
   * [Using Eclipse with QMK](eclipse.md)
+
+* QMK API (In Progress)
+  * [Defines](api_defines.md)
+  * [Input Callback Reg](api_input_callback_reg.md)
+  * [Midi Device](api_midi_device.md)
+  * [Midi Device Setup Process](api_midi_device_setup_process.md)
+  * [Midi Util](api_midi_util.md)
+  * [Send Functions](api_send_functions.md)
+  * [Sysex Tools](api_sysex_tools.md)
