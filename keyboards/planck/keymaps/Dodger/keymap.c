@@ -227,7 +227,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                  PLAY_SONG(work_song);
               #endif
 			  set_single_persistent_default_layer(_COLEMAK);
-			  backlight_set(0);
+              #ifdef BACKLIGHT_ENABLE
+                 backlight_set(0);
+              #endif
               isGame = false;
 		  }	else
 		  {
@@ -236,7 +238,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               PLAY_SONG(game_song);
             #endif
 			set_single_persistent_default_layer(_GAME);
-			backlight_set(15);
+            #ifdef BACKLIGHT_ENABLE
+			  backlight_set(15);
+            #endif
 			isGame = true;
 		  }
         // set_single_persistent_default_layer(_GAME);
