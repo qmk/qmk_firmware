@@ -36,7 +36,13 @@ void music_toggle(void);
 void music_on(void);
 void music_off(void);
 
+bool is_midi_on(void);
+void midi_toggle(void);
+void midi_on(void);
+void midi_off(void);
+
 void music_on_user(void);
+void midi_on_user(void);
 void music_scale_user(void);
 void music_all_notes_off(void);
 void music_mode_cycle(void);

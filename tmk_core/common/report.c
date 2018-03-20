@@ -176,7 +176,7 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 }
 #endif
 
-void add_key_to_report(report_keyboard_t* keyboard_report, int8_t key)
+void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key)
 {
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {

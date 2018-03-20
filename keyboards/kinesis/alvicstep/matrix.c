@@ -43,15 +43,6 @@ static matrix_row_t read_row(uint8_t row);
 static void unselect_rows(void);
 static void select_rows(uint8_t row);
 
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {

@@ -186,7 +186,7 @@ typedef union {
     } func;
     struct action_swap {
         uint8_t  code   :8;
-        uint8_t  opt   :4;
+        uint8_t  opt    :4;
         uint8_t  kind   :4;
     } swap;
 } action_t;
@@ -243,7 +243,7 @@ enum usage_pages {
 
 
 
-/* 
+/*
  * Layer Actions
  */
 enum layer_param_on {
@@ -257,7 +257,7 @@ enum layer_param_bit_op {
     OP_BIT_XOR = 2,
     OP_BIT_SET = 3,
 };
-enum layer_pram_tap_op {
+enum layer_param_tap_op {
     OP_TAP_TOGGLE = 0xF0,
     OP_ON_OFF,
     OP_OFF_ON,
@@ -304,7 +304,8 @@ enum backlight_opt {
     BACKLIGHT_DECREASE = 1,
     BACKLIGHT_TOGGLE   = 2,
     BACKLIGHT_STEP     = 3,
-    BACKLIGHT_LEVEL    = 4,
+    BACKLIGHT_ON       = 4,
+    BACKLIGHT_OFF      = 5,
 };
 
 /* Macro */
@@ -316,7 +317,8 @@ enum backlight_opt {
 #define ACTION_BACKLIGHT_DECREASE()     ACTION(ACT_BACKLIGHT, BACKLIGHT_DECREASE << 8)
 #define ACTION_BACKLIGHT_TOGGLE()       ACTION(ACT_BACKLIGHT, BACKLIGHT_TOGGLE << 8)
 #define ACTION_BACKLIGHT_STEP()         ACTION(ACT_BACKLIGHT, BACKLIGHT_STEP << 8)
-#define ACTION_BACKLIGHT_LEVEL(level)   ACTION(ACT_BACKLIGHT, BACKLIGHT_LEVEL << 8 | (level))
+#define ACTION_BACKLIGHT_ON()           ACTION(ACT_BACKLIGHT, BACKLIGHT_ON << 8)
+#define ACTION_BACKLIGHT_OFF()          ACTION(ACT_BACKLIGHT, BACKLIGHT_OFF << 8)
 /* Command */
 #define ACTION_COMMAND(id, opt)         ACTION(ACT_COMMAND,  (opt)<<8 | (id))
 /* Function */
@@ -327,7 +329,7 @@ enum function_opts {
 #define ACTION_FUNCTION_TAP(id)         ACTION(ACT_FUNCTION, FUNC_TAP<<8 | (id))
 #define ACTION_FUNCTION_OPT(id, opt)    ACTION(ACT_FUNCTION, (opt)<<8 | (id))
 /* OneHand Support */
-enum swap_hands_pram_tap_op {
+enum swap_hands_param_tap_op {
     OP_SH_TOGGLE = 0xF0,
     OP_SH_TAP_TOGGLE,
     OP_SH_ON_OFF,

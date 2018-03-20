@@ -127,8 +127,11 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = ACTION_MODS_TAP_KEY(mod, keycode & 0xFF);
             break;
     #ifdef BACKLIGHT_ENABLE
-        case BL_0 ... BL_15:
-            action.code = ACTION_BACKLIGHT_LEVEL(keycode - BL_0);
+        case BL_ON:
+            action.code = ACTION_BACKLIGHT_ON();
+            break;
+        case BL_OFF:
+            action.code = ACTION_BACKLIGHT_OFF();
             break;
         case BL_DEC:
             action.code = ACTION_BACKLIGHT_DECREASE();
@@ -143,6 +146,12 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             action.code = ACTION_BACKLIGHT_STEP();
             break;
     #endif
+    #ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            action.code = ACTION(ACT_SWAP_HANDS, keycode & 0xff);
+            break;
+    #endif
+
         default:
             action.code = ACTION_NO;
             break;

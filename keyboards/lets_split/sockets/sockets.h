@@ -1,5 +1,6 @@
-#ifndef REV2_H
-#define REV2_H
+#ifndef SOCKETS_H
+#define SOCKETS_H
+#define DISABLE_JTAG // The keyboard uses PF4 and PF7, which are used by JTAG.
 
 #include "lets_split.h"
 

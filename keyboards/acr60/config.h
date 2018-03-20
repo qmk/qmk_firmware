@@ -5,11 +5,11 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2260
+#define PRODUCT_ID      0xCA60
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    MechKeysCa
+#define MANUFACTURER    MECHKEYS
 #define PRODUCT         ACR60
-#define DESCRIPTION     ACR60 Keyboard
+#define DESCRIPTION     60% customizable keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5

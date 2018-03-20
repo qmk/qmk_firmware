@@ -1,12 +1,12 @@
 # Macros
 
-Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code. 
+Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.
 
 {% hint style='danger' %}
-**Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets ahold of your keyboard will be able to access that information by opening a text editor.
+**Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
 {% endhint %}
 
-## The new way: `SEND_STRING()` & `process_record_user`
+## The New Way: `SEND_STRING()` & `process_record_user`
 
 Sometimes you just want a key to type out words or phrases. For the most common situations we've provided `SEND_STRING()`, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. `\n\t`).
 
@@ -22,7 +22,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-				return false; break;
+				return false;
 		}
 	}
 	return true;
@@ -56,10 +56,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		switch(keycode) {
 			case MY_CUSTOM_MACRO:
 				SEND_STRING("QMK is the best thing ever!");
-				return false; break;
+				return false;
 			case MY_OTHER_MACRO:
 				SEND_STRING(SS_LCTRL("ac")); // selects all and copies
-				return false; break;
+				return false;
 		}
 	}
 	return true;
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ### TAP, DOWN and UP
 
 You may want to use keys in your macros that you can't write down, such as `Ctrl` or `Home`.
-You can send arbitary keycodes by wrapping them in:
+You can send arbitrary keycodes by wrapping them in:
 
 * `SS_TAP()` presses and releases a key.
 * `SS_DOWN()` presses (but does not release) a key.
@@ -97,6 +97,7 @@ There's also a couple of mod shortcuts you can use:
 * `SS_LGUI(string)`
 * `SS_LALT(string)`
 * `SS_LSFT(string)`
+* `SS_RALT(string)`
 
 These press the respective modifier, send the supplied string and then release the modifier.
 They can be used like this:
@@ -105,13 +106,13 @@ They can be used like this:
 
 Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg `"k"`), and not the `X_K` keycodes.
 
-### Alternative keymaps
+### Alternative Keymaps
 
 By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:
 
     #include <sendstring_colemak.h>
 
-### Strings in memory
+### Strings in Memory
 
 If for some reason you're manipulating strings and need to print out something you just generated (instead of being a literal, constant string), you can use `send_string()`, like this:
 
@@ -129,7 +130,7 @@ send_string(my_str);
 SEND_STRING(".."SS_TAP(X_END));
 ```
 
-## The old way: `MACRO()` & `action_get_macro`
+## The Old Way: `MACRO()` & `action_get_macro`
 
 {% hint style='info' %}
 This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
@@ -166,7 +167,7 @@ A macro can include the following commands:
 * W() wait (milliseconds).
 * END end mark.
 
-### Mapping a Macro to a key
+### Mapping a Macro to a Key
 
 Use the `M()` function within your `KEYMAP()` to call a macro. For example, here is the keymap for a 2-key keyboard:
 
@@ -192,7 +193,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 When you press the key on the left it will type "Hi!" and when you press the key on the right it will type "Bye!".
 
-### Naming your macros
+### Naming Your Macros
 
 If you have a bunch of macros you want to refer to from your keymap while keeping the keymap easily readable you can name them using `#define` at the top of your file.
 
@@ -207,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
-## Advanced macro functions
+## Advanced Macro Functions
 
 There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
@@ -243,9 +244,9 @@ This will clear all mods currently pressed.
 
 This will clear all keys besides the mods currently pressed.
 
-## Advanced Example: Single-key copy/paste
+## Advanced Example: Single-Key Copy/Paste
 
-This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released. 
+This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V` when released.
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -262,5 +263,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	return MACRO_NONE;
 };
 ```
-
-
