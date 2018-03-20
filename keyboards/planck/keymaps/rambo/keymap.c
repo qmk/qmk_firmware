@@ -1,4 +1,4 @@
-#include "planck.h"
+#include "planck.h" // This is in ../qmk_firmware/keyboards/planck
 
 //alias for clarity in layering
 #define _______ KC_TRNS
@@ -64,8 +64,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  _______, _______, _______, A_BSPC, _______, _______, _______, KC_PGDN, KC_VOLD, KC_VOLU, KC_MUTE}
   },
 
-/* Navigation*/
-    
+
+/* Navigation
+ *
+ *
+ *
+*/
 [_NAVIGATION] = {
     {_______, _______, _______, _______, _______, _______, C_TAB  , A_LEFT,  KC_UP,   A_RGHT , KC_DEL , _______},
     {_______, _______, _______, _______, _______, _______, GSL    , KC_LEFT, KC_DOWN, KC_RGHT, GSR    , _______},
