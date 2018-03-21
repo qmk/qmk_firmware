@@ -1,27 +1,20 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include "../../config.h"
+#include "dudeofawesome.h"
 
 #define TAPPING_TOGGLE 2
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
-    // #define STARTUP_SONG SONG(NO_SOUND)
+  #define STARTUP_SONG SONG(PLANCK_SOUND)
+  // #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define WORKMAN_SOUND \
-        E__NOTE(_GS7),    \
-        ED_NOTE(_E7),     \
-        S__NOTE(_REST),   \
-        E__NOTE(_A6),     \
-        S__NOTE(_REST),   \
-        ED_NOTE(_GS6),
-
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(WORKMAN_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
-                                }
+  #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                SONG(WORKMAN_SOUND), \
+                                SONG(COLEMAK_SOUND), \
+                                SONG(DVORAK_SOUND) \
+                              }
 #endif
 
 #define MUSIC_MASK (keycode != KC_NO)

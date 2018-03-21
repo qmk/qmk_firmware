@@ -42,6 +42,8 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 | `RGBLIGHT_SAT_STEP` | 17 | How many steps of saturation you'd like. |
 | `RGBLIGHT_VAL_STEP` | 17 | The number of levels of brightness you want. |
 | `RGBLIGHT_LIMIT_VAL` | 255 | Limit the val of HSV to limit the maximum brightness simply. |
+| `RGBLIGHT_SLEEP`     |    |  `#define` this will shut off the lights when the host goes to sleep | 
+
 
 ### Animations
 
