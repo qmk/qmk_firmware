@@ -412,8 +412,6 @@ enum quantum_keycodes {
     RGB_MODE_KNIGHT,
     RGB_MODE_XMAS,
     RGB_MODE_GRADIENT,
-    RGB_FASTER,
-    RGB_SLOWER,
 
     // Left shift, open paren
     KC_LSPO,
