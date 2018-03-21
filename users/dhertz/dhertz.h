@@ -8,6 +8,7 @@ enum custom_keycodes {
     CTRL_A,
     CMD_ALT_C,
     CMD_SFT_L,
+    ISO_COUNTRY_CODE,
     NEW_SAFE_RANGE,
 };
 

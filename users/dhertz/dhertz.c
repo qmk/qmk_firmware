@@ -55,6 +55,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CMD_SFT_L:
                 SEND_STRING(SS_LGUI("L"));
                 break;
+            case ISO_COUNTRY_CODE:
+                SEND_STRING("country_iso_alpha2_code");
+                break;
             default:
                 return process_record_keymap(keycode, record);
         }
