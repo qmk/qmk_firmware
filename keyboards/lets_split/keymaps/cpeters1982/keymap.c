@@ -15,6 +15,8 @@ extern keymap_config_t keymap_config;
 #define _RAISE 2
 #define _ADJUST 16
 
+
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   // COLEMAK,
@@ -24,25 +26,19 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Tap dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // once for O, twice for L-Bracket
-  [TD_O_LBRC]  = ACTION_TAP_DANCE_DOUBLE(KC_O, KC_LBRC),
-  // once for P, twice for R-Bracket
-  [TD_P_RBRC]  = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_RBRC),
-  // once for minus, two for underscore
-  [TD_MINS_UNDS] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),
-  // once for `, twice for ~
-  [TD_GRV_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_TILD)
-};
-
+/*
 // Tap dance declerations
 enum {
-  TD_P_RBRC = 0,
-  TD_O_LBRC,
-  TD_MINS_UNDS,
-  TD_GRV_TILD
+  TD_GRV_TILD = 0,
 };
+
+// Tap dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_GRV_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_TILD),
+};
+*/
+
+
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -52,20 +48,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | ` ~  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O[  | P]  |  - _ |
+ * | ` ~  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bspc |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |                       
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Rshift|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Lalt  | GUI |bspc  |Lower |KC_SPC |Enter |Raise | Left | Down |  Up  |Right|
+ * | Ctrl | Lalt  | GUI | Esc  |Lower |KC_SPC |Enter |Raise | [cmd|] alt |= Hypr|   -  |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = KEYMAP( \
-  TD(TD_GRV_TILD),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    TD(TD_O_LBRC),    TD(TD_P_RBRC),    TD(TD_MINS_UND), \
+  KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
-  KC_LCTRL,KC_LALT, KC_LGUI, KC_BSPC, TG(_LOWER),  LT(_ADJUST, KC_SPC),  KC_ENT,  TG(_RAISE),   MT(MOD_RGUI, KC_LEFT), MT(MOD_RALT, KC_DOWN), MT(MOD_HYPR, KC_UP), KC_RGHT \
+  KC_LCTRL,KC_LALT, KC_LGUI, KC_ESC, TG(_LOWER),  LT(_ADJUST, KC_SPC),  KC_ENT,  TG(_RAISE),   MT(MOD_RGUI, KC_LBRC), MT(MOD_RALT, KC_RBRC), MT(MOD_HYPR, KC_EQL), KC_MINS \
 ),
 
 /* Colemak
@@ -153,8 +149,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  KEYMAP( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  KC_UP, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, \
   KC_ASDN, KC_ASUP, KC_ASRP, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 
@@ -214,4 +210,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
+};
+/*
+#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
+#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
+#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
+#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
+#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
+#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
+#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
+#define rgblight_set_white       rgblight_sethsv (0x00,  0x00, 0xFF);
+
+uint32_t layer_state_set_user(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (rgb_layer_change) {
+    switch (biton32(state)) {
+    case _RAISE:
+      rgblight_set_yellow;
+      rgblight_mode(5);
+      break;
+    case _LOWER:
+      rgblight_set_orange;
+      rgblight_mode(5);
+      break;
+    case _ADJUST:
+      rgblight_set_red;
+      rgblight_mode(23);
+      break;
+    default:
+      if (default_layer & (1UL << _COLEMAK)) {
+        rgblight_set_magenta;
+      }
+      else if (default_layer & (1UL << _DVORAK)) {
+        rgblight_set_green;
+      }
+      else {
+        rgblight_set_teal;
+      }
+      rgblight_mode(1);
+      break;
+    }
+  }
+#endif
+  return state;
+}*/
