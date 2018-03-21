@@ -4,8 +4,7 @@
   "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "",
-  "bootloader": "",
+  "processor": "cortex-m4",
   "width": 18.25,
   "height": 6.5,
   "layouts": {
