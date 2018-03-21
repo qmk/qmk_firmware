@@ -347,12 +347,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
     // Also, no "else", since we want to know each, independantly. 
     if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK)) {
       ergodox_right_led_2_on();
+      ergodox_right_led_2_set( 10 );
     }
     if (modifiders & MODS_CTRL_MASK) {
       ergodox_right_led_1_on();
+      ergodox_right_led_1_set( 10 );
     }
     if (modifiders & MODS_ALT_MASK) {
       ergodox_right_led_3_on();
+      ergodox_right_led_3_set( 10 );
     }
 
   }
