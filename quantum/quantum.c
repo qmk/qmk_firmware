@@ -426,6 +426,16 @@ bool process_record_quantum(keyrecord_t *record) {
       }
     }
     return false;
+  case RGB_FASTER:
+    if (record->event.pressed) {
+      rgblight_faster();
+    }
+    return false;
+  case RGB_SLOWER:
+    if (record->event.pressed) {
+      rgblight_slower();
+    }
+    return false;
   #endif
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
