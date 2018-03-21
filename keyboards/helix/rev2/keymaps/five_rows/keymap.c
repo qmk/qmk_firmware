@@ -31,6 +31,7 @@ enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
     _DVORAK,
+    _KEYPAD,
     _AUX,
     _LOWER,
     _RAISE,
@@ -41,6 +42,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
+  KEYPAD,
   LOWER,
   RAISE,
   ADJUST,
@@ -128,6 +130,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
+  /* Keypad
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * | Tab  |   /  |   *  | Del  |  F1  |  F6  |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |   7  |   8  |   9  | BS   |  F2  |  F7  |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |   4  |   5  |   6  |  -   |  F3  |  F8  |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |   1  |   2  |   3  |  +   |  F4  |  F9  |  F11 |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |   0  |   ,  |   .  | Enter|  F5  |  F10 |  F12 |      |      |      |      |      |      |      |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_KEYPAD] = KEYMAP( \
+      KC_TAB,  KC_PSLS, KC_PAST, KC_DEL,    KC_F1,   KC_F6,                   _______, _______, _______, _______, _______, _______, \
+      KC_KP_7, KC_KP_8, KC_KP_9, KC_BSPC,   KC_F2,   KC_F7,                   _______, _______, _______, _______, _______, _______, \
+      KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS,   KC_F3,   KC_F8,                   _______, _______, _______, _______, _______, _______, \
+      KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS,   KC_F4,   KC_F9,  LT(_ADJUST,KC_F11),
+                                                                      ADJUST, _______, _______, _______, _______, _______, _______, \
+      KC_KP_0, KC_PCMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  KC_F12, _______, _______, _______, _______, _______, _______, _______ \
+      ),
 
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -173,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |Dvorak|Colemk|Qwerty|             |      |      |      |      |      |      |
+   * |      |      |Keypad|Dvorak|Colemk|Qwerty|             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      | Reset|RGBRST|      |      | Win  |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -185,10 +208,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_ADJUST] =  KEYMAP( \
-      XXXXXXX, XXXXXXX, XXXXXXX,  DVORAK, COLEMAK,  QWERTY,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+      XXXXXXX, XXXXXXX, KEYPAD,   DVORAK, COLEMAK,  QWERTY,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       XXXXXXX, RESET,   RGBRST,  XXXXXXX, XXXXXXX, AG_SWAP,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       RGB_HUI, RGB_SAI, RGB_VAI, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, \
-      RGB_HUD, RGB_SAD, RGB_VAD,RGB_SMOD, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
+      RGB_HUD, RGB_SAD, RGB_VAD,RGB_SMOD, RGB_TOG, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
    ),
 
@@ -234,11 +257,13 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 static int current_default_layer;
 
 uint32_t default_layer_state_set_kb(uint32_t state) {
-    // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY
-    // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK
+    // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY (=0)
+    // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK (=1)
     current_default_layer = state - 1;
-    // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK
-    if ( current_default_layer >= 3 ) current_default_layer -= 1;
+    // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK (=2)
+    if ( current_default_layer == 3 ) current_default_layer -= 1;
+    // 1<<_KEYPAD  - 5 == 8 - 5 == _KEYPAD (=3)
+    if ( current_default_layer == 7 ) current_default_layer -= 4;
     return state;
 }
 
@@ -261,7 +286,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void update_base_layer(int base)
 {
-    if( current_default_layer != base ) {
+    if( base >= _KEYPAD || current_default_layer != base ) {
 	eeconfig_update_default_layer(1UL<<base);
 	default_layer_set(1UL<<base);
 	layer_off(_AUX);
@@ -296,6 +321,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_dvorak);
         #endif
 	update_base_layer(_DVORAK);
+      }
+      return false;
+      break;
+    case KEYPAD:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_dvorak);
+        #endif
+	update_base_layer(_KEYPAD);
       }
       return false;
       break;
@@ -482,6 +516,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
+static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
 static const char Lower_name[]   PROGMEM = ":Func";
@@ -492,6 +527,7 @@ static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
+    [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
     [_LOWER]  = Lower_name,
     [_RAISE]  = Raise_name,
