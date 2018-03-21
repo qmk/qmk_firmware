@@ -23,18 +23,72 @@
 #include "debug.h"
 #include "led_tables.h"
 
+#ifndef RGB_INTERVALS_SET
+#define RGB_INTERVALS_SET
 __attribute__ ((weak))
-const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+const uint8_t RGBLED_BREATHING_INTERVALS[RGBLED_BREATHING_INTERVAL_COUNT][4] PROGMEM = { 
+    {1, 0, 0, 0},
+    {2, 1, 0, 0},
+    {3, 2, 1, 1},
+    {7, 5, 2, 1},
+    {15, 10, 5, 2},
+    {30, 20, 10, 5},
+    {45, 30, 15, 7},
+    {60, 40, 20, 10},
+  };
 __attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[RGBLED_RAINBOW_MOOD_INTERVAL_COUNT][3] PROGMEM = {
+    {1, 0, 0},
+    {3, 1, 0},
+    {7, 3, 1},
+    {15, 7, 3},
+    {30, 15, 7},
+    {60, 30, 15},
+    {120, 60, 30},
+    {240, 120, 60}
+  };
 __attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT][3] PROGMEM = {
+    {1, 0, 0},
+    {3, 1, 0},
+    {6, 3, 1},
+    {12, 6, 2},
+    {25, 12, 5},
+    {50, 25, 10},
+    {100, 50, 20},
+    {200, 100, 40}
+  };
 __attribute__ ((weak))
-const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+const uint8_t RGBLED_SNAKE_INTERVALS[RGBLED_SNAKE_INTERVAL_COUNT][3] PROGMEM = {
+    {1, 0, 0},
+    {3, 1, 0},
+    {6, 3, 1},
+    {12, 6, 2},
+    {25, 12, 5},
+    {50, 25, 10},
+    {100, 50, 20},
+    {200, 100, 40}
+  };
 __attribute__ ((weak))
-const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+const uint8_t RGBLED_KNIGHT_INTERVALS[RGBLED_KNIGHT_INTERVAL_COUNT][3] PROGMEM = {
+    {1, 0, 0},
+    {2, 1, 0},
+    {4, 2, 1},
+    {8, 4, 2},
+    {16, 8, 4},
+    {32, 16, 8},
+    {64, 32, 16},
+    {127, 63, 31}
+  };
+#endif
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
+
+uint8_t rgblight_breathing_interval = RGBLED_BREATHING_INTERVAL_DEFAULT;
+uint8_t rgblight_rainbow_mood_interval = RGBLED_RAINBOW_MOOD_INTERVAL_DEFAULT;
+uint8_t rgblight_rainbow_swirl_interval = RGBLED_RAINBOW_SWIRL_INTERVAL_DEFAULT;
+uint8_t rgblight_snake_interval = RGBLED_SNAKE_INTERVAL_DEFAULT;
+uint8_t rgblight_knight_interval = RGBLED_KNIGHT_INTERVAL_DEFAULT;
 
 rgblight_config_t rgblight_config;
 rgblight_config_t inmem_config;
@@ -257,6 +311,80 @@ void rgblight_toggle(void) {
   }
   else {
     rgblight_enable();
+  }
+}
+
+void rgblight_slowest(void) {
+  rgblight_breathing_interval = RGBLED_BREATHING_INTERVAL_COUNT - 1;
+  rgblight_rainbow_mood_interval = RGBLED_RAINBOW_MOOD_INTERVAL_COUNT - 1;
+  rgblight_rainbow_swirl_interval = RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT - 1;
+  rgblight_snake_interval = RGBLED_SNAKE_INTERVAL_COUNT - 1;
+  rgblight_knight_interval = RGBLED_KNIGHT_INTERVAL_COUNT - 1;
+}
+
+void rgblight_fastest(void) {
+  rgblight_breathing_interval = 0;
+  rgblight_rainbow_mood_interval = 0; 
+  rgblight_rainbow_swirl_interval = 0;
+  rgblight_snake_interval = 0;
+  rgblight_knight_interval = 0;
+}
+
+void rgblight_slower(void) {
+  volatile uint8_t * interval = NULL;
+  uint8_t max = 0;
+  if (rgblight_config.enable) {
+    if (2 <= rgblight_config.mode && rgblight_config.mode < 5) {
+      interval = &rgblight_breathing_interval;
+      max = RGBLED_BREATHING_INTERVAL_COUNT;
+    }
+    else if (6 <= rgblight_config.mode && rgblight_config.mode < 8) {
+      interval = &rgblight_rainbow_mood_interval;
+      max = RGBLED_RAINBOW_MOOD_INTERVAL_COUNT;
+    }
+    else if (9 <= rgblight_config.mode && rgblight_config.mode < 14) {
+      interval = &rgblight_rainbow_swirl_interval;
+      max = RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT;
+    }
+    else if (15 <= rgblight_config.mode && rgblight_config.mode < 20) {
+      interval = &rgblight_snake_interval;
+      max = RGBLED_SNAKE_INTERVAL_COUNT;
+    }
+    else if (21 <= rgblight_config.mode && rgblight_config.mode < 23) {
+      interval = &rgblight_knight_interval;
+      max = RGBLED_KNIGHT_INTERVAL_COUNT;
+    }
+    if (interval) {
+      if (*interval < (max - 1)) {
+        *interval = *interval + 1;
+      }
+    }
+  }
+}
+
+void rgblight_faster(void) {
+  volatile uint8_t * interval = NULL;
+  if (rgblight_config.enable) {
+    if (2 <= rgblight_config.mode && rgblight_config.mode < 5) {
+      interval = &rgblight_breathing_interval;
+    }
+    else if (6 <= rgblight_config.mode && rgblight_config.mode < 8) {
+      interval = &rgblight_rainbow_mood_interval;
+    }
+    else if (9 <= rgblight_config.mode && rgblight_config.mode < 14) {
+      interval = &rgblight_rainbow_swirl_interval;
+    }
+    else if (15 <= rgblight_config.mode && rgblight_config.mode < 20) {
+      interval = &rgblight_snake_interval;
+    }
+    else if (21 <= rgblight_config.mode && rgblight_config.mode < 23) {
+      interval = &rgblight_knight_interval;
+    }
+    if (interval) {
+      if (*interval > 0) {
+        *interval = *interval - 1;
+      }
+    }
   }
 }
 
@@ -510,7 +638,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[rgblight_breathing_interval][interval])) {
     return;
   }
   last_timer = timer_read();
@@ -525,7 +653,7 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[rgblight_rainbow_mood_interval][interval])) {
     return;
   }
   last_timer = timer_read();
@@ -537,7 +665,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[rgblight_rainbow_swirl_interval][interval / 2])) {
     return;
   }
   last_timer = timer_read();
@@ -566,7 +694,7 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[rgblight_snake_interval][interval / 2])) {
     return;
   }
   last_timer = timer_read();
@@ -597,7 +725,7 @@ void rgblight_effect_snake(uint8_t interval) {
 }
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[rgblight_knight_interval][interval])) {
     return;
   }
   last_timer = timer_read();
