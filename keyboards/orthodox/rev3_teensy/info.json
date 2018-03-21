@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "Monkeebs Orthodox Rev.3", 
+    "manufacturer": "deductivemonkee", 
+    "identifier": "FEED:3060:0001", 
+    "maintainer": "qmk", 
+    "processor": "atmega32u4", 
+    "bootloader": "halfkay", 
+    "width": 17, 
+    "height": 17.24, 
+    "layouts": {
+        "KEYMAP": {
+            "layout": [{"label":"", "x":0, "y":0}, {"label":"", "x":1, "y":0}, {"label":"", "x":2, "y":0}, {"label":"", "x":3, "y":0}, {"label":"", "x":4, "y":0}, {"label":"", "x":5, "y":0}, {"label":"", "x":11, "y":0}, {"label":"", "x":12, "y":0}, {"label":"", "x":13, "y":0}, {"label":"", "x":14, "y":0}, {"label":"", "x":15, "y":0}, {"label":"Back Space", "x":16, "y":0}, {"label":"", "x":0, "y":1}, {"label":"", "x":1, "y":1}, {"label":"", "x":2, "y":1}, {"label":"", "x":3, "y":1}, {"label":"", "x":4, "y":1}, {"label":"", "x":5, "y":1}, {"label":"", "x":11, "y":1}, {"label":"", "x":12, "y":1}, {"label":"", "x":13, "y":1}, {"label":"", "x":14, "y":1}, {"label":"", "x":15, "y":1}, {"label":"", "x":16, "y":1}, {"label":"Ctrl_L", "x":0, "y":2}, {"label":"", "x":1, "y":2}, {"label":"", "x":2, "y":2}, {"label":"", "x":3, "y":2}, {"label":"", "x":4, "y":2}, {"label":"", "x":5, "y":2}, {"label":"", "x":11, "y":2}, {"label":"", "x":12, "y":2}, {"label":",", "x":13, "y":2}, {"label":".", "x":14, "y":2}, {"label":"", "x":15, "y":2}, {"label":"GUI_L", "x":16, "y":2}, {"label":"RAISE", "x":-0.25, "y":7.12, "w":1.25}, {"label":"", "x":-1.25, "y":8.12, "w":1.25}, {"label":"Shift_L Space", "x":0, "y":8.12}, {"label":"up &uarr;", "x":-1.25, "y":9.12, "w":1.25}, {"label":"Alt_R", "x":0, "y":9.12}, {"label":"LOWER", "x":-1.0, "y":14.24, "w":1.25}, {"label":"Back Space", "x":-1.0, "y":15.24}, {"label":"", "x":0, "y":15.24, "w":1.25}, {"label":"Enter", "x":-1.0, "y":16.24}, {"label":"&darr; down", "x":0, "y":16.24, "w":1.25}]
+        }
+    }
+}
