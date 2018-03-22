@@ -4,7 +4,7 @@ This keymap is only for 5 rows Helix keyboard.
 
 ## Layout
 
-![fig1](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/0ae6d5a510727982d80f970ef140d7cb6769c8bc/helix-five_rows_r2.png)
+![fig1](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/662082b66231eb8d1f45776d813c57f29d445e68/helix-five_rows_r2.png)
 
 ## Layer
 
