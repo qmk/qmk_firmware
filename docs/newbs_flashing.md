@@ -1,8 +1,14 @@
-# Flashing Your Keyboard With QMK Toolbox
+# Flashing Your Keyboard 
 
 Now that you've built a custom firmware file you'll want to flash your keyboard. 
 
-## Load The File Into QMK Toolbox
+## Flashing Your Keyboard with QMK Toolbox
+
+The simplest way to flash your keyboard will be with the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases). 
+
+However, the QMK Toolbox is only available for Windows and macOS currently.  If you're using Linux (or just wish to flash the firmware from the command line), you'll have to use the [method outlined below](newbs_flashing.md#flash-your-keyboard-from-the-command-line).
+
+### Load The File Into QMK Toolbox
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
@@ -28,7 +34,7 @@ For example, the `plank/rev5` with a `default` keymap will have this filename:
 
 Once you have located your firmware file drag it into the "Local file" box in QMK Toolbox, or click "Open" and navigate to where your firmware file is stored. 
 
-## Put Your Keyboard Into DFU (Bootloader) Mode
+### Put Your Keyboard Into DFU (Bootloader) Mode
 
 In order to flash your custom firmware you have to put your keyboard into a special flashing mode. While it is in this mode you will not be able to type or otherwise use your keyboard. It is very important that you do not unplug your keyboard or otherwise interrupt the flashing process while the firmware is being written.
 
@@ -47,7 +53,7 @@ When you are successful you will see a message similar to this in QMK Toolbox:
 *** DFU device connected
 ```
 
-## Flash Your Keyboard
+### Flash Your Keyboard
 
 Click the `Flash` button in QMK Toolbox. You will see output similar to the following:
 
@@ -71,6 +77,10 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 *** DFU device disconnected
 *** Clueboard - Clueboard 66% HotSwap connected -- 0xC1ED:0x2390
 ```
+
+## Flash your Keyboard from the Command Line
+
+
 
 ## Test It Out!
 
