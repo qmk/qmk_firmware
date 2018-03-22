@@ -57,7 +57,7 @@ Compile and flash:
 
 `cd` to `/qmk_firmware` folder, then
 ```
-make bananasplit:jockyxu1122_iso
+make bananasplit:jockyxu1122_ansi
 ```
 
 A .hex file will be generated under `/qmk_firmware` folder.
