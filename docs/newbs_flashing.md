@@ -88,7 +88,7 @@ If you know what bootloader that you'ru using, then when compiling the firmware,
 
 ### DFU
 
-For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal windo and run the built command: 
+For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
 
     make <my_keyboard>:<my_keymap>:dfu
 
@@ -135,7 +135,7 @@ If you have any issues with this, you may need to this:
 
 ### Caterina 
 
-For Arduino boards and their close (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal windo and run the built command: 
+For Arduino boards and their close (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
 
     make <my_keyboard>:<my_keymap>:avrdude
 
@@ -201,6 +201,38 @@ If you have any issues with this, you may need to this:
 
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
+## Halfkay
+
+For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+
+    make <my_keyboard>:<my_keymap>:teensy
+
+For example, if your keymap is named "xyverz" and you're building a keymap for an Ergodox or Ergodox EZ, you'll use this command:
+
+    make erdogox_ez:xyverz:teensy
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/ergodox_ez_xyverz.elf                                                               [OK]
+Creating load file for flashing: .build/ergodox_ez_xyverz.hex                                       [OK]
+Checking file size of ergodox_ez_xyverz.hex                                                         [OK]
+ * File size is fine - 25584/32256
+ Teensy Loader, Command Line, Version 2.1
+Read "./.build/ergodox_ez_xyverz.hex": 25584 bytes, 79.3% usage
+Waiting for Teensy device...
+ (hint: press the reset button)
+ ```
+
+ At this point, reset your board.  Once you've done that, you'll see output like this: 
+
+ ```
+ Found HalfKay Bootloader
+Read "./.build/ergodox_ez_drashna.hex": 28532 bytes, 88.5% usage
+Programming............................................................................................................................................................................
+...................................................
+Booting
+```
 
 
 ## Test It Out!
