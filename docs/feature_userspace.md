@@ -7,6 +7,7 @@ If you use more than one keyboard with a similar keymap, you might see the benef
   * `rules.mk` (included automatically)
   * `<name>.h` (optional)
   * `<name>.c` (optional)
+  * `config.h` (optional)
 
 `<name>.c` will need to be added to the SRC in `rules.mk` like this:
 
@@ -24,6 +25,12 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.
 
+Additionally, `config.h` here will be processed like the same file in your keymap folder.  This is handled seperately from the `<name>.h` file.  
+
+The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and may cause conflicts if you try adding the `<name.h>` file to your keymap's `config.h`.  Namely, you need `quantum.h` for the macros and other settings, but including that in the `config.h` of your keymap causes compiling errors.  
+
+So you should use the `config.h` for QMK settings, and the `<name>.h` file for user specific settings. 
+ 
 ## Readme
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
