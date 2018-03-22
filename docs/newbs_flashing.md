@@ -96,19 +96,22 @@ For example, if your keymap is named "xyverz" and you're building a keymap for a
 
     make planck/rev5:xyverz:dfu
 
+Once it finishes compiling, it should output the following:
+
 ```
 Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
 Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
 Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
 Checking file size of planck_rev5_xyverz.hex                                                        
-```
+ * File size is fine - 18574/28672
+ ```
 
-This is like normal, but after it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+Ater it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
 
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
 
-Once it does, it should show output similiar to this: 
+Once it does this, you'll want to reset the controller.  It should then show output similiar to this: 
 
 ```
 *** Attempting to flash, please don't remove device
@@ -126,6 +129,77 @@ Once it does, it should show output similiar to this:
 >>> dfu-programmer atmega32u4 reset
 ```
 
+If you have any issues with this, you may need to this: 
+
+    sudo make <my_keyboard>:<my_keymap>:dfu
+
+### Caterina 
+
+For Arduino boards and their close (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal windo and run the built command: 
+
+    make <my_keyboard>:<my_keymap>:avrdude
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a rev2 Lets Split, you'll use this command:
+
+    make lets_split/rev2:xyverz:avrdude
+
+Once the firmware finishes compiling, it will output something like this: 
+
+```
+Linking: .build/lets_split_rev2_xyverz.elf                                                            [OK]
+Creating load file for flashing: .build/lets_split_rev2_xyverz.hex                                    [OK]
+Checking file size of lets_split_rev2_xyverz.hex                                                      [OK]
+ * File size is fine - 27938/28672
+Detecting USB port, reset your controller now..............
+```
+
+At this point, reset the board and then the script will detect the bootloader and then flash the board.  The output should look something like this: 
+
+```
+Detected controller on USB port at /dev/ttyS15
+
+Connecting to programmer: .
+Found programmer: Id = "CATERIN"; type = S
+    Software Version = 1.0; No Hardware Version given.
+Programmer supports auto addr increment.
+Programmer supports buffered memory access with buffersize=128 bytes.
+
+Programmer supports the following devices:
+    Device code: 0x44
+
+avrdude.exe: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude.exe: Device signature = 0x1e9587 (probably m32u4)
+avrdude.exe: NOTE: "flash" memory has been specified, an erase cycle will be performed
+             To disable this feature, specify the -D option.
+avrdude.exe: erasing chip
+avrdude.exe: reading input file "./.build/lets_split_rev2_xyverz.hex"
+avrdude.exe: input file ./.build/lets_split_rev2_xyverz.hex auto detected as Intel Hex
+avrdude.exe: writing flash (27938 bytes):
+
+Writing | ################################################## | 100% 2.40s
+
+avrdude.exe: 27938 bytes of flash written
+avrdude.exe: verifying flash memory against ./.build/lets_split_rev2_xyverz.hex:
+avrdude.exe: load data flash data from input file ./.build/lets_split_rev2_xyverz.hex:
+avrdude.exe: input file ./.build/lets_split_rev2_xyverz.hex auto detected as Intel Hex
+avrdude.exe: input file ./.build/lets_split_rev2_xyverz.hex contains 27938 bytes
+avrdude.exe: reading on-chip flash data:
+
+Reading | ################################################## | 100% 0.43s
+
+avrdude.exe: verifying ...
+avrdude.exe: 27938 bytes of flash verified
+
+avrdude.exe: safemode: Fuses OK (E:CB, H:D8, L:FF)
+
+avrdude.exe done.  Thank you.
+```
+If you have any issues with this, you may need to this: 
+
+    sudo make <my_keyboard>:<my_keymap>:avrdude
 
 
 
