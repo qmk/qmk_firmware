@@ -297,7 +297,7 @@
                                      PIN_PUPDR_PULLUP(GPIOA_PIN2) |         \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN3) |         \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN4) |         \
-                                     PIN_PUPDR_FLOATING(GPIOA_PIN5) |   \
+                                     PIN_PUPDR_PULLUP(GPIOA_PIN5) |   \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN6) |    \
                                      PIN_PUPDR_FLOATING(GPIOA_PIN7) |  \
                                      PIN_PUPDR_PULLUP(GPIOA_PIN8) |         \

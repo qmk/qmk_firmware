@@ -19,7 +19,7 @@
 #define REV6_CONFIG_H
 
 /* USB Device descriptor parameter */
-#define DEVICE_VER      0x0006
+#define DEVICE_VER 0x0006
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
@@ -42,6 +42,10 @@
  * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
  * #define UNUSED_PINS
  */
+
+#define MUSIC_MAP
+#undef AUDIO_VOICES
+#undef C6_AUDIO
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6

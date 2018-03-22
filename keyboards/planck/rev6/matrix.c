@@ -19,9 +19,12 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
+
 static uint8_t encoder_state = 0;
 static int8_t encoder_value = 0;
 static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 }; 
+
+static bool dip_switch[4] = {0, 0, 0, 0};
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -43,6 +46,19 @@ void matrix_init(void) {
     printf("matrix init\n");
     //debug_matrix = true;
 
+    // dip switch setup
+    palSetPadMode(GPIOB, 14, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 15, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOA, 10, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 9,  PAL_MODE_INPUT_PULLUP);
+
+    // encoder setup
+    palSetPadMode(GPIOB, 12, PAL_MODE_INPUT_PULLUP);
+    palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP);
+
+    encoder_state = (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
+
+    // actual matrix setup
     palSetPadMode(GPIOB, 11, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOB, 2,  PAL_MODE_OUTPUT_PUSHPULL);
@@ -59,31 +75,36 @@ void matrix_init(void) {
     palSetPadMode(GPIOC, 15, PAL_MODE_INPUT_PULLDOWN);
     palSetPadMode(GPIOA, 2,  PAL_MODE_INPUT_PULLDOWN);
 
-    palSetPadMode(GPIOB, 12, PAL_MODE_INPUT_PULLUP);
-    palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP);
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
-    encoder_state = (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
 
     matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
+    // dip switch
+    dip_switch[0] = palReadPad(GPIOB, 14);
+    dip_switch[1] = palReadPad(GPIOA, 15);
+    dip_switch[2] = palReadPad(GPIOA, 10);
+    dip_switch[3] = palReadPad(GPIOB, 9);
+
+    // encoder on B12 and B13
     encoder_state <<= 2;
     encoder_state |= (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
     encoder_value += encoder_LUT[encoder_state & 0xF];
     if (encoder_value >= 4) {
-        register_code(KC_PGUP);
-        unregister_code(KC_PGUP);
+        register_code(KC_MS_WH_UP);
+        unregister_code(KC_MS_WH_UP);
     }
     if (encoder_value <= -4) {
-        register_code(KC_PGDN);
-        unregister_code(KC_PGDN);
+        register_code(KC_MS_WH_DOWN);
+        unregister_code(KC_MS_WH_DOWN);
     }
     encoder_value %= 4;
 
+    // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
         matrix_row_t data = 0;
 
