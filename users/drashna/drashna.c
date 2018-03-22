@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "secrets.h"
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
-// And I'm not familar enough to know which is better or why...
+// And I'm not familiar enough to know which is better or why...
 PROGMEM const char secret[][64] = {
   "test1",
   "test2",
@@ -191,7 +191,7 @@ void matrix_init_user(void) {
 #endif
   matrix_init_keymap();
 }
-// No global matrix scan code, so just run keymap's matix
+// No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
@@ -201,7 +201,7 @@ void matrix_scan_user(void) {
 }
 
 // This block is for all of the gaming macros, as they were all doing
-// the same thing, but with differring text sent.
+// the same thing, but with differing text sent.
 void send_game_macro(const char *str) {
   clear_keyboard();
   register_code(is_overwatch ? KC_BSPC : KC_ENTER);
@@ -221,7 +221,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
-// Then runs the _keymap's recod handier if not processed here
+// Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // If console is enabled, it will print the matrix position and status of each key pressed
@@ -328,7 +328,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_RESET: // Custom RESET code that setr RGBLights to RED
+  case KC_RESET: // Custom RESET code that sets RGBLights to RED
     if (!record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
       rgblight_enable();
@@ -415,7 +415,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 #ifdef TAP_DANCE_ENABLE
-  case KC_DIABLO_CLEAR:  // reset all Diable timers, disabling them
+  case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
     if (record->event.pressed) {
       uint8_t dtime;
 
@@ -437,14 +437,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       rgb_layer_change = !rgb_layer_change;
       if (rgb_layer_change) {
-        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks beetter)
+        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
     }
 #endif // RGBLIGHT_ENABLE
     return false; break;
 #ifdef RGBLIGHT_ENABLE
   case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
-    if (record->event.pressed) { //This disrables layer indication, as it's assumed that if you're changing this ... you want that disabled
+    if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
       rgb_layer_change = false;
     }
     return true; break;

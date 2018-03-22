@@ -135,8 +135,8 @@ enum {
 
 
 // Custom Keycodes for Diablo 3 layer
-// But since TD() doesn't work when tapdance is disabled
-// We use custom codes here, so we can substituet the right stuff
+// But since TD() doesn't work when tap dance is disabled
+// We use custom codes here, so we can substitute the right stuff
 #ifdef TAP_DANCE_ENABLE
 #define KC_D3_1 TD(TD_D3_1)
 #define KC_D3_2 TD(TD_D3_2)
@@ -180,7 +180,7 @@ enum {
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-// If we're still using the official Faux Clicky feature, substituet codes
+// If we're still using the official Faux Clicky feature, substitute codes
 // so that we don't have any unused/blank keys.
 #ifdef FAUXCLICKY_ENABLE
 #define AUD_ON  FC_ON
@@ -203,7 +203,7 @@ enum {
 // Blocks for each of the four major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
 // at once, rather than for each keyboard, one at a time.
-// And this allows wor much cleaner blocks in the keymaps.
+// And this allows for much cleaner blocks in the keymaps.
 // For instance Tap/Hold for Control on all of the layouts
 
 // NOTE: These are all the same length.  If you do a search/replace

@@ -344,7 +344,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
 
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
-    // Also, no "else", since we want to know each, independantly.
+    // Also, no "else", since we want to know each, independently.
     if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK)) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set( 10 );
