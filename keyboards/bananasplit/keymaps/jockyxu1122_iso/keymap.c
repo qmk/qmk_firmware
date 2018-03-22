@@ -47,14 +47,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   -------------------------------------------------------------
   |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |Ins|
   -------------------------------------------------------------
-  |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
+  |     |   |   | @ |   |   |   |   |   |   |   |   |   |     |
   --------------------------------------------------------    -
   |      |   |   |   |   |   |   |   |   |   |   |   |   |    |
   -------------------------------------------------------------
-  |        |   |   |   |   |   |   |Mut|   |   |      |VUp|   |
+  |        |   |   |Cal|   |www|   |Mut|   |   |      |VUp|   |
   -------------------------------------------------------------
   |    |    |    |  Pause   |    |        |PUp|PDn|PTk|VDn|NTk|
   -------------------------------------------------------------
+  @: Email
+  Cal: Calculator
   Ins: Insert
   Mut: Mute
   NTk: Next track
@@ -63,19 +65,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   PUp: Page up
   VDn: Volume down
   VUp: Volume up
+  www: Browser home page
   */
   [LAYER_1] = KEYMAP_HHKB_ARROW(
     // row 1
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, \
       KC_F12, KC_TRNS, KC_INS, \
     // row 2
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_MAIL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
     // row 3
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
       KC_TRNS, KC_TRNS, KC_TRNS, \
     // row 4
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_TRNS, KC_TRNS, \
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_CALC, KC_TRNS, KC_WHOM, KC_TRNS, KC_MUTE, KC_TRNS, KC_TRNS, \
       KC_TRNS, KC_VOLU, KC_TRNS, \
     // row 5
     KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_MPRV, KC_VOLD, \

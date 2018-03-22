@@ -27,14 +27,16 @@ Layer_1:
   -------------------------------------------------------------
   |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |Ins|
   -------------------------------------------------------------
-  |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
+  |     |   |   | @ |   |   |   |   |   |   |   |   |   |     |
   --------------------------------------------------------    -
   |      |   |   |   |   |   |   |   |   |   |   |   |   |    |
   -------------------------------------------------------------
-  |        |   |   |   |   |   |   |Mut|   |   |      |VUp|   |
+  |        |   |   |Cal|   |www|   |Mut|   |   |      |VUp|   |
   -------------------------------------------------------------
   |    |    |    |  Pause   |    |        |PUp|PDn|PTk|VDn|NTk|
   -------------------------------------------------------------
+  @: Email
+  Cal: Calculator
   Ins: Insert
   Mut: Mute
   NTk: Next track
@@ -43,9 +45,10 @@ Layer_1:
   PUp: Page up
   VDn: Volume down
   VUp: Volume up
+  www: Browser home page
 ```
 
-Compile and generate .hex file:
+Compile and flash:
 
 `cd` to `/qmk_firmware` folder, then
 ```
@@ -53,3 +56,6 @@ make bananasplit:jockyxu1122_iso
 ```
 
 A .hex file will be generated under `/qmk_firmware` folder.
+
+
+To flash, use QMK Toolbox.
