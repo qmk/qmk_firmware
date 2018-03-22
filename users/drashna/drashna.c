@@ -32,13 +32,6 @@ PROGMEM const char secret[][64] = {
 };
 #endif
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]       = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]       = SONG(DVORAK_SOUND);
-float tone_colemak[][2]      = SONG(COLEMAK_SOUND);
-float tone_workman[][2]      = SONG(PLOVER_SOUND);
-float tone_hackstartup[][2]  = SONG(ONE_UP_SOUND);
-#endif
 
 #ifdef FAUXCLICKY_ENABLE
 float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
@@ -213,13 +206,6 @@ void send_game_macro(const char *str) {
 }
 
 
-// Sent the default layer
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -230,7 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif //CONSOLE_ENABLE
 
 // Run custom faux click code, but only if faux clicky is enabled
-#ifdef AUDIO_ENABLE 
+#ifdef AUDIO_ENABLE
   if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
     if (record->event.pressed) {
       PLAY_SONG(fauxclicky_pressed);
@@ -245,41 +231,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case KC_QWERTY:
     if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_qwerty);
-#endif //AUDIO_ENABLE
-      persistent_default_layer_set(1UL << _QWERTY);
+      set_single_persistent_default_layer(_QWERTY);
     }
     return false;
     break;
   case KC_COLEMAK:
     if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_colemak);
-#endif //AUDIO_ENABLE
-      persistent_default_layer_set(1UL << _COLEMAK);
+      set_single_persistent_default_layer(_COLEMAK);
     }
     return false;
     break;
   case KC_DVORAK:
     if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_dvorak);
-#endif //AUDIO_ENABLE
-      persistent_default_layer_set(1UL << _DVORAK);
+      set_single_persistent_default_layer(_DVORAK);
     }
     return false;
     break;
   case KC_WORKMAN:
     if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_workman);
-#endif //AUDIO_ENABLE
-      persistent_default_layer_set(1UL << _WORKMAN);
+      set_single_persistent_default_layer(_WORKMAN);
     }
     return false;
     break;
-
 
   case LOWER:
     if (record->event.pressed) {
@@ -351,7 +324,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_SECRET_1 ... KC_SECRET_5: // Custom 
+  case KC_SECRET_1 ... KC_SECRET_5: // Custom
     if (!record->event.pressed) {
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
       send_string_P(secret[keycode - KC_SECRET_1]);
@@ -534,7 +507,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 // Any custom LED code goes here.
 // So far, I only have keyboard specific code,
-// So nothing goes here. 
+// So nothing goes here.
 void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
 }

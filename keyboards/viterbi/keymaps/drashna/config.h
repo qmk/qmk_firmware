@@ -43,6 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define C6_AUDIO
 #define STARTUP_SONG SONG(IMPERIAL_MARCH)
 #define GOODBYE_SONG  SONG(SONIC_RING)
+#define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                  SONG(COLEMAK_SOUND), \
+                                  SONG(DVORAK_SOUND), \
+                                  SONG(PLOVER_SOUND) \
+                                }
 #endif
 
 #undef LOCKING_SUPPORT_ENABLE
