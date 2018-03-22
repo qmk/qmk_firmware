@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_MINS), KC_MINS,         KC_EQL, LSFT(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
       _______, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_LBRC), KC_LBRC,       KC_RBRC, LSFT(KC_RBRC), XXXXXXX, XXXXXXX, XXXXXXX, _______, \
       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    EISU,    EISU,    KANA,    KANA, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, \
-      XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX \
+      _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______ \
       ),
 
   /* Adjust (Lower + Raise)
