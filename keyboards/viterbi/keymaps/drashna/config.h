@@ -31,36 +31,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 300
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
-
 #endif // RGBLIGHT_ENABLE
 
-#define TAPPING_TOGGLE  1
-
-#ifdef AUDIO_ENABLE
-#define C6_AUDIO
-#define STARTUP_SONG SONG(IMPERIAL_MARCH)
-#define GOODBYE_SONG  SONG(SONIC_RING)
-#define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND), \
-                                  SONG(PLOVER_SOUND) \
-                                }
-#endif
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
 #ifndef NO_DEBUG
 #define NO_DEBUG
-#endif // NO_DEBUG
-
-/* disable print */
+#endif // !NO_DEBUG
 #ifndef NO_PRINT
 #define NO_PRINT
-#endif // NO_PRINT
+
+#endif // !NO_PRINT
+
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
@@ -87,4 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         L30, L31, L32, L33, L34, L35, L36, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
         L40, L41, L42, L43, L44, L45, L46, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
     )
+
+#include "drashna_config.h"
 #endif

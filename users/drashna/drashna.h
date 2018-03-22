@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef USERSPACE
 #define USERSPACE
-
-#include "quantum.h"
+#include "drashna_config.h"
 
 // Define layer names
 #define _QWERTY 0
@@ -153,32 +152,7 @@ enum {
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
 
-#ifndef ONESHOT_TAP_TOGGLE
-#define ONESHOT_TAP_TOGGLE 2
-#endif // !ONESHOT_TAP_TOGGLE
-#ifndef ONESHOT_TIMEOUT
-#define ONESHOT_TIMEOUT 3000
-#endif// !ONESHOT_TIMEOUT
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 8
-#endif // !QMK_KEYS_PER_SCAN
-
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_SLEEP
-#endif // RGBLIGHT_ENABLE
-
-// this makes it possible to do rolling combos (zx) with keys that
-// convert to other keys on hold (z becomes ctrl when you hold it,
-// and when this option isn't enabled, z rapidly followed by x
-// actually sends Ctrl-x. That's bad.)
-#define IGNORE_MOD_TAP_INTERRUPT
-
-// Disable action_get_macro and fn_actions, since we don't use these
-// and it saves on space in the firmware.
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 // If we're still using the official Faux Clicky feature, substitute codes
 // so that we don't have any unused/blank keys.
