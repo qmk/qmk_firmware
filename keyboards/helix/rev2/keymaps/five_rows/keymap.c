@@ -420,18 +420,6 @@ void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_FNLAYER 64
-#define L_NUMLAY 128
-#define L_NLOWER 136
-#define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
-#define L_ADJUST 65536
-#define L_ADJUST_TRI 65560
-
 static void render_logo(struct CharacterMatrix *matrix) {
 
   static char logo[]={
@@ -443,7 +431,34 @@ static void render_logo(struct CharacterMatrix *matrix) {
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
 }
 
+//#define DEBUG_OLED_LAYER_DISPLAY
+static const char Qwerty_name[] PROGMEM = "Qwerty";
+static const char Colemak_name[] PROGMEM = "Colemak";
+static const char Dvorak_name[] PROGMEM = "Dvorak";
 
+static const char Raise_name[] PROGMEM = ":Extr";
+static const char Lower_name[] PROGMEM = ":Func";
+static const char Adjust_name[] PROGMEM = ":Adj";
+
+static const char *base_names[] = {
+    [_QWERTY] = Qwerty_name,
+    [_COLEMAK] = Colemak_name,
+    [_DVORAK] = Dvorak_name,
+};
+
+static const char *layer_names[] = {
+    [_RAISE] = Raise_name,
+    [_LOWER] = Lower_name,
+    [_ADJUST] = Adjust_name
+};
+
+static int search_bit_form_lsb(uint32_t data)
+{
+    int i;
+    for( i = 0; i < 32 && (data & 1)==0 ; data >>= 1, i++ )
+	{}
+    return i;
+}
 
 void render_status(struct CharacterMatrix *matrix) {
 
@@ -460,32 +475,36 @@ void render_status(struct CharacterMatrix *matrix) {
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
+#ifdef DEBUG_OLED_LAYER_DISPLAY
   char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(matrix, PSTR("\nLayer: "));
-    switch (layer_state) {
-        case L_BASE:
-	    switch(current_default_layer_state) {
-	    case 1UL<<_QWERTY: matrix_write_P(matrix, PSTR("Qwerty")); break;
-	    case 1UL<<_DVORAK: matrix_write_P(matrix, PSTR("Dvorak")); break;
-	    case 1UL<<_COLEMAK: matrix_write_P(matrix, PSTR("Colemak")); break;
-	    default:
-		matrix_write_P(matrix, PSTR("Unkown ?"));
-	    }
-           break;
-        case L_RAISE:
-           matrix_write_P(matrix, PSTR("Extra char"));
-           break;
-        case L_LOWER:
-           matrix_write_P(matrix, PSTR("Function"));
-           break;
-        case L_ADJUST:
-        case L_ADJUST_TRI:
-           matrix_write_P(matrix, PSTR("Adjust"));
-           break;
-        default:
-           matrix_write(matrix, buf);
-    }
+#endif
+  int name_num;
+  uint32_t lstate;
+
+  matrix_write_P(matrix, PSTR("\n"));
+  name_num = search_bit_form_lsb(current_default_layer_state);
+  if( name_num < sizeof(base_names)/sizeof(char *) ) {
+      matrix_write_P(matrix, base_names[name_num]);
+#ifdef DEBUG_OLED_LAYER_DISPLAY
+  } else {
+      snprintf(buf, sizeof(buf), "base=%d? ", name_num);
+      matrix_write(matrix, buf);
+#endif
+  }
+  for( lstate = layer_state, name_num = 0;
+       lstate && name_num < sizeof(layer_names)/sizeof(char *);
+       lstate >>=1, name_num++ ) {
+      if( (lstate & 1) != 0 ) {
+	  if( layer_names[name_num] ) {
+	      matrix_write_P(matrix, layer_names[name_num]);
+#ifdef DEBUG_OLED_LAYER_DISPLAY
+	  } else {
+	      snprintf(buf, sizeof(buf), ":L=%d?", name_num);
+	      matrix_write(matrix, buf);
+#endif
+	  }
+      }
+  }
 
   // Host Keyboard LED Status
   char led[40];
