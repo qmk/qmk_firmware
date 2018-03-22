@@ -1,8 +1,10 @@
 /*
   Author: jockyxu1122
 
-  "Previous track" and "next track" only work with Windows.
-  ISO Enter,
+  Hightlight: split backspace, ISO Enter, split space, arrows on bottom right,
+    and toggable capslock backlight.
+
+  Note that "Previous track" and "next track" might only work with Windows.
 */
 
 #include "bananasplit.h"
@@ -53,7 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   -------------------------------------------------------------
   |    |    |    |  Pause   |    |        |PUp|PDn|PTk|VDn|NTk|
   -------------------------------------------------------------
-
   Ins: Insert
   Mut: Mute
   NTk: Next track
@@ -63,7 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   VDn: Volume down
   VUp: Volume up
   */
-
   [LAYER_1] = KEYMAP_HHKB_ARROW(
     // row 1
     KC_TRNS, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, \
