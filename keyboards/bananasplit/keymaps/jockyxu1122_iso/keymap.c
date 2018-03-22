@@ -89,6 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
 };
 
+/*
+Capslock's led cannot be controlled separately on bananasplit and you can only turn on/off all
+  leds at once. If you only install led for capslock, it will look like capslock has toggable
+  backlight.
+*/
 void led_set_user(uint8_t usb_led) {
   if (usb_led && (1 << USB_LED_CAPS_LOCK)) {
     DDRB |= (1 << 7);
