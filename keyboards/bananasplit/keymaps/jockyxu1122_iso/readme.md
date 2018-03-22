@@ -49,7 +49,7 @@ Compile and generate .hex file:
 
 `cd` to `/qmk_firmware` folder, then
 ```
-make bananasplit:jockyxu1122
+make bananasplit:jockyxu1122_iso
 ```
 
 A .hex file will be generated under `/qmk_firmware` folder.
