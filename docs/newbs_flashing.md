@@ -80,6 +80,53 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 ## Flash your Keyboard from the Command Line
 
+First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usally. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmege32u4 chips use DFU. 
+
+You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
+
+If you know what bootloader that you'ru using, then when compiling the firmware, you can actually add some extra text to the `make` command to automate the flashing process. 
+
+### DFU
+
+For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal windo and run the built command: 
+
+    make <my_keyboard>:<my_keymap>:dfu
+
+For example, if your keymap is named "xyverz" and you're building a keymap for a rev5 planck, you'll use this command:
+
+    make planck/rev5:xyverz:dfu
+
+```
+Linking: .build/planck_rev5_xyverz.elf                                                              [OK]
+Creating load file for flashing: .build/planck_rev5_xyverz.hex                                      [OK]
+Copying planck_rev5_xyverz.hex to qmk_firmware folder                                               [OK]
+Checking file size of planck_rev5_xyverz.hex                                                        
+```
+
+This is like normal, but after it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+
+    dfu-programmer: no device present.
+    Error: Bootloader not found. Trying again in 5s.
+
+Once it does, it should show output similiar to this: 
+
+```
+*** Attempting to flash, please don't remove device
+>>> dfu-programmer atmega32u4 erase --force
+    Erasing flash...  Success
+    Checking memory from 0x0 to 0x6FFF...  Empty.
+>>> dfu-programmer atmega32u4 flash /Users/skully/qmk_firmware/clueboard_66_hotswap_gen1_skully.hex
+    Checking memory from 0x0 to 0x55FF...  Empty.
+    0%                            100%  Programming 0x5600 bytes...
+    [>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>]  Success
+    0%                            100%  Reading 0x7000 bytes...
+    [>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>]  Success
+    Validating...  Success
+    0x5600 bytes written into 0x7000 bytes memory (76.79%).
+>>> dfu-programmer atmega32u4 reset
+```
+
+
 
 
 ## Test It Out!
