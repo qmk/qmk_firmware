@@ -63,11 +63,22 @@ void set_key_led(keyrecord_t *record, uint8_t lyr) {
   }
 }
 
+bool is_first_run(void) {
+  static uint8_t run = 0;
+
+  if (run == 0) {
+    run++;
+    return true;
+  } else {
+    return false;
+  }
+}
+
 bool set_layer_led(uint8_t lyr) {
   static uint8_t p_lyr = 0; // Previous layer.
   static uint8_t p_dim = 0; // Previous dim.
 
-  if (p_lyr == lyr && p_dim == led_dim) {
+  if (p_lyr == lyr && p_dim == led_dim && !is_first_run()) {
     return false;
   }
 
