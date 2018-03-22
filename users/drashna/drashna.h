@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef USERSPACE
 #define USERSPACE
-#include "drashna_config.h"
+#include "quantum.h"
 
 // Define layer names
 #define _QWERTY 0
