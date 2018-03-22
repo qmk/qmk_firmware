@@ -80,11 +80,11 @@ Click the `Flash` button in QMK Toolbox. You will see output similar to the foll
 
 ## Flash your Keyboard from the Command Line
 
-First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usally. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmege32u4 chips use DFU. 
+First thing you'll need to know is which bootloader that your keyboard uses.  There are four main bootloaders that are used, usually. Pro-Micro and clones use CATERINA, and Teensy's use Halfkay, OLKB boards use QMK-DFU, and other atmege32u4 chips use DFU. 
 
 You can find more information about the bootloaders in the [Flashing Instructions and Bootloader Information](flashing.md) page. 
 
-If you know what bootloader that you'ru using, then when compiling the firmware, you can actually add some extra text to the `make` command to automate the flashing process. 
+If you know what bootloader that you're using, then when compiling the firmware, you can actually add some extra text to the `make` command to automate the flashing process. 
 
 ### DFU
 
@@ -106,7 +106,7 @@ Checking file size of planck_rev5_xyverz.hex
  * File size is fine - 18574/28672
  ```
 
-Ater it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
+After it gets to this point, the build script will look for the DFU bootloader every 5 seconds.  It will repeat the following until the device is found or you cancel it. 
 
     dfu-programmer: no device present.
     Error: Bootloader not found. Trying again in 5s.
