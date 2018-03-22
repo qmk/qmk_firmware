@@ -63,6 +63,9 @@ void set_key_led(keyrecord_t *record, uint8_t lyr) {
   }
 }
 
+/* Fix for unknown reason after testin flash the eeprom handedness,
+   the leds will ligth up after boot.
+   This should be call in the set layer led.*/
 bool is_first_run(void) {
   static uint8_t run = 0;
 
