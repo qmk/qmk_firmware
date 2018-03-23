@@ -24,6 +24,7 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _MOVEMENT,
+  _NUMPAD,
   _ADJUST
 };
 
@@ -32,8 +33,8 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   MOVEMENT,
-  BACKLIT,
-  EXT_PLV
+  NUMPAD,
+  BACKLIT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -53,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
   {LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT },
-  {MOVEMENT,KC_LCTL,KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR}
+  {MOVEMENT,        KC_LCTL,KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR}
 },
 
 /* Lower
@@ -108,6 +109,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN}
+},
+
+/* Numpad
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_NUMPAD] = {
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Adjust (Lower + Raise)
@@ -165,6 +184,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_MOVEMENT);
       } else {
         layer_off(_MOVEMENT);
+      }
+      return false;
+      break;
+    case NUMPAD:
+      if (record->event.pressed) {
+        layer_on(_NUMPAD);
+      } else {
+        layer_off(_NUMPAD);
       }
       return false;
       break;
