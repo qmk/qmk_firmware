@@ -19,9 +19,12 @@ enum custom_keycodes {
 #define KC_ KC_TRNS
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define KC_FN1 LT(_FN2, KC_BSPC)
+#define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
-#define KC_SPFN LT(_FN1, KC_SPACE)
+#define KC_SPFN1 LT(_FN1, KC_SPACE)
+#define KC_SPFN2 LT(_FN2, KC_SPACE)
+#define KC_BSFN1 LT(_FN1, KC_BSPC)
+#define KC_BSFN2 LT(_FN2, KC_BSPC)
 #define KC_RST RESET
 #define KC_DBUG DEBUG
 #define KC_RTOG RGB_TOG
@@ -36,38 +39,38 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = KC_KEYMAP(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
-    TAB , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,DEL ,BSPC,
+    ESC , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,DEL ,BSPC,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
-    ESC  , A  , S  , D  , F  , G  , H  , J  , K  , L  ,SCLN, ENTER  ,
+    TAB  , A  , S  , D  , F  , G  , H  , J  , K  , L  ,QUOT, ENTER  ,
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
     LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, RSFT ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-    LCTL ,LALT,LGUI ,    SPFN     ,   FN1  ,RGUI ,RALT , FN2 , RCTL 
- //`-----+----+-----+-------------|--------+-----+-----+-----+------'
+    LCTL ,LALT,LGUI ,FN1 , SPFN1  ,  BSFN2 ,RGUI ,RALT , FN2 , RCTL 
+ //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
   [_FN1] = KC_KEYMAP(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     GRV , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
-         , A  , S  , D  , F  , G  , H  , 4  , 5  , 6  ,SCLN,  QUOT  ,
+    RST  ,RHUI,RSAI,RVAI,VOLU,LBRC,RBRC, 4  , 5  , 6  ,SCLN,        ,
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
-           , Z  , X  , C  , V  , B  , N  , 1  , 2  , 3  ,SLSH, RSFT ,
+    RMOD   ,RHUD,RSAD,RVAD,VOLD,LCBR,RCBR, 1  , 2  , 3  , UP ,      ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-         ,    ,     ,             ,   0    ,     ,     ,     ,      
- //`-----+----+-----+-------------|--------+-----+-----+-----+------'
+    RTOG ,    ,     ,    ,        ,  DEL   ,  0  ,LEFT ,DOWN , RGHT 
+ //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
   [_FN2] = KC_KEYMAP(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     TILD,EXLM, AT ,HASH,DLR ,PERC,CIRC,AMPR,ASTR,LPRN,RPRN,UNDS,PLUS,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
-    RST  ,RHUI,RSAI,RVAI,    ,    ,    ,    ,    ,    ,    ,        ,
+         ,    ,    ,INS ,PGUP,HOME,    ,    ,    ,    ,COLN,        ,
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
-           ,RHUD,RSAD,RVAD,    ,    ,    ,    ,    ,    ,    ,      ,
+           ,    ,    ,DEL ,PGDN,END ,    ,    ,    ,    ,    ,      ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-         ,RTOG,RMOD ,             ,        ,     ,     ,     ,      
- //`-----+----+-----+-------------|--------+-----+-----+-----+------'
+         ,    ,     ,    ,  DEL   ,        ,     ,     ,     ,      
+ //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   )
 
 };
