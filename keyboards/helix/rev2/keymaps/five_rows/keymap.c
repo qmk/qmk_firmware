@@ -431,22 +431,20 @@ static void render_logo(struct CharacterMatrix *matrix) {
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
 }
 
-//#define DEBUG_OLED_LAYER_DISPLAY
-static const char Qwerty_name[] PROGMEM = "Qwerty";
-static const char Colemak_name[] PROGMEM = "Colemak";
-static const char Dvorak_name[] PROGMEM = "Dvorak";
+// #define DEBUG_OLED_LAYER_DISPLAY
 
-static const char Raise_name[] PROGMEM = ":Extr";
-static const char Lower_name[] PROGMEM = ":Func";
-static const char Adjust_name[] PROGMEM = ":Adj";
+static const char Qwerty_name[]  PROGMEM = " Qwerty";
+static const char Colemak_name[] PROGMEM = " Colemak";
+static const char Dvorak_name[]  PROGMEM = " Dvorak";
 
-static const char *base_names[] = {
+static const char Raise_name[]   PROGMEM = ":Extra";
+static const char Lower_name[]   PROGMEM = ":Func";
+static const char Adjust_name[]  PROGMEM = ":Adjust";
+
+static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
-};
-
-static const char *layer_names[] = {
     [_RAISE] = Raise_name,
     [_LOWER] = Lower_name,
     [_ADJUST] = Adjust_name
@@ -481,16 +479,16 @@ void render_status(struct CharacterMatrix *matrix) {
   int name_num;
   uint32_t lstate;
 
-  matrix_write_P(matrix, PSTR("\n"));
   name_num = search_bit_form_lsb(current_default_layer_state);
-  if( name_num < sizeof(base_names)/sizeof(char *) ) {
-      matrix_write_P(matrix, base_names[name_num]);
+  if( name_num < sizeof(layer_names)/sizeof(char *) ) {
+      matrix_write_P(matrix, layer_names[name_num]);
 #ifdef DEBUG_OLED_LAYER_DISPLAY
   } else {
       snprintf(buf, sizeof(buf), "base=%d? ", name_num);
       matrix_write(matrix, buf);
 #endif
   }
+  matrix_write_P(matrix, PSTR("\n"));
   for( lstate = layer_state, name_num = 0;
        lstate && name_num < sizeof(layer_names)/sizeof(char *);
        lstate >>=1, name_num++ ) {
