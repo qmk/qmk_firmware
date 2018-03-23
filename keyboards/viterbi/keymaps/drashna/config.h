@@ -74,5 +74,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         L40, L41, L42, L43, L44, L45, L46, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
     )
 
-#include "drashna_config.h"
 #endif

@@ -69,6 +69,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
-#include "drashna_config.h"
-
 #endif

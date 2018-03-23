@@ -26,9 +26,9 @@
 #define ONESHOT_TIMEOUT 3000
 #endif// !ONESHOT_TIMEOUT
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 8
-#endif // !QMK_KEYS_PER_SCAN
+//#ifndef QMK_KEYS_PER_SCAN
+//#define QMK_KEYS_PER_SCAN 8
+//#endif // !QMK_KEYS_PER_SCAN
 
 
 
@@ -47,7 +47,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 175
+#define TAPPING_TERM 150
 
 
 // Disable action_get_macro and fn_actions, since we don't use these

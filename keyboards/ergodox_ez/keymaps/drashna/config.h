@@ -15,5 +15,4 @@
 #undef PRODUCT
 #define PRODUCT         DrashnaDox - Hacked ErgoDox EZ Shine
 
-#include "drashna_config.h"
 #endif
