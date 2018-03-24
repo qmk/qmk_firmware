@@ -20,11 +20,11 @@ increment_version () {
 	part[2]=$((part[2] + 1))
 	new="${part[*]}"
 	echo -e "${new// /.}"
-} 
+}
 
 git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 
-NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | wc -l)
+NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(users/)' | wc -l)
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
@@ -49,7 +49,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	ssh-add -D
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
-	
+
 	# don't delete files in case not all keyboards are built
 	# rm -f compiled/*.hex
 
@@ -60,6 +60,6 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	bash _util/generate_keyboard_page.sh
 	git add -A
-	git commit -m "generated from qmk/qmk_firmware@${rev}" 
+	git commit -m "generated from qmk/qmk_firmware@${rev}"
 	git push git@github.com:qmk/qmk.fm.git
 fi
