@@ -3,53 +3,22 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	KEYMAP(
-		KC_A, KC_B, KC_C, KC_D, KC_E, KC_F),
+		TO(1), KC_A, KC_B, KC_C, KC_D, KC_E),
 
 	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		TO(2), KC_F, KC_G, KC_H, KC_I, KC_J),
 
 	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		TO(3), KC_K, KC_L, KC_M, KC_N, KC_O),
 
 	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		TO(4), KC_P, KC_Q, KC_R, KC_S, KC_T),
 
 	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+		TO(5), KC_U, KC_V, KC_W, KC_X, KC_Y),
 
 	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
-
-	KEYMAP(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
-
+		TO(0), KC_Z, KC_1, KC_2, KC_3, KC_4)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -101,6 +70,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 }
 
 // M6-A LEDs are connected to D6, B6, F5, B4, C7, F7
+// This is 1-based because I copied it from Knops code.
 void set_switch_led(int ledId, bool state) {
 	if(state) {
 		switch(ledId) {
@@ -149,23 +119,14 @@ void set_switch_led(int ledId, bool state) {
 
 
 void set_layer_led(int layerId) {
-// UNUSED
+	// UNUSED
 }
 
+void led_set_layer(int layer);
 
 void matrix_init_user(void) {
 	led_init_ports();
-	
-	// Copied from Knops Mini code.
-	// Refactored so one less reference to I/O pins
-	set_switch_led(1, true);
-	set_switch_led(2, true);
-	set_switch_led(3, true);
-	set_switch_led(4, true);
-	set_switch_led(5, true);
-	set_switch_led(6, true);
-	
-	set_layer_led(0);
+	led_set_layer(0);
 }
 
 void matrix_scan_user(void) {
@@ -207,9 +168,9 @@ void led_set_user(uint8_t usb_led) {
 	}
 
 	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
+
 	} else {
-		
+
 	}
 
 	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
@@ -232,25 +193,57 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-
-/*
-* This function led_set_layer gets called when you switch between layers.
-* It allows you to turn on and off leds for each different layer and do
-* other cool stuff. Currently the GUI does not have LED support. I am working
-* on that, but takes time.
-*/
 void led_set_layer(int layer) {
 	switch(layer) {
-			
-			/**
-			*   Here is an example to turn LEDs on and of. By default:
-			*   - the LEDs are turned on in layer 0
-			*   - the LEDs are turned off in layer 1
-			*   - the LEDs don't change from state for layer 2
-			*/			
-			
 		case 0:
-			set_layer_led(0); // Turn on only the first/left layer indicator
+			set_switch_led(1, true);
+			set_switch_led(2, false);
+			set_switch_led(3, false);
+			set_switch_led(4, false);
+			set_switch_led(5, false);
+			set_switch_led(6, false);
+			break;
+		case 1:
+			set_switch_led(1, false);
+			set_switch_led(2, true);
+			set_switch_led(3, false);
+			set_switch_led(4, false);
+			set_switch_led(5, false);
+			set_switch_led(6, false);
+			break;
+		case 2:
+			set_switch_led(1, false);
+			set_switch_led(2, false);
+			set_switch_led(3, true);
+			set_switch_led(4, false);
+			set_switch_led(5, false);
+			set_switch_led(6, false);
+			break;
+		case 3:
+			set_switch_led(1, false);
+			set_switch_led(2, false);
+			set_switch_led(3, false);
+			set_switch_led(4, true);
+			set_switch_led(5, false);
+			set_switch_led(6, false);
+			break;
+		case 4:
+			set_switch_led(1, false);
+			set_switch_led(2, false);
+			set_switch_led(3, false);
+			set_switch_led(4, false);
+			set_switch_led(5, true);
+			set_switch_led(6, false);
+			break;
+		case 5:
+			set_switch_led(1, false);
+			set_switch_led(2, false);
+			set_switch_led(3, false);
+			set_switch_led(4, false);
+			set_switch_led(5, false);
+			set_switch_led(6, true);
+			break;
+		default:
 			set_switch_led(1, true);
 			set_switch_led(2, true);
 			set_switch_led(3, true);
@@ -258,43 +251,48 @@ void led_set_layer(int layer) {
 			set_switch_led(5, true);
 			set_switch_led(6, true);
 			break;
-			
-		case 1:
-			set_layer_led(1); // Turn on only the second/middle layer indicator
-			set_switch_led(1, false);
-			set_switch_led(2, false);
-			set_switch_led(3, false);
-			set_switch_led(4, false);
-			set_switch_led(5, false);
-			set_switch_led(6, false);
-			break;
-			
-		case 2:
-			set_layer_led(2); // Turn on only the third/right layer indicator
-			
-			// Keep leds for layer two in their current state, since we don't use set_switch_led(SWITCH_ID, TRUE_OR_FALSE)
-			
-			break;
 	}
 }
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-  case TO(0):
-      if (record->event.pressed) {
-        led_set_layer(0);
-     }
-     break;
-  case TO(1):
-      if (record->event.pressed) {
-        led_set_layer(1);
-     }
-     break;
-  case TO(2):
-      if (record->event.pressed) {
-        led_set_layer(2);
-     }
-     break;
-  }
-  return true;
+	switch ( keycode )
+	{
+		case TO( 0 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 0 );
+			}
+			break;
+		case TO( 1 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 1 );
+			}
+			break;
+		case TO( 2 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 2 );
+			}
+			break;
+		case TO( 3 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 3 );
+			}
+			break;
+		case TO( 4 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 4 );
+			}
+			break;
+		case TO( 5 ):
+			if ( record->event.pressed )
+			{
+				led_set_layer( 5 );
+			}
+			break;
+	}
+	return true;
 }

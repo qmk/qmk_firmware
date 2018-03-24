@@ -19,7 +19,6 @@
 #define RAMA_M6_A_H
 
 // This a shortcut to help you visually see your layout.
-// The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define KEYMAP( \
