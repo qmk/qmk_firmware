@@ -16,72 +16,62 @@ extern keymap_config_t keymap_config;
 #define LMACRO   TG(_MACROS)
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
-#define MEDIA    TG(_MEDIA)
+#define MEDIA    TT(_MEDIA)
 #define COVECUBE TG(_COVECUBE)
 
-#ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2] = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-float fauxclicky_beep_note[2] = MUSICAL_NOTE(_C6, 2);       // (_C4, 0.25);
-#define AUD_ON  FC_ON
-#define AUD_OFF FC_OFF
-#else
-#define AUD_ON  AU_ON
-#define AUD_OFF AU_OFF
-#endif 
 
-enum more_custom_keycodes {
-  KC_P00 = NEW_SAFE_RANGE
-};
+//enum more_custom_keycodes {
+//  KC_P00 = NEW_SAFE_RANGE
+//};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_NUMLOCK] = KEYMAP(
-      LMACRO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      MEDIA,   KC_CALC, COVECUBE,KC_P7,   KC_P8,   KC_P9,   KC_PAST,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_COLN, KC_PENT,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_NUMLOCK] = half_KEYMAP(
+      LMACRO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS, \
+      MEDIA,   KC_CALC, COVECUBE,KC_P7,   KC_P8,   KC_P9,   KC_PAST, \
+      KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, \
+      KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, \
+      KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_COLN, KC_PENT \
   ),
 
-  [_DIABLO] = KEYMAP(
-      KC_ESC,  DIABLO,  KC_V,    KC_D,    XXXXXXX, XXXXXXX, KC_L,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_J,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,    KC_F,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_LCTL, KC_D3_3, KC_D3_3, KC_D3_3, KC_D3_3, KC_Z,    KC_DIABLO_CLEAR,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_LALT, KC_F4,   KC_F5,   KC_F8,   KC_F9,   KC_F10,  SFT_T(KC_SPACE),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_DIABLO] = half_KEYMAP(
+      KC_ESC,  DIABLO,  KC_V,    KC_D,    XXXXXXX, XXXXXXX, KC_L, \
+      KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_J, \
+      KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,    KC_F, \
+      KC_LCTL, KC_D3_3, KC_D3_3, KC_D3_3, KC_D3_3, KC_Z,    KC_DIABLO_CLEAR, \
+      KC_LALT, KC_F4,   KC_F5,   KC_F8,   KC_F9,   KC_F10,  SFT_T(KC_SPACE) \
   ),
 
-  [_GAMEPAD] = KEYMAP(  // Game pad layout designed primarily for Overwatch
-      LMACRO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_Z,    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_Y,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_F1,   KC_U,    KC_I,    KC_Y,    KC_V,    KC_SPC,  KC_V,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_GAMEPAD] = half_KEYMAP(  // Game pad layout designed primarily for Overwatch
+      LMACRO,  KC_ESC,  GAMEPAD, KC_1,    KC_2,    KC_3,    KC_4, \
+      MEDIA,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, \
+      KC_Z,    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G, \
+      KC_Y,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, \
+      KC_F1,   KC_U,    KC_I,    KC_Y,    KC_V,    KC_SPC,  KC_V \
   ),
 
-  [_MACROS] = KEYMAP(
-      LMACRO,      KC_OVERWATCH,GAMEPAD,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_SYMM,     KC_TORB,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_GLHF,     KC_GOODGAME, KC_GGEZ,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_MACROS] = half_KEYMAP(
+      LMACRO,      KC_OVERWATCH,GAMEPAD,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      KC_C9,       XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      KC_SYMM,     KC_TORB,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      KC_GLHF,     KC_GOODGAME, KC_GGEZ,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     XXXXXXX \
   ),
 
-  [_COVECUBE] = KEYMAP(
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,     XXXXXXX,     COVECUBE,    XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_COVECUBE] = half_KEYMAP(
+      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      XXXXXXX,     XXXXXXX,     COVECUBE,    XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX, \
+      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX \
   ),
 
-  [_MEDIA] = KEYMAP(
-      KC_MAKE, KC_RESET,XXXXXXX, AUD_ON,  AUD_OFF, XXXXXXX, RGB_SAD,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      MEDIA,   XXXXXXX, KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      RGB_TOG, RGB_MOD, RGB_RMOD,RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_HUD,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_MPLY, KC_MPRV, KC_MNXT, RGB_M_X, RGB_M_G, RGB_M_P, RGB_HUI,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_MEDIA] = half_KEYMAP(
+      KC_MAKE, KC_RESET,MU_TOG,  AUD_ON,  AUD_OFF, KC_FXCL, RGB_SAD, \
+      MEDIA,   XXXXXXX, KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI, \
+      RGB_TOG, RGB_MOD, RGB_RMOD,RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_HUD, \
+      KC_MPLY, KC_MPRV, KC_MNXT, RGB_M_X, RGB_M_G, RGB_M_P, RGB_HUI, \
+      KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI \
   )
 
 
@@ -94,18 +84,20 @@ void matrix_init_keymap(void) {
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
 }
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case KC_P00:
-    if (record->event.pressed) {
-      register_code(KC_KP_0);
-      unregister_code(KC_KP_0);
-      register_code(KC_KP_0);
-      unregister_code(KC_KP_0);
-    }
-    return false;
-    break;
-  }
+
+  //switch (keycode) {
+  //case KC_P00:
+  //  if (!record->event.pressed) {
+  //    register_code(KC_KP_0);
+  //    unregister_code(KC_KP_0);
+  //    register_code(KC_KP_0);
+  //    unregister_code(KC_KP_0);
+  //  }
+  //  return false;
+  //  break;
+  //}
   return true;
 }
 

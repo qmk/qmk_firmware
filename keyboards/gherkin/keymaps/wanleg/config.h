@@ -49,6 +49,13 @@
 /*tap dance definition */
 #define TAPPING_TERM 200
 
+//Mousekeys Settings
+#define MOUSEKEY_INTERVAL 1
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 1
+#define MOUSEKEY_MAX_SPEED 15
+#define MOUSEKEY_WHEEL_DELAY 0
+
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
