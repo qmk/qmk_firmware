@@ -2,7 +2,9 @@
 
 ## About this keymap:
 
-The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.
+~~The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.~~
+
+After a year of using a planck, I've become accustomed to my / and ? being above the - key, so I've decided to move my [, ], and = to the normal Advantage location and set the two keys above the - to new locations. I'll play with it for a while and see how I like it.
 
 The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
 
@@ -23,15 +25,15 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 ### Layer 0: Dvorak layer
 
 	,-------------------------------------------.,-------------------------------------------.
-	|   ]    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   [    |
+	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   \    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   \    |
+	| Tab    |   '  |   ,  |   .  |   P  |   Y  ||   F  |   G  |   C  |   R  |   L  |   /    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| CapsLk |   A  |   O  |   E  |   U  |   I  ||   D  |   H  |   T  |   N  |   S  |   -    |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| LShift |   Z  |   X  |   C  |   V  |   X  ||   B  |   M  |   W  |   V  |   Z  | RShift |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |   `  |  Ins | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
+	         |   `  |  Ins | Left | Rght |              |  Up  |  Dn  |   [  |   ]  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
 	                             | LCtl  | LAlt || RGUI | RCtl  |
