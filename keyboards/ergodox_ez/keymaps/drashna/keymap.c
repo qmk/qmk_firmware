@@ -335,6 +335,7 @@ void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 void matrix_scan_keymap(void) {  // runs frequently to update info
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
+  uint8_t one_shot = get_oneshot_mods();
 
   if (!skip_leds) {
     ergodox_board_led_off();
@@ -345,15 +346,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
     // Also, no "else", since we want to know each, independently.
-    if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK)) {
+    if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set( 10 );
     }
-    if (modifiders & MODS_CTRL_MASK) {
+    if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
       ergodox_right_led_1_on();
       ergodox_right_led_1_set( 10 );
     }
-    if (modifiders & MODS_ALT_MASK) {
+    if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
       ergodox_right_led_3_on();
       ergodox_right_led_3_set( 10 );
     }
