@@ -37,8 +37,8 @@ PROGMEM const char secret[][64] = {
 float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
 float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
 #else
-float fauxclicky_pressed[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
-float fauxclicky_released[][2]             = SONG(E__NOTE(_A6)); // change to your tastes
+float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
+float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
 #endif
 
 bool faux_click_enabled = false;
