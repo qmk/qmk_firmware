@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2017 Benjamin Kesselring
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,5 +51,21 @@
 }
 
 #define LAYOUT_ortho_5x15 KEYMAP
+
+void capslock_led_init(void);
+void capslock_led_off(void);
+void capslock_led_on(void);
+
+void gp100_led_init(void);
+void gp100_led_off(void);
+void gp100_led_on(void);
+
+void gp103_led_init(void);
+void gp103_led_off(void);
+void gp103_led_on(void);
+
+void keycaps_led_init(void);
+void keycaps_led_off(void);
+void keycaps_led_on(void);
 
 #endif

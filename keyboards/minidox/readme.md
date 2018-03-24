@@ -10,7 +10,7 @@ Hardware Supported: MiniDox PCB rev1 Pro Micro
 
 Make example for this keyboard (after setting up your build environment):
 
-    make minidox-rev1-default
+    make minidox/rev1:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
@@ -22,8 +22,8 @@ Flashing
 -------
 Note: Most of this is copied from the Let's Split readme, because it is awesome
 
-From the `minidox` directory run `make SUBPROJECT-KEYMAP-avrdude` for automatic serial port resolution and flashing.
-Example: `make rev1-default-avrdude`
+From the root directory run `make PROJECT:KEYMAP:avrdude` for automatic serial port resolution and flashing.
+Example: `make minidox/rev1:default:avrdude`
 
 Choosing which board to plug the USB cable into (choosing Master)
 --------

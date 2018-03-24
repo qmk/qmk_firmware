@@ -71,11 +71,17 @@ enum quantum_keycodes {
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
     QK_LAYER_TAP_TOGGLE_MAX = 0x58FF,
+    QK_LAYER_MOD          = 0x5900,
+    QK_LAYER_MOD_MAX      = 0x59FF,
 #ifdef STENO_ENABLE
     QK_STENO              = 0x5A00,
     QK_STENO_BOLT         = 0x5A30,
     QK_STENO_GEMINI       = 0x5A31,
     QK_STENO_MAX          = 0x5A3F,
+#endif
+#ifdef SWAP_HANDS_ENABLE
+    QK_SWAP_HANDS         = 0x5B00,
+    QK_SWAP_HANDS_MAX     = 0x5BFF,
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
@@ -121,6 +127,14 @@ enum quantum_keycodes {
     KC_LEAD,
 #endif
 
+    // Auto Shift setup
+    KC_ASUP,
+    KC_ASDN,
+    KC_ASRP,
+    KC_ASTG,
+    KC_ASON,
+    KC_ASOFF,
+
     // Audio on/off/toggle
     AU_ON,
     AU_OFF,
@@ -147,8 +161,9 @@ enum quantum_keycodes {
 
     // Midi
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-    MI_ON,  // send midi notes when music mode is enabled
-    MI_OFF, // don't send midi notes when music mode is enabled
+    MI_ON,
+    MI_OFF,
+    MI_TOG,
 #endif
 
 #if !MIDI_ENABLE_STRICT || (defined(MIDI_ENABLE) && defined(MIDI_ADVANCED))
@@ -371,30 +386,18 @@ enum quantum_keycodes {
 #endif // MIDI_ADVANCED
 
     // Backlight functionality
-    BL_0,
-    BL_1,
-    BL_2,
-    BL_3,
-    BL_4,
-    BL_5,
-    BL_6,
-    BL_7,
-    BL_8,
-    BL_9,
-    BL_10,
-    BL_11,
-    BL_12,
-    BL_13,
-    BL_14,
-    BL_15,
+    BL_ON,
+    BL_OFF,
     BL_DEC,
     BL_INC,
     BL_TOGG,
     BL_STEP,
+    BL_BRTG,
 
     // RGB functionality
     RGB_TOG,
-    RGB_MOD,
+    RGB_MODE_FORWARD,
+    RGB_MODE_REVERSE,
     RGB_HUI,
     RGB_HUD,
     RGB_SAI,
@@ -416,6 +419,9 @@ enum quantum_keycodes {
     // Right shift, close paren
     KC_RSPC,
 
+    // Shift, Enter
+    KC_SFTENT,
+
     // Printing
     PRINT_ON,
     PRINT_OFF,
@@ -431,6 +437,11 @@ enum quantum_keycodes {
     KC_LOCK,
 #endif
 
+#ifdef TERMINAL_ENABLE
+    TERM_ON,
+    TERM_OFF,
+#endif
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -440,17 +451,22 @@ enum quantum_keycodes {
 #define LSFT(kc) (kc | QK_LSFT)
 #define LALT(kc) (kc | QK_LALT)
 #define LGUI(kc) (kc | QK_LGUI)
+#define LCMD(kc) LGUI(kc)
+#define LWIN(kc) LGUI(kc)
 #define RCTL(kc) (kc | QK_RCTL)
 #define RSFT(kc) (kc | QK_RSFT)
 #define RALT(kc) (kc | QK_RALT)
 #define RGUI(kc) (kc | QK_RGUI)
+#define RCMD(kc) RGUI(kc)
+#define RWIN(kc) RGUI(kc)
 
 #define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
 #define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
 #define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
 #define ALTG(kc) (kc | QK_RCTL | QK_RALT)
-#define SCMD(kc) (kc | QK_LGUI | QK_LSFT)
-#define SWIN(kc) SCMD(kc)
+#define SGUI(kc) (kc | QK_LGUI | QK_LSFT)
+#define SCMD(kc) SGUI(kc)
+#define SWIN(kc) SGUI(kc)
 #define LCA(kc) (kc | QK_LCTL | QK_LALT)
 
 #define MOD_HYPR 0xf
@@ -542,6 +558,10 @@ enum quantum_keycodes {
 
 #define KC_GESC GRAVE_ESC
 
+#define RGB_MOD RGB_MODE_FORWARD
+#define RGB_SMOD RGB_MODE_FORWARD
+#define RGB_RMOD RGB_MODE_REVERSE
+
 #define RGB_M_P RGB_MODE_PLAIN
 #define RGB_M_B RGB_MODE_BREATHE
 #define RGB_M_R RGB_MODE_RAINBOW
@@ -556,9 +576,6 @@ enum quantum_keycodes {
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
-
-#define BL_ON  BL_9
-#define BL_OFF BL_0
 
 // GOTO layer - 16 layers max
 // when:
@@ -581,6 +598,9 @@ enum quantum_keycodes {
 
 // One-shot layer - 256 layer max
 #define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
+
+// L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left mods only
+#define LM(layer, mod) (QK_LAYER_MOD | (((layer) & 0xF) << 4) | ((mod) & 0xF))
 
 // One-shot mod
 #define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
@@ -605,16 +625,23 @@ enum quantum_keycodes {
 #define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
 
 #define GUI_T(kc) MT(MOD_LGUI, kc)
+#define CMD_T(kc) GUI_T(kc)
+#define WIN_T(kc) GUI_T(kc)
 #define LGUI_T(kc) MT(MOD_LGUI, kc)
+#define LCMD_T(kc) LGUI_T(kc)
+#define LWIN_T(kc) LGUI_T(kc)
 #define RGUI_T(kc) MT(MOD_RGUI, kc)
+#define RCMD_T(kc) RGUI_T(kc)
+#define RWIN_T(kc) RGUI_T(kc)
 
 #define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
 #define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
 #define LCAG_T(kc) MT((MOD_LCTL | MOD_LALT | MOD_LGUI), kc) // Left control alt and gui
 #define RCAG_T(kc) MT((MOD_RCTL | MOD_RALT | MOD_RGUI), kc) // Right control alt and gui
 #define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SCMD_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
-#define SWIN_T(kc) SCMD_T(kc)
+#define SGUI_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
+#define SCMD_T(kc) SGUI_T(kc)
+#define SWIN_T(kc) SGUI_T(kc)
 #define LCA_T(kc) MT((MOD_LCTL | MOD_LALT), kc) // Left control and left alt
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
@@ -631,6 +658,16 @@ enum quantum_keycodes {
 
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (n | QK_UNICODE_MAP)
+#endif
+
+#ifdef SWAP_HANDS_ENABLE
+  #define SH_T(key)  (QK_SWAP_HANDS | key)
+  #define SH_TG      (QK_SWAP_HANDS | OP_SH_TOGGLE)
+  #define SH_TT      (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+  #define SH_MON     (QK_SWAP_HANDS | OP_SH_ON_OFF)
+  #define SH_MOFF    (QK_SWAP_HANDS | OP_SH_OFF_ON)
+  #define SH_ON      (QK_SWAP_HANDS | OP_SH_ON)
+  #define SH_OFF     (QK_SWAP_HANDS | OP_SH_OFF)
 #endif
 
 #endif // QUANTUM_KEYCODES_H

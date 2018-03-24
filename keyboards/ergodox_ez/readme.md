@@ -31,3 +31,8 @@ To flash with ´teensy-loader-cli´:
 
   - Press the Reset button by inserting a paperclip gently into the reset hole
     in the top right corder.
+
+## Settings
+
+You may want to enable QMK_KEYS_PER_SCAN because the Ergodox has a relatively
+slow scan rate.

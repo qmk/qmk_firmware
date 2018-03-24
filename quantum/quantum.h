@@ -40,7 +40,7 @@
 #include "action_util.h"
 #include <stdlib.h>
 #include "print.h"
-
+#include "send_string_keycodes.h"
 
 extern uint32_t default_layer_state;
 
@@ -49,7 +49,6 @@ extern uint32_t default_layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
-	#include <lufa.h>
 #ifdef MIDI_ADVANCED
 	#include "process_midi.h"
 #endif
@@ -95,6 +94,10 @@ extern uint32_t default_layer_state;
 	#include "process_printer.h"
 #endif
 
+#ifdef AUTO_SHIFT_ENABLE
+	#include "process_auto_shift.h"
+#endif
+
 #ifdef COMBO_ENABLE
 	#include "process_combo.h"
 #endif
@@ -103,11 +106,36 @@ extern uint32_t default_layer_state;
 	#include "process_key_lock.h"
 #endif
 
-#define SEND_STRING(str) send_string(PSTR(str))
+#ifdef TERMINAL_ENABLE
+	#include "process_terminal.h"
+#else
+	#include "process_terminal_nop.h"
+#endif
+
+#define STRINGIZE(z) #z
+#define ADD_SLASH_X(y) STRINGIZE(\x ## y)
+#define SYMBOL_STR(x) ADD_SLASH_X(x)
+
+#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+
+#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
+#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
+#define SS_LCMD(string) SS_LGUI(string)
+#define SS_LWIN(string) SS_LGUI(string)
+#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
+#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
+#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
+
+#define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
+void send_string_P(const char *str);
+void send_string_with_delay_P(const char *str, uint8_t interval);
+void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
@@ -147,12 +175,11 @@ void breathing_self_disable(void);
 void breathing_toggle(void);
 bool is_breathing(void);
 
-void breathing_defaults(void);
 void breathing_intensity_default(void);
-void breathing_speed_default(void);
-void breathing_speed_set(uint8_t value);
-void breathing_speed_inc(uint8_t value);
-void breathing_speed_dec(uint8_t value);
+void breathing_period_default(void);
+void breathing_period_set(uint8_t value);
+void breathing_period_inc(void);
+void breathing_period_dec(void);
 #endif
 
 #endif

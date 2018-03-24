@@ -1,8 +1,8 @@
-# How To Customize Your Keyboard's Behavior
+# How to Customize Your Keyboard's Behavior
 
-For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations. 
+For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations.
 
-This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.html) will help you understand what is going on at a more fundamental level.
+This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
 ## A Word on Core vs Keyboards vs Keymap
 
@@ -34,13 +34,13 @@ enum my_keycodes {
 };
 ```
 
-## Programming The Behavior Of Any Keycode
+## Programming the Behavior of Any Keycode
 
-When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up you to send any key up or down events that are required.
+When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 
-### Example `process_record_user()` implementation
+### Example `process_record_user()` Implementation
 
 This example does two things. It defines the behavior for a custom keycode called `FOO`, and it supplements our Enter key by playing a tone whenever it is pressed.
 
@@ -60,18 +60,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         PLAY_NOTE_ARRAY(tone_qwerty);
       }
       return true; // Let QMK send the enter press/release events
+    default:
+      return true; // Process all other keycodes normally
   }
 }
 ```
 
-### `process_record_*` Function documentation
+### `process_record_*` Function Documentation
 
-* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)` 
+* Keyboard/Revision: `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 * Keymap: `bool process_record_user(uint16_t keycode, keyrecord_t *record)`
 
 The `keycode` argument is whatever is defined in your keymap, eg `MO(1)`, `KC_L`, etc. You should use a `switch...case` block to handle these events.
 
-The `record` argument contains infomation about the actual press:
+The `record` argument contains information about the actual press:
 
 ```
 keyrecord_t record {
@@ -96,10 +98,10 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-### Example `led_set_kb()` implementation
+### Example `led_set_user()` Implementation
 
 ```
-void led_set_kb(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         PORTB |= (1<<0);
     } else {
@@ -128,23 +130,22 @@ void led_set_kb(uint8_t usb_led) {
 }
 ```
 
-### `led_set_*` Function documentation
+### `led_set_*` Function Documentation
 
-* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)` 
+* Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
 # Matrix Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
-### Example `matrix_init_kb()` implementation
+### Example `matrix_init_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```
-void matrix_init_kb(void) {
+void matrix_init_user(void) {
   // Call the keymap level matrix init.
-  matrix_init_user();
 
   // Set our LED pins as output
   DDRB |= (1<<1);
@@ -153,20 +154,20 @@ void matrix_init_kb(void) {
 }
 ```
 
-### `matrix_init_*` Function documentation
+### `matrix_init_*` Function Documentation
 
-* Keyboard/Revision: `void matrix_init_kb(void)` 
+* Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
 # Matrix Scanning Code
 
 Whenever possible you should customize your keyboard by using `process_record_*()` and hooking into events that way, to ensure that your code does not have a negative performance impact on your keyboard. However, in rare cases it is necessary to hook into the matrix scanning. Be extremely careful with the performance of code in these functions, as it will be called at least 10 times per second.
 
-### Example `matrix_scan_*` implementation
+### Example `matrix_scan_*` Implementation
 
 This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on gitter](https://gitter.im/qmk/qmk_firmware).
 
-### `matrix_scan_*` Function documentation
+### `matrix_scan_*` Function Documentation
 
 * Keyboard/Revision: `void matrix_scan_kb(void)`
 * Keymap: `void matrix_scan_user(void)`
@@ -174,3 +175,41 @@ This example has been deliberately omitted. You should understand enough about Q
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
+
+
+# Layer Change Code
+
+Thir runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling. 
+
+### Example `layer_state_set_*` Implementation
+
+This example shows how to set the [RGB Underglow](feature_rgblight.md) lights based on the layer, using the Planck as an example
+
+```
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+```
+### `matrix_init_*` Function Documentation
+
+* Keyboard/Revision: `void uint32_t layer_state_set_kb(uint32_t state)`
+* Keymap: `uint32_t layer_state_set_user(uint32_t state)`
+
+The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)

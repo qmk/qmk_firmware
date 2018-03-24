@@ -23,9 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_H
 
 #include "config_common.h"
-
-#ifdef SUBPROJECT_rev1
-    #include "rev1/config.h"
-#endif
-
+    
 #endif

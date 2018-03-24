@@ -6,7 +6,7 @@
 # Stack size to be allocated to the Cortex-M process stack. This stack is
 # the stack used by the main() thread.
 ifeq ($(USE_PROCESS_STACKSIZE),)
-  USE_PROCESS_STACKSIZE = 0x200
+  USE_PROCESS_STACKSIZE = 0x800
 endif
 
 # Stack size to the allocated to the Cortex-M main/exceptions stack. This
@@ -26,7 +26,7 @@ endif
 # Imported source files and paths
 CHIBIOS = $(TOP_DIR)/lib/chibios
 CHIBIOS_CONTRIB = $(TOP_DIR)/lib/chibios-contrib
-# Startup files. Try a few different locations, for compability with old versions and 
+# Startup files. Try a few different locations, for compability with old versions and
 # for things hardware in the contrib repository
 STARTUP_MK = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
 ifeq ("$(wildcard $(STARTUP_MK))","")
@@ -46,13 +46,32 @@ endif
 include $(PLATFORM_MK)
 
 
-BOARD_MK = $(KEYBOARD_PATH)/boards/$(BOARD)/board.mk
+BOARD_MK :=
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_5)
+    BOARD_MK += $(KEYBOARD_PATH_5)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_4)
+    BOARD_MK += $(KEYBOARD_PATH_4)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_3)
+    BOARD_MK += $(KEYBOARD_PATH_3)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_2)
+    BOARD_MK += $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(KEYBOARD_PATH_1)
+    BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
+endif
+
 ifeq ("$(wildcard $(BOARD_MK))","")
 	BOARD_MK = $(CHIBIOS)/os/hal/boards/$(BOARD)/board.mk
 	ifeq ("$(wildcard $(BOARD_MK))","")
 		BOARD_MK = $(CHIBIOS_CONTRIB)/os/hal/boards/$(BOARD)/board.mk
 	endif
 endif
+
 include $(BOARD_MK)
 include $(CHIBIOS)/os/hal/osal/rt/osal.mk
 # RTOS files (optional).
@@ -72,10 +91,18 @@ RULESPATH = $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC
 endif
 
 # Define linker script file here
-ifneq ("$(wildcard $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld)","")
-LDSCRIPT = $(KEYBOARD_PATH)/ld/$(MCU_LDSCRIPT).ld
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_5)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_4)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_3)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
 else
-LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
+    LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
 
 CHIBISRC = $(STARTUPSRC) \
@@ -88,14 +115,14 @@ CHIBISRC = $(STARTUPSRC) \
        $(STREAMSSRC) \
 	   $(STARTUPASM) \
 	   $(PORTASM) \
-	   $(OSALASM)         
+	   $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
-	   
+
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various 
+         $(STREAMSINC) $(CHIBIOS)/os/various
 
 #
 # Project, sources and paths
@@ -112,17 +139,18 @@ SIZE = arm-none-eabi-size
 AR = arm-none-eabi-ar
 NM = arm-none-eabi-nm
 HEX = $(OBJCOPY) -O $(FORMAT)
-EEP = 
+EEP =
 BIN = $(OBJCOPY) -O binary
 
-THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB 
+THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
-COMPILEFLAGS += -fomit-frame-pointer 
+COMPILEFLAGS += -fomit-frame-pointer
 COMPILEFLAGS += -falign-functions=16
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
-COMPILEFLAGS += $(THUMBFLAGS) 
+COMPILEFLAGS += -fshort-wchar
+COMPILEFLAGS += $(THUMBFLAGS)
 
 CFLAGS += $(COMPILEFLAGS)
 
@@ -132,6 +160,7 @@ CPPFLAGS += $(COMPILEFLAGS)
 CPPFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
+LDFLAGS +=-Wl,--no-wchar-size-warning
 LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
@@ -141,9 +170,25 @@ OPT_DEFS += -DPROTOCOL_CHIBIOS
 
 MCUFLAGS = -mcpu=$(MCU)
 
+# FPU options default (Cortex-M4 and Cortex-M7 single precision).
+ifeq ($(USE_FPU_OPT),)
+  USE_FPU_OPT = -mfloat-abi=$(USE_FPU) -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+endif
+
+# FPU-related options
+ifeq ($(USE_FPU),)
+  USE_FPU = no
+endif
+ifneq ($(USE_FPU),no)
+  OPT    += $(USE_FPU_OPT)
+  OPT_DEFS  += -DCORTEX_USE_FPU=TRUE
+else
+  OPT_DEFS  += -DCORTEX_USE_FPU=FALSE
+endif
+
 DEBUG = gdb
 
-DFU_ARGS =
+DFU_ARGS ?=
 ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
@@ -153,7 +198,31 @@ EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
 
-dfu-util: $(BUILD_DIR)/$(TARGET).bin sizeafter
+# Generate a .qmk for the QMK-FF
+qmk: $(BUILD_DIR)/$(TARGET).bin
+	zip $(TARGET).qmk -FSrj $(KEYMAP_PATH)/*
+	zip $(TARGET).qmk -u $<
+	printf "@ $<\n@=firmware.bin\n" | zipnote -w $(TARGET).qmk
+	printf "{\n  \"generated\": \"%s\"\n}" "$$(date)" > $(BUILD_DIR)/$(TARGET).json
+	if [ -f $(KEYBOARD_PATH_5)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_5)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_4)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_4)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_3)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_3)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_2)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_2)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	if [ -f $(KEYBOARD_PATH_1)/info.json ]; then \
+		jq -s '.[0] * .[1]' $(BUILD_DIR)/$(TARGET).json $(KEYBOARD_PATH_1)/info.json | ex -sc 'wq!$(BUILD_DIR)/$(TARGET).json' /dev/stdin; \
+	fi
+	zip $(TARGET).qmk -urj $(BUILD_DIR)/$(TARGET).json
+	printf "@ $(TARGET).json\n@=info.json\n" | zipnote -w $(TARGET).qmk
+
+dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter

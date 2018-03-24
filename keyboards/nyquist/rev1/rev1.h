@@ -1,7 +1,7 @@
 #ifndef REV1_H
 #define REV1_H
 
-#include QMK_KEYBOARD_H
+#include "nyquist.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -62,5 +62,7 @@
 		{ R40, R41, R42, R43, R44, R45 } \
 	}
 #endif
+
+#define LAYOUT_ortho_5x12 KEYMAP
 
 #endif

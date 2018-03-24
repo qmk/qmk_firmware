@@ -110,10 +110,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------     ------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_END, KC_HOME, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC, \
+  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE, \
+  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_END,  KC_HOME, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY  \
 ),
 
 /* Raise
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,------------------------------------------     ------------------------------------------.
- * |      | Reset|      |      |      |      |     |      |      |      |      |      |  Del |
+ * | Reset|      | Plain|Breath|Rainbw| Swirl|     | Snake|Knight| Xmas |Grdent|      |  Del |
  * |------+------+------+------+------+-------     -------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|AGnorm|     |AGswap|Qwerty|Colemk|Dvorak|      |      |
  * |------+------+------+------+------+-------     -------+------+------+------+------+------|
@@ -146,10 +146,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------     ------------------------------------------'
  */
 [_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-  _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, C_S_ESC, C_A_DEL \
+  RESET,   _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, _______, KC_DEL,  \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,  AG_SWAP,  QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+  _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD,  RGB_SAI,  RGB_VAD, RGB_VAI, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______, C_S_ESC, C_A_DEL \
 )
 
 
@@ -193,45 +193,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LOWER:
       if (record->event.pressed) {
+
+        if (IS_LAYER_OFF(_RAISE) && IS_LAYER_OFF(_ADJUST)) {
+          // Save current RGB info
+          RGB_current_mode = rgblight_config.mode;
+          RGB_current_hue = rgblight_config.hue;
+
+          // Set RGB to Blue
+          rgblight_mode(1);
+          rgblight_setrgb(0, 0, 255);
+        }
+
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Save current RGB info
-        RGB_current_mode = rgblight_config.mode;
-        RGB_current_hue = rgblight_config.hue;
-
-        // Set RGB to Blue
-        rgblight_mode(1);
-        rgblight_setrgb(0, 0, 254);
+        if (IS_LAYER_ON(_ADJUST)){
+          // Set RGB to cyan
+          rgblight_setrgb(0, 255, 255);
+        }
       } else {
+
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Reset RGB
-        rgblight_mode(RGB_current_mode);
-        rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        if (IS_LAYER_OFF(_RAISE) && IS_LAYER_OFF(_ADJUST)) {
+          // Reset RGB
+          rgblight_mode(RGB_current_mode);
+          rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        } else if (IS_LAYER_ON(_RAISE)){
+          // Set RGB to Red
+          rgblight_setrgb(0, 255, 0);
+        }
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
+
+        if (IS_LAYER_OFF(_LOWER) && IS_LAYER_OFF(_ADJUST)) {
+          // Save current RGB info
+          RGB_current_mode = rgblight_config.mode;
+          RGB_current_hue = rgblight_config.hue;
+
+          // Set RGB to Green
+          rgblight_mode(1);
+          rgblight_setrgb(0, 255, 0);
+        }
+
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Save current RGB info
-        RGB_current_mode = rgblight_config.mode;
-        RGB_current_hue = rgblight_config.hue;
-
-        // Set RGB to Green
-        rgblight_mode(1);
-        rgblight_setrgb(0, 254, 0);
+        if (IS_LAYER_ON(_ADJUST)){
+          // Set RGB to cyan
+          rgblight_setrgb(0, 255, 255);
+        }
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
 
-        // Reset RGB
-        rgblight_mode(RGB_current_mode);
-        rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        if (IS_LAYER_OFF(_LOWER) && IS_LAYER_OFF(_ADJUST)) {
+          // Reset RGB
+          rgblight_mode(RGB_current_mode);
+          rgblight_sethsv(RGB_current_hue, rgblight_config.sat, rgblight_config.val);
+        } else if (IS_LAYER_ON(_LOWER)){
+          // Set RGB to Blue
+          rgblight_setrgb(0, 0, 255);
+        }
       }
       return false;
       break;
