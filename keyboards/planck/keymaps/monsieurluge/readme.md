@@ -32,8 +32,12 @@ _todo layout picture_
 
 Make
 
-> make planck/rev4:monsieurluge
+`make planck/rev4:monsieurluge`
 
 Flash
 
-> sudo dfu-programmer atmega32u4 flash planck_rev4_monsieurluge.hex
+```
+sudo dfu-programmer atmega32u4 erase
+sudo dfu-programmer atmega32u4 flash planck_rev4_monsieurluge.hex
+sudo dfu-programmer atmega32u4 reset
+```
