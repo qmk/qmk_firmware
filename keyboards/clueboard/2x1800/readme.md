@@ -1,12 +1,10 @@
-# 2x1800
+# Clueboard 2x1800
 
-![2x1800](imgur.com image replace me!)
+Clueboard Double 1800 All The Way
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+* Keyboard Maintainer: [Zach White](https://github.com/skullydazed)
+* Hardware Supported: Clueboard 2x1800 PCB
+* Hardware Availability: 2018 Apr 1 Group Buy
 
 Make example for this keyboard (after setting up your build environment):
 
