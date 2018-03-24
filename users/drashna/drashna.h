@@ -169,9 +169,13 @@ enum {
 // Since our quirky block definitions are basically a list of comma separated
 // arguments, we need a wrapper in order for these definitions to be
 // expanded before being used as arguments to the LAYOUT_xxx macro.
+#if (!defined(LAYOUT) && defined(KEYMAP))
+#define LAYOUT KEYMAP
+#endif
+
 #define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define KEYMAP_wrapper(...)           KEYMAP(__VA_ARGS__)
+#define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
 
 
 // Blocks for each of the four major keyboard layouts
