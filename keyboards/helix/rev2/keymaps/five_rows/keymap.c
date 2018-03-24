@@ -206,15 +206,20 @@ float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
+static int current_default_layer;
+
+uint32_t default_layer_state_set_kb(uint32_t state) {
+    // 1<<_QWERTY  - 1 == 1 - 1 == _QWERTY
+    // 1<<_COLEMAK - 1 == 2 - 1 == _COLEMAK
+    current_default_layer = state - 1;
+    // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK
+    if ( current_default_layer >= 3 ) current_default_layer -= 1;
+    return state;
+}
+
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
-static uint32_t current_default_layer_state;
-
-uint32_t default_layer_state_set_kb(uint32_t state) {
-    current_default_layer_state = state;
-    return state;
-}
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -431,32 +436,27 @@ static void render_logo(struct CharacterMatrix *matrix) {
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
 }
 
-// #define DEBUG_OLED_LAYER_DISPLAY
-
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
 
-static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Lower_name[]   PROGMEM = ":Func";
+static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Adjust_name[]  PROGMEM = ":Adjust";
+static const char Unknown_name[] PROGMEM = ":?";
 
 static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
-    [_RAISE] = Raise_name,
     [_LOWER] = Lower_name,
+    [_RAISE] = Raise_name,
+    [5] = Unknown_name, [6] = Unknown_name, [7] = Unknown_name,
+    [8] = Unknown_name, [9] = Unknown_name, [10] = Unknown_name,
+    [11] = Unknown_name, [12] = Unknown_name, [13] = Unknown_name,
+    [14] = Unknown_name, [15] = Unknown_name,
     [_ADJUST] = Adjust_name
 };
-
-static int search_bit_form_lsb(uint32_t data)
-{
-    int i;
-    for( i = 0; i < 32 && (data & 1)==0 ; data >>= 1, i++ )
-	{}
-    return i;
-}
 
 void render_status(struct CharacterMatrix *matrix) {
 
@@ -473,21 +473,9 @@ void render_status(struct CharacterMatrix *matrix) {
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-#ifdef DEBUG_OLED_LAYER_DISPLAY
-  char buf[40];
-#endif
   int name_num;
   uint32_t lstate;
-
-  name_num = search_bit_form_lsb(current_default_layer_state);
-  if( name_num < sizeof(layer_names)/sizeof(char *) ) {
-      matrix_write_P(matrix, layer_names[name_num]);
-#ifdef DEBUG_OLED_LAYER_DISPLAY
-  } else {
-      snprintf(buf, sizeof(buf), "base=%d? ", name_num);
-      matrix_write(matrix, buf);
-#endif
-  }
+  matrix_write_P(matrix, layer_names[current_default_layer]);
   matrix_write_P(matrix, PSTR("\n"));
   for( lstate = layer_state, name_num = 0;
        lstate && name_num < sizeof(layer_names)/sizeof(char *);
@@ -495,11 +483,6 @@ void render_status(struct CharacterMatrix *matrix) {
       if( (lstate & 1) != 0 ) {
 	  if( layer_names[name_num] ) {
 	      matrix_write_P(matrix, layer_names[name_num]);
-#ifdef DEBUG_OLED_LAYER_DISPLAY
-	  } else {
-	      snprintf(buf, sizeof(buf), ":L=%d?", name_num);
-	      matrix_write(matrix, buf);
-#endif
 	  }
       }
   }
