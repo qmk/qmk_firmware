@@ -27,12 +27,14 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum layer_number {
+    _QWERTY = 0,
+    _COLEMAK,
+    _DVORAK,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -41,7 +43,6 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
   EISU,
   KANA,
   RGBRST
@@ -443,7 +444,6 @@ static const char Dvorak_name[]  PROGMEM = " Dvorak";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Adjust_name[]  PROGMEM = ":Adjust";
-static const char Unknown_name[] PROGMEM = ":?";
 
 static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
@@ -451,10 +451,6 @@ static const char *layer_names[] = {
     [_DVORAK] = Dvorak_name,
     [_LOWER] = Lower_name,
     [_RAISE] = Raise_name,
-    [5] = Unknown_name, [6] = Unknown_name, [7] = Unknown_name,
-    [8] = Unknown_name, [9] = Unknown_name, [10] = Unknown_name,
-    [11] = Unknown_name, [12] = Unknown_name, [13] = Unknown_name,
-    [14] = Unknown_name, [15] = Unknown_name,
     [_ADJUST] = Adjust_name
 };
 
