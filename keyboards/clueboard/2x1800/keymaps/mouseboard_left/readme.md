@@ -1,1 +1,1 @@
-# The default keymap for 2x1800
+# Mouse keys in the left numpad
