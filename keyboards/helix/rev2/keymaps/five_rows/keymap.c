@@ -434,6 +434,17 @@ static void render_logo(struct CharacterMatrix *matrix) {
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
     0};
   matrix_write(matrix, logo);
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_ANIMATIONS)
+  char buf[30];
+  if(rgblight_config.enable) {
+      snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
+	       rgblight_config.mode,
+	       rgblight_config.hue/RGBLIGHT_HUE_STEP,
+	       rgblight_config.sat/RGBLIGHT_SAT_STEP,
+	       rgblight_config.val/RGBLIGHT_VAL_STEP);
+      matrix_write(matrix, buf);
+  }
+#endif
   //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
 }
 
