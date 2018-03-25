@@ -44,6 +44,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Happy Hacking Keyboard](/keyboards/hhkb) &mdash; The Happy Hacking keyboard can be hacked with a custom controller to run QMK.
 * [Infinity 60%](/keyboards/infinity60) - &mdash; Compact community keyboard by Input Club.
 * [JD45](/keyboards/jd45) &mdash; Another Geekhack community project, designed by jdcarpe.
+* [JJ40](/keyboards/jj40) &mdash; ps2avrGB based ortholinear sold by KPrepublic
 * [KBD75](/keyboards/kbd75) &mdash; A 75% keyboard made by made by KBDFans.
 * [KC60](/keyboards/kc60) &mdash; A programmable Chinese-made keyboard, lost in the mists of time.
 * [Kinesis Advantage](/keyboards/kinesis) &mdash; Contoured ergonomic keyboard by Kinesis Computer Ergonomics.
@@ -52,10 +53,11 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
 * [Retro Refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
-* [S60-x](/keyboards/s60-x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
+* [S60-x](/keyboards/s60_x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
 * [Satan](/keyboards/satan) &mdash; A GH60 variant.
 * [SixKeyBoard](/keyboards/sixkeyboard) &mdash; A 6-key keyboard made by TechKeys.
 * [TheVan 44](/keyboards/tv44) &mdash; A 44-key staggered keybard by Evangs.
 * [WhiteFox](/keyboards/whitefox) &mdash; A 65% keyboard designed as a partnership by matt3o, Massdrop and Input Club
 * [Vision Division](/keyboards/vision_division) &mdash; Full Size / Split Linear Keyboard by IBNobody.
 * [XD75](/keyboards/xd75) &mdash; 15x5 ortholinear keyboard by XIUDI.
+* [YMDK NP21](/keyboards/ymdk_np21) &mdash; ps2avrGB based number pad (numpad) sold by YMDK on Aliexpress. 

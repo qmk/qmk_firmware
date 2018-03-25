@@ -1,3 +1,3 @@
 
 SRC += drashna.c
-EXTRAFLAGS        = -flto
+EXTRAFLAGS        += -flto

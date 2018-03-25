@@ -10,7 +10,7 @@
   "width": 12,
   "height": 5,
   "layouts": {
-    "LAYOUT_preonic_mit": {
+    "KEYMAP": {
       "key_count": 59,
       "layout": [ 
         { "w": 1, "x": 0, "y": 0 }, 

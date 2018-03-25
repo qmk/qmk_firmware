@@ -30,4 +30,4 @@ Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` fol
 - [Shane's Fork](https://github.com/shanecelis/tmk_keyboard/tree/master/keyboard/planck)
 - [Pierre's Fork](https://github.com/pcarrier/tmk_keyboard/blob/pcarrier/planck/keyboard/gh60/keymap_planck.c)
 - [Nathan's Fork](https://github.com/nathanrosspowell/tmk_keyboard/tree/planck-jack/keyboard/planck)
-- [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck_grid)
+- [Matthew's Fork](https://github.com/pepers/tmk_keyboard/tree/master/keyboard/planck)

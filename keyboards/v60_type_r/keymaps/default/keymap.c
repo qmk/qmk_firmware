@@ -15,7 +15,7 @@
  */
 
 /* This is the default layout provided by the KBP V60 Type R
-* as depicted in their manual and on the stock keycaps. 
+* as depicted in their manual and on the stock keycaps.
 */
 #include "v60_type_r.h"
 
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	       KC_TRNS,   KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,        KC_TRNS,          \
 	       KC_TRNS,   KC_NO,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN, KC_DOWN,         KC_TRNS, KC_NO,  \
 	       KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS, KC_TRNS,KC_TRNS, KC_TRNS),
- 
+
 };
 
 
@@ -85,18 +85,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
 
 void led_set_user(uint8_t usb_led) {
 

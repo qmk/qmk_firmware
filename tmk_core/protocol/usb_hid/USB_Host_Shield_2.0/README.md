@@ -10,7 +10,7 @@ Project main web site is: <http://www.circuitsathome.com>.
 
 Some information can also be found at: <http://blog.tkjelectronics.dk/>.
 
-The shield can be purchased at the main site: <http://www.circuitsathome.com/products-page/arduino-shields> or from [TKJ Electronics](http://tkjelectronics.com/): <http://shop.tkjelectronics.dk/product_info.php?products_id=43>.
+The shield can be purchased at the main site: <https://www.circuitsathome.com/arduino_usb_host_shield_projects/> or from [TKJ Electronics](http://tkjelectronics.com/): <http://shop.tkjelectronics.dk/product_info.php?products_id=43>.
 
 ![USB Host Shield](http://shop.tkjelectronics.dk/images/USB_Host_Shield1.jpg)
 
@@ -196,7 +196,7 @@ Also take a look at the blog posts:
 
 A special thanks go to the following people:
 
-1. _Richard Ibbotson_ who made this excellent guide: <http://www.circuitsathome.com/mcu/ps3-and-wiimote-game-controllers-on-the-arduino-host-shield-part>
+1. _Richard Ibbotson_ who made this excellent guide: <https://www.circuitsathome.com/mcu/ps3-and-wiimote-game-controllers-on-the-arduino-host-shield-part-1/>
 2. _Tomoyuki Tanaka_ for releasing his code for the Arduino USB Host shield connected to the wiimote: <http://www.circuitsathome.com/mcu/rc-car-controlled-by-wii-remote-on-arduino>
 
 Also a big thanks all the people behind these sites about the Motion controller:
@@ -216,10 +216,10 @@ The [XBOXOLD](XBOXOLD.cpp) class implements support for the original Xbox contro
 
 All the information are from the following sites:
 
-* <https://github.com/torvalds/linux/blob/master/Documentation/input/xpad.txt>
+* <https://github.com/torvalds/linux/blob/master/Documentation/input/devices/xpad.rst>
 * <https://github.com/torvalds/linux/blob/master/drivers/input/joystick/xpad.c>
 * <http://euc.jp/periphs/xbox-controller.ja.html>
-* <https://github.com/Grumbel/xboxdrv/blob/master/PROTOCOL#L15>
+* <https://github.com/Grumbel/xboxdrv/blob/stable/PROTOCOL#L15>
 
 #### Xbox 360 Library
 
@@ -241,7 +241,7 @@ All the information regarding the Xbox 360 controller protocol are form these si
 
 * <http://tattiebogle.net/index.php/ProjectRoot/Xbox360Controller/UsbInfo>
 * <http://tattiebogle.net/index.php/ProjectRoot/Xbox360Controller/WirelessUsbInfo>
-* <https://github.com/Grumbel/xboxdrv/blob/master/PROTOCOL>
+* <https://github.com/Grumbel/xboxdrv/blob/stable/PROTOCOL>
 
 #### Xbox ONE Library
 

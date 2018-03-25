@@ -25,7 +25,8 @@ These functions allow you to activate layers in various ways.
 * `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped.
 * `TG(layer)` - toggles a layer on or off.
 * `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
-* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you repeatedly tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+* `LM(layer, mod)` - Momentary switch to *layer* (like MO), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
 
 # Working with Layers
 
@@ -116,7 +117,7 @@ These are the values you can use for the `mod` in `MT()` and `OSM()`:
   * MOD_HYPR
   * MOD_MEH
 
-These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped. Note however, that you cannot mix right and left side modifiers.
+These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
 
 We've added shortcuts to make common modifier/tap (mod-tap) mappings more compact:
 
@@ -128,6 +129,12 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
+
+{% hint style='info' %}
+Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
+
+Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
+{% endhint %}
 
 # One Shot Keys
 

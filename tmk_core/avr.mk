@@ -136,7 +136,7 @@ flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	
 DFU_PROGRAMMER ?= dfu-programmer
 
-dfu: $(BUILD_DIR)/$(TARGET).hex check-size
+dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
@@ -172,16 +172,21 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 	if grep -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
+		printf "Detecting USB port, reset your controller now."; \
 		ls /dev/tty* > /tmp/1; \
-		echo "Detecting USB port, reset your controller now.\c"; \
 		while [ -z $$USB ]; do \
-			sleep 1; \
-			echo ".\c"; \
+			sleep 0.5; \
+			printf "."; \
 			ls /dev/tty* > /tmp/2; \
-			USB=`diff /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+			USB=`comm -13 /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
 		echo "Detected controller on USB port at $$USB"; \
+		if grep -q -s 'MINGW\|MSYS' /proc/version; then \
+			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
+			echo "Remapped MSYS2 USB port to $$USB"; \
+		fi; \
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
@@ -246,16 +251,16 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader: 
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	echo "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `grep "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	make -C lib/lufa/Bootloaders/DFU/
-	echo "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
+	echo -e "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader

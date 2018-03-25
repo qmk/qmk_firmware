@@ -345,21 +345,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_BREATH_SPEED_INC:
             if (record->event.pressed)
             {
-                breathing_speed_inc(1);
+                breathing_period_inc();
             }
             break;
 
         case MACRO_BREATH_SPEED_DEC:
             if (record->event.pressed)
             {
-                breathing_speed_dec(1);
+                breathing_period_dec();
             }
             break;
 
         case MACRO_BREATH_DEFAULT:
             if (record->event.pressed)
             {
-                breathing_defaults();
+                breathing_period_default();
             }
             break;
 
@@ -374,7 +374,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed)
             {
                 layer_on(LAYER_UPPER);
-                breathing_speed_set(2);
+                breathing_period_set(2);
                 breathing_pulse();
                 update_tri_layer(LAYER_LOWER, LAYER_UPPER, LAYER_ADJUST);
             }
@@ -389,7 +389,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             if (record->event.pressed)
             {
                 layer_on(LAYER_LOWER);
-                breathing_speed_set(2);
+                breathing_period_set(2);
                 breathing_pulse();
                 update_tri_layer(LAYER_LOWER, LAYER_UPPER, LAYER_ADJUST);
             }
@@ -403,13 +403,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case MACRO_FUNCTION:
             if (record->event.pressed)
             {
-                breathing_speed_set(3);
+                breathing_period_set(3);
                 breathing_enable();
                 layer_on(LAYER_FUNCTION);
             }
             else
             {
-                breathing_speed_set(1);
+                breathing_period_set(1);
                 breathing_self_disable();
                 layer_off(LAYER_FUNCTION);
             }
