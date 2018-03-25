@@ -47,6 +47,7 @@ enum planck_keycodes {
   DISNEY,
   NUMBERONE,
   CABBAGE,
+  OLDSPICE,
 };
 
 enum {
@@ -141,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_MUSIC] = {
-  {MARIO,   MARIOE, OVERWATCH,  DOOM, DISNEY, NUMBERONE, CABBAGE, _______, _______, _______, _______, _______},
+  {MARIO,  MARIOE, OVERWATCH,  DOOM, DISNEY, NUMBERONE, CABBAGE, OLDSPICE, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -150,8 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+  float guitar[][2] = SONG(GUITAR_SOUND);
   float mario[][2] = SONG(MARIO_THEME);
   float marioe[][2] = SONG(MARIO_GAMEOVER);
   float overwatch[][2] = SONG(OVERWATCH_THEME);
@@ -159,6 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float disney[][2] = SONG(DISNEY_SONG);
   float numberone[][2] = SONG(NUMBER_ONE);
   float cabbage[][2] = SONG(CABBAGE_SONG);
+  float oldspice[][2] = SONG(OLD_SPICE);
 #endif
 
 void setLayer(int layer) {
@@ -183,7 +184,7 @@ void setLayer(int layer) {
     } else if (layer == _MUSIC) {
         #ifdef AUDIO_ENABLE
             stop_all_notes();
-            PLAY_SONG(cabbage);
+            PLAY_SONG(guitar);
         #endif
         set_single_persistent_default_layer(_MUSIC);
         #ifdef BACKLIGHT_ENABLE
@@ -314,6 +315,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if(record->event.pressed) {
             #ifdef AUDIO_ENABLE
               PLAY_SONG(cabbage);
+            #endif
+          }
+          return false; break;
+      case OLDSPICE:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(oldspice);
             #endif
           }
           return false; break;

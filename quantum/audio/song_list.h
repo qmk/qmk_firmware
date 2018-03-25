@@ -407,4 +407,14 @@
     H__NOTE(_G4),    \
     H__NOTE(_E4),
 
+#define OLD_SPICE  \
+    Q__NOTE(_A4 ), \
+    Q__NOTE(_A4 ), \
+    H__NOTE(_B4 ), \
+    H__NOTE(_D5 ), \
+    H__NOTE(_CS5), \
+    Q__NOTE(_E5 ), \
+    H__NOTE(_FS5), \
+    H__NOTE(_D5 ), \
+
 #endif
