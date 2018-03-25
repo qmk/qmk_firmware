@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_PWM_MAP {2, 4, 8, 16, 40, 55, 70, 128, 200, 255}
-#define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
