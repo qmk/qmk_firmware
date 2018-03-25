@@ -19,32 +19,34 @@
 
 extern keymap_config_t keymap_config;
 bool isGame = false;
+bool isMusic = false;
 
 
 enum planck_layers {
   _COLEMAK,
-  _QWERTY,
-  _DVORAK,
   _GAME,
+  _MUSIC,
   _LOWER,
   _RAISE,
-  _PLOVER,
   _ADJUST,
 };
 
 enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  COLEMAK = SAFE_RANGE,
   GCTOGG,
-  PLOVER,
+  MCTOGG,
   LOWER,
   RAISE,
-  BACKLIT,
-  EXT_PLV,
   LENNY,
   COMMENTHEAD,
-  RICKANDMORT
+  RICKANDMORT,
+  MARIO,
+  MARIOE,
+  OVERWATCH,
+  DOOM,
+  DISNEY,
+  NUMBERONE,
+  CABBAGE,
 };
 
 enum {
@@ -58,24 +60,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-/* Qwerty
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | GUI  | Alt  |lenny |Lower | shift|space |Raise | macro|macro2|macro3|Colema|
- * `-----------------------------------------------------------------------------------'
- */
-[_QWERTY] = {
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {TD(TD_ESC_CAPS),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, LENNY, LOWER, RSFT_T(KC_BSPC), TD(TD_SPC_ENT), RAISE, COMMENTHEAD, RICKANDMORT, _______, COLEMAK}
-},
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
@@ -93,24 +77,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS},
   {KC_LCTL, KC_LGUI, KC_LALT, LENNY, LOWER,   RSFT_T(KC_BSPC),  TD(TD_SPC_ENT),  RAISE,   COMMENTHEAD, RICKANDMORT, KC_LEFT, KC_RGHT}
-},
-
-/* Dvorak
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_DVORAK] = {
-  {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC},
-  {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH},
-  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
 /* Lower
@@ -139,33 +105,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |  bl- |  bl+ | bltg |
+ * |      |      |      |      |      |             |      |      |  bl- |  bl+ | GCTG |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL},
   {KC_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, BL_DEC,  BL_INC,  GCTOGG}
-},
-
-/* Plover layer (http://opensteno.org)
- * ,-----------------------------------------------------------------------------------.
- * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-
-[_PLOVER] = {
-  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, BL_DEC,  MCTOGG,  GCTOGG}
 },
 
 /* Adjust (Lower + Raise)
@@ -181,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
+  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  COLEMAK, _______,  _______,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______,  TERM_ON, TERM_OFF, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -191,69 +138,101 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS},
   {KC_LCTL, RAISE, KC_LALT, LOWER, KC_SPC, RSFT_T(KC_BSPC), TD(TD_SPC_ENT), RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT}
-}
+},
 
+[_MUSIC] = {
+  {MARIO,   MARIOE, OVERWATCH,  DOOM, DISNEY, NUMBERONE, CABBAGE, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+}
 
 };
 
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-  float game_song[][2] = SONG(MARIO_THEME);
-  float work_song[][2] = SONG(MARIO_GAMEOVER);
+  float mario[][2] = SONG(MARIO_THEME);
+  float marioe[][2] = SONG(MARIO_GAMEOVER);
+  float overwatch[][2] = SONG(OVERWATCH_THEME);
+  float doom[][2] = SONG(E1M1_DOOM);
+  float disney[][2] = SONG(DISNEY_SONG);
+  float numberone[][2] = SONG(NUMBER_ONE);
+  float cabbage[][2] = SONG(CABBAGE_SONG);
 #endif
+
+void setLayer(int layer) {
+    if (layer == _COLEMAK) {
+        #ifdef AUDIO_ENABLE
+            stop_all_notes();
+            PLAY_SONG(marioe);
+        #endif
+        set_single_persistent_default_layer(_COLEMAK);
+        #ifdef BACKLIGHT_ENABLE
+            backlight_set(0);
+        #endif
+    } else if (layer == _GAME) {
+        #ifdef AUDIO_ENABLE
+            stop_all_notes();
+            PLAY_SONG(mario);
+        #endif
+        set_single_persistent_default_layer(_GAME);
+        #ifdef BACKLIGHT_ENABLE
+            backlight_set(15);
+        #endif
+    } else if (layer == _MUSIC) {
+        #ifdef AUDIO_ENABLE
+            stop_all_notes();
+            PLAY_SONG(cabbage);
+        #endif
+        set_single_persistent_default_layer(_MUSIC);
+        #ifdef BACKLIGHT_ENABLE
+            backlight_set(1);
+        #endif
+    }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
-		backlight_set(0);
+        #ifdef BACKLIGHT_ENABLE
+		  backlight_set(0);
+        #endif
       }
       return false;
       break;
 	case GCTOGG:
       if (record->event.pressed) {
-		  if (isGame)
-		  {
-              #ifdef AUDIO_ENABLE
-                 stop_all_notes();
-                 PLAY_SONG(work_song);
-              #endif
-			  set_single_persistent_default_layer(_COLEMAK);
-              #ifdef BACKLIGHT_ENABLE
-                 backlight_set(0);
-              #endif
+		  if (isGame) {
+              if (isMusic)
+                  setLayer(_MUSIC);
+              else
+                  setLayer(_COLEMAK);
               isGame = false;
-		  }	else
-		  {
-            #ifdef AUDIO_ENABLE
-              stop_all_notes();
-              PLAY_SONG(game_song);
-            #endif
-			set_single_persistent_default_layer(_GAME);
-            #ifdef BACKLIGHT_ENABLE
-			  backlight_set(15);
-            #endif
-			isGame = true;
-		  }
-        // set_single_persistent_default_layer(_GAME);
-		// backlight_set(15);
+          } else {
+              setLayer(_GAME);
+              isGame = true;
+          }
       }
       return false;
       break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
+    case MCTOGG:
+        if (record->event.pressed) {
+            if (isMusic) {
+                if (isGame)
+                    setLayer(_GAME);
+                else
+                    setLayer(_COLEMAK);
+                isMusic = false;
+            } else {
+                setLayer(_MUSIC);
+                isMusic = true;
+            }
+        }
+        return false;
+        break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -274,47 +253,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        PORTE &= ~(1<<6);
-      } else {
-        unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
-      }
-      return false;
-      break;
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
     case LENNY:
     	if (record->event.pressed) {
     		SEND_STRING("()");
@@ -330,6 +268,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     		SEND_STRING("// ***************************************************************");
     	}
     	return false; break;
+    case MARIO:
+        if(record->event.pressed) {
+          #ifdef AUDIO_ENABLE
+            PLAY_SONG(mario);
+          #endif
+        }
+        return false; break;
+      case MARIOE:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(marioe);
+            #endif
+          }
+          return false; break;
+      case OVERWATCH:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(overwatch);
+            #endif
+          }
+          return false; break;
+      case DOOM:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(doom);
+            #endif
+          }
+          return false; break;
+      case DISNEY:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(disney);
+            #endif
+          }
+          return false; break;
+      case NUMBERONE:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(numberone);
+            #endif
+          }
+          return false; break;
+      case CABBAGE:
+          if(record->event.pressed) {
+            #ifdef AUDIO_ENABLE
+              PLAY_SONG(cabbage);
+            #endif
+          }
+          return false; break;
   }
   return true;
 }

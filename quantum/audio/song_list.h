@@ -347,5 +347,64 @@
     Q__NOTE(_E3 ), \
     H__NOTE(_BF3),
 
+#define DISNEY_SONG \
+    H__NOTE(_G3 ),  \
+    H__NOTE(_G4 ),  \
+    H__NOTE(_F4 ),  \
+    H__NOTE(_E4 ),  \
+    H__NOTE(_CS4),  \
+    H__NOTE(_D4 ),  \
+    W__NOTE(_A4 ),  \
+    H__NOTE(_B3 ),  \
+    H__NOTE(_B4 ),  \
+    H__NOTE(_A4 ),  \
+    H__NOTE(_G4 ),  \
+    H__NOTE(_FS4),  \
+    H__NOTE(_G4 ),  \
+    W__NOTE(_C5 ),  \
+    H__NOTE(_D5 ),  \
+    H__NOTE(_C5 ),  \
+    H__NOTE(_B4 ),  \
+    H__NOTE(_A4 ),  \
+    H__NOTE(_G4 ),  \
+    H__NOTE(_F4 ),  \
+    H__NOTE(_E4 ),  \
+    H__NOTE(_D4 ),  \
+    W__NOTE(_A4 ),  \
+    W__NOTE(_B3 ),  \
+    W__NOTE(_C4 ),
+
+#define NUMBER_ONE \
+    HD_NOTE(_F4 ), \
+    Q__NOTE(_C5 ), \
+    E__NOTE(_B4 ), \
+    E__NOTE(_C5 ), \
+    E__NOTE(_B4 ), \
+    E__NOTE(_C5 ), \
+    Q__NOTE(_B4 ), \
+    Q__NOTE(_C5 ), \
+    H__NOTE(_AF4), \
+    HD_NOTE(_F4 ), \
+    Q__NOTE(_F4 ), \
+    Q__NOTE(_AF4), \
+    Q__NOTE(_C5 ), \
+    H__NOTE(_DF5), \
+    H__NOTE(_AF4), \
+    H__NOTE(_DF5), \
+    H__NOTE(_EF5), \
+    Q__NOTE(_C5 ), \
+    Q__NOTE(_DF5), \
+    Q__NOTE(_C5 ), \
+    Q__NOTE(_DF5), \
+    H__NOTE(_C5 ),
+
+#define CABBAGE_SONG \
+    H__NOTE(_C4),    \
+    H__NOTE(_A4),    \
+    H__NOTE(_B4),    \
+    H__NOTE(_B4),    \
+    H__NOTE(_A4),    \
+    H__NOTE(_G4),    \
+    H__NOTE(_E4),
 
 #endif
