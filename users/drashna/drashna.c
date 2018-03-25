@@ -335,7 +335,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
     }
     return false;
     break;
