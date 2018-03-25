@@ -34,6 +34,8 @@ This is a C header file that is one of the first things included, and will persi
 ## `config.h` Options
 
 ### Hardware Options
+====================
+
 * `#define VENDOR_ID 0x1234`
   * defines your VID, and for most DIY projects, can be whatever you want
 * `#define PRODUCT_ID 0x5678`
@@ -84,6 +86,7 @@ This is a C header file that is one of the first things included, and will persi
   * key combination that allows the use of magic commands (useful for debugging)
 
 ### Features That Can Be Disabled
+=================================
 
 If you define these options you will disable the associated feature, which can save on code size.
 
@@ -103,6 +106,7 @@ If you define these options you will disable the associated feature, which can s
   * disable the action function (deprecated)
 
 ### Features That Can Be Enabled
+================================
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
@@ -112,6 +116,7 @@ If you define these options you will enable the associated feature, which may in
   * when switching layers, this will release all mods
 
 ### Behaviors That Can Be Configured
+====================================
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold
@@ -140,6 +145,7 @@ If you define these options you will enable the associated feature, which may in
     scan times? You probably want this.
 
 ### RGB Light Configuration
+===========================
 
 * `#define RGB_DI_PIN D7`
   * pin the DI on the ws2812 is hooked-up to
@@ -157,6 +163,7 @@ If you define these options you will enable the associated feature, which may in
   * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
 
 ### Mouse Key Options
+=====================
 
 * `#define MOUSEKEY_INTERVAL 20`
 * `#define MOUSEKEY_DELAY 0`
@@ -171,6 +178,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 ## `rules.mk` Options
 
 ### Build Options
+=================
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
@@ -180,6 +188,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 
 ### AVR MCU Options
+===================
 * `MCU = atmega32u4`
 * `F_CPU = 16000000`
 * `ARCH = AVR8`
@@ -194,6 +203,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `bootloadHID`
 
 ### Feature Options
+===================
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
