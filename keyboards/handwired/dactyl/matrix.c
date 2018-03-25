@@ -71,8 +71,8 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
 #endif
 
-static uint8_t mcp23018_reset_loop;
-uint8_t mcp23018_status;
+static uint8_t expander_reset_loop;
+uint8_t expander_status;
 bool i2c_initialized = false;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
@@ -82,7 +82,7 @@ uint32_t matrix_scan_count;
 
 #define ROW_SHIFTER ((matrix_row_t)1)
 #if (DIODE_DIRECTION == COL2ROW)
-// bitmask to ensure the row state from the mcp23018 only applies to its columns
+// bitmask to ensure the row state from the expander only applies to its columns
 #define EXPANDER_MASK ((matrix_row_t)0b00111111)
 #endif
 
@@ -181,8 +181,8 @@ void init_expander(void) {
     }
 #endif
 
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA);         if (mcp23018_status) goto out;
+    expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
+    expander_status = i2c_write(IODIRA);         if (expander_status) goto out;
 
     /*
     Pin direction and pull-up depends on both the diode direction
@@ -198,19 +198,19 @@ void init_expander(void) {
 
 #if (EXPANDER_COLUMN_REGISTER == 0)
 #   if (DIODE_DIRECTION == COL2ROW)
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
 #   elif (DIODE_DIRECTION == ROW2COL)
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
 #   endif
 #elif (EXPANDER_COLUMN_REGISTER == 1)
 #   if (DIODE_DIRECTION == COL2ROW)
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
 #   elif (DIODE_DIRECTION == ROW2COL)
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
 #   endif
 #endif
 
@@ -220,23 +220,23 @@ void init_expander(void) {
     // - unused  : off : 0
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE);      if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA);               if (mcp23018_status) goto out;
+    expander_status = i2c_start(I2C_ADDR_WRITE);      if (expander_status) goto out;
+    expander_status = i2c_write(GPPUA);               if (expander_status) goto out;
 #if (EXPANDER_COLUMN_REGISTER == 0)
 #   if (DIODE_DIRECTION == COL2ROW)
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
 #   elif (DIODE_DIRECTION == ROW2COL)
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
 #   endif
 #elif (EXPANDER_COLUMN_REGISTER == 1)
 #   if (DIODE_DIRECTION == COL2ROW)
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
 #   elif (DIODE_DIRECTION == ROW2COL)
-        mcp23018_status = i2c_write(input_pin_mask);  if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0);               if (mcp23018_status) goto out;
+        expander_status = i2c_write(input_pin_mask);  if (expander_status) goto out;
+        expander_status = i2c_write(0);               if (expander_status) goto out;
 #   endif
 #endif
 
@@ -246,13 +246,13 @@ out:
 
 uint8_t matrix_scan(void)
 {
-    if (mcp23018_status) { // if there was an error
-        if (++mcp23018_reset_loop == 0) {
-            // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
+    if (expander_status) { // if there was an error
+        if (++expander_reset_loop == 0) {
+            // since expander_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
-            print("trying to reset mcp23018\n");
+            print("trying to reset expander\n");
             init_expander();
-            if (mcp23018_status) {
+            if (expander_status) {
                 print("left side not responding\n");
             } else {
                 print("left side attached\n");
@@ -383,11 +383,11 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     wait_us(30);
 
-    // Read columns from mcp23018, unless it's in an error state
-    if (! mcp23018_status) {
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);          if (mcp23018_status) goto out;
-        mcp23018_status = i2c_start(I2C_ADDR_READ);  if (mcp23018_status) goto out;
+    // Read columns from expander, unless it's in an error state
+    if (! expander_status) {
+        expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
+        expander_status = i2c_write(GPIOA);          if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);  if (expander_status) goto out;
 
         current_matrix[current_row] |= (~i2c_readNak()) & EXPANDER_MASK;
 
@@ -410,13 +410,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 static void select_row(uint8_t row) {
-    // select on mcp23018, unless it's in an error state
-    if (! mcp23018_status) {
+    // select on expander, unless it's in an error state
+    if (! expander_status) {
         // set active row low  : 0
         // set other rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOB);            if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(0xFF & ~(1<<row)); if (mcp23018_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_WRITE);   if (expander_status) goto out;
+        expander_status = i2c_write(GPIOB);            if (expander_status) goto out;
+        expander_status = i2c_write(0xFF & ~(1<<row)); if (expander_status) goto out;
     out:
         i2c_stop();
     }
@@ -429,7 +429,7 @@ static void select_row(uint8_t row) {
 
 static void unselect_row(uint8_t row)
 {
-    // No need to explicitly unselect mcp23018 pins--their I/O state is
+    // No need to explicitly unselect expander pins--their I/O state is
     // set simultaneously, with a single bitmask sent to i2c_write. When
     // select_row selects a single pin, it implicitly unselects all the
     // other ones.
@@ -468,15 +468,15 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     wait_us(30);
 
     if (current_col < 6) {
-        // read rows from mcp23018
-        if (mcp23018_status) {
+        // read rows from expander
+        if (expander_status) {
             // it's already in an error state; nothing we can do
             return false;
         }
 
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE); if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOB);          if (mcp23018_status) goto out;
-        mcp23018_status = i2c_start(I2C_ADDR_READ);  if (mcp23018_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_WRITE); if (expander_status) goto out;
+        expander_status = i2c_write(GPIOB);          if (expander_status) goto out;
+        expander_status = i2c_start(I2C_ADDR_READ);  if (expander_status) goto out;
         column_state = i2c_readNak();
 
         out:
@@ -518,15 +518,15 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void select_col(uint8_t col)
 {
     if (col_expanded[col]) {
-        // select on mcp23018
-        if (mcp23018_status) { // if there was an error
+        // select on expander
+        if (expander_status) { // if there was an error
             // do nothing
         } else {
             // set active col low  : 0
             // set other cols hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);            if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<col)); if (mcp23018_status) goto out;
+            expander_status = i2c_start(I2C_ADDR_WRITE);   if (expander_status) goto out;
+            expander_status = i2c_write(GPIOA);            if (expander_status) goto out;
+            expander_status = i2c_write(0xFF & ~(1<<col)); if (expander_status) goto out;
         out:
             i2c_stop();
         }
@@ -541,7 +541,7 @@ static void select_col(uint8_t col)
 static void unselect_col(uint8_t col)
 {
     if (col_expanded[col]) {
-        // No need to explicitly unselect mcp23018 pins--their I/O state is
+        // No need to explicitly unselect expander pins--their I/O state is
         // set simultaneously, with a single bitmask sent to i2c_write. When
         // select_col selects a single pin, it implicitly unselects all the
         // other ones.
