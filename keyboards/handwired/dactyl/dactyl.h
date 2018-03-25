@@ -24,9 +24,10 @@
 #define OLATB           0x15
 
 extern uint8_t mcp23018_status;
+extern bool i2c_initialized;
 
 void init_dactyl(void);
-uint8_t init_mcp23018(void);
+void init_expander(void);
 
 #define KEYMAP(                                                         \
                                                                         \
