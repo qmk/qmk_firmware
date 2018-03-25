@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // !NO_DEBUG
 #ifndef NO_PRINT
 #define NO_PRINT
-
 #endif // !NO_PRINT
 
 /* disable action features */
@@ -58,7 +57,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT   Drashnas Viterbi Macro Pad
 
 #define USE_I2C
+
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
 #define NO_MUSIC_MODE
+#endif
+
 #define LAYOUT_ortho_5x7( \
     L00, L01, L02, L03, L04, L05, L06, \
     L10, L11, L12, L13, L14, L15, L16, \
