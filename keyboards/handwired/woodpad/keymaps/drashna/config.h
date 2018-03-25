@@ -19,7 +19,7 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#ifdef TAP_DANCE_ENABLE
+#if (defined(TAP_DANCE_ENABLE) && !defined(TAPPING_TERM))
 #define TAPPING_TERM 200
 #endif // TAP_DANCE_ENABLE
 
