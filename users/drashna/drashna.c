@@ -194,15 +194,25 @@ void matrix_scan_user(void) {
 }
 
 // This block is for all of the gaming macros, as they were all doing
-// the same thing, but with differing text sent.
-void send_game_macro(const char *str) {
-  clear_keyboard();
-  register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-  unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
-  wait_ms(50);
-  send_string(str);
-  register_code(KC_ENTER);
-  unregister_code(KC_ENTER);
+// the same thing, but with differring text sent.
+bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
+  if (!record->event.pressed || override) {
+    clear_keyboard();
+    register_code(is_overwatch ? KC_BSPC : KC_ENTER);
+    unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+    wait_ms(50);
+    send_string(str);
+    register_code(KC_ENTER);
+    unregister_code(KC_ENTER);
+  }
+  if (override) wait_ms(3000);
+  return false;
+}
+
+// Sent the default layer
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 
@@ -344,46 +354,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
     is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif //RGBLIGHT_ENABLE
-    return false;
-    break;
-
+    return false; break;
   case KC_SALT:
-    if (!record->event.pressed) { send_game_macro("Salt, salt, salt..."); }
-    return false; break;
+    return send_game_macro("Salt, salt, salt...", record, false);
   case KC_MORESALT:
-    if (!record->event.pressed) { send_game_macro("Please sir, can I have some more salt?!"); }
-    return false; break;
+    return  send_game_macro("Please sir, can I have some more salt?!", record, false);
   case KC_SALTHARD:
-    if (!record->event.pressed) { send_game_macro("Your salt only makes me harder, and even more aggressive!"); }
-    return false; break;
+    return send_game_macro("Your salt only makes me harder, and even more aggressive!", record, false);
   case KC_GOODGAME:
-    if (!record->event.pressed) { send_game_macro("Good game, everyone!"); }
-    return false; break;
+    return send_game_macro("Good game, everyone!", record, false);
   case KC_GLHF:
-    if (!record->event.pressed) { send_game_macro("Good luck, have fun!!!"); }
-    return false; break;
+    return send_game_macro("Good luck, have fun!!!", record, false);
   case KC_SYMM:
-    if (!record->event.pressed) { send_game_macro("Left click to win!"); }
-    return false; break;
+    return send_game_macro("Left click to win!", record, false);
   case KC_JUSTGAME:
-    if (!record->event.pressed) { send_game_macro("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games."); }
-    return false; break;
+    return send_game_macro("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.", record, false);
   case KC_TORB:
-    if (!record->event.pressed) { send_game_macro("That was positively riveting!"); }
-    return false; break;
+    return send_game_macro("That was positively riveting!", record, false);
   case KC_AIM:
-    if (!record->event.pressed) {
-      send_game_macro("That aim is absolutely amazing. It's almost like you're a machine!");
-      wait_ms(3000);
-      send_game_macro("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!");
-    }
-    return false; break;
+    send_game_macro("That aim is absolutely amazing. It's almost like you're a machine!", record, true);
+    return send_game_macro("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!", record, false);
   case KC_C9:
-    if (!record->event.pressed) { send_game_macro("OMG!!!  C9!!!"); }
-    return false; break;
+    return send_game_macro("OMG!!!  C9!!!", record, false);
   case KC_GGEZ:
-    if (!record->event.pressed) { send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!"); }
-    return false; break;
+    return send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!", record, false);
 #endif // !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
 
 
