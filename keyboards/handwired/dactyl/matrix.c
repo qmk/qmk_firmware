@@ -140,28 +140,6 @@ void matrix_init(void)
     matrix_init_quantum();
 }
 
-void matrix_power_up(void) {
-    init_expander();
-
-#if (DIODE_DIRECTION == COL2ROW)
-    unselect_rows();
-    init_cols();
-#elif (DIODE_DIRECTION == ROW2COL)
-    unselect_cols();
-    init_rows();
-#endif
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-    }
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
-}
-
 void init_expander(void) {
     if (! i2c_initialized) {
         i2c_init();
