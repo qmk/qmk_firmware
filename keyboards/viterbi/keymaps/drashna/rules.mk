@@ -9,3 +9,4 @@ AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 
 CUSTOM_MATRIX = no
+LAYOUTS = ortho_5x7

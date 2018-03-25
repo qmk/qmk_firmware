@@ -3,6 +3,33 @@ Overview
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared. 
 
+Userspace Config.h
+------------------
+
+By default, the userspace feature doesn't include a `config.h` file the way that that keyboards, revisions, keymaps and layouts handle them.  This means that if you want global configurations via userspace, it's very difficult to implement.  
+
+The reason for using seperate files here is that the `drashna.h` file doesn't get called in such a way that will actually define QMK settings.  Additionally, attempting to add it to the `config.h` files has issues. Namely, the `drashna.h` file requires the `quantum.h` file... but including this to the `config.h` attemps to redefines a bunch of settings and breaks the firmare.  Removing the `quantum.h` include means that a number of data structures no longer get added, and the `SAFE_RANGE` value is no longer defined, as well.  So we need both a `config.h` for global config, and we need a seperate h file for local settings. 
+
+However, the `rules.mk` file is included when building the firmware.  So we can hijack that process to "manually" add a `config.h`. To do so, you would need to add the following to the `rules.mk` in your userspace:
+
+```
+ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
+    CONFIG_H += users/$(KEYMAP)/config.h
+endif
+```
+
+You can replace `$(KEYMAP)` with your name, but it's not necessary. This checks for the existence of `/users/<name>/config.h`, and if it exists, includes it like every other `config.h` file, allowing you to make global `config.h` settings. 
+
+As for the `config.h` file, you want to make sure that it has an "ifdef" in it to make sure it's only used once.  So you want something like this: 
+
+```
+#ifndef USERSPACE_CONFIG_H
+#define USERSPACE_CONFIG_H
+
+// put stuff here 
+
+#endif
+```
 
 Custom userspace handlers
 -------------------------
