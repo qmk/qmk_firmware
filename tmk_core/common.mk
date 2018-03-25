@@ -30,6 +30,9 @@ endif
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  endif
 endif
 
 ifeq ($(PLATFORM),TEST)
