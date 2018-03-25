@@ -154,9 +154,11 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
-Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](../tmk_core/common/action.c#L429).
+Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L429).
 
-## Permissive Hold
+If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+
+# Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
