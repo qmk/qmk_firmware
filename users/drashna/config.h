@@ -3,12 +3,12 @@
 
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(IMPERIAL_MARCH)
+#define STARTUP_SONG SONG(E1M1_DOOM)
 #define GOODBYE_SONG  SONG(SONIC_RING)
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND), \
-                                  SONG(PLOVER_SOUND) \
+                                  SONG(IMPERIAL_MARCH) \
                                 }
 #endif
 
@@ -47,7 +47,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 150
+#define TAPPING_TERM 160
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
