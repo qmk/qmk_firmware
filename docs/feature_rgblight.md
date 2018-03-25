@@ -33,6 +33,7 @@ At minimum you have to define the pin your LED strip is connected to and the num
 ```
 
 ### Optional Configuration
+==========================
 
 You can change the behavior of the RGB Lighting by setting these configuration values. Use `#define <Option> <Value>` in a `config.h` at the keyboard, revision, or keymap level.
 
@@ -46,6 +47,7 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 
 
 ### Animations
+==============
 
 If you have `#define RGBLIGHT_ANIMATIONS` in your `config.h` you will have a number of animation modes you can cycle through using the `RGB_MOD` key. You can also `#define` other options to tweak certain animations.
 
@@ -84,6 +86,7 @@ const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 ```
 
 ### LED Control
+===============
 
 Look in `rgblights.h` for all available functions, but if you want to control all or some LEDs your goto functions are:
 
