@@ -317,7 +317,7 @@ void audio_init()
   dacStart(&DACD2, &dac1cfg2);
 
   /*
-   * Starting GPT6 driver, it is used for triggering the DAC.
+   * Starting GPT6/7 driver, it is used for triggering the DAC.
    */
   START_CHANNEL_1();
   START_CHANNEL_2();
@@ -325,12 +325,8 @@ void audio_init()
   /*
    * Starting a continuous conversion.
    */
-  dacStartConversion(&DACD1, &dacgrpcfg1,
-                     (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE);
-  dacStartConversion(&DACD2, &dacgrpcfg2,
-                     (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
-  // gptStartContinuous(&GPTD6, 2U);
-
+  dacStartConversion(&DACD1, &dacgrpcfg1, (dacsample_t *)dac_buffer, DAC_BUFFER_SIZE);
+  dacStartConversion(&DACD2, &dacgrpcfg2, (dacsample_t *)dac_buffer_2, DAC_BUFFER_SIZE);
 
     audio_initialized = true;
 
@@ -469,6 +465,8 @@ static void gpt_cb8(GPTDriver *gptp) {
 
                     if (GET_CHANNEL_2_FREQ != (uint16_t)freq_alt) {
                         UPDATE_CHANNEL_2_FREQ(freq_alt);
+                    } else {
+                        RESTART_CHANNEL_2();
                     }
                     //note_timbre;
                 }
@@ -528,6 +526,8 @@ static void gpt_cb8(GPTDriver *gptp) {
 
             if (GET_CHANNEL_1_FREQ != (uint16_t)freq) {
                 UPDATE_CHANNEL_1_FREQ(freq);
+            } else {
+                RESTART_CHANNEL_1();
             }
             //note_timbre;
         }
@@ -621,6 +621,7 @@ void play_note(float freq, int vol) {
     }
 
     if (audio_config.enable && voices < 8) {
+
 
         // Cancel notes if notes are playing
         if (playing_notes)
