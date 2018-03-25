@@ -23,6 +23,7 @@
 #define OLATB           0x15
 
 extern uint8_t expander_status;
+extern uint8_t expander_input_pin_mask;
 extern bool i2c_initialized;
 
 void init_dactyl(void);
