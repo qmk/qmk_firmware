@@ -264,6 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+
   case LOWER:
     if (record->event.pressed) {
       layer_on(_LOWER);
@@ -311,6 +312,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
+
   case KC_RESET: // Custom RESET code that sets RGBLights to RED
     if (!record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
@@ -322,6 +325,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
+
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
@@ -334,7 +339,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case KC_SECRET_1 ... KC_SECRET_5: // Custom
+
+
+  case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
     if (!record->event.pressed) {
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
       send_string_P(secret[keycode - KC_SECRET_1]);
@@ -347,8 +354,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
 #if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
-
-
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { is_overwatch = !is_overwatch; }
 #ifdef RGBLIGHT_ENABLE
@@ -385,7 +390,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
     if (record->event.pressed) {
       uint8_t dtime;
-
       for (dtime = 0; dtime < 4; dtime++) {
         diablo_key_time[dtime] = diablo_times[0];
       }
