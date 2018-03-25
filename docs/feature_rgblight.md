@@ -42,6 +42,8 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 | `RGBLIGHT_SAT_STEP` | 17 | How many steps of saturation you'd like. |
 | `RGBLIGHT_VAL_STEP` | 17 | The number of levels of brightness you want. |
 | `RGBLIGHT_LIMIT_VAL` | 255 | Limit the val of HSV to limit the maximum brightness simply. |
+| `RGBLIGHT_SLEEP`     |    |  `#define` this will shut off the lights when the host goes to sleep | 
+
 
 ### Animations
 
@@ -90,7 +92,7 @@ rgblight_disable();  // turn all lights off
 rgblight_enable();  // turn lights on, based on their previous state (stored in EEPROM)
 
 rgblight_setrgb(r, g, b);  // where r/g/b is a number from 0..255.  Turns all the LEDs to this color
-rgblight_sethsv(h, s, v);  // HSV color control
+rgblight_sethsv(h, s, v);  // HSV color control - h is a value from 0..360 and s/v is a value from 0..255
 rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 ```

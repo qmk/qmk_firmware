@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+#define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 300
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 
