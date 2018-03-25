@@ -175,6 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
+
 /*
 #define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
 #define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
@@ -192,7 +193,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   if (rgb_layer_change) {
     switch (biton32(state)) {
     case _RAISE:
-      rgblight_set_yellow;
+      rgblight_set_teal;
       rgblight_mode(5);
       break;
     case _LOWER:
@@ -200,18 +201,12 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(5);
       break;
     case _ADJUST:
-      rgblight_set_red;
+      rgblight_set_green;
       rgblight_mode(23);
       break;
     default:
-      if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_set_magenta;
-      }
-      else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_set_green;
-      }
-      else {
-        rgblight_set_teal;
+      if (default_layer & (1UL << _QWERTY)) {
+        rgblight_set_purple;
       }
       rgblight_mode(1);
       break;
@@ -219,4 +214,5 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
 #endif
   return state;
-}*/
+}
+*/
