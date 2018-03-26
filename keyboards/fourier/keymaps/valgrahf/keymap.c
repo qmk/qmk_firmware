@@ -38,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     TAB , Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,LBRC,RBRC,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
-    ESC  , A  , S  , D  , F  , G  , H  , J  , K  , L  ,QUOT, BSPC   ,
+    ESC  , A  , S  , D  , F  , G  , H  , J  , K  , L  ,QUOT,  BSPC  ,
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
-    LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, SCLN ,
+    LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, PGUP ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-    LCTL ,LALT,FN1,    ENTER    ,  SPACE ,FN2  ,RGUI , RALT , RCTL 
+    LCTL ,LALT,  FN1,    ENTER    ,  SPACE , FN2 , HOME, END , PGDN 
  //`-----+----+-----+-------------|--------+-----+-----+-----+------'
   ),
 
@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
      DEL ,RHUI,RSAI,RVAI,    ,    ,    ,    ,    ,    ,    ,        ,
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
-           ,RHUD,RSAD,RVAD,    ,    ,    ,    ,    ,    ,PGUP,     ,
+           ,RHUD,RSAD,RVAD,    ,    ,    ,    ,    ,    , UP ,     ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-         ,RTOG,RMOD ,             ,        ,     , HOME, PGDN, END
+         ,RTOG,RMOD ,             ,        ,     , LEFT, DOWN, END
  //`-----+----+-----+-------------|--------+-----+-----+-----+------'
   )
 
