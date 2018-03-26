@@ -41,9 +41,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
+<<<<<<< HEAD
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 7
 
+=======
+>>>>>>> 19a1fbaca2137a9d4cd529e363039a612a4f941d
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
@@ -65,10 +68,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
+<<<<<<< HEAD
 /* Backlight LEDs */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 7
 
+=======
+>>>>>>> 19a1fbaca2137a9d4cd529e363039a612a4f941d
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

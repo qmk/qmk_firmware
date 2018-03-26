@@ -24,8 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_rev1
     #include "rev1/config.h"
 #endif
+<<<<<<< HEAD
 #ifdef SUBPROJECT_rev2
     #include "rev2/config.h"
 #endif
+=======
+>>>>>>> 19a1fbaca2137a9d4cd529e363039a612a4f941d
 
 #endif

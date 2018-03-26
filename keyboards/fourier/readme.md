@@ -1,7 +1,11 @@
 Fourier
 ========
 
+<<<<<<< HEAD
 A split 40% split staggered keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
+=======
+A split 40% staggered keyboard made and sold by Keebio. [More info at Keebio](https://keeb.io).
+>>>>>>> 19a1fbaca2137a9d4cd529e363039a612a4f941d
 
 Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
 Hardware Supported: Pro Micro  
@@ -17,4 +21,8 @@ Example of flashing this keyboard:
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
+<<<<<<< HEAD
 A build guide for this keyboard can be found here: [Levinson Build Guide](https://docs.keeb.io)
+=======
+A build guide for this keyboard can be found here: [Keebio Build Guides](https://docs.keeb.io)
+>>>>>>> 19a1fbaca2137a9d4cd529e363039a612a4f941d

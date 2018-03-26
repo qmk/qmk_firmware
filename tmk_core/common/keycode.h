@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef KEYCODE_H
 #define KEYCODE_H
 
+/* FIXME: Add doxygen comments here */
 
 #define IS_ERROR(code)           (KC_ROLL_OVER <= (code) && (code) <= KC_UNDEFINED)
 #define IS_ANY(code)             (KC_A         <= (code) && (code) <= 0xFF)
