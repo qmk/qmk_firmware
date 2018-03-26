@@ -28,4 +28,4 @@ rm -rf doxygen
 doxygen Doxyfile
 
 # Generate the moxygen Markdown files
-moxygen -a -g -o docs/api_%s.md doxygen/xml
+moxygen -a -g -o docs/internals_%s.md doxygen/xml
