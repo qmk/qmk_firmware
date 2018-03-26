@@ -41,6 +41,10 @@ __asm__ __volatile__ (  \
 )
 
 
+/** \brief Suspend idle
+ *
+ * FIXME: needs doc
+ */
 void suspend_idle(uint8_t time)
 {
     cli();
@@ -52,7 +56,8 @@ void suspend_idle(uint8_t time)
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
-/* Power down MCU with watchdog timer
+/** \brief Power down MCU with watchdog timer
+ *
  * wdto: watchdog timer timeout defined in <avr/wdt.h>
  *          WDTO_15MS
  *          WDTO_30MS
@@ -67,6 +72,10 @@ void suspend_idle(uint8_t time)
  */
 static uint8_t wdt_timeout = 0;
 
+/** \brief Power down
+ *
+ * FIXME: needs doc
+ */
 static void power_down(uint8_t wdto)
 {
 #ifdef PROTOCOL_LUFA
@@ -111,6 +120,10 @@ static void power_down(uint8_t wdto)
 }
 #endif
 
+/** \brief Suspend power down
+ *
+ * FIXME: needs doc
+ */
 void suspend_power_down(void)
 {
 #ifndef NO_SUSPEND_POWER_DOWN
@@ -131,7 +144,10 @@ bool suspend_wakeup_condition(void)
      return false;
 }
 
-// run immediately after wakeup
+/** \brief run immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
 void suspend_wakeup_init(void)
 {
     // clear keyboard state

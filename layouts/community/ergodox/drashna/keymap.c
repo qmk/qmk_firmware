@@ -31,8 +31,8 @@ bool skip_leds = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
- * 
- * 
+ *
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   = +  |  1 ! | 2 @  | 3 #  | 4 $  | 5 %  | TG(4)|           | TG(4)| 6 ^  | 7 &  |  8 * | 9 (  |  0 ) |  - _   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                    KC_HOME,                 KC_PGUP,
                                                  KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
 
-                                    
+
     ),
 /* Keymap 0: Basic layer
  *
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[_COLEMAK] = LAYOUT_ergodox_pretty_wrapper(  
+[_COLEMAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[_DVORAK] = LAYOUT_ergodox_pretty_wrapper(  
+[_DVORAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand        // right hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[_WORKMAN] = LAYOUT_ergodox_pretty_wrapper(  
+[_WORKMAN] = LAYOUT_ergodox_pretty_wrapper(
         // left hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
@@ -297,7 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [_MOUS] = LAYOUT_ergodox_pretty(
-             KC_NO,   KC_SECRET_1,KC_SECRET_2,KC_SECRET_3,KC_SECRET_4,KC_SECRET_5,KC_TRNS,  KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_NO,   KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_NO,   KC_NO,   KC_MS_U, KC_NO,   KC_NO,   KC_NO,   KC_TRNS,                 KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,   KC_NO,                                     KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO,   KC_NO,
              KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_NO,   KC_NO,   KC_TRNS,                 KC_TRNS, KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   KC_NO,
@@ -334,6 +334,8 @@ void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 
 void matrix_scan_keymap(void) {  // runs frequently to update info
   uint8_t modifiders = get_mods();
+  uint8_t led_usb_state = host_keyboard_leds();
+  uint8_t one_shot = get_oneshot_mods();
 
   if (!skip_leds) {
     ergodox_board_led_off();
@@ -343,15 +345,18 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
 
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
-    // Also, no "else", since we want to know each, independantly. 
-    if (modifiders & MODS_SHIFT_MASK) {
+    // Also, no "else", since we want to know each, independently.
+    if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
       ergodox_right_led_2_on();
+      ergodox_right_led_2_set( 10 );
     }
-    if (modifiders & MODS_CTRL_MASK) {
+    if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
       ergodox_right_led_1_on();
+      ergodox_right_led_1_set( 10 );
     }
-    if (modifiders & MODS_ALT_MASK) {
+    if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
       ergodox_right_led_3_on();
+      ergodox_right_led_3_set( 10 );
     }
 
   }
