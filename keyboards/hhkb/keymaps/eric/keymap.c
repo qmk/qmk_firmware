@@ -35,13 +35,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer HHKB: HHKB mode (HHKB Fn)
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      | Pwr  | F1  | F2  | F3  | F4 | F5 | F6 | F7 | F8  | F9  | F10 | F11 | F12   | Ins   | Del |
+      | Caps  | F1  | F2  | F3  | F4 | F5 | F6 | F7 | F8  | F9  | F10 | F11 | F12   | Ins  | Del |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      | Caps | PgU | Up  | PgD | Hom|    |    |    |     |     | Psc | Up  |       | Backs |     |
+      |      | PgU |  Up | PgD | Hm |  & |    |    |     |     | Psc | Up  |  Del  | Backs |     |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      |      | Lef | Dow | Rig | End|    | *  | /  | Hom | PgU | Lef | Rig | Enter |       |     |
+      |      | Lef | Dow | Rig | En |  * |    |    | PgU | Hom | Lef | Rig | Enter |       |     |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
-      |      |  (  |  )  |  -  |  + |    | +  | -  | End | PgD | Dow |     |       |       |     |
+      |      |  _  |  +  |  (  |  ) |  | |  ~ |    | PgD | End | Dow |     |       |       |     |
       |------+-----+-----+-----+----+----+----+----+-----+-----+-----+-----+-------+-------+-----|
 
                  |------+------+----------------------+------+------+
@@ -51,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
   [HHKB] = KEYMAP(
-  KC_TRNS,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL, \
-  KC_CAPS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_HOME,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PSCR,  KC_UP,    KC_TRNS,  KC_BSPC,          \
-  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_END,  KC_TRNS,  KC_PAST,  KC_PSLS,  KC_HOME,  KC_PGUP,  KC_LEFT,  KC_RGHT,  KC_PENT,                    \
-  KC_TRNS,  KC_LPRN,  KC_RPRN,  KC_PMNS,  KC_PPLS,  KC_TRNS,  KC_PPLS,  KC_PMNS,  KC_END,   KC_PGDN,  KC_DOWN,  KC_TRNS,  KC_TRNS,                    \
+  KC_CAPS,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_DEL, \
+  KC_TRNS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_HOME,  KC_AMPR,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PSCR,  KC_UP,    KC_DEL,  KC_BSPC,          \
+  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,  KC_ASTR,  KC_TRNS,  KC_TRNS,  KC_PGUP,  KC_HOME,  KC_LEFT,  KC_RGHT,  KC_TRNS,                    \
+  KC_TRNS,  KC_UNDS,  KC_PLUS,  KC_LPRN,  KC_RPRN,  KC_PIPE,  KC_TILD,  KC_TRNS,  KC_PGDN,   KC_END,  KC_DOWN,  KC_TRNS,  KC_TRNS,                    \
                      KC_TRNS, KC_TRNS,           KC_TRNS,                KC_TRNS, KC_TRNS)};
 
 
