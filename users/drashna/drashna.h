@@ -136,6 +136,7 @@ enum userspace_custom_keycodes {
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
+#define KC_RST KC_RESET
 
 #ifdef TAP_DANCE_ENABLE
 enum {

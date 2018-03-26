@@ -185,11 +185,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ,--------------------------------------------------.           ,--------------------------------------------------.
 * |   ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |   F11  |
 * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-* | VERSION|   !  |   @  |  {   |   }  |  |   |      |           |      |  +   |   7  |   8  |   9  |  *   |   F12  |
+* |  RESET |   !  |   @  |  {   |   }  |  |   |      |           |      |  +   |   7  |   8  |   9  |  *   |   F12  |
 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
 * |  MAKE  |   #  |   $  |  (   |   )  |  `   |------|           |------|  -   |   4  |   5  |   6  |  /   | PrtSc  |
 * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-* |  RESET |   %  |   ^  |  [   |   ]  |  ~   |      |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
+* |  VRSN  |   %  |   ^  |  [   |   ]  |  ~   |      |           |      | NUM  |   1  |   2  |   3  |  =   |  PAUSE |
 * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
 *   |  LT0 |   &  |   *  |  :   |   ;  |                                       |      |   0  | NUM. | ENT  |  ENT |
 *   `----------------------------------'                                       `----------------------------------'
@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_SYMB] = LAYOUT_ergodox_pretty(
              EPRM,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_QWERTY,             KC_QWERTY, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-            KC_RESET, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_WORKMAN,            KC_DVORAK, KC_PPLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PAST, KC_F12,
+             KC_RST,  KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_WORKMAN,            KC_DVORAK, KC_PPLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PAST, KC_F12,
              KC_MAKE, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRAVE,                                  KC_PMNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PSLS, KC_PSCREEN,
              VRSN,    KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_COLEMAK,           KC_COLEMAK, KC_NLCK, KC_KP_1, KC_KP_2, KC_KP_3, KC_PEQL, KC_PAUSE,
              KC_TRNS, KC_AMPR, KC_ASTR, KC_COLN, KC_SCLN,                                                     KC_KP_0, KC_KP_0, KC_PDOT, KC_PENT, KC_TRNS,
