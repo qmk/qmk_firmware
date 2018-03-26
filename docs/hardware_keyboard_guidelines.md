@@ -63,7 +63,9 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
     * `lufa-dfu`
     * `qmk-dfu`
     * `stm32-dfu-util`
-    * (FIXME: This list is incomplete.)
+    * `caterina`
+    * `halfkay`
+    * `bootloadHID`
 * `maintainer`
   * GitHub username of the maintainer, or `qmk` for community maintained boards
 * `width`

@@ -117,19 +117,35 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
+/** \brief matrix_setup
+ *
+ * FIXME: needs doc
+ */
 __attribute__ ((weak))
 void matrix_setup(void) {
 }
 
+/** \brief keyboard_setup
+ *
+ * FIXME: needs doc
+ */
 void keyboard_setup(void) {
     matrix_setup();
 }
 
+/** \brief is_keyboard_master
+ *
+ * FIXME: needs doc
+ */
 __attribute__((weak))
 bool is_keyboard_master(void) {
     return true;
 }
 
+/** \brief keyboard_init
+ *
+ * FIXME: needs doc
+ */
 void keyboard_init(void) {
     timer_init();
     matrix_init();
@@ -167,8 +183,16 @@ void keyboard_init(void) {
 #endif
 }
 
-/*
- * Do keyboard routine jobs: scan matrix, light LEDs, ...
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs: 
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * run visualizer code
+ * * handle midi commands
+ * * light LEDs
+ *
  * This is repeatedly called as fast as possible.
  */
 void keyboard_task(void)
@@ -274,6 +298,10 @@ MATRIX_LOOP_END:
     }
 }
 
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
 void keyboard_set_leds(uint8_t leds)
 {
     if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }

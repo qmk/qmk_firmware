@@ -31,9 +31,8 @@ This is a C header file that is one of the first things included, and will persi
 
     #include "config_common.h"
 
-## `config.h` Options
 
-### Hardware Options
+## Hardware Options
 * `#define VENDOR_ID 0x1234`
   * defines your VID, and for most DIY projects, can be whatever you want
 * `#define PRODUCT_ID 0x5678`
@@ -83,7 +82,7 @@ This is a C header file that is one of the first things included, and will persi
 * `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
   * key combination that allows the use of magic commands (useful for debugging)
 
-### Features That Can Be Disabled
+## Features That Can Be Disabled
 
 If you define these options you will disable the associated feature, which can save on code size.
 
@@ -102,7 +101,7 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_FUNCTION`
   * disable the action function (deprecated)
 
-### Features That Can Be Enabled
+## Features That Can Be Enabled
 
 If you define these options you will enable the associated feature, which may increase your code size.
 
@@ -111,7 +110,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define PREVENT_STUCK_MODIFIERS`
   * when switching layers, this will release all mods
 
-### Behaviors That Can Be Configured
+## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold
@@ -139,7 +138,7 @@ If you define these options you will enable the associated feature, which may in
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
 
-### RGB Light Configuration
+## RGB Light Configuration
 
 * `#define RGB_DI_PIN D7`
   * pin the DI on the ws2812 is hooked-up to
@@ -156,7 +155,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBW_BB_TWI`
   * bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)
 
-### Mouse Key Options
+## Mouse Key Options
 
 * `#define MOUSEKEY_INTERVAL 20`
 * `#define MOUSEKEY_DELAY 0`
@@ -168,9 +167,7 @@ If you define these options you will enable the associated feature, which may in
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
 
-## `rules.mk` Options
-
-### Build Options
+## Build Options
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
@@ -179,7 +176,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 * `LAYOUTS`
   * A list of [layouts](feature_layouts.md) this keyboard supports.
 
-### AVR MCU Options
+## AVR MCU Options
 * `MCU = atmega32u4`
 * `F_CPU = 16000000`
 * `ARCH = AVR8`
@@ -193,7 +190,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `caterina`
   * `bootloadHID`
 
-### Feature Options
+## Feature Options
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
