@@ -132,6 +132,11 @@ enum userspace_custom_keycodes {
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
+#define QWERTY KC_QWERTY
+#define DVORAK KC_DVORAK
+#define COLEMAK KC_COLEMAK
+#define WORKMAN KC_WORKMAN
+
 #ifdef TAP_DANCE_ENABLE
 enum {
   TD_D3_1 = 0,
