@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | BS   |
+   * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  |  BS  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  |  \   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt | Del  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_QWERTY] = KEYMAP( \
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   K  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt | Del  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_COLEMAK] = KEYMAP( \
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS, \
       KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_RCTL, \
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV, KC_QUOT,  KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_DEL,  LT(_RAISE,KC_ENT), \
+      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_BSPC,  LT(_RAISE,KC_ENT), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
 
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   ;  |   Q  |   J  |   K  |   X  |   `  |   /  |   B  |   M  |   W  |   V  |   Z  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt | Del  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_DVORAK] = KEYMAP( \
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS, \
       KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_RCTL, \
       KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_GRV, KC_SLSH,  KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_DEL,  LT(_RAISE,KC_ENT), \
+      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_BSPC,  LT(_RAISE,KC_ENT), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
 
