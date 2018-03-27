@@ -31,6 +31,7 @@ enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
     _DVORAK,
+    _AUX,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -72,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_QWERTY] = KEYMAP( \
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RCTL, \
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV, KC_QUOT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_BSPC,  LT(_RAISE,KC_ENT), \
+      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
 
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   K  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_COLEMAK] = KEYMAP( \
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS, \
       KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_RCTL, \
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV, KC_QUOT,  KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_BSPC,  LT(_RAISE,KC_ENT), \
+      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
 
@@ -116,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   ;  |   Q  |   J  |   K  |   X  |   `  |   /  |   B  |   M  |   W  |   V  |   Z  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Adjust| Lower| Caps  | GUI  | Alt |  BS  | Enter| Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Adjust| Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_DVORAK] = KEYMAP( \
@@ -124,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS, \
       KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_RCTL, \
       KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_GRV, KC_SLSH,  KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_BSPC,  LT(_RAISE,KC_ENT), \
+      ADJUST,  LOWER,   KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
                                                            LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,  LOWER,   LOWER \
       ),
 
@@ -189,6 +190,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_HUI, RGB_SAI, RGB_VAI, AU_ON,   AU_OFF,  AG_NORM,                   AG_SWAP, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, \
       RGB_HUD, RGB_SAD, RGB_VAD,RGB_SMOD, RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
+   ),
+
+
+  /*  AUX modifier key layer
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |  BS  | Enter|      |      |      |      |      |      |      |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_AUX] = KEYMAP( \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______,  KC_BSPC,  LT(_RAISE,KC_ENT), \
+                                                                     _______, _______, _______, _______, _______, _______, _______ \
       )
 };
 
@@ -222,10 +246,6 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
 bool TOG_STATUS = false;
 int RGB_current_mode;
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
@@ -239,6 +259,17 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
+void update_base_layer(int base)
+{
+    if( current_default_layer == base ) {
+	layer_invert(_AUX);
+    } else {
+	eeconfig_update_default_layer(1UL<<base);
+	default_layer_set(1UL<<base);
+	layer_off(_AUX);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -246,7 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+	update_base_layer(_QWERTY);
       }
       return false;
       break;
@@ -255,7 +286,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
         #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+	update_base_layer(_COLEMAK);
       }
       return false;
       break;
@@ -264,7 +295,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+	update_base_layer(_DVORAK);
       }
       return false;
       break;
@@ -452,6 +483,7 @@ static const char Qwerty_name[]  PROGMEM = " Qwerty";
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
 
+static const char AUX_name[]     PROGMEM = ":AUX";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Adjust_name[]  PROGMEM = ":Adjust";
@@ -460,8 +492,9 @@ static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
-    [_LOWER] = Lower_name,
-    [_RAISE] = Raise_name,
+    [_AUX]    = AUX_name,
+    [_LOWER]  = Lower_name,
+    [_RAISE]  = Raise_name,
     [_ADJUST] = Adjust_name
 };
 
