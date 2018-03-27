@@ -104,7 +104,12 @@ extern uint32_t default_layer_state;
     #include "process_unicodemap.h"
 #endif
 
-#include "process_tap_dance.h"
+#ifdef TAP_DANCE_ENABLE
+#ifndef TAPPING_TERM
+#error TAPPING_TERM not defined
+#endif
+  #include "process_tap_dance.h"
+#endif
 
 #ifdef PRINTING_ENABLE
     #include "process_printer.h"
