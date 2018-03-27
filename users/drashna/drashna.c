@@ -229,9 +229,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
   if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
     if (record->event.pressed) {
+      stop_all_notes();
       PLAY_SONG(fauxclicky_pressed);
     } else {
-      stop_note(NOTE_A6);
+      stop_all_notes();
       PLAY_SONG(fauxclicky_released);
     }
   }
