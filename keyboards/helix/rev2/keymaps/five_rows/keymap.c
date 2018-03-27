@@ -35,6 +35,7 @@ enum layer_number {
     _AUX,
     _LOWER,
     _RAISE,
+    _PADFUNC,
     _ADJUST,
 };
 
@@ -132,25 +133,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
   /* Keypad
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * | Tab  |   /  |   *  | Del  |  F1  |  F6  |             |      |      |      |      |      |      |
+   * | Tab  |   /  |   *  | Del  |  F1  |  F6  |             |  F1  |  F6  | Del  | Tab  |   /  |   *  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |   7  |   8  |   9  | BS   |  F2  |  F7  |             |      |      |      |      |      |      |
+   * |   7  |   8  |   9  | BS   |  F2  |  F7  |             |  F2  |  F7  | BS   |   7  |   8  |   9  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |   4  |   5  |   6  |  -   |  F3  |  F8  |             |      |      |      |      |      |      |
+   * |   4  |   5  |   6  |  -   |  F3  |  F8  |             |  F3  |  F8  |  -   |   4  |   5  |   6  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |   1  |   2  |   3  |  +   |  F4  |  F9  |  F11 |      |      |      |      |      |      |      |
+   * |   1  |   2  |   3  |  +   |  F4  |  F9  |  F11 |  F11 |  F4  |  F9  |  +   |   1  |   2  |   3  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |   0  |   ,  |   .  | Enter|  F5  |  F10 |  F12 |      |      |      |      |      |      |      |
+   * |   0  |   ,  |   .  | Enter|  F5  |  F10 |  F12 |  F12 |  F5  |  F10 | Enter|   0  |  ,   |   .  |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_KEYPAD] = KEYMAP( \
-      KC_TAB,  KC_PSLS, KC_PAST, KC_DEL,    KC_F1,   KC_F6,                   _______, _______, _______, _______, _______, _______, \
-      KC_KP_7, KC_KP_8, KC_KP_9, KC_BSPC,   KC_F2,   KC_F7,                   _______, _______, _______, _______, _______, _______, \
-      KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS,   KC_F3,   KC_F8,                   _______, _______, _______, _______, _______, _______, \
-      KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS,   KC_F4,   KC_F9,  KC_F11,  ADJUST, _______, _______, _______, _______, _______, _______, \
-      KC_KP_0, KC_PCMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  LT(_LOWER,KC_F12),
-                                                                     _______, _______, _______, _______, _______, _______, _______ \
+      KC_TAB,  KC_PSLS, KC_PAST, KC_DEL,    KC_F1,   KC_F6,                     KC_F1,   KC_F6, KC_DEL,  KC_TAB,  KC_PSLS, KC_PAST, \
+      KC_KP_7, KC_KP_8, KC_KP_9, KC_BSPC,   KC_F2,   KC_F7,                     KC_F2,   KC_F7, KC_BSPC, KC_KP_7, KC_KP_8, KC_KP_9, \
+      KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS,   KC_F3,   KC_F8,                     KC_F3,   KC_F8, KC_PMNS, KC_KP_4, KC_KP_5, KC_KP_6, \
+      KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS,   KC_F4,   KC_F9,  KC_F11,  KC_F11,   KC_F4,   KC_F9, KC_PPLS, KC_KP_1, KC_KP_2, KC_KP_3, \
+      KC_KP_0, KC_PCMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  LT(_PADFUNC,KC_F12),
+                                                            LT(_PADFUNC,KC_F12), KC_F5, KC_F10, KC_PENT, KC_KP_0, KC_PCMM, KC_PDOT \
       ),
+
+  /*  Keypad function layer
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * |      |      |      | Pause| ScrLk| PtrSc|             | PtrSc| ScrLk| Pause|      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      | Home |  Up  | PgUp |             | PgUp |  Up  | Home |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |Delete|Insert| Left | Down | Right|             | Left | Down | Right|Insert|Delete|      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      | End  |      | PgDn |Adjust|Adjust| PgDn |      | End  |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_PADFUNC] = KEYMAP( \
+      _______, _______, _______, KC_PAUS, KC_SLCK, KC_PSCR,                   KC_PSCR, KC_SLCK, KC_PAUS, _______, _______, _______, \
+      _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP,                   KC_PGUP, KC_UP,   KC_HOME, _______, _______, _______, \
+      _______,  KC_DEL,  KC_INS, KC_LEFT, KC_DOWN, KC_RGHT,                   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_DEL,  _______, \
+      _______, _______, _______, KC_END,  _______, KC_PGDN,  ADJUST,  ADJUST, KC_PGDN, _______, KC_END,  _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, \
+                                                                     _______, _______, _______, _______, _______, _______, _______ \
+   ),
 
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -214,7 +237,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RGB_HUD, RGB_SAD, RGB_VAD,RGB_SMOD, RGB_TOG, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
    ),
-
 
   /*  AUX modifier key layer
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -519,6 +541,7 @@ static const char Dvorak_name[]  PROGMEM = " Dvorak";
 static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
+static const char Padfunc_name[] PROGMEM = ":PadFunc";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Adjust_name[]  PROGMEM = ":Adjust";
@@ -531,6 +554,7 @@ static const char *layer_names[] = {
     [_AUX]    = AUX_name,
     [_LOWER]  = Lower_name,
     [_RAISE]  = Raise_name,
+    [_PADFUNC]= Padfunc_name,
     [_ADJUST] = Adjust_name
 };
 
