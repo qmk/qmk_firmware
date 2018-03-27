@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 175
 
 // // Enable LED strip
-// #undef RGBLED_NUM
-// #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 10
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 10
 
 // Space Cadet
 #define LSPO_KEY KC_9
