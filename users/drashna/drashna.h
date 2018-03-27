@@ -46,6 +46,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
+#ifndef RGBLIGHT_ANIMATIONS  // Use setrgb since that sets a solid color.
+#define rgblight_set_white       rgblight_setrgb (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red         rgblight_setrgb (0xFF, 0x00, 0x00);
+#define rgblight_set_coral       rgblight_setrgb (0xFF, 0x7C, 0x4D);
+#define rgblight_set_orange      rgblight_setrgb (0xFF, 0x80, 0x00);
+#define rgblight_set_goldenrod   rgblight_setrgb (0xD9, 0xA5, 0x21);
+#define rgblight_set_gold        rgblight_setrgb (0xFF, 0xD9, 0x00);
+#define rgblight_set_yellow      rgblight_setrgb (0xFF, 0xFF, 0x00);
+#define rgblight_set_chartreuse  rgblight_setrgb (0x80, 0xFF, 0x00);
+#define rgblight_set_green       rgblight_setrgb (0x00, 0xFF, 0x00);
+#define rgblight_set_springgreen rgblight_setrgb (0x00, 0xFF, 0x80);
+#define rgblight_set_turquoise   rgblight_setrgb (0x47, 0x6E, 0x6A);
+#define rgblight_set_teal        rgblight_setrgb (0x00, 0x80, 0x80);
+#define rgblight_set_cyan        rgblight_setrgb (0x00, 0xFF, 0xFF);
+#define rgblight_set_azure       rgblight_setrgb (0x99, 0xf5, 0xFF);
+#define rgblight_set_blue        rgblight_setrgb (0x00, 0x00, 0xFF);
+#define rgblight_set_purple      rgblight_setrgb (0x7A, 0x00, 0xFF);
+#define rgblight_set_magenta     rgblight_setrgb (0xFF, 0x00, 0xFF);
+#define rgblight_set_pink        rgblight_setrgb (0xFF, 0x80, 0xBF);
+#else                        // Else, use sethsv, since we can do animations
+#define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
+#define rgblight_set_red         rgblight_sethsv (0,  255, 255);
+#define rgblight_set_coral       rgblight_sethsv (16, 176, 255);
+#define rgblight_set_orange      rgblight_sethsv (39,  255, 255);
+#define rgblight_set_goldenrod   rgblight_sethsv (43,  218, 218);
+#define rgblight_set_gold        rgblight_sethsv (51,  255, 255);
+#define rgblight_set_yellow      rgblight_sethsv (60,  255, 255);
+#define rgblight_set_chartreuse  rgblight_sethsv (90, 255, 255);
+#define rgblight_set_green       rgblight_sethsv (120,  255, 255);
+#define rgblight_set_springgreen rgblight_sethsv (150,  255, 255);
+#define rgblight_set_turquoise   rgblight_sethsv (174,  90, 112);
+#define rgblight_set_teal        rgblight_sethsv (180,  255, 128);
+#define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
+#define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
+#define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
+#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
+#define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
+#endif // RGBLIGHT_ANIMATIONS
+//#define rgblight_set_        rgblight_sethsv (0, 255, 255);
+
 extern bool is_overwatch;
 extern bool rgb_layer_change;
 
