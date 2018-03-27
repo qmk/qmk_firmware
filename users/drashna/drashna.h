@@ -47,15 +47,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 #ifndef RGBLIGHT_ANIMATIONS // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
-#define rgblight_set_blue        rgblight_setrgb (0x00,  0x00, 0xFF);
-#define rgblight_set_red         rgblight_setrgb (0xFF,  0x00, 0x00);
-#define rgblight_set_green       rgblight_setrgb (0x00,  0xFF, 0x00);
-#define rgblight_set_orange      rgblight_setrgb (0xFF,  0x80, 0x00);
-#define rgblight_set_teal        rgblight_setrgb (0x00,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_setrgb (0xFF,  0x00, 0xFF);
-#define rgblight_set_yellow      rgblight_setrgb (0xFF,  0xFF, 0x00);
-#define rgblight_set_purple      rgblight_setrgb (0x7A,  0x00, 0xFF);
-#define rgblight_set_white       rgblight_setrgb (0xFF,  0xFF, 0xFF);
+#define rgblight_set_white       rgblight_setrgb (0xFF, 0xFF, 0xFF);
+#define rgblight_set_red         rgblight_setrgb (0xFF, 0x00, 0x00);
+#define rgblight_set_coral       rgblight_setrgb (0xFF, 0x7C, 0x4D);
+#define rgblight_set_orange      rgblight_setrgb (0xFF, 0x80, 0x00);
+#define rgblight_set_goldenrod   rgblight_setrgb (0xD9, 0xA5, 0x21);
+#define rgblight_set_gold        rgblight_setrgb (0xFF, 0xD9, 0x00);
+#define rgblight_set_yellow      rgblight_setrgb (0xFF, 0xFF, 0x00);
+#define rgblight_set_chartreuse  rgblight_setrgb (0x80, 0xFF, 0x00);
+#define rgblight_set_green       rgblight_setrgb (0x00, 0xFF, 0x00);
+#define rgblight_set_springgreen rgblight_setrgb (0x00, 0xFF, 0x80);
+#define rgblight_set_turquoise   rgblight_setrgb (0x47, 0x6E, 0x6A);
+#define rgblight_set_teal        rgblight_setrgb (0x00, 0x80, 0x80);
+#define rgblight_set_cyan        rgblight_setrgb (0x00, 0xFF, 0xFF);
+#define rgblight_set_azure       rgblight_setrgb (0x99, 0xf5, 0xFF);
+#define rgblight_set_blue        rgblight_setrgb (0x00, 0x00, 0xFF);
+#define rgblight_set_purple      rgblight_setrgb (0x7A, 0x00, 0xFF);
+#define rgblight_set_magenta     rgblight_setrgb (0xFF, 0x00, 0xFF);
+#define rgblight_set_pink        rgblight_setrgb (0xFF, 0x80, 0xBF);
 #else
 #define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
 #define rgblight_set_red         rgblight_sethsv (0,  255, 255);
