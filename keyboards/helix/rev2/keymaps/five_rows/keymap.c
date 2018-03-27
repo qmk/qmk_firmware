@@ -261,12 +261,12 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 void update_base_layer(int base)
 {
-    if( current_default_layer == base ) {
-	layer_invert(_AUX);
-    } else {
+    if( current_default_layer != base ) {
 	eeconfig_update_default_layer(1UL<<base);
 	default_layer_set(1UL<<base);
 	layer_off(_AUX);
+    } else {
+	layer_invert(_AUX);
     }
 }
 
