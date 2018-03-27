@@ -138,6 +138,8 @@ void send_char(char ascii_code);
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
+void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4);
+
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
