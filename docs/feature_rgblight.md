@@ -96,6 +96,7 @@ rgblight_sethsv(h, s, v);  // HSV color control - h is a value from 0..360 and s
 rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 ```
+You can find a list of predefined colors at [`quantum/rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Free to add to this list!
 
 ## RGB Lighting Keycodes
 
