@@ -1,7 +1,7 @@
 // Netable differences vs. the default firmware for the ErgoDox EZ:
 // 1. The Cmd key is now on the right side, making Cmd+Space easier.
 // 2. The media keys work on OSX (But not on Windows).
-#include "ergodox.h"
+#include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
 
@@ -37,16 +37,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 
-[BASE] = KEYMAP(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // Left hand
         KC_EQL,              KC_1,               KC_2,            KC_3,     KC_4,            KC_5,               KC_LEFT,
         KC_SLSH,             KC_QUOT,            KC_COMM,         KC_DOT,   KC_P,            KC_Y,               KC_NO,
         CTL_T(KC_ESC),       KC_A,               KC_O,            KC_E,     KC_U,            KC_I,
         KC_LSPO,             KC_SCLN,            KC_Q,            KC_J,     KC_K,            KC_X,               ALL_T(KC_NO),
-        LT(SYMBOLS,KC_GRV),  KC_QUOT,            KC_SLSH,         KC_LEFT,  SFT_T(KC_RGHT),
+        LT(SYMBOLS,KC_GRV),  KC_QUOT,            KC_SLSH,         KC_LALT,  SFT_T(KC_RGHT),
                                                                                              KC_HOME,            KC_END,
                                                                                                                  KC_PGUP,
-                                                                            GUI_T(KC_SPC),   CTL_T(KC_BSPC),     KC_PGDN,
+                                                                            GUI_T(KC_SPC),   CTL_T(KC_BSPC),     LGUI(KC_SPC),
 
         // Right hand
         KC_RGHT,        KC_6,              KC_7,                KC_8,        KC_9,        KC_0,                LGUI(KC_SPC),
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // SYMBOLS
 
-[SYMBOLS] = KEYMAP(
+[SYMBOLS] = LAYOUT_ergodox(
        // left hand
        _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
        _______,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,_______,
@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MEDIA] = KEYMAP(
+[MEDIA] = LAYOUT_ergodox(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, KC_MS_U, _______, _______, _______,
        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
