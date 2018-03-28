@@ -36,6 +36,31 @@ LED_ANIMATIONS = yes        # LED animations
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
 
+### Helix keyboard 'five_rows' keymap: convenient command line option
+##    make HELIX=<options> helix:five_rows
+##    option= oled | back | under | na
+##    ex.
+##      make HELIX=oled          helix:five_rows
+##      make HELIX=oled,back     helix:five_rows
+##      make HELIX=oled,under    helix:five_rows
+##      make HELIX=oled,back,na  helix:five_rows
+##
+ifneq ($(strip $(HELIX)),)
+  ifeq ($(findstring oled,$(HELIX)), oled)
+    OLED_ENABLE = yes
+  endif
+  ifeq ($(findstring back,$(HELIX)), back)
+    LED_BACK_ENABLE = yes
+  else ifeq ($(findstring under,$(HELIX)), under)
+    LED_UNDERGLOW_ENABLE = yes
+  endif
+  ifeq ($(findstring na,$(HELIX)), na)
+    LED_ANIMATIONS = no
+  endif
+  $(eval $(call HELIX_CUSTOMISE_MSG))
+  $(info )
+endif
+
 # Uncomment these for checking
 #   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
 # $(eval $(call HELIX_CUSTOMISE_MSG))
