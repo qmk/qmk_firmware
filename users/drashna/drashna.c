@@ -164,16 +164,16 @@ void matrix_init_user(void) {
 
   if (true) {
     if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
+      rgblight_sethsv_magenta();
     }
     else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_set_green;
+      rgblight_sethsv_green();
     }
     else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
+      rgblight_sethsv_goldenrod();
     }
     else {
-      rgblight_set_teal;
+      rgblight_sethsv_teal();
     }
   }
   else
@@ -319,7 +319,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
       rgblight_enable();
       rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
+      rgblight_setrgb_red();
 #endif
       reset_keyboard();
     }
@@ -434,61 +434,61 @@ uint32_t layer_state_set_user(uint32_t state) {
   if (rgb_layer_change) {
     switch (biton32(state)) {
     case _NAV:
-      rgblight_set_blue;
+      rgblight_sethsv_blue();
       rgblight_mode(1);
       break;
     case _SYMB:
-      rgblight_set_blue;
+      rgblight_sethsv_blue();
       rgblight_mode(2);
       break;
     case _MOUS:
-      rgblight_set_yellow;
+      rgblight_sethsv_yellow();
       rgblight_mode(1);
       break;
     case _MACROS:
-      rgblight_set_orange;
+      rgblight_sethsv_orange();
       is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
       break;
     case _MEDIA:
-      rgblight_set_chartreuse;
+      rgblight_sethsv_chartreuse();
       rgblight_mode(22);
       break;
     case _GAMEPAD:
-      rgblight_set_orange;
+      rgblight_sethsv_orange();
       rgblight_mode(17);
       break;
     case _DIABLO:
-      rgblight_set_red;
+      rgblight_sethsv_red();
       rgblight_mode(5);
       break;
     case _RAISE:
-      rgblight_set_yellow;
+      rgblight_sethsv_yellow();
       rgblight_mode(5);
       break;
     case _LOWER:
-      rgblight_set_orange;
+      rgblight_sethsv_orange();
       rgblight_mode(5);
       break;
     case _ADJUST:
-      rgblight_set_red;
+      rgblight_sethsv_red();
       rgblight_mode(23);
       break;
     case _COVECUBE:
-      rgblight_set_green;
+      rgblight_sethsv_green();
       rgblight_mode(2);
       break;
     default: //  for any other layers, or the default layer
       if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_set_magenta;
+        rgblight_sethsv_magenta();
       }
       else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_set_green;
+        rgblight_sethsv_green();
       }
       else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_set_goldenrod;
+        rgblight_sethsv_goldenrod();
       }
       else {
-        rgblight_set_teal;
+        rgblight_sethsv_teal();
       }
       if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
         rgblight_mode(2);
