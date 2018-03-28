@@ -74,6 +74,7 @@
 #include "ws2812.h"
 #endif
 #include "rgblight_types.h"
+#include "rgblight_list.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
