@@ -190,6 +190,7 @@ enum {
 #define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...)           LAYOUT(__VA_ARGS__)
 
 
 // Blocks for each of the four major keyboard layouts
