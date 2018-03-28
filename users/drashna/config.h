@@ -13,7 +13,9 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-//#define RGBLIGHT_SLEEP
+  #ifndef KEYBOARD_ergodox_ez
+    #define RGBLIGHT_SLEEP
+  #endif
 #endif // RGBLIGHT_ENABLE
 
 
