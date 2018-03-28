@@ -178,7 +178,7 @@ void matrix_init_user(void) {
   }
   else
   {
-    rgblight_set_red;
+    rgblight_setrgb_red();
     rgblight_mode(5);
   }
 #endif
