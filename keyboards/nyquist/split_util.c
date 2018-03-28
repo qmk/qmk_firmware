@@ -8,6 +8,7 @@
 #include "matrix.h"
 #include "keyboard.h"
 #include "config.h"
+#include "timer.h"
 
 #ifdef USE_I2C
 #  include "i2c.h"
@@ -42,6 +43,7 @@ static void keyboard_master_setup(void) {
 }
 
 static void keyboard_slave_setup(void) {
+  timer_init();
 #ifdef USE_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
 #else

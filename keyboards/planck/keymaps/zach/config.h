@@ -1,55 +1,30 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include "../../config.h"
+
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+ * MIDI options
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
+/* Prevent use of disabled MIDI features in the keymap */
+//#define MIDI_ENABLE_STRICT 1
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/* enable basic MIDI features:
+   - MIDI notes can be sent when in Music mode is on
 */
+#define MIDI_BASIC
 
-#ifndef CONFIG_H
-#define CONFIG_H
+/* enable advanced MIDI features:
+   - MIDI notes can be added to the keymap
+   - Octave shift and transpose
+   - Virtual sustain, portamento, and modulation wheel
+   - etc.
+*/
+//#define MIDI_ADVANCED
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define MANUFACTURER    Ortholinear Keyboards
-#define PRODUCT         The Planck Keyboard
-#define DESCRIPTION     A compact ortholinear keyboard
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
-/* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { D0, D5, B5, B6 }
-#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN B7
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-//#define BACKLIGHT_BREATHING     // LED breathing
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 5
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
+//#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -83,12 +58,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PREVENT_STUCK_MODIFIERS
 //#define DYNAMIC_MACRO_ENABLE    // Enable if you need to use the macro functionality
 //#define SPACE_CADET             // Parenthesis on L/R shift
-
-#ifdef SUBPROJECT_rev3
-    #include "rev3/config.h"
-#endif
-#ifdef SUBPROJECT_rev4
-    #include "rev4/config.h"
-#endif
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef RBG_CONFIG_H
 #define RBG_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 #define PRODUCT         S60-X-RGB
 #define DESCRIPTION     q.m.k. keyboard firmware for S60-X RGB

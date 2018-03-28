@@ -21,6 +21,14 @@
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
 
+enum music_modes {
+  MUSIC_MODE_CHROMATIC,
+  MUSIC_MODE_GUITAR,
+  MUSIC_MODE_VIOLIN,
+  MUSIC_MODE_MAJOR,
+  NUMBER_OF_MODES
+};
+
 bool process_music(uint16_t keycode, keyrecord_t *record);
 
 bool is_music_on(void);
@@ -28,9 +36,16 @@ void music_toggle(void);
 void music_on(void);
 void music_off(void);
 
+bool is_midi_on(void);
+void midi_toggle(void);
+void midi_on(void);
+void midi_off(void);
+
 void music_on_user(void);
+void midi_on_user(void);
 void music_scale_user(void);
 void music_all_notes_off(void);
+void music_mode_cycle(void);
 
 void matrix_scan_music(void);
 

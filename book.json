@@ -3,15 +3,13 @@
         "summary": "_summary.md"
     },
     "plugins" : [
-      "anchors",
       "edit-link",
       "forkmegithub",
-      "git-author",
       "hints",
-      "numbered-headings",
       "page-toc",
       "terminal",
-      "toolbar"
+      "toolbar",
+      "bulk-redirect"
     ],
     "pluginsConfig": {
       "edit-link": {
@@ -25,6 +23,11 @@
       "page-toc": {
         "selector": ".markdown-section h1, .markdown-section h2"
       },
+      "terminal": {
+        "copyButtons": true,
+        "fade": false,
+        "style": "flat"
+      },
       "toolbar": {
         "buttons": [
           {
@@ -33,6 +36,10 @@
             "url": "https://github.com/qmk/qmk_firmware"
           }
         ]
+      }, 
+      "bulk-redirect": {
+          "basepath": "/",
+          "redirectsFile": "docs/redirects.json"
       }
     },
     "root": "./docs/"

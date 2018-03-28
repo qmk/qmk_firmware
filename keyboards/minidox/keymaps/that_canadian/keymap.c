@@ -40,11 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   /  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
-<<<<<<< HEAD
  *                  | Shift| LOWER|      |    |      | RAISE| Ctrl |
-=======
- *                  | Ctrl | LOWER|      |    |      | RAISE| Shift|
->>>>>>> a4958a532da154b9dd6f6144836a73f9de641f74
  *                  `-------------| Space|    |BckSpc|------+------.
  *                                |      |    |      |
  *                                `------'    `------'
@@ -105,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |   F6 |  F7  |  Up  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  F11 |  F12 |      |      |      |           |      | Left | Down |Right |caltde|
+ * |  F11 |  F12 |      |RGBSAI|RGBSAD|           |      | Left | Down |Right |caltde|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | Reset|      |      |      |      |           |      |      |   F8 |Taskmg|      |
+ * | Reset|RGBTOG|RGBMOD|RGBHUI|RGBHUD|           |RGBVAI|RGBVAD|  F8  |Taskmg|      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|      |
@@ -123,10 +119,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
 void persistant_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
@@ -136,9 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
       return false;

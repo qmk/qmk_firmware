@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{_______, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    _______, _______},
 	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
-	
+
 /* LOCK
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	{XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
 	{RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
 }
-	
+
 };
 
 #ifdef AUDIO_ENABLE
@@ -182,7 +182,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				if (IS_LAYER_ON(_DVORAK)) {
 #ifdef AUDIO_ENABLE
-					PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
+					PLAY_SONG(tone_qwerty);
 #endif
 					layer_off(_DVORAK);
 				}
@@ -193,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
 				if (!IS_LAYER_ON(_DVORAK)) {
 #ifdef AUDIO_ENABLE
-					PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
+					PLAY_SONG(tone_dvorak);
 #endif
 					layer_on(_DVORAK);
 				}
@@ -235,12 +235,12 @@ void matrix_init_user(void) {
 void startup_user()
 {
 	_delay_ms(20); // gets rid of tick
-	PLAY_NOTE_ARRAY(tone_startup, false, 0);
+	PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-	PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+	PLAY_SONG(tone_goodbye);
 	_delay_ms(150);
 	stop_all_notes();
 }
@@ -252,7 +252,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-	PLAY_NOTE_ARRAY(music_scale, false, 0);
+	PLAY_SONG(music_scale);
 }
 
 #endif

@@ -63,6 +63,8 @@
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, XXX, k4a, k4b, k4c, k4d}  \
 }
 
+#define LAYOUT_60_ansi KEYMAP_ANSI
+
 /* AMJ60 HHKB matrix layout
    * ,------------------------------------------------------------.
    * | 00 |01| 02| 03| 04| 05| 06| 07| 08| 09| 0a| 0b| 0c| 0d| 49 |
@@ -119,6 +121,7 @@
     {k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, XXX}, \
     {k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, XXX, k4a, k4b, k4c, k4d}  \
 }
+
 /* ISO w/ split right shift key matrix layout
    * ,-----------------------------------------------------------.
    * | 00 |01| 02| 03| 04| 05| 06| 07| 08| 09| 0a| 0b| 0c| 0d    |
