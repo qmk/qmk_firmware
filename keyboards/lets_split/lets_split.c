@@ -1,6 +1,6 @@
 #include "lets_split.h"
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 

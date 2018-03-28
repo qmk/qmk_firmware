@@ -135,13 +135,14 @@ flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
 	
 DFU_PROGRAMMER ?= dfu-programmer
+GREP ?= grep
 
 dfu: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		echo "Error: Bootloader not found. Trying again in 5s." ;\
 		sleep 5 ;\
 	done
-	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
 		$(DFU_PROGRAMMER) $(MCU) erase --force;\
 	else\
 		$(DFU_PROGRAMMER) $(MCU) erase;\
@@ -161,7 +162,7 @@ flip-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(REMOVE) $(BUILD_DIR)/$(TARGET)eep.hex
 
 dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
-	if $(DFU_PROGRAMMER) --version 2>&1 | grep -q 0.7 ; then\
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
 		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(BUILD_DIR)/$(TARGET).eep;\
 	else\
 		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(BUILD_DIR)/$(TARGET).eep;\
@@ -169,7 +170,7 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	$(DFU_PROGRAMMER) $(MCU) reset
 
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
-	if grep -q -s Microsoft /proc/version; then \
+	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
 		printf "Detecting USB port, reset your controller now."; \
@@ -178,12 +179,12 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
 			sleep 0.5; \
 			printf "."; \
 			ls /dev/tty* > /tmp/2; \
-			USB=`comm -13 /tmp/1 /tmp/2 | grep -o '/dev/tty.*'`; \
+			USB=`comm -13 /tmp/1 /tmp/2 | $(GREP) -o '/dev/tty.*'`; \
 			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
 		echo "Detected controller on USB port at $$USB"; \
-		if grep -q -s 'MINGW\|MSYS' /proc/version; then \
+		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
 		fi; \
@@ -251,16 +252,16 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader: 
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	echo "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo `grep "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e `$(GREP) "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	echo -e "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	make -C lib/lufa/Bootloaders/DFU/
-	echo "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
+	echo -e "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader
