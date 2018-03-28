@@ -123,11 +123,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise)
  *
  * ,----------------------------------.           ,----------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |           |   F6 |  F7  |  Up  |  F9  |  F10 |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |           |   F6 |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  F11 |  F12 |      |RGBSAI|RGBSAD|           |      | Left | Down |Right |caltde|
+ * |  F11 |  F12 |      |RGBSAI|RGBSAD|           |RGBVAD|      | Down |      |caltde|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | Reset|RGBTOG|RGBMOD|RGBHUI|RGBHUD|           |RGBVAI|RGBVAD|  F8  |Taskmg|      |
+ * | Reset|RGBTOG|RGBMOD|RGBHUI|RGBHUD|           |RGBVAI| Left | Down |Right |Taskmg|
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|      |
@@ -136,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_ADJUST] =  KEYMAP( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_UP,   KC_F9,   KC_F10, \
-  KC_F11,  KC_F12,  _______, RGB_SAI, RGB_SAD,      _______, KC_LEFT, KC_DOWN, KC_RGHT, CALTDEL, \
-  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD,      RGB_VAI, RGB_VAD, KC_F8, TSKMGR,  _______, \
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, \
+  KC_F11,  KC_F12,  _______, RGB_SAI, RGB_SAD,      RGB_VAD, _______, KC_UP, _______, CALTDEL, \
+  RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD,      RGB_VAI, KC_LEFT, KC_DOWN, KC_RGHT,  TSKMGR, \
           _______,  _______, _______, _______,      _______,  _______, _______, _______        \
 )
 };

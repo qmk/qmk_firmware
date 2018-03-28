@@ -31,7 +31,7 @@ Because the two boards are identical, the firmware has logic to differentiate th
 
 It uses two strategies to figure things out: look at the EEPROM (memory on the chip) or looks if the current board has the usb cable.
 
-The EEPROM approach requires additional setup (flashing the eeeprom) but allows you to swap the usb cable to either side.
+The EEPROM approach requires additional setup (flashing the eeprom) but allows you to swap the usb cable to either side.
 
 The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
 
