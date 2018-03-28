@@ -159,32 +159,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
         layer_on(_DVORAK);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+//        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
       }
       else
       {
         layer_off(_DVORAK);
-        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
+//        update_quad_layer(_LOWER, _RAISE, _DVORAK, _ADJUST);
       }
       return false;
       break;

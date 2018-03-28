@@ -137,7 +137,7 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-
+//again, unknown if actually needed. need keyboard to test.
 void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
