@@ -17,10 +17,10 @@
 #include <stdio.h>
 
 // Port D: digital pins of the AVR chipset
-#define NUMLOCK_PORT    (1 << 1)  // 1st pin of Port D (digital)
-#define CAPSLOCK_PORT   (1 << 2)  // 2nd pin
+#define NUMLOCK_PORT    (1 << 0)  // 0th pin of Port D (digital)
+#define CAPSLOCK_PORT   (1 << 1)  // 1st pin
 #define BACKLIGHT_PORT  (1 << 4)  // 4th pin
-#define SCROLLLOCK_PORT (1 << 6)  // 6th pin
+//#define SCROLLLOCK_PORT (1 << 6)  // 6th pin
 
 #define TIMER_CLK_DIV64			  0x03	///< Timer clocked at F_CPU/64
 #define TIMER1PRESCALE	TIMER_CLK_DIV64 ///< timer 1 prescaler default
@@ -62,13 +62,14 @@ void led_set_user(uint8_t usb_led) {
       PORTD &= ~CAPSLOCK_PORT;
     }
 
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+  /* YMD96 does not have scroll lock led  
+   if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
       DDRD  |= SCROLLLOCK_PORT;
       PORTD |= SCROLLLOCK_PORT;
     } else {
       DDRD  &= ~SCROLLLOCK_PORT;
       PORTD &= ~SCROLLLOCK_PORT;
-    }
+    }*/
 }
 
 #ifdef BACKLIGHT_ENABLE
