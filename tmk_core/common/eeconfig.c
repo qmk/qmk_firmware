@@ -3,6 +3,10 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 
+/** \brief eeconfig initialization
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_init(void)
 {
     eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
@@ -24,36 +28,88 @@ void eeconfig_init(void)
 #endif
 }
 
+/** \brief eeconfig enable
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_enable(void)
 {
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
 }
 
+/** \brief eeconfig disable
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_disable(void)
 {
     eeprom_update_word(EECONFIG_MAGIC, 0xFFFF);
 }
 
+/** \brief eeconfig is enabled
+ *
+ * FIXME: needs doc
+ */
 bool eeconfig_is_enabled(void)
 {
     return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
 }
 
+/** \brief eeconfig read debug
+ *
+ * FIXME: needs doc
+ */
 uint8_t eeconfig_read_debug(void)      { return eeprom_read_byte(EECONFIG_DEBUG); }
+/** \brief eeconfig update debug
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_update_debug(uint8_t val) { eeprom_update_byte(EECONFIG_DEBUG, val); }
 
+/** \brief eeconfig read default layer
+ *
+ * FIXME: needs doc
+ */
 uint8_t eeconfig_read_default_layer(void)      { return eeprom_read_byte(EECONFIG_DEFAULT_LAYER); }
+/** \brief eeconfig update default layer
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_update_default_layer(uint8_t val) { eeprom_update_byte(EECONFIG_DEFAULT_LAYER, val); }
 
+/** \brief eeconfig read keymap
+ *
+ * FIXME: needs doc
+ */
 uint8_t eeconfig_read_keymap(void)      { return eeprom_read_byte(EECONFIG_KEYMAP); }
+/** \brief eeconfig update keymap
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_update_keymap(uint8_t val) { eeprom_update_byte(EECONFIG_KEYMAP, val); }
 
 #ifdef BACKLIGHT_ENABLE
+/** \brief eeconfig read backlight
+ *
+ * FIXME: needs doc
+ */
 uint8_t eeconfig_read_backlight(void)      { return eeprom_read_byte(EECONFIG_BACKLIGHT); }
+/** \brief eeconfig update backlight
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
 #endif
 
 #ifdef AUDIO_ENABLE
+/** \brief eeconfig read audio
+ *
+ * FIXME: needs doc
+ */
 uint8_t eeconfig_read_audio(void)      { return eeprom_read_byte(EECONFIG_AUDIO); }
+/** \brief eeconfig update audio
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_update_audio(uint8_t val) { eeprom_update_byte(EECONFIG_AUDIO, val); }
 #endif
