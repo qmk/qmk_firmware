@@ -1,8 +1,8 @@
 /*
- * Copyright (C) 2013-2016 Fabio Utzig, http://fabioutzig.com
- *           (C) 2016 flabbergast <s3+flabbergast@sdfeu.org>
- *           (C) 2018 Jonathan A. Kollasch
- *           (C) 2018 Charlie Waters
+ * Copyright (c) 2013-2016 Fabio UJonathan A. Kollaschtzig, http://fabioutzig.com
+ *           (c) 2016 flabbergast <s3+flabbergast@sdfeu.org>
+ *           (c) 2018 Jonathan A. Kollasch
+ *           (c) 2018 Charlie Waters
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
@@ -28,15 +28,15 @@
  */
 MEMORY
 {
-  flash0   : org = 0x00000000, len = 0x3000
-  flash1   : org = 0x00003000, len = 0x400
-  flash2   : org = 0x00003400, len = 0x160
-  flash3   : org = 0x00003400 + 0x160, len = 0x3bf8 - 0x3400 - 0x160
-  flash4   : org = 0x00003bf8, len = 8
-  flash5   : org = 0x00003c00, len = 128k - 0x3c00
+  flash0   : org = 0x00000000, len = 0x3000                             /* bootloader */
+  flash1   : org = 0x00003000, len = 0x400                              /* version page */
+  flash2   : org = 0x00003400, len = 0x160                              /* firmware vectors */
+  flash3   : org = 0x00003400 + 0x160, len = 0x3bf8 - 0x3400 - 0x160    /* descriptor, keymaps, etc */
+  flash4   : org = 0x00003bf8, len = 8                                  /* bootloader magic */
+  flash5   : org = 0x00003c00, len = 128k - 0x3c00                      /* firmware */
   flash6   : org = 0x00000000, len = 0
   flash7   : org = 0x00000000, len = 0
-  ram0     : org = 0x20000000, len = 32k - 4
+  ram0     : org = 0x20000000, len = 32k - 4                            /* RAM */
   ram1     : org = 0x00000000, len = 0
   ram2     : org = 0x00000000, len = 0
   ram3     : org = 0x00000000, len = 0
@@ -45,7 +45,6 @@ MEMORY
   ram6     : org = 0x00000000, len = 0
   ram7     : org = 0x00000000, len = 0
 }
-
 
 SECTIONS {
   .rodata.flash3 :

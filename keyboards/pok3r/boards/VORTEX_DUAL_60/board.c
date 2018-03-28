@@ -1,5 +1,6 @@
 /*
     ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+                        (C) 2018 Charlie Waters
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
