@@ -12,12 +12,6 @@ extern keymap_config_t keymap_config;
 #define SYMBOLS 1
 #define MEDIA 2
 
-enum custom_keycodes {
-  LETTERS,
-  SYMBOLS,
-  MEDIA,
-};
-
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -89,28 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_CAPS, KC_TILD, _______, _______, _______,      _______, _______, _______, KC_PIPE,  KC_DQT, \
                     _______, _______, _______,      KC_ENT,  _______, KC_DEL                    \
 )
-
-/* Adjust (Lower + Raise)
- *
- * ,----------------------------------.           ,----------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |           |   F6 |  F7  |  F8  |  F9  |  F10 |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |  F11 |  F12 |      |      |      |           |      |      |      |Taskmg|caltde|
- * |------+------+------+------+------|           |------+------+------+------+------|
- * | Reset|      |      |      |      |           |      |      |      |      |      |
- * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,------,-------------.
- *                  |      | LOWER|      |    |      | RAISE|      |
- *                  `-------------|      |    |      |------+------.
- *                                |      |    |      |
- *                                `------'    `------'
- */
-/* [_ADJUST] =  KEYMAP( \ */
-/*   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, \ */
-/*   KC_F11,  KC_F12,  _______, _______, _______,      _______, _______, _______, TSKMGR, CALTDEL, \ */
-/*   RESET,   _______, _______, _______, _______,      _______, _______, _______, _______,  _______, \ */
-/*                     _______, _______, _______,      _______,  _______, _______                    \ */
-/* ) */
 };
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -118,45 +90,3 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-/* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
-/*   switch (keycode) { */
-/*     case LETTERS: */
-/*       if (record->event.pressed) { */
-/*         #ifdef AUDIO_ENABLE */
-/*           PLAY_NOTE_ARRAY(tone_qwerty, false, 0); */
-/*         #endif */
-/*         persistant_default_layer_set(1UL<<LETTERS); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case SYMBOLS: */
-/*       if (record->event.pressed) { */
-/*         layer_on(SYMBOLS); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } else { */
-/*         layer_off(_LOWER); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case RAISE: */
-/*       if (record->event.pressed) { */
-/*         layer_on(_RAISE); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } else { */
-/*         layer_off(_RAISE); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case ADJUST: */
-/*       if (record->event.pressed) { */
-/*         layer_on(_ADJUST); */
-/*       } else { */
-/*         layer_off(_ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*   } */
-/*   return true; */
-/* } */
