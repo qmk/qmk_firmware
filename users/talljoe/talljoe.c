@@ -1,65 +1,67 @@
 #include QMK_KEYBOARD_H
 
 #include "talljoe.h"
-#include "common_core.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = KM_(
+  [_BASE] = LAYOUT(
       KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV,
-      KC_TAB , _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_LBRC, KC_RBRC, KC_BSPC,
-      US_CAPS, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, US_QUOT,          KC_ENT ,
-      KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,          KC_RSFT, AD_GRV ,
-      _________MODS_L__________,                            KC_SPC1,                            ______________MODS_R______________),
-  [_WORKMAN] = KM_(
+      KC_TAB , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T   , KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
+      US_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, US_QUOT,          KC_ENT ,
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, AD_GRV ,
+      KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+  [_WORKMAN] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _________________WORKMAN_L1________________, _________________WORKMAN_R1________________, _______, _______, _______,
-      _______, _________________WORKMAN_L2________________, _________________WORKMAN_R2________________, _______,          _______,
-      _______, _________________WORKMAN_L3________________, _________________WORKMAN_R3________________,          _______, _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______, _______),
-  [_NORMAN] = KM_(
+      _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN, _______, _______, _______,
+      _______, KC_A   , KC_S   , KC_H   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_E   , KC_O   , KC_I   , _______,          _______,
+      _______, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_K   , KC_L   , KC_COMM, KC_DOT , KC_SLSH,          _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______),
+  [_NORMAN] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _________________NORMAN_L1_________________, _________________NORMAN_R1_________________, _______, _______, _______,
-      _______, _________________NORMAN_L2_________________, _________________NORMAN_R2_________________, _______,          _______,
-      _______, _________________NORMAN_L3_________________, _________________NORMAN_R3_________________,          _______, _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______, _______),
-  [_DVORAK] = KM_(
+      _______, KC_Q   , KC_W   , KC_D   , KC_F   , KC_K   , KC_J   , KC_U   , KC_R   , KC_L   , KC_SCLN, _______, _______, _______,
+      _______, KC_A   , KC_S   , KC_E   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_I   , KC_O   , KC_H   , _______,          _______,
+      _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_P   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______),
+  [_DVORAK] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,
-      _______, _________________DVORAK_L1_________________, _________________DVORAK_R1_________________, KC_SLSH, KC_EQL , _______,
-      _______, _________________DVORAK_L2_________________, _________________DVORAK_R2_________________, US_MINS,          _______,
-      _______, _________________DVORAK_L3_________________, _________________DVORAK_R3_________________,          _______, _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______, _______),
-  [_COLMAK] = KM_(
+      _______, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y   , KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL , _______,
+      _______, KC_A,    KC_O,    KC_E,    KC_U,    KC_I   , KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    US_MINS,          _______,
+      _______, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X   , KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,             _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______),
+  [_COLMAK] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, _______, _______, _______,
-      _______, _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, _______,          _______,
-      _______, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________,          _______, _______,
-      _______, _______, _______,                            _______,                            _______, _______, _______, _______),
-  [_GAME] = KM_(
+      _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G   , KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, _______, _______, _______,
+      _______, KC_A,    KC_R,    KC_S,    KC_T,    KC_D   , KC_H,    KC_N,    KC_E,    KC_I,    KC_O   , _______,          _______,
+      _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          _______, _______,
+      _______, _______, _______,                   _______, _______, _______,                   _______, _______, _______, _______),
+
+#ifdef ENABLE_GAME_LAYER
+  [_GAME] = LAYOUT(
       KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV,
       KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
       MO_NAV , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,          KC_ENT ,
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          KC_RSFT, MO_ADJ ,
-      KC_LCTL, KC_PTT , KC_PGDN,                            KC_SPC ,                            KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
-  [_NAV] = KM_(
+      KC_LCTL, KC_PTT , KC_PGDN,                   KC_SPC , KC_SPC , KC_SPC ,                    KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+#endif
+  [_NAV] = LAYOUT(
       KC_GRV , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      KC_TAB , ________________NAVLAYER_L1________________, ________________NAVLAYER_R1________________, XXXXXXX, XXXXXXX, KC_DEL ,
-      US_CAPS, ________________NAVLAYER_L2________________, ________________NAVLAYER_R2________________, XXXXXXX,          TG_ADJ ,
-      KC_LSFT, ________________NAVLAYER_L3________________, ________________NAVLAYER_R3________________,          KC_RSFT, XXXXXXX,
-      _________MODS_L__________,                            NV_SPC1,                            ______________MODS_R______________),
-  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
-  [_ADJUST] = KM_(
+      KC_TAB , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_VOLU, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL ,
+      US_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_MUTE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , XXXXXXX,          TG_ADJ ,
+      KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX,          KC_RSFT, XXXXXXX,
+      KC_LCTL, KC_LGUI, KC_LALT,                   NV_SPC2, NV_SPC1, NV_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+ // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
+  [_ADJUST] = LAYOUT(
       MO_RST , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, ________________ADJLAYER_L1________________, ________________ADJLAYER_R1________________, XXXXXXX, XXXXXXX, KC_DEL ,
-      XXXXXXX, ________________ADJLAYER_L2________________, ________________ADJLAYER_R2________________, XXXXXXX,          TG_ADJ ,
-      TG_NKRO, ________________ADJLAYER_L3________________, ________________ADJLAYER_R3________________,          KC_RSFT, XXXXXXX,
-      MO_RST , AG_NORM, AG_SWAP,                            BL_TOGG,                            XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS),
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL ,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJ ,
+      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, XXXXXXX, XXXXXXX, KC_MAKE, TG_GAME,          KC_RSFT, XXXXXXX,
+      MO_RST , AG_NORM, AG_SWAP,                   XXXXXXX, BL_TOGG, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS),
   // To Reset hit FN + ` + Esc
-  [_RESET] = KM_(
+  [_RESET] = LAYOUT(
       RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
-      RESET  , XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
+      RESET  , XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
 void matrix_scan_user(void) {
