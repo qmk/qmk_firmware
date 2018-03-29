@@ -27,8 +27,8 @@
 #define DESCRIPTION     qmk for Vortex POK3R
 
 /* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 9
 
 /*
  * Keyboard Matrix Assignments
@@ -118,4 +118,4 @@
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#endif
+#endif // CONFIG_H
