@@ -5,7 +5,7 @@ Makes the following changes to the default iso-uk layout
 ## Base Layer
 
 CapsLock -> Fn
-Esc -> Esc `
+Esc -> Esc `		(win + esc = `, shift + esc = ¬)
 
 
 ## Function Layer
@@ -25,4 +25,9 @@ o -> end
 c -> backlight decreasen
 v -> backlight increase
 b -> backlight toggle
+
+space -> Ctrl + Space
+R -> F5 (refresh)
+T -> Ctrl + F11
+; -> delete
 
