@@ -48,6 +48,8 @@ If you do add a `config,h` file, you want to make sure that it only gets process
 #endif // !USERSPACE_CONFIG_H
 ```
 
+You can use any option hre that you could use in your keymap's `config.h` file. You can find a list of vales [here](config_options.md). 
+
 ## Example
 
 For a brief example, checkout `/users/_example/` , or for a more detailed examples check out [`template.h`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.h) and [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in `/users/drashna/` .
