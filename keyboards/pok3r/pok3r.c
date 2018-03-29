@@ -25,43 +25,47 @@ extern uint32_t __ram0_end__;
 #define MAGIC_ADDR (volatile uint32_t *)(SYMVAL(__ram0_end__) - 0)
 
 void bootloader_jump(void) {
-  *MAGIC_ADDR = BOOTLOADER_MAGIC;
-  NVIC_SystemReset();
+    *MAGIC_ADDR = BOOTLOADER_MAGIC;
+    NVIC_SystemReset();
 }
 
 __attribute__ ((weak))
-void matrix_init_user(void) {}
+void matrix_init_user(void) {
+
+}
 
 void matrix_init_kb(void) {
-  // put your keyboard start-up code here
-  // runs once when the firmware starts up
-  *MAGIC_ADDR = BOOTLOADER_MAGIC - 5;
+    // put your keyboard start-up code here
+    // runs once when the firmware starts up
+    *MAGIC_ADDR = BOOTLOADER_MAGIC - 5;
 
-  matrix_init_user();
+    matrix_init_user();
 }
 
 __attribute__ ((weak))
-void matrix_scan_user(void) {}
+void matrix_scan_user(void) {
+
+}
 
 void matrix_scan_kb(void) {
-  // put your looping keyboard code here
-  // runs every cycle (a lot)
+    // put your looping keyboard code here
+    // runs every cycle (a lot)
 
-  matrix_scan_user();
+    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
+    // put your per-action keyboard code here
+    // runs for every action, just before processing by the firmware
 
-  return process_record_user(keycode, record);
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
-  if ((usb_led >> USB_LED_CAPS_LOCK) & 1) {
-    palClearLine(LINE_LED65);
-  } else {
-    palSetLine(LINE_LED65);
-  }
-  led_set_user(usb_led);
+    if ((usb_led >> USB_LED_CAPS_LOCK) & 1) {
+        palClearLine(LINE_LED65);
+    } else {
+        palSetLine(LINE_LED65);
+    }
+    led_set_user(usb_led);
 }

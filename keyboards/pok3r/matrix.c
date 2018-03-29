@@ -33,47 +33,45 @@ static uint16_t debouncing_time = 0;
 
 static inline void init_row(ioportid_t portid, ioportmask_t portmask, size_t portoffset) {
     palWriteGroup(portid, portmask, portoffset, portmask);
-    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_OUTPUT_PUSHPULL|PAL_MODE_HT32_AF(AFIO_GPIO));
+    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_OUTPUT_PUSHPULL | PAL_MODE_HT32_AF(AFIO_GPIO));
 }
 
 static inline void init_col(ioportid_t portid, ioportmask_t portmask, size_t portoffset) {
-    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_INPUT_PULLUP|PAL_MODE_HT32_AF(AFIO_GPIO));
+    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_INPUT_PULLUP | PAL_MODE_HT32_AF(AFIO_GPIO));
 }
 
 void matrix_init(void) {
+    // Matrix "columns" are pulsed
+    init_row(GPIO_A, 0x0078, 0);    // A3,A4,A5,A6  COL1,COL2,COL3,COL4
+    init_row(GPIO_B, 0x0800, 0);    // B11          COL5
+    init_row(GPIO_C, 0x0E00, 0);    // C13,C14,C15  COL6,COL7,COL8
 
-    /* rows, tmk "columns" */
-    init_col(GPIO_A, 0x00f0, 0);	// A7-A4:	TEX Ro3,Ro2,Ro1,Ro4
-    init_col(GPIO_C, 0xf000, 0);	// C15-C12	TEX Ro7,Ro6,Ro5,Ro0
-    /* columns, tmk "rows" */
-    init_row(GPIO_A, 0x080f, 0);	// A11,A3-A0	TEX Co4,Co8-Co5
-    init_row(GPIO_B, 0x0840, 0);	// B11,B6	TEX Co3,Co1
-    init_row(GPIO_C, 0x0018, 0);	// C4,C3	TEX Co0,Co9
-    init_row(GPIO_D, 0x0001, 0);	// D0		TEX Co2
+    // Matrix "rows" are inputs
+    init_col(GPIO_A, 0x8800, 0);    // A11,A15      ROW3,ROW5
+    init_col(GPIO_B, 0x003A, 0);    // B1,B3,B4,B5  ROW7,ROW4,ROW6,ROW8
+    init_col(GPIO_C, 0x0120, 0);    // C5,C8        ROW2,ROW9
+    init_col(GPIO_D, 0x0001, 0);    // D0           ROW1
+
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
-    /* Caps Lock LED */
-    palSetLine(LINE_LED65);
-    palSetLineMode(LINE_LED65, PAL_MODE_OUTPUT_PUSHPULL);
-
-    /* not sure what this is, but the TEX firmware sets it as an output */
-    palSetLine(LINE_PB0);
-    palSetLineMode(LINE_PB0, PAL_MODE_OUTPUT_PUSHPULL);
-
-    /* DIP switches */
-    palSetGroupMode(GPIO_B, 0x003c, 0, PAL_MODE_INPUT_PULLUP);
-    palSetGroupMode(GPIO_C, 0x0180, 0, PAL_MODE_INPUT_PULLUP);
-
-    /* NOR Flash */
-    palSetGroupMode(GPIO_B, 0x7, 7, PAL_MODE_HT32_AF(AFIO_SPI)); /* SPI1 */
-    palSetLine(LINE_NORCE);
-    palSetLineMode(LINE_NORCE, PAL_MODE_OUTPUT_PUSHPULL); /* CE/CS */
+    // SPI flash
+    //palSetGroupMode(GPIO_B, 0x7, 7, PAL_MODE_HT32_AF(AFIO_SPI)); /* SPI1 */
+    //palSetLine(LINE_NORCE);
+    //palSetLineMode(LINE_NORCE, PAL_MODE_OUTPUT_PUSHPULL); /* CE/CS */
 
     matrix_init_quantum();
 }
 
 static matrix_row_t read_columns(void) {
-    return (palReadGroup(GPIO_A, 0xf, 4) | (palReadGroup(GPIO_C, 0xf, 12) << 4));
+    return palReadLine(LINE_ROW1) |
+        (palReadLine(LINE_ROW2) << 1) |
+        (palReadLine(LINE_ROW3) << 2) |
+        (palReadLine(LINE_ROW4) << 3) |
+        (palReadLine(LINE_ROW5) << 4) |
+        (palReadLine(LINE_ROW6) << 5) |
+        (palReadLine(LINE_ROW7) << 6) |
+        (palReadLine(LINE_ROW8) << 7) |
+        (palReadLine(LINE_ROW9) << 8);
 }
 
 static const ioline_t row_list[MATRIX_ROWS] = {
@@ -88,6 +86,7 @@ static const ioline_t row_list[MATRIX_ROWS] = {
 };
 
 uint8_t matrix_scan(void) {
+    // scan each row
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data;
 
@@ -95,12 +94,14 @@ uint8_t matrix_scan(void) {
         wait_us(20);
         data = ~read_columns();
         palSetLine(row_list[row]);
+
         if (matrix_debouncing[row] != data) {
             matrix_debouncing[row] = data;
             debouncing = true;
             debouncing_time = timer_read();
         }
     }
+
     if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             matrix[row] = matrix_debouncing[row];

@@ -25,36 +25,36 @@
 void
 backlight_init_ports(void)
 {
-  /* 210Hz, 200 steps per cycle */
-  static const PWMConfig config = {
-    .frequency = 210 * 200,
-    .period = 200,
-    .callback = NULL,
-    .channels = {
-      [0] = {
-        .mode = PWM_OUTPUT_ACTIVE_HIGH,
+    /* 210Hz, 200 steps per cycle */
+    static const PWMConfig config = {
+        .frequency = 210 * 200,
+        .period = 200,
         .callback = NULL,
-      },
-    },
-  };
+        .channels = {
+            [0] = {
+                .mode = PWM_OUTPUT_ACTIVE_HIGH,
+                .callback = NULL,
+            },
+        },
+    };
 
-  palSetLine(LINE_BLPWM);
-  palSetLineMode(LINE_BLPWM, PAL_MODE_OUTPUT_PUSHPULL|PAL_MODE_HT32_AF(AFIO_TM));
-  pwmStart(&PWMD_MCTM0, &config);
+    palSetLine(LINE_BLPWM);
+    palSetLineMode(LINE_BLPWM, PAL_MODE_OUTPUT_PUSHPULL|PAL_MODE_HT32_AF(AFIO_TM));
+    pwmStart(&PWMD_MCTM0, &config);
 
-  palClearLine(LINE_BLEN);
-  palSetLineMode(LINE_BLEN, PAL_MODE_OUTPUT_OPENDRAIN);
+    palClearLine(LINE_BLEN);
+    palSetLineMode(LINE_BLEN, PAL_MODE_OUTPUT_OPENDRAIN);
 }
 
 void
 backlight_set(uint8_t level)
 {
-  if (level == 0) {
-    pwmDisableChannel(&PWMD_MCTM0, 0);
-    palClearLine(LINE_BLEN);
-  } else if (level <= BACKLIGHT_LEVELS) {
-    pwmEnableChannel(&PWMD_MCTM0, 0, PWM_FRACTION_TO_WIDTH(&PWMD_MCTM0, BACKLIGHT_LEVELS, level));
-    palSetLine(LINE_BLEN);
-  }
+    if (level == 0) {
+        pwmDisableChannel(&PWMD_MCTM0, 0);
+        palClearLine(LINE_BLEN);
+    } else if (level <= BACKLIGHT_LEVELS) {
+        pwmEnableChannel(&PWMD_MCTM0, 0, PWM_FRACTION_TO_WIDTH(&PWMD_MCTM0, BACKLIGHT_LEVELS, level));
+        palSetLine(LINE_BLEN);
+    }
 }
 #endif
