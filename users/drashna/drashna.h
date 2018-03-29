@@ -46,6 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
+// RGB color codes are no longer located here anymore.  Instead, you will want to
+// head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
