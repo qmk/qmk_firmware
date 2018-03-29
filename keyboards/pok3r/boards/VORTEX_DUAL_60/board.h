@@ -37,25 +37,24 @@
 #define LINE_NORCE                  PAL_LINE(IOPORTB, 10)   // !
 #define LINE_TPREQ                  PAL_LINE(IOPORTC, 11)   // !
 
-#define LINE_COL0                   PAL_LINE(IOPORTC, 4)    // !
-#define LINE_COL1                   PAL_LINE(IOPORTB, 6)    // !
-#define LINE_COL2                   PAL_LINE(IOPORTD, 0)    // !
-#define LINE_COL3                   PAL_LINE(IOPORTB, 11)   // !
-#define LINE_COL4                   PAL_LINE(IOPORTA, 11)   // !
-#define LINE_COL5                   PAL_LINE(IOPORTA, 0)    // !
-#define LINE_COL6                   PAL_LINE(IOPORTA, 1)    // !
-#define LINE_COL7                   PAL_LINE(IOPORTA, 2)    // !
-#define LINE_COL8                   PAL_LINE(IOPORTA, 3)    // !
-#define LINE_COL9                   PAL_LINE(IOPORTC, 3)    // !
+#define LINE_COL1                   PAL_LINE(IOPORTA, 3)
+#define LINE_COL2                   PAL_LINE(IOPORTA, 4)
+#define LINE_COL3                   PAL_LINE(IOPORTA, 5)
+#define LINE_COL4                   PAL_LINE(IOPORTA, 6)
+#define LINE_COL5                   PAL_LINE(IOPORTB, 11)
+#define LINE_COL6                   PAL_LINE(IOPORTC, 13)
+#define LINE_COL7                   PAL_LINE(IOPORTC, 14)
+#define LINE_COL8                   PAL_LINE(IOPORTC, 15)
 
-#define LINE_ROW0                   PAL_LINE(IOPORTC, 12)   // !
-#define LINE_ROW1                   PAL_LINE(IOPORTA, 5)    // !
-#define LINE_ROW2                   PAL_LINE(IOPORTA, 6)    // !
-#define LINE_ROW3                   PAL_LINE(IOPORTA, 7)    // !
-#define LINE_ROW4                   PAL_LINE(IOPORTA, 4)    // !
-#define LINE_ROW5                   PAL_LINE(IOPORTC, 13)   // !
-#define LINE_ROW6                   PAL_LINE(IOPORTC, 14)   // !
-#define LINE_ROW7                   PAL_LINE(IOPORTC, 15)   // !
+#define LINE_ROW1                   PAL_LINE(IOPORTD, 0)
+#define LINE_ROW2                   PAL_LINE(IOPORTC, 5)
+#define LINE_ROW3                   PAL_LINE(IOPORTA, 11)
+#define LINE_ROW4                   PAL_LINE(IOPORTB, 3)
+#define LINE_ROW5                   PAL_LINE(IOPORTA, 15)
+#define LINE_ROW6                   PAL_LINE(IOPORTB, 4)
+#define LINE_ROW7                   PAL_LINE(IOPORTB, 1)
+#define LINE_ROW8                   PAL_LINE(IOPORTB, 5)
+#define LINE_ROW9                   PAL_LINE(IOPORTC, 8)
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
