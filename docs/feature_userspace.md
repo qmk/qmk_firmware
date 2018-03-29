@@ -3,7 +3,7 @@
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)
-  * `readme.md` (optional, recommented)
+  * `readme.md` (optional, recommended)
   * `rules.mk` (included automatically)
   * `<name>.h` (optional)
   * `<name>.c` (optional)
