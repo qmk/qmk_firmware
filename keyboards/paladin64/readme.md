@@ -4,7 +4,7 @@ Firmware for the Paladin64 ALPS64 PCB, with underglow and an optional
 trackpoint module.
 
 Keyboard Maintainer: [/u/iNachie](https://github.com/nachie)  
-Hardware Supported: Paladin64 ALPS PCB by iNachie
+Hardware Supported: Paladin64 ALPS PCB by iNachie  
 Hardware Availability: [/u/iNachie](https://www.reddit.com/user/inachie/)
 
 Make example for this keyboard (after setting up your build environment):
