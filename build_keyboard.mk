@@ -202,7 +202,9 @@ else
 endif
 
 # User space stuff
-USER_PATH := users/$(KEYMAP)
+ifeq ("$(USER_PATH)","")
+    USER_PATH := users/$(KEYMAP)
+endif
 -include $(USER_PATH)/rules.mk
 
 # Object files directory
