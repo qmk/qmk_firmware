@@ -50,7 +50,7 @@ void matrix_init(void) {
     init_row(GPIO_B, 0x0840, 0);	// B11,B6	TEX Co3,Co1
     init_row(GPIO_C, 0x0018, 0);	// C4,C3	TEX Co0,Co9
     init_row(GPIO_D, 0x0001, 0);	// D0		TEX Co2
-    memset(matrix, 0, MATRIX_ROWS);
+    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
     /* Caps Lock LED */
     palSetLine(LINE_LED65);
