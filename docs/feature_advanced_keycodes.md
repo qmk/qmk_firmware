@@ -25,7 +25,8 @@ These functions allow you to activate layers in various ways.
 * `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped.
 * `TG(layer)` - toggles a layer on or off.
 * `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
-* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you repeatedly tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
+* `LM(layer, mod)` - Momentary switch to *layer* (like MO), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
 
 # Working with Layers
 
@@ -49,7 +50,7 @@ Once you have a good feel for how layers work and what you can do, you can get m
 
 Layers stack on top of each other in numerical order. When determining what a keypress does, QMK scans the layers from the top down, stopping when it reaches the first active layer that is not set to `KC_TRNS`. As a result if you activate a layer that is numerically lower than your current layer, and your current layer (or another layer that is active and higher than your target layer) has something other than `KC_TRNS`, that is the key that will be sent, not the key on the layer you just activated. This is the cause of most people's "why doesn't my layer get switched" problem.
 
-Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](../tmk_core/common/action_layer.h).
+Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. `layer_on` activates a layer, and `layer_off` deactivates it. More layer-related functions can be found in [action_layer.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_layer.h).
 
 # Modifier Keys
 
@@ -153,9 +154,11 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
-Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](../tmk_core/common/action.c#L429).
+Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L429).
 
-## Permissive Hold
+If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+
+# Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 

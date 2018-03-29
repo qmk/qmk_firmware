@@ -368,14 +368,15 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
-|Key            |Description                                                                       |
-|---------------|----------------------------------------------------------------------------------|
-|`LT(layer, kc)`|Turn on `layer` when held, `kc` when tapped                                       |
-|`TO(layer)`    |Turn on `layer` when pressed                                                      |
-|`MO(layer)`    |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`DF(layer)`    |Set the base (default) layer                                                      |
-|`TG(layer)`    |Toggle `layer` on or off                                                          |
-|`TT(layer)`    |Tap toggle? idk FIXME                                                             |
+|Key             |Description                                                                       |
+|----------------|----------------------------------------------------------------------------------|
+|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
+|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
+|`DF(layer)`     |Set the base (default) layer                                                      |
+|`TG(layer)`     |Toggle `layer` on or off                                                          |
+|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.                  |
 
 ## [One Shot Keys](quantum_keycodes.md#one-shot-keys)
 
