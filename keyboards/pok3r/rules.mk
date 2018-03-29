@@ -1,5 +1,6 @@
 # project specific files
-SRC =	backlight.c \
+SRC = \
+	backlight.c \
 	matrix.c
 LAYOUTS += 60_ansi 60_ansi_split_rshift 60_iso
 
@@ -31,25 +32,22 @@ ARMV = 7
 USE_FPU = no
 
 # Vector table for application
-# 0x00000000-0x00003400 area is occupied by bootloader.*/
-# The CORTEX_VTOR... is needed only for bootloader
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x00002c00
-#OPT_DEFS =
-
-# Options to pass to dfu-util when flashing
-#DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+# 0x0000-0x2800 is occupied by stock bootloader, which expects the application at 0x2c00
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x2c00
 
 # Build Options
-#   comment out to disable the options.
-#
+# Keys
+CUSTOM_MATRIX = yes
+NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+KEY_LOCK_ENABLE = yes
+# Boot
+BOOTMAGIC_ENABLE = yes  # (Note that BOOTMAGIC on Yoda II is currently non-functional as it lacks an EEPROM driver.)
+# Backlight
 BACKLIGHT_ENABLE = no
 BACKLIGHT_CUSTOM_DRIVER = yes
-BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
-## (Note that BOOTMAGIC on Yoda II is currently non-functional as it lacks an EEPROM driver.)
-MOUSEKEY_ENABLE = yes	# Mouse keys
-EXTRAKEY_ENABLE = yes	# Audio control and System control
-CONSOLE_ENABLE = yes	# Console for debug
+# Other featues
+CONSOLE_ENABLE = yes    # Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 #SLEEP_LED_ENABLE = yes	# Breathing sleep LED during USB suspend
-NKRO_ENABLE = yes	# USB Nkey Rollover
-CUSTOM_MATRIX = yes # Custom matrix file

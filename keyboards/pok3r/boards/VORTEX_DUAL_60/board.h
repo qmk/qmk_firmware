@@ -48,19 +48,20 @@
 #define LINE_ROW8                   PAL_LINE(IOPORTB, 5)
 #define LINE_ROW9                   PAL_LINE(IOPORTC, 8)
 
+#define LINE_SPICS                  PAL_LINE(IOPORTB, 10)   // !
+
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !
 #define LINE_BLEN                   PAL_LINE(IOPORTA, 15)   // !
 #define LINE_PB0                    PAL_LINE(IOPORTB, 0)    // !
 #define LINE_LED65                  PAL_LINE(IOPORTB, 1)    // !
-#define LINE_NORCE                  PAL_LINE(IOPORTB, 10)   // !
 #define LINE_TPREQ                  PAL_LINE(IOPORTC, 11)   // !
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
 extern "C" {
 #endif
-  void boardInit(void);
+    void boardInit(void);
 #ifdef __cplusplus
 }
 #endif

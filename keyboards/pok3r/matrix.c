@@ -46,18 +46,13 @@ void matrix_init(void) {
     init_row(GPIO_B, 0x0800, 0);    // B11          COL5
     init_row(GPIO_C, 0xE000, 0);    // C13,C14,C15  COL6,COL7,COL8
 
-    // Matrix "rows" are inputs
+    // Matrix "rows" are scanned
     init_col(GPIO_A, 0x8800, 0);    // A11,A15      ROW3,ROW5
     init_col(GPIO_B, 0x003A, 0);    // B1,B3,B4,B5  ROW7,ROW4,ROW6,ROW8
     init_col(GPIO_C, 0x0120, 0);    // C5,C8        ROW2,ROW9
     init_col(GPIO_D, 0x0001, 0);    // D0           ROW1
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-
-    // SPI flash
-    //palSetGroupMode(GPIO_B, 0x7, 7, PAL_MODE_HT32_AF(AFIO_SPI)); /* SPI1 */
-    //palSetLine(LINE_NORCE);
-    //palSetLineMode(LINE_NORCE, PAL_MODE_OUTPUT_PUSHPULL); /* CE/CS */
 
     matrix_init_quantum();
 }

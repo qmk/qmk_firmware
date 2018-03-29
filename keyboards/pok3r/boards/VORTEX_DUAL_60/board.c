@@ -25,68 +25,68 @@
  *          This variable is used by the HAL when initializing the PAL driver.
  */
 const PALConfig pal_default_config = {
-	.setup[0] = {
-		.DIR = 0x0000,
-		.INE = 0x0000,
-		.PU = 0x0000,
-		.PD = 0x0000,
-		.OD = 0x0000,
-		.DRV = 0x0000,
-		.LOCK = 0x0000,
-		.OUT = 0x0000,
-		.CFG[0] = 0x00000000,
-		.CFG[1] = 0x00000000,
-	},
-	.setup[1] = {
-		.DIR = 0x0000,
-		.INE = 0x0000,
-		.PU = 0x0000,
-		.PD = 0x0000,
-		.OD = 0x0000,
-		.DRV = 0x0000,
-		.LOCK = 0x0000,
-		.OUT = 0x0000,
-		.CFG[0] = 0x00000000,
-		.CFG[1] = 0x00000000,
-	},
-	.setup[2] = {
-		.DIR = 0x0000,
-		.INE = 0x0000,
-		.PU = 0x0000,
-		.PD = 0x0000,
-		.OD = 0x0000,
-		.DRV = 0x0000,
-		.LOCK = 0x0000,
-		.OUT = 0x0000,
-		.CFG[0] = 0x00000000,
-		.CFG[1] = 0x00000000,
-	},
-	.setup[3] = {
-		.DIR = 0x0000,
-		.INE = 0x0000,
-		.PU = 0x0000,
-		.PD = 0x0000,
-		.OD = 0x0000,
-		.DRV = 0x0000,
-		.LOCK = 0x0000,
-		.OUT = 0x0000,
-		.CFG[0] = 0x00000000,
-		.CFG[1] = 0x00000000,
-	},
-	.setup[4] = {
-		.DIR = 0x0000,
-		.INE = 0x0000,
-		.PU = 0x0000,
-		.PD = 0x0000,
-		.OD = 0x0000,
-		.DRV = 0x0000,
-		.LOCK = 0x0000,
-		.OUT = 0x0000,
-		.CFG[0] = 0x00000000,
-		.CFG[1] = 0x00000000,
-	},
-	.ESSR[0] = 0x00000000,
-	.ESSR[1] = 0x00000000,
+    .setup[0] = {
+        .DIR = 0x0000,
+        .INE = 0x0000,
+        .PU = 0x0000,
+        .PD = 0x0000,
+        .OD = 0x0000,
+        .DRV = 0x0000,
+        .LOCK = 0x0000,
+        .OUT = 0x0000,
+        .CFG[0] = 0x00000000,
+        .CFG[1] = 0x00000000,
+    },
+    .setup[1] = {
+        .DIR = 0x0000,
+        .INE = 0x0000,
+        .PU = 0x0000,
+        .PD = 0x0000,
+        .OD = 0x0000,
+        .DRV = 0x0000,
+        .LOCK = 0x0000,
+        .OUT = 0x0000,
+        .CFG[0] = 0x00000000,
+        .CFG[1] = 0x00000000,
+    },
+    .setup[2] = {
+        .DIR = 0x0000,
+        .INE = 0x0000,
+        .PU = 0x0000,
+        .PD = 0x0000,
+        .OD = 0x0000,
+        .DRV = 0x0000,
+        .LOCK = 0x0000,
+        .OUT = 0x0000,
+        .CFG[0] = 0x00000000,
+        .CFG[1] = 0x00000000,
+    },
+    .setup[3] = {
+        .DIR = 0x0000,
+        .INE = 0x0000,
+        .PU = 0x0000,
+        .PD = 0x0000,
+        .OD = 0x0000,
+        .DRV = 0x0000,
+        .LOCK = 0x0000,
+        .OUT = 0x0000,
+        .CFG[0] = 0x00000000,
+        .CFG[1] = 0x00000000,
+    },
+    .setup[4] = {
+        .DIR = 0x0000,
+        .INE = 0x0000,
+        .PU = 0x0000,
+        .PD = 0x0000,
+        .OD = 0x0000,
+        .DRV = 0x0000,
+        .LOCK = 0x0000,
+        .OUT = 0x0000,
+        .CFG[0] = 0x00000000,
+        .CFG[1] = 0x00000000,
+    },
+    .ESSR[0] = 0x00000000,
+    .ESSR[1] = 0x00000000,
 };
 
 #endif
@@ -96,13 +96,16 @@ const PALConfig pal_default_config = {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
+    // SPI flash
+    palSetGroupMode(GPIO_B, 0x7, 7, PAL_MODE_HT32_AF(AFIO_SPI)); // SPI1
+    palSetLine(LINE_SPICS);
+    palSetLineMode(LINE_SPICS, PAL_MODE_OUTPUT_PUSHPULL); // CS
 }
 
-void __early_init(void)
-{
-  ht32_clock_init();
+void __early_init(void) {
+    ht32_clock_init();
 }
 
 const uint32_t bootloader_magic[2] __attribute__ ((section (".magic.bootloader"))) = {
-  0x03046000, 0x34000001,
+    0x03046000, 0x34000001,
 };

@@ -25,7 +25,7 @@ extern uint32_t __ram0_end__;
 #define MAGIC_ADDR (volatile uint32_t *)(SYMVAL(__ram0_end__) - 0)
 
 void bootloader_jump(void) {
-    *MAGIC_ADDR = BOOTLOADER_MAGIC;
+    FMC->SBVT[1] = BOOTLOADER_MAGIC;
     NVIC_SystemReset();
 }
 
@@ -37,7 +37,7 @@ void matrix_init_user(void) {
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
-    *MAGIC_ADDR = BOOTLOADER_MAGIC - 5;
+//    *MAGIC_ADDR = BOOTLOADER_MAGIC - 5;
 
     matrix_init_user();
 }
