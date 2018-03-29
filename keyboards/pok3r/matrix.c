@@ -44,7 +44,7 @@ void matrix_init(void) {
     // Matrix "columns" are pulsed
     init_row(GPIO_A, 0x0078, 0);    // A3,A4,A5,A6  COL1,COL2,COL3,COL4
     init_row(GPIO_B, 0x0800, 0);    // B11          COL5
-    init_row(GPIO_C, 0x0E00, 0);    // C13,C14,C15  COL6,COL7,COL8
+    init_row(GPIO_C, 0xE000, 0);    // C13,C14,C15  COL6,COL7,COL8
 
     // Matrix "rows" are inputs
     init_col(GPIO_A, 0x8800, 0);    // A11,A15      ROW3,ROW5
@@ -90,10 +90,10 @@ uint8_t matrix_scan(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data;
 
-        palClearLine(row_list[row]);
-        wait_us(20);
-        data = ~read_columns();
         palSetLine(row_list[row]);
+        wait_us(20);
+        data = read_columns();
+        palClearLine(row_list[row]);
 
         if (matrix_debouncing[row] != data) {
             matrix_debouncing[row] = data;
@@ -115,7 +115,7 @@ uint8_t matrix_scan(void) {
 }
 
 bool matrix_is_on(uint8_t row, uint8_t col) {
-    return (matrix[row] & (1<<col));
+    return (matrix[row] & (1 << col));
 }
 
 matrix_row_t matrix_get_row(uint8_t row) {
