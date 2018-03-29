@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna.h"
 #include "version.h"
 
-#if (__has_include("secrets.h"))
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
