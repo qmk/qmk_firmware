@@ -26,7 +26,7 @@ enum preonic_layers {
   _GAME_MOD,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
 };
 
 enum preonic_keycodes {
@@ -34,7 +34,7 @@ enum preonic_keycodes {
   GAME,
   GAME_MOD,
   LOWER,
-  RAISE
+  RAISE,
 };
 
 void tmux_prefix(void) {
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,  KC_1, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS},
-  {KC_LCTL, KC_A, KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  { KC_ESC,  KC_1, KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
+  { KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS },
+  { KC_LCTL, KC_A, KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
+  { KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT  },
+  { KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT },
 },
 
 /* Game
@@ -82,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GAME] = {
-  {KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    KC_6,    KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSLS},
-  {KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,     KC_G,    KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LEAD, QWERTY,  KC_LALT, KC_SPC,  GAME_MOD, KC_SPC,  KC_SPC,  GAME_MOD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,    KC_6,    KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    KC_BSLS },
+  { KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,     KC_G,    KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_ENT  },
+  { KC_LEAD, QWERTY,  KC_LALT, KC_SPC,  GAME_MOD, KC_SPC,  KC_SPC,  GAME_MOD, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT },
 },
 
 /* Game Modifiers
@@ -103,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GAME_MOD] = {
-  {_______, _______, KC_F10,  KC_F11,   KC_F12,   _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, KC_F7,   KC_F8,    KC_F9,    _______, _______, KC_7,    KC_8,    KC_9,    _______, _______},
-  {_______, _______, KC_F4,   KC_F5,    KC_F6,    KC_GRV,  _______, KC_4,    KC_5,    KC_6,    _______, _______},
-  {KC_LSFT, _______, KC_F1,   KC_F2,    KC_F3,    _______, _______, KC_1,    KC_2,    KC_3,    _______, _______},
-  {_______, _______, _______, _______,  _______,  _______, _______, _______, KC_0,    KC_0,    _______, _______}
+  { _______, _______, KC_F10,  KC_F11,   KC_F12,   _______, _______, _______, _______, _______, _______, _______ },
+  { _______, _______, KC_F7,   KC_F8,    KC_F9,    _______, _______, KC_7,    KC_8,    KC_9,    _______, _______ },
+  { _______, _______, KC_F4,   KC_F5,    KC_F6,    KC_GRV,  _______, KC_4,    KC_5,    KC_6,    _______, _______ },
+  { KC_LSFT, _______, KC_F1,   KC_F2,    KC_F3,    _______, _______, KC_1,    KC_2,    KC_3,    _______, _______ },
+  { _______, _______, _______, _______,  _______,  _______, _______, _______, KC_0,    KC_0,    _______, _______ },
 },
 
 /* Lower
@@ -124,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC, KC_LT,   KC_GT,   _______, _______, _______},
-  {KC_TILD, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,   KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE},
-  {_______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, _______, KC_DQT },
-  {_______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, _______, _______},
-  {_______, KC_MUTE, _______, _______, _______,  KC_ENT,  KC_ENT,  _______, _______, _______, _______, _______}
+  { KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC, KC_LT,   KC_GT,   _______, _______, _______ },
+  { KC_TILD, KC_EXLM, KC_AT,   KC_UP,   KC_DLR,   KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE },
+  { _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, _______, KC_DQT  },
+  { _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, _______, _______ },
+  { _______, KC_MUTE, _______, _______, _______,  KC_ENT,  KC_ENT,  _______, _______, _______, _______, _______ },
 },
 
 /* Raise
@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______},
-  {_______, _______, _______, _______, _______, KC_ESC,  KC_ESC,  _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  { KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC },
+  { KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL  },
+  { KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS },
+  { _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______ },
+  { _______, _______, _______, _______, _______, KC_ESC,  KC_ESC,  _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY },
 },
 
 /* Adjust (Lower + Raise)
@@ -166,12 +166,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 },
-  {_______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-}
+  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12  },
+  { _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL  },
+  { _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______ },
+  { _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+},
 
 };
 
@@ -183,12 +183,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+
         case GAME:
           if (record->event.pressed) {
             set_single_persistent_default_layer(_GAME);
           }
           return false;
           break;
+
         case GAME_MOD:
           if (record->event.pressed) {
             layer_on(_GAME_MOD);
@@ -197,6 +199,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+
         case LOWER:
           if (record->event.pressed) {
             layer_on(_LOWER);
@@ -207,6 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+
         case RAISE:
           if (record->event.pressed) {
             layer_on(_RAISE);
