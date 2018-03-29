@@ -4,7 +4,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
-      KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_GRV,
+      KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , KC_BSLS, KC_ESC,
       KC_TAB , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T   , KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
       US_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, US_QUOT,          KC_ENT ,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, AD_GRV ,
@@ -48,6 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       US_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_MUTE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , XXXXXXX,          TG_ADJ ,
       KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX,          KC_RSFT, XXXXXXX,
       KC_LCTL, KC_LGUI, KC_LALT,                   NV_SPC2, NV_SPC1, NV_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+  [_NUM] = LAYOUT(
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_GRV , KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, XXXXXXX, KC_DEL ,
+      US_CAPS, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PENT,          XXXXXXX ,
+      KC_LSFT, KC_EQL,  KC_PLUS, KC_BSLS, KC_PIPE, XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_PAST,          KC_PSLS, XXXXXXX,
+      KC_LCTL, KC_LGUI, KC_LALT,                   XXXXXXX, KC_BPSC, KC_0,                      KC_PDOT, KC_PCMM, KC_RCTL, KC_PTT ),
  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
   [_ADJUST] = LAYOUT(
       MO_RST , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -101,12 +107,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
       if (!record->event.pressed) {
         SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-  #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                    ":dfu"
-  #elif defined(BOOTLOADER_HALFKAY)
+
+  #if   defined(BOOTLOADER_HALFKAY)
                     ":teensy"
   #elif defined(BOOTLOADER_CATERINA)
                     ":avrdude"
+  #else
+                    ":dfu"
   #endif
                     SS_TAP(X_ENTER));
       }

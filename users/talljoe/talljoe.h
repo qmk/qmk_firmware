@@ -11,6 +11,7 @@ enum layers {
     _COLMAK,
     _GAME,
     _NAV,
+    _NUM,
     _ADJUST,
     _RESET,
 };
@@ -48,11 +49,15 @@ enum layers {
 #if (SPACE_COUNT == 1)
   #define KC_SPC1   LT(_NAV, KC_SPC)
   #define NV_SPC1   _______
+  #define KC_SPC2   XXXXXXX
+  #define NV_SPC2   _______
+  #define KC_SPC3   XXXXXXX
+  #define NV_SPC3   _______
 #elif (SPACE_COUNT == 3)
-  #define KC_SPC1   LT(_NAV,KC_ENT)
-  #define NV_SPC1   MT(MOD_LSFT | MOD_LCTL, KC_ENT)
-  #define KC_SPC2   KC_SPC
-  #define NV_SPC2   KC_BSPC
+  #define KC_SPC1   KC_SPC
+  #define NV_SPC1   KC_BSPC
+  #define KC_SPC2   LT(_NUM,KC_ENT)
+  #define NV_SPC2   MT(MOD_LSFT | MOD_LCTL, KC_ENT)
   #define KC_SPC3   LT(_NAV,KC_SPC)
   #define NV_SPC3   KC_SPC
 #else
