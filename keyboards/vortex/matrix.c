@@ -24,7 +24,7 @@
 #include "print.h"
 #include "matrix.h"
 
-#include "pok3r.h"
+#include "vortex.h"
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
@@ -97,9 +97,9 @@ matrix_row_t matrix_get_row(uint8_t row) {
 }
 
 void matrix_print(void) {
-    printf("\nr/c 01234567\n");
+    printf("\nr/c 123456789\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("% 3u ", row);
+        printf("% 3u ", row+1);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1<<col)) {

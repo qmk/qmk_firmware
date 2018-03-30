@@ -1,24 +1,71 @@
 /*
- * Copyright 2018 Jonathan A. Kollasch
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    ChibiOS - Copyright (C) 2006..2016 Giovanni Di Sirio
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/
+
+#ifndef BOARD_H
+#define BOARD_H
+
+/*
+ * Setup for Vortex POK3R board.
  */
 
-#ifndef POK3R_H
-#define POK3R_H
+/*
+ * Board identifier.
+ */
+#define BOARD_VORTEX_DUAL_60
+#define BOARD_NAME                  "VORTEX_DUAL_60"
 
-#include "quantum.h"
+#define HT32F1655
+
+/*
+ * I/O
+ */
+
+// outputs
+#define LINE_COL1                   PAL_LINE(IOPORTA, 3)
+#define LINE_COL2                   PAL_LINE(IOPORTA, 4)
+#define LINE_COL3                   PAL_LINE(IOPORTA, 5)
+#define LINE_COL4                   PAL_LINE(IOPORTA, 6)
+#define LINE_COL5                   PAL_LINE(IOPORTB, 11)
+#define LINE_COL6                   PAL_LINE(IOPORTC, 13)
+#define LINE_COL7                   PAL_LINE(IOPORTC, 14)
+#define LINE_COL8                   PAL_LINE(IOPORTC, 15)
+
+// inputs
+#define LINE_ROW1                   PAL_LINE(IOPORTD, 0)
+#define LINE_ROW2                   PAL_LINE(IOPORTC, 5)
+#define LINE_ROW3                   PAL_LINE(IOPORTA, 11)
+#define LINE_ROW4                   PAL_LINE(IOPORTB, 3)
+#define LINE_ROW5                   PAL_LINE(IOPORTA, 15)
+#define LINE_ROW6                   PAL_LINE(IOPORTB, 4)
+#define LINE_ROW7                   PAL_LINE(IOPORTB, 1)
+#define LINE_ROW8                   PAL_LINE(IOPORTB, 5)
+#define LINE_ROW9                   PAL_LINE(IOPORTC, 8)
+
+#define LINE_SPICS                  PAL_LINE(IOPORTB, 10)   // !
+
+#define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
+#define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !
+#define LINE_BLEN                   PAL_LINE(IOPORTA, 15)   // !
+#define LINE_PB0                    PAL_LINE(IOPORTB, 0)    // !
+#define LINE_LED65                  PAL_LINE(IOPORTB, 1)    // !
+#define LINE_TPREQ                  PAL_LINE(IOPORTC, 11)   // !
+
+/*
+ * Matrix map
+ */
 
 #define KEYMAP( \
     K01, K02, K03, K04, K05, K06, K07, K08, K36, K37, K38, K39, K41, K40, /* 14 keys */ \
@@ -114,4 +161,14 @@
                                                     KC_NO, KC_NO, KC_NO, KC_NO \
 )
 
-#endif // POK3R_H
+#if !defined(_FROM_ASM_)
+#ifdef __cplusplus
+extern "C" {
+#endif
+    void boardInit(void);
+#ifdef __cplusplus
+}
+#endif
+#endif /* _FROM_ASM_ */
+
+#endif /* BOARD_H */

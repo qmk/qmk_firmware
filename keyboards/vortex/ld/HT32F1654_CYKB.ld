@@ -24,42 +24,42 @@
  */
 
 /*
- * HT32F1655 w/ cykb bootloader memory setup.
+ * HT32F1654 w/ cykb bootloader memory setup.
  */
 MEMORY
 {
-  flash0   : org = 0x00000000, len = 0x2800                             /* bootloader */
-  flash1   : org = 0x00002800, len = 0x400                              /* version page */
-  flash2   : org = 0x00002c00, len = 0x160                              /* firmware vectors */
-  flash3   : org = 0x00002c00 + 0x160, len = 0x3bf8 - 0x2c00 - 0x160    /* descriptor, keymaps, etc */
-  flash4   : org = 0x00003bf8, len = 12                                 /* bootloader magic */
-  flash5   : org = 0x00003c04, len = 128k - 0x3c04                      /* firmware */
-  flash6   : org = 0x00000000, len = 0
-  flash7   : org = 0x00000000, len = 0
-  ram0     : org = 0x20000000, len = 32k - 4                            /* RAM */
-  ram1     : org = 0x00000000, len = 0
-  ram2     : org = 0x00000000, len = 0
-  ram3     : org = 0x00000000, len = 0
-  ram4     : org = 0x00000000, len = 0
-  ram5     : org = 0x00000000, len = 0
-  ram6     : org = 0x00000000, len = 0
-  ram7     : org = 0x00000000, len = 0
+    flash0   : org = 0x00000000, len = 0x3000                           /* bootloader */
+    flash1   : org = 0x00003000, len = 0x400                            /* version page */
+    flash2   : org = 0x00003400, len = 0x160                            /* firmware vectors */
+    flash3   : org = 0x00003400 + 0x160, len = 0x3bf8 - 0x3400 - 0x160  /* descriptor, keymaps, etc */
+    flash4   : org = 0x00003bf8, len = 12                               /* bootloader magic */
+    flash5   : org = 0x00003c04, len = 63k - 0x3c04                     /* firmware */
+    flash6   : org = 0x00000000, len = 0
+    flash7   : org = 0x00000000, len = 0
+    ram0     : org = 0x20000000, len = 16k - 4                          /* RAM */
+    ram1     : org = 0x00000000, len = 0
+    ram2     : org = 0x00000000, len = 0
+    ram3     : org = 0x00000000, len = 0
+    ram4     : org = 0x00000000, len = 0
+    ram5     : org = 0x00000000, len = 0
+    ram6     : org = 0x00000000, len = 0
+    ram7     : org = 0x00000000, len = 0
 }
 
 SECTIONS {
-  .rodata.flash3 :
-  {
+    .rodata.flash3 :
+    {
     *(.rodata.*Descriptor)
     *(.rodata.*Report)
     *(.rodata.*String)
     *(.rodata.keymaps)
     *(.rodata.pal_default_config)
     *(.rodata.ch_debug)
-  } > flash3 AT > flash3
-  .rodata.bootloadermagic :
-  {
+    } > flash3 AT > flash3
+    .rodata.bootloadermagic :
+    {
     KEEP(*(.magic.bootloader))
-  } > flash4 AT > flash4
+    } > flash4 AT > flash4
 }
 
 /* For each data/text section two region are defined, a virtual region

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pok3r.h"
+#include "vortex.h"
 #include "quantum.h"
 
 #define BOOTLOADER_MAGIC 0x55aafaf5U
