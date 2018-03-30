@@ -1,5 +1,4 @@
-#include "preonic.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 enum preonic_layers {
   _COLEMAK,

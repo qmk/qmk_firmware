@@ -1,9 +1,4 @@
-#include "preonic.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
+#include QMK_KEYBOARD_H
 
 // Layer names
 #define _COLEMAK 0

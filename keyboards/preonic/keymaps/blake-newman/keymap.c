@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "preonic.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 enum preonic_layers {
   _QWERTY,
