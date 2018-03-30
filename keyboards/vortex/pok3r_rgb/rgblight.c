@@ -1,10 +1,5 @@
 /*
- * light weight WS2812 lib include
- *
- * Version 2.3  - Nev 29th 2015
- * Author: Tim (cpldcpu@gmail.com)
- *
- * Please do not change this file! All configuration is handled in "ws2812_config.h"
+ * Copyright (c) 2018 Charlie Waters
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,28 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RGBLIGHT_TYPES
-#define RGBLIGHT_TYPES
+#include "ch.h"
+#include "hal.h"
 
-#if defined(__AVR__)
-  #include <avr/io.h>
-#endif
+#include "quantum.h"
+#include "rgblight.h"
 
-#ifdef RGBW
-  #define LED_TYPE struct cRGBW
-#else
-  #define LED_TYPE struct cRGB
-#endif
+void rgblight_set(void) {
 
-
-/*
- *  Structure of the LED array
- *
- * cRGB:     RGB  for WS2812S/B/C/D, SK6812, SK6812Mini, SK6812WWA, APA104, APA106
- * cRGBW:    RGBW for SK6812RGBW
- */
-
-struct cRGB  { uint8_t g; uint8_t r; uint8_t b; };
-struct cRGBW { uint8_t g; uint8_t r; uint8_t b; uint8_t w;};
-
-#endif
+}

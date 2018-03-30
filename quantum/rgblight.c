@@ -13,15 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#if defined(__AVR__)
+  #include <avr/eeprom.h>
+  #include <avr/interrupt.h>
+  #include <util/delay.h>
+#else
+  #include "eeprom.h"
+#endif
+
 #include <math.h>
-#include <avr/eeprom.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
 #include "progmem.h"
 #include "timer.h"
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
+#include "wait.h"
 
 #ifndef RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
@@ -276,7 +283,7 @@ void rgblight_disable(void) {
   #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_disable();
   #endif
-  _delay_ms(50);
+  wait_ms(50);
   rgblight_set();
 }
 

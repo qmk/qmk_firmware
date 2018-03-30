@@ -2,6 +2,7 @@
 
 SRC = \
 	matrix.c \
+	eeprom.c \
 	backlight.c
 
 LAYOUTS += 60_ansi 60_ansi_split_rshift 60_iso
@@ -18,3 +19,10 @@ BOARD = VORTEX_DUAL_60
 # Vector table for application
 # 0x0000-0x2800 is occupied by stock bootloader, which expects the application at 0x2c00
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2c00
+
+# Options
+
+# Backlight
+BACKLIGHT_ENABLE = no
+BACKLIGHT_CUSTOM_DRIVER = yes
+#SLEEP_LED_ENABLE = yes	# Breathing sleep LED during USB suspend

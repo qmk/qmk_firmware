@@ -27,19 +27,21 @@ ARMV = 7
 
 USE_FPU = no
 
-# Build Options
+# Options
+
 # Keys
 CUSTOM_MATRIX = yes
 NKRO_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 KEY_LOCK_ENABLE = yes
+
 # Boot
-BOOTMAGIC_ENABLE = yes  # (Note that BOOTMAGIC on Yoda II is currently non-functional as it lacks an EEPROM driver.)
-# Backlight
-BACKLIGHT_ENABLE = no
-BACKLIGHT_CUSTOM_DRIVER = yes
+BOOTMAGIC_ENABLE = yes
+
 # Other featues
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes    # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes	# Breathing sleep LED during USB suspend
+
+# EEPROM
+EEPROM_CUSTOM_DRIVER = yes
