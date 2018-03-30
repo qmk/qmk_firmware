@@ -19,12 +19,11 @@
 #include "pok3r.h"
 #include "quantum.h"
 
-#define SYMVAL(sym) (uint32_t)(((uint8_t *)&(sym)) - ((uint8_t *)0))
-extern uint32_t __ram0_end__;
-#define BOOTLOADER_MAGIC 0x55aafaf5
-#define MAGIC_ADDR (volatile uint32_t *)(SYMVAL(__ram0_end__) - 0)
+#define BOOTLOADER_MAGIC 0x55aafaf5U
 
 void bootloader_jump(void) {
+    // SBVT registers are not reset on reset
+    // SBVT1 is read by pok3r bootloader to stop booting
     FMC->SBVT[1] = BOOTLOADER_MAGIC;
     NVIC_SystemReset();
 }

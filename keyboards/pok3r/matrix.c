@@ -31,29 +31,8 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
-static inline void init_row(ioportid_t portid, ioportmask_t portmask, size_t portoffset) {
-//    palWriteGroup(portid, portmask, portoffset, portmask);
-    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_OUTPUT_PUSHPULL | PAL_MODE_HT32_AF(AFIO_GPIO));
-}
-
-static inline void init_col(ioportid_t portid, ioportmask_t portmask, size_t portoffset) {
-    palSetGroupMode(portid, portmask, portoffset, PAL_MODE_INPUT_PULLUP | PAL_MODE_HT32_AF(AFIO_GPIO));
-}
-
 void matrix_init(void) {
-    // Matrix "columns" are pulsed
-    //init_row(GPIO_A, 0x0078, 0);    // A3,A4,A5,A6  COL1,COL2,COL3,COL4
-    //init_row(GPIO_B, 0x0800, 0);    // B11          COL5
-    //init_row(GPIO_C, 0xE000, 0);    // C13,C14,C15  COL6,COL7,COL8
-
-    // Matrix "rows" are scanned
-    //init_col(GPIO_A, 0x8800, 0);    // A11,A15      ROW3,ROW5
-    //init_col(GPIO_B, 0x003A, 0);    // B1,B3,B4,B5  ROW7,ROW4,ROW6,ROW8
-    //init_col(GPIO_C, 0x0120, 0);    // C5,C8        ROW2,ROW9
-    //init_col(GPIO_D, 0x0001, 0);    // D0           ROW1
-
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-
     matrix_init_quantum();
 }
 
