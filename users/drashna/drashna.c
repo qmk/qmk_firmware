@@ -183,7 +183,7 @@ void matrix_init_user(void) {
   }
 #endif // RGBLIGHT_ENABLE
 
-#ifdef UNICODE_ENABLE
+#if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
 
