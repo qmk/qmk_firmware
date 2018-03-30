@@ -28,36 +28,28 @@ void bootloader_jump(void) {
     NVIC_SystemReset();
 }
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-
-}
-
 void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-//    *MAGIC_ADDR = BOOTLOADER_MAGIC - 5;
-
+    spi_flash_init();
     matrix_init_user();
 }
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-
-}
-
 void matrix_scan_kb(void) {
-    // put your looping keyboard code here
-    // runs every cycle (a lot)
-
     matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // put your per-action keyboard code here
-    // runs for every action, just before processing by the firmware
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
 
-    return process_record_user(keycode, record);
+    switch (keycode) {
+        case EX_DUMP:
+            if (record->event.pressed) {
+                printf("Dump SPI Flash\n");
+            }
+            return false;
+    }
+    return true;
 }
 
 void led_set_kb(uint8_t usb_led) {

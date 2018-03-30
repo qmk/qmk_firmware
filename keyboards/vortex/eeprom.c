@@ -19,8 +19,17 @@
 #include "hal.h"
 
 #include "eeconfig.h"
+#include "vortex.h"
 
 #define EEPROM_SIZE 524288
+
+void spi_flash_init(void) {
+    static const SPIConfig config = {
+
+    };
+
+    spiStart(&SPID1, &config);
+}
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
 

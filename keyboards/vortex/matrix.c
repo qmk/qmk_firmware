@@ -31,33 +31,22 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
+extern ioline_t row_list[MATRIX_ROWS];
+extern ioline_t col_list[MATRIX_COLS];
+
 void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     matrix_init_quantum();
 }
 
-static matrix_row_t read_columns(void) {
-    return palReadLine(LINE_ROW1) |
-        (palReadLine(LINE_ROW2) << 1) |
-        (palReadLine(LINE_ROW3) << 2) |
-        (palReadLine(LINE_ROW4) << 3) |
-        (palReadLine(LINE_ROW5) << 4) |
-        (palReadLine(LINE_ROW6) << 5) |
-        (palReadLine(LINE_ROW7) << 6) |
-        (palReadLine(LINE_ROW8) << 7) |
-        (palReadLine(LINE_ROW9) << 8);
+static inline matrix_row_t read_columns(void) {
+    matrix_row_t row = 0;
+    // read each column
+    for (int col = 0; col < MATRIX_COLS; ++col) {
+        row |= ((palReadLine(col_list[col]) & 1) << col);
+    }
+    return row;
 }
-
-static const ioline_t row_list[MATRIX_ROWS] = {
-    LINE_COL1,
-    LINE_COL2,
-    LINE_COL3,
-    LINE_COL4,
-    LINE_COL5,
-    LINE_COL6,
-    LINE_COL7,
-    LINE_COL8,
-};
 
 uint8_t matrix_scan(void) {
     // scan each row
@@ -84,7 +73,6 @@ uint8_t matrix_scan(void) {
     }
 
     matrix_scan_quantum();
-
     return 1;
 }
 

@@ -25,6 +25,10 @@
  * HAL driver system settings.
  */
 
+/*
+ * Clock configuration.
+ */
+
 // This configuration:
 // 8 MHz HSE crystal
 // PLL multiplies HSE to 72 MHz core and peripheral clock
@@ -39,6 +43,13 @@
 #define HT32_AHB_PRESCALER      2                   // 144 MHz -> 72 MHz
 #define HT32_USART_PRESCALER    1                   // 72 MHz
 #define HT32_USB_PRESCALER      3                   // 144 MHz -> 48 MHz
+
+/*
+ * Peripheral driver settings
+ */
+
+#define HT32_SPI_USE_SPI1                   TRUE
+#define HT32_SPI1_IRQ_PRIORITY              3
 
 /*
  * USB driver settings

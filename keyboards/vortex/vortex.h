@@ -25,4 +25,6 @@ enum extra_keycodes {
     EX_DUMP,
 };
 
+void spi_flash_init(void);
+
 #endif // VORTEX_H

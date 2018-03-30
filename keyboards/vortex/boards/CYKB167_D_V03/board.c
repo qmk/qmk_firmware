@@ -110,6 +110,29 @@ const PALConfig pal_default_config = {
     .ESSR[1] = 0x00000000,
 };
 
+const ioline_t row_list[MATRIX_ROWS] = {
+    LINE_COL1,
+    LINE_COL2,
+    LINE_COL3,
+    LINE_COL4,
+    LINE_COL5,
+    LINE_COL6,
+    LINE_COL7,
+    LINE_COL8,
+};
+
+const ioline_t col_list[MATRIX_COLS] = {
+    LINE_ROW1,
+    LINE_ROW2,
+    LINE_ROW3,
+    LINE_ROW4,
+    LINE_ROW5,
+    LINE_ROW6,
+    LINE_ROW7,
+    LINE_ROW8,
+    LINE_ROW9,
+};
+
 void __early_init(void) {
     ht32_clock_init();
 }
