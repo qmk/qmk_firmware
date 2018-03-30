@@ -29,6 +29,7 @@
 
 #define HT32F1655
 
+// outputs
 #define LINE_COL1                   PAL_LINE(IOPORTA, 3)
 #define LINE_COL2                   PAL_LINE(IOPORTA, 4)
 #define LINE_COL3                   PAL_LINE(IOPORTA, 5)
@@ -38,6 +39,7 @@
 #define LINE_COL7                   PAL_LINE(IOPORTC, 14)
 #define LINE_COL8                   PAL_LINE(IOPORTC, 15)
 
+// inputs
 #define LINE_ROW1                   PAL_LINE(IOPORTD, 0)
 #define LINE_ROW2                   PAL_LINE(IOPORTC, 5)
 #define LINE_ROW3                   PAL_LINE(IOPORTA, 11)

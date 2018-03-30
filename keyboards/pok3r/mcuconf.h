@@ -25,14 +25,20 @@
  * HAL driver system settings.
  */
 
-// External 8MHz crystal with internal PLL for 72MHz system clock
-#define HT32_HSE_FREQUENCY          8000000UL                                   // 8 MHz
-#define HT32_PLL_FBDIV              18
-#define HT32_CK_SYS_FREQUENCY       HT32_HSE_FREQUENCY * HT32_PLL_FBDIV         // 144 MHz
-#define HT32_AHB_PRESCALER          2
-#define HT32_CK_AHB_FREQUENCY       HT32_CK_SYS_FREQUENCY / HT32_AHB_PRESCALER  // 72 MHz
-#define HT32_USB_PRESCALER          3
-#define HT32_STCLK_FREQUENCY        HT32_CK_AHB_FREQUENCY / 1                   // 72 MHz
+// This configuration:
+// 8 MHz HSE crystal
+// PLL multiplies HSE to 72 MHz core and peripheral clock
+// 72 MHz to UART
+// 48 MHz to USB
+
+#define HT32_CK_HSE_FREQUENCY   8000000UL           // 8 MHz
+#define HT32_CKCU_SW            CKCU_GCCR_SW_PLL
+#define HT32_PLL_USE_HSE        TRUE
+#define HT32_PLL_FBDIV          18                  // 8 MHz -> 144 MHz
+#define HT32_PLL_OTDIV          0
+#define HT32_AHB_PRESCALER      2                   // 144 MHz -> 72 MHz
+#define HT32_USART_PRESCALER    1                   // 72 MHz
+#define HT32_USB_PRESCALER      3                   // 144 MHz -> 48 MHz
 
 /*
  * USB driver settings
