@@ -42,11 +42,32 @@ int RGB_current_mode;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = KEYMAP(
-        KC_F1, KC_F2,   KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINS,KC_EQL,KC_BSPC, KC_F11,\
-        KC_F3, KC_F4,   KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC,KC_BSLS, KC_F12,\
-        KC_F5, KC_F6,   KC_CAPS,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,KC_ENT, KC_DEL, KC_F13,\
-        KC_F7, KC_F8,   KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLASH,KC_RSFT,KC_UP,KC_F14,\
-        KC_F9, KC_F10,  KC_LCTL,KC_LGUI,KC_LALT, KC_F15, KC_SPC, KC_F16, KC_RALT,KC_APP,KC_RCTRL,KC_LEFT,KC_DOWN,KC_UP)
+        KC_F1, KC_F2,   KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINS,KC_EQL,KC_BSPC, KC_PGUP,\
+        KC_F3, KC_F4,   KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC,KC_BSLS, KC_PGDN,\
+        KC_F5, KC_F6,   KC_CAPS,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,KC_ENT, KC_DEL, KC_HOME,\
+        KC_F7, KC_F8,   KC_LSFT,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLASH,KC_RSFT,KC_UP,KC_END,\
+        KC_F9, KC_F10,  KC_LCTL,KC_LGUI,KC_LALT, RAISE, KC_SPACE, LOWER, KC_RALT,KC_APP,KC_RCTRL,KC_LEFT,KC_DOWN,KC_RIGHT),
+
+        [_RAISE] = KEYMAP(
+        RGB_MOD, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,\
+        _______, _______,  _______,_______,_______, _______, _______, _______, _______,_______,_______,_______,_______,_______),
+
+        [_LOWER] = KEYMAP(
+        RGB_MOD, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,\
+        _______, _______,  _______,_______,_______, _______, _______, _______, _______,_______,_______,_______,_______,_______),
+
+        [_ADJUST] = KEYMAP(
+        RESET, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______, _______,\
+        _______, _______,   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,\
+        _______, _______,  _______,_______,_______, _______, _______, _______, _______,_______,_______,_______,_______,_______)
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -83,12 +104,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 #ifdef AUDIO_ENABLE
 
   float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-  float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-  float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-
-
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
 void matrix_init_user(void) {
@@ -101,33 +116,6 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
-//        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        #endif
-//        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_dvorak, false, 0);
-        #endif
-//        persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
     case LOWER:
         if (record->event.pressed) {
             //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -183,25 +171,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case BL_TOGG:
-#ifdef BACKLIGHT_ENABLE
-        if (record->event.pressed) {
-            print("Enabling backlight\n");
-            backlight_init_ports();
-        }
-#endif
-        return false;
-        break;
-    case BL_STEP:
-        if (record->event.pressed) {
-            print("Stepping backlight\n");
-#ifdef BACKLIGHT_ENABLE
-            print("Really stepping backlight\n");
-            backlight_step();
-#endif
-
-        }
-        return false;
         break;
         //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
 #ifdef RGBLIGHT_ENABLE
@@ -214,10 +183,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
 #endif
-//    case BL_INC:
-//    		meira_inc_backlight_level();
-//    	      return false;
-//    		break;
   }
   return true;
 }

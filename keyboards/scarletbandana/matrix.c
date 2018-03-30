@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #if defined(__AVR__)
 #include <avr/io.h>
+#include "pincontrol.h"
 #endif
 #include "wait.h"
 #include "print.h"
@@ -31,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "config.h"
 #include "timer.h"
+//#include "audio.h"
 
 #ifndef DEBOUNCING_DELAY
 #   define DEBOUNCING_DELAY 5
@@ -63,6 +65,8 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[4] = MATRIX_COL_PINS;
 static const uint8_t xcol_pins[MATRIX_COLS - 16] = MATRIX_XCOL_PINS;
+//
+//float init_song[][2]     = SONG(QWERTY_SOUND);
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -72,7 +76,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void unselect_cols(void);
 static void init_cols(void);
 static void select_col(uint8_t col);
-static void demux_enable(bool enabled);
+//static void demux_enable(bool enabled);
 
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
@@ -119,9 +123,14 @@ void matrix_init(void)
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
+    dprintf("matrix init");
     // initialize row and col
     init_cols();
     init_rows();
+
+
+//    PLAY_NOTE_ARRAY(init_song, false, 0);
+
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -148,6 +157,9 @@ uint8_t _matrix_scan(void)
 #       endif
 
     }
+
+    // Unselect cols
+    unselect_cols();
 
 #   if (DEBOUNCING_DELAY > 0)
         if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
@@ -210,8 +222,8 @@ static void init_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
         uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        pinMode(pin, PinDirectionInput);
+        digitalWrite(pin, PinLevelHigh);
     }
 }
 
@@ -223,6 +235,8 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // Select col and wait for col selection to stabilize
     select_col(current_col);
     wait_us(30);
+//    wait_ms(1000);
+//    PLAY_NOTE_ARRAY(init_song, false, 0);
 
     // For each row...
     for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++)
@@ -232,7 +246,8 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
+        uint8_t pin = row_pins[row_index];
+        if (digitalRead(pin) == 0)
         {
             // Pin LO, set col bit
             current_matrix[row_index] |= (ROW_SHIFTER << current_col);
@@ -250,9 +265,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         }
     }
 
-    // Unselect col
-    unselect_cols();
-
     return matrix_changed;
 }
 
@@ -260,35 +272,37 @@ static void select_col(uint8_t col)
 {
   for (uint8_t y = 16; y < MATRIX_COLS; y++) {
     uint8_t pin = xcol_pins[y-16];
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HIGH
+    if (y == col) {
+      digitalWrite(pin, PinLevelLow);
+    } else {
+      digitalWrite(pin, PinLevelHigh);
+    }
   }
   if (col >= 16) {
-    demux_enable(false);
-    uint8_t pin = xcol_pins[col-16];
-    _SFR_IO8((pin >> 4) + 2) &=  ~_BV(pin & 0xF); // LOW
+//    demux_enable(false);
+//    digitalWrite(MATRIX_EN_PIN, PinLevelHigh);
   } else {
-    demux_enable(true);
     for(uint8_t x = 0; x < 4; x++) {
       uint8_t pin = col_pins[x];
-      if (((col >> x) & 0x1) == 1){
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HIGH
-      } else {
-        _SFR_IO8((pin >> 4) + 2) &=  ~_BV(pin & 0xF); // LOW
-      }
+      pinMode(pin, PinDirectionOutput);
+      digitalWrite(pin, (col >> x) & 0x1);
     }
+//    demux_enable(true);
+    digitalWrite(MATRIX_EN_PIN, PinLevelLow);
   }
 }
 
 static void init_cols(void) {
   for (uint8_t y = 16; y < MATRIX_COLS; y++) {
       uint8_t pin = xcol_pins[y-16];
-      _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT
+      pinMode(pin, PinDirectionOutput);
     }
   for(uint8_t x = 0; x < 4; x++) {
         uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT
+        pinMode(pin, PinDirectionOutput);
   }
-  _SFR_IO8((MATRIX_EN_PIN >> 4) + 1) |= _BV(MATRIX_EN_PIN & 0xF); // OUT
+  pinMode(MATRIX_EN_PIN, PinDirectionOutput);
+//  digitalWrite(MATRIX_EN_PIN, PinLevelHigh);
   unselect_cols();
 }
 
@@ -296,21 +310,17 @@ static void unselect_cols(void)
 {
   for (uint8_t y = 16; y < MATRIX_COLS; y++) {
     uint8_t pin = xcol_pins[y-16];
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HIGH
+    digitalWrite(pin, PinLevelHigh);
   }
-  demux_enable(false);
-  for(uint8_t x = 0; x < 4; x++) {
-    uint8_t pin = col_pins[x];
-    _SFR_IO8((pin >> 4) + 2) &=  ~_BV(pin & 0xF); // LOW
-  }
-//#endif
+//  demux_enable(false);
+//  digitalWrite(MATRIX_EN_PIN, PinLevelHigh);
 }
 
-static void demux_enable(bool enabled)
-{
-  if (enabled){
-    _SFR_IO8((MATRIX_EN_PIN >> 4) + 2) &=  ~_BV(MATRIX_EN_PIN & 0xF); // LOW
-  } else {
-    _SFR_IO8((MATRIX_EN_PIN >> 4) + 2) |=  _BV(MATRIX_EN_PIN & 0xF); // HIGH
-  }
-}
+//static void demux_enable(uint8_t state)
+//{
+//  if (enabled){
+//    digitalWrite(F7, PinLevelLow);
+//  } else {
+//    digitalWrite(F7, PinLevelHigh);
+//  }
+//}

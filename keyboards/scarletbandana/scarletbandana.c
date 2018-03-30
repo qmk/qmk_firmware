@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "scarletbandana.h"
+#include <LUFA/Common/Common.h>
 
 #include "quantum.h"
 
@@ -34,6 +35,8 @@ void shutdown_user(void) {
 
 void matrix_init_kb(void)
 {
+  // This is required to access the pins in the F-register
+  JTAG_DISABLE();
     debug_enable=true;
     print("sb matrix_init_kb\n");
 #ifdef AUDIO_ENABLE

@@ -33,26 +33,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 17
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION CUSTOM_MATRIX
+#define DIODE_DIRECTION ROW2COL
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8    // Number of LEDs
 #endif
 
 #define MATRIX_ROW_PINS { D4, D6, D7, B4, B5 }
-// Column pins to demux in LSB order
-//#define MATRIX_COL_PINS { F1, F4, F5, F6 }
-#define MATRIX_COL_PINS { F6, F5, F4, F1 }
-#define MATRIX_XCOL_PINS { F0 }
-#define MATRIX_EN_PIN F7
-#define UNUSED_PINS
+#define MATRIX_COL_PINS { B2, B3, B7, B1, F5, F4, F6, F7, B0, F0, F1, D0, D1, D2, D5, B6, C7 }
 
 #define QMK_SPEAKER C6
 
-#define AUDIO_VOICES
+#ifdef AUDIO_ENABLE
 #define C6_AUDIO
+#define STARTUP_SONG SONG(PREONIC_SOUND)
+// Disable music mode to keep the firmware size down
+#define NO_MUSIC_MODE
+#endif
 
 #define DEBOUNCING_DELAY 5
 
