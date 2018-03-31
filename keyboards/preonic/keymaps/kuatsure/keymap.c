@@ -289,5 +289,34 @@ void matrix_scan_user(void) {
           register_code(KC_Z);
           unregister_code(KC_Z);
         }
+
+        // TMUX - shift to pane 3 and zoom
+        SEQ_ONE_KEY(KC_L) {
+          tmux_prefix();
+
+          register_code(KC_Q);
+          unregister_code(KC_Q);
+
+          register_code(KC_3);
+          unregister_code(KC_3);
+
+          tmux_prefix();
+
+          register_code(KC_Z);
+          unregister_code(KC_Z);
+        }
+
+        // TMUX - shift to last pane and zoom
+        SEQ_ONE_KEY(KC_SCOLON) {
+          tmux_prefix();
+
+          register_code(KC_SCOLON);
+          unregister_code(KC_SCOLON);
+
+          tmux_prefix();
+
+          register_code(KC_Z);
+          unregister_code(KC_Z);
+        }
     }
 }
