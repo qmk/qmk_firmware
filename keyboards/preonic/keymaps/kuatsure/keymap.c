@@ -45,6 +45,13 @@ void tmux_prefix(void) {
   unregister_code(KC_SPC);
 }
 
+void tmux_pane_zoom(void) {
+  tmux_prefix();
+
+  register_code(KC_Z);
+  unregister_code(KC_Z);
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -268,10 +275,7 @@ void matrix_scan_user(void) {
           register_code(KC_1);
           unregister_code(KC_1);
 
-          tmux_prefix();
-
-          register_code(KC_Z);
-          unregister_code(KC_Z);
+          tmux_pane_zoom();
         }
 
         // TMUX - shift to pane 2 and zoom
@@ -284,10 +288,7 @@ void matrix_scan_user(void) {
           register_code(KC_2);
           unregister_code(KC_2);
 
-          tmux_prefix();
-
-          register_code(KC_Z);
-          unregister_code(KC_Z);
+          tmux_pane_zoom();
         }
 
         // TMUX - shift to pane 3 and zoom
@@ -300,10 +301,7 @@ void matrix_scan_user(void) {
           register_code(KC_3);
           unregister_code(KC_3);
 
-          tmux_prefix();
-
-          register_code(KC_Z);
-          unregister_code(KC_Z);
+          tmux_pane_zoom();
         }
 
         // TMUX - shift to last pane and zoom
@@ -313,10 +311,7 @@ void matrix_scan_user(void) {
           register_code(KC_SCOLON);
           unregister_code(KC_SCOLON);
 
-          tmux_prefix();
-
-          register_code(KC_Z);
-          unregister_code(KC_Z);
+          tmux_pane_zoom();
         }
     }
 }
