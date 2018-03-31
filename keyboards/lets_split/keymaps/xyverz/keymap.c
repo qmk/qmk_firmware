@@ -149,6 +149,14 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+void matrix_init_user(void) {
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
