@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | Del  | Left | Down | Right|   ~  |   =  |   (  |   )  |  +   |  :   |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Prev | Play | Next | Vol- | Vol+ |   -  |   [  |   ]  |      |  ?   |      |
+ * |      | Vol- | Prev | Play | Next | Vol+ |   -  |   [  |   ]  |      |  ?   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Mute |      |      |      |    Enter    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -127,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC, KC_LT,   KC_GT,   _______, _______, _______ },
   { _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE },
   { _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, KC_COLN, KC_DQT  },
-  { _______, KC_MRWD, KC_MPLY, KC_MFFD, KC_VOLD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, KC_QUES, _______ },
+  { _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, KC_QUES, _______ },
   { _______, KC_MUTE, _______, _______, _______,  KC_ENT,  KC_ENT,  _______, _______, _______, _______, _______ },
 },
 
