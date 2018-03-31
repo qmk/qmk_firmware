@@ -42,6 +42,8 @@
 #undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
 
+#define FORCE_NKRO
+
 #ifndef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  1
 #endif
