@@ -21,6 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 backlight_config_t backlight_config;
 
+/** \brief Backlight initialization
+ *
+ * FIXME: needs doc
+ */
 void backlight_init(void)
 {
     /* check signature */
@@ -34,6 +38,10 @@ void backlight_init(void)
     backlight_set(backlight_config.enable ? backlight_config.level : 0);
 }
 
+/** \brief Backlight increase
+ *
+ * FIXME: needs doc
+ */
 void backlight_increase(void)
 {
     if(backlight_config.level < BACKLIGHT_LEVELS)
@@ -46,6 +54,10 @@ void backlight_increase(void)
     backlight_set(backlight_config.level);
 }
 
+/** \brief Backlight decrease
+ *
+ * FIXME: needs doc
+ */
 void backlight_decrease(void)
 {
     if(backlight_config.level > 0)
@@ -58,6 +70,10 @@ void backlight_decrease(void)
     backlight_set(backlight_config.level);
 }
 
+/** \brief Backlight toggle
+ *
+ * FIXME: needs doc
+ */
 void backlight_toggle(void)
 {
     backlight_config.enable ^= 1;
@@ -68,6 +84,10 @@ void backlight_toggle(void)
     backlight_set(backlight_config.enable ? backlight_config.level : 0);
 }
 
+/** \brief Backlight step through levels
+ *
+ * FIXME: needs doc
+ */
 void backlight_step(void)
 {
     backlight_config.level++;
@@ -81,6 +101,10 @@ void backlight_step(void)
     backlight_set(backlight_config.level);
 }
 
+/** \brief Backlight set level
+ *
+ * FIXME: needs doc
+ */
 void backlight_level(uint8_t level)
 {
     if (level > BACKLIGHT_LEVELS)
@@ -91,6 +115,10 @@ void backlight_level(uint8_t level)
     backlight_set(backlight_config.level);
 }
 
+/** \brief Get backlight level
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_backlight_level(void)
 {
     return backlight_config.level;

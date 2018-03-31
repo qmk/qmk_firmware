@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "meira.h"
-#include "issi.h"
 #include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -277,10 +276,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
     case BL_TOGG:
-#ifdef ISSI_ENABLE
+#ifdef BACKLIGHT_ENABLE
         if (record->event.pressed) {
             print("Enabling backlight\n");
-            issi_init();
+            backlight_init_ports();
         }
 #endif
         return false;

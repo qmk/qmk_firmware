@@ -13,11 +13,10 @@
 #endif
 
 
-/* Bootloader Size in *bytes*
+/** \brief Bootloader Size in *bytes*
  *
  * AVR Boot section size are defined by setting BOOTSZ fuse in fact. Consult with your MCU datasheet.
  * Note that 'Word'(2 bytes) size and address are used in datasheet while TMK uses 'Byte'.
- *
  *
  * Size of Bootloaders in bytes:
  *   Atmel DFU loader(ATmega32U4)   4096
@@ -28,9 +27,7 @@
  *   Teensy   halfKay(ATmega32U4)   512
  *   Teensy++ halfKay(AT90USB128)   1024
  *
- *
  * AVR Boot section is located at the end of Flash memory like the followings.
- *
  *
  * byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB128)
  * 0x0000   +---------------+               0x00000  +---------------+
@@ -57,7 +54,6 @@
  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
-
 #define FLASH_SIZE (FLASHEND + 1L)
 
 #if !defined(BOOTLOADER_SIZE)
@@ -69,14 +65,17 @@
 #define BOOT_SIZE_1024 0b010
 #define BOOT_SIZE_2048 0b000
 
-/*
- * Entering the Bootloader via Software
+/** \brief Entering the Bootloader via Software
+ *
  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.html
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key  __attribute__ ((section (".noinit")));
 
-/* initialize MCU status by watchdog reset */
+/** \brief initialize MCU status by watchdog reset 
+ *
+ * FIXME: needs doc
+ */
 void bootloader_jump(void) {
 
     #if !defined(BOOTLOADER_SIZE)
