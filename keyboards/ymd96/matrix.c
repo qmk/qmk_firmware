@@ -1,16 +1,13 @@
 /*
 Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -28,6 +25,9 @@ static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+
+void matrix_set_row_status(uint8_t row);
+uint8_t bit_reverse(uint8_t x);
 
 void matrix_init(void) {
     // all outputs for rows high
@@ -47,18 +47,8 @@ void matrix_init(void) {
         matrix[row] = 0x00;
         matrix_debouncing[row] = 0x00;
     }
-}
 
-void matrix_set_row_status(uint8_t row) {
-    DDRB = (1 << row);
-    PORTB = ~(1 << row);
-}
-
-uint8_t bit_reverse(uint8_t x) {
-    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
-    return x;
+    matrix_init_quantum();  // missing from original port by Luiz
 }
 
 uint8_t matrix_scan(void) {
@@ -93,9 +83,22 @@ uint8_t matrix_scan(void) {
         }
     }
 
-    matrix_scan_user();
+    matrix_scan_quantum();  // also missing in original PS2AVRGB implementation
 
     return 1;
+}
+
+// declarations
+void matrix_set_row_status(uint8_t row) {
+    DDRB = (1 << row);
+    PORTB = ~(1 << row);
+}
+
+uint8_t bit_reverse(uint8_t x) {
+    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
+    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
+    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
+    return x;
 }
 
 inline matrix_row_t matrix_get_row(uint8_t row) {
