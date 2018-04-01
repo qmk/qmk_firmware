@@ -23,4 +23,4 @@
 #define PREVENT_STUCK_MODIFIERS
 
 #endif
-// #define PRIVATE_STRING
+#define PRIVATE_STRING
