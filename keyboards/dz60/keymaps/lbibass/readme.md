@@ -20,4 +20,4 @@ This is the windows layout. It's pretty handy, especially for playing games (whi
 
 ### Layer 3
 
-This has the function keys! And nothing else. I suppose I ought to add the backlight and RGB controls to this layer. I'll get to it someday.
+This has the function keys! And nothing else. I suppose I ought to add the backlight and RGB controls to this layer. I'll get to it eventually.
