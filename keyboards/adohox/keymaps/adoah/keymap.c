@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |           |   6  |   7  |   8  |   9  |   0  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Tab | Left | Down |  Up  | Right|           |      |   -  |   =  |   [  |   ]  |
+ * |  Tab | Left | Down |  Up  | Right|           |   -  |   (  |   )  |   [  |   ]  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  Ctrl|   `  |  GUI |  Alt |DVORAK TOGGLE|           |      |      |      |   \  |   '  |
+ * |  Ctrl|   `  |  GUI |  Alt |DVORAK TOGGLE|    |   =  |   {  |   }  |   \  |   '  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      | LOWER|      |    |      | RAISE|      |
@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = KEYMAP( \
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    \
-  KC_TAB,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, \
-  KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, TG(DVORAK),      _______, _______, _______, KC_BSLS,  KC_QUOT, \
+  KC_TAB,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,      KC_MINS, KC_LPRN, KC_RPRN,  KC_LBRC, KC_RBRC, \
+  KC_LCTL, KC_GRV,  KC_LGUI, KC_LALT, TG(DVORAK),      KC_EQL, KC_LCBR, KC_RCBR, KC_BSLS,  KC_QUOT, \
           _______,  _______, _______, _______,      _______, _______, _______, _______            \
 ),
 
@@ -92,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_LOWER] = KEYMAP( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, \
-  KC_ESC,  _______, _______, _______, _______,      _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, \
+  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, \
+  KC_ESC,  _______, _______, _______, _______,      _______, KC_UNDS, KC_PLUS, _______, _______, \
   KC_CAPS, KC_TILD, _______, _______, _______,      _______, _______, _______, KC_PIPE,  KC_DQT, \
           _______, _______, _______, _______,      KC_ENT,  _______, KC_DEL, _______              \
 ),
