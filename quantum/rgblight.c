@@ -23,6 +23,10 @@
 #include "debug.h"
 #include "led_tables.h"
 
+#ifndef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#endif
+
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
@@ -46,11 +50,9 @@ bool rgblight_timer_enabled = false;
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
 
-  #ifdef RGBLIGHT_LIMIT_VAL
-    if (val > RGBLIGHT_LIMIT_VAL) {
+  if (val > RGBLIGHT_LIMIT_VAL) {
       val=RGBLIGHT_LIMIT_VAL; // limit the val
-    }
-  #endif
+  }
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -119,7 +121,7 @@ void eeconfig_update_rgblight_default(void) {
   rgblight_config.mode = 1;
   rgblight_config.hue = 0;
   rgblight_config.sat = 255;
-  rgblight_config.val = 255;
+  rgblight_config.val = RGBLIGHT_LIMIT_VAL;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
@@ -313,8 +315,8 @@ void rgblight_decrease_sat(void) {
 }
 void rgblight_increase_val(void) {
   uint8_t val;
-  if (rgblight_config.val + RGBLIGHT_VAL_STEP > 255) {
-    val = 255;
+  if (rgblight_config.val + RGBLIGHT_VAL_STEP > RGBLIGHT_LIMIT_VAL) {
+    val = RGBLIGHT_LIMIT_VAL;
   } else {
     val = rgblight_config.val + RGBLIGHT_VAL_STEP;
   }
