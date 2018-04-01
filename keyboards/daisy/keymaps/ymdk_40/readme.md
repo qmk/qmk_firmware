@@ -1,0 +1,1 @@
+# The  keymap for daisy with the legends for these keycaps: https://www.aliexpress.com/item/NPKC-40-Thick-PBT-Gray-Black-Mixed-Cherry-Profile-Keycap-Keyset-For-40-AMJ40-YMD40-Mini/32825976887.html
