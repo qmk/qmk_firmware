@@ -16,8 +16,8 @@ this has RGB underglow and backlight controls. It also has Reset, along with cap
 
 ### Layer 2
 
-This is the windows layout. It's pretty handy, especially for playing games (which is all I use windows for). It switches space and backspace, making it easier to have your hands on wasd and still be able to jump. Control is now where command was, and it's generally a pretty basic windows layout. The center key on the spacebar still moves it up a layer when you hold it, up to layer 3. 
+This is the windows layout. It's pretty handy, especially for playing games (which is all I use windows for). It switches space and backspace, making it easier to have your hands on wasd and still be able to jump. Control is now where command was, and it's generally a pretty basic windows layout. The center key on the spacebar still moves it up a layer when you hold it, up to layer 3.
 
 ### Layer 3
 
-This has the function keys! And nothing else. I suppose I ought to add the backlight and RGB controls to this layer. I'll get to it eventually.
+This has the function keys! And nothing else. I suppose I ought to add the backlight and RGB controls to this layer. I'll get to it someday.
