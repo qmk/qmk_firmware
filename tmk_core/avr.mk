@@ -9,7 +9,7 @@ SIZE = avr-size
 AR = avr-ar rcs
 NM = avr-nm
 HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
-EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) 
+EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
 COMMON_VPATH += $(DRIVER_PATH)/avr
@@ -124,16 +124,16 @@ qmk: $(BUILD_DIR)/$(TARGET).hex
 program: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep check-size
 	$(PROGRAM_CMD)
 
-teensy: $(BUILD_DIR)/$(TARGET).hex check-size
+teensy: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(TEENSY_LOADER_CLI) -mmcu=$(MCU) -w -v $(BUILD_DIR)/$(TARGET).hex
-	
-BATCHISP ?= batchisp 
+
+BATCHISP ?= batchisp
 
 flip: $(BUILD_DIR)/$(TARGET).hex check-size
 	$(BATCHISP) -hardware usb -device $(MCU) -operation erase f
 	$(BATCHISP) -hardware usb -device $(MCU) -operation loadbuffer $(BUILD_DIR)/$(TARGET).hex program
 	$(BATCHISP) -hardware usb -device $(MCU) -operation start reset 0
-	
+
 DFU_PROGRAMMER ?= dfu-programmer
 GREP ?= grep
 
@@ -169,7 +169,7 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex check-size
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
@@ -199,7 +199,7 @@ bin: $(BUILD_DIR)/$(TARGET).hex
 
 # copy bin to FLASH.bin
 flashbin: bin
-	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin; 
+	$(COPY) $(BUILD_DIR)/$(TARGET).bin FLASH.bin;
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set
@@ -250,7 +250,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
-bootloader: 
+bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	echo -e "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
 	echo -e `$(GREP) "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
@@ -264,7 +264,7 @@ bootloader:
 	echo -e "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
-production: $(BUILD_DIR)/$(TARGET).hex bootloader
+production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(BUILD_DIR)/$(TARGET).hex | awk '/^:00000001FF/ == 0' > $(TARGET)_production.hex
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
