@@ -18,7 +18,7 @@
 
 #include "../eagle_viper.h"
 
-#define KEYMAP( \
+#define LAYOUT_ALL( \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N, K4O, \
     K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M,      K3O, \
     K2A, K2B, K2C, K2D, K2E, K2F, K2G, K2H, K2I, K2J, K2K, K2L, K2M,      K2O, \
