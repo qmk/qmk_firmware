@@ -27,6 +27,10 @@
 #define BREATHING_PERIOD 6
 #endif
 
+#ifndef BACKLIGHT_INVERT
+#define BACKLIGHT_INVERT false
+#endif
+
 #include "backlight.h"
 extern backlight_config_t backlight_config;
 
