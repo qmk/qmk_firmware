@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef STOCK_CONFIG_H
+#define STOCK_CONFIG_H
 
 #include "config_common.h"
 
@@ -42,15 +42,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* F5 and B5 have been switched to fix backlight PWM */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
-#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, F5, B4, D7, D6, B3 }
+#define MATRIX_COL_PINS { F0, F1, E6, C7, C6, B6, D4, B1, B7, B5, B4, D7, D6, B3 }
 #define UNUSED_PINS
 
 /* Backlight Setup */
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 10
-#define BACKLIGHT_INVERT true
+#define BACKLIGHT_PIN F5
+#define BACKLIGHT_LEVELS 6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
