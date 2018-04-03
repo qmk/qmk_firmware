@@ -3,7 +3,7 @@ fivethirteen keyboard firmware
 
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent readme.md](/doc/readme.md).
+For the full Quantum feature list, see [the parent readme.md](/doc/README.md).
 
 ## Building
 

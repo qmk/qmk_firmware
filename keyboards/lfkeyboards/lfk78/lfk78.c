@@ -200,7 +200,15 @@ void reset_keyboard_kb(){
 void led_set_kb(uint8_t usb_led)
 {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
+#ifdef ISSI_ENABLE
+#ifdef CAPSLOCK_LED
+    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+        activateLED(0, 3, 7, 255);
+    }else{
+        activateLED(0, 3, 7, 0);
+    }
+#endif // CAPSLOCK_LED
+#endif // ISS_ENABLE
     led_set_user(usb_led);
 }
 

@@ -5,7 +5,10 @@
     #include "rev1.h"
 #endif
 #ifdef KEYBOARD_orthodox_rev3
-    #include "rev3.h"
+#include "rev3.h"
+#endif
+#ifdef KEYBOARD_orthodox_rev3_teensy
+#include "rev3_teensy.h"
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys
