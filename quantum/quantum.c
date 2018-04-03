@@ -859,12 +859,15 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 
 // depending on the pin, we use a different output compare unit
 #if BACKLIGHT_PIN == B7
+#  define COM1x0 COM1C0
 #  define COM1x1 COM1C1
 #  define OCR1x  OCR1C
 #elif BACKLIGHT_PIN == B6
+#  define COM1x0 COM1B0
 #  define COM1x1 COM1B1
 #  define OCR1x  OCR1B
 #elif BACKLIGHT_PIN == B5
+#  define COM1x0 COM1A0
 #  define COM1x1 COM1A1
 #  define OCR1x  OCR1A
 #else
@@ -957,12 +960,14 @@ void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
     level = BACKLIGHT_LEVELS;
 
-  if (level == 0) {
-    // Turn off PWM control on backlight pin
-    TCCR1A &= ~(_BV(COM1x1));
-  } else {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
+  if (!BACKLIGHT_INVERT) {
+    if (level == 0) {
+      // Turn off PWM control on backlight pin
+      TCCR1A &= ~(_BV(COM1x1));
+    } else {
+      // Turn on PWM control of backlight pin
+      TCCR1A |= _BV(COM1x1);
+    }
   }
   // Set the brightness
   set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
@@ -1110,8 +1115,11 @@ void backlight_init_ports(void)
   "In fast PWM mode, the compare units allow generation of PWM waveforms on the OCnx pins. Setting the COMnx1:0 bits to two will produce a non-inverted PWM [..]."
   "In fast PWM mode the counter is incremented until the counter value matches either one of the fixed values 0x00FF, 0x01FF, or 0x03FF (WGMn3:0 = 5, 6, or 7), the value in ICRn (WGMn3:0 = 14), or the value in OCRnA (WGMn3:0 = 15)."
   */
-
-  TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
+  #if BACKLIGHT_INVERT
+    TCCR1A = _BV(COM1x1) | _BV(COM1x0) | _BV(WGM11); // = 0b00001010;
+  #else
+    TCCR1A = _BV(COM1x1) | _BV(WGM11); // = 0b00001010;
+  #endif
   TCCR1B = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
   // Use full 16-bit resolution. Counter counts to ICR1 before reset to 0.
   ICR1 = TIMER_TOP;
