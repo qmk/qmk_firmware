@@ -56,14 +56,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand                                                                       // right hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
              KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS,
-           TG(_MODS), _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, GUI_T(KC_QUOT),
+           TG(_MODS), _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, KC_QUOT,
              KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
     LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
-                                                    ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE),
-                                                                   KC_HOME,                 KC_PGUP,
-                                                 KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
-
-
+                                                    ____________________ERGODOX_THUMB_CLUSTER_______________________
     ),
 /* Keymap 0: COLEMAK layer
  *
@@ -92,12 +88,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand                                                                       // right hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
-           TG(_MODS), _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, GUI_T(KC_QUOT),
+           TG(_MODS), _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
     LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
-                                                    ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE),
-                                                                   KC_HOME,                 KC_PGUP,
-                                                 KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                    ____________________ERGODOX_THUMB_CLUSTER_______________________
     ),
 /* Keymap 0: DVORAK Layout
  *
@@ -126,12 +120,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand        // right hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
-           TG(_MODS), _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, GUI_T(KC_MINS),
+           TG(_MODS), _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
     LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
-                                                    ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE),
-                                                                   KC_HOME,                 KC_PGUP,
-                                                 KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                    ____________________ERGODOX_THUMB_CLUSTER_______________________
     ),
 /* Keymap 0: WORKMAN layer
  *
@@ -160,12 +152,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
              KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
-           TG(_MODS), _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, GUI_T(KC_QUOT),
+           TG(_MODS), _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
     LT(_SYMB,KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB),
-                                                    ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE),
-                                                                   KC_HOME,                 KC_PGUP,
-                                                 KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                    ____________________ERGODOX_THUMB_CLUSTER_______________________
     ),
 
 // Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)

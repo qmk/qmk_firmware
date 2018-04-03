@@ -16,7 +16,7 @@
 #ifdef RGBLIGHT_ENABLE
   #ifndef KEYBOARD_ergodox_ez
     #define RGBLIGHT_SLEEP
-  #endif
+  #endif // !KEYBOARD_ergodox_ez
 #endif // RGBLIGHT_ENABLE
 
 
@@ -51,8 +51,8 @@
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 160
+#endif // TAPPING_TERM
+#define TAPPING_TERM 176
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
