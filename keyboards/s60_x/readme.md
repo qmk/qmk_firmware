@@ -1,4 +1,4 @@
-﻿S60-x
+S60-x
 =====
 DIY compact keyboard designed by VinnyCordeiro for Sentraq. Most of the keymaps are based on GH60 code. This is a port from TMK to QMK based on the [original S60-X Repo](https://github.com/VinnyCordeiro/tmk_keyboard).
 
