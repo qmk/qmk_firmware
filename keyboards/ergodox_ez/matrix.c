@@ -151,7 +151,17 @@ void matrix_power_up(void) {
 static void matrix_read_row(int row) {
 	matrix_row_t cols = read_cols(row);
 	if (matrix_last_read[row] != cols) {
-		matrix_debouncing[row] = DEBOUNCE;
+		matrix_row_t released = matrix[row] & ~cols;
+		if (released) {
+			/* slow down there! don't report a
+			 * release until it's been stable for at
+			 * least DEBOUNCE scans. (Really,
+			 * DEBOUNCE+1.)
+			 */
+			matrix_debouncing[row] = DEBOUNCE;
+		} else {
+			matrix_debouncing[row] = 1;
+		}
 		matrix_last_read[row] = cols;
 	}
 	if (matrix_debouncing[row] == 0) {
