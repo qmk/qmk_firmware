@@ -94,7 +94,7 @@ bool last_dip_switch[4] = {0};
 
 #ifndef ENCODER_RESOLUTION
   #define ENCODER_RESOLUTION 4
-#undef ENCODER_RESOLUTION
+#endif
 
 uint8_t matrix_scan(void) {
     // dip switch
