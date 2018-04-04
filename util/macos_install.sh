@@ -15,7 +15,7 @@ if ! brew --version 2>&1 > /dev/null; then
 			*)
 				echo -n "Would you like to install homebrew now? [y/n] "
 			;;
-                esac
+		esac
 	done
 fi
 
