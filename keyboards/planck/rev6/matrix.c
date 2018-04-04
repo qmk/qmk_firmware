@@ -9,6 +9,7 @@
 #include "matrix.h"
 #include "action.h"
 #include "keycode.h"
+#include <string.h>
 
 /*
  *     col: { B11, B10, B2, B1, A7, B0 }
@@ -22,7 +23,7 @@ static uint16_t debouncing_time = 0;
 
 static uint8_t encoder_state = 0;
 static int8_t encoder_value = 0;
-static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 }; 
+static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
 
 static bool dip_switch[4] = {0, 0, 0, 0};
 
@@ -83,26 +84,37 @@ void matrix_init(void) {
     matrix_init_quantum();
 }
 
+__attribute__ ((weak))
+void dip_update(uint8_t index, bool value) { }
+
+__attribute__ ((weak))
+void encoder_update(bool direction) { }
+
+bool last_dip_switch[4] = {0};
+
 uint8_t matrix_scan(void) {
     // dip switch
     dip_switch[0] = palReadPad(GPIOB, 14);
     dip_switch[1] = palReadPad(GPIOA, 15);
     dip_switch[2] = palReadPad(GPIOA, 10);
     dip_switch[3] = palReadPad(GPIOB, 9);
+    for (uint8_t i = 0; i < 4; i++) {
+      if (last_dip_switch[i] ^ dip_switch[i])
+        dip_update(i, dip_switch[i]);
+    }
+    memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
 
     // encoder on B12 and B13
     encoder_state <<= 2;
     encoder_state |= (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
     encoder_value += encoder_LUT[encoder_state & 0xF];
-    if (encoder_value >= 4) {
-        register_code(KC_MS_WH_UP);
-        unregister_code(KC_MS_WH_UP);
+    if (encoder_value >= ENCODER_RESOLUTION) {
+        encoder_update(1);
     }
-    if (encoder_value <= -4) {
-        register_code(KC_MS_WH_DOWN);
-        unregister_code(KC_MS_WH_DOWN);
+    if (encoder_value <= -ENCODER_RESOLUTION) {
+        encoder_update(0);
     }
-    encoder_value %= 4;
+    encoder_value %= ENCODER_RESOLUTION;
 
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
