@@ -1,3 +1,4 @@
+#include "muse.h"
 
 enum {
   MUSE_OFF,
@@ -47,14 +48,14 @@ bool number_of_ones_to_bool[16] = {
   0, 1, 1, 0, 1, 0, 0, 1
 };
 
-uint8_t muse_interval[4] = {0};
-uint8_t muse_theme[4] = {0};
+uint8_t muse_interval[4] = {MUSE_B7,  MUSE_B19, MUSE_B3,  MUSE_B28};
+uint8_t muse_theme[4]    = {MUSE_B8, MUSE_B23, MUSE_B18, MUSE_B17};
 
-bool timer_1bit = 0;
-uint8_t timer_2bit = 0;
-uint8_t timer_2bit_counter = 0;
-uint8_t timer_4bit = 0;
-uint32_t timer_31bit = 0;
+bool muse_timer_1bit = 0;
+uint8_t muse_timer_2bit = 0;
+uint8_t muse_timer_2bit_counter = 0;
+uint8_t muse_timer_4bit = 0;
+uint32_t muse_timer_31bit = 0;
 
 bool bit_for_value(uint8_t value) {
   switch (value) {
@@ -63,48 +64,48 @@ bool bit_for_value(uint8_t value) {
     case MUSE_ON:
       return 1;
     case MUSE_C_1_2:
-      return timer_1bit;
+      return muse_timer_1bit;
     case MUSE_C1:
-      return (timer_4bit & 1);
+      return (muse_timer_4bit & 1);
     case MUSE_C2:
-      return (timer_4bit & 2);
+      return (muse_timer_4bit & 2);
     case MUSE_C4:
-      return (timer_4bit & 4);
+      return (muse_timer_4bit & 4);
     case MUSE_C8:
-      return (timer_4bit & 8);
+      return (muse_timer_4bit & 8);
     case MUSE_C3:
-      return (timer_2bit & 1);
+      return (muse_timer_2bit & 1);
     case MUSE_C6:
-      return (timer_2bit & 2);
+      return (muse_timer_2bit & 2);
     default:
-      return timer_31bit & (1UL << (value - MUSE_B1));
+      return muse_timer_31bit & (1UL << (value - MUSE_B1));
   }
 }
 
-uint8_t clock_pulse() {
+uint8_t muse_clock_pulse(void) {
 
   bool top = number_of_ones_to_bool[
     bit_for_value(muse_theme[0]) +
-    bit_for_value(muse_theme[1]) << 1 +
-    bit_for_value(muse_theme[2]) << 2 +
-    bit_for_value(muse_theme[3]) << 3
+    (bit_for_value(muse_theme[1]) << 1) +
+    (bit_for_value(muse_theme[2]) << 2) +
+    (bit_for_value(muse_theme[3]) << 3)
   ];
 
-  if (timer_1bit == 0) {
-    if (timer_2bit_counter == 0) {
-      timer_2bit = (timer_2bit + 1) % 4;
-      timer_2bit_counter = (timer_2bit_counter + 1) % 3;
+  if (muse_timer_1bit == 0) {
+    if (muse_timer_2bit_counter == 0) {
+      muse_timer_2bit = (muse_timer_2bit + 1) % 4;
     }
-    timer_4bit = (timer_4bit + 1) % 16;
-    timer_31bit = (timer_31bit << 1) + top;
+    muse_timer_2bit_counter = (muse_timer_2bit_counter + 1) % 3;
+    muse_timer_4bit = (muse_timer_4bit + 1) % 16;
+    muse_timer_31bit = (muse_timer_31bit << 1) + top;
   }
 
-  timer_1bit = (timer_1bit + 1) % 2;
+  muse_timer_1bit = (muse_timer_1bit + 1) % 2;
 
   return
     bit_for_value(muse_interval[0]) +
-    bit_for_value(muse_interval[1]) << 1 +
-    bit_for_value(muse_interval[2]) << 2 +
-    bit_for_value(muse_interval[3]) << 3;
+    (bit_for_value(muse_interval[1]) << 1) +
+    (bit_for_value(muse_interval[2]) << 2) +
+    (bit_for_value(muse_interval[3]) << 3);
 
 }

@@ -85,10 +85,10 @@ void matrix_init(void) {
 }
 
 __attribute__ ((weak))
-void dip_update(uint8_t index, bool value) { }
+void dip_update(uint8_t index, bool active) { }
 
 __attribute__ ((weak))
-void encoder_update(bool direction) { }
+void encoder_update(bool clockwise) { }
 
 bool last_dip_switch[4] = {0};
 
@@ -98,10 +98,10 @@ bool last_dip_switch[4] = {0};
 
 uint8_t matrix_scan(void) {
     // dip switch
-    dip_switch[0] = palReadPad(GPIOB, 14);
-    dip_switch[1] = palReadPad(GPIOA, 15);
-    dip_switch[2] = palReadPad(GPIOA, 10);
-    dip_switch[3] = palReadPad(GPIOB, 9);
+    dip_switch[0] = !palReadPad(GPIOB, 14);
+    dip_switch[1] = !palReadPad(GPIOA, 15);
+    dip_switch[2] = !palReadPad(GPIOA, 10);
+    dip_switch[3] = !palReadPad(GPIOB, 9);
     for (uint8_t i = 0; i < 4; i++) {
       if (last_dip_switch[i] ^ dip_switch[i])
         dip_update(i, dip_switch[i]);
@@ -113,10 +113,10 @@ uint8_t matrix_scan(void) {
     encoder_state |= (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
     encoder_value += encoder_LUT[encoder_state & 0xF];
     if (encoder_value >= ENCODER_RESOLUTION) {
-        encoder_update(1);
-    }
-    if (encoder_value <= -ENCODER_RESOLUTION) {
         encoder_update(0);
+    }
+    if (encoder_value <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
+        encoder_update(1);
     }
     encoder_value %= ENCODER_RESOLUTION;
 
