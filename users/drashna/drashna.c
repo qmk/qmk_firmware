@@ -207,6 +207,7 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
     unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string(str);
+    wait_ms(50);
     register_code(KC_ENTER);
     unregister_code(KC_ENTER);
   }
@@ -413,6 +414,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
+
+
   if (rgb_layer_change) {
     switch (biton32(state)) {
     case _NAV:
