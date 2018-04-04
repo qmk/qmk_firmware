@@ -92,6 +92,10 @@ void encoder_update(bool direction) { }
 
 bool last_dip_switch[4] = {0};
 
+#ifndef ENCODER_RESOLUTION
+  #define ENCODER_RESOLUTION 4
+#undef ENCODER_RESOLUTION
+
 uint8_t matrix_scan(void) {
     // dip switch
     dip_switch[0] = palReadPad(GPIOB, 14);
