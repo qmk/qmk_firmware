@@ -37,11 +37,11 @@ void matrix_scan_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    printf("Code: %d %d\n", keycode, record->event.pressed);
+
     if (!process_record_user(keycode, record)) {
         return false;
     }
-
-//    printf("Code: %d %d\n", keycode, record->event.pressed);
 
     switch (keycode) {
         case EX_DUMP:
@@ -54,8 +54,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case EX_RESET:
             if (record->event.pressed) {
                 printf("Reset to Bootloader\n");
-                bootloader_jump();
+                bootloader_jump(); // doesn't return
             }
+            return false;
     }
     return true;
 }
