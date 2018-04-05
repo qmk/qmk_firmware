@@ -49,7 +49,10 @@
  */
 
 #define HT32_SPI_USE_SPI1                   TRUE
-#define HT32_SPI1_IRQ_PRIORITY              3
+#define HT32_SPI1_IRQ_PRIORITY              5
+
+#define HT32_UART_USE_USART0                TRUE
+#define HT32_USART0_IRQ_PRIORITY            5
 
 /*
  * USB driver settings

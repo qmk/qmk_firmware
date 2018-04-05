@@ -17,18 +17,101 @@
 
 #include "ch.h"
 #include "hal.h"
+#include "print.h"
 
 #include "eeconfig.h"
 #include "vortex.h"
+#include "gd25q_flash.h"
 
-#define EEPROM_SIZE 524288
+#define EEPROM_SIZE 524288 // 4Mbit = 512KiB
 
-void spi_flash_init(void) {
-    static const SPIConfig config = {
+uint8_t tx_data[4];
+uint8_t rx_data[4];
 
-    };
+void spi_select(void) {
+    palClearLine(LINE_SPICS);
+}
 
-    spiStart(&SPID1, &config);
+void spi_deselect(void) {
+    palSetLine(LINE_SPICS);
+}
+
+void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {
+    if (txbuf) {
+        const uint8_t *txptr = txbuf;
+        if (rxbuf) {
+            uint8_t *rxptr = rxbuf;
+            for (uint16_t i = 0; i < n; ++i) {
+                *rxptr = spiPolledExchange(&SPID1, *txptr);
+                ++txptr;
+                ++rxptr;
+            }
+        } else {
+            for (uint16_t i = 0; i < n; ++i) {
+                spiPolledExchange(&SPID1, *txptr);
+                ++txptr;
+            }
+        }
+    } else {
+        if (rxbuf) {
+            uint8_t *rxptr = rxbuf;
+            for (uint16_t i = 0; i < n; ++i) {
+                *rxptr = spiPolledExchange(&SPID1, 0);
+                ++rxptr;
+            }
+        } else {
+            for (uint16_t i = 0; i < n; ++i) {
+                spiPolledExchange(&SPID1, 0);
+            }
+        }
+    }
+}
+
+void spi_rdid(void) {
+    tx_data[0] = GD25Q_RDID;
+    tx_data[1] = 0;
+    tx_data[2] = 0;
+    tx_data[3] = 0;
+
+    spi_select();
+    spi_txrx(4, tx_data, rx_data);
+    spi_deselect();
+
+    printf("%02x %02x %02x\n", rx_data[1], rx_data[2], rx_data[3]);
+}
+
+void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
+    tx_data[0] = GD25Q_READ;
+    tx_data[1] = (addr >> 16) & 0xFF;
+    tx_data[2] = (addr >> 8) & 0xFF;
+    tx_data[3] = addr & 0xFF;
+
+    spi_select();
+    spi_txrx(4, tx_data, NULL);
+    spi_txrx(n, NULL, data);
+    spi_deselect();
+}
+
+
+void spi_dump_page(uint32_t addr) {
+    const uint16_t size = 64;
+    uint8_t buffer[size];
+    spi_read(addr, size, buffer);
+
+    for (uint16_t i = 0; i < size;) {
+        uint16_t line = i;
+        printf("%06x ", addr + i);
+        for (; i < line + 8; ++i) {
+            printf(" %02x", buffer[i]);
+        }
+        printf("\n");
+    }
+}
+
+void spi_dump(void) {
+    for (uint32_t a = 0; a < GD24Q40_BYTES; a += 64) {
+        spi_dump_page(a);
+    }
 }
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {

@@ -18,6 +18,8 @@
 #include "ch.h"
 #include "hal.h"
 
+#include <string.h>
+
 /**
  * @brief   PAL setup.
  * @details Digital I/O ports static configuration as defined in @p board.h.
@@ -46,6 +48,7 @@ const PALConfig pal_default_config = {
             (AFIO_GPIO << (PAL_PAD(LINE_COL3) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_COL4) << 2)),
         .CFG[1] =
+            (AFIO_USART << ((PAD_USART_TX - 8) << 2)) |
             (AFIO_GPIO << ((PAL_PAD(LINE_ROW3) - 8) << 2)) |
             (AFIO_GPIO << ((PAL_PAD(LINE_ROW5) - 8) << 2)),
     },
@@ -70,12 +73,13 @@ const PALConfig pal_default_config = {
             (AFIO_GPIO << (PAL_PAD(LINE_ROW4) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_ROW6) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_ROW7) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW8) << 2)),
+            (AFIO_GPIO << (PAL_PAD(LINE_ROW8) << 2)) |
             (AFIO_SPI << (PAD_SPI_SCK << 2)),
         .CFG[1] =
             (AFIO_GPIO << ((PAL_PAD(LINE_COL5) - 8) << 2)) |
             (AFIO_SPI << ((PAD_SPI_MOSI - 8) << 2)) |
-            (AFIO_SPI << ((PAD_SPI_MISO - 8) << 2)),
+            (AFIO_SPI << ((PAD_SPI_MISO - 8) << 2)) |
+            (AFIO_GPIO << ((PAL_PAD(LINE_SPICS) - 8) << 2)),
     },
     // GPIO C
     .setup[2] = {
@@ -159,10 +163,45 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
+void uart_init(void) {
+    static const UARTConfig config = {
+        .mdr = USART_MDR_MODE_NORMAL,
+        .lcr = USART_LCR_WLS_8BIT,
+        .fcr = USART_FCR_URTXEN,
+        .baud = 115200,
+    };
+    uartStart(&USARTD0, &config);
+}
+
+void uart_send(const char *str) {
+    uartStartSend(&USARTD0, strlen(str), str);
+}
+
+// Override the sendchar_pf from usb_main.c
+// So printf() will print to serial instead
+/*
+void sendchar_pf(void *p, char c) {
+    uartStartSend(&USARTD0, 1, &c);
+}
+*/
+
+void spi_init(void) {
+    static const SPIConfig config = {
+        .end_cb = NULL,
+        .cr0 = SPI_CR0_SELOEN,
+        .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
+        .cpr = 1,
+        .fcr = 0,
+    };
+    spiStart(&SPID1, &config);
+    palSetLine(LINE_SPICS);
+}
+
 /**
  * @brief   Board-specific initialization code.
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
-
+    uart_init();
+    spi_init();
 }

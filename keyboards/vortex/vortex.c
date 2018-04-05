@@ -29,7 +29,6 @@ void bootloader_jump(void) {
 }
 
 void matrix_init_kb(void) {
-    spi_flash_init();
     matrix_init_user();
 }
 
