@@ -299,7 +299,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
 };
-
+#else // KEYBOARD_ergodox_ez
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_QWERTY] =  LAYOUT_ergodox_wrapper(KC_EQL, KC_1, KC_2, KC_3, KC_4, KC_5, OSL(_MOUS), KC_TAB, _________________QWERTY_L1_________________, TG(_DIABLO), KC_BSPC, _________________QWERTY_L2_________________, KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD), LT(_SYMB, KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________, ALT_T(KC_APP), KC_LGUI, KC_HOME, KC_SPACE, KC_BSPC, KC_END, OSL(_MOUS), KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS, _________________QWERTY_R2_________________, GUI_T(KC_QUOT), TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF, ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB), KC_RGUI, CTL_T(KC_ESCAPE), KC_PGUP, KC_PGDOWN, KC_DELETE, KC_ENTER),
+    [_COLEMAK] = LAYOUT_ergodox_wrapper(KC_EQL, KC_1, KC_2, KC_3, KC_4, KC_5, OSL(_MOUS), KC_TAB, _________________COLEMAK_L1________________, TG(_DIABLO), KC_BSPC, _________________COLEMAK_L2________________, KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD), LT(_SYMB, KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________, ALT_T(KC_APP), KC_LGUI, KC_HOME, KC_SPACE, KC_BSPC, KC_END, OSL(_MOUS), KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS, _________________COLEMAK_R2________________, GUI_T(KC_QUOT), TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF, ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB), KC_RGUI, CTL_T(KC_ESCAPE), KC_PGUP, KC_PGDOWN, KC_DELETE, KC_ENTER),
+    [_DVORAK] =  LAYOUT_ergodox_wrapper(KC_EQL, KC_1, KC_2, KC_3, KC_4, KC_5, OSL(_MOUS), KC_TAB, _________________DVORAK_L1_________________, TG(_DIABLO), KC_BSPC, _________________DVORAK_L2_________________, KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD), LT(_SYMB, KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________, ALT_T(KC_APP), KC_LGUI, KC_HOME, KC_SPACE, KC_BSPC, KC_END, OSL(_MOUS), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSLS, TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH, _________________DVORAK_R2_________________, GUI_T(KC_MINS), TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF, ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB), KC_RGUI, CTL_T(KC_ESCAPE), KC_PGUP, KC_PGDOWN, KC_DELETE, KC_ENTER),
+    [_WORKMAN] = LAYOUT_ergodox_wrapper(KC_EQL, KC_1, KC_2, KC_3, KC_4, KC_5, OSL(_MOUS), KC_TAB, _________________WORKMAN_L1________________, TG(_DIABLO), KC_BSPC, _________________WORKMAN_L2________________, KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD), LT(_SYMB, KC_GRV), ___________ERGODOX_BOTTOM_LEFT_____________, ALT_T(KC_APP), KC_LGUI, KC_HOME, KC_SPACE, KC_BSPC, KC_END, OSL(_MOUS), KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS, _________________WORKMAN_R2________________, GUI_T(KC_QUOT), TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF, ___________ERGODOX_BOTTOM_RIGHT____________, TT(_SYMB), KC_RGUI, CTL_T(KC_ESCAPE), KC_PGUP, KC_PGDOWN, KC_DELETE, KC_ENTER),
+    [_MODS] =    LAYOUT_ergodox(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_RSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+    [_SYMB] =    LAYOUT_ergodox(EPRM, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, TG(_MODS), KC_RESET, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_PIPE, KC_WORKMAN, KC_MAKE, KC_HASH, KC_DLR, KC_LPRN, KC_RPRN, KC_GRAVE, VRSN, KC_PERC, KC_CIRC, KC_LBRACKET, KC_RBRACKET, KC_TILD, KC_COLEMAK, KC_TRNS, KC_AMPR, KC_ASTR, KC_COLN, KC_SCOLON, RGB_SMOD, KC_RGB_T, RGB_HUI, RGB_M_R, RGB_M_SW, RGB_HUD, KC_QWERTY, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_DVORAK, KC_KP_PLUS, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_ASTERISK, KC_F12, KC_KP_MINUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_SLASH, KC_PSCREEN, KC_COLEMAK, KC_NUMLOCK, KC_KP_1, KC_KP_2, KC_KP_3, KC_EQUAL, KC_PAUSE, KC_KP_0, KC_KP_0, KC_KP_DOT, KC_KP_ENTER, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_DOT, KC_KP_0, KC_KP_ENTER),
+};
+#endif // KEYBOARD_ergodox_ez
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
@@ -316,8 +325,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   //}
   return true;
 }
-
-#endif
 
 void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 };
