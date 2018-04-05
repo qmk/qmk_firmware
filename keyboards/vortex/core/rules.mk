@@ -1,9 +1,9 @@
-# Vortex POK3R RGB
+# Vortex CORE
 
 SRC = \
 	matrix.c \
-	eeprom.c \
-	rgblight.c
+	eeprom.c
+#	rgblight.c
 
 LAYOUTS += 60_ansi 60_ansi_split_rshift 60_iso
 
@@ -17,7 +17,7 @@ MCU_SERIES = HT32F165x
 MCU_LDSCRIPT = HT32F1654_CYKB
 MCU_STARTUP = ht32f165x
 
-BOARD = CYKB167_D_V03
+BOARD = CYKB175_V03
 
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x3400
 
@@ -35,7 +35,7 @@ RGBLIGHT_ENABLE = no
 RGBLIGHT_CUSTOM_DRIVER = yes
 
 # Other featues
-BOOTMAGIC_ENABLE = yes
+BOOTMAGIC_ENABLE = no
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no # Commands for debug and configuration
 RAW_ENABLE = yes

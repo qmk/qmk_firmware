@@ -7,22 +7,39 @@ SRC = \
 
 LAYOUTS += 60_ansi 60_ansi_split_rshift 60_iso
 
-# Linker script to use
-# - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-#   or <this_dir>/ld/
-MCU_LDSCRIPT = HT32F1655_VORTEX
+# MCU
 
-# Board: it should exist either in <chibios>/os/hal/boards/
-#  or <this_dir>/boards
+MCU = cortex-m3
+ARMV = 7
+USE_FPU = no
+MCU_FAMILY = HT32
+MCU_SERIES = HT32F165x
+MCU_LDSCRIPT = HT32F1655_VORTEX
+MCU_STARTUP = ht32f165x
+
 BOARD = VORTEX_DUAL_60
 
-# Vector table for application
-# 0x0000-0x2800 is occupied by stock bootloader, which expects the application at 0x2c00
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x2c00
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x2c00 -Wno-unused-function
 
 # Options
+
+# Keys
+CUSTOM_MATRIX = yes
+NKRO_ENABLE = yes
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes
+KEY_LOCK_ENABLE = yes
 
 # Backlight
 BACKLIGHT_ENABLE = no
 BACKLIGHT_CUSTOM_DRIVER = yes
 #SLEEP_LED_ENABLE = yes	# Breathing sleep LED during USB suspend
+
+# Other featues
+BOOTMAGIC_ENABLE = yes
+CONSOLE_ENABLE = yes
+COMMAND_ENABLE = no # Commands for debug and configuration
+RAW_ENABLE = yes
+
+# EEPROM
+EEPROM_CUSTOM_DRIVER = yes
