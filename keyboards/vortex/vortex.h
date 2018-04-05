@@ -23,8 +23,10 @@
 enum extra_keycodes {
     EX_ECHO = SAFE_RANGE,
     EX_DUMP,
+    EX_RESET,
 };
 
 void spi_flash_init(void);
+void spi_dump(void);
 
 #endif // VORTEX_H

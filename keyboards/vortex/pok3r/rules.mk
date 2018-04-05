@@ -38,7 +38,7 @@ BACKLIGHT_CUSTOM_DRIVER = yes
 # Other featues
 BOOTMAGIC_ENABLE = yes
 CONSOLE_ENABLE = yes
-COMMAND_ENABLE = no # Commands for debug and configuration
+COMMAND_ENABLE = yes
 RAW_ENABLE = yes
 
 # EEPROM
