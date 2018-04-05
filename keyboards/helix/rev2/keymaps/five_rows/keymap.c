@@ -33,6 +33,7 @@ enum layer_number {
     _DVORAK,
     _KEYPAD,
     _AUX,
+    _KAUX,
     _LOWER,
     _RAISE,
     _PADFUNC,
@@ -46,6 +47,7 @@ enum custom_keycodes {
   KEYPAD,
   EISU,
   KANA,
+  ZERO2,
   RGBRST
 };
 
@@ -147,9 +149,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_KP_7, KC_KP_8, KC_KP_9, KC_BSPC,   KC_F2,   KC_F7,                     KC_F2,   KC_F7, KC_BSPC, KC_KP_7, KC_KP_8, KC_KP_9, \
       KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS,   KC_F3,   KC_F8,                     KC_F3,   KC_F8, KC_PMNS, KC_KP_4, KC_KP_5, KC_KP_6, \
       KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS,   KC_F4,   KC_F9,  KC_F11,  KC_F11,   KC_F4,   KC_F9, KC_PPLS, KC_KP_1, KC_KP_2, KC_KP_3, \
-      KC_KP_0, KC_PCMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  LT(_PADFUNC,KC_F12),
-                                                            LT(_PADFUNC,KC_F12),KC_F5,  KC_F10, KC_PENT, KC_KP_0, KC_PCMM, KC_PDOT \
+      KC_KP_0, KC_COMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  LT(_PADFUNC,KC_F12),
+                                                            LT(_PADFUNC,KC_F12),KC_F5,  KC_F10, KC_PENT, KC_KP_0, KC_COMM, KC_PDOT \
       ),
+
+  /*  AUX modifier key layer
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |      |  00  |      |      |      |      |      |      |      |      |      |      |  00  |      |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_KAUX] = KEYMAP( \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+      _______, ZERO2,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ZERO2,   _______ \
+   ),
 
   /*  Keypad function layer
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -291,12 +314,16 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
 
 void update_base_layer(int base)
 {
-    if( base >= _KEYPAD || current_default_layer != base ) {
+    if( current_default_layer != base ) {
 	eeconfig_update_default_layer(1UL<<base);
 	default_layer_set(1UL<<base);
 	layer_off(_AUX);
+	layer_off(_KAUX);
     } else {
-	layer_invert(_AUX);
+	if( base < _KEYPAD )
+	    layer_invert(_AUX);
+	else
+	    layer_invert(_KAUX);
     }
 }
 
@@ -335,6 +362,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_dvorak);
         #endif
 	update_base_layer(_KEYPAD);
+      }
+      return false;
+      break;
+    case ZERO2:
+      if (record->event.pressed) {
+          SEND_STRING("00");
       }
       return false;
       break;
@@ -455,6 +488,7 @@ static const char Dvorak_name[]  PROGMEM = " Dvorak";
 static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
+static const char KAUX_name[]    PROGMEM = ":00";
 static const char Padfunc_name[] PROGMEM = ":PadFunc";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
@@ -466,6 +500,7 @@ static const char *layer_names[] = {
     [_DVORAK] = Dvorak_name,
     [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
+    [_KAUX]   = KAUX_name,
     [_LOWER]  = Lower_name,
     [_RAISE]  = Raise_name,
     [_PADFUNC]= Padfunc_name,
