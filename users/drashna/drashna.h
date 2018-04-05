@@ -20,25 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 // Define layer names
-#define _QWERTY 0
-#define _NUMLOCK 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _WORKMAN 3
-#define _MODS 4
-//#define _MISC 5
-#define _NAV 6
-#define _COVECUBE 7
-#define _SYMB 8
-#define _GAMEPAD 9
-#define _DIABLO 10
-#define _MOUS 11
-#define _MACROS 12
-#define _MEDIA 13
-#define _LOWER 14
-#define _RAISE 15
-#define _ADJUST 16
-
+enum userspace_layers {
+  _QWERTY = 0,
+  _NUMLOCK = 0,
+  _COLEMAK,
+  _DVORAK,
+  _WORKMAN,
+  _MODS,
+  _NAV,
+  _COVECUBE,
+  _SYMB,
+  _GAMEPAD,
+  _DIABLO,
+  _MOUS,
+  _MACROS,
+  _MEDIA,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
