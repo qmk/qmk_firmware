@@ -257,7 +257,7 @@ typedef struct
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
-#define RAW_EPSIZE              	  32
+#define RAW_EPSIZE                  64
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64

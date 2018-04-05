@@ -170,16 +170,16 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ExtrakeyReport[] =
 #ifdef RAW_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] =
 {
-    HID_RI_USAGE_PAGE(16, 0xFF60), /* Vendor Page 0xFF60 */
-    HID_RI_USAGE(8, 0x61), /* Vendor Usage 0x61 */
+    HID_RI_USAGE_PAGE(16, 0xFF00), /* Vendor Page 0xFF00 */
+    HID_RI_USAGE(8, 0x01), /* Vendor Usage 0x01 */
     HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_USAGE(8, 0x62), /* Vendor Usage 0x62 */
+        HID_RI_USAGE(8, 0x02), /* Vendor Usage 0x02 */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
         HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-        HID_RI_USAGE(8, 0x63), /* Vendor Usage 0x63 */
+        HID_RI_USAGE(8, 0x03), /* Vendor Usage 0x03 */
         HID_RI_LOGICAL_MINIMUM(8, 0x00),
         HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
         HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
