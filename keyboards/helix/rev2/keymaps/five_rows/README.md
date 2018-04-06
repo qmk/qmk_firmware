@@ -25,7 +25,7 @@ Adjust Layer has keyboard local function keys.
 
 * LED control.
 * Mac/Win mode change.
-* Qwerty/Colemak/Dvorak change.
+* Qwerty/Colemak/Dvorak/TenkeyPad change.
 
 ![fig2](https://gist.github.com/mtei/c81a3688206aa50996339cb9ced4751d/raw/827632dda7db87cf88d41a0d3b476c5962c29213/helix-five_rows_r3adj.png)
 
