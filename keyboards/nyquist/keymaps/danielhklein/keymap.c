@@ -2,12 +2,10 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 
+// Keymap is loosely based on DivergeJM's Nyquist keymap
+
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 enum custom_layers {
   _QWERTY,
   _LOWER,
@@ -22,8 +20,8 @@ enum custom_keycodes {
 
   // Enable these functions using FUNC(n) macro.
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Backspace, 
-      [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_BSPC)     //Hold for momentary Raise layer, Tap for Space,
+      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
+      [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_BSPC)     //Hold for momentary Raise layer, Tap for Backspace,
    };
 
 #define SPC_LWR FUNC(0)
