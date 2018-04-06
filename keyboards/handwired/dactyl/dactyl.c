@@ -57,7 +57,7 @@ out:
     return mcp23018_status;
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
