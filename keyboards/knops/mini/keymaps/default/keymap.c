@@ -107,7 +107,11 @@ void set_switch_led(int ledId, bool state) {
 				PORTD |= (1<<7);
 				break;
 			case 2:
-				PORTC |= (1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC |= (1<<6);
+				} else {
+					PORTC |= (1<<7);
+				}
 				break;
 			case 3:
 				PORTD |= (1<<4);
@@ -128,7 +132,11 @@ void set_switch_led(int ledId, bool state) {
 				PORTD &= ~(1<<7);
 				break;
 			case 2:
-				PORTC &= ~(1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC &= ~(1<<6);
+				} else {
+					PORTC &= ~(1<<7);
+				}
 				break;
 			case 3:
 				PORTD &= ~(1<<4);
@@ -167,9 +175,12 @@ void set_layer_led(int layerId) {
 void matrix_init_user(void) {
 	led_init_ports();
 	
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
 	
 	PORTD |= (1<<7);
 	PORTC |= (1<<6);
+	PORTC |= (1<<7);
 	PORTD |= (1<<4);
 	PORTE |= (1<<6);
 	PORTB |= (1<<4);
@@ -188,7 +199,9 @@ void led_init_ports() {
 	
   // led voor switch #2
 	DDRC |= (1<<6);
+	DDRC |= (1<<7);
 	PORTC &= ~(1<<6);
+	PORTC &= ~(1<<7);
 	
   // led voor switch #3
 	DDRD |= (1<<4);

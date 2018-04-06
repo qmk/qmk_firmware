@@ -1,5 +1,5 @@
 ﻿### 8  Custom
-The custom keymap - [keymap_custom.c](keymap_custom.c) - is where I tested all the switches, not being concerned with a specific layout or layers. It's a plain layout option with the extra keys used on ISO & HHKB layouts being assigned some other keys.
+The custom keymap - [keymap.c](keymap.c) - is where I tested all the switches, not being concerned with a specific layout or layers. It's a plain layout option with the extra keys used on ISO & HHKB layouts being assigned some other keys.
 
 #### 8.0 Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
