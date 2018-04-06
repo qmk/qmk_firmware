@@ -1,9 +1,10 @@
-# normacos Let's Split keymap, by Jorge Porras
-This keymap was designed especifically to be used on a MacOS High Sierra system with a heavy use of the Terminal, as it includes a multitude of macros for both the terminal as well as Spotlight Search.
+# normacos
+This keymap was designed especifically to be used on a MacOS High Sierra system with constant use of the Terminal, as it includes a multitude of macros for both the terminal as well as Spotlight Search.
 
-Norman keyboard layout was decided based on statistical efficiency based on its found on its [info page.](https://normanlayout.info/)
-Some Norman layout keys were placed on different layers and different positions based on available space and personal preference.
-Any and all empty keys shown below are set to do nothing, but can be configured based on user preference.
+Norman keyboard layout [info page.](https://normanlayout.info/)
+
+Some Norman layout keys were placed on different layers and different positions based on available space.
+
 
 Macros:
 - CtlEsc sends Escape when tapped, and Control when held.
@@ -21,10 +22,11 @@ Macros:
 - Sudo elevates last Terminal command
 - UpDir moves working directory to its parent
 
+Any and all empty keys shown below are will be set in the future, and do nothing as of the time of this writing.
 
-Layers:
 
-## Default layer (Norman layout)
+
+## Default (Norman)
 ```
 ,-----------------------------------------. ,-----------------------------------------.
 |  Tab |   Q  |   W  |   D  |   F  |   K  | |   J  |   U  |   R  |   L  |   ;  | Bksp |
@@ -47,7 +49,7 @@ Layers:
 |------+------+------+------+------+------| |------+------+------+------+------+------|
 | Shift|  F9  |  F10 |  F11 |  F12 |      | |   1  |   2  |   3  |   /  |   *  |SftEnt|
 |------+------+------+------+------+------| |------+------+------+------+------+------|
-| Lock | Home |  End |  Alt | Lower|  GUI | |   0  | Raise|   .  |  Cut | Copy | Paste|
+| Lock | Home |  End |  Alt | Lower|  GUI | |   0  | Raise|   .  |      |      |      |
 `-----------------------------------------' `-----------------------------------------'
 ```
 
