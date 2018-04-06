@@ -291,11 +291,11 @@ void encoder_update(bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
-    } else {
       register_code(KC_PGDN);
       unregister_code(KC_PGDN);
+    } else {
+      register_code(KC_PGUP);
+      unregister_code(KC_PGUP);
     }
   }
 }
