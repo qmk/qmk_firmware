@@ -2,8 +2,15 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 
-// Keymap is loosely based on DivergeJM's Nyquist keymap
-
+/*
+ Keymap is loosely based on DivergeJM's Nyquist keymap
+ Major changes made:
+  - DVORAK, COLEMAK, FUNCTION, MOUSE, and ADJUST layers have been removed
+  - right 2u key performs backspace, not enter
+  - no right ctrl key
+  - direction keys added to bottom row
+  - LOWER layer controls function keys, media controls, and underglow
+*/ 
 extern keymap_config_t keymap_config;
 
 enum custom_layers {
