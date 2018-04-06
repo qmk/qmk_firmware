@@ -59,6 +59,9 @@ void vusb_transfer_keyboard(void)
                 print(")\n");
             }
         }
+    } else {
+      usbPoll();
+      vusb_transfer_keyboard();
     }
 }
 
