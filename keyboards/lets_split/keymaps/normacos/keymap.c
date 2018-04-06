@@ -21,7 +21,9 @@ enum custom_keycodes {
   ADJUST,
   SH_SUDO,
   SH_GOUP,
-  SH_TERM
+  SH_TERM,
+  SPOT,
+  SLACK
 };
 
 // Fillers (to make layering more clear)
@@ -38,7 +40,6 @@ enum custom_keycodes {
 #define SH_HOME    LCTL(KC_A)		// Go to start of line
 #define SH_END     LCTL(KC_E)		// Go to end of line
 #define SH_RSCH    LCTL(KC_R)		// Search command history
-#define SH_CLRL    LCTL(KC_U)		// 
 #define SH_CLRH    LCTL(KC_U)		// Erase to beginning of line
 #define SH_CLRE    LCTL(KC_K)		// Erase to end of line
 
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Tab |  F1  |  F2  |  F3  |  F4  |      | |   7  |   8  |   9  |   =  |      | Bksp |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * |CtlEsc|  F5  |  F6  |  F7  |  F8  |      | |   4  |   5  |   6  |   -  |   +  |  Del |
- * |------+------+------+------+------+------| |------+------+------+------+------+------| 
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * | Shift|  F9  |  F10 |  F11 |  F12 |      | |   1  |   2  |   3  |   /  |   *  |SftEnt|
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * | Lock | Home |  End |  Alt | Lower|  GUI | |   0  | Raise|   .  |  Cut | Copy | Paste|
@@ -84,25 +85,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------. ,-----------------------------------------.
  * |  Tab |   !  |   @  |   #  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  |  Del |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |CtlEsc|Search| Sudo | UpDir| Term |      | |   =  |   -  |   \  |   [  |   ]  |   `  |
+ * |CtlEsc| Sudo | UpDir| Slack| Term | Spot | |   =  |   -  |   \  |   [  |   ]  |   `  |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * | Shift|ClrHom|ClrEnd|ShHome| ShEnd|      | | Mute | VolDn| VolUp| Play |ScnSht|SftEnt|
+ * | Shift|ClrHom|ClrEnd|ShHome| ShEnd|Search| | Play | Mute | VolDn| VolUp|ScnSht|SftEnt|
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * | Lock | Home |  End |  Alt | Lower|  GUI | | Space| Raise| Left | Down |  Up  | Right|
  * `-----------------------------------------' `-----------------------------------------'
  */
 [_RAISE] = KEYMAP( \
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,  \
-  _______, SH_RSCH, SH_SUDO, SH_GOUP, SH_TERM, XXXXXXX, KC_EQL,  KC_MINS, KC_BSLS, KC_LBRC, KC_RBRC, KC_GRV,  \
-  _______, SH_CLRH, SH_CLRE, SH_HOME, SH_END,  XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, SCN_SHT, _______, \
+  _______, SH_SUDO, SH_GOUP, SLACK,   SH_TERM, SPOT,    KC_EQL,  KC_MINS, KC_BSLS, KC_LBRC, KC_RBRC, KC_GRV,  \
+  _______, SH_CLRH, SH_CLRE, SH_HOME, SH_END,  SH_RSCH, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, SCN_SHT, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Adjust (Raise + Lower)
+/* Adjust (Lower + Raise)
  * ,-----------------------------------------. ,-----------------------------------------.
- * |      |      |      |      | Reset|      | |      | Reset|      |      |      |      |
+ * |      |      |      |      |      |      | |      |      |      |      | Reset|      |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm| |AGswap|Norman|      |      |      |      |
+ * |      |      |      |      | AudOn|AudOff| |      |Norman|      |      |      |      |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * |      |      |      |      |      |      | |      |      |      |      |      |      |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
@@ -110,8 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------' `-----------------------------------------'
  */
 [_ADJUST] = KEYMAP( \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, NORMAN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, NORMAN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 )
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_qwerty[][0] = SONG(QWERTY_SOUND);
+float tone_norman[][2] = SONG(QWERTY_SOUND);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -128,55 +129,55 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case NORMAN:
-      if (record->event.pressed) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case NORMAN:
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
+          PLAY_SONG(tone_norman);
         #endif
         persistent_default_layer_set(1UL<<_NORMAN);
-      }
-      return false;
-    case LOWER:
-      if (record->event.pressed) {
+        return false;
+      case LOWER:
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case RAISE:
-      if (record->event.pressed) {
+        return false;
+      case RAISE:
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
+        return false;
+      case ADJUST:
+        layer_on(_ADJUST);
+        return false;
+      case SH_SUDO:
+        SEND_STRING("sudo !!"SS_TAP(X_ENTER));	// Elevate last command
+        return false;
+      case SH_GOUP:
+        SEND_STRING("cd .."SS_TAP(X_ENTER));	// Go up a directory
+        return false;
+      case SH_TERM:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"Terminal"SS_TAP(X_ENTER));	// Open Terminal
+        return false;
+      case SPOT:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"Spotify"SS_TAP(X_ENTER));	// Open Spotify
+        return false;
+      case SLACK:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"Slack"SS_TAP(X_ENTER));  // Open Slack
+        return false;
+    }
+  } else {
+    switch(keycode) {
+      case LOWER:
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        return false;
+      case RAISE:
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
+        return false;
+      case ADJUST:
         layer_off(_ADJUST);
-      }
-      return false;
-    case SH_SUDO:
-      if (record->event.pressed) {
-        SEND_STRING("sudo !!");	// Elevate last terminal command (MacOS)
         return false;
-      }
-    case SH_GOUP:
-      if (record->event.pressed) {
-        SEND_STRING("cd ..");	// Go up a directory (MacOS)
-        return false;
-      }
-    case SH_TERM:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE"Terminal")));	//Open Spotlight
-        return false;
-      }
+    }
   }
   return true;
 }
