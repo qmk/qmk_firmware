@@ -6,14 +6,13 @@
 
 #define _DEF 0 // default (qwerty)
 #define _SYM 1 // symbols
-#define _NUM 2 // capitalized & F*
+#define _CAP 2 // capitalized & F*
 #define _MED 3 // media
 
 #define SP_NOPE LALT(KC_F4) // alt + f4
 #define SP_LESS LSFT(KC_COMMA)
 #define SP_MORE LSFT(KC_DOT)
-#define SP_SPC  MT(MOD_LSFT, KC_SPC)
-#define SP_BSP  MT(MO(_NUM), KC_BSPC)
+#define SP_BSP  LT(MO(_CAP), KC_BSPC) // backspace or _CAP layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
