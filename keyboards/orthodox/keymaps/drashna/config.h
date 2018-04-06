@@ -35,15 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 150
-#undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-#define ONESHOT_TAP_TOGGLE 2
-
-
 
 /* key combination for command */
 #ifdef IS_COMMAND
@@ -64,12 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
-#define STARTUP_SONG SONG(IMPERIAL_MARCH)
 #define NO_MUSIC_MODE
 #endif
 
@@ -79,4 +68,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif KEYBOARD_orthodox_rev3
 #define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
+
 #endif

@@ -121,7 +121,7 @@ Map three keys temporarily in your keymap:
 | KC_ASRP  | Report your current Auto Shift timeout value        |
 | KC_ASON  | Turns on the Auto Shift Function                    |
 | KC_ASOFF | Turns off the Auto Shift Function                   |
-| KC_ASTG  | Toggles the statn of the Auto Shift feature         |
+| KC_ASTG  | Toggles the state of the Auto Shift feature         |
 
 Compile and upload your new firmware.
 
