@@ -13,6 +13,8 @@ Macros:
 - Slack opens Slack through Spotlight Search
 - Term opens Terminal through Spotlight Search
 - Spot opens Spotify through Spotlight Search
+- Chrome opesn Chrome through Spotlight Search
+- OutLk opens Microsoft Outlook through Spotlight Search
 - ScnSht allows the user to take a screenshot of a selected portion of the screen
 - ClrHom clears Terminal line from beginning of line up to cursor
 - ClrEnd clears Terminal line from cursor up to end of line
@@ -49,7 +51,7 @@ Any and all empty keys shown below are will be set in the future, and do nothing
 |------+------+------+------+------+------| |------+------+------+------+------+------|
 | Shift|  F9  |  F10 |  F11 |  F12 |      | |   1  |   2  |   3  |   /  |   *  |SftEnt|
 |------+------+------+------+------+------| |------+------+------+------+------+------|
-| Lock | Home |  End |  Alt | Lower|  GUI | |   0  | Raise|   .  |      |      |      |
+| Lock | Home |  End |  Alt | Lower|  GUI | |   0  | Raise|   .  | Spot |Chrome|      |
 `-----------------------------------------' `-----------------------------------------'
 ```
 
@@ -60,7 +62,7 @@ Any and all empty keys shown below are will be set in the future, and do nothing
 ,-----------------------------------------. ,-----------------------------------------.
 |  Tab |   !  |   @  |   #  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  |  Del |
 |------+------+------+------+------+------| |------+------+------+------+------+------|
-|CtlEsc| Sudo | UpDir| Slack| Term | Spot | |   =  |   -  |   \  |   [  |   ]  |   `  |
+|CtlEsc| Sudo | UpDir| Slack| Term | OutLk| |   =  |   -  |   \  |   [  |   ]  |   `  |
 |------+------+------+------+------+------| |------+------+------+------+------+------|
 | Shift|ClrHom|ClrEnd|ShHome| ShEnd|Search| | Play | Mute | VolDn| VolUp|ScnSht|SftEnt|
 |------+------+------+------+------+------| |------+------+------+------+------+------|
