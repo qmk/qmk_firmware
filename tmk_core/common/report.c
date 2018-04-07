@@ -74,7 +74,7 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
 #ifdef NKRO_ENABLE
   if (keyboard_protocol && keymap_config.nkro) {
     if ((key>>3) < KEYBOARD_REPORT_BITS) {
-        return keyboard_report->nkro.bits[key>>3] & 1<<(code&7);
+        return keyboard_report->nkro.bits[key>>3] & 1<<(key&7);
     } else {
       return false;
     }
