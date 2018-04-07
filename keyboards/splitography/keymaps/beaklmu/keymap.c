@@ -108,8 +108,8 @@ enum planck_keycodes {
  ,SM_G      // pseudo MT   (MOD_LALT | MOD_LSFT, S(KC_G)) for shifted key-codes, see process_record_user()
  ,SM_PERC   // pseudo ALT_T(S(KC_5))                      for shifted key-codes, see process_record_user()
  ,SM_LPRN   // pseudo CTL_T(S(KC_9))                      for shifted key-codes, see process_record_user()
- ,SL_LEFT   // pseudo LT   (_MOUSE, S(KC_LEFT))           for shifted key-codes, see process_record_user()
- ,SL_PIPE   // pseudo LT   (_EDIT, S(KC_BSLS))          for shifted key-codes, see process_record_user()
+ ,SL_DEL    // pseudo LT   (_MOUSE, S(KC_DEL))            for shifted key-codes, see process_record_user()
+ ,SL_PIPE   // pseudo LT   (_EDIT, S(KC_BSLS))            for shifted key-codes, see process_record_user()
  ,SL_TAB    // pseudo LT   (_FNCKEY, S(KC_TAB))           for shifted key-codes, see process_record_user()
 #ifdef CENTER_TT
  ,TT_ESC
@@ -248,19 +248,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// ................................................................ Audio Sounds
+// ...................................................................... Sounds
 
-#ifdef AUDIO_ENABLE
-float song_startup  [][2] = SONG(STARTUP_SOUND);
-float song_colemak  [][2] = SONG(COLEMAK_SOUND);
-float song_qwerty   [][2] = SONG(QWERTY_SOUND);
-float song_plover   [][2] = SONG(PLOVER_SOUND);
-float song_plover_gb[][2] = SONG(PLOVER_GOODBYE_SOUND);
-float song_caps_on  [][2] = SONG(CAPS_LOCK_ON_SOUND);
-float song_caps_off [][2] = SONG(CAPS_LOCK_OFF_SOUND);
-float music_scale   [][2] = SONG(MUSIC_SCALE_SOUND);
-float song_goodbye  [][2] = SONG(GOODBYE_SOUND);
-#endif
+#include "sounds.h"
 
 // ........................................................... User Keycode Trap
 
@@ -280,7 +270,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         if (base_n == BASE_12) {
           base_layer();
         }
-      } else {
+      }
+      else {
         base_n = base_n & ~BASE_1;
       }
       return false;
@@ -290,7 +281,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         if (base_n == BASE_12) {
           base_layer();
         }
-      } else {
+      }
+      else {
         base_n = base_n & ~BASE_2;
       }
       return false;
@@ -334,12 +326,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
 #endif
       tap_layer(record, _NUMBER);
-      com_layer(record, LEFT, 0, 0, _NUMBER, _EDIT);
       break;
     case LT_BSPC:
       tap_layer(record, _SYMBOL);
       // LT (_SYMBOL, KC_LEFT) left right combination layer
-      com_layer(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT);
+      tri_layer(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT, _MOUSE);
       break;
     case OS_ALT:
       tap_mods(record, KC_LALT);
@@ -371,14 +362,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       mt_shift(record, KC_LALT, 0, KC_5);
       break;
     case LT_BSLS:
-      tap_layer(record, _FNCKEY);
-      // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
-      com_layer(record, LEFT, 0, 0, _FNCKEY, _SYMBOL);
-      break;
-    case SL_LEFT:
       tap_layer(record, _MOUSE);
-      // LT (_MOUSE, S(KC_LEFT)) left right combination layer
-      com_layer(record, RIGHT, SHIFT, KC_LEFT, _MOUSE, _LSHIFT);
+      // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
+      tri_layer(record, LEFT, 0, 0, _MOUSE, _SYMBOL, _MOUSE);
+      break;
+    case SL_DEL:
+      tap_layer(record, _MOUSE);
+      // LT (_MOUSE, S(KC_DEL)) left right combination layer
+      tri_layer(record, RIGHT, NOSHIFT, KC_DEL, _MOUSE, _LSHIFT, _MOUSE);
       break;
     case SL_PIPE:
       // LT (_EDIT, S(KC_BSLS)) emulation
@@ -395,7 +386,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case TD_SPC:
       tap_layer(record, _LSHIFT);
       // LT (_LSHIFT, KC_SPC) left right combination layer, see tap dance TD_SPC
-      com_layer(record, LEFT, 0, 0, _LSHIFT, _SYMBOL);
+      tri_layer(record, LEFT, 0, 0, _LSHIFT, _SYMBOL, _MOUSE);
       break;
 #ifdef CENTER_TT
     case CNTR_TL:
@@ -439,58 +430,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-// ....................................................................... Audio
-
-void matrix_init_user(void)
-{
-#ifdef STENO_ENABLE
-  steno_set_mode(STENO_MODE_BOLT);          // or STENO_MODE_GEMINI
-#endif
-#ifdef AUDIO_ENABLE
-  startup_user();
-#endif
-}
-
-#ifdef AUDIO_ENABLE
-#ifdef BACKLIGHT_ENABLE
-void led_set_user(uint8_t usb_led)
-{
-  static uint8_t old_usb_led = 0;
-  _delay_ms(10);                            // gets rid of tick
-  if (!is_playing_notes()) {
-    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK))) {
-      // if capslock LED is turning on
-      PLAY_SONG(song_caps_on);
-    }
-    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK))) {
-      // if capslock LED is turning off
-      PLAY_SONG(song_caps_off);
-    }
-  }
-  old_usb_led = usb_led;
-}
-#endif
-
-void startup_user(void)
-{
-  _delay_ms(20);                            // gets rid of tick
-  PLAY_SONG(song_startup);
-}
-
-void shutdown_user(void)
-{
-  PLAY_SONG(song_goodbye);
-  _delay_ms(150);
-  stop_all_notes();
-}
-
-void music_on_user(void)
-{
-  music_scale_user();
-}
-
-void music_scale_user(void)
-{
-  PLAY_SONG(music_scale);
-}
-#endif
+#include "init.h"

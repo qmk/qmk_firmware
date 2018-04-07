@@ -40,8 +40,8 @@
   [_LSHIFT] = {
     {TD_DQOT, KC_COMM, KC_LBRC, KC_RBRC, S(KC_Y), CNTR_TL, CNTR_TR, S(KC_F), S(KC_G), S(KC_C), S(KC_R), S(KC_L)},
     {S(KC_A), KC_CIRC, TD_LT,   TD_GT,   TD_TILD, CNTR_HL, CNTR_HR, S(KC_D), S(KC_H), S(KC_T), S(KC_N), S(KC_S)},
-    {KC_COLN, S(KC_Q), KC_EXLM, KC_EQL,  TD_GRV,  CNTR_BL, CNTR_BR, S(KC_B), S(KC_M), S(KC_W), S(KC_V), S(KC_Z)},
-    {_______, _______, _______, _______, S_TAB,   ___fn__, KC_UNDS, KC_DEL,  _______, _______, _______, _______},
+    {TD_COLN, S(KC_Q), KC_EXLM, TD_EQL,  TD_GRV,  CNTR_BL, CNTR_BR, S(KC_B), S(KC_M), S(KC_W), S(KC_V), S(KC_Z)},
+    {_______, _______, _______, _______, S_TAB,   ___fn__, KC_UNDS, SL_DEL,  _______, _______, _______, _______},
   },
 
   // ,-----------------------------------------------------------------------------------.

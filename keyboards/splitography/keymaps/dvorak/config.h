@@ -23,4 +23,3 @@
 #define PREVENT_STUCK_MODIFIERS
 
 #endif
-#define PRIVATE_STRING
