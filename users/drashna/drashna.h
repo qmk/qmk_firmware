@@ -199,13 +199,13 @@ enum {
 #define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
 
 
-#define _________________WORKMAN_L1________________       KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
-#define _________________WORKMAN_L2________________       KC_A,    KC_O,    KC_E,   KC_U,     KC_I
-#define _________________WORKMAN_L3________________ CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
+#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
+#define _________________WORKMAN_L3________________ CTL_T(KC_Z),   KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________       KC_F,    KC_G,    KC_C,    KC_R,    KC_L
-#define _________________WORKMAN_R2________________       KC_D,    KC_H,    KC_T,    KC_N,    KC_S
-#define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
+#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,    CTL_T(KC_SLASH)
 
 
 #define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
