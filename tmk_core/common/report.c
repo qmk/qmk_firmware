@@ -80,7 +80,7 @@ bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key) {
     }
   }
 #endif
-  for (int i; i < KEYBOARD_REPORT_KEYS; i++) {
+  for (int i=0; i < KEYBOARD_REPORT_KEYS; i++) {
       if (keyboard_report->keys[i] == key) {
           return true;
       }
