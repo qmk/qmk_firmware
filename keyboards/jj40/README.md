@@ -33,11 +33,7 @@ $ wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz
 $ tar -xzf bootloadHID.2012-12-08.tar.gz
 $ cd bootloadHID.2012-12-08/commandline
 $ make
-```
-
-Once the compilation is successful:
-```
-sudo cp bootloadHID /usr/bin
+$ sudo cp bootloadHID /usr/bin
 ```
 
 In order to use the `./program` script, which can reboot the board into
