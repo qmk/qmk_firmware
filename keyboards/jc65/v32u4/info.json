@@ -1,10 +1,7 @@
 {
   "keyboard_name": "jc65",
-  "manufacturer": "keyclack",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "width": 16,
   "height": 5,
