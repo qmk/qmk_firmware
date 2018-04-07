@@ -59,6 +59,13 @@
 //   See http://thedarnedestthing.com/planck%20constant
 //   See http://thedarnedestthing.com/planck%20done
 
+
+
+//                === N O T E ===
+//
+// sudo CPATH=<keymap.c directory>/common make ...
+
+
 #include "config.h"
 #include "splitography.h"
 #include "action_layer.h"
@@ -330,7 +337,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case LT_BSPC:
       tap_layer(record, _SYMBOL);
       // LT (_SYMBOL, KC_LEFT) left right combination layer
-      tri_layer(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT, _MOUSE);
+      to_and_fro(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT);
       break;
     case OS_ALT:
       tap_mods(record, KC_LALT);
@@ -364,12 +371,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case LT_BSLS:
       tap_layer(record, _MOUSE);
       // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
-      tri_layer(record, LEFT, 0, 0, _MOUSE, _SYMBOL, _MOUSE);
+      to_and_fro(record, LEFT, 0, 0, _MOUSE, _SYMBOL);
       break;
     case SL_DEL:
       tap_layer(record, _MOUSE);
       // LT (_MOUSE, S(KC_DEL)) left right combination layer
-      tri_layer(record, RIGHT, NOSHIFT, KC_DEL, _MOUSE, _LSHIFT, _MOUSE);
+      to_and_fro(record, RIGHT, NOSHIFT, KC_DEL, _MOUSE, _LSHIFT);
       break;
     case SL_PIPE:
       // LT (_EDIT, S(KC_BSLS)) emulation
@@ -386,7 +393,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     case TD_SPC:
       tap_layer(record, _LSHIFT);
       // LT (_LSHIFT, KC_SPC) left right combination layer, see tap dance TD_SPC
-      tri_layer(record, LEFT, 0, 0, _LSHIFT, _SYMBOL, _MOUSE);
+      to_and_fro(record, LEFT, 0, 0, _LSHIFT, _SYMBOL);
       break;
 #ifdef CENTER_TT
     case CNTR_TL:

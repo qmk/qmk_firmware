@@ -481,12 +481,12 @@ static uint8_t thumb = 0;
 // up,   up   -> _BASE
 // up,   down -> _SYMBOL
 // down, up   -> _NUMBER
-// down, down -> _MOUSE
+// down, down -> _MOUSE                     // see layer keycodes that raise mouse layer
 
 static uint8_t overlayer = 0;
 
 // left right thumb layer combinations
-void tri_layer(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycode, uint8_t layer, uint8_t default_layer, uint8_t down_layer)
+void to_and_fro(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycode, uint8_t layer, uint8_t default_layer)
 {
   if (record->event.pressed) {
     // layer_on via tap_layer(), see process_record_user()
@@ -498,7 +498,7 @@ void tri_layer(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycod
     // opposite tri_layer() thumb may have switched effective layer!
     if (overlayer) {
       layer_off(overlayer);
-      overlayer = down_layer;
+      overlayer = 0;
     }
     if (!key_press(shift, keycode)) {
       // opposite thumb down? see left right combination layer table above
