@@ -5,7 +5,7 @@
 
 // There's an extra 2 x 5 column on the left. Not sure what that's all about
 // ANSI has more standard width shift, delete, and enter keys, doesn't use all of the 1U keys
-#define ANSI_KEYMAP( \
+#define LAYOUT_ansi( \
   K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, K015, \
   K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, K115, \
   K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212,       K214, K215, \
@@ -20,7 +20,7 @@
 }
 
 
-#define ISO_KEYMAP( \
+#define LAYOUT_iso( \
   K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, K015, \
   K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113,       K115, \
   K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, K214, K215, \
