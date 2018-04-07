@@ -48,7 +48,7 @@ const PALConfig pal_default_config = {
             (AFIO_GPIO << (PAL_PAD(LINE_COL3) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_COL4) << 2)),
         .CFG[1] =
-            (AFIO_USART << ((PAD_USART_TX - 8) << 2)) |
+//            (AFIO_USART << ((PAD_USART_TX - 8) << 2)) |
             (AFIO_GPIO << ((PAL_PAD(LINE_ROW3) - 8) << 2)) |
             (AFIO_GPIO << ((PAL_PAD(LINE_ROW5) - 8) << 2)),
     },
@@ -202,6 +202,6 @@ void spi_init(void) {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
-    uart_init();
+//    uart_init();
     spi_init();
 }

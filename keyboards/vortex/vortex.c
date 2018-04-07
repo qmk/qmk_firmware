@@ -64,8 +64,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     printf("Raw HID Data\n");
     if (length == RAW_EPSIZE) {
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7]);
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[8],data[9],data[10],data[11],data[12],data[13],data[14],data[15]);
+        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[8], data[9], data[10],data[11],data[12],data[13],data[14],data[15]);
         printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[16],data[17],data[18],data[19],data[20],data[21],data[22],data[23]);
         printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[24],data[25],data[26],data[27],data[28],data[29],data[30],data[31]);
     } else {
