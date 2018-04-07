@@ -162,6 +162,7 @@ TEST_F(KeyPress, PressPlusEqualDontReleaseBeforePress) {
   testing::Mock::VerifyAndClearExpectations(&driver);
 
   press_key(0, 1); // KC_EQL
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport()));
   EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_EQL)));
   run_one_scan_loop();
   testing::Mock::VerifyAndClearExpectations(&driver);
@@ -194,7 +195,6 @@ TEST_F(KeyPress, PressEqualPlusReleaseBeforePress) {
   testing::Mock::VerifyAndClearExpectations(&driver);
 
   press_key(1, 1); // KC_PLUS
-  // BUG: Should release KC_EQL first
   EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
   EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
   run_one_scan_loop();
@@ -217,9 +217,11 @@ TEST_F(KeyPress, PressEqualPlusDontReleaseBeforePress) {
   testing::Mock::VerifyAndClearExpectations(&driver);
 
   press_key(1, 1); // KC_PLUS
-  // BUG: Should relase KQ_EQL first
-  // BUG: Sends the same thing twice
-  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL))).Times(2);
+  // BUG: The sequence is a bit strange, but it works, the end result is that
+  // KC_PLUS is sent
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT)));
+  EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_LSFT, KC_EQL)));
   run_one_scan_loop();
   testing::Mock::VerifyAndClearExpectations(&driver);
 

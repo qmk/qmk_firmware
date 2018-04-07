@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REPORT_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "keycode.h"
 
 
@@ -174,6 +175,7 @@ typedef struct {
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);
+bool is_key_pressed(report_keyboard_t* keyboard_report, uint8_t key);
 
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
