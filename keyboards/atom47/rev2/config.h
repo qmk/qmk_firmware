@@ -63,11 +63,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BACKLIGHT_LEVELS 4
 
-#endif
-
 #define RGB_DI_PIN D0    // The pin the LED strip is connected to
 #define RGBLED_NUM 1     // Number of LEDs in your strip
 
 #define QMK_ESC_OUTPUT D7 // usually COL
 #define QMK_ESC_INPUT B1 // usually ROW
 #define QMK_LED B6
+
+#endif
