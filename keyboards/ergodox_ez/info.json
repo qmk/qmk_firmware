@@ -1,10 +1,7 @@
 {
     "keyboard_name": "ErgoDox EZ", 
-    "manufacturer": "ErgoDox EZ", 
-    "identifier": "FEED:1307:0001", 
     "url": "ergodox-ez.com", 
     "maintainer": "erez", 
-    "processor": "atmega32u4", 
     "bootloader": "halfkay", 
     "width": 19.5, 
     "height": 9.375, 
