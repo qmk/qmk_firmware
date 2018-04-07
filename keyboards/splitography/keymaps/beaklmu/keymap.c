@@ -334,11 +334,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
       tap_layer(record, _NUMBER);
       break;
-    case LT_BSPC:
-      tap_layer(record, _SYMBOL);
-      // LT (_SYMBOL, KC_LEFT) left right combination layer
-      to_and_fro(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT);
-      break;
     case OS_ALT:
       tap_mods(record, KC_LALT);
       break;
@@ -368,16 +363,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       // ALT_T(S(KC_5))
       mt_shift(record, KC_LALT, 0, KC_5);
       break;
-    case LT_BSLS:
-      tap_layer(record, _MOUSE);
-      // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
-      to_and_fro(record, LEFT, 0, 0, _MOUSE, _SYMBOL);
-      break;
-    case SL_DEL:
-      tap_layer(record, _MOUSE);
-      // LT (_MOUSE, S(KC_DEL)) left right combination layer
-      to_and_fro(record, RIGHT, NOSHIFT, KC_DEL, _MOUSE, _LSHIFT);
-      break;
     case SL_PIPE:
       // LT (_EDIT, S(KC_BSLS)) emulation
       lt_shift(record, KC_BSLS, _EDIT);
@@ -390,10 +375,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       tap_layer(record, _RSHIFT);
       // LT (_RSHIFT, KC_ENT) emulation, see tap dance enter
       break;
+    case LT_BSLS:
+      tap_layer(record, _MOUSE);
+      // LT (_MOUSE, KC_BSLS) left right combination layer, see #define LT_BSLS
+      thumb_layer(record, LEFT, 0, 0, _MOUSE, _SYMBOL);
+      break;
+    case LT_BSPC:
+      tap_layer(record, _SYMBOL);
+      // LT (_SYMBOL, KC_LEFT) left right combination layer
+      thumb_layer(record, RIGHT, 0, 0, _SYMBOL, _LSHIFT);
+      break;
+    case SL_DEL:
+      tap_layer(record, _MOUSE);
+      // LT (_MOUSE, S(KC_DEL)) left right combination layer
+      thumb_layer(record, RIGHT, NOSHIFT, KC_DEL, _MOUSE, _LSHIFT);
+      break;
     case TD_SPC:
       tap_layer(record, _LSHIFT);
       // LT (_LSHIFT, KC_SPC) left right combination layer, see tap dance TD_SPC
-      to_and_fro(record, LEFT, 0, 0, _LSHIFT, _SYMBOL);
+      thumb_layer(record, LEFT, 0, 0, _LSHIFT, _SYMBOL);
       break;
 #ifdef CENTER_TT
     case CNTR_TL:

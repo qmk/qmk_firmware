@@ -20,7 +20,7 @@ void shift_key(uint16_t keycode)
 
 static uint16_t key_timer = 0;
 
-// key press for tri_layer() and lt_shift() macros
+// key press for thumb_layer() and lt_shift() macros
 bool key_press(uint8_t shift, uint16_t keycode)
 {
   if (keycode) {
@@ -482,11 +482,12 @@ static uint8_t thumb = 0;
 // up,   down -> _SYMBOL
 // down, up   -> _NUMBER
 // down, down -> _MOUSE                     // see layer keycodes that raise mouse layer
+#define THUMBS_DOWN _MOUSE                  // layer
 
 static uint8_t overlayer = 0;
 
 // left right thumb layer combinations
-void to_and_fro(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycode, uint8_t layer, uint8_t default_layer)
+void thumb_layer(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keycode, uint8_t thumb_dn_layer, uint8_t thumb_up_layer)
 {
   if (record->event.pressed) {
     // layer_on via tap_layer(), see process_record_user()
@@ -494,17 +495,18 @@ void to_and_fro(keyrecord_t *record, uint8_t side, uint8_t shift, uint16_t keyco
     thumb     = thumb | side;
   }
   else {
-    layer_off(layer);
-    // opposite tri_layer() thumb may have switched effective layer!
+    layer_off(thumb_dn_layer);
+    // opposite thumb_layer() thumb may have switched effective layer!
     if (overlayer) {
       layer_off(overlayer);
       overlayer = 0;
     }
     if (!key_press(shift, keycode)) {
+      layer_off(THUMBS_DOWN);               // both thumbs needed
       // opposite thumb down? see left right combination layer table above
       if (thumb & (side == LEFT ? RIGHT : LEFT)) {
-        layer_on(default_layer);
-        overlayer = default_layer;
+        layer_on(thumb_up_layer);
+        overlayer = thumb_up_layer;
       }
     }
     clear_mods();
@@ -557,7 +559,7 @@ void lt_shift(keyrecord_t *record, uint16_t keycode, uint8_t layer)
 }
 
 // set layer asap to overcome macro latency errors, notably tap dance and LT usage
-// this routine inexplicably (?) sets layer_on() faster than can be done in tri_layer()
+// this routine inexplicably (?) sets layer_on() faster than can be done in thumb_layer()
 void tap_layer(keyrecord_t *record, uint8_t layer)
 {
   if (record->event.pressed) {
