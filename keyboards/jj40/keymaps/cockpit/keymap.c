@@ -11,6 +11,14 @@
 #define LT_8 RALT(KC_8)
 #define LT_9 RALT(KC_9)
 #define LT_0 RALT(KC_0)
+#define LT_EXLM RALT(KC_EXLM)
+#define LT_AT RALT(KC_AT)
+#define LT_HASH RALT(KC_HASH)
+#define LT_DLR RALT(KC_DLR)
+#define LT_PERC RALT(KC_PERC)
+#define LT_CIRC RALT(KC_CIRC)
+#define LT_AMPR RALT(KC_AMPR)
+#define LT_ASTR RALT(KC_ASTR)
 
 // Naming according to Unicode specifications
 #define LT_A_OG KC_1
@@ -80,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = KEYMAP( \
   KC_GRV,  LT_A_OG, LT_C_CA, LT_E_OG, LT_E_DO, LT_I_OG, LT_S_CA, LT_U_OG, LT_U_MA, LT_Z_CA, KC_MINS, KC_BSPC, \
-  KC_TAB,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL , \
+  KC_TAB,  LT_EXLM, LT_AT,   LT_HASH, LT_DLR,  LT_PERC, LT_CIRC, LT_AMPR, LT_ASTR, KC_LPRN, KC_RPRN, KC_DEL , \
   KC_LSFT, KC_PEQL, KC_PPLS, KC_PMNS, KC_PIPE, KC_LBRC, KC_RBRC, KC_LABK, KC_RABK, KC_LCBR, KC_RCBR, KC_INS , \
   KC_LCTL, _______, _______, KC_LALT, _______,      KC_SPC,      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END   \
 ),
