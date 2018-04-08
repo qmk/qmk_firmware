@@ -1,10 +1,7 @@
 {
   "keyboard_name": "Whitefox",
-  "manufacturer": "Input Club",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "",
   "bootloader": "",
   "width": 16,
   "height": 5,
