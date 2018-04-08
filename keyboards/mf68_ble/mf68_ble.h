@@ -1,5 +1,5 @@
-#ifndef MF68_H
-#define MF68_H
+#ifndef MF68_BLE_H
+#define MF68_BLE_H
 
 #include "quantum.h"
 
