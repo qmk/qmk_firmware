@@ -42,6 +42,9 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+/* force n-key rollover*/
+#define FORCE_NKRO
+
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
