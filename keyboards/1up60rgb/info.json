@@ -1,10 +1,7 @@
 {
   "keyboard_name": "1up60rgb",
-  "manufacturer": "1UP Keyboards",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "width": 15,
   "height": 5,
