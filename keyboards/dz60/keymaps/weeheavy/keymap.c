@@ -13,50 +13,26 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	/* Key sizing:
-   * 1u    = 4 chars  = |  |
-   * 1.25u = 5 chars  = |   |
-   * 1.5u  = 6 chars  = |    |
-   * 1.75u = 7 chars  = |     |
-   * 2u    = 8 chars  = |      |
-   * 2.25u = 9 chars  = |       |
-   * 2.75u = 11 chars = |         |
-   * 6.25u = 25 chars = |                       |
-   */
-
-	/* QWERTY
-	 * ,----------------------------------------------------------.
-	 * |Es||1 ||2 ||3 ||4 ||5 ||6 ||7 ||8 ||9 ||0 ||- ||= || Bksp |
-	 * |----------------------------------------------------------+
-	 * |Tab ||Q ||W ||E ||R ||T ||Y ||U ||I ||O ||P ||[ ||] || \  |
-	 * |----------------------------------------------------------+
-	 * |Caps ||A ||S ||D ||F ||G ||H ||J ||K ||L ||; ||' || Enter |
-	 * |----------------------------------------------------------+
-	 * |Shift ||Z ||X ||C ||V ||B ||N ||M ||, ||. ||/ ||Sf||↑ ||Dl|
-	 * |----------------------------------------------------------+
-	 * |Ctl||Win||Alt|| Space ||TBD||  Space  ||FN||Ct||← ||↓ ||→ |
-	 * `----------------------------------------------------------'
-	 */
-
-	[BASE] = KEYMAP(
+  // ANSI QWERTY
+	[BASE] = LAYOUT(
 		KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, XXXX, KC_BSPC, 
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, 
 		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, 
-		KC_LSFT, XXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, XXXX, 
-		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, MO(GAME), XXXX, MO(CONF), KC_RCTL),
+		KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, KC_UP, KC_DEL,
+		KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, MO(GAME), KC_SPC, KC_RALT, MO(CONF), KC_LEFT, KC_DOWN, KC_RIGHT),
 
-	[CONF] = KEYMAP(
+	[CONF] = LAYOUT(
 		KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ____, KC_DEL, 
 		____, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ____, ____, ____, ____, RESET, 
 		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, 
-		____, ____, ____, BL_BRTG, BL_DEC, BL_TOGG, BL_INC, BL_STEP, ____, ____, ____, ____, ____, ____, 
+		____, ____, ____, BL_BRTG, BL_DEC, BL_TOGG, BL_INC, BL_STEP, ____, ____, ____, ____, ____, ____,
 		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____),
 
-	[GAME] = KEYMAP(
+	[GAME] = LAYOUT(
 		____, M(1), M(2), M(3), M(4), M(5), M(6), M(7), M(8), M(9), M(10), M(11), M(12), ____, ____, 
 		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, 
 		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, 
-		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, 
+		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____,
 		____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____),
 };
 
