@@ -18,27 +18,66 @@
 
 #include "vortex.h"
 #include "quantum.h"
+#include "raw_hid.h"
+
+#include <stdint.h>
+#include <string.h>
 
 #define BOOTLOADER_MAGIC 0x55aafaf5U
+#define PROTO_VER 1
 
-void bootloader_jump(void) {
+#define PKT_LEN RAW_EPSIZE
+static uint8_t packet_buf[PKT_LEN];
+
+enum pok3r_rgb_cmd {
+#if PROTO_VER
+    CMD_RESET       = 4,    //!< Reset command.
+#else
+    CMD_RESET       = 0x11, //!< Reset command.
+#endif
+    SUB_RESET_BL    = 0,    //!< Reset to bootloader.
+    SUB_RESET_FW    = 1,    //!< Reset to firmware.
+
+#if PROTO_VER
+    CMD_READ        = 1,    //!< Read command.
+    SUB_READ_ADDR   = 2,    //!< Patched command, read arbitrary address.
+#else
+    CMD_READ        = 0x12, //!< Read command.
+    SUB_READ_400    = 0,
+    SUB_READ_3C00   = 1,
+    SUB_READ_MODE   = 2,    //!< Get firmware mode. 0 is bootloader, 1 is firmware.
+    SUB_READ_VER1   = 0x20, //!< Read version string.
+    SUB_READ_VER2   = 0x22, //!< Read version data.
+    SUB_READ_ADDR   = 0xff, //!< Patched command, read arbitrary address.
+#endif
+
+    CMD_INFO        = 0x81,
+};
+
+void OVERRIDE bootloader_jump(void) {
+    printf("Reset to Bootloader\n");
     // SBVT registers are not reset on reset
     // SBVT1 is read by pok3r bootloader to stop booting
     FMC->SBVT[1] = BOOTLOADER_MAGIC;
     NVIC_SystemReset();
 }
 
-void matrix_init_kb(void) {
+void firmware_reset(void) {
+    printf("Reset Firmware\n");
+    FMC->SBVT[1] = 0;
+    NVIC_SystemReset();
+}
+
+void OVERRIDE matrix_init_kb(void) {
     matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void OVERRIDE matrix_scan_kb(void) {
     matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    printf("Code: %d %d\n", keycode, record->event.pressed);
-
+bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
+//    printf("Code: %d %d\n", keycode, record->event.pressed);
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -53,7 +92,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case EX_RESET:
             if (record->event.pressed) {
-                printf("Reset to Bootloader\n");
                 bootloader_jump(); // doesn't return
             }
             return false;
@@ -61,19 +99,67 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void raw_hid_receive(uint8_t *data, uint8_t length) {
-    printf("Raw HID Data\n");
-    if (length == RAW_EPSIZE) {
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[8], data[9], data[10],data[11],data[12],data[13],data[14],data[15]);
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[16],data[17],data[18],data[19],data[20],data[21],data[22],data[23]);
-        printf("%02x%02x%02x%02x %02x%02x%02x%02x\n", data[24],data[25],data[26],data[27],data[28],data[29],data[30],data[31]);
+void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
+    printf("Command Packet Receive\n");
+    if (length == PKT_LEN) {
+        memset(packet_buf, 0, PKT_LEN);
+        // handle command
+        switch (data[0]) {
+            case CMD_RESET:
+                switch (data[1]) {
+                    case SUB_RESET_BL:
+                        bootloader_jump();
+                        return;
+                    case SUB_RESET_FW:
+                        firmware_reset();
+                        return;
+                }
+
+            case CMD_READ:
+#if !PROTO_VER
+                packet_buf[0] = CMD_READ;
+                packet_buf[1] = data[1];
+#endif
+                switch (data[1]) {
+#if PROTO_VER
+                    case SUB_READ_ADDR: {
+                        uint32_t addr = data[4] | (data[5] << 8) | (data[6] << 16) | (data[7] << 24);
+                        printf("Read Addr %04x\n", addr);
+                        if (addr + 64 < FLASH_SIZE) {
+                            memcpy(packet_buf, (const uint8_t *)addr, 64);
+                        }
+                        break;
+                    }
+#endif
+                }
+                break;
+
+            case CMD_INFO: {
+                packet_buf[0] = PRODUCT_ID & 0xFF;
+                packet_buf[1] = PRODUCT_ID >> 8;
+                packet_buf[2] = DEVICE_VER & 0xFF;
+                packet_buf[3] = DEVICE_VER >> 8;
+                const char *str = "qmk_pok3r";
+                memcpy(packet_buf + 4, str, strlen(str));
+                break;
+            }
+
+            default:
+                // Error
+                printf("Bad command %x\n", data[0]);
+                packet_buf[0] = 0xff;
+                packet_buf[1] = 0xaa;
+                break;
+        }
+        // send response
+        raw_hid_send(packet_buf, PKT_LEN);
+
     } else {
-        printf("Bad data\n");
+        printf("Bad raw data\n");
     }
 }
 
-void led_set_kb(uint8_t usb_led) {
+void OVERRIDE led_set_kb(uint8_t usb_led) {
     printf("Set LED: %02x\n", usb_led);
 //    if ((usb_led >> USB_LED_CAPS_LOCK) & 1) {
 //        palClearLine(LINE_LED65);

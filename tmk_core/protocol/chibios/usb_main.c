@@ -788,14 +788,15 @@ void send_consumer(uint16_t data) {
 #ifdef CONSOLE_ENABLE
 
 int8_t sendchar(uint8_t c) {
-  // The previous implmentation had timeouts, but I think it's better to just slow down
-  // and make sure that everything is transferred, rather than dropping stuff
-  return chnWrite(&drivers.console_driver.driver, &c, 1);
+  // Write console data to stream, timeout immediately
+  // The console does not need to be high-availability
+  return chnWriteTimeout(&drivers.console_driver.driver, &c, 1, TIME_IMMEDIATE);
 }
 
 // Just a dummy function for now, this could be exposed as a weak function
 // Or connected to the actual QMK console
-static void console_receive( uint8_t *data, uint8_t length ) {
+__attribute__ ((weak))
+void console_receive( uint8_t *data, uint8_t length ) {
   (void)data;
   (void)length;
 }
@@ -831,7 +832,7 @@ void raw_hid_send( uint8_t *data, uint8_t length ) {
 		return;
 
 	}
-  chnWrite(&drivers.raw_driver.driver, data, length);
+  chnWriteTimeout(&drivers.raw_driver.driver, data, length, TIME_INFINITE);
 }
 
 __attribute__ ((weak))

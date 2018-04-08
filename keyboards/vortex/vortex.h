@@ -20,6 +20,8 @@
 
 #include "quantum.h"
 
+#define OVERRIDE
+
 enum extra_keycodes {
     EX_ECHO = SAFE_RANGE,
     EX_DUMP,

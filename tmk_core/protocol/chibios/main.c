@@ -72,7 +72,7 @@ host_driver_t chibios_driver = {
 void virtser_task(void);
 #endif
 
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
 void raw_hid_task(void);
 #endif
 
@@ -206,7 +206,7 @@ int main(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
     raw_hid_task();
 #endif
   }

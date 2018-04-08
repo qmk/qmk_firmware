@@ -29,6 +29,8 @@
 
 #define HT32F1654
 
+#define FLASH_SIZE 0xFC00
+
 /*
  * I/O
  */

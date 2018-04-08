@@ -21,7 +21,7 @@
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0141
-#define DEVICE_VER      0x0000
+#define DEVICE_VER      0x0001
 #define MANUFACTURER    Vortex
 #define PRODUCT         POK3R
 #define DESCRIPTION     qmk for Vortex POK3R
