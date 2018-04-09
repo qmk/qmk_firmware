@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SPC, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), SP_BSP, KC_SPC, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_CAP), KC_SPC, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* symbols (fn1)
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │           │     │     │  |  │  /  │  <  │  >  │  \  │  |  │     │     │XXXXX│pgup │     │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │      │      │      │▒▒▒▒▒▒▒▒▒▒▒▒▒▒│      │                │     │     │home │pgdwn│ end │
+     * │      │      │      │▒▒▒▒▒▒▒▒▒▒▒▒▒▒│      │   backspace    │     │     │home │pgdwn│ end │
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     KEYMAP_DIRECTIONAL(
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CIRC, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_AMPR, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_EQUAL, ______, ______, ______,
         KC_GRV, KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT, ______, ______,
         ______, XXXXXX, ______, ______, KC_PIPE, KC_SLSH, SP_LESS, SP_MORE, KC_BSLS, KC_PIPE, ______, ______, KC_PGUP, ______,
-        ______, ______, ______, ______, ______, ______, ______, ______, KC_HOME, KC_PGDN, KC_END
+        ______, ______, ______, ______, ______, KC_BSPC, ______, ______, KC_HOME, KC_PGDN, KC_END
     ),
 
     /* F* and capitalized keys (fn2)
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* media (fn3)
      * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-     * │     │     │     │     │     │     │     │     │     │     │     │     │     │     │     │
+     * │ rgb │hue+ │hue- │sat+ │sat- │val+ │val- │     │     │     │     │     │     │     │modes│
      * ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┤
      * │        │     │     │     │     │     │     │     │     │     │ptscr│     │     │        │
      * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
