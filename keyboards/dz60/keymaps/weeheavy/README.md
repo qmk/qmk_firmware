@@ -28,6 +28,7 @@ ANSI QWERTY layout. Specialities:
 * Left shift: `KC_LSPO` == Left Shift when held, ( when tapped
 * Right shift: `KC_RSPC` == Right Shift when held, ) when tapped
 
+
     ,----------------------------------------------------------.
     |Es||1 ||2 ||3 ||4 ||5 ||6 ||7 ||8 ||9 ||0 ||- ||= || Bksp |
     |----------------------------------------------------------+
