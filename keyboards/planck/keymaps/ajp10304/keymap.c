@@ -247,32 +247,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t keycode, uint8_t opt) {
+  // These would trigger when you hit a key mapped as M(0)
+  if (record->event.pressed) {
+    switch(keycode) {
+      case 0: // Some custom string here
+        SEND_STRING("");
+        return false;
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch(id) {
-    // These would trigger when you hit a key mapped as M(0)
-    case 0:
-      if (record->event.pressed) {
-        return MACRO(
-            // SENSITIVE
-            END
-        );
-      }
-      break;
-    case 1: // Word Select
-      if (record->event.pressed) {
-        return MACRO(
-            DOWN(KC_LCTL), DOWN(KC_RIGHT), UP(KC_RIGHT), DOWN(KC_LSFT), DOWN(KC_LEFT), UP(KC_LEFT), UP(KC_LSFT), UP(KC_LCTL),
-            END
-        );
-      }
-    case 2: // Word Select - MAC
-      if (record->event.pressed) {
-        return MACRO(
-            DOWN(KC_LALT), DOWN(KC_RIGHT), UP(KC_RIGHT), DOWN(KC_LSFT), DOWN(KC_LEFT), UP(KC_LEFT), UP(KC_LSFT), UP(KC_LALT),
-            END
-        );
-      }
+      case 1: // Word Select
+        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LCTRL));
+        return false;
+
+      case 2: // Word Select Mac
+        SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_RIGHT) SS_DOWN(X_LSHIFT) SS_TAP(X_LEFT) SS_UP(X_LSHIFT) SS_UP(X_LALT));
+        return false;
+    }
   }
   return MACRO_NONE;
 };
