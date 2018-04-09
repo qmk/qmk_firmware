@@ -51,15 +51,16 @@ enum atreus52_keycodes {
 #define CTLBSPC CTL_T(KC_BSPC) // CTRL when held, BSPC when tapped.
 #define RGB_SWR RGB_M_SW // Swirl Animation alias
 #define RGB_SNK RGB_M_SN // Snake Animation alias
+#define ADJUST MO(_ADJUST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_DVORAK] = KEYMAP( \
-  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+  KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
-  KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  LOWER,   KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL, RAISE   \
+  KC_LCTL, KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  RAISE   \
 ),
 
 [_QWERTY] = KEYMAP( \
@@ -79,17 +80,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_WOW] = KEYMAP( \
-  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+  KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
-  KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-  LOWER,   KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, CTLBSPC, KC_LALT, KC_ENT,  KC_SPC,  KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL, RAISE   \
+  KC_LCTL, KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, CTLBSPC, KC_LALT, KC_ENT,  KC_SPC,  KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  RAISE   \
 ),
 
 [_LOWER] = KEYMAP( \
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
   KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PIPE, \
-  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
+  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
   _______, _______, _______, KC_HOME, KC_END,  KC_DEL,  _______, _______, KC_INS,  KC_PGUP, KC_PGDN, _______, _______, _______ \
 ),
@@ -97,15 +98,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = KEYMAP( \
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
   KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PIPE, \
-  _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
+  KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, \
-  _______, _______, _______, KC_HOME, KC_END,  KC_DEL,  _______, _______, KC_INS,  KC_PGUP, KC_PGDN, _______, _______, _______ \
+  ADJUST,  _______, _______, KC_HOME, KC_END,  KC_DEL,  _______, _______, KC_INS,  KC_PGUP, KC_PGDN, _______, _______, _______ \
 ),
 
 [_ADJUST] = KEYMAP( \
   RESET,   _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-  _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  WOW,     _______, \
+  _______, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_SNK,                   _______, QWERTY,  COLEMAK, DVORAK,  WOW,     _______, \
   RGB_TOG, RGB_MOD, RGB_SWR, RGB_M_K, RGB_M_G, RGB_HUI,                   RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
