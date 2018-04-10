@@ -16,8 +16,57 @@
 
 #include "contra.h"
 #include "action_layer.h"
+#include <avr/io.h>
+#include <timer.h>
+#include "pincontrol.h"
 
 extern keymap_config_t keymap_config;
+
+#define SOLENOID_DWELL 5
+#define SOLENOID_PIN F7
+
+volatile bool solenoid_enabled = false;
+bool solenoid_on = false;
+uint16_t solenoid_start = 0;
+
+void solenoid_toggle(void) {
+  solenoid_enabled = !solenoid_enabled;
+} 
+
+void solenoid_stop(void) {
+  digitalWrite(SOLENOID_PIN, PinLevelLow);
+  solenoid_on = false;
+}
+
+void solenoid_fire(void) {
+  if (!solenoid_enabled) return;
+
+  if (solenoid_on) return;
+
+  solenoid_on = true;
+  solenoid_start = timer_read(); 
+  digitalWrite(SOLENOID_PIN, PinLevelHigh);
+}
+
+void solenoid_check(void) {
+  if (!solenoid_on) return;
+  
+  if (timer_elapsed(solenoid_start) > SOLENOID_DWELL) {
+    solenoid_stop();
+  }
+}
+
+void solenoid_setup(void) {
+  pinMode(SOLENOID_PIN, PinDirectionOutput);
+}
+
+void matrix_init_user(void) {
+  solenoid_setup();
+}
+
+void matrix_scan_user(void) {
+  solenoid_check();
+}
 
 enum planck_layers {
   _QWERTY,
@@ -37,6 +86,7 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
+  SOLENOID_TOG,
   EXT_PLV
 };
 
@@ -102,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
   {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, RGB_VAD, RGB_VAI, RGB_TOG},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, RGB_VAD, RGB_VAI, SOLENOID_TOG},
   {_______, _______, _______, _______, _______, _______, _______, _______, RGB_RMOD, RGB_MOD, _______, _______}
 },
 
@@ -133,6 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  
+  if (record->event.pressed) {
+    solenoid_fire(); 
+  }
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -213,6 +268,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_PLOVER);
       }
       return false;
+      break;
+    case SOLENOID_TOG:
+      if (record->event.pressed) {
+        solenoid_toggle();
+      }
       break;
   }
   return true;
