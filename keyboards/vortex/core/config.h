@@ -19,12 +19,12 @@
 #define CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x04d9
 #define PRODUCT_ID      0x0175
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Vortex
 #define PRODUCT         Core
-#define DESCRIPTION     qmk for Vortex Core
+#define DESCRIPTION     Vortex Core with qmk_pok3r
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -33,6 +33,8 @@
 #define KEYMAP_VORTEX_CORE
 
 #define RGBLED_NUM (47 + 3)
+
+#define UPDATE_PROTO_VER 2
 
 /*
  * Keyboard Matrix Assignments

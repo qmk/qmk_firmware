@@ -23,7 +23,7 @@
 #define PAFIO_H(PORT, LINE, AF) (((PAL_PORT(LINE) == PORT) && (PAL_PAD(LINE) >= 8)) ? (AF << ((PAL_PAD(LINE) - 8) << 2)) : 0)
 #define PAFIO(PORT, N, LINE, AF) ((N) ? PAFIO_H(PORT, LINE, AF) : PAFIO_L(PORT, LINE, AF))
 
-#define OUT_BITS(PORT) \
+#define OUT_BITS(PORT) (\
     PBIT(PORT, LINE_ROW1) | \
     PBIT(PORT, LINE_ROW2) | \
     PBIT(PORT, LINE_ROW3) | \
@@ -34,9 +34,10 @@
     PBIT(PORT, LINE_ROW8) | \
     PBIT(PORT, LINE_ROW9) | \
     PBIT(PORT, LINE_ROW10) | \
-    PBIT(PORT, LINE_SPI_CS)
+    PBIT(PORT, LINE_SPI_CS) | \
+0)
 
-#define IN_BITS(PORT) \
+#define IN_BITS(PORT) (\
     PBIT(PORT, LINE_COL1) | \
     PBIT(PORT, LINE_COL2) | \
     PBIT(PORT, LINE_COL3) | \
@@ -44,9 +45,10 @@
     PBIT(PORT, LINE_COL5) | \
     PBIT(PORT, LINE_COL6) | \
     PBIT(PORT, LINE_COL7) | \
-    PBIT(PORT, LINE_COL8)
+    PBIT(PORT, LINE_COL8) | \
+0)
 
-#define AF_BITS(PORT, N) \
+#define AF_BITS(PORT, N) (\
     PAFIO(PORT, N, LINE_ROW1,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW2,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW3,     AFIO_GPIO) | \
@@ -68,7 +70,8 @@
     PAFIO(PORT, N, LINE_SPI_SCK,  AFIO_SPI)  | \
     PAFIO(PORT, N, LINE_SPI_MOSI, AFIO_SPI)  | \
     PAFIO(PORT, N, LINE_SPI_MISO, AFIO_SPI)  | \
-    PAFIO(PORT, N, LINE_SPI_CS,   AFIO_GPIO)
+    PAFIO(PORT, N, LINE_SPI_CS,   AFIO_GPIO) | \
+0)
 
 /**
  * @brief   PAL setup.

@@ -20,6 +20,59 @@
 
 #include <string.h>
 
+#define PBIT(PORT, LINE) ((PAL_PORT(LINE) == PORT) ? (1 << PAL_PAD(LINE)) : 0)
+#define PAFIO_L(PORT, LINE, AF) (((PAL_PORT(LINE) == PORT) && (PAL_PAD(LINE) < 8)) ? (AF << (PAL_PAD(LINE) << 2)) : 0)
+#define PAFIO_H(PORT, LINE, AF) (((PAL_PORT(LINE) == PORT) && (PAL_PAD(LINE) >= 8)) ? (AF << ((PAL_PAD(LINE) - 8) << 2)) : 0)
+#define PAFIO(PORT, N, LINE, AF) ((N) ? PAFIO_H(PORT, LINE, AF) : PAFIO_L(PORT, LINE, AF))
+
+#define OUT_BITS(PORT) (\
+    PBIT(PORT, LINE_COL1) | \
+    PBIT(PORT, LINE_COL2) | \
+    PBIT(PORT, LINE_COL3) | \
+    PBIT(PORT, LINE_COL4) | \
+    PBIT(PORT, LINE_COL5) | \
+    PBIT(PORT, LINE_COL6) | \
+    PBIT(PORT, LINE_COL7) | \
+    PBIT(PORT, LINE_COL8) | \
+    PBIT(PORT, LINE_SPI_CS) | \
+0)
+
+#define IN_BITS(PORT) (\
+    PBIT(PORT, LINE_ROW1) | \
+    PBIT(PORT, LINE_ROW2) | \
+    PBIT(PORT, LINE_ROW3) | \
+    PBIT(PORT, LINE_ROW4) | \
+    PBIT(PORT, LINE_ROW5) | \
+    PBIT(PORT, LINE_ROW6) | \
+    PBIT(PORT, LINE_ROW7) | \
+    PBIT(PORT, LINE_ROW8) | \
+    PBIT(PORT, LINE_ROW9) | \
+0)
+
+#define AF_BITS(PORT, N) (\
+    PAFIO(PORT, N, LINE_COL1,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL2,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL3,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL4,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL5,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL6,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL7,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL8,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW1,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW2,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW3,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW4,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW5,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW6,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW7,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW8,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_ROW9,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_SPI_SCK,  AFIO_SPI)  | \
+    PAFIO(PORT, N, LINE_SPI_MOSI, AFIO_SPI)  | \
+    PAFIO(PORT, N, LINE_SPI_MISO, AFIO_SPI)  | \
+    PAFIO(PORT, N, LINE_SPI_CS,   AFIO_GPIO) | \
+0)
+
 /**
  * @brief   PAL setup.
  * @details Digital I/O ports static configuration as defined in @p board.h.
@@ -28,109 +81,68 @@
 const PALConfig pal_default_config = {
     // GPIO A
     .setup[0] = {
-        .DIR =
-            (1 << PAL_PAD(LINE_COL1)) |
-            (1 << PAL_PAD(LINE_COL2)) |
-            (1 << PAL_PAD(LINE_COL3)) |
-            (1 << PAL_PAD(LINE_COL4)),
-        .INE =
-            (1 << PAL_PAD(LINE_ROW3)) |
-            (1 << PAL_PAD(LINE_ROW5)),
+        .DIR = OUT_BITS(IOPORTA),
+        .INE = IN_BITS(IOPORTA),
         .PU = 0x0000,
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
         .LOCK = 0x0000,
         .OUT = 0x0000,
-        .CFG[0] =
-            (AFIO_GPIO << (PAL_PAD(LINE_COL1) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_COL2) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_COL3) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_COL4) << 2)),
-        .CFG[1] =
-//            (AFIO_USART << ((PAD_USART_TX - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_ROW3) - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_ROW5) - 8) << 2)),
+        .CFG[0] = AF_BITS(IOPORTA, 0),
+        .CFG[1] = AF_BITS(IOPORTA, 1),
     },
     // GPIO B
     .setup[1] = {
-        .DIR =
-            (1 << PAL_PAD(LINE_COL5)) |
-            (1 << PAL_PAD(LINE_SPI_CS)),
-        .INE =
-            (1 << PAL_PAD(LINE_ROW4)) |
-            (1 << PAL_PAD(LINE_ROW6)) |
-            (1 << PAL_PAD(LINE_ROW7)) |
-            (1 << PAL_PAD(LINE_ROW8)),
+        .DIR = OUT_BITS(IOPORTB),
+        .INE = IN_BITS(IOPORTB),
         .PU = 0x0000,
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
         .LOCK = 0x0000,
-        .OUT =
-            (1 << PAL_PAD(LINE_SPI_CS)),
-        .CFG[0] =
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW4) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW6) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW7) << 2)) |
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW8) << 2)) |
-            (AFIO_SPI << (PAL_PAD(LINE_SPI_SCK) << 2)),
-        .CFG[1] =
-            (AFIO_GPIO << ((PAL_PAD(LINE_COL5) - 8) << 2)) |
-            (AFIO_SPI << ((PAL_PAD(LINE_SPI_MOSI) - 8) << 2)) |
-            (AFIO_SPI << ((PAL_PAD(LINE_SPI_MISO) - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_SPI_CS) - 8) << 2)),
+        .OUT = 0x0000,
+        .CFG[0] = AF_BITS(IOPORTB, 0),
+        .CFG[1] = AF_BITS(IOPORTB, 1),
     },
     // GPIO C
     .setup[2] = {
-        .DIR =
-            (1 << PAL_PAD(LINE_COL6)) |
-            (1 << PAL_PAD(LINE_COL7)) |
-            (1 << PAL_PAD(LINE_COL8)),
-        .INE =
-            (1 << PAL_PAD(LINE_ROW2)) |
-            (1 << PAL_PAD(LINE_ROW9)),
+        .DIR = OUT_BITS(IOPORTC),
+        .INE = IN_BITS(IOPORTC),
         .PU = 0x0000,
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
         .LOCK = 0x0000,
         .OUT = 0x0000,
-        .CFG[0] =
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW2) << 2)),
-        .CFG[1] =
-            (AFIO_GPIO << ((PAL_PAD(LINE_COL6) - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_COL7) - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_COL8) - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_ROW9) - 8) << 2)),
+        .CFG[0] = AF_BITS(IOPORTC, 0),
+        .CFG[1] = AF_BITS(IOPORTC, 1),
     },
     // GPIO D
     .setup[3] = {
-        .DIR = 0x0000,
-        .INE =
-            (1 << PAL_PAD(LINE_ROW1)),
+        .DIR = OUT_BITS(IOPORTD),
+        .INE = IN_BITS(IOPORTD),
         .PU = 0x0000,
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
         .LOCK = 0x0000,
         .OUT = 0x0000,
-        .CFG[0] =
-            (AFIO_GPIO << (PAL_PAD(LINE_ROW1) << 2)),
-        .CFG[1] = 0x00000000,
+        .CFG[0] = AF_BITS(IOPORTD, 0),
+        .CFG[1] = AF_BITS(IOPORTD, 1),
     },
     // GPIO E
     .setup[4] = {
-        .DIR = 0x0000,
-        .INE = 0x0000,
+        .DIR = OUT_BITS(IOPORTE),
+        .INE = IN_BITS(IOPORTE),
         .PU = 0x0000,
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
         .LOCK = 0x0000,
         .OUT = 0x0000,
-        .CFG[0] = 0x00000000,
-        .CFG[1] = 0x00000000,
+        .CFG[0] = AF_BITS(IOPORTE, 0),
+        .CFG[1] = AF_BITS(IOPORTE, 1),
     },
     .ESSR[0] = 0x00000000,
     .ESSR[1] = 0x00000000,

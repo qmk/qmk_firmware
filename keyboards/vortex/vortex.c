@@ -23,14 +23,14 @@
 #include <stdint.h>
 #include <string.h>
 
-#define BOOTLOADER_MAGIC 0x55aafaf5U
-#define PROTO_VER 1
+#define RESET_FW_MAGIC 0x55aafaf0ul
+#define RESET_BL_MAGIC 0x55aafaf5ul
 
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
 enum pok3r_rgb_cmd {
-#if PROTO_VER
+#if UPDATE_PROTO_VER == 1
     CMD_RESET       = 4,    //!< Reset command.
 #else
     CMD_RESET       = 0x11, //!< Reset command.
@@ -38,7 +38,7 @@ enum pok3r_rgb_cmd {
     SUB_RESET_BL    = 0,    //!< Reset to bootloader.
     SUB_RESET_FW    = 1,    //!< Reset to firmware.
 
-#if PROTO_VER
+#if UPDATE_PROTO_VER == 1
     CMD_READ        = 1,    //!< Read command.
     SUB_READ_ADDR   = 2,    //!< Patched command, read arbitrary address.
 #else
@@ -58,13 +58,13 @@ void OVERRIDE bootloader_jump(void) {
     printf("Reset to Bootloader\n");
     // SBVT registers are not reset on reset
     // SBVT1 is read by pok3r bootloader to stop booting
-    FMC->SBVT[1] = BOOTLOADER_MAGIC;
+    FMC->SBVT[1] = RESET_BL_MAGIC;
     NVIC_SystemReset();
 }
 
 void firmware_reset(void) {
     printf("Reset Firmware\n");
-    FMC->SBVT[1] = 0;
+    FMC->SBVT[1] = RESET_FW_MAGIC;
     NVIC_SystemReset();
 }
 
@@ -116,12 +116,12 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 }
 
             case CMD_READ:
-#if !PROTO_VER
+#if UPDATE_PROTO_VER != 1
                 packet_buf[0] = CMD_READ;
                 packet_buf[1] = data[1];
 #endif
                 switch (data[1]) {
-#if PROTO_VER
+#if UPDATE_PROTO_VER == 1
                     case SUB_READ_ADDR: {
                         uint32_t addr = data[4] | (data[5] << 8) | (data[6] << 16) | (data[7] << 24);
                         printf("Read Addr %04x\n", addr);

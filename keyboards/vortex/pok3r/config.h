@@ -19,18 +19,20 @@
 #define CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
+#define VENDOR_ID       0x04d9
 #define PRODUCT_ID      0x0141
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Vortex
 #define PRODUCT         POK3R
-#define DESCRIPTION     qmk for Vortex POK3R
+#define DESCRIPTION     Vortex POK3R with qmk_pok3r
 
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 9
 
 #define KEYMAP_60_ANSI
+
+#define UPDATE_PROTO_VER 1
 
 /*
  * Keyboard Matrix Assignments
