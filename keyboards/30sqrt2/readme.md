@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
+Keyboard Maintainer: [You](https://github.com/amesa0)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
