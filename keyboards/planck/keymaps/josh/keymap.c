@@ -3,10 +3,12 @@
 
 #include "planck.h"
 #include "action_layer.h"
+//#define AUDIO_ENABLE
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
 #include "eeconfig.h"
+#include "clicky.h"
 
 extern keymap_config_t keymap_config;
 
@@ -23,12 +25,26 @@ enum planck_layers {
   _NUMPAD
 };
 
+// keycodes custom to this keymap:
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  BACKLIT
+  CLICKY_TOGGLE,
+  CLICKY_UP,
+  CLICKY_DOWN,
+  CLICKY_RESET
 };
+
+// clicky state:
+bool clicky_enable = false;
+const float clicky_freq_default = 440.0f; // standard A tuning
+const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
+const float clicky_freq_max = 1000.0f; // arbitrary
+const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
+const float clicky_freq_randomness = 0.05f; // arbitrary
+float clicky_freq = 440.0f;
+float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -101,14 +117,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |Clicky|ClkDn |ClkUp |ClkRst|
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
   {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, _______, CLICKY_TOGGLE, CLICKY_DOWN, CLICKY_UP, CLICKY_RESET}
 },
 
 }; // end keymaps
@@ -124,6 +140,8 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  // handle the _ADJUST layer and custom keycodes:
   switch (keycode) {
     case LOWER:
       if (record->event.pressed) {
@@ -145,18 +163,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
+    case CLICKY_TOGGLE:
       if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
+        clicky_toggle();
       }
       return false;
       break;
+    case CLICKY_DOWN:
+      if (record->event.pressed) {
+        clicky_down();
+      }
+      return false;
+      break;
+    case CLICKY_UP:
+      if (record->event.pressed) {
+        clicky_up();
+      }
+      return false;
+      break;
+    case CLICKY_RESET:
+      if (record->event.pressed) {
+        clicky_reset();
+      }
+      return false;
+      break;
+  } // end switch case over custom keycodes
+
+  if (clicky_enable && record->event.pressed) {
+    clicky_play();
   }
+
   return true;
 }
 
+
+// clicky implementation:
+
+void clicky_play(void) {
+  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[1][0] = clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  #ifdef AUDIO_ENABLE
+    PLAY_SONG(clicky_song);
+  #endif
+}
+
+void clicky_toggle(void) {
+  clicky_enable = !clicky_enable;
+}
+
+void clicky_reset(void) {
+  clicky_freq = clicky_freq_default;
+}
+
+void clicky_up(void) {
+  float new_freq = clicky_freq * clicky_freq_factor;
+  if (new_freq < clicky_freq_max) {
+    clicky_freq = new_freq;
+  }
+}
+
+void clicky_down(void) {
+  float new_freq = clicky_freq / clicky_freq_factor;
+  if (new_freq > clicky_freq_min) {
+    clicky_freq = new_freq;
+  }
+}
