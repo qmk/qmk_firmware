@@ -79,6 +79,12 @@ void solenoid_check(void) {
 
   elapsed = timer_elapsed(solenoid_start);
 
+  //Check if it's time to finish this solenoid click cycle 
+  if (elapsed > solenoid_dwell) {
+    solenoid_stop();
+    return;
+  }
+
   //Check whether to buzz the solenoid on and off
   if (solenoid_buzz) {
     if (elapsed / SOLENOID_MIN_DWELL % 2 == 0){
@@ -95,10 +101,6 @@ void solenoid_check(void) {
     }
   }
   
-  //Check if it's time to finish this solenoid click cycle 
-  if (elapsed > solenoid_dwell) {
-    solenoid_stop();
-  }
 }
 
 void solenoid_setup(void) {
