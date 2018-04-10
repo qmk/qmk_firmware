@@ -22,12 +22,33 @@
 
 extern keymap_config_t keymap_config;
 
-#define SOLENOID_DWELL 5
+#define SOLENOID_DEFAULT_DWELL 12 
+#define SOLENOID_MAX_DWELL 100
+#define SOLENOID_MIN_DWELL 4
 #define SOLENOID_PIN F7
 
-volatile bool solenoid_enabled = false;
+bool solenoid_enabled = false;
 bool solenoid_on = false;
+bool solenoid_buzz = false;
+bool solenoid_buzzing = false;
 uint16_t solenoid_start = 0;
+uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
+
+void solenoid_buzz_on(void) {
+  solenoid_buzz = true;
+}
+
+void solenoid_buzz_off(void) {
+  solenoid_buzz = false;
+}
+
+void solenoid_dwell_minus(void) {
+  if (solenoid_dwell > 0) solenoid_dwell--;
+}
+
+void solenoid_dwell_plus(void) {
+  if (solenoid_dwell < SOLENOID_MAX_DWELL) solenoid_dwell++;
+}
 
 void solenoid_toggle(void) {
   solenoid_enabled = !solenoid_enabled;
@@ -36,22 +57,46 @@ void solenoid_toggle(void) {
 void solenoid_stop(void) {
   digitalWrite(SOLENOID_PIN, PinLevelLow);
   solenoid_on = false;
+  solenoid_buzzing = false;
 }
 
 void solenoid_fire(void) {
   if (!solenoid_enabled) return;
 
-  if (solenoid_on) return;
+  if (!solenoid_buzz && solenoid_on) return;
+  if (solenoid_buzz && solenoid_buzzing) return;
 
   solenoid_on = true;
+  solenoid_buzzing = true;
   solenoid_start = timer_read(); 
   digitalWrite(SOLENOID_PIN, PinLevelHigh);
 }
 
 void solenoid_check(void) {
+  uint16_t elapsed = 0;
+
   if (!solenoid_on) return;
+
+  elapsed = timer_elapsed(solenoid_start);
+
+  //Check whether to buzz the solenoid on and off
+  if (solenoid_buzz) {
+    if (elapsed / SOLENOID_MIN_DWELL % 2 == 0){
+      if (!solenoid_buzzing) {
+        solenoid_buzzing = true;
+        digitalWrite(SOLENOID_PIN, PinLevelHigh);
+      }
+    }
+    else {
+      if (solenoid_buzzing) {
+        solenoid_buzzing = false;
+        digitalWrite(SOLENOID_PIN, PinLevelLow);
+      }
+    }
+  }
   
-  if (timer_elapsed(solenoid_start) > SOLENOID_DWELL) {
+  //Check if it's time to finish this solenoid click cycle 
+  if (elapsed > solenoid_dwell) {
     solenoid_stop();
   }
 }
@@ -87,6 +132,10 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   SOLENOID_TOG,
+  SOLENOID_DWELL_MINUS,
+  SOLENOID_DWELL_PLUS,
+  SOLENOID_BUZZ_ON,
+  SOLENOID_BUZZ_OFF,
   EXT_PLV
 };
 
@@ -153,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
   {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, RGB_VAD, RGB_VAI, SOLENOID_TOG},
-  {_______, _______, _______, _______, _______, _______, _______, _______, RGB_RMOD, RGB_MOD, _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, _______, SOLENOID_BUZZ_OFF, SOLENOID_BUZZ_ON, SOLENOID_DWELL_MINUS, SOLENOID_DWELL_PLUS}
 },
 
 /* Plover layer (http://opensteno.org)
@@ -272,6 +321,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SOLENOID_TOG:
       if (record->event.pressed) {
         solenoid_toggle();
+      }
+      break;
+    case SOLENOID_DWELL_MINUS:
+      if (record->event.pressed) {
+        solenoid_dwell_minus();
+      }
+      break;
+    case SOLENOID_DWELL_PLUS:
+      if (record->event.pressed) {
+        solenoid_dwell_plus();
+      }
+      break;
+    case SOLENOID_BUZZ_ON:
+      if (record->event.pressed) {
+        solenoid_buzz_on();
+      }
+      break;
+    case SOLENOID_BUZZ_OFF:
+      if (record->event.pressed) {
+        solenoid_buzz_off();
       }
       break;
   }
