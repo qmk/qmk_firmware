@@ -1,0 +1,5 @@
+BOOTLOADER = atmel-dfu
+
+BACKLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+USE_I2C = yes
