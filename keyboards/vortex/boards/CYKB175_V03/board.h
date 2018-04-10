@@ -36,29 +36,41 @@
  */
 
 // outputs
-#define LINE_COL1                   PAL_LINE(IOPORTA, 9)
-#define LINE_COL2                   PAL_LINE(IOPORTA, 11)
-#define LINE_COL3                   PAL_LINE(IOPORTB, 11)
-#define LINE_COL4                   PAL_LINE(IOPORTD, 0)
-#define LINE_COL5                   PAL_LINE(IOPORTB, 10)
+// gpio_map_2
 #define LINE_COL6                   PAL_LINE(IOPORTA, 4)
+#define LINE_COL5                   PAL_LINE(IOPORTB, 10)
+#define LINE_COL4                   PAL_LINE(IOPORTD, 0)
+#define LINE_COL3                   PAL_LINE(IOPORTB, 11)
+#define LINE_COL2                   PAL_LINE(IOPORTA, 11)
+#define LINE_COL9x                  PAL_LINE(IOPORTA, 0)
 #define LINE_COL7                   PAL_LINE(IOPORTA, 1)
+
+// other?
+#define LINE_COL1                   PAL_LINE(IOPORTA, 9)
 #define LINE_COL8                   PAL_LINE(IOPORTA, 3)
 
 // inputs
-#define LINE_ROW1                   PAL_LINE(IOPORTA, 6)
-#define LINE_ROW2                   PAL_LINE(IOPORTA, 7)
-#define LINE_ROW3                   PAL_LINE(IOPORTC, 13)
-#define LINE_ROW4                   PAL_LINE(IOPORTC, 11)
-#define LINE_ROW5                   PAL_LINE(IOPORTC, 14)
-#define LINE_ROW6                   PAL_LINE(IOPORTC, 15)
+// gpio_map_1
 #define LINE_ROW7                   PAL_LINE(IOPORTC, 9)
 #define LINE_ROW8                   PAL_LINE(IOPORTA, 5)
+#define LINE_ROW1                   PAL_LINE(IOPORTA, 6)
+#define LINE_ROW2                   PAL_LINE(IOPORTA, 7)
+#define LINE_ROW4                   PAL_LINE(IOPORTC, 11)
+#define LINE_ROW3                   PAL_LINE(IOPORTC, 13)
+#define LINE_ROW5                   PAL_LINE(IOPORTC, 14)
+#define LINE_ROW6                   PAL_LINE(IOPORTC, 15)
 
-#define PAD_SPI_SCK                 7
-#define PAD_SPI_MOSI                8
-#define PAD_SPI_MISO                9
-#define LINE_SPICS                  PAL_LINE(IOPORTB, 6)
+// gpio_map_3
+#define LINE_MAP30                  PAL_LINE(IOPORTC, 4)
+#define LINE_MAP31                  PAL_LINE(IOPORTC, 5)
+#define LINE_MAP32                  PAL_LINE(IOPORTC, 6)
+#define LINE_MAP33                  PAL_LINE(IOPORTB, 1)
+
+// SPI
+#define LINE_SPI_SCK                PAL_LINE(IOPORTB, 7)
+#define LINE_SPI_MOSI               PAL_LINE(IOPORTB, 8)
+#define LINE_SPI_MISO               PAL_LINE(IOPORTB, 9)
+#define LINE_SPI_CS                 PAL_LINE(IOPORTB, 6)
 
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !

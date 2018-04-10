@@ -30,6 +30,8 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 9
 
+#define KEYMAP_60_ANSI
+
 /*
  * Keyboard Matrix Assignments
  *

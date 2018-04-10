@@ -56,7 +56,7 @@ const PALConfig pal_default_config = {
     .setup[1] = {
         .DIR =
             (1 << PAL_PAD(LINE_COL5)) |
-            (1 << PAL_PAD(LINE_SPICS)),
+            (1 << PAL_PAD(LINE_SPI_CS)),
         .INE =
             (1 << PAL_PAD(LINE_ROW4)) |
             (1 << PAL_PAD(LINE_ROW6)) |
@@ -68,18 +68,18 @@ const PALConfig pal_default_config = {
         .DRV = 0x0000,
         .LOCK = 0x0000,
         .OUT =
-            (1 << PAL_PAD(LINE_SPICS)),
+            (1 << PAL_PAD(LINE_SPI_CS)),
         .CFG[0] =
             (AFIO_GPIO << (PAL_PAD(LINE_ROW4) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_ROW6) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_ROW7) << 2)) |
             (AFIO_GPIO << (PAL_PAD(LINE_ROW8) << 2)) |
-            (AFIO_SPI << (PAD_SPI_SCK << 2)),
+            (AFIO_SPI << (PAL_PAD(LINE_SPI_SCK) << 2)),
         .CFG[1] =
             (AFIO_GPIO << ((PAL_PAD(LINE_COL5) - 8) << 2)) |
-            (AFIO_SPI << ((PAD_SPI_MOSI - 8) << 2)) |
-            (AFIO_SPI << ((PAD_SPI_MISO - 8) << 2)) |
-            (AFIO_GPIO << ((PAL_PAD(LINE_SPICS) - 8) << 2)),
+            (AFIO_SPI << ((PAL_PAD(LINE_SPI_MOSI) - 8) << 2)) |
+            (AFIO_SPI << ((PAL_PAD(LINE_SPI_MISO) - 8) << 2)) |
+            (AFIO_GPIO << ((PAL_PAD(LINE_SPI_CS) - 8) << 2)),
     },
     // GPIO C
     .setup[2] = {
@@ -194,7 +194,7 @@ void spi_init(void) {
         .fcr = 0,
     };
     spiStart(&SPID1, &config);
-    palSetLine(LINE_SPICS);
+    palSetLine(LINE_SPI_CS);
 }
 
 /**

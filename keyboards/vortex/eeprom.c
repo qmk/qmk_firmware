@@ -29,11 +29,11 @@ uint8_t tx_data[4];
 uint8_t rx_data[4];
 
 void spi_select(void) {
-    palClearLine(LINE_SPICS);
+    palClearLine(LINE_SPI_CS);
 }
 
 void spi_deselect(void) {
-    palSetLine(LINE_SPICS);
+    palSetLine(LINE_SPI_CS);
 }
 
 void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {

@@ -35,17 +35,7 @@
  * I/O
  */
 
-// outputs
-#define LINE_COL1                   PAL_LINE(IOPORTA, 3)    // !
-#define LINE_COL2                   PAL_LINE(IOPORTA, 4)    // !
-#define LINE_COL3                   PAL_LINE(IOPORTA, 5)    // !
-#define LINE_COL4                   PAL_LINE(IOPORTA, 6)    // !
-#define LINE_COL5                   PAL_LINE(IOPORTB, 11)   // !
-#define LINE_COL6                   PAL_LINE(IOPORTC, 13)   // !
-#define LINE_COL7                   PAL_LINE(IOPORTC, 14)   // !
-#define LINE_COL8                   PAL_LINE(IOPORTC, 15)   // !
-
-// inputs
+// outputs (rows driven low)
 #define LINE_ROW1                   PAL_LINE(IOPORTD, 0)    // !
 #define LINE_ROW2                   PAL_LINE(IOPORTC, 5)    // !
 #define LINE_ROW3                   PAL_LINE(IOPORTA, 11)   // !
@@ -55,8 +45,23 @@
 #define LINE_ROW7                   PAL_LINE(IOPORTB, 1)    // !
 #define LINE_ROW8                   PAL_LINE(IOPORTB, 5)    // !
 #define LINE_ROW9                   PAL_LINE(IOPORTC, 8)    // !
+#define LINE_ROW10                  PAL_LINE(IOPORTC, 8)    // !
 
-#define LINE_SPICS                  PAL_LINE(IOPORTB, 10)   // !
+// inputs (columns sampled)
+#define LINE_COL1                   PAL_LINE(IOPORTA, 3)    // !
+#define LINE_COL2                   PAL_LINE(IOPORTA, 4)    // !
+#define LINE_COL3                   PAL_LINE(IOPORTA, 5)    // !
+#define LINE_COL4                   PAL_LINE(IOPORTA, 6)    // !
+#define LINE_COL5                   PAL_LINE(IOPORTB, 11)   // !
+#define LINE_COL6                   PAL_LINE(IOPORTC, 13)   // !
+#define LINE_COL7                   PAL_LINE(IOPORTC, 14)   // !
+#define LINE_COL8                   PAL_LINE(IOPORTC, 15)   // !
+
+// SPI
+#define LINE_SPI_SCK                PAL_LINE(IOPORTB, 7)
+#define LINE_SPI_MOSI               PAL_LINE(IOPORTB, 8)
+#define LINE_SPI_MISO               PAL_LINE(IOPORTB, 9)
+#define LINE_SPI_CS                 PAL_LINE(IOPORTB, 10)   // !
 
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !
@@ -77,15 +82,17 @@
     K33, K34, K35,                K53,                K59, K60, K61, K62, /* 8 keys */  \
                                                       S01, S02, S03, S04  /* dip switches */ \
 ) { \
-    /*           ROW1   ROW2   ROW3   ROW4   ROW5   ROW6   ROW7   ROW8   ROW9 */ \
-    /* COL1 */ { K01,   K33,   K09,   K63,   K17,   KC_NO, K25,   KC_NO, S01  }, \
-    /* COL2 */ { K02,   K34,   K10,   KC_NO, K18,   KC_NO, K26,   KC_NO, S02  }, \
-    /* COL3 */ { K03,   K35,   K11,   K41,   K19,   K47,   K27,   K53,   S03  }, \
-    /* COL4 */ { K04,   K36,   K12,   K42,   K20,   K48,   K28,   K54,   K59  }, \
-    /* COL5 */ { K05,   K37,   K13,   K43,   K21,   K49,   K29,   K55,   K60  }, \
-    /* COL6 */ { K06,   K38,   K14,   K44,   K22,   K50,   K30,   K56,   K61  }, \
-    /* COL7 */ { K07,   K39,   K15,   K45,   K23,   K51,   K31,   K57,   S04  }, \
-    /* COL8 */ { K08,   K40,   K16,   K46,   K24,   K52,   K32,   K58,   K62  }  \
+    /*            COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */ \
+    /* ROW1  */ { K01,   K33,   K09,   K63,   K17,   KC_NO, K25,   KC_NO, }, \
+    /* ROW2  */ { K02,   K34,   K10,   KC_NO, K18,   KC_NO, K26,   KC_NO, }, \
+    /* ROW3  */ { K03,   K35,   K11,   K41,   K19,   K47,   K27,   K53,   }, \
+    /* ROW4  */ { K04,   K36,   K12,   K42,   K20,   K48,   K28,   K54,   }, \
+    /* ROW5  */ { K05,   K37,   K13,   K43,   K21,   K49,   K29,   K55,   }, \
+    /* ROW6  */ { K06,   K38,   K14,   K44,   K22,   K50,   K30,   K56,   }, \
+    /* ROW7  */ { K07,   K39,   K15,   K45,   K23,   K51,   K31,   K57,   }, \
+    /* ROW8  */ { K08,   K40,   K16,   K46,   K24,   K52,   K32,   K58,   }, \
+    /* ROW9  */ { K08,   K40,   K16,   K46,   K24,   K52,   K32,   K58,   }, \
+    /* ROW10 */ { K08,   K40,   K16,   K46,   K24,   K52,   K32,   K58,   }  \
 }
 
 #define LAYOUT_60_ansi( \

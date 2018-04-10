@@ -31,7 +31,7 @@ EXTRAKEY_ENABLE = yes
 KEY_LOCK_ENABLE = yes
 
 # RGB Backlight
-RGBLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
 # Other featues

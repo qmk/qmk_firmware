@@ -27,8 +27,10 @@
 #define DESCRIPTION     qmk for Vortex POK3R RGB
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 8
+
+#define KEYMAP_60_ANSI
 
 #define RGBLED_NUM 61
 

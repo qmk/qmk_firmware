@@ -65,12 +65,10 @@ uint8_t matrix_scan(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data;
 
-//        palSetLine(row_list[row]);
         palClearLine(row_list[row]);
 //        wait_us(20);
         sleep_cyc(US2CYC(1));
         data = ~read_columns();
-//        palClearLine(row_list[row]);
         palSetLine(row_list[row]);
 
         if (matrix_debouncing[row] != data) {

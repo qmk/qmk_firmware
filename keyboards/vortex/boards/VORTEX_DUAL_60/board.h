@@ -56,12 +56,14 @@
 #define LINE_ROW8                   PAL_LINE(IOPORTB, 5)
 #define LINE_ROW9                   PAL_LINE(IOPORTC, 8)
 
+// USART (conflicts with LED matrix)
 #define PAD_USART_TX                8
 
-#define PAD_SPI_SCK                 7
-#define PAD_SPI_MOSI                8
-#define PAD_SPI_MISO                9
-#define LINE_SPICS                  PAL_LINE(IOPORTB, 10)
+// SPI
+#define LINE_SPI_SCK                PAL_LINE(IOPORTB, 7)
+#define LINE_SPI_MOSI               PAL_LINE(IOPORTB, 8)
+#define LINE_SPI_MISO               PAL_LINE(IOPORTB, 9)
+#define LINE_SPI_CS                 PAL_LINE(IOPORTB, 10)
 
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !

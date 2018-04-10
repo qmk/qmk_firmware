@@ -30,6 +30,8 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
+#define KEYMAP_VORTEX_CORE
+
 #define RGBLED_NUM (47 + 3)
 
 /*
