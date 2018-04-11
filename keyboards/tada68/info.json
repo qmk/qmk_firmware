@@ -2,7 +2,6 @@
   "keyboard_name": "Tada68",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "atmel-dfu",
   "width": 16,
   "height": 5,
   "layouts": {
