@@ -89,16 +89,26 @@
      K12,   K17, K13, K18, K14, K19, K15, K20, K16, K30, K06, K110,  /* 12 keys */ \
      K59, K73, K112, K46,    K35,     K111,      K21, K11, K23, K31  /* 10 keys */ \
 ) { \
-    /*           COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */ \
-    /* ROW1 */ { K67,   K66,   K65,   K64,   K63,   K62,   KC_NO, KC_NO, }, \
-    /* ROW2 */ { K31,   K53,   K52,   K51,   K50,   K49,   KC_NO, KC_NO, }, \
-    /* ROW3 */ { K32,   K29,   K28,   K27,   K26,   K25,   KC_NO, KC_NO, }, \
-    /* ROW4 */ { K41,   K40,   K39,   K38,   K37,   K36,   KC_NO, KC_NO, }, \
-    /* ROW5 */ { K21,   K16,   K15,   K14,   K13,   K12,   KC_NO, KC_NO, }, \
-    /* ROW6 */ { K06,   K30,   K20,   K19,   K18,   K17,   KC_NO, KC_NO, }, \
-    /* ROW7 */ { K55,   K43,   K110,  K112,  KC_NO, K35,   K111,  KC_NO, }, \
-    /* ROW8 */ { K73,   K59,   K46,   KC_NO, KC_NO, K11,   KC_NO, K23,   }  \
+    /*           ROW1   ROW2   ROW3   ROW4   ROW5   ROW6   ROW7   ROW8   */ \
+    /* COL1 */ { K67,   K31,   K32,   K41,   K21,   K06,   K55,   K73,   }, \
+    /* COL2 */ { K66,   K53,   K29,   K40,   K16,   K30,   K43,   K59,   }, \
+    /* COL3 */ { K65,   K52,   K28,   K39,   K15,   K20,   K110,  K46,   }, \
+    /* COL4 */ { K64,   K51,   K27,   K38,   K14,   K19,   K112,  KC_NO, }, \
+    /* COL5 */ { K63,   K50,   K26,   K37,   K13,   K18,   KC_NO, KC_NO, }, \
+    /* COL6 */ { K62,   K49,   K25,   K36,   K12,   K17,   K35,   K11,   }, \
+    /* COL7 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K111,  KC_NO, }, \
+    /* COL8 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K23,   }  \
 }
+
+//  /*           COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */
+//  /* ROW1 */ { K67,   K66,   K65,   K64,   K63,   K62,   KC_NO, KC_NO, },
+//  /* ROW2 */ { K31,   K53,   K52,   K51,   K50,   K49,   KC_NO, KC_NO, },
+//  /* ROW3 */ { K32,   K29,   K28,   K27,   K26,   K25,   KC_NO, KC_NO, },
+//  /* ROW4 */ { K41,   K40,   K39,   K38,   K37,   K36,   KC_NO, KC_NO, },
+//  /* ROW5 */ { K21,   K16,   K15,   K14,   K13,   K12,   KC_NO, KC_NO, },
+//  /* ROW6 */ { K06,   K30,   K20,   K19,   K18,   K17,   KC_NO, KC_NO, },
+//  /* ROW7 */ { K55,   K43,   K110,  K112,  KC_NO, K35,   K111,  KC_NO, },
+//  /* ROW8 */ { K73,   K59,   K46,   KC_NO, KC_NO, K11,   KC_NO, K23,   }
 
 #define LAYOUT_core( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,    \

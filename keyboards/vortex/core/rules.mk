@@ -19,7 +19,7 @@ MCU_STARTUP = ht32f165x
 
 BOARD = CYKB175_V03
 
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x3400
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x3400 -Wno-unused-function
 
 # Options
 
@@ -28,7 +28,7 @@ CUSTOM_MATRIX = yes
 NKRO_ENABLE = yes
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
-KEY_LOCK_ENABLE = yes
+KEY_LOCK_ENABLE = no
 
 # RGB Backlight
 RGBLIGHT_ENABLE = no
@@ -37,7 +37,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 # Other featues
 BOOTMAGIC_ENABLE = no
 CONSOLE_ENABLE = yes
-COMMAND_ENABLE = no # Commands for debug and configuration
+COMMAND_ENABLE = yes
 RAW_ENABLE = yes
 
 # EEPROM

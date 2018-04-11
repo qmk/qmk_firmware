@@ -26,18 +26,6 @@
 #define PAFIO(PORT, N, LINE, AF) ((N) ? PAFIO_H(PORT, LINE, AF) : PAFIO_L(PORT, LINE, AF))
 
 #define OUT_BITS(PORT) (\
-    PBIT(PORT, LINE_COL1) | \
-    PBIT(PORT, LINE_COL2) | \
-    PBIT(PORT, LINE_COL3) | \
-    PBIT(PORT, LINE_COL4) | \
-    PBIT(PORT, LINE_COL5) | \
-    PBIT(PORT, LINE_COL6) | \
-    PBIT(PORT, LINE_COL7) | \
-    PBIT(PORT, LINE_COL8) | \
-    PBIT(PORT, LINE_SPI_CS) | \
-0)
-
-#define IN_BITS(PORT) (\
     PBIT(PORT, LINE_ROW1) | \
     PBIT(PORT, LINE_ROW2) | \
     PBIT(PORT, LINE_ROW3) | \
@@ -47,17 +35,21 @@
     PBIT(PORT, LINE_ROW7) | \
     PBIT(PORT, LINE_ROW8) | \
     PBIT(PORT, LINE_ROW9) | \
+    PBIT(PORT, LINE_SPI_CS) | \
+0)
+
+#define IN_BITS(PORT) (\
+    PBIT(PORT, LINE_COL1) | \
+    PBIT(PORT, LINE_COL2) | \
+    PBIT(PORT, LINE_COL3) | \
+    PBIT(PORT, LINE_COL4) | \
+    PBIT(PORT, LINE_COL5) | \
+    PBIT(PORT, LINE_COL6) | \
+    PBIT(PORT, LINE_COL7) | \
+    PBIT(PORT, LINE_COL8) | \
 0)
 
 #define AF_BITS(PORT, N) (\
-    PAFIO(PORT, N, LINE_COL1,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL2,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL3,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL4,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL5,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL6,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL7,     AFIO_GPIO) | \
-    PAFIO(PORT, N, LINE_COL8,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW1,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW2,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW3,     AFIO_GPIO) | \
@@ -67,6 +59,14 @@
     PAFIO(PORT, N, LINE_ROW7,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW8,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_ROW9,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL1,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL2,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL3,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL4,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL5,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL6,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL7,     AFIO_GPIO) | \
+    PAFIO(PORT, N, LINE_COL8,     AFIO_GPIO) | \
     PAFIO(PORT, N, LINE_SPI_SCK,  AFIO_SPI)  | \
     PAFIO(PORT, N, LINE_SPI_MOSI, AFIO_SPI)  | \
     PAFIO(PORT, N, LINE_SPI_MISO, AFIO_SPI)  | \
@@ -83,7 +83,7 @@ const PALConfig pal_default_config = {
     .setup[0] = {
         .DIR = OUT_BITS(IOPORTA),
         .INE = IN_BITS(IOPORTA),
-        .PU = 0x0000,
+        .PU = IN_BITS(IOPORTA),
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
@@ -96,7 +96,7 @@ const PALConfig pal_default_config = {
     .setup[1] = {
         .DIR = OUT_BITS(IOPORTB),
         .INE = IN_BITS(IOPORTB),
-        .PU = 0x0000,
+        .PU = IN_BITS(IOPORTB),
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
@@ -109,7 +109,7 @@ const PALConfig pal_default_config = {
     .setup[2] = {
         .DIR = OUT_BITS(IOPORTC),
         .INE = IN_BITS(IOPORTC),
-        .PU = 0x0000,
+        .PU = IN_BITS(IOPORTC),
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
@@ -122,7 +122,7 @@ const PALConfig pal_default_config = {
     .setup[3] = {
         .DIR = OUT_BITS(IOPORTD),
         .INE = IN_BITS(IOPORTD),
-        .PU = 0x0000,
+        .PU = IN_BITS(IOPORTD),
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
@@ -135,7 +135,7 @@ const PALConfig pal_default_config = {
     .setup[4] = {
         .DIR = OUT_BITS(IOPORTE),
         .INE = IN_BITS(IOPORTE),
-        .PU = 0x0000,
+        .PU = IN_BITS(IOPORTE),
         .PD = 0x0000,
         .OD = 0x0000,
         .DRV = 0x0000,
@@ -149,17 +149,6 @@ const PALConfig pal_default_config = {
 };
 
 const ioline_t row_list[MATRIX_ROWS] = {
-    LINE_COL1,
-    LINE_COL2,
-    LINE_COL3,
-    LINE_COL4,
-    LINE_COL5,
-    LINE_COL6,
-    LINE_COL7,
-    LINE_COL8,
-};
-
-const ioline_t col_list[MATRIX_COLS] = {
     LINE_ROW1,
     LINE_ROW2,
     LINE_ROW3,
@@ -169,6 +158,17 @@ const ioline_t col_list[MATRIX_COLS] = {
     LINE_ROW7,
     LINE_ROW8,
     LINE_ROW9,
+};
+
+const ioline_t col_list[MATRIX_COLS] = {
+    LINE_COL1,
+    LINE_COL2,
+    LINE_COL3,
+    LINE_COL4,
+    LINE_COL5,
+    LINE_COL6,
+    LINE_COL7,
+    LINE_COL8,
 };
 
 void __early_init(void) {

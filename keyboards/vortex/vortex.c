@@ -19,6 +19,7 @@
 #include "vortex.h"
 #include "quantum.h"
 #include "raw_hid.h"
+#include "debug.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -51,6 +52,7 @@ enum pok3r_rgb_cmd {
     SUB_READ_ADDR   = 0xff, //!< Patched command, read arbitrary address.
 #endif
 
+    // New QMK commands
     CMD_INFO        = 0x81,
 };
 
@@ -73,11 +75,16 @@ void OVERRIDE matrix_init_kb(void) {
 }
 
 void OVERRIDE matrix_scan_kb(void) {
+    debug_enable = true;
+    debug_matrix = true;
+
     matrix_scan_user();
 }
 
 bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
-//    printf("Code: %d %d\n", keycode, record->event.pressed);
+    printf("Code: %d %d\n", keycode, record->event.pressed);
+    return false;
+
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -160,11 +167,15 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 
 void OVERRIDE led_set_kb(uint8_t usb_led) {
-    printf("Set LED: %02x\n", usb_led);
-//    if ((usb_led >> USB_LED_CAPS_LOCK) & 1) {
+    static uint8_t prev = 0;
+    if (usb_led != prev) {
+        printf("Set LED: %02x\n", usb_led);
+    }
+    prev = usb_led;
+    if ((usb_led >> USB_LED_CAPS_LOCK) & 1) {
 //        palClearLine(LINE_LED65);
-//    } else {
+    } else {
 //        palSetLine(LINE_LED65);
-//    }
+    }
     led_set_user(usb_led);
 }

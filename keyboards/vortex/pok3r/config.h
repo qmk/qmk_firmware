@@ -27,8 +27,8 @@
 #define DESCRIPTION     Vortex POK3R with qmk_pok3r
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 8
 
 #define KEYMAP_60_ANSI
 

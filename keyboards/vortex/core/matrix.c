@@ -34,14 +34,6 @@ static uint16_t debouncing_time = 0;
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
-static void sleep_cyc(uint32_t n) {
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-    uint32_t cnt = DWT->CYCCNT + n;
-    while(DWT->CYCCNT < cnt);
-}
-
-#define US2CYC(usec) (((((uint32_t)(usec)) * HT32_CK_AHB_FREQUENCY) + 999999UL) / 1000000UL)
-
 void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
@@ -65,12 +57,10 @@ uint8_t matrix_scan(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         matrix_row_t data;
 
-//        palSetLine(row_list[row]);
         palClearLine(row_list[row]);
 //        wait_us(20);
         sleep_cyc(US2CYC(1));
         data = ~read_columns();
-//        palClearLine(row_list[row]);
         palSetLine(row_list[row]);
 
         if (matrix_debouncing[row] != data) {
