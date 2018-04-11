@@ -40,7 +40,7 @@ enum planck_keycodes {
 bool clicky_enable = false;
 const float clicky_freq_default = 440.0f; // standard A tuning
 const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
-const float clicky_freq_max = 1000.0f; // arbitrary
+const float clicky_freq_max = 1500.0f; // arbitrary
 const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
 const float clicky_freq_randomness = 0.05f; // arbitrary
 float clicky_freq = 440.0f;
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   } // end switch case over custom keycodes
 
-  if (clicky_enable && record->event.pressed) {
+  if (record->event.pressed) {
     clicky_play();
   }
 
@@ -200,6 +200,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clicky implementation:
 
 void clicky_play(void) {
+  if (!clicky_enable) {
+    return;
+  }
+
   clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   clicky_song[1][0] = clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   #ifdef AUDIO_ENABLE
@@ -209,10 +213,12 @@ void clicky_play(void) {
 
 void clicky_toggle(void) {
   clicky_enable = !clicky_enable;
+  clicky_play();
 }
 
 void clicky_reset(void) {
   clicky_freq = clicky_freq_default;
+  clicky_play();
 }
 
 void clicky_up(void) {
@@ -220,6 +226,7 @@ void clicky_up(void) {
   if (new_freq < clicky_freq_max) {
     clicky_freq = new_freq;
   }
+  clicky_play();
 }
 
 void clicky_down(void) {
@@ -227,4 +234,5 @@ void clicky_down(void) {
   if (new_freq > clicky_freq_min) {
     clicky_freq = new_freq;
   }
+  clicky_play();
 }
