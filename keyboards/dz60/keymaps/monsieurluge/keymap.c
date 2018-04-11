@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │           │     │     │  |  │  /  │  <  │  >  │  \  │  |  │     │     │XXXXX│pgup │     │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │      │      │      │▒▒▒▒▒▒▒▒▒▒▒▒▒▒│      │   backspace    │     │     │home │pgdwn│ end │
+     * │      │      │      │▒▒▒▒▒▒▒▒▒▒▒▒▒▒│      │                │     │     │home │pgdwn│ end │
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     KEYMAP_DIRECTIONAL(
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CIRC, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_AMPR, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_EQUAL, ______, ______, ______,
         KC_GRV, KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT, ______, ______,
         ______, XXXXXX, ______, ______, KC_PIPE, KC_SLSH, SP_LESS, SP_MORE, KC_BSLS, KC_PIPE, ______, ______, KC_PGUP, ______,
-        ______, ______, ______, ______, ______, KC_BSPC, ______, ______, KC_HOME, KC_PGDN, KC_END
+        ______, ______, ______, ______, ______, ______, ______, ______, KC_HOME, KC_PGDN, KC_END
     ),
 
     /* F* and capitalized keys (fn2)
