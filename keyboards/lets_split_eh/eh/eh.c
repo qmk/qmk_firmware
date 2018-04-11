@@ -7,7 +7,7 @@ void matrix_init_kb(void) {
     MCUCR |= (1<<JTD);
 	
 	// Undo init of RX LED, we use that port currently
-	DDRB &= ~(1<<0);
+	// DDRB &= ~(1<<0);
 	
 	matrix_init_user();
 };

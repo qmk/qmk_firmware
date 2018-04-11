@@ -23,19 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EH
 
 #include "config_common.h"
-#include "../config.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xE401
-#define DEVICE_VER      0x0E41
-#define MANUFACTURER    That-Canadian
-#define PRODUCT         Lets Split Eh?
-#define DESCRIPTION     An on-board component Lets Split w/ USB-C
 
 /* Let's Split EH? pin-out */
 #define MATRIX_ROW_PINS { B1, B3, D7, B4 }
-#define MATRIX_COL_PINS { F4, F5, C6, B6, D5, B5 }
+#define MATRIX_COL_PINS { F4, F5, C6, B6, B5, D5 }
 #define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW
@@ -48,11 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 6    // Number of LEDs (each hand)
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #endif
 
