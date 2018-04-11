@@ -25,19 +25,11 @@ enum custom_keycodes {
 };
 
 enum {
-<<<<<<< HEAD
   TD_MEDIA = 5
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F7)
-=======
-  TD_MEDIA = 0
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MRWD)
->>>>>>> d9a72962e101593c14ea6a9d99308bf92168d300
 };
 
 // Fillers to make layering more clear
