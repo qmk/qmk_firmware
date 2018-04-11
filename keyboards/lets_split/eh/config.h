@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // To let configuration know this is of type EH
 #define EH
 
-#include "config_common.h"
+#include "../config.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0E41
 #define MANUFACTURER    That-Canadian
 #define PRODUCT         Lets Split Eh?
-#define DESCRIPTION     An on-board component Let's Split w/ USB-C
+#define DESCRIPTION     An on-board component Lets Split w/ USB-C
 
 /* Let's Split EH? pin-out */
 #define MATRIX_ROW_PINS { B1, B3, D7, B4 }
