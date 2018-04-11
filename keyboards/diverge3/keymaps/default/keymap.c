@@ -119,7 +119,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT(
   //,----+----+----+----+----+----+----|           |----+----+----+----+----+----+----|
       ESC, 1  , 2  , 3  , 4  , 5  ,MUTE,            MPLY, 6  , 7  , 8  , 9  , 0  ,PSCR,
   //|----+----+----+----+----+----+----|           |----+----+----+----+----+----+----|
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCTL,LGUI, APP,LALT,HOME,SPNT,DEL1,BSHT , ENT ,TAB1,BSHT,END ,DOWN, UP ,LEFT,RIGHT
   ),
 
-  [_LOWER] = KC_KEYMAP(
+  [_LOWER] = LAYOUT(
   //,----+----+----+----+----+----+----|           |----+----+----+----+----+----+----|
          , F1 , F2 , F3 , F4 , F5 ,F11 ,             F12, F6 , F7 , F8 , F9 ,    ,    ,
   //|----+----+----+----+----+----+----|           |----+----+----+----+----+----+----|
