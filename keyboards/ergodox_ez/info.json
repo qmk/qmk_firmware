@@ -2,7 +2,6 @@
     "keyboard_name": "ErgoDox EZ", 
     "url": "ergodox-ez.com", 
     "maintainer": "erez", 
-    "bootloader": "halfkay", 
     "width": 19.5, 
     "height": 9.375, 
     "layouts": {
