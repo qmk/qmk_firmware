@@ -10,10 +10,10 @@ This keymap is only for 5 rows Helix keyboard.
 
 |Priority|Number|Name|Discription|
 | ---- | ---- | --- | --- |
-|high|9|Adjust| keyboard local functions|
-||8|KFunction| TenkeyPad function keys |
-||7|Extra char| some charactors |
-||6|Function| function keys |
+|high|9|Adjust| keyboard local functions (violet)|
+||8|KFunction| TenkeyPad function keys (bule)|
+||7|Extra char| some charactors (red)|
+||6|Function| function keys (blue)|
 ||2|Keypad|TenkeyPad|
 ||2|Dvorak|Dvorak|
 ||1|Colemak|Colemak|
@@ -35,9 +35,9 @@ Mac mode swap Alt/Win(GUI) key.
 
 |mode|key|code|
 | ---- | ---- | --- |
-|Macモード|Adjust + g(Qwerty)|AG_NORM|
+|Mac mode|Adjust + g(Qwerty)|AG_NORM|
 |        |Adjust + h(Qwerty)|       |
-|Winモード|Adjust + t(Qwerty)|AG_SWAP|
+|Win mode|Adjust + t(Qwerty)|AG_SWAP|
 |        |Adjust + y(Qwerty)|       |
 
 ### LED control
