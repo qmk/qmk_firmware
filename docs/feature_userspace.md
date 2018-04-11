@@ -3,10 +3,11 @@
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)
-  * `readme.md`
+  * `readme.md` (optional, recommended)
   * `rules.mk` (included automatically)
   * `<name>.h` (optional)
   * `<name>.c` (optional)
+  * `config.h` (optional)
 
 `<name>.c` will need to be added to the SRC in `rules.mk` like this:
 
@@ -24,9 +25,30 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.
 
+Additionally, `config.h` here will be processed like the same file in your keymap folder.  This is handled separately from the `<name>.h` file.  
+
+The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues. 
+
+So you should use the `config.h` for QMK settings, and the `<name>.h` file for user or keymap specific settings. 
+ 
 ## Readme
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
+
+## `Config.h`
+
+If you do add a `config,h` file, you want to make sure that it only gets processed once.  So you may want to start off with something like this: 
+
+```c
+#ifndef USERSPACE_CONFIG_H
+#define USERSPACE_CONFIG_H
+
+// Put normal config.h settings here:
+
+#endif // !USERSPACE_CONFIG_H
+```
+
+You can use any option hre that you could use in your keymap's `config.h` file. You can find a list of vales [here](config_options.md). 
 
 ## Example
 
