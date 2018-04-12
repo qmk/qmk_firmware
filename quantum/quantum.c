@@ -958,11 +958,13 @@ void backlight_set(uint8_t level) {
     level = BACKLIGHT_LEVELS;
 
   if (level == 0) {
-    // Turn off PWM control on backlight pin
-    TCCR1A &= ~(_BV(COM1x1));
+    // Turn off backlight pin
+    // PORTx &= ~n
+    _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
   } else {
-    // Turn on PWM control of backlight pin
-    TCCR1A |= _BV(COM1x1);
+    // Turn on backlight pin
+    // PORTx |= n
+    _SFR_IO8((backlight_pin >> 4) + 2) |= _BV(backlight_pin & 0xF);
   }
   // Set the brightness
   set_pwm(cie_lightness(TIMER_TOP * (uint32_t)level / BACKLIGHT_LEVELS));
