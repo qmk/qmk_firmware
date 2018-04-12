@@ -43,16 +43,7 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 | `RGBLIGHT_VAL_STEP` | 17 | The number of levels of brightness you want. |
 | `RGBLIGHT_LIMIT_VAL` | 255 | Limit the val of HSV to limit the maximum brightness simply. |
 | `RGBLIGHT_SLEEP`     |    |  `#define` this will shut off the lights when the host goes to sleep | 
-| `RGBLED_BREATHING_INTERVAL_COUNT` | 8 | How many sets of intervals, or "speeds" for this animation |
-| `RGBLED_RAINBOW_MOOD_INTERVAL_COUNT` | 8 | How many sets of intervals, or "speeds" for this animation |
-| `RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT` | 8 | How many sets of intervals, or "speeds" for this animation |
-| `RGBLED_SNAKE_INTERVAL_COUNT` | 8 | How many sets of intervals, or "speeds" for this animation |
-| `RGBLED_KNIGHT_INTERVAL_COUNT` | 9 | How many sets of intervals, or "speeds" for this animation |
-| `RGBLED_BREATHING_INTERVAL_DEFAULT` | 5 | Default interval / speed index for this animation |
-| `RGBLED_RAINBOW_MOOD_INTERVAL_DEFAULT` | 6 | Default interval / speed index for this animation |
-| `RGBLED_RAINBOW_SWIRL_INTERVAL_DEFAULT` | 6 | Default interval / speed index for this animation |
-| `RGBLED_SNAKE_INTERVAL_DEFAULT` | 6 | Default interval / speed index for this animation |
-| `RGBLED_KNIGHT_INTERVAL_DEFAULT` | 7 | Default interval / speed index for this animation |
+
 
 ### Animations
 
@@ -74,19 +65,19 @@ You can also tweak the behavior of the animations by defining these consts in yo
 
 ```c
 // How long (in ms) to wait between animation steps for the breathing mode
-const uint8_t RGBLED_BREATHING_INTERVALS[RGBLED_BREATHING_INTERVAL_COUNT][4] PROGMEM = {{30, 20, 10, 5}};
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
 // How long (in ms) to wait between animation steps for the rainbow mode
-const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[RGBLED_RAINBOW_MOOD_INTERVAL_COUNT][3] PROGMEM = {{120, 60, 30}};
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
 
 // How long (in ms) to wait between animation steps for the swirl mode
-const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT][3] PROGMEM = {{100, 50, 20}};
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 
 // How long (in ms) to wait between animation steps for the snake mode
-const uint8_t RGBLED_SNAKE_INTERVALS[RGBLED_SNAKE_INTERVAL_COUNT][3] PROGMEM = {{100, 50, 20}};
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 
 // How long (in ms) to wait between animation steps for the knight modes
-const uint8_t RGBLED_KNIGHT_INTERVALS[RGBLED_KNIGHT_INTERVAL_COUNT][3] PROGMEM = {{127, 63, 31}};
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 // These control which colors are selected for the gradient mode
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};

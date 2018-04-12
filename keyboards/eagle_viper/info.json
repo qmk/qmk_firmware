@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Eagle/Viper",
-    "bootloader": "atmel-dfu",
     "width": 15,
     "height": 5,
     "layouts": {

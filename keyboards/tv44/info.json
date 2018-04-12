@@ -2,7 +2,6 @@
   "keyboard_name": "tv44",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "atmel-dfu",
   "width": 12.75,
   "height": 4,
   "layouts": {

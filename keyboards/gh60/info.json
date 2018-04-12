@@ -20,7 +20,6 @@
     "maintainer": "qmk",
     "keyboard_folder": "gh60",
     "width": 15,
-    "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
     "height": 5,
     "url": "http://qmk.fm/keyboards/gh60",
