@@ -31,7 +31,7 @@ enum {
 };
 void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2){
-    register_code (KC_MFFD);
+    register_code (KC_F9);
   }
   if(state->count == 3){
     register_code(KC_MRWD);
@@ -42,7 +42,7 @@ void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
 }
 void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2){
-    unregister_code (KC_MFFD);
+    unregister_code (KC_F9);
   }
   if(state->count == 3){
     unregister_code(KC_MRWD);
