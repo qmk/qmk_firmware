@@ -10,10 +10,11 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 #define _QWERTY 0
 #define _WINDOWS 1
-#define _GAME 2
+#define _MOUSE 2
 #define _LOWER 4
 #define _RAISE 3
 #define _ADJUST 16
+
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -22,13 +23,14 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  MOUSE,
 };
 
 enum {
   CT_media
 };
 void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {
+  if (state->count == 2){
     register_code (KC_MFFD);
   }
   if(state->count == 3){
@@ -39,7 +41,7 @@ void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {
+  if (state->count == 2){
     unregister_code (KC_MFFD);
   }
   if(state->count == 3){
@@ -48,9 +50,6 @@ void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
   else {
     unregister_code (KC_MPLY);
   }
-}
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_media] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
 };
 
 // Fillers to make layering more clear
@@ -95,22 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC ,KC_CAPS, KC_LGUI, KC_LALT,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
-/* GAME
-* ,-----------------------------------------------------------------------------------.
-* | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Delete |
-* |------+------+------+------+------+-------------+------+------+------+------+------|
-* | crtl  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '   |
-* |------+------+------+------+------+------|------+------+------+------+------+------|
-* | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
-* |------+------+------+------+------+------+------+------+------+------+------+------|
-* | Esc| caps|GUI|alt|Lower |Space |backspace |Raise | Left | Down |  Up  |Right |
-* `-----------------------------------------------------------------------------------'
- */
-[_GAME] = KEYMAP( \
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-  KC_LCTL,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
-  KC_ESC,  KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+[_MOUSE] =  KEYMAP( \
+  _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, KC_DEL, \
+  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
 /* raise
@@ -153,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|window| game |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|window|mouse |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -162,10 +150,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  KEYMAP( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WINDOWS, GAME,  _______, _______, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WINDOWS, MOUSE,  _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
-)
+),
 
 
 };
@@ -207,12 +195,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case GAME:
+    case MOUSE:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-        persistent_default_layer_set(1UL<<_GAME);
+        persistent_default_layer_set(1UL<<_MOUSE);
       }
       return false;
       break;
