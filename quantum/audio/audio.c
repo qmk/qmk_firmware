@@ -63,6 +63,10 @@
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
     #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C |= _BV(COM1C1);
     #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C &= ~(_BV(COM1C1) | _BV(COM1C0));
+
+    #define DISABLE_AUDIO_COUNTER_0_ISR TIMSK0 &= ~_BV(OCIE0A)
+    #define DISABLE_AUDIO_COUNTER_0_OUTPUT TCCR0A = 0;
+
 #endif
 
 // Fast PWM Mode Controls
@@ -148,6 +152,7 @@ float audio_off_song[][2] = AUDIO_OFF_SONG;
 
 void audio_init()
 {
+    eeconfig_init();
 
     // Check EEPROM
     if (!eeconfig_is_enabled())
@@ -159,7 +164,6 @@ void audio_init()
     audio_config.enable = true;
 
     if (!audio_initialized) {
-
         // Set port PC6 (OC3A and /OC4A) or PC4 (OC3C and /OC4C) as output
 
         #ifdef C6_AUDIO
@@ -175,6 +179,8 @@ void audio_init()
         #endif
 
         #ifdef B7_AUDIO
+            DISABLE_AUDIO_COUNTER_0_ISR;
+            DISABLE_AUDIO_COUNTER_0_OUTPUT;
             DDRB |= _BV(PORTB7);
         #endif
 
