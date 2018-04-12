@@ -17,6 +17,7 @@ PgDn -> End
 ijkl -> navigation keys
 u -> home
 o -> end
+; -> delete
 
 < -> vol down
 > -> vol up
@@ -26,8 +27,11 @@ c -> backlight decreasen
 v -> backlight increase
 b -> backlight toggle
 
-space -> Ctrl + Space
-R -> F5 (refresh)
-T -> Ctrl + F11
-; -> delete
+TODO a -> ctrl+z		(undo)
+TODO s -> ctrl+s		(save)
 
+space -> Ctrl + Space	(code complete)
+R -> F5 				(refresh)
+T -> Ctrl + F11 		(run test)
+
+TODO Long press T = MAcro for ALT+SHFT+X , T

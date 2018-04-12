@@ -1,4 +1,5 @@
 #include "tada68.h"
+#include <print.h>
 
 #define _BL 0
 #define _FL 1
@@ -15,10 +16,34 @@ enum {
   TD_F5 = 0
 };
 
+void dance_end(qk_tap_dance_state_t *state, void *user_data) {
+	//sprintf("%d count", state->count)
+	#ifdef CONSOLE_ENABLE
+	xprintf("foo Fu\n", state->count);
+	#endif //CONSOLE_ENABLE
+  if (state->count == 1) {
+	  if(state->pressed) {
+		  // key is held
+		  register_code (KC_RSFT);
+		  register_code (KC_F);
+	  }
+	  else {
+		register_code (KC_F);
+	}
+  }
+}
+
+void dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_F);
+    unregister_code (KC_RSFT);
+  }
+}
+
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_F5]  = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_F5)
-// Other declarations would go here, separated by commas, if you have them
+  //[TD_F5]  = ACTION_TAP_DANCE_DOUBLE(KC_5, KC_F5),
+  [TD_F5] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_end, dance_reset)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
