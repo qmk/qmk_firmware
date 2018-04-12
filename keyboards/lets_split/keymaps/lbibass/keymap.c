@@ -25,11 +25,32 @@ enum custom_keycodes {
 };
 
 enum {
-  TD_MEDIA = 0
+  CT_CLN
 };
-
+void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    register_code (KC_MFFD);
+  }
+  if(state->count == 3){
+    register_code(KC_MRWD);
+  }
+  else {
+    register_code (KC_MPLY);
+  }
+}
+void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    unregister_code (KC_MFFD);
+  }
+  if(state->count == 3){
+    unregister_code(KC_MRWD);
+  }
+  else {
+    unregister_code (KC_MPLY);
+  }
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_F7)
+  [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
 };
 
 // Fillers to make layering more clear
@@ -107,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   KC_LGUI,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),_______, _______, _______, \
-  KC_ESC, KC_CAPS, KC_LALT, KC_LCTL, LOWER, KC_SPC, KC_SPC, _______, TD(TD_MEDIA), KC_VOLD, KC_VOLU, KC_MFFD \
+  KC_ESC, KC_CAPS, KC_LALT, KC_LCTL, LOWER, KC_SPC, KC_SPC, _______, TD(CT_CLN), KC_VOLD, KC_VOLU, KC_MFFD \
 ),
 
 /* Lower
@@ -125,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   KC_LGUI,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, TD(TD_MEDIA), KC_VOLD, KC_VOLU, KC_MFFD \
+  _______, _______, _______, _______, _______, _______, _______, _______, TD(CT_CLN), KC_VOLD, KC_VOLU, KC_MFFD \
 ),
 
 /* Adjust (Lower + Raise)
