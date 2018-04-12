@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "timer.h"
 
-#if defined(USE_I2C) || defined(EH)
+#ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
 #  include "serial.h"
@@ -194,7 +194,7 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#if defined(USE_I2C) || defined(EH)
+#ifdef USE_I2C
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
@@ -247,7 +247,7 @@ uint8_t matrix_scan(void)
 {
     uint8_t ret = _matrix_scan();
 
-#if defined(USE_I2C) || defined(EH)
+#ifdef USE_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
     if( serial_transaction() ) {
@@ -278,7 +278,7 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#if defined(USE_I2C) || defined(EH)
+#ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         i2c_slave_buffer[i] = matrix[offset+i];
     }
