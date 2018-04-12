@@ -1,16 +1,10 @@
-#ifndef LETS_SPLIT_H
-#define LETS_SPLIT_H
+#ifndef LETS_SPLIT_EH_H
+#define LETS_SPLIT_EH_H
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_lets_split_rev1
-    #include "rev1.h"
-#elif KEYBOARD_lets_split_rev2
-    #include "rev2.h"
-#elif KEYBOARD_lets_split_eh
+#ifdef KEYBOARD_lets_split_eh_eh
     #include "eh.h"
-#elif KEYBOARD_lets_split_sockets
-    #include "sockets.h"
 #endif
 
 

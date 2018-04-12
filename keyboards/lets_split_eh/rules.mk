@@ -1,3 +1,7 @@
+SRC += matrix.c \
+	   i2c.c \
+	   split_util.c
+
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -38,18 +42,8 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
-ifeq ($(strip $(KEYBOARD)), planck/rev3)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev4)
-    BOOTLOADER = atmel-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/rev5)
-    BOOTLOADER = qmk-dfu
-endif
-ifeq ($(strip $(KEYBOARD)), planck/light)
-    BOOTLOADER = qmk-dfu
-endif
+BOOTLOADER = atmel-dfu
+
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -75,7 +69,4 @@ API_SYSEX_ENABLE = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
-LAYOUTS_HAS_RGB = no
-
-DEFAULT_FOLDER = planck/rev5
+CUSTOM_MATRIX = yes

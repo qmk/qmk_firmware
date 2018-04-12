@@ -1,4 +1,4 @@
-#include "lets_split.h"
+#include "lets_split_eh.h"
 
 void matrix_init_kb(void) {
 
