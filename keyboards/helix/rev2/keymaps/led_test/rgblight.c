@@ -24,15 +24,15 @@
 #include "led_tables.h"
 
 __attribute__ ((weak))
-const uint16_t RGBLED_BREATHING_INTERVALS[RGBLED_BREATHING_INTERVAL_COUNT][4] PROGMEM = {{1024, 20, 10, 5}}; //modify for led_test
+const uint16_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {1024, 20, 10, 5}; //modify for led_test
 __attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[RGBLED_RAINBOW_MOOD_INTERVAL_COUNT][3] PROGMEM = {{120, 60, 30}};
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
 __attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[RGBLED_RAINBOW_SWIRL_INTERVAL_COUNT][3] PROGMEM = {{100, 50, 20}};
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
-const uint8_t RGBLED_SNAKE_INTERVALS[RGBLED_SNAKE_INTERVAL_COUNT][3] PROGMEM = {{100, 50, 20}};
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 __attribute__ ((weak))
-const uint8_t RGBLED_KNIGHT_INTERVALS[RGBLED_KNIGHT_INTERVAL_COUNT][3] PROGMEM = {{127, 63, 31}};
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
@@ -42,12 +42,6 @@ rgblight_config_t inmem_config;
 LED_TYPE led[RGBLED_NUM];
 uint8_t rgblight_inited = 0;
 bool rgblight_timer_enabled = false;
-
-void rgblight_slower(void) {
-}
-
-void rgblight_faster(void) { 
-}
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
@@ -523,7 +517,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_BREATHING_INTERVALS[0][interval])) {//modify for led_test
+  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_BREATHING_INTERVALS[interval])) {//modify for led_test
     return;
   }
   last_timer = timer_read();
@@ -539,7 +533,7 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[0][interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval])) {
     return;
   }
   last_timer = timer_read();
@@ -551,7 +545,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[0][interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
     return;
   }
   last_timer = timer_read();
@@ -580,7 +574,7 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[0][interval / 2])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2])) {
     return;
   }
   last_timer = timer_read();
@@ -611,7 +605,7 @@ void rgblight_effect_snake(uint8_t interval) {
 }
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[0]interval])) {
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
   }
   last_timer = timer_read();
