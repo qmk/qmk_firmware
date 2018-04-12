@@ -20,6 +20,6 @@
 #include "config_common.h"
 
 // place overrides here
-#define AUDIO_VOICES
+//#define AUDIO_VOICES
 
 #endif
