@@ -3,6 +3,14 @@
 
 #include "quantum.h"
 
+enum userspace_custom_keycodes {
+  KC_MAKE = SAFE_RANGE, // can always be here
+  DFAULTS,
+  TOGGLE_BACKLIGHT,
+  EFFECT,
+  EFFECT_END = EFFECT + 10
+};
+
 enum layers {
     _BASE = 0,
     _WORKMAN,
@@ -13,7 +21,7 @@ enum layers {
     _NAV,
     _NUM,
     _ADJUST,
-    _RESET,
+    _RESET = RESET_LAYER,
 };
 
 #define _______ KC_TRNS
@@ -38,6 +46,7 @@ enum layers {
 #define TG_NKRO   MAGIC_TOGGLE_NKRO
 #define KC_PTT    KC_F24
 #define MS_MID    KC_MS_BTN3
+#define FX(x)     (EFFECT + x)
 
 #define US_CAPS   CTL_T(KC_ESC)
 #define US_QUOT   MT(MOD_RCTL, KC_QUOT)
@@ -64,8 +73,23 @@ enum layers {
   #error "Unsupported space count:" SPACE_COUNT
 #endif
 
-enum userspace_custom_keycodes {
-  KC_MAKE = SAFE_RANGE, // can always be here
-};
+#ifndef ZEAL_RGB
+  #define BR_INC KC_NO
+  #define BR_DEC KC_NO
+  #define EF_INC KC_NO
+  #define EF_DEC KC_NO
+  #define ES_INC KC_NO
+  #define ES_DEC KC_NO
+  #define H1_INC KC_NO
+  #define H1_DEC KC_NO
+  #define S1_INC KC_NO
+  #define S1_DEC KC_NO
+  #define H2_INC KC_NO
+  #define H2_DEC KC_NO
+  #define S2_INC KC_NO
+  #define S2_DEC KC_NO
+  #define FN_MO13 KC_NO
+  #define FN_MO2 KC_NO
+#endif
 
 #endif
