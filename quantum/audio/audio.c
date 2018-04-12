@@ -26,6 +26,7 @@
 #include "audio.h"
 #include "keymap.h"
 #include "wait.h"
+#include "pincontrol.h"
 
 #include "eeconfig.h"
 
@@ -34,30 +35,34 @@
 // -----------------------------------------------------------------------------
 // Timer Abstractions
 // -----------------------------------------------------------------------------
-
-// TIMSK3 - Timer/Counter #3 Interrupt Mask Register
-// Turn on/off 3A interputs, stopping/enabling the ISR calls
-#ifdef C6_AUDIO
+#if defined(C6_AUDIO)
+    #define CPIN_AUDIO
     #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3A)
     #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3A)
-#endif
-
-#ifdef B5_AUDIO
-    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
-    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
-#endif
-
-// TCCR3A: Timer/Counter #3 Control Register
-// Compare Output Mode (COM3An) = 0b00 = Normal port operation, OC3A disconnected from PC6
-
-#ifdef C6_AUDIO
     #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3A1);
     #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3A1) | _BV(COM3A0));
 #endif
+#if defined(C4_AUDIO)
+    #define CPIN_AUDIO
+    #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3C)
+    #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3C)
+    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3C |= _BV(COM3C1);
+    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3C &= ~(_BV(COM3C1) | _BV(COM3C0));
+#endif
 
-#ifdef B5_AUDIO
+#if defined(B5_AUDIO)
+    #define BPIN_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
+    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
     #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1A1);
     #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1A1) | _BV(COM1A0));
+#endif
+#if defined(B7_AUDIO)
+    #define BPIN_AUDIO
+    #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
+    #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
+    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C |= _BV(COM1C1);
+    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C &= ~(_BV(COM1C1) | _BV(COM1C0));
 #endif
 
 // Fast PWM Mode Controls
@@ -66,13 +71,19 @@
     #define TIMER_3_PERIOD     ICR3
     #define TIMER_3_DUTY_CYCLE OCR3A
 #endif
+#ifdef C4_AUDIO
+    #define TIMER_3_PERIOD     ICR3
+    #define TIMER_3_DUTY_CYCLE OCR3C
+#endif
 
 #ifdef B5_AUDIO
     #define TIMER_1_PERIOD     ICR1
     #define TIMER_1_DUTY_CYCLE OCR1A
 #endif
-
-
+#ifdef B7_AUDIO
+    #define TIMER_1_PERIOD     ICR1
+    #define TIMER_1_DUTY_CYCLE OCR1C
+#endif
 // -----------------------------------------------------------------------------
 
 
@@ -145,29 +156,33 @@ void audio_init()
     }
     audio_config.raw = eeconfig_read_audio();
 
+    audio_config.enable = true;
+
     if (!audio_initialized) {
 
-        // Set port PC6 (OC3A and /OC4A) as output
+        // Set port PC6 (OC3A and /OC4A) or PC4 (OC3C and /OC4C) as output
 
         #ifdef C6_AUDIO
             DDRC |= _BV(PORTC6);
-        //#else
-        //    DDRC |= _BV(PORTC6); // Why is PC6 being set as output low, if C6_audio isn't defined?
-        //    PORTC &= ~_BV(PORTC6); 
+        #endif
+
+        #ifdef C4_AUDIO
+            DDRC |= _BV(PORTC4);
         #endif
 
         #ifdef B5_AUDIO
             DDRB |= _BV(PORTB5);
-        //#else
-        //    DDRB |= _BV(PORTB5); // Same as with PC6
-        //    PORTB &= ~_BV(PORTB5);
         #endif
 
-        #ifdef C6_AUDIO
+        #ifdef B7_AUDIO
+            DDRB |= _BV(PORTB7);
+        #endif
+
+        #ifdef CPIN_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
         
-        #ifdef B5_AUDIO
+        #ifdef BPIN_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -179,10 +194,29 @@ void audio_init()
         #ifdef C6_AUDIO
             TCCR3A = (0 << COM3A1) | (0 << COM3A0) | (1 << WGM31) | (0 << WGM30);
             TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
+
+            //TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            //TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
+        #endif
+
+        #ifdef C4_AUDIO
+            TCCR3C = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
+            TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
+
+            //TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            //TIMER_3_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
         #endif
 
         #ifdef B5_AUDIO
             TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
+            TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
+
+            TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
+            TIMER_1_DUTY_CYCLE = (uint16_t)((((float)F_CPU) / (440 * CPU_PRESCALER)) * note_timbre);
+        #endif
+
+        #ifdef B7_AUDIO
+            TCCR1C = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
 
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
@@ -207,13 +241,12 @@ void stop_all_notes()
     }
     voices = 0;
 
-
-    #ifdef C6_AUDIO
+    #ifdef CPIN_AUDIO
         DISABLE_AUDIO_COUNTER_3_ISR;
         DISABLE_AUDIO_COUNTER_3_OUTPUT;
     #endif
 
-    #ifdef B5_AUDIO
+    #ifdef BPIN_AUDIO
         DISABLE_AUDIO_COUNTER_1_ISR;
         DISABLE_AUDIO_COUNTER_1_OUTPUT;
     #endif
@@ -259,11 +292,11 @@ void stop_note(float freq)
             voice_place = 0;
         }
         if (voices == 0) {
-            #ifdef C6_AUDIO
+            #ifdef CPIN_AUDIO
                 DISABLE_AUDIO_COUNTER_3_ISR;
                 DISABLE_AUDIO_COUNTER_3_OUTPUT;
             #endif
-            #ifdef B5_AUDIO
+            #ifdef BPIN_AUDIO
                 DISABLE_AUDIO_COUNTER_1_ISR;
                 DISABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
@@ -295,15 +328,20 @@ float vibrato(float average_freq) {
 
 #endif
 
+#ifdef CPIN_AUDIO
 #ifdef C6_AUDIO
 ISR(TIMER3_COMPA_vect)
+#endif
+#ifdef C4_AUDIO
+ISR(TIMER3_COMPC_vect)
+#endif
 {
     float freq;
 
     if (playing_note) {
         if (voices > 0) {
 
-            #ifdef B5_AUDIO
+            #ifdef BPIN_AUDIO
             float freq_alt = 0;
                 if (voices > 1) {
                     if (polyphony_rate == 0) {
@@ -477,10 +515,15 @@ ISR(TIMER3_COMPA_vect)
 }
 #endif
 
+#ifdef BPIN_AUDIO
 #ifdef B5_AUDIO
 ISR(TIMER1_COMPA_vect)
+#endif
+#ifdef B7_AUDIO
+ISR(TIMER1_COMPC_vect)
+#endif
 {
-    #if defined(B5_AUDIO) && !defined(C6_AUDIO)
+    #if defined(BPIN_AUDIO) && !defined(CPIN_AUDIO)
     float freq = 0;
 
     if (playing_note) {
@@ -627,10 +670,10 @@ void play_note(float freq, int vol) {
     }
 
     if (audio_config.enable && voices < 8) {
-        #ifdef C6_AUDIO
+        #ifdef CPIN_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #ifdef B5_AUDIO
+        #ifdef BPIN_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -648,12 +691,12 @@ void play_note(float freq, int vol) {
             voices++;
         }
 
-        #ifdef C6_AUDIO
+        #ifdef CPIN_AUDIO
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #ifdef B5_AUDIO
-            #ifdef C6_AUDIO
+        #ifdef BPIN_AUDIO
+            #ifdef CPIN_AUDIO
             if (voices > 1) {
                 ENABLE_AUDIO_COUNTER_1_ISR;
                 ENABLE_AUDIO_COUNTER_1_OUTPUT;
@@ -676,10 +719,10 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
 
     if (audio_config.enable) {
 
-        #ifdef C6_AUDIO
+        #ifdef CPIN_AUDIO
             DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
-        #ifdef B5_AUDIO
+        #ifdef BPIN_AUDIO
             DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
@@ -701,12 +744,12 @@ void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
         note_position = 0;
 
 
-        #ifdef C6_AUDIO
+        #ifdef CPIN_AUDIO
             ENABLE_AUDIO_COUNTER_3_ISR;
             ENABLE_AUDIO_COUNTER_3_OUTPUT;
         #endif
-        #ifdef B5_AUDIO
-            #ifndef C6_AUDIO
+        #ifdef BPIN_AUDIO
+            #ifndef CPIN_AUDIO
             ENABLE_AUDIO_COUNTER_1_ISR;
             ENABLE_AUDIO_COUNTER_1_OUTPUT;
             #endif
