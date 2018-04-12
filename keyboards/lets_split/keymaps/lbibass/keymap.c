@@ -52,7 +52,9 @@ void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
 };
-
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_media] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
+};
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
