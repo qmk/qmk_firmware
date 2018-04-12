@@ -4,25 +4,29 @@
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define _DL 0 // DEFAULT
-#define _UTIL 1 // Utility layer
-#define _MOUSE 2 // Mouse layer
+#define _DL 0     // DEFAULT
+#define _UTIL 1   // Utility layer
+#define _MOUSE 2  // Mouse layer
 #define _LIGHTS 3 // Lights layer
 #define _TEST 21  // Test layer
 
-enum custom_keycodes {
-    MY_CUSTOM_MACRO = SAFE_RANGE
+enum custom_keycodes
+{
+  MY_CUSTOM_MACRO = SAFE_RANGE
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-            case MY_CUSTOM_MACRO:
-                SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-                return false;
-        }
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  if (record->event.pressed)
+  {
+    switch (keycode)
+    {
+    case MY_CUSTOM_MACRO:
+      SEND_STRING("QMK is the best thing ever!"); // this is our macro!
+      return false;
     }
-    return true;
+  }
+  return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -35,24 +39,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |-----------------------------------------------------------------------------------------+
     * | Caps    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
     * |-----------------------------------------------------------------------------------------+
-    * | SpcD Left|  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .|  SpcD Rht |  Up  | SpcD Rht  |
+    * | Left Shft|  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .| Rht Shft| Up | Rht Shft  |
     * |-----------------------------------------------------------------------------------------+
-    * | Ctrl  |  GUI |  Alt |   Space   |  FN2 |  Space   | Alt | FN2 | Left |  Down  |  Right  |
+    * | Ctrl  |  Alt |  GUI |   Space   |  FN2 |  Space   | FN2 | FN3 | Left |  Down  |  Right  |
     * `-----------------------------------------------------------------------------------------'
     */
 
     [_DL] = KEYMAP_2_SHIFTS(
-        KC_ESC,   KC_1,     KC_2,     KC_3,   KC_4,   KC_5,     KC_6,       KC_7,     KC_8,     KC_9,     KC_0,       KC_MINS,  KC_EQL,   KC_GRV,   KC_BSPC, \
-        KC_TAB,   KC_Q,     KC_W,     KC_E,   KC_R,   KC_T,     KC_Y,       KC_U,     KC_I,     KC_O,     KC_P,       KC_LBRC,  KC_RBRC,  KC_BSLS,\
-        MO(_UTIL),  KC_A,     KC_S,     KC_D,   KC_F,   KC_G,   KC_H,       KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_QUOT,  KC_ENT,\
-        KC_LSPO,  _______,  KC_Z,     KC_X,   KC_C,   KC_V,     KC_B,       KC_N,     KC_M,     KC_COMM,  KC_DOT,     KC_SLSH,  KC_RSPC,  MT(MOD_RSFT,KC_UP),     KC_RSPC,\
-        KC_LCTL,  KC_LALT,  KC_LGUI,          KC_SPC,           MO(_LIGHTS),          KC_SPC,   MO(_MOUSE),  MO(_LIGHTS),    KC_LEFT,  KC_DOWN,             KC_RGHT),
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_GRV, KC_BSPC,
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
+        MO(_UTIL), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+        KC_LSHIFT, _______, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSHIFT, MT(MOD_RSFT, KC_UP), KC_RSHIFT,
+        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_SPC, KC_SPC, MO(_MOUSE), MO(_LIGHTS), KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Utility Layer
     * ,-----------------------------------------------------------------------------------------.
     * | ` | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  |  F10  |     |     |  | DELETE |
     * |-----------------------------------------------------------------------------------------+
-    * | CAPSLOCK  | REWIND | PLAY/PAUSE |  FORWARD  |    |    |    |    |  UP  |    |    |    |    |    |
+    * | CAPSLOCK  | REWIND | PLAY/PAUSE |  FORWARD  | |    |    |    |  UP  |  |    |  |   |    |
     * |-----------------------------------------------------------------------------------------+
     * |    |    |  VOL DWN  |  VOL UP  |  MUTE  |    |     | LFT | DWN | RHT |    |    |        |
     * |-----------------------------------------------------------------------------------------+
@@ -63,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_UTIL] = KEYMAP_2_SHIFTS(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______,  KC_DEL,
-        KC_LCAP, KC_MRWD, KC_MPLY, KC_MFFD, _______, _______, _______, _______, KC_UP,   _______, _______, _______, KC_PWR, RESET,
+        KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, KC_DEL,
+        KC_LCAP, KC_MRWD, KC_MPLY, KC_MFFD, _______, _______, _______, _______, KC_UP, _______, _______, _______, KC_PWR, RESET,
         _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
@@ -84,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_MOUSE] = KEYMAP_2_SHIFTS(
-        KC_ACL0,  KC_ACL1,   KC_ACL2,   _______,   _______,  _______,    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,
-        _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
+        KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
@@ -105,8 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_LIGHTS] = KEYMAP_2_SHIFTS(
-        _______,  _______,   _______,   _______,   _______,  _______,    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,  _______,
-        _______, RGB_TOG  , RGB_MODE_FORWARD, RGB_MODE_REVERSE, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, RGB_TOG, RGB_MODE_FORWARD, RGB_MODE_REVERSE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, RGB_VAI, RGB_VAD, _______, _______, BL_TOGG, BL_INC, BL_DEC, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
