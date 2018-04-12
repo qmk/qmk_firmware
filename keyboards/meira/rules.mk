@@ -67,13 +67,13 @@ ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be di
 
 CUSTOM_MATRIX = yes
 
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
+#ifeq ($(strip $(ISSI_ENABLE)), yes)
+#    TMK_COMMON_DEFS += -DISSI_ENABLE
+#endif
+#
+#ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
+#    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
+#endif
 
 DEFAULT_FOLDER = meira/promicro
 LAYOUTS = ortho_4x12
