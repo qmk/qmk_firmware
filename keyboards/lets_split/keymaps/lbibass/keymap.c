@@ -25,7 +25,11 @@ enum custom_keycodes {
 };
 
 enum {
+<<<<<<< HEAD
   TD_MEDIA = 0
+=======
+  TD_MEDIA = 5
+>>>>>>> ddfb3106d59c3fd077094458ac534c0fcc496333
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
