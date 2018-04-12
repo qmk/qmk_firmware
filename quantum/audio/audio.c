@@ -46,8 +46,8 @@
     #define CPIN_AUDIO
     #define ENABLE_AUDIO_COUNTER_3_ISR TIMSK3 |= _BV(OCIE3C)
     #define DISABLE_AUDIO_COUNTER_3_ISR TIMSK3 &= ~_BV(OCIE3C)
-    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3C |= _BV(COM3C1);
-    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3C &= ~(_BV(COM3C1) | _BV(COM3C0));
+    #define ENABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A |= _BV(COM3C1);
+    #define DISABLE_AUDIO_COUNTER_3_OUTPUT TCCR3A &= ~(_BV(COM3C1) | _BV(COM3C0));
 #endif
 
 #if defined(B5_AUDIO)
@@ -61,12 +61,8 @@
     #define BPIN_AUDIO
     #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
-    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C |= _BV(COM1C1);
-    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1C &= ~(_BV(COM1C1) | _BV(COM1C0));
-
-    #define DISABLE_AUDIO_COUNTER_0_ISR TIMSK0 &= ~_BV(OCIE0A)
-    #define DISABLE_AUDIO_COUNTER_0_OUTPUT TCCR0A = 0;
-
+    #define ENABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A |= _BV(COM1C1);
+    #define DISABLE_AUDIO_COUNTER_1_OUTPUT TCCR1A &= ~(_BV(COM1C1) | _BV(COM1C0));
 #endif
 
 // Fast PWM Mode Controls
@@ -179,8 +175,6 @@ void audio_init()
         #endif
 
         #ifdef B7_AUDIO
-            DISABLE_AUDIO_COUNTER_0_ISR;
-            DISABLE_AUDIO_COUNTER_0_OUTPUT;
             DDRB |= _BV(PORTB7);
         #endif
 
@@ -206,7 +200,7 @@ void audio_init()
         #endif
 
         #ifdef C4_AUDIO
-            TCCR3C = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
+            TCCR3A = (0 << COM3C1) | (0 << COM3C0) | (1 << WGM31) | (0 << WGM30);
             TCCR3B = (1 << WGM33)  | (1 << WGM32)  | (0 << CS32)  | (1 << CS31) | (0 << CS30);
 
             TIMER_3_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
@@ -222,7 +216,7 @@ void audio_init()
         #endif
 
         #ifdef B7_AUDIO
-            TCCR1C = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
+            TCCR1A = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
             TCCR1B = (1 << WGM13)  | (1 << WGM12)  | (0 << CS12)  | (1 << CS11) | (0 << CS10);
 
             TIMER_1_PERIOD = (uint16_t)(((float)F_CPU) / (440 * CPU_PRESCALER));
