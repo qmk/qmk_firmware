@@ -27,8 +27,6 @@ enum layers {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define AD_GRV  LT(_ADJUST, KC_GRV)
-
 #define MO_NAV    MO(_NAV)
 #define MO_ADJ    MO(_ADJUST)
 #define MO_RST    MO(_RESET)
