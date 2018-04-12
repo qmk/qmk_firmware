@@ -26,7 +26,6 @@
 #include "audio.h"
 #include "keymap.h"
 #include "wait.h"
-#include "pincontrol.h"
 
 #include "eeconfig.h"
 
@@ -175,7 +174,6 @@ float audio_off_song[][2] = AUDIO_OFF_SONG;
 
 void audio_init()
 {
-    eeconfig_init();
 
     // Check EEPROM
     if (!eeconfig_is_enabled())
@@ -183,8 +181,6 @@ void audio_init()
         eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
-
-    audio_config.enable = true;
 
     if (!audio_initialized) {
 
