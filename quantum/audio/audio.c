@@ -76,7 +76,7 @@
 
 #if defined(B5_AUDIO)
     #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRC |= _BV(PORTB5);
+    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB5);
     #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (1 << WGM11) | (0 << WGM10);
     #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1A)
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1A)
@@ -88,7 +88,7 @@
 #endif
 #if defined(B6_AUDIO)
     #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRC |= _BV(PORTB6);
+    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB6);
     #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1B1) | (0 << COM1B0) | (1 << WGM11) | (0 << WGM10);
     #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1B)
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1B)
@@ -100,7 +100,7 @@
 #endif
 #if defined(B7_AUDIO)
     #define BPIN_AUDIO
-    #define BPIN_SET_DIRECTION DDRC |= _BV(PORTB7);
+    #define BPIN_SET_DIRECTION DDRB |= _BV(PORTB7);
     #define INIT_AUDIO_COUNTER_1 TCCR1A = (0 << COM1C1) | (0 << COM1C0) | (1 << WGM11) | (0 << WGM10);
     #define ENABLE_AUDIO_COUNTER_1_ISR TIMSK1 |= _BV(OCIE1C)
     #define DISABLE_AUDIO_COUNTER_1_ISR TIMSK1 &= ~_BV(OCIE1C)
@@ -187,16 +187,11 @@ void audio_init()
         // Set audio ports as output
         #ifdef CPIN_AUDIO
           CPIN_SET_DIRECTION
+          DISABLE_AUDIO_COUNTER_3_ISR;
         #endif
         #ifdef BPIN_AUDIO
           BPIN_SET_DIRECTION
-        #endif
-
-        #ifdef CPIN_AUDIO
-            DISABLE_AUDIO_COUNTER_3_ISR;
-        #endif
-        #ifdef BPIN_AUDIO
-            DISABLE_AUDIO_COUNTER_1_ISR;
+          DISABLE_AUDIO_COUNTER_1_ISR;
         #endif
 
         // TCCR3A / TCCR3B: Timer/Counter #3 Control Registers TCCR3A/TCCR3B, TCCR1A/TCCR1B
