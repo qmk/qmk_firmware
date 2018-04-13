@@ -30,12 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
+#define RGBLED_NUM 20
 /* Select hand configuration */
 
-#define MASTER_LEFT
+//#define MASTER_LEFT
 // #define MASTER_RIGHT
-//#define EE_HANDS
+#define EE_HANDS
 #define TAPPING_TERM 200
 #define MOUSEKEY_DELAY             0
 #define MOUSEKEY_INTERVAL          1

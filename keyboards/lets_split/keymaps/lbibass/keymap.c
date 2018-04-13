@@ -27,7 +27,8 @@ enum custom_keycodes {
 };
 
 enum {
-  CT_media
+  CT_media,
+  TD_SHIFT_CAPS
 };
 void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 2){
@@ -52,7 +53,9 @@ void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 };
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_media] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
+  [CT_media] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset),
+  [TD_SHIFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+
 };
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -74,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = KEYMAP( \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_LGUI,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-  KC_ESC ,KC_CAPS, KC_LALT, KC_LCTL,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+  TD(TD_SHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
+  KC_ESC ,RGB_TOG, KC_LALT, KC_LCTL,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 /* Windows
@@ -92,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_WINDOWS] = KEYMAP( \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-  KC_ESC ,KC_CAPS, KC_LGUI, KC_LALT,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+  TD(TD_SHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
+  KC_ESC ,RGB_TOG, KC_LGUI, KC_LALT,  LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 [_MOUSE] =  KEYMAP( \
@@ -118,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   KC_LGUI,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),_______, _______, _______, \
-  KC_ESC, KC_CAPS, KC_LALT, KC_LCTL, LOWER, KC_SPC, KC_SPC, _______, TD(CT_media), KC_VOLD, KC_VOLU, KC_MFFD \
+  KC_ESC, RGB_TOG, KC_LALT, KC_LCTL, LOWER, KC_SPC, KC_SPC, _______, TD(CT_media), KC_VOLD, KC_VOLU, KC_MFFD \
 ),
 
 /* Lower
@@ -153,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] =  KEYMAP( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WINDOWS, MOUSE,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
 
