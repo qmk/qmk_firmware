@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 // #define USE_I2C
+#define AUTO_SHIFT_TIMEOUT 100
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
