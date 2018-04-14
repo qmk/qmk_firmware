@@ -195,6 +195,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
+		#ifdef BACKLIGHT_ENABLE
+          backlight_set(3);
+        #endif
       }
       return false;
       break;

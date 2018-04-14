@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_NLCK, KC_MINS, KC_KP_7, KC_KP_8, KC_KP_9, KC_SLSH, KC_AT,   KC_LBRC, KC_RBRC, KC_AMPR, KC_TILD, KC_PERC},
   {KC_GRV,  KC_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_ASTR, KC_BSLS, KC_LPRN, KC_RPRN, KC_EXLM, KC_CIRC, _______},
   {_______, KC_KP_0, KC_KP_1, KC_KP_2, KC_KP_3, KC_EQL,  KC_DLR,  KC_LCBR, KC_RCBR, KC_PIPE, KC_HASH, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, _______, _______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* Raise, tab hold
@@ -181,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = {
   {_______, MUTESONG,   VOLTLD,     VOLTCO,     IMPERIAL,   ODE,     XXXXXXX, LGUI(KC_LEFT), KC_UP,            LGUI(KC_RGHT), KC_PGUP,          KC_VOLU},
   {_______, LGUI(KC_A), LGUI(KC_X), LGUI(KC_C), LGUI(KC_V), XXXXXXX, XXXXXXX, KC_LEFT,       KC_DOWN,          KC_RGHT,       KC_PGDN,          KC_VOLD},
-  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LGUI(KC_Z),    LGUI(LSFT(KC_Z)), XXXXXXX,       LGUI(LSFT(KC_3)), KC_MUTE},
-  {_______, _______,    _______,    _______,    _______,    _______, _______, _______,       _______,          _______,       _______,          _______}
+  {_______, COIN,       SONIC,      ONEUP,      ZELDAP,     ZELDAT,  XXXXXXX, LGUI(KC_Z),    LGUI(LSFT(KC_Z)), LGUI(KC_F),    LGUI(LSFT(KC_3)), KC_MUTE},
+  {_______, _______,    XXXXXXX,    _______,    _______,    _______, _______, _______,       _______,          _______,       _______,          _______}
 },
 
 /* Adjust (Lower + Raise)
@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_SLEP, RESET,   QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_VOLU},
   {_______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_VOLD},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_MUTE},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
 };
