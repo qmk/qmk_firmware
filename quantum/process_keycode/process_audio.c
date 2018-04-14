@@ -35,7 +35,15 @@ bool clicky_enable = false;
 float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
 float clicky_song[][2]  = {{AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
 
+#ifndef NO_MUSIC_MODE
+extern bool music_activated;
+extern bool midi_activated;
+#endif
+
 void clicky_play(void) {
+#ifndef NO_MUSIC_MODE
+  if (music_activated || midi_activated) return;
+#endif
   clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   clicky_song[1][0] = clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   PLAY_SONG(clicky_song);
