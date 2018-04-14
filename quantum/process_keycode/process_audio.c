@@ -16,17 +16,28 @@ bool clicky_enable = true;
 #else
 bool clicky_enable = false;
 #endif
-const float clicky_freq_default = 440.0f; // standard A tuning
-const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
-const float clicky_freq_max = 1500.0f; // arbitrary
-const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
-const float clicky_freq_randomness = 0.05f; // arbitrary
-float clicky_freq = 440.0f;
-float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
+#ifndef AUDIO_CLICKY_FREQ_DEFAULT
+#define AUDIO_CLICKY_FREQ_DEFAULT 440.0f
+#endif
+#ifndef AUDIO_CLICKY_FREQ_MIN
+#define AUDIO_CLICKY_FREQ_MIN 65.0f
+#endif
+#ifndef AUDIO_CLICKY_FREQ_MAX
+#define AUDIO_CLICKY_FREQ_MAX 1500.0f
+#endif
+#ifndef AUDIO_CLICKY_FREQ_FACTOR
+#define AUDIO_CLICKY_FREQ_FACTOR 1.18921f
+#endif
+#ifndef AUDIO_CLICKY_FREQ_RANDOMNESS
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 0.05f
+#endif
+
+float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
+float clicky_song[][2]  = {{AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
 
 void clicky_play(void) {
-  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
-  clicky_song[1][0] = clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[1][0] = clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   PLAY_SONG(clicky_song);
 }
 #endif
@@ -73,17 +84,17 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
 #ifdef AUDIO_CLICKY
     if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_enable = !clicky_enable; }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = clicky_freq_default; }
+    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT; }
 
     if (keycode == CLICKY_UP && record->event.pressed) {
-      float new_freq = clicky_freq * clicky_freq_factor;
-      if (new_freq < clicky_freq_max) {
+      float new_freq = clicky_freq * AUDIO_CLICKY_FREQ_FACTOR;
+      if (new_freq < AUDIO_CLICKY_FREQ_MAX) {
         clicky_freq = new_freq;
       }
     }
     if (keycode == CLICKY_TOGGLE && record->event.pressed) {
-      float new_freq = clicky_freq / clicky_freq_factor;
-      if (new_freq > clicky_freq_min) {
+      float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
+      if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
         clicky_freq = new_freq;
       }
       }

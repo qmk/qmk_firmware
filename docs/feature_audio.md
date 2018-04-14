@@ -114,6 +114,18 @@ Additionally, even when enabled, the feature is not enabled by default, so you w
 
     #define AUDIO_CLICKY_ON
 
+You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
+
+| Option | Default Value | Description |
+|--------|---------------|-------------|
+| `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio freqency for the clicky sounds. |
+| `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
+| `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
+| `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN keycodes. |
+| `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical. | 
+
+
+
 
 ## MIDI Functionality
 
