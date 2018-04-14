@@ -82,13 +82,6 @@ void OVERRIDE matrix_scan_kb(void) {
 }
 
 bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    printf("Code: %d %d\n", keycode, record->event.pressed);
-    return false;
-
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-
     switch (keycode) {
         case EX_DUMP:
             if (record->event.pressed) {
@@ -103,7 +96,11 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
-    return true;
+
+    printf("Code: %d %d\n", keycode, record->event.pressed);
+    return false;
+
+    return process_record_user(keycode, record);
 }
 
 void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
