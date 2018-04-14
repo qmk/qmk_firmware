@@ -49,6 +49,7 @@ enum layers {
 #define US_CAPS   CTL_T(KC_ESC)
 #define US_QUOT   MT(MOD_RCTL, KC_QUOT)
 #define US_MINS   MT(MOD_RCTL, KC_QUOT)
+#define US_ENT    LT(_NUM, KC_ENT)
 
 #ifndef SPACE_COUNT
   #define SPACE_COUNT 1
@@ -56,17 +57,23 @@ enum layers {
 #if (SPACE_COUNT == 1)
   #define KC_SPC1   LT(_NAV, KC_SPC)
   #define NV_SPC1   _______
+  #define NM_SPC1   _______
   #define KC_SPC2   XXXXXXX
   #define NV_SPC2   _______
+  #define NM_SPC2   _______
   #define KC_SPC3   XXXXXXX
   #define NV_SPC3   _______
+  #define NM_SPC3   _______
 #elif (SPACE_COUNT == 3)
-  #define KC_SPC1   KC_SPC
-  #define NV_SPC1   KC_BSPC
+  #define KC_SPC1   KC_BSPC
+  #define NV_SPC1   KC_SPC
+  #define NM_SPC1   KC_SPC
   #define KC_SPC2   LT(_NUM,KC_ENT)
   #define NV_SPC2   MT(MOD_LSFT | MOD_LCTL, KC_ENT)
+  #define NM_SPC2   XXXXXXX
   #define KC_SPC3   LT(_NAV,KC_SPC)
   #define NV_SPC3   KC_SPC
+  #define NM_SPC3   KC_0
 #else
   #error "Unsupported space count:" SPACE_COUNT
 #endif
