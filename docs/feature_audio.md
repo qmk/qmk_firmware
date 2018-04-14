@@ -97,6 +97,24 @@ You can completely disable Music Mode as well. This is useful, if you're pressed
 
     #define NO_MUSIC_MODE
 
+## Faux Click
+
+This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. 
+
+* `CK_TOGG` - Toggles the status (will play sound if enabled)
+* `CK_RST` - Resets the frequency to the default state 
+* `CK_UP` - Increases the frequency of the clicks
+* `CK_DOWN` - Decreases the frequency of the clicks
+
+The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
+
+    #define AUDIO_CLICKY
+
+Additionally, even when enabled, the feature is not enabled by default, so you would need to turn it on first.  And since we don't use EEPROM to store the setting (yet), you can default this to on by adding this to your `config.h`:
+
+    #define AUDIO_CLICKY_ON
+
+
 ## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.

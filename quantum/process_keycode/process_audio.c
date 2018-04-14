@@ -10,6 +10,27 @@ float voice_change_song[][2] = VOICE_CHANGE_SONG;
     #define PITCH_STANDARD_A 440.0f
 #endif
 
+#ifdef AUDIO_CLICKY
+#ifdef AUDIO_CLICKY_ON
+bool clicky_enable = true;
+#else
+bool clicky_enable = false;
+#endif
+const float clicky_freq_default = 440.0f; // standard A tuning
+const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
+const float clicky_freq_max = 1500.0f; // arbitrary
+const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
+const float clicky_freq_randomness = 0.05f; // arbitrary
+float clicky_freq = 440.0f;
+float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
+
+void clicky_play(void) {
+  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[1][0] = clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  PLAY_SONG(clicky_song);
+}
+#endif
+
 static float compute_freq_for_midi_note(uint8_t note)
 {
     // https://en.wikipedia.org/wiki/MIDI_tuning_standard
@@ -48,6 +69,33 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
         PLAY_SONG(voice_change_song);
         return false;
     }
+
+#ifdef AUDIO_CLICKY
+    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_enable = !clicky_enable; }
+
+    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = clicky_freq_default; }
+
+    if (keycode == CLICKY_UP && record->event.pressed) {
+      float new_freq = clicky_freq * clicky_freq_factor;
+      if (new_freq < clicky_freq_max) {
+        clicky_freq = new_freq;
+      }
+    }
+    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
+      float new_freq = clicky_freq / clicky_freq_factor;
+      if (new_freq > clicky_freq_min) {
+        clicky_freq = new_freq;
+      }
+      }
+
+
+    if ( (clicky_enable && keycode != CLICKY_TOGGLE) || (!clicky_enable && keycode == CLICKY_TOGGLE) ) {
+      if (record->event.pressed) {
+        stop_all_notes();
+        clicky_play();;
+      }
+    }
+#endif // AUDIO_CLICKY
 
     return true;
 }

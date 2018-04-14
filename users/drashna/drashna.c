@@ -224,19 +224,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif //CONSOLE_ENABLE
 
-  // Run custom faux click code, but only if faux clicky is enabled
-#ifdef AUDIO_ENABLE
-  if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
-    if (record->event.pressed) {
-      stop_all_notes();
-      PLAY_SONG(fauxclicky_pressed);
-    } else {
-      stop_all_notes();
-      PLAY_SONG(fauxclicky_released);
-    }
-  }
-#endif //AUDIO_ENABLE
-
 
   switch (keycode) {
   case KC_QWERTY:
@@ -398,11 +385,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // TAP_DANCE_ENABLE
 
 
-  case KC_FXCL:
-    if (!record->event.pressed) { // Toggles the custom faux click code
-      faux_click_enabled = !faux_click_enabled;
-    }
-    return false; break;
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
