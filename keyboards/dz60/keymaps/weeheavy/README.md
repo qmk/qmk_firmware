@@ -4,9 +4,11 @@
 
 * 2u left shift
 * arrow cluster
-* split spacebar with 1.25u key in the middle
+* split spacebar with a center key
 
 ## Layouts
+
+The base layout is ANSI QWERTY.
 
 Key sizes (ASCII keyboards below match this scale):
 
@@ -19,14 +21,13 @@ Key sizes (ASCII keyboards below match this scale):
     2.75u = 11 chars = |         |
     6.25u = 25 chars = |                       |
 
-
 ### Layer 0: Base layout
 
-ANSI QWERTY layout. Specialities:
+Specialities:
 
 * Arrow cluster
-* Left shift: `KC_LSPO` == Left Shift when held, ( when tapped
-* Right shift: `KC_RSPC` == Right Shift when held, ) when tapped
+* FN1: access to layer 1
+* F2: access to layer 2
 
 ```
 ,----------------------------------------------------------.
@@ -38,12 +39,23 @@ ANSI QWERTY layout. Specialities:
 |----------------------------------------------------------+
 |Shift ||Z ||X ||C ||V ||B ||N ||M ||, ||. ||/ ||Sf||↑ ||Dl|
 |----------------------------------------------------------+
-|Ctl||Win||Alt|| Space ||TBD||  Space  ||FN||Ct||← ||↓ ||→ |
+|Ctl||Win||Alt|| Space ||FN1||  Space  ||Al||F2||← ||↓ ||→ |
 `----------------------------------------------------------'
 ```
 
-### Layer 1: Configuration layout
+### Layer 1: Utility
 
+Specialities:
 
-### Layer 2: Gaming layout
+* F1-F12 keys when holding FN1
+* Movement cluster on the right hand side
+* Multimedia cluster on the bottom right
+* RGB config on the left hand side
+
+### Layer 2: Config and setup
+
+Specialities:
+
+* Reset key on ESC and backslash location
+* Additional "B" key (a learning from my mistakes)
 
