@@ -3,13 +3,11 @@
 static bool active_key_pos[50] = {};
 static uint8_t led_dim = 0;
 
-volatile led_key rbw_led_keys[RBW] = {[RBW_LCTL] = {DEFAULT, 21, true},
-                                      [RBW_LCAP] = {DEFAULT, 22, false},
-                                      [RBW_LSPR] = {DEFAULT, 23, true},
-                                      [RBW_RCTL] = {DEFAULT, 46, true},
-                                      [RBW_RCAP] = {DEFAULT, 47, false},
-                                      [RBW_RALT] = {DEFAULT, 48, true},
-                                      [RBW_SCRL] = {DEFAULT, 42, true}};
+volatile led_key rbw_led_keys[RBW] = {
+    [RBW_LCTL] = {DEFAULT, 21, true},  [RBW_LCAP] = {DEFAULT, 22, false},
+    [RBW_LSPR] = {DEFAULT, 23, true},  [RBW_RCTL] = {DEFAULT, 48, true},
+    [RBW_RCAP] = {DEFAULT, 47, false}, [RBW_RALT] = {DEFAULT, 46, true},
+    [RBW_SCRL] = {DEFAULT, 42, true}};
 
 /* Pressed led color. */
 const uint32_t _PC[3] = {0xFF, 0x00, 0x00};
@@ -52,7 +50,15 @@ void set_key_led(keyrecord_t *record, uint8_t lyr) {
 
   uint8_t r = record->event.key.row;
   uint8_t c = record->event.key.col;
-  uint8_t pos = r % 2 == 0 ? r * base + c : r * base + (base - (c + 1));
+  uint8_t pos;
+
+  // This was the result of my soldering.
+  // Lesson of the day: always check.
+  if (r < 5) {
+    pos = r % 2 == 0 ? r * base + c : r * base + (base - (c + 1));
+  } else {
+    pos = r % 2 == 0 ? r * base + (base - (c + 1)) : r * base + c;
+  }
 
   if (record->event.pressed) {
     active_key_pos[pos] = true;
