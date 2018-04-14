@@ -90,10 +90,10 @@ bool set_layer_led(uint8_t lyr) {
   const uint8_t r = _LC[lyr][0];
   const uint8_t g = _LC[lyr][1];
   const uint8_t b = _LC[lyr][2];
-  /* const uint8_t d = (p_lyr == _VL && p_dim < 2) ? 2 : p_dim; */
+  const uint8_t d = (p_lyr == _VL && p_dim < 1) ? 1 : p_dim;
 
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-    SET_LED_RGB(r, g, b, led_dim, i);
+    SET_LED_RGB(r, g, b, d, i);
   }
 
   return true;
