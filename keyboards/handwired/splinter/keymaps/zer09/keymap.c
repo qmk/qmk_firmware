@@ -4,7 +4,7 @@
 
 #define _baseLayer KEYMAP( \
   KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,        KC_Y,        KC_F,   KC_G,        KC_C,            KC_R,        KC_L,        \
-  CTL_T(KC_A), SFT_T(KC_O), ALT_T(KC_E),     KC_U,        KC_I,        KC_D,   KC_H,        ALT_T(KC_T),     KC_N,        CTL_T(KC_S), \
+  CTL_T(KC_A), SFT_T(KC_O), ALT_T(KC_E),     KC_U,        KC_I,        KC_D,   KC_H,        ALT_T(KC_T),     SFT_T(KC_N), CTL_T(KC_S), \
   KC_SCOLON,   KC_Q,        KC_J,            KC_K,        KC_X,        KC_B,   KC_M,        KC_W,            KC_V,        KC_Z,        \
   TO(_UL),     MO(_VL),     KC_TAB,          KC_BSPACE,   TD(DA_EGRV), KC_INS, KC_HOME,     KC_PGUP,         MO(_VL),     TO(_UL),     \
   TO(_DL),     TD(DA_LCTL), LSFT_T(KC_CAPS), TD(DA_LSPR), KC_SPC,      KC_ENT, TD(DA_RALT), RSFT_T(KC_CAPS), TD(DA_RCTL), TO(_DL))
