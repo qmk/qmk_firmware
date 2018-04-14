@@ -99,7 +99,7 @@ You can completely disable Music Mode as well. This is useful, if you're pressed
 
 ## Faux Click
 
-This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. 
+This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
 
 * `CK_TOGG` - Toggles the status (will play sound if enabled)
 * `CK_RST` - Resets the frequency to the default state 
@@ -118,10 +118,10 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 | Option | Default Value | Description |
 |--------|---------------|-------------|
-| `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio freqency for the clicky sounds. |
+| `AUDIO_CLICKY_FREQ_DEFAULT` | 440.0f | Sets the default/starting audio frequency for the clicky sounds. |
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
 | `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
-| `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN keycodes. |
+| `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes. |
 | `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical. | 
 
 
