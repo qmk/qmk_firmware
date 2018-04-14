@@ -54,8 +54,8 @@ uint8_t matrix_scan(void) {
         matrix_row_t data;
 
         palClearLine(row_list[row]);
-        //wait_us(20);
-        sleep_cyc(US2CYC(1));
+        wait_us(20);
+//        sleep_cyc(US2CYC(1));
         data = ~read_columns();
         palSetLine(row_list[row]);
 

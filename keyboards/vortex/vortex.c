@@ -75,8 +75,8 @@ void OVERRIDE matrix_init_kb(void) {
 }
 
 void OVERRIDE matrix_scan_kb(void) {
-    debug_enable = true;
-    debug_matrix = true;
+//    debug_enable = true;
+//    debug_matrix = true;
 
     matrix_scan_user();
 }
@@ -97,8 +97,8 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 
-    printf("Code: %d %d\n", keycode, record->event.pressed);
-    return false;
+//    printf("Code: %d %d\n", keycode, record->event.pressed);
+//    return false;
 
     return process_record_user(keycode, record);
 }
@@ -112,7 +112,8 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
             case CMD_RESET:
                 switch (data[1]) {
                     case SUB_RESET_BL:
-                        bootloader_jump();
+//                        bootloader_jump();
+                        reset_keyboard();
                         return;
                     case SUB_RESET_FW:
                         firmware_reset();
