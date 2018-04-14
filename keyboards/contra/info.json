@@ -2,7 +2,6 @@
   "keyboard_name": "Contra",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "caterina",
   "width": 12,
   "height": 4,
   "layouts": {

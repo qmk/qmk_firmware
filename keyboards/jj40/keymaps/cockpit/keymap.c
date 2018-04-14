@@ -122,10 +122,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | RGB  | RGB  | RGB  | RGB  |  BL  |  BL  |  BL  |      |      |      |      |
- * | Caps | Togl | Hue+ | Sat+ | Brt+ | Togl |Breath| Brt+ |      |      |      |VolUp |
+ * | Caps | Togl | Hue+ | Sat+ | Brt+ | Togl |Breath| Brt+ |      |      |      | Vol+ |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      | RGB  | RGB  | RGB  | WWW  | WWW  |  BL  |      |      |      |      |
- * |Shift | Term | Hue- | Sat- | Brt- | Back | Fwd  | Brt- |      |      |PrScr |VolDn |
+ * |Shift | Term | Hue- | Sat- | Brt- |  <   |  >   | Brt- |      |      |PrScr | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |||||||| RGB  |      |      |             |      |      |      |      |      |
  * | Ctrl |||Fn||| Mode | Alt  |      |    Space    |MPrev |MStop |MNext |MPlay | Lock |
