@@ -5,6 +5,7 @@
 *.elf
 *.hex
 *.qmk
+obj/
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
 *.log
@@ -17,6 +18,7 @@ tags
 *~
 build/
 .build/
+!xd75_drzoid.hex
 *.bak
 .vagrant/
 quantum/version.h

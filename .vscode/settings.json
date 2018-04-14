@@ -12,5 +12,6 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp"
-    }
+    },
+    "git.enabled": false
 }
