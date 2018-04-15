@@ -17,4 +17,5 @@ ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
 
-UNICODE_ENABLE = yes         # Unicode
+UNICODE_ENABLE = yes
+UCIS_ENABLE = no         # Unicode

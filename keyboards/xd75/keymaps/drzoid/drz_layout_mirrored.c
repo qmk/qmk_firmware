@@ -36,9 +36,9 @@ enum custom_macros {
 };
 
 //Unicode chars
-#define DRZ_UC_STAR     UC(0x2605)    // ★
-#define DRZ_UC_SQUARE   UC(0x00B2)    // ²
-#define DRZ_UC_CUBE     UC(0x00B3)    // ³
+#define DRZ_UC_STAR     RALT(UC(0x2605))    // ★
+#define DRZ_UC_SQUARE   RALT(UC(0x00B2))    // ²
+#define DRZ_UC_CUBE     RALT(UC(0x00B3))    // ³
 
 //uni-sized keycodes for keymap uses
 #define DRZ_UST  DRZ_UC_STAR
@@ -63,6 +63,7 @@ enum custom_macros {
 /*\ ------------------------------------------------------*/
 //  QWERTY KEYMAP ON QWERTY INTL OS !
 /*\-------------------------------------------------------*/
+
 
 #ifdef DRZ_QWERTY_INTL_OS
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
