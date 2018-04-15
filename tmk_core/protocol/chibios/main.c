@@ -100,7 +100,9 @@ void console_task(void);
 //   }
 // }
 
+static void usb_timeout(void *arg) {
 
+}
 
 /* Main thread
  */
@@ -130,8 +132,8 @@ int main(void) {
   visualizer_init();
 #endif
 
-
   host_driver_t* driver = NULL;
+//  event_timer_t usbTimeoutTimer;
 
   /* Wait until the USB or serial link is active */
   while (true) {
@@ -167,6 +169,8 @@ int main(void) {
 #endif
 
   print("Keyboard start.\n");
+
+  systime_t prev = chVTGetSystemTime();
 
   /* Main loop */
   while(true) {
@@ -209,5 +213,8 @@ int main(void) {
 #ifdef RAW_ENABLE
     raw_hid_task();
 #endif
+
+    // sleep until the next tick
+    prev = chThdSleepUntilWindowed(prev, prev + MS2ST(1));
   }
 }
