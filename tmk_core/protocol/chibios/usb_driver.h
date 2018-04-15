@@ -94,6 +94,11 @@ typedef struct {
   size_t                    in_size;
   size_t                    out_size;
 
+  /**
+   * @brief Always send full buffers in_size (the rest is filled with zeroes)
+   */
+  bool                      fixed_size;
+
   /* Input buffer
    * @note needs to be initialized with a memory buffer of the right size
    */

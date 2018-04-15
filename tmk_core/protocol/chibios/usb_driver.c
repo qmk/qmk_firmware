@@ -24,6 +24,7 @@
 
 #include "hal.h"
 #include "usb_driver.h"
+#include <string.h>
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -385,6 +386,12 @@ void qmkusbSOFHookI(QMKUSBDriver *qmkusbp) {
   if (obqTryFlushI(&qmkusbp->obqueue)) {
     size_t n;
     uint8_t *buf = obqGetFullBufferI(&qmkusbp->obqueue, &n);
+
+    /* For fixed size drivers, fill the end with zeros */
+    if (qmkusbp->config->fixed_size) {
+      memset(buf + n, 0, qmkusbp->config->in_size - n);
+      n = qmkusbp->config->in_size;
+    }
 
     osalDbgAssert(buf != NULL, "queue is empty");
 

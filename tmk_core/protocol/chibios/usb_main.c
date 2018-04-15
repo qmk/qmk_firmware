@@ -179,9 +179,9 @@ typedef struct {
   USBEndpointConfig int_ep_config;
   const QMKUSBConfig config;
   QMKUSBDriver driver;
-} stream_driver_t;
+} usb_driver_config_t;
 
-#define STREAM_DRIVER(stream, notification) { \
+#define QMK_USB_DRIVER_CONFIG(stream, notification, fixedsize) { \
   .queue_capacity_in = stream##_IN_CAPACITY, \
   .queue_capacity_out = stream##_OUT_CAPACITY, \
   .in_ep_config = { \
@@ -232,6 +232,7 @@ typedef struct {
     .out_buffers = stream##_OUT_CAPACITY, \
     .in_size = stream##_EPSIZE, \
     .out_size = stream##_EPSIZE, \
+    .fixed_size = fixedsize, \
     .ib = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
     .ob = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
   } \
@@ -241,36 +242,36 @@ typedef struct {
   union {
     struct {
 #ifdef CONSOLE_ENABLE
-      stream_driver_t console_driver;
+      usb_driver_config_t console_driver;
 #endif
 #ifdef RAW_ENABLE
-      stream_driver_t raw_driver;
+      usb_driver_config_t raw_driver;
 #endif
 #ifdef MIDI_ENABLE
-      stream_driver_t midi_driver;
+      usb_driver_config_t midi_driver;
 #endif
 #ifdef VIRTSER_ENABLE
-      stream_driver_t serial_driver;
+      usb_driver_config_t serial_driver;
 #endif
     };
-    stream_driver_t array[0];
+    usb_driver_config_t array[0];
   };
-} stream_drivers_t;
+} usb_driver_configs_t;
 
-static stream_drivers_t drivers = {
+static usb_driver_configs_t drivers = {
 #ifdef CONSOLE_ENABLE
   #define CONSOLE_IN_CAPACITY 4
   #define CONSOLE_OUT_CAPACITY 4
   #define CONSOLE_IN_MODE USB_EP_MODE_TYPE_INTR
   #define CONSOLE_OUT_MODE USB_EP_MODE_TYPE_INTR
-  .console_driver = STREAM_DRIVER(CONSOLE, 0),
+  .console_driver = QMK_USB_DRIVER_CONFIG(CONSOLE, 0, true),
 #endif
 #ifdef RAW_ENABLE
   #define RAW_IN_CAPACITY 4
   #define RAW_OUT_CAPACITY 4
   #define RAW_IN_MODE USB_EP_MODE_TYPE_INTR
   #define RAW_OUT_MODE USB_EP_MODE_TYPE_INTR
-  .raw_driver = STREAM_DRIVER(RAW, 0),
+  .raw_driver = QMK_USB_DRIVER_CONFIG(RAW, 0, false),
 #endif
 
 #ifdef MIDI_ENABLE
@@ -278,7 +279,7 @@ static stream_drivers_t drivers = {
   #define MIDI_STREAM_OUT_CAPACITY 4
   #define MIDI_STREAM_IN_MODE USB_EP_MODE_TYPE_BULK
   #define MIDI_STREAM_OUT_MODE USB_EP_MODE_TYPE_BULK
-  .midi_driver = STREAM_DRIVER(MIDI_STREAM, 0),
+  .midi_driver = QMK_USB_DRIVER_CONFIG(MIDI_STREAM, 0, false),
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -286,11 +287,11 @@ static stream_drivers_t drivers = {
   #define CDC_OUT_CAPACITY 4
   #define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
   #define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
-  .serial_driver = STREAM_DRIVER(CDC, CDC_NOTIFICATION_EPNUM),
+  .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
 #endif
 };
 
-#define NUM_STREAM_DRIVERS (sizeof(drivers) / sizeof(stream_driver_t))
+#define NUM_USB_DRIVERS (sizeof(drivers) / sizeof(usb_driver_config_t))
 
 
 /* ---------------------------------------------------------
@@ -318,7 +319,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 #ifdef NKRO_ENABLE
     usbInitEndpointI(usbp, NKRO_IN_EPNUM, &nkro_ep_config);
 #endif /* NKRO_ENABLE */
-    for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+    for (int i=0;i<NUM_USB_DRIVERS;i++) {
       usbInitEndpointI(usbp, drivers.array[i].config.bulk_in, &drivers.array[i].in_ep_config);
       usbInitEndpointI(usbp, drivers.array[i].config.bulk_out, &drivers.array[i].out_ep_config);
       if (drivers.array[i].config.int_in) {
@@ -336,7 +337,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
   case USB_EVENT_UNCONFIGURED:
     /* Falls into.*/
   case USB_EVENT_RESET:
-      for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+      for (int i=0;i<NUM_USB_DRIVERS;i++) {
         chSysLockFromISR();
         /* Disconnection event on suspend.*/
         qmkusbSuspendHookI(&drivers.array[i].driver);
@@ -346,7 +347,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 
   case USB_EVENT_WAKEUP:
     //TODO: from ISR! print("[W]");
-      for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+      for (int i=0;i<NUM_USB_DRIVERS;i++) {
         chSysLockFromISR();
         /* Disconnection event on suspend.*/
         qmkusbWakeupHookI(&drivers.array[i].driver);
@@ -530,7 +531,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
     return TRUE;
   }
 
-  for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
+  for (int i=0;i<NUM_USB_DRIVERS;i++) {
     if (drivers.array[i].config.int_in) {
       // NOTE: Assumes that we only have one serial driver
       return qmkusbRequestsHook(usbp);
@@ -544,7 +545,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
 static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
   osalSysLockFromISR();
-  for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
+  for (int i=0; i<NUM_USB_DRIVERS;i++) {
     qmkusbSOFHookI(&drivers.array[i].driver);
   }
   osalSysUnlockFromISR();
@@ -563,7 +564,7 @@ static const USBConfig usbcfg = {
  * Initialize the USB driver
  */
 void init_usb_driver(USBDriver *usbp) {
-  for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
+  for (int i=0; i<NUM_USB_DRIVERS;i++) {
     QMKUSBDriver* driver = &drivers.array[i].driver;
     drivers.array[i].in_ep_config.in_state = &drivers.array[i].in_ep_state;
     drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
