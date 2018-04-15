@@ -59,6 +59,9 @@
 // USART (conflicts with LED matrix)
 #define PAD_USART_TX                8
 
+#define LINE_SEL1                   PAL_LINE(IOPORTA, 8)
+#define LINE_SEL2                   PAL_LINE(IOPORTA, 9)
+
 // SPI
 #define LINE_SPI_SCK                PAL_LINE(IOPORTB, 7)
 #define LINE_SPI_MOSI               PAL_LINE(IOPORTB, 8)

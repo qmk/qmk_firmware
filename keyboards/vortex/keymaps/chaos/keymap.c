@@ -86,7 +86,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case EX_ECHO:
             if (record->event.pressed) {
-                printf("Pressed ECHO\n");
+                uint32_t now = ST2S(chVTGetSystemTime());
+                printf("Pressed ECHO @ %u\n", now);
             }
             return false;
     }

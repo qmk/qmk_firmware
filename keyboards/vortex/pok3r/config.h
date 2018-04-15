@@ -134,7 +134,7 @@
 //#define MAGIC_KEY_LAYER7         7
 //#define MAGIC_KEY_LAYER8         8
 //#define MAGIC_KEY_LAYER9         9
-//#define MAGIC_KEY_BOOTLOADER     PAUSE
+#define MAGIC_KEY_BOOTLOADER     R
 //#define MAGIC_KEY_LOCK           CAPS
 //#define MAGIC_KEY_EEPROM         E
 //#define MAGIC_KEY_NKRO           N
