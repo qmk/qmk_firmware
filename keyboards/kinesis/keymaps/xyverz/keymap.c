@@ -300,3 +300,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
 
 };
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        PORTF |= (1<<2);
+    } else {
+        PORTF &= ~(1<<2);
+    }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        PORTF |= (1<<3);
+    } else {
+        PORTF &= ~(1<<3);
+    }
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+        PORTF |= (1<<1);
+    } else {
+        PORTF &= ~(1<<1);
+    }
+}
