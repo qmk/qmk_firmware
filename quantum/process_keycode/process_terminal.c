@@ -33,7 +33,8 @@ char newline[2] = "\n";
 char arguments[6][20];
 bool firstTime = true;
 
-short int current_cmd_buffer_pos = 0; //used for up/down arrows - keeps track of where you are in the command buffer
+signed int cmd_buffer_pos = 0;
+short int current_cmd_buffer_pos = 1;
 
 __attribute__ ((weak))
 const char terminal_prompt[8] = "> ";
@@ -92,8 +93,13 @@ if (cmd_buffer_enabled) {
     if (cmd_buffer == NULL) {
       return;
     } else {
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
     /*
     0-----a  |+0->
+=======
+    /* works ish, buffer misses out on 0 occasionally
+    0-----a  |0->
+>>>>>>> Initial commit - Command buffer implemented
     1----ab  |+80->
     2---abc  |+160->
     3--abcd  |+240->
@@ -102,6 +108,7 @@ if (cmd_buffer_enabled) {
 
    if (firstTime) {
      firstTime = false;
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
      strcpy(cmd_buffer[0],buffer);
      return;
    }
@@ -113,6 +120,21 @@ if (cmd_buffer_enabled) {
    strcpy(cmd_buffer[0],buffer);
 
    return;
+=======
+   } else {
+    for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
+      strncpy(cmd_buffer[i],cmd_buffer[i-1],79); //try reversing orders ; make print_buff go from 0-4 rather than 4-0, probably easier......
+    }
+   }
+
+   if (cmd_buffer_pos < 4) {
+     cmd_buffer_pos = 0;
+   }
+
+    strcpy(cmd_buffer[cmd_buffer_pos],buffer);
+    ++cmd_buffer_pos;
+
+>>>>>>> Initial commit - Command buffer implemented
     }
   }
 }
@@ -179,6 +201,7 @@ void terminal_keymap(void) {
 }
 
 void print_cmd_buff(void) {
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
   /* without the below wait, a race condition can occur wherein the
    buffer can be printed before it has been fully moved */
   wait_ms(300);
@@ -187,25 +210,39 @@ void print_cmd_buff(void) {
     itoa(i ,&tmpChar,10);
     const char * tmpCnstCharStr = &tmpChar; //because sned_string wont take a normal char *
     send_string(tmpCnstCharStr);
+=======
+  for(int i=0;i<CMD_BUFF_SIZE;i++){
+    char a = ' ';
+    itoa(i ,&a,10);
+    const char * x = &a;
+    send_string(x);
+>>>>>>> Initial commit - Command buffer implemented
     SEND_STRING(". ");
     send_string(cmd_buffer[i]);
     SEND_STRING("\n");
   }
 }
 
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
 
 void flush_cmd_buffer(void) {
   memset(cmd_buffer,0,CMD_BUFF_SIZE * 80);
   SEND_STRING("Buffer Cleared!\n");
 }
 
+=======
+>>>>>>> Initial commit - Command buffer implemented
 stringcase terminal_cases[] = {
     { "about", terminal_about },
     { "help", terminal_help },
     { "keycode", terminal_keycode },
     { "keymap", terminal_keymap },
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
     { "flush-buffer" , flush_cmd_buffer},
     { "print-buffer" , print_cmd_buff},
+=======
+    //{ "flush-buffer" , flush_cmd_buff},
+>>>>>>> Initial commit - Command buffer implemented
     { "p" , print_cmd_buff},
     { "exit", disable_terminal }
 };
@@ -287,7 +324,11 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
             switch (keycode) {
                 case KC_ENTER:
                     push_to_cmd_buffer();
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
                     current_cmd_buffer_pos = 0;
+=======
+                    current_cmd_buffer_pos = CMD_BUFF_SIZE - 1;
+>>>>>>> Initial commit - Command buffer implemented
                     process_terminal_command();
                     return false; break;
                 case KC_ESC:
@@ -306,6 +347,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                 case KC_LEFT:
                     return false; break;
                 case KC_RIGHT:
+<<<<<<< 0b63c884d91ca034e881f1c5265e26505a8b1f8c
                     return false; break;
                 case KC_UP: // 0 = recent
                   check_pos(); //check our current buffer position is valid
@@ -320,6 +362,20 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                     send_string(buffer);
                     ++current_cmd_buffer_pos; //get ready to access the above cmd if up/down is pressed again
                   }
+=======
+                case KC_UP:
+                if (current_cmd_buffer_pos >= 0) { //once we get to the top, dont do anything
+                  str_len = strlen(buffer);
+                  for(int  i= 0;i < str_len ;++i) {
+                      send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
+                      //process_terminal(KC_BSPC,record);
+                  }
+                  strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
+
+                  send_string(buffer);
+                  --current_cmd_buffer_pos; //get ready to access the above cmd is up is pressed again
+                }
+>>>>>>> Initial commit - Command buffer implemented
                     return false; break;
                 case KC_DOWN:
                   check_pos();
