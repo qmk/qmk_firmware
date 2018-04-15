@@ -164,7 +164,7 @@ struct QMKUSBDriver {
 extern "C" {
 #endif
   void qmkusbInit(void);
-  void qmkusbObjectInit(QMKUSBDriver *qmkusbp);
+  void qmkusbObjectInit(QMKUSBDriver *qmkusbp, const QMKUSBConfig * config);
   void qmkusbStart(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config);
   void qmkusbStop(QMKUSBDriver *qmkusbp);
   void qmkusbSuspendHookI(QMKUSBDriver *qmkusbp);

@@ -569,7 +569,7 @@ void init_usb_driver(USBDriver *usbp) {
     drivers.array[i].in_ep_config.in_state = &drivers.array[i].in_ep_state;
     drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
     drivers.array[i].int_ep_config.in_state = &drivers.array[i].int_ep_state;
-    qmkusbObjectInit(driver);
+    qmkusbObjectInit(driver, &drivers.array[i].config);
     qmkusbStart(driver, &drivers.array[i].config);
   }
 
