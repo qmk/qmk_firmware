@@ -62,10 +62,32 @@ extern backlight_config_t backlight_config;
 
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
-  case QK_MODS ... QK_MODS_MAX:
-    break;
-  default:
-    return;
+
+    case QK_MODS ... (QK_RMODS_MIN - 1):
+      if (code & QK_LCTL)
+        f(KC_LCTL);
+      if (code & QK_LSFT)
+        f(KC_LSFT);
+      if (code & QK_LALT)
+        f(KC_LALT);
+      if (code & QK_LGUI)
+        f(KC_LGUI);
+      break;
+
+    case QK_RMODS_MIN ... QK_MODS_MAX:
+      // Note testing for left modifiers since otherwise the high bit will match
+      if (code & QK_LCTL)
+        f(KC_RCTL);
+      if (code & QK_LSFT)
+        f(KC_RSFT);
+      if (code & QK_LALT)
+        f(KC_RALT);
+      if (code & QK_LGUI)
+        f(KC_RGUI);
+      break;
+
+    default:
+      return;
   }
 
   if (code & QK_LCTL)
@@ -236,7 +258,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE) 
+  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
