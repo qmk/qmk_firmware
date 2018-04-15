@@ -81,6 +81,27 @@ typedef struct {
    *          present, USB descriptors must be changed accordingly.
    */
   usbep_t                   int_in;
+
+  /**
+   * @brief The number of buffers in the queues
+   */
+  size_t                    in_buffers;
+  size_t                    out_buffers;
+
+  /**
+   * @brief The size of each buffer in the queue, typically the same as the endpoint size
+   */
+  size_t                    in_size;
+  size_t                    out_size;
+
+  /* Input buffer
+   * @note needs to be initialized with a memory buffer of the right size
+   */
+  uint8_t*                  ib;
+  /* Output buffer
+   * @note needs to be initialized with a memory buffer of the right size
+   */
+  uint8_t*                  ob;
 } QMKUSBConfig;
 
 /**
@@ -94,12 +115,6 @@ typedef struct {
   input_buffers_queue_t     ibqueue;                                        \
   /* Output queue.*/                                                        \
   output_buffers_queue_t    obqueue;                                        \
-  /* Input buffer.*/                                                        \
-  uint8_t                   ib[BQ_BUFFER_SIZE(SERIAL_USB_BUFFERS_NUMBER,    \
-                                              SERIAL_USB_BUFFERS_SIZE)];    \
-  /* Output buffer.*/                                                       \
-  uint8_t                   ob[BQ_BUFFER_SIZE(SERIAL_USB_BUFFERS_NUMBER,    \
-                                              SERIAL_USB_BUFFERS_SIZE)];    \
   /* End of the mandatory fields.*/                                         \
   /* Current configuration data.*/                                          \
   const QMKUSBConfig     *config;

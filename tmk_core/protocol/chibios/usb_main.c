@@ -171,8 +171,6 @@ static const USBEndpointConfig nkro_ep_config = {
 typedef struct {
   size_t queue_capacity_in;
   size_t queue_capacity_out;
-  uint8_t* queue_buffer_in;
-  uint8_t* queue_buffer_out;
   USBInEndpointState in_ep_state;
   USBOutEndpointState out_ep_state;
   USBInEndpointState int_ep_state;
@@ -186,8 +184,6 @@ typedef struct {
 #define STREAM_DRIVER(stream, notification) { \
   .queue_capacity_in = stream##_IN_CAPACITY, \
   .queue_capacity_out = stream##_OUT_CAPACITY, \
-  .queue_buffer_in = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
-  .queue_buffer_out = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
   .in_ep_config = { \
     .ep_mode = stream##_IN_MODE, \
     .setup_cb = NULL, \
@@ -231,7 +227,13 @@ typedef struct {
     .usbp = &USB_DRIVER, \
     .bulk_in = stream##_IN_EPNUM, \
     .bulk_out = stream##_OUT_EPNUM, \
-    .int_in = notification \
+    .int_in = notification, \
+    .in_buffers = stream##_IN_CAPACITY, \
+    .out_buffers = stream##_OUT_CAPACITY, \
+    .in_size = stream##_EPSIZE, \
+    .out_size = stream##_EPSIZE, \
+    .ib = (uint8_t[BQ_BUFFER_SIZE(stream##_IN_CAPACITY, stream##_EPSIZE)]) {}, \
+    .ob = (uint8_t[BQ_BUFFER_SIZE(stream##_OUT_CAPACITY,stream##_EPSIZE)]) {}, \
   } \
 }
 
@@ -567,10 +569,6 @@ void init_usb_driver(USBDriver *usbp) {
     drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
     drivers.array[i].int_ep_config.in_state = &drivers.array[i].int_ep_state;
     qmkusbObjectInit(driver);
-    bqnotify_t notify = driver->ibqueue.notify;
-    ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_in, drivers.array[i].in_ep_config.in_maxsize, drivers.array[i].queue_capacity_in, notify, driver);
-    notify = driver->obqueue.notify;
-    ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_out, drivers.array[i].out_ep_config.out_maxsize, drivers.array[i].queue_capacity_out, notify, driver);
     qmkusbStart(driver, &drivers.array[i].config);
   }
 

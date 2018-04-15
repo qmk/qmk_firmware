@@ -193,11 +193,12 @@ void qmkusbObjectInit(QMKUSBDriver *qmkusbp) {
   qmkusbp->vmt = &vmt;
   osalEventObjectInit(&qmkusbp->event);
   qmkusbp->state = QMKUSB_STOP;
-  ibqObjectInit(&qmkusbp->ibqueue, true, qmkusbp->ib,
-                SERIAL_USB_BUFFERS_SIZE, SERIAL_USB_BUFFERS_NUMBER,
+  // Note that the config uses the USB direction naming
+  ibqObjectInit(&qmkusbp->ibqueue, true, qmkusbp->config->ob,
+                qmkusbp->config->out_size, qmkusbp->config->out_buffers,
                 ibnotify, qmkusbp);
-  obqObjectInit(&qmkusbp->obqueue, true, qmkusbp->ob,
-                SERIAL_USB_BUFFERS_SIZE, SERIAL_USB_BUFFERS_NUMBER,
+  obqObjectInit(&qmkusbp->obqueue, true, qmkusbp->config->ib,
+                qmkusbp->config->in_size, qmkusbp->config->in_buffers,
                 obnotify, qmkusbp);
 }
 
