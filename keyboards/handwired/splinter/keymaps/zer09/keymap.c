@@ -14,7 +14,7 @@
   LCTL_T(KC_1),  LSFT_T(KC_2),  LALT_T(KC_3),  _______,  _______,     KC_LBRC,  KC_BSLS,  _______,  KC_RGDWN,  _______, \
   KC_7,          KC_8,          KC_9,          KC_0,     KC_GRV,      KC_SLSH,  _______,  _______,  _______,   _______, \
   _______,       _______,       _______,       _______,  _______,     KC_DEL,   KC_END,   KC_PGDN,  _______,   _______, \
-  _______,       KC_MPLY,       KC_MPRV,       KC_MNXT,  KC_ENT,      KC_SPC,   _______,  _______,  _______,   _______)
+  _______,       KC_MPLY,       KC_MPRV,       KC_MNXT,  _______,     _______,  _______,  _______,  _______,   _______)
 
 #define _downLayer KEYMAP( \
   KC_F4,          KC_F5,          KC_F6,          KC_F12,   _______,     RESET,     KC_RPRN,   _______,   KC_UP,    KC_RIGHT, \
