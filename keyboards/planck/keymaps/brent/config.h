@@ -10,9 +10,9 @@
     // #define STARTUP_SONG SONG(NO_SOUND)
     #define STARTUP_SONG SONG(SHORT_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+    #define DEFAULT_LAYER_SONGS { SONG(DVORAK_SOUND), \
                                   SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
+                                  SONG(QWERTY_SOUND) \
                                 }
 #endif
 
