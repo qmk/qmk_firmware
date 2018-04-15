@@ -15,17 +15,15 @@
 */
 
 /**
- * @file    hal_serial_usb.h
- * @brief   Serial over USB Driver macros and structures.
+ * @file    usb_driver.h
+ * @brief   Usb driver suitable for both packet and serial formats
  *
  * @addtogroup SERIAL_USB
  * @{
  */
 
-#ifndef HAL_SERIAL_USB_H
-#define HAL_SERIAL_USB_H
-
-#if (HAL_USE_SERIAL_USB == TRUE) || defined(__DOXYGEN__)
+#ifndef USB_DRIVER_H
+#define USB_DRIVER_H
 
 #include "hal_usb_cdc.h"
 
@@ -34,39 +32,11 @@
 /*===========================================================================*/
 
 /*===========================================================================*/
-/* Driver pre-compile time settings.                                         */
-/*===========================================================================*/
-
-/**
- * @name    SERIAL_USB configuration options
- * @{
- */
-/**
- * @brief   Serial over USB buffers size.
- * @details Configuration parameter, the buffer size must be a multiple of
- *          the USB data endpoint maximum packet size.
- * @note    The default is 256 bytes for both the transmission and receive
- *          buffers.
- */
-#if !defined(SERIAL_USB_BUFFERS_SIZE) || defined(__DOXYGEN__)
-#define SERIAL_USB_BUFFERS_SIZE     256
-#endif
-
-/**
- * @brief   Serial over USB number of buffers.
- * @note    The default is 2 buffers.
- */
-#if !defined(SERIAL_USB_BUFFERS_NUMBER) || defined(__DOXYGEN__)
-#define SERIAL_USB_BUFFERS_NUMBER   2
-#endif
-/** @} */
-
-/*===========================================================================*/
 /* Derived constants and error checks.                                       */
 /*===========================================================================*/
 
 #if HAL_USE_USB == FALSE
-#error "Serial over USB Driver requires HAL_USE_USB"
+#error "The USB Driver requires HAL_USE_USB"
 #endif
 
 /*===========================================================================*/
@@ -77,15 +47,15 @@
  * @brief Driver state machine possible states.
  */
 typedef enum {
-  SDU_UNINIT = 0,                   /**< Not initialized.                   */
-  SDU_STOP = 1,                     /**< Stopped.                           */
-  SDU_READY = 2                     /**< Ready.                             */
-} sdustate_t;
+  QMKUSB_UNINIT = 0,                   /**< Not initialized.                   */
+  QMKUSB_STOP = 1,                     /**< Stopped.                           */
+  QMKUSB_READY = 2                     /**< Ready.                             */
+} qmkusbstate_t;
 
 /**
  * @brief   Structure representing a serial over USB driver.
  */
-typedef struct SerialUSBDriver SerialUSBDriver;
+typedef struct QMKUSBDriver QMKUSBDriver;
 
 /**
  * @brief   Serial over USB Driver configuration structure.
@@ -111,15 +81,15 @@ typedef struct {
    *          present, USB descriptors must be changed accordingly.
    */
   usbep_t                   int_in;
-} SerialUSBConfig;
+} QMKUSBConfig;
 
 /**
  * @brief   @p SerialDriver specific data.
  */
-#define _serial_usb_driver_data                                             \
+#define _qmk_usb_driver_data                                                \
   _base_asynchronous_channel_data                                           \
   /* Driver state.*/                                                        \
-  sdustate_t                state;                                          \
+  qmkusbstate_t             state;                                          \
   /* Input buffers queue.*/                                                 \
   input_buffers_queue_t     ibqueue;                                        \
   /* Output queue.*/                                                        \
@@ -132,12 +102,12 @@ typedef struct {
                                               SERIAL_USB_BUFFERS_SIZE)];    \
   /* End of the mandatory fields.*/                                         \
   /* Current configuration data.*/                                          \
-  const SerialUSBConfig     *config;
+  const QMKUSBConfig     *config;
 
 /**
  * @brief   @p SerialUSBDriver specific methods.
  */
-#define _serial_usb_driver_methods                                          \
+#define _qmk_usb_driver_methods                                             \
   _base_asynchronous_channel_methods
 
 /**
@@ -145,8 +115,8 @@ typedef struct {
  *
  * @brief   @p SerialDriver virtual methods table.
  */
-struct SerialUSBDriverVMT {
-  _serial_usb_driver_methods
+struct QMKUSBDriverVMT {
+  _qmk_usb_driver_methods
 };
 
 /**
@@ -156,10 +126,10 @@ struct SerialUSBDriverVMT {
  * @details This class extends @p BaseAsynchronousChannel by adding physical
  *          I/O queues.
  */
-struct SerialUSBDriver {
+struct QMKUSBDriver {
   /** @brief Virtual Methods Table.*/
-  const struct SerialUSBDriverVMT *vmt;
-  _serial_usb_driver_data
+  const struct QMKUSBDriverVMT *vmt;
+  _qmk_usb_driver_data
 };
 
 /*===========================================================================*/
@@ -173,24 +143,22 @@ struct SerialUSBDriver {
 #ifdef __cplusplus
 extern "C" {
 #endif
-  void sduInit(void);
-  void sduObjectInit(SerialUSBDriver *sdup);
-  void sduStart(SerialUSBDriver *sdup, const SerialUSBConfig *config);
-  void sduStop(SerialUSBDriver *sdup);
-  void sduSuspendHookI(SerialUSBDriver *sdup);
-  void sduWakeupHookI(SerialUSBDriver *sdup);
-  void sduConfigureHookI(SerialUSBDriver *sdup);
-  bool sduRequestsHook(USBDriver *usbp);
-  void sduSOFHookI(SerialUSBDriver *sdup);
-  void sduDataTransmitted(USBDriver *usbp, usbep_t ep);
-  void sduDataReceived(USBDriver *usbp, usbep_t ep);
-  void sduInterruptTransmitted(USBDriver *usbp, usbep_t ep);
+  void qmkusbInit(void);
+  void qmkusbObjectInit(QMKUSBDriver *qmkusbp);
+  void qmkusbStart(QMKUSBDriver *qmkusbp, const QMKUSBConfig *config);
+  void qmkusbStop(QMKUSBDriver *qmkusbp);
+  void qmkusbSuspendHookI(QMKUSBDriver *qmkusbp);
+  void qmkusbWakeupHookI(QMKUSBDriver *qmkusbp);
+  void qmkusbConfigureHookI(QMKUSBDriver *qmkusbp);
+  bool qmkusbRequestsHook(USBDriver *usbp);
+  void qmkusbSOFHookI(QMKUSBDriver *qmkusbp);
+  void qmkusbDataTransmitted(USBDriver *usbp, usbep_t ep);
+  void qmkusbDataReceived(USBDriver *usbp, usbep_t ep);
+  void qmkusbInterruptTransmitted(USBDriver *usbp, usbep_t ep);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* HAL_USE_SERIAL_USB == TRUE */
-
-#endif /* HAL_SERIAL_USB_H */
+#endif /* USB_DRIVER_H */
 
 /** @} */
