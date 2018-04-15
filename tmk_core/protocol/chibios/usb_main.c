@@ -57,11 +57,15 @@ static virtual_timer_t keyboard_idle_timer;
 static void keyboard_idle_timer_cb(void *arg);
 
 report_keyboard_t keyboard_report_sent = {{0}};
+report_keyboard_t *keyboard_report_not_yet_sent = NULL;
 #ifdef MOUSE_ENABLE
 report_mouse_t mouse_report_blank = {0};
+report_mouse_t *mouse_report_not_yet_sent = NULL;
 #endif /* MOUSE_ENABLE */
 #ifdef EXTRAKEY_ENABLE
 uint8_t extra_report_blank[3] = {0};
+report_extra_t extra_report_not_yet_sent;
+bool extra_report_waiting = FALSE;
 #endif /* EXTRAKEY_ENABLE */
 
 /* ---------------------------------------------------------
@@ -592,17 +596,23 @@ void init_usb_driver(USBDriver *usbp) {
  */
 /* keyboard IN callback hander (a kbd report has made it IN) */
 void kbd_in_cb(USBDriver *usbp, usbep_t ep) {
-  /* STUB */
-  (void)usbp;
-  (void)ep;
+  if (keyboard_report_not_yet_sent != NULL) {
+    osalSysLockFromISR();
+    usbStartTransmitI(usbp, ep, (uint8_t *)keyboard_report_not_yet_sent, KEYBOARD_EPSIZE);
+    keyboard_report_not_yet_sent = NULL;
+    osalSysUnlockFromISR();
+  }
 }
 
 #ifdef NKRO_ENABLE
 /* nkro IN callback hander (a nkro report has made it IN) */
 void nkro_in_cb(USBDriver *usbp, usbep_t ep) {
-  /* STUB */
-  (void)usbp;
-  (void)ep;
+  if (keyboard_report_not_yet_sent != NULL) {
+    osalSysLockFromISR();
+    usbStartTransmitI(usbp, ep, (uint8_t *)keyboard_report_not_yet_sent, sizeof(report_keyboard_t));
+    keyboard_report_not_yet_sent = NULL;
+    osalSysUnlockFromISR();
+  }
 }
 #endif /* NKRO_ENABLE */
 
@@ -658,37 +668,24 @@ void send_keyboard(report_keyboard_t *report) {
     osalSysUnlock();
     return;
   }
-  osalSysUnlock();
 
 #ifdef NKRO_ENABLE
   if(keymap_config.nkro) {  /* NKRO protocol */
-    /* need to wait until the previous packet has made it through */
-    /* can rewrite this using the synchronous API, then would wait
-     * until *after* the packet has been transmitted. I think
-     * this is more efficient */
-    /* busy wait, should be short and not very common */
-    osalSysLock();
+    /* save the pointer to the current report to send it later */
     if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_IN_EPNUM)) {
-      /* Need to either suspend, or loop and call unlock/lock during
-       * every iteration - otherwise the system will remain locked,
-       * no interrupts served, so USB not going through as well.
-       * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_IN_EPNUM]->in_state->thread);
+      keyboard_report_not_yet_sent = report;
+      osalSysUnlock();
+      return;
     }
     usbStartTransmitI(&USB_DRIVER, NKRO_IN_EPNUM, (uint8_t *)report, sizeof(report_keyboard_t));
-    osalSysUnlock();
   } else
 #endif /* NKRO_ENABLE */
   { /* boot protocol */
     /* need to wait until the previous packet has made it through */
-    /* busy wait, should be short and not very common */
-    osalSysLock();
     if(usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
-      /* Need to either suspend, or loop and call unlock/lock during
-       * every iteration - otherwise the system will remain locked,
-       * no interrupts served, so USB not going through as well.
-       * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[KEYBOARD_IN_EPNUM]->in_state->thread);
+      keyboard_report_not_yet_sent = report;
+      osalSysUnlock();
+      return;
     }
     usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, (uint8_t *)report, KEYBOARD_EPSIZE);
     osalSysUnlock();
@@ -705,8 +702,12 @@ void send_keyboard(report_keyboard_t *report) {
 
 /* mouse IN callback hander (a mouse report has made it IN) */
 void mouse_in_cb(USBDriver *usbp, usbep_t ep) {
-  (void)usbp;
-  (void)ep;
+  if (mouse_report_not_yet_sent != NULL) {
+    osalSysLockFromISR();
+    usbStartTransmitI(usbp, ep, (uint8_t *)mouse_report_not_yet_sent, sizeof(report_mouse_t));
+    mouse_report_not_yet_sent = NULL;
+    osalSysUnlockFromISR();
+  }
 }
 
 void send_mouse(report_mouse_t *report) {
@@ -715,14 +716,17 @@ void send_mouse(report_mouse_t *report) {
     osalSysUnlock();
     return;
   }
-  osalSysUnlock();
 
   /* TODO: LUFA manually waits for the endpoint to become ready
    * for about 10ms for mouse, kbd, system; 1ms for nkro
    * is this really needed?
    */
 
-  osalSysLock();
+  if (usbGetTransmitStatusI(&USB_DRIVER, MOUSE_IN_EPNUM)) {
+    mouse_report_not_yet_sent = report;
+    osalSysUnlock();
+    return;
+  }
   usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
   osalSysUnlock();
 }
@@ -742,9 +746,12 @@ void send_mouse(report_mouse_t *report) {
 
 /* extrakey IN callback hander */
 void extra_in_cb(USBDriver *usbp, usbep_t ep) {
-  /* STUB */
-  (void)usbp;
-  (void)ep;
+  if (extra_report_waiting) {
+    osalSysLockFromISR();
+    usbStartTransmitI(usbp, ep, (uint8_t *)&extra_report_not_yet_sent, sizeof(report_extra_t));
+    extra_report_waiting = FALSE;
+    osalSysUnlockFromISR();
+  }
 }
 
 static void send_extra_report(uint8_t report_id, uint16_t data) {
@@ -759,6 +766,12 @@ static void send_extra_report(uint8_t report_id, uint16_t data) {
     .usage = data
   };
 
+  if (usbGetTransmitStatusI(&USB_DRIVER, EXTRAKEY_IN_EPNUM)) {
+    extra_report_not_yet_sent = report;
+    extra_report_waiting = TRUE;
+    osalSysUnlock();
+    return;
+  }
   usbStartTransmitI(&USB_DRIVER, EXTRAKEY_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
   osalSysUnlock();
 }
