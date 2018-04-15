@@ -1,11 +1,7 @@
 {
   "keyboard_name": "Phantom",
-  "manufacturer": "bpiphany",
-  "identifier": "PHANTOM",
   "url": "https://deskthority.net/wiki/Phantom",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "halfkay",
   "width": 18.25,
   "height": 6.5,
   "layouts": {

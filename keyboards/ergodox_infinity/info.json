@@ -1,9 +1,5 @@
 {
     "keyboard_name": "Infinity Ergodox",
-    "manufacturer": "Input Club",
-    "identifier": "FEED:6464:0001",
-    "processor": "MK20DX256VLH7",
-    "bootloader": "KIIBOHD_BOOTLOADER",
     "width": 19.5,
     "height": 9.375,
     "layouts": {

@@ -47,7 +47,7 @@ enum {
 */
   // Enable these functions using FUNC(n) macro.
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
+      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space,
       [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
       [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
       [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl| LGUI | Lower| LAlt | Space/Lower |     | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
  * `----------------------------------------'     `-----------------------------------------'
  */
-[_COLEMAK] = KEYMAP( \
+[_COLEMAK] = LAYOUT( \
   KC_ESC,  KC_1,    KC_2,   KC_3,    KC_4,   KC_5,    KC_6,   KC_7,    KC_8,      KC_9,    KC_0,    KC_DEL,  \
   KC_TAB,  KC_Q,    KC_W,   KC_F,    KC_P,   KC_G,    KC_J,   KC_L,    KC_U,      KC_Y,    KC_SCLN, KC_BSLS, \
   KC_BSPC, KC_A,    KC_R,   KC_S,    KC_T,   KC_D,    KC_H,   KC_N,    KC_E,      KC_I,    KC_O,    KC_QUOT, \
@@ -100,13 +100,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------'     '-----------------------------------------'
  */
 
-[_QWERTY] = KEYMAP(
+[_QWERTY] = LAYOUT(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,    KC_0,    KC_DEL,  \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,    KC_P,    KC_BSLS, \
   KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSPC, \
   KC_LCTL, KC_LGUI, LOWER,   KC_LALT, SPC_LW,  SPC_LW,  ENT_RS,  ENT_RS,  FNC,       MSE,     KC_APP,  KC_RCTL \
-  ),  
+  ),
 
 /* Dvorak
  * .----------------------------------------.     .-----------------------------------------.
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------'     '-----------------------------------------'
  */
 
-[_DVORAK] = KEYMAP(
+[_DVORAK] = LAYOUT(
   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,  \
   KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS, \
   KC_BSPC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | LGUI | Lower| LAlt | Space/Lower |    |      0      |   .  |  Fn  |ADJUST| Ctrl |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-[_LOWER] = KEYMAP( \
+[_LOWER] = LAYOUT( \
   _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  KC_PEQL, KC_PSLS, KC_PAST, KC_MINS,  XXXXXXX, _______, \
   _______, KC_PGUP,  KC_HOME,  KC_UP,    KC_END,  XXXXXXX,  KC_7,    KC_8,    KC_9,    KC_PPLS,  XXXXXXX, _______,\
   _______, KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT, XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_PENT,  XXXXXXX, _______,\
@@ -162,9 +162,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | LSBO |  <-  | %>%  |   {  |   [  |   `  |     |   |  |   ]  |   }  |   .  |   ?  | RSBC |
  * |------+------+------+------+------+------|     |------+------+------+------+------+------|
  * | Ctrl | LGUI |      | LAlt | Space/Lower |     | Enter/Raise |  Fn  | Mouse| Menu | Ctrl |
- * `-----------------------------------------'     `-----------------------------------------' 
+ * `-----------------------------------------'     `-----------------------------------------'
 */
-[_RAISE] = KEYMAP( \
+[_RAISE] = LAYOUT( \
   _______,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,     KC_7,    KC_8,    KC_9,    KC_0,    _______, \
   _______,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC,  KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  _______, \
   _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, \
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'     `-----------------------------------------'
  */
 
-[_FUNCTION] = KEYMAP( 
+[_FUNCTION] = LAYOUT(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12, \
   _______, KC_MUTE, KC_VOLD, KC_VOLU,  XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_INS , \
   KC_CAPS, KC_MSTP, KC_MPRV, KC_MPLY,  KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR, \
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------------'     `----------------------------------------'
  */
 
-[_MOUSE] = KEYMAP(
+[_MOUSE] = LAYOUT(
    KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_DEL, \
    KC_TAB,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R,  XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4,  KC_BTN5, XXXXXXX, XXXXXXX, \
    KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'     `----------------------------------------'
  */
 
-[_ADJUST] = KEYMAP(
+[_ADJUST] = LAYOUT(
   _______, _______, _______, _______, _______, RESET,        _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,      _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL, \
   _______, _______, _______, _______, _______, _______,      _______, QWERTY,  COLEMAK, DVORAK, _______,  _______, \
@@ -269,7 +269,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 }
 
-/* Cases to switch default layer to QWERTY, COLEMAK or DVORAK 
+/* Cases to switch default layer to QWERTY, COLEMAK or DVORAK
     and to access ADJUST layer to access the switch keys */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -284,13 +284,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break; 
+      break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
       return false;
-      break; 
+      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

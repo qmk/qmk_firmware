@@ -1,8 +1,5 @@
 {
     "keyboard_name": "Eagle/Viper",
-    "manufacturer": "Duck",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "width": 15,
     "height": 5,
     "layouts": {
