@@ -20,10 +20,21 @@
 #include <stdio.h>
 #include <math.h>
 
+#ifndef CMD_BUFF_SIZE
+  #define CMD_BUFF_SIZE 5
+#endif
+
+
 bool terminal_enabled = false;
 char buffer[80] = "";
+char cmd_buffer[CMD_BUFF_SIZE][80];
+bool cmd_buffer_enabled = true; //replace with ifdef?
 char newline[2] = "\n";
 char arguments[6][20];
+bool firstTime = true;
+
+signed int cmd_buffer_pos = 0;
+short int current_cmd_buffer_pos = 1;
 
 __attribute__ ((weak))
 const char terminal_prompt[8] = "> ";
@@ -34,36 +45,37 @@ const char terminal_prompt[8] = "> ";
     #endif
     float terminal_song[][2] = TERMINAL_SONG;
     #define TERMINAL_BELL() PLAY_SONG(terminal_song)
-#else 
-    #define TERMINAL_BELL()  
+#else
+    #define TERMINAL_BELL()
 #endif
 
 __attribute__ ((weak))
 const char keycode_to_ascii_lut[58] = {
     0, 0, 0, 0,
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 0, 0, 0, '\t',
     ' ', '-', '=', '[', ']', '\\', 0, ';', '\'', '`', ',', '.', '/'
-}; 
+};
 
 __attribute__ ((weak))
 const char shifted_keycode_to_ascii_lut[58] = {
     0, 0, 0, 0,
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', 0, 0, 0, '\t',
     ' ', '_', '+', '{', '}', '|', 0, ':', '\'', '~', '<', '>', '?'
-}; 
+};
 
-struct stringcase { 
-    char* string; 
-    void (*func)(void); 
+struct stringcase {
+    char* string;
+    void (*func)(void);
 } typedef stringcase;
 
 void enable_terminal(void) {
     terminal_enabled = true;
     strcpy(buffer, "");
+    memset(cmd_buffer,0,CMD_BUFF_SIZE * 80);
     for (int i = 0; i < 6; i++)
         strcpy(arguments[i], "");
     // select all text to start over
@@ -73,6 +85,39 @@ void enable_terminal(void) {
 
 void disable_terminal(void) {
     terminal_enabled = false;
+    SEND_STRING("\n");
+}
+
+void push_to_cmd_buffer(void) {
+if (cmd_buffer_enabled) {
+    if (cmd_buffer == NULL) {
+      return;
+    } else {
+    /* works ish, buffer misses out on 0 occasionally
+    0-----a  |0->
+    1----ab  |+80->
+    2---abc  |+160->
+    3--abcd  |+240->
+    4-abcde  |+320->400
+    */
+
+   if (firstTime) {
+     firstTime = false;
+   } else {
+    for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
+      strncpy(cmd_buffer[i],cmd_buffer[i-1],79); //try reversing orders ; make print_buff go from 0-4 rather than 4-0, probably easier......
+    }
+   }
+
+   if (cmd_buffer_pos < 4) {
+     cmd_buffer_pos = 0;
+   }
+
+    strcpy(cmd_buffer[cmd_buffer_pos],buffer);
+    ++cmd_buffer_pos;
+
+    }
+  }
 }
 
 void terminal_about(void) {
@@ -136,11 +181,25 @@ void terminal_keymap(void) {
     }
 }
 
-stringcase terminal_cases[] = { 
+void print_cmd_buff(void) {
+  for(int i=0;i<CMD_BUFF_SIZE;i++){
+    char a = ' ';
+    itoa(i ,&a,10);
+    const char * x = &a;
+    send_string(x);
+    SEND_STRING(". ");
+    send_string(cmd_buffer[i]);
+    SEND_STRING("\n");
+  }
+}
+
+stringcase terminal_cases[] = {
     { "about", terminal_about },
     { "help", terminal_help },
     { "keycode", terminal_keycode },
     { "keymap", terminal_keymap },
+    //{ "flush-buffer" , flush_cmd_buff},
+    { "p" , print_cmd_buff},
     { "exit", disable_terminal }
 };
 
@@ -171,7 +230,7 @@ void process_terminal_command(void) {
         pch = strtok(NULL, " ");
         i++;
     }
-  
+
     bool command_found = false;
     for( stringcase* case_p = terminal_cases; case_p != terminal_cases + sizeof( terminal_cases ) / sizeof( terminal_cases[0] ); case_p++ ) {
         if( 0 == strcmp( case_p->string, buffer ) ) {
@@ -210,6 +269,8 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
             char char_to_add;
             switch (keycode) {
                 case KC_ENTER:
+                    push_to_cmd_buffer();
+                    current_cmd_buffer_pos = CMD_BUFF_SIZE - 1;
                     process_terminal_command();
                     return false; break;
                 case KC_ESC:
@@ -228,6 +289,18 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                 case KC_LEFT:
                 case KC_RIGHT:
                 case KC_UP:
+                if (current_cmd_buffer_pos >= 0) { //once we get to the top, dont do anything
+                  str_len = strlen(buffer);
+                  for(int  i= 0;i < str_len ;++i) {
+                      send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
+                      //process_terminal(KC_BSPC,record);
+                  }
+                  strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
+
+                  send_string(buffer);
+                  --current_cmd_buffer_pos; //get ready to access the above cmd is up is pressed again
+                }
+                    return false; break;
                 case KC_DOWN:
                     return false; break;
                 default:
@@ -240,7 +313,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                         }
                         if (char_to_add != 0) {
                             strncat(buffer, &char_to_add, 1);
-                        } 
+                        }
                     } break;
             }
 
