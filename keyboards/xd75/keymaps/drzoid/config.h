@@ -26,4 +26,8 @@
   #define MANUFACTURER drzoid
 #endif
 
+#define _______ KC_TRNS
+#define ___T___ KC_TRNS
+#define XXXXXXX KC_NO
+
 #endif
