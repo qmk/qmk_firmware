@@ -29,6 +29,7 @@
 #endif
 #include "wait.h"
 #include "usb_descriptor.h"
+#include "usb_driver.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -178,8 +179,8 @@ typedef struct {
   USBEndpointConfig in_ep_config;
   USBEndpointConfig out_ep_config;
   USBEndpointConfig int_ep_config;
-  const SerialUSBConfig config;
-  SerialUSBDriver driver;
+  const QMKUSBConfig config;
+  QMKUSBDriver driver;
 } stream_driver_t;
 
 #define STREAM_DRIVER(stream, notification) { \
@@ -190,7 +191,7 @@ typedef struct {
   .in_ep_config = { \
     .ep_mode = stream##_IN_MODE, \
     .setup_cb = NULL, \
-    .in_cb = sduDataTransmitted, \
+    .in_cb = qmkusbDataTransmitted, \
     .out_cb = NULL, \
     .in_maxsize = stream##_EPSIZE, \
     .out_maxsize = 0, \
@@ -204,7 +205,7 @@ typedef struct {
     .ep_mode = stream##_OUT_MODE, \
     .setup_cb = NULL, \
     .in_cb = NULL, \
-    .out_cb = sduDataReceived, \
+    .out_cb = qmkusbDataReceived, \
     .in_maxsize = 0, \
     .out_maxsize = stream##_EPSIZE, \
     /* The pointer to the states will be filled during initialization */ \
@@ -216,7 +217,7 @@ typedef struct {
   .int_ep_config = { \
     .ep_mode = USB_EP_MODE_TYPE_INTR, \
     .setup_cb = NULL, \
-    .in_cb = sduInterruptTransmitted, \
+    .in_cb = qmkusbInterruptTransmitted, \
     .out_cb = NULL, \
     .in_maxsize = CDC_NOTIFICATION_EPSIZE, \
     .out_maxsize = 0, \
@@ -321,7 +322,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
       if (drivers.array[i].config.int_in) {
         usbInitEndpointI(usbp, drivers.array[i].config.int_in, &drivers.array[i].int_ep_config);
       }
-      sduConfigureHookI(&drivers.array[i].driver);
+      qmkusbConfigureHookI(&drivers.array[i].driver);
     }
     osalSysUnlockFromISR();
     return;
@@ -336,7 +337,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
       for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
         chSysLockFromISR();
         /* Disconnection event on suspend.*/
-        sduSuspendHookI(&drivers.array[i].driver);
+        qmkusbSuspendHookI(&drivers.array[i].driver);
         chSysUnlockFromISR();
       }
     return;
@@ -346,7 +347,7 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
       for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
         chSysLockFromISR();
         /* Disconnection event on suspend.*/
-        sduWakeupHookI(&drivers.array[i].driver);
+        qmkusbWakeupHookI(&drivers.array[i].driver);
         chSysUnlockFromISR();
       }
     suspend_wakeup_init();
@@ -530,7 +531,7 @@ static bool usb_request_hook_cb(USBDriver *usbp) {
   for (int i=0;i<NUM_STREAM_DRIVERS;i++) {
     if (drivers.array[i].config.int_in) {
       // NOTE: Assumes that we only have one serial driver
-      return sduRequestsHook(usbp);
+      return qmkusbRequestsHook(usbp);
     }
   }
 
@@ -542,7 +543,7 @@ static void usb_sof_cb(USBDriver *usbp) {
   kbd_sof_cb(usbp);
   osalSysLockFromISR();
   for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
-    sduSOFHookI(&drivers.array[i].driver);
+    qmkusbSOFHookI(&drivers.array[i].driver);
   }
   osalSysUnlockFromISR();
 }
@@ -561,16 +562,16 @@ static const USBConfig usbcfg = {
  */
 void init_usb_driver(USBDriver *usbp) {
   for (int i=0; i<NUM_STREAM_DRIVERS;i++) {
-    SerialUSBDriver* driver = &drivers.array[i].driver;
+    QMKUSBDriver* driver = &drivers.array[i].driver;
     drivers.array[i].in_ep_config.in_state = &drivers.array[i].in_ep_state;
     drivers.array[i].out_ep_config.out_state = &drivers.array[i].out_ep_state;
     drivers.array[i].int_ep_config.in_state = &drivers.array[i].int_ep_state;
-    sduObjectInit(driver);
+    qmkusbObjectInit(driver);
     bqnotify_t notify = driver->ibqueue.notify;
     ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_in, drivers.array[i].in_ep_config.in_maxsize, drivers.array[i].queue_capacity_in, notify, driver);
     notify = driver->obqueue.notify;
     ibqObjectInit(&driver->ibqueue, false, drivers.array[i].queue_buffer_out, drivers.array[i].out_ep_config.out_maxsize, drivers.array[i].queue_capacity_out, notify, driver);
-    sduStart(driver, &drivers.array[i].config);
+    qmkusbStart(driver, &drivers.array[i].config);
   }
 
   /*
