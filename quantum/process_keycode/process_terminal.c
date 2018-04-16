@@ -106,19 +106,19 @@ if (cmd_buffer_enabled) {
     4-abcde  |+320->400
     */
 
-    if (cmd_buffer_pos < 4) {
-     cmd_buffer_pos = 0;
-   }
-
    if (firstTime) {
      firstTime = false;
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
+=======
+>>>>>>> Command Buffer fully working, implemented flush buffer
      strcpy(cmd_buffer[0],buffer);
      return;
    }
 
    for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
       strncpy(cmd_buffer[i],cmd_buffer[i-1],80);
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
    }
 
    strcpy(cmd_buffer[0],buffer);
@@ -129,12 +129,17 @@ if (cmd_buffer_enabled) {
     for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
       strncpy(cmd_buffer[i],cmd_buffer[i-1],79); //try reversing orders ; make print_buff go from 0-4 rather than 4-0, probably easier......
     }
+=======
+>>>>>>> Command Buffer fully working, implemented flush buffer
    }
 
-    strcpy(cmd_buffer[cmd_buffer_pos],buffer);
-    ++cmd_buffer_pos;
+   strcpy(cmd_buffer[0],buffer);
 
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 >>>>>>> Initial commit - Command buffer implemented
+=======
+   return;
+>>>>>>> Command Buffer fully working, implemented flush buffer
     }
   }
 }
@@ -201,6 +206,7 @@ void terminal_keymap(void) {
 }
 
 void print_cmd_buff(void) {
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
   /* without the below wait, a race condition can occur wherein the
    buffer can be printed before it has been fully moved */
@@ -211,6 +217,11 @@ void print_cmd_buff(void) {
     const char * tmpCnstCharStr = &tmpChar; //because sned_string wont take a normal char *
     send_string(tmpCnstCharStr);
 =======
+=======
+  /* without the below wait, a race condition can occur wherein the
+   buffer can be printed before it has been fully moved */
+  wait_ms(400);
+>>>>>>> Command Buffer fully working, implemented flush buffer
   for(int i=0;i<CMD_BUFF_SIZE;i++){
     char a = ' ';
     itoa(i ,&a,10);
@@ -223,26 +234,38 @@ void print_cmd_buff(void) {
   }
 }
 
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
+=======
+>>>>>>> Command Buffer fully working, implemented flush buffer
 
 void flush_cmd_buffer(void) {
   memset(cmd_buffer,0,CMD_BUFF_SIZE * 80);
   SEND_STRING("Buffer Cleared!\n");
 }
 
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 =======
 >>>>>>> Initial commit - Command buffer implemented
+=======
+>>>>>>> Command Buffer fully working, implemented flush buffer
 stringcase terminal_cases[] = {
     { "about", terminal_about },
     { "help", terminal_help },
     { "keycode", terminal_keycode },
     { "keymap", terminal_keymap },
+<<<<<<< 93f97dadf0c139fa195ff3c624337c687e59f27a
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
     { "flush-buffer" , flush_cmd_buffer},
     { "print-buffer" , print_cmd_buff},
 =======
     //{ "flush-buffer" , flush_cmd_buff},
 >>>>>>> Initial commit - Command buffer implemented
+=======
+    { "flush-buffer" , flush_cmd_buffer},
+    { "f" , flush_cmd_buffer},
+    { "print-buffer" , print_cmd_buff},
+>>>>>>> Command Buffer fully working, implemented flush buffer
     { "p" , print_cmd_buff},
     { "exit", disable_terminal }
 };
