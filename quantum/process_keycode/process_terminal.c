@@ -33,7 +33,7 @@ char newline[2] = "\n";
 char arguments[6][20];
 bool firstTime = true;
 
-signed int cmd_buffer_pos = 0;
+//signed int cmd_buffer_pos = 0;
 short int current_cmd_buffer_pos = 1;
 
 __attribute__ ((weak))
@@ -101,21 +101,19 @@ if (cmd_buffer_enabled) {
     4-abcde  |+320->400
     */
 
-    if (cmd_buffer_pos < 4) {
-     cmd_buffer_pos = 0;
-   }
-
    if (firstTime) {
      firstTime = false;
-   } else {
-    for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
-      strncpy(cmd_buffer[i],cmd_buffer[i-1],79); //try reversing orders ; make print_buff go from 0-4 rather than 4-0, probably easier......
-    }
+     strcpy(cmd_buffer[0],buffer);
+     return;
    }
 
-    strcpy(cmd_buffer[cmd_buffer_pos],buffer);
-    ++cmd_buffer_pos;
+   for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
+      strncpy(cmd_buffer[i],cmd_buffer[i-1],80);
+   }
 
+   strcpy(cmd_buffer[0],buffer);
+
+   return;
     }
   }
 }
@@ -182,6 +180,9 @@ void terminal_keymap(void) {
 }
 
 void print_cmd_buff(void) {
+  /* without the below wait, a race condition can occur wherein the
+   buffer can be printed before it has been fully moved */
+  wait_ms(400);
   for(int i=0;i<CMD_BUFF_SIZE;i++){
     char a = ' ';
     itoa(i ,&a,10);
@@ -193,12 +194,20 @@ void print_cmd_buff(void) {
   }
 }
 
+
+void flush_cmd_buffer(void) {
+  memset(cmd_buffer,0,CMD_BUFF_SIZE * 80);
+  SEND_STRING("Buffer Cleared!\n");
+}
+
 stringcase terminal_cases[] = {
     { "about", terminal_about },
     { "help", terminal_help },
     { "keycode", terminal_keycode },
     { "keymap", terminal_keymap },
-    //{ "flush-buffer" , flush_cmd_buff},
+    { "flush-buffer" , flush_cmd_buffer},
+    { "f" , flush_cmd_buffer},
+    { "print-buffer" , print_cmd_buff},
     { "p" , print_cmd_buff},
     { "exit", disable_terminal }
 };
