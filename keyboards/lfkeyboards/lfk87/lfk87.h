@@ -57,8 +57,8 @@ void click(uint16_t freq, uint16_t duration);
 
 #define k00 KC_NO
 #ifdef LFK_TKL_REV_A
-    #ifndef KEYMAP
-        #define KEYMAP( \
+    #ifndef LAYOUT
+        #define LAYOUT( \
             k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
             k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
             k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
@@ -76,8 +76,8 @@ void click(uint16_t freq, uint16_t duration);
         }
 
     #endif //!KEYMAP#endif
-    #ifndef ISO_KEYMAP
-        #define ISO_KEYMAP( \
+    #ifndef LAYOUT_iso
+        #define LAYOUT_iso( \
             k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
             k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
             k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
@@ -95,8 +95,8 @@ void click(uint16_t freq, uint16_t duration);
         }
     #endif //!ISO_KEYMAP
 #else  // RevC+ keymaps
-    #ifndef KEYMAP
-        #define KEYMAP( \
+    #ifndef LAYOUT
+        #define LAYOUT( \
             k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
             k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
             k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
@@ -115,8 +115,8 @@ void click(uint16_t freq, uint16_t duration);
         }
 
     #endif //!KEYMAP#endif
-    #ifndef ISO_KEYMAP
-        #define ISO_KEYMAP( \
+    #ifndef LAYOUT_iso
+        #define LAYOUT_iso( \
             k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
             k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
             k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
@@ -133,7 +133,7 @@ void click(uint16_t freq, uint16_t duration);
             {k61, k62, k63, k64, k65, k00, k67, k00, k00, k6a, k6b, k6c, k6d, k6e, k6f, k6g}, \
             {k71, k72, k73, k74, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00, k00}, \
         }
-    #endif //!ISO_KEYMAP
+    #endif //!LAYOUT_iso
 #endif //Rev
 
 #endif //LFK87_H
