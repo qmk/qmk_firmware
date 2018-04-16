@@ -46,47 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
-#ifndef RGBLIGHT_ANIMATIONS // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
-#define rgblight_set_white       rgblight_setrgb (0xFF, 0xFF, 0xFF);
-#define rgblight_set_red         rgblight_setrgb (0xFF, 0x00, 0x00);
-#define rgblight_set_coral       rgblight_setrgb (0xFF, 0x7C, 0x4D);
-#define rgblight_set_orange      rgblight_setrgb (0xFF, 0x80, 0x00);
-#define rgblight_set_goldenrod   rgblight_setrgb (0xD9, 0xA5, 0x21);
-#define rgblight_set_gold        rgblight_setrgb (0xFF, 0xD9, 0x00);
-#define rgblight_set_yellow      rgblight_setrgb (0xFF, 0xFF, 0x00);
-#define rgblight_set_chartreuse  rgblight_setrgb (0x80, 0xFF, 0x00);
-#define rgblight_set_green       rgblight_setrgb (0x00, 0xFF, 0x00);
-#define rgblight_set_springgreen rgblight_setrgb (0x00, 0xFF, 0x80);
-#define rgblight_set_turquoise   rgblight_setrgb (0x47, 0x6E, 0x6A);
-#define rgblight_set_teal        rgblight_setrgb (0x00, 0x80, 0x80);
-#define rgblight_set_cyan        rgblight_setrgb (0x00, 0xFF, 0xFF);
-#define rgblight_set_azure       rgblight_setrgb (0x99, 0xf5, 0xFF);
-#define rgblight_set_blue        rgblight_setrgb (0x00, 0x00, 0xFF);
-#define rgblight_set_purple      rgblight_setrgb (0x7A, 0x00, 0xFF);
-#define rgblight_set_magenta     rgblight_setrgb (0xFF, 0x00, 0xFF);
-#define rgblight_set_pink        rgblight_setrgb (0xFF, 0x80, 0xBF);
-#else
-#define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
-#define rgblight_set_red         rgblight_sethsv (0,  255, 255);
-#define rgblight_set_coral       rgblight_sethsv (16, 176, 255);
-#define rgblight_set_orange      rgblight_sethsv (39,  255, 255);
-#define rgblight_set_goldenrod   rgblight_sethsv (43,  218, 218);
-#define rgblight_set_gold        rgblight_sethsv (51,  255, 255);
-#define rgblight_set_yellow      rgblight_sethsv (60,  255, 255);
-#define rgblight_set_chartreuse  rgblight_sethsv (90, 255, 255);
-#define rgblight_set_green       rgblight_sethsv (120,  255, 255);
-#define rgblight_set_springgreen rgblight_sethsv (150,  255, 255);
-#define rgblight_set_turquoise   rgblight_sethsv (174,  90, 112);
-#define rgblight_set_teal        rgblight_sethsv (180,  255, 128);
-#define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
-#define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
-#define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
-#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
-#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
-#define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
-
-//#define rgblight_set_        rgblight_sethsv (0, 255, 255);
-#endif // DRASHNA_SETRGB
+// RGB color codes are no longer located here anymore.  Instead, you will want to
+// head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
@@ -131,6 +92,12 @@ enum userspace_custom_keycodes {
 #define KC_SEC3 KC_SECRET_3
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
+
+#define QWERTY KC_QWERTY
+#define DVORAK KC_DVORAK
+#define COLEMAK KC_COLEMAK
+#define WORKMAN KC_WORKMAN
+#define KC_RST KC_RESET
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -185,6 +152,7 @@ enum {
 #define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...)           LAYOUT(__VA_ARGS__)
 
 
 // Blocks for each of the four major keyboard layouts
@@ -255,7 +223,7 @@ enum {
 // this allows us to quickly modify the bottom row for all of the layouts
 // so we don't have to alter it 4 times and hope that we haven't missed
 // anything
-#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_MEH,  KC_LGUI, KC_LBRC, KC_RBRC
+#define ___________ERGODOX_BOTTOM_LEFT_____________       OSM(MOD_MEH), OSM(MOD_LGUI), KC_LBRC, KC_RBRC
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
