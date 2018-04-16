@@ -16,16 +16,9 @@ void matrix_scan_kb(void) {
 
 void led_init_ports(void) {
     // * Set our LED pins as output
-    DDRB &= ~(1<<5);
+    DDRE |= (1 << 6);
 }
 
 void led_set_kb(uint8_t usb_led) {
-	if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        // Turn capslock on
-        PORTF |= (1<<5);
-    } else {
-        // Turn capslock off
-        PORTF &= ~(1<<5);
-    }
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }

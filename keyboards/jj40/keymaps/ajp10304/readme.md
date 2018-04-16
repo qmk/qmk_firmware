@@ -27,7 +27,7 @@ Activated when `fn` held in the above `qwerty` layer.
 |  F1   |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |  1!   |  2"  |  3£  |  4$  |  5%  |  6^  |  7&  |  8*  |  9(  |  0)  |  ~   |INSERT|
 | Shift |  \|  |  `¬  |  #~  |   *  |  -_  |  =+  |  \|  |  [{  |  ]}  |  '@  |Shift |
-| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | MENU | Alt  | Ctrl | Fn   |
+| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Mouse | MENU | Alt  | Ctrl | Fn   |
 
 ##### Lower Layer
 Activated when `Lower` is held in the above `qwerty` layer.
@@ -56,38 +56,37 @@ Activated when `Lower` is held in the above `qwerty` layer.
 |   `   |      |WRDSEL|  [   |   ]  |      |       | PGUP | HOME |PGDOWN|       |PRNTSC|
 |   `   |      |      |  (   |   )  |      |       | HOME |  UP  | END  |       |ZOOM +|
 |       |      |      |  {   |   }  |      |&#124;<| LEFT | DOWN |RIGHT |>&#124;|ZOOM -|
-|       |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |
+| Mouse |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |
 
 ##### Lower + Raise
-Activated when `Lower` and `Raise` are held together the above `qwerty` layer.
+Activated when `Lower` and `Raise` are held together in the above `qwerty` layer.
 
 * Audio controls in the same position as cursor keys from the `Raise` layer.
 * ????: Runs a macro for outputting a text string.  Do not use this store passwords.
 * Reset: Enter bootloader for flashing firmware to the keyboard.
 * CAPS: Toggle caps lock.
-* DYN: Enter `DYN` layer.
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
 MRSE with RAISE and MFNC with FUNC respectively.
+* REC1, REC2: Start recording macro.
+* PLAY1, PLAY2: Playback macro.
+* STOP1, STOP2: Stop recording macro.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ????  | Reset|Qwerty|      |      |      |      |      |      |      |      |  Del |
-| CAPS  |      |      |      |      |      |      | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
-|       |      |      |      |      |      |      |      | DYN  |      |      |      |
-
-##### DYN
-Activated when `DYN` held along with `Lower` and `Raise`
-Allows recording of macros.  To start recording the macro, press either REC1 or REC2.
-To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.
-
+| ????  | Reset|Qwerty|      |      | REC1 | REC2 |      |      |      |      |  Del |
+| CAPS  |      |      |      |      | PLAY1| PLAY | Mute | Vol+ | Play |      |      |
+| MAC   |      |      |      |      | STOP | STOP | Prev | Vol- | Next |      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
-| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-|       |      |      |      |      | REC1 | REC2 |      |      |      |      |      |
-|       |      |      |      |      | PLAY1| PLAY2|      |      |      |      |      |
-|       |      |      |      |      | STOP | STOP |      |      |      |      |      |
-|       |      |      |      |      |      |      |      |      |      |      |      |
+ 
+##### Mouse
+Activated when `fn` and `Raise` are held together.
 
+|       |      |      |      |      |      |       |      |      |      |       |      |
+| :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:|
+|       |      |      |      |      |      |       |      |      |      |       |      |
+| ACC0  | ACC1 | ACC2 |      |      |      |       | BTN1 |  UP  | BTN2 |       |      |
+| ACC0  | ACC1 | ACC2 |      |      |      |       | LEFT | DOWN |RIGHT |       |      |
+|       |      |      |      |      |      |       |      |      |      |       |      |
 
 ####Manual Flashing of hex file
 `bootloadHID -r .build/jj40_ajp10304.hex`
