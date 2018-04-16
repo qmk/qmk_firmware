@@ -1,10 +1,9 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
-	url = https://github.com/qmk/ChibiOS
+	url = https://github.com/pok3r-custom/ChibiOS
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/ChaoticConundrum/ChibiOS-Contrib
-	branch = k-type-fix
+	url = https://github.com/pok3r-custom/ChibiOS-Contrib
 [submodule "lib/ugfx"]
 	path = lib/ugfx
 	url = https://github.com/qmk/uGFX
