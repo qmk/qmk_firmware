@@ -5,10 +5,10 @@ Drzoid's mirrored 5x15 ortho layout
 This layout:
   -> http://www.keyboard-layout-editor.com/#/gists/a59dd1a00a45c5dcd38d9e765675dd41
 */
+
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "keymap.h"
-#include "keymap_french.h"
 
 #define _QWERTY 0
 #define _QWERTY_ON_INTL_QWERTY 0
@@ -35,48 +35,36 @@ enum custom_macros {
   DRZ_MACRO_COMMENT_END
 };
 
-//Unicode chars
-#define DRZ_UC_STAR     RALT(UC(0x2605))    // ★
-#define DRZ_UC_SQUARE   RALT(UC(0x00B2))    // ²
-#define DRZ_UC_CUBE     RALT(UC(0x00B3))    // ³
 
-//uni-sized keycodes for keymap uses
-#define DRZ_UST  DRZ_UC_STAR
-#define DRZ_USQ  DRZ_UC_SQUARE
-#define DRZ_UCU  DRZ_UC_CUBE
-#define DRZ_LCK  DRZ_LOCK
-#define DRZ__ST  LSFT(KC_TAB)
-#define DRZ__SH  DRZ_SWAP_HANDS
-#define DRZ__LS  KC_LSHIFT
-#define DRZ__RS  KC_RSHIFT
-#define DRZ__AC  DRZ_ACCENTS_TAPDANCE
-#define DRZ__EM  DRZ_EMOJIS_TAPDANCE
-#define DRZ__CA  LCTL(KC_LALT)
-#define DRZ__CS  LCTL(KC_LSHIFT)
-#define DRZ__EU  LCTL(RALT(KC_E))
-#define DRZ_MCS  M(DRZ_MACRO_COMMENT_START)
-#define DRZ_MCE  M(DRZ_MACRO_COMMENT_END)
-
-#define DRZ_AZERTY_FR_OS       /* Qwerty keycaps & layout with Azerty French OS */
-//#define DRZ_QWERTY_INTL_OS     /* Qwerty keycaps & layout with Qwerty Intl OS */
-
-/*\ ------------------------------------------------------*/
-//  QWERTY KEYMAP ON QWERTY INTL OS !
-/*\-------------------------------------------------------*/
-
-
-#ifdef DRZ_QWERTY_INTL_OS
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY_ON_INTL_QWERTY] =
+  //DEFAULT LAYER
+  //KLE url: http://www.keyboard-layout-editor.com/#/gists/3aede80592346f947cbc1eb91574d1c7
+  /*
+    [LOCK+] [ESC  ] [1!   ] [2@   ] [3#   ] [4$   ] [5%   ] [Macro] [6^   ] [7&   ] [8*   ] [9(   ] [0)   ] [ESC  ] [LOCK+]
+    [FN   ] [OS   ] [Q    ] [W    ] [E    ] [R    ] [T    ] [M1   ] [Y    ] [U    ] [I    ] [O    ] [P    ] [OS   ] [FN   ]
+    [L3   ] [LALT ] [A    ] [S    ] [D    ] [F    ] [G    ] [M2   ] [H    ] [J    ] [K    ] [L    ] [:;   ] [RALT ] [L3   ]
+    [L2   ] [/CAPS] [Z    ] [X    ] [C    ] [V    ] [B/<i ] [M3   ] [N    ] [M    ] [\ | /] [↑    ] [.,   ] [/CAPS] [L2   ]
+    [SWAP ] [CTRL ] [/Acce] [/Smil] [MENU ] [SPACE] [SPACE] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [RCTRL] [SWAP ]
+  */
+  [_QWERTY_ON_FR_AZERTY] =
     KEYMAP(
-      DRZ_LCK,  KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,  KC_6,    KC_7,      KC_8,     KC_9,    KC_0,      KC_ESC,   DRZ_LCK,
-      MO(_FN),  KC_LGUI,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     _______,  KC_Y,    KC_U,      KC_I,     KC_O,    KC_P,      KC_RGUI,  MO(_FN),
-      MO(_L3),  KC_LALT,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     _______,  KC_H,    KC_J,      KC_K,     KC_L,    KC_SCLN,   KC_RALT,  MO(_L3),
-      MO(_L2),  DRZ__LS,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     _______,  KC_N,    KC_M,      _______,  KC_UP,   KC_COLN,   DRZ__RS,  MO(_L2),
-      DRZ__SH,  KC_LCTL,  DRZ__AC,  DRZ__EM,  KC_MENU,  KC_SPC,   KC_SPC,   KC_ENT,   KC_SPC,  KC_SPC,    KC_LEFT,  KC_DOWN, KC_RGHT,   KC_RCTL,  DRZ__SH
+      DRZ_LCK,  KC_ESC,   DRZ___1,  DRZ___2,  DRZ___3,  DRZ___4,  DRZ___5,  _______,  DRZ___6,  DRZ___7,  DRZ___8,  DRZ___9,  DRZ___0,  KC_ESC,   DRZ_LCK,
+      MO(_FN),  KC_LGUI,  DRZ___Q,  DRZ___W,  DRZ___E,  DRZ___R,  DRZ___T,  _______,  DRZ___Y,  DRZ___U,  DRZ___I,  DRZ___O,  DRZ___P,  KC_RGUI,  MO(_FN),
+      MO(_L3),  KC_LALT,  DRZ___A,  DRZ___S,  DRZ___D,  DRZ___F,  DRZ___G,  _______,  DRZ___H,  DRZ___J,  DRZ___K,  DRZ___L,  DRZ_SCL,  KC_RALT,  MO(_L3),
+      MO(_L2),  DRZ__LS,  DRZ___Z,  DRZ___X,  DRZ___C,  DRZ___V,  DRZ___B,  _______,  DRZ___N,  DRZ___M,  _______,  KC_UP,    DRZ_CLN,  DRZ__RS,  MO(_L2),
+      DRZ__SH,  KC_LCTL,  DRZ__AC,  DRZ__EM,  KC_MENU,  DRZ_SPA,  DRZ_SPA,  DRZ_ENT,  DRZ_SPA,  DRZ_SPA,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_RCTL,  DRZ__SH
     ),
 
+  //FN LAYER
+  //KLE url: http://www.keyboard-layout-editor.com/#/gists/ea5fd62e5090bfd1ace06bb00ebc35b5
+  /*
+    [LOCK+] [ESC  ] [F1   ] [F2   ] [F3   ] [F4   ] [F5   ] [Macro] [F6   ] [F7   ] [F8   ] [F9   ] [F10  ] [ESC  ] [LOCK+]
+    [     ] [OS   ] [F11  ] [F12  ] [F13  ] [F14  ] [F15  ] [M1   ] [F16  ] [F17  ] [F18  ] [F19  ] [F20  ] [OS   ] [     ]
+    [L3   ] [LALT ] [     ] [     ] [     ] [     ] [     ] [M2   ] [     ] [     ] [     ] [     ] [     ] [RALT ] [L3   ]
+    [L2   ] [/CAPS] [/scre] [calc ] [pause] [     ] [     ] [M3   ] [     ] [     ] [     ] [↑    ] [     ] [/CAPS] [L2   ]
+    [SWAP ] [CTRL ] [/Acce] [/Smil] [MENU ] [SPACE] [SPACE] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [RCTRL] [SWAP ]
+  */
   [_FN] =
     KEYMAP(
       _______,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,  _______,
@@ -86,84 +74,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
     ),
 
+  //LAYER 2
+  //KLE url: http://www.keyboard-layout-editor.com/#/gists/873f4eb3c290906364daf000cb132b69
+  /*
+    [LOCK+] [ESC  ] [     ] [     ] [     ] ['    ] ["    ] [Macro] [     ] [     ] [     ] [_    ] [=    ] [ESC  ] [LOCK+]
+    [FN   ] [OS   ] [     ] [     ] [     ] [     ] [[    ] [M1   ] []    ] [     ] [     ] [     ] [     ] [OS   ] [FN   ]
+    [L3   ] [LALT ] [/:ah:] [     ] [     ] [     ] [(    ] [M2   ] [)    ] [     ] [     ] [     ] [!    ] [RALT ] [L3   ]
+    [     ] [/CAPS] [     ] [     ] [     ] [     ] [{    ] [M3   ] [}    ] [     ] [|    ] [PgUp/] [?    ] [/CAPS] [     ]
+    [SWAP ] [ctrl/] [/Acce] [/Smil] [MENU ] [shift] [tab  ] [ENTER] [back/] [del  ] [Home ] [PgDn ] [End  ] [ctrl/] [SWAP ]
+  */
   [_L2] =
     KEYMAP(
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, KC_QUOT, KC_DQT,     _______,   XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_UNDS, KC_EQL,   _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, KC_LBRC,    _______,   KC_RBRC,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, KC_LPRN,    _______,   KC_RPRN,  XXXXXXX,  XXXXXXX,  XXXXXXX, KC_EXLM,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, KC_LCBR,    _______,   KC_RCBR,  XXXXXXX,  KC_PIPE,  KC_PGUP, KC_QUES,  _______,  _______,
-      _______,  DRZ__CA,  _______,  _______,  _______, DRZ__ST, KC_TAB,     _______,   KC_BSPC,  KC_DELT,  KC_HOME,  KC_PGDN, KC_END,   DRZ__CA,  _______
+      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_APS,  DRZ_QOT,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_UDS,  DRZ_EQU,  _______,  _______,
+      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_SBL,  _______,  DRZ_SBL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
+      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_LPR,  _______,  DRZ_RPR,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_EXC,  _______,  _______,
+      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DRZ_CBL,  _______,  DRZ_CBR,  XXXXXXX,  DRZ_PIP,  KC_PGUP,  DRZ_INT,  _______,  _______,
+      _______,  DRZ__CA,  _______,  _______,  _______,  DRZ__ST,  KC_TAB ,  _______,  DRZ_BSP,  KC_DELT,  KC_HOME,  KC_PGDN,  KC_END,   DRZ__CA,  _______
     ),
 
+  //LAYER 3
+  //KLE url: http://www.keyboard-layout-editor.com/#/gists/6ee8724672840abd6863985fa9fe7014
+  /*
+    [LOCK+] [ESC  ] [~    ] [²    ] [     ] [     ] [`    ] [Macro] [*    ] [     ] [     ] [-    ] [+    ] [ESC  ] [LOCK+]
+    [FN   ] [OS   ] [     ] [     ] [€    ] [     ] [\    ] [M1   ] [/    ] [     ] [     ] [     ] [     ] [OS   ] [FN   ]
+    [     ] [LALT ] [     ] [$    ] [     ] [     ] [<    ] [M2   ] [>    ] [     ] [     ] [     ] [£    ] [RALT ] [     ]
+    [L2   ] [/CAPS] [     ] [     ] [     ] [     ] [/ *   ] [M3   ] [* /  ] [     ] [     ] [↑    ] [     ] [/CAPS] [L2   ]
+    [SWAP ] [ctrl/] [/Acce] [/Unic] [MENU ] [SPACE] [alt/t] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [ctrl/] [SWAP ]
+  */
   [_L3] =
     KEYMAP(
-      _______,  _______,  KC_TILD,  DRZ_USQ,  DRZ_UCU,  XXXXXXX, KC_GRV,    _______,   KC_ASTR,  XXXXXXX,  XXXXXXX,  KC_MINS, KC_PLUS,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  DRZ_EU ,  XXXXXXX, KC_BSLS,   _______,   KC_SLASH, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  _______,  _______,
-      _______,  _______,  XXXXXXX,  KC_DLR,   XXXXXXX,  XXXXXXX, KC_LABK,   _______,   KC_RABK,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, DRZ_MCS,   _______,   DRZ_MCE,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  _______,  _______,
-      _______,  DRZ__CS,  _______,  _______,  _______,  _______, _______,   _______,   _______,  _______,  _______,  _______, _______,  DRZ__CS,  _______
-    )
-
-};
-#endif
-
-/*\ ------------------------------------------------------*/
-//  QWERTY KEYMAP ON AZERTY OS !
-/*\-------------------------------------------------------*/
-
-#ifdef DRZ_AZERTY_FR_OS
-
-#define DRZ_TIL RALT(FR_EACU) //  ~ (tilde)
-#define DRZ_SBL RALT(FR_LPAR) //  [ (square bracket left)
-#define DRZ_SBR RALT(FR_RPAR) //  ] (square bracket right)
-#define DRZ_CBL RALT(FR_APOS) //  { (curly bracket left)
-#define DRZ_CBR RALT(FR_EQUA) //  } (curly bracket right)
-#define DRZ_PIP RALT(KC_6)    //  | (pipe)
-#define DRZ_INT LSFT(FR_COMM) //  ? (interrogation mark)
-#define DRZ_SQT RALT(FR_EGRV) //  ` (special quote ?)
-#define DRZ_ASL LALT(FR_UNDS) //  \ (antislash)
-#define DRZ_SUP LSFT(FR_LESS) //  > (superior)
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  [_QWERTY_ON_FR_AZERTY] =
-    KEYMAP(
-      DRZ_LCK,  KC_ESC,   FR_1,     FR_2,     FR_3,     FR_4,     FR_5,     _______,  FR_6,     FR_7,     FR_8,     FR_9,     FR_0,     KC_ESC,   DRZ_LCK,
-      MO(_FN),  KC_LGUI,  FR_Q,     FR_W,     FR_E,     FR_R,     FR_T,     _______,  FR_Y,     FR_U,     FR_I,     FR_O,     FR_P,     KC_RGUI,  MO(_FN),
-      MO(_L3),  KC_LALT,  FR_A,     FR_S,     FR_D,     FR_F,     FR_G,     _______,  FR_H,     FR_J,     FR_K,     FR_L,     FR_SCLN,  KC_RALT,  MO(_L3),
-      MO(_L2),  DRZ__LS,  FR_Z,     FR_X,     FR_C,     FR_V,     FR_B,     _______,  FR_N,     FR_M,     _______,  KC_UP,    FR_COLN,  DRZ__RS,  MO(_L2),
-      DRZ__SH,  KC_LCTL,  DRZ__AC,  DRZ__EM,  KC_MENU,  KC_SPC,   KC_SPC,   KC_ENT,   KC_SPC,   KC_SPC,   KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_RCTL,  DRZ__SH
-    ),
-
-  [_FN] =
-    KEYMAP(
-      _______,  _______,  FR_F1,    FR_F2,    FR_F3,    FR_F4,    FR_F5,    _______,  FR_F6,    FR_F7,    FR_F8,    FR_F9,    FR_F10,   _______,  _______,
-      _______,  _______,  FR_F11,   FR_F12,   FR_F13,   FR_F14,   FR_F15,   _______,  FR_F16,   FR_F17,   FR_F18,   FR_F19,   FR_F20,   _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
-      _______,  _______,  KC_PSCR,  KC_PAUS,  KC_CALC,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
-      _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
-    ),
-
-  [_L2] =
-    KEYMAP(
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, FR_APOS, FR_QUOT,    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  FR_UNDS,  FR_EQUA,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, DRZ_SBL,    _______,  DRZ_SBL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, FR_LPAR,    _______,  FR_RPAR,  XXXXXXX,  XXXXXXX,  XXXXXXX,  FR_EXCL,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, DRZ_CBL,    _______,  DRZ_CBR,  XXXXXXX,  DRZ_PIP,  FR_PGUP,  DRZ_INT,  _______,  _______,
-      _______,  DRZ__CA,  _______,  _______,  _______, DRZ__ST, FR_TAB ,    _______,  FR_BSPC,  FR_DEL,   FR_HOME,  FR_PGDN,  FR_END,   DRZ__CA,  _______
-    ),
-
-  [_L3] =
-    KEYMAP(
-      _______,  _______,  DRZ_TIL,  DRZ_USQ,  DRZ_UST,  XXXXXXX, DRZ_SQT,   _______,  FR_AST,   XXXXXXX,  XXXXXXX,  FR_MINS,  FR_PLUS,  _______,  _______,
-      _______,  _______,  XXXXXXX,  XXXXXXX,  DRZ__EU,  XXXXXXX, DRZ_ASL,   _______,  FR_SLSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
-      _______,  _______,  XXXXXXX,  FR_DLR,   XXXXXXX,  XXXXXXX, FR_LESS,   _______,  DRZ_SUP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
+      _______,  _______,  DRZ_TIL,  DRZ_USQ,  DRZ_UST,  XXXXXXX, DRZ_SQT,   _______,  DRZ_AST,  XXXXXXX,  XXXXXXX,  DRZ_MNS,  DRZ_PLS,  _______,  _______,
+      _______,  _______,  XXXXXXX,  XXXXXXX,  DRZ__EU,  XXXXXXX, DRZ_ASL,   _______,  DRZ_SLA,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
+      _______,  _______,  XXXXXXX,  DRZ_DLR,  XXXXXXX,  XXXXXXX, DRZ_LES,   _______,  DRZ_SUP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
       _______,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, DRZ_MCS,   _______,  DRZ_MCE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,
       _______,  DRZ__CS,  _______,  _______,  _______,  _______, _______,   _______,  _______,  _______,  _______,  _______,  _______,  DRZ__CS,  _______
     )
 
 };
-#endif
+
 
 /*\ ------------------------------------------------------*/
 //  SETUP ACTIONS
@@ -203,24 +151,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       }
     break;
 
-    /* Sample from fredizzimo:
-    case 10001:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) { // when shift is pressed
-            unregister_code(KC_LSHIFT);
-            register_code(FR_EXCL); // register !
-        } else { // if shift is not pressed
-            register_code(FR_1);    // register 1
-        }
-      } else {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) { // when shift is pressed
-            unregister_code(FR_EXCL);
-        } else { // if shift is not pressed
-            unregister_code(FR_1);
-        }
-      }
-    break;
-    */
 	}
 	return MACRO_NONE;
 }
@@ -234,6 +164,7 @@ void press_key_with_level_mods(uint16_t key) {
     const uint8_t macro_mods = get_macro_mods();
 
     uint8_t target_mods = (key >> 8) & (QK_MODS_MAX >> 8);
+
     // The 5th bit indicates that it's a right hand mod,
     // which needs some fixup
     if (target_mods & 0x10) {
@@ -346,6 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     break;
 
+#ifdef DRZ_AZERTY_FR_OS
     case FR_1:  //!
         returnValue = override_key(record, FR_1, FR_EXCL);
         break;
@@ -376,6 +308,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case FR_0:  //(
         returnValue = override_key(record, FR_0, FR_RPAR);
         break;
+#endif
 /*
     case DRZ_CMS:
       if(IS_RELEASED(record->event)) {
