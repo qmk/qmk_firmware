@@ -110,6 +110,10 @@ if (cmd_buffer_enabled) {
     4-abcde  |+320->400
     */
 
+    if (cmd_buffer_pos < 4) {
+     cmd_buffer_pos = 0;
+   }
+
    if (firstTime) {
      firstTime = false;
 <<<<<<< 82d141823f37f2cfcf842cd9520f94b404eb0342
@@ -129,10 +133,6 @@ if (cmd_buffer_enabled) {
     for (int i= CMD_BUFF_SIZE - 1;i > 0 ;--i) {
       strncpy(cmd_buffer[i],cmd_buffer[i-1],79); //try reversing orders ; make print_buff go from 0-4 rather than 4-0, probably easier......
     }
-   }
-
-   if (cmd_buffer_pos < 4) {
-     cmd_buffer_pos = 0;
    }
 
     strcpy(cmd_buffer[cmd_buffer_pos],buffer);
