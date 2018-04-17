@@ -127,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MUSICL] = {
     {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {TO(0),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
+    {XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
     {MU_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-    {MU_ON,   TO(6),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
+    {MU_ON,   TO(6),   TO(0),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}
   },
 
 /* Lower, minus hold, alpha hold (3)
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, KC_LALT, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* Raise, tab hold
+/* Raise, tab hold (4 PC, 5 mac)
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Home | Up   | End  |Pg Up |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* Adjust (Lower + Raise)
+/* Adjust (Lower + Raise) (6)
  * ,-----------------------------------------------------------------------------------.
  * |Sleep | Reset| Music| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float tone_caps_off[][2]   = SONG(NUM_LOCK_OFF_SOUND);
   float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
   float tone_nums_off[][2]   = SONG(SCROLL_LOCK_OFF_SOUND);
-  float tone_nums_on[][2]    = SONG(CAPS_LOCK_OFF_SOUND);
+  float tone_nums_on[][2]    = SONG(COIN_SOUND);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
