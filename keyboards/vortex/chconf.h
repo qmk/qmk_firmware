@@ -522,6 +522,8 @@
 /* Port-specific settings (override port settings defaulted in chcore.h).    */
 /*===========================================================================*/
 
+#define CH_HT32_WAIT_US_POLL    TRUE
+
 #endif  /* CHCONF_H */
 
 /** @} */

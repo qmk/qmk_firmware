@@ -22,16 +22,6 @@
 
 #define OVERRIDE
 
-// Microseconds to CPU cycles
-#define US2CYC(usec) (((((uint32_t)(usec)) * HT32_CK_AHB_FREQUENCY) + 999999UL) / 1000000UL)
-
-// Sleep for approximately n cpu cycles
-static void sleep_cyc(uint32_t n) {
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-    uint32_t cnt = DWT->CYCCNT + n;
-    while(DWT->CYCCNT < cnt);
-}
-
 enum extra_keycodes {
     EX_ECHO = SAFE_RANGE,
     EX_DUMP,

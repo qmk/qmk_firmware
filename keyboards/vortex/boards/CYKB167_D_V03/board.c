@@ -163,15 +163,29 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
+// GPT Initialization
+
+static const GPTConfig bftm0_config = {
+    .frequency = 1000000,
+    .callback = NULL,
+};
+
+void gpt_init(void) {
+    gptStart(&GPTD_BFTM0, &bftm0_config);
+}
+
+// SPI Initialization
+
+static const SPIConfig spi1_config = {
+    .end_cb = NULL,
+    .cr0 = SPI_CR0_SELOEN,
+    .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
+    .cpr = 1,
+    .fcr = 0,
+};
+
 void spi_init(void) {
-    static const SPIConfig config = {
-        .end_cb = NULL,
-        .cr0 = SPI_CR0_SELOEN,
-        .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
-        .cpr = 1,
-        .fcr = 0,
-    };
-    spiStart(&SPID1, &config);
+    spiStart(&SPID1, &spi1_config);
     palSetLine(LINE_SPI_CS);
 }
 
@@ -180,6 +194,7 @@ void spi_init(void) {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
+    gpt_init();
     spi_init();
 }
 

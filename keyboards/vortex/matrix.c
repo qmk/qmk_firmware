@@ -28,64 +28,53 @@
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-static bool debouncing = false;
-static uint16_t debouncing_time = 0;
+static uint32_t debounce_times[MATRIX_ROWS];
 
 extern ioline_t row_list[MATRIX_ROWS];
 extern ioline_t col_list[MATRIX_COLS];
 
-static void sleep_cyc(uint32_t n) {
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-    uint32_t cnt = DWT->CYCCNT + n;
-    while(DWT->CYCCNT < cnt);
-}
-
-#define US2CYC(usec) (((((uint32_t)(usec)) * HT32_CK_AHB_FREQUENCY) + 999999UL) / 1000000UL)
-
 void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        palSetLine(row_list[row]);
-    }
+    memset(debounce_times, 0, MATRIX_ROWS * sizeof(uint32_t));
     matrix_init_quantum();
 }
 
-static inline matrix_row_t read_columns(void) {
-    matrix_row_t row = 0;
-    // read each column
-    for (int col = 0; col < MATRIX_COLS; ++col) {
-        row |= ((palReadLine(col_list[col]) & 1) << col);
-    }
-    return row;
-}
-
 uint8_t matrix_scan(void) {
+    // cache of input ports for columns
+    static uint16_t port_cache[3];
+
     // scan each row
     for (int row = 0; row < MATRIX_ROWS; row++) {
-        matrix_row_t data;
-
         palClearLine(row_list[row]);
-//        wait_us(20);
-        sleep_cyc(US2CYC(1));
-        data = ~read_columns();
+        wait_us(1);
+        // read i/o ports
+        port_cache[0] = palReadPort(IOPORTA);
+        port_cache[1] = palReadPort(IOPORTB);
+        port_cache[2] = palReadPort(IOPORTC);
         palSetLine(row_list[row]);
 
+        // get columns from ports
+        matrix_row_t data = 0;
+        for (int col = 0; col < MATRIX_COLS; ++col) {
+            ioline_t line = col_list[col];
+            uint16_t port = port_cache[HT32_PAL_IDX(PAL_PORT(line))];
+            data |= (((port & (1 << PAL_PAD(line))) ? 0 : 1) << col);
+        }
+
+        // if a key event happens <5ms before the system time rolls over,
+        // the event will "never" debounce
+        // but any event on the same row will reset the debounce timer
         if (matrix_debouncing[row] != data) {
+            // whenever row changes restart debouncing
             matrix_debouncing[row] = data;
-            debouncing = true;
-            debouncing_time = timer_read();
-        }
-    }
-
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-        for (int row = 0; row < MATRIX_ROWS; row++) {
+            debounce_times[row] = timer_read32();
+        } else if(debounce_times[row] && timer_elapsed32(debounce_times[row]) >= DEBOUNCE){
+            // when debouncing complete, update matrix
             matrix[row] = matrix_debouncing[row];
+            debounce_times[row] = 0;
         }
-        debouncing = false;
     }
-
-//    matrix_print();
 
     matrix_scan_quantum();
     return 1;
@@ -102,7 +91,7 @@ matrix_row_t matrix_get_row(uint8_t row) {
 void matrix_print(void) {
     printf("\nr/c 123456789\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("  %u ", row+1);
+        printf("% 3u ", row+1);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1<<col)) {

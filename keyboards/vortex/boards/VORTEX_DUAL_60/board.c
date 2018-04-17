@@ -175,14 +175,43 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
+// GPT Initialization
+
+static const GPTConfig bftm0_config = {
+    .frequency = 1000000,
+    .callback = NULL,
+};
+
+void gpt_init(void) {
+    gptStart(&GPTD_BFTM0, &bftm0_config);
+}
+
+// SPI Initialization
+
+static const SPIConfig spi1_config = {
+    .end_cb = NULL,
+    .cr0 = SPI_CR0_SELOEN,
+    .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
+    .cpr = 1,
+    .fcr = 0,
+};
+
+void spi_init(void) {
+    spiStart(&SPID1, &spi1_config);
+    palSetLine(LINE_SPI_CS);
+}
+
+// UART Initialization
+
+static const UARTConfig usart0_config = {
+    .mdr = USART_MDR_MODE_NORMAL,
+    .lcr = USART_LCR_WLS_8BIT,
+    .fcr = USART_FCR_URTXEN,
+    .baud = 115200,
+};
+
 void uart_init(void) {
-    static const UARTConfig config = {
-        .mdr = USART_MDR_MODE_NORMAL,
-        .lcr = USART_LCR_WLS_8BIT,
-        .fcr = USART_FCR_URTXEN,
-        .baud = 115200,
-    };
-    uartStart(&USARTD0, &config);
+    uartStart(&USARTD0, &usart0_config);
 }
 
 void uart_send(const char *str) {
@@ -197,23 +226,12 @@ void sendchar_pf(void *p, char c) {
 }
 */
 
-void spi_init(void) {
-    static const SPIConfig config = {
-        .end_cb = NULL,
-        .cr0 = SPI_CR0_SELOEN,
-        .cr1 = 8 | SPI_CR1_FORMAT_MODE0 | SPI_CR1_MODE,
-        .cpr = 1,
-        .fcr = 0,
-    };
-    spiStart(&SPID1, &config);
-    palSetLine(LINE_SPI_CS);
-}
-
 /**
  * @brief   Board-specific initialization code.
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
-//    uart_init();
+    gpt_init();
     spi_init();
+//    uart_init();
 }

@@ -1,9 +1,9 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
-	url = https://github.com/pok3r-custom/ChibiOS
+	url = https://github.com/pok3r-custom/ChibiOS.git
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/pok3r-custom/ChibiOS-Contrib
+	url = https://github.com/pok3r-custom/ChibiOS-Contrib.git
 [submodule "lib/ugfx"]
 	path = lib/ugfx
 	url = https://github.com/qmk/uGFX

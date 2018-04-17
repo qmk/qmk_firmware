@@ -653,47 +653,51 @@ uint8_t keyboard_leds(void) {
 /* prepare and start sending a report IN
  * not callable from ISR or locked state */
 void send_keyboard(report_keyboard_t *report) {
-  osalSysLock();
-  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+    osalSysLock();
+    if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
     osalSysUnlock();
-    return;
-  }
-  osalSysUnlock();
 
 #ifdef NKRO_ENABLE
-  if(keymap_config.nkro) {  /* NKRO protocol */
-    /* need to wait until the previous packet has made it through */
-    /* can rewrite this using the synchronous API, then would wait
+    if(keymap_config.nkro) {  /* NKRO protocol */
+        /* need to wait until the previous packet has made it through */
+        /* can rewrite this using the synchronous API, then would wait
      * until *after* the packet has been transmitted. I think
      * this is more efficient */
-    /* busy wait, should be short and not very common */
-    osalSysLock();
-    if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_IN_EPNUM)) {
-      /* Need to either suspend, or loop and call unlock/lock during
+        /* busy wait, should be short and not very common */
+        osalSysLock();
+        if(usbGetTransmitStatusI(&USB_DRIVER, NKRO_IN_EPNUM)) {
+            /* Need to either suspend, or loop and call unlock/lock during
        * every iteration - otherwise the system will remain locked,
        * no interrupts served, so USB not going through as well.
        * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_IN_EPNUM]->in_state->thread);
-    }
-    usbStartTransmitI(&USB_DRIVER, NKRO_IN_EPNUM, (uint8_t *)report, sizeof(report_keyboard_t));
-    osalSysUnlock();
-  } else
+            osalThreadSuspendS(&(&USB_DRIVER)->epc[NKRO_IN_EPNUM]->in_state->thread);
+        }
+        if (!usbGetTransmitStatusI(&USB_DRIVER, NKRO_IN_EPNUM)) {
+            usbStartTransmitI(&USB_DRIVER, NKRO_IN_EPNUM, (uint8_t *)report, sizeof(report_keyboard_t));
+        }
+        osalSysUnlock();
+    } else
 #endif /* NKRO_ENABLE */
-  { /* boot protocol */
-    /* need to wait until the previous packet has made it through */
-    /* busy wait, should be short and not very common */
-    osalSysLock();
-    if(usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
-      /* Need to either suspend, or loop and call unlock/lock during
+    { /* boot protocol */
+        /* need to wait until the previous packet has made it through */
+        /* busy wait, should be short and not very common */
+        osalSysLock();
+        if(usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
+            /* Need to either suspend, or loop and call unlock/lock during
        * every iteration - otherwise the system will remain locked,
        * no interrupts served, so USB not going through as well.
        * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
-      osalThreadSuspendS(&(&USB_DRIVER)->epc[KEYBOARD_IN_EPNUM]->in_state->thread);
+            osalThreadSuspendS(&(&USB_DRIVER)->epc[KEYBOARD_IN_EPNUM]->in_state->thread);
+        }
+        if (!usbGetTransmitStatusI(&USB_DRIVER, KEYBOARD_IN_EPNUM)) {
+            usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, (uint8_t *)report, KEYBOARD_EPSIZE);
+        }
+        osalSysUnlock();
     }
-    usbStartTransmitI(&USB_DRIVER, KEYBOARD_IN_EPNUM, (uint8_t *)report, KEYBOARD_EPSIZE);
-    osalSysUnlock();
-  }
-  keyboard_report_sent = *report;
+    keyboard_report_sent = *report;
 }
 
 /* ---------------------------------------------------------
@@ -710,21 +714,21 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep) {
 }
 
 void send_mouse(report_mouse_t *report) {
-  osalSysLock();
-  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
-    osalSysUnlock();
-    return;
-  }
-  osalSysUnlock();
+    osalSysLock();
+    if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
 
-  /* TODO: LUFA manually waits for the endpoint to become ready
+    /* TODO: LUFA manually waits for the endpoint to become ready
    * for about 10ms for mouse, kbd, system; 1ms for nkro
    * is this really needed?
    */
 
-  osalSysLock();
-  usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
-  osalSysUnlock();
+    if (!usbGetTransmitStatusI(&USB_DRIVER, MOUSE_IN_EPNUM)) {
+        usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
+    }
+    osalSysUnlock();
 }
 
 #else /* MOUSE_ENABLE */
@@ -748,19 +752,21 @@ void extra_in_cb(USBDriver *usbp, usbep_t ep) {
 }
 
 static void send_extra_report(uint8_t report_id, uint16_t data) {
-  osalSysLock();
-  if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+    osalSysLock();
+    if(usbGetDriverStateI(&USB_DRIVER) != USB_ACTIVE) {
+        osalSysUnlock();
+        return;
+    }
+
+    report_extra_t report = {
+        .report_id = report_id,
+        .usage = data
+    };
+
+    if (!usbGetTransmitStatusI(&USB_DRIVER, EXTRAKEY_IN_EPNUM)) {
+        usbStartTransmitI(&USB_DRIVER, EXTRAKEY_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
+    }
     osalSysUnlock();
-    return;
-  }
-
-  report_extra_t report = {
-    .report_id = report_id,
-    .usage = data
-  };
-
-  usbStartTransmitI(&USB_DRIVER, EXTRAKEY_IN_EPNUM, (uint8_t *)&report, sizeof(report_extra_t));
-  osalSysUnlock();
 }
 
 void send_system(uint16_t data) {
