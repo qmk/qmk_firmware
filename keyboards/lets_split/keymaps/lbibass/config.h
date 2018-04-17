@@ -27,22 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_SERIAL
 // #define USE_I2C
-#define AUTO_SHIFT_TIMEOUT 100
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 20
+#define C6_AUDIO
 /* Select hand configuration */
 
 //#define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
-#define TAPPING_TERM 200
-#define MOUSEKEY_DELAY             0
-#define MOUSEKEY_INTERVAL          1
-#define MOUSEKEY_MAX_SPEED         2
-#define MOUSEKEY_TIME_TO_MAX       0
-#define MOUSEKEY_WHEEL_MAX_SPEED   1
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 200
 
 #endif
