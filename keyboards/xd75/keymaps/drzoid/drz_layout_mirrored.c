@@ -35,7 +35,6 @@ enum custom_macros {
   DRZ_MACRO_COMMENT_END
 };
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //DEFAULT LAYER

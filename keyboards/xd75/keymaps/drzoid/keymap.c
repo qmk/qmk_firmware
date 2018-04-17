@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
-//#include "drz_layout_default.c"
 #include "drz_layout_mirrored.c"
+
+//Anothers keymaps of DrZoid will go here
+//#include "drz_layout_next.c"

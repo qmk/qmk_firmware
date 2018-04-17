@@ -51,3 +51,6 @@ KLE url: http://www.keyboard-layout-editor.com/#/gists/ea5fd62e5090bfd1ace06bb00
     [L2   ] [/CAPS] [/scre] [calc ] [pause] [     ] [     ] [M3   ] [     ] [     ] [     ] [↑    ] [     ] [/CAPS] [L2   ]
     [SWAP ] [CTRL ] [/Acce] [/Smil] [MENU ] [SPACE] [SPACE] [ENTER] [SPACE] [SPACE] [←    ] [↓    ] [→    ] [RCTRL] [SWAP ]
 
+
+## Little tool I wrote to generate my keymap ascii comment from KLE: (WIP)
+https://gitlab.com/drz-qmk/generate-ascii-comment-keymap-from-kle-layout
