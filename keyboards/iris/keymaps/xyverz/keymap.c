@@ -28,6 +28,7 @@ enum custom_keycodes {
 #define KC_QWRT QWERTY
 #define KC_CLMK COLEMAK
 #define KC_DVRK DVORAK
+#define KC_BSLT ALT_T(KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
      ESC , A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,MINS,
      LSFT,SCLN, Q  , J  , K  , X  ,LOWR,     RASE, B  , M  , W  , V  , Z  ,RSFT,
-                       LCTL,BSPC,LGUI,         ENT ,SPC ,LALT
+                       LCTL,BSLT,LGUI,         ENT ,SPC ,LALT
   ),
 
   [_LOWER] = KC_KEYMAP(
