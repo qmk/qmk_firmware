@@ -33,8 +33,7 @@ char newline[2] = "\n";
 char arguments[6][20];
 bool firstTime = true;
 
-//signed int cmd_buffer_pos = 0;
-short int current_cmd_buffer_pos = 1;
+unsigned short int current_cmd_buffer_pos = 0; //used for up/down arrows - keeps track of where you are in the command buffer
 
 __attribute__ ((weak))
 const char terminal_prompt[8] = "> ";
@@ -93,8 +92,8 @@ if (cmd_buffer_enabled) {
     if (cmd_buffer == NULL) {
       return;
     } else {
-    /* works ish, buffer misses out on 0 occasionally
-    0-----a  |0->
+    /*
+    0-----a  |+0->
     1----ab  |+80->
     2---abc  |+160->
     3--abcd  |+240->
@@ -182,12 +181,12 @@ void terminal_keymap(void) {
 void print_cmd_buff(void) {
   /* without the below wait, a race condition can occur wherein the
    buffer can be printed before it has been fully moved */
-  wait_ms(400);
+  wait_ms(300);
   for(int i=0;i<CMD_BUFF_SIZE;i++){
-    char a = ' ';
-    itoa(i ,&a,10);
-    const char * x = &a;
-    send_string(x);
+    char tmpChar = ' ';
+    itoa(i ,&tmpChar,10);
+    const char * tmpCnstCharStr = &tmpChar; //because sned_string wont take a normal char *
+    send_string(tmpCnstCharStr);
     SEND_STRING(". ");
     send_string(cmd_buffer[i]);
     SEND_STRING("\n");
@@ -260,7 +259,6 @@ void process_terminal_command(void) {
         send_string(terminal_prompt);
     }
 }
-
 bool process_terminal(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == TERM_ON && record->event.pressed) {
@@ -296,21 +294,34 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                         return false;
                     } break;
                 case KC_LEFT:
+                    return false; break;
                 case KC_RIGHT:
-                case KC_UP:
-                if (current_cmd_buffer_pos >= 0) { //once we get to the top, dont do anything
-                  str_len = strlen(buffer);
-                  for(int  i= 0;i < str_len ;++i) {
-                      send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
-                      //process_terminal(KC_BSPC,record);
-                  }
-                  strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
+                    return false; break;
+                case KC_UP: // 0 = recent
+                  if (current_cmd_buffer_pos < CMD_BUFF_SIZE - 1) { //once we get to the top, dont do anything
+                    str_len = strlen(buffer);
+                    for(int  i= 0;i < str_len ;++i) {
+                        send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
+                        //process_terminal(KC_BSPC,record);
+                    }
+                    strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
 
-                  send_string(buffer);
-                  --current_cmd_buffer_pos; //get ready to access the above cmd is up is pressed again
-                }
+                    send_string(buffer);
+                    ++current_cmd_buffer_pos; //get ready to access the above cmd if up/down is pressed again
+                  }
                     return false; break;
                 case KC_DOWN:
+                  if (current_cmd_buffer_pos >= 0) { //once we get to the bottom, dont do anything
+                      str_len = strlen(buffer);
+                      for(int  i= 0;i < str_len ;++i) {
+                          send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
+                          //process_terminal(KC_BSPC,record);
+                      }
+                      strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
+
+                      send_string(buffer);
+                      --current_cmd_buffer_pos; //get ready to access the above cmd if down/up is pressed again
+                  }
                     return false; break;
                 default:
                     if (keycode <= 58) {
