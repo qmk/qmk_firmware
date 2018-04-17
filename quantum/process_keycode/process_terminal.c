@@ -93,6 +93,7 @@ if (cmd_buffer_enabled) {
     if (cmd_buffer == NULL) {
       return;
     } else {
+<<<<<<< ba8401bea4ae9803929851af726478456ba1c666
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
     /*
     0-----a  |+0->
@@ -100,6 +101,10 @@ if (cmd_buffer_enabled) {
     /* works ish, buffer misses out on 0 occasionally
     0-----a  |0->
 >>>>>>> Initial commit - Command buffer implemented
+=======
+    /*
+    0-----a  |+0->
+>>>>>>> Cleaned up, implemented up and down arrows.
     1----ab  |+80->
     2---abc  |+160->
     3--abcd  |+240->
@@ -220,6 +225,7 @@ void print_cmd_buff(void) {
 =======
   /* without the below wait, a race condition can occur wherein the
    buffer can be printed before it has been fully moved */
+<<<<<<< ba8401bea4ae9803929851af726478456ba1c666
   wait_ms(400);
 >>>>>>> Command Buffer fully working, implemented flush buffer
   for(int i=0;i<CMD_BUFF_SIZE;i++){
@@ -228,6 +234,14 @@ void print_cmd_buff(void) {
     const char * x = &a;
     send_string(x);
 >>>>>>> Initial commit - Command buffer implemented
+=======
+  wait_ms(300);
+  for(int i=0;i<CMD_BUFF_SIZE;i++){
+    char tmpChar = ' ';
+    itoa(i ,&tmpChar,10);
+    const char * tmpCnstCharStr = &tmpChar; //because sned_string wont take a normal char *
+    send_string(tmpCnstCharStr);
+>>>>>>> Cleaned up, implemented up and down arrows.
     SEND_STRING(". ");
     send_string(cmd_buffer[i]);
     SEND_STRING("\n");
@@ -318,6 +332,7 @@ void process_terminal_command(void) {
         send_string(terminal_prompt);
     }
 }
+<<<<<<< ba8401bea4ae9803929851af726478456ba1c666
 void check_pos(void) {
   if (current_cmd_buffer_pos >= CMD_BUFF_SIZE) { //if over the top, move it back down to the top of the buffer so you can climb back down...
     current_cmd_buffer_pos = CMD_BUFF_SIZE - 1;
@@ -329,6 +344,8 @@ void check_pos(void) {
 
 
 
+=======
+>>>>>>> Cleaned up, implemented up and down arrows.
 bool process_terminal(uint16_t keycode, keyrecord_t *record) {
 
     if (keycode == TERM_ON && record->event.pressed) {
@@ -370,16 +387,23 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                 case KC_LEFT:
                     return false; break;
                 case KC_RIGHT:
+<<<<<<< ba8401bea4ae9803929851af726478456ba1c666
 <<<<<<< ee8b610d54efab93773a136d32fc765cd6f7463e
                     return false; break;
                 case KC_UP: // 0 = recent
                   check_pos(); //check our current buffer position is valid
                   if (current_cmd_buffer_pos <= CMD_BUFF_SIZE - 1) { //once we get to the top, dont do anything
+=======
+                    return false; break;
+                case KC_UP: // 0 = recent
+                  if (current_cmd_buffer_pos < CMD_BUFF_SIZE - 1) { //once we get to the top, dont do anything
+>>>>>>> Cleaned up, implemented up and down arrows.
                     str_len = strlen(buffer);
                     for(int  i= 0;i < str_len ;++i) {
                         send_string(SS_TAP(X_BSPACE)); //clear w/e is on the line already
                         //process_terminal(KC_BSPC,record);
                     }
+<<<<<<< ba8401bea4ae9803929851af726478456ba1c666
                     strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],80);
 
                     send_string(buffer);
@@ -402,6 +426,15 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
                     return false; break;
                 case KC_DOWN:
                   check_pos();
+=======
+                    strncpy(buffer,cmd_buffer[current_cmd_buffer_pos],79);
+
+                    send_string(buffer);
+                    ++current_cmd_buffer_pos; //get ready to access the above cmd if up/down is pressed again
+                  }
+                    return false; break;
+                case KC_DOWN:
+>>>>>>> Cleaned up, implemented up and down arrows.
                   if (current_cmd_buffer_pos >= 0) { //once we get to the bottom, dont do anything
                       str_len = strlen(buffer);
                       for(int  i= 0;i < str_len ;++i) {
