@@ -152,8 +152,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum {
-  BSPC = 0,
-  HOLD_CTRL = 1
+  BSPC_LETTER = 0,
+  BSPC_WORD = 1,
+  HOLD_CTRL = 2
 };
 
 typedef struct {
@@ -165,7 +166,7 @@ typedef struct {
 static fib_tap fib_bspc = {
   .a = 0,
   .b = 1,
-  .state = 0
+  .state = BSPC_LETTER
 };
 
 void cur_backspace (qk_tap_dance_state_t *state) {
@@ -179,8 +180,17 @@ void cur_backspace (qk_tap_dance_state_t *state) {
 }
 
 void dance_backspace (qk_tap_dance_state_t *state, void *user_data) {
+  // If we're at the fifth tap, switch to deleting by words, and reset the fib
+  // counter
+  if (state->count == 4) {
+    register_code(KC_LALT);
+    fib_bspc.state = BSPC_WORD;
+    fib_bspc.a = 0;
+    fib_bspc.b = 1;
+  }
   // If we're on the first press, wait to find out if it's being held
-  // If we're on the second tap, process the first, then act normally
+  // If we're on the second tap, process the first tap, because we're past
+  // holding for ctrl now, then act normally
   if (state->count == 2) {
     register_code(KC_BSPC);
   }
@@ -203,11 +213,12 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
 void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (fib_bspc.state) {
     case HOLD_CTRL: unregister_code(KC_LCTRL); break;
-    case BSPC: unregister_code(KC_BSPC); break;
+    case BSPC_WORD: unregister_code(KC_BSPC); unregister_code(KC_LALT); break;
+    case BSPC_LETTER: unregister_code(KC_BSPC); break;
   }
   fib_bspc.a = 0;
   fib_bspc.b = 1;
-  fib_bspc.state = BSPC;
+  fib_bspc.state = BSPC_LETTER;
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
