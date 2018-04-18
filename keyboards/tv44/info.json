@@ -1,11 +1,7 @@
 {
   "keyboard_name": "tv44",
-  "manufacturer": "The Van Keyboards",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 12.75,
   "height": 4,
   "layouts": {
