@@ -1,12 +1,14 @@
 # scrabblepad
 
-![scrabblepad](imgur.com image replace me!)
+The scrabblepad is a 15x15 ortholinear keyboard designed for use with
+the XDA Scrabble Board sold by [Novelkeys](https://novelkeys.xyz).
 
-A short description of the keyboard/project
+It uses a [Teensy++ 2.0](https://www.pjrc.com/store/teensypp.html) 
+featuring an at90usb1286 8 bit microcontroller. 
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: Teensy++ 2.0 and Scrabblepad PCB  
+Hardware Availability: [Donut Cables](https://donutcables.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
