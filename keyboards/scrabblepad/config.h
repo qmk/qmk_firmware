@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    DonutCat
+#define MANUFACTURER    Donut Cables
 #define PRODUCT         ScrabblePad
-#define DESCRIPTION     A custom keyboard
+#define DESCRIPTION     15x15 Ortholinear Board
 
 /* key matrix size */
 #define MATRIX_ROWS 15
