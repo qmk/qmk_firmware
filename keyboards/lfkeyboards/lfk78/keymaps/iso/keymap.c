@@ -25,7 +25,7 @@ const Layer_Info layer_info[] = {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[VANILLA] = ISO_KEYMAP(
+[VANILLA] = LAYOUT_iso(
   /* Keymap VANILLA: (Base Layer) Default Layer
    * ,---------.  ,------------------------------------------------------------.  ,---------.
    * | F1 | F2 |  |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa|  | Ins|PgUp|
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |  |Ctrl|Win |Alt |        PgD            |Alt |Func |CTRL |     |Lft| Dn |Rig |
    * `---------'  `------------------------------------------------------'     `-------------'
    */
-[FUNC] = KEYMAP(
+[FUNC] = LAYOUT(
   KC_TR,   KC_TR,    KC_GRV,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,       KC_DEL,  KC_TR, KC_HOME,
   KC_TR,   KC_TR,    KC_NO,KC_HOME, KC_UP, KC_END, KC_PGUP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,         KC_NO,  KC_TR, KC_END,
   KC_TR,   KC_TR,    KC_TR,   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO,    KC_NO,
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |  |    |    |    |                         |    |    |     |  |Sat-|Hue-|Sat+|
    * `---------'  `--------------------------------------------------------'  `--------------'
    */
-[SETTINGS] = KEYMAP(
+[SETTINGS] = LAYOUT(
   KC_NO,   KC_NO,    KC_FN0,KC_NO,KC_NO,KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, BL_DEC, BL_INC,  BL_TOGG,    RGB_TOG, RGB_VAI,
   KC_NO,   KC_NO,    MU_MOD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,    RGB_MOD, RGB_VAD,
   KC_NO,   KC_NO,    AU_TOG,  KC_FN1,KC_FN3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,        RESET,
