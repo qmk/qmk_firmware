@@ -5,6 +5,8 @@
 #include "planck.h"
 #include "action_layer.h"
 
+#define _______ KC_TRNS
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -50,10 +52,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = {
+/*[_LOWER] = {
   {_______, _______, KC_PGUP,     KC_UP,  KC_PGDN, _______, KC_PLUS,    KC_1,    KC_2,    KC_3,    KC_0, _______},
   {_______, _______, KC_LEFT,   KC_DOWN, KC_RIGHT, _______, KC_ASTR,    KC_4,    KC_5,    KC_6,    KC_0, _______},
   {_______, _______, _______, KC_INSERT,  KC_LGUI, _______, KC_SLSH,    KC_7,    KC_8,    KC_9,    KC_0, _______},
+  {_______, _______, _______,   _______,  _______, _______, _______, _______, _______, _______, _______, _______}
+},*/
+
+[_LOWER] = {
+  {_______, _______, KC_PGUP,     KC_UP,  KC_PGDN, _______, _______, KC_QUES, KC_EXLM, _______, _______, _______},
+  {_______, _______, KC_LEFT,   KC_DOWN, KC_RIGHT, _______, _______, KC_ASTR, KC_ASTR, KC_AMPR, KC_PIPE, _______},
+  {_______, _______, _______, KC_INSERT,  KC_LGUI, _______, _______, KC_BSLS, KC_TILD, _______, _______, _______},
   {_______, _______, _______,   _______,  _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -69,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {_______, KC_DLR ,   KC_AT,   KC_LCBR,  KC_RCBR, _______, _______, KC_QUES, KC_EXLM, _______, _______, _______},
-  {KC_CIRC, KC_LBRC, KC_RBRC,   KC_LPRN,  KC_RPRN, _______, _______, KC_ASTR, KC_ASTR, KC_AMPR, KC_PIPE, _______},
-  {_______, KC_PERC, KC_HASH,   KC_PLUS,   KC_GRV, _______, _______, KC_BSLS, KC_TILD, _______, _______, _______},
+  {_______, KC_DLR ,   KC_AT,   KC_LCBR,  KC_RCBR, _______, KC_PLUS,    KC_1,    KC_2,    KC_3,    KC_0, _______},
+  {KC_CIRC, KC_LBRC, KC_RBRC,   KC_LPRN,  KC_RPRN, _______, KC_ASTR,    KC_4,    KC_5,    KC_6,    KC_0, _______},
+  {_______, KC_PERC, KC_HASH,   KC_PLUS,   KC_GRV, _______, KC_SLSH,    KC_7,    KC_8,    KC_9,    KC_0, _______},
   {_______, KC_EXLM, _______,   _______,  _______, _______, _______, _______, _______, _______, _______, _______}
-},
+}
 
 
 };
