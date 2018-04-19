@@ -1,1 +1,1 @@
-USER_PATH := users/talljoe
+USER_NAME := talljoe
