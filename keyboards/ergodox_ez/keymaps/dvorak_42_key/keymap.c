@@ -6,6 +6,14 @@
 
 // to build this keymap
 // make ergodox_ez:dvorak_42_key:teensy
+// flashing from rpi:
+// sudo teensy_loader_cli -v -w .build/ergodox_ez_dvorak_42_key.hex --mcu atmega32u4
+
+// keeping fork up to date:
+// https://help.github.com/articles/configuring-a-remote-for-a-fork/
+// https://help.github.com/articles/syncing-a-fork/
+// pushing dev branch
+// git push origin dev:dev
 
 static bool mouse_lock = false;
 
@@ -17,6 +25,7 @@ enum custom_keycodes {
   // shell nav macros
   SHELL_LS,
   SHELL_LSLTR,
+  SHELL_LSLA, 
   SHELL_CDPRE,
   SHELL_LESS,
   SHELL_PLESS,
@@ -31,6 +40,15 @@ enum custom_keycodes {
   SHELL_SCREEN_LIST,
   SHELL_MKE,
   SHELL_HTCSTATUS,
+  
+  // Cloud9 macros
+  CLOUD9_TAB_LEFT,
+  CLOUD9_TAB_RIGHT,
+  CLOUD9_TAB_CLOSE,
+  CLOUD9_GOTO_SYMBOL,
+  CLOUD9_GOTO_LINE,
+  CLOUD9_NAVIGATE,
+  
 };
 
 
@@ -39,8 +57,11 @@ enum custom_keycodes {
 #define KEYSEL       2 // arrow navigation + shift (allow text selection)
 #define SHELL_NAV    3 // bash shortcuts
 #define SHELL_SCREEN 4 // linux screen shortcuts
-#define MOUSE        5 // mouse layer (can be locked with lock key)
-#define COMBINED     6 // combined numbers and symbols layer
+#define SCREEN_NAV   5 // navigate between linux screen tabs 
+#define MOUSE        6 // mouse layer (can be locked with lock key), unmapped for now
+#define BROWSER_CONTROL 7 // control browser and mouse
+#define COMBINED      	8 // combined numbers and symbols layer
+
 
 // macros
 #define MOUSE_TOGGLE 1
@@ -64,7 +85,18 @@ enum custom_keycodes {
 #define SCREEN_8 20
 #define SCREEN_9 21
 #define SCREEN_DETACH 22
-#define SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND 30
+#define SCREEN_UP_JUMP 23
+#define SCREEN_DOWN_JUMP 24
+#define SCREEN_READREG_1 25
+#define SCREEN_READREG_2 26
+#define SCREEN_READREG_3 27
+#define SCREEN_PASTEREG_1 28
+#define SCREEN_PASTEREG_2 29
+#define SCREEN_PASTEREG_3 30
+#define SHELL_WRITE_LOGPATTERN 31
+#define SHELL_WRITE_TRANPATTERN 32
+#define SHELL_EXPAND_PATTERN 33
+
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -73,16 +105,50 @@ enum custom_keycodes {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(NUM), END);\
             }\
         break;\
+		
+#define MACRO_SCREEN_REG(MACRO_NAME,NUM) \
+        case MACRO_NAME:\
+             if (record->event.pressed) {\
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
+                              T(R),\
+                              T(E),\
+                              T(A),\
+                              T(D),\
+                              T(R),\
+                              T(E),\
+							  T(G),\
+                              T(SPC),\
+							  T(NUM),\
+							  T(ENTER),\
+                             END);\
+            }\
+        break;\
+
+#define MACRO_SCREEN_PASTE(MACRO_NAME,NUM)\
+        case MACRO_NAME:\
+             if (record->event.pressed) {\
+                return MACRO( D(LCTL), T(A), U(LCTL), D(LSFT), T(SCOLON), U(LSFT),\
+                              T(P),\
+                              T(A),\
+                              T(S),\
+                              T(T),\
+                              T(E),\
+                              T(SPC),\
+							  T(NUM),\
+							  T(ENTER),\
+                             END);\
+            }\
+        break;\
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [BASE] = KEYMAP(
       // left hand
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
-      KC_TAB,            KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
+      OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
       OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
-      MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), M(MOUSE_TOGGLE), MO(KEYSEL),
+      MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
       
       // left thumb cluster
                 MEH(KC_4),      MEH(KC_5),
@@ -91,8 +157,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       
       // right hand
       KC_F7,     KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, MEH(KC_9),
-      MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   MEH(KC_F1),
-                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   MEH(KC_F2),
+      MEH(KC_7), KC_F,  KC_G,  KC_C,   KC_R,   KC_L,   KC_TAB,
+                 KC_D,  KC_H,  KC_T,   KC_N,   KC_S,   RCTL(KC_BSPC),
       MEH(KC_8), KC_B,  KC_M,  KC_W,   KC_V,   KC_Z,   MEH(KC_F3),
       KC_BSPC,   RCTL(KC_BSPC), KC_CAPSLOCK, OSM(MOD_LSFT),MEH(KC_F4),
     
@@ -103,11 +169,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
   [KEYNAV] = KEYMAP(
     // left hand
-    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,    KC_TRNS,     KC_TRNS,
-    KC_TRNS,KC_ESC,      MEH(KC_F9),  RCTL(KC_Z),   RCTL(KC_S), MEH(KC_F10), KC_TRNS,
-    KC_TRNS,MEH(KC_F11), MEH(KC_F12), RSFT(KC_TAB), KC_TAB,     MEH(KC_A),
-    KC_TRNS,MEH(KC_B),   MEH(KC_C),   MEH(KC_D),    MEH(KC_E),  MEH(KC_F),   KC_TRNS,
-    KC_TRNS,KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS,
+    KC_TRNS,KC_ESC,      CLOUD9_GOTO_LINE,   RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_F10),      KC_TRNS,
+    KC_TRNS,KC_LSFT,     CLOUD9_GOTO_SYMBOL, RSFT(KC_TAB),    KC_TAB,           MEH(KC_A),
+    KC_TRNS,MEH(KC_B),   CLOUD9_NAVIGATE,    CLOUD9_TAB_LEFT, CLOUD9_TAB_RIGHT, CLOUD9_TAB_CLOSE, KC_TRNS,
+    KC_TRNS,KC_TRNS,     KC_TRNS,            KC_TRNS,         KC_TRNS,
     // left thumb cluster
     KC_TRNS,KC_TRNS,KC_TRNS,TO(MOUSE),KC_TRNS,KC_TRNS,
     
@@ -130,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                   RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
@@ -151,9 +217,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // shell navigation layer
   [SHELL_NAV] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
+       KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
        KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,         SHELL_H3,
-       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_PWD,
+       KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
        KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
                // bottom row
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -162,10 +228,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SWITCH_NDS),
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    RCTL(KC_R),
-                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), LALT(KC_DOT),
-       RCTL(KC_C), RCTL(KC_U), M(SCREEN_COPY_MODE), M(SCREEN_PASTE), MEH(KC_V),  RCTL(KC_K), M(SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_WRITE_TRANPATTERN),
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_WRITE_LOGPATTERN),
+                   LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
+       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), M(SHELL_EXPAND_PATTERN),
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
@@ -178,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // linux screen layer
   [SHELL_SCREEN] = KEYMAP(
        // left hand
-       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
        KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
        KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
@@ -201,6 +267,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
+  // navigation within screen (for copy/paste)
+  [SCREEN_NAV] = KEYMAP(
+       // left hand
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,              KC_TRNS,     		  KC_TRNS,               KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    M(SCREEN_READREG_3),  M(SCREEN_READREG_2),  M(SCREEN_READREG_1),   KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    M(SCREEN_PASTEREG_3), M(SCREEN_PASTEREG_2), M(SCREEN_PASTEREG_1),  KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     		 KC_TRNS,     	      KC_TRNS,               KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS,    KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,    		  KC_TRNS,
+       KC_TRNS,    KC_TRNS,    KC_0,           KC_UP,           KC_DLR,          M(SCREEN_UP_JUMP),   KC_TRNS,
+                   KC_B,       KC_LEFT,        KC_DOWN,         KC_RIGHT,   	 KC_W,       		  M(SCREEN_COPY_MODE),
+       KC_TRNS,    KC_TRNS,    S(KC_W),        S(KC_Y),         M(SCREEN_PASTE), M(SCREEN_DOWN_JUMP), MEH(KC_V),
+                   // bottom row (match functionality of base layer)
+                   KC_TRNS,    KC_TRNS,        KC_TRNS,         KC_TRNS,    KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
+  
+
+
   
   [COMBINED] = KEYMAP(
   
@@ -222,7 +317,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // bottom row 
                           KC_0,    KC_DOT,  KC_PIPE, KC_BSLS,     MEH(KC_P),
     // thumb cluster
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+    KC_TRNS,KC_TRNS,
+	KC_TRNS,
+	KC_TRNS,KC_TRNS,KC_TRNS),
   
   
     [MOUSE] = KEYMAP(
@@ -246,6 +343,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,
            KC_TRNS, KC_BTN1, KC_BTN2
     ),  
+	
+    [BROWSER_CONTROL] = KEYMAP(
+		   // left hand
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_BTN3,       KC_MS_U,       KC_BTN1,      KC_BTN2, KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_MS_L,       KC_MS_D,       KC_MS_R,      KC_TRNS,
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
+		   // bottom row
+           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
+          // right hand
+           KC_TRNS,  KC_TRNS,   KC_TRNS,            KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS,  KC_UP,     KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   KC_TRNS,       KC_TRNS,
+                     KC_DOWN,   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT), KC_TRNS,
+           KC_TRNS,  KC_TRNS,   RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,         KC_TRNS,
+                                // bottom row
+                                KC_TRNS,            KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,
+           KC_TRNS, KC_TRNS,
+           KC_TRNS,
+           KC_TRNS, RCTL(KC_W), RCTL(KC_T)
+    ),  	
     
 
 };
@@ -317,6 +438,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }                                
         break;        
 
+		MACRO_SCREEN_REG(SCREEN_READREG_1,1);
+		MACRO_SCREEN_REG(SCREEN_READREG_2,2);
+		MACRO_SCREEN_REG(SCREEN_READREG_3,3);
+		
+		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_1,1);
+		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_2,2);
+		MACRO_SCREEN_PASTE(SCREEN_PASTEREG_3,3);
+
         MACRO_SCREEN_NUM(SCREEN_0,0);
         MACRO_SCREEN_NUM(SCREEN_1,1);
         MACRO_SCREEN_NUM(SCREEN_2,2);
@@ -328,6 +457,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         MACRO_SCREEN_NUM(SCREEN_8,8);
         MACRO_SCREEN_NUM(SCREEN_9,9);
         
+		case SCREEN_UP_JUMP:
+            if (record->event.pressed) {
+                return MACRO( T(5), T(UP), END);
+            }		
+		break;
+		
+		case SCREEN_DOWN_JUMP:
+            if (record->event.pressed) {
+                return MACRO( T(5), T(DOWN), END);
+            }		
+		break;		
+		
         case SCREEN_COPY_MODE:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(ESC), END);
@@ -338,23 +479,39 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END); 
             }
         break;        
-        case SWITCH_NDS:
+		
+		case SHELL_WRITE_LOGPATTERN:
             if (record->event.pressed) {
-                return MACRO( D(LSFT), 
-                              T(F11), 
-                              U(LSFT), 
-                              W(255), 
-                              D(LALT), 
-                              T(TAB), 
-                              U(LALT), 
-                              END); 
-            }                                
-        break;        
-        case SHELL_RECALL_LAST_ARG_REMOVE_FIRST_COMMAND:
+                return MACRO( D(LSFT),
+							  T(8), 
+				              T(8), 
+							  U(LSFT),
+							  T(L),  
+							  T(O), 
+							  T(G), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  T(LEFT), 
+							  END); 
+            }		
+		break;
+		
+		case SHELL_WRITE_TRANPATTERN:
             if (record->event.pressed) {
-                return MACRO( T(UP), T(HOME), D(LALT), T(D), U(LALT), END);
-            }
-        break;                                
+                return MACRO( D(LSFT),
+							  T(8), 
+				              T(8), 
+							  U(LSFT), T(T), T(R), T(A), T(N), T(LEFT), T(LEFT), T(LEFT), T(LEFT), T(LEFT), END); 
+            }		
+		break;		
+		
+		case SHELL_EXPAND_PATTERN:
+            if (record->event.pressed) {
+                return MACRO( D(LALT), T(F), U(LALT), D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT), END); 
+            }		
+		break;				
+   
       }
     return MACRO_NONE;
 };
@@ -391,6 +548,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SHELL_LSLTR:
             SEND_STRING("ls -ltr\n");
+            return true;
+            break;
+        case SHELL_LSLA:
+            SEND_STRING("ls -la\n");
             return true;
             break;
         case SHELL_CDPRE:
@@ -445,6 +606,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("htcStatus -j ");
             return true;
             break;               
+		// Cloud9 macros
+		case CLOUD9_TAB_LEFT:
+            SEND_STRING(SS_LCTRL("["));
+            return true;		
+			break;
+		case CLOUD9_TAB_RIGHT:
+            SEND_STRING(SS_LCTRL("]"));
+            return true;				
+			break;
+		case CLOUD9_TAB_CLOSE:
+            SEND_STRING(SS_LALT("w"));
+            return true;				
+			break;
+		case CLOUD9_GOTO_SYMBOL:
+            SEND_STRING(SS_LSFT(SS_LCTRL("e")));
+            return true;		
+			break;
+		case CLOUD9_GOTO_LINE:
+            SEND_STRING(SS_LCTRL("g"));
+            return true;						
+			break;
+		case CLOUD9_NAVIGATE:
+            SEND_STRING(SS_LCTRL("e"));
+            return true;
+			break;
+  		
     }
   }
   
@@ -474,9 +661,11 @@ void matrix_scan_user(void) {
         case SHELL_SCREEN:
         case KEYNAV:
         case KEYSEL:
+		case SCREEN_NAV:
             ergodox_right_led_3_on();
             break;
         case MOUSE:
+		case BROWSER_CONTROL:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;

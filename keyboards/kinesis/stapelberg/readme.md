@@ -26,18 +26,18 @@ If you want to perform this customization, these parts may be helpful.
 | Reset cables                                           | 2        | Sparkfun | PRT-09140    |
 
 The board and connections are shown here
-![](images/controller_board.jpg)
+![controller board](https://i.imgur.com/2ZPMwvZ.jpg)
 
 The Teensy mounting detail can be seen here.
 I used a socket for prototyping.
-![](images/teensy_detail.jpg)
+![teensy detail](https://i.imgur.com/HrkGUjc.jpg)
 
 
 Since the proper mounting of the Teensy board places the reset button in a tight space, I added a 2-pin header to the reset and ground pins on the edge of the board.
 Shorting these two pins together will reset the board.
 I also put female to male header jumper cables on these so they could be accessed outside the enclosure.
 The exterior cables can be seen here.
-![](images/exterior_reset.jpg)
+![exterior reset](https://i.imgur.com/JNoxI40.jpg)
 
 
 ## Keymaps
@@ -52,7 +52,3 @@ To build with the default keymap, run `make default` while in the
 This keymap contains a dvorak implementation as well as media and symbol layers.
 
 Run `make dvorak` while in the `kinesis_stapelberg` working directory.
-
-![controller board](https://i.imgur.com/2ZPMwvZ.jpg)
-![exterior reset](https://i.imgur.com/JNoxI40.jpg)
-![teensy detail](https://i.imgur.com/HrkGUjc.jpg)

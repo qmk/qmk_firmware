@@ -22,22 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
+#undef USE_I2C
 
 /* Select hand configuration */
 
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
-
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
-#endif
 
 
 /* key combination for command */
@@ -63,7 +59,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
-#define STARTUP_SONG SONG(ZELDA_PUZZLE)
+#define NO_MUSIC_MODE
+#endif
+
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
 #endif

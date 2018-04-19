@@ -101,8 +101,9 @@ By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are us
 
 ```
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 ```
 
 {% hint style='info' %}

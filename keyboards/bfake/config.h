@@ -37,7 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define DEBOUNCING_DELAY 5
 
-
+#define NO_BACKLIGHT_CLOCK
+#define BACKLIGHT_LEVELS 1
 #define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1

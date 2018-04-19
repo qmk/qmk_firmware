@@ -31,10 +31,14 @@ git
 
 Install the dependencies with your favorite package manager.
 
-Debian/Ubuntu example:
+Debian / Ubuntu example:
 
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+
+Fedora / Red Hat example:
+
+    sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
 
 ## Nix
 
@@ -53,6 +57,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew install avr-gcc
     brew install dfu-programmer
     brew install gcc-arm-none-eabi
+    brew install avrdude
 
 This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
 
@@ -127,7 +132,7 @@ docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasqu
 On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
 
 ```bash
-docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+docker run -e keymap=default -e keyboard=ergodox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
 
