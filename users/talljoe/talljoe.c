@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T   , KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
       US_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, US_QUOT,          US_ENT ,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, MO_ADJ ,
-      KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+      KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_APP , KC_RCTL, KC_PTT ),
   [_WORKMAN] = LAYOUT(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN, _______, _______, _______,
@@ -40,13 +40,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
       MO_NAV , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,          KC_ENT ,
       KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          KC_RSFT, MO_ADJ ,
-      KC_LCTL, KC_PTT , KC_PGDN,                   KC_SPC , KC_SPC , KC_SPC ,                    KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
+      KC_LCTL, KC_PTT , KC_PGDN,                   KC_SPC , KC_SPC , KC_SPC ,                    KC_RALT, KC_APP , KC_RCTL, KC_PTT ),
 #endif
   [_NAV] = LAYOUT(
       KC_GRV , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      KC_TAB , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_VOLU, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL ,
-      US_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_MUTE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , XXXXXXX,          TG_ADJ ,
-      KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX,          KC_RSFT, XXXXXXX,
+      KC_TAB , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_VOLU, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, KC_BTN1, KC_BTN2, KC_BTN3, KC_DEL ,
+      US_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_MUTE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , KC_RCTL,          TG_ADJ ,
+      KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, KC_WBAK, KC_WFWD, KC_WREF,          KC_RSFT, XXXXXXX,
       KC_LCTL, KC_LGUI, KC_LALT,                   NV_SPC2, NV_SPC1, NV_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_NUM] = LAYOUT(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -59,15 +59,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(6)  , FX(7)  , FX(8)  , FX(9)  , FX(10) , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
       XXXXXXX, H1_INC , S1_INC , H2_INC , S2_INC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DFAULTS, EF_DEC , EF_INC , KC_DEL ,
       XXXXXXX, H1_DEC , S1_DEC , H2_DEC , S2_DEC , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_ADJ ,
-      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, XXXXXXX, XXXXXXX, KC_MAKE, TG_GAME,          KC_RSFT, XXXXXXX,
-      MO_RST , AG_NORM, AG_SWAP,                   XXXXXXX, BL_TOGG, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS),
+      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
+      MO_RST , AG_NORM, AG_SWAP,                   XXXXXXX, BL_TOGG, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, TG_GAME),
   // To Reset hit FN + ` + Esc
   [_RESET] = LAYOUT(
       RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
-      RESET  , XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
+      RESET  , XXXXXXX, XXXXXXX,                   XXXXXXX, KC_SLEP, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
 void matrix_scan_user(void) {
