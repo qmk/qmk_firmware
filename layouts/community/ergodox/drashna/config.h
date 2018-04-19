@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_CONFIG_H
 
 #ifdef RGBLIGHT_ENABLE
-#undef RGBLIGHT_SAT_STEP
+#undef RGBLIGHT_SAT_STEP 
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 7
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
@@ -14,10 +14,5 @@
 
 #undef PRODUCT
 #define PRODUCT         DrashnaDox - Hacked ErgoDox EZ Shine
-
-#ifdef DEBOUNCE
-#undef DEBOUNCE
-#endif //DEBOUNCE
-#define DEBOUNCE 5
 
 #endif
