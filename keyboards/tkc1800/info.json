@@ -2,7 +2,6 @@
   "keyboard_name": "TKC1800",
   "url": "",
   "maintainer": "qmk",
-  "bootloader": "atmel-dfu",
   "width": 19.5,
   "height": 7,
   "layouts": {

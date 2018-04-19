@@ -1,8 +1,5 @@
 {
-  "keyboard_name": "",
-  "url": "",
   "maintainer": "qmk",
-  "bootloader": "",
   "width": 15.5,
   "height": 4.25,
   "layouts": {
