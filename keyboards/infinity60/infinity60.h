@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#define LAYOUT_60_ansi_split_bs_rshift KEYMAP
+#define LAYOUT_60_hhkb KEYMAP
 
 #ifdef INFINITY_PROTOTYPE
 /* Infinity prototype */

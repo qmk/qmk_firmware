@@ -90,6 +90,6 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
 
 #define LAYOUT_60_ansi KEYMAP_ANSI
 #define LAYOUT_60_iso KEYMAP_ISO
-#define LAYOUT_60_ansi_split_bs_rshift KEYMAP_HHKB
+#define LAYOUT_60_hhkb KEYMAP_HHKB
 
 #endif
