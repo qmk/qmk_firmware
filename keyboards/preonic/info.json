@@ -1,12 +1,8 @@
 {
   "keyboard_name": "Preonic",
   "keyboard_folder": "preonic",
-  "manufacturer": "OLKB",
-  "identifier": "FEED:6061:0001",
   "url": "https://olkb.com/preonic",
   "maintainer": "jackhumbert",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 12,
   "height": 5,
   "layouts": {

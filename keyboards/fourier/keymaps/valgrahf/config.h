@@ -28,6 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
+<<<<<<< HEAD
 #define PREVENT_STUCK_MODIFIERS
 
+=======
+>>>>>>> 5ec3bd9e40a9f04a05d23569fc1a402927e1a5c2
 #endif

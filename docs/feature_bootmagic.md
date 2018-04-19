@@ -6,7 +6,7 @@ Bootmagic is a system for configuring your keyboard while it initializes. To tri
 
 Bootmagic Keycodes allow you to access the Bootmagic functionality after your keyboard has initialized. To use Bootmagic Keycodes you assign keycodes starting with `MAGIC_`, much in the same way you define any other key.
 
-Command is a feature that allows you to control different aspects of your keyboard. Command used to be called Magic. Command is typically accessed by holding Left and Right Shift at the same time, although that can be customized. While it shares some functionality with Bootmagic it also allows you to access functionality that Bootmagic does not. For more information see the (Command)[feature_command.md) documentation page.
+Command is a feature that allows you to control different aspects of your keyboard. Command used to be called Magic. Command is typically accessed by holding Left and Right Shift at the same time, although that can be customized. While it shares some functionality with Bootmagic it also allows you to access functionality that Bootmagic does not. For more information see the [Command](feature_command.md) documentation page.
 
 ## Enabling Bootmagic
 

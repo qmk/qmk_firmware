@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna.h"
 #include "version.h"
 
-#if (__has_include("secrets.h"))
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
@@ -36,10 +36,10 @@ PROGMEM const char secret[][64] = {
 #ifdef FAUXCLICKY_ENABLE
 float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
 float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-#else
+#else // FAUXCLICKY_ENABLE
 float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
 float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-#endif
+#endif // FAUXCLICKY_ENABLE
 
 bool faux_click_enabled = false;
 bool is_overwatch = false;
@@ -127,7 +127,7 @@ void run_diablo_macro_check(void) {
   }
 }
 
-#endif
+#endif // TAP_DANCE_ENABLE
 
 
 // Add reconfigurable functions here, for keymap customization
@@ -178,10 +178,15 @@ void matrix_init_user(void) {
   }
   else
   {
-    rgblight_set_red;
+    rgblight_setrgb_red();
     rgblight_mode(5);
   }
-#endif
+#endif // RGBLIGHT_ENABLE
+
+#if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
+	set_unicode_input_mode(UC_WINC);
+#endif //UNICODE_ENABLE
+
   matrix_init_keymap();
 }
 // No global matrix scan code, so just run keymap's matrix
@@ -189,7 +194,7 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
-#endif
+#endif // TAP_DANCE_ENABLE
   matrix_scan_keymap();
 }
 
@@ -209,33 +214,15 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   return false;
 }
 
-// Sent the default layer
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-// If console is enabled, it will print the matrix position and status of each key pressed
+  // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif //CONSOLE_ENABLE
-
-// Run custom faux click code, but only if faux clicky is enabled
-#ifdef AUDIO_ENABLE
-  if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
-    if (record->event.pressed) {
-      PLAY_SONG(fauxclicky_pressed);
-    } else {
-      stop_note(NOTE_A6);
-      PLAY_SONG(fauxclicky_released);
-    }
-  }
-#endif //AUDIO_ENABLE
 
 
   switch (keycode) {
@@ -307,7 +294,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                    ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
-#endif
+#endif // bootloader options
                    SS_TAP(X_ENTER));
     }
     return false;
@@ -320,7 +307,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_enable();
       rgblight_mode(1);
       rgblight_setrgb_red();
-#endif
+#endif // RGBLIGHT_ENABLE
       reset_keyboard();
     }
     return false;
@@ -398,11 +385,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // TAP_DANCE_ENABLE
 
 
-  case KC_FXCL:
-    if (!record->event.pressed) { // Toggles the custom faux click code
-      faux_click_enabled = !faux_click_enabled;
-    }
-    return false; break;
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
@@ -498,7 +480,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     }
   }
-#endif
+#endif // RGBLIGHT_ENABLE
   return layer_state_set_keymap (state);
 }
 
