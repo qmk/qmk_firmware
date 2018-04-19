@@ -15,7 +15,7 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led );
 void set_backlight_defaults(void) {
   uint8_t space;
   uint8_t caps_lock;
-  map_row_column_to_led(4, 13, &caps_lock);
+  map_row_column_to_led(3, 12, &caps_lock);
   map_row_column_to_led(4, 7, &space);
   zeal_backlight_config default_values = {
     .use_split_backspace = USE_SPLIT_BACKSPACE,
