@@ -17,7 +17,8 @@ extern "C" {
     #define wait_ms(ms) chThdSleepMilliseconds(ms)
     #if defined(CH_HT32_WAIT_US_POLL) && (CH_HT32_WAIT_US_POLL == TRUE)
         // microsecond-order sleep will poll a one-shot counter
-        #define wait_us(us) gptPolledDelay(&GPTD_BFTM0, us)
+        //#define wait_us(us) gptPolledDelay(&GPTD_BFTM0, us)
+        #define wait_us(us) chSysPolledDelayX((US2RTC(HT32_HCLK_FREQUENCY, us)))
     #else
         #define wait_us(us) chThdSleepMicroseconds(us)
     #endif

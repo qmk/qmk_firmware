@@ -80,141 +80,135 @@ void raw_hid_task(void);
 void console_task(void);
 #endif
 
-/* TESTING
- * Amber LED blinker thread, times are in milliseconds.
- */
-/* set this variable to non-zero anywhere to blink once */
-// static THD_WORKING_AREA(waThread1, 128);
-// static THD_FUNCTION(Thread1, arg) {
+// Periodic thread
+//static THD_WORKING_AREA(waPeriodic, 128);
+static THD_FUNCTION(Periodic, arg) {
+    chRegSetThreadName("periodic");
 
-//   (void)arg;
-//   chRegSetThreadName("blinker");
-//   while (true) {
-//     systime_t time;
+    systime_t prev = chVTGetSystemTime();
+    while (true) {
+        printf("periodic %u\n", ST2MS(prev));
 
-//     time = USB_DRIVER.state == USB_ACTIVE ? 250 : 500;
-//     palClearLine(LINE_CAPS_LOCK);
-//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
-//     palSetLine(LINE_CAPS_LOCK);
-//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
-//   }
-// }
+        // sleep 5 seconds
+        prev = chThdSleepUntilWindowed(prev, prev + S2ST(5));
+    }
+}
 
 static void usb_timeout(void *arg) {
 
 }
 
-/* Main thread
- */
+// Main thread
 int main(void) {
-  /* ChibiOS/RT init */
-  halInit();
-  chSysInit();
+    /* ChibiOS/RT init */
+    halInit();
+    chSysInit();
+    // Rest of main() is a ChibiOS thread with NORMALPRIO
 
-  // TESTING
-  // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+    /* Init USB */
+    init_usb_driver(&USB_DRIVER);
 
-  /* Init USB */
-  init_usb_driver(&USB_DRIVER);
-
-  /* init printf */
-  init_printf(NULL,sendchar_pf);
+    /* init printf */
+    init_printf(NULL,sendchar_pf);
 
 #ifdef MIDI_ENABLE
-  setup_midi();
+    setup_midi();
 #endif
 
 #ifdef SERIAL_LINK_ENABLE
-  init_serial_link();
+    init_serial_link();
 #endif
 
 #ifdef VISUALIZER_ENABLE
-  visualizer_init();
+    visualizer_init();
 #endif
 
-  host_driver_t* driver = NULL;
-//  event_timer_t usbTimeoutTimer;
+    host_driver_t* driver = NULL;
+    //  event_timer_t usbTimeoutTimer;
 
-  /* Wait until the USB or serial link is active */
-  while (true) {
-    if(USB_DRIVER.state == USB_ACTIVE) {
-      driver = &chibios_driver;
-      break;
-    }
+    /* Wait until the USB or serial link is active */
+    while (true) {
+        if(USB_DRIVER.state == USB_ACTIVE) {
+            driver = &chibios_driver;
+            break;
+        }
 #ifdef SERIAL_LINK_ENABLE
-    if(is_serial_link_connected()) {
-      driver = get_serial_link_driver();
-      break;
-    }
-    serial_link_update();
+        if(is_serial_link_connected()) {
+            driver = get_serial_link_driver();
+            break;
+        }
+        serial_link_update();
 #endif
-    wait_ms(50);
-  }
+        wait_ms(50);
+    }
 
-  /* Do need to wait here!
+    /* Do need to wait here!
    * Otherwise the next print might start a transfer on console EP
    * before the USB is completely ready, which sometimes causes
    * HardFaults.
    */
-  wait_ms(50);
+    wait_ms(50);
 
-  print("USB configured.\n");
+    print("USB configured.\n");
 
-  /* init TMK modules */
-  keyboard_init();
-  host_set_driver(driver);
+    // periodic thread
+//    chThdCreateStatic(waPeriodic, sizeof(waPeriodic), NORMALPRIO-1, Periodic, NULL);
+
+    /* init TMK modules */
+    keyboard_init();
+    host_set_driver(driver);
 
 #ifdef SLEEP_LED_ENABLE
-  sleep_led_init();
+    sleep_led_init();
 #endif
 
-  print("Keyboard start.\n");
+    print("Keyboard start.\n");
 
-  systime_t prev = chVTGetSystemTime();
+    systime_t prev = chVTGetSystemTime();
 
-  /* Main loop */
-  while(true) {
+    /* Main loop */
+    while (true) {
 
-    if(USB_DRIVER.state == USB_SUSPENDED) {
-      print("[s]");
+        if(USB_DRIVER.state == USB_SUSPENDED) {
+            print("[s]");
 #ifdef VISUALIZER_ENABLE
-      visualizer_suspend();
+            visualizer_suspend();
 #endif
-      while(USB_DRIVER.state == USB_SUSPENDED) {
-        /* Do this in the suspended state */
+            while(USB_DRIVER.state == USB_SUSPENDED) {
+                /* Do this in the suspended state */
 #ifdef SERIAL_LINK_ENABLE
-        serial_link_update();
+                serial_link_update();
 #endif
-        suspend_power_down(); // on AVR this deep sleeps for 15ms
-        /* Remote wakeup */
-        if(suspend_wakeup_condition()) {
-          usbWakeupHost(&USB_DRIVER);
-        }
-      }
-      /* Woken up */
-      // variables has been already cleared by the wakeup hook
-      send_keyboard_report();
+                suspend_power_down(); // on AVR this deep sleeps for 15ms
+                /* Remote wakeup */
+                if(suspend_wakeup_condition()) {
+                    usbWakeupHost(&USB_DRIVER);
+                }
+            }
+            /* Woken up */
+            // variables has been already cleared by the wakeup hook
+            send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
-      mousekey_send();
+            mousekey_send();
 #endif /* MOUSEKEY_ENABLE */
 
 #ifdef VISUALIZER_ENABLE
-      visualizer_resume();
+            visualizer_resume();
 #endif
-    }
+        }
 
-    keyboard_task();
+        keyboard_task();
 #ifdef CONSOLE_ENABLE
-    console_task();
+        console_task();
 #endif
 #ifdef VIRTSER_ENABLE
-    virtser_task();
+        virtser_task();
 #endif
 #ifdef RAW_ENABLE
-    raw_hid_task();
+        raw_hid_task();
 #endif
 
-    // sleep until the next tick
-    prev = chThdSleepUntilWindowed(prev, prev + MS2ST(1));
-  }
+        // sleep until the next tick
+        prev = chThdSleepUntilWindowed(prev, prev + MS2ST(1));
+    }
 }

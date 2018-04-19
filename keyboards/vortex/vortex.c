@@ -24,8 +24,8 @@
 #include <stdint.h>
 #include <string.h>
 
-#define RESET_FW_MAGIC 0x55aafaf0ul
-#define RESET_BL_MAGIC 0x55aafaf5ul
+#define RESET_FW_MAGIC 0x55aafaf0U
+#define RESET_BL_MAGIC 0x55aafaf5U
 
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
@@ -58,9 +58,13 @@ enum pok3r_rgb_cmd {
 
 void OVERRIDE bootloader_jump(void) {
     printf("Reset to Bootloader\n");
+    wait_us(10000); // 10 ms
+    chSysDisable(); // mask all interrupts
+    usbDisconnectBus(&USB_DRIVER); // disconnect usb
     // SBVT registers are not reset on reset
-    // SBVT1 is read by pok3r bootloader to stop booting
+    // SBVT1 is read by pok3r bootloader to stop in bootloader
     FMC->SBVT[1] = RESET_BL_MAGIC;
+    wait_us(50000); // 50 ms
     NVIC_SystemReset();
 }
 

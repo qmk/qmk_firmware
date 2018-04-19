@@ -175,6 +175,7 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
+#if HAL_USE_GPT == TRUE
 // GPT Initialization
 
 static const GPTConfig bftm0_config = {
@@ -185,6 +186,7 @@ static const GPTConfig bftm0_config = {
 void gpt_init(void) {
     gptStart(&GPTD_BFTM0, &bftm0_config);
 }
+#endif
 
 // SPI Initialization
 
@@ -201,6 +203,7 @@ void spi_init(void) {
     palSetLine(LINE_SPI_CS);
 }
 
+#if HAL_USE_UART == TRUE
 // UART Initialization
 
 static const UARTConfig usart0_config = {
@@ -225,13 +228,18 @@ void sendchar_pf(void *p, char c) {
     uartStartSend(&USARTD0, 1, &c);
 }
 */
+#endif
 
 /**
  * @brief   Board-specific initialization code.
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
+#if HAL_USE_GPT == TRUE
     gpt_init();
+#endif
     spi_init();
-//    uart_init();
+#if HAL_USE_UART == TRUE
+    uart_init();
+#endif
 }
