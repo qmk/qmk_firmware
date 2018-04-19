@@ -92,10 +92,11 @@ rgblight_disable();  // turn all lights off
 rgblight_enable();  // turn lights on, based on their previous state (stored in EEPROM)
 
 rgblight_setrgb(r, g, b);  // where r/g/b is a number from 0..255.  Turns all the LEDs to this color
-rgblight_sethsv(h, s, v);  // HSV color control
+rgblight_sethsv(h, s, v);  // HSV color control - h is a value from 0..360 and s/v is a value from 0..255
 rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 ```
+You can find a list of predefined colors at [`quantum/rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Free to add to this list!
 
 ## RGB Lighting Keycodes
 

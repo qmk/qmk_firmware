@@ -1,7 +1,5 @@
 {
   "keyboard_name": "Clueboard 66% HotSwap",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 16.5,
   "height": 5,
   "layouts": {

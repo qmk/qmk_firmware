@@ -1,11 +1,5 @@
 {
-  "keyboard_name": "",
-  "manufacturer": "",
-  "identifier": "",
-  "url": "",
   "maintainer": "qmk",
-  "processor": "",
-  "bootloader": "",
   "width": 15.5,
   "height": 4.25,
   "layouts": {

@@ -143,6 +143,8 @@ ifeq ($(PLATFORM),CHIBIOS)
         OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
      else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
         OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+    else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
     endif
 endif
 
@@ -206,6 +208,10 @@ ifeq ("$(USER_PATH)","")
     USER_PATH := users/$(KEYMAP)
 endif
 -include $(USER_PATH)/rules.mk
+ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
+    CONFIG_H += users/$(KEYMAP)/config.h
+endif
+
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
