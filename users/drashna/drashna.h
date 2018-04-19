@@ -83,7 +83,6 @@ enum userspace_custom_keycodes {
   KC_SECRET_3,
   KC_SECRET_4,
   KC_SECRET_5,
-  KC_FXCL,
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
