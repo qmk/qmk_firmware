@@ -11,6 +11,10 @@ enum userspace_custom_keycodes {
   EFFECT_END = EFFECT + 10
 };
 
+#ifndef RESET_LAYER
+#define RESET_LAYER 15
+#endif
+
 enum layers {
     _BASE = 0,
     _WORKMAN,
