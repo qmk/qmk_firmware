@@ -383,6 +383,9 @@ enum quantum_keycodes {
     MI_MOD, // modulation
     MI_MODSD, // decrease modulation speed
     MI_MODSU, // increase modulation speed
+
+    MI_BENDD, // Bend down
+    MI_BENDU, // Bend up
 #endif // MIDI_ADVANCED
 
     // Backlight functionality
