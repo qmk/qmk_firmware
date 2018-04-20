@@ -11,11 +11,7 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 #define _QWERTY 0
 
-#define _FUNCTION 15
-
-enum lets_macro_keycodes {
-  QWERTY = SAFE_RANGE
-};
+#define _FUNC 15
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -35,55 +31,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------|
  * |   5  |  6   |
  * |------+------|
- * |   7  |  8   |
+ * | FUNC |  8   |
  * `-------------'
  */
-[_QWERTY] = {
-  {KC_1, KC_2},
-  {KC_3, KC_4},
-  {KC_5, KC_6},
-  {KC_7, KC_8}
-},
+[_QWERTY] = LAYOUT( \
+    KC_1,      KC_2, \
+    KC_3,      KC_4, \
+    KC_5,      KC_6, \
+    MO(_FUNC), KC_8  \
+),
 
-/* Funciton
+/* Function
  * ,-------------.
- * |   1  |  2   |  
+ * |   Q  |CALDEL|  
  * |------+------|
- * |   3  |  4   | 
+ * |   A  |TSKMGR| 
  * |------+------|
- * |   5  |  6   |
+ * |   Z  |  X   |
  * |------+------|
- * |   7  |  8   |
+ * |      |  C   |
  * `-------------'
  */
-[_FUNCTION] = {
-  {KC_1, KC_2},
-  {KC_3, KC_4},
-  {KC_5, KC_6},
-  {KC_7, KC_8}
-}
+[_FUNC] = LAYOUT( \
+    KC_Q,    CALTDEL, \
+    KC_A,    TSKMGR, \
+    KC_Z,    KC_X, \
+    _______, KC_C \
+)
 
 };
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-  }
-  return true;
-}
 
 void matrix_init_user(void) {
     
