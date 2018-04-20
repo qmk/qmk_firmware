@@ -3,6 +3,10 @@
 
 #include "splinter.h"
 
+typedef struct {
+  int state;
+} tap;
+
 enum {
   DEFAULT_TAP,
   DEFAULT_HOLD,
@@ -21,9 +25,14 @@ enum {
   DA_RCTL,
   DA_RALT,
   DA_EGRV,
+  DA_UPLY,
+  DA_DWLY,
   DA_SAFE_END
 };
 
+extern volatile uint8_t active_layer;
+
+void layer_switcher_tap(uint8_t);
 int cur_dance(qk_tap_dance_state_t *);
 
 void dance_lctl_finished(qk_tap_dance_state_t *, void *);
@@ -40,5 +49,11 @@ void dance_ralt_reset(qk_tap_dance_state_t *, void *);
 
 void dance_egrv_finished(qk_tap_dance_state_t *, void *);
 void dance_egrv_reset(qk_tap_dance_state_t *, void *);
+
+void dance_uply_finished(qk_tap_dance_state_t *, void *);
+void dance_uply_reset(qk_tap_dance_state_t *, void *);
+
+void dance_dwly_finished(qk_tap_dance_state_t *, void *);
+void dance_dwly_reset(qk_tap_dance_state_t *, void *);
 
 #endif
