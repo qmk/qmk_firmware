@@ -17,11 +17,11 @@
 #define I2C_BACKLIT_START   0x00
 // Need 4 bytes for RGB (32 bit)
 #define I2C_RGB_START       0x01
-#define I2C_KEYMAP_START    0x10
+#define I2C_KEYMAP_START    0x06
 
 // Slave buffer (8bit per)
 // Rows per hand + backlit space + rgb space
-#define SLAVE_BUFFER_SIZE 0x40
+#define SLAVE_BUFFER_SIZE 0x20
 
 // i2c SCL clock frequency
 #define SCL_CLOCK  400000L

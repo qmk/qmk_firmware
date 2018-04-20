@@ -85,6 +85,9 @@ void split_keyboard_setup(void) {
 
 void keyboard_slave_loop(void) {
    matrix_init();
+   
+   //enable rgblig
+   rgblight_init();
 
    while (1) {
       matrix_slave_scan();
@@ -115,6 +118,7 @@ void keyboard_slave_loop(void) {
                 dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
             }*/
             
+            //rgblight_setrgb(255, 255, 255);
             rgblight_update_dword(dword);
             RGB_DIRTY = false;
             sei();

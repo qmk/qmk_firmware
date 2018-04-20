@@ -141,14 +141,9 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
-    //enable rgblig
-    rgblight_init();
-    //rgblight_enable();
     
     matrix_init_quantum();
     
-
 }
 
 uint8_t _matrix_scan(void)
@@ -223,24 +218,6 @@ int i2c_transaction(void) {
             BACKLIT_DIRTY = false;
         }
     #endif
-    #ifdef RGBLIGHT_ENABLE
-        if (RGB_DIRTY) {
-            err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-            if (err) goto i2c_error;
-            
-            // RGB Location
-            err = i2c_master_write(I2C_RGB_START);
-            if (err) goto i2c_error;
-            
-            uint32_t dword = eeconfig_read_rgblight();
-            
-            // Write RGB
-            err = i2c_master_write_data(&dword, 4);
-            if (err) goto i2c_error;
-            
-            RGB_DIRTY = false;
-        }
-    #endif
 
     err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
     if (err) goto i2c_error;
@@ -266,7 +243,26 @@ i2c_error: // the cable is disconnceted, or something else went wrong
         return err;
     }
     
-    // Write RGB info
+    #ifdef RGBLIGHT_ENABLE
+        if (RGB_DIRTY) {
+            print("RGBDirty");
+            err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+            if (err) goto i2c_error;
+            
+            // RGB Location
+            err = i2c_master_write(I2C_RGB_START);
+            if (err) goto i2c_error;
+            
+            uint32_t dword = eeconfig_read_rgblight();
+            
+            // Write RGB
+            err = i2c_master_write_data(&dword, 4);
+            if (err) goto i2c_error;
+            
+            RGB_DIRTY = false;
+            i2c_master_stop();
+        }
+    #endif
 
     return 0;
 }
