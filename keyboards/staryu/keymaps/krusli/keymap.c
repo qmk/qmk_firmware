@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "staryu.h"
 #include "action_layer.h"
 
+#include "../../backlight.h"
+
 enum layers {
   _LAYER0,
   _LAYER1,
@@ -84,7 +86,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void matrix_init_user(void) {
   for (int i=0; i<5; i++) {
-    // ledmap_led_on(i);
+    backlight_led_on(i);
   }
 }
 
