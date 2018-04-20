@@ -51,6 +51,7 @@ KEYMAP( /* Tab */
 enum function_id {
    GNAPLED_TOGGLE,
    GNAPLED_STEP_MODE,
+   GNAPLED_KEY
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -90,6 +91,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         gnaplight_step();
       }
       break;
+    default:
+      if(record->event.pressed) {
+        uint8_t keydata = (record->event.key.row*16)+record->event.key.col;
+        #ifdef CONSOLE_ENABLE
+          xprintf("COL: %u, ROW: %u, keydata: %u\n", record->event.key.col, record->event.key.row, keydata);
+        #endif //CONSOLE_ENABLE
+        gnaplight_press(keydata);
+      }
   }
 }
 
@@ -100,4 +109,8 @@ void gnaplight_step(void) {
 
 void gnaplight_toggle(void) {
     serial_send(100);
+}
+
+void gnaplight_press(uint8_t data) {
+    serial_send(data);
 }

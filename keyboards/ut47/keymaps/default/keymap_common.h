@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void gnaplight_toggle(void);
 void gnaplight_step(void);
+void gnaplight_press(uint8_t data);
 
 #define KEYMAP( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0a, K0b, \
