@@ -5,6 +5,8 @@
 #include "../../config.h"
 
 // place overrides here
-#define TAPPING_TERM 200
+#define PREVENT_STUCK_MODIFIERS
+#define TAPPING_TERM 175
+
 
 #endif
