@@ -1,15 +1,15 @@
 # NovelPad/NumChoc
 
-![NovelPad](https://i.imgur.com/vi4EdSh.jpg?1)
+![Staryu](https://i.imgur.com/obcCpZN.jpg)
 
-A 5x4 macropad/numpad, sold by NovelKeys.xyz. There are two versions of the PCB, the NovelPad for MX switches and the NumChoc for Kailh Choc low profile switches. Both utilize the same firmware with no changes required.
+A 5 key macropad, designed by Kai and sold by KPRepublic.
 
-Keyboard Maintainer: [Cole Markham](https://github.com/colemarkham) / [Woodkeys.click](https://woodkeys.click)
-Hardware Supported: NovelPad  
-Hardware Availability: [Novelkeys.xyz](https://novelkeys.xyz)
+Keyboard Maintainer: QMK Community
+Hardware Supported: Staryu (only the non-lite version has been tested)
+Hardware Availability: [AliExpress](https://www.aliexpress.com/item/Staryu-Mini-Macro-Pad-custom-keyboard-by-tkg-kai-Mini-macro-pad-mechanical-keyboard-5-keys/32817560746.html)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make novelpad:default
+    make staryu:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.

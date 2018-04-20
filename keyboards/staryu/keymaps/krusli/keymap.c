@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layers {
   _LAYER0,
   _LAYER1,
-  _LAYER2
+  _LAYER2,
+  _LAYER3
 };
 
 enum custom_keycodes {
@@ -68,9 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     GIT_ADD, GIT_COMMIT, GIT_PUSH
   ),
   [_LAYER2] = KEYMAP(
-             KC_UP,      TO(_LAYER0),
-    KC_LEFT, KC_DOWN,    KC_RIGHT
+             RGB_MOD,    TO(_LAYER3),
+    RGB_TOG, RGB_HUD,    RGB_HUI
   ),
+  [_LAYER3] = KEYMAP(
+             RGB_VAI,    TO(_LAYER0),
+    RGB_SAD, RGB_VAD,    RGB_SAI
+  )
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
