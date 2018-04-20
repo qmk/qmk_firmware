@@ -47,6 +47,9 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# custom matrix setup
+CUSTOM_MATRIX = yes
+SRC = matrix.c led.c protocol/serial_uart.c
 
 # Build Options
 #   change yes to no to disable
