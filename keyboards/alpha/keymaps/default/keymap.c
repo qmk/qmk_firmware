@@ -25,18 +25,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {	
 	if (record->event.pressed) {
-		switch (id) {
+		switch (keycode) {
 			case 0:
 				SEND_STRING("I'm so sorry... -PyroL");
-				return false
+				return false;
 		}
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	switch (id) {
-		case 0:
-			if (record->event.pressed) {
-				return MACRO( D(LSFT), T(I), U(LSFT), T(QUOT), T(M), T(SPC), T(S), T(O), T(SPC), T(S), T(O), T(R), T(R), T(Y), T(DOT), T(DOT), T(DOT), D(LSFT), T(ENT), U(LSFT), T(MINS), T(SPC), D(LSFT), T(P), U(LSFT), T(Y), T(R), T(O), END );
-			}
-			break;
 	}
 	return true;
 };
@@ -47,9 +40,6 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
 
 void led_set_user(uint8_t usb_led) {
 
