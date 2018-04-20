@@ -1,3 +1,4 @@
+#include QMK_KEYBOARD_H
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
@@ -22,7 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-<<<<<<< HEAD:keyboards/alpha/layouts/default/28_alpha/keymap.c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {	
 	if (record->event.pressed) {
 		switch (id) {
@@ -30,7 +30,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				SEND_STRING("I'm so sorry... -PyroL");
 				return false
 		}
-=======
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	switch (id) {
 		case 0:
@@ -38,7 +37,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				return MACRO( D(LSFT), T(I), U(LSFT), T(QUOT), T(M), T(SPC), T(S), T(O), T(SPC), T(S), T(O), T(R), T(R), T(Y), T(DOT), T(DOT), T(DOT), D(LSFT), T(ENT), U(LSFT), T(MINS), T(SPC), D(LSFT), T(P), U(LSFT), T(Y), T(R), T(O), END );
 			}
 			break;
->>>>>>> 79d61c5b9b0f608934769fa69889a6ed433da9fa:keyboards/alpha/keymaps/default/keymap.c
 	}
 	return true;
 };
