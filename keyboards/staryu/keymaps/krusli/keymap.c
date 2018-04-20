@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include QMK_KEYBOARD_H
+#include "staryu.h"
 #include "action_layer.h"
 
 enum layers {
@@ -83,6 +83,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 }
 
 void matrix_init_user(void) {
+  for (int i=0; i<5; i++) {
+    // ledmap_led_on(i);
+  }
 }
 
 void matrix_scan_user(void) {

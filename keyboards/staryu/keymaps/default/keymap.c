@@ -17,7 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 
-const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+enum layers {
+  _LAYER0,
+  _LAYER1,
+  _LAYER2,
+  _LAYER3
+};
+
+
+const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     /* Keymap 0
      * ,-----------.
      * |   |Up |Fn0|
@@ -25,7 +33,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Lef|Dow|Rig|
      * `-----------'
      */
-    KEYMAP( UP,  FN0, LEFT,DOWN,RGHT ),
+    KEYMAP( KC_UP,  TO(_LAYER1), KC_LEFT,KC_DOWN,KC_RIGHT ),
     /* Keymap 1
      * ,-----------.
      * |   |PgU|Fn1|
@@ -33,7 +41,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Hom|PgD|End|
      * `-----------'
      */
-    KEYMAP( PGUP,FN1, HOME,PGDN,END  ),
+    KEYMAP( KC_PGUP,TO(_LAYER2), KC_HOME,KC_PGDN,KC_END  ),
     /* Keymap 2
      * ,-----------.
      * |   |Sel|Fn2|
@@ -41,7 +49,7 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Pre|Pla|Nex|
      * `-----------'
      */
-    KEYMAP( MSEL,FN2, MPRV,MPLY,MNXT ),
+    KEYMAP( KC_MSEL,TO(_LAYER3), KC_MPRV,KC_MPLY,KC_MNXT ),
     /* Keymap 3
      * ,-----------.
      * |   |MsU|Fn3|
@@ -49,15 +57,15 @@ const uint8_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |MsL|MsD|MsR|
      * `-----------'
      */
-    KEYMAP( MS_U,FN3, MS_L,MS_D,MS_R ),
-    /* Keymap 4
-     * ,-----------.
-     * |   |Fn6|Fn4|
-     * |---+---+---|
-     * |Fn7|Fn5|Fn8|
-     * `-----------'
-     */
-    KEYMAP( FN6, FN4, FN7, FN5, FN8  ),
+    KEYMAP( KC_MS_U,TO(_LAYER0), KC_MS_L,KC_MS_D,KC_MS_R ),
+    // /* Keymap 4
+    //  * ,-----------.
+    //  * |   |Fn6|Fn4|
+    //  * |---+---+---|
+    //  * |Fn7|Fn5|Fn8|
+    //  * `-----------'
+    //  */
+    // KEYMAP( FN6, FN4, FN7, FN5, FN8  ),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
