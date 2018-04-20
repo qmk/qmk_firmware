@@ -306,7 +306,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #ifdef RGBLIGHT_ENABLE
   case RGB_TOG:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_toggle();
       RGB_DIRTY = true;
     }
@@ -336,37 +336,37 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_HUI:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_increase_hue();
       RGB_DIRTY = true;
     }
     return false;
   case RGB_HUD:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_decrease_hue();
       RGB_DIRTY = true;
     }
     return false;
   case RGB_SAI:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_increase_sat();
       RGB_DIRTY = true;
     }
     return false;
   case RGB_SAD:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_decrease_sat();
       RGB_DIRTY = true;
     }
     return false;
   case RGB_VAI:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_increase_val();
       RGB_DIRTY = true;
     }
     return false;
   case RGB_VAD:
-    if (record->event.pressed) {
+    if (!record->event.pressed) {
       rgblight_decrease_val();
       RGB_DIRTY = true;
     }
