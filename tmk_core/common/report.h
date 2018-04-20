@@ -73,22 +73,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* key report size(NKRO or boot mode) */
-#if defined(PROTOCOL_PJRC) && defined(NKRO_ENABLE)
-#   include "usb.h"
-#   define KEYBOARD_REPORT_SIZE KBD2_SIZE
-#   define KEYBOARD_REPORT_KEYS (KBD2_SIZE - 2)
-#   define KEYBOARD_REPORT_BITS (KBD2_SIZE - 1)
-
-#elif defined(PROTOCOL_LUFA) && defined(NKRO_ENABLE)
-#   include "protocol/lufa/descriptor.h"
-#   define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-#   define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
-#   define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
-#elif defined(PROTOCOL_CHIBIOS) && defined(NKRO_ENABLE)
-#   include "protocol/chibios/usb_main.h"
-#   define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-#   define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
-#   define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+#if defined(NKRO_ENABLE)
+  #if defined(PROTOCOL_PJRC)
+    #include "usb.h"
+    #define KEYBOARD_REPORT_SIZE KBD2_SIZE
+    #define KEYBOARD_REPORT_KEYS (KBD2_SIZE - 2)
+    #define KEYBOARD_REPORT_BITS (KBD2_SIZE - 1)
+  #elif defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
+    #include "protocol/usb_descriptor.h"
+    #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
+    #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
+    #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+  #else
+    #error "NKRO not supported with this protocol"
+#endif
 
 #else
 #   define KEYBOARD_REPORT_SIZE 8

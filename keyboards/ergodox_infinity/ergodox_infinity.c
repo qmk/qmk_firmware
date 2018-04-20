@@ -174,7 +174,7 @@ __attribute__ ((weak))
 void ergodox_right_led_3_set(uint8_t n) {
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 9}, {1, 9}, {2, 9}, {3, 9}, {4, 9}},

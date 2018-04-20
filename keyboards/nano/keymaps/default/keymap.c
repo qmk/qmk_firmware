@@ -11,13 +11,13 @@
 #define KC_RHUD RGB_HUD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_MAIN] = KC_KEYMAP(
+  [_MAIN] = LAYOUT(
      VOLU,MPLY,MPRV,PGUP,
      VOLD,MUTE,MNXT,PGDN
   ),
 
-  [_FN] = KC_KEYMAP(
+  [_FN] = LAYOUT(
       F  ,    ,RHUI,    ,
-     RTOG,RMOD,RHUD,    
+     RTOG,RMOD,RHUD,
   )
 };

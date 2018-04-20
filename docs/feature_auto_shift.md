@@ -1,7 +1,7 @@
 # Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Viola! No shift key needed!
+and you get its shifted state. Voilà! No shift key needed!
 
 ## Why Auto Shift?
 
@@ -28,10 +28,7 @@ Yes, unfortunately.
    characters, you could press and hold the 'a' key for a second or two. This no
    longer works with Auto Shift because it is timing your depressed time instead
    of emitting a depressed key state to your operating system.
-2. Auto Shift is disabled for any key press that is accompanied by one or more
-   modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
-   as Ctrl+Shift+A.
-3. You will have characters that are shifted when you did not intend on shifting, and
+2. You will have characters that are shifted when you did not intend on shifting, and
    other characters you wanted shifted, but were not. This simply comes down to
    practice. As we get in a hurry, we think we have hit the key long enough
    for a shifted version, but we did not. On the other hand, we may think we are
@@ -47,6 +44,18 @@ Add to your `rules.mk` in the keymap folder:
 If no `rules.mk` exists, you can create one.
 
 Then compile and install your new firmware with Auto Key enabled! That's it!
+
+## Modifiers
+
+By default, Auto Shift is disabled for any key press that is accompanied by one or more
+modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
+as Ctrl+Shift+A.
+
+You can re-enable Auto Shift for modifiers by adding another rule to your `rules.mk`
+
+    AUTO_SHIFT_MODIFIERS = yes
+
+In which case, Ctrl+A held past the `AUTO_SHIFT_TIMEOUT` will be sent as Ctrl+Shift+A
 
 ## Configuring Auto Shift
 
@@ -112,7 +121,7 @@ Map three keys temporarily in your keymap:
 | KC_ASRP  | Report your current Auto Shift timeout value        |
 | KC_ASON  | Turns on the Auto Shift Function                    |
 | KC_ASOFF | Turns off the Auto Shift Function                   |
-| KC_ASTG  | Toggles the statn of the Auto Shift feature         |
+| KC_ASTG  | Toggles the state of the Auto Shift feature         |
 
 Compile and upload your new firmware.
 
