@@ -13,10 +13,11 @@ volatile led_key rbw_led_keys[RBW] = {
 const uint32_t _PC[3] = {0xFF, 0x00, 0x00};
 
 /* Layer color. */
-const uint8_t _LC[4][3] = {[_BL] = {0x00, 0x00, 0x00},
+const uint8_t _LC[5][3] = {[_BL] = {0x00, 0x00, 0x00},
                            [_UL] = {0x00, 0x00, 0xFF},
                            [_VL] = {0xFF, 0xFF, 0x00},
-                           [_DL] = {0x00, 0xFF, 0x00}};
+                           [_DL] = {0x00, 0xFF, 0x00},
+                           [_AL] = {0xFF, 0x00, 0x00}};
 
 /* Color table by sine wave */
 const uint8_t _LIGHTS[360] = {

@@ -13,5 +13,6 @@ enum custom_keycodes { CK_SAFE = SAFE_RANGE, RGUP, RGDWN, NEWPLACEHOLDER };
 #define _UL 1 // The up layer
 #define _DL 2 // The down layer
 #define _VL 3 // The shifted up layer
+#define _AL 4 // The assorted layer
 
 #endif

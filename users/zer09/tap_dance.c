@@ -199,6 +199,9 @@ void dance_dwly_finished(qk_tap_dance_state_t *state, void *user_data) {
   case SINGLE_HOLD:
     layer_switcher_tap(_DL);
     break;
+  case DOUBLE_HOLD:
+    layer_switcher_tap(_AL);
+    break;
   default:
     layer_switcher_tap(_BL);
     break;
@@ -210,6 +213,7 @@ void dance_dwly_reset(qk_tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP:
     break;
   case SINGLE_HOLD:
+  case DOUBLE_HOLD:
   default:
     layer_switcher_tap(_BL);
     break;
