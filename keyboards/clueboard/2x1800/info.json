@@ -1,10 +1,7 @@
 {
     "keyboard_name": "CB 2x1800", 
-    "identifier": "", 
     "url": "", 
-    "maintainer": "qmk", 
-    "processor": "at90usb1286", 
-    "bootloader": "teensy", 
+    "maintainer": "skullydazed", 
     "width": 24, 
     "height": 6.5, 
     "layouts": {
