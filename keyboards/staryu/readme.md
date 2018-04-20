@@ -1,4 +1,4 @@
-# NovelPad/NumChoc
+# Staryu
 
 ![Staryu](https://i.imgur.com/obcCpZN.jpg)
 
