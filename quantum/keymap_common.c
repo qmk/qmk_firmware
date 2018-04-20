@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "backlight.h"
 #include "quantum.h"
+#include "split_flags.h"
 
 #ifdef MIDI_ENABLE
 	#include "process_midi.h"
@@ -133,21 +134,27 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_ON:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_ON();
             break;
         case BL_OFF:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_OFF();
             break;
         case BL_DEC:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_DECREASE();
             break;
         case BL_INC:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_INCREASE();
             break;
         case BL_TOGG:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_TOGGLE();
             break;
         case BL_STEP:
+            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_STEP();
             break;
     #endif

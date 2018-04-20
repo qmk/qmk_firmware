@@ -30,6 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
+#include "backlight.h"
+#include "rgblight.h"
+#include "split_flags.h"
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
@@ -139,7 +142,12 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
+    //enable rgblig
+    rgblight_init();
+    //rgblight_enable();
+    
     matrix_init_quantum();
+    
 
 }
 
@@ -197,12 +205,33 @@ uint8_t _matrix_scan(void)
 // Get rows from other half over i2c
 int i2c_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+    int err = 0;
+    
+    // write backlight info
+    #ifdef BACKLIGHT_ENABLE
+        if (BACKLIT_DIRTY) {
+            err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+            if (err) goto i2c_error;
+            
+            // Backlight location
+            err = i2c_master_write(I2C_BACKLIT_START);
+            if (err) goto i2c_error;
+            
+            // Write backlight 
+            i2c_master_write(get_backlight_level());
+            
+            BACKLIT_DIRTY = false;
+        }
+    #endif
+    #ifdef RGBLIGHT_ENABLE
+        
+    #endif
 
-    int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
     if (err) goto i2c_error;
 
-    // start of matrix stored at 0x00
-    err = i2c_master_write(0x00);
+    // start of matrix stored at I2C_KEYMAP_START
+    err = i2c_master_write(I2C_KEYMAP_START);
     if (err) goto i2c_error;
 
     // Start read
@@ -221,6 +250,8 @@ i2c_error: // the cable is disconnceted, or something else went wrong
         i2c_reset_state();
         return err;
     }
+    
+    // Write RGB info
 
     return 0;
 }
@@ -274,8 +305,24 @@ void matrix_slave_scan(void) {
 
 #if defined(USE_I2C) || defined(EH)
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i] = matrix[offset+i];
+        i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
     }
+    
+    // read backlight info
+    #ifdef BACKLIGHT_ENABLE
+        /*if (BACKLIT_DIRTY) {
+            backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+            BACKLIT_DIRTY = false;
+        }*/
+    #endif
+    // read RGB info
+    #ifdef RGBLIGHT_ENABLE
+        /*if(i2c_slave_buffer[I2C_RGB_START])
+            rgblight_enable();
+        else
+            rgblight_disable();*/
+    #endif
+        
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];

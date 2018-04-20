@@ -13,11 +13,20 @@
 #define I2C_ACK 1
 #define I2C_NACK 0
 
+// Address location defines (Keymap should be last, as it's size is dynamic
+#define I2C_BACKLIT_START   0x00
+// Need 4 bytes for RGB (32 bit)
+#define I2C_RGB_START       0x01
+#define I2C_KEYMAP_START    0x05
+
+// Slave buffer (8bit per)
+// Rows per hand + backlit space + rgb space
 #define SLAVE_BUFFER_SIZE 0x10
 
 // i2c SCL clock frequency
 #define SCL_CLOCK  400000L
 
+// Support 8bits right now (8 cols) will need to edit to take higher (code exists in delta split?)
 extern volatile uint8_t i2c_slave_buffer[SLAVE_BUFFER_SIZE];
 
 void i2c_master_init(void);

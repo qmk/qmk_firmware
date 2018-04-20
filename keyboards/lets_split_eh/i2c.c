@@ -5,6 +5,7 @@
 #include <util/twi.h>
 #include <stdbool.h>
 #include "i2c.h"
+#include "split_flags.h"
 
 #if defined(USE_I2C) || defined(EH)
 
@@ -135,10 +136,16 @@ ISR(TWI_vect) {
         if ( slave_buffer_pos >= SLAVE_BUFFER_SIZE ) {
           ack = 0;
           slave_buffer_pos = 0;
-        }
+        }  
+        
         slave_has_register_set = true;
-      } else {
+      } else {      
         i2c_slave_buffer[slave_buffer_pos] = TWDR;
+        
+        if ( slave_buffer_pos == I2C_BACKLIT_START) {
+            BACKLIT_DIRTY = true;
+        }
+        
         BUFFER_POS_INC();
       }
       break;

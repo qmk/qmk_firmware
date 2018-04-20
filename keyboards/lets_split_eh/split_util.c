@@ -10,6 +10,8 @@
 #include "config.h"
 #include "timer.h"
 #include "pincontrol.h"
+#include "split_flags.h"
+#include "backlight.h"
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
@@ -18,6 +20,8 @@
 #endif
 
 volatile bool isLeftHand = true;
+
+volatile uint8_t setTries = 0;
 
 static void setup_handedness(void) {
   #ifdef EH
@@ -47,6 +51,10 @@ static void keyboard_master_setup(void) {
 #else
   serial_master_init();
 #endif
+
+    // For master the Backlight and RGB info needs to be sent on startup
+    // Otherwise the salve won't start with the proper info until an update
+    BACKLIT_DIRTY = true;
 }
 
 static void keyboard_slave_setup(void) {
@@ -80,6 +88,22 @@ void keyboard_slave_loop(void) {
 
    while (1) {
       matrix_slave_scan();
+      
+      // read backlight info
+    #ifdef BACKLIGHT_ENABLE
+        if (BACKLIT_DIRTY) {
+            //cli();
+            backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+            /*if (setTries < SET_TRIES) {
+                setTries++;
+            } else {
+                setTries = 0;
+                BACKLIT_DIRTY = false;
+            }*/
+            BACKLIT_DIRTY = false;
+            //sei();
+        }
+    #endif
    }
 }
 
@@ -88,6 +112,7 @@ void matrix_setup(void) {
     split_keyboard_setup();
 
     if (!has_usb()) {
+        //rgblight_init();
         keyboard_slave_loop();
     }
 }

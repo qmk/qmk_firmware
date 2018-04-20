@@ -2,6 +2,7 @@
 #define SPLIT_KEYBOARD_UTIL_H
 
 #include <stdbool.h>
+#include <stdint.h>
 #include "eeconfig.h"
 
 #define SLAVE_I2C_ADDRESS           0x32
