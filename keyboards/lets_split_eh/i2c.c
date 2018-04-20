@@ -91,6 +91,22 @@ uint8_t i2c_master_write(uint8_t data) {
   return (TW_STATUS == TW_MT_DATA_ACK) ? 0 : 1;
 }
 
+uint8_t i2c_master_write_data(void *const TXdata, uint8_t dataLen) {
+    
+    uint8_t *data = (uint8_t *)TXdata;
+    int err = 0;
+    
+    for (int i = 0; i < dataLen; i++) {
+        err = i2c_master_write(data[i]);
+        
+        if ( err )
+            return err;
+    }
+    
+    return err;
+    
+}
+
 // Read one byte from the i2c slave. If ack=1 the slave is acknowledged,
 // if ack=0 the acknowledge bit is not set.
 // returns: byte read from i2c device
@@ -144,6 +160,8 @@ ISR(TWI_vect) {
         
         if ( slave_buffer_pos == I2C_BACKLIT_START) {
             BACKLIT_DIRTY = true;
+        } else if ( slave_buffer_pos == (I2C_RGB_START+3)) {
+            RGB_DIRTY = true;
         }
         
         BUFFER_POS_INC();

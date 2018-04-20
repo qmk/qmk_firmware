@@ -3,7 +3,10 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "eeconfig.h"
+#include "rgblight.h"
 
 #define SLAVE_I2C_ADDRESS           0x32
 

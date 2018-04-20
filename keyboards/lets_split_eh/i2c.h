@@ -17,11 +17,11 @@
 #define I2C_BACKLIT_START   0x00
 // Need 4 bytes for RGB (32 bit)
 #define I2C_RGB_START       0x01
-#define I2C_KEYMAP_START    0x05
+#define I2C_KEYMAP_START    0x10
 
 // Slave buffer (8bit per)
 // Rows per hand + backlit space + rgb space
-#define SLAVE_BUFFER_SIZE 0x10
+#define SLAVE_BUFFER_SIZE 0x40
 
 // i2c SCL clock frequency
 #define SCL_CLOCK  400000L
@@ -33,6 +33,7 @@ void i2c_master_init(void);
 uint8_t i2c_master_start(uint8_t address);
 void i2c_master_stop(void);
 uint8_t i2c_master_write(uint8_t data);
+uint8_t i2c_master_write_data(void *const TXdata, uint8_t dataLen);
 uint8_t i2c_master_read(int);
 void i2c_reset_state(void);
 void i2c_slave_init(uint8_t address);

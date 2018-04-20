@@ -134,28 +134,28 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
     #ifdef BACKLIGHT_ENABLE
         case BL_ON:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_ON();
+            BACKLIT_DIRTY = true;
             break;
         case BL_OFF:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_OFF();
+            BACKLIT_DIRTY = true;
             break;
         case BL_DEC:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_DECREASE();
+            BACKLIT_DIRTY = true;
             break;
         case BL_INC:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_INCREASE();
+            BACKLIT_DIRTY = true;
             break;
         case BL_TOGG:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_TOGGLE();
+            BACKLIT_DIRTY = true;
             break;
         case BL_STEP:
-            BACKLIT_DIRTY = true;
             action.code = ACTION_BACKLIGHT_STEP();
+            BACKLIT_DIRTY = true;
             break;
     #endif
     #ifdef SWAP_HANDS_ENABLE

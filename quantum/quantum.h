@@ -31,6 +31,8 @@
   #include "rgblight.h"
 #endif
 
+#include "split_flags.h"
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>

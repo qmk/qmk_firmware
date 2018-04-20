@@ -92,16 +92,32 @@ void keyboard_slave_loop(void) {
       // read backlight info
     #ifdef BACKLIGHT_ENABLE
         if (BACKLIT_DIRTY) {
-            //cli();
             backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-            /*if (setTries < SET_TRIES) {
-                setTries++;
-            } else {
-                setTries = 0;
-                BACKLIT_DIRTY = false;
-            }*/
             BACKLIT_DIRTY = false;
-            //sei();
+        }
+    #endif
+    #ifdef RGBLIGHT_ENABLE
+        if (RGB_DIRTY) {
+            cli();
+            uint32_t dword;// = 0x420707FF;
+            //dword++;
+            //dword--;
+            
+            
+            dword = i2c_slave_buffer[I2C_RGB_START + 3];
+            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 2];
+            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 1];
+            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START];
+            
+            
+            /*uint8_t *dword_dat = (uint8_t *)(&dword);
+            for (int i = 0; i < 4; i++) {
+                dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
+            }*/
+            
+            rgblight_update_dword(dword);
+            RGB_DIRTY = false;
+            sei();
         }
     #endif
    }
