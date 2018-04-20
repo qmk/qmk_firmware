@@ -333,8 +333,6 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
 
                       send_string(buffer);
                       --current_cmd_buffer_pos; //get ready to access the above cmd if down/up is pressed again
-                  } else {
-                      SEND_STRING("\n"); //maybe uneeded??
                     }
                     return false; break;
                 default:
