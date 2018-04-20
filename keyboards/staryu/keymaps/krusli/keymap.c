@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "staryu.h"
 #include "action_layer.h"
 
-#include "../../backlight.h"
+#include "../../backlight_staryu.h"
 
 enum layers {
   _LAYER0,

@@ -3,7 +3,7 @@ MCU = atmega32u2
 
 BOOTLOADER = lufa-dfu
 
-SRC = backlight.c
+SRC = backlight_staryu.c
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
