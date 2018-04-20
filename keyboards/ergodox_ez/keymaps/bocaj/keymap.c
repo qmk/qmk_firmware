@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_HWRKMN] = LAYOUT_ergodox_pretty_wrapper(
      _____________________ERGODOX_TOP_LEFT__________________, _____________________ERGODOX_TOP_RIGHT_________________,
      KC_DEL,______________HWORKMAN_L1______________,KC_LPRN,  KC_RPRN,______________HWORKMAN_R1______________,KC_BSLS,
-TT(_NUMPAD),______________HWORKMAN_L2______________,                  ______________HWORKMAN_R2______________,KC_QUOT,
+TT(_NUMPAD),______________HWORKMAN_L2______________,                  ______________HWORKMAN_R2______________,LT(_TOOLS, KC_QUOTE),
     KC_LSFT,______________HWORKMAN_L3______________,HYP_LBK,  MEH_RBK,______________HWORKMAN_R3______________,KC_RSFT,
     _____________________ERGODOX_BOTTOM_LEFT_______________,  _____________________ERGODOX_BOTTOM_RIGHT______________,
                                          _____________ERGODOX_THUMBS____________
@@ -29,7 +29,7 @@ TT(_NUMPAD),______________HWORKMAN_L2______________,                  __________
   [_SWRKMN] = LAYOUT_ergodox_pretty_wrapper(
      _____________________ERGODOX_TOP_LEFT__________________, _____________________ERGODOX_TOP_RIGHT_________________,
      KC_DEL,______________SWORKMAN_L1______________,KC_LPRN,  KC_RPRN,______________SWORKMAN_R1______________,KC_BSLS,
-TT(_NUMPAD),______________SWORKMAN_L2______________,                  ______________SWORKMAN_R2______________,KC_QUOT,
+TT(_NUMPAD),______________SWORKMAN_L2______________,                  ______________SWORKMAN_R2______________,LT(_TOOLS, KC_QUOTE),
     KC_LSFT,______________SWORKMAN_L3______________,HYP_LBK,  MEH_RBK,______________SWORKMAN_R3______________,KC_RSFT,
     _____________________ERGODOX_BOTTOM_LEFT_______________,  _____________________ERGODOX_BOTTOM_RIGHT______________,
                                          _____________ERGODOX_THUMBS____________
@@ -43,7 +43,7 @@ TT(_NUMPAD),______________SWORKMAN_L2______________,                  __________
                                          _____________ERGODOX_THUMBS____________
   ),
   [_MOUSE] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,XXXXXXX,
     XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,                  XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,XXXXXXX,
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_D,XXXXXXX,XXXXXXX,XXXXXXX,
@@ -51,11 +51,11 @@ TT(_NUMPAD),______________SWORKMAN_L2______________,                  __________
                                          _____________ERGODOX_THUMBS____________
   ),
   [_TOOLS] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,KC_SEC1,KC_SEC2,KC_SEC3,KC_SEC4,KC_SEC5,KC_EPRM,  KC_EPRM,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    KC_ASTG,KC_ASDN,KC_ASUP,KC_ASRP,XXXXXXX,XXXXXXX,                  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,KC_HWRK,KC_SWRK,_______,
+           XXXXXXX,KC_SEC1,KC_SEC2,KC_SEC3,KC_SEC4,KC_SEC5,KC_EPRM,  KC_EPRM,KC_SEC6,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,HYPR(KC_LEFT),HYPR(KC_RGHT),HYPR(KC_F),XXXXXXX,XXXXXXX,  XXXXXXX,MEH(KC_UP),MEH(KC_DOWN),MEH(KC_LEFT),MEH(KC_RGHT),_______,
+           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,KC_HWRK,KC_SWRK,_______,
                                          _____________ERGODOX_THUMBS____________
   )
 };
@@ -86,8 +86,9 @@ void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // KC_COPY and KC_PASTE have problems with different hardware/software mappings
-    // e.g. If the mappings conflict, KC_COPY will send Cmd+M which minimizes the window
-    // JJ_COPY and JJ_PASTE fix this
+    // e.g. If the mappings conflict, KC_COPY will send Cmd+M which minimizes the 
+    // window and is very annoying. JJ_COPY and JJ_PASTE fix this by sending the
+    // raw character rather than the KC_* code
     case JJ_COPY:
       if (!record->event.pressed) {
         SEND_STRING(SS_LGUI("c"));
@@ -97,6 +98,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case JJ_PASTE:
       if (!record->event.pressed) {
         SEND_STRING(SS_LGUI("v"));
+      }
+      return false;
+      break;
+    case JJ_ARRW:
+      if (!record->event.pressed) {
+        SEND_STRING(" -> ");
       }
       return false;
       break;
@@ -131,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
+    case KC_SECRET_1 ... KC_SECRET_6: // Secrets!  Externally defined strings, not stored in repo
       if (!record->event.pressed) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         send_string_P(secret[keycode - KC_SECRET_1]);
@@ -158,11 +165,10 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_set(10);
       break;
     case _TOOLS:
-      ergodox_right_led_3_on();
       ergodox_right_led_2_on();
-      ergodox_right_led_3_set(10);
       ergodox_right_led_2_set(10);
-      break;
+      ergodox_right_led_3_on();
+      ergodox_right_led_3_set(10);
     default:
       // none
       break;

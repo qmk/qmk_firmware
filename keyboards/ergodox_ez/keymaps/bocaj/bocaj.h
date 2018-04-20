@@ -19,11 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendstring_workman.h"
 
 // Layers
-#define _HWRKMN 0
-#define _SWRKMN 1
-#define _NUMPAD 2
-#define _MOUSE  3
-#define _TOOLS 4
+#define _HWRKMN  0
+#define _SWRKMN  1
+#define _NUMPAD  2
+#define _MOUSE   3
+#define _TOOLS   4
 
 enum custom_keycodes {
   KC_EPRM = SAFE_RANGE,
@@ -32,32 +32,13 @@ enum custom_keycodes {
   KC_VRSN,
   JJ_COPY,
   JJ_PASTE,
+  JJ_ARRW,
   KC_SECRET_1,
   KC_SECRET_2,
   KC_SECRET_3,
   KC_SECRET_4,
   KC_SECRET_5,
-};
-
-enum {
-  TD_ARRW = 0
-};
-
-void dance_arrow (qk_tap_dance_state_t *state, void *user_data) {
-  switch (state->count) {
-    case 1:
-      SEND_STRING("-");
-      reset_tap_dance(state);
-      break;
-    case 2:
-      SEND_STRING("->");
-      reset_tap_dance(state);
-      break;
-  }
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_ARRW] = ACTION_TAP_DANCE_FN(dance_arrow)
+  KC_SECRET_6,
 };
 
 #define KC_SEC1 KC_SECRET_1
@@ -65,6 +46,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KC_SEC3 KC_SECRET_3
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
+#define KC_SEC6 KC_SECRET_6
 
 // Space Cadet Hyper/Meh and [/]
 #define HYP_LBK ALL_T(KC_LBRACKET)
@@ -93,9 +75,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
                           '-----------------------' '-----------------------'
 */
 
-#define _____________________ERGODOX_TOP_LEFT__________________ KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, SH_TG
-#define _____________________ERGODOX_TOP_RIGHT_________________ TD_ARRW, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL
-#define _____________________ERGODOX_BOTTOM_LEFT_______________ TG(_MOUSE), TG(_NUMPAD), XXXXXXX, KC_UP,   KC_LEFT
+#define _____________________ERGODOX_TOP_LEFT__________________ KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, JJ_ARRW
+#define _____________________ERGODOX_TOP_RIGHT_________________ KC_MINUS, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL
+#define _____________________ERGODOX_BOTTOM_LEFT_______________ TG(_MOUSE), TG(_NUMPAD), SH_MON, KC_UP,   KC_LEFT
 #define _____________________ERGODOX_BOTTOM_RIGHT______________ KC_RIGHT,   KC_DOWN,     KC_SEC1,    KC_SEC2, TT(_TOOLS)
 
 //                                                  LEFT        |       RIGHT
