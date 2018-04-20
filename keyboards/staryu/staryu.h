@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KB_H
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
 	K00, K01, \
 	K10, K11, K12 \
 ) { \

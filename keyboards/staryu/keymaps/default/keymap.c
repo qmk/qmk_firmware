@@ -33,7 +33,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Lef|Dow|Rig|
      * `-----------'
      */
-    KEYMAP( KC_UP,  TO(_LAYER1), KC_LEFT,KC_DOWN,KC_RIGHT ),
+    LAYOUT( KC_UP,  TO(_LAYER1), KC_LEFT,KC_DOWN,KC_RIGHT ),
     /* Keymap 1
      * ,-----------.
      * |   |PgU|Fn1|
@@ -41,7 +41,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Hom|PgD|End|
      * `-----------'
      */
-    KEYMAP( KC_PGUP,TO(_LAYER2), KC_HOME,KC_PGDN,KC_END  ),
+    LAYOUT( KC_PGUP,TO(_LAYER2), KC_HOME,KC_PGDN,KC_END  ),
     /* Keymap 2
      * ,-----------.
      * |   |Sel|Fn2|
@@ -49,7 +49,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |Pre|Pla|Nex|
      * `-----------'
      */
-    KEYMAP( KC_MSEL,TO(_LAYER3), KC_MPRV,KC_MPLY,KC_MNXT ),
+    LAYOUT( KC_MSEL,TO(_LAYER3), KC_MPRV,KC_MPLY,KC_MNXT ),
     /* Keymap 3
      * ,-----------.
      * |   |MsU|Fn3|
@@ -57,7 +57,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
      * |MsL|MsD|MsR|
      * `-----------'
      */
-    KEYMAP( KC_MS_U,TO(_LAYER0), KC_MS_L,KC_MS_D,KC_MS_R ),
+    LAYOUT( KC_MS_U,TO(_LAYER0), KC_MS_L,KC_MS_D,KC_MS_R ),
     // /* Keymap 4
     //  * ,-----------.
     //  * |   |Fn6|Fn4|
@@ -65,7 +65,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     //  * |Fn7|Fn5|Fn8|
     //  * `-----------'
     //  */
-    // KEYMAP( FN6, FN4, FN7, FN5, FN8  ),
+    // LAYOUT( FN6, FN4, FN7, FN5, FN8  ),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

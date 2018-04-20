@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "staryu.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 #include "../../backlight_staryu.h"
@@ -62,21 +62,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_LAYER0] = KEYMAP(
-             KC_ESC,     TO(_LAYER1),
-    KC_Z,    KC_X,       KC_SPACE
+  [_LAYER0] = LAYOUT(                 \
+             KC_ESC,     TO(_LAYER1), \
+    KC_Z,    KC_X,       KC_SPACE     \
   ),
-  [_LAYER1] = KEYMAP(
-             MUTE,       TO(_LAYER2),
-    GIT_ADD, GIT_COMMIT, GIT_PUSH
+  [_LAYER1] = LAYOUT(                 \
+             MUTE,       TO(_LAYER2), \
+    GIT_ADD, GIT_COMMIT, GIT_PUSH     \
   ),
-  [_LAYER2] = KEYMAP(
-             RGB_MOD,    TO(_LAYER3),
-    RGB_TOG, RGB_HUD,    RGB_HUI
+  [_LAYER2] = LAYOUT(                 \
+             RGB_MOD,    TO(_LAYER3), \
+    RGB_TOG, RGB_HUD,    RGB_HUI      \
   ),
-  [_LAYER3] = KEYMAP(
-             RGB_VAI,    TO(_LAYER0),
-    RGB_SAD, RGB_VAD,    RGB_SAI
+  [_LAYER3] = LAYOUT(                 \
+             RGB_VAI,    TO(_LAYER0), \
+    RGB_SAD, RGB_VAD,    RGB_SAI      \
   )
 };
 
