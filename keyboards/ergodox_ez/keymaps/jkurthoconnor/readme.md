@@ -37,14 +37,14 @@ Start the teensy loader.
 
 Load the `.hex` file via 'File Menu / Open Hex File' (or via the page icon).
 
-Press the Reset button by inserting a paperclip gently into the reset hole in the top right corder, or use Reset key
+Press the Reset button by inserting a paperclip gently into the reset hole in the top right corner (or use Reset key)
 
 Download the firmware to the board via 'Operation / Program' (or via the green down arrow)
 
 Reboot the board (via 'Operation / Reboot') if the board did not do so automatically
 
 
-#### Using 'Auto Mode' [video](https://www.youtube.com/watch?v=9PyiGUO9_KQ)
+#### Using ['Auto Mode'](https://www.youtube.com/watch?v=9PyiGUO9_KQ)
 
 Open teensy loader
 
@@ -56,10 +56,3 @@ Press reset button on keyboard
 
 
 See also the [QMK documentation](https://docs.qmk.fm/newbs.html)
-
-
-## Settings
-
-You may want to enable QMK_KEYS_PER_SCAN because the Ergodox has a relatively
-slow scan rate.
-
