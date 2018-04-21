@@ -45,17 +45,8 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 * `keyboard_name`
   * A free-form text string describing the keyboard.
   * Example: `Clueboard 66%`
-* `manufacturer`
-  * A free-form text string naming the manufacturer.
-  * Example: `Clueboard`
-* `identifier`
-  * The Vendor, Product, and Revision ID's joined by a :
-  * Example: `c1ed:2370:0001`
 * `url`
   * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
-* `processor`
-  * The MCU or CPU this keyboard uses.
-  * Example: `atmega32u4` or `stm32f303`
 * `bootloader`
   * What bootloader this keyboard uses. Available options:
     * `atmel-dfu`

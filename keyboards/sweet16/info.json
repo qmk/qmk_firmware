@@ -1,11 +1,7 @@
 {
   "keyboard_name": "Sweet 16",
-  "manufacturer": "1UP Keyboards",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 4,
   "height": 4,
   "layouts": {

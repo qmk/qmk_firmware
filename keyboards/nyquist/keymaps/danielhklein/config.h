@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 #define BOOTMAGIC_KEY_SALT KC_ENT
 
+
 #ifdef SUBPROJECT_rev1
     #include "../../rev1/config.h"
 #endif
