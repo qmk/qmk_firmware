@@ -69,4 +69,4 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 
-LAYOUTS = 60_hhkb
+LAYOUTS = 60_ansi_split_bs_rshift

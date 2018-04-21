@@ -143,6 +143,6 @@ void matrix_scan_user(void);
 
 #define LAYOUT_60_ansi KEYMAP_ANSI
 #define LAYOUT_60_iso KEYMAP_ISO
-#define LAYOUT_60_hhkb KEYMAP_HHKB
+#define LAYOUT_60_ansi_split_bs_rshift KEYMAP_HHKB
 
 #endif
