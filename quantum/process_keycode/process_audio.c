@@ -108,7 +108,7 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
       }
 
 
-    if ( (clicky_enable && keycode != CLICKY_TOGGLE) || (!clicky_enable && keycode == CLICKY_TOGGLE) ) {
+    if ( clicky_enable ) {
       if (record->event.pressed) {
         stop_all_notes();
         clicky_play();;

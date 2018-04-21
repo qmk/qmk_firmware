@@ -41,8 +41,13 @@ float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to you
 float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
 #endif // FAUXCLICKY_ENABLE
 
+float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
+float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
+
+
 bool faux_click_enabled = false;
 bool is_overwatch = false;
+static uint16_t copy_paste_timer;
 #ifdef RGBLIGHT_ENABLE
 bool rgb_layer_change = true;
 #endif
@@ -198,17 +203,21 @@ void matrix_scan_user(void) {
   matrix_scan_keymap();
 }
 
+void tap(uint16_t keycode){
+    register_code(keycode);
+    unregister_code(keycode);
+};
+
 // This block is for all of the gaming macros, as they were all doing
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
     clear_keyboard();
-    register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-    unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string(str);
-    register_code(KC_ENTER);
-    unregister_code(KC_ENTER);
+    wait_ms(50);
+    tap(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
@@ -402,6 +411,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true; break;
 #endif // RGBLIGHT_ENABLE
+
+
+  case KC_CCCV:                                    // One key copy/paste
+    if(record->event.pressed){
+      copy_paste_timer = timer_read();
+    } else {
+      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
+        register_code(KC_LCTL);
+        tap(KC_C);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_copy);
+#endif
+      } else {                                // Tap, paste
+        register_code(KC_LCTL);
+        tap(KC_V);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_paste);
+#endif
+      }
+    }
+    return false;
+    break;
+
+#ifdef UNICODE_ENABLE
+  case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
+    if (record->event.pressed) {
+      register_code(KC_RSFT);
+      tap(KC_9);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      register_code(KC_RSFT);
+      tap(KC_0);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      tap(KC_SPC);
+      process_unicode((0x0361 | QK_UNICODE), record); // Flippy
+      tap(KC_SPC);
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+      process_unicode((0x2501 | QK_UNICODE), record); // Table
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+    }
+    return false;
+    break;
+#endif // UNICODE_ENABLE
+
   }
   return process_record_keymap(keycode, record);
 }
@@ -413,6 +472,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
+
   if (rgb_layer_change) {
     switch (biton32(state)) {
     case _NAV:
