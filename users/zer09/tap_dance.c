@@ -21,6 +21,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 volatile uint8_t active_layer = _BL;
 static tap upltap_state = {.state = 0};
 static tap dwltap_state = {.state = 0};
+static tap lsprtap_state = {.state = 0};
+static tap ralttap_state = {.state = 0};
 
 void layer_switcher_tap(uint8_t new_layer) {
   layer_off(active_layer);
@@ -68,21 +70,21 @@ void dance_lctl_reset(qk_tap_dance_state_t *state, void *user_data) {
 };
 
 void dance_lspr_finished(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
+  lsprtap_state.state = cur_dance(state);
+
+  switch (lsprtap_state.state) {
   case DOUBLE_HOLD:
     rbw_led_keys[RBW_LSPR].status = ENABLED;
     register_code(KC_LALT);
     break;
   default:
-    register_code(KC_LGUI);
+    unregister_code(KC_LGUI);
     break;
   }
 };
 
 void dance_lspr_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
+  switch (lsprtap_state.state) {
   case DOUBLE_HOLD:
     unregister_code(KC_LALT);
     rbw_led_keys[RBW_LSPR].status = DISABLED;
@@ -104,11 +106,12 @@ void dance_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
 };
 
 void dance_ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
+  ralttap_state.state = cur_dance(state);
+
+  switch (ralttap_state.state) {
   case DOUBLE_HOLD:
     rbw_led_keys[RBW_RALT].status = ENABLED;
-    register_code(KC_RGUI);
+    unregister_code(KC_LGUI);
     break;
   default:
     register_code(KC_RALT);
@@ -117,8 +120,7 @@ void dance_ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
 };
 
 void dance_ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
+  switch (ralttap_state.state) {
   case DOUBLE_HOLD:
     unregister_code(KC_RGUI);
     rbw_led_keys[RBW_RALT].status = DISABLED;
