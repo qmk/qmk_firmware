@@ -1,6 +1,8 @@
 #include "audio.h"
 #include "process_clicky.h"
 
+#ifdef AUDIO_CLICKY
+
 #ifdef AUDIO_CLICKY_ON
 bool clicky_enable = true;
 #else // AUDIO_CLICKY_ON
@@ -39,7 +41,7 @@ void clicky_play(void) {
   PLAY_SONG(clicky_song);
 }
 
-bool process_audio(uint16_t keycode, keyrecord_t *record) {
+bool process_clicky(uint16_t keycode, keyrecord_t *record) {
     if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_enable = !clicky_enable; }
 
     if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT; }
@@ -67,3 +69,4 @@ bool process_audio(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#endif //AUDIO_CLICKY
