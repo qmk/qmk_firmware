@@ -10,8 +10,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
                                              dance_rctl_reset),
     [DA_RALT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ralt_finished,
                                              dance_ralt_reset),
-    [DA_EGRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_egrv_finished,
-                                             dance_egrv_reset),
     [DA_UPLY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_uply_finished,
                                              dance_uply_reset),
     [DA_DWLY] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_dwly_finished,
@@ -78,7 +76,7 @@ void dance_lspr_finished(qk_tap_dance_state_t *state, void *user_data) {
     register_code(KC_LALT);
     break;
   default:
-    unregister_code(KC_LGUI);
+    register_code(KC_LGUI);
     break;
   }
 };
@@ -127,30 +125,6 @@ void dance_ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
     break;
   default:
     unregister_code(KC_RALT);
-    break;
-  }
-};
-
-void dance_egrv_finished(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
-  case DOUBLE_HOLD:
-    register_code(KC_GRAVE);
-    break;
-  default:
-    register_code(KC_ESCAPE);
-    break;
-  }
-};
-
-void dance_egrv_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (cur_dance(state)) {
-  case DOUBLE_TAP:
-  case DOUBLE_HOLD:
-    unregister_code(KC_GRAVE);
-    break;
-  default:
-    unregister_code(KC_ESCAPE);
     break;
   }
 };

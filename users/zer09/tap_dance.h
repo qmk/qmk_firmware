@@ -24,7 +24,6 @@ enum {
   DA_LSPR,
   DA_RCTL,
   DA_RALT,
-  DA_EGRV,
   DA_UPLY,
   DA_DWLY,
   DA_SAFE_END
@@ -46,9 +45,6 @@ void dance_rctl_reset(qk_tap_dance_state_t *, void *);
 
 void dance_ralt_finished(qk_tap_dance_state_t *, void *);
 void dance_ralt_reset(qk_tap_dance_state_t *, void *);
-
-void dance_egrv_finished(qk_tap_dance_state_t *, void *);
-void dance_egrv_reset(qk_tap_dance_state_t *, void *);
 
 void dance_uply_finished(qk_tap_dance_state_t *, void *);
 void dance_uply_reset(qk_tap_dance_state_t *, void *);
