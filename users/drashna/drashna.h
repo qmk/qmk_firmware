@@ -143,7 +143,8 @@ enum unicode_name {
   TUMBLER, // 🥃
 
   LIT, // fire 🔥
-  IRONY, // ‽
+  BANG, // ‽
+  IRONY, //
   DEGREE, // °
 };
 
@@ -172,7 +173,8 @@ const uint32_t PROGMEM unicode_map[] = {
   [THDN]      = 0x1F44E,
   [THUP]      = 0x1F44D,
   [TUMBLER]   = 0x1F943,
-  [IRONY]     = 0x0203D,
+  [BANG]     = 0x0203D,
+  [IRONY]     = 0x02E2E,
   [DEGREE]    = 0x000B0,
  };
 
