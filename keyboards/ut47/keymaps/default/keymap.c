@@ -91,16 +91,18 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         gnaplight_step();
       }
       break;
-    default:
-      if(record->event.pressed) {
-        uint8_t keydata = (record->event.key.row*16)+record->event.key.col;
-        #ifdef CONSOLE_ENABLE
-          xprintf("COL: %u, ROW: %u, keydata: %u\n", record->event.key.col, record->event.key.row, keydata);
-        #endif //CONSOLE_ENABLE
-        gnaplight_press(keydata);
-      }
   }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      default:
+        serial_send((record->event.key.row*16)+record->event.key.col);
+    }
+  }
+  return true;
+};
 
 //GNAP keymap functions
 void gnaplight_step(void) {
