@@ -31,25 +31,25 @@ void layer_switcher_tap(uint8_t new_layer) {
 int cur_dance(qk_tap_dance_state_t *state) {
   switch (state->count) {
   case 1:
-    if (state->interrupted || state->pressed == 0) {
+    if (state->pressed == 0) {
       return SINGLE_TAP;
     } else {
       return SINGLE_HOLD;
     }
   case 2:
-    if (state->interrupted || state->pressed == 0) {
+    if (state->pressed == 0) {
       return DOUBLE_TAP;
     } else {
       return DOUBLE_HOLD;
     }
   case 3:
-    if (state->interrupted || state->pressed == 0) {
+    if (state->pressed == 0) {
       return TRIPLE_TAP;
     } else {
       return TRIPLE_HOLD;
     }
   default:
-    if (state->interrupted || state->pressed == 0) {
+    if (state->pressed == 0) {
       return DEFAULT_TAP;
     } else {
       return DEFAULT_HOLD;
