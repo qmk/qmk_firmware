@@ -15,15 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#ifndef REV2_CONFIG_H
+#define REV2_CONFIG_H
 
 #include QMK_KEYBOARD_CONFIG_H
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1156
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Nyquist Keyboard
 #define DESCRIPTION     Split 60 percent ortholinear keyboard
@@ -35,16 +35,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+#define MATRIX_COL_PINS { D2, F5, F6, F7, B1, B3 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -63,8 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 16    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
+
+/* Backlight LEDs */
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 7
 
 /*
  * Feature disable options
