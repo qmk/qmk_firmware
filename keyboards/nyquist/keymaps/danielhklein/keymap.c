@@ -2,6 +2,16 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 
+/*
+ Keymap is loosely based on DivergeJM's Nyquist keymap
+ Major changes made:
+  - DVORAK, COLEMAK, FUNCTION, MOUSE, and ADJUST layers have been removed
+  - right 2u key performs backspace, not enter
+  - LOWER layer controls function keys, media controls, and underglow
+  - ARROW layer uses JKLI for arrow keys
+  - Bootmagic enabled and bootmagic initialization key changed from space to enter
+*/
+
 extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
