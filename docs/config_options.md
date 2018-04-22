@@ -195,6 +195,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `lufa-dfu`
   * `qmk-dfu`
   * `halfkay`
+  * `halfkay-plusplus`
   * `caterina`
   * `bootloadHID`
 

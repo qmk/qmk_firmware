@@ -48,6 +48,10 @@ ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
     BOOTLOADER_SIZE = 512
 endif
+ifeq ($(strip $(BOOTLOADER)), halfkay-plusplus)
+    OPT_DEFS += -DBOOTLOADER_HALFKAY
+    BOOTLOADER_SIZE = 1024
+endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
     BOOTLOADER_SIZE = 4096
