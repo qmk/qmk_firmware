@@ -4,9 +4,9 @@ static bool active_key_pos[50] = {};
 static uint8_t led_dim = 0;
 
 volatile led_key rbw_led_keys[RBW] = {
-    [RBW_LCTL] = {DEFAULT, 21, true},  [RBW_LCAP] = {DEFAULT, 22, false},
+    [RBW_LCTL] = {DEFAULT, 21, true},  [RBW_LCAP] = {DEFAULT, 24, false},
     [RBW_LSPR] = {DEFAULT, 23, true},  [RBW_RCTL] = {DEFAULT, 48, true},
-    [RBW_RCAP] = {DEFAULT, 47, false}, [RBW_RALT] = {DEFAULT, 46, true},
+    [RBW_RCAP] = {DEFAULT, 45, false}, [RBW_RALT] = {DEFAULT, 46, true},
     [RBW_SCRL] = {DEFAULT, 42, true}};
 
 /* Pressed led color. */

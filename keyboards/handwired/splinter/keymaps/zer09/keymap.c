@@ -3,11 +3,11 @@
 #include "zer09.h"
 
 #define _baseLayer KEYMAP( \
-  KC_QUOTE,    KC_COMMA,    KC_DOT,          KC_P,        KC_Y,  /**/KC_F,   KC_G,        KC_C,            KC_R,        KC_L,        \
-  CTL_T(KC_A), SFT_T(KC_O), ALT_T(KC_E),     KC_U,        KC_I,  /**/KC_D,   KC_H,        ALT_T(KC_T),     SFT_T(KC_N), CTL_T(KC_S), \
-  KC_SCOLON,   KC_Q,        KC_J,            KC_K,        KC_X,  /**/KC_B,   KC_M,        KC_W,            KC_V,        KC_Z,        \
-  TD(DA_UPLY), MO(_VL),     KC_TAB,          KC_BSPACE,   KC_ESC,/**/KC_INS, KC_HOME,     KC_PGUP,         MO(_VL),     TD(DA_UPLY), \
-  TD(DA_DWLY), TD(DA_LCTL), LSFT_T(KC_CAPS), TD(DA_LSPR), KC_SPC,/**/KC_ENT, TD(DA_RALT), RSFT_T(KC_CAPS), TD(DA_RCTL), TD(DA_DWLY))
+  KC_QUOTE,    KC_COMMA,    KC_DOT,      KC_P,        KC_Y,           /**/KC_F,           KC_G,        KC_C,        KC_R,        KC_L,        \
+  CTL_T(KC_A), SFT_T(KC_O), ALT_T(KC_E), KC_U,        KC_I,           /**/KC_D,           KC_H,        ALT_T(KC_T), SFT_T(KC_N), CTL_T(KC_S), \
+  KC_SCOLON,   KC_Q,        KC_J,        KC_K,        KC_X,           /**/KC_B,           KC_M,        KC_W,        KC_V,        KC_Z,        \
+  TD(DA_UPLY), MO(_VL),     KC_TAB,      KC_BSPACE,   KC_ESC,         /**/KC_INS,         KC_HOME,     KC_PGUP,     MO(_VL),     TD(DA_UPLY), \
+  TD(DA_DWLY), TD(DA_LCTL), KC_SPC,      TD(DA_LSPR), LSFT_T(KC_CAPS),/**/SFT_T(KC_CAPS), TD(DA_RALT), KC_ENT,      TD(DA_RCTL), TD(DA_DWLY))
 
 #define _upLayer KEYMAP( \
   KC_4,          KC_5,          KC_6,          _______,  _______,/**/ _______,  KC_RBRC,  _______,  KC_RGUP,   _______, \
