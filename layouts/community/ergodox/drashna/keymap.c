@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
+#ifdef UNICODEMAP_ENABLE
+#include "drashna_unicode.h"
+#endif // UNICODEMAP_ENABLE
+
 #ifdef SWAP_HANDS_ENABLE
 #define KC_C1R3 SH_TT
 #else // SWAP_HANDS_ENABLE
@@ -26,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //enum more_custom_keycodes {
 //    KC_P00 = NEW_SAFE_RANGE
 //};
-
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
