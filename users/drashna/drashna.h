@@ -128,6 +128,7 @@ enum unicode_name {
   DRAGON, // 🐉
   MONKEY, // 🐒
   CHICK, // 🐥
+  BOAR, // 🐗
 
   OKOK, // 👌
   EFFU, // 🖕
@@ -149,7 +150,7 @@ enum unicode_name {
 };
 
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t PROGMEM userspace_unicode_map[] = {
   [THINK]     = 0x1F914,
   [GRIN]      = 0x1F600,
   [BBB]       = 0x1F171,
