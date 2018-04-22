@@ -32,3 +32,7 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 ### Build Guide
 
 [u/network_operations' build guide thread](https://www.reddit.com/r/MechanicalKeyboards/comments/7wqktu/gnap_the_cheap_40/)
+
+### Credit
+
+Forked from [di0ib TMK version](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/gnap)
