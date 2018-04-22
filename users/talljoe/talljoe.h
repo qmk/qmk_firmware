@@ -28,6 +28,10 @@ enum layers {
     _RESET = RESET_LAYER,
 };
 
+enum tap_dancers {
+  TD_SEMICOLON
+};
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
@@ -53,6 +57,7 @@ enum layers {
 #define US_CAPS   CTL_T(KC_ESC)
 #define US_QUOT   RCTL_T(KC_QUOT)
 #define US_MINS   RCTL_T(KC_QUOT)
+#define US_SCLN   TD(TD_SEMICOLON)
 #define US_ENT    LT(_NUM, KC_ENT)
 
 #ifndef SPACE_COUNT
