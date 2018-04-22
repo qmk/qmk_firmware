@@ -165,6 +165,8 @@ If you define these options you will enable the associated feature, which may in
 
 ## Split Keyboard Options
 
+Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
+
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand
   
