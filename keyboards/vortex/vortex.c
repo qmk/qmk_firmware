@@ -30,6 +30,13 @@
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
+extern bool bootloader_reset;
+
+const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
+    PRODUCT_ID & 0xFF, (PRODUCT_ID >> 8) & 0xFF,
+    'q', 'm', 'k', '_', 'p', 'o', 'k', '3', 'r', 0
+};
+
 enum pok3r_rgb_cmd {
 #if UPDATE_PROTO_VER == 1
     CMD_RESET       = 4,    //!< Reset command.
@@ -54,7 +61,19 @@ enum pok3r_rgb_cmd {
 
     // New QMK commands
     CMD_INFO        = 0x81,
+    CMD_EEPROM      = 0x82,
+    SUB_EE_READ     = 0x01,
+    SUB_EE_WRITE    = 0x02,
 };
+
+static void to_leu16(uint8_t *bytes, uint16_t num) {
+    bytes[0] = num & 0xFF;
+    bytes[1] = (num >> 8) & 0xFF;
+}
+
+static uint32_t from_leu32(const uint8_t *bytes) {
+    return (bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24));
+}
 
 void OVERRIDE bootloader_jump(void) {
     printf("Reset to Bootloader\n");
@@ -94,11 +113,6 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 printf(">> End Dump\n");
             }
             return false;
-        case EX_RESET:
-            if (record->event.pressed) {
-                bootloader_jump(); // doesn't return
-            }
-            return false;
     }
 
 //    printf("Code: %d %d\n", keycode, record->event.pressed);
@@ -108,7 +122,7 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
-    printf("Command Packet Receive\n");
+//    printf("Command Packet Receive\n");
     if (length == PKT_LEN) {
         memset(packet_buf, 0, PKT_LEN);
         // handle command
@@ -117,7 +131,8 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 switch (data[1]) {
                     case SUB_RESET_BL:
 //                        bootloader_jump();
-                        reset_keyboard();
+//                        reset_keyboard();
+                        bootloader_reset = true;
                         return;
                     case SUB_RESET_FW:
                         firmware_reset();
@@ -133,7 +148,7 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 #if UPDATE_PROTO_VER == 1
                     case SUB_READ_ADDR: {
                         uint32_t addr = data[4] | (data[5] << 8) | (data[6] << 16) | (data[7] << 24);
-                        printf("Read Addr %04x\n", addr);
+                        printf("Read Flash %04x\n", addr);
                         if (addr + 64 < FLASH_SIZE) {
                             memcpy(packet_buf, (const uint8_t *)addr, 64);
                         }
@@ -144,12 +159,26 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 break;
 
             case CMD_INFO: {
-                packet_buf[0] = PRODUCT_ID & 0xFF;
-                packet_buf[1] = PRODUCT_ID >> 8;
-                packet_buf[2] = DEVICE_VER & 0xFF;
-                packet_buf[3] = DEVICE_VER >> 8;
+                to_leu16(packet_buf + 0, PRODUCT_ID);
+                to_leu16(packet_buf + 2, DEVICE_VER);
                 const char *str = "qmk_pok3r";
                 memcpy(packet_buf + 4, str, strlen(str));
+                printf("Info: %s\n", str);
+                break;
+            }
+
+            case CMD_EEPROM: {
+                uint32_t addr = from_leu32(data + 4);
+                switch (data[1]) {
+                    case SUB_EE_READ:
+                        printf("Read EEPROM %04x\n", addr);
+                        spi_read(addr, 64, packet_buf);
+                        break;
+                    case SUB_EE_WRITE:
+                        printf("Write EEPROM %04x\n", addr);
+                        //spi_write(addr, 56, data + 8);
+                        break;
+                }
                 break;
             }
 

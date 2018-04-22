@@ -46,6 +46,7 @@
 #endif
 #include "suspend.h"
 #include "wait.h"
+#include "quantum.h"
 
 /* -------------------------
  *   TMK host driver defs
@@ -97,6 +98,8 @@ static THD_FUNCTION(Periodic, arg) {
 static void usb_timeout(void *arg) {
 
 }
+
+bool bootloader_reset = false;
 
 // Main thread
 int main(void) {
@@ -168,6 +171,11 @@ int main(void) {
 
     /* Main loop */
     while (true) {
+        if(bootloader_reset){
+            printf("Reset to Bootloader from main()\n");
+            reset_keyboard();
+            while(true);
+        }
 
         if(USB_DRIVER.state == USB_SUSPENDED) {
             print("[s]");

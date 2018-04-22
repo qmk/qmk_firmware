@@ -30,5 +30,7 @@ enum extra_keycodes {
 
 void spi_flash_init(void);
 void spi_dump(void);
+void spi_read(uint32_t addr, uint16_t n, uint8_t *data);
+void spi_write(uint32_t addr, uint16_t n, const uint8_t *data);
 
 #endif // VORTEX_H

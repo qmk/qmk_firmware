@@ -28,15 +28,15 @@
 uint8_t tx_data[4];
 uint8_t rx_data[4];
 
-void spi_select(void) {
+static void spi_select(void) {
     palClearLine(LINE_SPI_CS);
 }
 
-void spi_deselect(void) {
+static void spi_deselect(void) {
     palSetLine(LINE_SPI_CS);
 }
 
-void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {
+static void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {
     if (txbuf) {
         const uint8_t *txptr = txbuf;
         if (rxbuf) {
@@ -67,17 +67,23 @@ void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {
     }
 }
 
-void spi_rdid(void) {
+static void spi_rdid(uint8_t *data) {
     tx_data[0] = GD25Q_RDID;
     tx_data[1] = 0;
     tx_data[2] = 0;
     tx_data[3] = 0;
 
     spi_select();
-    spi_txrx(4, tx_data, rx_data);
+    // send command, read id
+    spi_txrx(4, tx_data, data);
     spi_deselect();
+}
 
-    printf("%02x %02x %02x\n", rx_data[1], rx_data[2], rx_data[3]);
+void spi_flash_init(void) {
+    uint8_t rdid[4];
+    spi_rdid(rdid);
+
+    printf("gd25_rdid: %02x %02x %02x\n", rdid[1], rdid[2], rdid[3]);
 }
 
 void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
@@ -87,13 +93,21 @@ void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
     tx_data[3] = addr & 0xFF;
 
     spi_select();
+    // send command and address
     spi_txrx(4, tx_data, NULL);
+    // read back flash data
     spi_txrx(n, NULL, data);
     spi_deselect();
 }
 
+void spi_write(uint32_t addr, uint16_t n, const uint8_t *data) {
+    tx_data[0] = GD25Q_PP;
+    tx_data[1] = (addr >> 16) & 0xFF;
+    tx_data[2] = (addr >> 8) & 0xFF;
+    tx_data[3] = addr & 0xFF;
+}
 
-void spi_dump_page(uint32_t addr) {
+static void spi_dump_page(uint32_t addr) {
     const uint16_t size = 64;
     uint8_t buffer[size];
     spi_read(addr, size, buffer);

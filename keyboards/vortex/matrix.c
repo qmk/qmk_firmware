@@ -37,6 +37,7 @@ void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(debounce_times, 0, MATRIX_ROWS * sizeof(uint32_t));
+    spi_flash_init();
     matrix_init_quantum();
 }
 

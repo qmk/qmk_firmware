@@ -155,9 +155,8 @@ void reset_keyboard(void) {
   while(timer_elapsed(timer_start) < 250)
     wait_ms(1);
   stop_all_notes();
-#else
-  wait_ms(250);
 #endif
+  wait_ms(1000);
 // this is also done later in bootloader.c - not sure if it's neccesary here
 #ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific

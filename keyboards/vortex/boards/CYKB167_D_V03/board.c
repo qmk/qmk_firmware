@@ -163,6 +163,7 @@ void __early_init(void) {
     ht32_clock_init();
 }
 
+#if HAL_USE_GPT == TRUE
 // GPT Initialization
 
 static const GPTConfig bftm0_config = {
@@ -173,6 +174,7 @@ static const GPTConfig bftm0_config = {
 void gpt_init(void) {
     gptStart(&GPTD_BFTM0, &bftm0_config);
 }
+#endif
 
 // SPI Initialization
 
@@ -194,12 +196,14 @@ void spi_init(void) {
  * @todo    Add your board-specific code, if any.
  */
 void boardInit(void) {
+#if HAL_USE_GPT == TRUE
     gpt_init();
+#endif
     spi_init();
 }
 
 const uint8_t bootloader_magic[] __attribute__ ((section (".magic.bootloader"))) = {
-    0x00, 0x00, 0x04, 0x03,
+    0x00, 0x00, 0x04, 0x03, // builtin bootloader CRC will fail if this word is not correct
     0x01, 0x00, 0x00, 0x34,
     0x04, 0x00, 0x02, 0x00,
 };
