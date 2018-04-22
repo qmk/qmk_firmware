@@ -133,6 +133,10 @@ This consumes about 5390 bytes.
 
 This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
 
+`SPLIT_KEYBOARD`
+
+This enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+
 ## Customizing Makefile Options on a Per-Keymap Basis
 
 If your keymap directory has a file called `rules.mk` any options you set in that file will take precedence over other `rules.mk` options for your particular keyboard.

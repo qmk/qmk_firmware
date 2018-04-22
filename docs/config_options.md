@@ -163,6 +163,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define MOUSEKEY_MAX_SPEED 7`
 * `#define MOUSEKEY_WHEEL_DELAY 0`
 
+## Split Keyboard Options
+
+* `#define SPLIT_HAND_PIN B7`
+  * For using high/low pin to determine handedness, low = right hand, high = left hand
+  
+* `#define USE_I2C`
+  * For using I2C instead of Serial (defaults to serial)
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
@@ -216,3 +224,5 @@ Use these to enable or disable building certain features. The more you have enab
   * Unicode
 * `BLUETOOTH_ENABLE`
   * Enable Bluetooth with the Adafruit EZ-Key HID
+* `SPLIT_KEYBOARD`
+  * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
