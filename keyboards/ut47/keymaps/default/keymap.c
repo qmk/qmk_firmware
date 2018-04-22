@@ -82,12 +82,16 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
     case GNAPLED_TOGGLE:
       if (record->event.pressed) {
+        #ifdef LED_ENABLE
         gnaplight_toggle();
+        #endif
       }
       break;
     case GNAPLED_STEP_MODE:
       if (record->event.pressed) {
+        #ifdef LED_ENABLE
         gnaplight_step();
+        #endif
       }
       break;
   }
@@ -95,10 +99,9 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    switch(keycode) {
-      default:
-        serial_send((record->event.key.row*16)+record->event.key.col);
-    }
+    #ifdef LED_ENABLE
+      serial_send((record->event.key.row*16)+record->event.key.col);
+    #endif
   }
   return true;
 };
