@@ -30,9 +30,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-#include "backlight.h"
-#include "rgblight.h"
 #include "split_flags.h"
+
+#ifdef RGBLIGHT_ENABLE
+#   include "rgblight.h"
+#endif
+#ifdef BACKLIGHT_ENABLE
+#   include "backlight.h"
+#endif
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
@@ -158,7 +163,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else
@@ -245,7 +249,6 @@ i2c_error: // the cable is disconnceted, or something else went wrong
     
     #ifdef RGBLIGHT_ENABLE
         if (RGB_DIRTY) {
-            print("RGBDirty");
             err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
             if (err) goto i2c_error;
             

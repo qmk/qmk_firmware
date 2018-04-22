@@ -31,7 +31,9 @@
   #include "rgblight.h"
 #endif
 
-#include "split_flags.h"
+#ifdef SPLIT_KEYBOARD
+    #include "split_flags.h"
+#endif
 
 #include "action_layer.h"
 #include "eeconfig.h"

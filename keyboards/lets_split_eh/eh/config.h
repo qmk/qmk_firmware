@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef EH_CONFIG_H
 #define EH_CONFIG_H
 
-// To let configuration know this is of type EH
+// To let configuration know this is of type EH, which will force I2C irregardless of user config
 #define EH
 
 #include "config_common.h"
@@ -39,6 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 6    // Number of LEDs (each hand)
+
+/* Split Defines */
+#define SPLIT_HAND_PIN D3
 
 #endif
 

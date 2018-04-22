@@ -13,7 +13,7 @@
 #define I2C_ACK 1
 #define I2C_NACK 0
 
-// Address location defines (Keymap should be last, as it's size is dynamic
+// Address location defines (Keymap should be last, as it's size is dynamic)
 #define I2C_BACKLIT_START   0x00
 // Need 4 bytes for RGB (32 bit)
 #define I2C_RGB_START       0x01
@@ -21,6 +21,7 @@
 
 // Slave buffer (8bit per)
 // Rows per hand + backlit space + rgb space
+// TODO : Make this dynamically sized
 #define SLAVE_BUFFER_SIZE 0x20
 
 // i2c SCL clock frequency

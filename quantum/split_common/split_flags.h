@@ -15,12 +15,6 @@ extern volatile bool RGB_DIRTY;
 //Backlight Stuff
 extern volatile bool BACKLIT_DIRTY;
 
-/**
-* Global vars
-**/
-
-extern volatile const uint8_t SET_TRIES;
-
 
 
 #endif

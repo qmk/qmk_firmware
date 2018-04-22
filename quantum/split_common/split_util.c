@@ -9,9 +9,18 @@
 #include "keyboard.h"
 #include "config.h"
 #include "timer.h"
-#include "pincontrol.h"
 #include "split_flags.h"
-#include "backlight.h"
+
+#ifdef RGBLIGHT_ENABLE
+#   include "rgblight.h"
+#endif
+#ifdef BACKLIGHT_ENABLE
+#   include "backlight.h"
+#endif
+
+#ifdef SPLIT_HAND_PIN
+#   include "pincontrol.h"
+#endif
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
@@ -24,10 +33,10 @@ volatile bool isLeftHand = true;
 volatile uint8_t setTries = 0;
 
 static void setup_handedness(void) {
-  #ifdef EH
-    // Test pin D3 for High/Low, if low it's right hand
-    pinMode(D3, PinDirectionInput);
-    isLeftHand = digitalRead(D3);
+  #ifdef SPLIT_HAND_PIN
+    // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
+    pinMode(SPLIT_HAND_PIN, PinDirectionInput);
+    isLeftHand = digitalRead(SPLIT_HAND_PIN);
   #else
     #ifdef EE_HANDS
       isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
@@ -52,7 +61,7 @@ static void keyboard_master_setup(void) {
   serial_master_init();
 #endif
 
-    // For master the Backlight and RGB info needs to be sent on startup
+    // For master the Backlight info needs to be sent on startup
     // Otherwise the salve won't start with the proper info until an update
     BACKLIT_DIRTY = true;
 }
@@ -86,8 +95,10 @@ void split_keyboard_setup(void) {
 void keyboard_slave_loop(void) {
    matrix_init();
    
-   //enable rgblig
-   rgblight_init();
+   //Init RGB
+   #ifdef RGBLIGHT_ENABLE
+      rgblight_init();
+   #endif
 
    while (1) {
       matrix_slave_scan();
@@ -102,23 +113,19 @@ void keyboard_slave_loop(void) {
     #ifdef RGBLIGHT_ENABLE
         if (RGB_DIRTY) {
             cli();
-            uint32_t dword;// = 0x420707FF;
-            //dword++;
-            //dword--;
+            uint32_t dword;
             
-            
-            dword = i2c_slave_buffer[I2C_RGB_START + 3];
+            /*dword = i2c_slave_buffer[I2C_RGB_START + 3];
             dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 2];
             dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 1];
-            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START];
+            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START];*/
             
             
-            /*uint8_t *dword_dat = (uint8_t *)(&dword);
+            uint8_t *dword_dat = (uint8_t *)(&dword);
             for (int i = 0; i < 4; i++) {
                 dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
-            }*/
-            
-            //rgblight_setrgb(255, 255, 255);
+            }
+
             rgblight_update_dword(dword);
             RGB_DIRTY = false;
             sei();
