@@ -1,0 +1,15 @@
+{
+  "name": "diverge3-dvorak",
+  "version": "1.0.0",
+  "scripts": {
+  	"start": "qmk-premap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "qmk-premap": {
+    "qmkRootDir": "../../../../",
+    "buildCommand": "make diverge3:dvorak"
+  },
+  "devDependencies": {
+    "qmk-premap": "^1.0.0"
+  }
+}
