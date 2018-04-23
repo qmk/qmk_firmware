@@ -231,11 +231,11 @@ HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
 ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(ELFSIZE); \
 	2>/dev/null; $(SECHO); fi
 
 sizeafter: $(BUILD_DIR)/$(TARGET).hex
-	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(ELFSIZE); \
 	2>/dev/null; $(SECHO); fi
 
 # Display compiler version information.

@@ -24,6 +24,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#define MIN(A, B) (A < B ? A : B)
+
 #define RESET_FW_MAGIC 0x55aafaf0U
 #define RESET_BL_MAGIC 0x55aafaf5U
 
@@ -62,12 +64,25 @@ enum pok3r_rgb_cmd {
 #endif
 
     // New QMK commands
-    CMD_INFO        = 0x81,
-    CMD_EEPROM      = 0x82,
-    SUB_EE_INFO     = 0,
-    SUB_EE_READ     = 1,
-    SUB_EE_WRITE    = 2,
-    SUB_EE_ERASE    = 3,
+    CMD_INFO        = 0x81, //!< Firmware info.
+
+    CMD_EEPROM      = 0x82, //!< EEPROM commands.
+    SUB_EE_INFO     = 0,    //!< EEPROM info (RDID SPI command).
+    SUB_EE_READ     = 1,    //!< Read EEPROM data.
+    SUB_EE_WRITE    = 2,    //!< Write EEPROM data.
+    SUB_EE_ERASE    = 3,    //!< Erase EEPROM page.
+
+    CMD_KEYMAP      = 0x83, //!< Keymap commands.
+    SUB_KM_INFO     = 0,    //!< Keymap info (layers, rows, cols, type size).
+    SUB_KM_READ     = 1,    //!< Read keymap.
+    SUB_KM_WRITE    = 2,    //!< Write to keymap.
+    SUB_KM_COMMIT   = 3,    //!< Commit keymap to EEPROM.
+
+    CMD_BACKLIGHT   = 0x84, //!< Backlight commands.
+    SUB_BL_INFO     = 0,    //!< Backlight map info (layers, rows, cols, type size).
+    SUB_BL_READ     = 1,    //!< Read backlight map.
+    SUB_BL_WRITE    = 2,    //!< Write to backlight map.
+    SUB_BL_COMMIT   = 3,    //!< Commit backlight map to EEPROM.
 };
 
 static void to_leu16(uint8_t *bytes, uint16_t num) {
@@ -153,7 +168,7 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 switch (data[1]) {
 #if UPDATE_PROTO_VER == 1
                     case SUB_READ_ADDR: {
-                        uint32_t addr = data[4] | (data[5] << 8) | (data[6] << 16) | (data[7] << 24);
+                        uint32_t addr = from_leu32(data + 4);
                         printf("Read Flash %04x\n", addr);
                         if (addr + 64 < FLASH_SIZE) {
                             memcpy(packet_buf, (const uint8_t *)addr, 64);
@@ -192,6 +207,34 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                     case SUB_EE_ERASE:
                         printf("Erase EEPROM %04x\n", addr);
                         spi_erase(addr);
+                        break;
+                }
+                break;
+            }
+
+            case CMD_KEYMAP: {
+                uint32_t offset = from_leu32(data + 4);
+                switch (data[1]) {
+                    case SUB_KM_INFO: {
+                        printf("Info Keymap %d %d %d %d\n", MAX_LAYERS, MATRIX_ROWS, MATRIX_COLS, sizeof(uint16_t));
+                        packet_buf[0] = MAX_LAYERS;
+                        packet_buf[1] = MATRIX_ROWS;
+                        packet_buf[2] = MATRIX_COLS;
+                        packet_buf[3] = sizeof(uint16_t);
+                        break;
+                    }
+                    case SUB_KM_READ:
+                        printf("Read Keymap %04x\n", offset);
+                        const uint32_t keymaps_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
+                        if (offset < keymaps_size) {
+                            memcpy(packet_buf, ((const uint8_t *)keymaps_size) + offset, MIN(keymaps_size - offset, 64));
+                        }
+                        break;
+                    case SUB_KM_WRITE:
+                        printf("Write Keymap %04x\n", offset);
+                        if (offset < keymaps_size) {
+                            memcpy(((uint8_t *)keymaps_size) + offset, data + 8, MIN(keymaps_size - offset, 56));
+                        }
                         break;
                 }
                 break;

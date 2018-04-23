@@ -29,6 +29,7 @@
 /* key matrix size */
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
+#define MAX_LAYERS  8
 
 #define KEYMAP_60_ANSI
 
