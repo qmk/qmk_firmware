@@ -43,7 +43,7 @@ BOOTLOADER = caterina
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c protocol/serial_uart.c
+SRC += matrix.c protocol/serial_uart.c
 
 # Build Options
 #   change yes to no to disable
