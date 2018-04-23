@@ -5,7 +5,7 @@
 extern keymap_config_t keymap_config;
 
 //keycode shorthands
-#define KC____  KC_TRNS
+#define KC____  KC_TRNS // three underscores "___" for transparent
 #define KC_SYM  MO(3)
 #define KC_MAC  TO(0)
 #define KC_PC   TO(1)
@@ -38,7 +38,7 @@ extern keymap_config_t keymap_config;
 #define _PC 1
 #define _GAME 2
 #define _SYMBOL 3
-#define _NAV 4
+#define _NAVMAC 4
 #define _NAVPC 5
 
 enum {
@@ -104,10 +104,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         
     ___ , HOME, END , VOLD, VOLU, MPLY,___,  ___,___, MINS, ___ , ___ , ___ , ___ , 
         
-                        ___ , ___ , A_BS,      ___, ___ , ___ 
+                        ___ , ___ , ___,      ___, ___ , ___ 
     ),
    
-    [_NAV] = KC_KEYMAP(
+    [_NAVMAC] = KC_KEYMAP(
     
     ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
         
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         
     ___ , ___ , ___ , ___ , ___ , ___ ,         GSL , LEFT, DOWN, RGHT, GSR , ___ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB, ___ , ___ , ___ , ___ , ___ , 
+    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB,A_BS, ___ , ___ , ___ , ___ , 
         
                         ___ , ___ , ___ ,       ___ , ___ , ___ 
     ),
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         
     ___ , ___ , ___ , ___ , ___ , ___ ,         CPGU, LEFT, DOWN, RGHT, CPGD, ___ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB, ___ , ___ , ___ , ___ , ___ , 
+    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB,C_BS, ___ , ___ , ___ , ___ , 
         
                         ___ , ___ , ___ ,       ___ , ___ , ___ 
     ),
