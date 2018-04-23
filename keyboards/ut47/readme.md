@@ -20,7 +20,7 @@ To enable the UT47 LEDs (dual controller), run this for the main controller:
 
     make ut47:default LED_ENABLE=yes
 
-Or you can add `#define LED_ENABLE` to *rules.mk*
+Or you can add `LED_ENABLE = yes` to *rules.mk*
 
 And then flash [LED_controls.ino](LED_controls.ino) to the second controller using [Arduino IDE](https://www.arduino.cc/en/Main/Software) or similar. NOTE: Arduino IDE will require importing additional libraries to compile. 
 

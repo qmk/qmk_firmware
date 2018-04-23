@@ -17,29 +17,30 @@
 #include "protocol/serial.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+// Use LAYOUT( ... ) if you don't want/need KC_ prefixed keys
 
-KEYMAP(
+LAYOUT_kc_ut47(
   ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
   FN2,  A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT,
   LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, FN3,
   LCTL, LALT, LGUI, APP,  FN1,  SPC,        FN0,  LEFT, DOWN, UP,   RGHT
 ),
 
-KEYMAP(
+LAYOUT_kc_ut47(
   GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    DELETE,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, MINS, EQL,  LBRC, RBRC, BSLS,
   TRNS, F11,  F12,  F13,  F14,  F15,  F16,  F17,  F18,  F19,  F20,  TRNS,
   TRNS, TRNS, TRNS, CAPS, TRNS, TRNS,       TRNS, HOME, PGDN, PGUP, END
 ),
 
-KEYMAP(
+LAYOUT_kc_ut47(
   FN6,  FN7,  FN8,  FN9,  FN10, FN11, FN12, FN13, FN14, FN15, FN16, DELETE,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN17, FN18, FN19, FN20, FN21,
   TRNS, F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  TRNS,
   TRNS, TRNS, TRNS, CAPS, TRNS, TRNS,       TRNS, HOME, PGDN, PGUP, END
 ),
 
-KEYMAP( /* Tab */
+LAYOUT_kc_ut47( /* Tab */
   ESC,  CALC, WHOM, MAIL, MYCM, TRNS, TRNS, TRNS, TRNS, TRNS, PSCR, TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
   TRNS, FN4,  FN5,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
