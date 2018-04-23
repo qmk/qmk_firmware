@@ -1,10 +1,6 @@
 {
     "keyboard_name": "DeltaSplit75",
-    "identifier":"FEED:3060:0001",
-    "manufacturer": "xyxjj",
     "maintainer": "xyxjj & itsaferbie",
-    "processor": "atmega32u4",
-    "bootloader": "n/a",
     "width": 17,
     "height": 6,
     "layouts": {

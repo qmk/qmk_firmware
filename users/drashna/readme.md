@@ -95,7 +95,7 @@ If you would *also* like to take advantage of this feature, you'll first want to
 Then you can create this file and add your macro strings to it:
 
 ###### secrets.h
-```
+```c
 PROGMEM const char secret[][64] = {
   "secret1",
   "secret2",
@@ -105,11 +105,29 @@ PROGMEM const char secret[][64] = {
 };
 ```
 
-Replacing the strings with the codes that you need. 
+Replacing the strings with the codes that you need.
 
+In the `<name>.c` file, you will want to add this to the top: 
 
-These are called in the `process_record_user` function, using this block:
+```c
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familiar enough to know which is better or why...
+PROGMEM const char secret[][64] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
 ```
+
+And then, in the `process_record_user` function, you'll want to add this block:
+```c
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
       send_string_P(secret[keycode - KC_SECRET_1]);
@@ -118,4 +136,13 @@ These are called in the `process_record_user` function, using this block:
     break;
 ```
 
-And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file fo the new macros, as well.
+
+Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
+```c
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
+```
+
+Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your `<name>.c` file, rather than reading from your file. 

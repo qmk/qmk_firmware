@@ -1,6 +1,8 @@
 JC65 ps2avrGB
 =======
 
+![JC65](https://i.imgur.com/9cJ9UbX.jpg)
+
 A 65% keyboard with RGB
 
 Keyboard Maintainer: [Jason Barnachea](https://github.com/nautxx)
