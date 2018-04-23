@@ -10,7 +10,7 @@ extern keymap_config_t keymap_config;
 #define KC_MAC  TO(0)
 #define KC_PC   TO(1)
 #define KC_GM   TO(2)
-#define KC_NAV  LT(4, KC_TAB)
+#define KC_NAVMAC LT(4, KC_TAB)
 #define KC_NAVPC  LT(5, KC_TAB)
 
 //text editor shortcuts for NAV and NAVPC
@@ -18,8 +18,8 @@ extern keymap_config_t keymap_config;
 #define KC_AR   LALT(KC_RGHT)
 #define KC_CL   LCTL(KC_LEFT)
 #define KC_CR   LCTL(KC_RGHT)
-#define KC_A_BS LALT(KC_BSPC)
-#define KC_C_BS LALT(KC_BSPC)
+#define KC_ABSPC LALT(KC_BSPC)
+#define KC_CBSPC LCTL(KC_BSPC)
 
 //internet browser tab shortcuts and window swapping for Mac and Windows
 #define KC_GSL  LGUI(S(KC_LEFT))
@@ -56,13 +56,13 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_COLEMAK] = KC_KEYMAP(
+	[_COLEMAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      GRV , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,SCLN,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     NAV , A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,QUOT,
+   NAVMAC, A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      SFLK, Z  , X  , C  , V  , B  , PC ,     ENT , K  , M  ,COMM, DOT,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
-    [_PC] = KC_KEYMAP(
+    [_PC] = LAYOUT_kc(
     ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
         
     ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       LGUI , LCTL , CTBS ,    ___ , ___ , ___ 
     ),
    
-    [_GAME] = KC_KEYMAP(
+    [_GAME] = LAYOUT_kc(
     ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
         
     ___ ,  T  ,  Q  ,  W  ,  E  ,  R  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         LALT , LALT , SPC,    BSPC, MAC, ___ 
     ), 
     
-    [_SYMBOL] = KC_KEYMAP(
+    [_SYMBOL] = LAYOUT_kc(
     
     ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
     
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ___ , ___ , ___,      ___, ___ , ___ 
     ),
    
-    [_NAVMAC] = KC_KEYMAP(
+    [_NAVMAC] = LAYOUT_kc(
     
     ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
         
@@ -115,12 +115,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         
     ___ , ___ , ___ , ___ , ___ , ___ ,         GSL , LEFT, DOWN, RGHT, GSR , ___ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB,A_BS, ___ , ___ , ___ , ___ , 
+    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB,ABSPC, ___ , ___ , ___ , ___ , 
         
                         ___ , ___ , ___ ,       ___ , ___ , ___ 
     ),
     
-    [_NAVPC] = KC_KEYMAP(
+    [_NAVPC] = LAYOUT_kc(
     
     ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
         
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         
     ___ , ___ , ___ , ___ , ___ , ___ ,         CPGU, LEFT, DOWN, RGHT, CPGD, ___ ,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB,C_BS, ___ , ___ , ___ , ___ , 
+    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB,CBSPC, ___ , ___ , ___ , ___ , 
         
                         ___ , ___ , ___ ,       ___ , ___ , ___ 
     ),
