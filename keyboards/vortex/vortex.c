@@ -40,11 +40,13 @@ const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
 enum pok3r_rgb_cmd {
 #if UPDATE_PROTO_VER == 1
     CMD_RESET       = 4,    //!< Reset command.
+    SUB_RESET_BL    = 1,    //!< Reset to bootloader.
+    SUB_RESET_FW    = 2,    //!< Reset firmware.
 #else
     CMD_RESET       = 0x11, //!< Reset command.
-#endif
     SUB_RESET_BL    = 0,    //!< Reset to bootloader.
-    SUB_RESET_FW    = 1,    //!< Reset to firmware.
+    SUB_RESET_FW    = 1,    //!< Reset firmware.
+#endif
 
 #if UPDATE_PROTO_VER == 1
     CMD_READ        = 1,    //!< Read command.
