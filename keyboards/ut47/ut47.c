@@ -14,6 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ut47.h"
+#ifdef LED_ENABLE
+  #include "protocol/serial.h"
+#endif
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
@@ -32,7 +35,11 @@ void matrix_scan_kb(void) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	// put your per-action keyboard code here
 	// runs for every action, just before processing by the firmware
-
+  if (record->event.pressed) {
+    #ifdef LED_ENABLE
+      serial_send((record->event.key.row*16)+record->event.key.col);
+    #endif
+  }
 	return process_record_user(keycode, record);
 }
 

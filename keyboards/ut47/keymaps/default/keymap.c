@@ -13,109 +13,76 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ut47.h"
-#include "protocol/serial.h"
+#include QMK_KEYBOARD_H
+#ifdef LED_ENABLE
+  #include "protocol/serial.h"
+#endif
+
+#define _______ KC_TRNS
+#define LT3_TAB LT(3, KC_TAB)
+#define MT_RSFT_ENT MT(MOD_RSFT, KC_ENT)
+
+enum custom_keycodes {
+    LED_TOG = SAFE_RANGE,
+    LED_CHG
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-// Use LAYOUT( ... ) if you don't want/need KC_ prefixed keys
 
-LAYOUT_kc_ut47(
-  ESC,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    BSPC,
-  FN2,  A,    S,    D,    F,    G,    H,    J,    K,    L,    SCLN, QUOT,
-  LSFT, Z,    X,    C,    V,    B,    N,    M,    COMM, DOT,  SLSH, FN3,
-  LCTL, LALT, LGUI, APP,  FN1,  SPC,        FN0,  LEFT, DOWN, UP,   RGHT
+LAYOUT(
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+  LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT_RSFT_ENT,
+  KC_LCTL, KC_LALT, KC_LGUI, KC_APP,  MO(1),      KC_SPC,        KC_FN0,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
-LAYOUT_kc_ut47(
-  GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    DELETE,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, MINS, EQL,  LBRC, RBRC, BSLS,
-  TRNS, F11,  F12,  F13,  F14,  F15,  F16,  F17,  F18,  F19,  F20,  TRNS,
-  TRNS, TRNS, TRNS, CAPS, TRNS, TRNS,       TRNS, HOME, PGDN, PGUP, END
+LAYOUT(
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DELETE,
+  _______, _______, _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+  _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
+  _______, _______, _______, KC_CAPS, _______,     _______,      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-LAYOUT_kc_ut47(
-  FN6,  FN7,  FN8,  FN9,  FN10, FN11, FN12, FN13, FN14, FN15, FN16, DELETE,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, FN17, FN18, FN19, FN20, FN21,
-  TRNS, F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  TRNS,
-  TRNS, TRNS, TRNS, CAPS, TRNS, TRNS,       TRNS, HOME, PGDN, PGUP, END
+LAYOUT(
+  KC_FN6,  KC_FN7,  KC_FN8,  KC_FN9,  KC_FN10, KC_FN11, KC_FN12, KC_FN13, KC_FN14, KC_FN15, KC_FN16, KC_DELETE,
+  _______, _______, _______, _______, _______, _______, _______, KC_FN17, KC_FN18, KC_FN19, KC_FN20, KC_FN21,
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
+  _______, _______, _______, KC_CAPS, _______,     _______,      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-LAYOUT_kc_ut47( /* Tab */
-  ESC,  CALC, WHOM, MAIL, MYCM, TRNS, TRNS, TRNS, TRNS, TRNS, PSCR, TRNS,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
-  TRNS, FN4,  FN5,  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
-  TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       TRNS, MS_L, MS_D, MS_U, MS_R
+LAYOUT( /* Tab */
+  KC_ESC,  KC_CALC, KC_WHOM, KC_MAIL, KC_MYCM, _______, _______, _______, _______, _______, KC_PSCR, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, LED_TOG, LED_CHG, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______,     _______,      _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R
 ),
 };
 
-enum function_id {
-   GNAPLED_TOGGLE,
-   GNAPLED_STEP_MODE,
-   GNAPLED_KEY
-};
+//LED keymap functions
+ #ifdef LED_ENABLE
+void led_chmode(void) {
+  serial_send(101);
+}
 
-const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_LAYER_MOMENTARY(1),
-    [1]  = ACTION_LAYER_MOMENTARY(2),
-    [2]  = ACTION_LAYER_TAP_KEY(3, KC_TAB),
-    [3]  = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
-    [4]  = ACTION_FUNCTION(GNAPLED_TOGGLE),
-    [5]  = ACTION_FUNCTION(GNAPLED_STEP_MODE),
-    [6]  = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),
-    [7]  = ACTION_MODS_KEY(MOD_LSFT, KC_1),
-    [8]  = ACTION_MODS_KEY(MOD_LSFT, KC_2),
-    [9]  = ACTION_MODS_KEY(MOD_LSFT, KC_3),
-    [10] = ACTION_MODS_KEY(MOD_LSFT, KC_4),
-    [11] = ACTION_MODS_KEY(MOD_LSFT, KC_5),
-    [12] = ACTION_MODS_KEY(MOD_LSFT, KC_6),
-    [13] = ACTION_MODS_KEY(MOD_LSFT, KC_7),
-    [14] = ACTION_MODS_KEY(MOD_LSFT, KC_8),
-    [15] = ACTION_MODS_KEY(MOD_LSFT, KC_9),
-    [16] = ACTION_MODS_KEY(MOD_LSFT, KC_0),
-    [17] = ACTION_MODS_KEY(MOD_LSFT, KC_MINS),
-    [18] = ACTION_MODS_KEY(MOD_LSFT, KC_EQL),
-    [19] = ACTION_MODS_KEY(MOD_LSFT, KC_LBRC),
-    [20] = ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),
-    [21] = ACTION_MODS_KEY(MOD_LSFT, KC_BSLS),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-    case GNAPLED_TOGGLE:
-      if (record->event.pressed) {
-        #ifdef LED_ENABLE
-        gnaplight_toggle();
-        #endif
-      }
-      break;
-    case GNAPLED_STEP_MODE:
-      if (record->event.pressed) {
-        #ifdef LED_ENABLE
-        gnaplight_step();
-        #endif
-      }
-      break;
-  }
+void led_toggle(void) {
+  serial_send(100);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    #ifdef LED_ENABLE
-      serial_send((record->event.key.row*16)+record->event.key.col);
-    #endif
+    switch(keycode) {
+      case LED_TOG:
+        #ifdef LED_ENABLE
+        led_toggle();
+        #endif
+        return false;
+      case LED_CHG:
+        #ifdef LED_ENABLE
+        led_chmode();
+        #endif
+        return false;
+    }
   }
   return true;
 };
-
-//GNAP keymap functions
-void gnaplight_step(void) {
-    serial_send(101);
-}
-
-void gnaplight_toggle(void) {
-    serial_send(100);
-}
-
-void gnaplight_press(uint8_t data) {
-    serial_send(data);
-}
+#endif

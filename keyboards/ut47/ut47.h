@@ -18,10 +18,6 @@
 
 #include "quantum.h"
 
-void gnaplight_toggle(void);
-void gnaplight_step(void);
-void gnaplight_press(uint8_t data);
-
 #define LAYOUT( \
   K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0a, K0b, \
   K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1a, K1b, \
