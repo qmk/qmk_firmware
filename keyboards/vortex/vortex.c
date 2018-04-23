@@ -62,8 +62,10 @@ enum pok3r_rgb_cmd {
     // New QMK commands
     CMD_INFO        = 0x81,
     CMD_EEPROM      = 0x82,
-    SUB_EE_READ     = 0x01,
-    SUB_EE_WRITE    = 0x02,
+    SUB_EE_INFO     = 0,
+    SUB_EE_READ     = 1,
+    SUB_EE_WRITE    = 2,
+    SUB_EE_ERASE    = 3,
 };
 
 static void to_leu16(uint8_t *bytes, uint16_t num) {
@@ -109,7 +111,7 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case EX_DUMP:
             if (record->event.pressed) {
                 printf(">> Dump SPI Flash\n");
-                spi_dump();
+//                spi_dump();
                 printf(">> End Dump\n");
             }
             return false;
@@ -124,7 +126,9 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 //    printf("Command Packet Receive\n");
     if (length == PKT_LEN) {
+        // clear response
         memset(packet_buf, 0, PKT_LEN);
+
         // handle command
         switch (data[0]) {
             case CMD_RESET:
@@ -170,13 +174,22 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
             case CMD_EEPROM: {
                 uint32_t addr = from_leu32(data + 4);
                 switch (data[1]) {
+                    case SUB_EE_INFO: {
+                        spi_rdid(packet_buf);
+                        printf("Info EEPROM %02x %02x %02x\n", packet_buf[1], packet_buf[2], packet_buf[3]);
+                        break;
+                    }
                     case SUB_EE_READ:
                         printf("Read EEPROM %04x\n", addr);
                         spi_read(addr, 64, packet_buf);
                         break;
                     case SUB_EE_WRITE:
                         printf("Write EEPROM %04x\n", addr);
-                        //spi_write(addr, 56, data + 8);
+                        spi_write(addr, 56, data + 8);
+                        break;
+                    case SUB_EE_ERASE:
+                        printf("Erase EEPROM %04x\n", addr);
+                        spi_erase(addr);
                         break;
                 }
                 break;

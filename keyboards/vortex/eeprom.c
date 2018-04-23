@@ -25,8 +25,9 @@
 
 #define EEPROM_SIZE 524288 // 4Mbit = 512KiB
 
-uint8_t tx_data[4];
-uint8_t rx_data[4];
+const uint8_t tx_rdsrl[] = { GD25Q_RDSR_L, 0 };
+
+uint8_t page_buffer[GD25Q40_PAGE_BYTES];
 
 static void spi_select(void) {
     palClearLine(LINE_SPI_CS);
@@ -67,7 +68,42 @@ static void spi_txrx(uint16_t n, const uint8_t *txbuf, uint8_t *rxbuf) {
     }
 }
 
-static void spi_rdid(uint8_t *data) {
+// Send a 1-byte command
+static void spi_cmd1(uint8_t cmd){
+    spi_select();
+    spi_txrx(1, &cmd, NULL);
+    spi_deselect();
+}
+
+// Read SPI flash status register
+static uint8_t spi_status(void) {
+    uint8_t rx_data[2];
+
+    spi_select();
+    // send command, read status
+    spi_txrx(2, tx_rdsrl, rx_data);
+    spi_deselect();
+
+    return rx_data[1];
+}
+
+// Poll SPI flash status until write done
+static void spi_wait_wip(void) {
+    uint8_t rx_data;
+
+    spi_select();
+    // send command
+    spi_txrx(1, tx_rdsrl, NULL);
+    do {
+        // read status byte
+        spi_txrx(1, NULL, &rx_data);
+    } while((rx_data & GD25Q_SR_WIP) == 0);
+    spi_deselect();
+}
+
+// Read SPI flash identification
+void spi_rdid(uint8_t *data) {
+    uint8_t tx_data[4];
     tx_data[0] = GD25Q_RDID;
     tx_data[1] = 0;
     tx_data[2] = 0;
@@ -79,14 +115,9 @@ static void spi_rdid(uint8_t *data) {
     spi_deselect();
 }
 
-void spi_flash_init(void) {
-    uint8_t rdid[4];
-    spi_rdid(rdid);
-
-    printf("gd25_rdid: %02x %02x %02x\n", rdid[1], rdid[2], rdid[3]);
-}
-
+// Read flash data
 void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
+    uint8_t tx_data[4];
     tx_data[0] = GD25Q_READ;
     tx_data[1] = (addr >> 16) & 0xFF;
     tx_data[2] = (addr >> 8) & 0xFF;
@@ -100,32 +131,55 @@ void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
     spi_deselect();
 }
 
+// Write flash data
+// Flash should be erased first
 void spi_write(uint32_t addr, uint16_t n, const uint8_t *data) {
+    uint8_t tx_data[4];
     tx_data[0] = GD25Q_PP;
     tx_data[1] = (addr >> 16) & 0xFF;
     tx_data[2] = (addr >> 8) & 0xFF;
     tx_data[3] = addr & 0xFF;
+
+    if (spi_status() & GD25Q_SR_WIP) {
+        printf("Device busy\n");
+        return;
+    }
+
+    spi_cmd1(GD25Q_WREN);
+    wait_us(1);
+
+    spi_select();
+    // send command and address
+    spi_txrx(4, tx_data, NULL);
+    // send flash data
+    spi_txrx(n, data, NULL);
+    spi_deselect();
 }
 
-static void spi_dump_page(uint32_t addr) {
-    const uint16_t size = 64;
-    uint8_t buffer[size];
-    spi_read(addr, size, buffer);
+// Erase flash sectors
+void spi_erase(uint32_t addr) {
+    uint8_t tx_data[4];
+    tx_data[0] = GD25Q_SE;
+    tx_data[1] = (addr >> 16) & 0xFF;
+    tx_data[2] = (addr >> 8) & 0xFF;
+    tx_data[3] = addr & 0xFF;
 
-    for (uint16_t i = 0; i < size;) {
-        uint16_t line = i;
-        printf("%06x ", addr + i);
-        for (; i < line + 8; ++i) {
-            printf(" %02x", buffer[i]);
-        }
-        printf("\n");
+    if (spi_status() & GD25Q_SR_WIP) {
+        printf("Device busy\n");
+        return;
     }
+
+    spi_cmd1(GD25Q_WREN);
+    wait_us(1);
+
+    spi_select();
+    // send command and address
+    spi_txrx(4, tx_data, NULL);
+    spi_deselect();
 }
 
-void spi_dump(void) {
-    for (uint32_t a = 0; a < GD24Q40_BYTES; a += 64) {
-        spi_dump_page(a);
-    }
+void spi_update(uint32_t addr, uint16_t n, const uint8_t *data) {
+
 }
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
