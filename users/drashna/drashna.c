@@ -470,77 +470,129 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 uint32_t layer_state_set_user(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
 
-  if (rgb_layer_change) {
-    switch (biton32(state)) {
-    case _NAV:
+  switch (biton32(state)) {
+  case _NAV:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_blue();
       rgblight_mode(1);
-      break;
-    case _SYMB:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _SYMB:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_blue();
       rgblight_mode(2);
-      break;
-    case _MOUS:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MOUS:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_yellow();
       rgblight_mode(1);
-      break;
-    case _MACROS:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MACROS:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
       is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-      break;
-    case _MEDIA:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MEDIA:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_chartreuse();
       rgblight_mode(22);
-      break;
-    case _GAMEPAD:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _GAMEPAD:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(17);
-      break;
-    case _DIABLO:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _DIABLO:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(5);
-      break;
-    case _RAISE:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _RAISE:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_yellow();
       rgblight_mode(5);
-      break;
-    case _LOWER:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _LOWER:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(5);
-      break;
-    case _ADJUST:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _ADJUST:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(23);
-      break;
-    case _COVECUBE:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _COVECUBE:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_green();
       rgblight_mode(2);
-      break;
-    default: //  for any other layers, or the default layer
-      if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_sethsv_magenta();
-      }
-      else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_sethsv_green();
-      }
-      else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_sethsv_goldenrod();
-      }
-      else {
-        rgblight_sethsv_teal();
-      }
-      if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
-        rgblight_mode(2);
-      } else {                       // otherwise, stay solid
-        rgblight_mode(1);
-      }
-      break;
     }
-  }
 #endif // RGBLIGHT_ENABLE
+    break;
+  default: //  for any other layers, or the default layer
+    if (default_layer & (1UL << _COLEMAK)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_magenta(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else if (default_layer & (1UL << _DVORAK)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_green(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else if (default_layer & (1UL << _WORKMAN)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_goldenrod(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_teal(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_mode(2); }
+#endif // RGBLIGHT_ENABLE
+    } else {                       // otherwise, stay solid
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_mode(1); ]
+#endif // RGBLIGHT_ENABLE
+    }
+    break;
+  }
   return layer_state_set_keymap (state);
 }
 
