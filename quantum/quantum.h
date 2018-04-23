@@ -57,6 +57,9 @@ extern uint32_t default_layer_state;
 #ifdef AUDIO_ENABLE
 	#include "audio.h"
  	#include "process_audio.h"
+  #ifdef AUDIO_CLICKY
+    #include "process_clicky.h"
+  #endif // AUDIO_CLICKY
 #endif
 
 #ifdef STENO_ENABLE

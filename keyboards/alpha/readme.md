@@ -1,6 +1,6 @@
 # Alpha
 
-![Alpha](https://imgur.com/a/TouJ5rH)
+![Alpha](https://i.imgur.com/J6EJ30N.jpg)
 
 A 28-key, semi-ortho keyboard designed by PyroL!
 
