@@ -10,10 +10,12 @@ branches:
 
 addons:
   apt:
+    sources:
+      - sourceline: 'ppa:team-gcc-arm-embedded/ppa'
     packages:
-    - gcc-arm-none-eabi
-    - binutils-arm-none-eabi
-    - libnewlib-arm-none-eabi
+      - gcc-arm-none-eabi
+      - binutils-arm-none-eabi
+      - libnewlib-arm-none-eabi
 
 script:
   - make vortex/pok3r:default
