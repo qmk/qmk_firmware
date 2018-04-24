@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         LCTL(CH_PARA),         CH_1,           CH_2,     CH_3,     CH_4,     CH_5,   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
-        LT(SYMB, KC_TAB),        CH_A,         CH_O,   CH_E,   CH_I,   TD(TD_U_COPY),
+        LT(SYMB, KC_TAB),        CH_A,         CH_O,   CH_E,   CH_I,   CH_U,
         SFT_T(CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
         KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, OSM(MOD_RALT | MOD_LSFT),
                                               KC_ENT,  KC_LGUI,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              TG(NUMB),     CH_6,   CH_7,    CH_8,    CH_9,   CH_0,             KC_PSCR,
              LGUI(CH_1),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
-                          TD(TD_H_PASTE),   CH_D,   CH_R,   CH_N,   CH_S,             LT(SYMB,CH_L),
+                          CH_H,   CH_D,   CH_R,   CH_N,   CH_S,             LT(SYMB,CH_L),
              LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   KC_LSFT,
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
              TG(GAME),        ALT_T(KC_APP),
