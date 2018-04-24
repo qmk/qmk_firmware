@@ -1,12 +1,12 @@
-# meme
+# Meme
 
 ![meme](imgur.com image replace me!)
 
-A short description of the keyboard/project
+65% gasket mount keyboard.   
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)   
+Hardware Supported: Meme   
+Hardware Availability: [Switchmod Keyboards](http://www.switchmod.net/)   
 
 Make example for this keyboard (after setting up your build environment):
 

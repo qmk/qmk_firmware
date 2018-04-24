@@ -1,1 +1,1 @@
-# The default keymap for meme
+# The default keymap for Meme
