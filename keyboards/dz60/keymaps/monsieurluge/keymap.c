@@ -12,7 +12,6 @@
 #define SP_NOPE LALT(KC_F4) // alt + f4
 #define SP_LESS LSFT(KC_COMMA)
 #define SP_MORE LSFT(KC_DOT)
-#define SP_BSP  LT(MO(_CAP), KC_BSPC) // backspace or _CAP layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -24,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
      * │   tab   │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │  '  │    enter    │
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
-     * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │     │XXXXX│ up  │ fn3 │
+     * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn3 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
      * │ ctrl │  os  │ alt  │     fn1      │ fn2  │     space      │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
@@ -33,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_SLSH, KC_DEL, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SPC, KC_UP, MO(_MED),
+        KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
         KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_CAP), KC_SPC, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
