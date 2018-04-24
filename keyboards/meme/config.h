@@ -29,8 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     A custom 65% gasket mount keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
- 
+
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
