@@ -74,3 +74,5 @@
   { KC_NO, K0B,   K0C, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K0J,   KC_NO, KC_NO, KC_NO, K0M, K0N,   KC_NO    }  \
 }
 #endif
+
+#define LAYOUT_60_ansi LAYOUT_eagle
