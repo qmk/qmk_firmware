@@ -27,22 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
+#undef USE_I2C
 
 /* Select hand configuration */
 
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
-
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 150
-#undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-#define ONESHOT_TAP_TOGGLE 2
-
 
 
 /* key combination for command */
@@ -68,7 +59,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
-#define STARTUP_SONG SONG(ZELDA_TREASURE)
+#define NO_MUSIC_MODE
+#endif
+
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
 #endif

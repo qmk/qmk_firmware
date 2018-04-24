@@ -47,8 +47,9 @@ void matrix_init(void)
     palSetPadMode(GPIOC, 10, PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOC, 11, PAL_MODE_OUTPUT_PUSHPULL);
 
-    memset(matrix, 0, MATRIX_ROWS);
-    memset(matrix_debouncing, 0, MATRIX_ROWS);
+    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+
     matrix_init_quantum();
 }
 

@@ -1,4 +1,5 @@
 DEFAULT_FOLDER = clueboard/66/rev2
+LAYOUTS = 66_ansi 66_iso
 MCU = atmega32u4
 F_CPU = 16000000
 ARCH = AVR8

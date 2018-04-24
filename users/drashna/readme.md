@@ -20,6 +20,22 @@ This allows for keyboard specific configuration while maintaining the ability to
 My [Ergodox EZ Keymap](https://github.com/qmk/qmk_firmware/blob/master/keyboards/ergodox_ez/keymaps/drashna/keymap.c#L399) is a good example of this, as it uses the LEDs as modifier indicators.
 
 
+Keyboard Layout Templates
+-------------------------
+
+This borrows from @jola5's "Not quite neo" code.  This allows me to maintain blocks of keymaps in the userspace, so that I can modify the userspace, and this is reflected in all of the keyboards that use it, at once. 
+
+This makes adding tap/hold mods, or other special keycodes or functions to all keyboards super easy, as it's done to all of them at once. 
+
+The caveat here is that the keymap needs a processor/wrapper, as it doesn't like the substitutions.  However, this is as simple as just pushing it through a define. For instance: 
+
+`#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)`
+
+Once that's been done and you've switched the keymaps to use the "wrapper", it will read the substitution blocks just fine. 
+
+Credit goes to @jola5 for first implementing this awesome idea.
+
+
 Custom Keycodes
 ---------------
 
@@ -79,7 +95,7 @@ If you would *also* like to take advantage of this feature, you'll first want to
 Then you can create this file and add your macro strings to it:
 
 ###### secrets.h
-```
+```c
 PROGMEM const char secret[][64] = {
   "secret1",
   "secret2",
@@ -89,11 +105,29 @@ PROGMEM const char secret[][64] = {
 };
 ```
 
-Replacing the strings with the codes that you need. 
+Replacing the strings with the codes that you need.
 
+In the `<name>.c` file, you will want to add this to the top: 
 
-These are called in the `process_record_user` function, using this block:
+```c
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familiar enough to know which is better or why...
+PROGMEM const char secret[][64] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
 ```
+
+And then, in the `process_record_user` function, you'll want to add this block:
+```c
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
       send_string_P(secret[keycode - KC_SECRET_1]);
@@ -102,4 +136,13 @@ These are called in the `process_record_user` function, using this block:
     break;
 ```
 
-And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file fo the new macros, as well.
+
+Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
+```c
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
+```
+
+Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your `<name>.c` file, rather than reading from your file. 
