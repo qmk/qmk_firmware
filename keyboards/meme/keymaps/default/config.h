@@ -1,4 +1,4 @@
-/* Copyright 2017 Benjamin Kesselring
+/* Copyright 2018 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,8 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include "config_common.h"
 
-#define TAPPING_TERM 200
-#define PERMISSIVE_HOLD 
-#define PREVENT_STUCK_MODIFIERS
+// place overrides here
 
 #endif
