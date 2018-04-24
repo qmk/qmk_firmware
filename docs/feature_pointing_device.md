@@ -19,7 +19,7 @@ Keep in mind that a report_mouse_t (here "mouseReport") has the following proper
 * `mouseReport.y` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ upward, - downward) on the y axis.
 * `mouseReport.v` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing vertical scrolling (+ upward, - downward).
 * `mouseReport.h` - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing horizontal scrolling (+ right, - left).
-* `mouseReport.buttons` - this is a uint8_t in which the last 5 bits are used.  These bits represent the mouse button state - bit 3 is mouse button 5, and bit 7 is mouse button 1.
+* `mouseReport.buttons` - this is a uint8_t in which the last 5 bits are used.  These bits represent the mouse button state - bit 3 is mouse button 5, and bit 7 is mouse button 1. (MSB 0 bit numbering: Most significant bit is assigned the bit number 0)
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in "pointing_device_send()", which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
