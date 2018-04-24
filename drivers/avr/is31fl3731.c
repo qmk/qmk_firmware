@@ -62,17 +62,6 @@ bool g_pwm_buffer_update_required = false;
 uint8_t g_led_control_registers[DRIVER_COUNT][18] = { { 0 }, { 0 } };
 bool g_led_control_registers_update_required = false;
 
-
-typedef struct
-{
-	uint8_t red_register;
-	uint8_t red_bit;
-	uint8_t green_register;
-	uint8_t green_bit;
-	uint8_t blue_register;
-	uint8_t blue_bit;
-} led_control_bitmask;
-
 // This is the bit pattern in the LED control registers
 // (for matrix A, add one to register for matrix B)
 //
