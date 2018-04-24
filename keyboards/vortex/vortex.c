@@ -17,6 +17,7 @@
  */
 
 #include "vortex.h"
+#include "proto.h"
 #include "quantum.h"
 #include "raw_hid.h"
 #include "debug.h"
@@ -39,21 +40,22 @@ const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
     'q', 'm', 'k', '_', 'p', 'o', 'k', '3', 'r', 0
 };
 
-enum pok3r_rgb_cmd {
-#if UPDATE_PROTO_VER == 1
+// Compatibility commands
+enum pok3r_cmd {
+#if defined(UPDATE_PROTO_POK3R)
     CMD_RESET       = 4,    //!< Reset command.
     SUB_RESET_BL    = 1,    //!< Reset to bootloader.
     SUB_RESET_FW    = 2,    //!< Reset firmware.
-#else
+#elif defined(UPDATE_PROTO_CYKB)
     CMD_RESET       = 0x11, //!< Reset command.
     SUB_RESET_BL    = 0,    //!< Reset to bootloader.
     SUB_RESET_FW    = 1,    //!< Reset firmware.
 #endif
 
-#if UPDATE_PROTO_VER == 1
+#if defined(UPDATE_PROTO_POK3R)
     CMD_READ        = 1,    //!< Read command.
     SUB_READ_ADDR   = 2,    //!< Patched command, read arbitrary address.
-#else
+#elif defined(UPDATE_PROTO_CYKB)
     CMD_READ        = 0x12, //!< Read command.
     SUB_READ_400    = 0,
     SUB_READ_3C00   = 1,
@@ -62,27 +64,6 @@ enum pok3r_rgb_cmd {
     SUB_READ_VER2   = 0x22, //!< Read version data.
     SUB_READ_ADDR   = 0xff, //!< Patched command, read arbitrary address.
 #endif
-
-    // New QMK commands
-    CMD_INFO        = 0x81, //!< Firmware info.
-
-    CMD_EEPROM      = 0x82, //!< EEPROM commands.
-    SUB_EE_INFO     = 0,    //!< EEPROM info (RDID SPI command).
-    SUB_EE_READ     = 1,    //!< Read EEPROM data.
-    SUB_EE_WRITE    = 2,    //!< Write EEPROM data.
-    SUB_EE_ERASE    = 3,    //!< Erase EEPROM page.
-
-    CMD_KEYMAP      = 0x83, //!< Keymap commands.
-    SUB_KM_INFO     = 0,    //!< Keymap info (layers, rows, cols, type size).
-    SUB_KM_READ     = 1,    //!< Read keymap.
-    SUB_KM_WRITE    = 2,    //!< Write to keymap.
-    SUB_KM_COMMIT   = 3,    //!< Commit keymap to EEPROM.
-
-    CMD_BACKLIGHT   = 0x84, //!< Backlight commands.
-    SUB_BL_INFO     = 0,    //!< Backlight map info (layers, rows, cols, type size).
-    SUB_BL_READ     = 1,    //!< Read backlight map.
-    SUB_BL_WRITE    = 2,    //!< Write to backlight map.
-    SUB_BL_COMMIT   = 3,    //!< Commit backlight map to EEPROM.
 };
 
 static void to_leu16(uint8_t *bytes, uint16_t num) {
@@ -161,12 +142,12 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 }
 
             case CMD_READ:
-#if UPDATE_PROTO_VER != 1
+#if defined(UPDATE_PROTO_CYKB)
                 packet_buf[0] = CMD_READ;
                 packet_buf[1] = data[1];
 #endif
                 switch (data[1]) {
-#if UPDATE_PROTO_VER == 1
+#if defined(UPDATE_PROTO_POK3R)
                     case SUB_READ_ADDR: {
                         uint32_t addr = from_leu32(data + 4);
                         printf("Read Flash %04x\n", addr);
@@ -227,13 +208,13 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         printf("Read Keymap %04x\n", offset);
                         const uint32_t keymaps_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
                         if (offset < keymaps_size) {
-                            memcpy(packet_buf, ((const uint8_t *)keymaps_size) + offset, MIN(keymaps_size - offset, 64));
+                            memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(keymaps_size - offset, 64));
                         }
                         break;
                     case SUB_KM_WRITE:
                         printf("Write Keymap %04x\n", offset);
                         if (offset < keymaps_size) {
-                            memcpy(((uint8_t *)keymaps_size) + offset, data + 8, MIN(keymaps_size - offset, 56));
+                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(keymaps_size - offset, 56));
                         }
                         break;
                 }

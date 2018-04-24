@@ -34,7 +34,7 @@
 
 #define RGBLED_NUM (47 + 3)
 
-#define UPDATE_PROTO_VER 2
+#define UPDATE_PROTO_CYKB
 
 /*
  * Keyboard Matrix Assignments

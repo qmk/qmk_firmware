@@ -33,7 +33,7 @@
 
 #define KEYMAP_60_ANSI
 
-#define UPDATE_PROTO_VER 1
+#define UPDATE_PROTO_POK3R
 
 /*
  * Keyboard Matrix Assignments
