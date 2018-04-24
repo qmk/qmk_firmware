@@ -11,7 +11,8 @@ branches:
 addons:
   apt:
     sources:
-      - sourceline: 'ppa:team-gcc-arm-embedded/ppa'
+      - ubuntu-toolchain-r-test
+      - sourceline: 'ppa:terry.guo/gcc-arm-embedded'
     packages:
       - gcc-arm-none-eabi
       - binutils-arm-none-eabi
