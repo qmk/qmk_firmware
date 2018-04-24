@@ -130,6 +130,7 @@ void backlight_debug_led(bool state);
 
 void rgblight_toggle(void);
 void rgblight_step(void);
+void rgblight_step_reverse(void);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
 void rgblight_increase_sat(void);

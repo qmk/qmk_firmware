@@ -39,7 +39,7 @@ rgb_matrix_config g_config = {
     .layer_1_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
     .layer_2_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
     .layer_3_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
-};  
+};
 
 bool g_suspend_state = false;
 uint8_t g_indicator_state = 0;
@@ -128,7 +128,7 @@ void backlight_unset_key_hit(uint8_t row, uint8_t column)
 
 void backlight_timer_init(void)
 {
-    
+
     static uint8_t backlight_timer_is_init = 0;
     if ( backlight_timer_is_init )
     {
@@ -146,7 +146,7 @@ void backlight_timer_init(void)
     //OCR3AH = (TIMER3_TOP >> 8) & 0xff;
     //OCR3AL = TIMER3_TOP & 0xff;
     //SREG = sreg;
-    
+
 }
 
 void backlight_timer_enable(void)
@@ -273,7 +273,7 @@ void backlight_effect_alphas_mods(void)
 {
     RGB rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
     RGB rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
-    
+
     rgb_led led;
     for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
         led = g_rgb_leds[i];
@@ -523,7 +523,7 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 }
 
 void backlight_effect_multisplash(void) {
-    // if (g_any_key_hit < 0xFF) {    
+    // if (g_any_key_hit < 0xFF) {
         HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
         RGB rgb;
         rgb_led led;
@@ -554,13 +554,13 @@ void backlight_effect_multisplash(void) {
 
 
 void backlight_effect_splash(void) {
-    g_last_led_count = MIN(g_last_led_count, 1);   
+    g_last_led_count = MIN(g_last_led_count, 1);
     backlight_effect_multisplash();
 }
 
 
 void backlight_effect_solid_multisplash(void) {
-    // if (g_any_key_hit < 0xFF) {    
+    // if (g_any_key_hit < 0xFF) {
         HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
         RGB rgb;
         rgb_led led;
@@ -589,7 +589,7 @@ void backlight_effect_solid_multisplash(void) {
 
 
 void backlight_effect_solid_splash(void) {
-    g_last_led_count = MIN(g_last_led_count, 1);   
+    g_last_led_count = MIN(g_last_led_count, 1);
     backlight_effect_solid_multisplash();
 }
 
@@ -1012,6 +1012,11 @@ void rgblight_toggle(void) {
 
 void rgblight_step(void) {
     g_config.effect = (g_config.effect + 1) % (BACKLIGHT_EFFECT_MAX + 1);
+    backlight_config_save();
+}
+
+void rgblight_step_reverse(void) {
+    g_config.effect = (g_config.effect - 1) % (BACKLIGHT_EFFECT_MAX + 1);
     backlight_config_save();
 }
 
