@@ -1,5 +1,6 @@
 SRC += i2c.c \
 	   serial.c \
+	   split_util.c \
 	   ssd1306.c
 
 # MCU name
