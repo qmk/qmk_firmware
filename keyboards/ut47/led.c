@@ -1,5 +1,5 @@
 /*
-Copyright 2017 James Morgan <ja.morgan1@outlook.com>
+Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,13 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#define TAPPING_TERM 150 
-#define USE_SERIAL
-#define EE_HANDS
-#define BOOTMAGIC_KEY_SALT KC_ENT
+#include <avr/io.h>
+#include "stdint.h"
+#include "led.h"
 
 
-#ifdef SUBPROJECT_rev1
-    #include "../../rev1/config.h"
-#endif
+void led_set(uint8_t usb_led)
+{
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // output low
+        DDRB |= (1<<0);
+        PORTB &= ~(1<<0);
+        DDRD |= (1<<5);
+        PORTD &= ~(1<<5);
+    } else {
+        // Hi-Z
+        DDRB &= ~(1<<0);
+        PORTB &= ~(1<<0);
+        DDRD &= ~(1<<5);
+        PORTD &= ~(1<<5);
+    }
+}

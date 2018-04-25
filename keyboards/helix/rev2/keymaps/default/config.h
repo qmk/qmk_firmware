@@ -36,11 +36,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Helix keyboard OLED support
-//#define SSD1306OLED
+//      see ./rules.mk: OLED_ENABLE=yes or no
+#ifdef OLED_ENABLE
+  #define SSD1306OLED
+#endif
 
 /* Select rows configuration */
 // Rows are 4 or 5
-#define HELIX_ROWS 5
+// #define HELIX_ROWS 5 see ./rules.mk
 
 /* key matrix size */
 // Rows are doubled-up
@@ -62,12 +65,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
+// Helix keyboard RGB LED support
+//#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
+//    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
+#ifdef RGBLED_BACK
+  #if HELIX_ROWS == 4
+    #define RGBLED_NUM 25
+  #elif HELIX_ROWS == 5
+    #define RGBLED_NUM 32
+  #endif
+#else
+  #define RGBLED_NUM 6
+#endif
 
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-// Helix keyboard : see ./rules.mk: RGBLIGHT_ENABLE = yes or no
-// Helix keyboard : RGBLED_NUM 6 or 32
-#define RGBLED_NUM 6
 #if RGBLED_NUM <= 6
   #define RGBLIGHT_LIMIT_VAL 255
 #else
