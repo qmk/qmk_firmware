@@ -34,6 +34,8 @@
 static uint8_t packet_buf[PKT_LEN];
 
 extern bool bootloader_reset;
+extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
+extern const char *layout_names[NUM_LAYOUTS];
 
 const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
     PRODUCT_ID & 0xFF, (PRODUCT_ID >> 8) & 0xFF,
@@ -197,17 +199,24 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 uint32_t offset = from_leu32(data + 4);
                 switch (data[1]) {
                     case SUB_KM_INFO: {
-                        printf("Info Keymap %d %d %d %d\n", MAX_LAYERS, MATRIX_ROWS, MATRIX_COLS, sizeof(uint16_t));
+                        printf("Info Keymap %d %d %d %d %d\n", MAX_LAYERS, MATRIX_ROWS, MATRIX_COLS, sizeof(uint16_t), NUM_LAYOUTS);
                         packet_buf[0] = MAX_LAYERS;
                         packet_buf[1] = MATRIX_ROWS;
                         packet_buf[2] = MATRIX_COLS;
                         packet_buf[3] = sizeof(uint16_t);
+                        packet_buf[4] = NUM_LAYOUTS;
                         break;
                     }
                     case SUB_KM_READ:
                         printf("Read Keymap %04x\n", offset);
-                        const uint32_t keymaps_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
-                        if (offset < keymaps_size) {
+                        const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
+                        const uint32_t keymaps_size = keymap_size * sizeof(uint16_t);
+                        if (offset >= 0x10000) {
+                            offset &= 0xFFFF;
+                            if (offset < keymap_size) {
+                                memcpy(packet_buf, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 64));
+                            }
+                        } else if (offset < keymaps_size) {
                             memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(keymaps_size - offset, 64));
                         }
                         break;
