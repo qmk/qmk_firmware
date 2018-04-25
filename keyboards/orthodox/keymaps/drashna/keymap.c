@@ -85,3 +85,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint32_t layer_state_set_keymap (uint32_t state) {
+  uint8_t modifiders = get_mods();
+  uint8_t led_usb_state = host_keyboard_leds();
+  uint8_t one_shot = get_oneshot_mods();
+
+
+  if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+    rgblight_sethsv_at(0, 255, 255, 5);
+    rgblight_sethsv_at(0, 255, 255, 10);
+  }
+  if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+    rgblight_sethsv_at(51, 255, 255, 6);
+    rgblight_sethsv_at(51, 255, 255, 9);
+  }
+  if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+    rgblight_sethsv_at(120, 255, 255, 7);
+    rgblight_sethsv_at(120, 255, 255, 8);
+  }
+
+  return state;
+}
+
+
+void matrix_scan_keymap (void) {
+  static uint8_t current_mods;
+  static uint8_t current_host_leds;
+  static uint8_t current_oneshot_mods;
+  static bool has_status_changed = true;
+
+  if ( current_mods != get_mods() || current_host_leds != host_keyboard_leds() || current_oneshot_mods != get_oneshot_mods()) {
+    has_status_changed = true;
+    current_mods = get_mods();
+    current_host_leds = host_keyboard_leds();
+    current_oneshot_mods = get_oneshot_mods();
+  }
+  if (has_status_changed) {
+    has_status_changed = false;
+
+    if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
+      rgblight_sethsv_at(0, 255, 255, 5);
+      rgblight_sethsv_at(0, 255, 255, 10);
+    } else { layer_state_set_user(layer_state); }
+    if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, 6);
+      rgblight_sethsv_at(51, 255, 255, 9);
+    } else { layer_state_set_user(layer_state); }
+    if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, 7);
+      rgblight_sethsv_at(120, 255, 255, 8);
+    } else { layer_state_set_user(layer_state); }
+  }
+}

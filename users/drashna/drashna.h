@@ -51,6 +51,8 @@ enum userspace_layers {
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
+uint32_t layer_state_set_user(uint32_t state);
+
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
