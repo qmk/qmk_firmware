@@ -3,9 +3,6 @@
 
 #define TAPPING_TERM 200
 
-#define RGB_DI_PIN C0
-#define RGBLED_NUM 12
-#define RGBLIGHT_ANIMATIONS
 
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
