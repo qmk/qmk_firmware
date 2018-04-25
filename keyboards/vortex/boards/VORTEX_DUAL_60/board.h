@@ -75,30 +75,6 @@
 #define LINE_LED65                  PAL_LINE(IOPORTB, 1)    // !
 #define LINE_TPREQ                  PAL_LINE(IOPORTC, 11)   // !
 
-/*
- * Matrix map
- */
-
-#define KEYMAP( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K36, K37, K38, K39, K41, K40, /* 14 keys */ \
-    K09, K10, K11, K12, K13, K14, K15, K16, K42, K43, K44, K45, K47,      /* 13 keys */ \
-    K17, K18, K19, K20, K21, K22, K23, K24, K48, K49, K50, K51, K46, K52, /* 14 keys */ \
-    K25, K63, K26, K27, K28, K29, K30, K31, K32, K54, K55, K56, K57, K58, /* 14 keys, 2 dnp */ \
-    K33, K34, K35,                K53,                K59, K60, K61, K62, /* 8 keys */  \
-                                                      S01, S02, S03, S04  /* dip switches */ \
-) { \
-    /*            COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */ \
-    /* ROW1  */ { K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   }, \
-    /* ROW2  */ { K33,   K34,   K35,   K36,   K37,   K38,   K39,   K40,   }, \
-    /* ROW3  */ { K09,   K10,   K11,   K12,   K13,   K14,   K15,   K16,   }, \
-    /* ROW4  */ { K63,   KC_NO, K41,   K42,   K43,   K44,   K45,   K46,   }, \
-    /* ROW5  */ { K17,   K18,   K19,   K20,   K21,   K22,   K23,   K24,   }, \
-    /* ROW6  */ { KC_NO, KC_NO, K47,   K48,   K49,   K50,   K51,   K52,   }, \
-    /* ROW7  */ { K25,   K26,   K27,   K28,   K29,   K30,   K31,   K32,   }, \
-    /* ROW8  */ { KC_NO, KC_NO, K53,   K54,   K55,   K56,   K57,   K58,   }, \
-    /* ROW9  */ { S01,   S02,   S03,   K59,   K60,   K61,   S04,   K62,   }  \
-}
-
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
 extern "C" {
