@@ -38,6 +38,8 @@
 // Number of supported layouts
 #define NUM_LAYOUTS 4
 
+#include "layouts.h"
+
 #define RGBLED_NUM (61 + 1 + 2) // 61 keys, caps lock, 2 under spacebar
 
 /*

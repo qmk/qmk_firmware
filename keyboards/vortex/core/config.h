@@ -36,7 +36,9 @@
 
 #define KEYMAP_VORTEX_CORE
 // Number of supported layouts
-#define NUM_LAYOUTS 4
+#define NUM_LAYOUTS 1
+
+#include "layouts.h"
 
 #define RGBLED_NUM (47 + 3) // 47 keys + 3 extra
 

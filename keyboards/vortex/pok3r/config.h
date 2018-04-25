@@ -38,6 +38,8 @@
 // Number of supported layouts
 #define NUM_LAYOUTS 4
 
+#include "layouts.h"
+
 /*
  * Keyboard Matrix Assignments
  *

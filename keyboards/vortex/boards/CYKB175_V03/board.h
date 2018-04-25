@@ -109,28 +109,6 @@
     /* COL8 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K23,   }  \
 }
 
-//  /*           COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */
-//  /* ROW1 */ { K67,   K66,   K65,   K64,   K63,   K62,   KC_NO, KC_NO, },
-//  /* ROW2 */ { K31,   K53,   K52,   K51,   K50,   K49,   KC_NO, KC_NO, },
-//  /* ROW3 */ { K32,   K29,   K28,   K27,   K26,   K25,   KC_NO, KC_NO, },
-//  /* ROW4 */ { K41,   K40,   K39,   K38,   K37,   K36,   KC_NO, KC_NO, },
-//  /* ROW5 */ { K21,   K16,   K15,   K14,   K13,   K12,   KC_NO, KC_NO, },
-//  /* ROW6 */ { K06,   K30,   K20,   K19,   K18,   K17,   KC_NO, KC_NO, },
-//  /* ROW7 */ { K55,   K43,   K110,  K112,  KC_NO, K35,   K111,  KC_NO, },
-//  /* ROW8 */ { K73,   K59,   K46,   KC_NO, KC_NO, K11,   KC_NO, K23,   }
-
-#define LAYOUT_core( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,    \
-     k10,  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a,   k1b,     \
-     k20,   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,      \
-     k30, k31, k32, k33,    k34,     k35,      k36, k37, k38, k39       \
-) KEYMAP( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,    \
-     k10,  k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a,   k1b,     \
-     k20,   k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,      \
-     k30, k31, k32, k33,    k34,     k35,      k36, k37, k38, k39       \
-)
-
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
 extern "C" {
