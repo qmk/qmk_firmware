@@ -26,18 +26,17 @@
 #define PRODUCT         POK3R
 #define DESCRIPTION     Vortex POK3R with qmk_pok3r
 
+#define UPDATE_PROTO_POK3R
+
 // key matrix size
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 // Max available layers
 #define MAX_LAYERS  8
 
-// Matrix keymap type
 #define KEYMAP_60_ANSI
 // Number of supported layouts
 #define NUM_LAYOUTS 4
-
-#define UPDATE_PROTO_POK3R
 
 /*
  * Keyboard Matrix Assignments

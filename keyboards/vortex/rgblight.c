@@ -21,6 +21,14 @@
 #include "quantum.h"
 #include "rgblight.h"
 
+// RGB LEDs probably need to be updated in sync with the matrix
+// This may do nothing
 void rgblight_set(void) {
-
+    /*
+    for(int i = 0; i < RGBLED_NUM; ++i){
+        uint8_t r = led[i].r;
+        uint8_t g = led[i].g;
+        uint8_t b = led[i].b;
+    }
+    */
 }

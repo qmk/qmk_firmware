@@ -26,15 +26,19 @@
 #define PRODUCT         POK3R RGB
 #define DESCRIPTION     Vortex POK3R RGB with qmk_pok3r
 
-/* key matrix size */
+#define UPDATE_PROTO_CYKB
+
+// key matrix size
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
+// Max available layers
+#define MAX_LAYERS  8
 
 #define KEYMAP_60_ANSI
+// Number of supported layouts
+#define NUM_LAYOUTS 4
 
-#define RGBLED_NUM 61
-
-#define UPDATE_PROTO_CYKB
+#define RGBLED_NUM (61 + 1 + 2) // 61 keys, caps lock, 2 under spacebar
 
 /*
  * Keyboard Matrix Assignments

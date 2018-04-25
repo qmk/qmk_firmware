@@ -26,15 +26,19 @@
 #define PRODUCT         Core
 #define DESCRIPTION     Vortex Core with qmk_pok3r
 
-/* key matrix size */
+#define UPDATE_PROTO_CYKB
+
+// key matrix size
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+// Max available layers
+#define MAX_LAYERS  8
 
 #define KEYMAP_VORTEX_CORE
+// Number of supported layouts
+#define NUM_LAYOUTS 4
 
-#define RGBLED_NUM (47 + 3)
-
-#define UPDATE_PROTO_CYKB
+#define RGBLED_NUM (47 + 3) // 47 keys + 3 extra
 
 /*
  * Keyboard Matrix Assignments
