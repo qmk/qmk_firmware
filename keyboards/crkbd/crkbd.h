@@ -4,9 +4,6 @@
 #ifdef KEYBOARD_crkbd_rev1
     #include "rev1.h"
 #endif
-#ifdef KEYBOARD_crkbd_rev2
-    #include "rev2.h"
-#endif
 
 #if CRKBD_ROWS == 3
   #define KC_KEYMAP( \

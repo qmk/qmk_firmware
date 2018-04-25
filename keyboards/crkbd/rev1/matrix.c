@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t debouncing = DEBOUNCE;
 static const int ROWS_PER_HAND = MATRIX_ROWS/2;
 static uint8_t error_count = 0;
+uint8_t is_master = 0 ;
 
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -59,6 +60,7 @@ static matrix_row_t read_cols(void);
 static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
+static uint8_t matrix_master_scan(void);
 
 
 __attribute__ ((weak))
@@ -107,6 +109,8 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+
+    is_master = has_usb();
 
     matrix_init_quantum();
 }
@@ -177,11 +181,12 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    if (serial_update_buffers()) {
+    int ret=serial_update_buffers();
+    if (ret ) {
+        if(ret==2)RXLED1;
         return 1;
     }
-
+RXLED0;
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
@@ -191,9 +196,45 @@ int serial_transaction(void) {
 
 uint8_t matrix_scan(void)
 {
+    if (is_master) {
+        matrix_master_scan();
+    }else{
+        matrix_slave_scan();
+
+//        if(serial_slave_DATA_CORRUPT()){
+//          TXLED0;
+          int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
+
+          for (int i = 0; i < ROWS_PER_HAND; ++i) {
+              matrix[offset+i] = serial_master_buffer[i];
+          }
+
+//        }else{
+//          TXLED1;
+//        }
+
+        matrix_scan_quantum();
+    }
+    return 1;
+}
+
+
+uint8_t matrix_master_scan(void) {
+
     int ret = _matrix_scan();
 
+    int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
+#ifdef USE_MATRIX_I2C
+//    for (int i = 0; i < ROWS_PER_HAND; ++i) {
+        /* i2c_slave_buffer[i] = matrix[offset+i]; */
+//        i2c_slave_buffer[i] = matrix[offset+i];
+//    }
+#else // USE_SERIAL
+    for (int i = 0; i < ROWS_PER_HAND; ++i) {
+        serial_master_buffer[i] = matrix[offset+i];
+    }
+#endif
 
 #ifdef USE_MATRIX_I2C
     if( i2c_transaction() ) {
@@ -224,7 +265,7 @@ uint8_t matrix_scan(void)
 void matrix_slave_scan(void) {
     _matrix_scan();
 
-    int offset = (isLeftHand) ? 0 : (MATRIX_ROWS / 2);
+    int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_MATRIX_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
