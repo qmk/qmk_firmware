@@ -98,6 +98,26 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+#ifdef RGBLIGHT_ENABLE
+  static uint32_t savedRgbMode;
+  static uint16_t savedHue;
+  static uint8_t savedSat;
+  static uint8_t savedVal;
+
+  if (keycode == KC_ESC) {
+    if (record->event.pressed) {
+      savedRgbMode = rgblight_get_mode();
+      savedHue = rgblight_get_hue();
+      savedSat = rgblight_get_sat();
+      savedVal = rgblight_get_val();
+      rgblight_show_solid_color(255, 0, 0);
+    } else {
+      rgblight_mode(savedRgbMode);
+      rgblight_sethsv(savedHue, savedSat, savedVal);
+    }
+  }
+#endif
 // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.row, record->event.key.col, record->event.pressed);
