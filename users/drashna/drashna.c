@@ -33,14 +33,6 @@ PROGMEM const char secret[][64] = {
 #endif
 
 
-#ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-#else // FAUXCLICKY_ENABLE
-float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-#endif // FAUXCLICKY_ENABLE
-
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
