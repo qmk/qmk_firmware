@@ -204,7 +204,11 @@ else
 endif
 
 # User space stuff
-USER_PATH := users/$(KEYMAP)
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+
 -include $(USER_PATH)/rules.mk
 ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
     CONFIG_H += users/$(KEYMAP)/config.h
