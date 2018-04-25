@@ -6,4 +6,9 @@
 
 #define RESET_LAYER 15
 
+#ifdef KEYBOARD_1up60rgb
+  #undef RGBLED_NUM
+  #define RGBLED_NUM 16
+#endif
+
 #endif // !USERSPACE_CONFIG_H
