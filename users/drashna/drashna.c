@@ -44,16 +44,27 @@ static uint16_t copy_paste_timer;
 bool rgb_layer_change = true;
 #endif
 
+
+//  Helper Functions
+void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+
+uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  uint32_t mask12 = (1UL << layer1) | (1UL << layer2);
+  uint32_t mask3 = (1UL << layer3);
+  return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
+}
+
+
+
+// =========================================  TAP DANCE  =========================================
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
 static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
 static uint8_t diablo_key_time[4];
 
-bool check_dtimer(uint8_t dtimer) {
-  // has the correct number of seconds elapsed (as defined by diablo_times)
-  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
-};
+// has the correct number of seconds elapsed (as defined by diablo_times)
+bool check_dtimer(uint8_t dtimer) { return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true; };
 
 // Cycle through the times for the macro, starting at 0, for disabled.
 // Max of six values, so don't exceed
@@ -61,25 +72,16 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_
   if (state->count >= 7) {
     diablo_key_time[diablo_key] = diablo_times[0];
     reset_tap_dance(state);
-  }
-  else {
+  }  else {
     diablo_key_time[diablo_key] = diablo_times[state->count - 1];
   }
 }
 
 // Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 0);
-}
-void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 1);
-}
-void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 2);
-}
-void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 3);
-}
+void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 0); }
+void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 1); }
+void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 2); }
+void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 3); }
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -88,7 +90,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_D3_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
   [TD_D3_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
   [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
-
 };
 
 // Sends the key press to system, but only if on the Diablo layer
@@ -96,17 +97,13 @@ void send_diablo_keystroke(uint8_t diablo_key) {
   if (biton32(layer_state) == _DIABLO) {
     switch (diablo_key) {
       case 0:
-        SEND_STRING("1");
-        break;
+        tap(KC_1); break;
       case 1:
-        SEND_STRING("2");
-        break;
+        tap(KC_2); break;
       case 2:
-        SEND_STRING("3");
-        break;
+        tap(KC_3); break;
       case 3:
-        SEND_STRING("4");
-        break;
+        tap(KC_4); break;
     }
   }
 }
@@ -115,7 +112,6 @@ void send_diablo_keystroke(uint8_t diablo_key) {
 // Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
   uint8_t dtime;
-
   for (dtime = 0; dtime < 4; dtime++) {
     if (check_dtimer(dtime) && diablo_key_time[dtime]) {
       diablo_timer[dtime] = timer_read();
@@ -123,7 +119,6 @@ void run_diablo_macro_check(void) {
     }
   }
 }
-
 #endif // TAP_DANCE_ENABLE
 
 
@@ -154,31 +149,29 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
 
+#ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-
-  if (true) {
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_sethsv_magenta();
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_sethsv_green();
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_sethsv_goldenrod();
-    }
-    else {
-      rgblight_sethsv_teal();
-    }
-  }
-  else
-  {
-    rgblight_setrgb_red();
-    rgblight_mode(5);
-  }
 #endif // RGBLIGHT_ENABLE
+
+  if (default_layer & (1UL << _COLEMAK)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_magenta();
+#endif // RGBLIGHT_ENABLE
+  } else if (default_layer & (1UL << _DVORAK)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_green();
+#endif // RGBLIGHT_ENABLE
+  } else if (default_layer & (1UL << _WORKMAN)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_goldenrod();
+#endif // RGBLIGHT_ENABLE
+  } else {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_teal();
+#endif // RGBLIGHT_ENABLE
+  }
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -189,16 +182,14 @@ void matrix_init_user(void) {
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
+
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
+
   matrix_scan_keymap();
 }
 
-void tap(uint16_t keycode){
-    register_code(keycode);
-    unregister_code(keycode);
-};
 
 // This block is for all of the gaming macros, as they were all doing
 // the same thing, but with differring text sent.
@@ -248,39 +239,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_WORKMAN:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_WORKMAN);
-    }
-    return false;
-    break;
-
-
-  case LOWER:
-    if (record->event.pressed) {
-      layer_on(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case RAISE:
-    if (record->event.pressed) {
-      layer_on(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case ADJUST:
-    if (record->event.pressed) {
-      layer_on(_ADJUST);
-    }
-    else {
-      layer_off(_ADJUST);
     }
     return false;
     break;
@@ -458,11 +416,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+
 // Runs state check and changes underglow color and animation
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 uint32_t layer_state_set_user(uint32_t state) {
   uint8_t default_layer = eeconfig_read_default_layer();
+  state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
   switch (biton32(state)) {
   case _NAV:
@@ -580,7 +540,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 #endif // RGBLIGHT_ENABLE
     } else {                       // otherwise, stay solid
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_mode(1); ]
+      if (rgb_layer_change) { rgblight_mode(1); }
 #endif // RGBLIGHT_ENABLE
     }
     break;

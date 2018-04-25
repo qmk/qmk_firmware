@@ -59,9 +59,6 @@ enum userspace_custom_keycodes {
   KC_COLEMAK,
   KC_DVORAK,
   KC_WORKMAN,
-  LOWER,
-  RAISE,
-  ADJUST,
   KC_DIABLO_CLEAR,
   KC_OVERWATCH,
   KC_SALT,
@@ -90,6 +87,11 @@ enum userspace_custom_keycodes {
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
+#define LOWER TT(_LOWER)
+#define RAISE TT(_RAISE)
+#define ADJUST TT(_ADJUST)
+
+
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
 #define KC_SEC3 KC_SECRET_3
@@ -111,10 +113,6 @@ enum {
 };
 #endif // TAP_DANCE_ENABLE
 
-#ifdef UNICODEMAP_ENABLE
-
-
-#endif //UNICODEMAP_ENABLE
 
 // Custom Keycodes for Diablo 3 layer
 // But since TD() doesn't work when tap dance is disabled
@@ -134,18 +132,6 @@ enum {
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
-
-
-
-// If we're still using the official Faux Clicky feature, substitute codes
-// so that we don't have any unused/blank keys.
-#ifdef FAUXCLICKY_ENABLE
-#define AUD_ON  FC_ON
-#define AUD_OFF FC_OFF
-#else // FAUXCLICKY_ENABLE
-#define AUD_ON  AU_ON
-#define AUD_OFF AU_OFF
-#endif // FAUXCLICKY_ENABLE
 
 
 
