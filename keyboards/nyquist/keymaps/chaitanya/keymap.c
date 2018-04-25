@@ -9,7 +9,7 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _COLEMAK 1
+#define _QWERTY2 1
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
@@ -18,8 +18,7 @@ extern keymap_config_t keymap_config;
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  QWERTY2,
   LOWER,
   RAISE,
   ADJUST,
@@ -42,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |  [   |      |Space |Space |      |   ]  |  -   |  =   |Shift |
+ * | Ctrl | Alt  | GUI  |  [   |    Space    |    Space    |   ]  |  -   |  =   |Shift |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT( \
@@ -53,6 +52,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,             KC_LALT, KC_LGUI, KC_LCBR, _______,   KC_SPC,  KC_SPC,  _______,   KC_RCBR, KC_MINUS, KC_EQUAL, KC_RSFT  \
 ),
 
+/* Qwerty2
+ * ,-----------------------------------------------------------------------------------.
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  \   |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Shift |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Alt  | GUI  |  [   |    Space    |    Space    |   ]  |  -   |  =   |Shift |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_QWERTY2] = LAYOUT( \
+  KC_GRV,              KC_1,    KC_2,    KC_3,    KC_4,      KC_5,    KC_6,   KC_7,    KC_8,    KC_9,     KC_0,     KC_BSPC, \
+  KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,      KC_T,    KC_Y,   KC_U,    KC_I,    KC_O,     KC_P,     KC_BSLS, \
+  LT(_ADJUST, KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,      KC_G,    KC_H,   KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT, \
+  KC_LSFT,             KC_Z,    KC_X,    KC_C,    KC_V,      KC_B,    KC_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT , \
+  KC_LCTL,             KC_LALT, KC_LGUI, _______, _______,   KC_SPC,  KC_SPC, _______, KC_LCBR, KC_RCBR, KC_MINUS, KC_EQUAL  \
+),
+  
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  del |
@@ -63,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  -   |      |      |      |      |  =   |      |      |      |
+ * |QWERT2|      |      |  -   |      |Enter |Enter |      |  =   |      |      |FKEYS |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] =  LAYOUT( \
@@ -71,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______,  _______, _______,   \
   _______, _______, _______, _______,  _______, _______, KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT, _______, _______,   \
   _______, _______, _______, _______,  _______, _______, _______, _______, _______,  _______,  _______, _______,   \
-  _______, _______, _______, KC_MINUS, _______, _______, _______, _______, KC_EQUAL, _______,  _______, FKeys     \
+  QWERTY2, _______, _______, KC_MINUS, _______, KC_ENT,  KC_ENT,  _______, KC_EQUAL, _______,  _______, FKeys     \
 ),
 
 /* FKeys (Lower + Raise)
