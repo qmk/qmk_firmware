@@ -84,6 +84,10 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 #define KEYMAP KEYMAP_MIT
 
 #define LAYOUT_ortho_4x12 KEYMAP_GRID
+
+#define LAYOUT_2U_space KEYMAP_MIT
+#define LAYOUT_planck_mit KEYMAP_MIT
+
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
 #define LAYOUT_kc_ortho_4x12 KC_KEYMAP
 
