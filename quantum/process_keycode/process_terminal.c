@@ -173,7 +173,7 @@ void terminal_keymap(void) {
 void print_cmd_buff(void) {
   /* without the below wait, a race condition can occur wherein the
    buffer can be printed before it has been fully moved */
-  wait_ms(300);
+  wait_ms(250);
   for(int i=0;i<CMD_BUFF_SIZE;i++){
     char tmpChar = ' ';
     itoa(i ,&tmpChar,10);
@@ -211,6 +211,7 @@ void terminal_help(void) {
 }
 
 void command_not_found(void) {
+    wait_ms(50); //sometimes buffer isnt grabbed quick enough
     SEND_STRING("command \"");
     send_string(buffer);
     SEND_STRING("\" not found\n");
