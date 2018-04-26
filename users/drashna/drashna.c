@@ -48,12 +48,6 @@ bool rgb_layer_change = true;
 //  Helper Functions
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
-uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  uint32_t mask12 = (1UL << layer1) | (1UL << layer2);
-  uint32_t mask3 = (1UL << layer3);
-  return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
-}
-
 
 
 // =========================================  TAP DANCE  =========================================
