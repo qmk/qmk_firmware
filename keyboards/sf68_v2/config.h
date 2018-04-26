@@ -51,14 +51,15 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
 // rgb led
 
 //#define RGBLIGHT_ANIMATION
+#undef RGBLED_NUM
 #define RGB_DI_PIN F0
 #define RGBLED_NUM 1
 //#define RGBLIGHT_HUE_STEP 8
 //#define RGBLIGHT_SAT_STEP 8
 //#define RGBLIGHT_VAL_STEP 8
-#define RGB_LIGHT_TIMER
-#define ws2812_PORTREG PORTF
-#define ws2812_DDRREG DDRF
+//#define RGB_LIGHT_TIMER
+//#define ws2812_PORTREG PORTF
+//#define ws2812_DDRREG DDRF
 
 /*
  * Feature disable options
