@@ -53,6 +53,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
+// ws2812 options
+//#define RGB_DI_PIN A0 // pin the DI on the ws2812 is hooked-up to
+//#define RGBLIGHT_ANIMATIONS // run RGB animations
+//#define RGBLED_NUM 6 // number of LEDs
+//#define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
+//#define RGBLIGHT_SAT_STEP 25 // units to step when in/decresing saturation
+//#define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
