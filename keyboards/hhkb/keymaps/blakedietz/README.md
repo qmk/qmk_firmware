@@ -29,7 +29,7 @@ From the hhkb directory run the following:
 
 ```bash
 make clean
-make hhkb-blakedietz-dfu
+make hhkb:blakedietz:dfu
 ```
 
 Press the button on the alternate controller to put the board into boot mode.
@@ -37,7 +37,7 @@ Press the button on the alternate controller to put the board into boot mode.
 You'll see an output similar to the following:
 
 ```bash
-make hhkb-blakedietz-dfu
+make hhkb:blakedietz:dfu
 
 Making hhkb with keymap blakedietz and target dfu
 

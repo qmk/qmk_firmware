@@ -2,12 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-
-#define BASE 0 // default layer
-#define CODE 1 // code layer
-#define SYMB 2 // symbols
-#define MDIA 3 // media keys
-#define MOVE 4 // movement layer
+#include "333fred.h"
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -48,20 +43,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  |  =   |           |  L1  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  |   D  |LT 3,F|   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|  L1  |           |MO(3) |------+------+------+------+------+--------|
+ * | Esc    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------|  L2  |           |MO(3) |------+------+------+------+------+--------|
  * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |LCTRL |  F4  |  F5  | LGUI | LALT |                                       | Left | Down |  Up  | Right| RGUI |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Copy | Paste|       | Alt  | Lock |
+ *                                        | Copy | Paste|       | Copy | Paste  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | PgUp |       | PgDn |        |      |
  *                                 | Bcksp|OSL(2)|------|       |------|  Ent   |Space |
- *                                 |      |      | Del  |       | RCtrl|        |      |
+ *                                 |      |  VIM | Del  |       | RCtrl|        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -69,22 +64,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_GRV,        KC_1,         KC_2,   KC_3,   KC_4,          KC_5,   KC_EQL,
-        KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,          KC_T,   TG(SYMB),
-        KC_ESC,        KC_A,         KC_S,   KC_D,   LT(MOVE, KC_F),KC_G,
-        OSM(MOD_LSFT), CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,          KC_B,   TG(CODE),
+        KC_TAB,        KC_Q,         KC_W,   KC_E,   KC_R,          KC_T,   TG(CODE),
+        KC_ESC,        KC_A,         KC_S,   KC_D,   KC_F,          KC_G,
+        OSM(MOD_LSFT), CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,          KC_B,   TG(SYMB),
         OSM(MOD_LCTL), KC_F4,        KC_F5,  KC_LGUI,KC_LALT,
-                                                                             LCTL(KC_C),LCTL(KC_V),
-                                                                                        KC_PGUP,
-                                                                     KC_BSPC,OSL(SYMB), KC_DEL,
+                                                                             LCTL(KC_C),     LCTL(KC_V),
+                                                                                             KC_PGUP,
+                                                                     KC_BSPC,TD(TD_SYM_VIM), KC_DEL,
         // right hand
              TG(CODE), KC_6,   KC_7,   KC_8,   KC_9,   KC_0,           KC_MINS,
              TG(SYMB), KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,           KC_BSLS,
                        KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,        KC_QUOT,
              MO(MDIA), KC_N,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH), OSM(MOD_RSFT),
                                   KC_LEFT,KC_DOWN,KC_UP,  KC_RIGHT,       KC_RGUI,
-             KC_RALT, KC_LOCK,
+             LCTL(KC_C), LCTL(KC_V),
              KC_PGDN,
-             KC_RCTL, KC_ENT, KC_SPC
+             KC_RCTL,    KC_ENT, KC_SPC
     ),
 /* Keymap 1: Code Layer
  *
@@ -100,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |      |      |      |      |                                       | F12  |GoToIm|  FAR |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        |Format|Build |       | Test | DTest  |
+ *                                        |Format|Build |       | Copy | Paste  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      |Refact|       |Sort U|        |      |
- *                                 |      |      |------|       |------|        |      |
+ *                                 |      |ACCESS|------|       |------|        |      |
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -126,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
                               KC_F12,  M(GO_TO_IMPL),M(FIND_ALL_REF),KC_TRNS, KC_TRNS,
-             M(TEST), M(DEBUG_TEST),
+             LCTL(KC_C), LCTL(KC_V),
              M(REMOVE_SORT_USINGS),
              KC_TRNS, KC_TRNS, KC_TRNS
     ),
@@ -218,9 +213,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |KOpen |KType |      |      |      |      |           |      | Copy |      |      |      | Paste|        |
+ * |        |KOpen |KType |LSHFT |      |      |      |           |      | Copy |      |      |      | Paste|        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |DLeft |DRight|LCTRL |ACCESS|      |------|           |------| Left | Down |  Up  | Right|      |        |
+ * |        |DLeft |DRight|LCTRL | LGUI |      |------|           |------| Left | Down |  Up  | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |SFT_TB| TAB  |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -230,20 +225,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       | Home | End  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |LSHIFT|------|       |------|      |      |
+ *                                 |      |ACCESS|------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MOVE] = LAYOUT_ergodox(
+[VIM] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, M(KEEPASS_OPEN),M(KEEPASS_TYPE),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LCTL, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(KEEPASS_OPEN),M(KEEPASS_TYPE),KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, M(DLEFT),       M(DRIGHT),      KC_LCTL, KC_LGUI, KC_TRNS,
        KC_TRNS, M(LSFT_TAB),    KC_TAB,         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS, KC_TRNS,
                                              KC_TRNS, KC_TRNS,
                                                       KC_TRNS,
-                                    KC_TRNS, KC_LSFT, KC_TRNS,
+                                    KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
        KC_TRNS,  LCTL(KC_C),KC_TRNS, KC_TRNS, KC_TRNS, LCTL(KC_V),KC_TRNS,
@@ -349,6 +344,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  tap_dance_process_record(keycode);
   switch (keycode) {
     // dynamically generate these.
     case EPRM:

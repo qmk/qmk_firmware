@@ -1,5 +1,32 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.11
+
+*2017-10-01*
+
+### Overall changes
+
+* Updated to work with QMK master.
+* The `$` and `^` symbols on the number row were swapped on both the base and the ADORE layers.
+* The bracket tap-dance keys can now be used to input Japanese brackets, `「` and `」` with a third tap.
+* The second column of the top row on the right side will act as a "Social" application selector on the `AppSel` layer.
+* The third key on the same column will select a password manager.
+* The `GUI` key will now launch `rofi` when triple-tapped.
+
+### Miscellaneous
+
+* The `👶` symbol can be entered with UCIS.
+* The `👪` symbol can be entered with UCIS.
+
+### Tools
+
+* `tools/hid-commands` can now find the `Mstdn`, not just `Slack`, as the "Slack"/chat app.
+* `tools/hid-commands` can now find the Plex web app as a music/media player.
+* `tools/hid-commands` now understands the "Social" application selector. It raises the `Mstdn` and `Tweetdeck` windows, but keeps focus on the previous window.
+* `tools/hid-commands` now understands the "Social2" application selector, which raises `Signal` and `Viber`, but keeps focus on the previous window.
+* `tools/hid-commands` is now able to select a password manager (KeePass*).
+* `tools/hid-commands` can now run `rofi` when receiving an `appsel_helper` command (triggered by a triple-tapped `GUI` key).
+
 ## v1.10
 
 *2016-12-28*

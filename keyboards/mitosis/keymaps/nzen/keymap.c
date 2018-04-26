@@ -1,0 +1,210 @@
+
+
+#include "mitosis.h"
+
+enum mitosis_layers
+{
+	_QWERTY,
+	_WORKMAN,
+	_NUMBERS,
+	_PUNCT,
+	_MOUSE,
+	_LAYERS,
+	_GAMING,
+	_UNICODE,
+	_NUMPAD
+};
+
+
+//Mousekeys
+#define MOUSEKEY_DELAY 300
+#define MOUSEKEY_INTERNAL 50
+#define MOUSEKEY_MAX_SPEED 20
+#define MOUSEKEY_TIME_TO_MAX 30
+#define MOUSEKEY_WHEEL_MAX_SPEED 8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
+// Fillers to make layering more clear
+#define ___ KC_TRNS
+#define XXX KC_NO
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+// https://github.com/nhou7/qmk_firmware_amj40/blob/master/doc/keycode.txt
+/* QWERTY
+['Q', 'W', 'E', 'R', 'T',// 'Y', 'U', 'I', 'O', 'P' ],
+['A', 'S', 'D', 'F', 'G',// 'H', 'J', 'K', 'L', '; :' ],
+['Z', 'X', 'C', 'V', 'B',// 'N', 'M', ', <', '. >', '\' "' ],
+[  'back', 'del', 'ctrl', 'L_n',// 'L_p', 'ctrl', 'ent', 'back',  ],
+[  'alt', '0', 'shif', 'spac',// 'spac', 'shif', 'cap', 'alt',  ]
+ */
+[_QWERTY] = {
+  {KC_Q, KC_W, KC_E, KC_R, KC_T,        KC_Y, KC_U, KC_I, KC_O, KC_P},
+  {KC_A, KC_S, KC_D, KC_F, KC_G,        KC_H, KC_J, KC_K, KC_L, KC_SCOLON},
+  {KC_Z, KC_X, KC_C, KC_V, KC_B,        KC_N, KC_M, KC_COMM, KC_DOT, KC_QUOTE},
+  {XXX, KC_BSPACE, KC_DELETE, KC_LCTRL, TG( 2 ),        TG( 3 ), KC_RCTRL, KC_ENTER, KC_BSPACE, XXX},
+  {XXX, KC_LALT, KC_0, KC_LSHIFT, KC_SPACE,        KC_SPACE, KC_RSHIFT, KC_CAPSLOCK, KC_RALT, XXX}
+},
+/* 
+['Q', 'D', 'R', 'W', 'B',/ ** / 'J', 'F', 'U', 'P', '; :' ],
+['A', 'S', 'H', 'T', 'G',/ ** / 'Y', 'N', 'E', 'O', 'I' ],
+['Z', 'X', 'M', 'C', 'V',/ ** / 'K', 'L', ', <', '. >', '\' "' ],
+[ '', '', '', '',/ ** / '', '', '', '',  ],
+[ '', '4', '', '',/ ** / '', '', '', '',  ]
+ */
+[_WORKMAN] = {
+  {KC_Q, KC_D, KC_R, KC_W, KC_B,        KC_J, KC_F, KC_U, KC_P, KC_SCOLON},
+  {KC_A, KC_S, KC_H, KC_T, KC_G,        KC_Y, KC_N, KC_E, KC_O, KC_I},
+  {KC_Z, KC_X, KC_M, KC_C, KC_V,        KC_K, KC_L, KC_COMMA, KC_DOT, KC_QUOTE},
+  {XXX, ___, ___, ___, ___,       ___, ___, ___, ___, XXX},
+  {XXX, ___, KC_1, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/* 
+['9', '8', '7', '6', '5',/ ** / 'F2', 'pDn', *up* /, '*tab* /, 'pUp' ],
+[' 4', ' 3', ' 2', ' 1', ' 0',/ ** / 'home', *lf* /, '*dn* /, *rt* /, 'end' ],
+['undo', 'cut', 'copy', 'paste', 'os',/ ** / 'D', '_', ',', '-', '.' ],
+// --
+[ '', '', '', 'L_=6',/ ** / 'L_7', '', '', '',  ],
+[ '', '6', '', '',/ ** / '', '', '', '',  ]
+ */
+[_NUMBERS] = {
+  {KC_9, KC_8, KC_7, KC_6, KC_5,        KC_F2, KC_PGDOWN, KC_UP, KC_TAB, KC_PGUP},
+  {KC_4, KC_3, KC_2, KC_1, KC_0,        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END},
+  {LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_LGUI,        KC_D, KC_UNDERSCORE, KC_COMMA, KC_MINUS, KC_DOT},
+  {XXX, ___, ___, ___, TG( 2 ),       TG( 3 ), ___, ___, ___, XXX},
+  {XXX, ___, KC_2, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+[ '#', '@', '&', '.', ';',/ ** / '_', ',', '|', '^', '%' ],
+[ '*', '+', '{', '(', ':',/ ** / '"', ')', '}', '-', '=' ],
+[ '\\', '?', '<', '[', '$',/ ** / '~', ']', '>', '!', '/' ],
+// --
+['', '', '', 'L_8',/ ** / 'L_=7', '', '', '',  ],
+['', '7', '', '',/ ** / '', '', '', '',  ]
+ */
+[_PUNCT] = {
+  {KC_HASH, KC_AT, KC_AMPERSAND, KC_DOT, KC_SCOLON,        KC_UNDERSCORE, KC_COMMA, KC_PIPE, KC_CIRCUMFLEX, KC_PERCENT},
+  {KC_ASTERISK, KC_PLUS, KC_LCBR, KC_LPRN, KC_COLON,        KC_DQUO, KC_RPRN, KC_RCBR, KC_MINUS, KC_EQUAL},
+  {KC_BSLASH, KC_QUESTION, KC_LT, KC_LBRACKET, KC_DOLLAR,        KC_TILDE, KC_RBRACKET, KC_GT, KC_EXCLAIM, KC_SLASH},
+  {XXX, ___, ___, ___, TG( 4 ),       TG( 3 ), ___, ___, ___, XXX},
+  {XXX, ___, KC_3, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+['F6', 'F7', 'F8', 'F9', 'F10',/ ** / 'app', 'mb1', 'mmU', 'mb2', 'mwU' ],
+['F1', 'F2', 'F3', 'F4', 'F5',/ ** / 'mnu', 'mmL', 'mmD', 'mmR', 'mwD' ],
+['F11', 'F12', '`', 'mute', 'ESC',/ ** / 'prtSc', 'scrLk', 'mwL', 'mwR', 'mb3' ],
+// --
+[ '', '', '', 'L_=8',/ ** / 'L_9', '', '', '',  ],
+[ '', '8', '', '',/ ** / '', '', '', '',  ]
+ */
+[_MOUSE] = {
+  {KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,        KC_MENU, KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, KC_MS_WH_UP},
+  {KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,        KC_MENU, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN},
+  {KC_F11, KC_F12, KC_GRAVE, KC__MUTE, KC_ESCAPE,        KC_PSCREEN, KC_SLCK, KC_MS_WH_LEFT, KC_MS_WH_RIGHT, KC_MS_BTN3},
+  {XXX, ___, ___, ___, TG( 4 ),       TG( 5 ), ___, ___, ___, XXX},
+  {XXX, ___, KC_4, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+['L_ma1', '!', 'L_dv2', '!', 'L_cl3',/ ** / 'L_wk4', '!', 'L_ar5', '!', '!' ],
+['!', '!', '!', '!', '!',/ ** / '!', '!', '!', '!', '!' ],
+['L_gmA', '!', 'L_ucB', '!', 'L_npC',/ ** / '!', '!', '!', '!', '!' ],
+// --
+[ '', '', '', 'L_=9',/ ** / 'L_=9', '', '', '',  ],
+[ '', '9', '', '',/ ** / '', '', '', '',  ]
+ */
+[_LAYERS] = {
+  {KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM,        TG( 1 ), KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM},
+  {KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM,        KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM},
+  {TG( 6 ), KC_EXCLAIM, TG( 7 ), KC_EXCLAIM, TG( 8 ),        KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM, KC_EXCLAIM},
+  {XXX, ___, ___, ___, TG( 5 ),       TG( 5 ), ___, ___, ___, XXX},
+  {XXX, ___, KC_5, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+['Q', 'W', 'E', 'R', 'T',/ ** / 'P', 'Y', '\u2191'*up* /, 'K', '1' ],
+['A', 'S', 'D', 'F', 'G',/ ** / 'H', '\u2190'*lf* /, '\u2193'*dn* /, '\u2192'*rt* /, '2' ],
+['Z', 'X', 'C', 'V', 'B',/ ** / 'M', '*', '*', '*', '3' ],
+// --
+[ '', '', '', 'L_=A',/ ** / 'A', '', '', '',  ],
+[ '', 'A', '', '',/ ** / '', '', '', '',  ]
+ */
+[_GAMING] = {
+  {KC_Q, KC_W, KC_E, KC_R, KC_T,        KC_P, KC_Y, KC_UP, KC_K, KC_1},
+  {KC_A, KC_S, KC_D, KC_F, KC_G,        KC_H, KC_LEFT, KC_DOWN, KC_RIGHT, KC_2},
+  {KC_Z, KC_X, KC_C, KC_V, KC_B,        KC_M, KC_ASTERISK, KC_ASTERISK, KC_ASTERISK, KC_3},
+  {XXX, ___, ___, ___, TG( 6 ),       KC_6, ___, ___, ___, XXX},
+  {XXX, ___, KC_6, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+['\u00a2'cent* /, '\u00bc'1/4* /, '\u00bd'1/2* /, '\u03a3'sum* /, '\u00d8'Oslash* /,/ ** / '\u250f'box ul* /, '\u2533'box um* /, '\u2513'box ur* /, '\u03bb'lambda* /, '\u2018'sm'dn* / ],
+['\u00F1'n~* /, '\u00a9'&copy* /, '\u00b0'degrees* /, '\u00b1'+-* /, '\u2b0f'arrow up* /,/ ** / '\u2523'box ml* /, '\u254B'box mm* /, '\u252B'box mr* /, '\u0394'delta* /, '\u2019'sm'up* / ],
+['\u00a1'down !* /, '\u00bf'down ?* /, '\u00d7'mult x* /, '\u00f7'div/ * /, '\u03c0'pi* /,/ ** / '\u2517'box ll* /, '\u253b'bos lm* /, '\u251b'box lr* /, '\u201c'sm"dn* /, '\u201d'sm"up* / ],
+// --
+[ '', '', '', 'L_=B',/ ** / 'B', '', '', '',  ],
+[ '', 'B', '', '',/ ** / '', '', '', '',  ]
+ */
+[_UNICODE] = {
+  {UC(0x00A2), UC(0x00BC), UC(0x00BD), UC(0x03A3), UC(0x00D8),        UC(0x250F), UC(0x2533), UC(0x2513), UC(0x03BB), UC(0x2018)},
+  {UC(0x00F1), UC(0x00A9), UC(0x00B0), UC(0x00B1), UC(0x2B0F),        UC(0x2523), UC(0x254B), UC(0x252B), UC(0x0394), UC(0x2019)},
+  {UC(0x00A1), UC(0x00BF), UC(0x00D7), UC(0x00F7), UC(0x03C0),        UC(0x2517), UC(0x253B), UC(0x251B), UC(0x201C), UC(0x201D)},
+  {XXX, ___, ___, ___, TG( 7 ),       KC_7, ___, ___, ___, XXX},
+  {XXX, ___, KC_7, ___, ___,       ___, ___, ___, ___, XXX}
+},
+/*
+['n-.', 'n-7', 'n-8', 'n-9', 'n--',/ ** / 'n-=', 'volU', 'volD', 'volU', 'volD' ],
+['n-0', 'n-4', 'n-5', 'n-6', 'n-+',/ ** / 'N-lck', 'BACK', 'MUTE', 'RGUI', 'paus' ],
+['n -*', 'n-1', 'n-2', 'n-3', 'n-/',/ ** / 'n-ent', 'PLAY', 'PREV', 'NEXT', 'insr' ],
+// --
+[ '', '', '', 'L_=C',/ ** / 'C', '', '', '',  ],
+[ '', 'C', '', '',/ ** / '', '', '', '',  ]
+ */
+[_NUMPAD] = {
+  {KC_KP_DOT, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_MINUS,        KC_KP_EQUAL, KC_AUDIO_VOL_UP, KC_AUDIO_VOL_DOWN, KC__VOLUP, KC__VOLDOWN/*sic on double underscore here*/},
+  {KC_KP_0, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_PLUS,        KC_NUMLOCK, KC_WWW_BACK, KC_AUDIO_MUTE, KC_RGUI, KC_PAUSE},
+  {KC_KP_ASTERISK, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,        KC_KP_ENTER, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_INSERT},
+  {XXX, ___, ___, ___, TG( 8 ),       KC_8, ___, ___, ___, XXX},
+  {XXX, ___, KC_8, ___, ___,       ___, ___, ___, ___, XXX}
+}// ,
+/*
+ * /
+[_] = {
+  {, , , , ,        , , , ,},
+  {, , , , ,        , , , ,},
+  {, , , , ,        , , , ,},
+  {XXX, ___, ___, ___, TG(  ),       TG(  ), ___, ___, ___, XXX},
+  {XXX, ___, KC_, ___, ___,       ___, ___, ___, ___, XXX}
+}
+ */
+};
+
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    switch (layer) {
+    	case _QWERTY:
+    	case _WORKMAN:
+    		set_led_off;
+    		break;
+        case _NUMBERS:
+            set_led_blue;
+            break;
+        case _PUNCT:
+            set_led_red;
+            break;
+        case _MOUSE:
+            set_led_green;
+            break;
+        case _LAYERS:
+            set_led_yellow;
+            break;
+        case _UNICODE:
+            set_led_cyan;
+            break;
+        default:
+            break;
+   }
+};
+
+void matrix_init_user(void) {
+	set_unicode_input_mode(UC_LNX); // or UC_WINC
+};
+
+

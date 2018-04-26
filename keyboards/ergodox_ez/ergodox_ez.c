@@ -38,7 +38,7 @@ void matrix_init_kb(void) {
     PORTB &= ~(1<<4);  // set B(4) internal pull-up disabled
 
     // unused pins - C7, D4, D5, D7, E6
-    // set as input with internal pull-ip enabled
+    // set as input with internal pull-up enabled
     DDRC  &= ~(1<<7);
     DDRD  &= ~(1<<5 | 1<<4);
     DDRE  &= ~(1<<6);
@@ -54,18 +54,53 @@ void matrix_init_kb(void) {
 void ergodox_blink_all_leds(void)
 {
     ergodox_led_all_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_HI);
+    ergodox_led_all_set(LED_BRIGHTNESS_DEFAULT);
     ergodox_right_led_1_on();
     _delay_ms(50);
     ergodox_right_led_2_on();
     _delay_ms(50);
     ergodox_right_led_3_on();
     _delay_ms(50);
+#ifdef LEFT_LEDS
+    ergodox_left_led_1_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    ergodox_left_led_2_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    ergodox_left_led_3_on();
+    _delay_ms(50);
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+#endif
     ergodox_right_led_1_off();
     _delay_ms(50);
     ergodox_right_led_2_off();
     _delay_ms(50);
     ergodox_right_led_3_off();
+#ifdef LEFT_LEDS
+    _delay_ms(50);
+    ergodox_left_led_1_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    _delay_ms(50);
+    ergodox_left_led_2_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+    _delay_ms(50);
+    ergodox_left_led_3_off();
+    if (!mcp23018_status) {
+      mcp23018_status = ergodox_left_leds_update();
+    }
+#endif
+
     //ergodox_led_all_on();
     //_delay_ms(333);
     ergodox_led_all_off();
@@ -107,12 +142,50 @@ uint8_t init_mcp23018(void) {
 out:
     i2c_stop();
 
+#ifdef LEFT_LEDS
+    if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
+#endif // LEFT_LEDS
+
     // SREG=sreg_prev;
 
     return mcp23018_status;
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef LEFT_LEDS
+uint8_t ergodox_left_leds_update(void) {
+    if (mcp23018_status) { // if there was an error
+        return mcp23018_status;
+    }
+#define LEFT_LED_1_SHIFT        7       // in MCP23018 port B
+#define LEFT_LED_2_SHIFT        6       // in MCP23018 port B
+#define LEFT_LED_3_SHIFT        7       // in MCP23018 port A
+
+    // set logical value (doesn't matter on inputs)
+    // - unused  : hi-Z : 1
+    // - input   : hi-Z : 1
+    // - driving : hi-Z : 1
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE);
+    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(OLATA);
+    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b11111111
+                                & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT)
+                                );
+    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b11111111
+                                & ~(ergodox_left_led_2<<LEFT_LED_2_SHIFT)
+                                & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT)
+                                );
+    if (mcp23018_status) goto out;
+
+ out:
+    i2c_stop();
+    return mcp23018_status;
+}
+#endif
+
+
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {

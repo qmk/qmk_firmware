@@ -37,6 +37,7 @@ void register_hex(uint16_t hex);
 #define UC_WIN 2  // Windows 'HexNumpad'
 #define UC_BSD 3  // BSD (not implemented)
 #define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
+#define UC_OSX_RALT 5 // Mac OS X using Right Alt key for Unicode Compose
 
 #define UC_BSPC	UC(0x0008)
 
