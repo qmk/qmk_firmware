@@ -142,13 +142,15 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
-#define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
+#define LAYER_MASK(layer)   (1UL << (layer))
+#define IS_LAYER_ON(layer)  (layer_state & LAYER_MASK(layer))
+#define IS_LAYER_OFF(layer) (~layer_state & LAYER_MASK(layer))
 
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
