@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D3, F1, C7, F2, C6, F3, C5, F4, C4, F5, C3, F6, C2, F7, C1 }
-#define MATRIX_COL_PINS { D4, D5, D7, B7, D0, D1, D2, C0, F0, B4, B5, B6, E1, E7, E0 }
+#define MATRIX_ROW_PINS { D5, F1, C7, F2, C6, F3, C5, F4, C4, F5, C3, F6, C2, F7, C1 }
+#define MATRIX_COL_PINS { D6, D7, E0, B7, D2, D3, D4, E6, F0, B4, B5, B6, C0, E7, E1 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
@@ -52,6 +52,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
+
+// ws2812 options
+//#define RGB_DI_PIN A0 // pin the DI on the ws2812 is hooked-up to
+//#define RGBLIGHT_ANIMATIONS // run RGB animations
+//#define RGBLED_NUM 6 // number of LEDs
+//#define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
+//#define RGBLIGHT_SAT_STEP 25 // units to step when in/decresing saturation
+//#define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
