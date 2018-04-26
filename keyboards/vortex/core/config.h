@@ -32,7 +32,7 @@
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 // Max available layers
-#define MAX_LAYERS  8
+#define MAX_LAYERS 8
 
 #define KEYMAP_VORTEX_CORE
 // Number of supported layouts

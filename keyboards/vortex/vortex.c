@@ -33,7 +33,6 @@
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
-extern bool bootloader_reset;
 extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
 extern const char *layout_names[NUM_LAYOUTS];
 
@@ -55,10 +54,11 @@ enum pok3r_cmd {
 #endif
 
 #if defined(UPDATE_PROTO_POK3R)
-    CMD_READ        = 1,    //!< Read command.
-    SUB_READ_ADDR   = 2,    //!< Patched command, read arbitrary address.
+    CMD_FLASH       = 1,    //!< Internal flash command.
+    SUB_WRITE       = 1,    //!< Write 52 bytes to internal flash.
+    SUB_READ        = 2,    //!< Read 64 bytes from internal flash.
 #elif defined(UPDATE_PROTO_CYKB)
-    CMD_READ        = 0x12, //!< Read command.
+    CMD_READ        = 0x12, //!< Read internal flash command.
     SUB_READ_400    = 0,
     SUB_READ_3C00   = 1,
     SUB_READ_MODE   = 2,    //!< Get firmware mode. 0 is bootloader, 1 is firmware.
@@ -68,31 +68,40 @@ enum pok3r_cmd {
 #endif
 };
 
-static void to_leu16(uint8_t *bytes, uint16_t num) {
-    bytes[0] = num & 0xFF;
-    bytes[1] = (num >> 8) & 0xFF;
+static uint16_t from_leu16(const uint8_t *bytes) {
+    return (bytes[0] | (bytes[1] << 8));
 }
 
 static uint32_t from_leu32(const uint8_t *bytes) {
     return (bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24));
 }
 
-void OVERRIDE bootloader_jump(void) {
-    printf("Reset to Bootloader\n");
+static void to_leu16(uint8_t *bytes, uint16_t num) {
+    bytes[0] = num & 0xFF;
+    bytes[1] = (num >> 8) & 0xFF;
+}
+
+static void to_leu32(uint8_t *bytes, uint32_t num) {
+    bytes[0] = num & 0xFF;
+    bytes[1] = (num >> 8) & 0xFF;
+    bytes[2] = (num >> 16) & 0xFF;
+    bytes[3] = (num >> 24) & 0xFF;
+}
+
+static void firmware_reset(uint32_t key) {
     wait_us(10000); // 10 ms
     chSysDisable(); // mask all interrupts
     usbDisconnectBus(&USB_DRIVER); // disconnect usb
     // SBVT registers are not reset on reset
     // SBVT1 is read by pok3r bootloader to stop in bootloader
-    FMC->SBVT[1] = RESET_BL_MAGIC;
+    FMC->SBVT[1] = key;
     wait_us(50000); // 50 ms
     NVIC_SystemReset();
 }
 
-void firmware_reset(void) {
-    printf("Reset Firmware\n");
-    FMC->SBVT[1] = RESET_FW_MAGIC;
-    NVIC_SystemReset();
+void OVERRIDE bootloader_jump(void) {
+    printf("Reset to Bootloader\n");
+    firmware_reset(RESET_BL_MAGIC);
 }
 
 void OVERRIDE matrix_init_kb(void) {
@@ -134,33 +143,43 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
             case CMD_RESET:
                 switch (data[1]) {
                     case SUB_RESET_BL:
-//                        bootloader_jump();
-//                        reset_keyboard();
-                        bootloader_reset = true;
+                        reset_keyboard();
                         return;
                     case SUB_RESET_FW:
-                        firmware_reset();
+                        //firmware_reset();
                         return;
                 }
 
-            case CMD_READ:
-#if defined(UPDATE_PROTO_CYKB)
-                packet_buf[0] = CMD_READ;
-                packet_buf[1] = data[1];
-#endif
-                switch (data[1]) {
 #if defined(UPDATE_PROTO_POK3R)
-                    case SUB_READ_ADDR: {
+            case CMD_FLASH:
+                switch (data[1]) {
+                    case SUB_READ: {
                         uint32_t addr = from_leu32(data + 4);
                         printf("Read Flash %04x\n", addr);
-                        if (addr + 64 < FLASH_SIZE) {
-                            memcpy(packet_buf, (const uint8_t *)addr, 64);
+                        if (addr < FLASH_SIZE) {
+                            memcpy(packet_buf, (const uint8_t *)addr, MIN(FLASH_SIZE - addr, 64));
                         }
                         break;
                     }
-#endif
                 }
                 break;
+#endif
+#if defined(UPDATE_PROTO_CYKB)
+            case CMD_READ:
+                packet_buf[0] = CMD_READ;
+                packet_buf[1] = data[1];
+                switch (data[1]) {
+                    case SUB_READ_ADDR: {
+                        uint32_t addr = from_leu32(data + 4);
+                        printf("Read Flash %04x\n", addr);
+                        if (addr < FLASH_SIZE) {
+                            memcpy(packet_buf + 4, (const uint8_t *)addr, MIN(FLASH_SIZE - addr, 60));
+                        }
+                        break;
+                    }
+                }
+                break;
+#endif
 
             case CMD_INFO: {
                 to_leu16(packet_buf + 0, PRODUCT_ID);
@@ -196,7 +215,8 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
             }
 
             case CMD_KEYMAP: {
-                uint32_t offset = from_leu32(data + 4);
+                const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
+                const uint32_t keymaps_size = keymap_size * sizeof(uint16_t);
                 switch (data[1]) {
                     case SUB_KM_INFO: {
                         printf("Info Keymap %d %d %d %d %d\n", MAX_LAYERS, MATRIX_ROWS, MATRIX_COLS, sizeof(uint16_t), NUM_LAYOUTS);
@@ -207,10 +227,9 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         packet_buf[4] = NUM_LAYOUTS;
                         break;
                     }
-                    case SUB_KM_READ:
+                    case SUB_KM_READ: {
+                        uint32_t offset = from_leu32(data + 4);
                         printf("Read Keymap %04x\n", offset);
-                        const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
-                        const uint32_t keymaps_size = keymap_size * sizeof(uint16_t);
                         if (offset >= 0x10000) {
                             offset &= 0xFFFF;
                             if (offset < keymap_size) {
@@ -220,12 +239,16 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                             memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(keymaps_size - offset, 64));
                         }
                         break;
-                    case SUB_KM_WRITE:
-                        printf("Write Keymap %04x\n", offset);
+                    }
+                    case SUB_KM_WRITE: {
+                        uint16_t offset = from_leu16(data + 4);
+                        uint16_t len = MIN(from_leu16(data + 6), 56);
+                        printf("Write Keymap %04x %d\n", offset, len);
                         if (offset < keymaps_size) {
-                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(keymaps_size - offset, 56));
+                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(keymaps_size - offset, len));
                         }
                         break;
+                    }
                 }
                 break;
             }

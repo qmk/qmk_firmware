@@ -32,7 +32,7 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 // Max available layers
-#define MAX_LAYERS  8
+#define MAX_LAYERS 8
 
 #define KEYMAP_60_ANSI
 // Number of supported layouts
