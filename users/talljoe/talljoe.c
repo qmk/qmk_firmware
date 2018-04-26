@@ -111,7 +111,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       savedHue = rgblight_get_hue();
       savedSat = rgblight_get_sat();
       savedVal = rgblight_get_val();
-      rgblight_show_solid_color(255, 0, 0);
+      rgblight_mode(1);
+      rgblight_setrgb(255, 0, 0);
     } else {
       rgblight_mode(savedRgbMode);
       rgblight_sethsv(savedHue, savedSat, savedVal);
