@@ -1,4 +1,4 @@
-#include "pearl.h"
+#include QMK_KEYBOARD_H
 
 #define ____ KC_TRNS
 
