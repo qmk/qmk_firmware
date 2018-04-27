@@ -19,6 +19,10 @@
 
 #include "quantum.h"
 
+#ifndef LEADER_TIMEOUT
+#define LEADER_TIMEOUT 300
+#endif
+
 bool process_leader(uint16_t keycode, keyrecord_t *record);
 
 void leader_start(void);
