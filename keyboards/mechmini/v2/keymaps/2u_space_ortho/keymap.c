@@ -1,4 +1,4 @@
-#include "mechmini.h"
+#include QMK_KEYBOARD_H
 
 #define _BL 0
 #define _FN1 1
