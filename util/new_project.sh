@@ -2,13 +2,6 @@
 # Script to make a new quantum project
 # Jack Humbert 2015
 
-# if [ -z "$1"  -o  -z "$2" ]; then
-# 	echo "Usage:   $0 <keyboard_name> <keyboard_type>"
-# 	echo "Example: $0 gh60 avr"
-# 	echo "Example: $0 bfake ps2avrgb"
-# 	exit 1
-# fi
-
 KEYBOARD=$1
 KEYBOARD_TYPE=$2
 
