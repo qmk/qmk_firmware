@@ -1,5 +1,16 @@
-naKey keyboard firmware
-======================
+# naKey
+
+Firmware for custom keyboard
+
+Keyboard Maintainer: [James Underwood](https://github.com/ju0)  
+Hardware Supported: naKey  
+Hardware Availability: [ckeys.org](https://ckeys.org)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make nakey:default
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
 ## Quantum MK Firmware
 

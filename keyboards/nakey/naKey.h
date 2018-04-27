@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 James Underwood
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, \

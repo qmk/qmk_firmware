@@ -1,5 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
- *
+/* Copyright 2018 James Underwood
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or

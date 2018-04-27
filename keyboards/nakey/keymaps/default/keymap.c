@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 James Underwood
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "naKey.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP( /* Base */
+[0] = LAYOUT( /* Base */
   KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, \
   KC_P7,    KC_P8,    KC_P9,   KC_PPLS, \
   KC_P4,    KC_P5,    KC_P6,   \
