@@ -6,7 +6,9 @@ KEYBOARD=$1
 KEYBOARD_TYPE=$2
 
 if [ -z "$KEYBOARD" ]; then
-   # Usage
+    echo "Usage:   $0 <keyboard_name> <keyboard_type>"
+    echo "Example: $0 gh60 avr"
+    echo "Example: $0 bfake ps2avrgb"
     exit 1
 elif [ -z "$KEYBOARD_TYPE" ]; then
   KEYBOARD_TYPE=avr
