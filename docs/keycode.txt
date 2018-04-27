@@ -78,25 +78,25 @@ KC_F9                               42 Keyboard F9
 KC_F10                              43 Keyboard F10
 KC_F11                              44 Keyboard F11
 KC_F12                              45 Keyboard F12
-KC_PSCREEN          KC_PSCR         46 Keyboard PrintScreen1
-KC_SCKLOCK          KC_SLCK         47 Keyboard Scroll Lock11
-KC_PAUSE            KC_PAUS         48 Keyboard Pause1
-KC_INSERT           KC_INS          49 Keyboard Insert1
-KC_HOME                             4A Keyboard Home1
-KC_PGUP                             4B Keyboard PageUp1
+KC_PSCREEN          KC_PSCR         46 Keyboard PrintScreen
+KC_SCROLLLOCK       KC_SLCK         47 Keyboard Scroll Lock
+KC_PAUSE            KC_PAUS         48 Keyboard Pause
+KC_INSERT           KC_INS          49 Keyboard Insert
+KC_HOME                             4A Keyboard Home
+KC_PGUP                             4B Keyboard PageUp
 KC_DELETE           KC_DEL          4C Keyboard Delete Forward
-KC_END                              4D Keyboard End1
-KC_PGDOWN           KC_PGDN         4E Keyboard PageDown1
-KC_RIGHT            KC_RGHT         4F Keyboard RightArrow1
-KC_LEFT                             50 Keyboard LeftArrow1
-KC_DOWN                             51 Keyboard DownArrow1
-KC_UP                               52 Keyboard UpArrow1
-KC_NUMLOCK          KC_NLCK         53 Keypad Num Lock and Clear11
+KC_END                              4D Keyboard End
+KC_PGDOWN           KC_PGDN         4E Keyboard PageDown
+KC_RIGHT            KC_RGHT         4F Keyboard RightArrow
+KC_LEFT                             50 Keyboard LeftArrow
+KC_DOWN                             51 Keyboard DownArrow
+KC_UP                               52 Keyboard UpArrow
+KC_NUMLOCK          KC_NLCK         53 Keypad Num Lock and Clear
 KC_KP_SLASH         KC_PSLS         54 Keypad /
 KC_KP_ASTERISK      KC_PAST         55 Keypad *
 KC_KP_MINUS         KC_PMNS         56 Keypad -
 KC_KP_PLUS          KC_PPLS         57 Keypad +
-KC_KP_ENTER         KC_PENT         58 Keypad ENTER5
+KC_KP_ENTER         KC_PENT         58 Keypad ENTER
 KC_KP_1             KC_P1           59 Keypad 1 and End
 KC_KP_2             KC_P2           5A Keypad 2 and Down Arrow
 KC_KP_3             KC_P3           5B Keypad 3 and PageDn
@@ -109,8 +109,8 @@ KC_KP_9             KC_P9           61 Keypad 9 and PageUp
 KC_KP_0             KC_P0           62 Keypad 0 and Insert
 KC_KP_DOT           KC_PDOT         63 Keypad . and Delete
 KC_NONUS_BSLASH     KC_NUBS         64 Keyboard Non-US \ and |
-KC_APPLICATION      KC_APP          65 Keyboard Application10
-KC_POWER                            66 Keyboard Power9
+KC_APPLICATION      KC_APP          65 Keyboard Application
+KC_POWER                            66 Keyboard Power
 KC_KP_EQUAL         KC_PEQL         67 Keypad =
 KC_F13                              68 Keyboard F13
 KC_F14                              69 Keyboard F14
@@ -138,12 +138,12 @@ KC_FIND                             7E Keyboard Find
 KC__MUTE                            7F Keyboard Mute
 KC__VOLUP                           80 Keyboard Volume Up
 KC__VOLDOWN                         81 Keyboard Volume Down
-KC_LOCKING_CAPS                     82 Keyboard Locking Caps Lock12
-KC_LOCKING_NUM                      83 Keyboard Locking Num Lock12
-KC_LOCKING_SCROLL                   84 Keyboard Locking Scroll Lock12
-KC_KP_COMMA         KC_PCMM         85 Keypad Comma27
-KC_KP_EQUAL_AS400                   86 Keypad Equal Sign29
-KC_INT1             KC_RO           87 Keyboard International115,28
+KC_LOCKING_CAPS                     82 Keyboard Locking Caps Lock
+KC_LOCKING_NUM                      83 Keyboard Locking Num Lock
+KC_LOCKING_SCROLL                   84 Keyboard Locking Scroll Lock
+KC_KP_COMMA         KC_PCMM         85 Keypad Comma
+KC_KP_EQUAL_AS400                   86 Keypad Equal Sign
+KC_INT1             KC_RO           87 Keyboard International115
 KC_INT2             KC_KANA         88 Keyboard International216
 KC_INT3             KC_JYEN         89 Keyboard International317
 KC_INT4             KC_HENK         8A Keyboard International418
@@ -161,8 +161,8 @@ KC_LANG6                            95 Keyboard LANG68
 KC_LANG7                            96 Keyboard LANG78
 KC_LANG8                            97 Keyboard LANG88
 KC_LANG9                            98 Keyboard LANG98
-KC_ALT_ERASE                        99 Keyboard Alternate Erase7
-KC_SYSREQ                           9A Keyboard SysReq/Attention1
+KC_ALT_ERASE                        99 Keyboard Alternate Erase
+KC_SYSREQ                           9A Keyboard SysReq/Attention
 KC_CANCEL                           9B Keyboard Cancel
 KC_CLEAR                            9C Keyboard Clear
 KC_PRIOR                            9D Keyboard Prior
@@ -183,7 +183,7 @@ KC_RSHIFT           KC_RSFT         E5 Keyboard RightShift
 KC_RALT                             E6 Keyboard RightAlt
 KC_RGUI                             E7 Keyboard Right GUI(Windows/Apple/Meta key)
 
-/* 
+/*
  * Virtual keycodes
  */
 /* System Control */

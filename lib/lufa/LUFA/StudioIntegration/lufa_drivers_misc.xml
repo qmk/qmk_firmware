@@ -1,0 +1,57 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="component" id="lufa.drivers.misc.at45db321c" caption="LUFA AT45DB321C Dataflash Commands">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<build type="doxygen-entry-point" value="Group_AT45DB321C"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Drivers/Misc/AT45DB321C.h"/>
+		</module>
+
+		<module type="component" id="lufa.drivers.misc.at45db642d" caption="LUFA AT45DB642D Dataflash Commands">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<build type="doxygen-entry-point" value="Group_AT45DB321C"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Drivers/Misc/AT45DB642D.h"/>
+		</module>
+
+		<module type="service" id="lufa.drivers.misc.ringbuffer" caption="LUFA Ring Buffer">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<build type="doxygen-entry-point" value="Group_RingBuff"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Drivers/Misc/RingBuffer.h"/>
+		</module>
+
+		<module type="service" id="lufa.drivers.misc.ansi" caption="LUFA ANSI Terminal Commands">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<build type="doxygen-entry-point" value="Group_Terminal"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Drivers/Misc/TerminalCodes.h"/>
+		</module>
+	</asf>
+</lufa>

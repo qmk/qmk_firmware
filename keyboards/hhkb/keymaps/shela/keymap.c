@@ -37,12 +37,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          OSM(MOD_LSFT),KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,KC_FN0, \
                                KC_LALT,KC_LGUI,                KC_FN2,                 KC_RGUI,KC_RALT),
 
-    /* Layer 1: Pseudo US Layout Layer */
+    /* Layer 1: Pseudo US Layout Layer
+     * ,-----------------------------------------------------------------------------------------.
+     * | Esc | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | BSp |
+     * |-----------------------------------------------------------------------------------------|
+     * |  Tab   | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 |  Fn1   |
+     * |-----------------------------------------------------------------------------------------|
+     * | Control  | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 |   Enter    |
+     * |-----------------------------------------------------------------------------------------|
+     * |    Shift    | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 | Fn1 |  Shift  | Fn0 |
+     * `-----------------------------------------------------------------------------------------'
+     *           |LGui |  Fn3   |               SpaceFN             |  Fn4   |RGui |
+     *           `-----------------------------------------------------------------'
+     */
     [PSEUDO_US] =
         KEYMAP(KC_ESC, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_BSPC, \
                KC_TAB, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, \
                KC_LCTL,KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_ENT, \
-         OSM(MOD_LSFT),KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_RSFT,KC_FN0, \
+               KC_LSFT,KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_FN1, KC_RSFT,KC_FN0, \
                                KC_LGUI,KC_FN3,                 KC_FN2,                 KC_FN4 ,KC_RGUI),
 
     /* Layer 2: Dvorak Layer
@@ -127,22 +139,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 6: SpaceFN
      * ,-----------------------------------------------------------------------------------------.
-     * |  `  | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |     | Del |
+     * |     | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |     | Del |
      * |-----------------------------------------------------------------------------------------|
-     * |        | End | Up  | Hom |     |     |     | Hom | Up  | End | Psc | Slk | Pau |  Ins   |
+     * |        | Hom | Up  | End |     |     |     | Hom | End |     | Psc | Slk | Pau |  Ins   |
      * |-----------------------------------------------------------------------------------------|
-     * |          | Lef | Dow | Rig | PgU |     | PgU | Lef | Dow | Rig |     |     |            |
+     * |          | Lef | Dow | Rig | PgU |     | Lef | Dow | Up  | Rig |     |     |            |
      * |-----------------------------------------------------------------------------------------|
-     * |             |     |     | PgD |     | Spc | PgD |  `  |  ~  |     |     |         |     |
+     * |             |     |     | PgD |     | Spc |     | PgD | PgU |     |     |         |     |
      * `-----------------------------------------------------------------------------------------'
      *           |     |        |                                   |        |     |
      *           `-----------------------------------------------------------------'
      */
     [SPACE_FN] =
-        KEYMAP(KC_GRV, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_NO,  KC_DEL, \
-               KC_TRNS,KC_END, KC_UP,  KC_HOME,KC_NO,  KC_NO,  KC_NO,  KC_HOME,KC_UP,  KC_END, KC_PSCR,KC_SLCK,KC_PAUS,KC_INS, \
-               KC_TRNS,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGUP,KC_NO,  KC_PGUP,KC_LEFT,KC_DOWN,KC_RGHT,KC_NO,  KC_NO,  KC_TRNS, \
-               KC_TRNS,KC_NO,  KC_NO,  KC_PGDN,KC_NO,  KC_SPC, KC_PGDN,KC_GRV, KC_TILD,KC_NO,  KC_NO,  KC_TRNS,KC_NO, \
+        KEYMAP(KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_NO,  KC_DEL, \
+               KC_TRNS,KC_HOME,KC_UP,  KC_END, KC_NO,  KC_NO,  KC_NO,  KC_HOME,KC_END, KC_NO,  KC_PSCR,KC_SLCK,KC_PAUS,KC_INS, \
+               KC_TRNS,KC_LEFT,KC_DOWN,KC_RGHT,KC_PGUP,KC_NO,  KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,KC_NO,  KC_NO,  KC_TRNS, \
+               KC_TRNS,KC_NO,  KC_NO,  KC_PGDN,KC_NO,  KC_SPC, KC_NO,  KC_PGDN,KC_PGUP,KC_NO,  KC_NO,  KC_TRNS,KC_NO, \
                                KC_TRNS,KC_TRNS,                KC_TRNS,                KC_TRNS,KC_TRNS),
 };
 

@@ -1,23 +1,46 @@
 {
     "structure": {
-        "readme": "Home.md"
+        "summary": "_summary.md"
     },
-    "plugins" : ["toolbar", "edit-link", "anchors"],
+    "plugins" : [
+      "edit-link",
+      "forkmegithub",
+      "hints",
+      "page-toc",
+      "terminal",
+      "toolbar",
+      "bulk-redirect"
+    ],
     "pluginsConfig": {
-            "edit-link": {
-                "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
-                "label": "Suggest an edit"
-            },
-        "toolbar": {
-            "buttons":
-            [
-                {
-                    "label": "QMK Firmware",
-                    "icon": "fa fa-github",
-                    "url": "https://github.com/qmk/qmk_firmware"
-                }
-            ]
-        }
+      "edit-link": {
+        "base": "https://github.com/qmk/qmk_firmware/edit/master/docs",
+        "label": "Suggest an edit"
+      },
+      "forkmegithub": {
+        "color": "red",
+        "url": "https://github.com/qmk/qmk_firmware"
+      },
+      "page-toc": {
+        "selector": ".markdown-section h1, .markdown-section h2"
+      },
+      "terminal": {
+        "copyButtons": true,
+        "fade": false,
+        "style": "flat"
+      },
+      "toolbar": {
+        "buttons": [
+          {
+            "label": "QMK Firmware",
+            "icon": "fa fa-github",
+            "url": "https://github.com/qmk/qmk_firmware"
+          }
+        ]
+      }, 
+      "bulk-redirect": {
+          "basepath": "/",
+          "redirectsFile": "docs/redirects.json"
+      }
     },
     "root": "./docs/"
 }

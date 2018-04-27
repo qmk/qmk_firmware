@@ -1,12 +1,13 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
-	url = https://github.com/ChibiOS/ChibiOS.git
+	url = https://github.com/qmk/ChibiOS
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/ChibiOS/ChibiOS-Contrib.git
+	url = https://github.com/qmk/ChibiOS-Contrib
+	branch = k-type-fix
 [submodule "lib/ugfx"]
 	path = lib/ugfx
-	url = https://bitbucket.org/Tectu/ugfx
+	url = https://github.com/qmk/uGFX
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest

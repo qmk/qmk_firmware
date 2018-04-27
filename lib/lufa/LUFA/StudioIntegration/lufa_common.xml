@@ -1,0 +1,34 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<module type="service" id="lufa.common" caption="LUFA Common Infrastructure">
+			<device-support-alias value="lufa_avr8"/>
+			<device-support-alias value="lufa_xmega"/>
+			<device-support-alias value="lufa_uc3"/>
+
+			<info type="gui-flag" value="hidden"/>
+			<build type="doxygen-entry-point" value="Group_Common"/>
+
+			<build type="include-path" value=".."/>
+			<build type="header-file" subtype="api" value="Version.h"/>
+			<build type="distribute" subtype="license" value="License.txt"/>
+
+			<build type="header-file" subtype="api" value="Common/Common.h"/>
+			<build type="header-file" value="Common/Architectures.h"/>
+			<build type="header-file" value="Common/ArchitectureSpecific.h"/>
+			<build type="header-file" value="Common/Attributes.h"/>
+			<build type="header-file" value="Common/BoardTypes.h"/>
+			<build type="header-file" value="Common/CompilerSpecific.h"/>
+			<build type="header-file" value="Common/Endianness.h"/>
+		</module>
+	</asf>
+</lufa>

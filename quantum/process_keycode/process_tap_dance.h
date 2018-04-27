@@ -25,6 +25,7 @@ typedef struct
 {
   uint8_t count;
   uint8_t oneshot_mods;
+  uint8_t weak_mods;
   uint16_t keycode;
   uint16_t timer;
   bool interrupted;
@@ -54,9 +55,20 @@ typedef struct
   uint16_t kc2;
 } qk_tap_dance_pair_t;
 
+typedef struct
+{
+  uint16_t kc;
+  uint8_t layer;
+} qk_tap_dance_dual_role_t;
+
 #define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) { \
-    .fn = { NULL, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset }, \
+    .fn = { qk_tap_dance_pair_on_each_tap, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset }, \
     .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }),  \
+  }
+
+#define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) { \
+    .fn = { qk_tap_dance_dual_role_on_each_tap, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset }, \
+    .user_data = (void *)&((qk_tap_dance_dual_role_t) { kc, layer }), \
   }
 
 #define ACTION_TAP_DANCE_FN(user_fn) {  \
@@ -79,12 +91,18 @@ extern qk_tap_dance_action_t tap_dance_actions[];
 
 /* To be used internally */
 
+void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_tap_dance (void);
 void reset_tap_dance (qk_tap_dance_state_t *state);
 
+void qk_tap_dance_pair_on_each_tap (qk_tap_dance_state_t *state, void *user_data);
 void qk_tap_dance_pair_finished (qk_tap_dance_state_t *state, void *user_data);
 void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data);
+
+void qk_tap_dance_dual_role_on_each_tap (qk_tap_dance_state_t *state, void *user_data);
+void qk_tap_dance_dual_role_finished (qk_tap_dance_state_t *state, void *user_data);
+void qk_tap_dance_dual_role_reset (qk_tap_dance_state_t *state, void *user_data);
 
 #else
 

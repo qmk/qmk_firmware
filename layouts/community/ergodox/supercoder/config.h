@@ -1,0 +1,9 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H 1
+
+#include QMK_KEYBOARD_CONFIG_H
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+#endif
