@@ -85,6 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifdef RGBLIGHT_ENABLE
 uint32_t layer_state_set_keymap (uint32_t state) {
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
@@ -107,6 +108,26 @@ uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
+void rgblight_sethsv_default_helper(uint8_t index) {
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (default_layer & (1UL << _COLEMAK)) {
+    rgblight_sethsv_at(300, 255, 255, index);
+    rgblight_sethsv_at(300, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _DVORAK)) {
+    rgblight_sethsv_at(120, 255, 255, index);
+    rgblight_sethsv_at(120, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _WORKMAN)) {
+    rgblight_sethsv_at(43, 255, 255, index);
+    rgblight_sethsv_at(43, 255, 255, index);
+  }
+  else {
+    rgblight_sethsv_at(180, 255, 255, index);
+    rgblight_sethsv_at(180, 255, 255, index);
+  }
+
+}
 
 void matrix_scan_keymap (void) {
   static uint8_t current_mods;
@@ -126,14 +147,25 @@ void matrix_scan_keymap (void) {
     if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
       rgblight_sethsv_at(0, 255, 255, 5);
       rgblight_sethsv_at(0, 255, 255, 10);
-    } else { layer_state_set_user(layer_state); }
+    } else {
+      rgblight_sethsv_default_helper(5);
+      rgblight_sethsv_default_helper(10);
+    }
     if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
       rgblight_sethsv_at(51, 255, 255, 6);
       rgblight_sethsv_at(51, 255, 255, 9);
-    } else { layer_state_set_user(layer_state); }
+    } else {
+      rgblight_sethsv_default_helper(6);
+      rgblight_sethsv_default_helper(9);
+    }
     if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
       rgblight_sethsv_at(120, 255, 255, 7);
       rgblight_sethsv_at(120, 255, 255, 8);
-    } else { layer_state_set_user(layer_state); }
+    } else {
+      rgblight_sethsv_default_helper(7);
+      rgblight_sethsv_default_helper(8);
+
+    }
   }
 }
+#endif
