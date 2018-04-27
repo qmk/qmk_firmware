@@ -15,7 +15,60 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-ONEHAND_ENABLE = no        # Enable one-hand typing
+SWAP_HANDS_ENABLE = no        # Enable one-hand typing
+
+define HELIX_CUSTOMISE_MSG
+  $(info Helix customize)
+  $(info -  OLED_ENABLE=$(OLED_ENABLE))
+  $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
+  $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
+  $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
+endef
+
+# Helix keyboard customize
+# you can edit follows 5 Variables
+#  jp: 以下の5つの変数を必要に応じて編集します。
+HELIX_ROWS = 5              # Helix Rows is 4 or 5
+OLED_ENABLE = no            # OLED_ENABLE
+LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
+LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes        # LED animations
+
+####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
+####    Do not enable these with audio at the same time.
+
+# Uncomment these for checking
+#   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
+# $(eval $(call HELIX_CUSTOMISE_MSG))
+# $(info )
+
+ifneq ($(strip $(HELIX_ROWS)), 4)
+  ifneq ($(strip $(HELIX_ROWS)), 5)
+    $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
+  endif
+endif
+OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
+
+ifeq ($(strip $(LED_BACK_ENABLE)), yes)
+  RGBLIGHT_ENABLE = yes
+  OPT_DEFS += -DRGBLED_BACK
+  ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
+    $(eval $(call HELIX_CUSTOMISE_MSG))
+    $(error LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE both 'yes')
+  endif
+else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
+  RGBLIGHT_ENABLE = yes
+else
+  RGBLIGHT_ENABLE = no
+endif
+
+ifeq ($(strip $(LED_ANIMATIONS)), yes)
+    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
+endif
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    OPT_DEFS += -DOLED_ENABLE
+endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
@@ -23,3 +76,8 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
+
+# Uncomment these for debugging
+# $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
+# $(info -- OPT_DEFS=$(OPT_DEFS))
+# $(info )

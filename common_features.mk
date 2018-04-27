@@ -34,6 +34,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     ifeq ($(PLATFORM),AVR)
         SRC += $(QUANTUM_DIR)/audio/audio.c
     else
@@ -132,6 +133,9 @@ endif
 ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     OPT_DEFS += -DAUTO_SHIFT_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
+    ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
+        OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
+    endif
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)

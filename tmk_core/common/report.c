@@ -20,6 +20,10 @@
 #include "debug.h"
 #include "util.h"
 
+/** \brief has_anykey
+ *
+ * FIXME: Needs doc
+ */
 uint8_t has_anykey(report_keyboard_t* keyboard_report)
 {
     uint8_t cnt = 0;
@@ -30,6 +34,10 @@ uint8_t has_anykey(report_keyboard_t* keyboard_report)
     return cnt;
 }
 
+/** \brief get_first_key
+ *
+ * FIXME: Needs doc
+ */
 uint8_t get_first_key(report_keyboard_t* keyboard_report)
 {
 #ifdef NKRO_ENABLE
@@ -54,6 +62,10 @@ uint8_t get_first_key(report_keyboard_t* keyboard_report)
 #endif
 }
 
+/** \brief add key byte
+ *
+ * FIXME: Needs doc
+ */
 void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 {
 #ifdef USB_6KRO_ENABLE
@@ -120,6 +132,10 @@ void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 #endif
 }
 
+/** \brief del key byte
+ *
+ * FIXME: Needs doc
+ */
 void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 {
 #ifdef USB_6KRO_ENABLE
@@ -157,6 +173,10 @@ void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code)
 }
 
 #ifdef NKRO_ENABLE
+/** \brief add key bit
+ *
+ * FIXME: Needs doc
+ */
 void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 {
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
@@ -166,6 +186,10 @@ void add_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
     }
 }
 
+/** \brief del key bit
+ *
+ * FIXME: Needs doc
+ */
 void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 {
     if ((code>>3) < KEYBOARD_REPORT_BITS) {
@@ -176,6 +200,10 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code)
 }
 #endif
 
+/** \brief add key to report
+ *
+ * FIXME: Needs doc
+ */
 void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key)
 {
 #ifdef NKRO_ENABLE
@@ -187,6 +215,10 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key)
     add_key_byte(keyboard_report, key);
 }
 
+/** \brief del key from report
+ *
+ * FIXME: Needs doc
+ */
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
 {
 #ifdef NKRO_ENABLE
@@ -198,6 +230,10 @@ void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key)
     del_key_byte(keyboard_report, key);
 }
 
+/** \brief clear key from report
+ *
+ * FIXME: Needs doc
+ */
 void clear_keys_from_report(report_keyboard_t* keyboard_report)
 {
     // not clear mods
