@@ -89,9 +89,9 @@ enum userspace_custom_keycodes {
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
-#define LOWER TT(_LOWER)
-#define RAISE TT(_RAISE)
-#define ADJUST TT(_ADJUST)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
 
 
 #define KC_SEC1 KC_SECRET_1
