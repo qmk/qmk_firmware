@@ -51,8 +51,12 @@ enum userspace_layers {
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
+extern bool clicky_enable;
+
 uint32_t layer_state_set_user(uint32_t state);
 
+#define EECONFIG_CLICKY (uint8_t *)20
+#define EECONFIG_MACROS (uint8_t *)21
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
@@ -227,4 +231,4 @@ enum {
                                                                             KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
 
 
-#endif
+#endif // !USERSPACE

@@ -167,6 +167,9 @@ void matrix_init_user(void) {
 #endif // RGBLIGHT_ENABLE
   }
 
+  is_overwatch = eeprom_read_byte(EECONFIG_MACROS) ? true : false;
+  clicky_enable = eeprom_read_byte(EECONFIG_CLICKY) ? true : false;
+
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
@@ -295,7 +298,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // to save on firmware space, since it's limited.
 #if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { is_overwatch = !is_overwatch; }
+    if (record->event.pressed) { is_overwatch = !is_overwatch; eeprom_update_byte(EECONFIG_MACROS, is_overwatch); }
 #ifdef RGBLIGHT_ENABLE
     is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif //RGBLIGHT_ENABLE
@@ -379,7 +382,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-
+  case CLICKY_TOGGLE:
+    eeprom_update_byte(EECONFIG_CLICKY, clicky_enable);
+    break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
     if (record->event.pressed) {
