@@ -61,48 +61,61 @@ typedef union {
   };
 } rgb_config_t;
 
+enum rgb_matrix_effects {
+	RGB_MATRIX_SOLID_COLOR = 1,
+    RGB_MATRIX_SOLID_REACTIVE,
+    RGB_MATRIX_ALPHAS_MODS,
+    RGB_MATRIX_DUAL_BEACON,
+    RGB_MATRIX_GRADIENT_UP_DOWN,
+    RGB_MATRIX_RAINDROPS,
+    RGB_MATRIX_CYCLE_ALL,
+    RGB_MATRIX_CYCLE_LEFT_RIGHT,
+    RGB_MATRIX_CYCLE_UP_DOWN,
+    RGB_MATRIX_RAINBOW_BEACON,
+    RGB_MATRIX_RAINBOW_PINWHEELS,
+    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
+    RGB_MATRIX_JELLYBEAN_RAINDROPS,
+#ifdef RGB_MATRIX_KEYPRESSES
+    RGB_MATRIX_SPLASH,
+    RGB_MATRIX_MULTISPLASH,
+    RGB_MATRIX_SOLID_SPLASH,
+    RGB_MATRIX_SOLID_MULTISPLASH,
+#endif
+    RGB_MATRIX_EFFECT_MAX
+};
+
 // This runs after another backlight effect and replaces
 // colors already set
 __attribute__((weak))
-void backlight_effect_indicators(void) {};
+void rgb_matrix_indicators(void) {};
 
-void backlight_effect_single_LED_test(void);
+void rgb_matrix_single_LED_test(void);
 
-void backlight_config_set_alphas_mods( uint16_t *value );
-void backlight_config_load(void);
-void backlight_config_save(void);
+void rgb_matrix_init_drivers(void);
 
-void backlight_init_drivers(void);
-
-void backlight_timer_init(void);
-void backlight_timer_enable(void);
-void backlight_timer_disable(void);
-
-void backlight_set_suspend_state(bool state);
-void backlight_set_indicator_state(uint8_t state);
+void rgb_matrix_set_suspend_state(bool state);
+void rgb_matrix_set_indicator_state(uint8_t state);
 
 
-void backlight_rgb_task(void);
+void rgb_matrix_task(void);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void backlight_update_pwm_buffers(void);
+void rgb_matrix_update_pwm_buffers(void);
 
-void backlight_set_key_hit(uint8_t row, uint8_t col);
-void backlight_unset_key_hit(uint8_t row, uint8_t col);
+bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
 
-void backlight_effect_increase(void);
-void backlight_effect_decrease(void);
+void rgb_matrix_increase(void);
+void rgb_matrix_decrease(void);
 
-void *backlight_get_key_color_eeprom_address(uint8_t led);
-void backlight_get_key_color( uint8_t led, HSV *hsv );
-void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
+// void *backlight_get_key_color_eeprom_address(uint8_t led);
+// void backlight_get_key_color( uint8_t led, HSV *hsv );
+// void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
 
-void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
-uint32_t backlight_get_tick(void);
-void backlight_debug_led(bool state);
+void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue );
+uint32_t rgb_matrix_get_tick(void);
 
 void rgblight_toggle(void);
 void rgblight_step(void);

@@ -202,6 +202,9 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
     process_record_kb(keycode, record) &&
+  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
+    process_rgb_matrix(keycode, record) && 
+  #endif
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
@@ -737,8 +740,13 @@ void matrix_init_quantum() {
   #ifdef AUDIO_ENABLE
     audio_init();
   #endif
+  #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init_drivers();
+  #endif
   matrix_init_kb();
 }
+
+// uint16_t rgb_matrix_task_counter = 0;
 
 void matrix_scan_quantum() {
   #ifdef AUDIO_ENABLE
@@ -755,6 +763,13 @@ void matrix_scan_quantum() {
 
   #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
     backlight_task();
+  #endif
+
+  #ifdef RGB_MATRIX_ENABLE
+    // if (rgb_matrix_task_counter == 0)
+    rgb_matrix_task();
+    // rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % 5);
+    rgb_matrix_update_pwm_buffers();
   #endif
 
   matrix_scan_kb();

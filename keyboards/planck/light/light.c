@@ -19,7 +19,8 @@
 
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
-/*   driver
+/* Refer to IS31 manual for these locations
+ *   driver
  *   |  R location
  *   |  |      G location
  *   |  |      |      B location
@@ -140,12 +141,6 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 
 void matrix_init_kb(void) {
 
-    // Initialize LED drivers for backlight.
-    backlight_init_drivers();
-
-    backlight_timer_init();
-    backlight_timer_enable();
-
     // Turn status LED on
     DDRD |= (1<<6);
     PORTD |= (1<<6);
@@ -155,44 +150,26 @@ void matrix_init_kb(void) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
-    // Record keypresses for backlight effects
-    if ( record->event.pressed ) {
-        backlight_set_key_hit( record->event.key.row, record->event.key.col );
-    } else {
-        // backlight_unset_key_hit( record->event.key.row, record->event.key.col );
-    }
-
     return process_record_user(keycode, record);
 }
 
-uint16_t backlight_task_counter = 0;
-
 void matrix_scan_kb(void)
 {
-
-    // if (backlight_task_counter == 0)
-        backlight_rgb_task();
-        // backlight_effect_single_LED_test();
-    // backlight_task_counter = ((backlight_task_counter + 1) % 5);
-
-    // This only updates the LED driver buffers if something has changed.
-    backlight_update_pwm_buffers();
-
     matrix_scan_user();
 }
 
 void led_set_kb(uint8_t usb_led)
 {
-    backlight_set_indicator_state(usb_led);
-    //backlight_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
+    rgb_matrix_set_indicator_state(usb_led);
+    //rgb_matrix_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
 }
 
 void suspend_power_down_kb(void)
 {
-    backlight_set_suspend_state(true);
+    rgb_matrix_set_suspend_state(true);
 }
 
 void suspend_wakeup_init_kb(void)
 {
-    backlight_set_suspend_state(false);
+    rgb_matrix_set_suspend_state(false);
 }
