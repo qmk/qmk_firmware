@@ -50,33 +50,21 @@ typedef struct
 	uint8_t index;
 } rgb_indicator;
 
-typedef struct
-{
-	bool enabled:1;                     // |
-	bool use_split_left_shift:1;        // |
-	bool use_split_right_shift:1;       // |
-	bool use_7u_spacebar:1;             // |
-	bool use_iso_enter:1;               // |
-	bool disable_when_usb_suspended:1;  // |
-	bool __pad6:1;                      // |
-	bool __pad7:1;                      // 1 byte
-	uint8_t disable_after_timeout;      // 1 byte
-	uint8_t brightness;                 // 1 byte
-	uint8_t effect;                     // 1 byte
-	HSV color_1;                        // 3 bytes
-	HSV color_2;                        // 3 bytes
-	rgb_indicator caps_lock_indicator;	// 4 bytes
-	rgb_indicator layer_1_indicator;	// 4 bytes
-	rgb_indicator layer_2_indicator;	// 4 bytes
-	rgb_indicator layer_3_indicator;	// 4 bytes
-	uint16_t alphas_mods[5];            // 10 bytes
-} rgb_matrix_config;                // = 36 bytes
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     enable  :1;
+    uint8_t  mode    :6;
+    uint16_t hue     :9;
+    uint8_t  sat     :8;
+    uint8_t  val     :8;
+  };
+} rgb_config_t;
 
-#define EEPROM_BACKLIGHT_CONFIG_ADDR ((void*)35)
-// rgb_matrix_config uses 36 bytes
-// 35+36=71
-#define EEPROM_BACKLIGHT_KEY_COLOR_ADDR ((void*)71)
-
+// This runs after another backlight effect and replaces
+// colors already set
+__attribute__((weak))
+void backlight_effect_indicators(void) {};
 
 void backlight_effect_single_LED_test(void);
 
@@ -107,18 +95,6 @@ void backlight_unset_key_hit(uint8_t row, uint8_t col);
 
 void backlight_effect_increase(void);
 void backlight_effect_decrease(void);
-
-void backlight_brightness_increase(void);
-void backlight_brightness_decrease(void);
-
-void backlight_color_1_hue_increase(void);
-void backlight_color_1_hue_decrease(void);
-void backlight_color_1_sat_increase(void);
-void backlight_color_1_sat_decrease(void);
-void backlight_color_2_hue_increase(void);
-void backlight_color_2_hue_decrease(void);
-void backlight_color_2_sat_increase(void);
-void backlight_color_2_sat_decrease(void);
 
 void *backlight_get_key_color_eeprom_address(uint8_t led);
 void backlight_get_key_color( uint8_t led, HSV *hsv );

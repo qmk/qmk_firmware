@@ -24,6 +24,9 @@ __attribute__((weak))
 void rgblight_step(void) {};
 
 __attribute__((weak))
+void rgblight_step_reverse(void) {};
+
+__attribute__((weak))
 void rgblight_increase_hue(void) {};
 
 __attribute__((weak))
