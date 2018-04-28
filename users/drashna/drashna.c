@@ -37,13 +37,12 @@ float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
 
-bool faux_click_enabled = false;
-bool is_overwatch = false;
 static uint16_t copy_paste_timer;
 #ifdef RGBLIGHT_ENABLE
 bool rgb_layer_change = true;
 #endif
 
+userspace_config_t userspace_config;
 
 //  Helper Functions
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
@@ -167,8 +166,8 @@ void matrix_init_user(void) {
 #endif // RGBLIGHT_ENABLE
   }
 
-  is_overwatch = eeprom_read_byte(EECONFIG_MACROS) ? true : false;
-  clicky_enable = eeprom_read_byte(EECONFIG_CLICKY) ? true : false;
+  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+  clicky_enable = userspace_config.clicky_enable;
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -193,7 +192,7 @@ void matrix_scan_user(void) {
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
     clear_keyboard();
-    tap(is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string(str);
     wait_ms(50);
@@ -298,9 +297,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // to save on firmware space, since it's limited.
 #if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { is_overwatch = !is_overwatch; eeprom_update_byte(EECONFIG_MACROS, is_overwatch); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif //RGBLIGHT_ENABLE
     return false; break;
   case KC_SALT:
@@ -383,7 +382,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
   case CLICKY_TOGGLE:
-    eeprom_update_byte(EECONFIG_CLICKY, clicky_enable);
+    userspace_config.clicky_enable = clicky_enable;
+    eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
     break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
@@ -452,7 +452,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
     if (rgb_layer_change) {
       rgblight_sethsv_orange();
-      is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+      userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
     }
 #endif // RGBLIGHT_ENABLE
     break;

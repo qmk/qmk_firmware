@@ -49,14 +49,20 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool is_overwatch;
 extern bool rgb_layer_change;
 extern bool clicky_enable;
 
 uint32_t layer_state_set_user(uint32_t state);
 
-#define EECONFIG_CLICKY (uint8_t *)20
-#define EECONFIG_MACROS (uint8_t *)21
+#define EECONFIG_USERSPACE (uint8_t *)20
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
