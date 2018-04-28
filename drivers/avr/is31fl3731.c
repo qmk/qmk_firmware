@@ -1,4 +1,5 @@
 /* Copyright 2017 Jason Williams
+ * Copyright 2018 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

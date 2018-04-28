@@ -48,7 +48,7 @@ typedef struct
 {
 	HSV color;
 	uint8_t index;
-} zeal_indicator;
+} rgb_indicator;
 
 typedef struct
 {
@@ -65,10 +65,10 @@ typedef struct
 	uint8_t effect;                     // 1 byte
 	HSV color_1;                        // 3 bytes
 	HSV color_2;                        // 3 bytes
-	zeal_indicator caps_lock_indicator;	// 4 bytes
-	zeal_indicator layer_1_indicator;	// 4 bytes
-	zeal_indicator layer_2_indicator;	// 4 bytes
-	zeal_indicator layer_3_indicator;	// 4 bytes
+	rgb_indicator caps_lock_indicator;	// 4 bytes
+	rgb_indicator layer_1_indicator;	// 4 bytes
+	rgb_indicator layer_2_indicator;	// 4 bytes
+	rgb_indicator layer_3_indicator;	// 4 bytes
 	uint16_t alphas_mods[5];            // 10 bytes
 } rgb_matrix_config;                // = 36 bytes
 
