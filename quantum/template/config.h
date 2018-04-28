@@ -48,10 +48,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
+
+/*
+ * QMK DFU
+ *
+ * If BOOTLOADER is set to QMK-dfu, define these values to configure QMK-DFU options
+ */
+
+// #define QMK_ESC_INPUT D0 // usually ROW
+// #define QMK_ESC_OUTPUT F1 // usually COL
+// #define QMK_LED B0
+// #define QMK_SPEAKER C6
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

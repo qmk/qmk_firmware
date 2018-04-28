@@ -39,13 +39,31 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
+# Bootloader type
+# This should be used, over the BOOTLOADER_SIZE, as this will actually set that
+# option as well.  Additionally, it enables other special handling for some
+# controllers, so that they function properly. Such as the Caterina bootloader,
+# or Teensy's halfkay.
+# If the Bootloader isn't listed here, or doesn't use the normal size, then use
+# the BOOTLOADER_SIZE option instead
+#   amtel-dfu
+#   lufa-dfu
+#   qmk-dfu
+#   halfkay (Teensy)
+#   halfkay (Teensy ++)
+#   caterina (Pro Micro)
+#   BootloadHID  (ps2avrGB)
+
+
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
 #   Teensy++ halfKay 1024
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+BOOTLOADER = caterina
+#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
