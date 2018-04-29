@@ -10,15 +10,35 @@
 
 #define BUFFER_SIZE 32
 
+/*-----
+  Special
+-----*/
+
 #define CHAR_BEG '('
 #define CHAR_END ')'
 
+/*-----
+  Operators
+-----*/
+
 #define CHAR_ADD '+'
+#define PRIO_ADD 1
+
 #define CHAR_SUB '-'
+#define PRIO_SUB 1
+
 #define CHAR_MUL '*'
+#define PRIO_MUL 2
+
 #define CHAR_DIV '/'
+#define PRIO_DIV 2
 
 #define CHAR_EXP '^'
+#define PRIO_EXP 3
+
+/*-----
+  FUNCTIONS
+-----*/
 
 #define CHAR_SIN 's'
 #define CHAR_COS 'c'
@@ -33,26 +53,26 @@
 
 #define CHAR_SQT 'q'
 
-struct OP
+struct OP // Operator/function
 {
   char c;
   unsigned char priority;
   bool ltr;
 };
 
-union TokenRaw
+union TokenRaw // A token after the input has been processed, can either be a number or an operator/function
 {
   double num;
   struct OP op;
 };
 
-struct Token
+struct Token // Encapsulator
 {
   bool isNum;
   union TokenRaw raw;
 };
 
-enum CalcFunctions
+enum CalcFunctions // Hardware calculator key functionality
 {
   CALC = SAFE_RANGE,
   ENDCALC
@@ -60,17 +80,17 @@ enum CalcFunctions
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
+/* Base layer
  * ,-----------------------------------------------------------------------------------------.
- * | ESC |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |   Bkspc   |
+ * | ESC |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
  * |-----------------------------------------------------------------------------------------+
- * | Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+ * |  Tab   |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
  * |-----------------------------------------------------------------------------------------+
- * | FN      |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
+ * |   Fn    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
  * |-----------------------------------------------------------------------------------------+
- * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |       RSh |  U  | Del |
+ * |   Shift   |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   Shift   |  U  | Del |
  * |-----------------------------------------------------------------------------------------+
- * | Ctrl |  Cmd  |  Alt  |              Space                |  /  |  FN  |  L  |  D  |  R  |
+ * | Ctrl |  Cmd  |  Alt  |               Space               |  /  |  Fn  |  L  |  D  |  R  |
  * `-----------------------------------------------------------------------------------------'
  */
 
@@ -82,17 +102,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_SLSH, MO(1), KC_LEFT, KC_DOWN, KC_RIGHT
       ),
 
-/* FN Layer
+/* Fn layer
  * ,-----------------------------------------------------------------------------------------.
- * |  ~  | F1  | F2  | F3  | F4  | F5  | F6  | f7  | F8  | F9  | F10 | F11 | F12 |   CALC    |
+ * |  ~  | F1  | F2  | F3  | F4  | F5  | F6  | f7  | F8  | F9  | F10 | F11 | F12 | Backspace |
  * |-----------------------------------------------------------------------------------------+
- * |Num_Lock| NP1 |     |     |     |     |     |     |     |     | NP0 |VolD |VolU |Mute    |
+ * | Reset  | NP1 | NP2 | NP3 | NP4 | NP5 | NP6 | NP7 | NP8 | NP9 | NP0 |VolD |VolU |  Mute  |
  * |-----------------------------------------------------------------------------------------+
- * |         | AA  | AE  | AI  | AO  | AU  | AN  |     |     |BLD  |BLI  | BLT |    Menu     |
+ * |         |     |     |     |     |     |     |     |     | BlD | BlI | BlT |    Menu     |
  * |-----------------------------------------------------------------------------------------+
- * |Shift      | Cyc+| Cyc-| Val+| Val-| Hue+| Hue-| Sat+| Sat-| TOG |     RSh   | Pup | Ins |
+ * |   Shift   | Cyc+| Cyc-| Val+| Val-| Hue+| Hue-| Sat+| Sat-| Tog |   Shift   | Pup | Ins |
  * |-----------------------------------------------------------------------------------------+
- * | Ctrl |  Cmd   |  Alt |                                   | CALC|      | Home| Pdn | End |
+ * | Ctrl |  Cmd  |  Alt  |               Space               |HwCal|      |Home | Pdn | End |
  * `-----------------------------------------------------------------------------------------'
  */
 
@@ -104,17 +124,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, TO(2), ______, KC_HOME, KC_PGDOWN, KC_END
       ),
 
-  /* CALC Layer
+  /* Hardware calculator layer
   * ,-----------------------------------------------------------------------------------------.
-  * |     |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |BKSPC      |
+  * |EndCa|  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
   * |-----------------------------------------------------------------------------------------+
-  * |        |     |     |     |     |     |     |     |     |     |     |     |     |        |
+  * |        |  Q  |     |     |     |  T  |     |     |     |     |     |     |     |        |
   * |-----------------------------------------------------------------------------------------+
-  * |         |     |     |     |     |     |     |     |     |     |     |     |CALC         |
+  * |         |     |  S  |     |     |     |     |     |     |  L  |     |     |     Calc    |
   * |-----------------------------------------------------------------------------------------+
-  * |Shift      |     |     |     |     |     |     |     |     |     |     RSh   |     |     |
+  * |   Shift   |     |     |     |  C  |     |     |     |     |  .  |   Shift   |     |     |
   * |-----------------------------------------------------------------------------------------+
-  * |      |        |      |                                   | /   |      |     |     |     |
+  * |      |        |      |                                   |  /  |      |     |     |     |
   * `-----------------------------------------------------------------------------------------'
   */
 
@@ -127,23 +147,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-static char backspaceText[BUFFER_SIZE + 1];
-static char text[BUFFER_SIZE + 1];
-static unsigned char inputLocation = 0;
+static char backspaceText[BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
+static char text[BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
+static unsigned char inputLocation = 0; // Current index in text input
 
-double calc(char input[])
+/*-----
+  Known Problem: A negative sign before an open parenthesis as the first character in the input such as "-(4+3)" will not be parsed correctly, a very hacky solution would be to force the first character of the input to be a 0
+-----*/
+double calc(char input[]) // Finds value of input char array, relatively small and fast I think
 {
-  char inputToken[BUFFER_SIZE + 1];
-  unsigned char inputTokenLocation = 0, inputLocation = 0;
+  char inputToken[BUFFER_SIZE + 1]; // Input buffer, used when a single token (generally a number) takes up more
+  unsigned char inputTokenLocation = 0, inputLocation = 0; // Keep track of indices
 
-  struct Token tokens[BUFFER_SIZE];
-  unsigned char tokenCount = 0;
+  struct Token tokens[BUFFER_SIZE]; // Input, converted to tokens
+  unsigned char tokenCount = 0; // Keep track of index
 
-  bool dashAsMinus = false;
+  bool dashAsMinus = false; // Kind of a hacky solution to determining whether to treat a dash as a minus sign or a negative sign
 
   while(inputLocation < BUFFER_SIZE)
   {
-    short number = input[inputLocation] - '0';
+    short number = input[inputLocation] - '0'; // Using a short here because both signed char and unsigned char would overflow, potentially
     if((number < 10 && number >= 0) || (inputTokenLocation != 0 && input[inputLocation] == '.') || (!dashAsMinus && inputTokenLocation == 0 && input[inputLocation] == '-'))
     {
       inputToken[inputTokenLocation] = input[inputLocation];
@@ -153,7 +176,7 @@ double calc(char input[])
     {
       if(inputTokenLocation != 0)
       {
-        //sscanf(inputToken, "%lf", &tokens[tokenCount].raw.num);
+        // sscanf(inputToken, "%lf", &tokens[tokenCount].raw.num); // I would like to use sscanf here, but the small version of stdio.h on the chip doesn't allow sscanf or its sister functions to be used to process floats
         tokens[tokenCount].raw.num = atof(inputToken);
         tokens[tokenCount].isNum = true;
         for(unsigned char i = 0; i < inputTokenLocation + 1; i++)
@@ -169,6 +192,7 @@ double calc(char input[])
       tokens[tokenCount].raw.op.priority = 0;
       tokens[tokenCount].raw.op.ltr = true;
       dashAsMinus = false;
+      
       switch(input[inputLocation])
       {
       case CHAR_BEG:
@@ -177,19 +201,19 @@ double calc(char input[])
         dashAsMinus = true;
         break;
       case CHAR_ADD:
-        tokens[tokenCount].raw.op.priority = 1;
+        tokens[tokenCount].raw.op.priority = PRIO_ADD;
         break;
       case CHAR_SUB:
-        tokens[tokenCount].raw.op.priority = 1;
+        tokens[tokenCount].raw.op.priority = PRIO_SUB;
         break;
       case CHAR_MUL:
-        tokens[tokenCount].raw.op.priority = 2;
+        tokens[tokenCount].raw.op.priority = PRIO_MUL;
         break;
       case CHAR_DIV:
-        tokens[tokenCount].raw.op.priority = 2;
+        tokens[tokenCount].raw.op.priority = PRIO_DIV;
         break;
       case CHAR_EXP:
-        tokens[tokenCount].raw.op.priority = 3;
+        tokens[tokenCount].raw.op.priority = PRIO_EXP
         tokens[tokenCount].raw.op.ltr = false;
         break;
       case CHAR_SIN:
@@ -223,11 +247,11 @@ double calc(char input[])
     inputLocation++;
   }
   
-  struct Token output[BUFFER_SIZE + 1];
-  struct Token opstack[BUFFER_SIZE + 1];
-  unsigned char outputLocation = 0, opstackLocation = 0;
+  struct Token output[BUFFER_SIZE + 1]; // Final output tokens before evaluation
+  struct Token opstack[BUFFER_SIZE + 1]; // Stack of operators
+  unsigned char outputLocation = 0, opstackLocation = 0; // Keep track of indices
 
-  unsigned char numBrackets = 0;
+  unsigned char numBrackets = 0; // The number of parenthesis
 
   for(unsigned char i = 0; i < tokenCount; i++)
   {
@@ -502,7 +526,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             text[i] = '\0';
             backspaceText[i] = '\0';
           }
-          inputLocation = 0;
           break;
         case ENDCALC:
           layer_state = 0;
@@ -548,7 +571,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
     }
 
-    if(inputLocation < BUFFER_SIZE && characterPressed != '\0')
+    if(inputLocation < (BUFFER_SIZE - 1) && characterPressed != '\0')
     {
       text[inputLocation] = characterPressed;
       inputLocation++;
