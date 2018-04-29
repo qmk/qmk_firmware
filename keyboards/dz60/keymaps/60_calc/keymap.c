@@ -148,15 +148,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 static char backspaceText[BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
-static char text[BUFFER_SIZE + 1] = {[0] = '0'}; // Used to store input and then output when ready to print
-static unsigned char inputLocation = 1; // Current index in text input
+static char text[BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
+static unsigned char inputLocation = 0; // Current index in text input
 
+/*-----
+  Known Problem: A negative sign before an open parenthesis as the first character in the input such as "-(4+3)" will not be parsed correctly, a very hacky solution would be to force the first character of the input to be a 0
+-----*/
 double calc(char input[]) // Finds value of input char array, relatively small and fast I think
 {
   char inputToken[BUFFER_SIZE + 1]; // Input buffer, used when a single token (generally a number) takes up more
   unsigned char inputTokenLocation = 0, inputLocation = 0; // Keep track of indices
 
-  struct Token tokens[BUFFER_SIZE]; // Input, converted to tokens
+  struct Token tokens[BUFFER_SIZE + 1]; // Input, converted to tokens, one extra large to accomodate for possible negative sign then open parenthesis as first character
   unsigned char tokenCount = 0; // Keep track of index
 
   bool dashAsMinus = false; // Kind of a hacky solution to determining whether to treat a dash as a minus sign or a negative sign
@@ -164,10 +167,19 @@ double calc(char input[]) // Finds value of input char array, relatively small a
   while(inputLocation < BUFFER_SIZE)
   {
     short number = input[inputLocation] - '0'; // Using a short here because both signed char and unsigned char would overflow, potentially
+    if(inputLocation == 0 && input[inputLocation] == CHAR_SUB && input[inputLocation + 1] == CHAR_BEG)
+    {
+      tokens[tokenCount].raw.num = 0;
+      tokens[tokenCount].isNum = true;
+
+      tokenCount++;
+      dashAsMinus = true;
+    }
     if((number < 10 && number >= 0) || (inputTokenLocation != 0 && input[inputLocation] == '.') || (!dashAsMinus && inputTokenLocation == 0 && input[inputLocation] == '-'))
     {
       inputToken[inputTokenLocation] = input[inputLocation];
       inputTokenLocation++;
+      inputLocation++;
     }
     else
     {
@@ -240,8 +252,8 @@ double calc(char input[]) // Finds value of input char array, relatively small a
         break;
       }
       tokenCount++;
+      inputLocation++;
     }
-    inputLocation++;
   }
   
   struct Token output[BUFFER_SIZE + 1]; // Final output tokens before evaluation
@@ -498,7 +510,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           characterPressed = '.';
           break;
         case KC_BSPC:
-          if(inputLocation > 1)
+          if(inputLocation > 0)
           {
             inputLocation--;
           }
@@ -511,7 +523,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           forceReturnTrue = true;
           break;
         case CALC:
-          for(int i = 0; i < inputLocation - 1; i++)
+          for(int i = 0; i < inputLocation; i++)
           {
             backspaceText[i] = (char)8;
           }
@@ -523,8 +535,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             text[i] = '\0';
             backspaceText[i] = '\0';
           }
-          text[0] = '0'; // Fixes error with 
-          inputLocation = 1; // Restart at one to ensure the first character is a 0
+          inputLocation = 0;
           break;
         case ENDCALC:
           layer_state = 0;
@@ -570,7 +581,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
     }
 
-    if(inputLocation < (BUFFER_SIZE - 1) && characterPressed != '\0')
+    if(inputLocation < BUFFER_SIZE && characterPressed != '\0')
     {
       text[inputLocation] = characterPressed;
       inputLocation++;
@@ -583,4 +594,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return true;
   }
 }
-
