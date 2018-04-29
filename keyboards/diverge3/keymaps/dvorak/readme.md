@@ -2,9 +2,8 @@
 
 TODO: Can't use spaces in keycodes. fix this.
 ```keycodes
-RSET RESET
-SLWR LT(_LOWER,KC_SPACE)
-SRSE LT(_RAISE,KC_SPACE)
+SLWR LT(_LOWER, KC_SPACE)
+SRSE LT(_RAISE, KC_SPACE)
 ```
 
 ```keymap
