@@ -1,7 +1,8 @@
 #ifndef TAP_DANCE_H
 #define TAP_DANCE_H
 
-#include "splinter.h"
+/* #include "splinter.h" */
+#include "lets_split.h"
 
 typedef struct {
   int state;
