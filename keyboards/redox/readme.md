@@ -12,7 +12,7 @@
 
 - Keyboard Maintainer: [Mattia Dal Ben](https://github.com/mattdibi)
 - Hardware Supported: Redox PCB rev1.0 w/ Pro Micro
-- Hardware Availability: [Falbatech](https://falba.tech/)
+- Hardware Availability: [Falbatech](https://falba.tech/product-category/keyboard-parts/redox-parts/)
 
 Make example for this keyboard (after setting up your build environment):
 
