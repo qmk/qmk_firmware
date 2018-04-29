@@ -148,12 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 static char backspaceText[BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
-static char text[BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
-static unsigned char inputLocation = 0; // Current index in text input
+static char text[BUFFER_SIZE + 1] = {[0] = '0'}; // Used to store input and then output when ready to print
+static unsigned char inputLocation = 1; // Current index in text input
 
-/*-----
-  Known Problem: A negative sign before an open parenthesis as the first character in the input such as "-(4+3)" will not be parsed correctly, a very hacky solution would be to force the first character of the input to be a 0
------*/
 double calc(char input[]) // Finds value of input char array, relatively small and fast I think
 {
   char inputToken[BUFFER_SIZE + 1]; // Input buffer, used when a single token (generally a number) takes up more
@@ -213,7 +210,7 @@ double calc(char input[]) // Finds value of input char array, relatively small a
         tokens[tokenCount].raw.op.priority = PRIO_DIV;
         break;
       case CHAR_EXP:
-        tokens[tokenCount].raw.op.priority = PRIO_EXP
+        tokens[tokenCount].raw.op.priority = PRIO_EXP;
         tokens[tokenCount].raw.op.ltr = false;
         break;
       case CHAR_SIN:
@@ -501,7 +498,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           characterPressed = '.';
           break;
         case KC_BSPC:
-          if(inputLocation > 0)
+          if(inputLocation > 1)
           {
             inputLocation--;
           }
@@ -514,7 +511,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           forceReturnTrue = true;
           break;
         case CALC:
-          for(int i = 0; i < inputLocation; i++)
+          for(int i = 0; i < inputLocation - 1; i++)
           {
             backspaceText[i] = (char)8;
           }
@@ -526,6 +523,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             text[i] = '\0';
             backspaceText[i] = '\0';
           }
+          text[0] = '0'; // Fixes error with 
+          inputLocation = 1; // Restart at one to ensure the first character is a 0
           break;
         case ENDCALC:
           layer_state = 0;
@@ -584,3 +583,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return true;
   }
 }
+
