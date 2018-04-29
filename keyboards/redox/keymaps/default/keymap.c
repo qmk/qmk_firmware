@@ -1,6 +1,4 @@
-#include "redox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
@@ -41,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |<(Gui)|   +  |   -  |*(Alt)|/(Ctr)|Bcksp | Del  |            |Enter |Space |ì(AlG)| Left | Down |  Up  | Right|
  * `------------------------------------------------'            `------------------------------------------------'
  */
-  [_QWERTY] = KEYMAP(
+  [_QWERTY] = LAYOUT(
   //,----+----+----+----+----+----+----.                                                         ,----+----+----+----+----+----+----.
      LT(_NAV, KC_GRV) , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,MO(_SYMB),                           MO(_SYMB), KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,LT(_NAV, KC_MINS),
   //|----+----+----+----+----+----+----|                                                         |----+----+----+----+----+----+----|
@@ -69,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------------------------------------------------'      `------------------------------------------------'
  */
 
-  [_SYMB] = KEYMAP(
+  [_SYMB] = LAYOUT(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  _______,                             _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX, 
     _______, KC_EXLM, RALT(KC_SCLN), RALT(KC_LCBR), RALT(KC_RCBR), KC_TILD, _______,          _______, XXXXXXX, KC_KP_7, KC_KP_8, KC_KP_9, XXXXXXX, XXXXXXX, 
     _______, RALT(KC_QUOT), KC_DLR , RALT(KC_LBRC), RALT(KC_RBRC), RALT(KC_EQL), _______,     _______, XXXXXXX, KC_KP_4, KC_KP_5, KC_KP_6, XXXXXXX, XXXXXXX, 
@@ -90,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |MOUS_1|MOUS_2|      |      |      |      |      |      |      |      |      |
  * `------------------------------------------------'      `------------------------------------------------'
  */
-  [_NAV] = KEYMAP(
+  [_NAV] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______,
     XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, KC_WH_U, XXXXXXX, _______,                            _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, XXXXXXX, _______,                            _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT,XXXXXXX, XXXXXXX,
@@ -98,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, _______,                            _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
-  [_ADJUST] = KEYMAP(
+  [_ADJUST] = LAYOUT(
     XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                              KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
     XXXXXXX, RESET  , RGB_M_P, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,                            RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, KC_DEL,  XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,                            _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
