@@ -7,7 +7,6 @@ extern keymap_config_t keymap_config;
 #define BASE 0
 #define META 1
 #define SYMB 2
-#define GAME 3
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
