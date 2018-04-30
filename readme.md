@@ -1,21 +1,3 @@
-# Overview
-
-This folder is just for some calculator code for my keyboards.
-
-# Making Your Keyboard Into A Calculator
-
-If you'd like to make your keyboard into a calculator, you can do it with this userspace (hopefully!)
-
-You can make a keymap for your keyboard of choice named doogle999 and then you can make it regularly.
-
-You should make one layer that is just the functionality for your calculator, so it just has the keys you need (numbers, symbols, some letters for functions). It should also have END_CALC and CALC somewhere. END_CALC gets you out of calculator mode, and CALC evaluates the calculation.
-
-On one of your other keymaps you should make a key that is TO(layer of calculator). This is how you will activate the calculator. You should also define the layer your calculator is on with the define CALC_LAYER in doogle999.h (this means that for all your keyboards, your calculator layer has to be the same layer).
-
-You can change what characters coorespond to what operators and functions and you can add more functions in doogle999.h and doogle999.c.
-
-You can look at my dz60 keymap doogle999 for an example.
-
 # Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
