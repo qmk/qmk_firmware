@@ -9,6 +9,7 @@ extern keymap_config_t keymap_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _MOUSE 3
+#define TAPPING_TOGGLE 2
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -19,14 +20,11 @@ enum custom_keycodes {
 
 #define KC_ KC_TRNS
 #define _______ KC_TRNS
-
-#define KC_LOWR LOWER
-#define KC_RASE RAISE
-#define KC_RST RESET
-#define KC_BL_S BL_STEP
+#define KC_LOWR MO(_LOWER)
+#define KC_RASE MO(_RAISE)
 #define KC_TGLW TG(_LOWER)
 #define KC_TGRS TG(_RAISE)
-#define KC_MOUS MOUSE
+#define KC_MOUS TT(_MOUSE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -96,56 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                KC_F6 , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
         _______ ,_______, KC_MS_UP ,_______,_______,_______,               KC_MS_WH_UP,_______,_______,_______ ,_______,_______,
         _______ ,KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,_______,_______,               KC_MS_WH_DOWN,KC_MS_BTN1,KC_MS_BTN2,KC_MS_BTN3,_______,_______,
-        _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,KC_MS_ACCEL0,KC_MS_ACCEL2,_______,
+        _______,_______,_______,_______,_______,_______,_______,        _______,_______,_______,_______,KC_MS_ACCEL0,KC_MS_ACCEL1,KC_MS_ACCEL2,
                                      _______ ,_______,_______,            _______,_______,_______
   ),
 
 };
-
-
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      }
-      return false;
-      break;
-  }
-  return true;
-};
-
 
