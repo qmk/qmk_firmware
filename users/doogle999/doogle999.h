@@ -8,6 +8,8 @@
 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
+#define CALC_LAYER 2
+
 #define BUFFER_SIZE 32
 
 /*-----

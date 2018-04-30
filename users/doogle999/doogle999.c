@@ -293,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     send_keyboard_report();
   }
 
-  if(biton32(layer_state) == 2)
+  if(biton32(layer_state) == CALC_LAYER)
   {
     char characterPressed = '\0';
 
