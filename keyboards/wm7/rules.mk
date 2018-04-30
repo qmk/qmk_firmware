@@ -59,7 +59,7 @@ COMMAND_ENABLE = no # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no # Breathing sleep LED during USB suspend
 NKRO_ENABLE = no # USB Nkey Rollover - not yet supported in LUFA
-BACKLIGHT_ENABLE = no# Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = yes# Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes # enable rgb led
 MIDI_ENABLE = no # MIDI controls
 UNICODE_ENABLE = no # Unicode

@@ -34,8 +34,8 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
-//#define BACKLIGHT_PIN F1
-//#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_PIN F1
+#define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -50,9 +50,9 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-// rgb led
-
-//#define RGBLIGHT_ANIMATION
+ 
+// rgb
+#define RGBLIGHT_ANIMATION
 #define RGB_DI_PIN B0
 #define RGBLED_NUM 3
 //#define RGBLIGHT_HUE_STEP 8
