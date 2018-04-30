@@ -55,6 +55,8 @@ The format for the matrix position used in this array is `{row | (col << 4)}`. T
 
 Where all variables are decimels/floats.
 
+`modifier` is a boolean, whether or not a certain key is considered a modifier (used in some effects).
+
 ## Keycodes
 
 All RGB keycodes are currently shared with the RGBLIGHT system:
@@ -70,6 +72,33 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 
 
 	* `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
+
+## RGB Matrix Effects
+
+These are the effects that are currently available:
+
+	enum rgb_matrix_effects {
+		RGB_MATRIX_SOLID_COLOR = 1,
+	    RGB_MATRIX_SOLID_REACTIVE,
+	    RGB_MATRIX_ALPHAS_MODS,
+	    RGB_MATRIX_DUAL_BEACON,
+	    RGB_MATRIX_GRADIENT_UP_DOWN,
+	    RGB_MATRIX_RAINDROPS,
+	    RGB_MATRIX_CYCLE_ALL,
+	    RGB_MATRIX_CYCLE_LEFT_RIGHT,
+	    RGB_MATRIX_CYCLE_UP_DOWN,
+	    RGB_MATRIX_RAINBOW_BEACON,
+	    RGB_MATRIX_RAINBOW_PINWHEELS,
+	    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
+	    RGB_MATRIX_JELLYBEAN_RAINDROPS,
+	#ifdef RGB_MATRIX_KEYPRESSES
+	    RGB_MATRIX_SPLASH,
+	    RGB_MATRIX_MULTISPLASH,
+	    RGB_MATRIX_SOLID_SPLASH,
+	    RGB_MATRIX_SOLID_MULTISPLASH,
+	#endif
+	    RGB_MATRIX_EFFECT_MAX
+	};
 
 ## Custom layer effects
 
