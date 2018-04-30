@@ -10,12 +10,21 @@
 #include "host.h"
 #include "backlight.h"
 #include "suspend.h"
+#include "wait.h"
 
+/** \brief suspend idle
+ *
+ * FIXME: needs doc
+ */
 void suspend_idle(uint8_t time) {
 	// TODO: this is not used anywhere - what units is 'time' in?
-	chThdSleepMilliseconds(time);
+	wait_ms(time);
 }
 
+/** \brief suspend power down
+ *
+ * FIXME: needs doc
+ */
 void suspend_power_down(void) {
 	// TODO: figure out what to power down and how
 	// shouldn't power down TPM/FTM if we want a breathing LED
@@ -24,9 +33,13 @@ void suspend_power_down(void) {
 	// on AVR, this enables the watchdog for 15ms (max), and goes to
 	// SLEEP_MODE_PWR_DOWN
 
-	chThdSleepMilliseconds(17);
+	wait_ms(17);
 }
 
+/** \brief suspend wakeup condition
+ *
+ * FIXME: needs doc
+ */
 __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
 bool suspend_wakeup_condition(void)
@@ -40,7 +53,11 @@ bool suspend_wakeup_condition(void)
     return false;
 }
 
-// run immediately after wakeup
+/** \brief suspend wakeup condition
+ *
+ * run immediately after wakeup
+ * FIXME: needs doc
+ */
 void suspend_wakeup_init(void)
 {
     // clear keyboard state

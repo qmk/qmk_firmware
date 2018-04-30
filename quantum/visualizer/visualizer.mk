@@ -93,18 +93,26 @@ GFXDEFS +=-DGDISP_DRIVER_LIST="$(GDISP_DRIVER_LIST)"
 ifneq ("$(wildcard $(KEYMAP_PATH)/visualizer.c)","")
     SRC += $(KEYMAP_PATH)/visualizer.c
 else 
-    ifeq ("$(wildcard $(SUBPROJECT_PATH)/keymaps/$(KEYMAP)/visualizer.c)","")
-        ifeq ("$(wildcard $(SUBPROJECT_PATH)/visualizer.c)","")
-            ifeq ("$(wildcard $(KEYBOARD_PATH)/visualizer.c)","")
-$(error "visualizer.c" not found")
-            else
-               SRC += keyboards/$(KEYBOARD)/visualizer.c
-            endif
-        else
-            SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/visualizer.c
-        endif
-    else
-        SRC += keyboards/$(KEYBOARD)/$(SUBPROJECT)/keymaps/$(KEYMAP)/visualizer.c
+    VISUALIZER_1 := $(KEYBOARD_PATH_1)/visualizer.c
+    VISUALIZER_2 := $(KEYBOARD_PATH_2)/visualizer.c
+    VISUALIZER_3 := $(KEYBOARD_PATH_3)/visualizer.c
+    VISUALIZER_4 := $(KEYBOARD_PATH_4)/visualizer.c
+    VISUALIZER_5 := $(KEYBOARD_PATH_5)/visualizer.c
+
+    ifneq ("$(wildcard $(VISUALIZER_5))","")
+        SRC += $(VISUALIZER_5)
+    endif
+    ifneq ("$(wildcard $(VISUALIZER_4))","")
+        SRC += $(VISUALIZER_4)
+    endif
+    ifneq ("$(wildcard $(VISUALIZER_3))","")
+        SRC += $(VISUALIZER_3)
+    endif
+    ifneq ("$(wildcard $(VISUALIZER_2))","")
+        SRC += $(VISUALIZER_2)
+    endif
+    ifneq ("$(wildcard $(VISUALIZER_1))","")
+        SRC += $(VISUALIZER_1)
     endif
 endif
 

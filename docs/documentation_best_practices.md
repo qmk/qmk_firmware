@@ -4,7 +4,7 @@ This page exists to document best practices when writing documentation for QMK. 
 
 # Page Opening
 
-Your documentation page should generally start with an H1 heading, followed by a 1 paragrah description of what the user will find on this page. Keep in mind that this heading and paragraph will sit next to the Table of Contents, so keep the heading short and avoid long strings with no whitespace.
+Your documentation page should generally start with an H1 heading, followed by a 1 paragraph description of what the user will find on this page. Keep in mind that this heading and paragraph will sit next to the Table of Contents, so keep the heading short and avoid long strings with no whitespace.
 
 Example:
 
@@ -78,7 +78,7 @@ What about an error message?
 
 # Documenting Features
 
-If you create a new feature for QMK, create a documentation page for it. It doesn't have to be very long, a few sentances describing your feature and a table listing any relevant keycodes is enough. Here is a basic template:
+If you create a new feature for QMK, create a documentation page for it. It doesn't have to be very long, a few sentences describing your feature and a table listing any relevant keycodes is enough. Here is a basic template:
 
 ```markdown
 # My Cool Feature

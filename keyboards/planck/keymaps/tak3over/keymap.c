@@ -1,5 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 //
 //Dropped the Dvorak layer and added two my layer buttons.  Both Raise and lower can be accessed from either side now.
 

@@ -1,7 +1,7 @@
 # Townk's Keymap
 
 Trying to take care of an enjury on my arm I borrow an ergonomic keyboard from
-a frient ([Kinesis Advantage](http://www.kinesis-ergo.com/shop/advantage-pro-for-pc-mac/)).
+a frient ([Kinesis Advantage](https://www.kinesis-ergo.com/shop/advantage2/)).
 
 I really enjoyed my time with it but there were some anoyancies:
 

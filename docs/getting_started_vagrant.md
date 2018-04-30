@@ -10,11 +10,11 @@ Using the `/Vagrantfile` in this repository requires you have [Vagrant](http://w
 
 Other than having Vagrant and Virtualbox installed and possibly a restart of your computer afterwards, you can simple run a 'vagrant up' anywhere inside the folder where you checked out this project and it will start a Linux virtual machine that contains all the tools required to build this project. There is a post Vagrant startup hint that will get you off on the right foot, otherwise you can also reference the build documentation below.
 
-# Flashing the firmware
+# Flashing the Firmware
 
 The "easy" way to flash the firmware is using a tool from your host OS:
 
-* [QMK Flasher](https://github.com/qmk/qmk_flasher)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox) (recommended)
 * [Teensy Loader](https://www.pjrc.com/teensy/loader.html)
 * [Atmel FLIP](http://www.atmel.com/tools/flip.aspx)
 

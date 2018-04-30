@@ -44,14 +44,27 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
 #define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+// rgb led
+
+//#define RGBLIGHT_ANIMATION
+#undef RGBLED_NUM
+#define RGB_DI_PIN F0
+#define RGBLED_NUM 1
+//#define RGBLIGHT_HUE_STEP 8
+//#define RGBLIGHT_SAT_STEP 8
+//#define RGBLIGHT_VAL_STEP 8
+//#define RGB_LIGHT_TIMER
+//#define ws2812_PORTREG PORTF
+//#define ws2812_DDRREG DDRF
 
 /*
  * Feature disable options
