@@ -23,7 +23,7 @@ Configure the hardware via your `config.h`:
 
 Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations.
 
-Define these arrays:
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 	const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	/* Refer to IS31 manual for these locations
@@ -36,7 +36,7 @@ Define these arrays:
 	    ....
 	}
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf). The `driver` is the index of the driver you defined in your `config.h`.
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf). The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 	const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 	/* {row | col << 4}
@@ -57,7 +57,7 @@ Where all variables are decimels/floats.
 
 ## Keycodes
 
-Many RGB keycodes are currently shared with the RGBLIGHT system:
+All RGB keycodes are currently shared with the RGBLIGHT system:
 
 	* `RGB_TOG` - toggle
 	* `RGB_MOD` - cycle through modes
@@ -73,7 +73,13 @@ Many RGB keycodes are currently shared with the RGBLIGHT system:
 
 ## Custom layer effects
 
-Customised effects can be defined with 
+Custom layer effects can be done by defining this in your `<keyboard>.c`:
+
+    void rgb_matrix_indicators_kb(void) {
+    	// rgb_matrix_set_color(index, red, green, blue);
+    }
+
+A similar function works in the keymap as `rgb_matrix_indicators_user`.
 
 ## Additional `config.h` Options
 
@@ -88,3 +94,18 @@ The EEPROM for it is currently shared with the RGBLIGHT system (it's generally a
 
     #define EECONFIG_RGB_MATRIX (uint32_t *)16
 
+Where `16` is an unused index from `eeconfig.h`.
+
+## Suspended state
+
+To use the suspend feature, add this to your `<keyboard>.c`:
+
+	void suspend_power_down_kb(void)
+	{
+	    rgb_matrix_set_suspend_state(true);
+	}
+
+	void suspend_wakeup_init_kb(void)
+	{
+	    rgb_matrix_set_suspend_state(false);
+	}

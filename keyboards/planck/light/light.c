@@ -1,5 +1,4 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2017 Jack Humbert
+/* Copyright 2017 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -156,12 +155,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 void matrix_scan_kb(void)
 {
     matrix_scan_user();
-}
-
-void led_set_kb(uint8_t usb_led)
-{
-    rgb_matrix_set_indicator_state(usb_led);
-    //rgb_matrix_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
 }
 
 void suspend_power_down_kb(void)
