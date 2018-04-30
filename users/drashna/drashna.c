@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna.h"
 #include "version.h"
 
-#if (__has_include("secrets.h"))
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
@@ -36,13 +36,18 @@ PROGMEM const char secret[][64] = {
 #ifdef FAUXCLICKY_ENABLE
 float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
 float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-#else
+#else // FAUXCLICKY_ENABLE
 float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
 float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-#endif
+#endif // FAUXCLICKY_ENABLE
+
+float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
+float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
+
 
 bool faux_click_enabled = false;
 bool is_overwatch = false;
+static uint16_t copy_paste_timer;
 #ifdef RGBLIGHT_ENABLE
 bool rgb_layer_change = true;
 #endif
@@ -127,7 +132,7 @@ void run_diablo_macro_check(void) {
   }
 }
 
-#endif
+#endif // TAP_DANCE_ENABLE
 
 
 // Add reconfigurable functions here, for keymap customization
@@ -178,10 +183,15 @@ void matrix_init_user(void) {
   }
   else
   {
-    rgblight_set_red;
+    rgblight_setrgb_red();
     rgblight_mode(5);
   }
-#endif
+#endif // RGBLIGHT_ENABLE
+
+#if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
+	set_unicode_input_mode(UC_WINC);
+#endif //UNICODE_ENABLE
+
   matrix_init_keymap();
 }
 // No global matrix scan code, so just run keymap's matrix
@@ -189,30 +199,28 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
-#endif
+#endif // TAP_DANCE_ENABLE
   matrix_scan_keymap();
 }
+
+void tap(uint16_t keycode){
+    register_code(keycode);
+    unregister_code(keycode);
+};
 
 // This block is for all of the gaming macros, as they were all doing
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
     clear_keyboard();
-    register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-    unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string(str);
-    register_code(KC_ENTER);
-    unregister_code(KC_ENTER);
+    wait_ms(50);
+    tap(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
-}
-
-// Sent the default layer
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
 }
 
 
@@ -220,22 +228,10 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-// If console is enabled, it will print the matrix position and status of each key pressed
+  // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif //CONSOLE_ENABLE
-
-// Run custom faux click code, but only if faux clicky is enabled
-#ifdef AUDIO_ENABLE
-  if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
-    if (record->event.pressed) {
-      PLAY_SONG(fauxclicky_pressed);
-    } else {
-      stop_note(NOTE_A6);
-      PLAY_SONG(fauxclicky_released);
-    }
-  }
-#endif //AUDIO_ENABLE
 
 
   switch (keycode) {
@@ -307,7 +303,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                    ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
-#endif
+#endif // bootloader options
                    SS_TAP(X_ENTER));
     }
     return false;
@@ -320,7 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_enable();
       rgblight_mode(1);
       rgblight_setrgb_red();
-#endif
+#endif // RGBLIGHT_ENABLE
       reset_keyboard();
     }
     return false;
@@ -398,11 +394,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // TAP_DANCE_ENABLE
 
 
-  case KC_FXCL:
-    if (!record->event.pressed) { // Toggles the custom faux click code
-      faux_click_enabled = !faux_click_enabled;
-    }
-    return false; break;
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
@@ -420,6 +411,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true; break;
 #endif // RGBLIGHT_ENABLE
+
+
+  case KC_CCCV:                                    // One key copy/paste
+    if(record->event.pressed){
+      copy_paste_timer = timer_read();
+    } else {
+      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
+        register_code(KC_LCTL);
+        tap(KC_C);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_copy);
+#endif
+      } else {                                // Tap, paste
+        register_code(KC_LCTL);
+        tap(KC_V);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_paste);
+#endif
+      }
+    }
+    return false;
+    break;
+
+#ifdef UNICODE_ENABLE
+  case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
+    if (record->event.pressed) {
+      register_code(KC_RSFT);
+      tap(KC_9);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      register_code(KC_RSFT);
+      tap(KC_0);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      tap(KC_SPC);
+      process_unicode((0x0361 | QK_UNICODE), record); // Flippy
+      tap(KC_SPC);
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+      process_unicode((0x2501 | QK_UNICODE), record); // Table
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+    }
+    return false;
+    break;
+#endif // UNICODE_ENABLE
+
   }
   return process_record_keymap(keycode, record);
 }
@@ -431,6 +472,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
+
   if (rgb_layer_change) {
     switch (biton32(state)) {
     case _NAV:
@@ -498,7 +540,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     }
   }
-#endif
+#endif // RGBLIGHT_ENABLE
   return layer_state_set_keymap (state);
 }
 

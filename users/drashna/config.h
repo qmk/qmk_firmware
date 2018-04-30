@@ -3,17 +3,21 @@
 
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(IMPERIAL_MARCH)
+#define AUDIO_CLICKY
+#define AUDIO_CLICKY_ON
+#define STARTUP_SONG SONG(E1M1_DOOM)
 #define GOODBYE_SONG  SONG(SONIC_RING)
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND), \
-                                  SONG(PLOVER_SOUND) \
+                                  SONG(OVERWATCH_THEME) \
                                 }
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_SLEEP
+  #ifndef KEYBOARD_ergodox_ez
+    #define RGBLIGHT_SLEEP
+  #endif // !KEYBOARD_ergodox_ez
 #endif // RGBLIGHT_ENABLE
 
 
@@ -40,14 +44,16 @@
 #undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
 
+#define FORCE_NKRO
+
 #ifndef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  1
 #endif
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 150
+#endif // TAPPING_TERM
+#define TAPPING_TERM 176
 
 
 // Disable action_get_macro and fn_actions, since we don't use these

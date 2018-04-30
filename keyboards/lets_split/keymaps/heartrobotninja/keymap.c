@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Lower |Raise | Ctrl | Alt  | Bksp | Spc  |Enter |LShft | ESC  |  <   |   v  |   >  |
  * `-----------------------------------------------------------------------------------'
  */
-        [_COLE] = KEYMAP(
+        [_COLE] = LAYOUT(
             TD(TD_BTK), KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_EQL, TD(TD_TDE),
             TD(TD_LPRN), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, TD(TD_RPRN),
             TD(TD_MIN), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_SLSH, KC_BSLS, KC_UP, TD(TD_USC),
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ---- | ---- | ---- | ---- | ---- | ---- | ---- |   0  |   .  | ---- | ---- | ---- |
  * `-----------------------------------------------------------------------------------'
  */
-        [_LOWER] = KEYMAP(
+        [_LOWER] = LAYOUT(
             ____, ____, ____, ____, ____, ____, KC_7, KC_8, KC_9, KC_PAST, KC_PSLS, KC_CIRC,
             ____, ____, ____, ____, ____, ____, KC_4, KC_5, KC_6, KC_PPLS, KC_PMNS, ____,
             ____, ____, ____, ____, ____, ____, KC_1, KC_2, KC_3, KC_PEQL, ____, ____,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ |  , < | . >  |  / ? |
  * `-----------------------------------------------------------------------------------'
  */
-        [_RAISE] = KEYMAP(
+        [_RAISE] = LAYOUT(
             KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_GRV,
             KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_MINS,
             KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_LBRC, KC_RBRC, KC_BSLS, KC_SCLN, KC_QUOT, KC_EQL,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | ____ | HOME | PGDN | END  |
  * `-----------------------------------------------------------------------------------'
  */
-        [_AUX] = KEYMAP(
+        [_AUX] = LAYOUT(
             RESET, ____, ____, ____, ____, ____, ____, LGUI(KC_L), ____, ____, ____, KC_VOLU,
             ____, ____, LGUI(KC_R), ____, ____, ____, ____, ____, ____, ____, ____, KC_VOLD,
             ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, KC_PGUP, KC_MUTE,
