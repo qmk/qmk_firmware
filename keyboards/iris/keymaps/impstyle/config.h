@@ -26,8 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 
 /* Select hand configuration */
-
+#define PERMISSIVE_HOLD
 #define MASTER_LEFT
+#define PREVENT_STUCK_MODIFIERS
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
@@ -37,5 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_TIME_TO_MAX       20
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
+#define TAPPING_TERM 200
+#include "../../config.h"
 
 #endif

@@ -2,6 +2,7 @@
 
 #include QMK_KEYBOARD_H
 
+
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
@@ -143,17 +144,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case MOUSE:
-      if (record->event.pressed) {
-        layer_on(_MOUSE);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      } else {
-        layer_off(_MOUSE);
-        update_tri_layer(_LOWER, _RAISE, _MOUSE);
-      }
-      return false;
-      break;
-
   }
   return true;
-}
+};
+
+
