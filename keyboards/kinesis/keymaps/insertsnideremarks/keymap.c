@@ -571,6 +571,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
+}
+
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
@@ -657,24 +661,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _ADJUST);
       }
       return false;
-      break;
-    case ENTNS:
-      if (record->event.pressed) {
-        layer_on(_NUMBERS);
-        update_tri_layer(_NUMBERS, _NUMBERS2, _ADJUST);
-      } else {
-        layer_off(_NUMBERS);
-        update_tri_layer(_NUMBERS, _NUMBERS2, _ADJUST);
-      }
-      break;
-    case DELNS:
-      if (record->event.pressed) {
-        layer_on(_NUMBERS2);
-        update_tri_layer(_NUMBERS, _NUMBERS2, _ADJUST);
-      } else {
-        layer_off(_NUMBERS2);
-        update_tri_layer(_NUMBERS, _NUMBERS2, _ADJUST);
-      }
       break;
   }
   return true;

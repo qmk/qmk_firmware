@@ -52,7 +52,7 @@ bool process_clicky(uint16_t keycode, keyrecord_t *record) {
         clicky_freq = new_freq;
       }
     }
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
+    if (keycode == CLICKY_DOWN && record->event.pressed) {
       float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
       if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
         clicky_freq = new_freq;
