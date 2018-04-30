@@ -29,11 +29,12 @@
 extern rgblight_config_t rgblight_config;
 static uint8_t softpwm_buff[3] = {0};
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
 	rgb_init();
+	matrix_init_user();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	uint8_t r = led[0].r, g = led[0].g, b = led[0].b;
 	switch(keycode) {
 		case RGB_RI:
@@ -98,7 +99,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return false;
 	}
 
-	return true;
+	return process_record_user(keycode, record);
 }
 
 
@@ -188,44 +189,4 @@ ISR(TIMER1_COMPA_vect)
     	softpwm_buff[2] = led[0].b;
   	}
 }
-#else
-
-void matrix_init_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
 #endif // V60_POLESTAR
-
-// we need these functions for both versions
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-	led_set_user(usb_led);
-}
-
-void matrix_scan_user(void) {
-}
-
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
-}
