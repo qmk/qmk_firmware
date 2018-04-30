@@ -169,11 +169,36 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 packet_buf[0] = CMD_READ;
                 packet_buf[1] = data[1];
                 switch (data[1]) {
+                    case SUB_READ_400: {
+                        uint32_t addr = 0x400;
+                        printf("Read 0x400\n");
+                        memcpy(packet_buf + 4, (const uint8_t *)addr, 60);
+                        break;
+                    }
+                    case SUB_READ_3C00: {
+                        uint32_t addr = 0x3c00;
+                        printf("Read 0x3c00\n");
+                        memcpy(packet_buf + 4, (const uint8_t *)addr, 4);
+                        break;
+                    }
+                    case SUB_READ_MODE: {
+                        printf("Read Mode\n");
+                        packet_buf[4] = 1;
+                        break;
+                    }
                     case SUB_READ_ADDR: {
                         uint32_t addr = from_leu32(data + 4);
-                        printf("Read Flash %04x\n", addr);
+                        printf("Read Addr %04x\n", addr);
                         if (addr < FLASH_SIZE) {
                             memcpy(packet_buf + 4, (const uint8_t *)addr, MIN(FLASH_SIZE - addr, 60));
+                        }
+                        break;
+                    }
+                    default: {
+                        if(data[1] >= SUB_READ_VER1 && data[1] < 0x30){
+                            uint32_t addr = 0x3000 + ((data[1] - 0x20) * 60);
+                            printf("Read Version %04x\n", addr);
+                            memcpy(packet_buf + 4, (const uint8_t *)addr, 60);
                         }
                         break;
                     }
@@ -198,10 +223,13 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         printf("Info EEPROM %02x %02x %02x\n", packet_buf[1], packet_buf[2], packet_buf[3]);
                         break;
                     }
-                    case SUB_EE_READ:
-                        printf("Read EEPROM %04x\n", addr);
+                    case SUB_EE_READ: {
+                        rtcnt_t start = chSysGetRealtimeCounterX();
                         spi_read(addr, 64, packet_buf);
+                        rtcnt_t end = chSysGetRealtimeCounterX();
+                        printf("Read EEPROM %04x, %d us\n", addr, RTC2US(HT32_HCLK_FREQUENCY, end - start));
                         break;
+                    }
                     case SUB_EE_WRITE:
                         printf("Write EEPROM %04x\n", addr);
                         spi_write(addr, 56, data + 8);
