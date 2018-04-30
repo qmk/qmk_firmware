@@ -47,6 +47,27 @@ userspace_config_t userspace_config;
 //  Helper Functions
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index) {
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (default_layer & (1UL << _COLEMAK)) {
+    rgblight_sethsv_at(300, 255, 255, index);
+    rgblight_sethsv_at(300, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _DVORAK)) {
+    rgblight_sethsv_at(120, 255, 255, index);
+    rgblight_sethsv_at(120, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _WORKMAN)) {
+    rgblight_sethsv_at(43, 255, 255, index);
+    rgblight_sethsv_at(43, 255, 255, index);
+  }
+  else {
+    rgblight_sethsv_at(180, 255, 255, index);
+    rgblight_sethsv_at(180, 255, 255, index);
+  }
+}
+#endif // RGBLIGHT_ENABLE
 
 
 // =========================================  TAP DANCE  =========================================
@@ -295,7 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
-#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
+#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2))
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE

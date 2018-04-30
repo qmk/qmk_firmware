@@ -52,7 +52,9 @@ enum userspace_layers {
 extern bool rgb_layer_change;
 extern bool clicky_enable;
 
-uint32_t layer_state_set_user(uint32_t state);
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index);
+#endif // RGBLIGHT_ENABLE
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -116,6 +118,20 @@ enum userspace_custom_keycodes {
 #define WORKMAN KC_WORKMAN
 #define KC_RST KC_RESET
 
+
+#ifdef SWAP_HANDS_ENABLE
+#define KC_C1R3 SH_TT
+#else // SWAP_HANDS_ENABLE
+#define KC_C1R3 KC_BSPC
+#endif // SWAP_HANDS_ENABLE
+
+// OSM keycodes, to keep things clean and easy to change
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+
+#define MG_NKRO MAGIC_TOGGLE_NKRO
+
+
 #ifdef TAP_DANCE_ENABLE
 enum {
   TD_D3_1 = 0,
@@ -140,10 +156,6 @@ enum {
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
-
-// OSM keycodes, to keep things clean and easy to change
-#define KC_MLSF OSM(MOD_LSFT)
-#define KC_MRSF OSM(MOD_RSFT)
 
 
 
@@ -222,7 +234,8 @@ enum {
 #define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
-
+#define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts

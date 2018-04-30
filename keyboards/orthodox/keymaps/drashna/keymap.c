@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define MG_NKRO MAGIC_TOGGLE_NKRO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(\
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                               KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,            KC_PGUP, KC_PGDN,         KC_HOME, KC_END,           _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______,  _______
+  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, _______
 ),
 
 [_RAISE] = LAYOUT(\
@@ -108,26 +107,6 @@ uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
-void rgblight_sethsv_default_helper(uint8_t index) {
-  uint8_t default_layer = eeconfig_read_default_layer();
-  if (default_layer & (1UL << _COLEMAK)) {
-    rgblight_sethsv_at(300, 255, 255, index);
-    rgblight_sethsv_at(300, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _DVORAK)) {
-    rgblight_sethsv_at(120, 255, 255, index);
-    rgblight_sethsv_at(120, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _WORKMAN)) {
-    rgblight_sethsv_at(43, 255, 255, index);
-    rgblight_sethsv_at(43, 255, 255, index);
-  }
-  else {
-    rgblight_sethsv_at(180, 255, 255, index);
-    rgblight_sethsv_at(180, 255, 255, index);
-  }
-
-}
 
 void matrix_scan_keymap (void) {
   static uint8_t current_mods;

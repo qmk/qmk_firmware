@@ -21,11 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna_unicode.h"
 #endif // UNICODEMAP_ENABLE
 
-#ifdef SWAP_HANDS_ENABLE
-#define KC_C1R3 SH_TT
-#else // SWAP_HANDS_ENABLE
-#define KC_C1R3 KC_BSPC
-#endif // SWAP_HANDS_ENABLE
+
 
 //enum more_custom_keycodes {
 //    KC_P00 = NEW_SAFE_RANGE
@@ -61,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    OSL(_MOUS),           OSL(_MOUS), KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
+             KC_EQL,  ________________NUMBER_LEFT________________, OSL(_MOUS),           OSL(_MOUS), ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS,
              KC_C1R3, _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, KC_QUOT,
              KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
