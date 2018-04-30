@@ -15,15 +15,17 @@
  */
 #include "v60_type_r.h"
 
+#include "quantum.h"
+
+// if we've got an RGB underglow!
+#ifdef V60_POLESTAR
+
 #include "rgblight.h"
 
 #include <avr/pgmspace.h>
 
 #include "action_layer.h"
-#include "quantum.h"
 
-// if we've got an RGB underglow!
-#ifdef V60_POLESTAR
 #define SOFTPWM_LED_TIMER_TOP F_CPU/(256*64)
 
 extern rgblight_config_t rgblight_config;
