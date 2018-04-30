@@ -37,8 +37,11 @@ rgb_config_t rgb_matrix_config;
     #define RGB_DISABLE_WHEN_USB_SUSPENDED false
 #endif
 
+#ifndef EECONFIG_RGB_MATRIX
+    #define EECONFIG_RGB_MATRIX EECONFIG_RGBLIGHT
+#endif
+
 bool g_suspend_state = false;
-uint8_t g_indicator_state = 0;
 
 // Global tick at 20 Hz
 uint32_t g_tick = 0;
@@ -54,10 +57,10 @@ uint32_t g_any_key_hit = 0;
 #endif
 
 uint32_t eeconfig_read_rgb_matrix(void) {
-  return eeprom_read_dword(EECONFIG_RGBLIGHT);
+  return eeprom_read_dword(EECONFIG_RGB_MATRIX);
 }
 void eeconfig_update_rgb_matrix(uint32_t val) {
-  eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  eeprom_update_dword(EECONFIG_RGB_MATRIX, val);
 }
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
@@ -140,10 +143,6 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
 
 void rgb_matrix_set_suspend_state(bool state) {
     g_suspend_state = state;
-}
-
-void rgb_matrix_set_indicator_state(uint8_t state) {
-    g_indicator_state = state;
 }
 
 void rgb_matrix_test(void) {
@@ -688,7 +687,19 @@ void rgb_matrix_task(void) {
 
 }
 
-// void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column )
+void rgb_matrix_indicators(void) {
+    rgb_matrix_indicators_kb();
+    rgb_matrix_indicators_user();
+}
+
+__attribute__((weak))
+void rgb_matrix_indicators_kb(void) {}
+
+__attribute__((weak))
+void rgb_matrix_indicators_user(void) {}
+
+
+// void rgb_matrix_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column )
 // {
 //  if ( row >= MATRIX_ROWS )
 //  {
@@ -759,7 +770,7 @@ uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
 // void *backlight_get_custom_key_color_eeprom_address( uint8_t led )
 // {
 //     // 3 bytes per color
-//     return EECONFIG_RGBLIGHT + ( led * 3 );
+//     return EECONFIG_RGB_MATRIX + ( led * 3 );
 // }
 
 // void backlight_get_key_color( uint8_t led, HSV *hsv )

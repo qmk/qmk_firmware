@@ -86,8 +86,9 @@ enum rgb_matrix_effects {
 
 // This runs after another backlight effect and replaces
 // colors already set
-__attribute__((weak))
-void rgb_matrix_indicators(void) {};
+void rgb_matrix_indicators(void);
+void rgb_matrix_indicators_kb(void);
+void rgb_matrix_indicators_user(void);
 
 void rgb_matrix_single_LED_test(void);
 
