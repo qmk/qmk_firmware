@@ -33,7 +33,12 @@ Copyright 2017 Lei Yu <yuleiz@gmail.com>
 //#define MATRIX_HAS_GHOST
 
 /* number of backlight levels */
+//#define BACKLIGHT_PIN F1
 //#define BACKLIGHT_LEVELS 3
+
+/* set rgb configuration */
+#define RGB_DI_PIN F0
+#define RGBLED_NUM 1
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5

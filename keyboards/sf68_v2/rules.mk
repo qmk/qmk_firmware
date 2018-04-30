@@ -59,6 +59,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = no # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE = yes # enable rgb led
 MIDI_ENABLE = no # MIDI controls
 UNICODE_ENABLE = no # Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID

@@ -3,11 +3,10 @@
 
 void matrix_init_kb(void)
 {
+    // set pf1 as output
+    DDRF |= 1<<1;
 
-    // set pd0&pd1 as output
-    DDRF |= _BV(1);
-
-    //PORTD |= 1;
+    PORTF |= 1 << 1;
     matrix_init_user();
 }
 void matrix_scan_kb(void)
@@ -21,6 +20,6 @@ void led_set_kb(uint8_t usb_led) {
       PORTF |= (1<<1);
     } else {
       // Turn capslock off
-      PORTF &= (1<<1);
+      PORTF &= ~(1<<1);
     }
   }
