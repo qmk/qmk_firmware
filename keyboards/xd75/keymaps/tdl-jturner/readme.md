@@ -7,6 +7,6 @@ Make Command: make xd75:tdl-jturner
 
 Notes:
 * Based on Qwerty
-* Tweaks for programming focus including braces on mods and custom shift Codes
+* Tweaks for DBA & Programming including tap dance braces on lower right, custom shift codes, and F5 access on Nav layer
 * Layers are all based on layer control on the left and the right is a 10 key pattern
 * Layers include Functions, Media, Numpad, Navigation, Mouse, System, and Lighting

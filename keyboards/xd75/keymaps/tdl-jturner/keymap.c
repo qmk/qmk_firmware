@@ -1,4 +1,4 @@
-/* Copyright 2018 Josh Turner
+/* Copyright 2018 Josh Turner (/u/tdl-jturner)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -160,16 +160,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   }
 };
 
+//Define layer colors
+#define rgblight_setrgb_user_base()  rgblight_sethsv(325,255,255)
+#define rgblight_setrgb_user_LYFK()  rgblight_sethsv_red()
+#define rgblight_setrgb_user_LYMED() rgblight_sethsv_blue()
+#define rgblight_setrgb_user_LYNUM() rgblight_sethsv_purple()
+#define rgblight_setrgb_user_LYNAV() rgblight_sethsv_cyan()
+#define rgblight_setrgb_user_LYMOS() rgblight_sethsv_orange()
+#define rgblight_setrgb_user_LYSYS() rgblight_sethsv_green()
+#define rgblight_setrgb_user_LYLT()  rgblight_sethsv_yellow()
+#define rgblight_setrgb_user_LYMD()  rgblight_sethsv_white()
 
-#define rgblight_setrgb_user_base()  rgblight_show_solid_color(0XED, 0x02, 0x8C)
-#define rgblight_setrgb_user_LYFK()  rgblight_show_solid_color(0xFF, 0x00, 0x00)
-#define rgblight_setrgb_user_LYMED() rgblight_show_solid_color(0x00, 0x00, 0xFF)
-#define rgblight_setrgb_user_LYNUM() rgblight_show_solid_color(0x47, 0x6E, 0x6A)
-#define rgblight_setrgb_user_LYNAV() rgblight_show_solid_color(0x00, 0xFF, 0xFF)
-#define rgblight_setrgb_user_LYMOS() rgblight_show_solid_color(0xFF, 0x8C, 0x00)
-#define rgblight_setrgb_user_LYSYS() rgblight_show_solid_color(0x00, 0xFF, 0x00)
-#define rgblight_setrgb_user_LYLT()  rgblight_show_solid_color(0xFF, 0xFF, 0x00)
-#define rgblight_setrgb_user_LYMD()  rgblight_show_solid_color(0xFF, 0xFF, 0xFF)
+//initialize rgb
+void matrix_init_user(void) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_setrgb_user_base();
+}
 
 //Set a color based on the layer
 uint32_t layer_state_set_user(uint32_t state) {
@@ -200,6 +207,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     default:
       rgblight_setrgb_user_base();
+      break;
   }
   return state;
 }
