@@ -24,7 +24,8 @@ CHANGELOG:
  0.4 - After more useage, I realized that the ESC key was in the way 
        of my muscle memory (gee, thanks, Planck!) so I moved it to
        the normal Caps Lock position, and moved Caps Lock to the same
-       position on the RAISE and LOWER layers.
+       position on the RAISE and LOWER layers. Added code to turn off
+       the Pro Micro LEDs after flashing.
 
 TODO:
 
@@ -127,6 +128,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
 
+};
+
+void matrix_init_user(void) {
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

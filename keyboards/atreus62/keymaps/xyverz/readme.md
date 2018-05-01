@@ -22,6 +22,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 #### 0.4
  * Moved location of Escape key to Caps Lock position. Moved Caps Lock to same position on Raise/Lower Layers.
  * Put Tilde/Grave in the upper-left corner
+ * Added code to turn off the red LEDs on the Pro Micro after flashing. They were annoying me.
 
 ### TODO:
 
