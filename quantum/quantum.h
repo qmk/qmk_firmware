@@ -157,7 +157,7 @@ void matrix_init_user(void);
 void matrix_scan_user(void);
 bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
-bool process_record_user(const uint16_t keycode, const keyrecord_t *const record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
 

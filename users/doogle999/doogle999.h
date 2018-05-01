@@ -96,5 +96,4 @@ enum CalcFunctions // Hardware calculator key functionality
   ENDCALC
 };
 
-
 #endif

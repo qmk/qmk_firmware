@@ -378,7 +378,7 @@ static int process_input(const uint16_t keycode, const uint8_t mods, const keyev
   }
 }
 
-bool process_record_user(const uint16_t keycode, const keyrecord_t *const record)
+bool process_record_user(uint16_t keycode, keyrecord_t* record)
 {
 	static char text[CALC_BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
 	static char backspaceText[CALC_BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
