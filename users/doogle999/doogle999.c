@@ -289,6 +289,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           break;
         case KC_KP_9:
           break;
+        case KC_KP_DOT:
+          break;
         default:
           numpadKeyPressed = false;
           break;
@@ -319,6 +321,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       {
         switch(keycode)
         {
+        case KC_KP_0:
+          characterPressed = '0';
+          break;
+        case KC_KP_1:
+          characterPressed = '1';
+          break;
+        case KC_KP_2:
+          characterPressed = '2';
+          break;
+        case KC_KP_3:
+          characterPressed = '3';
+          break;
+        case KC_KP_4:
+          characterPressed = '4';
+          break;
+        case KC_KP_5:
+          characterPressed = '5';
+          break;
+        case KC_KP_6:
+          characterPressed = '6';
+          break;
+        case KC_KP_7:
+          characterPressed = '7';
+          break;
+        case KC_KP_8:
+          characterPressed = '8';
+          break;
+        case KC_KP_9:
+          characterPressed = '9';
+          break;
         case KC_0:
           characterPressed = '0';
           break;
@@ -352,7 +384,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         case KC_MINUS:
           characterPressed = CALC_CHAR_SUB;
           break;
+        case KC_KP_MINUS:
+          characterPressed = CALC_CHAR_SUB;
+          break;
         case KC_SLASH:
+          characterPressed = CALC_CHAR_DIV;
+          break;
+        case KC_KP_SLASH:
           characterPressed = CALC_CHAR_DIV;
           break;
         case KC_S:
@@ -371,6 +409,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           characterPressed = CALC_CHAR_LGE;
           break;
         case KC_DOT:
+          characterPressed = CALC_CHAR_DEC;
+          break;
+        case KC_KP_DOT:
           characterPressed = CALC_CHAR_DEC;
           break;
         case KC_P:
@@ -427,10 +468,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         case KC_EQUAL:
           characterPressed = CALC_CHAR_ADD;
           break;
+        case KC_KP_PLUS:
+          characterPressed = CALC_CHAR_ADD;
+          break;  
         case KC_6:
           characterPressed = CALC_CHAR_EXP;
           break;
         case KC_8:
+          characterPressed = CALC_CHAR_MUL;
+          break;
+        case KC_KP_ASTERISK:
           characterPressed = CALC_CHAR_MUL;
           break;
         case KC_S:
