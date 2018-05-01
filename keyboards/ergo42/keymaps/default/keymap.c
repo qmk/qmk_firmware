@@ -23,16 +23,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------|   |------|------+------+------+------+------+------|
  * | Sft  |   Z  |   X  |   C  |   V  |   B  |  N   |   |  B   |   N  |   M  |   ,  |   .  |   /  |  \   |
  * |------+------+------+------+------+------+------|   |------+------+------+------+------+------+------|
- * |PrtSc | App  | GUI  | Alt  |Lang2 |Space |ESC/  |   |BS/   |Enter |Lang1 | Left | Down |  Up  |Right |
- * |      |      |      |      |      |      |~SYMB |   |~META |      |      |      |      |      |      |
+ * |PrtSc | App  | GUI  |XXXXXX|Lang2/|Space |ESC/  |   |BS/   |Enter |Lang1/| Left | Down |  Up  |Right |
+ * |      |      |      |      |Alt   |      |~SYMB |   |~META |      |Sft   |      |      |      |      |
  * `------------------------------------------------'   `------------------------------------------------'
  */
 
 [BASE] = KEYMAP( \
-  KC_JYEN,        KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,   KC_Y,             /**/ KC_T,              KC_Y,   KC_U,     KC_I,    KC_O,    KC_P,    KC_MINS, \
-  LCTL_T(KC_TAB), KC_A,   KC_S,    KC_D,    KC_F,     KC_G,   KC_LBRC,          /**/ KC_RBRC,           KC_H,   KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,        KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,   KC_N,             /**/ KC_B,              KC_N,   KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
-  KC_PSCR,        KC_APP, KC_LGUI, KC_LALT, KC_LANG2, KC_SPC, LT(SYMB, KC_ESC), /**/ LT(META, KC_BSPC), KC_ENT, KC_LANG1, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
+  KC_JYEN,        KC_Q,   KC_W,    KC_E,    KC_R,             KC_T,   KC_Y,             /**/ KC_T,              KC_Y,   KC_U,             KC_I,    KC_O,    KC_P,    KC_MINS, \
+  LCTL_T(KC_TAB), KC_A,   KC_S,    KC_D,    KC_F,             KC_G,   KC_LBRC,          /**/ KC_RBRC,           KC_H,   KC_J,             KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,        KC_Z,   KC_X,    KC_C,    KC_V,             KC_B,   KC_N,             /**/ KC_B,              KC_N,   KC_M,             KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
+  KC_PSCR,        KC_APP, KC_LGUI, XXXXXXX, LALT_T(KC_LANG2), KC_SPC, LT(SYMB, KC_ESC), /**/ LT(META, KC_BSPC), KC_ENT, LSFT_T(KC_LANG1), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
 ),
 
 /* META
