@@ -90,7 +90,11 @@ ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/nu
 	CFLAGS+= -fdiagnostics-color
 endif
 endif
-CFLAGS += -Wall
+CFLAGS += -Wall -Wchkp -Wnull-dereference \
+	  -Walloc-zero -Wduplicated-branches -Wduplicated-cond \
+	  -Wfloat-equal -Wshadow -Wbad-function-cast\
+	  -Wwrite-strings -Wjump-misses-init -Wlogical-op \
+	  -Wrestrict -Wnested-externs -Wstrict-prototypes
 CFLAGS += -Wstrict-prototypes
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
@@ -100,6 +104,7 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
+CFLAGS += -fstrict-aliasing -ftree-vrp
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 

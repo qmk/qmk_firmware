@@ -96,10 +96,5 @@ enum CalcFunctions // Hardware calculator key functionality
   ENDCALC
 };
 
-extern char backspaceText[CALC_BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
-extern char text[CALC_BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
-extern unsigned char inputLocation; // Current index in text input
-
-double calc(char input[]);
 
 #endif
