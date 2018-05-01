@@ -16,11 +16,16 @@ You should make one layer that is just the functionality for your calculator, so
 
 On one of your other keymaps you should make a key that is TO(layer of calculator). This is how you will activate the calculator. You should also define the layer your calculator is on with the define CALC_LAYER in doogle999.h (this means that for all your keyboards, your calculator layer has to be the same layer).
 
-You can change what characters coorespond to what operators and functions and you can add more functions in doogle999.h and doogle999.c.
+You can change what characters coorespond to what operators and functions and you can add more functions in doogle999.h and doogle999.c, you can also change which characters are sued for which keys. However, as of now standard keys should be used for operations. By that I mean if you want your multiplication sign to be an x, you should change the CALC_CHAR_MUL to an x but you should keep your multiplication keycode on the keymap either as KC_8 (shifted) or KC_KP_ASTERISK. This might be changed in the future so there are custom keycodes so this is less of a pain and more intuitive.
 
 You can look at my dz60 keymap doogle999 for an example.
 
+Issues
+------
+Unfortunately the chip onboard my dz60 only does single precision floating point numbers, but I have everything set up as double so if your chip supports doubles it should work for you.
 
+This Was Here When I Made The ReadMe
+------------------------------------
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

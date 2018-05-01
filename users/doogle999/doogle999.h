@@ -8,10 +8,18 @@
 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
+// Layer the calculator is on
 #define CALC_LAYER 2
-#define CALC_FORCE_NUM_LOCK true
 
+// Inside is whether when you are in calc mode it should automatically force numlock, outside is whether it should do it outside of calculator mode
+#define CALC_FORCE_NUM_LOCK_INSIDE_CALC true
+#define CALC_FORCE_NUM_LOCK_OUTSIDE_CALC true
+
+// Maximum number of characters the calculator can have
 #define CALC_BUFFER_SIZE 32
+
+// Minimum width of the printed text / the number of decimal places
+#define CALC_PRINT_SIZE 6
 
 /*-----
   Special

@@ -259,7 +259,7 @@ double calc(char input[]) // Finds value of input char array, relatively small a
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-  if(CALC_FORCE_NUM_LOCK)
+  if((biton32(layer_state) == CALC_LAYER && CALC_FORCE_NUM_LOCK_INSIDE_CALC) || (biton32(layer_state) != CALC_LAYER && CALC_FORCE_NUM_LOCK_OUTSIDE_CALC))
   {
     bool numpadKeyPressed = true;
 
@@ -439,7 +439,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             backspaceText[i] = (char)8;
           }
           send_string(backspaceText);
-          dtostrf(calc(text), 6, 6, text);
+          dtostrf(calc(text), CALC_PRINT_SIZE, CALC_PRINT_SIZE, text);
           send_string(text);
           for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
           {
@@ -449,6 +449,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           inputLocation = 0;
           break;
         case ENDCALC:
+         for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
+          {
+            text[i] = '\0';
+            backspaceText[i] = '\0';
+          }
+          inputLocation = 0;
           layer_state = 0;
           break;
         default:
@@ -507,6 +513,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         case KC_LSFT:
           forceReturnTrue = true;
           break;
+        case KC_BSPC:
+          forceReturnTrue = true;
+          break;
       }
     }
 
@@ -514,13 +523,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       text[inputLocation] = characterPressed;
       inputLocation++;
+
+      char characterToSend[2];
+      characterToSend[0] = characterPressed;
+      characterToSend[1] = '\0';
+
+      send_string(characterToSend);
     }
-
-    char characterToSend[2];
-    characterToSend[0] = characterPressed;
-    characterToSend[1] = '\0';
-
-    send_string(characterToSend);
 
     return forceReturnTrue;
   }
