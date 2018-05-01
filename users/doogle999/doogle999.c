@@ -12,7 +12,7 @@ static double calc(const char input[CALC_BUFFER_SIZE +1]) // Finds value of inpu
 
   bool dashAsMinus = false; // Kind of a hacky solution to determining whether to treat a dash as a minus sign or a negative sign
 
-  while(inputLocation < CALC_BUFFER_SIZE)
+  while(inputLocation < CALC_BUFFER_SIZE + 1)
   {
     char digit = input[inputLocation];
 
