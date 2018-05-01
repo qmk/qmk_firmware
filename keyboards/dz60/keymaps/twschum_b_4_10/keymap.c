@@ -11,7 +11,7 @@
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
-/*
+#undef KEYMAP
 #define KEYMAP( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, \
 	K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
@@ -25,7 +25,6 @@
 	{ KC_NO, K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  KC_NO, K312,  K313,  K314 }, \
 	{ K400,  K401,  KC_NO, K403,  KC_NO, K405,  KC_NO, K407,  K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
 }
-*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -40,29 +39,29 @@ KC_MEH,   KC_LALT,  KC_LGUI,  KC_SPC,  TG(2),  MO(1),  TG(3),  MO(4),  KC_LEFT, 
 
 	/* Layer 1: primary fn layer */
 	KEYMAP(
-KC_GRV,    KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,     KC_F11,   KC_F12,   KC_DEL,
-KC_TAB,    KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,  KC_NO,    KC_PGDN,  KC_PGUP,  KC_NO,     KC_NO,      KC_NO,    KC_NO,    KC_NO,
-KC_CAPS,   KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,      KC_NO,    KC_ENT,
-KC_LSHFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_RSHIFT,  KC_HOME,  KC_PGUP,
-KC_MEH,    KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_NO,            KC_NO,  KC_NO,    KC_NO,    KC_DEL,   KC_END,    KC_PGDN
+KC_GRV,    KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,     KC_F6,     KC_F7,     KC_F8,    KC_F9,     KC_F10,     KC_F11,   KC_F12,   KC_DEL,
+KC_TAB,    KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,     KC_NO,     KC_PGDN,   KC_PGUP,  KC_NO,     KC_NO,      KC_NO,    KC_NO,    KC_NO,
+KC_CAPS,   KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,     KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT,  KC_NO,      KC_NO,    KC_ENT,
+KC_LSHFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,     KC_NO,     KC_NO,     KC_NO,    KC_NO,     KC_RSHIFT,  KC_HOME,  KC_PGUP,
+KC_MEH,    KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRANS,         KC_TRANS,  KC_TRANS,  KC_TRANS,  KC_DEL,   KC_END,    KC_PGDN
 		),
 
 	/* Layer 2: mouse navigation */
 	KEYMAP(
-KC_NO,  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,  KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,  KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,  KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,  KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,         KC_NO,         KC_MS_BTN1,    KC_NO,        KC_NO,  KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO
+KC_NO,  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,     KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,     KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,     KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,     KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRANS,     KC_TRANS,  KC_TRANS,       KC_TRANS,       KC_NO,        KC_NO,           KC_NO
 		),
 
 	/* Layer 3: numpad */
 	KEYMAP(
-KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,
+KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_NO,      KC_NO,  KC_NO,  KC_NO,
 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,  KC_NO,  KC_NO,  KC_NO,
-KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_NO,    KC_NO,    KC_NO,    KC_NO,  KC_NO
+KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO
 		),
 	/* Layer 4: right cluster modifiers */
 };
