@@ -459,7 +459,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             backspaceText[i] = '\0';
           }
           inputLocation = 0;
-          layer_state = 0;
+          layer_off(CALC_LAYER);
           break;
         default:
           break;
