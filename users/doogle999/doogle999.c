@@ -451,7 +451,7 @@ bool process_record_user(const uint16_t keycode, const keyrecord_t *const record
     characterToSend[1] = '\0';
 
     send_string(characterToSend);
-
+	return false;
   }
   return true;
 }
