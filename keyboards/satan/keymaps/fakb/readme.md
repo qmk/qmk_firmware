@@ -18,7 +18,7 @@ WHO NEEDS CAPSLOCK ANYWAYS?
 For those rare cases you need to shout at somebody in a comment
 section you can still do a capslock by using TABCTRL
 
-## SUPER key
+## the SUPER key
 
 There are two super keys. They are next to the space bar.
 The intention is easing the use of tiling window mangers

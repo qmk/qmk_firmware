@@ -1,10 +1,5 @@
 #include "satan.h"
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
-// increase readability 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define LCTL_MA LCTL_T(KC_UP)
@@ -12,8 +7,10 @@
 #define RSFT_MA SFT_T(KC_DOWN)
 #define TABS_MA LT(1,KC_TAB)
 #define SPCE_MA LT(2,KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP_FAKB(
+
+[0] = KEYMAP(
  KC_GESC,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL, KC_BSLS,KC_NUBS,\
  TABS_MA,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,KC_BSPC,\
  LCTL_MA,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,XXXXXXX,KC_ENT ,\
