@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pearl.h"
 #include "rgblight.h"
+#include "backlight.h"
 
 #include <avr/pgmspace.h>
 
@@ -37,6 +38,19 @@ void rgblight_set(void) {
 
     i2c_init();
     i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
+}
+
+void backlight_init_ports(void) {
+  DDRD |= (1<<4);
+  PORTD &= ~(1<<4);
+}
+
+void backlight_set(uint8_t level) {
+  if (level > 0) {
+    PORTD |= (1<<4);
+  } else {
+    PORTD &= ~(1<<4);
+  }
 }
 
 __attribute__ ((weak))
