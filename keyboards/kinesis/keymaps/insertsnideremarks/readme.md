@@ -10,9 +10,9 @@ Changes to the thumb clusters include:
 * Backspace have been duplicated on both clusters.
 * The 2u keys serve dual function as momentary layer switchers.
 
-I've largely left the function keys untouched, with the intension of not using them.  They are neither easy to use nor reach due to their locations and size, and, prior to Advantage2, particularly terrible rubber domes were used for them.  They have since updated the keys with Cherry ML switches on Advantage2, but did not resolve the issues of size or location.  Additionally, leaving the function keys unused here makes it easier for me to adapt the keymaps to my other keyboards, most of which do not have physical function keys.
+I've largely left the function keys untouched, with the intension of not using them.  They are neither easy to use nor reach due to their locations and size, and, prior to Advantage2, particularly terrible rubber domes were used.  They have since updated the keys with Cherry ML switches on Advantage2, but did not resolve the issues of size or location.  Additionally, leaving the function keys unused here makes it easier for me to adapt the keymaps to my other keyboards, most of which do not have physical function keys.
 
-I use Colemak Mod-DH Matrix as my default layout.  There QWERTY and Colemak layouts as well.
+I use Colemak Mod-DH Matrix as my default layout.  There are QWERTY and regular Colemak layouts as well.
 
 Additionally, I've added gaming/vanilla version of Colemak Mod-DH Matrix and QWERTY layouts.  These layouts have no access to the Function or Numbers layers, thus no dual-role keys with layer access, and are mainly used for gaming.
 
