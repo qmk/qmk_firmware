@@ -273,7 +273,6 @@ static int process_input(const uint16_t keycode, const uint8_t mods, const keyev
       /* QMK should handle those */
       case KC_RSFT:
       case KC_LSFT:
-      case KC_BSPC:
         return 0;
         break;
     }
@@ -411,8 +410,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record)
 		if(inputLocation > 0)
 		{
 			inputLocation--;
+			text[inputLocation] = '\0';
+			backspaceText[0] = (char)8;
+			backspaceText[1] = '\0';
+			send_string(backspaceText);
 		}
-		return true;
+		return false;
 	case -3:
 		for(int i = 0; i < inputLocation; i++)
 		{
