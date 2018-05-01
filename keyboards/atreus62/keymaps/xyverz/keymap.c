@@ -21,6 +21,10 @@ CHANGELOG:
        Scroll Lock and Pause keys. Added a WOW gaming layer that
        changes the location of Ctrl & Alt to the thumb keys. Added
        readme.
+ 0.4 - After more useage, I realized that the ESC key was in the way 
+       of my muscle memory (gee, thanks, Planck!) so I moved it to
+       the normal Caps Lock position, and moved Caps Lock to the same
+       position on the RAISE and LOWER layers.
 
 TODO:
 
@@ -100,14 +104,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = {
         { KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12  },
         { KC_TILD, KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PIPE },
-        { _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______ },
+        { KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______ },
         { _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______ },
         { _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ }
     },
     [_RAISE] = {
         { KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12  },
         { KC_TILD, KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLS },
-        { _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______ },
+        { KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______ },
         { _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______ },
         { _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ }
     },
