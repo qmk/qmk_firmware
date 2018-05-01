@@ -104,7 +104,6 @@ CFLAGS += -fstrict-aliasing -ftree-vrp
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
-
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level

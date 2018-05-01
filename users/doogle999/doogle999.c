@@ -380,78 +380,78 @@ static int process_input(const uint16_t keycode, const uint8_t mods, const keyev
 
 bool process_record_user(const uint16_t keycode, const keyrecord_t *const record)
 {
-  static char text[CALC_BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
-  static char backspaceText[CALC_BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
+	static char text[CALC_BUFFER_SIZE + 1]; // Used to store input and then output when ready to print
+	static char backspaceText[CALC_BUFFER_SIZE + 1]; // Pretty dumb waste of memory because only backspace characters, used with send_string to backspace and remove input
 
-  if((biton32(layer_state) == CALC_LAYER && CALC_FORCE_NUM_LOCK_INSIDE_CALC) || (biton32(layer_state) != CALC_LAYER && CALC_FORCE_NUM_LOCK_OUTSIDE_CALC))
-  {
-    bool numpadKeyPressed = record->event.pressed &&
-      !(get_mods() & MODS_SHIFT_MASK) &&
-      /* KC_KP_1, KC_KP_2, ..., KC_KP_0, KC_KP_DOT */
-      (keycode >= KC_KP_1 && keycode <= KC_KP_DOT);
+	if((biton32(layer_state) == CALC_LAYER && CALC_FORCE_NUM_LOCK_INSIDE_CALC) || (biton32(layer_state) != CALC_LAYER && CALC_FORCE_NUM_LOCK_OUTSIDE_CALC))
+	{
+		bool numpadKeyPressed = record->event.pressed &&
+			!(get_mods() & MODS_SHIFT_MASK) &&
+			/* KC_KP_1, KC_KP_2, ..., KC_KP_0, KC_KP_DOT */
+			(keycode >= KC_KP_1 && keycode <= KC_KP_DOT);
 
-    if(numpadKeyPressed && !(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)))
-    {
-      add_key(KC_NLCK);
-      send_keyboard_report();
-      del_key(KC_NLCK);
-    }
-  }
+		if(numpadKeyPressed && !(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)))
+		{
+			add_key(KC_NLCK);
+			send_keyboard_report();
+			del_key(KC_NLCK);
+		}
+	}
 
-  if(biton32(layer_state) != CALC_LAYER) { return true; }
+	if(biton32(layer_state) != CALC_LAYER) { return true; }
 
-  int action = process_input(keycode, get_mods(), record->event);
-  switch (action) {
-  case 0:
-    return true;
-  case -1:
-    return false;
-  case -2:
-    if(inputLocation > 0)
-    {
-      inputLocation--;
-    }
-    return true;
-  case -3:
-    for(int i = 0; i < inputLocation; i++)
-    {
-      backspaceText[i] = (char)8;
-    }
-    send_string(backspaceText);
-    dtostrf(calc(text), CALC_PRINT_SIZE, CALC_PRINT_SIZE, text);
-    send_string(text);
-    for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
-    {
-      text[i] = '\0';
-      backspaceText[i] = '\0';
-    }
-    inputLocation = 0;
-    return false;
-  case -4:
-    for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
-    {
-      text[i] = '\0';
-      backspaceText[i] = '\0';
-    }
-    inputLocation = 0;
-    layer_off(CALC_LAYER);
-    return false;
-  default:
-    break;
-  }
-  char characterPressed = (char)action;
+	int action = process_input(keycode, get_mods(), record->event);
+	switch(action)
+	{
+	case 0:
+		return true;
+	case -1:
+		return false;
+	case -2:
+		if(inputLocation > 0)
+		{
+			inputLocation--;
+		}
+		return true;
+	case -3:
+		for(int i = 0; i < inputLocation; i++)
+		{
+			backspaceText[i] = (char)8;
+		}
+		send_string(backspaceText);
+		dtostrf(calc(text), CALC_PRINT_SIZE, CALC_PRINT_SIZE, text);
+		send_string(text);
+		for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
+		{
+			text[i] = '\0';
+			backspaceText[i] = '\0';
+		}
+		inputLocation = 0;
+		return false;
+	case -4:
+		for(unsigned char i = 0; i < CALC_BUFFER_SIZE; i++)
+		{
+			text[i] = '\0';
+			backspaceText[i] = '\0';
+		}
+		inputLocation = 0;
+		layer_off(CALC_LAYER);
+		return false;
+	default:
+		break;
+	}
+	char characterPressed = (char)action;
 
-  if(inputLocation < CALC_BUFFER_SIZE)
-  {
-    text[inputLocation] = characterPressed;
-    inputLocation++;
+	if(inputLocation < CALC_BUFFER_SIZE)
+	{
+		text[inputLocation] = characterPressed;
+		inputLocation++;
 
-    char characterToSend[2];
-    characterToSend[0] = characterPressed;
-    characterToSend[1] = '\0';
+		char characterToSend[2];
+		characterToSend[0] = characterPressed;
+		characterToSend[1] = '\0';
 
-    send_string(characterToSend);
+		send_string(characterToSend);
+	}
 	return false;
-  }
-  return true;
 }
