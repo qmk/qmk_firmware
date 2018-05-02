@@ -9,7 +9,7 @@ extern keymap_config_t keymap_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _MOUSE 3
-#define TAPPING_TOGGLE 2
+#define TAPPING_TOGGLE 2 // double tab
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -20,11 +20,11 @@ enum custom_keycodes {
 
 #define KC_ KC_TRNS
 #define _______ KC_TRNS
-#define KC_LOWR MO(_LOWER)
-#define KC_RASE MO(_RAISE)
-#define KC_TGLW TG(_LOWER)
-#define KC_TGRS TG(_RAISE)
-#define KC_MOUS TT(_MOUSE)
+#define KC_LOWR MO(_LOWER) // Lower layer
+#define KC_RASE MO(_RAISE) // Raise layer
+#define KC_TGLW TG(_LOWER) // toggle lower
+#define KC_TGRS TG(_RAISE) // toggle raise
+#define KC_MOUS TT(_MOUSE) // double tab toggle mouse layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
