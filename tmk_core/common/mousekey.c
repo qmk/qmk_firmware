@@ -89,7 +89,7 @@ static uint8_t wheel_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/4;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) * 2;
     } else if (mousekey_accel & (1<<1)) {
         unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
