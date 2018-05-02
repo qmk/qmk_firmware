@@ -23,4 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CATERINA_BOOTLOADER
 
+#define MOUSEKEY_DELAY             32
+#define MOUSEKEY_INTERVAL          16
+#define MOUSEKEY_MAX_SPEED         9
+#define MOUSEKEY_TIME_TO_MAX       9
+#define MOUSEKEY_WHEEL_MAX_SPEED   1
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 160
+
 #endif
