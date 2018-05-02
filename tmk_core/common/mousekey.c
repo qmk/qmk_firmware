@@ -53,7 +53,7 @@ uint8_t mk_wheel_max_speed = MOUSEKEY_WHEEL_MAX_SPEED;
 uint8_t mk_wheel_time_to_max = MOUSEKEY_WHEEL_TIME_TO_MAX;
 
 
-static uint16_t last_timer = 0;
+static uint16_t last_mouse_timer = 0;
 
 inline int8_t times_inv_sqrt2(int8_t x)
 {
@@ -104,7 +104,7 @@ static uint8_t wheel_unit(void)
 
 void mousekey_task(void)
 {
-    if (timer_elapsed(last_timer) < (mousekey_repeat ? mk_interval : mk_delay*10))
+    if (timer_elapsed(last_mouse_timer) < (mousekey_repeat ? mk_interval : mk_delay*10))
         return;
 
     if (mouse_report.x == 0 && mouse_report.y == 0 && mouse_report.v == 0 && mouse_report.h == 0)
@@ -180,7 +180,7 @@ void mousekey_send(void)
 {
     mousekey_debug();
     host_mouse_send(&mouse_report);
-    last_timer = timer_read();
+    last_mouse_timer = timer_read();
 }
 
 void mousekey_clear(void)
