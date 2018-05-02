@@ -5,86 +5,6 @@
 #define FN_TAB LT(1, KC_TAB)
 #define KC_SLP KC_SYSTEM_SLEEP
 
-
-// Currently cannot get Tap Dance to work reliably so I'm removing it for now.
-
-//Tap Dance Declarations
-// enum {
-//   LBRC_LPRN = 0,
-//   RBRC_RPRN,
-//   LBLP,
-//   RBRP,
-// };
-
-//Tap Dance Definitions
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//   // Tap Dance for left bracket on single tap and left paranthesis on double tap
-//   [LBLP] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LPRN),
-//   // Tap Dance for right bracket on single tap and right paranthesis on double tap
-//   [RBRP] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RPRN),
-// };
-
-
-// void lbrcprn(qk_tap_dance_state_t *state, void *user_data) {
-//     switch (state->count) {
-//     case 1:
-//         register_code(KC_LBRC);
-//         unregister_code(KC_LBRC);
-//         reset_tap_dance (state);
-//         break;
-//     case 2:
-//         register_code(KC_LSFT);
-//         register_code(KC_9);
-//         unregister_code(KC_9);
-//         unregister_code(KC_LSFT);
-//         break;
-//     }
-// }
-// void rbrcprn(qk_tap_dance_state_t *state, void *user_data) {
-//     switch (state->count) {
-//     case 1:
-//       register_code(KC_RBRC);
-//       unregister_code(KC_RBRC);
-//       reset_tap_dance (state);
-//       break;
-//     case 2:
-//       register_code(KC_LSFT);
-//       register_code(KC_0);
-//       unregister_code(KC_0);
-//       unregister_code(KC_LSFT);
-//       break;
-//     }
-// }
-
-// void lbrcprn (qk_tap_dance_state_t *state, void *user_data) {
-//   if (state->count == 1) {
-//     register_code (KC_RSFT);
-//     register_code (KC_9);
-//     unregister_code (KC_9);
-//     unregister_code (KC_RSFT);
-//   } else {
-//     register_code (KC_LBRC);
-//     unregister_code (KC_LBRC);
-//     reset_tap_dance (state);
-//   }
-// }
-// void rbrcprn (qk_tap_dance_state_t *state, void *user_data) {
-//   if (state->count == 1) {
-//     register_code (KC_RSFT);
-//     register_code (KC_0);
-//     unregister_code (KC_0);
-//     unregister_code (KC_RSFT);
-//   } else {
-//     register_code (KC_RBRC);
-//     unregister_code (KC_RBRC);
-//     reset_tap_dance (state);
-//   }
-// }
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//   [LBLP] = ACTION_TAP_DANCE_FN(lbrcprn),
-//   [RBRP] = ACTION_TAP_DANCE_FN(rbrcprn),
-// };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // BASE LAYER
     [0] = LAYOUT_all(
@@ -128,43 +48,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 uint32_t layer_state_set_kb(uint32_t state)
 {
-    // if we are on layer 1
-    if (state & (1<<1)){
-        // light num lock led
-        PORTD |= (1 << PD0);
-    } else{
-        PORTD &= ~(1 << PD0);
-    }
+  if (state & (1<<1)) { // if we are on layer 1
+    PORTD |= (1 << PD0); // light num lock led
+  } else if (state & (1<<2)) { // if we are on layer 2
+    PORTD |= (1 << PD1); // light caps lock led
+  } else if (state & (1<<3)) { // if we are on layer 3
+    PORTD |= (1 << PD6); // light scroll lock led
+  } else if (state & (1<<4)) { // if we are stuck on layer 4
+    PORTD |= (1 << PD0); // light all indicator leds
+    PORTD |= (1 << PD1);
+    PORTD |= (1 << PD6);
+  } else {
+    PORTD &= ~(1 << PD0);
+    PORTD &= ~(1 << PD1);
+    PORTD &= ~(1 << PD6);
+  }
 
-    // if we are on layer 2
-    if (state & (1<<2)){
-        // light caps lock led
-        PORTD |= (1 << PD1);
-    } else{
-        PORTD &= ~(1 << PD1);
-    }
-
-    // if we are on layer 3
-    if (state & (1<<3)){
-        // light scroll lock led
-        PORTD |= (1 << PD6);
-    } else{
-        PORTD &= ~(1 << PD6);
-    }
-
-
-    // if we are on layer 4
-    if (state & (1<<4)){
-        // light all leds
-        PORTD |= (1 << PD0);
-        PORTD |= (1 << PD1);
-        PORTD |= (1 << PD6);
-    } else{
-        PORTD &= ~(1 << PD0);
-        PORTD &= ~(1 << PD1);
-        PORTD &= ~(1 << PD6);
-    }
-
-
-    return state;
+  return state;
 }
