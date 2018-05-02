@@ -33,7 +33,7 @@
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
-extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
 extern const char *layout_names[NUM_LAYOUTS];
 
 const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
