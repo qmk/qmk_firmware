@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>, Sebastian Kaim <sebb@sebb767.de>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -102,4 +102,3 @@ for attempt in range(1, attempts + 1):
 if not found:
     print("Couldn't find a flashable keyboard. Aborting.")
     sys.exit(2)
-
