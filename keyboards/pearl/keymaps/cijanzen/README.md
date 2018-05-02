@@ -16,7 +16,7 @@ A few specifics worth mentioning:
 - Indicator LEDs indicate the current layer
 
 
-![cijanzen's Pearl 40% layout](https://raw.githubusercontent.com/christopherjanzen/qmk_firmware/master/keyboards/pearl/keymaps/cijanzen/pearl-cijanzen-keymap.jpg)
+![cijanzen's Pearl 40% layout](https://raw.githubusercontent.com/christopherjanzen/qmk_firmware/bab090ee24866e6c38892ffc5ffa53813aec3832/keyboards/pearl/keymaps/cijanzen/pearl-cijanzen-keymap.jpg)
 
 Base for this firmware copied from jetpacktuxedo's and rask's QMK firmware
 
