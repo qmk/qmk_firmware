@@ -28,13 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "backlight_custom.h"
 
-extern rgblight_config_t rgblight_config;
-
 // for keyboard subdirectory level init functions
 // @Override
 void matrix_init_kb(void) {
   // call user level keymaps, if any
-  // matrix_init_user();
+  matrix_init_user();
 }
 
 #ifdef BACKLIGHT_ENABLE
@@ -52,6 +50,9 @@ void backlight_set(uint8_t level) {
 }
 #endif
 
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+
 // custom RGB driver
 void rgblight_set(void) {
   if (!rgblight_config.enable) {
@@ -67,7 +68,8 @@ void rgblight_set(void) {
 }
 
 bool rgb_init = false;
-void matrix_scan_user(void) {
+
+void matrix_scan_kb(void) {
   // if LEDs were previously on before poweroff, turn them back on
   if (rgb_init == false && rgblight_config.enable) {
     i2c_init();
@@ -76,5 +78,20 @@ void matrix_scan_user(void) {
   }
 
   rgblight_task();
+#else
+void matrix_scan_kb(void) {
+#endif
+  matrix_scan_user();
   /* Nothing else for now. */
+}
+
+__attribute__((weak)) // overridable
+void matrix_init_user(void) {
+
+}
+
+
+__attribute__((weak)) // overridable
+void matrix_scan_user(void) {
+
 }

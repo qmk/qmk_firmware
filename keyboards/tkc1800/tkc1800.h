@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
     K00,      K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D,      K0F, K0G, K0H, K0I, \
                                                                                K1F, K1G, K1H, K1I, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E, K2F, K2G, K2H, K2I, \

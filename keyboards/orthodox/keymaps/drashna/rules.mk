@@ -7,5 +7,3 @@ TAP_DANCE_ENABLE  = no
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
-FAUXCLICKY_ENABLE = no
-USE_I2C           = no

@@ -18,11 +18,22 @@ Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.
 
-In addition you may need the AVR toolchain and `bootloadHID` for flashing:
+In addition you may need the AVR toolchain and `bootloadHID` ([GitHub repo](https://github.com/whiteneon/bootloadHID)) for flashing:
 
+For macOS:
 ```
 $ brew cask install crosspack-avr
 $ brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
+```
+
+For Linux:
+```
+$ sudo apt install libusb-dev
+$ wget https://www.obdev.at/downloads/vusb/bootloadHID.2012-12-08.tar.gz
+$ tar -xzf bootloadHID.2012-12-08.tar.gz
+$ cd bootloadHID.2012-12-08/commandline
+$ make
+$ sudo cp bootloadHID /usr/bin
 ```
 
 In order to use the `./program` script, which can reboot the board into
@@ -32,7 +43,7 @@ the bootloader, you'll need Python 2 with PyUSB installed:
 $ pip install pyusb
 ```
 
-If you prefer, you can just build it and flash the firmware directly with
+If you prefer (or are having issues with a `program` flash), you can just build it (`make jj40:<keymap-name>` and flash the firmware (`.hex` file) directly with
 `bootloadHID` if you boot the board while holding down `Backspace` (`Top Right Key`) to keep it
 in the bootloader:
 

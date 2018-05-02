@@ -34,6 +34,14 @@ extern backlight_config_t backlight_config;
 #include "fauxclicky.h"
 #endif
 
+#ifdef API_ENABLE
+#include "api.h"
+#endif
+
+#ifdef MIDI_ENABLE
+#include "process_midi.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -139,7 +147,7 @@ void reset_keyboard(void) {
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
 #endif
-#if defined(AUDIO_ENABLE)
+#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
   music_all_notes_off();
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
@@ -209,11 +217,18 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  #ifdef TAP_DANCE_ENABLE
+    preprocess_tap_dance(keycode, record);
+  #endif
+
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
     process_key_lock(&keycode, record) &&
   #endif
+  #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
+      process_clicky(keycode, record) &&
+  #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
@@ -224,7 +239,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -765,12 +780,14 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
   default_layer_set(1U<<default_layer);
 }
 
+uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  uint32_t mask12 = (1UL << layer1) | (1UL << layer2);
+  uint32_t mask3 = 1UL << layer3;
+  return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
+}
+
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
+  layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
 }
 
 void tap_random_base64(void) {
@@ -822,7 +839,7 @@ void matrix_init_quantum() {
 }
 
 void matrix_scan_quantum() {
-  #ifdef AUDIO_ENABLE
+  #if defined(AUDIO_ENABLE)
     matrix_scan_music();
   #endif
 
@@ -904,7 +921,7 @@ void backlight_task(void) {
       _SFR_IO8((backlight_pin >> 4) + 2) &= ~_BV(backlight_pin & 0xF);
     #endif
   }
-  backlight_tick = backlight_tick + 1 % 16;
+  backlight_tick = (backlight_tick + 1) % 16;
 }
 #endif
 
