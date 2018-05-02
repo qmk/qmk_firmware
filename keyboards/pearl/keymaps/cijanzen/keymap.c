@@ -51,7 +51,16 @@ uint32_t layer_state_set_kb(uint32_t state)
   if (state & (1<<1)) { // if we are on layer 1
     PORTD |= (1 << PD0); // light num lock led
   } else if (state & (1<<2)) { // if we are on layer 2
-    PORTD |= (1 << PD1); // light caps lock led
+
+    if (state & (1<<4)) {
+      PORTD |= (1 << PD0); // light all indicator leds
+      PORTD |= (1 << PD1);
+      PORTD |= (1 << PD6);
+    } else {
+      PORTD &= ~(1 << PD0);
+      PORTD |= (1 << PD1); // light caps lock led
+      PORTD &= ~(1 << PD6);
+    }
   } else if (state & (1<<3)) { // if we are on layer 3
     PORTD |= (1 << PD6); // light scroll lock led
   } else if (state & (1<<4)) { // if we are stuck on layer 4
