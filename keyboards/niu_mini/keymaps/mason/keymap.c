@@ -1,4 +1,4 @@
-#include QMK_FIRMWARE_H
+#include QMK_KEYBOARD_H
 
 enum layers {
   _QWERTY,
