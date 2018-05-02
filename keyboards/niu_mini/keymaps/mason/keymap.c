@@ -1,4 +1,4 @@
-#include "niu_mini.h"
+#include QMK_FIRMWARE_H
 
 enum layers {
   _QWERTY,
