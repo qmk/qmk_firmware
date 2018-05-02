@@ -1,18 +1,23 @@
-# rask's Pearl 40%
+# cijanzen's Pearl 40%
 
 ## Layout
 
 The firmware offers five layers:
 
 1. Base layer
-2. Base with numbers and symbols (Fn1)
-3. Base with F-row and arrows (Fn2)
+2. Base with numbers and arrows (Fn1)
+3. Base with F-row and navigation (Fn2)
 4. Base with media and RGB controls (Fn3)
-5. More nav and utils (Fn2+Fn3, aka NavFn)
+5. utils (Fn2+Fn3)
 
-![rask's Pearl 40% layout](https://i.imgur.com/gKVQapZ.png)
+A few specifics worth mentioning:
+- Autoshift has been enabled to allow for easier access of shifted keys
+- Tab will operate as tab key on tap and fn layer on hold
 
-Base for this firmware copied from jetpacktuxedo's QMK firmware.
+
+![cijanzen's Pearl 40% layout](https://i.imgur.com/gKVQapZ.png)
+
+Base for this firmware copied from jetpacktuxedo's and rask's QMK firmware
 
 ---
 
