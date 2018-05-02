@@ -152,7 +152,7 @@ uint32_t layer_state_set_kb(uint32_t state)
         PORTD &= ~(1 << PD6);
     }
 
-    /*
+
     // if we are on layer 4
     if (state & (1<<4)){
         // light all leds
@@ -164,7 +164,7 @@ uint32_t layer_state_set_kb(uint32_t state)
         PORTD &= ~(1 << PD1);
         PORTD &= ~(1 << PD6);
     }
-    */
+
 
     return state;
 }
