@@ -1,7 +1,7 @@
 // iris qwerty layout with mouse layer.
 // double tab to toggle is not working atm
 
-#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_Hd
 
 extern keymap_config_t keymap_config;
 
@@ -24,7 +24,7 @@ enum custom_keycodes {
 #define KC_RASE MO(_RAISE) // Raise layer
 #define KC_TGLW TG(_LOWER) // toggle lower
 #define KC_TGRS TG(_RAISE) // toggle raise
-#define KC_MOUS MO(_MOUSE) // double tab toggle mouse layer
+#define KC_MOUS TT(_MOUSE) // double tab toggle mouse layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -99,4 +99,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-

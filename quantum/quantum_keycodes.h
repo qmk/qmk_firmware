@@ -140,6 +140,12 @@ enum quantum_keycodes {
     AU_OFF,
     AU_TOG,
 
+    // Faux clicky as part of main audio feature
+    CLICKY_TOGGLE,
+    CLICKY_UP,
+    CLICKY_DOWN,
+    CLICKY_RESET,
+
 #ifdef FAUXCLICKY_ENABLE
     // Faux clicky
     FC_ON,
@@ -383,6 +389,9 @@ enum quantum_keycodes {
     MI_MOD, // modulation
     MI_MODSD, // decrease modulation speed
     MI_MODSU, // increase modulation speed
+
+    MI_BENDD, // Bend down
+    MI_BENDU, // Bend up
 #endif // MIDI_ADVANCED
 
     // Backlight functionality
@@ -557,6 +566,11 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define CK_TOGG CLICKY_TOGGLE
+#define CK_RST CLICKY_RESET
+#define CK_UP CLICKY_UP
+#define CK_DOWN CLICKY_DOWN
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_SMOD RGB_MODE_FORWARD
