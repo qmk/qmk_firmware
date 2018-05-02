@@ -70,7 +70,7 @@ When you are done, press `Media` and `Enter`. You will finally hear a tune confi
 
 Press `Media` and the key where you stored your Macro, either `;` or `'`. The Macro will play.
 
-![Imgur](https://i.imgur.com/3XNm5ZP.png)
+![Imgur](https://i.imgur.com/Hxupmys.png)
 
 http://www.keyboard-layout-editor.com/#/gists/4cfb26f84bbb4fabe5e6c7cc22c85e24
 
