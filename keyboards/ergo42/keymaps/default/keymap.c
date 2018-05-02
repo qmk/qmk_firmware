@@ -30,17 +30,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [BASE] = KEYMAP( \
-  KC_JYEN,        KC_Q,   KC_W,    KC_E,    KC_R,             KC_T,   KC_Y,    /**/ KC_T,    KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS, \
-  LCTL_T(KC_TAB), KC_A,   KC_S,    KC_D,    KC_F,             KC_G,   S(KC_9), /**/ S(KC_0), KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,        KC_Z,   KC_X,    KC_C,    KC_V,             KC_B,   KC_N,    /**/ KC_B,    KC_N,   KC_M,                KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
-  KC_PSCR,        KC_APP, KC_LGUI, XXXXXXX, LALT_T(KC_LANG2), KC_SPC, KC_ESC,  /**/ KC_BSPC, KC_ENT, LT(RAISE, KC_LANG1), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
+  KC_JYEN,        KC_Q,   KC_W,    KC_E,            KC_R,             KC_T,   KC_Y,    /**/ KC_T,    KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS, \
+  LCTL_T(KC_TAB), KC_A,   KC_S,    LT(MOUSE, KC_D), KC_F,             KC_G,   S(KC_9), /**/ S(KC_0), KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,        KC_Z,   KC_X,    KC_C,            KC_V,             KC_B,   KC_N,    /**/ KC_B,    KC_N,   KC_M,                KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
+  KC_PSCR,        KC_APP, KC_LGUI, XXXXXXX,         LALT_T(KC_LANG2), KC_SPC, KC_ESC,  /**/ KC_BSPC, KC_ENT, LT(RAISE, KC_LANG1), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT \
 ),
 
 /* Raise
  * ,------------------------------------------------.   ,------------------------------------------------.
  * |Reest |   1  |   2  |   3  |   4  |   5  |   [  |   |   ]  |   6  |   7  |   8  |   9  |   0  |   =  |
  * |------+------+------+------+------+------+------|   |-------------+------+------+------+------+------|
- * |      |   !  |   @  |   #  |   $  |   %  |   (  |   |   )  |   ^  |   &  |   *  |   (  |   )  |      |
+ * |      |   !  |   @  |   #  |   $  |   %  |   (  |   |   )  |   ^  |   &  |   *  |   (  |   )  |   +  |
  * |------+------+------+------+------+------+------|   |------|------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |   [  |   |   ]  |  F6  |  F7  |  F8  |  F9  | F10  |      |
  * |------+------+------+------+------+------+------|   |------+------+------+------+------+------+------|
