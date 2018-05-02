@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONFIG_USER_H
 
 #include QMK_KEYBOARD_CONFIG_H
-#define NO_PRINT
 
+#undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 3
 
-
-// Custom Defines
-#define RGBLIGHT_SLEEP
 
 #endif
