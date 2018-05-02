@@ -11,28 +11,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________QWERTY_L1_________________,                       _________________QWERTY_R1_________________, KC_BSLS,
      KC_C1R3, _________________QWERTY_L2_________________,                       _________________QWERTY_R2_________________, KC_QUOT,
-     KC_MLSF, _________________QWERTY_L3_________________, KC_ALAP,     KC_NO,   _________________QWERTY_R3_________________, KC_LGUI,
+     KC_MLSF, _________________QWERTY_L3_________________, KC_ALAP,     KC_LGUI, _________________QWERTY_R3_________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_COLEMAK] = LAYOUT_wrapper(
      KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________COLEMAK_L1________________,                       _________________COLEMAK_R1________________, KC_BSLS,
      KC_C1R3, _________________COLEMAK_L2________________,                       _________________COLEMAK_R2________________, KC_QUOT,
-     KC_MLSF, _________________COLEMAK_L3________________, KC_ALAP,     KC_NO,   _________________COLEMAK_R3________________, KC_LGUI,
+     KC_MLSF, _________________COLEMAK_L3________________, KC_ALAP,     KC_LGUI, _________________COLEMAK_R3________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_DVORAK] = LAYOUT_wrapper(
      KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________DVORAK_L1_________________,                       _________________DVORAK_R1_________________, KC_BSLS,
      KC_C1R3, _________________DVORAK_L2_________________,                       _________________DVORAK_R2_________________, KC_QUOT,
-     KC_MLSF, _________________DVORAK_L3_________________, KC_ALAP,     KC_NO,   _________________DVORAK_R3_________________, KC_LGUI,
+     KC_MLSF, _________________DVORAK_L3_________________, KC_ALAP,     KC_LGUI, _________________DVORAK_R3_________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_WORKMAN] = LAYOUT_wrapper(
      KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________WORKMAN_L1________________,                       _________________WORKMAN_R1________________, KC_BSLS,
      KC_C1R3, _________________WORKMAN_L2________________,                       _________________WORKMAN_R2________________, KC_QUOT,
-     KC_MLSF, _________________WORKMAN_L3________________, KC_ALAP,     KC_NO,   _________________WORKMAN_R3________________, KC_LGUI,
+     KC_MLSF, _________________WORKMAN_L3________________, KC_ALAP,     KC_LGUI, _________________WORKMAN_R3________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
 
@@ -55,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
       KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR , KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-      _______, KC_MPRV, KC_MNXT, KC_VOLU, KC_PGUP, KC_UNDS,                       KC_EQL , KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-      KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD, KC_PGDN, KC_MINS, _______,     _______, KC_PLUS, KC_END, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+      _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_UNDS,                       KC_EQL , KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+      _______, _______, _______, _______, _______, _______, _______,     _______, KC_PLUS, KC_END, _______, _______, _______, _______,
                                         _______, _______, _______,         _______, _______, _______
    ),
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-#ifdef RGBLIGHT_ENABLE
+#ifdef INDICATOR_LIGHT
 uint32_t layer_state_set_keymap (uint32_t state) {
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
