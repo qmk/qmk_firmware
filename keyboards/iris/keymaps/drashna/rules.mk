@@ -7,13 +7,5 @@ TAP_DANCE_ENABLE  = no
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
+BACKLIGHT_ENABLE = no
 
-CUSTOM_LAYOUT     = no
-LAYOUTS = ortho_5x7
-
-# SRC := $(filter-out serial.c matrix.c i2c.c split_util.c,$(SRC))
-# SRC := $(filter-out serial.c,$(SRC))
-# SRC := $(filter-out matrix.c,$(SRC))
-# SRC := $(filter-out i2c.c,$(SRC))
-# SRC := $(filter-out split_util.c,$(SRC))
-# SRC += quantum/matrix.c

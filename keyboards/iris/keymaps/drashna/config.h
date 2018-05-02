@@ -1,9 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-Copyright 2017 Art Ortenburger
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include QMK_KEYBOARD_CONFIG_H
+#include "config_common.h"
 
 /* Use I2C or Serial, not both */
 
@@ -35,18 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-
-/* key combination for command */
-#ifdef IS_COMMAND
-#undef IS_COMMAND
-#endif
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
-)
-
-
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
+#undef RGBLED_NUM
 #define RGBLED_NUM 16     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
@@ -64,16 +50,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif //RGBLIGHT_ENABLE
 #endif //AUDIO_ENABLE
 
-#undef PRODUCT
-#ifdef KEYBOARD_orthodox_rev1
-#define PRODUCT         Drashna Hacked Orthodox Rev.1
-#elif KEYBOARD_orthodox_rev3
-#define PRODUCT         Drashna Hacked Orthodox Rev.3
-#endif
 
-#define QMK_ESC_OUTPUT D7 // usually COL
-#define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED B0
-#define QMK_SPEAKER C6
+#undef PRODUCT
+#ifdef KEYBOARD_iris_rev2
+#define PRODUCT         Drashna Hacked Iris Rev.2
+#endif
 
 #endif
