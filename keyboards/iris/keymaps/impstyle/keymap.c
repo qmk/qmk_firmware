@@ -1,7 +1,7 @@
 // iris qwerty layout with mouse layer.
 // double tab to toggle is not working atm
 
-#include QMK_KEYBOARD_Hd
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
