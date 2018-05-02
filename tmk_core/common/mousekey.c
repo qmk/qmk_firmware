@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static report_mouse_t mouse_report = {};
 static report_mouse_t wheel_report = {};
 
-static uint8_t mousekey_repeat =  0;
+static uint8_t mouse_repeat = 0;
 static uint8_t mousekey_accel = 0;
 
 static void mousekey_debug(void);
@@ -75,12 +75,12 @@ static uint8_t move_unit(void)
         unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
         unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
-    } else if (mousekey_repeat == 0) {
+    } else if (mouse_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
-    } else if (mousekey_repeat >= mk_time_to_max) {
+    } else if (mouse_repeat >= mk_time_to_max) {
         unit = MOUSEKEY_MOVE_DELTA * mk_max_speed;
     } else {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mousekey_repeat) / mk_time_to_max;
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed * mouse_repeat) / mk_time_to_max;
     }
     return (unit > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : (unit == 0 ? 1 : unit));
 }
@@ -94,26 +94,26 @@ static uint8_t wheel_unit(void)
         unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed)/2;
     } else if (mousekey_accel & (1<<2)) {
         unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed);
-    } else if (mousekey_repeat == 0) {
+    } else if (mouse_repeat == 0) {
         unit = MOUSEKEY_WHEEL_DELTA;
-    } else if (mousekey_repeat >= mk_wheel_time_to_max) {
+    } else if (mouse_repeat >= mk_wheel_time_to_max) {
         unit = MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed;
     } else {
-        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mousekey_repeat) / mk_wheel_time_to_max;
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed * mouse_repeat) / mk_wheel_time_to_max;
     }
     return (unit > MOUSEKEY_WHEEL_MAX ? MOUSEKEY_WHEEL_MAX : (unit == 0 ? 1 : unit));
 }
 
 void mousekey_task(void)
 {
-    if (timer_elapsed(last_mouse_timer) < (mousekey_repeat ? mk_interval : mk_delay*10))
+    if (timer_elapsed(last_mouse_timer) < (mouse_repeat ? mk_interval : mk_delay*10))
         return;
 
     if (mouse_report.x == 0 && mouse_report.y == 0 && wheel_report.v == 0 && wheel_report.h == 0)
         return;
 
-    if (mousekey_repeat != UINT8_MAX)
-        mousekey_repeat++;
+    if (mouse_repeat != UINT8_MAX)
+        mouse_repeat++;
 
 
     if (mouse_report.x > 0) mouse_report.x = move_unit();
@@ -175,7 +175,7 @@ void mousekey_off(uint8_t code)
     else if (code == KC_MS_ACCEL2) mousekey_accel &= ~(1<<2);
 
     if (mouse_report.x == 0 && mouse_report.y == 0 && wheel_report.v == 0 && wheel_report.h == 0)
-        mousekey_repeat = 0;
+        mouse_repeat = 0;
 }
 
 void mousekey_send(void)
@@ -190,7 +190,7 @@ void mousekey_clear(void)
 {
     mouse_report = (report_mouse_t){};
     wheel_report = (report_mouse_t){};
-    mousekey_repeat = 0;
+    mouse_repeat = 0;
     mousekey_accel = 0;
 }
 
@@ -203,6 +203,6 @@ static void mousekey_debug(void)
     print_decs(mouse_report.y); print(" ");
     print_decs(wheel_report.v); print(" ");
     print_decs(wheel_report.h); print("](");
-    print_dec(mousekey_repeat); print("/");
+    print_dec(mouse_repeat); print("/");
     print_dec(mousekey_accel); print(")\n");
 }
