@@ -1,6 +1,6 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 
-#include "users/doogle999/doogle999.h"
+#include "doogle999.h"
 
 #define ______ KC_NO
 
