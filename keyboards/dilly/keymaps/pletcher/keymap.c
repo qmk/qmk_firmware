@@ -14,7 +14,6 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 
 // Tap-Hold keys
-#define KC_ASFT MT(MOD_LSFT, KC_A)
 #define KC_F_L3 LT(_FN3, KC_F)
 #define KC_ZCTL MT(MOD_LCTL, KC_Z)
 #define KC_XALT MT(MOD_LALT, KC_X)
@@ -39,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----+----+----+----+----.
       Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,
   //|----+----+----+----+----+----+----+----+----+----|
-     ASFT, S  , D  ,F_L3, G  , H  , J  , K  , L  ,ESCS,
+      A  , S  , D  ,F_L3, G  , H  , J  , K  , L  ,ESCS,
   //|----+----+----+----+----+----+----+----+----+----|
      ZCTL,XALT,CGUI,V_L4,SPL2,B_L1,N_L5,MALT,BSCT,ENTS
   //`----+----+----+----+----+----+----+----+----+----'
@@ -61,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----|
      F11 ,F12 ,    ,    ,    ,    ,    ,    ,    ,GRV ,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,DEL ,    ,    ,    ,
+         ,    ,    ,    ,TAB , DEL,    ,    ,    ,
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
@@ -87,11 +86,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN5] = KC_KEYMAP(
   //,----+----+----+----+----+----+----+----+----+----.
-         ,    ,    ,RST ,    ,    ,   ,    ,    ,    ,
+         ,    ,    ,RST ,    ,    ,MSTP,VOLD,VOLU,MPLY,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,DBUG,    ,    ,    ,   ,    ,    ,    ,
+         ,    ,DBUG,    ,    ,    ,    ,ASDN,ASUP,ASRP,
   //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,GUIC,    ,    ,    ,    ,    ,    ,
+         ,    ,GUIC,    ,    ,    ,    ,    ,    ,ASTG
   //`----+----+----+----+----+----+----+----+----+----'
   )
 
