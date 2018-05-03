@@ -29,6 +29,7 @@ extern keymap_config_t keymap_config;
 #define _LOWER 4
 #define _RAISE 3
 #define _ADJUST 16
+#define _MOUSE 5
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -37,6 +38,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  MOUSE,
 };
 
 enum {
@@ -147,7 +149,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, TD(CT_media), KC_VOLD, KC_VOLU, KC_MFFD \
 ),
-
+[_MOUSE] = LAYOUT(\
+  KC_ESC,  KC_MS_BTN1, KC_MS_U, KC_MS_BTN2, KC_MYCM, _______, _______, _______, _______, _______, KC_PSCR, _______,\
+  _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,\
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,\
+  _______, _______, _______, _______, _______,     _______,      _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R
+),
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
@@ -161,12 +168,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  LAYOUT( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  WINDOWS, KC_CAPSLOCK,  MU_TOG, MU_MOD, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, MOUSE, QWERTY,  WINDOWS, KC_CAPSLOCK,  MU_TOG, MU_MOD, \
   _______, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
-
-
 };
 int RGB_current_mode;
 int RGB_current_hue;
@@ -234,6 +239,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-  }
+    case MOUSE:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_dvorak);
+        #endif
+        persistent_default_layer_set(1UL<<_MOUSE);
+      }
+      return false;
+      break;
   return true;
-}
+};

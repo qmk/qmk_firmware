@@ -1,9 +1,9 @@
 TAP_DANCE_ENABLE = yes
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 RGBLIGHT_ENABLE = no
 BOOTMAGIC_ENABLE = no
 AUTO_SHIFT_ENABLE = no
-AUDIO_ENABLE = yes
+AUDIO_ENABLE = no
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
