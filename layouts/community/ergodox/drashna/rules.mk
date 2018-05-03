@@ -7,3 +7,5 @@ endif
 CONSOLE_ENABLE    = no
 BOOTMAGIC_ENABLE  = yes
 
+UNICODE_ENABLE    = no
+UNICDOEMAP_ENABLE = yes

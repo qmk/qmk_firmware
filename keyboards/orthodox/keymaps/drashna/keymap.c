@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define MG_NKRO MAGIC_TOGGLE_NKRO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,21 +66,85 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(\
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                               KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,            KC_PGUP, KC_PGDN,         KC_HOME, KC_END,           _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______,  _______
+  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, _______
 ),
 
 [_RAISE] = LAYOUT(\
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                                                  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_GRV,  ________________NUMBER_LEFT________________,                                                               ________________NUMBER_RIGHT_______________, KC_BSPC,
   _______, _______, _______, _______, _______, _______,          KC_PGUP, KC_PGDN,         KC_HOME, KC_END,           _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, _______
 ),
 
 [_ADJUST] = LAYOUT(\
   KC_MAKE,KC_RESET, EPRM,    _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,
-  RGB_SMOD,RGB_HUI, CK_TOGG, AUD_ON,  AUD_OFF, AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
+  RGB_SMOD,RGB_HUI, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
   KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______, _______, _______,         _______, _______, _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY
 )
 
 
 };
 
+#ifdef RGBLIGHT_ENABLE
+uint32_t layer_state_set_keymap (uint32_t state) {
+  uint8_t modifiders = get_mods();
+  uint8_t led_usb_state = host_keyboard_leds();
+  uint8_t one_shot = get_oneshot_mods();
+
+
+  if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+    rgblight_sethsv_at(0, 255, 255, 5);
+    rgblight_sethsv_at(0, 255, 255, 10);
+  }
+  if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+    rgblight_sethsv_at(51, 255, 255, 6);
+    rgblight_sethsv_at(51, 255, 255, 9);
+  }
+  if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+    rgblight_sethsv_at(120, 255, 255, 7);
+    rgblight_sethsv_at(120, 255, 255, 8);
+  }
+
+  return state;
+}
+
+
+void matrix_scan_keymap (void) {
+  static uint8_t current_mods;
+  static uint8_t current_host_leds;
+  static uint8_t current_oneshot_mods;
+  static bool has_status_changed = true;
+
+  if ( current_mods != get_mods() || current_host_leds != host_keyboard_leds() || current_oneshot_mods != get_oneshot_mods()) {
+    has_status_changed = true;
+    current_mods = get_mods();
+    current_host_leds = host_keyboard_leds();
+    current_oneshot_mods = get_oneshot_mods();
+  }
+  if (has_status_changed) {
+    has_status_changed = false;
+
+    if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
+      rgblight_sethsv_at(0, 255, 255, 5);
+      rgblight_sethsv_at(0, 255, 255, 10);
+    } else {
+      rgblight_sethsv_default_helper(5);
+      rgblight_sethsv_default_helper(10);
+    }
+    if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, 6);
+      rgblight_sethsv_at(51, 255, 255, 9);
+    } else {
+      rgblight_sethsv_default_helper(6);
+      rgblight_sethsv_default_helper(9);
+    }
+    if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, 7);
+      rgblight_sethsv_at(120, 255, 255, 8);
+    } else {
+      rgblight_sethsv_default_helper(7);
+      rgblight_sethsv_default_helper(8);
+
+    }
+  }
+}
+#endif
