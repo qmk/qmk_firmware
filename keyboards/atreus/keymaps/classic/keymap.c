@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_DELT, KC_LEFT, KC_DOWN, KC_RGHT, KC_DOWN,                   KC_DOWN, KC_F4,   KC_F5,   KC_F6,   KC_F11 ,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F12 ,
     KC_TRNS, KC_TRNS, KC_LGUI, KC_LSFT, KC_BSPC, KC_LCTL, KC_LALT, KC_SPC,  DF(_QW), KC_TRNS, KC_TRNS, RESET
-  );
+  ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
