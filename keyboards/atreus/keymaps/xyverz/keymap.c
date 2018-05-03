@@ -2,7 +2,7 @@
 // Chris Gerber (@gerbercj), with the addition of persistent layers like the Planck and
 // Preonic keyboards by Jack Humbert.
 
-#include "atreus.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 

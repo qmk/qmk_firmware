@@ -1,7 +1,7 @@
 // This is the personal keymap of Chris Gerber (@gerbercj). I haven't worked out the kinks
 // with the Colemak and Dvorak support yet, but everything else works nicely.
 
-#include "atreus.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.

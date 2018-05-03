@@ -1,5 +1,5 @@
 
-#include "atreus.h"
+#include QMK_KEYBOARD_H
 
 // layers
 #define BASE      0

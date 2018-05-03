@@ -1,6 +1,6 @@
 // This is the personal keymap of Jeremy Cowgar (@jcowgar). It is written for the programmer.
 
-#include "atreus.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "keymap_colemak.h"
 

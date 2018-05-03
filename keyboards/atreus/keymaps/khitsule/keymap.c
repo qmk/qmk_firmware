@@ -1,6 +1,6 @@
 // Personal keymap of khitsule
 
-#include "atreus.h"
+#include QMK_KEYBOARD_H
 
 #define ALPH 0 
 #define LOWR 1 
