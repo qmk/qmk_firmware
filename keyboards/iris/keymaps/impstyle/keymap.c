@@ -9,7 +9,11 @@ extern keymap_config_t keymap_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _MOUSE 3
+<<<<<<< HEAD
 #define ONESHOT_TAP_TOGGLE 2 // double tab
+=======
+#define TAPPING_TOGGLE 2 // double tab
+>>>>>>> upstream/master
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
