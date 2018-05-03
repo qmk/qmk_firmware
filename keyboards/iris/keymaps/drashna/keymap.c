@@ -4,35 +4,35 @@
 
 
 #define KC_ALAP ALT_T(KC_APP)
-
+#define KC_OSLG OSM(MOD_LGUI)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_wrapper(
      KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________QWERTY_L1_________________,                       _________________QWERTY_R1_________________, KC_BSLS,
      KC_C1R3, _________________QWERTY_L2_________________,                       _________________QWERTY_R2_________________, KC_QUOT,
-     KC_MLSF, _________________QWERTY_L3_________________, KC_ALAP,     KC_LGUI, _________________QWERTY_R3_________________, KC_MRSF,
+     KC_MLSF, _________________QWERTY_L3_________________, KC_ALAP,     KC_OSLG, _________________QWERTY_R3_________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_COLEMAK] = LAYOUT_wrapper(
      KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________COLEMAK_L1________________,                       _________________COLEMAK_R1________________, KC_BSLS,
      KC_C1R3, _________________COLEMAK_L2________________,                       _________________COLEMAK_R2________________, KC_QUOT,
-     KC_MLSF, _________________COLEMAK_L3________________, KC_ALAP,     KC_LGUI, _________________COLEMAK_R3________________, KC_MRSF,
+     KC_MLSF, _________________COLEMAK_L3________________, KC_ALAP,     KC_OSLG, _________________COLEMAK_R3________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_DVORAK] = LAYOUT_wrapper(
      KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________DVORAK_L1_________________,                       _________________DVORAK_R1_________________, KC_BSLS,
      KC_C1R3, _________________DVORAK_L2_________________,                       _________________DVORAK_R2_________________, KC_QUOT,
-     KC_MLSF, _________________DVORAK_L3_________________, KC_ALAP,     KC_LGUI, _________________DVORAK_R3_________________, KC_MRSF,
+     KC_MLSF, _________________DVORAK_L3_________________, KC_ALAP,     KC_OSLG, _________________DVORAK_R3_________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_WORKMAN] = LAYOUT_wrapper(
      KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________WORKMAN_L1________________,                       _________________WORKMAN_R1________________, KC_BSLS,
      KC_C1R3, _________________WORKMAN_L2________________,                       _________________WORKMAN_R2________________, KC_QUOT,
-     KC_MLSF, _________________WORKMAN_L3________________, KC_ALAP,     KC_LGUI, _________________WORKMAN_R3________________, KC_MRSF,
+     KC_MLSF, _________________WORKMAN_L3________________, KC_ALAP,     KC_OSLG, _________________WORKMAN_R3________________, KC_MRSF,
                                        LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
 
