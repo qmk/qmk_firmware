@@ -49,8 +49,22 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool is_overwatch;
 extern bool rgb_layer_change;
+extern bool clicky_enable;
+
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index);
+#endif // RGBLIGHT_ENABLE
+
+#define EECONFIG_USERSPACE (uint8_t *)20
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
@@ -59,9 +73,6 @@ enum userspace_custom_keycodes {
   KC_COLEMAK,
   KC_DVORAK,
   KC_WORKMAN,
-  LOWER,
-  RAISE,
-  ADJUST,
   KC_DIABLO_CLEAR,
   KC_OVERWATCH,
   KC_SALT,
@@ -90,6 +101,11 @@ enum userspace_custom_keycodes {
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
 
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
+
+
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
 #define KC_SEC3 KC_SECRET_3
@@ -102,6 +118,20 @@ enum userspace_custom_keycodes {
 #define WORKMAN KC_WORKMAN
 #define KC_RST KC_RESET
 
+
+#ifdef SWAP_HANDS_ENABLE
+#define KC_C1R3 SH_TT
+#else // SWAP_HANDS_ENABLE
+#define KC_C1R3 KC_BSPC
+#endif // SWAP_HANDS_ENABLE
+
+// OSM keycodes, to keep things clean and easy to change
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+
+#define MG_NKRO MAGIC_TOGGLE_NKRO
+
+
 #ifdef TAP_DANCE_ENABLE
 enum {
   TD_D3_1 = 0,
@@ -111,72 +141,6 @@ enum {
 };
 #endif // TAP_DANCE_ENABLE
 
-#ifdef UNICODEMAP_ENABLE
-
-/* use X(n) to call the  */
-
-
-enum unicode_name {
-  THINK, // thinking face 🤔
-  GRIN, // grinning face 😊
-  SMRK, // smirk 😏
-  WEARY, // good shit 😩
-  UNAMU, // unamused 😒
-
-  SNEK, // snke 🐍
-  PENGUIN, // 🐧
-  DRAGON, // 🐉
-  MONKEY, // 🐒
-  CHICK, // 🐥
-
-  OKOK, // 👌
-  EFFU, // 🖕
-  INUP, // 👆
-  THUP, // 👍
-  THDN, // 👎
-
-  BBB, // dat B 🅱
-  POO, // poop 💩
-  HUNDR, // 100 💯
-  EGGPL, // EGGPLANT 🍆
-  WATER, // wet 💦
-  TUMBLER, // 🥃
-
-  LIT, // fire 🔥
-  IRONY, // ‽
-  DEGREE, // °
-};
-
-
-const uint32_t PROGMEM unicode_map[] = {
-  [THINK]     = 0x1F914,
-  [GRIN]      = 0x1F600,
-  [BBB]       = 0x1F171,
-  [POO]       = 0x1F4A9,
-  [HUNDR]     = 0x1F4AF,
-  [SMRK]      = 0x1F60F,
-  [WEARY]     = 0x1F629,
-  [EGGPL]     = 0x1F346,
-  [WATER]     = 0x1F4A6,
-  [LIT]       = 0x1F525,
-  [UNAMU]     = 0x1F612,
-  [SNEK]      = 0x1F40D,
-  [PENGUIN]   = 0x1F427,
-  [BOAR]      = 0x1F417,
-  [MONKEY]    = 0x1F412,
-  [CHICK]     = 0x1F425,
-  [DRAGON]    = 0x1F409,
-  [OKOK]      = 0x1F44C,
-  [EFFU]      = 0x1F595,
-  [INUP]      = 0x1F446,
-  [THDN]      = 0x1F44E,
-  [THUP]      = 0x1F44D,
-  [TUMBLER]   = 0x1F943,
-  [IRONY]     = 0x0203D,
-  [DEGREE]    = 0x000B0,
- };
-
-#endif //UNICODEMAP_ENABLE
 
 // Custom Keycodes for Diablo 3 layer
 // But since TD() doesn't work when tap dance is disabled
@@ -192,22 +156,6 @@ const uint32_t PROGMEM unicode_map[] = {
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
-
-// OSM keycodes, to keep things clean and easy to change
-#define KC_MLSF OSM(MOD_LSFT)
-#define KC_MRSF OSM(MOD_RSFT)
-
-
-
-// If we're still using the official Faux Clicky feature, substitute codes
-// so that we don't have any unused/blank keys.
-#ifdef FAUXCLICKY_ENABLE
-#define AUD_ON  FC_ON
-#define AUD_OFF FC_OFF
-#else // FAUXCLICKY_ENABLE
-#define AUD_ON  AU_ON
-#define AUD_OFF AU_OFF
-#endif // FAUXCLICKY_ENABLE
 
 
 
@@ -286,7 +234,8 @@ const uint32_t PROGMEM unicode_map[] = {
 #define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
-
+#define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -301,4 +250,4 @@ const uint32_t PROGMEM unicode_map[] = {
                                                                             KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
 
 
-#endif
+#endif // !USERSPACE
