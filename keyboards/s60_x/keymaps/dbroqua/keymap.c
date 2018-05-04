@@ -1,4 +1,4 @@
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 #define _DEFAULT 0
 #define _FN 1

@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 //make keymap a little easier to read
 #define _______ KC_TRNS
