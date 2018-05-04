@@ -4,8 +4,7 @@
 #include "raw_hid.h"
 #include "debug.h"
 
-#define SP 0x80
-#define ER 0x40
+#define ER 0x80
 #define LK(k,s) ((k & 0xFF) | ((s & 0xFF) << 8))
 
 const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS] = {

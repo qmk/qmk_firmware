@@ -32,5 +32,6 @@ void spi_rdid(uint8_t *data);
 void spi_read(uint32_t addr, uint16_t n, uint8_t *data);
 void spi_write(uint32_t addr, uint16_t n, const uint8_t *data);
 void spi_erase(uint32_t addr);
+void spi_wait_wip(void);
 
 #endif // VORTEX_H

@@ -88,7 +88,7 @@ static uint8_t spi_status(void) {
 }
 
 // Poll SPI flash status until write done
-static void spi_wait_wip(void) {
+void spi_wait_wip(void) {
     uint8_t rx_data;
 
     spi_select();

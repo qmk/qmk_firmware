@@ -21,14 +21,22 @@
 #include "quantum.h"
 #include "raw_hid.h"
 #include "debug.h"
+#include "gd25q_flash.h"
 
 #include <stdint.h>
 #include <string.h>
 
 #define MIN(A, B) (A < B ? A : B)
 
-#define RESET_FW_MAGIC 0x55aafaf0U
-#define RESET_BL_MAGIC 0x55aafaf5U
+#define RESET_FW_MAGIC  0x55aafaf0U
+#define RESET_BL_MAGIC  0x55aafaf5U
+
+#define EE_CONFIG_ADDR      (GD25Q40_SECTOR_BYTES * 0)  // sector 0
+#define EE_CONFIG_SIG_LEN   4
+#define EE_CONFIG_SIG       "CONF"
+#define EE_KEYMAP_ADDR      (GD25Q40_SECTOR_BYTES * 1)  // sector 1
+#define EE_KEYMAP_SIG_LEN   4
+#define EE_KEYMAP_SIG       "KEYM"
 
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
@@ -105,6 +113,15 @@ void OVERRIDE bootloader_jump(void) {
 }
 
 void OVERRIDE matrix_init_kb(void) {
+    // Check eeprom keymap signature
+    uint8_t sig[EE_KEYMAP_SIG_LEN];
+    spi_read(EE_KEYMAP_ADDR, EE_KEYMAP_SIG_LEN, sig);
+    if(memcmp(sig, EE_KEYMAP_SIG, EE_KEYMAP_SIG_LEN) == 0){
+        // Load keymaps from eeprom
+        const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
+        spi_read(EE_KEYMAP_ADDR + EE_KEYMAP_SIG_LEN, keymap_size, (uint8_t *)keymaps);
+    }
+
     matrix_init_user();
 }
 
@@ -244,27 +261,36 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 
             case CMD_KEYMAP: {
                 const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
-                const uint32_t keymaps_size = keymap_size * sizeof(uint16_t);
+                const uint32_t total_size = keymap_size * sizeof(uint16_t);
                 switch (data[1]) {
                     case SUB_KM_INFO: {
-                        printf("Info Keymap %d %d %d %d %d\n", MAX_LAYERS, MATRIX_ROWS, MATRIX_COLS, sizeof(uint16_t), NUM_LAYOUTS);
-                        packet_buf[0] = MAX_LAYERS;
-                        packet_buf[1] = MATRIX_ROWS;
-                        packet_buf[2] = MATRIX_COLS;
-                        packet_buf[3] = sizeof(uint16_t);
-                        packet_buf[4] = NUM_LAYOUTS;
+                        printf("Info Keymap\n");
+                        packet_buf[0] = MAX_LAYERS;         // max layers
+                        packet_buf[1] = MATRIX_ROWS;        // matrix rows
+                        packet_buf[2] = MATRIX_COLS;        // matrix cols
+                        packet_buf[3] = sizeof(uint16_t);   // keycode size
+                        packet_buf[4] = NUM_LAYOUTS;        // num layouts
+                        packet_buf[5] = 0;                  // current layout
                         break;
                     }
                     case SUB_KM_READ: {
-                        uint32_t offset = from_leu32(data + 4);
-                        printf("Read Keymap %04x\n", offset);
-                        if (offset >= 0x10000) {
-                            offset &= 0xFFFF;
-                            if (offset < keymap_size) {
-                                memcpy(packet_buf, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 64));
-                            }
-                        } else if (offset < keymaps_size) {
-                            memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(keymaps_size - offset, 64));
+                        const uint32_t arg = from_leu32(data + 4);
+                        const uint8_t page = (arg & 0xF0000) >> 16;
+                        const uint32_t offset = arg & 0xFFFF;
+                        printf("Read Keymap %x %04x\n", page, offset);
+                        switch (page) {
+                            case 0:
+                                // read matrix layers
+                                if (offset < total_size) {
+                                    memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(total_size - offset, 64));
+                                }
+                                break;
+                            case 1:
+                                // read layouts
+                                if (offset < keymap_size) {
+                                    memcpy(packet_buf, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 64));
+                                }
+                                break;
                         }
                         break;
                     }
@@ -272,10 +298,18 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         uint16_t offset = from_leu16(data + 4);
                         uint16_t len = MIN(from_leu16(data + 6), 56);
                         printf("Write Keymap %04x %d\n", offset, len);
-                        if (offset < keymaps_size) {
-                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(keymaps_size - offset, len));
+                        if (offset < total_size) {
+                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(total_size - offset, len));
                         }
                         break;
+                    }
+                    case SUB_KM_COMMIT: {
+                        printf("Commit Keymap\n");
+                        spi_erase(EE_KEYMAP_ADDR);
+                        spi_wait_wip();
+                        spi_write(EE_KEYMAP_ADDR, EE_KEYMAP_SIG_LEN, (const uint8_t *)EE_KEYMAP_SIG);
+                        spi_wait_wip();
+                        spi_write(EE_KEYMAP_ADDR + EE_KEYMAP_SIG_LEN, total_size, (const uint8_t *)keymaps);
                     }
                 }
                 break;
