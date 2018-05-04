@@ -60,6 +60,12 @@ bool toggleLayerRGB(void){
 	}
 }
 
+void matrix_init_user(void){
+	rgblight_enable();
+  	rgblight_mode(1);
+	rgblight_sethsv(0,10,255);
+}
+
 //check for layer and if there was a keypress change underglow lighting
 void matrix_scan_kb(void){
 	if(lRGB == true)
