@@ -46,7 +46,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -BOOTLOADER=caterina
+BOOTLOADER=caterina
 
 # Build Options
 #   comment out to disable the options.
