@@ -33,30 +33,52 @@ PROGMEM const char secret[][64] = {
 #endif
 
 
-#ifdef FAUXCLICKY_ENABLE
-float fauxclicky_pressed_note[2]  = MUSICAL_NOTE(_A6, 2);  // (_D4, 0.25);
-float fauxclicky_released_note[2] = MUSICAL_NOTE(_A6, 2); // (_C4, 0.125);
-#else // FAUXCLICKY_ENABLE
-float fauxclicky_pressed[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to your tastes
-#endif // FAUXCLICKY_ENABLE
+float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
+float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
-bool faux_click_enabled = false;
-bool is_overwatch = false;
+
+static uint16_t copy_paste_timer;
 #ifdef RGBLIGHT_ENABLE
 bool rgb_layer_change = true;
 #endif
 
+userspace_config_t userspace_config;
+
+//  Helper Functions
+void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index) {
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (default_layer & (1UL << _COLEMAK)) {
+    rgblight_sethsv_at(300, 255, 255, index);
+    rgblight_sethsv_at(300, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _DVORAK)) {
+    rgblight_sethsv_at(120, 255, 255, index);
+    rgblight_sethsv_at(120, 255, 255, index);
+  }
+  else if (default_layer & (1UL << _WORKMAN)) {
+    rgblight_sethsv_at(43, 255, 255, index);
+    rgblight_sethsv_at(43, 255, 255, index);
+  }
+  else {
+    rgblight_sethsv_at(180, 255, 255, index);
+    rgblight_sethsv_at(180, 255, 255, index);
+  }
+}
+#endif // RGBLIGHT_ENABLE
+
+
+// =========================================  TAP DANCE  =========================================
 #ifdef TAP_DANCE_ENABLE
 //define diablo macro timer variables
 static uint16_t diablo_timer[4];
 static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
 static uint8_t diablo_key_time[4];
 
-bool check_dtimer(uint8_t dtimer) {
-  // has the correct number of seconds elapsed (as defined by diablo_times)
-  return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true;
-};
+// has the correct number of seconds elapsed (as defined by diablo_times)
+bool check_dtimer(uint8_t dtimer) { return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true; };
 
 // Cycle through the times for the macro, starting at 0, for disabled.
 // Max of six values, so don't exceed
@@ -64,25 +86,16 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_
   if (state->count >= 7) {
     diablo_key_time[diablo_key] = diablo_times[0];
     reset_tap_dance(state);
-  }
-  else {
+  }  else {
     diablo_key_time[diablo_key] = diablo_times[state->count - 1];
   }
 }
 
 // Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 0);
-}
-void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 1);
-}
-void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 2);
-}
-void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) {
-  diablo_tapdance_master(state, user_data, 3);
-}
+void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 0); }
+void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 1); }
+void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 2); }
+void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 3); }
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -91,7 +104,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_D3_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
   [TD_D3_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
   [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
-
 };
 
 // Sends the key press to system, but only if on the Diablo layer
@@ -99,17 +111,13 @@ void send_diablo_keystroke(uint8_t diablo_key) {
   if (biton32(layer_state) == _DIABLO) {
     switch (diablo_key) {
       case 0:
-        SEND_STRING("1");
-        break;
+        tap(KC_1); break;
       case 1:
-        SEND_STRING("2");
-        break;
+        tap(KC_2); break;
       case 2:
-        SEND_STRING("3");
-        break;
+        tap(KC_3); break;
       case 3:
-        SEND_STRING("4");
-        break;
+        tap(KC_4); break;
     }
   }
 }
@@ -118,7 +126,6 @@ void send_diablo_keystroke(uint8_t diablo_key) {
 // Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
   uint8_t dtime;
-
   for (dtime = 0; dtime < 4; dtime++) {
     if (check_dtimer(dtime) && diablo_key_time[dtime]) {
       diablo_timer[dtime] = timer_read();
@@ -126,7 +133,6 @@ void run_diablo_macro_check(void) {
     }
   }
 }
-
 #endif // TAP_DANCE_ENABLE
 
 
@@ -157,31 +163,32 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
 
+#ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-
-  if (true) {
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_sethsv_magenta();
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_sethsv_green();
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_sethsv_goldenrod();
-    }
-    else {
-      rgblight_sethsv_teal();
-    }
-  }
-  else
-  {
-    rgblight_setrgb_red();
-    rgblight_mode(5);
-  }
 #endif // RGBLIGHT_ENABLE
+
+  if (default_layer & (1UL << _COLEMAK)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_magenta();
+#endif // RGBLIGHT_ENABLE
+  } else if (default_layer & (1UL << _DVORAK)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_green();
+#endif // RGBLIGHT_ENABLE
+  } else if (default_layer & (1UL << _WORKMAN)) {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_goldenrod();
+#endif // RGBLIGHT_ENABLE
+  } else {
+#ifdef RGBLIGHT_ENABLE
+    rgblight_sethsv_teal();
+#endif // RGBLIGHT_ENABLE
+  }
+
+  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+  clicky_enable = userspace_config.clicky_enable;
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -192,23 +199,25 @@ void matrix_init_user(void) {
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
+
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
+
   matrix_scan_keymap();
 }
+
 
 // This block is for all of the gaming macros, as they were all doing
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
     clear_keyboard();
-    register_code(is_overwatch ? KC_BSPC : KC_ENTER);
-    unregister_code(is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string(str);
-    register_code(KC_ENTER);
-    unregister_code(KC_ENTER);
+    wait_ms(50);
+    tap(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
@@ -223,19 +232,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif //CONSOLE_ENABLE
-
-  // Run custom faux click code, but only if faux clicky is enabled
-#ifdef AUDIO_ENABLE
-  if ( (faux_click_enabled && keycode != KC_FXCL) || (!faux_click_enabled && keycode == KC_FXCL) ) {
-    if (record->event.pressed) {
-      stop_all_notes();
-      PLAY_SONG(fauxclicky_pressed);
-    } else {
-      stop_all_notes();
-      PLAY_SONG(fauxclicky_released);
-    }
-  }
-#endif //AUDIO_ENABLE
 
 
   switch (keycode) {
@@ -260,39 +256,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_WORKMAN:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_WORKMAN);
-    }
-    return false;
-    break;
-
-
-  case LOWER:
-    if (record->event.pressed) {
-      layer_on(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case RAISE:
-    if (record->event.pressed) {
-      layer_on(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case ADJUST:
-    if (record->event.pressed) {
-      layer_on(_ADJUST);
-    }
-    else {
-      layer_off(_ADJUST);
     }
     return false;
     break;
@@ -353,11 +316,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
-#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
+#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2))
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { is_overwatch = !is_overwatch; }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
 #endif //RGBLIGHT_ENABLE
     return false; break;
   case KC_SALT:
@@ -398,11 +361,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // TAP_DANCE_ENABLE
 
 
-  case KC_FXCL:
-    if (!record->event.pressed) { // Toggles the custom faux click code
-      faux_click_enabled = !faux_click_enabled;
-    }
-    return false; break;
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
@@ -420,85 +378,193 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true; break;
 #endif // RGBLIGHT_ENABLE
+
+
+  case KC_CCCV:                                    // One key copy/paste
+    if(record->event.pressed){
+      copy_paste_timer = timer_read();
+    } else {
+      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
+        register_code(KC_LCTL);
+        tap(KC_C);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_copy);
+#endif
+      } else {                                // Tap, paste
+        register_code(KC_LCTL);
+        tap(KC_V);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_paste);
+#endif
+      }
+    }
+    return false;
+    break;
+  case CLICKY_TOGGLE:
+    userspace_config.clicky_enable = clicky_enable;
+    eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+    break;
+#ifdef UNICODE_ENABLE
+  case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
+    if (record->event.pressed) {
+      register_code(KC_RSFT);
+      tap(KC_9);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
+      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
+      register_code(KC_RSFT);
+      tap(KC_0);
+      unregister_code(KC_RSFT);
+      process_unicode((0x256F | QK_UNICODE), record); // Arm
+      tap(KC_SPC);
+      process_unicode((0x0361 | QK_UNICODE), record); // Flippy
+      tap(KC_SPC);
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+      process_unicode((0x2501 | QK_UNICODE), record); // Table
+      process_unicode((0x253B | QK_UNICODE), record); // Table
+    }
+    return false;
+    break;
+#endif // UNICODE_ENABLE
+
   }
   return process_record_keymap(keycode, record);
 }
+
 
 
 // Runs state check and changes underglow color and animation
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 uint32_t layer_state_set_user(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
-  if (rgb_layer_change) {
-    switch (biton32(state)) {
-    case _NAV:
+  state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+
+  switch (biton32(state)) {
+  case _NAV:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_blue();
       rgblight_mode(1);
-      break;
-    case _SYMB:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _SYMB:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_blue();
       rgblight_mode(2);
-      break;
-    case _MOUS:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MOUS:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_yellow();
       rgblight_mode(1);
-      break;
-    case _MACROS:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MACROS:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
-      is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-      break;
-    case _MEDIA:
+      userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _MEDIA:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_chartreuse();
       rgblight_mode(22);
-      break;
-    case _GAMEPAD:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _GAMEPAD:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(17);
-      break;
-    case _DIABLO:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _DIABLO:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(5);
-      break;
-    case _RAISE:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _RAISE:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_yellow();
       rgblight_mode(5);
-      break;
-    case _LOWER:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _LOWER:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(5);
-      break;
-    case _ADJUST:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _ADJUST:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(23);
-      break;
-    case _COVECUBE:
+    }
+#endif // RGBLIGHT_ENABLE
+    break;
+  case _COVECUBE:
+#ifdef RGBLIGHT_ENABLE
+    if (rgb_layer_change) {
       rgblight_sethsv_green();
       rgblight_mode(2);
-      break;
-    default: //  for any other layers, or the default layer
-      if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_sethsv_magenta();
-      }
-      else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_sethsv_green();
-      }
-      else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_sethsv_goldenrod();
-      }
-      else {
-        rgblight_sethsv_teal();
-      }
-      if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
-        rgblight_mode(2);
-      } else {                       // otherwise, stay solid
-        rgblight_mode(1);
-      }
-      break;
     }
-  }
 #endif // RGBLIGHT_ENABLE
+    break;
+  default: //  for any other layers, or the default layer
+    if (default_layer & (1UL << _COLEMAK)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_magenta(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else if (default_layer & (1UL << _DVORAK)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_green(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else if (default_layer & (1UL << _WORKMAN)) {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_goldenrod(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    else {
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_sethsv_teal(); }
+#endif // RGBLIGHT_ENABLE
+    }
+    if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_mode(2); }
+#endif // RGBLIGHT_ENABLE
+    } else {                       // otherwise, stay solid
+#ifdef RGBLIGHT_ENABLE
+      if (rgb_layer_change) { rgblight_mode(1); }
+#endif // RGBLIGHT_ENABLE
+    }
+    break;
+  }
   return layer_state_set_keymap (state);
 }
 

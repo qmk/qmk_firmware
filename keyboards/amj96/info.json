@@ -1,11 +1,7 @@
 {
   "keyboard_name": "AMJ96",
-  "manufacturer": "AMJ",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 19,
   "height": 6,
   "layouts": {

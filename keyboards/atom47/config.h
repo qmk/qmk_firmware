@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // ROWS: Top to bottom, COLS: Left to right
 
-#define MATRIX_ROW_PINS {B1,B2,B3,B7}
-#define MATRIX_COL_PINS {D7,D5,F0,F1,F4,F6,F7,D4,C7,C6,D6,B5,B4}
+#define MATRIX_ROW_PINS {B3,B2,B1,B0}
+#define MATRIX_COL_PINS {B7,F0,F1,F4,F6,D4,D6,D7,B4,B5,C6,C7,F7}
 #define UNUSED_PINS
 
 #define BACKLIGHT_PIN B6
@@ -49,10 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -63,11 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define BACKLIGHT_LEVELS 4
 
+#define RGB_DI_PIN F5    // The pin the LED strip is connected to
+#define RGBLED_NUM 6     // Number of LEDs in your strip
+
+#define QMK_ESC_OUTPUT B7 // usually COL
+#define QMK_ESC_INPUT B3 // usually ROW
+#define QMK_LED E6
+
 #endif
-
-#define RGB_DI_PIN D0    // The pin the LED strip is connected to
-#define RGBLED_NUM 1     // Number of LEDs in your strip
-
-#define QMK_ESC_OUTPUT D7 // usually COL
-#define QMK_ESC_INPUT B1 // usually ROW
-#define QMK_LED B6
