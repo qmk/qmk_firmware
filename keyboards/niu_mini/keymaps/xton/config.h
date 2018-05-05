@@ -29,4 +29,7 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
+// help for fast typist+dual function keys?
+#define PERMISSIVE_HOLD
+
 #endif
