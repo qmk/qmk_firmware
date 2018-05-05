@@ -1,4 +1,4 @@
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 /* Main layer: Test layout, using all keys.
 
