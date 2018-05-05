@@ -46,6 +46,10 @@ typedef struct {
 #endif
 } keyrecord_t;
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+keyrecord_t* get_current_record(void);
+#endif
+
 /* Execute action per keyevent */
 void action_exec(keyevent_t event);
 
@@ -62,7 +66,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 bool process_record_quantum(keyrecord_t *record);
 
 /* Utilities for actions.  */
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS) && !defined(CUSTOM_MODIFIED_VALUES_ENABLE)
 extern bool disable_action_cache;
 #endif
 

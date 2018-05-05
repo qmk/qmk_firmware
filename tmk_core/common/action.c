@@ -44,6 +44,12 @@ int retro_tapping_counter = 0;
 #include <fauxclicky.h>
 #endif
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+keyrecord_t *cur_record;
+keyrecord_t* get_current_record(void) { return cur_record; }
+static void set_current_record(keyrecord_t* new_record) { cur_record = new_record; }
+#endif
+
 /** \brief Called to execute an action.
  *
  * FIXME: Needs documentation.
@@ -75,6 +81,9 @@ void action_exec(keyevent_t event)
 #endif
 
     keyrecord_t record = { .event = event };
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+    set_current_record(&record);
+#endif
 
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     if (has_oneshot_layer_timed_out()) {
@@ -120,7 +129,7 @@ void process_hand_swap(keyevent_t *event) {
 }
 #endif
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS) && !defined(CUSTOM_MODIFIED_VALUES_ENABLE)
 bool disable_action_cache = false;
 
 void process_record_nocache(keyrecord_t *record)

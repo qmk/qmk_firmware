@@ -115,6 +115,10 @@ extern uint32_t default_layer_state;
 	#include "process_terminal_nop.h"
 #endif
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  #include "custom_modified_values.h"
+#endif
+
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)

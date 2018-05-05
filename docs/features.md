@@ -8,6 +8,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Auto Shift](feature_auto_shift.md) - Tap for the normal key, hold slightly longer for its shifted state.
 * [Backlight](feature_backlight.md) - LED lighting support for your keyboard.
 * [Bootmagic](feature_bootmagic.md) - Adjust the behavior of your keyboard using hotkeys.
+* [Custom Modified Values](feature_custom_modified_values.md) - Customize the keycodes processed by the firmware depending on the modifiers state
 * [Dynamic Macros](feature_dynamic_macros.md) - Record and playback macros from the keyboard itself.
 * [Key Lock](feature_key_lock.md) - Lock a key in the "down" state.
 * [Layouts](feature_layouts.md) - Use one keymap with any keyboard that supports your layout.
