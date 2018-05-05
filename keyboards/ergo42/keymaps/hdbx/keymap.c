@@ -1,3 +1,6 @@
+// WindowsでJIS配列として認識しているときに、US配列として使うためのキーマップ
+// @leopard_gecko さんがPlanck用に作成されたキーマップをかなり参考にしています。
+
 #include "ergo42.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -6,6 +9,7 @@
 
 extern keymap_config_t keymap_config;
 
+// レイヤー
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
@@ -13,12 +17,12 @@ extern keymap_config_t keymap_config;
 #define _ADJUST 4
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  MCR1,
-  MCR2,
-  MCR3,
-  DYNAMIC_MACRO_RANGE,
-  WN_SCLN,          // タップでJISの「:」  シフトでJISの「;」 (Windows)
+  QWERTY = SAFE_RANGE, // デフォルトレイヤー用
+  MCR1,                // マクロ1
+  MCR2,                // マクロ2
+  MCR3,                // マクロ3
+  DYNAMIC_MACRO_RANGE, // ダイナミックマクロ
+  WN_SCLN,             // タップでJISの「:」  シフトでJISの「;」 (Windows)
 };
 
 // Use Dynamic macro
@@ -27,13 +31,14 @@ enum custom_keycodes {
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define KC_LOWR LT(_LOWER, KC_MHEN)    // タップで無変換   ホールドでLower
-#define KC_RASE LT(_RAISE, KC_HENK)    // タップで変換     ホールドでRaise
+#define KC_LOWR LT(_LOWER, KC_MHEN)    // タップで無変換     ホールドでLower
+#define KC_RASE LT(_RAISE, KC_HENK)    // タップで変換       ホールドでRaise
+#define KC_LSLB MT(MOD_LSFT, JP_LBRC)  // タップで[          ホールドで左Shift
+#define KC_RSRB MT(MOD_RSFT, JP_RBRC)  // タップで]          ホールドで右Shift
+#define KC_ALTB MT(MOD_LALT, KC_TAB)   // タップでTAB        ホールドで左ALT
+#define KC_ESCA LT(_ADJUST,KC_ESC)     // タップでESC        ホールドでADJUSTレイヤーon
+#define CTL_ZH  CTL_T(KC_ZKHK)         // タップで半角/全角  ホールドで左Control     (Windows)
 #define KC_ALPS LALT(KC_PSCR)          // Alt + PrintScreen
-#define KC_LSLP MT(MOD_LSFT, JP_LPRN)  // タップで(        ホールドで左Shift
-#define KC_RSRP MT(MOD_RSFT, JP_RPRN)  // タップで)        ホールドで右Shift
-#define KC_ALTB MT(MOD_LALT, KC_TAB)   // タップでTAB      ホールドで左ALT
-#define KC_ESCA LT(_ADJUST,KC_ESC)     // タップでESC      ホールドでADJUSTレイヤーon
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -42,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------.   ,-------------------------------------------------------.
  * |Tab/Alt|   Q   |   W   |   E   |   R   |   T   |   -   |   |   ~   |   Y   |   U   |   I   |   O   |   P   | BSPC  |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * | Ctrl  |   A   |   S   |   D   |   F   |   G   |   [   |   |   ]   |   H   |   J   |   K   |   L   |   :   |   '   |
+ * |ZH/Ctrl|   A   |   S   |   D   |   F   |   G   |   (   |   |   )   |   H   |   J   |   K   |   L   |   :   |   '   |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * | (/Sft |   Z   |   X   |   C   |   V   |   B   |  F2   |   |  Home |   N   |   M   |   ,   |   .   |   /   | )/Sft |
+ * | [/Sft |   Z   |   X   |   C   |   V   |   B   |  F2   |   |  Home |   N   |   M   |   ,   |   .   |   /   | ]/Sft |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
  * |  TT   |  GUI  |   \   | Esc/  | LOWER | Enter |  Del  |   |  End  | Space | RAISE | Left  | Down  |   Up  | Right |
  * |(_GAME)|       |       |_ADJUST| 無変換|       |       |   |       |       | 変換  |       |       |       |       |
@@ -53,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = KEYMAP( \
   KC_ALTB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_MINS,       JP_TILD, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    JP_LBRC,       JP_RBRC, KC_H,    KC_J,    KC_K,    KC_L,    WN_SCLN, JP_QUOT, \
-  KC_LSLP,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_F2,         KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSRP, \
+  CTL_ZH,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    JP_LPRN,       JP_RPRN, KC_H,    KC_J,    KC_K,    KC_L,    WN_SCLN, JP_QUOT, \
+  KC_LSLB,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_F2,         KC_HOME, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSRB, \
   TT(_GAME),KC_LGUI, JP_YEN,  KC_ESCA, KC_LOWR, KC_ENT,  KC_DEL,        KC_END,  KC_SPC,  KC_RASE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
@@ -62,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------.   ,-------------------------------------------------------.
  * |Tab/Alt|   1   |   2   |   3   |   4   |   5   |   6   |   |  Esc  |   7   |   8   |   9   |   O   |   =   | BSPC  |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * | Ctrl  |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |   |  F2   |   4   |   5   |   6   |   -   |   /   | Enter |
+ * |ZH/Ctrl|  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |   |  F2   |   4   |   5   |   6   |   -   |   /   | Enter |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
  * | Shift |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |   |  Home |   1   |   2   |   3   |   +   |   *   | Shift |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
@@ -81,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------.   ,-------------------------------------------------------.
  * |Tab/Alt|   !   |   @   |   #   |   $   |   %   |   _   |   |   `   |   ^   |   &   |  Ins  |   \   |PrntScr| BSPC  |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * | Ctrl  |XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|   {   |   |   }   | Left  | Down  |   Up  | Right |   ;   |   "   |
+ * |ZH/Ctrl|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|   {   |   |   }   | Left  | Down  |   Up  | Right |   ;   |   "   |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
  * | Shift |XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|   |PageUp |XXXXXXX|XXXXXXX|   <   |   >   |   ?   | Shift |
  * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
@@ -91,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = KEYMAP( \
   _______, KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC, JP_UNDS,       JP_GRV,  JP_CIRC, JP_AMPR, KC_INS,  JP_YEN,  KC_ALPS, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LBRC,       JP_RBRC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQT,  \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LCBR,       JP_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQT,  \
   KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       KC_PGUP, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, KC_RSFT, \
-  _______, _______, KC_PIPE, KC_ESC,  XXXXXXX, _______, _______,       KC_PGDN, _______, _______, _______, _______, _______, _______ \
+  _______, _______, JP_PIPE, KC_ESC,  XXXXXXX, _______, _______,       KC_PGDN, _______, _______, _______, _______, _______, _______ \
 ),
 
 /* GAME
