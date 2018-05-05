@@ -1,8 +1,15 @@
-# Tanuki 40% keyboard
-## The trash panda 40%
+# Tanuki
 
-This firmware release is for the PCB version only.
+![Tanuki](https://github.com/SethSenpai/Tanuki/blob/master/Img/glamour1.jpg?raw=true)
 
-40% keyboard designed by Seth-Senpai. This repo is meant for the pcb version of the Tanuki. If you made any modifications to the board please make sure that the firmware reflects these changes.
+The QMK firmware for the Tanuki 40% keyboard. The other files needed for construction can be found in the [Tanuki repo](https://github.com/SethSenpai/Tanuki).
 
-The pcb version uses a Pro Micro (atmel 32u4 based) controller.
+Keyboard Maintainer: [SethSenpai](https://github.com/SethSenpai)  
+Hardware Supported: Tanuki pcb, pro micro  
+Hardware Availability: [Tanuki repo](https://github.com/SethSenpai/Tanuki)
+
+Make example for this keyboard (after setting up your build environment):
+
+    make tanuki:default
+
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
