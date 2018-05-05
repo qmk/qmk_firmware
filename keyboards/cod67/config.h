@@ -24,13 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
+#define MANUFACTURER    Gray
 #define PRODUCT         cod67
-#define DESCRIPTION     A custom keyboard
+#define DESCRIPTION     60% Custom Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
