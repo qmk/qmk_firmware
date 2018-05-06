@@ -76,6 +76,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
+#define MOUSEKEY_DELAY             50
+#define MOUSEKEY_INTERVAL          20
+#define MOUSEKEY_MAX_SPEED         8
+#define MOUSEKEY_TIME_TO_MAX       30
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
