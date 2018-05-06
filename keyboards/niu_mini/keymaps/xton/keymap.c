@@ -41,7 +41,16 @@ enum keycodes {
   BACKLIT,
   S_INSERT,
   S_APPEND,
-  APPEND
+  APPEND,
+  VISUAL,
+  VISUAL_LINE,
+  CANCEL_VISUAL,
+  YANK,
+  YANK_LINE,
+  INS_LINE,
+  APPEND_LINE,
+  PASTE,
+  PASTE_BEFORE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -149,15 +158,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* vim command layer. Moslty movement commands
  */
 [_CMD] = {
-  {TO(_QWERTY), _______, _______, LALT(KC_RIGHT), _______, _______, _______, KC_PGUP, TO(_EDIT), _______, _______, _______},
+  {TO(_QWERTY), _______, _______, LALT(KC_RIGHT), _______, _______, OSL(_CMD_G), KC_PGUP, TO(_EDIT), APPEND_LINE, PASTE, _______},
   {_______,     APPEND, _______, KC_PGDN, _______, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
-  {MO(_CMD_G),     _______, _______, _______, _______, LALT(KC_LEFT), _______, _______, _______, _______, _______, MO(_CMD_G)},
+  {MO(_CMD_G),     _______, _______, _______, VISUAL, LALT(KC_LEFT), _______, _______, _______, _______, _______, MO(_CMD_G)},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 /* enable gg, ge (like G) */
 [_CMD_G] = {
-  {TO(_QWERTY), _______, _______, KC_END, _______, _______, _______, _______, S_INSERT, _______, _______, _______},
+  {TO(_QWERTY), _______, _______, KC_END, _______, _______, YANK_LINE, _______, S_INSERT, INS_LINE, PASTE_BEFORE, _______},
   {_______,     S_APPEND, _______, _______, _______, KC_HOME, _______, _______, _______, _______, _______, _______},
+  {_______,     _______, _______, _______, VISUAL_LINE, _______, _______, _______, _______, _______, _______, _______},
+  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
+/* visual mode, wooo */
+[_VISUAL] = {
+  {TO(_QWERTY), _______, _______, _______, _______, _______, YANK, _______, _______, _______, _______, _______},
+  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -165,10 +181,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+bool g_last_yank_was_line = false;
+#define KD if(record->event.pressed)
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
-      if (record->event.pressed) {
+      KD {
         layer_on(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
@@ -178,7 +197,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case RAISE:
-      if (record->event.pressed) {
+      KD {
         layer_on(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
@@ -188,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case BACKLIT:
-      if (record->event.pressed) {
+      KD {
         register_code(KC_RSFT);
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
@@ -199,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case APPEND:
-      if (record->event.pressed) {
+      KD {
         register_code(KC_RIGHT);
         unregister_code(KC_RIGHT);
         layer_off(_CMD_G);
@@ -209,7 +228,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case S_APPEND:
-      if (record->event.pressed) {
+      KD {
         register_code(KC_LGUI);
         register_code(KC_RIGHT);
         unregister_code(KC_RIGHT);
@@ -221,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case S_INSERT:
-      if (record->event.pressed) {
+      KD {
         register_code(KC_LGUI);
         register_code(KC_LEFT);
         unregister_code(KC_LEFT);
@@ -229,15 +248,161 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_CMD_G);
         layer_off(_CMD);
         layer_on(_EDIT);
+      };
+      return false;
+      break;
+    case VISUAL:
+      KD {
+        register_code(KC_LSHIFT);
+        layer_on(_VISUAL);
+        layer_off(_CMD_G);
+        g_last_yank_was_line = false;
       }
       return false;
       break;
-    // case KC_G:
-    //   if(record->event.pressed && layer_state_cmp(layer_state,_CMD) && keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-    //     unregister_code(KC_RSFT);
-    //     SEND_STRING(SS_TAP(X_END));
-    //     return false;
-    //   }
+    case VISUAL_LINE:
+      KD {
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        register_code(KC_LSHIFT);
+        register_code(KC_RIGHT);
+        unregister_code(KC_LGUI);
+        layer_on(_VISUAL);
+        layer_off(_CMD_G);
+        g_last_yank_was_line = true;
+      }
+      return false;
+      break;
+    case YANK:
+      KD {
+        unregister_code(KC_LSHIFT);
+        register_code(KC_LGUI);
+        register_code(KC_C);
+        unregister_code(KC_C);
+        unregister_code(KC_LGUI);
+        register_code(KC_RIGHT);
+        unregister_code(KC_RIGHT);
+        layer_off(_VISUAL);
+        layer_off(_CMD_G);
+        layer_on(_CMD);
+      }
+      return false;
+      break;
+    case YANK_LINE:
+      KD {
+        //cmd-left, shift-cmd-right, cmd-c, right
+        register_code(KC_LGUI);
+
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+
+        register_code(KC_LSFT);
+        register_code(KC_RIGHT);
+        unregister_code(KC_RIGHT);
+        unregister_code(KC_LSHIFT);
+
+        register_code(KC_C);
+        unregister_code(KC_C);
+
+        unregister_code(KC_LGUI);
+
+        register_code(KC_RIGHT);
+        unregister_code(KC_RIGHT);
+
+        layer_off(_VISUAL);
+        layer_off(_CMD_G);
+        layer_on(_CMD);
+      }
+      return false;
+      break;
+    case INS_LINE:
+      KD {
+        // cmd-left, return, up
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LGUI);
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+        register_code(KC_UP);
+        unregister_code(KC_UP);
+        layer_off(_CMD_G);
+        layer_off(_CMD);
+        layer_on(_EDIT);
+      }
+      return false;
+      break;
+    case APPEND_LINE:
+      KD {
+        // cmd-left, down, return
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LGUI);
+        register_code(KC_DOWN);
+        unregister_code(KC_DOWN);
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+        layer_off(_CMD_G);
+        layer_off(_CMD);
+        layer_on(_EDIT);
+      }
+      return false;
+      break;
+    case PASTE:
+      KD {
+        if(g_last_yank_was_line) {
+          // cmd-left, down
+          register_code(KC_LGUI);
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LGUI);
+          register_code(KC_DOWN);
+          unregister_code(KC_DOWN);
+          g_last_yank_was_line = false;
+        }
+        unregister_code(KC_LSHIFT);
+        register_code(KC_LGUI);
+        register_code(KC_V);
+        unregister_code(KC_V);
+        unregister_code(KC_LGUI);
+        layer_off(_CMD_G);
+        layer_off(_VISUAL);
+      }
+      return false;
+      break;
+    case PASTE_BEFORE:
+      KD {
+        if(g_last_yank_was_line) {
+          // cmd-left
+          register_code(KC_LGUI);
+          register_code(KC_LEFT);
+          unregister_code(KC_LEFT);
+          unregister_code(KC_LGUI);
+          g_last_yank_was_line = false;
+        }
+        unregister_code(KC_LSHIFT);
+        register_code(KC_LGUI);
+        register_code(KC_V);
+        unregister_code(KC_V);
+        unregister_code(KC_LGUI);
+        layer_off(_CMD_G);
+        layer_off(_VISUAL);
+      }
+      return false;
+      break;
+    case CANCEL_VISUAL:
+      KD {
+        g_last_yank_was_line = false;
+        unregister_code(KC_LSHIFT);
+        register_code(KC_ESCAPE);
+        unregister_code(KC_ESCAPE);
+        layer_off(_CMD_G);
+        layer_off(_VISUAL);
+      }
+      return false;
+      break;
   }
   return true;
 }
