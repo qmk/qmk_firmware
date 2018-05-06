@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from __future__ import print_function
+
+import os
+import sys
+import time
+import usb
+
+if len(sys.argv) < 2:
+    print('Usage: %s <firmware.hex>' % sys.argv[0])
+    sys.exit(1)
+
+print('Searching for ps2avrGB... ', end='')
+
+dev = usb.core.find(idVendor=0x20A0, idProduct=0x422D)
+if dev is None:
+    raise ValueError('Device not found')
+
+print('Found', end='\n\n')
+
+print('Device Information:')
+print('  idVendor: %d (0x%04x)' % (dev.idVendor, dev.idVendor))
+print('  idProduct: %d (0x%04x)' % (dev.idProduct, dev.idProduct))
+print('Manufacturer: %s' % (dev.iManufacturer))
+print('Serial: %s' % (dev.iSerialNumber))
+print('Product: %s' % (dev.iProduct), end='\n\n')
+
+print('Transferring control to bootloader... ', end='')
+
+dev.set_configuration()
+
+request_type = usb.util.build_request_type(
+        usb.util.CTRL_OUT,
+        usb.util.CTRL_TYPE_CLASS,
+        usb.util.CTRL_RECIPIENT_DEVICE)
+
+USBRQ_HID_SET_REPORT = 0x09
+HID_REPORT_OPTION = 0x0301
+
+
+try:
+    dev.ctrl_transfer(
+            request_type,
+            USBRQ_HID_SET_REPORT,
+            HID_REPORT_OPTION,
+            0,
+            [0, 0, 0xFF] + [0] * 5
+            )
+except usb.core.USBError:
+    # for some reason I keep getting USBError, but it works!
+    pass
+
+# wait a bit until bootloader starts up
+time.sleep(2)
+
+print('OK')
+print('Programming...')
+if os.system('bootloadHID -r "%s"' % sys.argv[1]) == 0:
+    print('\nDone!')

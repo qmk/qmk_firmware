@@ -1,0 +1,94 @@
+#
+#             LUFA Library
+#     Copyright (C) Dean Camera, 2017.
+#
+#  dean [at] fourwalledcubicle [dot] com
+#           www.lufa-lib.org
+#
+# --------------------------------------
+#         LUFA Project Makefile.
+# --------------------------------------
+
+# Run "make help" for target help.
+
+MCU          =
+ARCH         =
+BOARD        = NONE
+F_CPU        = $(F_USB)
+OPTIMIZATION = 1
+TARGET       = Test
+SRC          = $(TARGET)_C.c $(TARGET)_CPP.cpp Dummy.S $(LUFA_SRC_USB)
+LUFA_PATH    = ../../LUFA
+DEBUG_LEVEL  = 0
+
+ifeq ($(ARCH), AVR8)
+  F_USB        = 8000000
+else ifeq ($(ARCH), XMEGA)
+  F_USB        = 48000000
+else ifeq ($(ARCH), UC3)
+  F_USB        = 48000000
+endif
+
+# Generic C/C++ compiler flags
+CC_FLAGS  = -Wextra
+CC_FLAGS += -Werror
+CC_FLAGS += -Wformat=2
+CC_FLAGS += -Winit-self
+CC_FLAGS += -Wswitch-enum
+CC_FLAGS += -Wunused
+CC_FLAGS += -Wundef
+CC_FLAGS += -Wpointer-arith
+CC_FLAGS += -Wcast-align
+CC_FLAGS += -Wwrite-strings
+CC_FLAGS += -Wlogical-op
+CC_FLAGS += -Wmissing-declarations
+CC_FLAGS += -Wmissing-field-initializers
+CC_FLAGS += -Wmissing-format-attribute
+CC_FLAGS += -Woverlength-strings
+CC_FLAGS += -Wswitch-default
+CC_FLAGS += -Wfloat-equal
+CC_FLAGS += -Waggregate-return
+CC_FLAGS += -Wmissing-include-dirs
+
+# Disable warnings not supported by the version of GCC used for UC3 targets (FIXME)
+ifneq ($(ARCH), UC3)
+  CC_FLAGS += -Wdouble-promotion
+endif
+
+# Only enable redundant declaration warnings for AVR8 target (FIXME)
+ifeq ($(ARCH), AVR8)
+  CC_FLAGS += -Wredundant-decls
+endif
+
+# C compiler only flags
+C_FLAGS += -Wmissing-parameter-type
+C_FLAGS += -Wmissing-prototypes
+C_FLAGS += -Wnested-externs
+C_FLAGS += -Wbad-function-cast
+C_FLAGS += -Wstrict-prototypes
+C_FLAGS += -Wold-style-definition
+
+# Disable warnings not supported by the version of GCC used for UC3 targets (FIXME)
+ifneq ($(ARCH), UC3)
+  C_FLAGS += -Wunsuffixed-float-constants
+  C_FLAGS += -Wjump-misses-init
+endif
+
+# Only check C++ compatibility on the build files, to ensure headers are C++ compatible
+Test_C.c Test_CPP.cpp: CC_FLAGS += -Wc++-compat
+
+# Potential additional warnings to enable in the future (FIXME)
+#CC_FLAGS += -Wcast-qual
+#CC_FLAGS += -Wconversion
+#CC_FLAGS += -Wsign-conversion
+#CC_FLAGS += -pedantic
+
+# Include LUFA-specific DMBS extension modules
+DMBS_LUFA_PATH ?= $(LUFA_PATH)/Build/LUFA
+include $(DMBS_LUFA_PATH)/lufa-sources.mk
+include $(DMBS_LUFA_PATH)/lufa-gcc.mk
+
+# Include common DMBS build system modules
+DMBS_PATH      ?= $(LUFA_PATH)/Build/DMBS/DMBS
+include $(DMBS_PATH)/core.mk
+include $(DMBS_PATH)/gcc.mk

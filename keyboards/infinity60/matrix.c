@@ -60,8 +60,10 @@ void matrix_init(void)
     palSetPadMode(GPIOC, 5,  PAL_MODE_OUTPUT_PUSHPULL);
     palSetPadMode(GPIOD, 0,  PAL_MODE_OUTPUT_PUSHPULL);
 #endif
-    memset(matrix, 0, MATRIX_ROWS);
-    memset(matrix_debouncing, 0, MATRIX_ROWS);
+    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
@@ -96,7 +98,12 @@ uint8_t matrix_scan(void)
         }
     #endif
 
-        wait_us(1); // need wait to settle pin state
+        // need wait to settle pin state
+        // if you wait too short, or have a too high update rate
+        // the keyboard might freeze, or there might not be enough
+        // processing power to update the LCD screen properly.
+        // 20us, or two ticks at 100000Hz seems to be OK
+        wait_us(20);
 
         // read col data
         data = (palReadPort(GPIOD)>>1);
@@ -141,6 +148,7 @@ uint8_t matrix_scan(void)
         }
         debouncing = false;
     }
+    matrix_scan_quantum();
     return 1;
 }
 

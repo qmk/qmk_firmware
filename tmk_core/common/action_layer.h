@@ -29,6 +29,9 @@ extern uint32_t default_layer_state;
 void default_layer_debug(void);
 void default_layer_set(uint32_t state);
 
+__attribute__((weak))
+uint32_t default_layer_state_set_kb(uint32_t state);
+
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */
 void default_layer_or(uint32_t state);
@@ -46,6 +49,11 @@ void default_layer_xor(uint32_t state);
  */
 #ifndef NO_ACTION_LAYER
 extern uint32_t layer_state;
+
+void layer_state_set(uint32_t state);
+bool layer_state_is(uint8_t layer);
+bool layer_state_cmp(uint32_t layer1, uint8_t layer2);
+
 void layer_debug(void);
 void layer_clear(void);
 void layer_move(uint8_t layer);
@@ -57,18 +65,26 @@ void layer_or(uint32_t state);
 void layer_and(uint32_t state);
 void layer_xor(uint32_t state);
 #else
-#define layer_state             0
+#define layer_state                    0
+
+#define layer_state_set(layer)
+#define layer_state_is(layer)          (layer == 0)
+#define layer_state_cmp(state, layer)  (state == 0 ? layer == 0 : (state & 1UL << layer) != 0)
+
+#define layer_debug()
 #define layer_clear()
 #define layer_move(layer)
 #define layer_on(layer)
 #define layer_off(layer)
 #define layer_invert(layer)
-
 #define layer_or(state)
 #define layer_and(state)
 #define layer_xor(state)
-#define layer_debug()
 
+__attribute__((weak))
+uint32_t layer_state_set_user(uint32_t state);
+__attribute__((weak))
+uint32_t layer_state_set_kb(uint32_t state);
 #endif
 
 /* pressed actions cache */

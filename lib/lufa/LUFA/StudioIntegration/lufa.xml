@@ -1,0 +1,96 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<extension-container>
+		<extension uuid="0e160d5c-e331-48d9-850b-e0387912171b" org="FourWalledCubicle" shortname="LUFA" version="" fullname="Lightweight USB Framework for AVRs (LUFA)">
+			<author name="Dean Camera" website="http://www.lufa-lib.org/" email="dean@fourwalledcubicle.com"/>
+			<description>Lightweight USB Framework for AVRs (LUFA), a USB software stack/framework.</description>
+			<icon-image path="LUFA/DoxygenPages/Images/LUFA_thumb.png"/>
+			<preview-image path="LUFA/DoxygenPages/Images/LUFA.png"/>
+			<license caption="LUFA License" path="LUFA/License.txt"/>
+			<release-notes caption="LUFA Information" url="http://www.lufa-lib.org"/>
+			<online-help>
+				<index-page caption="LUFA Documentation" url="http://www.lufa-lib.org/documentation/"/>
+				<module-help-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
+				<module-guide-page scheme="append" baseurl="http://www.lufa-lib.org/documentation/"/>
+			</online-help>
+			<dependencies/>
+		</extension>
+	</extension-container>
+
+	<asf>
+		<device-alias-map name="lufa_avr8">
+			<device-support value="at90usb82"/>
+			<device-support value="atmega8u2"/>
+			<device-support value="at90usb162"/>
+			<device-support value="atmega16u2"/>
+			<device-support value="atmega16u4"/>
+			<device-support value="atmega32u2"/>
+			<device-support value="atmega32u4"/>
+			<device-support value="at90usb646"/>
+			<device-support value="at90usb647"/>
+			<device-support value="at90usb1286"/>
+			<device-support value="at90usb1287"/>
+		</device-alias-map>
+
+		<device-alias-map name="lufa_xmega">
+			<device-support value="atxmega16a4u"/>
+			<device-support value="atxmega32a4u"/>
+			<device-support value="atxmega64a4u"/>
+			<device-support value="atxmega128a4u"/>
+			<device-support value="atxmega64a3u"/>
+			<device-support value="atxmega128a3u"/>
+			<device-support value="atxmega192a3u"/>
+			<device-support value="atxmega256a3u"/>
+			<device-support value="atxmega256a3bu"/>
+			<device-support value="atxmega128a1u"/>
+			<device-support value="atxmega64b3"/>
+			<device-support value="atxmega128b3"/>
+			<device-support value="atxmega64b1"/>
+			<device-support value="atxmega128b1"/>
+			<device-support value="atxmega64c3"/>
+			<device-support value="atxmega128c3"/>
+			<device-support value="atxmega192c3"/>
+			<device-support value="atxmega256c3"/>
+			<device-support value="atxmega384c3"/>
+			<device-support value="atxmega16c4"/>
+		</device-alias-map>
+
+		<device-alias-map name="lufa_uc3">
+			<device-support value="at32uc3a364"/>
+			<device-support value="at32uc3a364s"/>
+			<device-support value="at32uc3a464"/>
+			<device-support value="at32uc3a464s"/>
+			<device-support value="at32uc3b064"/>
+			<device-support value="at32uc3b164"/>
+			<device-support value="at32uc3a0128"/>
+			<device-support value="at32uc3a1128"/>
+			<device-support value="at32uc3a3128"/>
+			<device-support value="at32uc3a3128s"/>
+			<device-support value="at32uc3a4128"/>
+			<device-support value="at32uc3a4128s"/>
+			<device-support value="at32uc3b0128"/>
+			<device-support value="at32uc3b1128"/>
+			<device-support value="at32uc3a0256"/>
+			<device-support value="at32uc3a1256"/>
+			<device-support value="at32uc3a3256"/>
+			<device-support value="at32uc3a3256s"/>
+			<device-support value="at32uc3a4256"/>
+			<device-support value="at32uc3a4256s"/>
+			<device-support value="at32uc3b0256"/>
+			<device-support value="at32uc3b1256"/>
+			<device-support value="at32uc3a0512"/>
+			<device-support value="at32uc3a1512"/>
+			<device-support value="at32uc3b0512"/>
+			<device-support value="at32uc3b1512"/>
+		</device-alias-map>
+	</asf>
+</lufa>

@@ -16,7 +16,7 @@ MCU = atmega32u4
 F_CPU = 16000000
 
 # for avr upload
-USB ?= /dev/cu.usbmodem1421
+USB = /dev/cu.usbmodem1421
 #
 # LUFA specific
 #
@@ -37,15 +37,23 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
 ifdef TEENSY2
+    BOOTLOADER = halfkay
     OPT_DEFS += -DATREUS_TEENSY2
     ATREUS_UPLOAD_COMMAND = teensy_loader_cli -w -mmcu=$(MCU) $(TARGET).hex
 else
+    BOOTLOADER = caterina
     OPT_DEFS += -DATREUS_ASTAR
-    OPT_DEFS += -DCATERINA_BOOTLOADER
     ATREUS_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                             avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 endif
+
+
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
@@ -64,26 +72,19 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE ?= no        # Console for debug(+400)
-COMMAND_ENABLE ?= no        # Commands for debug and configuration
+CONSOLE_ENABLE = no        # Console for debug(+400)
+COMMAND_ENABLE = no        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE ?= no       # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 # if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-NKRO_ENABLE ?= no            # USB Nkey Rollover
-BACKLIGHT_ENABLE ?= no       # Enable keyboard backlight functionality on B7 by default
-MIDI_ENABLE ?= no            # MIDI controls
-UNICODE_ENABLE ?= no         # Unicode
-BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
-AUDIO_ENABLE ?= no           # Audio output on port C6
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+MIDI_ENABLE = no            # MIDI controls
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
 RGBLIGHT_ENABLE = yes
-
-ifndef QUANTUM_DIR
-	include ../../../Makefile
-endif
-
-upload: build
-	$(ATREUS_UPLOAD_COMMAND)
 

@@ -92,4 +92,27 @@ elif [[ -n "$(type -P zypper)" ]]; then
   # TODO: The avr and eabi tools are not available as default packages, so we need 
   # another way to install them
 
+elif [[ -n "$(type -P pkg)" ]]; then
+  # FreeBSD
+  pkg update
+  pkg install -y \
+    git \
+    wget \
+    gmake \
+    gcc \
+    zip \
+    unzip \
+    avr-binutils \
+    avr-gcc \
+    avr-libc \
+    dfu-programmer \
+    dfu-util \
+    arm-none-eabi-gcc \
+    arm-none-eabi-binutils \
+    arm-none-eabi-newlib \
+    diffutils
+elif [[ -n "$(type -P emerge)" ]]; then
+    echo 'Please check that your gcc is built with the multilib use flag enabled.'
+    emerge -vq sys-devel/crossdev
+    USE="-openmp -hardened -sanitize -vtv" crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
 fi
