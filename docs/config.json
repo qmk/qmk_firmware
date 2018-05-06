@@ -1,0 +1,33 @@
+{
+    "title": "QMK Firmware",
+    "tagline": "Keyboard controller firmware for Atmel AVR and ARM USB families",
+    "author": "QMK Community",
+    "image": "gitbook/images/favicon.png",
+    "ignore": {
+	"dirs": [
+            "Internals"
+        ],
+        "files": [
+            "internals_defines.md",
+            "internals_input_callback_reg.md",
+            "internals_midi_device.md",
+            "internals_midi_device_setup_process.md",
+            "internals_midi_util.md",
+            "internals_send_functions.md",
+            "internals_sysex_tools.md"
+        ]
+    },
+    "html": {
+        "auto_toc": true,
+        "breadcrumbs": true,
+        "breadcrumbs_separator": " &emdash;&gt; ",
+        "buttons": {
+            "QMK Website": "https://qmk.fm/"
+        },
+        "links": {
+            "QMK Link": "https://qmk.fm/"
+        },
+        "repo": "qmk/qmk_firmware",
+        "toggle_code": false
+    }
+}
