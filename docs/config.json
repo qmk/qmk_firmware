@@ -18,6 +18,7 @@
         ]
     },
     "html": {
+        "auto_landing": false,
         "auto_toc": true,
         "breadcrumbs": true,
         "breadcrumbs_separator": " &emdash;&gt; ",
