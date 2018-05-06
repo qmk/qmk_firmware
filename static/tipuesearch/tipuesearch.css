@@ -1,0 +1,177 @@
+/*
+Tipue Search 5.0
+Copyright (c) 2015 Tipue
+Tipue Search is released under the MIT License
+http://www.tipue.com/search
+*/
+
+body.with-search {
+    overflow: hidden;
+}
+
+.SearchResults {
+    background: #fff;
+    max-width: 650px;
+    padding: 15px;
+    margin: 0;
+
+    z-index: 100;
+    position:absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    overflow: auto;
+}
+
+.SearchResultsBackdrop {
+    z-index: 90;
+
+    width:100%;
+
+    position:absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    background: #000;
+    opacity: .6;
+}
+
+
+.homepage .SearchResults,
+.homepage .SearchResultsBackdrop {
+    top: 50px;
+}
+
+.homepage .SearchResults .Search__field {
+    display: none;
+}
+
+.SearchResults .Search__field {
+    width: 40%;
+    float: left;
+}
+
+.SearchResults__warning {
+    font-weight:300;
+    font-size:15px;
+    line-height: 1.6;
+    color: #555;
+    margin: 7px 0;
+}
+
+.SearchResults__warning a {
+    color: #396;
+    text-decoration: none;
+}
+
+.SearchResults__warning a:hover {
+    color: #555;
+}
+
+.SearchResults__count {
+    font-weight:300;
+    font-size:15px;
+    line-height: 1.7;
+    color: #555;
+}
+
+.SearchResults__close {
+    border: 0 transparent solid;
+    background: none;
+
+    float: right;
+    font-size: 2em;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: .8em;
+}
+
+.SearchResults__title {
+    font-weight:300;
+    font-size:21px;
+    line-height: 1.7;
+    margin-top: 23px;
+}
+
+.SearchResults__title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.SearchResults__title a:hover {
+    color: #555;
+}
+
+.SearchResults__url {
+    font-weight:300;
+    font-size:14px;
+    line-height: 1.9;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.SearchResults__url a {
+    color: #396;
+    text-decoration: none;
+}
+
+.SearchResults__url a:hover {
+    color: #555;
+}
+
+.SearchResults__text {
+    font-weight:300;
+    font-size:15px;
+    line-height: 1.6;
+    color: #555;
+    word-wrap: break-word;
+    hyphens: auto;
+    margin-top: 3px;
+}
+
+.SearchResults__debug {
+    font-weight:300;
+    font-size:13px;
+    line-height: 1.6;
+    color: #555;
+    margin: 5px 0;
+}
+
+.SearchResults__highlight {
+    color: #333;
+    font-weight: 400;
+}
+
+.SearchResults__footer {
+    margin: 51px 0 21px 0;
+    padding: 0 10px;
+}
+
+.SearchResults__footer__links li {
+    margin: 0 4px;
+}
+
+.SearchResults__footer__links li.current {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 15px;
+
+    color: #333;
+    background: #f6f6f6;
+    border: 1px solid #e2e2e2;
+}
+
+
+/* spinner */
+
+@media (min-width: 650px) {
+    .SearchResults {
+        width: 650px;
+
+        left: 50%;
+        margin-left: -325px;
+    }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Pointing Device - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item Nav__item--active'><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/Pointing_Device.html">Pointing Device</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Pointing-Device">Pointing Device</a></p>
+</li>
+</ul>
+<h2 id="page_Pointing-Device">Pointing Device</h2>
+<p>Pointing Device is a generic name for a feature intended to be generic: moving the system pointer around.  There are certainly other options for it - like mousekeys - but this aims to be easily modifiable and lightweight.  You can implement custom keys to control functionality, or you can gather information from other peripherals and insert it directly here - let QMK handle the processing for you.</p>
+<p>To enable Pointing Device, uncomment the following line in your rules.mk:</p>
+<pre><code>POINTING_DEVICE_ENABLE = yes
+</code></pre>
+<p>To manipulate the mouse report, you can use the following functions:</p>
+<ul>
+<li>
+<code>pointing_device_get_report()</code> - Returns the current report_mouse_t that represents the information sent to the host computer</li>
+<li>
+<code>pointing_device_set_report(report_mouse_t newMouseReport)</code> - Overrides and saves the report_mouse_t to be sent to the host computer</li>
+</ul>
+<p>Keep in mind that a report_mouse_t (here &quot;mouseReport&quot;) has the following properties:</p>
+<ul>
+<li>
+<code>mouseReport.x</code> - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ to the right, - to the left) on the x axis.</li>
+<li>
+<code>mouseReport.y</code> - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing movement (+ upward, - downward) on the y axis.</li>
+<li>
+<code>mouseReport.v</code> - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing vertical scrolling (+ upward, - downward).</li>
+<li>
+<code>mouseReport.h</code> - this is a signed int from -127 to 127 (not 128, this is defined in USB HID spec) representing horizontal scrolling (+ right, - left).</li>
+<li>
+<code>mouseReport.buttons</code> - this is a uint8_t in which the last 5 bits are used.  These bits represent the mouse button state - bit 3 is mouse button 5, and bit 7 is mouse button 1.</li>
+</ul>
+<p>When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in &quot;pointing_device_send()&quot;, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both <code>pointing_device_init</code> and <code>pointing_device_task</code> can be overridden.</p>
+<p>In the following example, a custom key is used to click the mouse and scroll 127 units vertically and horizontally, then undo all of that when released - because that's a totally useful function.  Listen, this is an example:</p>
+<pre><code>case MS_SPECIAL:
+	report_mouse_t currentReport = pointing_device_get_report();
+    if (record-&gt;event.pressed)
+    {
+        currentReport.v = 127;
+		currentReport.h = 127;
+		currentReport.buttons |= MOUSE_BTN1; //this is defined in report.h
+    }
+    else
+    {
+        currentReport.v = -127;
+        currentReport.h = -127;
+        currentReport.buttons &amp;= ~MOUSE_BTN1;
+    }
+	pointing_device_set_report(currentReport);
+    break;
+</code></pre>
+<p>Recall that the mouse report is set to zero (except the buttons) whenever it is sent, so the scrolling would only occur once in each case.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Mouse_Keys.html">Previous</a></li>            <li class=Pager--next><a href="../Features/PS_2_Mouse.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

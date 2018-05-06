@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Keymaps - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item Nav__item--active'><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../FAQ/index.html">FAQ</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../FAQ/Keymaps.html">Keymaps</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Keymap-FAQ">Keymap FAQ</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_What-Keycodes-Can-I-Use">What Keycodes Can I Use?</a></p>
+</li>
+<li>
+<p><a href="#page_What-Are-the-Default-Keycodes">What Are the Default Keycodes?</a></p>
+</li>
+<li>
+<p><a href="#page_Some-Of-My-Keys-Are-Swapped-Or-Not-Working">Some Of My Keys Are Swapped Or Not Working</a></p>
+</li>
+<li>
+<p><a href="#page_The-Menu-Key-Isn-t-Working">The Menu Key Isn't Working</a></p>
+</li>
+<li>
+<p><a href="#page_Isn-t-Working"><code>KC_SYSREQ</code> Isn't Working</a></p>
+</li>
+<li>
+<p><a href="#page_Power-Key-Doesn-t-Work">Power Key Doesn't Work</a></p>
+</li>
+<li>
+<p><a href="#page_One-Shot-Modifier">One Shot Modifier</a></p>
+</li>
+<li>
+<p><a href="#page_Modifier-Layer-Stuck">Modifier/Layer Stuck</a></p>
+</li>
+<li>
+<p><a href="#page_Mechanical-Lock-Switch-Support">Mechanical Lock Switch Support</a></p>
+</li>
+<li>
+<p><a href="#page_Input-Special-Characters-Other-Than-ASCII-like-Cedille-C">Input Special Characters Other Than ASCII like Cédille 'Ç'</a></p>
+</li>
+<li>
+<p><a href="#page_Apple-Mac-Keyboard">Apple/Mac Keyboard <code>Fn</code></a></p>
+</li>
+<li>
+<p><a href="#page_Media-Control-Keys-in-Mac-OSX">Media Control Keys in Mac OSX</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_KC-_-MNXT-and-KC-_-MPRV-Does-Not-Work-on-Mac">KC_MNXT and KC_MPRV Does Not Work on Mac</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Keys-Supported-in-Mac-OSX">Keys Supported in Mac OSX?</a></p>
+</li>
+<li>
+<p><a href="#page_JIS-Keys-in-Mac-OSX">JIS Keys in Mac OSX</a></p>
+</li>
+<li>
+<p><a href="#page_RN-42-Bluetooth-Doesn-t-Work-with-Karabiner">RN-42 Bluetooth Doesn't Work with Karabiner</a></p>
+</li>
+<li>
+<p><a href="#page_Esc-and-on-a-Single-Key">Esc and <code>`</code> on a Single Key</a></p>
+</li>
+<li>
+<p><a href="#page_Arrow-on-Right-Modifier-Keys-with-Dual-Role">Arrow on Right Modifier Keys with Dual-Role</a></p>
+</li>
+<li>
+<p><a href="#page_Eject-on-Mac-OSX">Eject on Mac OSX</a></p>
+</li>
+<li>
+<p><a href="#page_What-s-and-in">What's <code>weak_mods</code> and <code>real_mods</code> in <code>action_util.c</code></a></p>
+</li>
+<li>
+<p><a href="#page_Timer-Functionality">Timer Functionality</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Keymap-FAQ">Keymap FAQ</h1>
+<p>This page covers questions people often have about keymaps. If you haven't you should read <a href="../Reference/Keymap_Overview.html">Keymap Overview</a> first.</p>
+<h2 id="page_What-Keycodes-Can-I-Use">What Keycodes Can I Use?</h2>
+<p>See <a href="../Keycodes/index.html">Keycodes</a> for an index of keycodes available to you. These link to more extensive documentation when available.</p>
+<p>Keycodes are actually defined in <a href="https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h" class="Link--external">common/keycode.h</a>.</p>
+<h2 id="page_What-Are-the-Default-Keycodes">What Are the Default Keycodes?</h2>
+<p>There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:</p>
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/9ce023dc6caadc0cf11c88c782350a8c -->
+<p><img src="https://i.imgur.com/45m4mRf.png" alt="Keyboard Layout Image" /></p>
+<h2 id="page_Some-Of-My-Keys-Are-Swapped-Or-Not-Working">Some Of My Keys Are Swapped Or Not Working</h2>
+<p>QMK has two features, Bootmagic and Command, which allow you to change the behavior of your keyboard on the fly. This includes, but is not limited to, swapping Ctrl/Caps, disabling Gui, swapping Alt/Gui, swapping Backspace/Backslash, disabling all keys, and other behavioral modifications.</p>
+<p>As a quick fix try holding down <code>Space</code>+<code>Backspace</code> while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:</p>
+<ul>
+<li>
+<a href="../Features/Bootmagic.html">Bootmagic</a>
+</li>
+<li>
+<a href="../Features/Command.html">Command</a>
+</li>
+</ul>
+<h2 id="page_The-Menu-Key-Isn-t-Working">The Menu Key Isn't Working</h2>
+<p>The key found on most modern keyboards that is located between <code>KC_RGUI</code> and <code>KC_RCTL</code> is actually called <code>KC_APP</code>. This is because when that key was invented there was already a key named <code>MENU</code> in the relevant standards, so MS chose to call that the <code>APP</code> key.</p>
+<h2 id="page_Isn-t-Working"><code>KC_SYSREQ</code> Isn't Working</h2>
+<p>Use keycode for Print Screen(<code>KC_PSCREEN</code> or <code>KC_PSCR</code>) instead of <code>KC_SYSREQ</code>. Key combination of 'Alt + Print Screen' is recognized as 'System request'.</p>
+<p>See <a href="https://github.com/tmk/tmk_keyboard/issues/168" class="Link--external">issue #168</a> and</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Magic_SysRq_key</li>
+<li>http://en.wikipedia.org/wiki/System_request</li>
+</ul>
+<h2 id="page_Power-Key-Doesn-t-Work">Power Key Doesn't Work</h2>
+<p>Use <code>KC_PWR</code> instead of <code>KC_POWER</code> or vice versa.</p>
+<ul>
+<li>
+<code>KC_PWR</code> works with Windows and Linux, not with OSX.</li>
+<li>
+<code>KC_POWER</code> works with OSX and Linux, not with Windows.</li>
+</ul>
+<p>More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264</p>
+<h2 id="page_One-Shot-Modifier">One Shot Modifier</h2>
+<p>Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
+https://github.com/tmk/tmk_keyboard/issues/67</p>
+<h2 id="page_Modifier-Layer-Stuck">Modifier/Layer Stuck</h2>
+<p>Modifier keys or layers can be stuck unless layer switching is configured properly.
+For Modifier keys and layer actions you have to place <code>KC_TRANS</code> on same position of destination layer to  unregister the modifier key or return to previous layer on release event.</p>
+<ul>
+<li>https://github.com/tmk/tmk_core/blob/master/doc/Reference/Keymap_Overview.md#31-momentary-switching</li>
+<li>http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604</li>
+<li>https://github.com/tmk/tmk_keyboard/issues/248</li>
+</ul>
+<h2 id="page_Mechanical-Lock-Switch-Support">Mechanical Lock Switch Support</h2>
+<p>This feature is for <em>mechanical lock switch</em> like <a href="http://deskthority.net/wiki/Alps_SKCL_Lock" class="Link--external">this Alps one</a>. You can enable it by adding this to your <code>config.h</code>:</p>
+<pre><code>#define LOCKING_SUPPORT_ENABLE
+#define LOCKING_RESYNC_ENABLE
+</code></pre>
+<p>After enabling this feature use keycodes <code>KC_LCAP</code>, <code>KC_LNUM</code> and <code>KC_LSCR</code> in your keymap instead.</p>
+<p>Old vintage mechanical keyboards occasionally have lock switches but modern ones don't have. <em><strong>You don't need this feature in most case and just use keycodes <code>KC_CAPS</code>, <code>KC_NLCK</code> and <code>KC_SLCK</code>.</strong></em></p>
+<h2 id="page_Input-Special-Characters-Other-Than-ASCII-like-Cedille-C">Input Special Characters Other Than ASCII like Cédille 'Ç'</h2>
+<p>NO UNIVERSAL METHOD TO INPUT THOSE WORKS OVER ALL SYSTEMS. You have to define <strong>MACRO</strong> in way specific to your OS or layout.</p>
+<p>See this post for example <strong>MACRO</strong> code.</p>
+<p>http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620</p>
+<p>On <strong>Windows</strong> you can use <code>AltGr</code> key or <strong>Alt code</strong>.</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/AltGr_key</li>
+<li>http://en.wikipedia.org/wiki/Alt_code</li>
+</ul>
+<p>On <strong>Mac</strong> OS defines <code>Option</code> key combinations.</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input</li>
+</ul>
+<p>On <strong>Xorg</strong> you can use <code>compose</code> key, instead.</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Compose_key</li>
+</ul>
+<p>And see this for <strong>Unicode</strong> input.</p>
+<ul>
+<li>http://en.wikipedia.org/wiki/Unicode_input</li>
+</ul>
+<h2 id="page_Apple-Mac-Keyboard">Apple/Mac Keyboard <code>Fn</code></h2>
+<p>Not supported.</p>
+<p>Apple/Mac keyboard sends keycode for Fn unlike most of other keyboards.
+I think you can send Apple Fn key using Apple venter specific Page 0xff01 and usage 0x0003. But you have to change HID Report Descriptor for this, of course.</p>
+<p>https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h</p>
+<h2 id="page_Media-Control-Keys-in-Mac-OSX">Media Control Keys in Mac OSX</h2>
+<h4 id="page_KC-_-MNXT-and-KC-_-MPRV-Does-Not-Work-on-Mac">KC_MNXT and KC_MPRV Does Not Work on Mac</h4>
+<p>Use <code>KC_MFFD</code>(<code>KC_MEDIA_FAST_FORWARD</code>) and <code>KC_MRWD</code>(<code>KC_MEDIA_REWIND</code>) instead of <code>KC_MNXT</code> and <code>KC_MPRV</code>.
+See https://github.com/tmk/tmk_keyboard/issues/195</p>
+<h2 id="page_Keys-Supported-in-Mac-OSX">Keys Supported in Mac OSX?</h2>
+<p>You can know which keycodes are supported in OSX from this source code.</p>
+<p><code>usb_2_adb_keymap</code> array maps Keyboard/Keypad Page usages to ADB scancodes(OSX internal keycodes).</p>
+<p>https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c</p>
+<p>And <code>IOHIDConsumer::dispatchConsumerEvent</code> handles Consumer page usages.</p>
+<p>https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp</p>
+<h2 id="page_JIS-Keys-in-Mac-OSX">JIS Keys in Mac OSX</h2>
+<p>Japanese JIS keyboard specific keys like <code>無変換(Muhenkan)</code>, <code>変換(Henkan)</code>, <code>ひらがな(hiragana)</code> are not recognized on OSX. You can use <strong>Seil</strong> to enable those keys, try following options.</p>
+<ul>
+<li>Enable NFER Key on PC keyboard</li>
+<li>Enable XFER Key on PC keyboard</li>
+<li>Enable KATAKANA Key on PC keyboard</li>
+</ul>
+<p>https://pqrs.org/osx/karabiner/seil.html</p>
+<h2 id="page_RN-42-Bluetooth-Doesn-t-Work-with-Karabiner">RN-42 Bluetooth Doesn't Work with Karabiner</h2>
+<p>Karabiner - Keymapping tool on Mac OSX - ignores inputs from RN-42 module by default. You have to enable this option to make Karabiner working with your keyboard.
+https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237</p>
+<p>See these for the detail of this problem.
+https://github.com/tmk/tmk_keyboard/issues/213
+https://github.com/tekezo/Karabiner/issues/403</p>
+<h2 id="page_Esc-and-on-a-Single-Key">Esc and <code>`</code> on a Single Key</h2>
+<p>See the <a href="../Features/Grave_Escape.html">Grave Escape</a> feature.</p>
+<h2 id="page_Arrow-on-Right-Modifier-Keys-with-Dual-Role">Arrow on Right Modifier Keys with Dual-Role</h2>
+<p>This turns right modifier keys into arrow keys when the keys are tapped while still modifiers when the keys are hold. In TMK the dual-role function is dubbed <strong>TAP</strong>.</p>
+<pre><code>
+#include &quot;keymap_common.h&quot;
+
+
+/* Arrow keys on right modifier keys with TMK dual role feature
+ *
+ *  https://github.com/tmk/tmk_core/blob/master/doc/07_Reference/Keymap_Overview.md#213-modifier-with-tap-keydual-role
+ *  https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys
+ */
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* 0: qwerty */
+    [0] = KEYMAP( \
+        ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
+        TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
+        LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
+        LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
+        FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
+    [1] = KEYMAP( \
+        GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
+        TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,FN5, TRNS, \
+        TRNS,TRNS,TRNS,          TRNS,                    TRNS,FN7, FN6, FN8),
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_UP),
+    [1] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_DOWN),
+    [2] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_LEFT),
+    [3] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_RIGHT),
+    [4] = ACTION_LAYER_MOMENTARY(1),
+    [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_PGUP),
+    [6] = ACTION_MODS_TAP_KEY(MOD_RGUI, KC_PGDN),
+    [7] = ACTION_MODS_TAP_KEY(MOD_RALT, KC_HOME),
+    [8] = ACTION_MODS_TAP_KEY(MOD_RCTL, KC_END),
+};
+
+</code></pre>
+<p>Dual-role key: https://en.wikipedia.org/wiki/Modifier_key#Dual-role_keys</p>
+<h2 id="page_Eject-on-Mac-OSX">Eject on Mac OSX</h2>
+<p><code>KC_EJCT</code> keycode works on OSX. https://github.com/tmk/tmk_keyboard/issues/250
+It seems Windows 10 ignores the code and Linux/Xorg recognizes but has no mapping by default.</p>
+<p>Not sure what keycode Eject is on genuine Apple keyboard actually. HHKB uses <code>F20</code> for Eject key(<code>Fn+f</code>) on Mac mode but this is not same as Apple Eject keycode probably.</p>
+<h2 id="page_What-s-and-in">What's <code>weak_mods</code> and <code>real_mods</code> in <code>action_util.c</code></h2>
+<p><em><strong>TO BE IMPROVED</strong></em></p>
+<p>real_mods is intended to retains state of real/physical modifier key state, while
+weak_mods retains state of virtual or temporary modifiers which should not affect state real modifier key.</p>
+<p>Let's say you hold down physical left shift key and type ACTION_MODS_KEY(LSHIFT, KC_A),</p>
+<p>with weak_mods,</p>
+<ul>
+<li>(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)</li>
+<li>(2) press ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)</li>
+<li>(3) release ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &amp;= ~MOD_BIT(LSHIFT)
+real_mods still keeps modifier state.</li>
+</ul>
+<p>without weak mods,</p>
+<ul>
+<li>(1) hold down left shift: real_mods |= MOD_BIT(LSHIFT)</li>
+<li>(2) press ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)</li>
+<li>(3) release ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &amp;= ~MOD_BIT(LSHIFT)
+here real_mods lost state for 'physical left shift'.</li>
+</ul>
+<p>weak_mods is ORed with real_mods when keyboard report is sent.
+https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57</p>
+<h2 id="page_Timer-Functionality">Timer Functionality</h2>
+<p>It's possible to start timers and read values for time-specific events - here's an example:</p>
+<pre><code class="language-c">static uint16_t key_timer;
+key_timer = timer_read();
+
+if (timer_elapsed(key_timer) &lt; 100) {
+  // do something if less than 100ms have passed
+} else {
+  // do something if 100ms or more have passed
+}
+</code></pre>
+<p>It's best to declare the <code>static uint16_t key_timer;</code> at the top of the file, outside of any code blocks you're using it in.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../FAQ/Debugging_and_Troubleshooting.html">Previous</a></li>            <li class=Pager--next><a href="../Hardware/index.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

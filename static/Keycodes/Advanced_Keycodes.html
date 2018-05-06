@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Advanced Keycodes - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Keycodes/index.html">Keycodes</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Advanced-Keycodes">Advanced Keycodes</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Assigning-Custom-Names">Assigning Custom Names</a></p>
+</li>
+<li>
+<p><a href="#page_Limits-of-These-Aliases">Limits of These Aliases</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Switching-and-Toggling-Layers">Switching and Toggling Layers</a></p>
+</li>
+<li>
+<p><a href="#page_Working-with-Layers">Working with Layers</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Beginners">Beginners</a></p>
+</li>
+<li>
+<p><a href="#page_Intermediate-Users">Intermediate Users</a></p>
+</li>
+<li>
+<p><a href="#page_Advanced-Users">Advanced Users</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Modifier-Keys">Modifier Keys</a></p>
+</li>
+<li>
+<p><a href="#page_Shifted-Keycodes">Shifted Keycodes</a></p>
+</li>
+<li>
+<p><a href="#page_Mod-Tap">Mod Tap</a></p>
+</li>
+<li>
+<p><a href="#page_One-Shot-Keys">One Shot Keys</a></p>
+</li>
+<li>
+<p><a href="#page_Permissive-Hold">Permissive Hold</a></p>
+</li>
+</ul>
+<h1 id="page_Advanced-Keycodes">Advanced Keycodes</h1>
+<p>Your keymap can include keycodes that are more advanced than normal, for example shifted keys. This page documents the functions that are available to you.</p>
+<h3 id="page_Assigning-Custom-Names">Assigning Custom Names</h3>
+<p>People often define custom names using <code>#define</code>. For example:</p>
+<pre><code class="language-c">#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define ALT_TAB LALT(KC_TAB)
+</code></pre>
+<p>This will allow you to use <code>FN_CAPS</code> and <code>ALT_TAB</code> in your <code>KEYMAP()</code>, keeping it more readable.</p>
+<h3 id="page_Limits-of-These-Aliases">Limits of These Aliases</h3>
+<p>Currently, the keycodes able to used with these functions are limited to the <a href="Basic.html">Basic Keycodes</a>, meaning you can't use keycodes like <code>KC_TILD</code>, or anything greater than 0xFF. For a full list of the keycodes able to be used see <a href="Basic.html">Basic Keycodes</a>.</p>
+<h1 id="page_Switching-and-Toggling-Layers">Switching and Toggling Layers</h1>
+<p>These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use <code>KC_TRNS</code> to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see <a href="../Reference/Keymap_Overview.html#keymap-and-layers">Keymap Overview</a></p>
+<ul>
+<li>
+<code>DF(layer)</code> - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the <code>set_single_persistent_default_layer</code> function inside of <a href="../Reference/Custom_Code.html#programming-the-behavior-of-any-keycode">process_record_user</a>.)</li>
+<li>
+<code>MO(layer)</code> - momentarily activates <em>layer</em>. As soon as you let go of the key, the layer is deactivated.</li>
+<li>
+<code>LM(layer, mod)</code> - Momentarily activates <em>layer</em> (like <code>MO</code>), but with modifier(s) <em>mod</em> active. Only supports layers 0-15 and the left modifiers.</li>
+<li>
+<code>LT(layer, kc)</code> - momentarily activates <em>layer</em> when held, and sends <em>kc</em> when tapped.</li>
+<li>
+<code>TG(layer)</code> - toggles <em>layer</em>, activating it if it's inactive and vice versa</li>
+<li>
+<code>TO(layer)</code> - activates <em>layer</em> and de-activates all other layers (except your default layer). This function is special, because instead of just adding/removing one layer to your active layer stack, it will completely replace your current active layers, uniquely allowing you to replace higher layers with a lower one. This is activated on keydown (as soon as the key is pressed).</li>
+<li>
+<code>TT(layer)</code> - Layer Tap-Toggle. If you hold the key down, <em>layer</em> is activated, and then is de-activated when you let go (like <code>MO</code>). If you repeatedly tap it, the layer will be toggled on or off (like <code>TG</code>). It needs 5 taps by default, but you can change this by defining <code>TAPPING_TOGGLE</code> -- for example, <code>#define TAPPING_TOGGLE 2</code> to toggle on just two taps.</li>
+</ul>
+<h1 id="page_Working-with-Layers">Working with Layers</h1>
+<p>Care must be taken when switching layers, it's possible to lock yourself into a layer with no way to deactivate that layer (without unplugging your keyboard.) We've created some guidelines to help users avoid the most common problems.</p>
+<h3 id="page_Beginners">Beginners</h3>
+<p>If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:</p>
+<ul>
+<li>Setup layer 0 as your default, &quot;base&quot; layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number).</li>
+<li>Arrange your layers in a &quot;tree&quot; layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.</li>
+<li>In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.</li>
+</ul>
+<h3 id="page_Intermediate-Users">Intermediate Users</h3>
+<p>Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off.</p>
+<h3 id="page_Advanced-Users">Advanced Users</h3>
+<p>Once you have a good feel for how layers work and what you can do, you can get more creative. The rules listed in the beginner section will help you be successful by avoiding some of the tricker details but they can be constraining, especially for ultra-compact keyboard users. Understanding how layers work will allow you to use them in more advanced ways.</p>
+<p>Layers stack on top of each other in numerical order. When determining what a keypress does, QMK scans the layers from the top down, stopping when it reaches the first active layer that is not set to <code>KC_TRNS</code>. As a result if you activate a layer that is numerically lower than your current layer, and your current layer (or another layer that is active and higher than your target layer) has something other than <code>KC_TRNS</code>, that is the key that will be sent, not the key on the layer you just activated. This is the cause of most people's &quot;why doesn't my layer get switched&quot; problem.</p>
+<p>Sometimes, you might want to switch between layers in a macro or as part of a tap dance routine. <code>layer_on</code> activates a layer, and <code>layer_off</code> deactivates it. More layer-related functions can be found in <a href="https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_layer.h" class="Link--external">action_layer.h</a>.</p>
+<h1 id="page_Modifier-Keys">Modifier Keys</h1>
+<p>These functions allow you to combine a mod with a keycode. When pressed the keydown for the mod will be sent first, and then <em>kc</em> will be sent. When released the keyup for <em>kc</em> will be sent and then the mod will be sent.</p>
+<ul>
+<li>
+<code>LSFT(kc)</code> or <code>S(kc)</code> - applies left Shift to <em>kc</em> (keycode)</li>
+<li>
+<code>RSFT(kc)</code> - applies right Shift to <em>kc</em>
+</li>
+<li>
+<code>LCTL(kc)</code> - applies left Control to <em>kc</em>
+</li>
+<li>
+<code>RCTL(kc)</code> - applies right Control to <em>kc</em>
+</li>
+<li>
+<code>LALT(kc)</code> - applies left Alt to <em>kc</em>
+</li>
+<li>
+<code>RALT(kc)</code> - applies right Alt to <em>kc</em>
+</li>
+<li>
+<code>LGUI(kc)</code> - applies left GUI (command/win) to <em>kc</em>
+</li>
+<li>
+<code>RGUI(kc)</code> - applies right GUI (command/win) to <em>kc</em>
+</li>
+<li>
+<code>HYPR(kc)</code> - applies Hyper (all modifiers) to <em>kc</em>
+</li>
+<li>
+<code>MEH(kc)</code>  - applies Meh (all modifiers except Win/Cmd) to <em>kc</em>
+</li>
+<li>
+<code>LCAG(kc)</code> - applies CtrlAltGui to <em>kc</em>
+</li>
+</ul>
+<p>You can also chain these, like this:</p>
+<pre><code>LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
+</code></pre>
+<h1 id="page_Shifted-Keycodes">Shifted Keycodes</h1>
+<p>The following shortcuts automatically add <code>LSFT()</code> to keycodes to get commonly used symbols.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KC_TILDE</code></td>
+<td><code>KC_TILD</code></td>
+<td><code>~</code></td>
+</tr>
+<tr>
+<td><code>KC_EXCLAIM</code></td>
+<td><code>KC_EXLM</code></td>
+<td><code>!</code></td>
+</tr>
+<tr>
+<td><code>KC_AT</code></td>
+<td></td>
+<td><code>@</code></td>
+</tr>
+<tr>
+<td><code>KC_HASH</code></td>
+<td></td>
+<td><code>#</code></td>
+</tr>
+<tr>
+<td><code>KC_DOLLAR</code></td>
+<td><code>KC_DLR</code></td>
+<td><code>$</code></td>
+</tr>
+<tr>
+<td><code>KC_PERCENT</code></td>
+<td><code>KC_PERC</code></td>
+<td><code>%</code></td>
+</tr>
+<tr>
+<td><code>KC_CIRCUMFLEX</code></td>
+<td><code>KC_CIRC</code></td>
+<td><code>^</code></td>
+</tr>
+<tr>
+<td><code>KC_AMPERSAND</code></td>
+<td><code>KC_AMPR</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>KC_ASTERISK</code></td>
+<td><code>KC_ASTR</code></td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_PAREN</code></td>
+<td><code>KC_LPRN</code></td>
+<td><code>(</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_PAREN</code></td>
+<td><code>KC_RPRN</code></td>
+<td><code>)</code></td>
+</tr>
+<tr>
+<td><code>KC_UNDERSCORE</code></td>
+<td><code>KC_UNDS</code></td>
+<td><code>_</code></td>
+</tr>
+<tr>
+<td><code>KC_PLUS</code></td>
+<td></td>
+<td><code>+</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_CURLY_BRACE</code></td>
+<td><code>KC_LCBR</code></td>
+<td><code>{</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_CURLY_BRACE</code></td>
+<td><code>KC_RCBR</code></td>
+<td><code>}</code></td>
+</tr>
+<tr>
+<td><code>KC_PIPE</code></td>
+<td></td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td><code>KC_COLON</code></td>
+<td><code>KC_COLN</code></td>
+<td><code>:</code></td>
+</tr>
+<tr>
+<td><code>KC_DOUBLE_QUOTE</code></td>
+<td><code>KC_DQT</code>/<code>KC_DQUO</code></td>
+<td><code>&quot;</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_ANGLE_BRACKET</code></td>
+<td><code>KC_LT</code>/<code>KC_LABK</code></td>
+<td><code>&lt;</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_ANGLE_BRACKET</code></td>
+<td><code>KC_GT</code>/<code>KC_RABK</code></td>
+<td><code>&gt;</code></td>
+</tr>
+<tr>
+<td><code>KC_QUESTION</code></td>
+<td><code>KC_QUES</code></td>
+<td><code>?</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="page_Mod-Tap">Mod Tap</h1>
+<p><code>MT(mod, kc)</code> - is <em>mod</em> (modifier key - MOD_LCTL, MOD_LSFT) when held, and <em>kc</em> when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.</p>
+<p>These are the values you can use for the <code>mod</code> in <code>MT()</code> and <code>OSM()</code>:</p>
+<ul>
+<li>MOD_LCTL</li>
+<li>MOD_LSFT</li>
+<li>MOD_LALT</li>
+<li>MOD_LGUI</li>
+<li>MOD_RCTL</li>
+<li>MOD_RSFT</li>
+<li>MOD_RALT</li>
+<li>MOD_RGUI</li>
+<li>MOD_HYPR</li>
+<li>MOD_MEH</li>
+</ul>
+<p>These can also be combined like <code>MOD_LCTL | MOD_LSFT</code> e.g. <code>MT(MOD_LCTL | MOD_LSFT, KC_ESC)</code> which would activate Control and Shift when held, and send Escape when tapped.</p>
+<p>We've added shortcuts to make common modifier/tap (mod-tap) mappings more compact:</p>
+<ul>
+<li>
+<code>CTL_T(kc)</code> - is LCTL when held and <em>kc</em> when tapped</li>
+<li>
+<code>SFT_T(kc)</code> - is LSFT when held and <em>kc</em> when tapped</li>
+<li>
+<code>ALT_T(kc)</code> - is LALT when held and <em>kc</em> when tapped</li>
+<li>
+<code>ALGR_T(kc)</code> - is AltGr when held and <em>kc</em> when tapped</li>
+<li>
+<code>GUI_T(kc)</code> - is LGUI when held and <em>kc</em> when tapped</li>
+<li>
+<code>ALL_T(kc)</code> - is Hyper (all mods) when held and <em>kc</em> when tapped. To read more about what you can do with a Hyper key, see <a href="http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/" class="Link--external">this blog post by Brett Terpstra</a>
+</li>
+<li>
+<code>LCAG_T(kc)</code> - is CtrlAltGui when held and <em>kc</em> when tapped</li>
+<li>
+<code>MEH_T(kc)</code> - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.</li>
+</ul>
+<p>{% hint style='info' %}
+Due to the way that keycodes are structured, any modifiers specified as part of <code>kc</code>, such as <code>LCTL()</code> or <code>KC_LPRN</code>, will only activate when held instead of tapped.</p>
+<p>Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to &quot;mix and match&quot; the two.
+{% endhint %}</p>
+<h1 id="page_One-Shot-Keys">One Shot Keys</h1>
+<p>One shot keys are keys that remain active until the next key is pressed, and then are released. This allows you to type keyboard combinations without pressing more than one key at a time. These keys are usually called &quot;Sticky keys&quot; or &quot;Dead keys&quot;.</p>
+<p>For example, if you define a key as <code>OSM(MOD_LSFT)</code>, you can type a capital A character by first pressing and releasing shift, and then pressing and releasing A. Your computer will see the shift key being held the moment shift is pressed, and it will see the shift key being released immediately after A is released.</p>
+<p>One shot keys also work as normal modifiers. If you hold down a one shot key and type other keys, your one shot will be released immediately after you let go of the key.</p>
+<p>You can control the behavior of one shot keys by defining these in <code>config.h</code>:</p>
+<pre><code class="language-c">#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
+#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+</code></pre>
+<ul>
+<li>
+<code>OSM(mod)</code> - Momentarily hold down <em>mod</em>. You must use the <code>MOD_*</code> keycodes as shown in <a href="#mod-tap">Mod Tap</a>, not the <code>KC_*</code> codes.</li>
+<li>
+<code>OSL(layer)</code> - momentary switch to <em>layer</em>.</li>
+</ul>
+<p>Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call <code>set_oneshot_layer(LAYER, ONESHOT_START)</code> on key down, and <code>set_oneshot_layer(ONESHOT_PRESSED)</code> on key up. If you want to cancel the oneshot, call <code>reset_oneshot_layer()</code>. For more complicated actions, take a look at the oneshot implementation in <a href="https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L429" class="Link--external"><code>process_record</code></a>.</p>
+<p>If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the &quot;Local Resources&quot; tap, and in the keyboard section, change the drop down to &quot;On this Computer&quot;.  This will fix the issue and allow OSM to function properly over Remote Desktop.</p>
+<h1 id="page_Permissive-Hold">Permissive Hold</h1>
+<p>As of <a href="https://github.com/qmk/qmk_firmware/pull/1359/" class="Link--external">PR#1359</a>, there is a new <code>config.h</code> option:</p>
+<pre><code>#define PERMISSIVE_HOLD
+</code></pre>
+<p>This makes it easier for fast typists to use dual-function keys. Without this, if you let go of a held key inside the tapping term, it won't register.</p>
+<p>Example: (Tapping Term = 200ms)</p>
+<ul>
+<li>SHFT_T(KC_A) Down</li>
+<li>KC_X Down</li>
+<li>KC_X Up</li>
+<li>SHFT_T(KC_A) Up</li>
+</ul>
+<p>With defaults, if above is typed within tapping term, this will emit <code>ax</code>. With permissive hold, if above is typed within tapping term, this will emit <code>X</code> (so, Shift+X).</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Keycodes/index.html">Previous</a></li>            <li class=Pager--next><a href="../Keycodes/Backlight.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

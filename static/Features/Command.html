@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Command - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item Nav__item--active'><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/Command.html">Command</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Command-Formerly-known-as-Magic">Command (Formerly known as Magic)</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Enabling-Command">Enabling Command</a></p>
+</li>
+<li>
+<p><a href="#page_Usage">Usage</a></p>
+</li>
+<li>
+<p><a href="#page_Configuration">Configuration</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Command-Formerly-known-as-Magic">Command (Formerly known as Magic)</h1>
+<p>Command is a way to change your keyboard's behavior without having to flash or unplug it to use <a href="Bootmagic.html">Bootmagic</a>. There is a lot of overlap between this functionality and the <a href="Bootmagic.html">Bootmagic Keycodes</a>. Whenever possible we encourage you to use that functionality instead of Command.</p>
+<h2 id="page_Enabling-Command">Enabling Command</h2>
+<p>By default Command is disabled. You can enable it in your <code>rules.mk</code> file:</p>
+<pre><code>COMMAND_ENABLE = yes
+</code></pre>
+<h2 id="page_Usage">Usage</h2>
+<p>To use Command you hold down the key combination defined by <code>IS_COMMAND</code>. By default that combination is both shift keys. While holding the key combination press the key corresponding to the command you want.</p>
+<p>For example, to write the current QMK version to the QMK Toolbox console, you can press <code>Left Shift</code>+<code>Right Shift</code>+<code>V</code>.</p>
+<h2 id="page_Configuration">Configuration</h2>
+<p>The following values can be defined in <code>config.h</code> to control the behavior of Command.</p>
+<table>
+<thead>
+<tr>
+<th>Define</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IS_COMMAND()</code></td>
+<td><code>(keyboard_report-&gt;mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))</code></td>
+<td>Key combination to activate Command</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS</code></td>
+<td><code>true</code></td>
+<td>Do layer switching with Function row</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS</code></td>
+<td><code>true</code></td>
+<td>Do layer switching with number keys.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM</code></td>
+<td><code>false</code></td>
+<td>Do layer switching with custom keys (<code>MAGIC_KEY_LAYER0..9</code> below.)</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_HELP1</code></td>
+<td><code>H</code></td>
+<td>Show help.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_HELP2</code></td>
+<td><code>SLASH</code></td>
+<td>Show help.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_DEBUG</code></td>
+<td><code>D</code></td>
+<td>Turn on debug mode.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_DEBUG_MATRIX</code></td>
+<td><code>X</code></td>
+<td>Turn on matrix debugging.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_DEBUG_KBD</code></td>
+<td><code>K</code></td>
+<td>Turn on keyboard debugging.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_DEBUG_MOUSE</code></td>
+<td><code>M</code></td>
+<td>Turn on mouse debugging.</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_VERSION</code></td>
+<td><code>V</code></td>
+<td>Write the QMK version to the console</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_STATUS</code></td>
+<td><code>S</code></td>
+<td>Show the current keyboard status</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_CONSOLE</code></td>
+<td><code>C</code></td>
+<td>Enable the Command Console</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER0_ALT1</code></td>
+<td><code>ESC</code></td>
+<td>Alternate access to layer 0</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER0_ALT2</code></td>
+<td><code>GRAVE</code></td>
+<td>Alternate access to layer 0</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER0</code></td>
+<td><code>0</code></td>
+<td>Change default layer to 0</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER1</code></td>
+<td><code>1</code></td>
+<td>Change default layer to 1</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER2</code></td>
+<td><code>2</code></td>
+<td>Change default layer to 2</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER3</code></td>
+<td><code>3</code></td>
+<td>Change default layer to 3</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER4</code></td>
+<td><code>4</code></td>
+<td>Change default layer to 4</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER5</code></td>
+<td><code>5</code></td>
+<td>Change default layer to 5</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER6</code></td>
+<td><code>6</code></td>
+<td>Change default layer to 6</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER7</code></td>
+<td><code>7</code></td>
+<td>Change default layer to 7</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER8</code></td>
+<td><code>8</code></td>
+<td>Change default layer to 8</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LAYER9</code></td>
+<td><code>9</code></td>
+<td>Change default layer to 9</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_BOOTLOADER</code></td>
+<td><code>PAUSE</code></td>
+<td>Exit keyboard and enter bootloader</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_LOCK</code></td>
+<td><code>CAPS</code></td>
+<td>Lock the keyboard so nothing can be typed</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_EEPROM</code></td>
+<td><code>E</code></td>
+<td>Erase EEPROM settings</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_NKRO</code></td>
+<td><code>N</code></td>
+<td>Toggle NKRO on/off</td>
+</tr>
+<tr>
+<td><code>MAGIC_KEY_SLEEP_LED</code></td>
+<td><code>Z</code></td>
+<td>Toggle LED when computer is sleeping on/off</td>
+</tr>
+</tbody>
+</table>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Bootmagic.html">Previous</a></li>            <li class=Pager--next><a href="../Features/Dynamic_Macros.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

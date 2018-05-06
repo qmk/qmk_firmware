@@ -1,0 +1,26 @@
+{
+    "favicon": "<theme_url>img/favicon.png",
+    "js": [
+        "<theme_url>js/jquery-1.11.3.min.js",
+        "<theme_url>js/highlight.pack.js",
+        "<theme_url>js/daux.js"
+    ],
+    "variants": {
+        "blue": {
+            "favicon": "<theme_url>img/favicon-blue.png",
+            "css": ["<theme_url>css/theme-blue.min.css"]
+        },
+        "green": {
+            "favicon": "<theme_url>img/favicon-green.png",
+            "css": ["<theme_url>css/theme-green.min.css"]
+        },
+        "navy": {
+            "favicon": "<theme_url>img/favicon-navy.png",
+            "css": ["<theme_url>css/theme-navy.min.css"]
+        },
+        "red": {
+            "favicon": "<theme_url>img/favicon-red.png",
+            "css": ["<theme_url>css/theme-red.min.css"]
+        }
+    }
+}

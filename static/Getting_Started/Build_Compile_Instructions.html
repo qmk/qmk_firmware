@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Build Compile Instructions - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Getting_Started/index.html">Getting Started</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_More-Detailed-Instructions">More Detailed <code>make</code> Instructions</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Options"><code>rules.mk</code> Options</a></p>
+</li>
+<li>
+<p><a href="#page_Customizing-Makefile-Options-on-a-Per-Keymap-Basis">Customizing Makefile Options on a Per-Keymap Basis</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_More-Detailed-Instructions">More Detailed <code>make</code> Instructions</h1>
+<p>The full syntax of the <code>make</code> command is <code>&lt;keyboard_folder&gt;:&lt;keymap&gt;:&lt;target&gt;</code>, where:</p>
+<ul>
+<li>
+<code>&lt;keyboard_folder&gt;</code> is the path of the keyboard, for example <code>planck</code>
+<ul>
+<li>Use <code>all</code> to compile all keyboards</li>
+<li>Specify the path to compile a revision, for example <code>planck/rev4</code> or <code>planck/rev3</code>
+</li>
+<li>If the keyboard doesn't have any folders, it can be left out</li>
+<li>To compile the default folder, you can leave it out</li>
+</ul>
+</li>
+<li>
+<code>&lt;keymap&gt;</code> is the name of the keymap, for example <code>algernon</code>
+<ul>
+<li>Use <code>all</code> to compile all keymaps</li>
+</ul>
+</li>
+<li>
+<code>&lt;target&gt;</code> will be explained in more detail below.</li>
+</ul>
+<p>The <code>&lt;target&gt;</code> means the following</p>
+<ul>
+<li>If no target is given, then it's the same as <code>all</code> below</li>
+<li>
+<code>all</code> compiles as many keyboard/revision/keymap combinations as specified. For example, <code>make planck/rev4:default</code> will generate a single .hex, while <code>make planck/rev4:all</code> will generate a hex for every keymap available to the planck.</li>
+<li>
+<code>dfu</code>, <code>teensy</code> or <code>dfu-util</code>, compile and upload the firmware to the keyboard. If the compilation fails, then nothing will be uploaded. The programmer to use depends on the keyboard. For most keyboards it's <code>dfu</code>, but for ChibiOS keyboards you should use <code>dfu-util</code>, and <code>teensy</code> for standard Teensys. To find out which command you should use for your keyboard, check the keyboard specific readme.</li>
+<li>
+<strong>Note</strong>: some operating systems need root access for these commands to work, so in that case you need to run for example <code>sudo make planck/rev4:default:dfu</code>.</li>
+<li>
+<code>clean</code>, cleans the build output folders to make sure that everything is built from scratch. Run this before normal compilation if you have some unexplainable problems.</li>
+</ul>
+<p>You can also add extra options at the end of the make command line, after the target</p>
+<ul>
+<li>
+<code>make COLOR=false</code> - turns off color output</li>
+<li>
+<code>make SILENT=true</code> - turns off output besides errors/warnings</li>
+<li>
+<code>make VERBOSE=true</code> - outputs all of the gcc stuff (not interesting, unless you need to debug)</li>
+<li>
+<code>make EXTRAFLAGS=-E</code> - Preprocess the code without doing any compiling (useful if you are trying to debug #define commands)</li>
+</ul>
+<p>The make command itself also has some additional options, type <code>make --help</code> for more information. The most useful is probably <code>-jx</code>, which specifies that you want to compile using more than one CPU, the <code>x</code> represents the number of CPUs that you want to use. Setting that can greatly reduce the compile times, especially if you are compiling many keyboards/keymaps. I usually set it to one less than the number of CPUs that I have, so that I have some left for doing other things while it's compiling. Note that not all operating systems and make versions supports that option.</p>
+<p>Here are some examples commands</p>
+<ul>
+<li>
+<code>make all:all</code> builds everything (all keyboard folders, all keymaps). Running just <code>make</code> from the <code>root</code> will also run this.</li>
+<li>
+<code>make ergodox_infinity:algernon:clean</code> will clean the build output of the Ergodox Infinity keyboard.</li>
+<li>
+<code>make planck/rev4:default:dfu COLOR=false</code> builds and uploads the keymap without color output.</li>
+</ul>
+<h2 id="page_Options"><code>rules.mk</code> Options</h2>
+<p>Set these variables to <code>no</code> to disable them, and <code>yes</code> to enable them.</p>
+<p><code>BOOTMAGIC_ENABLE</code></p>
+<p>This allows you to hold a key and the salt key (space by default) and have access to a various EEPROM settings that persist over power loss. It's advised you keep this disabled, as the settings are often changed by accident, and produce confusing results that makes it difficult to debug. It's one of the more common problems encountered in help sessions.</p>
+<p>Consumes about 1000 bytes.</p>
+<p><code>MOUSEKEY_ENABLE</code></p>
+<p>This gives you control over cursor movements and clicks via keycodes/custom functions.</p>
+<p><code>EXTRAKEY_ENABLE</code></p>
+<p>This allows you to use the system and audio control key codes.</p>
+<p><code>CONSOLE_ENABLE</code></p>
+<p>This allows you to print messages that can be read using <a href="https://www.pjrc.com/teensy/hid_listen.html" class="Link--external"><code>hid_listen</code></a>.</p>
+<p>By default, all debug (<em>dprint</em>) print (<em>print</em>, <em>xprintf</em>), and user print (<em>uprint</em>) messages will be enabled. This will eat up a significant portion of the flash and may make the keyboard .hex file too big to program.</p>
+<p>To disable debug messages (<em>dprint</em>) and reduce the .hex file size, include <code>#define NO_DEBUG</code> in your <code>config.h</code> file.</p>
+<p>To disable print messages (<em>print</em>, <em>xprintf</em>) and user print messages (<em>uprint</em>) and reduce the .hex file size, include <code>#define NO_PRINT</code> in your <code>config.h</code> file.</p>
+<p>To disable print messages (<em>print</em>, <em>xprintf</em>) and <strong>KEEP</strong> user print messages (<em>uprint</em>), include <code>#define USER_PRINT</code> in your <code>config.h</code> file.</p>
+<p>To see the text, open <code>hid_listen</code> and enjoy looking at your printed messages.</p>
+<p><strong>NOTE:</strong> Do not include <em>uprint</em> messages in anything other than your keymap code. It must not be used within the QMK system framework. Otherwise, you will bloat other people's .hex files.</p>
+<p>Consumes about 400 bytes.</p>
+<p><code>COMMAND_ENABLE</code></p>
+<p>This enables magic commands, typically fired with the default magic key combo <code>LSHIFT+RSHIFT+KEY</code>. Magic commands include turning on debugging messages (<code>MAGIC+D</code>) or temporarily toggling NKRO (<code>MAGIC+N</code>).</p>
+<p><code>SLEEP_LED_ENABLE</code></p>
+<p>Enables your LED to breath while your computer is sleeping. Timer1 is being used here. This feature is largely unused and untested, and needs updating/abstracting.</p>
+<p><code>NKRO_ENABLE</code></p>
+<p>This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if <code>NKRO_ENABLE</code> is set. NKRO can be forced by adding <code>#define FORCE_NKRO</code> to your config.h or by binding <code>MAGIC_TOGGLE_NKRO</code> to a key and then hitting the key.</p>
+<p><code>BACKLIGHT_ENABLE</code></p>
+<p>This enables your backlight on Timer1 and ports B5, B6, or B7 (for now). You can specify your port by putting this in your <code>config.h</code>:</p>
+<pre><code>#define BACKLIGHT_PIN B7
+</code></pre>
+<p><code>MIDI_ENABLE</code></p>
+<p>This enables MIDI sending and receiving with your keyboard. To enter MIDI send mode, you can use the keycode <code>MI_ON</code>, and <code>MI_OFF</code> to turn it off. This is a largely untested feature, but more information can be found in the <code>quantum/quantum.c</code> file.</p>
+<p><code>UNICODE_ENABLE</code></p>
+<p>This allows you to send unicode symbols via <code>UC(&lt;unicode&gt;)</code> in your keymap. Only codes up to 0x7FFF are currently supported.</p>
+<p><code>UNICODEMAP_ENABLE</code></p>
+<p>This allows sending unicode symbols using <code>X(&lt;unicode&gt;)</code> in your keymap. Codes
+up to 0xFFFFFFFF are supported, including emojis. You will need to maintain
+a separate mapping table in your keymap file.</p>
+<p>Known limitations:</p>
+<ul>
+<li>Under Mac OS, only codes up to 0xFFFF are supported.</li>
+<li>Under Linux ibus, only codes up to 0xFFFFF are supported (but anything important is still under this limit for now).</li>
+</ul>
+<p>Characters out of range supported by the OS will be ignored.</p>
+<p><code>BLUETOOTH_ENABLE</code></p>
+<p>This allows you to interface with a Bluefruit EZ-key to send keycodes wirelessly. It uses the D2 and D3 pins.</p>
+<p><code>AUDIO_ENABLE</code></p>
+<p>This allows you output audio on the C6 pin (needs abstracting). See the <a href="../Features/Audio.html">audio page</a> for more information.</p>
+<p><code>FAUXCLICKY_ENABLE</code></p>
+<p>Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as AUDIO_ENABLE.</p>
+<p><code>VARIABLE_TRACE</code></p>
+<p>Use this to debug changes to variable values, see the <a href="../Reference/Unit_Testing.html#tracing-variables">tracing variables</a> section of the Unit Testing page for more information.</p>
+<p><code>API_SYSEX_ENABLE</code></p>
+<p>This enables using the Quantum SYSEX API to send strings (somewhere?)</p>
+<p>This consumes about 5390 bytes.</p>
+<p><code>KEY_LOCK_ENABLE</code></p>
+<p>This enables <a href="../Features/Key_Lock.html">key lock</a>. This consumes an additional 260 bytes.</p>
+<h2 id="page_Customizing-Makefile-Options-on-a-Per-Keymap-Basis">Customizing Makefile Options on a Per-Keymap Basis</h2>
+<p>If your keymap directory has a file called <code>rules.mk</code> any options you set in that file will take precedence over other <code>rules.mk</code> options for your particular keyboard.</p>
+<p>So let's say your keyboard's <code>rules.mk</code> has <code>BACKLIGHT_ENABLE = yes</code>. You want your particular keyboard to not have the backlight, so you make a file called <code>rules.mk</code> and specify <code>BACKLIGHT_ENABLE = no</code>.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Getting_Started/Vagrant.html">Previous</a></li>            <li class=Pager--next><a href="../Getting_Started/Flashing_Firmware.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

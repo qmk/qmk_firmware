@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Config Options - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item Nav__item--active'><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Reference/index.html">Reference</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Reference/Config_Options.html">Config Options</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Configuring-QMK">Configuring QMK</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_QMK-Default">QMK Default</a></p>
+</li>
+<li>
+<p><a href="#page_Keyboard">Keyboard</a></p>
+</li>
+<li>
+<p><a href="#page_Folders">Folders</a></p>
+</li>
+<li>
+<p><a href="#page_Keymap">Keymap</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_The-File">The <code>config.h</code> File</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Hardware-Options">Hardware Options</a></p>
+</li>
+<li>
+<p><a href="#page_Features-That-Can-Be-Disabled">Features That Can Be Disabled</a></p>
+</li>
+<li>
+<p><a href="#page_Features-That-Can-Be-Enabled">Features That Can Be Enabled</a></p>
+</li>
+<li>
+<p><a href="#page_Behaviors-That-Can-Be-Configured">Behaviors That Can Be Configured</a></p>
+</li>
+<li>
+<p><a href="#page_RGB-Light-Configuration">RGB Light Configuration</a></p>
+</li>
+<li>
+<p><a href="#page_Mouse-Key-Options">Mouse Key Options</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_The-File-2">The <code>rules.mk</code> File</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Build-Options">Build Options</a></p>
+</li>
+<li>
+<p><a href="#page_AVR-MCU-Options">AVR MCU Options</a></p>
+</li>
+<li>
+<p><a href="#page_Feature-Options">Feature Options</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Configuring-QMK">Configuring QMK</h1>
+<p>QMK is nearly infinitely configurable. Wherever possible we err on the side of allowing users to customize their keyboard, even at the expense of code size. That level of flexibility makes for a daunting configuration experience, however.</p>
+<p>There are two main types of configuration files in QMK- <code>config.h</code> and <code>rules.mk</code>. These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:</p>
+<ul>
+<li>QMK Default</li>
+<li>Keyboard</li>
+<li>Folders (Up to 5 levels deep)</li>
+<li>Keymap</li>
+</ul>
+<h2 id="page_QMK-Default">QMK Default</h2>
+<p>Every available setting in QMK has a default. If that setting is not set at the Keyboard, Folder, or Keymap level this is the setting that will be used.</p>
+<h2 id="page_Keyboard">Keyboard</h2>
+<p>This level contains config options that should apply to the whole keyboard. Some settings won't change in revisions, or most keymaps. Other settings are merely defaults for this keyboard and can be overridden by folders and/or keymaps.</p>
+<h2 id="page_Folders">Folders</h2>
+<p>Some keyboards have folders and sub-folders to allow for different hardware configurations. Most keyboards only go 1 folder deep, but QMK supports structures up to 5 folders deep. Each folder can have its own <code>config.h</code> and <code>rules.mk</code> files that are incorporated into the final configuration.</p>
+<h2 id="page_Keymap">Keymap</h2>
+<p>This level contains all of the options for that particular keymap. If you wish to override a previous declaration, you can use <code>#undef &lt;variable&gt;</code> to undefine it, where you can then redefine it without an error.</p>
+<h1 id="page_The-File">The <code>config.h</code> File</h1>
+<p>This is a C header file that is one of the first things included, and will persist over the whole project (if included). Lots of variables can be set here and accessed elsewhere. The <code>config.h</code> file shouldn't be including other <code>config.h</code> files, or anything besides this:</p>
+<pre><code>#include &quot;config_common.h&quot;
+</code></pre>
+<h2 id="page_Hardware-Options">Hardware Options</h2>
+<ul>
+<li>
+<code>#define VENDOR_ID 0x1234</code>
+<ul>
+<li>defines your VID, and for most DIY projects, can be whatever you want</li>
+</ul>
+</li>
+<li>
+<code>#define PRODUCT_ID 0x5678</code>
+<ul>
+<li>defines your PID, and for most DIY projects, can be whatever you want</li>
+</ul>
+</li>
+<li>
+<code>#define DEVICE_VER 0</code>
+<ul>
+<li>defines the device version (often used for revisions)</li>
+</ul>
+</li>
+<li>
+<code>#define MANUFACTURER Me</code>
+<ul>
+<li>generally who/whatever brand produced the board</li>
+</ul>
+</li>
+<li>
+<code>#define PRODUCT Board</code>
+<ul>
+<li>the name of the keyboard</li>
+</ul>
+</li>
+<li>
+<code>#define DESCRIPTION a keyboard</code>
+<ul>
+<li>a short description of what the keyboard is</li>
+</ul>
+</li>
+<li>
+<code>#define MATRIX_ROWS 5</code>
+<ul>
+<li>the number of rows in your keyboard's matrix</li>
+</ul>
+</li>
+<li>
+<code>#define MATRIX_COLS 15</code>
+<ul>
+<li>the number of columns in your keyboard's matrix</li>
+</ul>
+</li>
+<li>
+<code>#define MATRIX_ROW_PINS { D0, D5, B5, B6 }</code>
+<ul>
+<li>pins of the rows, from top to bottom</li>
+</ul>
+</li>
+<li>
+<code>#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }</code>
+<ul>
+<li>pins of the columns, from left to right</li>
+</ul>
+</li>
+<li>
+<code>#define UNUSED_PINS { D1, D2, D3, B1, B2, B3 }</code>
+<ul>
+<li>pins unused by the keyboard for reference</li>
+</ul>
+</li>
+<li>
+<code>#define MATRIX_HAS_GHOST</code>
+<ul>
+<li>define is matrix has ghost (unlikely)</li>
+</ul>
+</li>
+<li>
+<code>#define DIODE_DIRECTION COL2ROW</code>
+<ul>
+<li>COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.</li>
+</ul>
+</li>
+<li>
+<code>#define AUDIO_VOICES</code>
+<ul>
+<li>turns on the alternate audio voices (to cycle through)</li>
+</ul>
+</li>
+<li>
+<code>#define C4_AUDIO</code>
+<ul>
+<li>enables audio on pin C4</li>
+</ul>
+</li>
+<li>
+<code>#define C5_AUDIO</code>
+<ul>
+<li>enables audio on pin C5</li>
+</ul>
+</li>
+<li>
+<code>#define C6_AUDIO</code>
+<ul>
+<li>enables audio on pin C6</li>
+</ul>
+</li>
+<li>
+<code>#define B5_AUDIO</code>
+<ul>
+<li>enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)</li>
+</ul>
+</li>
+<li>
+<code>#define B6_AUDIO</code>
+<ul>
+<li>enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)</li>
+</ul>
+</li>
+<li>
+<code>#define B7_AUDIO</code>
+<ul>
+<li>enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)</li>
+</ul>
+</li>
+<li>
+<code>#define BACKLIGHT_PIN B7</code>
+<ul>
+<li>pin of the backlight - B5, B6, B7 use PWM, others use softPWM</li>
+</ul>
+</li>
+<li>
+<code>#define BACKLIGHT_LEVELS 3</code>
+<ul>
+<li>number of levels your backlight will have (maximum 15 excluding off)</li>
+</ul>
+</li>
+<li>
+<code>#define BACKLIGHT_BREATHING</code>
+<ul>
+<li>enables backlight breathing (only works with backlight pins B5, B6 and B7)</li>
+</ul>
+</li>
+<li>
+<code>#define BREATHING_PERIOD 6</code>
+<ul>
+<li>the length of one backlight &quot;breath&quot; in seconds</li>
+</ul>
+</li>
+<li>
+<code>#define DEBOUNCING_DELAY 5</code>
+<ul>
+<li>the delay when reading the value of the pin (5 is default)</li>
+</ul>
+</li>
+<li>
+<code>#define LOCKING_SUPPORT_ENABLE</code>
+<ul>
+<li>mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap</li>
+</ul>
+</li>
+<li>
+<code>#define LOCKING_RESYNC_ENABLE</code>
+<ul>
+<li>tries to keep switch state consistent with keyboard LED state</li>
+</ul>
+</li>
+<li>
+<code>#define IS_COMMAND() ( keyboard_report-&gt;mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )</code>
+<ul>
+<li>key combination that allows the use of magic commands (useful for debugging)</li>
+</ul>
+</li>
+<li>
+<code>#define USB_MAX_POWER_CONSUMPTION</code>
+<ul>
+<li>sets the maximum power (in mA) over USB for the device (default: 500)</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_Features-That-Can-Be-Disabled">Features That Can Be Disabled</h2>
+<p>If you define these options you will disable the associated feature, which can save on code size.</p>
+<ul>
+<li>
+<code>#define NO_DEBUG</code>
+<ul>
+<li>disable debugging</li>
+</ul>
+</li>
+<li>
+<code>#define NO_PRINT</code>
+<ul>
+<li>disable printing/debugging using hid_listen</li>
+</ul>
+</li>
+<li>
+<code>#define NO_ACTION_LAYER</code>
+<ul>
+<li>disable layers</li>
+</ul>
+</li>
+<li>
+<code>#define NO_ACTION_TAPPING</code>
+<ul>
+<li>disable tap dance and other tapping features</li>
+</ul>
+</li>
+<li>
+<code>#define NO_ACTION_ONESHOT</code>
+<ul>
+<li>disable one-shot modifiers</li>
+</ul>
+</li>
+<li>
+<code>#define NO_ACTION_MACRO</code>
+<ul>
+<li>disable all macro handling</li>
+</ul>
+</li>
+<li>
+<code>#define NO_ACTION_FUNCTION</code>
+<ul>
+<li>disable the action function (deprecated)</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_Features-That-Can-Be-Enabled">Features That Can Be Enabled</h2>
+<p>If you define these options you will enable the associated feature, which may increase your code size.</p>
+<ul>
+<li>
+<code>#define FORCE_NKRO</code>
+<ul>
+<li>NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.</li>
+</ul>
+</li>
+<li>
+<code>#define PREVENT_STUCK_MODIFIERS</code>
+<ul>
+<li>stores the layer a key press came from so the same layer is used when the key is released, regardless of which layers are enabled</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_Behaviors-That-Can-Be-Configured">Behaviors That Can Be Configured</h2>
+<ul>
+<li>
+<code>#define TAPPING_TERM 200</code>
+<ul>
+<li>how long before a tap becomes a hold</li>
+</ul>
+</li>
+<li>
+<code>#define RETRO_TAPPING</code>
+<ul>
+<li>tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release</li>
+</ul>
+</li>
+<li>
+<code>#define TAPPING_TOGGLE 2</code>
+<ul>
+<li>how many taps before triggering the toggle</li>
+</ul>
+</li>
+<li>
+<code>#define PERMISSIVE_HOLD</code>
+<ul>
+<li>makes tap and hold keys work better for fast typers who don't want tapping term set above 500</li>
+</ul>
+</li>
+<li>
+<code>#define LEADER_TIMEOUT 300</code>
+<ul>
+<li>how long before the leader key times out</li>
+</ul>
+</li>
+<li>
+<code>#define ONESHOT_TIMEOUT 300</code>
+<ul>
+<li>how long before oneshot times out</li>
+</ul>
+</li>
+<li>
+<code>#define ONESHOT_TAP_TOGGLE 2</code>
+<ul>
+<li>how many taps before oneshot toggle is triggered</li>
+</ul>
+</li>
+<li>
+<code>#define IGNORE_MOD_TAP_INTERRUPT</code>
+<ul>
+<li>makes it possible to do rolling combos (zx) with keys that convert to other keys on hold</li>
+</ul>
+</li>
+<li>
+<code>#define QMK_KEYS_PER_SCAN 4</code>
+<ul>
+<li>Allows sending more than one key per scan. By default, only one key event gets
+sent via <code>process_record()</code> per scan. This has little impact on most typing, but
+if you're doing a lot of chords, or your scan rate is slow to begin with, you can
+have some delay in processing key events. Each press and release is a separate
+event. For a keyboard with 1ms or so scan times, even a very fast typist isn't
+going to produce the 500 keystrokes a second needed to actually get more than a
+few ms of delay from this. But if you're doing chording on something with 3-4ms
+scan times? You probably want this.</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_RGB-Light-Configuration">RGB Light Configuration</h2>
+<ul>
+<li>
+<code>#define RGB_DI_PIN D7</code>
+<ul>
+<li>pin the DI on the ws2812 is hooked-up to</li>
+</ul>
+</li>
+<li>
+<code>#define RGBLIGHT_ANIMATIONS</code>
+<ul>
+<li>run RGB animations</li>
+</ul>
+</li>
+<li>
+<code>#define RGBLED_NUM 15</code>
+<ul>
+<li>number of LEDs</li>
+</ul>
+</li>
+<li>
+<code>#define RGBLIGHT_HUE_STEP 12</code>
+<ul>
+<li>units to step when in/decreasing hue</li>
+</ul>
+</li>
+<li>
+<code>#define RGBLIGHT_SAT_STEP 25</code>
+<ul>
+<li>units to step when in/decreasing saturation</li>
+</ul>
+</li>
+<li>
+<code>#define RGBLIGHT_VAL_STEP 12</code>
+<ul>
+<li>units to step when in/decreasing value (brightness)</li>
+</ul>
+</li>
+<li>
+<code>#define RGBW_BB_TWI</code>
+<ul>
+<li>bit-bangs TWI to EZ RGBW LEDs (only required for Ergodox EZ)</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_Mouse-Key-Options">Mouse Key Options</h2>
+<ul>
+<li>
+<code>#define MOUSEKEY_INTERVAL 20</code>
+</li>
+<li>
+<code>#define MOUSEKEY_DELAY 0</code>
+</li>
+<li>
+<code>#define MOUSEKEY_TIME_TO_MAX 60</code>
+</li>
+<li>
+<code>#define MOUSEKEY_MAX_SPEED 7</code>
+</li>
+<li>
+<code>#define MOUSEKEY_WHEEL_DELAY 0</code>
+</li>
+</ul>
+<h1 id="page_The-File-2">The <code>rules.mk</code> File</h1>
+<p>This is a <a href="https://www.gnu.org/software/make/manual/make.html" class="Link--external">make</a> file that is included by the top-level <code>Makefile</code>. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.</p>
+<h2 id="page_Build-Options">Build Options</h2>
+<ul>
+<li>
+<code>DEFAULT_FOLDER</code>
+<ul>
+<li>Used to specify a default folder when a keyboard has more than one sub-folder.</li>
+</ul>
+</li>
+<li>
+<code>SRC</code>
+<ul>
+<li>Used to add files to the compilation/linking list.</li>
+</ul>
+</li>
+<li>
+<code>LAYOUTS</code>
+<ul>
+<li>A list of <a href="../Features/Layouts.html">layouts</a> this keyboard supports.</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_AVR-MCU-Options">AVR MCU Options</h2>
+<ul>
+<li>
+<code>MCU = atmega32u4</code>
+</li>
+<li>
+<code>F_CPU = 16000000</code>
+</li>
+<li>
+<code>ARCH = AVR8</code>
+</li>
+<li>
+<code>F_USB = $(F_CPU)</code>
+</li>
+<li>
+<code>OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT</code>
+</li>
+<li>
+<code>BOOTLOADER = atmel-dfu</code> with the following options:
+<ul>
+<li>
+<code>atmel-dfu</code>
+</li>
+<li>
+<code>lufa-dfu</code>
+</li>
+<li>
+<code>qmk-dfu</code>
+</li>
+<li>
+<code>halfkay</code>
+</li>
+<li>
+<code>caterina</code>
+</li>
+<li>
+<code>bootloadHID</code>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_Feature-Options">Feature Options</h2>
+<p>Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.</p>
+<ul>
+<li>
+<code>BOOTMAGIC_ENABLE</code>
+<ul>
+<li>Virtual DIP switch configuration(+1000)</li>
+</ul>
+</li>
+<li>
+<code>MOUSEKEY_ENABLE</code>
+<ul>
+<li>Mouse keys(+4700)</li>
+</ul>
+</li>
+<li>
+<code>EXTRAKEY_ENABLE</code>
+<ul>
+<li>Audio control and System control(+450)</li>
+</ul>
+</li>
+<li>
+<code>CONSOLE_ENABLE</code>
+<ul>
+<li>Console for debug(+400)</li>
+</ul>
+</li>
+<li>
+<code>COMMAND_ENABLE</code>
+<ul>
+<li>Commands for debug and configuration</li>
+</ul>
+</li>
+<li>
+<code>NKRO_ENABLE</code>
+<ul>
+<li>USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work</li>
+</ul>
+</li>
+<li>
+<code>AUDIO_ENABLE</code>
+<ul>
+<li>Enable the audio subsystem.</li>
+</ul>
+</li>
+<li>
+<code>RGBLIGHT_ENABLE</code>
+<ul>
+<li>Enable keyboard underlight functionality</li>
+</ul>
+</li>
+<li>
+<code>MIDI_ENABLE</code>
+<ul>
+<li>MIDI controls</li>
+</ul>
+</li>
+<li>
+<code>UNICODE_ENABLE</code>
+<ul>
+<li>Unicode</li>
+</ul>
+</li>
+<li>
+<code>BLUETOOTH_ENABLE</code>
+<ul>
+<li>Enable Bluetooth with the Adafruit EZ-Key HID</li>
+</ul>
+</li>
+</ul>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Reference/Compatable_Microcontrollers.html">Previous</a></li>            <li class=Pager--next><a href="../Reference/Custom_Code.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

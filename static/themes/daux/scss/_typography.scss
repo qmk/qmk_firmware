@@ -1,0 +1,347 @@
+/* ============================================================================
+Base CSS
+============================================================================ */
+
+body {
+    line-height: 1.5;
+
+    font-family: var(--font-family-text);
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: 300;
+}
+
+.s-content {
+    h1, h2, h3, h4, h5, h6 {
+        cursor: text;
+        line-height: 1.4em;
+        margin: 2em 0 0.5em;
+
+        tt, code {
+            font-size: inherit;
+        }
+
+        i {
+            font-size: 0.7em;
+        }
+
+        p {
+            margin-top: 0;
+        }
+    }
+
+    h1 {
+        margin-top: 0;
+        font-size: var(--type-size-3);
+    }
+
+    h2 {
+        font-size: var(--type-size-4);
+    }
+
+    h3 {
+        font-size: var(--type-size-5);
+    }
+
+    h4 {
+        font-size: var(--type-size-6);
+    }
+
+    h5 {
+        font-size: var(--type-size-6);
+    }
+
+    h6 {
+        font-size: var(--type-size-6);
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    small {
+        font-size: var(--type-size-6);
+    }
+
+    p {
+        margin-bottom: 1.3em;
+    }
+
+    ul, ol {
+        padding-left: 2em;
+    }
+
+    ul p {
+        margin: 0;
+    }
+
+    ul ul {
+        margin: 0;
+    }
+
+    dl {
+        padding: 0;
+
+        dt {
+            font-weight: bold;
+            font-style: italic;
+            padding: 0;
+            margin: 15px 0 5px;
+        }
+
+        dt:first-child {
+            padding: 0;
+        }
+
+        dd {
+            margin: 0 0 15px;
+            padding: 0 15px;
+        }
+    }
+
+    blockquote {
+        margin: 0.75em 2em;
+        padding: 0.5em 1em;
+        font-style: italic;
+        border-left: 0.25em solid var(--blockquote-border-color);
+
+        cite {
+            font-style: italic;
+        }
+
+        cite:before {
+            content: "\2014";
+            padding-right: 0.5em;
+        }
+    }
+
+    table {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 1em;
+        border-collapse: collapse;
+
+        font-size: var(--type-size-6);
+
+        + table {
+            margin-top: 1em;
+        }
+
+        tr {
+            border-top: 1px solid #eee;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        tr:nth-child(2n) {
+            background-color: var(--lightest-gray);
+        }
+
+        th {
+            font-weight: bold;
+            border: 1px solid var(--light-gray);
+            background: var(--lighter-gray);
+            margin: 0;
+            padding: 0.5em;
+        }
+
+        td {
+            border: 1px solid var(--lighter-gray);
+            margin: 0;
+            padding: 0.5em;
+        }
+    }
+
+    ul,
+    ol,
+    blockquote,
+    dl dt,
+    dl dd,
+    table th,
+    table td {
+        > :first-child {
+            margin-top: 0;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    code {
+        font-family: var(--font-family-monospace);
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+        background: var(--code-tag-background-color);
+        border: 1px solid var(--light-gray);
+        border-radius: var(--code-tag-border-radius);
+        box-shadow: var(--code-tag-box-shadow);
+
+        &:before,
+        &:after {
+            letter-spacing: -0.2em;
+            content: "\00a0"; /* non-breaking space*/
+        }
+    }
+
+    pre {
+        background: #fdf6e3;
+        color: #657b83;
+        line-height: 1.5em;
+        overflow: auto;
+        border: none;
+        border-radius: 0;
+        padding: 0.75em 2em;
+        margin: 0 -20px 20px -20px;
+
+        code {
+            margin: 0;
+            padding: 0;
+            white-space: pre;
+            box-shadow: none;
+        }
+
+        code:before,
+        code:after {
+            display: none;
+        }
+
+        code, tt {
+            background-color: transparent;
+            border: none;
+        }
+    }
+
+    u,
+    ins {
+        text-decoration: none;
+        border-bottom: 1px solid var(--text);
+
+        a {
+            color: inherit;
+        }
+    }
+
+    del a {
+        color: inherit;
+    }
+}
+
+//Content pages float view
+@media (min-width: 1150px) {
+    .Columns__right--float .Columns__right__content {
+        height: 100%;
+        overflow: auto;
+        padding: 0 !important;
+        background-color: transparent !important;
+        position: relative;
+
+        article {
+            width: 100%;
+            min-height: 100%;
+            overflow: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        article:before {
+            content: "";
+            width: 50%;
+            min-height: 100%;
+            overflow: auto;
+            background-color: white;
+            display: block;
+            margin: 0;
+            position: absolute;
+            z-index: -1;
+        }
+    }
+
+    .Columns__right--float {
+        .Pager,
+        .Page__header,
+        .s-content blockquote,
+        .s-content p,
+        .s-content ul,
+        .s-content ol,
+        .s-content dl,
+        .s-content h2,
+        .s-content h3,
+        .s-content h4,
+        .s-content h5,
+        .s-content h6,
+        .s-content hr,
+        .s-content table {
+            float: left;
+            clear: left;
+            width: 47%;
+            margin-left: 1.5%;
+            margin-right: 1.5%;
+        }
+    }
+
+    .Columns__right--float .s-content {
+        table {
+            background-color: white;
+            white-space: normal;
+
+            pre, code {
+                white-space: normal;
+            }
+        }
+
+        blockquote, p, ul, ol, dl, h2, h3, h4, h5, h6, hr {
+            &:before {
+                width: 100%;
+                height: 10px;
+                display: block;
+                clear: both;
+            }
+
+            p, ul, ol, dl, h2, h3, h4, h5, h6, pre, hr {
+                width: auto;
+                float: none;
+                display: block;
+            }
+        }
+
+        hr {
+            border-color: #ddd;
+        }
+
+        // Paragraphs and code inside lists and
+        // blockquotes should have 100% width
+        li, blockquote {
+            p, pre {
+                width: 100%;
+            }
+        }
+
+        pre {
+            float: left;
+            clear: right;
+            width: 50%;
+            border: none;
+            border-left: 10px solid white;
+            margin: 0 0 10px;
+            padding: 0;
+
+            code {
+                padding: 0 0.5em;
+            }
+        }
+    }
+}

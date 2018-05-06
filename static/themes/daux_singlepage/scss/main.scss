@@ -1,0 +1,58 @@
+// Core variables and mixins
+@import "vendor/highlight.scss";
+@import "_fonts.scss";
+@import "_typography.scss";
+
+* {
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-family-text);
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+hr {
+    clear: both;
+    margin: 1em 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+img {
+    max-width: 100% !important;
+}
+
+.PageBreak { display: none; }
+
+@media screen {
+    body {
+        margin: 1em;
+    }
+}
+
+@media print {
+    @import "_print.scss";
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>RGB Lighting - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item Nav__item--active'><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Keycodes/index.html">Keycodes</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_RGB-Lighting">RGB Lighting</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Selecting-Colors">Selecting Colors</a></p>
+</li>
+<li>
+<p><a href="#page_Configuration">Configuration</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Required-Configuration">Required Configuration</a></p>
+</li>
+<li>
+<p><a href="#page_Optional-Configuration">Optional Configuration</a></p>
+</li>
+<li>
+<p><a href="#page_Animations">Animations</a></p>
+</li>
+<li>
+<p><a href="#page_LED-Control">LED Control</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_RGB-Lighting-Keycodes">RGB Lighting Keycodes</a></p>
+</li>
+<li>
+<p><a href="#page_Hardware-Modification">Hardware Modification</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_RGB-Lighting">RGB Lighting</h1>
+<p>If you've installed addressable RGB lights on your keyboard you can control them with QMK. Currently we support the following addressable LEDs on Atmel AVR processors:</p>
+<ul>
+<li>WS2811 and variants (WS2812, WS2812B, WS2812C, etc)</li>
+<li>SK6812RGBW</li>
+</ul>
+<p>Some keyboards come with RGB LEDs pre-installed. Others have to have LEDs installed after the fact. See below for information on modifying your keyboard.</p>
+<h2 id="page_Selecting-Colors">Selecting Colors</h2>
+<p>QMK uses Hue, Saturation, and Value to set color rather than using RGB. You can use the color wheel below to see how this works. Changing the Hue will cycle around the circle. Saturation will affect the intensity of the color, which you can see as you move from the inner part to the outer part of the wheel. Value sets the overall brightness.</p>
+<img src="gitbook/images/color-wheel.svg" alt="HSV Color Wheel" width="250">
+<p>If you would like to learn more about HSV you can start with the <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" class="Link--external">Wikipedia article</a>.</p>
+<h2 id="page_Configuration">Configuration</h2>
+<p>Before RGB Lighting can be used you have to enable it in <code>rules.mk</code>:</p>
+<pre><code>RGBLIGHT_ENABLE = yes
+</code></pre>
+<p>You can configure the behavior of the RGB lighting by defining values inside <code>config.h</code>.</p>
+<h3 id="page_Required-Configuration">Required Configuration</h3>
+<p>At minimum you have to define the pin your LED strip is connected to and the number of LEDs connected.</p>
+<pre><code class="language-c">#define RGB_DI_PIN D7     // The pin the LED strip is connected to
+#define RGBLED_NUM 14     // Number of LEDs in your strip
+</code></pre>
+<h3 id="page_Optional-Configuration">Optional Configuration</h3>
+<p>You can change the behavior of the RGB Lighting by setting these configuration values. Use <code>#define &lt;Option&gt; &lt;Value&gt;</code> in a <code>config.h</code> at the keyboard, revision, or keymap level.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RGBLIGHT_HUE_STEP</code></td>
+<td>10</td>
+<td>How many hues you want to have available.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_SAT_STEP</code></td>
+<td>17</td>
+<td>How many steps of saturation you'd like.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_VAL_STEP</code></td>
+<td>17</td>
+<td>The number of levels of brightness you want.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_LIMIT_VAL</code></td>
+<td>255</td>
+<td>Limit the val of HSV to limit the maximum brightness simply.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_SLEEP</code></td>
+<td></td>
+<td><code>#define</code> this will shut off the lights when the host goes to sleep</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="page_Animations">Animations</h3>
+<p>If you have <code>#define RGBLIGHT_ANIMATIONS</code> in your <code>config.h</code> you will have a number of animation modes you can cycle through using the <code>RGB_MOD</code> key. You can also <code>#define</code> other options to tweak certain animations.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RGBLIGHT_ANIMATIONS</code></td>
+<td></td>
+<td><code>#define</code> this to enable animation modes.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_BREATHE_CENTER</code></td>
+<td>1.85</td>
+<td>Used to calculate the curve for the breathing animation. Valid values 1.0-2.7.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_BREATHE_MAX</code></td>
+<td>255</td>
+<td>The maximum brightness for the breathing mode. Valid values 1-255.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_SNAKE_LENGTH</code></td>
+<td>4</td>
+<td>The number of LEDs to light up for the &quot;snake&quot; animation.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_KNIGHT_LENGTH</code></td>
+<td>3</td>
+<td>The number of LEDs to light up for the &quot;knight&quot; animation.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_KNIGHT_OFFSET</code></td>
+<td>0</td>
+<td>Start the knight animation this many LEDs from the start of the strip.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_KNIGHT_LED_NUM</code></td>
+<td>RGBLED_NUM</td>
+<td>The number of LEDs to have the &quot;knight&quot; animation travel.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL</code></td>
+<td>1000</td>
+<td>How long to wait between light changes for the &quot;christmas&quot; animation. Specified in ms.</td>
+</tr>
+<tr>
+<td><code>RGBLIGHT_EFFECT_CHRISTMAS_STEP</code></td>
+<td>2</td>
+<td>How many LED's to group the red/green colors by for the christmas mode.</td>
+</tr>
+</tbody>
+</table>
+<p>You can also tweak the behavior of the animations by defining these consts in your <code>keymap.c</code>. These mostly affect the speed different modes animate at.</p>
+<pre><code class="language-c">// How long (in ms) to wait between animation steps for the breathing mode
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+
+// How long (in ms) to wait between animation steps for the rainbow mode
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+
+// How long (in ms) to wait between animation steps for the swirl mode
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+
+// How long (in ms) to wait between animation steps for the snake mode
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+
+// How long (in ms) to wait between animation steps for the knight modes
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+
+// These control which colors are selected for the gradient mode
+const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
+</code></pre>
+<h3 id="page_LED-Control">LED Control</h3>
+<p>Look in <code>rgblights.h</code> for all available functions, but if you want to control all or some LEDs your goto functions are:</p>
+<pre><code class="language-c">rgblight_disable();  // turn all lights off
+rgblight_enable();  // turn lights on, based on their previous state (stored in EEPROM)
+
+rgblight_setrgb(r, g, b);  // where r/g/b is a number from 0..255.  Turns all the LEDs to this color
+rgblight_sethsv(h, s, v);  // HSV color control - h is a value from 0..360 and s/v is a value from 0..255
+rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 &lt;= LED &lt; RGBLED_NUM
+rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 &lt;= LED &lt; RGBLED_NUM
+</code></pre>
+<p>You can find a list of predefined colors at <a href="https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h" class="Link--external"><code>quantum/rgblight_list.h</code></a>. Free to add to this list!</p>
+<h2 id="page_RGB-Lighting-Keycodes">RGB Lighting Keycodes</h2>
+<p>These control the RGB Lighting functionality.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RGB_TOG</code></td>
+<td></td>
+<td>Toggle RGB lighting on or off</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_FORWARD</code></td>
+<td><code>RGB_MOD</code></td>
+<td>Cycle through modes, reverse direction when Shift is held</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_REVERSE</code></td>
+<td><code>RGB_RMOD</code></td>
+<td>Cycle through modes in reverse, forward direction when Shift is held</td>
+</tr>
+<tr>
+<td><code>RGB_HUI</code></td>
+<td></td>
+<td>Increase hue</td>
+</tr>
+<tr>
+<td><code>RGB_HUD</code></td>
+<td></td>
+<td>Decrease hue</td>
+</tr>
+<tr>
+<td><code>RGB_SAI</code></td>
+<td></td>
+<td>Increase saturation</td>
+</tr>
+<tr>
+<td><code>RGB_SAD</code></td>
+<td></td>
+<td>Decrease saturation</td>
+</tr>
+<tr>
+<td><code>RGB_VAI</code></td>
+<td></td>
+<td>Increase value (brightness)</td>
+</tr>
+<tr>
+<td><code>RGB_VAD</code></td>
+<td></td>
+<td>Decrease value (brightness)</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_PLAIN</code></td>
+<td><code>RGB_M_P</code></td>
+<td>Static (no animation) mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_BREATHE</code></td>
+<td><code>RGB_M_B</code></td>
+<td>Breathing animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_RAINBOW</code></td>
+<td><code>RGB_M_R</code></td>
+<td>Rainbow animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_SWIRL</code></td>
+<td><code>RGB_M_SW</code></td>
+<td>Swirl animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_SNAKE</code></td>
+<td><code>RGB_M_SN</code></td>
+<td>Snake animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_KNIGHT</code></td>
+<td><code>RGB_M_K</code></td>
+<td>&quot;Knight Rider&quot; animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_XMAS</code></td>
+<td><code>RGB_M_X</code></td>
+<td>Christmas animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_GRADIENT</code></td>
+<td><code>RGB_M_G</code></td>
+<td>Static gradient animation mode</td>
+</tr>
+</tbody>
+</table>
+<p>note: for backwards compatibility, <code>RGB_SMOD</code> is an alias for <code>RGB_MOD</code>.</p>
+<h2 id="page_Hardware-Modification">Hardware Modification</h2>
+<p><img src="https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg" alt="Planck with RGB Underglow" /></p>
+<p>Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).</p>
+<p>For this mod, you need an unused pin wiring to DI of WS2812 strip. After wiring the VCC, GND, and DI, you can enable the underglow in your Makefile.</p>
+<pre><code>RGBLIGHT_ENABLE = yes
+</code></pre>
+<p>In order to use the underglow animation functions, you need to have <code>#define RGBLIGHT_ANIMATIONS</code> in your <code>config.h</code>.</p>
+<p>Please add the following options into your config.h, and set them up according your hardware configuration. These settings are for the <code>F4</code> pin by default:</p>
+<pre><code>#define RGB_DI_PIN F4     // The pin your RGB strip is wired to
+#define RGBLED_NUM 14     // Number of LEDs
+</code></pre>
+<p>You'll need to edit <code>RGB_DI_PIN</code> to the pin you have your <code>DI</code> on your RGB strip wired to.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Keycodes/Quantum_Keycodes.html">Previous</a></li>            <li class=Pager--next><a href="../Keycodes/Stenography.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

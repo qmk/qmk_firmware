@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Keymap Overview - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item Nav__item--active'><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Reference/index.html">Reference</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Reference/Keymap_Overview.html">Keymap Overview</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Keymap-Overview">Keymap Overview</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Keymap-and-Layers">Keymap and Layers</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Keymap-Layer-Status">Keymap Layer Status</a></p>
+</li>
+<li>
+<p><a href="#page_Layer-Precedence-and-Transparency">Layer Precedence and Transparency</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Anatomy-of-a">Anatomy of a <code>keymap.c</code></a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Definitions">Definitions</a></p>
+</li>
+<li>
+<p><a href="#page_Layers-and-Keymaps">Layers and Keymaps</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Base-Layer">Base Layer</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Overlay-Layer">Function Overlay Layer</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Custom-Functions">Custom Functions</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_section_11"><code>fn_actions[]</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_12"><code>action_function()</code></a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Nitty-Gritty-Details">Nitty Gritty Details</a></p>
+</li>
+</ul>
+<h1 id="page_Keymap-Overview">Keymap Overview</h1>
+<p>QMK keymaps are defined inside a C source file. The data structure is an array of arrays. The outer array is a list of layer arrays while the inner layer array is a list of keys. Most keyboards define a <code>KEYMAP()</code> macro to help you create this array of arrays.</p>
+<h2 id="page_Keymap-and-Layers">Keymap and Layers</h2>
+<p>In QMK,  <strong><code>const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]</code></strong> holds multiple <strong>layers</strong> of keymap information in <strong>16 bit</strong> data holding the <strong>action code</strong>. You can define <strong>32 layers</strong> at most.</p>
+<p>For trivial key definitions, the higher 8 bits of the <strong>action code</strong> are all 0 and the lower 8 bits holds the USB HID usage code generated by the key as <strong>keycode</strong>.</p>
+<p>Respective layers can be validated simultaneously. Layers are indexed with 0 to 31 and higher layer has precedence.</p>
+<pre><code>Keymap: 32 Layers                   Layer: action code matrix
+-----------------                   ---------------------
+stack of layers                     array_of_action_code[row][column]
+       ____________ precedence               _______________________
+      /           / | high                  / ESC / F1  / F2  / F3   ....
+  31 /___________// |                      /-----/-----/-----/-----
+  30 /___________// |                     / TAB /  Q  /  W  /  E   ....
+  29 /___________/  |                    /-----/-----/-----/-----
+   :   _:_:_:_:_:__ |               :   /LCtrl/  A  /  S  /  D   ....
+   :  / : : : : : / |               :  /  :     :     :     :
+   2 /___________// |               2 `--------------------------
+   1 /___________// |               1 `--------------------------
+   0 /___________/  V low           0 `--------------------------
+</code></pre>
+<p>Sometimes, the action code stored in keymap may be referred as keycode in some documents due to the TMK history.</p>
+<h3 id="page_Keymap-Layer-Status">Keymap Layer Status</h3>
+<p>The state of the Keymap layer is determined by two 32 bit parameters:</p>
+<ul>
+<li>
+<strong><code>default_layer_state</code></strong> indicates a base keymap layer (0-31) which is always valid and to be referred (the default layer).</li>
+<li>
+<strong><code>layer_state</code></strong> has current on/off status of each layer in its bits.</li>
+</ul>
+<p>Keymap layer '0' is usually the <code>default_layer</code>, with other layers initially off after booting up the firmware, although this can configured differently in <code>config.h</code>. It is useful to change <code>default_layer</code> when you completely switch a key layout, for example, if you want to switch to Colemak instead of Qwerty.</p>
+<pre><code>Initial state of Keymap          Change base layout
+-----------------------          ------------------
+
+  31                               31
+  30                               30
+  29                               29
+   :                                :
+   :                                :   ____________
+   2   ____________                 2  /           /
+   1  /           /              ,-&gt;1 /___________/
+,-&gt;0 /___________/               |  0
+|                                |
+`--- default_layer = 0           `--- default_layer = 1
+     layer_state   = 0x00000001       layer_state   = 0x00000002
+</code></pre>
+<p>On the other hand, you can change <code>layer_state</code> to overlay the base layer with other layers for features such as navigation keys, function keys (F1-F12), media keys, and/or special actions.</p>
+<pre><code>Overlay feature layer
+---------------------      bit|status
+       ____________        ---+------
+  31  /           /        31 |   0
+  30 /___________// -----&gt; 30 |   1
+  29 /___________/  -----&gt; 29 |   1
+   :                        : |   :
+   :   ____________         : |   :
+   2  /           /         2 |   0
+,-&gt;1 /___________/  -----&gt;  1 |   1
+|  0                        0 |   0
+|                                 +
+`--- default_layer = 1            |
+     layer_state   = 0x60000002 &lt;-'
+</code></pre>
+<h3 id="page_Layer-Precedence-and-Transparency">Layer Precedence and Transparency</h3>
+<p>Note that <em><strong>higher layer has higher priority on stack of layers</strong></em>, namely firmware falls down from top layer to bottom to look up keycode. Once it spots keycode other than <strong><code>KC_TRNS</code></strong>(transparent) on a layer it stops searching and lower layers aren't referred.</p>
+<p>You can place <code>KC_TRANS</code> on overlay layer changes just part of layout to fall back on lower or base layer.
+Key with <code>KC_TRANS</code> (<code>KC_TRNS</code> and <code>_______</code> are the alias) doesn't has its own keycode and refers to lower valid layers for keycode, instead.</p>
+<h2 id="page_Anatomy-of-a">Anatomy of a <code>keymap.c</code></h2>
+<p>For this example we will walk through an <a href="https://github.com/qmk/qmk_firmware/blob/ca01d94005f67ec4fa9528353481faa622d949ae/keyboards/clueboard/keymaps/default/keymap.c" class="Link--external">older version of the default Clueboard 66% keymap</a>. You'll find it helpful to open that file in another browser window so you can look at everything in context.</p>
+<p>There are 3 main sections of a <code>keymap.c</code> file you'll want to concern yourself with:</p>
+<ul>
+<li>
+<a href="#definitions">The Definitions</a>
+</li>
+<li>
+<a href="#layers-and-keymaps">The Layer/Keymap Datastructure</a>
+</li>
+<li>
+<a href="#custom-functions">Custom Functions</a>, if any</li>
+</ul>
+<h3 id="page_Definitions">Definitions</h3>
+<p>At the top of the file you'll find this:</p>
+<pre><code>#include &quot;clueboard.h&quot;
+
+// Helpful defines
+#define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define _______ KC_TRNS
+
+// Each layer gets a name for readability.
+// The underscores don't mean anything - you can
+// have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same
+// length, and you can also skip them entirely
+// and just use numbers.
+#define _BL 0
+#define _FL 1
+#define _CL 2
+</code></pre>
+<p>These are some handy definitions we can use when building our keymap and our custom function. The <code>GRAVE_MODS</code> definition will be used later in our custom function. The <code>_______</code> define makes it easier to see what keys a layer is overriding, while the <code>_BL</code>, <code>_FL</code>, and <code>_CL</code> defines make it easier to refer to each of our layers.</p>
+<h3 id="page_Layers-and-Keymaps">Layers and Keymaps</h3>
+<p>The main part of this file is the <code>keymaps[]</code> definition. This is where you list your layers and the contents of those layers. This part of the file begins with this definition:</p>
+<pre><code>const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+</code></pre>
+<p>After this you'll find a list of KEYMAP() macros. A KEYMAP() is simply a list of keys to define a single layer. Typically you'll have one or more &quot;base layers&quot; (such as QWERTY, Dvorak, or Colemak) and then you'll layer on top of that one or more &quot;function&quot; layers. Due to the way layers are processed you can't overlay a &quot;lower&quot; layer on top of a &quot;higher&quot; layer.</p>
+<p><code>keymaps[][MATRIX_ROWS][MATRIX_COLS]</code> in QMK holds the 16 bit action code (sometimes referred as the quantum keycode) in it.  For the keycode representing typical keys, its high byte is 0 and its low byte is the USB HID usage ID for keyboard.</p>
+<blockquote>
+<p>TMK from which QMK was forked uses <code>const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS]</code> instead and holds the 8 bit keycode.  Some keycode values are reserved to induce execution of certain action codes via the <code>fn_actions[]</code> array.</p>
+</blockquote>
+<h4 id="page_Base-Layer">Base Layer</h4>
+<p>Here is an example of the Clueboard's base layer:</p>
+<pre><code>  /* Keymap _BL: Base Layer (Default Layer)
+   */
+[_BL] = KEYMAP(
+  F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_GRV,  KC_BSPC,          KC_PGUP, \
+  KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,                   KC_PGDN, \
+  KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,                             \
+  KC_LSFT, KC_NUBS, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_RO,    KC_RSFT,          KC_UP,            \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_MHEN,          KC_SPC,KC_SPC,                        KC_HENK,  KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
+</code></pre>
+<p>Some interesting things to note about this:</p>
+<ul>
+<li>From a C source point of view it's only a single array, but we have embedded whitespace to more easily visualize where each key is on the physical device.</li>
+<li>Plain keyboard scancodes are prefixed with KC_, while &quot;special&quot; keys are not.</li>
+<li>The upper left key activates custom function 0 (<code>F(0)</code>)</li>
+<li>The &quot;Fn&quot; key is defined with <code>MO(_FL)</code>, which moves to the <code>_FL</code> layer while that key is being held down.</li>
+</ul>
+<h4 id="page_Function-Overlay-Layer">Function Overlay Layer</h4>
+<p>Our function layer is, from a code point of view, no different from the base layer. Conceptually, however, you will build that layer as an overlay, not a replacement. For many people this distinction does not matter, but as you build more complicated layering setups it matters more and more.</p>
+<pre><code>[_FL] = KEYMAP(
+  KC_GRV,  KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,   KC_F11,   KC_F12,   _______, KC_DEL,           BL_STEP, \
+  _______, _______, _______,_______,_______,_______,_______,_______,KC_PSCR,KC_SLCK, KC_PAUS,  _______,  _______,  _______,                   _______, \
+  _______, _______, MO(_CL),_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,                           \
+  _______, _______, _______,_______,_______,_______,_______,_______,_______,_______, _______,  _______,  _______,  _______,          KC_PGUP,         \
+  _______, _______, _______, _______,        _______,_______,                        _______,  _______,  _______,  MO(_FL), KC_HOME, KC_PGDN, KC_END),
+</code></pre>
+<p>Some interesting things to note:</p>
+<ul>
+<li>We have used our <code>_______</code> definition to turn <code>KC_TRNS</code> into <code>_______</code>. This makes it easier to spot the keys that have changed on this layer.</li>
+<li>While in this layer if you press one of the <code>_______</code> keys it will activate the key in the next lowest active layer.</li>
+</ul>
+<h3 id="page_Custom-Functions">Custom Functions</h3>
+<p>At the bottom of the file we've defined a single custom function. This function defines a key that sends <code>KC_ESC</code> when pressed without modifiers and <code>KC_GRAVE</code> when modifiers are held. There are a couple pieces that need to be in place for this to work, and we will go over both of them.</p>
+<h4 id="page_section_11"><code>fn_actions[]</code></h4>
+<p>We define the <code>fn_actions[]</code> array to point to custom functions. <code>F(N)</code> in a keymap will call element N of that array. For the Clueboard's that looks like this:</p>
+<pre><code>const uint16_t PROGMEM fn_actions[] = {
+  [0] = ACTION_FUNCTION(0),  // Calls action_function()
+};
+</code></pre>
+<p>In this case we've instructed QMK to call the <code>ACTION_FUNCTION</code> callback, which we will define in the next section.</p>
+<blockquote>
+<p>This <code>fn_actions[]</code> interface is mostly for backward compatibility.  In QMK, you don't need to use <code>fn_actions[]</code>.  You can directly use <code>ACTION_FUNCTION(N)</code> or any other action code value itself normally generated by the macro in <code>keymaps[][MATRIX_ROWS][MATRIX_COLS]</code>.  N in <code>F(N)</code> can only be 0 to 31.  Use of the action code directly in <code>keymaps</code> unlocks this limitation.</p>
+</blockquote>
+<p>You can get a full list of Action Functions in <a href="https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_code.h" class="Link--external">action_code.h</a>.</p>
+<h4 id="page_section_12"><code>action_function()</code></h4>
+<p>To actually handle the keypress event we define an <code>action_function()</code>. This function will be called when the key is pressed, and then again when the key is released. We have to handle both situations within our code, as well as determining whether to send/release <code>KC_ESC</code> or <code>KC_GRAVE</code>.</p>
+<pre><code>void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  static uint8_t mods_pressed;
+
+  switch (id) {
+    case 0:
+      /* Handle the combined Grave/Esc key
+       */
+      mods_pressed = get_mods()&amp;GRAVE_MODS; // Check to see what mods are pressed
+
+      if (record-&gt;event.pressed) {
+        /* The key is being pressed.
+         */
+        if (mods_pressed) {
+          add_key(KC_GRV);
+          send_keyboard_report();
+        } else {
+          add_key(KC_ESC);
+          send_keyboard_report();
+        }
+      } else {
+        /* The key is being released.
+         */
+        if (mods_pressed) {
+          del_key(KC_GRV);
+          send_keyboard_report();
+        } else {
+          del_key(KC_ESC);
+          send_keyboard_report();
+        }
+      }
+      break;
+  }
+}
+</code></pre>
+<h1 id="page_Nitty-Gritty-Details">Nitty Gritty Details</h1>
+<p>This should have given you a basic overview for creating your own keymap. For more details see the following resources:</p>
+<ul>
+<li>
+<a href="../Keycodes/index.html">Keycodes</a>
+</li>
+<li>
+<a href="../FAQ/Keymaps.html">Keymap FAQ</a>
+</li>
+</ul>
+<p>We are actively working to improve these docs. If you have suggestions for how they could be made better please <a href="https://github.com/qmk/qmk_firmware/issues/new" class="Link--external">file an issue</a>!</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Reference/Glossary.html">Previous</a></li>            <li class=Pager--next><a href="../Reference/Unit_Testing.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

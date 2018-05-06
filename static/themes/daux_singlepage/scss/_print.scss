@@ -1,0 +1,49 @@
+* {
+    text-shadow: none !important;
+    color: #000 !important; // Black prints faster: h5bp.com/s
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-before: auto;
+}
+
+pre, blockquote {
+    border: 1px solid #999;
+    font-style: italic;
+    page-break-inside: avoid;
+}
+
+img {
+    page-break-inside: avoid;
+    border: 0; /* Some browsers like to show a border around images. Switch it off */
+}
+
+a,
+a:visited { text-decoration: underline; }
+
+abbr[title]:after { content: " (" attr(title) ")"; }
+
+q {
+    quotes: none;
+
+    &:before { content: ""; }
+
+    &:after { content: " (" attr(cite) ")"; }
+}
+
+.PageBreak {
+    display: block;
+    page-break-before: always;
+}
+
+.NoPrint { display: none; }
+
+/* Hide the navigation */
+aside { display: none; }
+
+a[href]:after {
+    content: " (" attr(href) ")";
+}

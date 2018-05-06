@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Contributing - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Getting_Started/index.html">Getting Started</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Getting_Started/Contributing.html">Contributing</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_How-to-Contribute">How to Contribute</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_I-Don-t-Want-to-Read-This-Whole-Thing-I-Just-Have-a-Question">I Don't Want to Read This Whole Thing! I Just Have a Question!</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Project-Overview">Project Overview</a></p>
+</li>
+<li>
+<p><a href="#page_Where-Can-I-Go-for-Help">Where Can I Go for Help?</a></p>
+</li>
+<li>
+<p><a href="#page_How-Do-I-Make-a-Contribution">How Do I Make a Contribution?</a></p>
+</li>
+<li>
+<p><a href="#page_Coding-Conventions">Coding Conventions</a></p>
+</li>
+<li>
+<p><a href="#page_General-Guidelines">General Guidelines</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Documentation">Documentation</a></p>
+</li>
+<li>
+<p><a href="#page_Keymaps">Keymaps</a></p>
+</li>
+<li>
+<p><a href="#page_Keyboards">Keyboards</a></p>
+</li>
+<li>
+<p><a href="#page_Quantum-TMK-Core">Quantum/TMK Core</a></p>
+</li>
+<li>
+<p><a href="#page_Refactoring">Refactoring</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_What-Does-the-Code-of-Conduct-Mean-for-Me">What Does the Code of Conduct Mean for Me?</a></p>
+</li>
+</ul>
+<h1 id="page_How-to-Contribute">How to Contribute</h1>
+<p>👍🎉 First off, thanks for taking the time to read this and contribute! 🎉👍</p>
+<p>Third-party contributions help us grow and improve QMK. We want to make the pull request and contribution process useful and easy for both contributors and maintainers. To this end we've put together some guidelines for contributors to help your pull request be accepted without major changes.</p>
+<ul>
+<li>
+<a href="#project-overview">Project Overview</a>
+</li>
+<li>
+<a href="#coding-conventions">Coding Conventions</a>
+</li>
+<li>
+<a href="#general-guidelines">General Guidelines</a>
+</li>
+<li>
+<a href="#what-does-the-code-of-conduct-mean-for-me">What does the Code of Conduct mean for me?</a>
+</li>
+</ul>
+<h2 id="page_I-Don-t-Want-to-Read-This-Whole-Thing-I-Just-Have-a-Question">I Don't Want to Read This Whole Thing! I Just Have a Question!</h2>
+<p>If you'd like to ask questions about QMK you can do so on the <a href="https://reddit.com/r/olkb" class="Link--external">OLKB Subreddit</a> or on <a href="https://gitter.im/qmk/qmk_firmware" class="Link--external">Gitter</a>.</p>
+<p>Please keep these things in mind:</p>
+<ul>
+<li>It may take several hours for someone to respond to your question. Please be patient!</li>
+<li>Everyone involved with QMK is donating their time and energy. We don't get paid to work on or answer questions about QMK.</li>
+<li>Try to ask your question so it's as easy to answer as possible. If you're not sure how to do that these are some good guides:
+<ul>
+<li>https://opensource.com/life/16/10/how-ask-technical-questions</li>
+<li>http://www.catb.org/esr/faqs/smart-questions.html</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Project-Overview">Project Overview</h1>
+<p>QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR (<a href="http://www.fourwalledcubicle.com/LUFA.php" class="Link--external">LUFA</a>) and ARM (<a href="http://www.chibios.com" class="Link--external">ChibiOS</a>). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.</p>
+<!-- FIXME: We should include a list of resources for learning C here. -->
+<h1 id="page_Where-Can-I-Go-for-Help">Where Can I Go for Help?</h1>
+<p>If you need help you can <a href="https://github.com/qmk/qmk_firmware/issues" class="Link--external">open an issue</a> or <a href="http://gitter.im/QMK/qmk_firmware" class="Link--external">chat on gitter</a>.</p>
+<h1 id="page_How-Do-I-Make-a-Contribution">How Do I Make a Contribution?</h1>
+<p>Never made an open source contribution before? Wondering how contributions work in QMK? Here's a quick rundown!</p>
+<ol start="0">
+<li>Sign up for a <a href="https://github.com" class="Link--external">GitHub</a> account.</li>
+<li>Put together a keymap to contribute, <a href="https://github.com/qmk/qmk_firmware/issues" class="Link--external">find an issue</a> you are interested in addressing, or <a href="https://github.com/qmk/qmk_firmware/issues?q=is%3Aopen+is%3Aissue+label%3Afeature" class="Link--external">a feature</a> you would like to add.</li>
+<li>Fork the repository associated with the issue to your GitHub account. This means that you will have a copy of the repository under <code>your-GitHub-username/qmk_firmware</code>.</li>
+<li>Clone the repository to your local machine using <code>git clone https://github.com/github-username/repository-name.git</code>.</li>
+<li>If you're working on a new feature consider opening an issue to talk with us about the work you're about to undertake.</li>
+<li>Create a new branch for your fix using <code>git checkout -b branch-name-here</code>.</li>
+<li>Make the appropriate changes for the issue you are trying to address or the feature that you want to add.</li>
+<li>Use <code>git add insert-paths-of-changed-files-here</code> to add the file contents of the changed files to the &quot;snapshot&quot; git uses to manage the state of the project, also known as the index.</li>
+<li>Use <code>git commit -m &quot;Insert a short message of the changes made here&quot;</code> to store the contents of the index with a descriptive message.</li>
+<li>Push the changes to your repository on GitHub using <code>git push origin branch-name-here</code>.</li>
+<li>Submit a pull request to <a href="https://github.com/qmk/qmk_firmware/pull/new/master" class="Link--external">QMK Firmware</a>.</li>
+<li>Title the pull request with a short description of the changes made and the issue or bug number associated with your change. For example, you can title an issue like so &quot;Added more log outputting to resolve #4352&quot;.</li>
+<li>In the description of the pull request explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer. It's OK if your pull request is not perfect (no pull request is), the reviewer will be able to help you fix any problems and improve it!</li>
+<li>Wait for the pull request to be reviewed by a maintainer.</li>
+<li>Make changes to the pull request if the reviewing maintainer recommends them.</li>
+<li>Celebrate your success after your pull request is merged!</li>
+</ol>
+<h1 id="page_Coding-Conventions">Coding Conventions</h1>
+<p>Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:</p>
+<ul>
+<li>We indent using two spaces (soft tabs)</li>
+<li>We use One True Brace Style
+<ul>
+<li>Opening Brace: At the end of the same line as the statement that opens the block</li>
+<li>Closing Brace: Lined up with the first character of the statement that opens the block</li>
+<li>Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.</li>
+<li>Optional Braces: Always include optional braces.
+<ul>
+<li>Good: if (condition) { return false; }</li>
+<li>Bad: if (condition) return false;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>We use C style comments: <code>/* */</code>
+<ul>
+<li>Think of them as a story describing the feature</li>
+<li>Use them liberally to explain why particular decisions were made.</li>
+<li>Do not write obvious comments</li>
+<li>If you not sure if a comment is obvious, go ahead and include it.</li>
+</ul>
+</li>
+<li>In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.</li>
+</ul>
+<h1 id="page_General-Guidelines">General Guidelines</h1>
+<p>We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.</p>
+<ul>
+<li>Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.</li>
+<li>Check for unnecessary whitespace with <code>git diff --check</code> before committing.</li>
+<li>Make sure your code change actually compiles.
+<ul>
+<li>Keymaps: Make sure that <code>make keyboard:your_new_keymap</code> does not return an error</li>
+<li>Keyboards: Make sure that <code>make keyboard:all</code> does not return any errors</li>
+<li>Core: Make sure that <code>make all</code> does not return any errors.</li>
+</ul>
+</li>
+<li>Make sure commit messages are understandable on their own. You should put a short description (no more than 70 characters) on the first line, the second line should be empty, and on the 3rd and later lines you should describe your commit in detail, if required. Example:</li>
+</ul>
+<pre><code>Adjust the fronzlebop for the kerpleplork
+
+The kerpleplork was intermittently failing with error code 23. The root cause was the fronzlebop setting, which causes the kerpleplork to activate every N iterations.
+
+Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
+</code></pre>
+<h2 id="page_Documentation">Documentation</h2>
+<p>Documentation is one of the easiest ways to get started contributing to QMK. Finding places where the documentation is wrong or incomplete and fixing those is easy! We also very badly need someone to edit our documentation, so if you have editing skills but aren't sure where or how to jump in please <a href="#where-can-i-go-for-help">reach out for help</a>!</p>
+<p>You'll find all our documentation in the <code>qmk_firmware/docs</code> directory, or if you'd rather use a web based workflow you can click &quot;Suggest An Edit&quot; at the top of each page on http://docs.qmk.fm/.</p>
+<h2 id="page_Keymaps">Keymaps</h2>
+<p>Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.</p>
+<ul>
+<li>Write a <code>readme.md</code> using <a href="https://docs.qmk.fm/documentation_templates.html#" class="Link--external">the template</a>.</li>
+<li>All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself</li>
+<li>Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.</li>
+<li>Do not include <code>Makefile</code>s in your keymap folder (they're no longer used)</li>
+<li>Update copyrights in file headers (look for <code>REPLACE_WITH_YOUR_NAME</code>)</li>
+</ul>
+<h2 id="page_Keyboards">Keyboards</h2>
+<p>Keyboards are the raison d'être for QMK. Some keyboards are community maintained, while others are maintained by the people responsible for making a particular keyboard. The <code>readme.md</code> should tell you who maintains a particular keyboard. If you have questions relating to a particular keyboard you can <a href="https://github.com/qmk/qmk_firmware/issues" class="Link--external">Open An Issue</a> and tag the maintainer in your question.</p>
+<p>We also ask that you follow these guidelines:</p>
+<ul>
+<li>Write a <code>readme.md</code> using <a href="https://docs.qmk.fm/documentation_templates.html#" class="Link--external">the template</a>.</li>
+<li>Keep the number of commits reasonable or we will squash your PR</li>
+<li>Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.</li>
+<li>Name <code>.c</code>/<code>.h</code> file after the immediate parent folder, eg <code>/keyboards/&lt;kb1&gt;/&lt;kb2&gt;/&lt;kb2&gt;.[ch]</code>
+</li>
+<li>Do not include <code>Makefile</code>s in your keyboard folder (they're no longer used)</li>
+<li>Update copyrights in file headers (look for <code>REPLACE_WITH_YOUR_NAME</code>)</li>
+</ul>
+<h2 id="page_Quantum-TMK-Core">Quantum/TMK Core</h2>
+<p>Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading <a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a>, which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:</p>
+<ul>
+<li>
+<a href="https://gitter.im/qmk/qmk_firmware" class="Link--external">Chat on Gitter</a>
+</li>
+<li>
+<a href="https://github.com/qmk/qmk_firmware/issues/new" class="Link--external">Open an Issue</a>
+</li>
+</ul>
+<p>Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.</p>
+<p>Here are some things to keep in mind when working on your feature or bug fix.</p>
+<ul>
+<li>
+<strong>Disabled by default</strong> - memory is a pretty limited on most chips QMK supports, and it's important that current keymaps aren't broken, so please allow your feature to be turned <strong>on</strong>, rather than being turned off. If you think it should be on by default, or reduces the size of the code, please talk with us about it.</li>
+<li>
+<strong>Compile locally before submitting</strong> - hopefully this one is obvious, but things need to compile! Our Travis system will catch any issues, but it's generally faster for you to compile a few keyboards locally instead of waiting for the results to come back.</li>
+<li>
+<strong>Consider revisions and different chip-bases</strong> - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.</li>
+<li>
+<strong>Explain your feature</strong> - Document it in <code>docs/</code>, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.</li>
+</ul>
+<p>We also ask that you follow these guidelines:</p>
+<ul>
+<li>Keep the number of commits reasonable or we will squash your PR</li>
+<li>Do not lump keyboards or keymaps in with core changes. Submit your core changes first.</li>
+<li>Write <a href="http://docs.qmk.fm/unit_testing.html" class="Link--external">Unit Tests</a> for your feature</li>
+<li>Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the <a href="#coding-conventions">coding conventions</a> above.</li>
+</ul>
+<h2 id="page_Refactoring">Refactoring</h2>
+<p>To maintain a clear vision of how things are laid out in QMK we try to plan out refactors in-depth and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, <a href="https://github.com/qmk/qmk_firmware/issues" class="Link--external">open an issue</a>, we'd love to talk about how QMK can be improved.</p>
+<h1 id="page_What-Does-the-Code-of-Conduct-Mean-for-Me">What Does the Code of Conduct Mean for Me?</h1>
+<p>Our <a href="https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md" class="Link--external">Code of Conduct</a> means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Getting_Started/Flashing_Firmware.html">Previous</a></li>            <li class=Pager--next><a href="../Getting_Started/How_to_Use_GitHub.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

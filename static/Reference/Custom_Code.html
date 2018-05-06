@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Custom Code - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item Nav__item--active'><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Reference/index.html">Reference</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Reference/Custom_Code.html">Custom Code</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_How-to-Customize-Your-Keyboard-s-Behavior">How to Customize Your Keyboard's Behavior</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_A-Word-on-Core-vs-Keyboards-vs-Keymap">A Word on Core vs Keyboards vs Keymap</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Custom-Keycodes">Custom Keycodes</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Defining-a-New-Keycode">Defining a New Keycode</a></p>
+</li>
+<li>
+<p><a href="#page_Programming-the-Behavior-of-Any-Keycode">Programming the Behavior of Any Keycode</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-Implementation">Example <code>process_record_user()</code> Implementation</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Documentation"><code>process_record_*</code> Function Documentation</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_LED-Control">LED Control</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-Implementation-2">Example <code>led_set_user()</code> Implementation</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Documentation-2"><code>led_set_*</code> Function Documentation</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Matrix-Initialization-Code">Matrix Initialization Code</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-Implementation-2">Example <code>matrix_init_user()</code> Implementation</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Documentation-2"><code>matrix_init_*</code> Function Documentation</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Matrix-Scanning-Code">Matrix Scanning Code</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-Implementation-2">Example <code>matrix_scan_*</code> Implementation</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Documentation-2"><code>matrix_scan_*</code> Function Documentation</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Layer-Change-Code">Layer Change Code</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-Implementation-2">Example <code>layer_state_set_*</code> Implementation</a></p>
+</li>
+<li>
+<p><a href="#page_Function-Documentation-2"><code>layer_state_set_*</code> Function Documentation</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_How-to-Customize-Your-Keyboard-s-Behavior">How to Customize Your Keyboard's Behavior</h1>
+<p>For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations.</p>
+<p>This page does not assume any special knowledge about QMK, but reading <a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a> will help you understand what is going on at a more fundamental level.</p>
+<h2 id="page_A-Word-on-Core-vs-Keyboards-vs-Keymap">A Word on Core vs Keyboards vs Keymap</h2>
+<p>We have structured QMK as a hierarchy:</p>
+<ul>
+<li>Core (<code>_quantum</code>)
+<ul>
+<li>Keyboard/Revision (<code>_kb</code>)
+<ul>
+<li>Keymap (<code>_user</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Each of the functions described below can be defined with a <code>_kb()</code> suffix or a <code>_user()</code> suffix. We intend for you to use the <code>_kb()</code> suffix at the Keyboard/Revision level, while the <code>_user()</code> suffix should be used at the Keymap level.</p>
+<p>When defining functions at the Keyboard/Revision level it is important that your <code>_kb()</code> implementation call <code>_user()</code> before executing anything else- otherwise the keymap level function will never be called.</p>
+<h1 id="page_Custom-Keycodes">Custom Keycodes</h1>
+<p>By far the most common task is to change the behavior of an existing keycode or to create a new keycode. From a code standpoint the mechanism for each is very similar.</p>
+<h2 id="page_Defining-a-New-Keycode">Defining a New Keycode</h2>
+<p>The first step to creating your own custom keycode(s) is to enumerate them. This means both naming them and assigning a unique number to that keycode. Rather than limit custom keycodes to a fixed range of numbers QMK provides the <code>SAFE_RANGE</code> macro. You can use <code>SAFE_RANGE</code> when enumerating your custom keycodes to guarantee that you get a unique number.</p>
+<p>Here is an example of enumerating 2 keycodes. After adding this block to your <code>keymap.c</code> you will be able to use <code>FOO</code> and <code>BAR</code> inside your keymap.</p>
+<pre><code>enum my_keycodes {
+  FOO = SAFE_RANGE,
+  BAR
+};
+</code></pre>
+<h2 id="page_Programming-the-Behavior-of-Any-Keycode">Programming the Behavior of Any Keycode</h2>
+<p>When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the <code>process_record_kb()</code> and <code>process_record_user()</code> functions. These are called by QMK during key processing before the actual key event is handled. If these functions return <code>true</code> QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return <code>false</code> QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.</p>
+<p>These function are called every time a key is pressed or released.</p>
+<h3 id="page_Example-Implementation">Example <code>process_record_user()</code> Implementation</h3>
+<p>This example does two things. It defines the behavior for a custom keycode called <code>FOO</code>, and it supplements our Enter key by playing a tone whenever it is pressed.</p>
+<pre><code>bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case FOO:
+      if (record-&gt;event.pressed) {
+        // Do something when pressed
+      } else {
+        // Do something else when release
+      }
+      return false; // Skip all further processing of this key
+    case KC_ENTER:
+      // Play a tone when enter is pressed
+      if (record-&gt;event.pressed) {
+        PLAY_NOTE_ARRAY(tone_qwerty);
+      }
+      return true; // Let QMK send the enter press/release events
+    default:
+      return true; // Process all other keycodes normally
+  }
+}
+</code></pre>
+<h3 id="page_Function-Documentation"><code>process_record_*</code> Function Documentation</h3>
+<ul>
+<li>Keyboard/Revision: <code>bool process_record_kb(uint16_t keycode, keyrecord_t *record)</code>
+</li>
+<li>Keymap: <code>bool process_record_user(uint16_t keycode, keyrecord_t *record)</code>
+</li>
+</ul>
+<p>The <code>keycode</code> argument is whatever is defined in your keymap, eg <code>MO(1)</code>, <code>KC_L</code>, etc. You should use a <code>switch...case</code> block to handle these events.</p>
+<p>The <code>record</code> argument contains information about the actual press:</p>
+<pre><code>keyrecord_t record {
++-keyevent_t event {
+| +-keypos_t key {
+| | +-uint8_t col
+| | +-uint8_t row
+| | }
+| +-bool     pressed
+| +-uint16_t time
+| }
+}
+</code></pre>
+<h1 id="page_LED-Control">LED Control</h1>
+<p>This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.</p>
+<ul>
+<li>
+<code>USB_LED_NUM_LOCK</code>
+</li>
+<li>
+<code>USB_LED_CAPS_LOCK</code>
+</li>
+<li>
+<code>USB_LED_SCROLL_LOCK</code>
+</li>
+<li>
+<code>USB_LED_COMPOSE</code>
+</li>
+<li>
+<code>USB_LED_KANA</code>
+</li>
+</ul>
+<h3 id="page_Example-Implementation-2">Example <code>led_set_user()</code> Implementation</h3>
+<pre><code>void led_set_user(uint8_t usb_led) {
+    if (usb_led &amp; (1&lt;&lt;USB_LED_NUM_LOCK)) {
+        PORTB |= (1&lt;&lt;0);
+    } else {
+        PORTB &amp;= ~(1&lt;&lt;0);
+    }
+    if (usb_led &amp; (1&lt;&lt;USB_LED_CAPS_LOCK)) {
+        PORTB |= (1&lt;&lt;1);
+    } else {
+        PORTB &amp;= ~(1&lt;&lt;1);
+    }
+    if (usb_led &amp; (1&lt;&lt;USB_LED_SCROLL_LOCK)) {
+        PORTB |= (1&lt;&lt;2);
+    } else {
+        PORTB &amp;= ~(1&lt;&lt;2);
+    }
+    if (usb_led &amp; (1&lt;&lt;USB_LED_COMPOSE_LOCK)) {
+        PORTB |= (1&lt;&lt;3);
+    } else {
+        PORTB &amp;= ~(1&lt;&lt;3);
+    }
+    if (usb_led &amp; (1&lt;&lt;USB_LED_KANA_LOCK)) {
+        PORTB |= (1&lt;&lt;4);
+    } else {
+        PORTB &amp;= ~(1&lt;&lt;4);
+    }
+}
+</code></pre>
+<h3 id="page_Function-Documentation-2"><code>led_set_*</code> Function Documentation</h3>
+<ul>
+<li>Keyboard/Revision: <code>void led_set_kb(uint8_t usb_led)</code>
+</li>
+<li>Keymap: <code>void led_set_user(uint8_t usb_led)</code>
+</li>
+</ul>
+<h1 id="page_Matrix-Initialization-Code">Matrix Initialization Code</h1>
+<p>Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i²c controllers you will need to set up that hardware before it can be used.</p>
+<h3 id="page_Example-Implementation-2">Example <code>matrix_init_user()</code> Implementation</h3>
+<p>This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.</p>
+<pre><code>void matrix_init_user(void) {
+  // Call the keymap level matrix init.
+
+  // Set our LED pins as output
+  DDRB |= (1&lt;&lt;1);
+  DDRB |= (1&lt;&lt;2);
+  DDRB |= (1&lt;&lt;3);
+}
+</code></pre>
+<h3 id="page_Function-Documentation-2"><code>matrix_init_*</code> Function Documentation</h3>
+<ul>
+<li>Keyboard/Revision: <code>void matrix_init_kb(void)</code>
+</li>
+<li>Keymap: <code>void matrix_init_user(void)</code>
+</li>
+</ul>
+<h1 id="page_Matrix-Scanning-Code">Matrix Scanning Code</h1>
+<p>Whenever possible you should customize your keyboard by using <code>process_record_*()</code> and hooking into events that way, to ensure that your code does not have a negative performance impact on your keyboard. However, in rare cases it is necessary to hook into the matrix scanning. Be extremely careful with the performance of code in these functions, as it will be called at least 10 times per second.</p>
+<h3 id="page_Example-Implementation-2">Example <code>matrix_scan_*</code> Implementation</h3>
+<p>This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please <a href="https://github.com/qmk/qmk_firmware/issues/new" class="Link--external">open an issue</a> or <a href="https://gitter.im/qmk/qmk_firmware" class="Link--external">chat with us on gitter</a>.</p>
+<h3 id="page_Function-Documentation-2"><code>matrix_scan_*</code> Function Documentation</h3>
+<ul>
+<li>Keyboard/Revision: <code>void matrix_scan_kb(void)</code>
+</li>
+<li>Keymap: <code>void matrix_scan_user(void)</code>
+</li>
+</ul>
+<p>This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.</p>
+<p>You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.</p>
+<h1 id="page_Layer-Change-Code">Layer Change Code</h1>
+<p>Thir runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.</p>
+<h3 id="page_Example-Implementation-2">Example <code>layer_state_set_*</code> Implementation</h3>
+<p>This example shows how to set the <a href="../Features/RGB_Lighting.html">RGB Underglow</a> lights based on the layer, using the Planck as an example</p>
+<pre><code>uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+</code></pre>
+<h3 id="page_Function-Documentation-2"><code>layer_state_set_*</code> Function Documentation</h3>
+<ul>
+<li>Keyboard/Revision: <code>void uint32_t layer_state_set_kb(uint32_t state)</code>
+</li>
+<li>Keymap: <code>uint32_t layer_state_set_user(uint32_t state)</code>
+</li>
+</ul>
+<p>The <code>state</code> is the bitmask of the active layers, as explained in the <a href="Keymap_Overview.html#keymap-layer-status">Keymap Overview</a></p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Reference/Config_Options.html">Previous</a></li>            <li class=Pager--next><a href="../Reference/Documentation_Best_Practices.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

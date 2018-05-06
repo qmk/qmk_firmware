@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Tap Dance - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item Nav__item--active'><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/Tap_Dance.html">Tap Dance</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Tap-Dance-A-Single-Key-Can-Do-3-5-or-100-Different-Things">Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things</a></p>
+</li>
+<li>
+<p><a href="#page_Examples">Examples</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Simple-Example">Simple Example</a></p>
+</li>
+<li>
+<p><a href="#page_Complex-Examples">Complex Examples</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Example-1-Send-on-Single-Tap-on-Double-Tap">Example 1: Send <code>:</code> on Single Tap, <code>;</code> on Double Tap</a></p>
+</li>
+<li>
+<p><a href="#page_Example-2-Send-Safety-Dance-After-100-Taps">Example 2: Send &quot;Safety Dance!&quot; After 100 Taps</a></p>
+</li>
+<li>
+<p><a href="#page_Example-3-Turn-LED-Lights-On-Then-Off-One-at-a-Time">Example 3: Turn LED Lights On Then Off, One at a Time</a></p>
+</li>
+<li>
+<p><a href="#page_Example-4-Quad-Function-Tap-Dance">Example 4: 'Quad Function Tap-Dance'</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Setup">Setup</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_In">In <code>/qmk_firmware/users/&lt;your_name&gt;/rules.mk</code></a></p>
+</li>
+<li>
+<p><a href="#page_In-2">In <code>/qmk_firmware/users/&lt;your_name&gt;/&lt;you_name&gt;.h</code></a></p>
+</li>
+<li>
+<p><a href="#page_In-2">In <code>/qmk_firmware/users/&lt;your_name&gt;/&lt;your_name&gt;.c</code></a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Tap-Dance-A-Single-Key-Can-Do-3-5-or-100-Different-Things">Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things</h1>
+<!-- FIXME: Break this up into multiple sections -->
+<p>Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a colon. Hit it three times, and your keyboard's LEDs do a wild dance. That's just one example of what Tap Dance can do. It's one of the nicest community-contributed features in the firmware, conceived and created by <a href="https://github.com/algernon" class="Link--external">algernon</a> in <a href="https://github.com/qmk/qmk_firmware/pull/451" class="Link--external">#451</a>. Here's how algernon describes the feature:</p>
+<p>With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.</p>
+<p>To make it clear how this is different from <code>ACTION_FUNCTION_TAP</code>, lets explore a certain setup! We want one key to send <code>Space</code> on single tap, but <code>Enter</code> on double-tap.</p>
+<p>With <code>ACTION_FUNCTION_TAP</code>, it is quite a rain-dance to set this up, and has the problem that when the sequence is interrupted, the interrupting key will be send first. Thus, <code>SPC a</code> will result in <code>a SPC</code> being sent, if they are typed within <code>TAPPING_TERM</code>. With the tap dance feature, that'll come out as <code>SPC a</code>, correctly.</p>
+<p>The implementation hooks into two parts of the system, to achieve this: into <code>process_record_quantum()</code>, and the matrix scan. We need the latter to be able to time out a tap sequence even when a key is not being pressed, so <code>SPC</code> alone will time out and register after <code>TAPPING_TERM</code> time.</p>
+<p>But lets start with how to use it, first!</p>
+<p>First, you will need <code>TAP_DANCE_ENABLE=yes</code> in your <code>rules.mk</code>, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the <code>TD()</code> macro, that - similar to <code>F()</code>, takes a number, which will later be used as an index into the <code>tap_dance_actions</code> array.</p>
+<p>This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:</p>
+<ul>
+<li>
+<code>ACTION_TAP_DANCE_DOUBLE(kc1, kc2)</code>: Sends the <code>kc1</code> keycode when tapped once, <code>kc2</code> otherwise. When the key is held, the appropriate keycode is registered: <code>kc1</code> when pressed and held, <code>kc2</code> when tapped once, then pressed and held.</li>
+<li>
+<code>ACTION_TAP_DANCE_FN(fn)</code>: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.</li>
+<li>
+<code>ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)</code>: Calls the first specified function - defined in the user keymap - on every tap, the second function on when the dance action finishes (like the previous option), and the last function when the tap dance action resets.</li>
+</ul>
+<p>The first option is enough for a lot of cases, that just want dual roles. For example, <code>ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)</code> will result in <code>Space</code> being sent on single-tap, <code>Enter</code> otherwise.</p>
+<p>And that's the bulk of it!</p>
+<p>And now, on to the explanation of how it works!</p>
+<p>The main entry point is <code>process_tap_dance()</code>, called from <code>process_record_quantum()</code>, which is run for every keypress, and our handler gets to run early. This function checks whether the key pressed is a tap-dance key. If it is not, and a tap-dance was in action, we handle that first, and enqueue the newly pressed key. If it is a tap-dance key, then we check if it is the same as the already active one (if there's one active, that is). If it is not, we fire off the old one first, then register the new one. If it was the same, we increment the counter and the timer.</p>
+<p>This means that you have <code>TAPPING_TERM</code> time to tap the key again, you do not have to input all the taps within that timeframe. This allows for longer tap counts, with minimal impact on responsiveness.</p>
+<p>Our next stop is <code>matrix_scan_tap_dance()</code>. This handles the timeout of tap-dance keys.</p>
+<p>For the sake of flexibility, tap-dance actions can be either a pair of keycodes, or a user function. The latter allows one to handle higher tap counts, or do extra things, like blink the LEDs, fiddle with the backlighting, and so on. This is accomplished by using an union, and some clever macros.</p>
+<h1 id="page_Examples">Examples</h1>
+<h2 id="page_Simple-Example">Simple Example</h2>
+<p>Here's a simple example for a single definition:</p>
+<ol>
+<li>In your <code>rules.mk</code>, add <code>TAP_DANCE_ENABLE = yes</code>
+</li>
+<li>In your <code>config.h</code> (which you can copy from <code>qmk_firmware/keyboards/planck/config.h</code> to your keymap directory), add <code>#define TAPPING_TERM 200</code>
+</li>
+<li>In your <code>keymap.c</code> file, define the variables and definitions, then add to your keymap:</li>
+</ol>
+<pre><code class="language-c">//Tap Dance Declarations
+enum {
+  TD_ESC_CAPS = 0
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
+};
+
+//In Layer declaration, add tap dance item in place of a key code
+TD(TD_ESC_CAPS)
+</code></pre>
+<h2 id="page_Complex-Examples">Complex Examples</h2>
+<p>This section details several complex tap dance examples.
+All the enums used in the examples are declared like this:</p>
+<pre><code class="language-c">// Enums defined for all examples:
+enum {
+ CT_SE = 0,
+ CT_CLN,
+ CT_EGG,
+ CT_FLSH,
+ X_TAP_DANCE
+};
+</code></pre>
+<h3 id="page_Example-1-Send-on-Single-Tap-on-Double-Tap">Example 1: Send <code>:</code> on Single Tap, <code>;</code> on Double Tap</h3>
+<pre><code class="language-c">void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state-&gt;count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+  } else {
+    register_code (KC_SCLN);
+  }
+}
+
+void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state-&gt;count == 1) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_SCLN);
+  } else {
+    unregister_code (KC_SCLN);
+  }
+}
+
+//All tap dance functions would go here. Only showing this one.
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+};
+</code></pre>
+<h3 id="page_Example-2-Send-Safety-Dance-After-100-Taps">Example 2: Send &quot;Safety Dance!&quot; After 100 Taps</h3>
+<pre><code class="language-c">void dance_egg (qk_tap_dance_state_t *state, void *user_data) {
+  if (state-&gt;count &gt;= 100) {
+    SEND_STRING (&quot;Safety dance!&quot;);
+    reset_tap_dance (state);
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+};
+</code></pre>
+<h3 id="page_Example-3-Turn-LED-Lights-On-Then-Off-One-at-a-Time">Example 3: Turn LED Lights On Then Off, One at a Time</h3>
+<pre><code class="language-c">// on each tap, light up one led, from right to left
+// on the forth tap, turn them off from right to left
+void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state-&gt;count) {
+  case 1:
+    ergodox_right_led_3_on();
+    break;
+  case 2:
+    ergodox_right_led_2_on();
+    break;
+  case 3:
+    ergodox_right_led_1_on();
+    break;
+  case 4:
+    ergodox_right_led_3_off();
+    _delay_ms(50);
+    ergodox_right_led_2_off();
+    _delay_ms(50);
+    ergodox_right_led_1_off();
+  }
+}
+
+// on the fourth tap, set the keyboard on flash state
+void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
+  if (state-&gt;count &gt;= 4) {
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
+// if the flash state didn't happen, then turn off LEDs, left to right
+void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
+  ergodox_right_led_1_off();
+  _delay_ms(50);
+  ergodox_right_led_2_off();
+  _delay_ms(50);
+  ergodox_right_led_3_off();
+}
+
+//All tap dances now put together. Example 3 is &quot;CT_FLASH&quot;
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_SE]  = ACTION_TAP_DANCE_DOUBLE (KC_SPC, KC_ENT)
+ ,[CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+ ,[CT_EGG] = ACTION_TAP_DANCE_FN (dance_egg)
+ ,[CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED (dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
+};
+</code></pre>
+<h3 id="page_Example-4-Quad-Function-Tap-Dance">Example 4: 'Quad Function Tap-Dance'</h3>
+<p>By <a href="https://github.com/danielggordon" class="Link--external">DanielGGordon</a></p>
+<p>Allow one key to have 4 (or more) functions, depending on number of presses, and if the key is held or tapped.
+Below is a specific example:</p>
+<ul>
+<li>Tap = Send <code>x</code>
+</li>
+<li>Hold = Send <code>Control</code>
+</li>
+<li>Double Tap = Send <code>Escape</code>
+</li>
+<li>Double Tap and Hold = Send <code>Alt</code>
+</li>
+</ul>
+<h2 id="page_Setup">Setup</h2>
+<p>You will need a few things that can be used for 'Quad Function Tap-Dance'. The suggested setup is to create a user directory for yourself. This directory will contain rules.mk <code>&lt;your_name&gt;.c</code> and <code>&lt;your_name&gt;.h</code>. This directory should be called <code>&lt;your_name&gt;</code>, and located in the top level <code>users</code> directory. There should already be a few examples to look at there.</p>
+<h3 id="page_In">In <code>/qmk_firmware/users/&lt;your_name&gt;/rules.mk</code></h3>
+<p>Put the following:</p>
+<pre><code class="language-c">TAP_DANCE_ENABLE = yes
+SRC += your_name.c
+</code></pre>
+<p>Pretty simple. It is a nice way to keep some rules common on all your keymaps.</p>
+<h3 id="page_In-2">In <code>/qmk_firmware/users/&lt;your_name&gt;/&lt;you_name&gt;.h</code></h3>
+<p>You will need a few things in this file:</p>
+<pre><code class="language-c">#ifndef YOUR_NAME
+#define YOUR_NAME
+
+#include &quot;quantum.h&quot;
+#include &quot;process_keycode/process_tap_dance.h&quot;
+
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} xtap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
+};
+
+//Tap dance enums
+enum {
+    CTL_X = 0,
+    SOME_OTHER_DANCE
+}
+
+int cur_dance (qk_tap_dance_state_t *state);
+
+//for the x tap dance. Put it here so it can be used in any keymap
+void x_finished (qk_tap_dance_state_t *state, void *user_data);
+void x_reset (qk_tap_dance_state_t *state, void *user_data);
+</code></pre>
+<h3 id="page_In-2">In <code>/qmk_firmware/users/&lt;your_name&gt;/&lt;your_name&gt;.c</code></h3>
+<p>And then in your user's <code>.c</code> file you implement the functions above:</p>
+<pre><code class="language-c">#include &quot;gordon.h&quot;
+#include &quot;quantum.h&quot;
+#include &quot;action.h&quot;
+#include &quot;process_keycode/process_tap_dance.h&quot;
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance dance is &quot;interrupted&quot;, that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to &quot;tap&quot; the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being &quot;held&quot;.
+ *
+ * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the &quot;permissive hold&quot;
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example &quot;A&quot;. Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for &quot;good placement&quot; of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *
+ * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state-&gt;count == 1) {
+    if (state-&gt;interrupted || !state-&gt;pressed)  return SINGLE_TAP;
+    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
+    else return SINGLE_HOLD;
+  }
+  else if (state-&gt;count == 2) {
+    /*
+     * DOUBLE_SINGLE_TAP is to distinguish between typing &quot;pepper&quot;, and actually wanting a double tap
+     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+     * keystrokes of the key, and not the 'double tap' action/macro.
+    */
+    if (state-&gt;interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state-&gt;pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  //Assumes no one is trying to type the same letter three times (at least not quickly).
+  //If your tap dance key is 'KC_W', and you want to type &quot;www.&quot; quickly - then you will need to add
+  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
+  if (state-&gt;count == 3) {
+    if (state-&gt;interrupted || !state-&gt;pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8; //magic number. At some point this method will expand to work for more presses
+}
+
+//instanalize an instance of 'tap' for the 'x' tap dance.
+static tap xtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void x_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(KC_X); break;
+    case SINGLE_HOLD: register_code(KC_LCTRL); break;
+    case DOUBLE_TAP: register_code(KC_ESC); break;
+    case DOUBLE_HOLD: register_code(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+}
+
+void x_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_X); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+    case DOUBLE_TAP: unregister_code(KC_ESC); break;
+    case DOUBLE_HOLD: unregister_code(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
+  }
+  xtap_state.state = 0;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset)
+};
+</code></pre>
+<p>And then simply use TD(X_CTL) anywhere in your keymap.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Swap_Hands.html">Previous</a></li>            <li class=Pager--next><a href="../Features/Terminal.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

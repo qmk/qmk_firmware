@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Auto Shift - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item Nav__item--active'><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/Auto_Shift.html">Auto Shift</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Auto-Shift-Why-Do-We-Need-a-Shift-Key">Auto Shift: Why Do We Need a Shift Key?</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Why-Auto-Shift">Why Auto Shift?</a></p>
+</li>
+<li>
+<p><a href="#page_How-Does-It-Work">How Does It Work?</a></p>
+</li>
+<li>
+<p><a href="#page_Are-There-Limitations-to-Auto-Shift">Are There Limitations to Auto Shift?</a></p>
+</li>
+<li>
+<p><a href="#page_How-Do-I-Enable-Auto-Shift">How Do I Enable Auto Shift?</a></p>
+</li>
+<li>
+<p><a href="#page_Modifiers">Modifiers</a></p>
+</li>
+<li>
+<p><a href="#page_Configuring-Auto-Shift">Configuring Auto Shift</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_AUTO-_-SHIFT-_-TIMEOUT-Value-in-ms">AUTO_SHIFT_TIMEOUT (Value in ms)</a></p>
+</li>
+<li>
+<p><a href="#page_NO-_-AUTO-_-SHIFT-_-SPECIAL-simple-define">NO_AUTO_SHIFT_SPECIAL (simple define)</a></p>
+</li>
+<li>
+<p><a href="#page_NO-_-AUTO-_-SHIFT-_-NUMERIC-simple-define">NO_AUTO_SHIFT_NUMERIC (simple define)</a></p>
+</li>
+<li>
+<p><a href="#page_NO-_-AUTO-_-SHIFT-_-ALPHA-simple-define">NO_AUTO_SHIFT_ALPHA (simple define)</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Using-Auto-Shift-Setup">Using Auto Shift Setup</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Setup">Setup</a></p>
+</li>
+<li>
+<p><a href="#page_Use">Use</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_An-Example-Run">An Example Run</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Auto-Shift-Why-Do-We-Need-a-Shift-Key">Auto Shift: Why Do We Need a Shift Key?</h1>
+<p>Tap a key and you get its character. Tap a key, but hold it <em>slightly</em> longer
+and you get its shifted state. Voilà! No shift key needed!</p>
+<h2 id="page_Why-Auto-Shift">Why Auto Shift?</h2>
+<p>Many people suffer from various forms of RSI. A common cause is stretching your
+fingers repetitively long distances. For us on the keyboard, the pinky does that
+all too often when reaching for the shift key. Auto Shift looks to alleviate that
+problem.</p>
+<h2 id="page_How-Does-It-Work">How Does It Work?</h2>
+<p>When you tap a key, it stays depressed for a short period of time before it is
+then released. This depressed time is a different length for everyone. Auto Shift
+defines a constant <code>AUTO_SHIFT_TIMEOUT</code> which is typically set to twice your
+normal pressed state time. When you press a key, a timer starts and then stops
+when you release the key. If the time depressed is greater than or equal to the
+<code>AUTO_SHIFT_TIMEOUT</code>, then a shifted version of the key is emitted. If the time
+is less than the <code>AUTO_SHIFT_TIMEOUT</code> time, then the normal state is emitted.</p>
+<h2 id="page_Are-There-Limitations-to-Auto-Shift">Are There Limitations to Auto Shift?</h2>
+<p>Yes, unfortunately.</p>
+<ol>
+<li>Key repeat will cease to work. For example, before if you wanted 20 'a'
+characters, you could press and hold the 'a' key for a second or two. This no
+longer works with Auto Shift because it is timing your depressed time instead
+of emitting a depressed key state to your operating system.</li>
+<li>You will have characters that are shifted when you did not intend on shifting, and
+other characters you wanted shifted, but were not. This simply comes down to
+practice. As we get in a hurry, we think we have hit the key long enough
+for a shifted version, but we did not. On the other hand, we may think we are
+tapping the keys, but really we have held it for a little longer than
+anticipated.</li>
+</ol>
+<h2 id="page_How-Do-I-Enable-Auto-Shift">How Do I Enable Auto Shift?</h2>
+<p>Add to your <code>rules.mk</code> in the keymap folder:</p>
+<pre><code>AUTO_SHIFT_ENABLE = yes
+</code></pre>
+<p>If no <code>rules.mk</code> exists, you can create one.</p>
+<p>Then compile and install your new firmware with Auto Key enabled! That's it!</p>
+<h2 id="page_Modifiers">Modifiers</h2>
+<p>By default, Auto Shift is disabled for any key press that is accompanied by one or more
+modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
+as Ctrl+Shift+A.</p>
+<p>You can re-enable Auto Shift for modifiers by adding another rule to your <code>rules.mk</code></p>
+<pre><code>AUTO_SHIFT_MODIFIERS = yes
+</code></pre>
+<p>In which case, Ctrl+A held past the <code>AUTO_SHIFT_TIMEOUT</code> will be sent as Ctrl+Shift+A</p>
+<h2 id="page_Configuring-Auto-Shift">Configuring Auto Shift</h2>
+<p>If desired, there is some configuration that can be done to change the
+behavior of Auto Shift. This is done by setting various variables the
+<code>config.h</code> file located in your keymap folder. If no <code>config.h</code> file exists, you can create one.</p>
+<p>A sample is</p>
+<pre><code>#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include &quot;../../config.h&quot;
+
+#define AUTO_SHIFT_TIMEOUT 150
+#define NO_AUTO_SHIFT_SPECIAL
+
+#endif
+</code></pre>
+<h3 id="page_AUTO-_-SHIFT-_-TIMEOUT-Value-in-ms">AUTO_SHIFT_TIMEOUT (Value in ms)</h3>
+<p>This controls how long you have to hold a key before you get the shifted state.
+Obviously, this is different for everyone. For the common person, a setting of
+135 to 150 works great. However, one should start with a value of at least 175, which
+is the default value. Then work down from there. The idea is to have the shortest time required to get the shifted state without having false positives.</p>
+<p>Play with this value until things are perfect. Many find that all will work well
+at a given value, but one or two keys will still emit the shifted state on
+occasion. This is simply due to habit and holding some keys a little longer
+than others. Once you find this value, work on tapping your problem keys a little
+quicker than normal and you will be set.</p>
+<p>{% hint style='info' %}
+Auto Shift has three special keys that can help you get this value right very
+quick. See &quot;Auto Shift Setup&quot; for more details!
+{% endhint %}</p>
+<h3 id="page_NO-_-AUTO-_-SHIFT-_-SPECIAL-simple-define">NO_AUTO_SHIFT_SPECIAL (simple define)</h3>
+<p>Do not Auto Shift special keys, which include -_, =+, [{, ]}, ;:, '&quot;, ,&lt;, .&gt;,
+and /?</p>
+<h3 id="page_NO-_-AUTO-_-SHIFT-_-NUMERIC-simple-define">NO_AUTO_SHIFT_NUMERIC (simple define)</h3>
+<p>Do not Auto Shift numeric keys, zero through nine.</p>
+<h3 id="page_NO-_-AUTO-_-SHIFT-_-ALPHA-simple-define">NO_AUTO_SHIFT_ALPHA (simple define)</h3>
+<p>Do not Auto Shift alpha characters, which include A through Z.</p>
+<h2 id="page_Using-Auto-Shift-Setup">Using Auto Shift Setup</h2>
+<p>This will enable you to define three keys temporarily to increase, decrease and report your <code>AUTO_SHIFT_TIMEOUT</code>.</p>
+<h3 id="page_Setup">Setup</h3>
+<p>Map three keys temporarily in your keymap:</p>
+<table>
+<thead>
+<tr>
+<th>Key Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KC_ASDN</td>
+<td>Lower the Auto Shift timeout variable (down)</td>
+</tr>
+<tr>
+<td>KC_ASUP</td>
+<td>Raise the Auto Shift timeout variable (up)</td>
+</tr>
+<tr>
+<td>KC_ASRP</td>
+<td>Report your current Auto Shift timeout value</td>
+</tr>
+<tr>
+<td>KC_ASON</td>
+<td>Turns on the Auto Shift Function</td>
+</tr>
+<tr>
+<td>KC_ASOFF</td>
+<td>Turns off the Auto Shift Function</td>
+</tr>
+<tr>
+<td>KC_ASTG</td>
+<td>Toggles the state of the Auto Shift feature</td>
+</tr>
+</tbody>
+</table>
+<p>Compile and upload your new firmware.</p>
+<h3 id="page_Use">Use</h3>
+<p>It is important to note that during these tests, you should be typing
+completely normal and with no intention of shifted keys.</p>
+<ol>
+<li>Type multiple sentences of alphabetical letters.</li>
+<li>Observe any upper case letters.</li>
+<li>If there are none, press the key you have mapped to <code>KC_ASDN</code> to decrease
+time Auto Shift timeout value and go back to step 1.</li>
+<li>If there are some upper case letters, decide if you need to work on tapping
+those keys with less down time, or if you need to increase the timeout.</li>
+<li>If you decide to increase the timeout, press the key you have mapped to
+<code>KC_ASUP</code> and go back to step 1.</li>
+<li>Once you are happy with your results, press the key you have mapped to
+<code>KC_ASRP</code>. The keyboard will type by itself the value of your
+<code>AUTO_SHIFT_TIMEOUT</code>.</li>
+<li>Update <code>AUTO_SHIFT_TIMEOUT</code> in your <code>config.h</code> with the value reported.</li>
+<li>Remove <code>AUTO_SHIFT_SETUP</code> from your <code>config.h</code>.</li>
+<li>Remove the key bindings <code>KC_ASDN</code>, <code>KC_ASUP</code> and <code>KC_ASRP</code>.</li>
+<li>Compile and upload your new firmware.</li>
+</ol>
+<h4 id="page_An-Example-Run">An Example Run</h4>
+<pre><code>hello world. my name is john doe. i am a computer programmer playing with
+keyboards right now.
+
+[PRESS KC_ASDN quite a few times]
+
+heLLo woRLd. mY nAMe is JOHn dOE. i AM A compUTeR proGRaMMER PlAYiNG witH
+KEYboArDS RiGHT NOw.
+
+[PRESS KC_ASUP a few times]
+
+hello world. my name is john Doe. i am a computer programmer playing with
+keyboarDs right now.
+
+[PRESS KC_ASRP]
+
+115
+</code></pre>
+<p>The keyboard typed <code>115</code> which represents your current <code>AUTO_SHIFT_TIMEOUT</code>
+value. You are now set! Practice on the <em>D</em> key a little bit that showed up
+in the testing and you'll be golden.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Audio.html">Previous</a></li>            <li class=Pager--next><a href="../Features/Backlight.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

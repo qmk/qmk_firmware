@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Keyboard Guidelines - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Reference/index.html">Reference</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_QMK-Keyboard-Guidelines">QMK Keyboard Guidelines</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Naming-Your-Keyboard-Project">Naming Your Keyboard/Project</a></p>
+</li>
+<li>
+<p><a href="#page_section_3"><code>readme.md</code></a></p>
+</li>
+<li>
+<p><a href="#page_Image-Hardware-Files">Image/Hardware Files</a></p>
+</li>
+<li>
+<p><a href="#page_Keyboard-Defaults">Keyboard Defaults</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Bootmagic-and-Command">Bootmagic and Command</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Custom-Keyboard-Programming">Custom Keyboard Programming</a></p>
+</li>
+<li>
+<p><a href="#page_Keyboard-Metadata">Keyboard Metadata</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Format"><code>info.json</code> Format</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Layout-Format">Layout Format</a></p>
+</li>
+<li>
+<p><a href="#page_Key-Dictionary-Format">Key Dictionary Format</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_How-is-the-Metadata-Exposed">How is the Metadata Exposed?</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Non-Production-Handwired-Projects">Non-Production/Handwired Projects</a></p>
+</li>
+<li>
+<p><a href="#page_Warnings-as-Errors">Warnings as Errors</a></p>
+</li>
+<li>
+<p><a href="#page_Copyright-Blurb">Copyright Blurb</a></p>
+</li>
+<li>
+<p><a href="#page_License">License</a></p>
+</li>
+<li>
+<p><a href="#page_Technical-Details">Technical Details</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_QMK-Keyboard-Guidelines">QMK Keyboard Guidelines</h1>
+<p>We welcome all keyboard projects into QMK, but ask that you try to stick to a couple guidelines that help us keep things organised and consistent.</p>
+<h2 id="page_Naming-Your-Keyboard-Project">Naming Your Keyboard/Project</h2>
+<p>All names should be lowercase alphanumeric, and separated by an underscore (<code>_</code>), but not begin with one. Your directory and your <code>.h</code> and <code>.c</code> files should have exactly the same name. All folders should follow the same format. <code>test</code>, <code>keyboard</code>, and <code>all</code> are reserved by make and are not a valid name for a keyboard.</p>
+<h2 id="page_section_3"><code>readme.md</code></h2>
+<p>All projects need to have a <code>readme.md</code> file that explains what the keyboard is, who made it, where it is available, and links to more information. Please follow the <a href="Documentation_Templates.html#keyboard-readmemd-template">published template</a>.</p>
+<h2 id="page_Image-Hardware-Files">Image/Hardware Files</h2>
+<p>In an effort to keep the repo size down, we're no longer accepting images of any format in the repo, with few exceptions. Hosting them elsewhere (imgur) and linking them in the <code>readme.md</code> is the preferred method.</p>
+<p>Any sort of hardware file (plate, case, pcb) can't be stored in qmk_firmware, but we have the <a href="https://github.com/qmk/qmk.fm" class="Link--external">qmk.fm repo</a> where such files (as well as in-depth info) can be stored and viewed on <a href="http://qmk.fm" class="Link--external">qmk.fm</a>. Downloadable files are stored in <code>/&lt;keyboard&gt;/</code> (name follows the same format as above) which are served at <code>http://qmk.fm/&lt;keyboard&gt;/</code>, and pages are generated from <code>/_pages/&lt;keyboard&gt;/</code> which are served at the same location (.md files are generated into .html files through Jekyll). Check out the <code>lets_split</code> directory for an example.</p>
+<h2 id="page_Keyboard-Defaults">Keyboard Defaults</h2>
+<p>Given the amount of functionality that QMK exposes it's very easy to confuse new users. When putting together the default firmware for your keyboard we recommend limiting your enabled features and options to the minimal set needed to support your hardware. Recommendations for specific features follow.</p>
+<h3 id="page_Bootmagic-and-Command">Bootmagic and Command</h3>
+<p><a href="../Features/Bootmagic.html">Bootmagic</a> and <a href="../Features/Command.html">Command</a> are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.</p>
+<p>By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting <code>BOOTMAGIC_KEY_SALT</code> to a key that is hard to press while plugging your keyboard in.</p>
+<p>If your keyboard does not have 2 shift keys you should provide a working default for <code>IS_COMMAND</code>, even when you have set <code>COMMAND_ENABLE = no</code>. This will give your users a default to conform to if they do enable Command.</p>
+<h2 id="page_Custom-Keyboard-Programming">Custom Keyboard Programming</h2>
+<p>As documented on <a href="Custom_Code.html">Customizing Functionality</a> you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example <code>process_record_kb()</code>, make sure that your function calls the <code>_user()</code> version of the call too. You should also take into account the return value of the <code>_user()</code> version, and only run your custom code if the user returns <code>true</code>.</p>
+<h2 id="page_Keyboard-Metadata">Keyboard Metadata</h2>
+<p>As QMK grows so does the ecosystem surrounding QMK. To make it easier for projects in that ecosystem to tie into QMK as we make changes we are developing a metadata system to expose information about keyboards in QMK.</p>
+<p>You can create <code>info.json</code> files at every level under <code>qmk_firmware/keyboards/&lt;name&gt;</code> to specify this metadata. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, <code>qmk_firmware/keyboards/clueboard/info.json</code> specifies <code>manufacturer</code> and <code>maintainer</code>, while <code>qmk_firmware/keyboards/clueboard/66/info.json</code> specifies more specific information about Clueboard 66%.</p>
+<h3 id="page_Format"><code>info.json</code> Format</h3>
+<p>The <code>info.json</code> file is a JSON formatted dictionary with the following keys available to be set. You do not have to set all of them, merely the keys that apply to your keyboard.</p>
+<ul>
+<li>
+<code>keyboard_name</code>
+<ul>
+<li>A free-form text string describing the keyboard.</li>
+<li>Example: <code>Clueboard 66%</code>
+</li>
+</ul>
+</li>
+<li>
+<code>url</code>
+<ul>
+<li>A URL to the keyboard's product page, <a href="https://qmk.fm/keyboards" class="Link--external">QMK.fm/keyboards</a> page, or other page describing information about the keyboard.</li>
+</ul>
+</li>
+<li>
+<code>bootloader</code>
+<ul>
+<li>What bootloader this keyboard uses. Available options:
+<ul>
+<li>
+<code>atmel-dfu</code>
+</li>
+<li>
+<code>kiibohd-dfu-util</code>
+</li>
+<li>
+<code>lufa-dfu</code>
+</li>
+<li>
+<code>qmk-dfu</code>
+</li>
+<li>
+<code>stm32-dfu-util</code>
+</li>
+<li>
+<code>caterina</code>
+</li>
+<li>
+<code>halfkay</code>
+</li>
+<li>
+<code>bootloadHID</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<code>maintainer</code>
+<ul>
+<li>GitHub username of the maintainer, or <code>qmk</code> for community maintained boards</li>
+</ul>
+</li>
+<li>
+<code>width</code>
+<ul>
+<li>Width of the board in Key Units</li>
+</ul>
+</li>
+<li>
+<code>height</code>
+<ul>
+<li>Height of the board in Key Units</li>
+</ul>
+</li>
+<li>
+<code>layouts</code>
+<ul>
+<li>Physical Layout representations. See the next section for more detail.</li>
+</ul>
+</li>
+</ul>
+<h4 id="page_Layout-Format">Layout Format</h4>
+<p>Within our <code>info.json</code> file the <code>layouts</code> portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example <code>LAYOUT_ansi</code> or <code>LAYOUT_iso</code>. Within each layout macro are keys for <code>width</code>, <code>height</code>, and <code>key_count</code>, each of which should be self-explanatory.</p>
+<ul>
+<li>
+<code>width</code>
+<ul>
+<li>Optional: The width of the layout in Key Units</li>
+</ul>
+</li>
+<li>
+<code>height</code>
+<ul>
+<li>Optional: The height of the layout in Key Units</li>
+</ul>
+</li>
+<li>
+<code>key_count</code>
+<ul>
+<li>
+<strong>Required</strong>: The number of keys in this layout</li>
+</ul>
+</li>
+<li>
+<code>layout</code>
+<ul>
+<li>A list of Key Dictionaries describing the physical layout. See the next section for more details.</li>
+</ul>
+</li>
+</ul>
+<h4 id="page_Key-Dictionary-Format">Key Dictionary Format</h4>
+<p>Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Code for <a href="http://keyboard-layout-editor.com" class="Link--external">http://keyboard-layout-editor.com</a> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.</p>
+<p>All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.</p>
+<ul>
+<li>
+<code>X</code>
+<ul>
+<li>
+<strong>Required</strong>: The absolute position of the key in the horizontal axis, in Key Units.</li>
+</ul>
+</li>
+<li>
+<code>Y</code>
+<ul>
+<li>
+<strong>Required</strong>: The absolute position of the key in the vertical axis, in Key Units.</li>
+</ul>
+</li>
+<li>
+<code>W</code>
+<ul>
+<li>The width of the key, in Key Units. Ignored if <code>ks</code> is provided. Default: <code>1</code>
+</li>
+</ul>
+</li>
+<li>
+<code>H</code>
+<ul>
+<li>The height of the key, in Key Units. Ignored if <code>ks</code> is provided. Default: <code>1</code>
+</li>
+</ul>
+</li>
+<li>
+<code>R</code>
+<ul>
+<li>How many degrees clockwise to rotate the key.</li>
+</ul>
+</li>
+<li>
+<code>RX</code>
+<ul>
+<li>The absolute position of the point to rotate the key around in the horizontal axis. Default: <code>x</code>
+</li>
+</ul>
+</li>
+<li>
+<code>RY</code>
+<ul>
+<li>The absolute position of the point to rotate the key around in the vertical axis. Default: <code>y</code>
+</li>
+</ul>
+</li>
+<li>
+<code>KS</code>
+<ul>
+<li>Key Shape: define a polygon by providing a list of points, in Key Units.</li>
+<li>
+<strong>Important</strong>: These are relative to the top-left of the key, not absolute.</li>
+<li>Example ISO Enter: <code>[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]</code>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="page_How-is-the-Metadata-Exposed">How is the Metadata Exposed?</h3>
+<p>This metadata is primarily used in two ways:</p>
+<ul>
+<li>To allow web-based configurators to dynamically generate UI</li>
+<li>To support the new <code>make keyboard:keymap:qmk</code> target, which bundles this metadata up with the firmware to allow QMK Toolbox to be smarter.</li>
+</ul>
+<p>Configurator authors can see the <a href="https://docs.compile.qmk.fm/api_docs.html" class="Link--external">QMK Compiler</a> docs for more information on using the JSON API.</p>
+<h2 id="page_Non-Production-Handwired-Projects">Non-Production/Handwired Projects</h2>
+<p>We're happy to accept any project that uses QMK, including prototypes and handwired ones, but we have a separate <code>/keyboards/handwired/</code> folder for them, so the main <code>/keyboards/</code> folder doesn't get overcrowded. If a prototype project becomes a production project at some point in the future, we'd be happy to move it to the main <code>/keyboards/</code> folder!</p>
+<h2 id="page_Warnings-as-Errors">Warnings as Errors</h2>
+<p>When developing your keyboard, keep in mind that all warnings will be treated as errors - these small warnings can build-up and cause larger errors down the road (and keeping them is generally a bad practice).</p>
+<h2 id="page_Copyright-Blurb">Copyright Blurb</h2>
+<p>If you're adapting your keyboard's setup from another project, but not using the same code, but sure to update the copyright header at the top of the files to show your name, in this format:</p>
+<pre><code>Copyright 2017 Your Name &lt;your@email.com&gt;
+</code></pre>
+<p>If you are modifying someone else's code and have made only trivial changes you should leave their name in the copyright statement. If you have done significant work on the file you should add your name to theirs, like so:</p>
+<pre><code>Copyright 2017 Their Name &lt;original_author@example.com&gt; Your Name &lt;you@example.com&gt;
+</code></pre>
+<p>The year should be the first year the file is created. If work was done to that file in later years you can reflect that by appending the second year to the first, like so:</p>
+<pre><code>Copyright 2015-2017 Your Name &lt;you@example.com&gt;
+</code></pre>
+<h2 id="page_License">License</h2>
+<p>The core of QMK is licensed under the <a href="https://www.gnu.org/licenses/licenses.en.html" class="Link--external">GNU General Public License</a>. If you are shipping binaries for AVR processors you may choose either <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" class="Link--external">GPLv2</a> or <a href="https://www.gnu.org/licenses/gpl.html" class="Link--external">GPLv3</a>. If you are shipping binaries for ARM processors you must choose <a href="https://www.gnu.org/licenses/gpl.html" class="Link--external">GPL Version 3</a> to comply with the <a href="http://www.chibios.org" class="Link--external">ChibiOS</a> GPLv3 license.</p>
+<p>If your keyboard makes use of the <a href="https://ugfx.io" class="Link--external">uGFX</a> features within QMK you must comply with the <a href="https://ugfx.io/license.html" class="Link--external">uGFX License</a>, which requires a separate commercial license before selling a device containing uGFX.</p>
+<h2 id="page_Technical-Details">Technical Details</h2>
+<p>If you're looking for more information on making your keyboard work with QMK, <a href="../Hardware/index.html">check out the hardware section</a>!</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Reference/index.html">Previous</a></li>            <li class=Pager--next><a href="../Reference/Compatable_Microcontrollers.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Debugging and Troubleshooting - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item Nav__item--active'><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../FAQ/index.html">FAQ</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Debugging-FAQ">Debugging FAQ</a></p>
+</li>
+<li>
+<p><a href="#page_Debug-Console">Debug Console</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Can-t-Recognize-Device"><code>hid_listen</code> Can't Recognize Device</a></p>
+</li>
+<li>
+<p><a href="#page_Can-t-Get-Message-on-Console">Can't Get Message on Console</a></p>
+</li>
+<li>
+<p><a href="#page_Linux-or-UNIX-Like-System-Requires-Super-User-Privilege">Linux or UNIX Like System Requires Super User Privilege</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Miscellaneous">Miscellaneous</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Safety-Considerations">Safety Considerations</a></p>
+</li>
+<li>
+<p><a href="#page_NKRO-Doesn-t-work">NKRO Doesn't work</a></p>
+</li>
+<li>
+<p><a href="#page_TrackPoint-Needs-Reset-Circuit-PS-2-Mouse-Support">TrackPoint Needs Reset Circuit (PS/2 Mouse Support)</a></p>
+</li>
+<li>
+<p><a href="#page_Can-t-Read-Column-of-Matrix-Beyond-16">Can't Read Column of Matrix Beyond 16</a></p>
+</li>
+<li>
+<p><a href="#page_Bootloader-Jump-Doesn-t-Work">Bootloader Jump Doesn't Work</a></p>
+</li>
+<li>
+<p><a href="#page_Special-Extra-Key-Doesn-t-Work-System-Audio-Control-Keys">Special Extra Key Doesn't Work (System, Audio Control Keys)</a></p>
+</li>
+<li>
+<p><a href="#page_Wakeup-from-Sleep-Doesn-t-Work">Wakeup from Sleep Doesn't Work</a></p>
+</li>
+<li>
+<p><a href="#page_Using-Arduino">Using Arduino?</a></p>
+</li>
+<li>
+<p><a href="#page_Using-PF4-7-Pins-of-USB-AVR">Using PF4-7 Pins of USB AVR?</a></p>
+</li>
+<li>
+<p><a href="#page_Adding-LED-Indicators-of-Lock-Keys">Adding LED Indicators of Lock Keys</a></p>
+</li>
+<li>
+<p><a href="#page_Program-Arduino-Micro-Leonardo">Program Arduino Micro/Leonardo</a></p>
+</li>
+<li>
+<p><a href="#page_USB-3-Compatibility">USB 3 Compatibility</a></p>
+</li>
+<li>
+<p><a href="#page_Mac-Compatibility">Mac Compatibility</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_OS-X-10-11-and-Hub">OS X 10.11 and Hub</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Problem-on-BIOS-UEFI-Resume-Sleep-Wake-Power-Cycles">Problem on BIOS (UEFI)/Resume (Sleep &amp; Wake)/Power Cycles</a></p>
+</li>
+<li>
+<p><a href="#page_FLIP-Doesn-t-Work">FLIP Doesn't Work</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Not-Found"><code>AtLibUsbDfu.dll</code> Not Found</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Debugging-FAQ">Debugging FAQ</h1>
+<p>This page details various common questions people have about troubleshooting their keyboards.</p>
+<h1 id="page_Debug-Console">Debug Console</h1>
+<h2 id="page_Can-t-Recognize-Device"><code>hid_listen</code> Can't Recognize Device</h2>
+<p>When debug console of your device is not ready you will see like this:</p>
+<pre><code>Waiting for device:.........
+</code></pre>
+<p>once the device is plugged in then <em>hid_listen</em> finds it you will get this message:</p>
+<pre><code>Waiting for new device:.........................
+Listening:
+</code></pre>
+<p>If you can't get this 'Listening:' message try building with <code>CONSOLE_ENABLE=yes</code> in [Makefile]</p>
+<p>You may need privilege to access the device on OS like Linux.</p>
+<ul>
+<li>try <code>sudo hid_listen</code>
+</li>
+</ul>
+<h2 id="page_Can-t-Get-Message-on-Console">Can't Get Message on Console</h2>
+<p>Check:</p>
+<ul>
+<li>
+<em>hid_listen</em> finds your device. See above.</li>
+<li>Enable debug with pressing <strong>Magic</strong>+d. See <a href="https://github.com/tmk/tmk_keyboard#magic-commands" class="Link--external">Magic Commands</a>.</li>
+<li>set <code>debug_enable=true</code> usually in <code>matrix_init()</code> in <strong>matrix.c</strong>.</li>
+<li>try using 'print' function instead of debug print. See <strong>common/print.h</strong>.</li>
+<li>disconnect other devices with console function. See <a href="https://github.com/tmk/tmk_keyboard/issues/97" class="Link--external">Issue #97</a>.</li>
+</ul>
+<h2 id="page_Linux-or-UNIX-Like-System-Requires-Super-User-Privilege">Linux or UNIX Like System Requires Super User Privilege</h2>
+<p>Just use 'sudo' to execute <em>hid_listen</em> with privilege.</p>
+<pre><code>$ sudo hid_listen
+</code></pre>
+<p>Or add an <em>udev rule</em> for TMK devices with placing a file in rules directory. The directory may vary on each system.</p>
+<p>File: /etc/udev/rules.d/52-tmk-keyboard.rules(in case of Ubuntu)</p>
+<pre><code># tmk keyboard products     https://github.com/tmk/tmk_keyboard
+SUBSYSTEMS==&quot;usb&quot;, ATTRS{idVendor}==&quot;feed&quot;, MODE:=&quot;0666&quot;
+</code></pre>
+<hr />
+<h1 id="page_Miscellaneous">Miscellaneous</h1>
+<h2 id="page_Safety-Considerations">Safety Considerations</h2>
+<p>You probably don't want to &quot;brick&quot; your keyboard, making it impossible
+to rewrite firmware onto it.  Here are some of the parameters to show
+what things are (and likely aren't) too risky.</p>
+<ul>
+<li>If your keyboard map does not include RESET, then, to get into DFU
+mode, you will need to press the reset button on the PCB, which
+requires unscrewing the bottom.</li>
+<li>Messing with tmk_core / common files might make the keyboard
+inoperable</li>
+<li>Too large a .hex file is trouble; <code>make dfu</code> will erase the block,
+test the size (oops, wrong order!), which errors out, failing to
+flash the keyboard, leaving it in DFU mode.
+<ul>
+<li>To this end, note that the maximum .hex file size on Planck is
+7000h (28672 decimal)</li>
+</ul>
+</li>
+</ul>
+<pre><code>Linking: .build/planck_rev4_cbbrowne.elf                                                            [OK]
+Creating load file for Flash: .build/planck_rev4_cbbrowne.hex                                       [OK]
+
+Size after:
+   text    data     bss     dec     hex filename
+      0   22396       0   22396    577c planck_rev4_cbbrowne.hex
+</code></pre>
+<ul>
+<li>The above file is of size 22396/577ch, which is less than
+28672/7000h</li>
+<li>As long as you have a suitable alternative .hex file around, you
+can retry, loading that one</li>
+<li>Some of the options you might specify in your keyboard's Makefile
+consume extra memory; watch out for BOOTMAGIC_ENABLE,
+MOUSEKEY_ENABLE, EXTRAKEY_ENABLE, CONSOLE_ENABLE, API_SYSEX_ENABLE</li>
+<li>DFU tools do /not/ allow you to write into the bootloader (unless
+you throw in extra fruit salad of options), so there is little risk
+there.</li>
+<li>EEPROM has around a 100000 write cycle.  You shouldn't rewrite the
+firmware repeatedly and continually; that'll burn the EEPROM
+eventually.</li>
+</ul>
+<h2 id="page_NKRO-Doesn-t-work">NKRO Doesn't work</h2>
+<p>First you have to compile firmware with this build option <code>NKRO_ENABLE</code> in <strong>Makefile</strong>.</p>
+<p>Try <code>Magic</code> <strong>N</strong> command(<code>LShift+RShift+N</code> by default) when <strong>NKRO</strong> still doesn't work. You can use this command to toggle between <strong>NKRO</strong> and <strong>6KRO</strong> mode temporarily. In some situations <strong>NKRO</strong> doesn't work you need to switch to <strong>6KRO</strong> mode, in particular when you are in BIOS.</p>
+<p>If your firmware built with <code>BOOTMAGIC_ENABLE</code> you need to turn its switch on by <code>BootMagic</code> <strong>N</strong> command(<code>Space+N</code> by default). This setting is stored in EEPROM and kept over power cycles.</p>
+<p>https://github.com/tmk/tmk_keyboard#boot-magic-configuration---virtual-dip-switch</p>
+<h2 id="page_TrackPoint-Needs-Reset-Circuit-PS-2-Mouse-Support">TrackPoint Needs Reset Circuit (PS/2 Mouse Support)</h2>
+<p>Without reset circuit you will have inconsistent result due to improper initialize of the hardware. See circuit schematic of TPM754.</p>
+<ul>
+<li>http://geekhack.org/index.php?topic=50176.msg1127447#msg1127447</li>
+<li>http://www.mikrocontroller.net/attachment/52583/tpm754.pdf</li>
+</ul>
+<h2 id="page_Can-t-Read-Column-of-Matrix-Beyond-16">Can't Read Column of Matrix Beyond 16</h2>
+<p>Use <code>1UL&lt;&lt;16</code> instead of <code>1&lt;&lt;16</code> in <code>read_cols()</code> in [matrix.h] when your columns goes beyond 16.</p>
+<p>In C <code>1</code> means one of [int] type which is [16 bit] in case of AVR so you can't shift left more than 15. You will get unexpected zero when you say <code>1&lt;&lt;16</code>. You have to use [unsigned long] type with <code>1UL</code>.</p>
+<p>http://deskthority.net/workshop-f7/rebuilding-and-redesigning-a-classic-thinkpad-keyboard-t6181-60.html#p146279</p>
+<h2 id="page_Bootloader-Jump-Doesn-t-Work">Bootloader Jump Doesn't Work</h2>
+<p>Properly configure bootloader size in <strong>Makefile</strong>. With wrong section size bootloader won't probably start with <strong>Magic command</strong> and <strong>Boot Magic</strong>.</p>
+<pre><code># Size of Bootloaders in bytes:
+#   Atmel DFU loader(ATmega32U4)   4096
+#   Atmel DFU loader(AT90USB128)   8192
+#   LUFA bootloader(ATmega32U4)    4096
+#   Arduino Caterina(ATmega32U4)   4096
+#   USBaspLoader(ATmega***)        2048
+#   Teensy   halfKay(ATmega32U4)   512
+#   Teensy++ halfKay(AT90USB128)   2048
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
+</code></pre>
+<p>AVR Boot section size are defined by setting <strong>BOOTSZ</strong> fuse in fact. Consult with your MCU datasheet.
+Note that <strong>Word</strong>(2 bytes) size and address are used in datasheet while TMK uses <strong>Byte</strong>.</p>
+<p>AVR Boot section is located at end of Flash memory like the followings.</p>
+<pre><code>byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB1286)
+0x0000   +---------------+               0x00000  +---------------+
+         |               |                        |               |
+         |               |                        |               |
+         |  Application  |                        |  Application  |
+         |               |                        |               |
+         =               =                        =               =
+         |               | 32KB-4KB               |               | 128KB-8KB
+0x6000   +---------------+               0x1E000  +---------------+
+         |  Bootloader   | 4KB                    |  Bootloader   | 8KB
+0x7FFF   +---------------+               0x1FFFF  +---------------+
+
+
+byte     Teensy(ATMega32u4)              byte     Teensy++(AT90SUB1286)
+0x0000   +---------------+               0x00000  +---------------+
+         |               |                        |               |
+         |               |                        |               |
+         |  Application  |                        |  Application  |
+         |               |                        |               |
+         =               =                        =               =
+         |               | 32KB-512B              |               | 128KB-2KB
+0x7E00   +---------------+               0x1FC00  +---------------+
+         |  Bootloader   | 512B                   |  Bootloader   | 2KB
+0x7FFF   +---------------+               0x1FFFF  +---------------+
+</code></pre>
+<p>And see this discussion for further reference.
+https://github.com/tmk/tmk_keyboard/issues/179</p>
+<p>If you are using a TeensyUSB, there is a <a href="https://github.com/qmk/qmk_firmware/issues/164" class="Link--external">known bug</a> in which the hardware reset button prevents the RESET key from working. Unplugging the keyboard and plugging it back in should resolve the problem.</p>
+<h2 id="page_Special-Extra-Key-Doesn-t-Work-System-Audio-Control-Keys">Special Extra Key Doesn't Work (System, Audio Control Keys)</h2>
+<p>You need to define <code>EXTRAKEY_ENABLE</code> in <code>rules.mk</code> to use them in QMK.</p>
+<pre><code>EXTRAKEY_ENABLE = yes          # Audio control and System control
+</code></pre>
+<h2 id="page_Wakeup-from-Sleep-Doesn-t-Work">Wakeup from Sleep Doesn't Work</h2>
+<p>In Windows check <code>Allow this device to wake the computer</code> setting in Power <strong>Management property</strong> tab of <strong>Device Manager</strong>. Also check BIOS setting.</p>
+<p>Pressing any key during sleep should wake host.</p>
+<h2 id="page_Using-Arduino">Using Arduino?</h2>
+<p><strong>Note that Arduino pin naming is different from actual chip.</strong> For example, Arduino pin <code>D0</code> is not <code>PD0</code>. Check circuit with its schematics yourself.</p>
+<ul>
+<li>http://arduino.cc/en/uploads/Main/arduino-leonardo-schematic_3b.pdf</li>
+<li>http://arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf</li>
+</ul>
+<p>Arduino Leonardo and micro have <strong>ATMega32U4</strong> and can be used for TMK, though Arduino bootloader may be a problem.</p>
+<h2 id="page_Using-PF4-7-Pins-of-USB-AVR">Using PF4-7 Pins of USB AVR?</h2>
+<p>You need to set JTD bit of MCUCR yourself to use PF4-7 as GPIO. Those pins are configured to serve JTAG function by default. MCUs like ATMega<em>U</em> or AT90USB* are affected with this.</p>
+<p>If you are using Teensy this isn't needed. Teensy is shipped with JTAGEN fuse bit unprogrammed to disable the function.</p>
+<p>See this code.</p>
+<pre><code>    // JTAG disable for PORT F. write JTD bit twice within four cycles.
+    MCUCR |= (1&lt;&lt;JTD);
+    MCUCR |= (1&lt;&lt;JTD);
+</code></pre>
+<p>https://github.com/tmk/tmk_keyboard/blob/master/keyboard/hbkb/matrix.c#L67</p>
+<p>And read <strong>26.5.1 MCU Control Register – MCUCR</strong> of ATMega32U4 datasheet.</p>
+<h2 id="page_Adding-LED-Indicators-of-Lock-Keys">Adding LED Indicators of Lock Keys</h2>
+<p>You need your own LED indicators for CapsLock, ScrollLock and NumLock? See this post.</p>
+<p>http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p191560</p>
+<h2 id="page_Program-Arduino-Micro-Leonardo">Program Arduino Micro/Leonardo</h2>
+<p>Push reset button and then run command like this within 8 seconds.</p>
+<pre><code>avrdude -patmega32u4 -cavr109 -b57600 -Uflash:w:adb_usb.hex -P/dev/ttyACM0
+</code></pre>
+<p>Device name will vary depending on your system.</p>
+<p>http://arduino.cc/en/Main/ArduinoBoardMicro
+https://geekhack.org/index.php?topic=14290.msg1563867#msg1563867</p>
+<h2 id="page_USB-3-Compatibility">USB 3 Compatibility</h2>
+<p>I heard some people have a problem with USB 3 port, try USB 2 port.</p>
+<h2 id="page_Mac-Compatibility">Mac Compatibility</h2>
+<h3 id="page_OS-X-10-11-and-Hub">OS X 10.11 and Hub</h3>
+<p>https://geekhack.org/index.php?topic=14290.msg1884034#msg1884034</p>
+<h2 id="page_Problem-on-BIOS-UEFI-Resume-Sleep-Wake-Power-Cycles">Problem on BIOS (UEFI)/Resume (Sleep &amp; Wake)/Power Cycles</h2>
+<p>Some people reported their keyboard stops working on BIOS and/or after resume(power cycles).</p>
+<p>As of now root of its cause is not clear but some build options seem to be related. In Makefile try to disable those options like <code>CONSOLE_ENABLE</code>, <code>NKRO_ENABLE</code>, <code>SLEEP_LED_ENABLE</code> and/or others.</p>
+<p>https://github.com/tmk/tmk_keyboard/issues/266
+https://geekhack.org/index.php?topic=41989.msg1967778#msg1967778</p>
+<h2 id="page_FLIP-Doesn-t-Work">FLIP Doesn't Work</h2>
+<h3 id="page_Not-Found"><code>AtLibUsbDfu.dll</code> Not Found</h3>
+<p>Remove current driver and reinstall one FLIP provides from DeviceManager.
+http://imgur.com/a/bnwzy</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../FAQ/Build_Compile_QMK.html">Previous</a></li>            <li class=Pager--next><a href="../FAQ/Keymaps.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

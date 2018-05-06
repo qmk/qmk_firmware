@@ -1,0 +1,229 @@
+/* ============================================================================
+Homepage
+============================================================================ */
+
+.Container {
+    margin-right: auto;
+    margin-left: auto;
+
+    &--inner {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    .Container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 992px) {
+    .Container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 769px) {
+    .Container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .Container {
+        width: 1170px;
+    }
+}
+
+.Homepage {
+    padding-top: 60px !important;
+    background-color: var(--homepage-hero-background);
+    border-radius: 0;
+    border: none;
+    color: var(--homepage-hero-color);
+    overflow: hidden;
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    @include kill-box-shadow;
+}
+
+.HomepageTitle {
+    h2 {
+        width: 80%;
+        font-size: 30px;
+        margin: 20px auto;
+        text-align: center;
+    }
+}
+
+.HomepageImage {
+    img {
+        display: block;
+        max-width: 80%;
+        margin: 0 auto;
+        height: auto;
+    }
+}
+
+.HomepageButtons {
+    padding: 20px 0;
+    background-color: var(--hero-button-block-background);
+    text-align: center;
+
+    @include clearfix;
+
+    .Button--hero {
+        padding: 20px 30px;
+        border-radius: 0;
+        text-shadow: none;
+        opacity: 0.8;
+        margin: 0 10px;
+        text-transform: uppercase;
+        border: 5px solid var(--hero-button-border-color);
+        font-family: var(--font-family-heading);
+        font-weight: 700;
+
+        @include kill-background-image;
+        @include kill-box-shadow;
+
+        @media (max-width: 768px) {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.Button--secondary {
+            background-color: var(--hero-button-secondary-background);
+            color: var(--hero-button-secondary-color);
+        }
+
+        &.Button--primary {
+            background-color: var(--hero-buttom-primary-background);
+            color: var(--hero-button-primary-color);
+        }
+    }
+}
+
+.HomepageContent {
+    background-color: white;
+    padding: 40px 0;
+
+    ul, ol {
+        li {
+            list-style: none;
+            margin-bottom: 0.5em;
+            position: relative;
+        }
+
+        li:before {
+            position: absolute;
+            top: 50%;
+            left: -1.5em;
+            content: "";
+            width: 0;
+            height: 0;
+            border: 0.5em solid transparent;
+            border-left: 0.5em solid var(--homepage-bullet-color);
+            float: left;
+            display: block;
+            margin-top: -0.5em;
+        }
+    }
+
+    .HeroText {
+        font-family: var(--font-family-heading);
+        font-weight: 300;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    @media (min-width: 769px) {
+        padding: 40px 20px;
+
+        .HeroText {
+            font-size: 21px;
+        }
+
+        .Row {
+            margin: 0 -15px;
+        }
+
+        .Row__third, .Row__half, .Row__quarter {
+            float: left;
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .Row__third {
+            width: 33.333333%;
+        }
+
+        .Row__half {
+            width: 50%;
+        }
+
+        .Row__quarter {
+            width: 25%;
+        }
+    }
+}
+
+.HomepageFooter {
+    background-color: var(--homepage-footer-background);
+    color: var(--homepage-footer-color);
+    border: none;
+
+    @include kill-box-shadow;
+    @include clearfix;
+
+    @media (max-width: 768px) {
+        padding: 0 20px;
+        text-align: center;
+
+        .HomepageFooter__links {
+            padding-left: 0;
+            list-style-type: none;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .HomepageFooter__links {
+            float: left;
+        }
+
+        .HomepageFooter__twitter {
+            float: right;
+        }
+    }
+
+    &__links {
+        margin: 40px 0;
+
+        li a {
+            line-height: 32px;
+            font-size: 16px;
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__twitter {
+        margin: 40px 0;
+    }
+
+    .Twitter {
+        margin-bottom: 20px;
+    }
+}

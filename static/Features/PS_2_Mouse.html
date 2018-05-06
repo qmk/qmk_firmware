@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>PS 2 Mouse - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item Nav__item--active'><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_PS-2-Mouse-Support">PS/2 Mouse Support</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Busywait-Version">Busywait Version</a></p>
+</li>
+<li>
+<p><a href="#page_Interrupt-Version">Interrupt Version</a></p>
+</li>
+<li>
+<p><a href="#page_USART-Version">USART Version</a></p>
+</li>
+<li>
+<p><a href="#page_Additional-Settings">Additional Settings</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_PS-2-Mouse-Features">PS/2 Mouse Features</a></p>
+</li>
+<li>
+<p><a href="#page_Fine-Control">Fine Control</a></p>
+</li>
+<li>
+<p><a href="#page_Scroll-Button">Scroll Button</a></p>
+</li>
+<li>
+<p><a href="#page_Invert-Mouse-and-Scroll-Axes">Invert Mouse and Scroll Axes</a></p>
+</li>
+<li>
+<p><a href="#page_Debug-Settings">Debug Settings</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="page_PS-2-Mouse-Support">PS/2 Mouse Support</h2>
+<p>Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.</p>
+<p>To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest from a Thinkpad keyboard), identify the function of each pin of the module, and make the necessary circuitry between controller and Trackpoint module. For more information, please refer to <a href="https://deskthority.net/wiki/TrackPoint_Hardware" class="Link--external">Trackpoint Hardware</a> page on Deskthority Wiki.</p>
+<p>There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).</p>
+<h3 id="page_Busywait-Version">Busywait Version</h3>
+<p>Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.</p>
+<p>In rules.mk:</p>
+<pre><code>PS2_MOUSE_ENABLE = yes
+PS2_USE_BUSYWAIT = yes
+</code></pre>
+<p>In your keyboard config.h:</p>
+<pre><code>#ifdef PS2_USE_BUSYWAIT
+#   define PS2_CLOCK_PORT  PORTD
+#   define PS2_CLOCK_PIN   PIND
+#   define PS2_CLOCK_DDR   DDRD
+#   define PS2_CLOCK_BIT   1
+#   define PS2_DATA_PORT   PORTD
+#   define PS2_DATA_PIN    PIND
+#   define PS2_DATA_DDR    DDRD
+#   define PS2_DATA_BIT    2
+#endif
+</code></pre>
+<h3 id="page_Interrupt-Version">Interrupt Version</h3>
+<p>The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.</p>
+<p>In rules.mk:</p>
+<pre><code>PS2_MOUSE_ENABLE = yes
+PS2_USE_INT = yes
+</code></pre>
+<p>In your keyboard config.h:</p>
+<pre><code>#ifdef PS2_USE_INT
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   2
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    5
+
+#define PS2_INT_INIT()  do {    \
+    EICRA |= ((1&lt;&lt;ISC21) |      \
+              (0&lt;&lt;ISC20));      \
+} while (0)
+#define PS2_INT_ON()  do {      \
+    EIMSK |= (1&lt;&lt;INT2);         \
+} while (0)
+#define PS2_INT_OFF() do {      \
+    EIMSK &amp;= ~(1&lt;&lt;INT2);        \
+} while (0)
+#define PS2_INT_VECT   INT2_vect
+#endif
+</code></pre>
+<h3 id="page_USART-Version">USART Version</h3>
+<p>To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.</p>
+<p>In rules.mk:</p>
+<pre><code>PS2_MOUSE_ENABLE = yes
+PS2_USE_USART = yes
+</code></pre>
+<p>In your keyboard config.h:</p>
+<pre><code>#ifdef PS2_USE_USART
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   5
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    2
+
+/* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
+/* set DDR of CLOCK as input to be slave */
+#define PS2_USART_INIT() do {   \
+    PS2_CLOCK_DDR &amp;= ~(1&lt;&lt;PS2_CLOCK_BIT);   \
+    PS2_DATA_DDR &amp;= ~(1&lt;&lt;PS2_DATA_BIT);     \
+    UCSR1C = ((1 &lt;&lt; UMSEL10) |  \
+              (3 &lt;&lt; UPM10)   |  \
+              (0 &lt;&lt; USBS1)   |  \
+              (3 &lt;&lt; UCSZ10)  |  \
+              (0 &lt;&lt; UCPOL1));   \
+    UCSR1A = 0;                 \
+    UBRR1H = 0;                 \
+    UBRR1L = 0;                 \
+} while (0)
+#define PS2_USART_RX_INT_ON() do {  \
+    UCSR1B = ((1 &lt;&lt; RXCIE1) |       \
+              (1 &lt;&lt; RXEN1));        \
+} while (0)
+#define PS2_USART_RX_POLL_ON() do { \
+    UCSR1B = (1 &lt;&lt; RXEN1);          \
+} while (0)
+#define PS2_USART_OFF() do {    \
+    UCSR1C = 0;                 \
+    UCSR1B &amp;= ~((1 &lt;&lt; RXEN1) |  \
+                (1 &lt;&lt; TXEN1));  \
+} while (0)
+#define PS2_USART_RX_READY      (UCSR1A &amp; (1&lt;&lt;RXC1))
+#define PS2_USART_RX_DATA       UDR1
+#define PS2_USART_ERROR         (UCSR1A &amp; ((1&lt;&lt;FE1) | (1&lt;&lt;DOR1) | (1&lt;&lt;UPE1)))
+#define PS2_USART_RX_VECT       USART1_RX_vect
+#endif
+</code></pre>
+<h3 id="page_Additional-Settings">Additional Settings</h3>
+<h4 id="page_PS-2-Mouse-Features">PS/2 Mouse Features</h4>
+<p>These enable settings supported by the PS/2 mouse protocol: http://www.computer-engineering.org/ps2mouse/</p>
+<pre><code>/* Use remote mode instead of the default stream mode (see link) */
+#define PS2_MOUSE_USE_REMOTE_MODE
+
+/* Enable the scrollwheel or scroll gesture on your mouse or touchpad */
+#define PS2_MOUSE_ENABLE_SCROLLING
+
+/* Some mice will need a scroll mask to be configured. The default is 0xFF. */
+#define PS2_MOUSE_SCROLL_MASK 0x0F
+
+/* Applies a transformation to the movement before sending to the host (see link) */
+#define PS2_MOUSE_USE_2_1_SCALING
+
+/* The time to wait after initializing the ps2 host */
+#define PS2_MOUSE_INIT_DELAY 1000 /* Default */
+</code></pre>
+<p>You can also call the following functions from ps2_mouse.h</p>
+<pre><code>void ps2_mouse_disable_data_reporting(void);
+
+void ps2_mouse_enable_data_reporting(void);
+
+void ps2_mouse_set_remote_mode(void);
+
+void ps2_mouse_set_stream_mode(void);
+
+void ps2_mouse_set_scaling_2_1(void);
+
+void ps2_mouse_set_scaling_1_1(void);
+
+void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
+
+void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
+</code></pre>
+<h4 id="page_Fine-Control">Fine Control</h4>
+<p>Use the following defines to change the sensitivity and speed of the mouse.
+Note: you can also use <code>ps2_mouse_set_resolution</code> for the same effect (not supported on most touchpads).</p>
+<pre><code>#define PS2_MOUSE_X_MULTIPLIER 3
+#define PS2_MOUSE_Y_MULTIPLIER 3
+#define PS2_MOUSE_V_MULTIPLIER 1
+</code></pre>
+<h4 id="page_Scroll-Button">Scroll Button</h4>
+<p>If you're using a trackpoint, you will likely want to be able to use it for scrolling.
+Its possible to enable a &quot;scroll button/s&quot; that when pressed will cause the mouse to scroll instead of moving.
+To enable the feature, you must set a scroll button mask as follows:</p>
+<pre><code>#define PS2_MOUSE_SCROLL_BTN_MASK (1&lt;&lt;PS2_MOUSE_BUTTON_MIDDLE) /* Default */
+</code></pre>
+<p>To disable the scroll button feature:</p>
+<pre><code>#define PS2_MOUSE_SCROLL_BTN_MASK 0
+</code></pre>
+<p>The available buttons are:</p>
+<pre><code>#define PS2_MOUSE_BTN_LEFT      0
+#define PS2_MOUSE_BTN_RIGHT     1
+#define PS2_MOUSE_BTN_MIDDLE    2
+</code></pre>
+<p>You can also combine buttons in the mask by <code>|</code>ing them together.</p>
+<p>Once you've configured your scroll button mask, you must configure the scroll button send interval.
+This is the interval before which if the scroll buttons were released they would be sent to the host.
+After this interval, they will cause the mouse to scroll and will not be sent.</p>
+<pre><code>#define PS2_MOUSE_SCROLL_BTN_SEND 300 /* Default */
+</code></pre>
+<p>To disable sending the scroll buttons:</p>
+<pre><code>#define PS2_MOUSE_SCROLL_BTN_SEND 0
+</code></pre>
+<p>Fine control over the scrolling is supported with the following defines:</p>
+<pre><code>#define PS2_MOUSE_SCROLL_DIVISOR_H 2
+#define PS2_MOUSE_SCROLL_DIVISOR_V 2
+</code></pre>
+<h4 id="page_Invert-Mouse-and-Scroll-Axes">Invert Mouse and Scroll Axes</h4>
+<p>To invert the X and Y axes you can put:</p>
+<pre><code>#define PS2_MOUSE_INVERT_X
+#define PS2_MOUSE_INVERT_Y
+</code></pre>
+<p>into config.h.</p>
+<p>To reverse the scroll axes you can put:</p>
+<pre><code>#define PS2_MOUSE_INVERT_H
+#define PS2_MOUSE_INVERT_V
+</code></pre>
+<p>into config.h.</p>
+<h4 id="page_Debug-Settings">Debug Settings</h4>
+<p>To debug the mouse, add <code>debug_mouse = true</code> or enable via bootmagic.</p>
+<pre><code>/* To debug the mouse reports */
+#define PS2_MOUSE_DEBUG_HID
+#define PS2_MOUSE_DEBUG_RAW
+</code></pre>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Pointing_Device.html">Previous</a></li>            <li class=Pager--next><a href="../Features/RGB_Lighting.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

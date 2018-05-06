@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Keycodes - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Keycodes/index.html">Keycodes</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Keycodes-Overview">Keycodes Overview</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Basic-Keycodes"><a href="Basic.html">Basic Keycodes</a></a></p>
+</li>
+<li>
+<p><a href="#page_Mouse-Keys"><a href="../Features/Mouse_Keys.html">Mouse Keys</a></a></p>
+</li>
+<li>
+<p><a href="#page_Quantum-Keycodes"><a href="Quantum_Keycodes.html#qmk-keycodes">Quantum Keycodes</a></a></p>
+</li>
+<li>
+<p><a href="#page_Bootmagic"><a href="../Features/Bootmagic.html">Bootmagic</a></a></p>
+</li>
+<li>
+<p><a href="#page_Backlighting"><a href="../Features/Backlight.html">Backlighting</a></a></p>
+</li>
+<li>
+<p><a href="#page_RGB-Lighting"><a href="../Features/RGB_Lighting.html">RGB Lighting</a></a></p>
+</li>
+<li>
+<p><a href="#page_Thermal-Printer"><a href="../Features/Thermal_Printer.html">Thermal Printer</a></a></p>
+</li>
+<li>
+<p><a href="#page_Bluetooth"><a href="../Features/Bluetooth.html">Bluetooth</a></a></p>
+</li>
+<li>
+<p><a href="#page_Modifiers"><a href="Quantum_Keycodes.html#modifiers">Modifiers</a></a></p>
+</li>
+<li>
+<p><a href="#page_Mod-Tap-Keys"><a href="Quantum_Keycodes.html#mod-tap-keys">Mod-Tap Keys</a></a></p>
+</li>
+<li>
+<p><a href="#page_US-ANSI-Shifted-Keys"><a href="US_ANSI_Shifted_keys.html">US ANSI Shifted Keys</a></a></p>
+</li>
+<li>
+<p><a href="#page_Switching-and-Toggling-Layers"><a href="../Features/Advanced_Keycodes.html#switching-and-toggling-layers">Switching and Toggling Layers</a></a></p>
+</li>
+<li>
+<p><a href="#page_One-Shot-Keys"><a href="Quantum_Keycodes.html#one-shot-keys">One Shot Keys</a></a></p>
+</li>
+<li>
+<p><a href="#page_Unicode-Support"><a href="../Features/Unicode.html">Unicode Support</a></a></p>
+</li>
+<li>
+<p><a href="#page_Swap-Hands"><a href="../Features/Swap_Hands.html">Swap Hands</a></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Keycodes-Overview">Keycodes Overview</h1>
+<p>When defining a <a href="../Reference/Keymap_Overview.html">keymap</a> each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.</p>
+<p>This is a reference only. Each group of keys links to the page documenting their functionality in more detail.</p>
+<h2 id="page_Basic-Keycodes"><a href="Basic.html">Basic Keycodes</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KC_1</code></td>
+<td></td>
+<td><code>1</code> and <code>!</code></td>
+</tr>
+<tr>
+<td><code>KC_2</code></td>
+<td></td>
+<td><code>2</code> and <code>@</code></td>
+</tr>
+<tr>
+<td><code>KC_3</code></td>
+<td></td>
+<td><code>3</code> and <code>#</code></td>
+</tr>
+<tr>
+<td><code>KC_4</code></td>
+<td></td>
+<td><code>4</code> and <code>$</code></td>
+</tr>
+<tr>
+<td><code>KC_5</code></td>
+<td></td>
+<td><code>5</code> and <code>%</code></td>
+</tr>
+<tr>
+<td><code>KC_6</code></td>
+<td></td>
+<td><code>6</code> and <code>^</code></td>
+</tr>
+<tr>
+<td><code>KC_7</code></td>
+<td></td>
+<td><code>7</code> and <code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>KC_8</code></td>
+<td></td>
+<td><code>8</code> and <code>*</code></td>
+</tr>
+<tr>
+<td><code>KC_9</code></td>
+<td></td>
+<td><code>9</code> and <code>(</code></td>
+</tr>
+<tr>
+<td><code>KC_0</code></td>
+<td></td>
+<td><code>0</code> and <code>)</code></td>
+</tr>
+<tr>
+<td><code>KC_F1</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F2</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F3</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F4</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F5</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F6</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F7</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F8</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F9</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F10</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F11</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F12</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F13</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F14</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F15</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F16</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F17</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F18</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F19</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F20</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F21</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F22</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F23</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_F24</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_A</code></td>
+<td></td>
+<td><code>a</code> and <code>A</code></td>
+</tr>
+<tr>
+<td><code>KC_B</code></td>
+<td></td>
+<td><code>b</code> and <code>B</code></td>
+</tr>
+<tr>
+<td><code>KC_C</code></td>
+<td></td>
+<td><code>c</code> and <code>C</code></td>
+</tr>
+<tr>
+<td><code>KC_D</code></td>
+<td></td>
+<td><code>d</code> and <code>D</code></td>
+</tr>
+<tr>
+<td><code>KC_E</code></td>
+<td></td>
+<td><code>e</code> and <code>E</code></td>
+</tr>
+<tr>
+<td><code>KC_F</code></td>
+<td></td>
+<td><code>f</code> and <code>F</code></td>
+</tr>
+<tr>
+<td><code>KC_G</code></td>
+<td></td>
+<td><code>g</code> and <code>G</code></td>
+</tr>
+<tr>
+<td><code>KC_H</code></td>
+<td></td>
+<td><code>h</code> and <code>H</code></td>
+</tr>
+<tr>
+<td><code>KC_I</code></td>
+<td></td>
+<td><code>i</code> and <code>I</code></td>
+</tr>
+<tr>
+<td><code>KC_J</code></td>
+<td></td>
+<td><code>j</code> and <code>J</code></td>
+</tr>
+<tr>
+<td><code>KC_K</code></td>
+<td></td>
+<td><code>k</code> and <code>K</code></td>
+</tr>
+<tr>
+<td><code>KC_L</code></td>
+<td></td>
+<td><code>l</code> and <code>L</code></td>
+</tr>
+<tr>
+<td><code>KC_M</code></td>
+<td></td>
+<td><code>m</code> and <code>M</code></td>
+</tr>
+<tr>
+<td><code>KC_N</code></td>
+<td></td>
+<td><code>n</code> and <code>N</code></td>
+</tr>
+<tr>
+<td><code>KC_O</code></td>
+<td></td>
+<td><code>o</code> and <code>O</code></td>
+</tr>
+<tr>
+<td><code>KC_P</code></td>
+<td></td>
+<td><code>p</code> and <code>P</code></td>
+</tr>
+<tr>
+<td><code>KC_Q</code></td>
+<td></td>
+<td><code>q</code> and <code>Q</code></td>
+</tr>
+<tr>
+<td><code>KC_R</code></td>
+<td></td>
+<td><code>r</code> and <code>R</code></td>
+</tr>
+<tr>
+<td><code>KC_S</code></td>
+<td></td>
+<td><code>s</code> and <code>S</code></td>
+</tr>
+<tr>
+<td><code>KC_T</code></td>
+<td></td>
+<td><code>t</code> and <code>T</code></td>
+</tr>
+<tr>
+<td><code>KC_U</code></td>
+<td></td>
+<td><code>u</code> and <code>U</code></td>
+</tr>
+<tr>
+<td><code>KC_V</code></td>
+<td></td>
+<td><code>v</code> and <code>V</code></td>
+</tr>
+<tr>
+<td><code>KC_W</code></td>
+<td></td>
+<td><code>w</code> and <code>W</code></td>
+</tr>
+<tr>
+<td><code>KC_X</code></td>
+<td></td>
+<td><code>x</code> and <code>X</code></td>
+</tr>
+<tr>
+<td><code>KC_Y</code></td>
+<td></td>
+<td><code>y</code> and <code>Y</code></td>
+</tr>
+<tr>
+<td><code>KC_Z</code></td>
+<td></td>
+<td><code>z</code> and <code>Z</code></td>
+</tr>
+<tr>
+<td><code>KC_ENTER</code></td>
+<td><code>KC_ENT</code></td>
+<td>Return (Enter)</td>
+</tr>
+<tr>
+<td><code>KC_ESCAPE</code></td>
+<td><code>KC_ESC</code></td>
+<td>Escape</td>
+</tr>
+<tr>
+<td><code>KC_BSPACE</code></td>
+<td><code>KC_BSPC</code></td>
+<td>Delete (Backspace)</td>
+</tr>
+<tr>
+<td><code>KC_TAB</code></td>
+<td></td>
+<td>Tab</td>
+</tr>
+<tr>
+<td><code>KC_SPACE</code></td>
+<td><code>KC_SPC</code></td>
+<td>Spacebar</td>
+</tr>
+<tr>
+<td><code>KC_MINUS</code></td>
+<td><code>KC_MINS</code></td>
+<td><code>-</code> and <code>_</code></td>
+</tr>
+<tr>
+<td><code>KC_EQUAL</code></td>
+<td><code>KC_EQL</code></td>
+<td><code>=</code> and <code>+</code></td>
+</tr>
+<tr>
+<td><code>KC_LBRACKET</code></td>
+<td><code>KC_LBRC</code></td>
+<td><code>[</code> and <code>{</code></td>
+</tr>
+<tr>
+<td><code>KC_RBRACKET</code></td>
+<td><code>KC_RBRC</code></td>
+<td><code>]</code> and <code>}</code></td>
+</tr>
+<tr>
+<td><code>KC_BSLASH</code></td>
+<td><code>KC_BSLS</code></td>
+<td><code>\</code> and <code>|</code></td>
+</tr>
+<tr>
+<td><code>KC_NONUS_HASH</code></td>
+<td><code>KC_NUHS</code></td>
+<td>Non-US <code>#</code> and <code>~</code></td>
+</tr>
+<tr>
+<td><code>KC_NONUS_BSLASH</code></td>
+<td><code>KC_NUBS</code></td>
+<td>Non-US <code>\</code> and <code>|</code></td>
+</tr>
+<tr>
+<td><code>KC_INT1</code></td>
+<td><code>KC_RO</code></td>
+<td>JIS <code>\</code> and <code>|</code></td>
+</tr>
+<tr>
+<td><code>KC_INT2</code></td>
+<td><code>KC_KANA</code></td>
+<td>JIS Katakana/Hiragana</td>
+</tr>
+<tr>
+<td><code>KC_INT3</code></td>
+<td><code>KC_JYEN</code></td>
+<td>JIS <code>¥</code></td>
+</tr>
+<tr>
+<td><code>KC_SCOLON</code></td>
+<td><code>KC_SCLN</code></td>
+<td><code>;</code> and <code>:</code></td>
+</tr>
+<tr>
+<td><code>KC_QUOTE</code></td>
+<td><code>KC_QUOT</code></td>
+<td><code>'</code> and <code>&quot;</code></td>
+</tr>
+<tr>
+<td><code>KC_GRAVE</code></td>
+<td><code>KC_GRV</code></td>
+<td><code>`</code> and <code>~</code></td>
+</tr>
+<tr>
+<td><code>KC_COMMA</code></td>
+<td><code>KC_COMM</code></td>
+<td><code>,</code> and <code>&lt;</code></td>
+</tr>
+<tr>
+<td><code>KC_DOT</code></td>
+<td></td>
+<td><code>.</code> and <code>&gt;</code></td>
+</tr>
+<tr>
+<td><code>KC_SLASH</code></td>
+<td><code>KC_SLSH</code></td>
+<td><code>/</code> and <code>?</code></td>
+</tr>
+<tr>
+<td><code>KC_CAPSLOCK</code></td>
+<td><code>KC_CAPS</code></td>
+<td>Caps Lock</td>
+</tr>
+<tr>
+<td><code>KC_LCTRL</code></td>
+<td><code>KC_LCTL</code></td>
+<td>Left Control</td>
+</tr>
+<tr>
+<td><code>KC_LSHIFT</code></td>
+<td><code>KC_LSFT</code></td>
+<td>Left Shift</td>
+</tr>
+<tr>
+<td><code>KC_LALT</code></td>
+<td></td>
+<td>Left Alt</td>
+</tr>
+<tr>
+<td><code>KC_LGUI</code></td>
+<td><code>KC_LCMD</code>, <code>KC_LWIN</code></td>
+<td>Left GUI (Windows/Command/Meta key)</td>
+</tr>
+<tr>
+<td><code>KC_RCTRL</code></td>
+<td><code>KC_RCTL</code></td>
+<td>Right Control</td>
+</tr>
+<tr>
+<td><code>KC_RSHIFT</code></td>
+<td><code>KC_RSFT</code></td>
+<td>Right Shift</td>
+</tr>
+<tr>
+<td><code>KC_RALT</code></td>
+<td></td>
+<td>Right Alt</td>
+</tr>
+<tr>
+<td><code>KC_RGUI</code></td>
+<td><code>KC_RCMD</code>, <code>KC_RWIN</code></td>
+<td>Right GUI (Windows/Command/Meta key)</td>
+</tr>
+<tr>
+<td><code>KC_LOCKING_CAPS</code></td>
+<td><code>KC_LCAP</code></td>
+<td>Locking Caps Lock</td>
+</tr>
+<tr>
+<td><code>KC_LOCKING_NUM</code></td>
+<td><code>KC_LNUM</code></td>
+<td>Locking Num Lock</td>
+</tr>
+<tr>
+<td><code>KC_LOCKING_SCROLL</code></td>
+<td><code>KC_LSCR</code></td>
+<td>Locking Scroll Lock</td>
+</tr>
+<tr>
+<td><code>KC_INT4</code></td>
+<td><code>KC_HENK</code></td>
+<td>JIS Henkan</td>
+</tr>
+<tr>
+<td><code>KC_INT5</code></td>
+<td><code>KC_MHEN</code></td>
+<td>JIS Muhenkan</td>
+</tr>
+<tr>
+<td><code>KC_PSCREEN</code></td>
+<td><code>KC_PSCR</code></td>
+<td>Print Screen</td>
+</tr>
+<tr>
+<td><code>KC_SCROLLLOCK</code></td>
+<td><code>KC_SLCK</code></td>
+<td>Scroll Lock</td>
+</tr>
+<tr>
+<td><code>KC_PAUSE</code></td>
+<td><code>KC_PAUS</code></td>
+<td>Pause</td>
+</tr>
+<tr>
+<td><code>KC_INSERT</code></td>
+<td><code>KC_INS</code></td>
+<td>Insert</td>
+</tr>
+<tr>
+<td><code>KC_HOME</code></td>
+<td></td>
+<td>Home</td>
+</tr>
+<tr>
+<td><code>KC_PGUP</code></td>
+<td></td>
+<td>Page Up</td>
+</tr>
+<tr>
+<td><code>KC_DELETE</code></td>
+<td><code>KC_DEL</code></td>
+<td>Forward Delete</td>
+</tr>
+<tr>
+<td><code>KC_END</code></td>
+<td></td>
+<td>End</td>
+</tr>
+<tr>
+<td><code>KC_PGDOWN</code></td>
+<td><code>KC_PGDN</code></td>
+<td>Page Down</td>
+</tr>
+<tr>
+<td><code>KC_RIGHT</code></td>
+<td><code>KC_RGHT</code></td>
+<td>Right Arrow</td>
+</tr>
+<tr>
+<td><code>KC_LEFT</code></td>
+<td></td>
+<td>Left Arrow</td>
+</tr>
+<tr>
+<td><code>KC_DOWN</code></td>
+<td></td>
+<td>Down Arrow</td>
+</tr>
+<tr>
+<td><code>KC_UP</code></td>
+<td></td>
+<td>Up Arrow</td>
+</tr>
+<tr>
+<td><code>KC_APPLICATION</code></td>
+<td><code>KC_APP</code></td>
+<td>Application (Windows Menu Key)</td>
+</tr>
+<tr>
+<td><code>KC_POWER</code></td>
+<td></td>
+<td>Deprecated by MS in favor of <code>KC_SYSTEM_POWER</code>.</td>
+</tr>
+<tr>
+<td><code>KC_EXECUTE</code></td>
+<td></td>
+<td>Execute</td>
+</tr>
+<tr>
+<td><code>KC_HELP</code></td>
+<td></td>
+<td>Help</td>
+</tr>
+<tr>
+<td><code>KC_MENU</code></td>
+<td></td>
+<td>Menu</td>
+</tr>
+<tr>
+<td><code>KC_SELECT</code></td>
+<td></td>
+<td>Select</td>
+</tr>
+<tr>
+<td><code>KC_AGAIN</code></td>
+<td></td>
+<td>Again</td>
+</tr>
+<tr>
+<td><code>KC_UNDO</code></td>
+<td></td>
+<td>Undo</td>
+</tr>
+<tr>
+<td><code>KC_CUT</code></td>
+<td></td>
+<td>Cut</td>
+</tr>
+<tr>
+<td><code>KC_COPY</code></td>
+<td></td>
+<td>Copy</td>
+</tr>
+<tr>
+<td><code>KC_PASTE</code></td>
+<td></td>
+<td>Paste</td>
+</tr>
+<tr>
+<td><code>KC_FIND</code></td>
+<td></td>
+<td>Find</td>
+</tr>
+<tr>
+<td><code>KC_ALT_ERASE</code></td>
+<td></td>
+<td>Alternate Erase</td>
+</tr>
+<tr>
+<td><code>KC_SYSREQ</code></td>
+<td></td>
+<td>SysReq/Attention</td>
+</tr>
+<tr>
+<td><code>KC_CANCEL</code></td>
+<td></td>
+<td>Cancel</td>
+</tr>
+<tr>
+<td><code>KC_CLEAR</code></td>
+<td></td>
+<td>Clear</td>
+</tr>
+<tr>
+<td><code>KC_PRIOR</code></td>
+<td></td>
+<td>Prior</td>
+</tr>
+<tr>
+<td><code>KC_RETURN</code></td>
+<td></td>
+<td>Return</td>
+</tr>
+<tr>
+<td><code>KC_SEPARATOR</code></td>
+<td></td>
+<td>Separator</td>
+</tr>
+<tr>
+<td><code>KC_OUT</code></td>
+<td></td>
+<td>Out</td>
+</tr>
+<tr>
+<td><code>KC_OPER</code></td>
+<td></td>
+<td>Oper</td>
+</tr>
+<tr>
+<td><code>KC_CLEAR_AGAIN</code></td>
+<td></td>
+<td>Clear/Again</td>
+</tr>
+<tr>
+<td><code>KC_CRSEL</code></td>
+<td></td>
+<td>CrSel/Props</td>
+</tr>
+<tr>
+<td><code>KC_EXSEL</code></td>
+<td></td>
+<td>ExSel</td>
+</tr>
+<tr>
+<td><code>KC_SYSTEM_POWER</code></td>
+<td><code>KC_PWR</code></td>
+<td>System Power Down. Recommended over <code>KC_POWER</code>.</td>
+</tr>
+<tr>
+<td><code>KC_SYSTEM_SLEEP</code></td>
+<td><code>KC_SLEP</code></td>
+<td>System Sleep</td>
+</tr>
+<tr>
+<td><code>KC_SYSTEM_WAKE</code></td>
+<td><code>KC_WAKE</code></td>
+<td>System Wake</td>
+</tr>
+<tr>
+<td><code>KC_MAIL</code></td>
+<td><code>KC_MAIL</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_CALCULATOR</code></td>
+<td><code>KC_CALC</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_MY_COMPUTER</code></td>
+<td><code>KC_MYCM</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_SEARCH</code></td>
+<td><code>KC_WSCH</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_HOME</code></td>
+<td><code>KC_WHOM</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_BACK</code></td>
+<td><code>KC_WBAK</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_FORWARD</code></td>
+<td><code>KC_WFWD</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_STOP</code></td>
+<td><code>KC_WSTP</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_REFRESH</code></td>
+<td><code>KC_WREF</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_WWW_FAVORITES</code></td>
+<td><code>KC_WFAV</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_STOP</code></td>
+<td></td>
+<td>Stop</td>
+</tr>
+<tr>
+<td><code>KC__MUTE</code></td>
+<td></td>
+<td>Mute (macOS)</td>
+</tr>
+<tr>
+<td><code>KC__VOLUP</code></td>
+<td></td>
+<td>Volume Up (macOS)</td>
+</tr>
+<tr>
+<td><code>KC__VOLDOWN</code></td>
+<td></td>
+<td>Volume Down (macOS)</td>
+</tr>
+<tr>
+<td><code>KC_AUDIO_MUTE</code></td>
+<td><code>KC_MUTE</code></td>
+<td>Mute (Windows/macOS/Linux)</td>
+</tr>
+<tr>
+<td><code>KC_AUDIO_VOL_UP</code></td>
+<td><code>KC_VOLU</code></td>
+<td>Volume Up (Windows/macOS/Linux)</td>
+</tr>
+<tr>
+<td><code>KC_AUDIO_VOL_DOWN</code></td>
+<td><code>KC_VOLD</code></td>
+<td>Volume Down (Windows/macOS/Linux)</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_NEXT_TRACK</code></td>
+<td><code>KC_MNXT</code></td>
+<td>Next Track (Windows)</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_PREV_TRACK</code></td>
+<td><code>KC_MPRV</code></td>
+<td>Previous Track (Windows)</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_FAST_FORWARD</code></td>
+<td><code>KC_MFFD</code></td>
+<td>Next Track (macOS)</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_REWIND</code></td>
+<td><code>KC_MRWD</code></td>
+<td>Previous Track (macOS)</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_STOP</code></td>
+<td><code>KC_MSTP</code></td>
+<td>Stop Track</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_PLAY_PAUSE</code></td>
+<td><code>KC_MPLY</code></td>
+<td>Play/Pause Track</td>
+</tr>
+<tr>
+<td><code>KC_MEDIA_SELECT</code></td>
+<td><code>KC_MSEL</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>KC_NUMLOCK</code></td>
+<td><code>KC_NLCK</code></td>
+<td>Keypad Num Lock and Clear</td>
+</tr>
+<tr>
+<td><code>KC_KP_SLASH</code></td>
+<td><code>KC_PSLS</code></td>
+<td>Keypad <code>/</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_ASTERISK</code></td>
+<td><code>KC_PAST</code></td>
+<td>Keypad <code>*</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_MINUS</code></td>
+<td><code>KC_PMNS</code></td>
+<td>Keypad <code>-</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_PLUS</code></td>
+<td><code>KC_PPLS</code></td>
+<td>Keypad <code>+</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_ENTER</code></td>
+<td><code>KC_PENT</code></td>
+<td>Keypad Enter</td>
+</tr>
+<tr>
+<td><code>KC_KP_1</code></td>
+<td><code>KC_P1</code></td>
+<td>Keypad <code>1</code> and End</td>
+</tr>
+<tr>
+<td><code>KC_KP_2</code></td>
+<td><code>KC_P2</code></td>
+<td>Keypad <code>2</code> and Down Arrow</td>
+</tr>
+<tr>
+<td><code>KC_KP_3</code></td>
+<td><code>KC_P3</code></td>
+<td>Keypad <code>3</code> and Page Down</td>
+</tr>
+<tr>
+<td><code>KC_KP_4</code></td>
+<td><code>KC_P4</code></td>
+<td>Keypad <code>4</code> and Left Arrow</td>
+</tr>
+<tr>
+<td><code>KC_KP_5</code></td>
+<td><code>KC_P5</code></td>
+<td>Keypad <code>5</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_6</code></td>
+<td><code>KC_P6</code></td>
+<td>Keypad <code>6</code> and Right Arrow</td>
+</tr>
+<tr>
+<td><code>KC_KP_7</code></td>
+<td><code>KC_P7</code></td>
+<td>Keypad <code>7</code> and Home</td>
+</tr>
+<tr>
+<td><code>KC_KP_8</code></td>
+<td><code>KC_P8</code></td>
+<td>Keypad <code>8</code> and Up Arrow</td>
+</tr>
+<tr>
+<td><code>KC_KP_9</code></td>
+<td><code>KC_P9</code></td>
+<td>Keypad <code>9</code> and Page Up</td>
+</tr>
+<tr>
+<td><code>KC_KP_0</code></td>
+<td><code>KC_P0</code></td>
+<td>Keypad <code>0</code> and Insert</td>
+</tr>
+<tr>
+<td><code>KC_KP_DOT</code></td>
+<td><code>KC_PDOT</code></td>
+<td>Keypad <code>.</code> and Delete</td>
+</tr>
+<tr>
+<td><code>KC_KP_EQUAL</code></td>
+<td><code>KC_PEQL</code></td>
+<td>Keypad <code>=</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_COMMA</code></td>
+<td><code>KC_PCMM</code></td>
+<td>Keypad <code>,</code></td>
+</tr>
+<tr>
+<td><code>KC_KP_EQUAL_AS400</code></td>
+<td></td>
+<td>Keypad <code>=</code> on AS/400 keyboards</td>
+</tr>
+<tr>
+<td><code>KC_NO</code></td>
+<td></td>
+<td>Ignore this key (NOOP)</td>
+</tr>
+<tr>
+<td><code>KC_TRANSPARENT</code></td>
+<td><code>KC_TRNS</code></td>
+<td>Use the next lowest non-transparent key</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Mouse-Keys"><a href="../Features/Mouse_Keys.html">Mouse Keys</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KC_MS_UP</code></td>
+<td><code>KC_MS_U</code></td>
+<td>Mouse Cursor Up</td>
+</tr>
+<tr>
+<td><code>KC_MS_DOWN</code></td>
+<td><code>KC_MS_D</code></td>
+<td>Mouse Cursor Down</td>
+</tr>
+<tr>
+<td><code>KC_MS_LEFT</code></td>
+<td><code>KC_MS_L</code></td>
+<td>Mouse Cursor Left</td>
+</tr>
+<tr>
+<td><code>KC_MS_RIGHT</code></td>
+<td><code>KC_MS_R</code></td>
+<td>Mouse Cursor Right</td>
+</tr>
+<tr>
+<td><code>KC_MS_BTN1</code></td>
+<td><code>KC_BTN1</code></td>
+<td>Mouse Button 1</td>
+</tr>
+<tr>
+<td><code>KC_MS_BTN2</code></td>
+<td><code>KC_BTN2</code></td>
+<td>Mouse Button 2</td>
+</tr>
+<tr>
+<td><code>KC_MS_BTN3</code></td>
+<td><code>KC_BTN3</code></td>
+<td>Mouse Button 3</td>
+</tr>
+<tr>
+<td><code>KC_MS_BTN4</code></td>
+<td><code>KC_BTN4</code></td>
+<td>Mouse Button 4</td>
+</tr>
+<tr>
+<td><code>KC_MS_BTN5</code></td>
+<td><code>KC_BTN5</code></td>
+<td>Mouse Button 5</td>
+</tr>
+<tr>
+<td><code>KC_MS_WH_UP</code></td>
+<td><code>KC_WH_U</code></td>
+<td>Mouse Wheel Up</td>
+</tr>
+<tr>
+<td><code>KC_MS_WH_DOWN</code></td>
+<td><code>KC_WH_D</code></td>
+<td>Mouse Wheel Down</td>
+</tr>
+<tr>
+<td><code>KC_MS_WH_LEFT</code></td>
+<td><code>KC_WH_L</code></td>
+<td>Mouse Wheel Left</td>
+</tr>
+<tr>
+<td><code>KC_MS_WH_RIGHT</code></td>
+<td><code>KC_WH_R</code></td>
+<td>Mouse Wheel Right</td>
+</tr>
+<tr>
+<td><code>KC_MS_ACCEL0</code></td>
+<td><code>KC_ACL0</code></td>
+<td>Set mouse acceleration to 0</td>
+</tr>
+<tr>
+<td><code>KC_MS_ACCEL1</code></td>
+<td><code>KC_ACL1</code></td>
+<td>Set mouse acceleration to 1</td>
+</tr>
+<tr>
+<td><code>KC_MS_ACCEL2</code></td>
+<td><code>KC_ACL2</code></td>
+<td>Set mouse acceleration to 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Quantum-Keycodes"><a href="Quantum_Keycodes.html#qmk-keycodes">Quantum Keycodes</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RESET</code></td>
+<td></td>
+<td>Put the keyboard into DFU mode for flashing</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td></td>
+<td>Toggle debug mode</td>
+</tr>
+<tr>
+<td><code>KC_GESC</code></td>
+<td><code>GRAVE_ESC</code></td>
+<td>Escape when tapped, <code>`</code> when pressed with Shift or GUI</td>
+</tr>
+<tr>
+<td><code>KC_LSPO</code></td>
+<td></td>
+<td>Left Shift when held, <code>(</code> when tapped</td>
+</tr>
+<tr>
+<td><code>KC_RSPC</code></td>
+<td></td>
+<td>Right Shift when held, <code>)</code> when tapped</td>
+</tr>
+<tr>
+<td><code>KC_LEAD</code></td>
+<td></td>
+<td>The <a href="../Features/Leader_Key.html">Leader key</a></td>
+</tr>
+<tr>
+<td><code>KC_LOCK</code></td>
+<td></td>
+<td>The <a href="../Features/Key_Lock.html">Lock key</a></td>
+</tr>
+<tr>
+<td><code>FUNC(n)</code></td>
+<td><code>F(n)</code></td>
+<td>Call <code>fn_action(n)</code> (deprecated)</td>
+</tr>
+<tr>
+<td><code>M(n)</code></td>
+<td></td>
+<td>Call macro <code>n</code></td>
+</tr>
+<tr>
+<td><code>MACROTAP(n)</code></td>
+<td></td>
+<td>Macro-tap <code>n</code> idk FIXME</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Bootmagic"><a href="../Features/Bootmagic.html">Bootmagic</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MAGIC_SWAP_CONTROL_CAPSLOCK</code></td>
+<td></td>
+<td>Swap Caps Lock and Left Control</td>
+</tr>
+<tr>
+<td><code>MAGIC_CAPSLOCK_TO_CONTROL</code></td>
+<td></td>
+<td>Treat Caps Lock as Control</td>
+</tr>
+<tr>
+<td><code>MAGIC_SWAP_LALT_LGUI</code></td>
+<td></td>
+<td>Swap Left Alt and GUI</td>
+</tr>
+<tr>
+<td><code>MAGIC_SWAP_RALT_RGUI</code></td>
+<td></td>
+<td>Swap Right Alt and GUI</td>
+</tr>
+<tr>
+<td><code>MAGIC_NO_GUI</code></td>
+<td></td>
+<td>Disable the GUI key</td>
+</tr>
+<tr>
+<td><code>MAGIC_SWAP_GRAVE_ESC</code></td>
+<td></td>
+<td>Swap <code>`</code> and Escape</td>
+</tr>
+<tr>
+<td><code>MAGIC_SWAP_BACKSLASH_BACKSPACE</code></td>
+<td></td>
+<td>Swap <code>\</code> and Backspace</td>
+</tr>
+<tr>
+<td><code>MAGIC_HOST_NKRO</code></td>
+<td></td>
+<td>Force NKRO on</td>
+</tr>
+<tr>
+<td><code>MAGIC_SWAP_ALT_GUI</code></td>
+<td><code>AG_SWAP</code></td>
+<td>Swap Alt and GUI on both sides</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_CONTROL_CAPSLOCK</code></td>
+<td></td>
+<td>Unswap Caps Lock and Left Control</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNCAPSLOCK_TO_CONTROL</code></td>
+<td></td>
+<td>Stop treating Caps Lock as Control</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_LALT_LGUI</code></td>
+<td></td>
+<td>Unswap Left Alt and GUI</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_RALT_RGUI</code></td>
+<td></td>
+<td>Unswap Right Alt and GUI</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNNO_GUI</code></td>
+<td></td>
+<td>Enable the GUI key</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_GRAVE_ESC</code></td>
+<td></td>
+<td>Unswap <code>`</code> and Escape</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_BACKSLASH_BACKSPACE</code></td>
+<td></td>
+<td>Unswap <code>\</code> and Backspace</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNHOST_NKRO</code></td>
+<td></td>
+<td>Force NKRO off</td>
+</tr>
+<tr>
+<td><code>MAGIC_UNSWAP_ALT_GUI</code></td>
+<td><code>AG_NORM</code></td>
+<td>Unswap Alt and GUI on both sides</td>
+</tr>
+<tr>
+<td><code>MAGIC_TOGGLE_NKRO</code></td>
+<td></td>
+<td>Turn NKRO on or off</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Backlighting"><a href="../Features/Backlight.html">Backlighting</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BL_TOGG</code></td>
+<td>Turn the backlight on or off</td>
+</tr>
+<tr>
+<td><code>BL_STEP</code></td>
+<td>Cycle through backlight levels</td>
+</tr>
+<tr>
+<td><code>BL_ON</code></td>
+<td>Set the backlight to max brightness</td>
+</tr>
+<tr>
+<td><code>BL_OFF</code></td>
+<td>Turn the backlight off</td>
+</tr>
+<tr>
+<td><code>BL_INC</code></td>
+<td>Increase the backlight level</td>
+</tr>
+<tr>
+<td><code>BL_DEC</code></td>
+<td>Decrease the backlight level</td>
+</tr>
+<tr>
+<td><code>BL_BRTG</code></td>
+<td>Toggle backlight breathing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_RGB-Lighting"><a href="../Features/RGB_Lighting.html">RGB Lighting</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RGB_TOG</code></td>
+<td></td>
+<td>Toggle RGB lighting on or off</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_FORWARD</code></td>
+<td><code>RGB_MOD</code></td>
+<td>Cycle through modes, reverse direction when Shift is held</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_REVERSE</code></td>
+<td><code>RGB_RMOD</code></td>
+<td>Cycle through modes in reverse, forward direction when Shift is held</td>
+</tr>
+<tr>
+<td><code>RGB_HUI</code></td>
+<td></td>
+<td>Increase hue</td>
+</tr>
+<tr>
+<td><code>RGB_HUD</code></td>
+<td></td>
+<td>Decrease hue</td>
+</tr>
+<tr>
+<td><code>RGB_SAI</code></td>
+<td></td>
+<td>Increase saturation</td>
+</tr>
+<tr>
+<td><code>RGB_SAD</code></td>
+<td></td>
+<td>Decrease saturation</td>
+</tr>
+<tr>
+<td><code>RGB_VAI</code></td>
+<td></td>
+<td>Increase value (brightness)</td>
+</tr>
+<tr>
+<td><code>RGB_VAD</code></td>
+<td></td>
+<td>Decrease value (brightness)</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_PLAIN</code></td>
+<td><code>RGB_M_P</code></td>
+<td>Static (no animation) mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_BREATHE</code></td>
+<td><code>RGB_M_B</code></td>
+<td>Breathing animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_RAINBOW</code></td>
+<td><code>RGB_M_R</code></td>
+<td>Rainbow animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_SWIRL</code></td>
+<td><code>RGB_M_SW</code></td>
+<td>Swirl animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_SNAKE</code></td>
+<td><code>RGB_M_SN</code></td>
+<td>Snake animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_KNIGHT</code></td>
+<td><code>RGB_M_K</code></td>
+<td>&quot;Knight Rider&quot; animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_XMAS</code></td>
+<td><code>RGB_M_X</code></td>
+<td>Christmas animation mode</td>
+</tr>
+<tr>
+<td><code>RGB_MODE_GRADIENT</code></td>
+<td><code>RGB_M_G</code></td>
+<td>Static gradient animation mode</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Thermal-Printer"><a href="../Features/Thermal_Printer.html">Thermal Printer</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PRINT_ON</code></td>
+<td>Start printing everything the user types</td>
+</tr>
+<tr>
+<td><code>PRINT_OFF</code></td>
+<td>Stop printing everything the user types</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Bluetooth"><a href="../Features/Bluetooth.html">Bluetooth</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OUT_AUTO</code></td>
+<td>Automatically switch between USB and Bluetooth</td>
+</tr>
+<tr>
+<td><code>OUT_USB</code></td>
+<td>USB only</td>
+</tr>
+<tr>
+<td><code>OUT_BT</code></td>
+<td>Bluetooth only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Modifiers"><a href="Quantum_Keycodes.html#modifiers">Modifiers</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KC_HYPR</code></td>
+<td></td>
+<td>Hold Left Control, Shift, Alt and GUI</td>
+</tr>
+<tr>
+<td><code>KC_MEH</code></td>
+<td></td>
+<td>Hold Left Control, Shift and Alt</td>
+</tr>
+<tr>
+<td><code>LCTL(kc)</code></td>
+<td></td>
+<td>Hold Left Control and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>LSFT(kc)</code></td>
+<td><code>S(kc)</code></td>
+<td>Hold Left Shift and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>LALT(kc)</code></td>
+<td></td>
+<td>Hold Left Alt and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>LGUI(kc)</code></td>
+<td><code>LCMD(kc)</code>, <code>LWIN(kc)</code></td>
+<td>Hold Left GUI and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>RCTL(kc)</code></td>
+<td></td>
+<td>Hold Right Control and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>RSFT(kc)</code></td>
+<td></td>
+<td>Hold Right Shift and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>RALT(kc)</code></td>
+<td></td>
+<td>Hold Right Alt and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>RGUI(kc)</code></td>
+<td><code>RCMD(kc)</code>, <code>LWIN(kc)</code></td>
+<td>Hold Right GUI and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>HYPR(kc)</code></td>
+<td></td>
+<td>Hold Left Control, Shift, Alt and GUI and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>MEH(kc)</code></td>
+<td></td>
+<td>Hold Left Control, Shift and Alt and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>LCAG(kc)</code></td>
+<td></td>
+<td>Hold Left Control, Alt and GUI and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>ALTG(kc)</code></td>
+<td></td>
+<td>Hold Right Control and Alt and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>SGUI(kc)</code></td>
+<td><code>SCMD(kc)</code>, <code>SWIN(kc)</code></td>
+<td>Hold Left Shift and GUI and press <code>kc</code></td>
+</tr>
+<tr>
+<td><code>LCA(kc)</code></td>
+<td></td>
+<td>Hold Left Control and Alt and press <code>kc</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Mod-Tap-Keys"><a href="Quantum_Keycodes.html#mod-tap-keys">Mod-Tap Keys</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LCTL_T(kc)</code></td>
+<td><code>CTL_T(kc)</code></td>
+<td>Left Control when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>RCTL_T(kc)</code></td>
+<td></td>
+<td>Right Control when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>LSFT_T(kc)</code></td>
+<td><code>SFT_T(kc)</code></td>
+<td>Left Shift when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>RSFT_T(kc)</code></td>
+<td></td>
+<td>Right Shift when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>LALT_T(kc)</code></td>
+<td><code>ALT_T(kc)</code></td>
+<td>Left Alt when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>RALT_T(kc)</code></td>
+<td><code>ALGR_T(kc)</code></td>
+<td>Right Alt when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>LGUI_T(kc)</code></td>
+<td><code>LCMD_T(kc)</code>, <code>RWIN_T(kc)</code>, <code>GUI_T(kc)</code></td>
+<td>Left GUI when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>RGUI_T(kc)</code></td>
+<td><code>RCMD_T(kc)</code>, <code>RWIN_T(kc)</code></td>
+<td>Right GUI when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>C_S_T(kc)</code></td>
+<td></td>
+<td>Left Control and Shift when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>MEH_T(kc)</code></td>
+<td></td>
+<td>Left Control, Shift and Alt when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>LCAG_T(kc)</code></td>
+<td></td>
+<td>Left Control, Alt and GUI when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>RCAG_T(kc)</code></td>
+<td></td>
+<td>Right Control, Alt and GUI when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>ALL_T(kc)</code></td>
+<td></td>
+<td>Left Control, Shift, Alt and GUI when held, <code>kc</code> when tapped - more info <a href="http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/" class="Link--external">here</a></td>
+</tr>
+<tr>
+<td><code>SCMD_T(kc)</code></td>
+<td><code>SWIN_T(kc)</code></td>
+<td>Left Shift and GUI when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>LCA_T(kc)</code></td>
+<td></td>
+<td>Left Control and Alt when held, <code>kc</code> when tapped</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_US-ANSI-Shifted-Keys"><a href="US_ANSI_Shifted_keys.html">US ANSI Shifted Keys</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KC_TILDE</code></td>
+<td><code>KC_TILD</code></td>
+<td><code>~</code></td>
+</tr>
+<tr>
+<td><code>KC_EXCLAIM</code></td>
+<td><code>KC_EXLM</code></td>
+<td><code>!</code></td>
+</tr>
+<tr>
+<td><code>KC_AT</code></td>
+<td></td>
+<td><code>@</code></td>
+</tr>
+<tr>
+<td><code>KC_HASH</code></td>
+<td></td>
+<td><code>#</code></td>
+</tr>
+<tr>
+<td><code>KC_DOLLAR</code></td>
+<td><code>KC_DLR</code></td>
+<td><code>$</code></td>
+</tr>
+<tr>
+<td><code>KC_PERCENT</code></td>
+<td><code>KC_PERC</code></td>
+<td><code>%</code></td>
+</tr>
+<tr>
+<td><code>KC_CIRCUMFLEX</code></td>
+<td><code>KC_CIRC</code></td>
+<td><code>^</code></td>
+</tr>
+<tr>
+<td><code>KC_AMPERSAND</code></td>
+<td><code>KC_AMPR</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>KC_ASTERISK</code></td>
+<td><code>KC_ASTR</code></td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_PAREN</code></td>
+<td><code>KC_LPRN</code></td>
+<td><code>(</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_PAREN</code></td>
+<td><code>KC_RPRN</code></td>
+<td><code>)</code></td>
+</tr>
+<tr>
+<td><code>KC_UNDERSCORE</code></td>
+<td><code>KC_UNDS</code></td>
+<td><code>_</code></td>
+</tr>
+<tr>
+<td><code>KC_PLUS</code></td>
+<td></td>
+<td><code>+</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_CURLY_BRACE</code></td>
+<td><code>KC_LCBR</code></td>
+<td><code>{</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_CURLY_BRACE</code></td>
+<td><code>KC_RCBR</code></td>
+<td><code>}</code></td>
+</tr>
+<tr>
+<td><code>KC_PIPE</code></td>
+<td></td>
+<td><code>|</code></td>
+</tr>
+<tr>
+<td><code>KC_COLON</code></td>
+<td><code>KC_COLN</code></td>
+<td><code>:</code></td>
+</tr>
+<tr>
+<td><code>KC_DOUBLE_QUOTE</code></td>
+<td><code>KC_DQT</code>/<code>KC_DQUO</code></td>
+<td><code>&quot;</code></td>
+</tr>
+<tr>
+<td><code>KC_LEFT_ANGLE_BRACKET</code></td>
+<td><code>KC_LT</code>/<code>KC_LABK</code></td>
+<td><code>&lt;</code></td>
+</tr>
+<tr>
+<td><code>KC_RIGHT_ANGLE_BRACKET</code></td>
+<td><code>KC_GT</code>/<code>KC_RABK</code></td>
+<td><code>&gt;</code></td>
+</tr>
+<tr>
+<td><code>KC_QUESTION</code></td>
+<td><code>KC_QUES</code></td>
+<td><code>?</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Switching-and-Toggling-Layers"><a href="../Features/Advanced_Keycodes.html#switching-and-toggling-layers">Switching and Toggling Layers</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LT(layer, kc)</code></td>
+<td>Turn on <code>layer</code> when held, <code>kc</code> when tapped</td>
+</tr>
+<tr>
+<td><code>TO(layer)</code></td>
+<td>Turn on <code>layer</code> when pressed</td>
+</tr>
+<tr>
+<td><code>MO(layer)</code></td>
+<td>Momentarily turn on <code>layer</code> when pressed (requires <code>KC_TRNS</code> on destination layer)</td>
+</tr>
+<tr>
+<td><code>DF(layer)</code></td>
+<td>Set the base (default) layer</td>
+</tr>
+<tr>
+<td><code>TG(layer)</code></td>
+<td>Toggle <code>layer</code> on or off</td>
+</tr>
+<tr>
+<td><code>TT(layer)</code></td>
+<td>Normally acts like MO unless it's tapped multiple times, which toggles <code>layer</code> on</td>
+</tr>
+<tr>
+<td><code>LM(layer, mod)</code></td>
+<td>Momentarily turn on <code>layer</code> (like MO) with <code>mod</code> active as well.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_One-Shot-Keys"><a href="Quantum_Keycodes.html#one-shot-keys">One Shot Keys</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OSM(mod)</code></td>
+<td>Hold <code>mod</code> for one keypress</td>
+</tr>
+<tr>
+<td><code>OSL(layer)</code></td>
+<td>Switch to <code>layer</code> for one keypress</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Unicode-Support"><a href="../Features/Unicode.html">Unicode Support</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Aliases</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UNICODE(n)</code></td>
+<td><code>UC(n)</code></td>
+<td>Send Unicode character <code>n</code></td>
+</tr>
+<tr>
+<td><code>X(n)</code></td>
+<td></td>
+<td>Send Unicode character <code>n</code> via a different method</td>
+</tr>
+</tbody>
+</table>
+<h2 id="page_Swap-Hands"><a href="../Features/Swap_Hands.html">Swap Hands</a></h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SH_T(key)</code></td>
+<td>Sends <code>key</code> with a tap; momentary swap when held.</td>
+</tr>
+<tr>
+<td><code>SW_ON</code></td>
+<td>Turns on swapping and leaves it on.</td>
+</tr>
+<tr>
+<td><code>SW_OFF</code></td>
+<td>Turn off swapping and leaves it off. Good for returning to a known state.</td>
+</tr>
+<tr>
+<td><code>SH_MON</code></td>
+<td>Swaps hands when pressed, returns to normal when released (momentary).</td>
+</tr>
+<tr>
+<td><code>SH_MOFF</code></td>
+<td>Momentarily turns off swap.</td>
+</tr>
+<tr>
+<td><code>SH_TG</code></td>
+<td>Toggles swap on and off with every key press.</td>
+</tr>
+<tr>
+<td><code>SH_TT</code></td>
+<td>Toggles with a tap; momentary when held.</td>
+</tr>
+</tbody>
+</table>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Userspace.html">Previous</a></li>            <li class=Pager--next><a href="../Keycodes/Advanced_Keycodes.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

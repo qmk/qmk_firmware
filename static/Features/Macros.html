@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Macros - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item Nav__item--active'><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Features/index.html">Features</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Features/Macros.html">Macros</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Macros">Macros</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_The-New-Way">The New Way: <code>SEND_STRING()</code> &amp; <code>process_record_user</code></a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_TAP-DOWN-and-UP">TAP, DOWN and UP</a></p>
+</li>
+<li>
+<p><a href="#page_Alternative-Keymaps">Alternative Keymaps</a></p>
+</li>
+<li>
+<p><a href="#page_Strings-in-Memory">Strings in Memory</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_The-Old-Way">The Old Way: <code>MACRO()</code> &amp; <code>action_get_macro</code></a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Macro-Commands">Macro Commands</a></p>
+</li>
+<li>
+<p><a href="#page_Mapping-a-Macro-to-a-Key">Mapping a Macro to a Key</a></p>
+</li>
+<li>
+<p><a href="#page_Naming-Your-Macros">Naming Your Macros</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Advanced-Macro-Functions">Advanced Macro Functions</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_section_11"><code>record-&gt;event.pressed</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_12"><code>register_code(&lt;kc&gt;);</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_13"><code>unregister_code(&lt;kc&gt;);</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_14"><code>clear_keyboard();</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_15"><code>clear_mods();</code></a></p>
+</li>
+<li>
+<p><a href="#page_section_16"><code>clear_keyboard_but_mods();</code></a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Advanced-Example-Single-Key-Copy-Paste">Advanced Example: Single-Key Copy/Paste</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Macros">Macros</h1>
+<p>Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.</p>
+<p>{% hint style='danger' %}
+<strong>Security Note</strong>: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
+{% endhint %}</p>
+<h2 id="page_The-New-Way">The New Way: <code>SEND_STRING()</code> &amp; <code>process_record_user</code></h2>
+<p>Sometimes you just want a key to type out words or phrases. For the most common situations we've provided <code>SEND_STRING()</code>, which will type out your string (i.e. a sequence of characters) for you. All ASCII characters that are easily translated to a keycode are supported (e.g. <code>\n\t</code>).</p>
+<p>Here is an example <code>keymap.c</code> for a two-key keyboard:</p>
+<pre><code class="language-c">enum custom_keycodes {
+	MY_CUSTOM_MACRO = SAFE_RANGE
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (record-&gt;event.pressed) {
+		switch(keycode) {
+			case MY_CUSTOM_MACRO:
+				SEND_STRING(&quot;QMK is the best thing ever!&quot;); // this is our macro!
+				return false;
+		}
+	}
+	return true;
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, KC_ESC}
+	}
+};
+</code></pre>
+<p>What happens here is this:
+We first define a new custom keycode in the range not occupied by any other keycodes.
+Then we use the <code>process_record_user</code> function, which is called whenever a key is pressed or released, to check if our custom keycode has been activated.
+If yes, we send the string <code>&quot;QMK is the best thing ever!&quot;</code> to the computer via the <code>SEND_STRING</code> macro (this is a C preprocessor macro, not to be confused with QMK macros).
+We return <code>false</code> to indicate to the caller that the key press we just processed need not be processed any further.
+Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.</p>
+<p>You might want to add more than one macro.
+You can do that by adding another keycode and adding another case to the switch statement, like so:</p>
+<pre><code class="language-c">enum custom_keycodes {
+	MY_CUSTOM_MACRO = SAFE_RANGE,
+	MY_OTHER_MACRO
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (record-&gt;event.pressed) {
+		switch(keycode) {
+			case MY_CUSTOM_MACRO:
+				SEND_STRING(&quot;QMK is the best thing ever!&quot;);
+				return false;
+			case MY_OTHER_MACRO:
+				SEND_STRING(SS_LCTRL(&quot;ac&quot;)); // selects all and copies
+				return false;
+		}
+	}
+	return true;
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = {
+	  {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
+	}
+};
+</code></pre>
+<h3 id="page_TAP-DOWN-and-UP">TAP, DOWN and UP</h3>
+<p>You may want to use keys in your macros that you can't write down, such as <code>Ctrl</code> or <code>Home</code>.
+You can send arbitrary keycodes by wrapping them in:</p>
+<ul>
+<li>
+<code>SS_TAP()</code> presses and releases a key.</li>
+<li>
+<code>SS_DOWN()</code> presses (but does not release) a key.</li>
+<li>
+<code>SS_UP()</code> releases a key.</li>
+</ul>
+<p>For example:</p>
+<pre><code>SEND_STRING(SS_TAP(X_HOME));
+</code></pre>
+<p>Would tap <code>KC_HOME</code> - note how the prefix is now <code>X_</code>, and not <code>KC_</code>. You can also combine this with other strings, like this:</p>
+<pre><code>SEND_STRING(&quot;VE&quot;SS_TAP(X_HOME)&quot;LO&quot;);
+</code></pre>
+<p>Which would send &quot;VE&quot; followed by a <code>KC_HOME</code> tap, and &quot;LO&quot; (spelling &quot;LOVE&quot; if on a newline).</p>
+<p>There's also a couple of mod shortcuts you can use:</p>
+<ul>
+<li>
+<code>SS_LCTRL(string)</code>
+</li>
+<li>
+<code>SS_LGUI(string)</code>
+</li>
+<li>
+<code>SS_LALT(string)</code>
+</li>
+<li>
+<code>SS_LSFT(string)</code>
+</li>
+<li>
+<code>SS_RALT(string)</code>
+</li>
+</ul>
+<p>These press the respective modifier, send the supplied string and then release the modifier.
+They can be used like this:</p>
+<pre><code>SEND_STRING(SS_LCTRL(&quot;a&quot;));
+</code></pre>
+<p>Which would send LCTRL+a (LCTRL down, a, LCTRL up) - notice that they take strings (eg <code>&quot;k&quot;</code>), and not the <code>X_K</code> keycodes.</p>
+<h3 id="page_Alternative-Keymaps">Alternative Keymaps</h3>
+<p>By default, it assumes a US keymap with a QWERTY layout; if you want to change that (e.g. if your OS uses software Colemak), include this somewhere in your keymap:</p>
+<pre><code>#include &lt;sendstring_colemak.h&gt;
+</code></pre>
+<h3 id="page_Strings-in-Memory">Strings in Memory</h3>
+<p>If for some reason you're manipulating strings and need to print out something you just generated (instead of being a literal, constant string), you can use <code>send_string()</code>, like this:</p>
+<pre><code class="language-c">char my_str[4] = &quot;ok.&quot;;
+send_string(my_str);
+</code></pre>
+<p>The shortcuts defined above won't work with <code>send_string()</code>, but you can separate things out to different lines if needed:</p>
+<pre><code class="language-c">char my_str[4] = &quot;ok.&quot;;
+SEND_STRING(&quot;I said: &quot;);
+send_string(my_str);
+SEND_STRING(&quot;..&quot;SS_TAP(X_END));
+</code></pre>
+<h2 id="page_The-Old-Way">The Old Way: <code>MACRO()</code> &amp; <code>action_get_macro</code></h2>
+<p>{% hint style='info' %}
+This is inherited from TMK, and hasn't been updated - it's recommend that you use <code>SEND_STRING</code> and <code>process_record_user</code> instead.
+{% endhint %}</p>
+<p>By default QMK assumes you don't have any macros. To define your macros you create an <code>action_get_macro()</code> function. For example:</p>
+<pre><code class="language-c">const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+	if (record-&gt;event.pressed) {
+		switch(id) {
+			case 0:
+				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
+			case 1:
+				return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
+		}
+	}
+	return MACRO_NONE;
+};
+</code></pre>
+<p>This defines two macros which will be run when the key they are assigned to is pressed. If instead you'd like them to run when the key is released you can change the if statement:</p>
+<pre><code>if (!record-&gt;event.pressed) {
+</code></pre>
+<h3 id="page_Macro-Commands">Macro Commands</h3>
+<p>A macro can include the following commands:</p>
+<ul>
+<li>I() change interval of stroke in milliseconds.</li>
+<li>D() press key.</li>
+<li>U() release key.</li>
+<li>T() type key(press and release).</li>
+<li>W() wait (milliseconds).</li>
+<li>END end mark.</li>
+</ul>
+<h3 id="page_Mapping-a-Macro-to-a-Key">Mapping a Macro to a Key</h3>
+<p>Use the <code>M()</code> function within your <code>KEYMAP()</code> to call a macro. For example, here is the keymap for a 2-key keyboard:</p>
+<pre><code class="language-c">const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = KEYMAP(
+		M(0), M(1)
+	),
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+	if (record-&gt;event.pressed) {
+		switch(id) {
+			case 0:
+				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
+			case 1:
+				return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
+		}
+	}
+	return MACRO_NONE;
+};
+</code></pre>
+<p>When you press the key on the left it will type &quot;Hi!&quot; and when you press the key on the right it will type &quot;Bye!&quot;.</p>
+<h3 id="page_Naming-Your-Macros">Naming Your Macros</h3>
+<p>If you have a bunch of macros you want to refer to from your keymap while keeping the keymap easily readable you can name them using <code>#define</code> at the top of your file.</p>
+<pre><code class="language-c">#define M_HI M(0)
+#define M_BYE M(1)
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+	[0] = KEYMAP(
+		M_HI, M_BYE
+	),
+};
+</code></pre>
+<h2 id="page_Advanced-Macro-Functions">Advanced Macro Functions</h2>
+<p>There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.</p>
+<h3 id="page_section_11"><code>record-&gt;event.pressed</code></h3>
+<p>This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is</p>
+<pre><code class="language-c">	if (record-&gt;event.pressed) {
+		// on keydown
+	} else {
+		// on keyup
+	}
+</code></pre>
+<h3 id="page_section_12"><code>register_code(&lt;kc&gt;);</code></h3>
+<p>This sends the <code>&lt;kc&gt;</code> keydown event to the computer. Some examples would be <code>KC_ESC</code>, <code>KC_C</code>, <code>KC_4</code>, and even modifiers such as <code>KC_LSFT</code> and <code>KC_LGUI</code>.</p>
+<h3 id="page_section_13"><code>unregister_code(&lt;kc&gt;);</code></h3>
+<p>Parallel to <code>register_code</code> function, this sends the <code>&lt;kc&gt;</code> keyup event to the computer. If you don't use this, the key will be held down until it's sent.</p>
+<h3 id="page_section_14"><code>clear_keyboard();</code></h3>
+<p>This will clear all mods and keys currently pressed.</p>
+<h3 id="page_section_15"><code>clear_mods();</code></h3>
+<p>This will clear all mods currently pressed.</p>
+<h3 id="page_section_16"><code>clear_keyboard_but_mods();</code></h3>
+<p>This will clear all keys besides the mods currently pressed.</p>
+<h2 id="page_Advanced-Example-Single-Key-Copy-Paste">Advanced Example: Single-Key Copy/Paste</h2>
+<p>This example defines a macro which sends <code>Ctrl-C</code> when pressed down, and <code>Ctrl-V</code> when released.</p>
+<pre><code class="language-c">const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+	switch(id) {
+		case 0: {
+			if (record-&gt;event.pressed) {
+				return MACRO( D(LCTL), T(C), U(LCTL), END  );
+			} else {
+				return MACRO( D(LCTL), T(V), U(LCTL), END  );
+			}
+			break;
+		}
+	}
+	return MACRO_NONE;
+};
+</code></pre>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Features/Leader_Key.html">Previous</a></li>            <li class=Pager--next><a href="../Features/Mouse_Keys.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

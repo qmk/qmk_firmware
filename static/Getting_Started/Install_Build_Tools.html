@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Install Build Tools - QMK Firmware</title>
+    <meta name="description" content="Keyboard controller firmware for Atmel AVR and ARM USB families">
+    <meta name="author" content="QMK Community">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="../themes/daux/js/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+</head>
+<body class=" ">
+    <div class="Columns content">
+    <aside class="Columns__left Collapsible">
+        <button type="button" class="Button Collapsible__trigger">
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+            <span class="Collapsible__trigger__bar"></span>
+        </button>
+
+        <a class="Brand" href="../index.html">QMK Firmware</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451">
+            <path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/>
+        </svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on"
+               results=25 autosave=text_search>
+    </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></li><li class='Nav__item '><a href="../Getting_Started/Vagrant.html">Vagrant</a></li><li class='Nav__item '><a href="../Getting_Started/Build_Compile_Instructions.html">Build Compile Instructions</a></li><li class='Nav__item '><a href="../Getting_Started/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Getting_Started/Contributing.html">Contributing</a></li><li class='Nav__item '><a href="../Getting_Started/How_to_Use_GitHub.html">How to Use GitHub</a></li><li class='Nav__item '><a href="../Getting_Started/Getting_Help.html">Getting Help</a></li></ul></li><li class='Nav__item  has-children'><a href="../Complete_Newbs_Guide/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Complete Newbs Guide</a><ul class='Nav'><li class='Nav__item '><a href="../Complete_Newbs_Guide/Complete_Newbie's_Guide.html">Complete Newbie's Guide</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Building_Your_First_Firmware.html">Building Your First Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Flashing_Firmware.html">Flashing Firmware</a></li><li class='Nav__item '><a href="../Complete_Newbs_Guide/Testing_and_Debugging.html">Testing and Debugging</a></li></ul></li><li class='Nav__item  has-children'><a href="../FAQ/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>FAQ</a><ul class='Nav'><li class='Nav__item '><a href="../FAQ/General_FAQ.html">General FAQ</a></li><li class='Nav__item '><a href="../FAQ/Build_Compile_QMK.html">Build Compile QMK</a></li><li class='Nav__item '><a href="../FAQ/Debugging_and_Troubleshooting.html">Debugging and Troubleshooting</a></li><li class='Nav__item '><a href="../FAQ/Keymaps.html">Keymaps</a></li></ul></li><li class='Nav__item  has-children'><a href="../Hardware/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Hardware</a><ul class='Nav'><li class='Nav__item '><a href="../Hardware/AVR_Processors.html">AVR Processors</a></li><li class='Nav__item '><a href="../Hardware/Drivers.html">Drivers</a></li></ul></li><li class='Nav__item  has-children'><a href="../Features/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Features</a><ul class='Nav'><li class='Nav__item '><a href="../Features/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Features/Audio.html">Audio</a></li><li class='Nav__item '><a href="../Features/Auto_Shift.html">Auto Shift</a></li><li class='Nav__item '><a href="../Features/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Features/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Features/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Features/Command.html">Command</a></li><li class='Nav__item '><a href="../Features/Dynamic_Macros.html">Dynamic Macros</a></li><li class='Nav__item '><a href="../Features/Grave_Escape.html">Grave Escape</a></li><li class='Nav__item '><a href="../Features/Key_Lock.html">Key Lock</a></li><li class='Nav__item '><a href="../Features/Layouts.html">Layouts</a></li><li class='Nav__item '><a href="../Features/Leader_Key.html">Leader Key</a></li><li class='Nav__item '><a href="../Features/Macros.html">Macros</a></li><li class='Nav__item '><a href="../Features/Mouse_Keys.html">Mouse Keys</a></li><li class='Nav__item '><a href="../Features/Pointing_Device.html">Pointing Device</a></li><li class='Nav__item '><a href="../Features/PS_2_Mouse.html">PS 2 Mouse</a></li><li class='Nav__item '><a href="../Features/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift.html">Space Cadet Shift</a></li><li class='Nav__item '><a href="../Features/Space_Cadet_Shift_Enter.html">Space Cadet Shift Enter</a></li><li class='Nav__item '><a href="../Features/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Features/Swap_Hands.html">Swap Hands</a></li><li class='Nav__item '><a href="../Features/Tap_Dance.html">Tap Dance</a></li><li class='Nav__item '><a href="../Features/Terminal.html">Terminal</a></li><li class='Nav__item '><a href="../Features/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Features/Unicode.html">Unicode</a></li><li class='Nav__item '><a href="../Features/Userspace.html">Userspace</a></li></ul></li><li class='Nav__item  has-children'><a href="../Keycodes/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Keycodes</a><ul class='Nav'><li class='Nav__item '><a href="../Keycodes/Advanced_Keycodes.html">Advanced Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/Backlight.html">Backlight</a></li><li class='Nav__item '><a href="../Keycodes/Basic.html">Basic</a></li><li class='Nav__item '><a href="../Keycodes/Bluetooth.html">Bluetooth</a></li><li class='Nav__item '><a href="../Keycodes/Bootmagic.html">Bootmagic</a></li><li class='Nav__item '><a href="../Keycodes/Quantum_Keycodes.html">Quantum Keycodes</a></li><li class='Nav__item '><a href="../Keycodes/RGB_Lighting.html">RGB Lighting</a></li><li class='Nav__item '><a href="../Keycodes/Stenography.html">Stenography</a></li><li class='Nav__item '><a href="../Keycodes/Thermal_Printer.html">Thermal Printer</a></li><li class='Nav__item '><a href="../Keycodes/US_ANSI_Shifted_keys.html">US ANSI Shifted keys</a></li></ul></li><li class='Nav__item  has-children'><a href="../Reference/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Reference</a><ul class='Nav'><li class='Nav__item '><a href="../Reference/Keyboard_Guidelines.html">Keyboard Guidelines</a></li><li class='Nav__item '><a href="../Reference/Compatable_Microcontrollers.html">Compatable Microcontrollers</a></li><li class='Nav__item '><a href="../Reference/Config_Options.html">Config Options</a></li><li class='Nav__item '><a href="../Reference/Custom_Code.html">Custom Code</a></li><li class='Nav__item '><a href="../Reference/Documentation_Best_Practices.html">Documentation Best Practices</a></li><li class='Nav__item '><a href="../Reference/Documentation_Templates.html">Documentation Templates</a></li><li class='Nav__item '><a href="../Reference/Glossary.html">Glossary</a></li><li class='Nav__item '><a href="../Reference/Keymap_Overview.html">Keymap Overview</a></li><li class='Nav__item '><a href="../Reference/Unit_Testing.html">Unit Testing</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_Makers_And_Modders/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For Makers And Modders</a><ul class='Nav'><li class='Nav__item '><a href="../For_Makers_And_Modders/Hand_Wiring_Guide.html">Hand Wiring Guide</a></li><li class='Nav__item '><a href="../For_Makers_And_Modders/ISP_Flashing_Guide.html">ISP Flashing Guide</a></li></ul></li><li class='Nav__item  has-children'><a href="../IDEs/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>IDEs</a><ul class='Nav'><li class='Nav__item '><a href="../IDEs/Eclipse.html">Eclipse</a></li></ul></li><li class='Nav__item  has-children'><a href="../For_a_Deeper_Understanding/index.html" class="folder"><i class="Nav__arrow">&nbsp;</i>For a Deeper Understanding</a><ul class='Nav'><li class='Nav__item '><a href="../For_a_Deeper_Understanding/How_Keyboards_Work.html">How Keyboards Work</a></li><li class='Nav__item '><a href="../For_a_Deeper_Understanding/Understanding_QMK.html">Understanding QMK</a></li></ul></li><li class='Nav__item '><a href="../README.html">README</a></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://qmk.fm/" target="_blank">QMK Link</a>
+                        <br />
+                                                </div>
+
+            
+                
+                        </div>
+    </aside>
+    <div class="Columns__right Columns__right--full">
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+
+    <div class="Page__header">
+        <h1><a href="../Getting_Started/index.html">Getting Started</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Getting_Started/Install_Build_Tools.html">Install Build Tools</a></h1>
+                    </div>
+
+    <div class="s-content">
+        <ul class="TableOfContents">
+<li>
+<p><a href="#page_Installing-Build-Tools">Installing Build Tools</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Linux">Linux</a></p>
+</li>
+<li>
+<p><a href="#page_Nix">Nix</a></p>
+</li>
+<li>
+<p><a href="#page_macOS">macOS</a></p>
+</li>
+<li>
+<p><a href="#page_Windows-with-msys2-recommended">Windows with msys2 (recommended)</a></p>
+</li>
+<li>
+<p><a href="#page_Windows-10-deprecated">Windows 10 (deprecated)</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Creators-Update">Creators Update</a></p>
+</li>
+<li>
+<p><a href="#page_Windows-Subsystem-for-Linux">Windows Subsystem for Linux</a></p>
+</li>
+<li>
+<p><a href="#page_Git">Git</a></p>
+</li>
+<li>
+<p><a href="#page_Toolchain-Setup">Toolchain Setup</a></p>
+</li>
+<li>
+<p><a href="#page_Some-Important-Things-to-Keep-in-Mind">Some Important Things to Keep in Mind</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Windows-Vista-and-Later-Deprecated">Windows (Vista and Later) (Deprecated)</a></p>
+</li>
+<li>
+<p><a href="#page_Docker">Docker</a></p>
+</li>
+<li>
+<p><a href="#page_Vagrant">Vagrant</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="page_Installing-Build-Tools">Installing Build Tools</h1>
+<p>This page describes setting up the build environment for QMK. These instructions cover AVR processors (such as the atmega32u4).</p>
+<!-- FIXME: We should have ARM instructions somewhere. -->
+<h2 id="page_Linux">Linux</h2>
+<p>To ensure you are always up to date, you can just run <code>sudo util/install_dependencies.sh</code>. That should always install all the dependencies needed. <strong>This will run <code>apt-get upgrade</code>.</strong></p>
+<p>You can also install things manually, but this documentation might not be always up to date with all requirements.</p>
+<p>The current requirements are the following, but not all might be needed depending on what you do. Also note that some systems might not have all the dependencies available as packages, or they might be named differently.</p>
+<pre><code>build-essential
+gcc
+unzip
+wget
+zip
+gcc-avr
+binutils-avr
+avr-libc
+dfu-programmer
+dfu-util
+gcc-arm-none-eabi
+binutils-arm-none-eabi
+libnewlib-arm-none-eabi
+git
+</code></pre>
+<p>Install the dependencies with your favorite package manager.</p>
+<p>Debian / Ubuntu example:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+</code></pre>
+<p>Fedora / Red Hat example:</p>
+<pre><code>sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+</code></pre>
+<h2 id="page_Nix">Nix</h2>
+<p>If you're on <a href="https://nixos.org/" class="Link--external">NixOS</a>, or have Nix installed on Linux or macOS, run <code>nix-shell</code> from the repository root to get a build environment.</p>
+<p>By default, this will download compilers for both AVR and ARM. If you don't need both, disable the <code>avr</code> or <code>arm</code> arguments, e.g.:</p>
+<pre><code>nix-shell --arg arm false
+</code></pre>
+<h2 id="page_macOS">macOS</h2>
+<p>If you're using <a href="http://brew.sh/" class="Link--external">homebrew,</a> you can use the following commands:</p>
+<pre><code>brew tap osx-cross/avr
+brew tap PX4/homebrew-px4
+brew update
+brew install avr-gcc
+brew install dfu-programmer
+brew install gcc-arm-none-eabi
+brew install avrdude
+</code></pre>
+<p>This is the recommended method. If you don't have homebrew, <a href="http://brew.sh/" class="Link--external">install it!</a> It's very much worth it for anyone who works in the command line. Note that the <code>make</code> and <code>make install</code> portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.</p>
+<h2 id="page_Windows-with-msys2-recommended">Windows with msys2 (recommended)</h2>
+<p>The best environment to use, for Windows Vista through any later version (tested on 7 and 10), is <a href="http://www.msys2.org" class="Link--external">msys2</a>.</p>
+<ul>
+<li>Install msys2 by downloading it and following the instructions here: http://www.msys2.org</li>
+<li>Open the <code>MSYS2 MingGW 64-bit</code> shortcut</li>
+<li>Navigate to your qmk checkout. For example, if it's in the root of your c drive:</li>
+<li>
+<code>$ cd /c/qmk_firmware</code>
+</li>
+<li>Run <code>util/msys2_install.sh</code> and follow the prompts</li>
+</ul>
+<h2 id="page_Windows-10-deprecated">Windows 10 (deprecated)</h2>
+<p>These are the old instructions for Windows 10. We recommend you use <a href="#windows-with-msys2-recommended">MSYS2 as outlined above</a>.</p>
+<h3 id="page_Creators-Update">Creators Update</h3>
+<p>If you have Windows 10 with Creators Update or later, you can build and flash the firmware directly. Before the Creators Update, only building was possible. If you don't have it yet or if are unsure, follow <a href="https://support.microsoft.com/en-us/instantanswers/d4efb316-79f0-1aa1-9ef3-dcada78f3fa0/get-the-windows-10-creators-update" class="Link--external">these instructions</a>.</p>
+<h3 id="page_Windows-Subsystem-for-Linux">Windows Subsystem for Linux</h3>
+<p>In addition to the Creators Update, you need Windows 10 Subystem for Linux, so install it following <a href="http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/" class="Link--external">these instructions</a>. If you already have the Windows 10 Subsystem for Linux from the Anniversary update it's recommended that you <a href="https://betanews.com/2017/04/14/upgrade-windows-subsystem-for-linux/" class="Link--external">upgrade</a> it to 16.04LTS, because some keyboards don't compile with the toolchains included in 14.04LTS. Note that you need to know what your are doing if you chose the <code>sudo do-release-upgrade</code> method.</p>
+<h3 id="page_Git">Git</h3>
+<p>If you already have cloned the repository on your Windows file system you can ignore this section.</p>
+<p>You will need to clone the repository to your Windows file system using the normal Git for Windows and <strong>not</strong> the WSL Git. So if you haven't installed Git before, <a href="https://git-scm.com/download/win" class="Link--external">download</a> and install it. Then <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup" class="Link--external">set it up</a>, it's important that you setup the e-mail and user name, especially if you are planning to contribute.</p>
+<p>Once Git is installed, open the Git Bash command and change the directory to where you want to clone QMK; note that you have to use forward slashes, and that your c drive is accessed like this <code>/c/path/to/where/you/want/to/go</code>. Then run <code>git clone --recurse-submodules https://github.com/qmk/qmk_firmware</code>, this will create a new folder <code>qmk_firmware</code> as a subfolder of the current one.</p>
+<h3 id="page_Toolchain-Setup">Toolchain Setup</h3>
+<p>The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.</p>
+<ol>
+<li>Open &quot;Bash On Ubuntu On Windows&quot; from the start menu.</li>
+<li>Go to the directory where you cloned <code>qmk_firmware</code>. Note that the paths start with <code>/mnt/</code> in the WSL, so you have to write for example <code>cd /mnt/c/path/to/qmk_firmware</code>.</li>
+<li>Run <code>util/wsl_install.sh</code> and follow the on-screen instructions.</li>
+<li>Close the Bash command window, and re-open it.</li>
+<li>You are ready to compile and flash the firmware!</li>
+</ol>
+<h3 id="page_Some-Important-Things-to-Keep-in-Mind">Some Important Things to Keep in Mind</h3>
+<ul>
+<li>You can run <code>util/wsl_install.sh</code> again to get all the newest updates.</li>
+<li>Your QMK repository need to be on a Windows file system path, since WSL can't run executables outside it.</li>
+<li>The WSL Git is <strong>not</strong> compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations</li>
+<li>You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.</li>
+</ul>
+<h2 id="page_Windows-Vista-and-Later-Deprecated">Windows (Vista and Later) (Deprecated)</h2>
+<p>These are the old instructions for Windows Vista and later. We recommend you use <a href="#windows-with-msys2-recommended">MSYS2 as outlined above</a>.</p>
+<ol>
+<li>If you have ever installed WinAVR, uninstall it.</li>
+<li>Install <a href="https://infernoembedded.com/sites/default/files/project/MHV_AVR_Tools_20131101.exe" class="Link--external">MHV AVR Tools</a>. Disable smatch, but <strong>be sure to leave the option to add the tools to the PATH checked</strong>.</li>
+<li>If you are going to flash Infinity based keyboards you will need to install dfu-util, refer to the instructions by <a href="https://github.com/kiibohd/controller/wiki/Loading-DFU-Firmware" class="Link--external">Input Club</a>.</li>
+<li>Install <a href="https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download" class="Link--external">MinGW</a>. During installation, uncheck the option to install a graphical user interface. <strong>DO NOT change the default installation folder.</strong> The scripts depend on the default location.</li>
+<li>Clone this repository. <a href="https://github.com/qmk/qmk_firmware/archive/master.zip" class="Link--external">This link will download it as a zip file, which you'll need to extract.</a> Open the extracted folder in Windows Explorer.</li>
+<li>Open the <code>\util</code> folder.</li>
+<li>Double-click on the <code>1-setup-path-win</code> batch script to run it. You'll need to accept a User Account Control prompt. Press the spacebar to dismiss the success message in the command prompt that pops up.</li>
+<li>Right-click on the <code>2-setup-environment-win</code> batch script, select &quot;Run as administrator&quot;, and accept the User Account Control prompt. This part may take a couple of minutes, and you'll need to approve a driver installation, but once it finishes, your environment is complete!</li>
+</ol>
+<p>If you have trouble and want to ask for help, it is useful to generate a <em>Win_Check_Output.txt</em> file by running <code>Win_Check.bat</code> in the <code>\util</code> folder.</p>
+<h2 id="page_Docker">Docker</h2>
+<p>If this is a bit complex for you, Docker might be the turn-key solution you need. After installing <a href="https://www.docker.com/products/docker" class="Link--external">Docker</a>, run the following command at the root of the QMK folder to build a keyboard/keymap:</p>
+<pre><code class="language-bash"># You'll run this every time you want to build a keymap
+# modify the keymap and keyboard assignment to compile what you want
+# defaults are ergodox/default
+
+docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+</code></pre>
+<p>On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and <code>$('pwd')</code> won't print a Windows compliant path; use full path instead, like this:</p>
+<pre><code class="language-bash">docker run -e keymap=default -e keyboard=ergodox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+
+</code></pre>
+<p>This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.</p>
+<h2 id="page_Vagrant">Vagrant</h2>
+<p>If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the <a href="Vagrant.html">vagrant guide</a>.</p>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Getting_Started/index.html">Previous</a></li>            <li class=Pager--next><a href="../Getting_Started/Vagrant.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- JS -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script><script src="../themes/daux/js/highlight.pack.js"></script><script src="../themes/daux/js/daux.js"></script>
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>
