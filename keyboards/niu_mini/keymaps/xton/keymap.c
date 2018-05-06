@@ -38,7 +38,10 @@ enum layers {
 enum keycodes {
   LOWER = SAFE_RANGE,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  S_INSERT,
+  S_APPEND,
+  APPEND
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -147,14 +150,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_CMD] = {
   {TO(_QWERTY), _______, _______, LALT(KC_RIGHT), _______, _______, _______, KC_PGUP, TO(_EDIT), _______, _______, _______},
-  {_______,     _______, _______, KC_PGDN, _______, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
-  {_______,     _______, _______, _______, _______, LALT(KC_LEFT), _______, _______, _______, _______, _______, _______},
+  {_______,     APPEND, _______, KC_PGDN, _______, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
+  {MO(_CMD_G),     _______, _______, _______, _______, LALT(KC_LEFT), _______, _______, _______, _______, _______, MO(_CMD_G)},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 /* enable gg, ge (like G) */
 [_CMD_G] = {
-  {TO(_QWERTY), _______, _______, KC_HOME, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, KC_END, _______, _______, _______, _______, _______, _______},
+  {TO(_QWERTY), _______, _______, KC_END, _______, _______, _______, _______, S_INSERT, _______, _______, _______},
+  {_______,     S_APPEND, _______, _______, _______, KC_HOME, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
@@ -192,6 +195,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #endif
       } else {
         unregister_code(KC_RSFT);
+      }
+      return false;
+      break;
+    case APPEND:
+      if (record->event.pressed) {
+        register_code(KC_RIGHT);
+        unregister_code(KC_RIGHT);
+        layer_off(_CMD_G);
+        layer_off(_CMD);
+        layer_on(_EDIT);
+      }
+      return false;
+      break;
+    case S_APPEND:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_RIGHT);
+        unregister_code(KC_RIGHT);
+        unregister_code(KC_LGUI);
+        layer_off(_CMD_G);
+        layer_off(_CMD);
+        layer_on(_EDIT);
+      }
+      return false;
+      break;
+    case S_INSERT:
+      if (record->event.pressed) {
+        register_code(KC_LGUI);
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+        unregister_code(KC_LGUI);
+        layer_off(_CMD_G);
+        layer_off(_CMD);
+        layer_on(_EDIT);
       }
       return false;
       break;
