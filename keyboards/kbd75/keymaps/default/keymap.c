@@ -1,4 +1,4 @@
-#include "kbd75.h"
+#include QMK_KEYBOARD_H
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
