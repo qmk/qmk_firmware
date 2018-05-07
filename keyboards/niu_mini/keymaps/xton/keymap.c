@@ -23,6 +23,47 @@ LEADER_EXTERNS();
 
 extern keymap_config_t keymap_config;
 
+
+/************************************
+ * helper foo
+ ************************************/
+
+#define PRESS(kc) register_code(kc)
+#define RELEASE(kc) unregister_code(kc)
+
+void TAP(uint16_t keycode) {
+    PRESS(keycode);
+    RELEASE(keycode);
+}
+
+void CMD(uint16_t keycode) {
+  PRESS(KC_LGUI);
+    TAP(keycode);
+  RELEASE(KC_LGUI);
+}
+
+void CTRL(uint16_t keycode) {
+  PRESS(KC_LCTRL);
+    TAP(keycode);
+  RELEASE(KC_LCTRL);
+}
+
+void SHIFT(uint16_t keycode) {
+  PRESS(KC_LSHIFT);
+    TAP(keycode);
+  RELEASE(KC_LSHIFT);
+}
+
+void ALT(uint16_t keycode) {
+  PRESS(KC_LALT);
+    TAP(keycode);
+  RELEASE(KC_LALT);
+}
+
+/************************************
+ * states
+ ************************************/
+
 enum layers {
   _QWERTY,
   _LOWER,
@@ -32,28 +73,43 @@ enum layers {
   _MOUSE,
   // vim layers
   _EDIT,
-  _CMD,
-  _CMD_G,
-  _VISUAL
+  _CMD
 };
 
 enum keycodes {
-  LOWER = SAFE_RANGE,
-  RAISE,
-  BACKLIT,
-  S_INSERT,
-  S_APPEND,
-  APPEND,
-  VISUAL,
-  VISUAL_LINE,
-  CANCEL_VISUAL,
-  YANK,
-  YANK_LINE,
-  INS_LINE,
-  APPEND_LINE,
-  PASTE,
-  PASTE_BEFORE
+  DUMMY = SAFE_RANGE,
+  VIM_START, // bookend for vim states
+  VIM_A,
+  VIM_B,
+  VIM_C,
+  VIM_CI,
+  VIM_D,
+  VIM_DI,
+  VIM_E,
+  VIM_H,
+  VIM_G,
+  VIM_I,
+  VIM_J,
+  VIM_K,
+  VIM_L,
+  VIM_O,
+  VIM_P,
+  VIM_S,
+  VIM_U,
+  VIM_V,
+  VIM_VS, // visual-line
+  VIM_VI,
+  VIM_W,
+  VIM_X,
+  VIM_Y,
+  VIM_PERIOD, // to support indent/outdent
+  VIM_COMMA,  // and toggle comments
+  VIM_ESC // bookend
 };
+
+/************************************
+ * keymaps!
+ ************************************/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -72,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,           KC_W,    KC_E,    KC_R,          KC_T,    KC_Y,    KC_U,          KC_I,    KC_O,    KC_P,              KC_BSPC},
   {LCTL_T(KC_ESC), LT(_MOVE,KC_A), KC_S,    KC_D,    KC_F,          KC_G,    KC_H,    KC_J,          KC_K,    KC_L,    LT(_MOVE,KC_SCLN), KC_QUOT},
   {KC_LSFT, KC_Z,           KC_X,    KC_C,    KC_V,          KC_B,    KC_N,    KC_M,          KC_COMM, KC_DOT,  KC_SLSH,   RSFT_T(KC_ENT) },
-  {TG(_MOUSE), TG(_CMD),  KC_LALT, KC_LGUI, OSL(_LOWER),   KC_SPC,  KC_SPC,  OSL(_RAISE),   KC_LGUI, KC_LALT, X_____X,   TG(_MOVE)}
+  {TG(_MOUSE), VIM_START,  KC_LALT, KC_LGUI, OSL(_LOWER),   KC_SPC,  KC_SPC,  OSL(_RAISE),   KC_LGUI, KC_LALT, X_____X,   TG(_MOVE)}
 },
 
 /* Lower
@@ -134,299 +190,241 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* movement layer (hold semicolon)
  */
 [_MOVE] = {
-  {TO(_QWERTY), _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______, _______},
-  {_______,     _______, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {TO(_QWERTY), X_____X, X_____X, X_____X, X_____X, X_____X, KC_HOME, KC_PGDN, KC_PGUP, KC_END, X_____X, X_____X},
+  {_______,     X_____X, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, X_____X, X_____X},
+  {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
+  {X_____X,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, _______, _______}
 },
 
 /* mouse layer
  */
 [_MOUSE] = {
-  {TO(_QWERTY), _______, _______, KC_MS_UP, _______, _______, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, _______, _______  },
-  {_______,     _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______, _______, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {TO(_QWERTY), X_____X, X_____X, KC_MS_UP, X_____X, X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X, X_____X  },
+  {_______,     X_____X, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, X_____X, X_____X, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, X_____X, X_____X},
+  {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
+  {_______,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, _______, _______}
 },
 
 /* vim edit mode. just has an escape -> cmd key */
 [_EDIT] = {
   {TO(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {TO(_CMD),    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {VIM_START,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* vim command layer. Mostly movement commands
+/* vim command layer.
  */
 [_CMD] = {
-  {TO(_QWERTY), X_____X, X_____X, LALT(KC_RIGHT), X_____X, X_____X, OSL(_CMD_G), KC_PGUP, TO(_EDIT), APPEND_LINE, PASTE, X_____X},
-  {X_____X,     APPEND, X_____X, KC_PGDN, X_____X, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, X_____X, X_____X},
-  {MO(_CMD_G),     X_____X, X_____X, X_____X, VISUAL, LALT(KC_LEFT), X_____X, X_____X, X_____X, X_____X, X_____X, MO(_CMD_G)},
-  {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X} // TODO: momentarily shift to query?
-},
-/* enable gg, ge (like G) */
-[_CMD_G] = {
-  {TO(_QWERTY), _______, _______, KC_END, _______, _______, YANK_LINE, _______, S_INSERT, INS_LINE, PASTE_BEFORE, _______},
-  {_______,     S_APPEND, _______, _______, _______, KC_HOME, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, VISUAL_LINE, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
-/* visual mode, wooo */
-[_VISUAL] = {
-  {TO(_QWERTY), _______, _______, _______, _______, _______, YANK, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {TO(_QWERTY), X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X},
+  {VIM_ESC,    VIM_A, VIM_S, VIM_D, X_____X, VIM_G, VIM_H, VIM_J, VIM_K, VIM_L, X_____X, X_____X},
+  {KC_LSHIFT,     X_____X, VIM_X, VIM_C, X_____X, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, KC_RSHIFT},
+  {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X}
 }
-
 
 };
 
-bool g_last_yank_was_line = false;
-#define KD if(record->event.pressed)
+uint16_t vstate = VIM_START;
+bool yank_was_lines = false;
+
+#define EDIT vstate = VIM_START; layer_on(_EDIT); layer_off(_CMD)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LOWER:
-      KD {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      KD {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      KD {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-      }
-      return false;
-      break;
-    case APPEND:
-      KD {
-        register_code(KC_RIGHT);
-        unregister_code(KC_RIGHT);
-        layer_off(_CMD_G);
-        layer_off(_CMD);
-        layer_on(_EDIT);
-      }
-      return false;
-      break;
-    case S_APPEND:
-      KD {
-        register_code(KC_LGUI);
-        register_code(KC_RIGHT);
-        unregister_code(KC_RIGHT);
-        unregister_code(KC_LGUI);
-        layer_off(_CMD_G);
-        layer_off(_CMD);
-        layer_on(_EDIT);
-      }
-      return false;
-      break;
-    case S_INSERT:
-      KD {
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LGUI);
-        layer_off(_CMD_G);
-        layer_off(_CMD);
-        layer_on(_EDIT);
-      };
-      return false;
-      break;
-    case VISUAL:
-      KD {
-        register_code(KC_LSHIFT);
-        layer_on(_VISUAL);
-        layer_off(_CMD_G);
-        g_last_yank_was_line = false;
-      }
-      return false;
-      break;
-    case VISUAL_LINE:
-      KD {
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        register_code(KC_LSHIFT);
-        register_code(KC_RIGHT);
-        unregister_code(KC_LGUI);
-        layer_on(_VISUAL);
-        layer_off(_CMD_G);
-        g_last_yank_was_line = true;
-      }
-      return false;
-      break;
-    case YANK:
-      KD {
-        unregister_code(KC_LSHIFT);
-        register_code(KC_LGUI);
-        register_code(KC_C);
-        unregister_code(KC_C);
-        unregister_code(KC_LGUI);
-        register_code(KC_RIGHT);
-        unregister_code(KC_RIGHT);
-        layer_off(_VISUAL);
-        layer_off(_CMD_G);
+  bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
+                 (keyboard_report->mods & MOD_BIT(KC_RSFT));
+
+  if (VIM_START <= keycode && keycode <= VIM_ESC) {
+    if (record->event.pressed) {
+      if(keycode == VIM_START) {
+        // entry from anywhere
         layer_on(_CMD);
+        return false;
       }
-      return false;
-      break;
-    case YANK_LINE:
-      KD {
-        //cmd-left, shift-cmd-right, cmd-c, right
-        register_code(KC_LGUI);
-
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-
-        register_code(KC_LSFT);
-        register_code(KC_RIGHT);
-        unregister_code(KC_RIGHT);
-        unregister_code(KC_LSHIFT);
-
-        register_code(KC_C);
-        unregister_code(KC_C);
-
-        unregister_code(KC_LGUI);
-
-        register_code(KC_RIGHT);
-        unregister_code(KC_RIGHT);
-
-        layer_off(_VISUAL);
-        layer_off(_CMD_G);
-        layer_on(_CMD);
+      switch(vstate) {
+        case VIM_START:
+          switch(keycode){
+            /*****************************
+             * ground state
+             *****************************/
+            case VIM_A:
+              if(SHIFTED) {
+                CMD(KC_RIGHT);
+              } else {
+                TAP(KC_RIGHT);
+              }
+              EDIT;
+              break;
+            case VIM_B:
+              ALT(KC_LEFT);
+              break;
+            case VIM_C:
+              if(SHIFTED) {
+                CTRL(KC_K);
+                EDIT;
+              } else {
+                vstate = VIM_C;
+              }
+              break;
+            case VIM_D:
+              if(SHIFTED) {
+                TAP(KC_K);
+              } else {
+                vstate = VIM_D;
+              }
+              break;
+            case VIM_E:
+              ALT(KC_RIGHT);
+              break;
+            case VIM_G:
+              if(SHIFTED) {
+                TAP(KC_END);
+              } else {
+                vstate = VIM_G;
+              }
+              break;
+            case VIM_H:
+              TAP(KC_LEFT);
+              break;
+            case VIM_I:
+              EDIT;
+              break;
+            case VIM_J:
+              if(SHIFTED) {
+                CMD(KC_RIGHT);
+                TAP(KC_DEL);
+              } else {
+                TAP(KC_DOWN);
+              }
+              break;
+            case VIM_K:
+              TAP(KC_UP);
+              break;
+            case VIM_L:
+              TAP(KC_R);
+              break;
+            case VIM_O:
+              if(SHIFTED) {
+                // CMD(KC_LEFT);
+                CTRL(KC_A);
+                TAP(KC_ENTER);
+                TAP(KC_UP);
+                EDIT;
+              } else {
+                // CMD(KC_RIGHT);
+                CTRL(KC_E);
+                TAP(KC_ENTER);
+                EDIT;
+              }
+              break;
+            case VIM_P:
+              if(SHIFTED) {
+                CMD(KC_LEFT);
+                CMD(KC_V);
+              } else {
+                if(yank_was_lines) {
+                  CTRL(KC_E);
+                  TAP(KC_RIGHT);
+                  CMD(KC_V);
+                } else {
+                  CMD(KC_V);
+                }
+              }
+              break;
+            case VIM_S:
+              // s for substitute?
+              if(SHIFTED) {
+                CTRL(KC_A);
+                CTRL(KC_K);
+                EDIT;
+              } else {
+                SHIFT(KC_RIGHT);
+                CMD(KC_X);
+                EDIT;
+              }
+              break;
+            case VIM_U:
+              if(SHIFTED) {
+                PRESS(KC_LSFT);
+                  CMD(KC_Z);
+                RELEASE(KC_LSHIFT);
+              } else {
+                CMD(KC_Z);
+              }
+              break;
+            case VIM_V:
+              if(SHIFTED) {
+                CTRL(KC_A);
+                SHIFT(KC_DOWN);
+                vstate = VIM_VS;
+              } else {
+                vstate = VIM_V;
+              }
+              break;
+            case VIM_W:
+              PRESS(KC_LALT);
+                TAP(KC_RIGHT);
+                TAP(KC_RIGHT);
+                TAP(KC_LEFT);
+              RELEASE(KC_LALT);
+              break;
+            case VIM_X:
+              SHIFT(KC_RIGHT);
+              CMD(KC_X);
+              break;
+            case VIM_Y:
+              if(SHIFTED) {
+                CTRL(KC_A);
+                PRESS(KC_LSHIFT);
+                  CMD(KC_RIGHT);
+                RELEASE(KC_LSHIFT);
+                CMD(KC_C);
+                TAP(KC_LEFT);
+              } else {
+                vstate = VIM_Y;
+              }
+              break;
+            case VIM_COMMA:
+              if(SHIFTED) {
+                // indent
+                CMD(KC_LBRACKET);
+              } else {
+                // toggle comment
+                CMD(KC_SLASH);
+              }
+              break;
+            case VIM_PERIOD:
+              if(SHIFTED) {
+                // outdent
+                CMD(KC_RBRACKET);
+              }
+              break;
+          }
+          break;
+        case VIM_C:
+          /*****************************
+           * c-  ...for change. I never use this...
+           *****************************/
+          break;
+        case VIM_CI:
+          break;
+        case VIM_D:
+          break;
+        case VIM_DI:
+          break;
+        case VIM_V:
+          break;
+        case VIM_VI:
+          break;
+        case VIM_VS:
+          break;
+        case VIM_G: // for gg... and my extensions
+          break;
+        case VIM_Y: // for yy
+          break;
       }
-      return false;
-      break;
-    case INS_LINE:
-      KD {
-        // cmd-left, return, up
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LGUI);
-        register_code(KC_ENT);
-        unregister_code(KC_ENT);
-        register_code(KC_UP);
-        unregister_code(KC_UP);
-        layer_off(_CMD_G);
-        layer_off(_CMD);
-        layer_on(_EDIT);
-      }
-      return false;
-      break;
-    case APPEND_LINE:
-      KD {
-        // cmd-left, down, return
-        register_code(KC_LGUI);
-        register_code(KC_LEFT);
-        unregister_code(KC_LEFT);
-        unregister_code(KC_LGUI);
-        register_code(KC_DOWN);
-        unregister_code(KC_DOWN);
-        register_code(KC_ENT);
-        unregister_code(KC_ENT);
-        layer_off(_CMD_G);
-        layer_off(_CMD);
-        layer_on(_EDIT);
-      }
-      return false;
-      break;
-    case PASTE:
-      KD {
-        if(g_last_yank_was_line) {
-          // cmd-left, down
-          register_code(KC_LGUI);
-          register_code(KC_LEFT);
-          unregister_code(KC_LEFT);
-          unregister_code(KC_LGUI);
-          register_code(KC_DOWN);
-          unregister_code(KC_DOWN);
-          g_last_yank_was_line = false;
-        }
-        unregister_code(KC_LSHIFT);
-        register_code(KC_LGUI);
-        register_code(KC_V);
-        unregister_code(KC_V);
-        unregister_code(KC_LGUI);
-        layer_off(_CMD_G);
-        layer_off(_VISUAL);
-      }
-      return false;
-      break;
-    case PASTE_BEFORE:
-      KD {
-        if(g_last_yank_was_line) {
-          // cmd-left
-          register_code(KC_LGUI);
-          register_code(KC_LEFT);
-          unregister_code(KC_LEFT);
-          unregister_code(KC_LGUI);
-          g_last_yank_was_line = false;
-        }
-        unregister_code(KC_LSHIFT);
-        register_code(KC_LGUI);
-        register_code(KC_V);
-        unregister_code(KC_V);
-        unregister_code(KC_LGUI);
-        layer_off(_CMD_G);
-        layer_off(_VISUAL);
-      }
-      return false;
-      break;
-    case CANCEL_VISUAL:
-      KD {
-        g_last_yank_was_line = false;
-        unregister_code(KC_LSHIFT);
-        register_code(KC_ESCAPE);
-        unregister_code(KC_ESCAPE);
-        layer_off(_CMD_G);
-        layer_off(_VISUAL);
-      }
-      return false;
-      break;
+    }
+    return false;
+  } else {
+    return true;
   }
-  return true;
 }
-
-// void matrix_scan_user(void)
-// {
-//   LEADER_DICTIONARY()
-//   {
-//     leading = false;
-//     leader_end();
-//     SEQ_ONE_KEY(KC_G)
-//     {
-//       register_code(KC_HOME);
-//       unregister_code(KC_HOME);
-//       // SEND_STRING(SS_TAP(X_HOME));
-//     }
-
-//     SEQ_ONE_KEY(KC_E)
-//     {
-//       register_code(KC_END);
-//       unregister_code(KC_END);
-//       // SEND_STRING(SS_TAP(X_END));
-//     }
-//   }
-// }
