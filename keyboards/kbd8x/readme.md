@@ -1,12 +1,12 @@
-# kbd8x
+# KBD 8X
 
 ![kbd8x](imgur.com image replace me!)
 
-A short description of the keyboard/project
+TKL Keyboard from KBDFans
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlins](https://github.com/mechmerlin)  
+Hardware Supported: kbd8x 
+Hardware Availability: [KBDFans](https://kbdfans.cn/blogs/updates/kbd-8x-update-40)
 
 Make example for this keyboard (after setting up your build environment):
 

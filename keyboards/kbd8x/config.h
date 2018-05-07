@@ -1,5 +1,5 @@
 /*
-Copyright 2017 REPLACE_WITH_YOUR_NAME
+Copyright 2017 MechMerlin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
+#define MANUFACTURER    KBDFans
 #define PRODUCT         kbd8x
-#define DESCRIPTION     A custom keyboard
+#define DESCRIPTION     Custom TKL Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -49,9 +49,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
+
+#define RGB_DI_PIN E2
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 20
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
