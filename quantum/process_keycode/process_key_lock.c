@@ -17,6 +17,7 @@
 #include "inttypes.h"
 #include "stdint.h"
 #include "process_key_lock.h"
+#include "pro_micro.h"
 
 #define BV_64(shift) (((uint64_t)1) << (shift))
 #define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : \
@@ -112,6 +113,7 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
             if (watching) {
                 watching = false;
                 SET_KEY_STATE(translated_keycode);
+                RXLED1;
                 // We need to set the keycode passed in to be the translated keycode, in case we
                 // translated a OSM back to the original keycode.
                 *keycode = translated_keycode;
@@ -121,6 +123,7 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
 
             if (KEY_STATE(translated_keycode)) {
                 UNSET_KEY_STATE(translated_keycode);
+                RXLED0;
                 // The key is already held, stop this process. The up event will be sent when the user
                 // releases the key.
                 return false;
