@@ -19,6 +19,8 @@
 
 LEADER_EXTERNS();
 
+#define X_____X KC_NO
+
 extern keymap_config_t keymap_config;
 
 enum layers {
@@ -70,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,           KC_W,    KC_E,    KC_R,          KC_T,    KC_Y,    KC_U,          KC_I,    KC_O,    KC_P,              KC_BSPC},
   {LCTL_T(KC_ESC), LT(_MOVE,KC_A), KC_S,    KC_D,    KC_F,          KC_G,    KC_H,    KC_J,          KC_K,    KC_L,    LT(_MOVE,KC_SCLN), KC_QUOT},
   {KC_LSFT, KC_Z,           KC_X,    KC_C,    KC_V,          KC_B,    KC_N,    KC_M,          KC_COMM, KC_DOT,  KC_SLSH,   RSFT_T(KC_ENT) },
-  {TG(_MOUSE), TG(_CMD),  KC_LALT, KC_LGUI, OSL(_LOWER),   KC_SPC,  KC_SPC,  OSL(_RAISE),   KC_LGUI, KC_LALT, _______,   TG(_MOVE)}
+  {TG(_MOUSE), TG(_CMD),  KC_LALT, KC_LGUI, OSL(_LOWER),   KC_SPC,  KC_SPC,  OSL(_RAISE),   KC_LGUI, KC_LALT, X_____X,   TG(_MOVE)}
 },
 
 /* Lower
@@ -155,13 +157,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
-/* vim command layer. Moslty movement commands
+/* vim command layer. Mostly movement commands
  */
 [_CMD] = {
-  {TO(_QWERTY), _______, _______, LALT(KC_RIGHT), _______, _______, OSL(_CMD_G), KC_PGUP, TO(_EDIT), APPEND_LINE, PASTE, _______},
-  {_______,     APPEND, _______, KC_PGDN, _______, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______},
-  {MO(_CMD_G),     _______, _______, _______, VISUAL, LALT(KC_LEFT), _______, _______, _______, _______, _______, MO(_CMD_G)},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {TO(_QWERTY), X_____X, X_____X, LALT(KC_RIGHT), X_____X, X_____X, OSL(_CMD_G), KC_PGUP, TO(_EDIT), APPEND_LINE, PASTE, X_____X},
+  {X_____X,     APPEND, X_____X, KC_PGDN, X_____X, OSL(_CMD_G), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, X_____X, X_____X},
+  {MO(_CMD_G),     X_____X, X_____X, X_____X, VISUAL, LALT(KC_LEFT), X_____X, X_____X, X_____X, X_____X, X_____X, MO(_CMD_G)},
+  {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X} // TODO: momentarily shift to query?
 },
 /* enable gg, ge (like G) */
 [_CMD_G] = {
