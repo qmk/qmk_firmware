@@ -47,6 +47,12 @@ static uint32_t state_current = 0;
 
 #include "dist/_keymap.c"
 
+// Disable backlight on load
+void matrix_init_user(void) {
+  _delay_ms(500);
+  rgblight_disable();
+}
+
 uint32_t layer_state_set_user(uint32_t state) {
   state_current = state;
 
@@ -71,9 +77,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
 
     default:
-      //rgblight_disable();
       rgblight_set_white;
-      rgblight_mode(1);
       break;
 
   }
