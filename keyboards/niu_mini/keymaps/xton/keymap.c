@@ -510,7 +510,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            * d-  ...delete stuff
            *****************************/
           switch(keycode) {
-            case VIM_C:
+            case VIM_D:
               CTRL(KC_A);
               CTRL(KC_K);
               vstate = VIM_START;
