@@ -17,10 +17,21 @@
 #define KBD8X_H
 
 #include "quantum.h"
+#include "led.h"
 
-// This a shortcut to help you visually see your layout.
-// The first section contains all of the arguments
-// The second converts the arguments into a two-dimensional array
+// Functions for setting LEDs on toggle keys
+inline void caps_led_on(void)     { DDRB |=  (1<<3); PORTB &= ~(1<<3); }
+inline void caps_led_off(void)    { DDRB &= ~(1<<3); PORTB &= ~(1<<3); }
+
+inline void num_led_on(void)      { DDRB |=  (1<<1); PORTB &= ~(1<<1); }
+inline void num_led_off(void)     { DDRB &= ~(1<<1); PORTB &= ~(1<<1); }
+
+inline void scroll_led_on(void)   { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
+inline void scroll_led_off(void)  { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
+
+
+// LAYOUT depicting all possible switch positions.
+// LAYOUT_all supports ISO, split backspace and split left/right shift. 
 #define LAYOUT_all( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K3D,           \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, K5B, K5C, K3E, \
@@ -38,7 +49,8 @@
     { K50, K51, K52, K53, K54, K55, K56, K57, K58, K59, K5A, K5B, K5C, K5D, K5E }  \
 }
 
-// TODO: Double check location of backspace key for 2u layout.
+// LAYOUT depicting only switch positions for a standard TKL ANSI keyboard.  
+// TODO: Double check location of backspace key for 2u layout (It's either K1D or K1C).
 #define LAYOUT_tkl_ansi( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K0E, K3D,      \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1E, K5B, K5C, K3E, \
