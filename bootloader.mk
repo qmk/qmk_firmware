@@ -32,17 +32,32 @@
 ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
     OPT_DEFS += -DBOOTLOADER_ATMEL_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 4096
+    ifeq ($(strip $(MCU)), atmega32u4)
+      BOOTLOADER_SIZE = 4096
+    endif
+    ifeq ($(strip $(MCU)), at90usb1286)
+      BOOTLOADER_SIZE = 8192
+    endif
 endif
 ifeq ($(strip $(BOOTLOADER)), lufa-dfu)
     OPT_DEFS += -DBOOTLOADER_LUFA_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 4096
+    ifeq ($(strip $(MCU)), atmega32u4)
+      BOOTLOADER_SIZE = 4096
+    endif
+    ifeq ($(strip $(MCU)), at90usb1286)
+      BOOTLOADER_SIZE = 8192
+    endif
 endif
 ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
     OPT_DEFS += -DBOOTLOADER_QMK_DFU
     OPT_DEFS += -DBOOTLOADER_DFU
-    BOOTLOADER_SIZE = 4096
+    ifeq ($(strip $(MCU)), atmega32u4)
+      BOOTLOADER_SIZE = 4096
+    endif
+    ifeq ($(strip $(MCU)), at90usb1286)
+      BOOTLOADER_SIZE = 8192
+    endif
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY

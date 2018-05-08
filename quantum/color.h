@@ -1,4 +1,4 @@
-/* Copyright 2017 Jack Humbert
+/* Copyright 2017 Jason Williams
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIGHT_H
-#define LIGHT_H
 
-#include "planck.h"
-#include "rgb_matrix.h"
+#ifndef COLOR_H
+#define COLOR_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
+
+#if defined(__GNUC__)
+#define PACKED __attribute__ ((__packed__))
+#else
+#define PACKED
 #endif
+
+#if defined(_MSC_VER)
+#pragma pack( push, 1 )
+#endif
+
+typedef struct PACKED
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+} RGB;
+
+typedef struct PACKED
+{
+	uint8_t h;
+	uint8_t s;
+	uint8_t v;
+} HSV;
+
+#if defined(_MSC_VER)
+#pragma pack( pop )
+#endif
+
+RGB hsv_to_rgb( HSV hsv );
+
+#endif // COLOR_H
