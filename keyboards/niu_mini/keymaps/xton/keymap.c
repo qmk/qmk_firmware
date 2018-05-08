@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CMD] = {
   {TO(_QWERTY), X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X},
   {VIM_ESC,    VIM_A, VIM_S, VIM_D, X_____X, VIM_G, VIM_H, VIM_J, VIM_K, VIM_L, X_____X, X_____X},
-  {VIM_SHIFT,     X_____X, VIM_X, VIM_C, X_____X, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, VIM_SHIFT},
+  {VIM_SHIFT,     X_____X, VIM_X, VIM_C, VIM_V, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, VIM_SHIFT},
   {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X}
 }
 
@@ -429,6 +429,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            * c-  ...for change. I never use this...
            *****************************/
           switch(keycode) {
+            case VIM_B:
+              PRESS(KC_LALT);
+                SHIFT(KC_LEFT); // select to start of this word
+              RELEASE(KC_LALT);
+              CMD(KC_X);
+              EDIT;
+              break;
             case VIM_C:
               CTRL(KC_A);
               CTRL(KC_K);
@@ -510,6 +517,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            * d-  ...delete stuff
            *****************************/
           switch(keycode) {
+            case VIM_B:
+              PRESS(KC_LALT);
+                SHIFT(KC_LEFT); // select to start of this word
+              RELEASE(KC_LALT);
+              CMD(KC_X);
+              vstate = VIM_START;
+              break;
             case VIM_D:
               CTRL(KC_A);
               CTRL(KC_K);
@@ -587,6 +601,67 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           break;
         case VIM_V:
+          /*****************************
+           * visual!
+           *****************************/
+          switch(keycode) {
+            case VIM_D:
+            case VIM_X:
+              CMD(KC_X);
+              vstate = VIM_START;
+              break;
+            case VIM_B:
+              PRESS(KC_LALT);
+              PRESS(KC_LSHIFT);
+              PRESS(KC_LEFT);
+              // leave open for key repeat
+              break;
+            case VIM_E:
+              PRESS(KC_LALT);
+              PRESS(KC_LSHIFT);
+              PRESS(KC_RIGHT);
+              // leave open for key repeat
+              break;
+            case VIM_H:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_LEFT);
+              break;
+            case VIM_I:
+              vstate = VIM_VI;
+              break;
+            case VIM_J:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_DOWN);
+              break;
+            case VIM_K:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_UP);
+              break;
+            case VIM_L:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_RIGHT);
+              break;
+            case VIM_W:
+              PRESS(KC_LALT);
+              SHIFT(KC_RIGHT); // select to end of this word
+              SHIFT(KC_RIGHT); // select to end of next word
+              SHIFT(KC_LEFT);  // select to start of next word
+              RELEASE(KC_LALT);
+              break;
+            case VIM_Y:
+              CMD(KC_C);
+              TAP(KC_RIGHT);
+              vstate = VIM_START;
+              break;
+            case VIM_V:
+            case VIM_ESC:
+              TAP(KC_RIGHT);
+              vstate = VIM_START;
+              break;
+            default:
+              // do nothing
+              break;
+          }
           break;
         case VIM_VI:
           break;
