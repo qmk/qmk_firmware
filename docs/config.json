@@ -22,13 +22,10 @@
         "auto_toc": true,
         "breadcrumbs": true,
         "breadcrumbs_separator": " &emdash;&gt; ",
-        "buttons": {
-            "QMK Website": "https://qmk.fm/"
-        },
-        "links": {
-            "QMK Link": "https://qmk.fm/"
-        },
+        "edit_on_github": "qmk/qmk_firmware/blob/master/docs",
         "repo": "qmk/qmk_firmware",
+        "search": true,
+        "theme": "daux-navy",
         "toggle_code": false
     }
 }

@@ -3,9 +3,9 @@
 QMK has a staggering number of features for building your keyboard. It can take some time to understand all of them and determine which one will achieve your goal.
 
 
-* [Advanced Keycodes](Advanced Keycodes.md) - Change layers, type shifted keys, and more. Go beyond typing simple characters.
+* [Advanced Keycodes](Advanced_Keycodes.md) - Change layers, type shifted keys, and more. Go beyond typing simple characters.
 * [Audio](Audio.md) - Connect a speaker to your keyboard for audio feedback, midi support, and music mode.
-* [Auto Shift](Auto Shift.md) - Tap for the normal key, hold slightly longer for its shifted state.
+* [Auto Shift](Auto_Shift.md) - Tap for the normal key, hold slightly longer for its shifted state.
 * [Backlight](Backlight.md) - LED lighting support for your keyboard.
 * [Bootmagic](Bootmagic.md) - Adjust the behavior of your keyboard using hotkeys.
 * [Dynamic Macros](Dynamic_Macros.md) - Record and playback macros from the keyboard itself.
