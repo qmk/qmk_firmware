@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* BIAC
  * ,------------------------------------------------.   ,------------------------------------------------.
- * | Tab  |   P  |   ;  |   ,  |   .  |   Q  |  [   |   |  ]   |   Y  |   G  |   D  |   M  |   F  |  @   |
+ * | Tab  |   ;  |   ,  |   .  |   P  |   Q  |  [   |   |  ]   |   Y  |   G  |   D  |   M  |   F  |  @   |
  * |------+------+------+------+------+------+------|   |-------------+------+------+------+------+------|
  * | Alt  |   A  |   O  |   E  |   I  |   U  |  (   |   |  )   |   B  |   N  |   T  |   R  |   S  |  :   |
  * |------+------+------+------+------+------+------|   |------|------+------+------+------+------+------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [BIAC] = KEYMAP( \
-  KC_TAB,   KC_P,    KC_SCLN,KC_COMM, KC_DOT,           KC_Q,          KC_RBRC,       KC_BSLS,    KC_Y,             KC_G,    KC_D,     KC_M,     KC_F,     KC_LBRC, \
+  KC_TAB,   KC_SCLN,KC_COMM, KC_DOT,  KC_P,             KC_Q,          KC_RBRC,       KC_BSLS,    KC_Y,             KC_G,    KC_D,     KC_M,     KC_F,     KC_LBRC, \
   KC_LALT,  KC_A,    KC_O,   KC_E,    KC_I,             KC_U,          S(KC_8),       S(KC_9),    KC_B,             KC_N,    KC_T,     KC_R,     KC_S,     KC_QUOT, \
   KC_LSFT,  KC_Z,    KC_X,   KC_C,    KC_V,             KC_W,          S(KC_RBRC),    S(KC_BSLS), KC_H,             KC_J,    KC_K,     KC_L,     KC_SLSH,  SFT_T(KC_RO), \
   KC_LCTRL, KC_LGUI, KC_APP, _______, LT(BSYMB, KC_ESC),RCTL_T(KC_SPC),SFT_T(KC_TAB), KC_BSPC,    LT(BMETA, KC_ENT),KC_DELT, KC_PSCR,  XXXXXXX,  XXXXXXX,  KC_JYEN \
