@@ -35,9 +35,9 @@ const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-const char *layout_names[NUM_LAYOUTS] = {
-    "ansi60",
-    "ansi60_spls",      // split left shift
-    "ansi60_sprs",      // split right shift
-    "ansi60_splsrs",    // split left and right shift
-};
+const char *layout_names =
+    "ansi60,"           // ansi 60%
+    "ansi60_spls,"      // split left shift
+    "ansi60_sprs,"      // split right shift
+    "ansi60_splsrs,"    // split left and right shift
+;

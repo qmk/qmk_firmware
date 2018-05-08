@@ -13,6 +13,6 @@ const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-const char *layout_names[NUM_LAYOUTS] = {
-    "core",
-};
+const char *layout_names =
+    "core,"     // vortex core layout
+;

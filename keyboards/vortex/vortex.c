@@ -42,7 +42,7 @@
 static uint8_t packet_buf[PKT_LEN];
 
 extern const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
-extern const char *layout_names[NUM_LAYOUTS];
+extern const char *layout_names;
 
 const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
     PRODUCT_ID & 0xFF, (PRODUCT_ID >> 8) & 0xFF,
@@ -149,16 +149,48 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
+// From http://mdfs.net/Info/Comp/Comms/CRC16.htm
+// CRC-CCITT
+#define CCITT_POLY 0x1021
+static uint16_t crc16(const uint8_t *ptr, uint32_t size) {
+    uint32_t crc = 0;
+    for(uint32_t i = 0; i < size; ++i){
+        crc ^= (uint16_t)(ptr[i] << 8);
+        for(int j = 0; j < 8; j++){
+            crc = crc << 1;
+            if(crc & 0x10000)
+                crc = (crc ^ CCITT_POLY) & 0xFFFF;
+        }
+    }
+    return (uint16_t)(crc & 0xFFFF);
+}
+
+void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
 //    printf("Command Packet Receive\n");
     if (length == PKT_LEN) {
+        // parse command
+        const uint8_t cmd = data_in[0];
+        const uint8_t subcmd = data_in[1];
+        const uint16_t crc0 = from_leu16(data_in + 2);
+        to_leu16(data_in + 2, 0);
+        const uint16_t crc = crc16(data_in, PKT_LEN);
+        if(crc != crc0){
+            printf("Corrupt Command CRC\n");
+            return;
+        }
+        uint8_t *data_out = packet_buf + 4;
+
         // clear response
         memset(packet_buf, 0, PKT_LEN);
 
         // handle command
-        switch (data[0]) {
+        switch (cmd) {
+
+            // vortex commands for pok3r or cykb
+            // /////////////////////////////////
+
             case CMD_RESET:
-                switch (data[1]) {
+                switch (subcmd) {
                     case SUB_RESET_BL:
                         reset_keyboard();
                         return;
@@ -169,9 +201,9 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 
 #if defined(UPDATE_PROTO_POK3R)
             case CMD_FLASH:
-                switch (data[1]) {
+                switch (subcmd) {
                     case SUB_READ: {
-                        uint32_t addr = from_leu32(data + 4);
+                        uint32_t addr = from_leu32(data_in + 4);
                         printf("Read Flash %04x\n", addr);
                         if (addr < FLASH_SIZE) {
                             memcpy(packet_buf, (const uint8_t *)addr, MIN(FLASH_SIZE - addr, 64));
@@ -184,8 +216,8 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 #if defined(UPDATE_PROTO_CYKB)
             case CMD_READ:
                 packet_buf[0] = CMD_READ;
-                packet_buf[1] = data[1];
-                switch (data[1]) {
+                packet_buf[1] = subcmd;
+                switch (subcmd) {
                     case SUB_READ_400: {
                         uint32_t addr = 0x400;
                         printf("Read 0x400\n");
@@ -204,7 +236,7 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         break;
                     }
                     case SUB_READ_ADDR: {
-                        uint32_t addr = from_leu32(data + 4);
+                        uint32_t addr = from_leu32(data_in + 4);
                         printf("Read Addr %04x\n", addr);
                         if (addr < FLASH_SIZE) {
                             memcpy(packet_buf + 4, (const uint8_t *)addr, MIN(FLASH_SIZE - addr, 60));
@@ -212,8 +244,8 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                         break;
                     }
                     default: {
-                        if(data[1] >= SUB_READ_VER1 && data[1] < 0x30){
-                            uint32_t addr = 0x3000 + ((data[1] - 0x20) * 60);
+                        if(subcmd >= SUB_READ_VER1 && subcmd < 0x30){
+                            uint32_t addr = 0x3000 + ((subcmd - 0x20) * 60);
                             printf("Read Version %04x\n", addr);
                             memcpy(packet_buf + 4, (const uint8_t *)addr, 60);
                         }
@@ -223,33 +255,36 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                 break;
 #endif
 
+            // new qmk commands
+            // /////////////////////////////////
+
             case CMD_INFO: {
-                to_leu16(packet_buf + 0, PRODUCT_ID);
-                to_leu16(packet_buf + 2, DEVICE_VER);
+                to_leu16(data_out, PRODUCT_ID);
+                to_leu16(data_out + 2, DEVICE_VER);
                 const char *str = "qmk_pok3r";
-                memcpy(packet_buf + 4, str, strlen(str));
+                memcpy(data_out + 4, str, strlen(str));
                 printf("Info: %s\n", str);
                 break;
             }
 
             case CMD_EEPROM: {
-                uint32_t addr = from_leu32(data + 4);
-                switch (data[1]) {
+                uint32_t addr = from_leu32(data_in + 4);
+                switch (subcmd) {
                     case SUB_EE_INFO: {
-                        spi_rdid(packet_buf);
-                        printf("Info EEPROM %02x %02x %02x\n", packet_buf[1], packet_buf[2], packet_buf[3]);
+                        spi_rdid(data_out);
+                        printf("Info EEPROM %02x %02x %02x\n", data_out[1], data_out[2], data_out[3]);
                         break;
                     }
                     case SUB_EE_READ: {
                         rtcnt_t start = chSysGetRealtimeCounterX();
-                        spi_read(addr, 64, packet_buf);
+                        spi_read(addr, 60, data_out);
                         rtcnt_t end = chSysGetRealtimeCounterX();
                         printf("Read EEPROM %04x, %d us\n", addr, RTC2US(HT32_HCLK_FREQUENCY, end - start));
                         break;
                     }
                     case SUB_EE_WRITE:
                         printf("Write EEPROM %04x\n", addr);
-                        spi_write(addr, 56, data + 8);
+                        spi_write(addr, 56, data_in + 8);
                         break;
                     case SUB_EE_ERASE:
                         printf("Erase EEPROM %04x\n", addr);
@@ -262,19 +297,19 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
             case CMD_KEYMAP: {
                 const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
                 const uint32_t total_size = keymap_size * sizeof(uint16_t);
-                switch (data[1]) {
+                switch (subcmd) {
                     case SUB_KM_INFO: {
                         printf("Info Keymap\n");
-                        packet_buf[0] = MAX_LAYERS;         // max layers
-                        packet_buf[1] = MATRIX_ROWS;        // matrix rows
-                        packet_buf[2] = MATRIX_COLS;        // matrix cols
-                        packet_buf[3] = sizeof(uint16_t);   // keycode size
-                        packet_buf[4] = NUM_LAYOUTS;        // num layouts
-                        packet_buf[5] = 0;                  // current layout
+                        data_out[0] = MAX_LAYERS;         // max layers
+                        data_out[1] = MATRIX_ROWS;        // matrix rows
+                        data_out[2] = MATRIX_COLS;        // matrix cols
+                        data_out[3] = sizeof(uint16_t);   // keycode size
+                        data_out[4] = NUM_LAYOUTS;        // num layouts
+                        data_out[5] = 0;                  // current layout
                         break;
                     }
                     case SUB_KM_READ: {
-                        const uint32_t arg = from_leu32(data + 4);
+                        const uint32_t arg = from_leu32(data_in + 4);
                         const uint8_t page = (arg & 0xF0000) >> 16;
                         const uint32_t offset = arg & 0xFFFF;
                         printf("Read Keymap %x %04x\n", page, offset);
@@ -282,24 +317,32 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
                             case 0:
                                 // read matrix layers
                                 if (offset < total_size) {
-                                    memcpy(packet_buf, ((const uint8_t *)keymaps) + offset, MIN(total_size - offset, 64));
+                                    memcpy(data_out, ((const uint8_t *)keymaps) + offset, MIN(total_size - offset, 60));
                                 }
                                 break;
                             case 1:
                                 // read layouts
                                 if (offset < keymap_size) {
-                                    memcpy(packet_buf, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 64));
+                                    memcpy(data_out, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 60));
                                 }
                                 break;
+                            case 2: {
+                                // read layout strings
+                                const uint16_t strsize = strlen(layout_names);
+                                if (offset < strsize) {
+                                    memcpy(data_out, ((const uint8_t *)layout_names) + offset, MIN(strsize - offset, 60));
+                                }
+                                break;
+                            }
                         }
                         break;
                     }
                     case SUB_KM_WRITE: {
-                        uint16_t offset = from_leu16(data + 4);
-                        uint16_t len = MIN(from_leu16(data + 6), 56);
+                        uint16_t offset = from_leu16(data_in + 4);
+                        uint16_t len = MIN(from_leu16(data_in + 6), 56);
                         printf("Write Keymap %04x %d\n", offset, len);
                         if (offset < total_size) {
-                            memcpy(((uint8_t *)keymaps) + offset, data + 8, MIN(total_size - offset, len));
+                            memcpy(((uint8_t *)keymaps) + offset, data_in + 8, MIN(total_size - offset, len));
                         }
                         break;
                     }
@@ -317,11 +360,19 @@ void OVERRIDE raw_hid_receive(uint8_t *data, uint8_t length) {
 
             default:
                 // Error
-                printf("Bad command %x\n", data[0]);
+                printf("Bad command %x\n", cmd);
                 packet_buf[0] = 0xff;
                 packet_buf[1] = 0xaa;
                 break;
         }
+
+        if(cmd & 0x80){
+            to_leu16(packet_buf, crc);
+            to_leu16(packet_buf + 2, 0);
+            const uint16_t crc1 = crc16(packet_buf, PKT_LEN);
+            to_leu16(packet_buf + 2, crc1);
+        }
+
         // send response
         raw_hid_send(packet_buf, PKT_LEN);
 
