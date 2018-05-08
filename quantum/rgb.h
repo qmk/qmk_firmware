@@ -14,10 +14,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIGHT_H
-#define LIGHT_H
+#ifndef RGB_H
+#define RGB_H
 
-#include "planck.h"
-#include "rgb_matrix.h"
+__attribute__((weak))
+void rgblight_toggle(void) {};
+
+__attribute__((weak))
+void rgblight_step(void) {};
+
+__attribute__((weak))
+void rgblight_step_reverse(void) {};
+
+__attribute__((weak))
+void rgblight_increase_hue(void) {};
+
+__attribute__((weak))
+void rgblight_decrease_hue(void) {};
+
+__attribute__((weak))
+void rgblight_increase_sat(void) {};
+
+__attribute__((weak))
+void rgblight_decrease_sat(void) {};
+
+__attribute__((weak))
+void rgblight_increase_val(void) {};
+
+__attribute__((weak))
+void rgblight_decrease_val(void) {};
 
 #endif
