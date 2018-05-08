@@ -231,7 +231,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
-    process_rgb_matrix(keycode, record) && 
+    process_rgb_matrix(keycode, record) &&
   #endif
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
@@ -872,7 +872,6 @@ void matrix_scan_quantum() {
 
   matrix_scan_kb();
 }
-
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
 
 static const uint8_t backlight_pin = BACKLIGHT_PIN;
@@ -992,23 +991,6 @@ void backlight_task(void) {}
 #endif  // BACKLIGHT_CUSTOM_DRIVER
 
 #ifdef BACKLIGHT_BREATHING
-
-
-#ifdef NO_BACKLIGHT_CLOCK
-  void breathing_enable(void) {}
-  void breathing_pulse(void) {}
-  void breathing_disable(void) {}
-  void breathing_self_disable(void) {}
-  void breathing_toggle(void) {}
-  bool is_breathing(void) { return false; }
-  void breathing_intensity_default(void) {}
-  void breathing_intensity_set(uint8_t value) {}
-  void breathing_speed_default(void) {}
-  void breathing_speed_set(uint8_t value) {}
-  void breathing_speed_inc(uint8_t value) {}
-  void breathing_speed_dec(uint8_t value) {}
-  void breathing_defaults(void) {}
-#else
 
 #define BREATHING_NO_HALT  0
 #define BREATHING_HALT_OFF 1
