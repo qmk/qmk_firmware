@@ -35,3 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         { KC_PWR  , RESET   , KC_VOLU , KC_VOLD , BL_TOGG , BL_STEP , BL_BRTG , KC_RSFT  , KC_RALT , KC_RCTL  , KC_RGUI  , KC_TRNS  }
     }
 };
+
+void matrix_init_user(void) {
+    set_unicode_input_mode(UC_LNX);
+};
