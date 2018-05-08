@@ -439,22 +439,152 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SHIFT(KC_RIGHT); // select to end of this word
               RELEASE(KC_LALT);
               CMD(KC_X);
+              EDIT;
               break;
             case VIM_H:
               SHIFT(KC_LEFT);
               CMD(KC_X);
+              EDIT;
               break;
             case VIM_I:
               vstate = VIM_CI;
               break;
-              // TODO: MOAR.
+            case VIM_J:
+              // delete this line and the next line down
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              EDIT;
+              break;
+            case VIM_K:
+              // delete this line and the one above.
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              TAP(KC_UP);
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              EDIT;
+              break;
+            case VIM_L:
+              SHIFT(KC_RIGHT);
+              CMD(KC_X);
+              EDIT;
+              break;
+            case VIM_W:
+              PRESS(KC_LALT);
+              SHIFT(KC_RIGHT); // select to end of this word
+              SHIFT(KC_RIGHT); // select to end of next word
+              SHIFT(KC_LEFT);  // select to start of next word
+              RELEASE(KC_LALT);
+              CMD(KC_X); // delete selection
+              EDIT;
+              break;
+            default:
+              vstate = VIM_START;
+              break;
           }
           break;
         case VIM_CI:
+          /*****************************
+           * ci-  ...change inner word
+           *****************************/
+          switch(keycode) {
+            case VIM_W:
+              ALT(KC_LEFT);
+              PRESS(KC_LSHIFT);
+                ALT(KC_RIGHT);
+              RELEASE(KC_LSHIFT);
+              CMD(KC_X);
+              EDIT;
+            default:
+              vstate = VIM_START;
+              break;
+          }
           break;
         case VIM_D:
+          /*****************************
+           * d-  ...delete stuff
+           *****************************/
+          switch(keycode) {
+            case VIM_C:
+              CTRL(KC_A);
+              CTRL(KC_K);
+              vstate = VIM_START;
+              break;
+            case VIM_E:
+              PRESS(KC_LALT);
+                SHIFT(KC_RIGHT); // select to end of this word
+              RELEASE(KC_LALT);
+              CMD(KC_X);
+              vstate = VIM_START;
+              break;
+            case VIM_H:
+              SHIFT(KC_LEFT);
+              CMD(KC_X);
+              vstate = VIM_START;
+              break;
+            case VIM_I:
+              vstate = VIM_DI;
+              break;
+            case VIM_J:
+              // delete this line and the next line down
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              vstate = VIM_START;
+              break;
+            case VIM_K:
+              // delete this line and the one above.
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              TAP(KC_UP);
+              CTRL(KC_A);
+              CTRL(KC_K);
+              CTRL(KC_K);
+              vstate = VIM_START;
+              break;
+            case VIM_L:
+              SHIFT(KC_RIGHT);
+              CMD(KC_X);
+              vstate = VIM_START;
+              break;
+            case VIM_W:
+              PRESS(KC_LALT);
+              SHIFT(KC_RIGHT); // select to end of this word
+              SHIFT(KC_RIGHT); // select to end of next word
+              SHIFT(KC_LEFT);  // select to start of next word
+              RELEASE(KC_LALT);
+              CMD(KC_X); // delete selection
+              vstate = VIM_START;
+              break;
+            default:
+              vstate = VIM_START;
+              break;
+          }
           break;
         case VIM_DI:
+          /*****************************
+           * ci-  ...change inner word
+           *****************************/
+          switch(keycode) {
+            case VIM_W:
+              ALT(KC_LEFT);
+              PRESS(KC_LSHIFT);
+                ALT(KC_RIGHT);
+              RELEASE(KC_LSHIFT);
+              CMD(KC_X);
+              vstate = VIM_START;
+            default:
+              vstate = VIM_START;
+              break;
+          }
           break;
         case VIM_V:
           break;
