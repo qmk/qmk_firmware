@@ -22,27 +22,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
-// #define USE_I2C
+#undef USE_I2C
 
 /* Select hand configuration */
 
 // #define MASTER_LEFT
-// #define _MASTER_RIGHT
+// #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 200
+
+/* key combination for command */
+#ifdef IS_COMMAND
+#undef IS_COMMAND
 #endif
+#define IS_COMMAND() ( \
+    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+)
 
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 12     // Number of LEDs
+#define RGBLED_NUM 16     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -52,11 +57,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
 #endif // RGBLIGHT_ENABLE
 
-#define FORCE_NKRO
-#ifdef FORCE_NKRO
-#define NKRO_EPSIZE 32
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#ifdef RGBLIGHT_ENABLE
+#define NO_MUSIC_MODE
+#endif //RGBLIGHT_ENABLE
+#endif //AUDIO_ENABLE
+
+#undef PRODUCT
+#ifdef KEYBOARD_orthodox_rev1
+#define PRODUCT         Drashna Hacked Orthodox Rev.1
+#elif KEYBOARD_orthodox_rev3
+#define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
-#define PERMISSIVE_HOLD
+#define QMK_ESC_OUTPUT D7 // usually COL
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
+#define QMK_SPEAKER C6
 
 #endif

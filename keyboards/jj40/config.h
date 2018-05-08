@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config_common.h"
+
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -29,11 +31,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
-#define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
+
+#define BACKLIGHT_LEVELS 12
+// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+
+#define TAPPING_TOGGLE 3
 
 #define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
+
+/* RGB underglow */
+// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
+// The same pin is used on the JJ40, at least.
+#define RGBLED_NUM 5
+#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
+#define RGBLIGHT_ANIMATIONS
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

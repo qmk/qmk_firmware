@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <math.h>
 #include <avr/eeprom.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -21,6 +22,10 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
+
+#ifndef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#endif
 
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
@@ -44,6 +49,10 @@ bool rgblight_timer_enabled = false;
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
+
+  if (val > RGBLIGHT_LIMIT_VAL) {
+      val=RGBLIGHT_LIMIT_VAL; // limit the val
+  }
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -112,7 +121,7 @@ void eeconfig_update_rgblight_default(void) {
   rgblight_config.mode = 1;
   rgblight_config.hue = 0;
   rgblight_config.sat = 255;
-  rgblight_config.val = 255;
+  rgblight_config.val = RGBLIGHT_LIMIT_VAL;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
@@ -244,17 +253,12 @@ void rgblight_mode(uint8_t mode) {
 }
 
 void rgblight_toggle(void) {
-  rgblight_config.enable ^= 1;
-  eeconfig_update_rgblight(rgblight_config.raw);
-  xprintf("rgblight toggle: rgblight_config.enable = %u\n", rgblight_config.enable);
+  xprintf("rgblight toggle: rgblight_config.enable = %u\n", !rgblight_config.enable);
   if (rgblight_config.enable) {
-    rgblight_mode(rgblight_config.mode);
-  } else {
-    #ifdef RGBLIGHT_ANIMATIONS
-      rgblight_timer_disable();
-    #endif
-    _delay_ms(50);
-    rgblight_set();
+    rgblight_disable();
+  }
+  else {
+    rgblight_enable();
   }
 }
 
@@ -263,6 +267,17 @@ void rgblight_enable(void) {
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight enable: rgblight_config.enable = %u\n", rgblight_config.enable);
   rgblight_mode(rgblight_config.mode);
+}
+
+void rgblight_disable(void) {
+  rgblight_config.enable = 0;
+  eeconfig_update_rgblight(rgblight_config.raw);
+  xprintf("rgblight disable: rgblight_config.enable = %u\n", rgblight_config.enable);
+  #ifdef RGBLIGHT_ANIMATIONS
+    rgblight_timer_disable();
+  #endif
+  _delay_ms(50);
+  rgblight_set();
 }
 
 
@@ -300,8 +315,8 @@ void rgblight_decrease_sat(void) {
 }
 void rgblight_increase_val(void) {
   uint8_t val;
-  if (rgblight_config.val + RGBLIGHT_VAL_STEP > 255) {
-    val = 255;
+  if (rgblight_config.val + RGBLIGHT_VAL_STEP > RGBLIGHT_LIMIT_VAL) {
+    val = RGBLIGHT_LIMIT_VAL;
   } else {
     val = rgblight_config.val + RGBLIGHT_VAL_STEP;
   }
@@ -363,14 +378,44 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   }
 }
 
+uint16_t rgblight_get_hue(void) {
+  return rgblight_config.hue;
+}
+
+uint8_t rgblight_get_sat(void) {
+  return rgblight_config.sat;
+}
+
+uint8_t rgblight_get_val(void) {
+  return rgblight_config.val;
+}
+
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
-  // dprintf("rgblight set rgb: %u,%u,%u\n", r,g,b);
+  if (!rgblight_config.enable) { return; }
+
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;
   }
   rgblight_set();
+}
+
+void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
+  if (!rgblight_config.enable || index >= RGBLED_NUM) { return; }
+
+  led[index].r = r;
+  led[index].g = g;
+  led[index].b = b;
+  rgblight_set();
+}
+
+void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
+  if (!rgblight_config.enable) { return; }
+
+  LED_TYPE tmp_led;
+  sethsv(hue, sat, val, &tmp_led);
+  rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
@@ -465,13 +510,17 @@ void rgblight_task(void) {
 void rgblight_effect_breathing(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
+  float val;
 
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
     return;
   }
   last_timer = timer_read();
 
-  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, pgm_read_byte(&LED_BREATHING_TABLE[pos]));
+
+  // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+  val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
+  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, val);
   pos = (pos + 1) % 256;
 }
 void rgblight_effect_rainbow_mood(uint8_t interval) {

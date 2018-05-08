@@ -14,4 +14,5 @@ Layers
 * KEYSEL: similar to KEYNAV, except for shift-selection
 * COMBINED: this is a layer that combines numbers, brackets and special characters. !@#$%^&*( can be type by shift+COMBINED+1/2/3/etc..
 * MOUSE: mouse navigation, as well as browser tab-left/tab-right shortcuts
-* SHELL_NAV: Linux Bash shortcuts (move forward/backward in command line, move between screen windows, Ctrl+C, recall last argument, etc
+* SHELL_NAV: Linux Bash shortcuts (move forward/backward in command line, Ctrl+C, recall last argument, etc
+* SHELL_SCREEN: Linux screen (run multiple terminals in one window) shortcuts such as open new tabs, switch between tabs

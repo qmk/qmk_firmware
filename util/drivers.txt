@@ -4,6 +4,7 @@
 # Driver can be one of winusb,libusb,libusbk
 # Use Windows Powershell and type [guid]::NewGuid() to generate guids
 winusb,Kiibohd DFU Bootloader,1C11,B007,aa5a3f86-b81e-4416-89ad-0c1ea1ed63af
+winusb,STM32 Bootloader,0483,df11,6d98a87f-4ecf-464d-89ed-8c684d857a75
 libusb,ATxmega16C4,03EB,2FD8,23266ee7-5423-4cc4-993b-034571c43a90
 libusb,ATxmega32C4,03EB,2FD9,d4b62886-2ac8-4534-aa24-eae0a2c3ce43
 libusb,ATxmega64C3,03EB,2FD6,08467ca7-9b5a-41d2-8d8a-4a26d0b5285b

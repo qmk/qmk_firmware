@@ -16,7 +16,6 @@
 
 #include "light.h"
 
-
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -166,3 +165,4 @@ void suspend_wakeup_init_kb(void)
 {
     rgb_matrix_set_suspend_state(false);
 }
+
