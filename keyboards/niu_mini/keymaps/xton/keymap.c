@@ -104,6 +104,7 @@ enum keycodes {
   VIM_Y,
   VIM_PERIOD, // to support indent/outdent
   VIM_COMMA,  // and toggle comments
+  VIM_SHIFT, // avoid side-effect of supporting real shift.
   VIM_ESC // bookend
 };
 
@@ -207,8 +208,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* vim edit mode. just has an escape -> cmd key */
 [_EDIT] = {
-  {TO(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {VIM_START,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {VIM_START,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
@@ -218,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CMD] = {
   {TO(_QWERTY), X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X},
   {VIM_ESC,    VIM_A, VIM_S, VIM_D, X_____X, VIM_G, VIM_H, VIM_J, VIM_K, VIM_L, X_____X, X_____X},
-  {KC_LSHIFT,     X_____X, VIM_X, VIM_C, X_____X, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, KC_RSHIFT},
+  {VIM_SHIFT,     X_____X, VIM_X, VIM_C, X_____X, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, VIM_SHIFT},
   {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X}
 }
 
@@ -226,18 +227,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint16_t vstate = VIM_START;
 bool yank_was_lines = false;
+bool SHIFTED = false;
+
+void vim_reset(void) {
+  vstate = VIM_START;
+  SHIFTED = false;
+  yank_was_lines = false;
+}
 
 #define EDIT vstate = VIM_START; layer_on(_EDIT); layer_off(_CMD)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool SHIFTED = (keyboard_report->mods & MOD_BIT(KC_LSFT)) |
-                 (keyboard_report->mods & MOD_BIT(KC_RSFT));
 
   if (VIM_START <= keycode && keycode <= VIM_ESC) {
+    if(keycode == VIM_SHIFT) {
+      SHIFTED = record->event.pressed;
+      return false;
+    }
+
     if (record->event.pressed) {
       if(keycode == VIM_START) {
         // entry from anywhere
         layer_on(_CMD);
+        vstate = VIM_START;
         return false;
       }
       switch(vstate) {
@@ -255,7 +267,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               EDIT;
               break;
             case VIM_B:
-              ALT(KC_LEFT);
+              // ALT(KC_LEFT);
+              PRESS(KC_LALT);
+              PRESS(KC_LEFT);
               break;
             case VIM_C:
               if(SHIFTED) {
@@ -273,7 +287,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               break;
             case VIM_E:
-              ALT(KC_RIGHT);
+              // ALT(KC_RIGHT);
+              PRESS(KC_LALT);
+              PRESS(KC_RIGHT);
               break;
             case VIM_G:
               if(SHIFTED) {
@@ -283,9 +299,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               break;
             case VIM_H:
-              TAP(KC_LEFT);
+              // TAP(KC_LEFT);
+              PRESS(KC_LEFT);
               break;
             case VIM_I:
+              if(SHIFTED){
+                CTRL(KC_A);
+              }
               EDIT;
               break;
             case VIM_J:
@@ -293,14 +313,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 CMD(KC_RIGHT);
                 TAP(KC_DEL);
               } else {
-                TAP(KC_DOWN);
+                PRESS(KC_DOWN);
+                // TAP(KC_DOWN);
               }
               break;
             case VIM_K:
-              TAP(KC_UP);
+              // TAP(KC_UP);
+              PRESS(KC_UP);
               break;
             case VIM_L:
-              TAP(KC_R);
+              // TAP(KC_RIGHT);
+              PRESS(KC_RIGHT);
               break;
             case VIM_O:
               if(SHIFTED) {
@@ -368,8 +391,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               RELEASE(KC_LALT);
               break;
             case VIM_X:
-              SHIFT(KC_RIGHT);
-              CMD(KC_X);
+              // SHIFT(KC_RIGHT);
+              // CMD(KC_X);
+              PRESS(KC_DEL);
               break;
             case VIM_Y:
               if(SHIFTED) {
@@ -404,6 +428,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           /*****************************
            * c-  ...for change. I never use this...
            *****************************/
+          switch(keycode) {
+            case VIM_C:
+              CTRL(KC_A);
+              CTRL(KC_K);
+              EDIT;
+              break;
+            case VIM_E:
+              PRESS(KC_LALT);
+                SHIFT(KC_RIGHT); // select to end of this word
+              RELEASE(KC_LALT);
+              CMD(KC_X);
+              break;
+            case VIM_H:
+              SHIFT(KC_LEFT);
+              CMD(KC_X);
+              break;
+            case VIM_I:
+              vstate = VIM_CI;
+              break;
+              // TODO: MOAR.
+          }
           break;
         case VIM_CI:
           break;
@@ -422,6 +467,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VIM_Y: // for yy
           break;
       }
+    } else {
+      /************************
+       * key release events
+       ************************/
+      clear_keyboard();
     }
     return false;
   } else {
