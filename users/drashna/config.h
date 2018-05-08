@@ -52,7 +52,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#define TAPPING_TERM 176
+#define TAPPING_TERM 200
 
 
 // Disable action_get_macro and fn_actions, since we don't use these

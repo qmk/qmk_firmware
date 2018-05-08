@@ -261,8 +261,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             KC_RST,  _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, EPRM,
-             KC_MAKE, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, VRSN,
+             VRSN,    _______, _______, _______, _______, _______, _______,                 _______, KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, EPRM,
+             KC_MAKE, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RST,
              RGB_SMOD,RGB_HUI, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,                                   AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
              KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______,                 _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
