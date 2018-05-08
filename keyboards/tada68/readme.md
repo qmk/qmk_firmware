@@ -5,7 +5,7 @@ A compact 65% keyboard.
 
 Keyboard Maintainer: QMK Community
 Hardware Supported: TADA68 PCB
-Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797) [kbdist](http://www.kbdist.com/shop/saber-68)
+Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797) [kbdist](http://www.kbdist.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
