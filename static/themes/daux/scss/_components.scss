@@ -1,0 +1,515 @@
+/* ============================================================================
+Base tags
+============================================================================ */
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
+
+    &.Link--external:after {
+        content: " " url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
+    }
+
+    &.Link--broken {
+        color: red;
+    }
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+hr {
+    clear: both;
+    margin: 1em 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+/* ============================================================================
+Components
+============================================================================ */
+
+.Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+    border: 1px solid transparent;
+    white-space: nowrap;
+    border-radius: 4px;
+
+    &--small {
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    &--default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+
+        &.Button--active {
+            color: #333;
+            background-color: #e6e6e6;
+            border-color: #adadad;
+        }
+    }
+}
+
+.ButtonGroup {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle; // match .Button alignment given font-size hack above
+
+    .Button + .Button {
+        margin-left: -1px;
+    }
+
+    > .Button {
+        position: relative;
+        float: left;
+
+        // Bring the "active" button to the front
+        &:hover,
+        &:focus {
+            z-index: 2;
+        }
+
+        &:active,
+        &.Button--active {
+            z-index: 3;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        // Set corners individually because sometimes 
+        // a single button can be in a .ButtonGroup
+        // and we need :first-child and :last-child to both match
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:first-child:not(:last-child) {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        &:last-child:not(:first-child) {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+}
+
+.Brand {
+    display: block;
+    background-color: var(--brand-background);
+    padding: 0.75em 0.6em;
+    font-size: var(--type-size-4);
+    text-shadow: none;
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    color: var(--brand-color);
+}
+
+.Navbar {
+    height: 50px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    background-color: var(--homepage-navbar-background);
+    margin-bottom: 0;
+
+    .Brand {
+        float: left;
+        line-height: 20px;
+        height: 50px;
+    }
+}
+
+.CodeToggler {
+    padding: 0 20px;
+
+    &__text {
+        font-size: 12px;
+        line-height: 1.5;
+        padding: 6px 10px 6px 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+// Sidebar navigation
+.Nav {
+    margin: 0;
+    padding: 0;
+
+    &__arrow {
+        display: inline-block;
+        position: relative;
+        width: 16px;
+        margin-left: -16px;
+
+        &:before {
+            position: absolute;
+            display: block;
+            content: "";
+            margin: -0.25em 0 0 -0.4em;
+            left: 50%;
+            top: 50%;
+            width: 0.5em;
+            height: 0.5em;
+            border-right: 0.15em solid var(--sidebar-link-arrow-color);
+            border-top: 0.15em solid var(--sidebar-link-arrow-color);
+            transform: rotate(45deg);
+            transition-duration: 0.3s;
+        }
+    }
+
+    &__item {
+        display: block;
+
+        a {
+            display: block;
+            margin: 0;
+            padding: 6px 15px 6px 20px;
+            font-family: var(--font-family-heading);
+            font-weight: 400;
+            color: var(--sidebar-link-color);
+            text-shadow: none;
+        }
+
+        a:hover {
+            color: var(--sidebar-link-color);
+            text-shadow: none;
+            background-color: var(--sidebar-link-hover-background);
+        }
+    }
+}
+
+.Nav .Nav {
+    display: none;
+    margin-left: 15px;
+
+    .Nav__item a {
+        margin: 0;
+        margin-left: -15px;
+        padding: 3px 30px;
+        font-family: var(--font-family-text);
+        color: var(--sidebar-link-secondary-color);
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .Nav__item--active a {
+        color: var(--sidebar-link-color);
+    }
+}
+
+.Nav__item {
+    &--open,
+    &--active {
+        > a {
+            background-color: var(--sidebar-link-active-background);
+        }
+    }
+
+    &--open {
+        > .Nav {
+            display: block;
+        }
+
+        > a > .Nav__arrow:before {
+            margin-left: -0.25em;
+            transform: rotate(135deg);
+        }
+    }
+}
+
+.Page__header {
+    margin: 0 0 10px;
+    padding: 0;
+    border-bottom: 1px solid #eee;
+
+    @include clearfix();
+
+    h1 {
+        margin: 0;
+        padding: 0;
+        line-height: 57px;
+    }
+
+    &--separator {
+        height: 0.6em;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .ModifiedDate {
+        float: left;
+        font-size: 10px;
+        color: gray;
+    }
+
+    .EditOn {
+        float: right;
+        font-size: 10px;
+        color: gray;
+    }
+}
+
+.Links {
+    padding: 0 20px;
+
+    a {
+        font-family: var(--font-family-heading);
+        font-weight: 400;
+        color: var(--sidebar-link-color);
+        line-height: 2em;
+    }
+}
+
+.Twitter {
+    padding: 0 20px;
+}
+
+.PoweredBy {
+    padding: 0 20px;
+    font-size: var(--type-size-6);
+}
+
+.Search {
+    position: relative;
+
+    &__field {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 30px 6px 20px;
+        color: var(--search-field-color);
+        border-width: 0 0 1px;
+        border-bottom: 1px solid var(--search-field-border-color);
+        background: var(--search-field-background);
+        transition: border-color ease-in-out 0.15s;
+
+        &:focus {
+            border-color: var(--search-field-hover-border-color);
+            outline: 0;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        right: 9px;
+        top: 9px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.Navbar .Search {
+    float: right;
+    margin: 8px 20px;
+
+    &__field {
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        border-width: 0;
+        border-radius: 4px;
+        padding-left: 10px;
+    }
+}
+
+.TableOfContentsContainer {
+    &__title {
+        border-bottom: 4px solid #efefef;
+        margin-bottom: 0 !important;
+    }
+
+    &__content > .TableOfContents {
+        margin-top: 0;
+    }
+}
+
+ul.TableOfContents {
+    float: none;
+    font-size: 16px;
+    padding-left: 1.5em;
+    border-left: 6px solid #efefef;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .TableOfContents {
+        border-left-width: 0;
+    }
+}
+
+.Columns__right--full .TableOfContentsContainer {
+    float: right;
+    min-width: 300px;
+    max-width: 25%;
+    padding-left: 1em;
+
+    .TableOfContentsContainer__content > .TableOfContents {
+        border-right: 2px solid #efefef;
+    }
+
+    .TableOfContents {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    a {
+        display: block;
+        border-bottom: 1px solid #ddd;
+        padding: 0.2em 0;
+    }
+
+    li a {
+        padding-left: 0.75em;
+    }
+
+    li li a {
+        padding-left: 1.5em;
+    }
+
+    li li li a {
+        padding-left: 2.25em;
+    }
+
+    li li li li a {
+        padding-left: 3em;
+    }
+}
+
+.Pager {
+    padding-left: 0;
+    margin: 1em 0;
+    list-style: none;
+    text-align: center;
+    clear: both;
+
+    @include clearfix();
+
+    li {
+        display: inline;
+
+        > a {
+            display: inline-block;
+            padding: 5px 14px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+        }
+
+        > a:hover,
+        > a:focus {
+            text-decoration: none;
+            background-color: #eee;
+        }
+    }
+
+    &--next > a {
+        float: right;
+    }
+
+    &--prev > a {
+        float: left;
+    }
+}
+
+.Checkbox {
+    position: relative;
+    display: block;
+    padding-left: 30px;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+}
+
+.Checkbox__indicator {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    background: var(--checkbox-background);
+
+    /* Check mark */
+    &:after {
+        position: absolute;
+        display: none;
+        content: "";
+    }
+
+    /* Hover and focus states */
+    .Checkbox:hover input ~ &,
+    .Checkbox input:focus ~ & {
+        background: var(--checkbox-hover-background);
+    }
+
+    /* Checked state */
+    .Checkbox input:checked ~ & {
+        background: var(--checkbox-checked-background);
+
+        /* Show check mark */
+        &:after {
+            display: block;
+        }
+    }
+
+    /* Hover state whilst checked */
+    .Checkbox:hover input:not([disabled]):checked ~ &, .Checkbox input:checked:focus ~ & {
+        background: var(--checkbox-checked-hover-background);
+    }
+
+    /* Disabled state */
+    .Checkbox input:disabled ~ & {
+        pointer-events: none;
+        opacity: 0.6;
+        background: var(--checkbox-disabled-background);
+    }
+
+    /* Checkbox tick */
+    .Checkbox &:after {
+        top: 4px;
+        left: 8px;
+        width: 5px;
+        height: 10px;
+        transform: rotate(45deg);
+        border: solid var(--checkbox-tick-color);
+        border-width: 0 2px 2px 0;
+    }
+
+    /* Disabled tick colour */
+    .Checkbox input:disabled ~ &:after {
+        border-color: var(--checkbox-disabled-tick-color);
+    }
+}
+
+.Collapsible__content {
+    padding-bottom: 1rem;
+}
+
+.Hidden {
+    display: none;
+}

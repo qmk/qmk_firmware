@@ -1,0 +1,89 @@
+:root {
+    // Gray Scale
+    --gray: #7a8288;
+    --dark-gray: color(var(--gray) blend(#000 40%));
+    //--darker-gray: color(var(--gray) blend(#000 60%));
+    --light-gray: color(var(--gray) blend(#fff 50%));
+    --lighter-gray: color(var(--gray) blend(#fff 70%));
+    --lightest-gray: color(var(--gray) blend(#fff 90%));
+
+    // Type Scale
+    --type-size-1: 2.441rem; // ~39.056px
+    --type-size-2: 1.953rem; // ~31.248px
+    --type-size-3: 1.563rem; // ~25.008px
+    --type-size-4: 1.25rem; // ~20px
+    --type-size-5: 1rem; // ~16px
+    --type-size-6: 0.75rem; // ~12px
+
+    --dark: #3f4657;
+    --light: #82becd;
+    --text: #222;
+
+    --link-color: var(--light);
+    --brand-color: var(--light);
+    --brand-background: var(--dark);
+
+    // Sidebar
+    --sidebar-border: #e7e7e9;
+    --sidebar-background: #f7f7f7;
+
+    // Sidebar links
+    --sidebar-link-color: var(--dark);
+    --sidebar-link-active-background: #c5c5cb;
+    --sidebar-link-hover-background: var(--sidebar-link-active-background);
+    --sidebar-link-arrow-color: var(--dark);
+    --sidebar-link-secondary-color: var(--text);
+
+    // Sidebar Checkbox
+    --checkbox-background: #e6e6e6;
+    --checkbox-hover-background: #ccc;
+    --checkbox-checked-background: var(--dark);
+    --checkbox-checked-hover-background: var(--light);
+    --checkbox-tick-color: #fff;
+    --checkbox-disabled-background: #e6e6e6;
+    --checkbox-disabled-tick-color: #7b7b7b;
+
+    // Sidebar search field
+    --search-field-color: #555;
+    --search-field-border-color: #ccc;
+    --search-field-background: #fff;
+    --search-field-hover-border-color: var(--light);
+
+    // Sidebar hamburger
+    --sidebar-collapsible--hamburger-color: var(--light);
+    --sidebar-collapsible--hamburger-hover-color: var(--dark);
+    --sidebar-collapsible--hamburger-hover-background: var(--light);
+
+    // Homepage
+    --homepage-navbar-background: var(--dark);
+
+    --homepage-hero-background: var(--light);
+    --homepage-hero-color: var(--dark);
+    --homepage-bullet-color: var(--light);
+
+    --homepage-footer-color: var(--light);
+    --homepage-footer-background: var(--dark);
+
+    // Homepage Hero Buttons
+    --hero-button-block-background: var(--sidebar-link-active-background);
+    --hero-button-border-color: var(--dark);
+    --hero-button-primary-color: var(--sidebar-background);
+    --hero-buttom-primary-background: var(--dark);
+    --hero-button-secondary-color: var(--dark);
+    --hero-button-secondary-background: var(--sidebar-link-active-background);
+
+    --content-floating-blocks-background: var(--light);
+    --code-tag-color: var(--dark);
+
+    --code-tag-background-color: #fafafa;
+    --code-tag-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+    --code-tag-border-radius: 4px;
+
+    --blockquote-border-color: var(--dark);
+}
+
+/*
+ * Breakpoints
+ * ===================================================================== */
+@custom-media --viewport-small (width < 850px);
+@custom-media --viewport-large (width >= 850px);

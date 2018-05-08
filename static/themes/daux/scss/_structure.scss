@@ -1,0 +1,135 @@
+
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================================================
+Docs Body & Page Structure
+============================================================================ */
+
+html {
+    font-size: 14px;
+
+    @media (--viewport-large) {
+        font-size: 16px;
+    }
+}
+
+html, body {
+    height: 100%;
+    background-color: #fff;
+    color: var(--text);
+}
+
+.Columns {
+    &__left {
+        background-color: var(--sidebar-background);
+    }
+
+    &__right {
+        &__content {
+            padding: 10px;
+            background-color: #fff;
+        }
+    }
+}
+
+// mobile friendly sub-nav
+.Collapsible__content {
+    display: none;
+}
+
+.Collapsible__trigger {
+    margin: 12px;
+    padding: 7px 10px;
+    background-color: transparent;
+    border: none;
+    float: right;
+
+    @include kill-background-image;
+    @include kill-box-shadow;
+
+    &__bar {
+        display: block;
+        width: 18px;
+        height: 2px;
+        margin-top: 2px;
+        margin-bottom: 3px;
+        background-color: var(--sidebar-collapsible--hamburger-color);
+    }
+
+    &:hover {
+        background-color: var(--sidebar-collapsible--hamburger-hover-background);
+
+        @include kill-box-shadow;
+
+        .Collapsible__trigger__bar {
+            background-color: var(--sidebar-collapsible--hamburger-hover-color);
+        }
+    }
+}
+
+@media screen and (min-width: 769px) {
+    body {
+        //Needed only for floating code blocks
+        background-color: var(--content-floating-blocks-background);
+    }
+
+    .Navbar {
+        position: fixed;
+        z-index: 1030;
+        width: 100%;
+    }
+
+    .Collapsible {
+        &__trigger {
+            display: none !important;
+        }
+
+        &__content {
+            display: block !important;
+        }
+    }
+
+    .Columns {
+        height: 100%;
+
+        &:after,
+        &:before {
+            content: " ";
+            display: table;
+        }
+
+        &:after {
+            clear: both;
+        }
+
+        &__left, &__right {
+            position: relative;
+            min-height: 1px;
+            float: left;
+            overflow: auto;
+            height: 100%;
+        }
+
+        &__left {
+            width: 25%;
+            border-right: 1px solid var(--sidebar-border);
+            overflow-x: hidden;
+        }
+
+        &__right {
+            width: 75%;
+
+            &__content {
+                padding: 0 20px 20px;
+                min-height: 100%;
+            }
+        }
+    }
+}
