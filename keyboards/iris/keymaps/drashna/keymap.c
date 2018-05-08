@@ -8,61 +8,61 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_wrapper(
-     KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
+     KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________QWERTY_L1_________________,                       _________________QWERTY_R1_________________, KC_BSLS,
      KC_C1R3, _________________QWERTY_L2_________________,                       _________________QWERTY_R2_________________, KC_QUOT,
      KC_MLSF, _________________QWERTY_L3_________________, KC_ALAP,     KC_OSLG, _________________QWERTY_R3_________________, KC_MRSF,
-                                       LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
+                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_COLEMAK] = LAYOUT_wrapper(
-     KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
+     KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________COLEMAK_L1________________,                       _________________COLEMAK_R1________________, KC_BSLS,
      KC_C1R3, _________________COLEMAK_L2________________,                       _________________COLEMAK_R2________________, KC_QUOT,
      KC_MLSF, _________________COLEMAK_L3________________, KC_ALAP,     KC_OSLG, _________________COLEMAK_R3________________, KC_MRSF,
-                                       LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
+                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_DVORAK] = LAYOUT_wrapper(
-     KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
+     KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________DVORAK_L1_________________,                       _________________DVORAK_R1_________________, KC_BSLS,
      KC_C1R3, _________________DVORAK_L2_________________,                       _________________DVORAK_R2_________________, KC_QUOT,
      KC_MLSF, _________________DVORAK_L3_________________, KC_ALAP,     KC_OSLG, _________________DVORAK_R3_________________, KC_MRSF,
-                                       LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
+                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
   [_WORKMAN] = LAYOUT_wrapper(
-     KC_GESC, ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
+     KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS,
      KC_TAB , _________________WORKMAN_L1________________,                       _________________WORKMAN_R1________________, KC_BSLS,
      KC_C1R3, _________________WORKMAN_L2________________,                       _________________WORKMAN_R2________________, KC_QUOT,
      KC_MLSF, _________________WORKMAN_L3________________, KC_ALAP,     KC_OSLG, _________________WORKMAN_R3________________, KC_MRSF,
-                                       LOWER,   KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
+                             LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
 
-  [_MODS] = LAYOUT(
+  [_MODS] = LAYOUT_wrapper(
      _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-     KC_LSFT, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+     KC_LSFT, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, KC_RSFT,
                                        _______, _______, _______,         _______, _______, _______
   ),
 
 
-  [_LOWER] = LAYOUT(
-     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+  [_LOWER] = LAYOUT_wrapper(
+     _______, _________________FUNC_LEFT_________________,                       _________________FUNC_RIGHT________________, _______,
      _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                         KC_RBRC, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_LPRN,      KC_RPRN, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
-                                       _______, _______, KC_DEL,          _______, _______, _______
+     _______, _______, _______, _______, _______, _______,                       _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+     _______, _______, _______, _______, _______, _______, _______,     _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+                                       _______, _______, _______,         _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT(
-      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  [_RAISE] = LAYOUT_wrapper(
+      _______, _________________FUNC_LEFT_________________,                       _________________FUNC_RIGHT________________, _______,
       _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                       KC_EQL , KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-      _______, _______, _______, _______, _______, _______, _______,     _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+      _______, _______, _______, _______, _______, _______,                       _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+      _______, _______, _______, _______, _______, _______, _______,     _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
                                         _______, _______, _______,         _______, _______, _______
    ),
 
-  [_ADJUST] = LAYOUT(
-      KC_MAKE, KC_RST,  EPRM,    _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
+  [_ADJUST] = LAYOUT_wrapper(
+      KC_MAKE, KC_RST,  EPRM,    _______, _______, _______,                       KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, _______,
       RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,                       _______, _______, _______, _______, _______, _______,
       RGB_SMOD,RGB_HUI, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,                       AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
       KC_RGB_T,RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,     _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY,

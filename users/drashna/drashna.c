@@ -188,7 +188,9 @@ void matrix_init_user(void) {
   }
 
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+#ifdef AUDIO_CLICKY
   clicky_enable = userspace_config.clicky_enable;
+#endif
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -403,8 +405,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
   case CLICKY_TOGGLE:
+#ifdef AUDIO_CLICKY
     userspace_config.clicky_enable = clicky_enable;
     eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+#endif
     break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
@@ -445,30 +449,30 @@ uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
   switch (biton32(state)) {
-  case _NAV:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_blue();
-      rgblight_mode(1);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
-  case _SYMB:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_blue();
-      rgblight_mode(2);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
-  case _MOUS:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_yellow();
-      rgblight_mode(1);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
+//   case _NAV:
+// #ifdef RGBLIGHT_ENABLE
+//     if (rgb_layer_change) {
+//       rgblight_sethsv_blue();
+//       rgblight_mode(1);
+//     }
+// #endif // RGBLIGHT_ENABLE
+//     break;
+//   case _SYMB:
+// #ifdef RGBLIGHT_ENABLE
+//     if (rgb_layer_change) {
+//       rgblight_sethsv_blue();
+//       rgblight_mode(2);
+//     }
+// #endif // RGBLIGHT_ENABLE
+//     break;
+//   case _MOUS:
+// #ifdef RGBLIGHT_ENABLE
+//     if (rgb_layer_change) {
+//       rgblight_sethsv_yellow();
+//       rgblight_mode(1);
+//     }
+// #endif // RGBLIGHT_ENABLE
+//     break;
   case _MACROS:
 #ifdef RGBLIGHT_ENABLE
     if (rgb_layer_change) {
@@ -525,14 +529,14 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
 #endif // RGBLIGHT_ENABLE
     break;
-  case _COVECUBE:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_green();
-      rgblight_mode(2);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
+//   case _COVECUBE:
+// #ifdef RGBLIGHT_ENABLE
+//     if (rgb_layer_change) {
+//       rgblight_sethsv_green();
+//       rgblight_mode(2);
+//     }
+// #endif // RGBLIGHT_ENABLE
+//     break;
   default: //  for any other layers, or the default layer
     if (default_layer & (1UL << _COLEMAK)) {
 #ifdef RGBLIGHT_ENABLE

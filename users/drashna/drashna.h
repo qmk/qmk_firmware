@@ -27,12 +27,8 @@ enum userspace_layers {
   _DVORAK,
   _WORKMAN,
   _MODS,
-  _NAV,
-  _COVECUBE,
-  _SYMB,
   _GAMEPAD,
   _DIABLO,
-  _MOUS,
   _MACROS,
   _MEDIA,
   _LOWER,
@@ -236,6 +232,8 @@ enum {
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -245,9 +243,9 @@ enum {
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
-#define __________________ERGODOX_THUMB_CLUSTER_____________________       ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
                                                                                               KC_HOME,                 KC_PGUP, \
-                                                                            KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                                LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
 #endif // !USERSPACE
