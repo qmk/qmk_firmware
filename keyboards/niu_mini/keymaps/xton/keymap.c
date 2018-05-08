@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, _______, _______}
 },
 
-/* vim edit mode. just has an escape -> cmd key */
+/* vim edit mode. just has an escape -> _CMD key */
 [_EDIT] = {
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {VIM_START,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
@@ -341,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               break;
             case VIM_P:
               if(SHIFTED) {
-                CMD(KC_LEFT);
+                CTRL(KC_A);
                 CMD(KC_V);
               } else {
                 if(yank_was_lines) {
@@ -585,7 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case VIM_DI:
           /*****************************
-           * ci-  ...change inner word
+           * ci-  ...delete a word... FROM THE INSIDE!
            *****************************/
           switch(keycode) {
             case VIM_W:
@@ -608,6 +608,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case VIM_D:
             case VIM_X:
               CMD(KC_X);
+              yank_was_lines = false;
               vstate = VIM_START;
               break;
             case VIM_B:
@@ -651,6 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case VIM_Y:
               CMD(KC_C);
               TAP(KC_RIGHT);
+              yank_was_lines = false;
               vstate = VIM_START;
               break;
             case VIM_V:
@@ -664,12 +666,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           break;
         case VIM_VI:
+          /*****************************
+           * vi-  ...select a word... FROM THE INSIDE!
+           *****************************/
+          switch(keycode) {
+            case VIM_W:
+              ALT(KC_LEFT);
+              PRESS(KC_LSHIFT);
+                ALT(KC_RIGHT);
+              RELEASE(KC_LSHIFT);
+              vstate = VIM_V;
+            default:
+              // ignore
+              vstate = VIM_V;
+              break;
+          }
           break;
         case VIM_VS:
+          /*****************************
+           * visual line
+           *****************************/
+          switch(keycode) {
+            case VIM_D:
+            case VIM_X:
+              CMD(KC_X);
+              yank_was_lines = true;
+              vstate = VIM_START;
+              break;
+            case VIM_J:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_DOWN);
+              break;
+            case VIM_K:
+              PRESS(KC_LSHIFT);
+              PRESS(KC_UP);
+              break;
+            case VIM_Y:
+              CMD(KC_C);
+              yank_was_lines = true;
+              TAP(KC_RIGHT);
+              vstate = VIM_START;
+              break;
+            case VIM_V:
+            case VIM_ESC:
+              TAP(KC_RIGHT);
+              vstate = VIM_START;
+              break;
+            default:
+              // do nothing
+              break;
+          }
           break;
-        case VIM_G: // for gg... and my extensions
+        case VIM_G:
+          /*****************************
+           * gg, and a grab-bag of other macros i find useful
+           *****************************/
+          switch(keycode) {
+            case VIM_G:
+              TAP(KC_HOME);
+              break;
+            // codes b
+            case VIM_H:
+              CTRL(KC_A);
+              break;
+            case VIM_J:
+              PRESS(KC_PGDN);
+              break;
+            case VIM_K:
+              PRESS(KC_PGUP);
+              break;
+            case VIM_L:
+              CTRL(KC_E);
+              break;
+            default:
+              // do nothing
+              break;
+          }
+          vstate = VIM_START;
           break;
-        case VIM_Y: // for yy
+        case VIM_Y:
+          /*****************************
+           * just supporting yy for now...
+           *****************************/
+          switch(keycode) {
+            case VIM_Y:
+              break;
+            default:
+              // NOTHING
+              break;
+          }
+          vstate = VIM_START;
           break;
       }
     } else {
