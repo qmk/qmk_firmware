@@ -69,6 +69,7 @@ void eeconfig_update_rgb_matrix_default(void) {
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = 255;
   rgb_matrix_config.val = 255;
+  rgb_matrix_config.speed = 0;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 void eeconfig_debug_rgb_matrix(void) {
@@ -78,6 +79,7 @@ void eeconfig_debug_rgb_matrix(void) {
   dprintf("rgb_matrix_config.hue = %d\n", rgb_matrix_config.hue);
   dprintf("rgb_matrix_config.sat = %d\n", rgb_matrix_config.sat);
   dprintf("rgb_matrix_config.val = %d\n", rgb_matrix_config.val);
+  dprintf("rgb_matrix_config.speed = %d\n", rgb_matrix_config.speed);
 }
 
 // Last led hit
@@ -343,7 +345,7 @@ void rgb_matrix_raindrops(bool initialize) {
 }
 
 void rgb_matrix_cycle_all(void) {
-    uint8_t offset = g_tick & 0xFF;
+    uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
 
     rgb_led led;
 
@@ -364,7 +366,7 @@ void rgb_matrix_cycle_all(void) {
 }
 
 void rgb_matrix_cycle_left_right(void) {
-    uint8_t offset = g_tick & 0xFF;
+    uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = rgb_matrix_config.val };
     RGB rgb;
     Point point;
@@ -388,7 +390,7 @@ void rgb_matrix_cycle_left_right(void) {
 }
 
 void rgb_matrix_cycle_up_down(void) {
-    uint8_t offset = g_tick & 0xFF;
+    uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = rgb_matrix_config.val };
     RGB rgb;
     Point point;
@@ -861,6 +863,16 @@ void rgblight_increase_val(void) {
 void rgblight_decrease_val(void) {
     rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, 255 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgblight_increase_speed(void) {
+    rgb_matrix_config.speed = increment( rgb_matrix_config.speed, 1, 0, 3 );
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
+}
+
+void rgblight_decrease_speed(void) {
+    rgb_matrix_config.speed = decrement( rgb_matrix_config.speed, 1, 0, 3 );
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgblight_mode(uint8_t mode) {

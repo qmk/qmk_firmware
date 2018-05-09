@@ -368,6 +368,16 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_decrease_val();
     }
     return false;
+  case RGB_SPI:
+    if (record->event.pressed) {
+      rgblight_increase_speed();
+    }
+    return false;
+  case RGB_SPD:
+    if (record->event.pressed) {
+      rgblight_decrease_speed();
+    }
+    return false;
   case RGB_MODE_PLAIN:
     if (record->event.pressed) {
       rgblight_mode(1);

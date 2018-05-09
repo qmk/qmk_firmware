@@ -69,6 +69,8 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 	* `RGB_SAD` - decrease saturation
 	* `RGB_VAI` - increase value
 	* `RGB_VAD` - decrease value
+	* `RGB_SPI` - increase speed effect (no EEPROM support)
+	* `RGB_SPD` - decrease speed effect (no EEPROM support)
 
 
 	* `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
