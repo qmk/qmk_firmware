@@ -151,4 +151,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_1_LED_TOTAL 30
 #define DRIVER_2_LED_TOTAL 32
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+
+//#define RGB_MATRIX_SKIP_FRAMES 0
 #endif

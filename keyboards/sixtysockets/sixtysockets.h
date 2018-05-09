@@ -19,7 +19,6 @@
 #define XXX KC_NO
 
 #include "quantum.h"
-#include "zeal_keycode.h"
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout

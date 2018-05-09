@@ -14,13 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "sixtysockets.h"
-/*#include "zeal_backlight.h"
-#include "zeal_keymap.h"
-#include "zeal_eeprom.h"
-#include "zeal_rpc.h"
-#include "raw_hid.h"*/
 #include "config.h"
-
 /*#ifdef RAW_ENABLE
 
 void raw_hid_receive( uint8_t *data, uint8_t length )
@@ -324,123 +318,11 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-	// This only updates the LED driver buffers if something has changed.
-
-	//backlight_update_pwm_buffers();
 
 	matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// Record keypresses for backlight effects
-	/*if ( record->event.pressed )
-	{
-		backlight_set_key_hit( record->event.key.row, record->event.key.col );
-	}
-
-	switch(keycode)
-	{
-		case BR_INC:
-			if (record->event.pressed)
-			{
-				backlight_brightness_increase();
-			}
-			return false;
-			break;
-		case BR_DEC:
-			if (record->event.pressed)
-			{
-				backlight_brightness_decrease();
-			}
-			return false;
-			break;
-		case EF_INC:
-			if (record->event.pressed)
-			{
-				backlight_effect_increase();
-			}
-			return false;
-			break;
-		case EF_DEC:
-			if (record->event.pressed)
-			{
-				backlight_effect_decrease();
-			}
-			return false;
-			break;
-		case ES_INC:
-			if (record->event.pressed)
-			{
-				backlight_effect_speed_increase();
-			}
-			return false;
-			break;
-		case ES_DEC:
-			if (record->event.pressed)
-			{
-				backlight_effect_speed_decrease();
-			}
-			return false;
-			break;
-		case H1_INC:
-			if (record->event.pressed)
-			{
-				backlight_color_1_hue_increase();
-			}
-			return false;
-			break;
-		case H1_DEC:
-			if (record->event.pressed)
-			{
-				backlight_color_1_hue_decrease();
-			}
-			return false;
-			break;
-		case S1_INC:
-			if (record->event.pressed)
-			{
-				backlight_color_1_sat_increase();
-			}
-			return false;
-			break;
-		case S1_DEC:
-			if (record->event.pressed)
-			{
-				backlight_color_1_sat_decrease();
-				break;
-			}
-			return false;
-			break;
-		case H2_INC:
-			if (record->event.pressed)
-			{
-				backlight_color_2_hue_increase();
-			}
-			return false;
-			break;
-		case H2_DEC:
-			if (record->event.pressed)
-			{
-				backlight_color_2_hue_decrease();
-			}
-			return false;
-			break;
-		case S2_INC:
-			if (record->event.pressed)
-			{
-				backlight_color_2_sat_increase();
-			}
-			return false;
-			break;
-		case S2_DEC:
-			if (record->event.pressed)
-			{
-				backlight_color_2_sat_decrease();
-				break;
-			}
-			return false;
-			break;
-	}*/
 
 	return process_record_user(keycode, record);
 }
