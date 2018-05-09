@@ -68,3 +68,11 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+*.BAK001
+keyboards/ergo42/keymaps/hdbx_prv/config.h
+keyboards/ergo42/keymaps/hdbx_prv/keymap.c
+keyboards/ergo42/keymaps/hdbx_prv/readme.md
+keyboards/ergo42/keymaps/hdbx_prv/rules.mk
+*.BAK002
+keyboards/ergo42/keymaps/default/readme.md
+keyboards/ergo42/keymaps/hdbx_prv2/_keymap.c
