@@ -1,5 +1,5 @@
-#ifndef LETS_SPLIT_VITAMINS_H
-#define LETS_SPLIT_2VITAMINS_H
+#ifndef VITAMINS_INCLUDED_H
+#define VITAMINS_INCLUDED_H
 
 #include "quantum.h"
 
