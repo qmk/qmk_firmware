@@ -6,6 +6,8 @@ Keyboard Maintainer: [James Underwood](https://github.com/ju0)
 Hardware Supported: naKey  
 Hardware Availability: [ckeys.org](https://ckeys.org)
 
+To build this keyboard, follow the [build guide](https://ckeys.org/tutorials/nakey-numpad-build-guide/). 
+
 Make example for this keyboard (after setting up your build environment):
 
     make ckeys/nakey:default
