@@ -5,15 +5,15 @@ Obelus
 
 Keyboard Maintaintainers: [Ethan Madden](https://github.com/jetpacktuxedo), [James Underwood](https://github.com/ju0)  
 Hardware Supported: Obelus  
-Hardware Availability: C-Keys soldering workshops, /u/MonkeyPlusPlus  
+Hardware Availability: [C-Keys soldering workshops](https://ckeys.org/workshops/), [/u/MonkeyPlusPlus](https://www.reddit.com/user/monkeyplusplus)  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make obelus:default
+    make ckeys/obelus:default
 
 Or to make and flash:
 
-    make obelus:default:dfu
+    make ckeys/obelus:default:dfu
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) and [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
