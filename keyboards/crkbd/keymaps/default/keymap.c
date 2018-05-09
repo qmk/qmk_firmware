@@ -109,6 +109,9 @@ int RGB_current_mode;
 char KEYLOG[40] = {};
 char KEYLOGS[21] = {};
 int KEYLOGS_IDX = 0;
+char TIMELOG[40] = {};
+int LAST_TIME = 0;
+int ELAPSED_TIME = 0;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -210,6 +213,11 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
     }
     KEYLOGS[KEYLOGS_IDX] = name;
     KEYLOGS_IDX++;
+
+    // update timelog
+    ELAPSED_TIME = timer_elapsed(LAST_TIME);
+    LAST_TIME = timer_read();
+    snprintf(TIMELOG, sizeof(TIMELOG), "lt:%5d, et:%5d", LAST_TIME, ELAPSED_TIME);
   }
 
   // For led
@@ -283,6 +291,10 @@ void render_status(struct CharacterMatrix *matrix) {
   // key logs
   matrix_write_P(matrix, PSTR("\n"));
   matrix_write(matrix, KEYLOGS);
+
+  // time log
+  matrix_write_P(matrix, PSTR("\n"));
+  matrix_write(matrix, TIMELOG);
 }
 
 void iota_gfx_record_user(uint16_t keycode, keyrecord_t *record) {
