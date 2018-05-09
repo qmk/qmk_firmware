@@ -129,6 +129,9 @@ void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);
 void eeconfig_debug_rgblight(void);
 
+void rgb_matrix_increase(void);
+void rgb_matrix_decrease(void);
+
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
