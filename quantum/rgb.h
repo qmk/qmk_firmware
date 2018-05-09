@@ -44,4 +44,10 @@ void rgblight_increase_val(void) {};
 __attribute__((weak))
 void rgblight_decrease_val(void) {};
 
+__attribute__((weak))
+void rgblight_increase_speed(void) {};
+
+__attribute__((weak))
+void rgblight_decrease_speed(void) {};
+
 #endif

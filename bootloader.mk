@@ -61,7 +61,12 @@ ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
 endif
 ifeq ($(strip $(BOOTLOADER)), halfkay)
     OPT_DEFS += -DBOOTLOADER_HALFKAY
-    BOOTLOADER_SIZE = 512
+    ifeq ($(strip $(MCU)), atmega32u4)
+      BOOTLOADER_SIZE = 512
+    endif
+    ifeq ($(strip $(MCU)), at90usb1286)
+      BOOTLOADER_SIZE = 1024
+    endif
 endif
 ifeq ($(strip $(BOOTLOADER)), caterina)
     OPT_DEFS += -DBOOTLOADER_CATERINA
