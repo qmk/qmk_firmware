@@ -107,6 +107,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool TOG_STATUS = false;
 int RGB_current_mode;
 char KEYLOG[40] = {};
+char KEYLOGS[21] = {};
+int KEYLOGS_IDX = 0;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -176,8 +178,6 @@ static void render_logo(struct CharacterMatrix *matrix) {
 
 void update_status(uint16_t keycode, keyrecord_t *record) {
 
-
-  // Render key
   char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -187,17 +187,30 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
     ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '
   };
 
-  char name = ' ';
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
+  if (record->event.pressed) {
+    char name = ' ';
+    if (keycode < 60) {
+      name = code_to_name[keycode];
+    }
 
-  snprintf(KEYLOG, sizeof(KEYLOG), "%dx%d, k%2d : %c",
-    record->event.key.row,
-    record->event.key.col,
-    keycode,
-    name
-  );
+    // update keylog
+    snprintf(KEYLOG, sizeof(KEYLOG), "%dx%d, k%2d : %c",
+      record->event.key.row,
+      record->event.key.col,
+      keycode,
+      name
+    );
+
+    // update keylogs
+    if (KEYLOGS_IDX == sizeof(KEYLOGS)-1) {
+      KEYLOGS_IDX = 0;
+      for (int i = 0; i < sizeof(KEYLOGS)-1; i++) {
+       KEYLOGS[i] = ' ';
+      }
+    }
+    KEYLOGS[KEYLOGS_IDX] = name;
+    KEYLOGS_IDX++;
+  }
 
   // For led
   // char key[40];
@@ -222,21 +235,21 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
 void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
-  static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, logo[0][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[0][1]);
-  }else{
-    matrix_write(matrix, logo[1][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[1][1]);
-  }
+  // static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+  // if(keymap_config.swap_lalt_lgui==false){
+  //   matrix_write(matrix, logo[0][0]);
+  //   matrix_write_P(matrix, PSTR("\n"));
+  //   matrix_write(matrix, logo[0][1]);
+  // }else{
+  //   matrix_write(matrix, logo[1][0]);
+  //   matrix_write_P(matrix, PSTR("\n"));
+  //   matrix_write(matrix, logo[1][1]);
+  // }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(matrix, PSTR("\nLayer: "));
+  matrix_write_P(matrix, PSTR("Layer: "));
     switch (layer_state) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Default"));
@@ -256,16 +269,20 @@ void render_status(struct CharacterMatrix *matrix) {
     }
 
   // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(matrix, led);
+  // char led[40];
+  //   snprintf(led, sizeof(led), "\n%s  %s  %s",
+  //           (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+  //           (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+  //           (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+  // matrix_write(matrix, led);
 
   // key log
   matrix_write_P(matrix, PSTR("\n"));
   matrix_write(matrix, KEYLOG);
+
+  // key logs
+  matrix_write_P(matrix, PSTR("\n"));
+  matrix_write(matrix, KEYLOGS);
 }
 
 void iota_gfx_record_user(uint16_t keycode, keyrecord_t *record) {
