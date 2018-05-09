@@ -4,28 +4,12 @@ Let's Split Vitamins Included
 
 This readme and most of the code are from https://github.com/ahtn/tmk_keyboard/
 
+
 **Hardware files for the Let's Split vitamins included are stored [here](http://github.com/duckle29/let-s-Split-v2/tree/onboardMCU)**
 
 ## First Time Setup
 
-Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html), you'll be able to generate the default .hex using:
-
-```bash
-make lets_split_vitamins/rev1:default
-```
-
-You will see a lot of output and if everything worked correctly you will see the built hex file:
-
-```bash
-lets_split_vitamins_rev1_default.hex
-```
-
-If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
-
-
-```bash
-make lets_split_vitamins/rev1:YOUR_KEYMAP_NAME
-```
+Clone the `qmk_firmware` repo and navigate to its top level directory. [Once your build environment is setup](https://docs.qmk.fm/getting_started_build_tools.html), you'll be able to generate the default .hex using the [build/compile instructions](https://docs.qmk.fm/build-compile-instructions) in the docs
 
 If everything worked correctly you will see a file:
 
