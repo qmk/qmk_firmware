@@ -75,5 +75,5 @@ CUSTOM_MATRIX = yes
 #    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
 #endif
 
-DEFAULT_FOLDER = meira/promicro
+DEFAULT_FOLDER = meira/featherble
 LAYOUTS = ortho_4x12
