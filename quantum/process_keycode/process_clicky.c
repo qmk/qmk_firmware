@@ -3,11 +3,6 @@
 
 #ifdef AUDIO_CLICKY
 
-#ifdef AUDIO_CLICKY_ON
-bool clicky_enable = true;
-#else // AUDIO_CLICKY_ON
-bool clicky_enable = false;
-#endif // AUDIO_CLICKY_ON
 #ifndef AUDIO_CLICKY_FREQ_DEFAULT
 #define AUDIO_CLICKY_FREQ_DEFAULT 440.0f
 #endif // !AUDIO_CLICKY_FREQ_DEFAULT
@@ -27,6 +22,8 @@ bool clicky_enable = false;
 float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
 float clicky_song[][2]  = {{AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
 
+extern audio_config_t audio_config;
+
 #ifndef NO_MUSIC_MODE
 extern bool music_activated;
 extern bool midi_activated;
@@ -42,7 +39,10 @@ void clicky_play(void) {
 }
 
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_enable = !clicky_enable; }
+    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
+      audio_config.clicky ^= 1;
+      eeconfig_update_audio(audio_config.raw);
+    }
 
     if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT; }
 
@@ -60,7 +60,7 @@ bool process_clicky(uint16_t keycode, keyrecord_t *record) {
     }
 
 
-    if ( clicky_enable ) {
+    if ( audio_config.clicky ) {
       if (record->event.pressed) {
         clicky_play();;
       }
