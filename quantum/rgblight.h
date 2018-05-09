@@ -113,6 +113,8 @@ void rgblight_increase_sat(void);
 void rgblight_decrease_sat(void);
 void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
+void rgblight_increase_speed(void);//For future implimentation of RGBlight efect speeds
+void rgblight_decrease_speed(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 uint16_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
