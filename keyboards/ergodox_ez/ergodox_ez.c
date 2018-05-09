@@ -208,6 +208,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /*   driver
  *   |  R location
@@ -332,3 +333,4 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     {{4|(8<<4)},   {24.9*1, 16*2}, 0}, // LED 23
     {{4|(9<<4)},   {24.9*0, 16*2}, 0}, // LED 24
 };
+#endif
