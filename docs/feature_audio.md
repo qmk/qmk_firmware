@@ -128,13 +128,11 @@ This adds a click sound each time you hit a button, to simulate click sounds fro
 * `CK_UP` - Increases the frequency of the clicks
 * `CK_DOWN` - Decreases the frequency of the clicks
 
+
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
     #define AUDIO_CLICKY
 
-Additionally, even when enabled, the feature is not enabled by default, so you would need to turn it on first.  And since we don't use EEPROM to store the setting (yet), you can default this to on by adding this to your `config.h`:
-
-    #define AUDIO_CLICKY_ON
 
 You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
 
