@@ -131,11 +131,9 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
-{% hint style='info' %}
-Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
+?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
 
-Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
-{% endhint %}
+?> Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 

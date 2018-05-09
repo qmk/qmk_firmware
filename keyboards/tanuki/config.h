@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Maarten Dekkers <atomkeeb@gmail.com
+Copyright 2015 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,32 +22,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0003
-#define MANUFACTURER    Vortex
-#define PRODUCT         Core
-#define DESCRIPTION     Atom47 PCB for the Vortex Core
+#define PRODUCT_ID      0x6464
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    Seth
+#define PRODUCT         Tanuki PCB version
+#define DESCRIPTION     Handwired 40% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 13
+#define MATRIX_COLS 11
 
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {B1,B2,B3,B7}
-#define MATRIX_COL_PINS {D7,D5,F0,F1,F4,F6,F7,D4,C7,C6,D6,B5,B4}
+#define MATRIX_COL_PINS {  B3 , B2 , B6 , B5 , B4 , E6 , D7 , C6 , F4 , F5 , F6 }
+#define MATRIX_ROW_PINS {  F7 , B1 , D4 , D0 }
 #define UNUSED_PINS
-
-#define BACKLIGHT_PIN B6
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -59,16 +52,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* Backlight configuration
+#define RGB_DI_PIN D1
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 5
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
+
+#define TAPPING_TERM 200
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
  */
-#define BACKLIGHT_LEVELS 4
 
-#define RGB_DI_PIN D0    // The pin the LED strip is connected to
-#define RGBLED_NUM 1     // Number of LEDs in your strip
+/* disable debug print */
+//#define NO_DEBUG
 
-#define QMK_ESC_OUTPUT D7 // usually COL
-#define QMK_ESC_INPUT B1 // usually ROW
-#define QMK_LED B6
+/* disable print */
+//#define NO_PRINT
+
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 #endif
-
