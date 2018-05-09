@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef REV2_CONFIG_H
+#define REV2_CONFIG_H
 
 #include "config_common.h"
 
@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Vortex
 #define PRODUCT         Core
-#define DESCRIPTION     Atom47 PCB for the Vortex Core
+#define DESCRIPTION     Atom47 PCB for the Vortex Core Rev.2
 
 /* key matrix size */
 #define MATRIX_ROWS 4
