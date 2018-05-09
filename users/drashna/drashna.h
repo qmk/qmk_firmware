@@ -55,7 +55,7 @@ void rgblight_sethsv_default_helper(uint8_t index);
 #define EECONFIG_USERSPACE (uint8_t *)20
 
 typedef union {
-  uint32_t raw;
+  uint8_t raw;
   struct {
     bool     clicky_enable  :1;
     bool     is_overwatch   :1;

@@ -449,30 +449,6 @@ uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
   switch (biton32(state)) {
-//   case _NAV:
-// #ifdef RGBLIGHT_ENABLE
-//     if (rgb_layer_change) {
-//       rgblight_sethsv_blue();
-//       rgblight_mode(1);
-//     }
-// #endif // RGBLIGHT_ENABLE
-//     break;
-//   case _SYMB:
-// #ifdef RGBLIGHT_ENABLE
-//     if (rgb_layer_change) {
-//       rgblight_sethsv_blue();
-//       rgblight_mode(2);
-//     }
-// #endif // RGBLIGHT_ENABLE
-//     break;
-//   case _MOUS:
-// #ifdef RGBLIGHT_ENABLE
-//     if (rgb_layer_change) {
-//       rgblight_sethsv_yellow();
-//       rgblight_mode(1);
-//     }
-// #endif // RGBLIGHT_ENABLE
-//     break;
   case _MACROS:
 #ifdef RGBLIGHT_ENABLE
     if (rgb_layer_change) {
@@ -480,6 +456,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _MEDIA:
 #ifdef RGBLIGHT_ENABLE
@@ -488,6 +465,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(22);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _GAMEPAD:
 #ifdef RGBLIGHT_ENABLE
@@ -496,6 +474,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(17);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _DIABLO:
 #ifdef RGBLIGHT_ENABLE
@@ -504,6 +483,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _RAISE:
 #ifdef RGBLIGHT_ENABLE
@@ -512,6 +492,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _LOWER:
 #ifdef RGBLIGHT_ENABLE
@@ -520,6 +501,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _ADJUST:
 #ifdef RGBLIGHT_ENABLE
@@ -528,44 +510,43 @@ uint32_t layer_state_set_user(uint32_t state) {
       rgblight_mode(23);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
-//   case _COVECUBE:
-// #ifdef RGBLIGHT_ENABLE
-//     if (rgb_layer_change) {
-//       rgblight_sethsv_green();
-//       rgblight_mode(2);
-//     }
-// #endif // RGBLIGHT_ENABLE
-//     break;
   default: //  for any other layers, or the default layer
     if (default_layer & (1UL << _COLEMAK)) {
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_sethsv_magenta(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else if (default_layer & (1UL << _DVORAK)) {
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_sethsv_green(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else if (default_layer & (1UL << _WORKMAN)) {
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_sethsv_goldenrod(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else {
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_sethsv_teal(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_mode(2); }
 #endif // RGBLIGHT_ENABLE
+
     } else {                       // otherwise, stay solid
 #ifdef RGBLIGHT_ENABLE
       if (rgb_layer_change) { rgblight_mode(1); }
 #endif // RGBLIGHT_ENABLE
+
     }
     break;
   }
