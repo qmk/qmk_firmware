@@ -3,7 +3,7 @@
 #define DISABLE_JTAG // The keyboard uses PF4, PF5 and PF7, which are used by JTAG.
 #define EE_HANDS // This isn't optional for the vitamins included
 
-#include "lets_split.h"
+#include QMK_KEYBOARD_H
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
