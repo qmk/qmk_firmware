@@ -92,6 +92,7 @@ typedef union {
     uint16_t hue     :9;
     uint8_t  sat     :8;
     uint8_t  val     :8;
+    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
   };
 } rgblight_config_t;
 
@@ -113,7 +114,7 @@ void rgblight_increase_sat(void);
 void rgblight_decrease_sat(void);
 void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
-void rgblight_increase_speed(void);//For future implimentation of RGBlight efect speeds
+void rgblight_increase_speed(void);
 void rgblight_decrease_speed(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 uint16_t rgblight_get_hue(void);
