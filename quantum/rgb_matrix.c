@@ -366,7 +366,6 @@ void rgb_matrix_cycle_all(void) {
 }
 
 void rgb_matrix_cycle_left_right(void) {
-    //xprintf("rgb_matrix_config.speed = %d\n", rgb_matrix_config.speed);
     uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
     HSV hsv = { .h = 0, .s = 255, .v = rgb_matrix_config.val };
     RGB rgb;
