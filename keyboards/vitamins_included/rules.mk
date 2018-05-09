@@ -72,4 +72,4 @@ CUSTOM_MATRIX = yes
 
 LAYOUTS = ortho_4x12
 
-DEFAULT_FOLDER = lets_split/rev1
+DEFAULT_FOLDER = vitamins_included/rev1
