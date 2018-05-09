@@ -65,14 +65,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-[BASE] = KEYMAP(
-    TD(TD_TOGGLE)),
-[LED] = KEYMAP(
+  [BASE] = LAYOUT(
     TD(TD_TOGGLE)
-    )
-
-
+  ),
+  [LED] = LAYOUT(
+    TD(TD_TOGGLE)
+  )
 };
 
 
