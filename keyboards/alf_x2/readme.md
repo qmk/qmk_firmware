@@ -4,13 +4,9 @@
 
 A customizable 60% keyboard.
 
-In QMK Configurator, the two keys to the left and right of the spacebar are the microswitches at the top of the PCB.
-
-In the LAYOUT macros, K404 and K408 are the microswitches at the top of the PCB.
-
 Keyboard Maintainer: QMK Community  
 Hardware Supported: ALF X2 60%  
-Hardware Availability: [zfrontier](https://en.zfrontier.com/products/group-buy-alf-x2-60)
+Hardware Availability: [zFrontier](https://en.zfrontier.com/products/group-buy-alf-x2-60)
 
 Make example for this keyboard (after setting up your build environment):
 
