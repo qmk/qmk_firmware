@@ -67,13 +67,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_UPPER] = LAYOUT( \
-  KC_TRNS,  KC_TRNS,    KC_MS_UP,   KC_TRNS,     KC_TRNS, KC_VOLU, KC_TRNS,  KC_UP,      KC_TRNS,    KC_TRNS, \
-  KC_TRNS,  KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_TRNS, KC_MUTE, KC_LEFT,  KC_DOWN,    KC_RIGHT,   KC_TRNS, \
-  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_VOLD, KC_SLSH,  KC_BSLS,    KC_QUES,    KC_PIPE, \
-            KC_TRNS,    KC_TRNS,                                             KC_MS_BTN1, KC_MS_BTN2,          \
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            \
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                            \
-                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS                                             \
+  KC_TRNS,  KC_TRNS,    KC_MS_UP,   KC_TRNS,     KC_TRNS, KC_VOLU, KC_TRNS,  KC_UP,      KC_TRNS,    KC_PGUP,   \
+  KC_TRNS,  KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_TRNS, KC_MUTE, KC_LEFT,  KC_DOWN,    KC_RIGHT,   KC_PGDOWN, \
+  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_VOLD, KC_SLSH,  KC_BSLS,    KC_QUES,    KC_PIPE,   \
+            KC_TRNS,    KC_TRNS,                                             KC_MS_BTN1, KC_MS_BTN2,            \
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                              \
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                              \
+                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS                                               \
 ),
 /* Lower
  * ,----------------------------------,                             ,----------------------------------,
