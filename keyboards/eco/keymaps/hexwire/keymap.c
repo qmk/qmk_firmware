@@ -2,7 +2,7 @@
 // Default ECO Layout
 // KLE here : http://www.keyboard-layout-editor.com/#/gists/0733eca6b4cb88ff9d7de746803f4039
 
-#include "eco.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -50,7 +50,7 @@ enum eco_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  ,LPRN,RPRN, Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_LOWER] = KC_KEYMAP(
+  [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,LPRN,RPRN, 6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_RAISE] = KC_KEYMAP(
+  [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,    ,    ,CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN3] = KC_KEYMAP(
+  [_FN3] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,    ,    , F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|

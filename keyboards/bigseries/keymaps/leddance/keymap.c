@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../../bigseries.h"
+#include QMK_KEYBOARD_H
 #include "print.h"
 
 extern rgblight_config_t rgblight_config;
@@ -66,12 +66,12 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[BASE] = KEYMAP(
-    TD(TD_TOGGLE)),
-[LED] = KEYMAP(
+  [BASE] = LAYOUT(
     TD(TD_TOGGLE)
-    )
-
+  ),
+  [LED] = LAYOUT(
+    TD(TD_TOGGLE)
+  )
 
 };
 

@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "chibios_test", 
+  "url": "", 
+  "maintainer": "qmk", 
+  "width": 1, 
+  "height": 1, 
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{"x":0, "y":0}]
+    }
+  }
+}

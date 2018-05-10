@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 //**************************FIRST LAYER - LAYER ZERO ************************************** 
-  [_QWERTY] = KEYMAP(
+  [_QWERTY] = LAYOUT(
 
     SHF6_AF7,   F1_F13,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
     ________,     KC_Q,  CTR_SH_W,     NAV_E, CTR_AL_R,      KC_T, PRINTSCR,
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   //**************************SYMBOLS LAYER**************************
-  [_SYMBOLS] = KEYMAP(
+  [_SYMBOLS] = LAYOUT(
     ________, ________, ________, ________, ________, ________,  ________,
     ________,   TLSLSH,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
     ________,  KC_EXLM,  KC_PIPE,  KC_LPRN,  KC_RPRN, M(DEREF),
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      ________,________,________),
   
   //**************************MOUSE MOVEMENT LAYER**************************
-  [_MOUSE] = KEYMAP(RESET,________,________,________,________,________,________,
+  [_MOUSE] = LAYOUT(RESET,________,________,________,________,________,________,
                     RESET,________,________,KC_MS_UP,________,KC_MS_WH_UP,CALTDEL,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
                     KC_SECRET_1,________,HYPR(KC_F13),________,HYPR(KC_F14),KC_SECRET_2,________,
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //**************************WINDOWS NAVIGATION LAYER**************************
 
-  [_NAV] = KEYMAP(________,________,________,________,________,________,________,
+  [_NAV] = LAYOUT(________,________,________,________,________,________,________,
                   ________,________,SNAPLEFT,________,SNAPRGHT,LALT(KC_LEFT),________,
                   ________,LCTL(KC_W),PREVTAB,LGUI(KC_D),NEXTTAB,________,
                   ________,________,WORKLEFT,________,WORKRIGHT,________,________,
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ________,________,________),
 
   //****************************NUMPAD LAYER****************************
-  [_NUMPAD] = KEYMAP(________,________,________,________,________,________,________,
+  [_NUMPAD] = LAYOUT(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        ________,
                                        ________,________,KC_0),
   //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
-  [_TEXTNAV] = KEYMAP(________,________,________,________,________,________,________,
+  [_TEXTNAV] = LAYOUT(________,________,________,________,________,________,________,
                       ________,MEH(KC_Q),LSFT(KC_ESCAPE),MEH(KC_D),MEH(KC_2),LALT(LSFT(KC_UP)),________,
                       ________,LALT(KC_F7),LCTL(KC_LEFT),LCTL(KC_B),LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
                       ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,________,________,________,________,________,________,________,________,________,LCTL(KC_DELETE),________,LALT(LSFT(KC_F9)),________,________,________,________,________,________,________,MEH(KC_5),LALT(LSFT(KC_Z)),________,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________)

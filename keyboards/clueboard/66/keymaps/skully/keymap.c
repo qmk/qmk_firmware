@@ -1,4 +1,4 @@
-#include "66.h"
+#include QMK_KEYBOARD_H
 
 enum custom_keycodes {
    M_SHRUG = SAFE_RANGE

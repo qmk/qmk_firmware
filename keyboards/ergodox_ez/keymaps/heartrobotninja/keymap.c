@@ -2,7 +2,7 @@
 #include "action_util.h"
 #include "debug.h"
 #include "eeconfig.h"
-#include "ergodox_ez.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
 #include "wait.h"
 
