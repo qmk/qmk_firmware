@@ -92,6 +92,15 @@ bool has_oneshot_layer_timed_out(void);
 /* inspect */
 uint8_t has_anymod(void);
 
+/* custom modified values */
+# ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+bool are_there_non_charmods(void);
+bool are_there_shifts(void);
+bool are_there_ralts(void);
+bool get_mods_blocker(void);
+void set_mods_blocker(bool new_value);
+# endif
+
 #ifdef __cplusplus
 }
 #endif

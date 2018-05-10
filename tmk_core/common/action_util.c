@@ -65,6 +65,33 @@ bool has_oneshot_mods_timed_out(void) {
 #endif
 #endif
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+// # define CMV_NON_CHARMODS_MASK (0b00000000 | MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTRL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTRL))
+# define CMV_NON_CHARMODS_MASK 0b10011101
+// # define CMV_SHIFTS_MASK (0b00000000 | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LSHIFT))
+# define CMV_SHIFTS_MASK 0b00100010
+// # define CMV_RALT_MASK (0b00000000 | MOD_BIT(KC_RALT))
+# define CMV_RALT_MASK 0b01000000
+
+# ifndef NO_ACTION_ONESHOT
+#   define ARE_THERE_THESE_MODS(mods_mask) (        \
+    (mods_mask & real_mods)     ||    \
+    (mods_mask & macro_mods)    ||    \
+    (mods_mask & oneshot_mods)  ||    \
+    (mods_mask & oneshot_locked_mods))
+# else
+#   define ARE_THERE_THESE_MODS(mods_mask) ((mods_mask & real_mods) || (mods_mask & macro_mods))
+# endif
+
+static bool dont_send_mods = false;
+
+bool are_there_non_charmods(void) { return ARE_THERE_THESE_MODS(CMV_NON_CHARMODS_MASK); }
+bool are_there_shifts(void) { return ARE_THERE_THESE_MODS(CMV_SHIFTS_MASK); }
+bool are_there_ralts(void) { return ARE_THERE_THESE_MODS(CMV_RALT_MASK); }
+bool get_mods_blocker(void) { return dont_send_mods; }
+void set_mods_blocker(bool new_value) { dont_send_mods = new_value; }
+#endif
+
 /* oneshot layer */
 #ifndef NO_ACTION_ONESHOT
 /** \brief oneshot_layer_data bits
@@ -86,7 +113,7 @@ inline bool has_oneshot_layer_timed_out() {
 }
 #endif
 
-/** \brief Set oneshot layer 
+/** \brief Set oneshot layer
  *
  * FIXME: needs doc
  */
@@ -98,7 +125,7 @@ void set_oneshot_layer(uint8_t layer, uint8_t state)
     oneshot_layer_time = timer_read();
 #endif
 }
-/** \brief Reset oneshot layer 
+/** \brief Reset oneshot layer
  *
  * FIXME: needs doc
  */
@@ -108,7 +135,7 @@ void reset_oneshot_layer(void) {
     oneshot_layer_time = 0;
 #endif
 }
-/** \brief Clear oneshot layer 
+/** \brief Clear oneshot layer
  *
  * FIXME: needs doc
  */
@@ -138,6 +165,26 @@ bool is_oneshot_layer_active(void)
  * FIXME: needs doc
  */
 void send_keyboard_report(void) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+    if (dont_send_mods) {
+      keyboard_report->mods = weak_mods;
+      #ifndef NO_ACTION_ONESHOT
+          if (oneshot_mods) {
+      #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+              if (has_oneshot_mods_timed_out()) {
+                  dprintf("Oneshot: timeout\n");
+                  clear_oneshot_mods();
+              }
+      #endif
+              if (has_anykey(keyboard_report)) {
+                  clear_oneshot_mods();
+                  host_keyboard_send(keyboard_report);
+                  clear_keys();
+              }
+          }
+      #endif
+    } else {
+#endif
     keyboard_report->mods  = real_mods;
     keyboard_report->mods |= weak_mods;
     keyboard_report->mods |= macro_mods;
@@ -154,8 +201,11 @@ void send_keyboard_report(void) {
             clear_oneshot_mods();
         }
     }
-
 #endif
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+    }
+#endif
+
     host_keyboard_send(keyboard_report);
 }
 
@@ -168,12 +218,22 @@ uint8_t get_mods(void) { return real_mods; }
  *
  * FIXME: needs doc
  */
-void add_mods(uint8_t mods) { real_mods |= mods; }
+void add_mods(uint8_t mods) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  clear_keys();
+#endif
+  real_mods |= mods;
+}
 /** \brief del mods
  *
  * FIXME: needs doc
  */
-void del_mods(uint8_t mods) { real_mods &= ~mods; }
+void del_mods(uint8_t mods) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  clear_keys();
+#endif
+  real_mods &= ~mods;
+}
 /** \brief set mods
  *
  * FIXME: needs doc

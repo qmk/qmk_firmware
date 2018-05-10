@@ -117,71 +117,6 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-struct key_queue key_q = {.c_max = 0, .c = -1};
-struct key_queue* get_key_q(void) { return &key_q; }
-
-bool push_key_to_q(keyevent_describer_t new_key) {
-  if(key_q.c_max >= CMV_KEYS_IN_KEY_QUEUE) {
-    return false;
-  }
-  key_q.q[key_q.c_max++] = new_key;
-  return true;
-}
-
-#ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-static uint8_t execute_key_from_q(void/* matrix_row_t* matrix_prev */) {
-  keyevent_describer_t not_executed_yet[CMV_KEYS_IN_KEY_QUEUE];
-  uint8_t i = 0;
-#else
-static void execute_key_from_q(void/* matrix_row_t* matrix_prev */) {
-#endif
-  for(key_q.c = 0; key_q.c < key_q.c_max; key_q.c++) {
-    keyevent_describer_t* key = &(key_q.q[key_q.c]);
-#ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-    if(timer_read32() < key->time) {
-      not_executed_yet[i++] = *key;
-    } else {
-#endif
-      // print("Executing additional key.\n");
-      action_exec((keyevent_t) {
-        .key = {.row = key->row, .col = key->col},
-        .pressed = key->p,
-        .time = (timer_read() | 1)
-      });
-      // matrix_prev[key_q.q[key_q.c].key.row] ^= ((matrix_row_t)1<<key_q.q[key_q.c].key.col);
-#ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-    }
-#endif
-  }
-#ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-  uint8_t c;
-  for(c = 0; c < i; c++) {
-    key_q.q[c] = not_executed_yet[c];
-  }
-  key_q.c_max = i;
-  i = key_q.c;
-  key_q.c = -1;
-  return i;
-#else
-  key_q.c_max = 0;
-  key_q.c = -1;
-#endif
-}
-
-uint8_t delete_key_from_q(uint8_t index) {
-  if(!key_q.c_max) return 0;
-  uint8_t i;
-  for(i = 0; i < key_q.c_max; i++) {
-    if(i >= index && i+1 != key_q.c_max) {
-      // print("Reordering keys in key queue.\n");
-      key_q.q[i] = key_q.q[i+1];
-    }
-  }
-  return --key_q.c_max;
-}
-#endif
-
 /** \brief matrix_setup
  *
  * FIXME: needs doc
@@ -271,14 +206,8 @@ void keyboard_task(void)
     matrix_row_t matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-    uint8_t additional_keys_executed = 0;
-#endif
 #endif
 
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-    if(key_q.c_max) execute_key_from_q();
-#endif
     matrix_scan();
     if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
@@ -309,18 +238,7 @@ void keyboard_task(void)
                         });
                         // record a processed key
                         matrix_prev[r] ^= ((matrix_row_t)1<<c);
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-                        if(key_q.c_max)
 #ifdef QMK_KEYS_PER_SCAN
-                          additional_keys_executed =
-#endif
-                          execute_key_from_q();
-#endif
-#ifdef QMK_KEYS_PER_SCAN
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-                        keys_processed += additional_keys_executed;
-                        additional_keys_executed = 0;
-#endif
                         // only jump out if we have processed "enough" keys.
                         if (++keys_processed >= QMK_KEYS_PER_SCAN)
 #endif

@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TG(_STANDARD),         KC_6,         KC_7,         KC_8,         KC_9,         KC_0,   XXXXXXXXXX,
   TG(_NAVIGAT),         KC_J,         KC_L,         KC_U,         KC_Y,       KC_DOT,     KC_RCTRL,
                         KC_H,         KC_N,         KC_E,         KC_I,         KC_O,     KC_QUOTE,
-  MEH_T(KC_NO),         KC_K,         KC_M,     KC_MINUS,     KC_EQUAL,    KC_SCOLON,    KC_RSHIFT,
+  MEH_T(KC_NO),         KC_K,         KC_M,     KC_MINUS,     KC_EQUAL,    KC_SCOLON,OSM(MOD_LSFT),
                                    KC_LEFT,     KC_RIGHT,      KC_LABK,    KC_BSLASH,      KC_RALT,
     XXXXXXXXXX,   XXXXXXXXXX,
        KC_PGUP,
@@ -270,19 +270,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 #ifdef CUSTOM_MODIFIED_VALUES_ENABLE
-bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t col) {
+bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
   // RightAlt + BACKSPACE = DEL (No matter what key position or layer)
   if(default_kc == KC_BSPACE) return CMV(KC_BSPACE, 0, KC_DELETE, 0);
 
   switch(layer) {
   case _COLEMAK:
-    switch(col) {
+    switch(key.col) {
     case 1:
-      if(row == 0xC) return CMV(default_kc, KC_COMMA, 0, 0);
+      if(key.row == 0xC) return CMV(default_kc, KC_COMMA, 0, 0);
       break;
 
     case 4:
-      switch(row) {
+      switch(key.row) {
         case 0xB: return CMV(default_kc, KC_RABK, 0, 0);
         case 0xC: return CMV(default_kc, KC_SLASH, 0, 0);
       }
@@ -292,7 +292,7 @@ bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t c
     break;
 
   case _SYMBOLS:
-    if(col == 3 && row == 8) return CMV(default_kc, KC_COMMA, 0, 0);
+    if(key.col == 3 && key.row == 8) return CMV(default_kc, KC_COMMA, 0, 0);
     break;
   }
   return true;

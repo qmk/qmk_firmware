@@ -193,7 +193,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS) && !defined(CUSTOM_MODIFIED_VALUES_ENABLE)
+  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
