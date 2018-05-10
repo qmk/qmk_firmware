@@ -1,15 +1,17 @@
 #include "dz60.h"
+/* DZ60 layout using following options (from layouts diagram on KBDfans):
+ *  - plate B (2.25u lshift)
+ *  - opt 4 (1.75, 1, 1 on rshift)
+ *  - opt 10 (2.75, 1.25, 2.25 on space, 5x1u bottom right keys)
+ * http://www.keyboard-layout-editor.com/#/gists/225f0f4dcf6671405f744fabe314627c
+ */
 
 /* Features TODO:
- * Recordable macros
- * Lock key on one of the layer switchers? or far right, r4?
- * Meh/Hyper for fun
+ * Dynamic macros
  * Leader functions
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
  * Unicode leader commands??? (symbolic unicode)
- *
  * Multiple keystrokes to generate single keycode?
- *
  */
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -27,6 +29,16 @@
     { K200,  KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213,  KC_NO }, \
     { KC_NO, K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  KC_NO, K312,  K313,  K314 }, \
     { K400,  K401,  KC_NO, K403,  KC_NO, K405,  KC_NO, K407,  K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
+}
+
+#define _______ KC_TRNS
+
+const enum DZ60_B_4_10_Layers = {
+    L_Base,
+    L_Fn,
+    L_Nav,
+    L_Num,
+    L_RGB
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -56,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: primary fn layer */
     KEYMAP(
-            KC_GRV,    KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,     KC_F6,     KC_F7,     KC_F8,    KC_F9,     KC_F10,     KC_F11,   KC_F12,   KC_DEL,
-            KC_TAB,    KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,     KC_NO,     KC_PGDN,   KC_PGUP,  KC_NO,     KC_NO,      KC_NO,    KC_NO,    KC_NO,
-            KC_CAPS,   KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,     KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT,  KC_NO,      KC_NO,    KC_ENT,
-            KC_LSHFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,     KC_NO,     KC_NO,     KC_NO,    KC_NO,     KC_RSHIFT,  KC_HOME,  KC_PGUP,
+            KC_GRV,    KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,     KC_F6,     KC_F7,     KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
+            KC_TAB,    KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,     KC_HOME,   KC_PGDN,   KC_PGUP,  KC_END,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+            KC_CAPS,   KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,     KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
+            KC_LSHFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,     KC_NO,     KC_NO,     KC_NO,    KC_NO,     KC_LOCK,  KC_HOME,  KC_PGUP,
             KC_MEH,    KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRANS,         KC_TRANS,  KC_TRANS,  KC_TRANS,  KC_DEL,   KC_END,    KC_PGDN
           ),
 
@@ -74,13 +86,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: numpad */
     KEYMAP(
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_NO,      KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_NO,      KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRANS,    KC_TRANS,    KC_NO,    KC_NO,        KC_NO
           ),
-    /* Layer 4: right cluster modifiers */
+    /* Layer 4: RGB lighting controls */
+    KEYMAP(
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      KC_NO,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRANS,  RGB_SAD,  RGB_VAD,  RGB_SAI
+          ),
+
 };
 
 enum function_id {
@@ -128,8 +148,10 @@ void led_set_user(uint8_t usb_led) {
 /* Use RGB underglow to indicate layer
  * https://docs.qmk.fm/reference/customizing-functionality
  */
+/*
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
 case:
     }
 }
+*/
