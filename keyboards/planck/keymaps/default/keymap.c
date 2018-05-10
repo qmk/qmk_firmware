@@ -324,11 +324,6 @@ void matrix_scan_user(void) {
         last_muse_note = muse_note;
       }
     }
-    if (muse_counter > (muse_tempo / 2)) {
-      palSetPad(GPIOB, 5);
-    } else {
-      palClearPad(GPIOB, 5);
-    }
     muse_counter = (muse_counter + 1) % muse_tempo;
   }
 }
