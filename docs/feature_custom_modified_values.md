@@ -1,9 +1,9 @@
 # CMV (Custom Modified Values)
 
-## Description
+## General **Description**
 
 The **CMV** feature which stands for **Custom Modified Values** allows you to customize the keycodes processed by the firmware for given keys depending on the state of the **Character Modifiers**.
-The **Character Modifiers** (or **charmods**) are `KC_LSHIFT`, `KC_RSHIFT` and `KC_RALT` (a.k.a. `AltGr`). There are **4 charmod configurations** handled:
+The **Character Modifiers** (or **charmods**) are `Left Shift`, `Right Shift` and `Right Alt` (a.k.a. `AltGr`). There are **4 charmod configurations** handled:
 
 |           CHARMODS PRESSED              | KCID |
 |-----------------------------------------|------|
@@ -14,7 +14,9 @@ The **Character Modifiers** (or **charmods**) are `KC_LSHIFT`, `KC_RSHIFT` and `
 
 You can assign a custom value to any given key for any KCID value (i.e. **one key** can be assigned **up to 4 different keycodes** and one of them will be returned to and processed by the firmware depending on the current state of the charmods).
 
-You can assign **any 16-bit keycode** (except the eight modifiers's) as a modified value. This means that you could for example assign to the key `K` the following:
+Of course, you **don't have to** assign a keycode **for every KCID**. Assigning 0 (or  `KC_NO`) as a custom modified value makes CMV **return the default keycode** of the key (KCID=0) to the firmware. So, you could for instance bind `KC_DELETE` to a key when pressed while holding down `AltGr`, and `KC_BSPACE` to that very same key in every other cases.
+
+With most versions of **CMV**, you can assign **any 16-bit keycode as a modified value** (*This is not exactly true for every versions. Check out the detailed description for your version below*). This means that you could for example assign to the key `K` the following:
 
 | KCID | KEYCODE |
 |------|---------|
@@ -29,21 +31,16 @@ Which means that:
 - Pressing `K` with `AltGr` (= `Right Alt`) held down will switch to layer 5
 - Pressing `K` with one or more `Shift` AND `AltGr` held down will switch to layer 3
 
-Of course, you **don't have to** assign a keycode **for every KCID**. Assigning 0 (or  `KC_NO`) as a custom modified value makes CMV **return the default keycode** of the key (KCID=0) to the firmware. So, you could for instance bind `KC_DELETE` to a key when pressed while holding down `AltGr`, and `KC_BSPACE` to that very same key in every other cases.
-
 ---
-
-## Configuration
+## General **Set-Up** and **Configuration**
 
 CMV can be user-enabled by writing `#define CUSTOM_MODIFIED_VALUES_ENABLE` in your `config.h` file inside your keymap directory.
 
-By default the **Lite** version of CMV is used which is enough for a **normal use of the feature**. There is another version called the **Complete** version, which is essentially the same as the **Lite** version but has **more functionalities** hence its **bigger storage usage**. To load the **Complete** version instead of the **Lite** version, add `#define CMV_COMPLETE_VERSION` along with `#define CUSTOM_MODIFIED_VALUES_ENABLE` in your `config.h` file.
-
-For more advanced customization and configuration, see **Advanced functionalities**.
+For more advanced customization and configuration, see **Advanced functionalities** for your corresponding version below.
 
 ---
 
-## Usage
+## General **Usage**
 
 - Redefine the `bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t col)` function in your `keymap.c` file the same way you would for the `bool process_record_user(uint16_t keycode, keyrecord_t *record)` function.
 - In the `keycodes_for_key` function, use the function parameters to know which key is being processed. If you want to assign custom modified values to the processed key, use the `CMV(kcid0, kcid1, kcid2, kcid3)` macro.
@@ -55,9 +52,9 @@ For more advanced customization and configuration, see **Advanced functionalitie
 
 ---
 
-## Examples
+## General **Examples**
 
-1. **Every `KC_BSPACE` key returns `KC_DELETE` if pressed with `KC_LSHIFT` and/or `KC_RSHIFT`:**
+1. **Every `KC_BSPACE` key returns `KC_DELETE` if pressed with `Left Shift` and/or `Right Shift`:**
     ```C
     bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t col) {
         if(default_kc == KC_BSPACE) return CMV(default_kc, KC_DELETE, 0, 0);
@@ -67,7 +64,7 @@ For more advanced customization and configuration, see **Advanced functionalitie
     }
     ``` 
 
-2. Let's say there is a layer `COLEMAK` on which you assigned the key on the **col `1`** and on the **row `0xC`** to **`KC_DOT`** and you want to send **`KC_COMMA` when pressing that key with `KC_LSHIFT` and/or `KC_RSHIFT`** (Usage of this method is **DEPRECATED**, see the **WARNING** below to understand why):
+2. Let's say there is a layer `COLEMAK` on which you assigned the key on the **col `1`** and on the **row `0xC`** to **`KC_DOT`** and you want to send **`KC_COMMA` when pressing that key with `Left Shift` and/or `Right Shift`** (Usage of this method is **DEPRECATED**, see the **WARNING** below to understand why):
     ```C
     bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t col) {
         switch(layer) {
@@ -132,7 +129,7 @@ For more advanced customization and configuration, see **Advanced functionalitie
     ```
     (Note: Of course, if you use lots of custom keycodes for your Custom Modified Values, a `switch` structure is probably better to increase readability)
 
-4. Here's the code needed to accomplish the behaviour described as an example in the **Description** part:
+4. Here's the code needed to accomplish the behaviour described as an example in the **General Description** part:
 
     ```C
     enum custom_keycodes {
@@ -155,6 +152,50 @@ For more advanced customization and configuration, see **Advanced functionalitie
         return true;
     }
     ```
+
+---
+
+# v2.*
+
+## Description
+
+Three **`CMV-v2.*`** versions will be available (All three **support classic modifiers and oneshot modifiers**):
+
+- **`CMV-v2.*-Lite`**: 
+
+    - The **lighter** of the three (~400 bytes).
+    - It **doesn't update** the processed keycode when **pressing or releasing a modifier while a non-modifier key is held down**. It doesn't store the keycodes processed: this means it can result in **unexpected and undesirable behaviours** when releasing a key assigned to an **advanced keycode** (i.e. some of 16-bit *quantum* keycodes) **if the active modifiers are not the same as those when you pressed the key** in the first place.
+    
+        But this version handles the **basic keycodes** (i.e. every 8-bit *TMK* keycodes and some 16-bit *quantum* keycodes) as custom modified values just fine.
+
+    - In conclusion, this version is **perfect for a basic use** of the CMV feature.
+
+- **`CMV-v2.*-Normal`**: *TO BE COMING...*
+
+- **`CMV-v2.*-Complete`**: *TO BE COMING...*
+
+---
+# v1.*
+
+## Description
+
+These are the first versions of the feature. Although they work great, they use a **different internal architecture** (i.e. far **more messy** and far **less clean**) than more recent versions and are **heavier in general**.
+
+---
+
+## Limitations
+
+- **No `CMV-v1.*` version supports Oneshot modifiers.**
+- You **cannot** assign **modifier**'s keycodes **as custom modified values**.
+- `CMV-v1.*` versions require **more storage space** than more recent versions.
+
+---
+
+## Configuration
+
+By default the **Lite** version of `CMV-v1.*` is used which is enough for a **normal use of the feature**. There is another version called the **Complete** version, which is essentially the same as the **Lite** version but has **more functionalities** hence its **bigger storage usage**. To load the **Complete** version instead of the **Lite** version, add `#define CMV_COMPLETE_VERSION` along with `#define CUSTOM_MODIFIED_VALUES_ENABLE` in your `config.h` file.
+
+For more advanced customization and configuration, see **Advanced functionalities**.
 
 ---
 

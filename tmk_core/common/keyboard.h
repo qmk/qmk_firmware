@@ -42,31 +42,6 @@ typedef struct {
 /* equivalent test of keypos_t */
 #define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
 
-#if defined(CUSTOM_MODIFIED_VALUES_ENABLE) && defined(CMV_COMPLETE_VERSION)
-#ifndef CMV_KEYS_IN_KEY_QUEUE
-#define CMV_KEYS_IN_KEY_QUEUE 3
-#endif
-typedef struct {
-  uint8_t row;
-  uint8_t col;
-  bool    p    :1;
-  uint8_t kcid :2;
-#ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-  uint32_t time;
-#endif
-} keyevent_describer_t;
-
-struct key_queue {
-  uint8_t c_max :2;
-  int8_t c      :3;
-  keyevent_describer_t q[CMV_KEYS_IN_KEY_QUEUE];
-};
-
-struct key_queue* get_key_q(void);
-bool push_key_to_q(keyevent_describer_t new_key);
-uint8_t delete_key_from_q(uint8_t index);
-#endif
-
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
  * 2) Matrix(255, 255) to make TICK event available
