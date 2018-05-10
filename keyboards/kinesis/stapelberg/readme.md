@@ -44,11 +44,10 @@ The exterior cables can be seen here.
 
 ### Default
 
-To build with the default keymap, run `make default` while in the
-`kinesis_stapelberg` working directory.
+To build with the default keymap, run `make kinesis/stapelberg` while in the QMK directory.
 
 ### Dvorak
 
 This keymap contains a dvorak implementation as well as media and symbol layers.
 
-Run `make dvorak` while in the `kinesis_stapelberg` working directory.
+Run `make kinesis/stapelberg:dvorak` while in the QMK directory.

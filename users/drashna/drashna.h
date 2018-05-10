@@ -20,25 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 // Define layer names
-#define _QWERTY 0
-#define _NUMLOCK 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _WORKMAN 3
-#define _MODS 4
-//#define _MISC 5
-#define _NAV 6
-#define _COVECUBE 7
-#define _SYMB 8
-#define _GAMEPAD 9
-#define _DIABLO 10
-#define _MOUS 11
-#define _MACROS 12
-#define _MEDIA 13
-#define _LOWER 14
-#define _RAISE 15
-#define _ADJUST 16
-
+enum userspace_layers {
+  _QWERTY = 0,
+  _NUMLOCK = 0,
+  _COLEMAK,
+  _DVORAK,
+  _WORKMAN,
+  _MODS,
+  _NAV,
+  _COVECUBE,
+  _SYMB,
+  _GAMEPAD,
+  _DIABLO,
+  _MOUS,
+  _MACROS,
+  _MEDIA,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -49,8 +49,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool is_overwatch;
 extern bool rgb_layer_change;
+extern bool clicky_enable;
+
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index);
+#endif // RGBLIGHT_ENABLE
+
+#define EECONFIG_USERSPACE (uint8_t *)20
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
@@ -59,9 +73,6 @@ enum userspace_custom_keycodes {
   KC_COLEMAK,
   KC_DVORAK,
   KC_WORKMAN,
-  LOWER,
-  RAISE,
-  ADJUST,
   KC_DIABLO_CLEAR,
   KC_OVERWATCH,
   KC_SALT,
@@ -83,9 +94,17 @@ enum userspace_custom_keycodes {
   KC_SECRET_3,
   KC_SECRET_4,
   KC_SECRET_5,
-  KC_FXCL,
+  KC_CCCV,
+#ifdef UNICODE_ENABLE
+  UC_FLIP,
+#endif //UNICODE_ENABLE
   NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
 };
+
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define ADJUST MO(_ADJUST)
+
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
@@ -98,6 +117,20 @@ enum userspace_custom_keycodes {
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 #define KC_RST KC_RESET
+
+
+#ifdef SWAP_HANDS_ENABLE
+#define KC_C1R3 SH_TT
+#else // SWAP_HANDS_ENABLE
+#define KC_C1R3 KC_BSPC
+#endif // SWAP_HANDS_ENABLE
+
+// OSM keycodes, to keep things clean and easy to change
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+
+#define MG_NKRO MAGIC_TOGGLE_NKRO
+
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -123,22 +156,6 @@ enum {
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
-
-// OSM keycodes, to keep things clean and easy to change
-#define KC_MLSF OSM(MOD_LSFT)
-#define KC_MRSF OSM(MOD_RSFT)
-
-
-
-// If we're still using the official Faux Clicky feature, substitute codes
-// so that we don't have any unused/blank keys.
-#ifdef FAUXCLICKY_ENABLE
-#define AUD_ON  FC_ON
-#define AUD_OFF FC_OFF
-#else // FAUXCLICKY_ENABLE
-#define AUD_ON  AU_ON
-#define AUD_OFF AU_OFF
-#endif // FAUXCLICKY_ENABLE
 
 
 
@@ -200,13 +217,13 @@ enum {
 #define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
 
 
-#define _________________WORKMAN_L1________________       KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
-#define _________________WORKMAN_L2________________       KC_A,    KC_O,    KC_E,   KC_U,     KC_I
-#define _________________WORKMAN_L3________________ CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
+#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
+#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
+#define _________________WORKMAN_L3________________ CTL_T(KC_Z),   KC_X,    KC_M,   KC_C,     KC_V
 
-#define _________________WORKMAN_R1________________       KC_F,    KC_G,    KC_C,    KC_R,    KC_L
-#define _________________WORKMAN_R2________________       KC_D,    KC_H,    KC_T,    KC_N,    KC_S
-#define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+#define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
+#define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
+#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,    CTL_T(KC_SLASH)
 
 
 #define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
@@ -217,7 +234,8 @@ enum {
 #define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
-
+#define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -227,4 +245,9 @@ enum {
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
-#endif
+#define __________________ERGODOX_THUMB_CLUSTER_____________________       ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+                                                                                              KC_HOME,                 KC_PGUP, \
+                                                                            KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+
+
+#endif // !USERSPACE

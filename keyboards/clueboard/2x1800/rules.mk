@@ -59,5 +59,6 @@ COMMAND_ENABLE = yes        # Commands for debug and configuration
 NKRO_ENABLE = yes            # USB Nkey Rollover
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
-AUDIO_ENABLE = no           # Audio output on port C6
+RGBLIGHT_ENABLE = no        # RGB on port C6
+AUDIO_ENABLE = no           # Audio output on port C4 and B7
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
