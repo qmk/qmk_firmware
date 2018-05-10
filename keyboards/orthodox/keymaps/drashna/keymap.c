@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
+extern userspace_config_t userspace_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -114,36 +115,38 @@ void matrix_scan_keymap (void) {
   static uint8_t current_oneshot_mods;
   static bool has_status_changed = true;
 
-  if ( current_mods != get_mods() || current_host_leds != host_keyboard_leds() || current_oneshot_mods != get_oneshot_mods()) {
-    has_status_changed = true;
-    current_mods = get_mods();
-    current_host_leds = host_keyboard_leds();
-    current_oneshot_mods = get_oneshot_mods();
-  }
-  if (has_status_changed) {
-    has_status_changed = false;
-
-    if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, 5);
-      rgblight_sethsv_at(0, 255, 255, 10);
-    } else {
-      rgblight_sethsv_default_helper(5);
-      rgblight_sethsv_default_helper(10);
+  if (userspace_config.rgb_layer_change) {
+    if ( current_mods != get_mods() || current_host_leds != host_keyboard_leds() || current_oneshot_mods != get_oneshot_mods()) {
+      has_status_changed = true;
+      current_mods = get_mods();
+      current_host_leds = host_keyboard_leds();
+      current_oneshot_mods = get_oneshot_mods();
     }
-    if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, 6);
-      rgblight_sethsv_at(51, 255, 255, 9);
-    } else {
-      rgblight_sethsv_default_helper(6);
-      rgblight_sethsv_default_helper(9);
-    }
-    if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, 7);
-      rgblight_sethsv_at(120, 255, 255, 8);
-    } else {
-      rgblight_sethsv_default_helper(7);
-      rgblight_sethsv_default_helper(8);
+    if (has_status_changed) {
+      has_status_changed = false;
 
+      if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
+        rgblight_sethsv_at(0, 255, 255, 5);
+        rgblight_sethsv_at(0, 255, 255, 10);
+      } else {
+        rgblight_sethsv_default_helper(5);
+        rgblight_sethsv_default_helper(10);
+      }
+      if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
+        rgblight_sethsv_at(51, 255, 255, 6);
+        rgblight_sethsv_at(51, 255, 255, 9);
+      } else {
+        rgblight_sethsv_default_helper(6);
+        rgblight_sethsv_default_helper(9);
+      }
+      if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
+        rgblight_sethsv_at(120, 255, 255, 7);
+        rgblight_sethsv_at(120, 255, 255, 8);
+      } else {
+        rgblight_sethsv_default_helper(7);
+        rgblight_sethsv_default_helper(8);
+
+      }
     }
   }
 }
