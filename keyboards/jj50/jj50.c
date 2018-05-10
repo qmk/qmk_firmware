@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "jj50.h"
-//#include "rgblight.h"
 
 #include <avr/pgmspace.h>
 

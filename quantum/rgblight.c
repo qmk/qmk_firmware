@@ -23,6 +23,13 @@
 #include "debug.h"
 #include "led_tables.h"
 
+#ifndef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#endif
+
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
+
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 __attribute__ ((weak))
@@ -46,11 +53,9 @@ bool rgblight_timer_enabled = false;
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
 
-  #ifdef RGBLIGHT_LIMIT_VAL
-    if (val > RGBLIGHT_LIMIT_VAL) {
+  if (val > RGBLIGHT_LIMIT_VAL) {
       val=RGBLIGHT_LIMIT_VAL; // limit the val
-    }
-  #endif
+  }
 
   if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
     r = val;
@@ -119,7 +124,8 @@ void eeconfig_update_rgblight_default(void) {
   rgblight_config.mode = 1;
   rgblight_config.hue = 0;
   rgblight_config.sat = 255;
-  rgblight_config.val = 255;
+  rgblight_config.val = RGBLIGHT_LIMIT_VAL;
+  rgblight_config.speed = 0;
   eeconfig_update_rgblight(rgblight_config.raw);
 }
 void eeconfig_debug_rgblight(void) {
@@ -129,6 +135,7 @@ void eeconfig_debug_rgblight(void) {
   dprintf("rgblight_config.hue = %d\n", rgblight_config.hue);
   dprintf("rgblight_config.sat = %d\n", rgblight_config.sat);
   dprintf("rgblight_config.val = %d\n", rgblight_config.val);
+  dprintf("rgblight_config.speed = %d\n", rgblight_config.speed);
 }
 
 void rgblight_init(void) {
@@ -278,6 +285,18 @@ void rgblight_disable(void) {
   rgblight_set();
 }
 
+// Deals with the messy details of incrementing an integer
+uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+    int16_t new_value = value;
+    new_value += step;
+    return MIN( MAX( new_value, min ), max );
+}
+
+uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+    int16_t new_value = value;
+    new_value -= step;
+    return MIN( MAX( new_value, min ), max );
+}
 
 void rgblight_increase_hue(void) {
   uint16_t hue;
@@ -313,8 +332,8 @@ void rgblight_decrease_sat(void) {
 }
 void rgblight_increase_val(void) {
   uint8_t val;
-  if (rgblight_config.val + RGBLIGHT_VAL_STEP > 255) {
-    val = 255;
+  if (rgblight_config.val + RGBLIGHT_VAL_STEP > RGBLIGHT_LIMIT_VAL) {
+    val = RGBLIGHT_LIMIT_VAL;
   } else {
     val = rgblight_config.val + RGBLIGHT_VAL_STEP;
   }
@@ -328,6 +347,15 @@ void rgblight_decrease_val(void) {
     val = rgblight_config.val - RGBLIGHT_VAL_STEP;
   }
   rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, val);
+}
+void rgblight_increase_speed(void) {
+    rgblight_config.speed = increment( rgblight_config.speed, 1, 0, 3 );
+    eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
+}
+
+void rgblight_decrease_speed(void) {
+    rgblight_config.speed = decrement( rgblight_config.speed, 1, 0, 3 );
+    eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {

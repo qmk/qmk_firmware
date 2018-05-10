@@ -6,6 +6,8 @@
 
 // to build this keymap
 // make ergodox_ez:dvorak_42_key:teensy
+// flashing from rpi:
+// sudo teensy_loader_cli -v -w .build/ergodox_ez_dvorak_42_key.hex --mcu atmega32u4
 
 // keeping fork up to date:
 // https://help.github.com/articles/configuring-a-remote-for-a-fork/
@@ -317,7 +319,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // thumb cluster
     KC_TRNS,KC_TRNS,
 	KC_TRNS,
-	KC_TRNS,KC_TRNS,KC_TAB),
+	KC_TRNS,KC_TRNS,KC_TRNS),
   
   
     [MOUSE] = KEYMAP(

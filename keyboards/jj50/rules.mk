@@ -61,6 +61,5 @@ ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
 
-
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
