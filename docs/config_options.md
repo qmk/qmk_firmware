@@ -89,6 +89,8 @@ This is a C header file that is one of the first things included, and will persi
   * tries to keep switch state consistent with keyboard LED state
 * `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
   * key combination that allows the use of magic commands (useful for debugging)
+* `#define USB_MAX_POWER_CONSUMPTION`
+  * sets the maximum power (in mA) over USB for the device (default: 500)
 
 ## Features That Can Be Disabled
 

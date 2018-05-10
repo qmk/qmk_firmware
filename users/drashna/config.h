@@ -58,10 +58,16 @@
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#ifndef NO_PRINT
+#define NO_PRINT
+#endif // !NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-
+#define DISABLE_LEADER
 
 #endif // !USERSPACE_CONFIG_H
 

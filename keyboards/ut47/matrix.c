@@ -26,7 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "protocol/serial.h"
+#ifdef LED_ENABLE
+    #include "protocol/serial.h"
+#endif
 
 
 #ifndef DEBOUNCE
@@ -67,8 +69,10 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-
+  
+#ifdef LED_ENABLE
     serial_init();
+#endif
 }
 
 uint8_t matrix_scan(void)

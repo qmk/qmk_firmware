@@ -14,9 +14,7 @@ Before you can build keymaps you need to install some software and setup your bu
 
 You'll need a program that can edit and save **plain text** files. If you are on Windows you can make due with Notepad, and on Linux you can use Gedit, both of which are simple but functional text editors. On macOS you can not use TextEdit.app, it will not save plain text files. You will need to install another program such as Sublime Text.
 
-{% hint style='info' %}
-Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
-{% endhint %}
+?> Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
 
 ### QMK Toolbox
 
@@ -29,12 +27,9 @@ QMK Toolbox is a Windows and macOS program that allows you to both program and d
 
 We've tried to make QMK as easy to setup as possible. You only have to prepare your Linux or Unix environment and let QMK install the rest.
 
-{% hint style="info" %}
-If you haven't worked with the Linux/Unix command line before there are a few basic concepts and commands you should learn. These resources will teach you enough to work with QMK:
-
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)
-* [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
-{% endhint %}
+?> If you haven't worked with the Linux/Unix command line before there are a few basic concepts and commands you should learn. These resources will teach you enough to work with QMK:<br>
+[Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
+[Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### Windows
 
@@ -63,9 +58,7 @@ Once you have setup your Linux/Unix environment you are ready to download QMK. W
     git clone https://github.com/qmk/qmk_firmware.git
     cd qmk_firmware
 
-{% hint style='info' %}
-If you already know [how to use GitHub](getting_started_github.md) we recommend you create and clone your own fork instead. If you don't know what that means you can safely ignore this message.
-{% endhint %}
+?> If you already know [how to use GitHub](getting_started_github.md) we recommend you create and clone your own fork instead. If you don't know what that means you can safely ignore this message.
 
 ## Setup QMK
 
