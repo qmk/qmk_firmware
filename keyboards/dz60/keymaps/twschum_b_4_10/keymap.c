@@ -33,13 +33,13 @@
 
 #define _______ KC_TRNS
 
-const enum DZ60_B_4_10_Layers = {
+enum DZ60_B_4_10_Layers {
     L_Base,
     L_Fn,
     L_Nav,
     L_Num,
     L_RGB
-}
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
-               KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPER,
+               KC_LSHIFT,      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPR,
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
@@ -68,20 +68,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: primary fn layer */
     KEYMAP(
-            KC_GRV,    KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,     KC_F6,     KC_F7,     KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-            KC_TAB,    KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,     KC_HOME,   KC_PGDN,   KC_PGUP,  KC_END,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-            KC_CAPS,   KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,     KC_LEFT,   KC_DOWN,   KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
-            KC_LSHFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,     KC_NO,     KC_NO,     KC_NO,    KC_NO,     KC_LOCK,  KC_HOME,  KC_PGUP,
-            KC_MEH,    KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRANS,         KC_TRANS,  KC_TRANS,  KC_TRANS,  KC_DEL,   KC_END,    KC_PGDN
+            KC_GRV,   KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
+            KC_TAB,   KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,    KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+            KC_CAPS,  KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
+            KC_LSFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_LOCK,  KC_HOME,  KC_PGUP,
+            KC_MEH,   KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DEL,   KC_END,    KC_PGDN
           ),
 
     /* Layer 2: mouse navigation */
     KEYMAP(
-            KC_NO,  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,     KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,     KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,     KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,     KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRANS,     KC_TRANS,  KC_TRANS,       KC_TRANS,       KC_NO,        KC_NO,           KC_NO
+            KC_NO,  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,    KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+            KC_NO,  KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRNS,      KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_NO,        KC_NO,           KC_NO
           ),
 
     /* Layer 3: numpad */
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRANS,    KC_TRANS,    KC_NO,    KC_NO,        KC_NO
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRNS,  KC_TRNS,  KC_NO,    KC_NO,        KC_NO
           ),
     /* Layer 4: RGB lighting controls */
     KEYMAP(
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRANS,  RGB_SAD,  RGB_VAD,  RGB_SAI
+            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,   RGB_SAD,  RGB_VAD,  RGB_SAI
           ),
 
 };
