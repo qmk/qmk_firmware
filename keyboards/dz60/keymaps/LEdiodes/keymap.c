@@ -1,107 +1,206 @@
-#include "dz60.h"
+/*
+	Create By:LEdiodes
+	Created On:05-07-2018 2:55 PM CST
+
+		Wants;
+			Live recording(dynamic Macros)
+			RGB LED Control...
+			Common Ticket Notes added
+			more double and triple taps to complete thing
+
+Keymap: 32 Layers
+-----------------
+stack of layers
+       ____________ precedence
+      /           / | high
+  31 /___________// |
+  30 /___________// |
+  29 /___________/  |
+   :   _:_:_:_:_:__ |
+   :  / : : : : : / |
+   2 /___________// |
+   1 /___________// |
+   0 /___________/  V low
+*/
+
+#define TAPPING_TOGGLE 2
+
+// this is needed - config will not compile without it! -- #include "LEdiodes.h"
+#include "LEdiodes.h"
 #include "action_layer.h"
 
-#define _L0 0
-#define _L1 1
-#define _L2 2
-#define _L3 3
-#define _L4 4
+//#include "dz60.h"
 
-#define _______ KC_TRNS
+enum custom_keycodes {
+    TERMINAL = SAFE_RANGE,
+};
 
+// Tap Dance & Layer Declarations
 enum {
-  TD_SPC_ENT = 0,
-  TD_KC_LSFT_CAPS,
-  TD_KC_RSFT_CAPS
+      FN0 = 0,
+      FN1 = 1,
+      FN2 = 2,
+      FN3 = 3,
+      FN4 = 4,
+      TD_KC_ESC_F5 = 0,
+//      TD_ESC_CAPS = 0,
+//      TD_SPC_ENT = 0,
+//      TD_KC_LSFT_CAPS = 0,
+//      TD_KC_RSFT_CAPS = 0,
+//      TD_KC_RIGHT_PLAY = 0,
+//      TD_KC_WIN_WIN_E = 0,
+};
+
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  //[TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+
+  //Tap once for space, tap twice for enter
+  //[TD_SPC_ENT]  = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT),
+
+  //Tap once for Left Shift, twice for Caps Lock
+  //[TD_KC_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+
+  //Tap once for Right Shift, twice for Caps Lock
+  //[TD_KC_RSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
+
+  //Tap once for change track, twice for play
+  //[TD_KC_RIGHT_PLAY]  = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT, KC_MPLY),
+
+  //Tap once for windows, twice for windows+E to open explorer
+  //[TD_KC_WIN_WIN_E]  = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, LGUI(KC_E)),
+
+  //Tap once for Left Ctrl, twice for F5 to refresh webpages and the such
+  [TD_KC_ESC_F5]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_F5),
+
+// Other declarations would go here, separated by commas, if you have them
+
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+ [FN0] = KEYMAP(
+		// FN0 - All geeks know processing starts with 0 -- default layout
+		//,-----------------------------------------------------------------------------------------.
+		//| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  Q  |  W  |  E  |  R  |  T |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \    |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     Enter    |
+		//|-----------------------------------------------------------------------------------------+
+		//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   RShfit   | U |  1 |
+		//|-----------------------------------------------------------------------------------------+
+		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  |  /  |  L | D |  R |
+		//`-----------------------------------------------------------------------------------------'
+		TD(TD_KC_ESC_F5), KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_DEL, KC_BSPC,
+		LT(MO(FN2), KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
+		LT(MO(FN4), KC_TAB), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+		KC_LSHIFT, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_NO, KC_RSFT, KC_UP, MO(FN1),
+		KC_LCTRL, KC_LGUI, KC_LALT, LT(MO(FN4), KC_SPC), LT(MO(FN3), KC_SPC), LT(MO(FN1), KC_SPC), MO(FN2), TG(FN4), KC_LEFT, KC_DOWN, KC_RGHT),
+
+ [FN1] = KEYMAP(
+		// FN1 -- Function numbers and macros
+		//,-----------------------------------------------------------------------------------------.
+		//|  `  | F1  | F2  | F3  | F4  | F5  | F6  | F7  | F8  | F9  | F10 | F11 | F12 |gmail| VRT |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  Q  |  W  |  E  |  R  |  T  | DUN |  U  |  I  |  O  |  P  |  [  |  ]  |  RESET |
+		//|-----------------------------------------------------------------------------------------+
+		//|   1     |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  =  |  -  |     Enter   |
+		//|-----------------------------------------------------------------------------------------+
+		//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  /  |  [  |  ]  |    \      |Rsft|  1 |
+		//|-----------------------------------------------------------------------------------------+
+		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  Fn |  /  |  L | D |  R |
+		//`-----------------------------------------------------------------------------------------'
+		KC_GRV, KC_TRNS, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, M(10), M(9),
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(7), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
+		KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQL, KC_MINS, TG(FN4),
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_QUOT, KC_SLSH, KC_LBRC, KC_RBRC, KC_TRNS, KC_BSLS, KC_RSFT, KC_TRNS,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LPRN, KC_RPRN, KC_TRNS, KC_TRNS, KC_TRNS),
+
+ [FN2] = KEYMAP(
+		// FN2 -- Macros and mouse control -- NEEDS UPDATING -- 05-01-2018 7:31 PM CST -- mkerfoot
+		//,-----------------------------------------------------------------------------------------.
+		//| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[CAPS] |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     Enter   |
+		//|-----------------------------------------------------------------------------------------+
+		//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   RShfit   | U |  1 |
+		//|-----------------------------------------------------------------------------------------+
+		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  | SNIP|  L | D |  R |
+		//`-----------------------------------------------------------------------------------------'
+		M(8), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(3), M(4),
+		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(7), KC_TRNS, KC_UP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(FN0),
+		KC_CAPS, M(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, DF(FN0),
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, M(11), KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2,
+		KC_TRNS, KC_TRNS,  KC_TRNS, M(8), M(2), M(1), KC_TRNS, M(6), KC_MS_L, KC_MS_D, KC_MS_R),
+
+ [FN3] = KEYMAP(
+		// FN3 -- LEdiodes! -- NEEDS UPDATING -- 05-01-2018 7:31 PM CST -- mkerfoot
+		//,-----------------------------------------------------------------------------------------.
+		//| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[CAPS] |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     Enter   |
+		//|-----------------------------------------------------------------------------------------+
+		//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   RShfit   | U |  1 |
+		//|-----------------------------------------------------------------------------------------+
+		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  |  /  |  L | D |  R |
+		//`-----------------------------------------------------------------------------------------'
+		RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI, RGB_SAI,
+		RGB_HUI, RGB_HUD, KC_TRNS, KC_TRNS, KC_TRNS, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD, RGB_SAD),
+
+ [FN4] = KEYMAP(
+		// FN4 -- mouse control like a boss
+		//,-----------------------------------------------------------------------------------------.
+		//| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[Tab] |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+		//|-----------------------------------------------------------------------------------------+
+		//| 2[CAPS] |  za  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter   |
+		//|-----------------------------------------------------------------------------------------+
+		//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   RShfit   | U |  1 |
+		//|-----------------------------------------------------------------------------------------+
+		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  |  /  |  L | D |  R |
+		//`-----------------------------------------------------------------------------------------'
+		KC_BTN1, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(FN0),
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2,
+		DF(FN0), KC_TRNS, KC_TRNS, KC_MS_WH_LEFT, DF(FN0), KC_MS_WH_RIGHT, MO(FN2), KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R),
+
+};
 
 /*
- * template
- * [_L1] = LAYOUT(
- *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    \
- *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
- *       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
- *      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   \
- *       _______,_______,_______,        _______,_______,_______,                _______,_______,_______,_______,_______,
- *
- *
- *\
+					KEYMAP(
+						// TEMPLATE -- DO NOT EDIT!!!
+						//,-----------------------------------------------------------------------------------------.
+						//| Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
+						//|-----------------------------------------------------------------------------------------+
+						//| 2[Tab] |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
+						//|-----------------------------------------------------------------------------------------+
+						//| 2[CAPS] |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |     Enter   |
+						//|-----------------------------------------------------------------------------------------+
+						//| Shift       |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   RShfit   | U |  1 |
+						//|-----------------------------------------------------------------------------------------+
+						//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  |  /  |  L | D |  R |
+						//`-----------------------------------------------------------------------------------------'
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
- * Keymap _L0: (Layer 0 - Base Layer) This is the default layer
- * This layer has a key set to MO(_L1) which means when held down Layer 1 will become active, If Layer 1 does not have anything set for tat key is will revert to uing the key set at layer 0.
- * LT(_L1, KC_1) means that when the "1" key is long touched then it will activate the layer _L1 key(F1) but if the key is just tapped it will activate the "1" key.
- * KC_GESC = Escape when tapped, ` when pressed with Shift or GUI
- * KC_LSPO = Left Shift when held, ( when tapped
- * TD(LT(_L3,KC_SPACE)) = This is a test... hoping it will tap dance if double tapped it does enter if single tap it does space if long hold down it does _L3(Layer 3).
- * LT(_L3,KC_SPACE) = if tapped it does space, is long touch it does _L3(Layer 3)
- * BL_TOGG = Toggles the LEDs.
- * ,-----------------------------------------------------------------------------------------.
- * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |Bkspc| Del |
- * |-----------------------------------------------------------------------------------------+
- * | Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |    \   |
- * |-----------------------------------------------------------------------------------------+
- * | _L4    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
- * |-----------------------------------------------------------------------------------------+
- * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RSh |  U  | _L1 |
- * |-----------------------------------------------------------------------------------------+
- * | Ctrl |  Win  |  Alt  |  _L3[Space]  |LEdiodes|      Space       |Win | _L2|  L |  D |  R |
- * `-----------------------------------------------------------------------------------------'
- */
-[_L0] = LAYOUT(
-      KC_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,    \
-      KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,   \
-      KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,              KC_ENT,    \
-      KC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1), \
-      KC_LCTL,             KC_LGUI, KC_LALT, LT(_L3,KC_SPACE),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, TO(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
-
-/* Keymap _L1: (Layer 1) This is function layer 1
- * This layer is activated while the Fn key is being held down.
- * ,-----------------------------------------------------------------------------------------.
- * | Reset |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | F13| F14|
- * |-----------------------------------------------------------------------------------------+
- * |        |  WhUp|  U  | WhDn |    |    |     |     |     | PrtScr |     |    |    |       |
- * |-----------------------------------------------------------------------------------------+
- * |         |  L   |   D  |  R  |     |     | Home |     |     |     |     |      |         |
- * |-----------------------------------------------------------------------------------------+
- * |           |      |     |     |     |     |  End | VolDn|VolUp|Mute |    |   | PgUp|     |
- * |-----------------------------------------------------------------------------------------+
- * |      |       |      |          |       |                |      |      | Home| PgDn| End |
- * `-----------------------------------------------------------------------------------------'
- */
-[_L1] = LAYOUT(
-      RESET,   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,  KC_F13,   KC_F14,              \
-      _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,   \
-      _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,   \
-      _______,           _______,  KC_APP,  BL_STEP,_______,  KC_END,   KC_VOLD,  KC_VOLU,   KC_MUTE, _______,  _______,  _______, KC_PGUP,   _______,   \
-      _______, _______, _______,                                _______,_______,_______,                _______, _______,         KC_HOME, KC_PGDOWN, KC_END),
-
-/* Keymap _L2: (Layer 2) This is function layer 2
- * This layer is activated while the Fn2 key is being held down.
- * LCA(KC_TAB) = Hold Left Control and Alt and press kc_tab which cycles trough open apps.
- * MEH(KC_TAB) = Hold Left Control, Shift and Alt and press kc_TAB to cycle backwards through apps.
- * ,-----------------------------------------------------------------------------------------.
- * |  |   |   |   |   |   |   |   |   |   |  |  |  | | LCA(KC_TAB)|
- * |-----------------------------------------------------------------------------------------+
- * |        |  |    |  |    |    |     |     |     |  |     |    |    |       |MEH(KC_TAB)
- * |-----------------------------------------------------------------------------------------+
- * |         |     |     |    |     |     | |     |     |     |     |      |         |
- * |-----------------------------------------------------------------------------------------+
- * |           |      |     |     |     |     |   | || |    |   | |     |
- * |-----------------------------------------------------------------------------------------+
- * |      |       |      |          |       |                |      |      | | |  |
- * `-----------------------------------------------------------------------------------------'
- */
-[_L2] = LAYOUT(
-      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,LCA(KC_TAB),    \
-      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        MEH(KC_TAB),        \
-      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,                \
-      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_MS_BTN1,KC_MS_UP,KC_MS_BTN2,   \
-      _______,_______,_______,        _______,_______,_______,                _______,_______,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT)
-
-};
+						// TEMPLATE -- DO NOT EDIT!!!
+						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+						// TEMPLATE -- DO NOT EDIT!!!
+*/
 
 // Custom Actions
 const uint16_t PROGMEM fn_actions[] = {
@@ -111,32 +210,109 @@ const uint16_t PROGMEM fn_actions[] = {
 // Macros
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) { register_code(KC_RSFT); }
-      else { unregister_code(KC_RSFT); }
+	switch (id) {
+		case 1:
+			if (record->event.pressed) {
+				SEND_STRING("");
+			}
+			break;
+		case 2:
+			if (record->event.pressed) {
+				SEND_STRING("");
+				}
+			break;
+		case 3:
+			if (record->event.pressed) {
+				SEND_STRING("");
+			}
+			break;
+		case 4:
+			if (record->event.pressed) {
+				SEND_STRING("");
+			}
+			break;
+		case 5:
+			if (record->event.pressed) {
+				SEND_STRING("");
+				}
+			break;
+		case 6:
+			if (record->event.pressed) {
+				// screenshot with OneNote
+				return MACRO( D(LSFT), D(LGUI), T(S), U(LGUI), U(LSFT), END );
+			}
+			break;
+		case 7:
+			if (record->event.pressed) {
+				SEND_STRING("");
+			}
+			break;
+		case 8:
+			if (record->event.pressed) {
+				// Ctrl+Alt+Del
+				return MACRO( D(LCTL), D(LALT), U(DEL), END );
+			}
+			break;
+		case 9:
+			if (record->event.pressed) {
+				// Toggle current page between Normal and Hacker Vision
+				return MACRO( D(LSHIFT), D(F12), U(LSHIFT), END );
+			}
+			break;
+		case 10:
+			if (record->event.pressed) {
+				// Pause & Resume Hacker Vision (daytime mode)
+				return MACRO( D(LSHIFT), D(F11), U(LSHIFT), END );
+			}
+			break;
+		case 11:
+			if (record->event.pressed) {
+				// Copy-paste on the same key
+				return MACRO( D(LCTL), T(C), U(LCTL), END  );
+            } else {
+                return MACRO( D(LCTL), T(V), U(LCTL), END  );
+			}
       break;
-  }
+	}
+	return MACRO_NONE;
+}
 
-  return MACRO_NONE;
-};
 
-// Loop
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case FN1:
+        // Blue
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case FN2:
+        // Green
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case FN3:
+        // Purple
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+         break;
+    case FN4:
+        // Red
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    default: //  for any other layers, or the default layer
+        // White
+        rgblight_setrgb (0xFF,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
+
 void matrix_scan_user(void) {
-  // Empty
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-
-  //Tap once for space, tap twice for enter
-  [TD_SPC_ENT]  = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT),
-  //Tap once for Left Shift, twice for Caps Lock
-  [TD_KC_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-  //Tap once for Right Shift, twice for Caps Lock
-  [TD_KC_RSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS)
-
-// Other declarations would go here, separated by commas, if you have them
-
-};
+}
+/*
+// LED CAPS control
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
+    } else {
+        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
+    }
+}
+*/

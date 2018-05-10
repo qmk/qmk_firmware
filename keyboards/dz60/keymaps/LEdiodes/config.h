@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         DZ60
-#define DESCRIPTION     DZ60 Keyboard
+#define DESCRIPTION     LEdiodes /* DZ60 Keyboard */
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -36,6 +36,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Toggle Tapping */
+#define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
+
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
@@ -44,6 +48,7 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
+/* RGB underglow lights */
 #define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
@@ -55,4 +60,10 @@
 #define AUTO_SHIFT_TIMEOUT 150
 #define NO_AUTO_SHIFT_SPECIAL
 
+/* Mouse Control */
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 10
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_WHEEL_DELAY 0
 #endif
