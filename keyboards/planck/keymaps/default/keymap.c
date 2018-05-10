@@ -310,10 +310,6 @@ void dip_update(uint8_t index, bool active) {
    }
 }
 
-void matrix_init_user(void) {
-  palSetPadMode(GPIOB, 5, PAL_MODE_OUTPUT_PUSHPULL);
-}
-
 void matrix_scan_user(void) {
   if (muse_mode) {
     if (muse_counter == 0) {
