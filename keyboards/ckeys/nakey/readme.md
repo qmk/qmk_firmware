@@ -6,9 +6,11 @@ Keyboard Maintainer: [James Underwood](https://github.com/ju0)
 Hardware Supported: naKey  
 Hardware Availability: [ckeys.org](https://ckeys.org)
 
+To build this keyboard, follow the [build guide](https://ckeys.org/tutorials/nakey-numpad-build-guide/). 
+
 Make example for this keyboard (after setting up your build environment):
 
-    make nakey:default
+    make ckeys/nakey:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
@@ -18,7 +20,7 @@ For the full Quantum feature list, see [the parent readme](/).
 
 ## Building
 
-Download or clone the whole firmware and navigate to the root folder. Once your dev env is setup, you'll be able to type `make naKey-default` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
+Download or clone the whole firmware and navigate to the root folder. Once your dev env is setup, you'll be able to type `make ckeys/nakey:default` to generate your .hex - you can then use the Teensy Loader to program your .hex file. 
 
 (Note: replace naKey with the name of your keyboard.)
 
@@ -26,7 +28,7 @@ Depending on which keymap you would like to use, you will have to compile slight
 
 ### Default
 
-To build with the default keymap, simply run `make naKey-default`.
+To build with the default keymap, simply run `make ckeys/nakey:default`.
 
 ### Other Keymaps
 
