@@ -11,37 +11,19 @@ extern keymap_config_t keymap_config;
 
 // レイヤー
 #define _QWERTY 0
-#define _GAME 1
-#define _LOWER 2
-#define _RAISE 3
+#define _LOWER 1
+#define _RAISE 2
+#define _GAME 3
 #define _ADJUST 4
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE, // QWERTYレイヤーへ
-  GAME,                // GAMEレイヤーへ
   MCR1,                // マクロ1
   MCR2,                // マクロ2
   MCR3,                // マクロ3
   DYNAMIC_MACRO_RANGE, // ダイナミックマクロ
   WN_SCLN,             // タップでJISの「:」  シフトでJISの「;」 (Windows)
 };
-
-// RGB Light Setting
-#define rgblight_set_red         rgblight_setrgb (0xFF, 0x00, 0x00);
-#define rgblight_set_blue        rgblight_setrgb (0x00, 0x00, 0xFF);
-#define rgblight_set_green       rgblight_setrgb (0x00, 0xFF, 0x00);
-#define rgblight_set_pink        rgblight_setrgb (0xFF, 0x80, 0xBF);
-#define rgblight_set_magenta     rgblight_setrgb (0xFF, 0x00, 0xFF);
-#define rgblight_set_orange      rgblight_setrgb (0xFF, 0x80, 0x00);
-#define rgblight_set_yellow      rgblight_setrgb (0xFF, 0xFF, 0x00);
-#define rgblight_set_teal        rgblight_setrgb (0x00, 0xFF, 0xFF);
-#define rgblight_set_turquoise   rgblight_setrgb (0x47, 0x6E, 0x6A);
-#define rgblight_set_coral       rgblight_setrgb (0xFF, 0x7C, 0x4D);
-#define rgblight_set_cyan        rgblight_setrgb (0x00, 0xFF, 0xFF);
-#define rgblight_set_azure       rgblight_setrgb (0x99, 0xf5, 0xFF);
-#define rgblight_set_chartreuse  rgblight_setrgb (0x80, 0xFF, 0x00);
-#define rgblight_set_springgreen rgblight_setrgb (0x00, 0xFF, 0x80);
-#define rgblight_set_purple      rgblight_setrgb (0x7A, 0x00, 0xFF);
 
 // Use Dynamic macro
 #include "dynamic_macro.h"
@@ -59,6 +41,7 @@ enum custom_keycodes {
 #define KC_ALPS LALT(KC_PSCR)          // Alt + PrintScreen
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+#define GAME DF(_GAME)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -81,6 +64,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   WN_CAPS,  KC_LGUI, JP_YEN,  KC_ESC,  KC_LOWR, KC_ENT,  KC_DEL,    KC_END,  KC_SPC,  KC_RASE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
+/* LOWER // 数字入力用レイヤー
+ * ,-------------------------------------------------------.   ,-------------------------------------------------------.
+ * |       |   1   |   2   |   3   |   4   |   5   |   6   |   |  Esc  |   7   |   8   |   9   |   .   |   =   |       |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * |       |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |   |  F2   |   4   |   5   |   6   |   -   |   /   | Enter |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * | Shift |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |   |       |   1   |   2   |   3   |   +   |   *   | Shift |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |XXXXXXX|       |       |       |       |   |       |   0   |       |       |       |       |       |
+ * `-------------------------------------------------------'   `-------------------------------------------------------'
+ */
+[_LOWER] = KEYMAP( \
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,       KC_ESC,  KC_7,    KC_8,    KC_9,    KC_PDOT, JP_EQL,  _______, \
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,      KC_F2,   KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PSLS, KC_ENT,  \
+  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     _______, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PAST, KC_RSFT, \
+  _______, _______, XXXXXXX, _______, _______, _______, _______,    _______, KC_0,    _______, _______, _______, _______, _______ \
+),
+
+/* RAISE // 記号入力用レイヤー
+ * ,-------------------------------------------------------.   ,-------------------------------------------------------.
+ * |       |   !   |   @   |   #   |   $   |   %   |   _   |   |   `   |   ^   |   &   |  Ins  |   \   |PrntScr|       |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * |       |XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|   {   |   |   }   | Left  | Down  |   Up  | Right |   ;   |   "   |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * | Shift |M-PLAY |M-MUTE |VOL_DWN|VOL_UP |PREV_TR|NEXT_TR|   |PageUp |XXXXXXX|XXXXXXX|   <   |   >   |   ?   | Shift |
+ * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |   |   |       |       |       |       |   |PageDwn|       |       |       |       |       |       |
+ * `-------------------------------------------------------'   `-------------------------------------------------------'
+ */
+[_RAISE] = KEYMAP( \
+  _______, KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC, JP_UNDS,    JP_GRV,  JP_CIRC, JP_AMPR, KC_INS,  JP_YEN,  KC_ALPS, _______, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LCBR,    JP_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQT,  \
+  KC_LSFT, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT,    KC_PGUP, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, KC_RSFT, \
+  _______, _______, JP_PIPE, _______, _______, _______, _______,    KC_PGDN, _______, _______, _______, _______, _______, _______ \
+),
+
 /* GAME // 左手はゲーム用レイヤー、右手はNumPad
  * ,-------------------------------------------------------.   ,-------------------------------------------------------.
  * |  Tab  |   Q   |   W   |   E   |   R   |   T   |PrntScr|   |  Esc  |   7   |   8   |   9   |   .   |   =   | BSPC  |
@@ -97,42 +116,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_F1,      KC_F2,   KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PSLS, KC_ENT,  \
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_F2,      KC_HOME, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PAST, KC_RSFT, \
   KC_DEL,   KC_LGUI, KC_LALT, KC_ESC,  LOWER,   KC_SPC, KC_ENT,     KC_PGDN, KC_P0,   RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-),
-
-/* LOWER // 数字入力用レイヤー
- * ,-------------------------------------------------------.   ,-------------------------------------------------------.
- * |       |   1   |   2   |   3   |   4   |   5   |   6   |   |  Esc  |   7   |   8   |   9   |   .   |   =   |       |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * |       |  F1   |  F2   |  F3   |  F4   |  F5   |  F6   |   |  F2   |   4   |   5   |   6   |   -   |   /   | Enter |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * | Shift |  F7   |  F8   |  F9   |  F10  |  F11  |  F12  |   |       |   1   |   2   |   3   |   +   |   *   | Shift |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * |XXXXXXX|       |XXXXXXX|       |       |       |       |   |       |   0   |       |       |       |       |       |
- * `-------------------------------------------------------'   `-------------------------------------------------------'
- */
-[_LOWER] = KEYMAP( \
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,       KC_ESC,  KC_7,    KC_8,    KC_9,    KC_PDOT, JP_EQL,  _______, \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,      KC_F2,   KC_P4,   KC_P5,   KC_P6,   KC_PMNS, KC_PSLS, KC_ENT,  \
-  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     _______, KC_P1,   KC_P2,   KC_P3,   KC_PPLS, KC_PAST, KC_RSFT, \
-  _______, _______, XXXXXXX, _______, _______, _______, _______,    _______, KC_0,    _______, _______, _______, _______, _______ \
-),
-
-/* RAISE // 記号入力用レイヤー
- * ,-------------------------------------------------------.   ,-------------------------------------------------------.
- * |       |   !   |   @   |   #   |   $   |   %   |   _   |   |   `   |   ^   |   &   |  Ins  |   \   |PrntScr|       |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * |       |XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|XXXXXXX|   {   |   |   }   | Left  | Down  |   Up  | Right |   ;   |   "   |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * |       | M-PLAY|M-MUTE |VOL_DWN|VOL_UP |PREV_TR|NEXT_TR|   |PageUp |XXXXXXX|XXXXXXX|   <   |   >   |   ?   | Shift |
- * |-------+-------+-------+-------+-------+-------+-------|   |-------+-------+-------+-------+-------+-------+-------|
- * |XXXXXXX|       |   |   |       |       |       |       |   |PageDwn|       |       |       |       |       |       |
- * `-------------------------------------------------------'   `-------------------------------------------------------'
- */
-[_RAISE] = KEYMAP( \
-  _______, KC_EXLM, JP_AT,   KC_HASH, KC_DLR,  KC_PERC, JP_UNDS,    JP_GRV,  JP_CIRC, JP_AMPR, KC_INS,  JP_YEN,  KC_ALPS, _______, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_LCBR,    JP_RCBR, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, JP_DQT,  \
-  KC_LSFT, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MNXT,    KC_PGUP, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, KC_RSFT, \
-  _______, _______, JP_PIPE, _______, _______, _______, _______,    KC_PGDN, _______, _______, _______, _______, _______, _______ \
 ),
 
 /* ADJUST // 設定用レイヤー (LOWER+RAISE)
@@ -164,7 +147,7 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-  rgblight_set_teal;
+  rgblight_setrgb_teal();
 #endif
 }
 
@@ -173,20 +156,20 @@ uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {
     case _RAISE:
-      rgblight_set_chartreuse; // RAISE:シャルトリューズ
+      rgblight_setrgb_chartreuse(); // RAISE:シャルトリューズ
       break;
     case _LOWER:
-      rgblight_set_pink; // LOWER:ピンク
+      rgblight_setrgb_pink(); // LOWER:ピンク
       break;
     case _ADJUST:
-      rgblight_set_red; // ADJUST:レッド
+      rgblight_setrgb_red(); // ADJUST:レッド
       break;
     default: //  for any other layers, or the default layer
-      rgblight_set_teal // 他:ティール
+      rgblight_setrgb_teal(); // 他:ティール
       break;
     }
 #endif
-  return layer_state_set_keymap (state);
+return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -198,12 +181,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case GAME:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_GAME);
       }
       return false;
       break;
