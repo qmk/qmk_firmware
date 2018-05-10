@@ -6,6 +6,8 @@
 // readability
 #define XXX KC_NO
 
+// The first section contains all of the arguments
+// The second converts the arguments into a two-dimensional array
 /* COSPAD ortho matrix layout
    * ,-------------------.
    * | 00 | 01 | 02 | 03 |
@@ -21,6 +23,22 @@
    * | 50 | 51 | 52 | 53 |
    * `-------------------'
  */
+#define LAYOUT_all( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33, \
+    k40, k41, k42, k43, \
+    k50, k51, k52, k53 \
+) \
+{ \
+    {k00, k01, k02, k03}, \
+    {k10, k11, k12, k13}, \
+    {k20, k21, k22, k23}, \
+    {k30, k31, k32, k33}, \
+    {k40, k41, k42, k43}, \
+    {k50, k51, k52, k53} \
+}
 
 
 /* COSPAD numpad matrix layout
@@ -38,33 +56,32 @@
    * |    50   | 52 |    |
    * `-------------------'
  */
-// The first section contains all of the arguments
-// The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
-    	k00, k01, k02, k03, \
-	k10, k11, k12, k13, \
-	k20, k21, k22, k23, \
-	k30, k31, k32, k33, \
-	k40, k41, k42, k43, \
-	k50, k51, k52, k53 \
+#define LAYOUT_numpad( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32,      \
+    k40, k41, k42, k43, \
+    k50,      k52,      \
 ) \
 { \
-	{k00, k01, k02, k03}, \
-	{k10, k11, k12, k13}, \
-	{k20, k21, k22, k23}, \
-	{k30, k31, k32, k33}, \
-	{k40, k41, k42, k43}, \
-	{k50, k51, k52, k53} \
+    {k00, k01, k02, k03},   \
+    {k10, k11, k12, k13},   \
+    {k20, k21, k22, k23},   \
+    {k30, k31, k32, XXX}, \
+    {k40, k41, k42, k43},   \
+    {k50, XXX, k52, XXX} \
 }
+
 void matrix_init_user(void);
 void matrix_scan_user(void);
 /*
-inline void cospad_bl_led_on(void)	{ DDRF |= (1<<7); PORTF &= ~(1<<7); }
-inline void cospad_bl_led_off(void)	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
+inline void cospad_bl_led_on(void)  { DDRF |= (1<<7); PORTF &= ~(1<<7); }
+inline void cospad_bl_led_off(void) { DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
 */
 
-inline void cospad_bl_led_on(void)	{ PORTF &= ~(1<<7); }
-inline void cospad_bl_led_off(void)	{ PORTF |= (1<<7); }
+inline void cospad_bl_led_on(void)  { PORTF &= ~(1<<7); }
+inline void cospad_bl_led_off(void) { PORTF |= (1<<7); }
 
 inline void cospad_bl_led_togg(void) {
    uint8_t bl_mask = PORTF&(1<<7);

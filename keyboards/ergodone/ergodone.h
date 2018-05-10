@@ -67,7 +67,7 @@ inline void ergodox_right_led_3_set(uint8_t n)          {}
 inline void ergodox_right_led_set(uint8_t l, uint8_t n) {}
 inline void ergodox_led_all_set(uint8_t n)              {}
 
-#define KEYMAP(                                                 \
+#define LAYOUT(                                                 \
                                                                 \
     /* left hand, spatial positions */                          \
     k00,k01,k02,k03,k04,k05,k06,                                \

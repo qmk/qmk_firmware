@@ -1,4 +1,4 @@
-#include "17.h"
+#include QMK_KEYBOARD_H
 
 #include "backlight.h"
 
@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |        0|   .| Ent|
    * '-------------------'
    */
-[_BL] = KEYMAP(
+[_BL] = LAYOUT(
   LT(_FL, KC_NLCK), KC_PSLS, KC_PAST, KC_PMNS, \
   KC_P7,            KC_P8,   KC_P9,   KC_PPLS, \
   KC_P4,            KC_P5,   KC_P6, \
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      Fn1|    | Fn7|
    * '-------------------'
    */
-[_FL] = KEYMAP(
+[_FL] = LAYOUT(
   LT(_FL, KC_NLCK), KC_TRNS, KC_TRNS, RGB_TOG, \
   KC_TRNS,          RGB_SAI,    KC_TRNS, RGB_VAI, \
   RGB_HUD,             BL_STEP, RGB_HUI, \

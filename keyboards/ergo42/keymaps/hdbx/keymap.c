@@ -1,7 +1,7 @@
 // WindowsでJIS配列として認識しているときに、US配列として使うためのキーマップ
 // @leopard_gecko さんがPlanck用に作成されたキーマップをかなり参考にしています。
 
-#include "ergo42.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "keymap_jp.h"       // qmk_firmware-master/quantum/keymap_extras/keymap_jp.h 日本語キーボード設定用

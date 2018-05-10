@@ -658,7 +658,7 @@
         }
       ]
     },
-    "KEYMAP_AEK": {
+    "LAYOUT_aek": {
       "key_count": 60,
       "layout": [
         {
@@ -976,7 +976,7 @@
         }
       ]
     },
-    "KEYMAP": {
+    "LAYOUT": {
       "key_count": 65,
       "layout": [
         {

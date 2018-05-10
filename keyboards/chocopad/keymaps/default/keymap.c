@@ -1,4 +1,4 @@
-#include "chocopad.h"
+#include QMK_KEYBOARD_H
 
 #define _BASE 0
 #define _FN1 1
@@ -22,7 +22,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = KC_KEYMAP(
+  [_BASE] = LAYOUT_kc(
   //,----+----+----+----.
      PGUP,HOME, UP ,END ,
   //|----+----+----+----|
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----'
   ),
 
-  [_FN1] = KC_KEYMAP(
+  [_FN1] = LAYOUT_kc(
   //,----+----+----+----.
      ESC , P7 , P8 , P9 ,
   //|----+----+----+----|
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----'
   ),
 
-  [_FN2] = KC_KEYMAP(
+  [_FN2] = LAYOUT_kc(
   //,----+----+----+----.
      RTOG,RHUI,RSAI,RVAI,
   //|----+----+----+----|

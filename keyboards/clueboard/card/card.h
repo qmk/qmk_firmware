@@ -6,7 +6,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+#define LAYOUT( \
 	k00, k01, k02, \
 	k10, k12, \
 	k20, k21, k22, \
