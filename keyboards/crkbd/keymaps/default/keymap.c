@@ -302,13 +302,6 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write(matrix, TIMELOG);
 }
 
-void iota_gfx_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (is_master)
-  {
-    update_status(keycode, record);
-  }
-}
-
 void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
 
@@ -322,7 +315,7 @@ void iota_gfx_task_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  iota_gfx_record_user(keycode, record);
+  update_status(keycode, record);
 
   switch (keycode) {
     case QWERTY:
