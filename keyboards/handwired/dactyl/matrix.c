@@ -48,8 +48,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const uint8_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
 static const uint8_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
 static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
+
+#if (DIODE_DIRECTION == ROW2COL)
 static const uint8_t expander_row_pins[MATRIX_ROWS] = MATRIX_EXPANDER_ROW_PINS;
+#endif
+
+#if (DIODE_DIRECTION == COL2ROW)
 static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
+#endif
 #endif
 
 /* matrix state(1:on, 0:off) */
