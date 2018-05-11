@@ -1,7 +1,5 @@
 /*
-Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
-Modified 2018 Wayne Jones (WarmCatUK) <waynekjones@gmail.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,29 +22,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-// TODO: share these strings with usbconfig.h
-// Edit usbconfig.h to change these.
-#define MANUFACTURER    kprepublic
-#define PRODUCT         jj50
-#define DESCRIPTION     Preonic-like clone
+#define MANUFACTURER    You
+#define PRODUCT         %KEYBOARD%
 
-/* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION ROW2COL
+#define RGBLED_NUM 16
 
-//#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 12
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 3
 
-#define RGB_DI_PIN E2
-#define RGBLED_NUM 12
+#define MATRIX_ROW_PINS { D0, D5 }
+#define MATRIX_COL_PINS { F1, F0, B0 }
+#define UNUSED_PINS
+
+#define DIODE_DIRECTION COL2ROW
+#define DEBOUNCING_DELAY 5
+
+#define NO_BACKLIGHT_CLOCK
+#define BACKLIGHT_LEVELS 1
 #define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 15
-#define RGBLIGHT_VAL_STEP 18
 
 #define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

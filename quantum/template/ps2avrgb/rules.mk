@@ -1,6 +1,5 @@
 # Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
-# Modified 2018 Wayne Jones (WarmCatUK) <waynekjones@gmail.com>
-
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 2 of the License, or
@@ -27,39 +26,25 @@ F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = bootloadHID
 
 # build options
 BOOTMAGIC_ENABLE = yes
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = no
+CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
-BACKLIGHT_ENABLE = yes
-RGBLIGHT_ENABLE = yes
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no
 RGBLIGHT_CUSTOM_DRIVER = yes
-NKRO_ENABLE = no
-# Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
-
-DISABLE_WS2812 = no
-
-KEY_LOCK_ENABLE = yes
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-
-#OPT_DEFS = -DDEBUG_LEVEL=0
+OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c backlight.c
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+SRC = matrix.c i2c.c
 
 # programming options
-PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
