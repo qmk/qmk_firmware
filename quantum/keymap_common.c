@@ -218,7 +218,7 @@ static uint8_t get_kcid(uint16_t* kcs) {
 }
 
 static uint16_t keymap_key_to_keycode_cmv(uint8_t layer, keypos_t key) {
-  uint8_t kcid = get_kcid(get_custom_modified_values_for_key(pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]), layer, key));
+  uint8_t kcid = get_kcid(get_custom_modified_values_for_key(pgm_read_word(&keymaps[layer][key.row][key.col]), layer, key));
   if (kcid) {
     set_mods_blocker(true);
   } else {

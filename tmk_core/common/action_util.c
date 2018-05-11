@@ -168,21 +168,21 @@ void send_keyboard_report(void) {
 #ifdef CUSTOM_MODIFIED_VALUES_ENABLE
     if (dont_send_mods) {
       keyboard_report->mods = weak_mods;
-      #ifndef NO_ACTION_ONESHOT
+# ifndef NO_ACTION_ONESHOT
           if (oneshot_mods) {
-      #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+#   if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
               if (has_oneshot_mods_timed_out()) {
                   dprintf("Oneshot: timeout\n");
                   clear_oneshot_mods();
               }
-      #endif
+#   endif
               if (has_anykey(keyboard_report)) {
                   clear_oneshot_mods();
                   host_keyboard_send(keyboard_report);
                   clear_keys();
               }
           }
-      #endif
+# endif
     } else {
 #endif
     keyboard_report->mods  = real_mods;
