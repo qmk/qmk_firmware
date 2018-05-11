@@ -85,7 +85,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef RGBLIGHT_ENABLE
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+}
+
+#ifdef INDICATOR_LIGHTS
 uint32_t layer_state_set_keymap (uint32_t state) {
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
