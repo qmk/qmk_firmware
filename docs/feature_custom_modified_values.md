@@ -271,3 +271,174 @@ This is the **less restrictive** version but also the **heavier** in terms of by
     }
     ```
     (Note: when the **Dynamic Active Key Processing** functionality is disabled, the **Delay After Modifier Release** functionality is not used.)
+
+---
+
+# How does the feature work ?
+
+## CMV-2.*
+
+The magic happens mainly in `quantum/keymap_common.c` where we modify the `keymap_key_to_keycode` function to return the keycode returned by our custom function `keymap_key_to_keycode_cmv`:
+```C
+// in quantum/keymap_common.c near line 232
+__attribute__ ((weak))
+uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
+{
+#if defined(CUSTOM_MODIFIED_VALUES_ENABLE)
+    return keymap_key_to_keycode_cmv(layer, key);
+#else
+    // Read entire word (16bits)
+    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+#endif
+}
+```
+
+Fisrt thing we do in `keymap_key_to_keycode_cmv` is calling the functions `get_kcid` and `get_custom_modified_values_for_key` to determine **if the user assigned custom modified values to the currently processed key**: 
+```C
+// in quantum/keymap_common.c near line 220
+static uint16_t keymap_key_to_keycode_cmv(uint8_t layer, keypos_t key) {
+  uint8_t kcid = get_kcid(get_custom_modified_values_for_key(pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]), layer, key));
+  if (kcid) {
+    set_mods_blocker(true);
+  } else {
+    set_mods_blocker(false);
+  }
+  return cmv_buffer[kcid];
+}
+```
+
+The function `get_custom_modified_values_for_key` calls the **user-overridable** function `keycodes_for_key` which returns `false` if custom modified values are assigned to the currently processed key or `true` otherwise.
+```C
+// in quantum/keymap_common.c near line 205
+static uint16_t* get_custom_modified_values_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
+  if(keycodes_for_key(default_kc, layer, key)) {
+    set_cmv_buffer(default_kc, 0, 0, 0);
+  }
+  return cmv_buffer;
+}
+```
+
+Inside `keycodes_for_key`, the user must use the `CMV(...)` macro defined as following and passing it the wanted custom modified values which can be any 16-bit keycodes:
+```C
+// in quantum/custom_modified_values.h near line 13
+#define CMV(kc_default, kc_shifted, kc_altgred, kc_sftralt) set_cmv_buffer(kc_default, kc_shifted, kc_altgred, kc_sftralt)
+```
+
+The `set_cmv_buffer` function fills the array used as a buffer by the feature which is initialized like this:
+```C
+// in quantum/keymap_common.c near line 190
+static uint16_t cmv_buffer[4] = {0,0,0,0};
+```
+
+So back in `keymap_key_to_keycode_cmv`, `get_custom_modified_values_for_key` returns a pointer to `cmv_buffer` which is being passed as a parameter to the `get_kcid` function. This latter returns the *KCID* depending on the current state of the modifiers (we are going to use it as an index in `cmv_buffer`). The KCID is an integer from 0 to 4. For example, if `KC_LSHIFT` is currently being held down, `get_kcid` will return `1` IF AND ONLY IF there is a custom *shifted* keycode assigned to the key and this keycode is **different than 0**.
+```C
+// in quantum/keymap_common.c near line 212
+static uint8_t get_kcid(uint16_t* kcs) {
+  if(are_there_non_charmods()) return 0;
+  else if(are_there_shifts() && are_there_ralts() && kcs[3]) return 3;
+  else if(are_there_shifts() && kcs[1]) return 1;
+  else if(are_there_ralts() && kcs[2]) return 2;
+  return 0;
+}
+```
+(Note: I think it is a good idea to return the default keycode (i.e. KCID=0) if there are any non-charmods modifiers active, so the user can still use shortcuts such as `Ctrl+Shift+;` (for example, in Visual Studio Code) even if they assigned a custom shifted keycode to the `;` key)
+
+The `are_there_*` functions called in `get_kcid` are defined in `tmk_core/common/action_util.c`. They use the **appropriate *modifiers mask*** to see if the **wanted modifiers are set** in any of the four `uint8_t` variables holding the modifiers' state: **`real_mods`**, **`macro_mods`**, **`oneshot_mods`** and **`oneshot_locked_mods`**:
+```C
+// in tmk_core/common/action_util.c near line 69
+// #define CMV_NON_CHARMODS_MASK (0b00000000 | MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTRL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTRL))
+#define CMV_NON_CHARMODS_MASK 0b10011101
+// #define CMV_SHIFTS_MASK (0b00000000 | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LSHIFT))
+#define CMV_SHIFTS_MASK 0b00100010
+// #define CMV_RALT_MASK (0b00000000 | MOD_BIT(KC_RALT))
+#define CMV_RALT_MASK 0b01000000
+
+#ifndef NO_ACTION_ONESHOT
+# define ARE_THERE_THESE_MODS(mods_mask) (  \
+    (mods_mask & real_mods)     ||          \
+    (mods_mask & macro_mods)    ||          \
+    (mods_mask & oneshot_mods)  ||          \
+    (mods_mask & oneshot_locked_mods))
+#else
+# define ARE_THERE_THESE_MODS(mods_mask) ((mods_mask & real_mods) || (mods_mask & macro_mods))
+#endif
+
+bool are_there_non_charmods(void) { return ARE_THERE_THESE_MODS(CMV_NON_CHARMODS_MASK); }
+bool are_there_shifts(void) { return ARE_THERE_THESE_MODS(CMV_SHIFTS_MASK); }
+bool are_there_ralts(void) { return ARE_THERE_THESE_MODS(CMV_RALT_MASK); }
+```
+
+Back in `keymap_key_to_keycode_cmv` now. If KCID value returned by `get_kcid` **is 0** this means that we want to return the **default keycode** to the firmware. If the KCID is **any other value** (i.e. 1, 2 or 3) this means there **is a custom modified value** and we have to return it to the firmware. However, since we want the user to be able to assign **any 16-bit keycode as a custom modified value**, we have to **NOT send the charmods** currently pressed so for example, `KC_X` assigned as a custom shifted value gives `x` (it would give `X` if we sent the currently pressed `Shift`). To *block* (or to *unblock*) the modifiers, we use the `set_mods_blocker` function which set the value of the variable `dont_send_modifiers` defined as:
+```C
+// in tmk_core/common/action_util.c near line 86
+static bool dont_send_mods = false;
+``` 
+
+This variable is then used inside the `send_keyboard_report` function to **prevent the `mods` part of the `keyboard_report` to be filled** by `real_mods`, `macro_mods`, `oneshot_mods` or `oneshot_locked_mods` (But not `weak_mods` since it is used for keycodes such as `LFST(KC_DOT)`):
+```C
+// in tmk_core/common/action_util.c near line 187
+void send_keyboard_report(void) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+    if (dont_send_mods) {
+      keyboard_report->mods = weak_mods;
+# ifndef NO_ACTION_ONESHOT
+          if (oneshot_mods) {
+#   if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+              if (has_oneshot_mods_timed_out()) {
+                  dprintf("Oneshot: timeout\n");
+                  clear_oneshot_mods();
+              }
+#   endif
+              if (has_anykey(keyboard_report)) {
+                  clear_oneshot_mods();
+                  host_keyboard_send(keyboard_report); // These two lines are here to  
+                  clear_keys();                        // prevent the keycode to get stuck
+              }
+          }
+# endif
+    } else {
+#endif
+    keyboard_report->mods  = real_mods;
+    keyboard_report->mods |= weak_mods;
+    keyboard_report->mods |= macro_mods;
+#ifndef NO_ACTION_ONESHOT
+    if (oneshot_mods) {
+#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
+        if (has_oneshot_mods_timed_out()) {
+            dprintf("Oneshot: timeout\n");
+            clear_oneshot_mods();
+        }
+#endif
+        keyboard_report->mods |= oneshot_mods;
+        if (has_anykey(keyboard_report)) {
+            clear_oneshot_mods();
+        }
+    }
+#endif
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+    }
+#endif
+
+    host_keyboard_send(keyboard_report);
+}
+```
+
+Finally, a last problem needed to be solved: if the user **release a key at a moment where the modifiers' state is different than it was when the key was pressed**, it is most likely that the returned keycode will not be the same as the one returned when the key was pressed in the first place which **will result in a *stuck* key**. To solve this issue without having to store the keycodes processed when the key was pressed (that would make the feature notably heavier (this is done in the `CMV-2.0-Normal` version)), we have to **clear keys when the modifiers' state changes** (for oneshots modifiers it is done by the two lines in the code right above this):
+```C
+// in tmk_core/common/action_util.c near line 221
+void add_mods(uint8_t mods) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  clear_keys();
+#endif
+  real_mods |= mods;
+}
+
+void del_mods(uint8_t mods) {
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  clear_keys();
+#endif
+  real_mods &= ~mods;
+}
+```
+
+(Please take note that this solves the problem for MOST of the keycodes but the problem can still potentially occur for some advanced keycodes. If you're absolutely willing to use these latter keycodes, please consider allocating a little more space to the feature and use the `CMV-2.0-Normal` version (currently in development) instead which will solve this problem.)
