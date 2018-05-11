@@ -68,6 +68,3 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
-*.BAK001
-*.BAK002
-keyboards/ergo42/keymaps/default/readme.md
