@@ -162,7 +162,13 @@ void matrix_init_user(void) {
   uint8_t default_layer = eeconfig_read_default_layer();
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
 
+#ifdef BOOTLOADER_CATERINA
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
 
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+#endif
 
   if (userspace_config.rgb_layer_change) {
 #ifdef RGBLIGHT_ENABLE
