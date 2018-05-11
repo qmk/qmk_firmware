@@ -315,20 +315,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              *****************************/
             case VIM_A:
               if(SHIFTED) {
-                CMD(KC_RIGHT);
+                // CMD(KC_RIGHT);
+                CTRL(KC_E);
               } else {
                 TAP(KC_RIGHT);
               }
               EDIT;
               break;
             case VIM_B:
-              // ALT(KC_LEFT);
               PRESS(KC_LALT);
               PRESS(KC_LEFT);
               break;
             case VIM_C:
               if(SHIFTED) {
-                CTRL(KC_K);
+                PRESS(KC_LSHIFT);
+                  CMD(KC_RIGHT);
+                RELEASE(KC_LSHIFT);
+                CMD(KC_X);
                 EDIT;
               } else {
                 vstate = VIM_C;
@@ -342,7 +345,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               break;
             case VIM_E:
-              // ALT(KC_RIGHT);
               PRESS(KC_LALT);
               PRESS(KC_RIGHT);
               break;
@@ -354,7 +356,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               }
               break;
             case VIM_H:
-              // TAP(KC_LEFT);
               PRESS(KC_LEFT);
               break;
             case VIM_I:
@@ -369,38 +370,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 TAP(KC_DEL);
               } else {
                 PRESS(KC_DOWN);
-                // TAP(KC_DOWN);
               }
               break;
             case VIM_K:
-              // TAP(KC_UP);
               PRESS(KC_UP);
               break;
             case VIM_L:
-              // TAP(KC_RIGHT);
               PRESS(KC_RIGHT);
               break;
             case VIM_O:
               if(SHIFTED) {
-                // CMD(KC_LEFT);
-                CTRL(KC_A);
+                CMD(KC_LEFT);
                 TAP(KC_ENTER);
                 TAP(KC_UP);
                 EDIT;
               } else {
-                // CMD(KC_RIGHT);
-                CTRL(KC_E);
+                CMD(KC_RIGHT);
                 TAP(KC_ENTER);
                 EDIT;
               }
               break;
             case VIM_P:
               if(SHIFTED) {
-                CTRL(KC_A);
+                CMD(KC_LEFT);
                 CMD(KC_V);
               } else {
                 if(yank_was_lines) {
-                  CTRL(KC_E);
+                  CMD(KC_RIGHT);
                   TAP(KC_RIGHT);
                   CMD(KC_V);
                 } else {
@@ -411,8 +407,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case VIM_S:
               // s for substitute?
               if(SHIFTED) {
-                CTRL(KC_A);
-                CTRL(KC_K);
+                CMD(KC_LEFT);
+                PRESS(KC_LSHIFT);
+                  CMD(KC_RIGHT);
+                RELEASE(KC_LSHIFT);
+                CMD(KC_X);
                 EDIT;
               } else {
                 SHIFT(KC_RIGHT);
@@ -431,7 +430,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               break;
             case VIM_V:
               if(SHIFTED) {
-                CTRL(KC_A);
+                CMD(KC_LEFT);
                 SHIFT(KC_DOWN);
                 vstate = VIM_VS;
               } else {
@@ -452,7 +451,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               break;
             case VIM_Y:
               if(SHIFTED) {
-                CTRL(KC_A);
+
+                CMD(KC_LEFT);
                 PRESS(KC_LSHIFT);
                   CMD(KC_RIGHT);
                 RELEASE(KC_LSHIFT);
@@ -497,8 +497,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
           case VIM_C:
-            CTRL(KC_A);
-            CTRL(KC_K);
+            CMD(KC_LEFT);
+            PRESS(KC_LSHIFT);
+              CMD(KC_RIGHT);
+            RELEASE(KC_LSHIFT);
+            CMD(KC_X);
             EDIT;
             break;
           case VIM_I:
@@ -542,8 +545,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             CMD(KC_X);
             break;
           case VIM_D:
-            CTRL(KC_A);
-            CTRL(KC_K);
+            CMD(KC_LEFT);
+            PRESS(KC_LSHIFT);
+              CMD(KC_RIGHT);
+              TAP(KC_RIGHT);
+            RELEASE(KC_LSHIFT);
+            CMD(KC_X);
             vstate = VIM_START;
             break;
           case VIM_I:
