@@ -69,13 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_keymap(void) {
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
-}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
