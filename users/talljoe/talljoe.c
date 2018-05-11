@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T   , KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   , KC_LBRC, KC_RBRC, KC_BSPC,
       US_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    US_SCLN, US_QUOT,          US_ENT ,
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, MO_ADJ ,
-      KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_APP , KC_RCTL, KC_PTT ),
+      KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_WORKMAN] = TEMPLATE(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , US_SCLN, _______, _______, _______,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_TAB , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_VOLU, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, KC_BTN1, KC_BTN2, KC_BTN3, KC_DEL ,
       US_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_MUTE, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , KC_RCTL,          TG_ADJ ,
-      KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, KC_WBAK, KC_WFWD, KC_WREF,          KC_RSFT, XXXXXXX,
+      KC_LSFT, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_VOLD, KC_END , KC_PGDN, KC_WBAK, KC_WFWD, KC_WREF,          KC_RSFT, KC_APP ,
       KC_LCTL, KC_LGUI, KC_LALT,                   NV_SPC2, NV_SPC1, NV_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_NUM] = TEMPLATE(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
