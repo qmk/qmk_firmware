@@ -12,6 +12,9 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "__mutex_base": "c",
+        "memory": "c",
+        "ios": "c"
     }
 }

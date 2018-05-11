@@ -182,9 +182,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {RGB_MODE_REVERSE, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, RGB_VAI},
+  {RGB_MODE_FORWARD, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, RGB_VAD},
+  {RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 
@@ -235,7 +235,48 @@ void vim_reset(void) {
   yank_was_lines = false;
 }
 
-#define EDIT vstate = VIM_START; layer_on(_EDIT); layer_off(_CMD)
+void edit(void) { vstate = VIM_START; layer_on(_EDIT); layer_off(_CMD); }
+#define EDIT edit()
+
+
+void simple_movement(uint16_t keycode) {
+  switch(keycode) {
+    case VIM_B:
+      PRESS(KC_LALT);
+        SHIFT(KC_LEFT); // select to start of this word
+      RELEASE(KC_LALT);
+      break;
+    case VIM_E:
+      PRESS(KC_LALT);
+        SHIFT(KC_RIGHT); // select to end of this word
+      RELEASE(KC_LALT);
+      break;
+    case VIM_H:
+      SHIFT(KC_LEFT);
+      break;
+    case VIM_J:
+      CMD(KC_LEFT);
+      SHIFT(KC_DOWN);
+      SHIFT(KC_DOWN);
+      break;
+    case VIM_K:
+      CMD(KC_LEFT);
+      TAP(KC_DOWN);
+      SHIFT(KC_UP);
+      SHIFT(KC_UP);
+      break;
+    case VIM_L:
+      SHIFT(KC_RIGHT);
+      break;
+    case VIM_W:
+      PRESS(KC_LALT);
+      SHIFT(KC_RIGHT); // select to end of this word
+      SHIFT(KC_RIGHT); // select to end of next word
+      SHIFT(KC_LEFT);  // select to start of next word
+      RELEASE(KC_LALT);
+      break;
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -429,70 +470,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            * c-  ...for change. I never use this...
            *****************************/
           switch(keycode) {
-            case VIM_B:
-              PRESS(KC_LALT);
-                SHIFT(KC_LEFT); // select to start of this word
-              RELEASE(KC_LALT);
-              CMD(KC_X);
-              EDIT;
-              break;
-            case VIM_C:
-              CTRL(KC_A);
-              CTRL(KC_K);
-              EDIT;
-              break;
-            case VIM_E:
-              PRESS(KC_LALT);
-                SHIFT(KC_RIGHT); // select to end of this word
-              RELEASE(KC_LALT);
-              CMD(KC_X);
-              EDIT;
-              break;
-            case VIM_H:
-              SHIFT(KC_LEFT);
-              CMD(KC_X);
-              EDIT;
-              break;
-            case VIM_I:
-              vstate = VIM_CI;
-              break;
-            case VIM_J:
-              // delete this line and the next line down
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              EDIT;
-              break;
-            case VIM_K:
-              // delete this line and the one above.
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              TAP(KC_UP);
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              EDIT;
-              break;
-            case VIM_L:
-              SHIFT(KC_RIGHT);
-              CMD(KC_X);
-              EDIT;
-              break;
-            case VIM_W:
-              PRESS(KC_LALT);
-              SHIFT(KC_RIGHT); // select to end of this word
-              SHIFT(KC_RIGHT); // select to end of next word
-              SHIFT(KC_LEFT);  // select to start of next word
-              RELEASE(KC_LALT);
-              CMD(KC_X); // delete selection
-              EDIT;
-              break;
-            default:
-              vstate = VIM_START;
-              break;
+          case VIM_B:
+          case VIM_E:
+          case VIM_H:
+          case VIM_J:
+          case VIM_K:
+          case VIM_L:
+          case VIM_W:
+            simple_movement(keycode);
+            CMD(KC_X);
+            EDIT;
+            break;
+
+          case VIM_C:
+            CTRL(KC_A);
+            CTRL(KC_K);
+            EDIT;
+            break;
+          case VIM_I:
+            vstate = VIM_CI;
+            break;
+          default:
+            vstate = VIM_START;
+            break;
           }
           break;
         case VIM_CI:
@@ -517,70 +517,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            * d-  ...delete stuff
            *****************************/
           switch(keycode) {
-            case VIM_B:
-              PRESS(KC_LALT);
-                SHIFT(KC_LEFT); // select to start of this word
-              RELEASE(KC_LALT);
-              CMD(KC_X);
-              vstate = VIM_START;
-              break;
-            case VIM_D:
-              CTRL(KC_A);
-              CTRL(KC_K);
-              vstate = VIM_START;
-              break;
-            case VIM_E:
-              PRESS(KC_LALT);
-                SHIFT(KC_RIGHT); // select to end of this word
-              RELEASE(KC_LALT);
-              CMD(KC_X);
-              vstate = VIM_START;
-              break;
-            case VIM_H:
-              SHIFT(KC_LEFT);
-              CMD(KC_X);
-              vstate = VIM_START;
-              break;
-            case VIM_I:
-              vstate = VIM_DI;
-              break;
-            case VIM_J:
-              // delete this line and the next line down
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              vstate = VIM_START;
-              break;
-            case VIM_K:
-              // delete this line and the one above.
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              TAP(KC_UP);
-              CTRL(KC_A);
-              CTRL(KC_K);
-              CTRL(KC_K);
-              vstate = VIM_START;
-              break;
-            case VIM_L:
-              SHIFT(KC_RIGHT);
-              CMD(KC_X);
-              vstate = VIM_START;
-              break;
-            case VIM_W:
-              PRESS(KC_LALT);
-              SHIFT(KC_RIGHT); // select to end of this word
-              SHIFT(KC_RIGHT); // select to end of next word
-              SHIFT(KC_LEFT);  // select to start of next word
-              RELEASE(KC_LALT);
-              CMD(KC_X); // delete selection
-              vstate = VIM_START;
-              break;
-            default:
-              vstate = VIM_START;
-              break;
+          case VIM_B:
+          case VIM_E:
+          case VIM_H:
+          case VIM_J:
+          case VIM_K:
+          case VIM_L:
+          case VIM_W:
+            simple_movement(keycode);
+            CMD(KC_X);
+            break;
+          case VIM_D:
+            CTRL(KC_A);
+            CTRL(KC_K);
+            vstate = VIM_START;
+            break;
+          case VIM_I:
+            vstate = VIM_DI;
+            break;
+          default:
+            vstate = VIM_START;
+            break;
           }
           break;
         case VIM_DI:
@@ -746,18 +703,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case VIM_Y:
           /*****************************
-           * just supporting yy for now...
+           * yoink!
            *****************************/
           switch(keycode) {
-            case VIM_Y:
-              break;
-            default:
-              // NOTHING
-              break;
+          case VIM_B:
+          case VIM_E:
+          case VIM_H:
+          case VIM_J:
+          case VIM_K:
+          case VIM_L:
+          case VIM_W:
+            simple_movement(keycode);
+            CMD(KC_C);
+            TAP(KC_RIGHT);
+            break;
+          case VIM_Y:
+            CMD(KC_LEFT);
+            SHIFT(KC_DOWN);
+            CMD(KC_C);
+            TAP(KC_RIGHT);
+            TAP(KC_LEFT);
+            break;
+          default:
+            // NOTHING
+            break;
           }
           vstate = VIM_START;
           break;
-      }
+        }
     } else {
       /************************
        * key release events
