@@ -23,7 +23,6 @@ LEADER_EXTERNS();
 
 extern keymap_config_t keymap_config;
 
-
 /************************************
  * helper foo
  ************************************/
@@ -194,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {TO(_QWERTY), X_____X, X_____X, X_____X, X_____X, X_____X, KC_HOME, KC_PGDN, KC_PGUP, KC_END, X_____X, X_____X},
   {_______,     X_____X, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, X_____X, X_____X},
   {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
-  {X_____X,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, _______, _______}
+  {X_____X,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), _______}
 },
 
 /* mouse layer
@@ -203,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {TO(_QWERTY), X_____X, X_____X, KC_MS_UP, X_____X, X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X, X_____X  },
   {_______,     X_____X, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, X_____X, X_____X, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, X_____X, X_____X},
   {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
-  {_______,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, _______, _______}
+  {_______,     _______, _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), _______}
 },
 
 /* vim edit mode. just has an escape -> _CMD key */
@@ -211,16 +210,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {VIM_START,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______,     _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY), _______}
 },
 
 /* vim command layer.
  */
 [_CMD] = {
-  {TO(_QWERTY), X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X},
+  {X_____X, X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X},
   {VIM_ESC,    VIM_A, VIM_S, VIM_D, X_____X, VIM_G, VIM_H, VIM_J, VIM_K, VIM_L, X_____X, X_____X},
   {VIM_SHIFT,     X_____X, VIM_X, VIM_C, VIM_V, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, VIM_SHIFT},
-  {X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X}
+  {X_____X,     X_____X, _______, _______, X_____X, X_____X, X_____X, X_____X, _______, _______, TO(_QWERTY), X_____X}
 }
 
 };
@@ -228,6 +227,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t vstate = VIM_START;
 bool yank_was_lines = false;
 bool SHIFTED = false;
+uint32_t mod_override_layer_state = 0;
+uint16_t mod_override_triggering_key = 0;
+bool do_check_kb_clear = false;
 
 void vim_reset(void) {
   vstate = VIM_START;
@@ -279,6 +281,18 @@ void simple_movement(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if(record->event.pressed && layer_state_is(_CMD) && IS_MOD(keycode)) {
+    mod_override_layer_state = layer_state;
+    mod_override_triggering_key = keycode;
+    layer_clear();
+    return true; // let the event fall through...
+  }
+  if(mod_override_layer_state && !record->event.pressed && keycode == mod_override_triggering_key) {
+    layer_state_set(mod_override_layer_state);
+    mod_override_layer_state = 0;
+    mod_override_triggering_key = 0;
+    return true;
+  }
 
   if (VIM_START <= keycode && keycode <= VIM_ESC) {
     if(keycode == VIM_SHIFT) {
