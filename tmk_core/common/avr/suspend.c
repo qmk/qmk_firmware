@@ -19,7 +19,7 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
-#ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_SLEEP
   #include "rgblight.h"
 #endif
 
