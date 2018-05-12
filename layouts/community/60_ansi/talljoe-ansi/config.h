@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
+#define PREVENT_STUCK_MODIFIERS
 #define ENABLE_GAME_LAYER
 
 #define TEMPLATE(                                                                   \
