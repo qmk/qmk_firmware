@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSPC},
   {KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PGUP, KC_PGDN, _______},
-  {RGB_TOG, _______, _______, _______, OSL(_ADJUST), _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, _______, _______, _______, OSL(_ADJUST), _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
 
@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
+  {RGB_MODE_PLAIN, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
   {RGB_MODE_REVERSE, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, RGB_VAI},
   {RGB_MODE_FORWARD, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, RGB_VAD},
   {RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
@@ -762,4 +762,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   } else {
     return true;
   }
+}
+
+/*
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+  _MOVE,
+  _MOUSE,
+  // vim layers
+  _EDIT,
+  _CMD
+  */
+
+void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
+  for(int i = 0; i < RGBLED_NUM; i++){
+    switch(i) {
+      case 9 ... 12:
+        // rgblight_setrgb_at(r,g,b,i);
+        led[i].r = r;
+        led[i].g = g;
+        led[i].b = b;
+        break;
+      default:
+        // rgblight_setrgb_at(0,0,0,i);
+        led[i].r = 0;
+        led[i].g = 0;
+        led[i].b = 0;
+        break;
+    }
+  }
+  rgblight_set();
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _RAISE:
+    case _LOWER:
+    case _ADJUST:
+        rgbflag(0x00,  0x00, 0xFF);
+        break;
+    case _MOVE:
+    case _MOUSE:
+        rgbflag(0xFF,  0x00, 0x00);
+        break;
+    case _CMD:
+        rgbflag(0x00,  0xFF, 0x00);
+        break;
+    case _EDIT:
+        rgbflag(0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgbflag(0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
 }

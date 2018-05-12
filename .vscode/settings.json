@@ -15,6 +15,10 @@
         "typeinfo": "c",
         "__mutex_base": "c",
         "memory": "c",
-        "ios": "c"
+        "ios": "c",
+        "locale": "c",
+        "string": "c",
+        "algorithm": "c",
+        "random": "c"
     }
 }
