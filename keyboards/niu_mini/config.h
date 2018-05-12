@@ -76,7 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 #endif
 
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

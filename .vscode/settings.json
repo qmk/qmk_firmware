@@ -11,14 +11,6 @@
         "*.h": "c",
         "*.c": "c",
         "*.cpp": "cpp",
-        "*.hpp": "cpp",
-        "typeinfo": "c",
-        "__mutex_base": "c",
-        "memory": "c",
-        "ios": "c",
-        "locale": "c",
-        "string": "c",
-        "algorithm": "c",
-        "random": "c"
+        "*.hpp": "cpp"
     }
 }
