@@ -152,16 +152,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(process_record_xtonhasvim(keycode, record)) {
-    // do nothing so far
-    return true;
-  } else {
-    // already handled by vim
-    return false;
-  }
-}
-
 /** Set just 4 LEDs closest to the user. Slightly less annoying to bystanders.*/
 void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
   for(int i = 0; i < RGBLED_NUM; i++){
