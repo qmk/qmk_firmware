@@ -1,40 +1,25 @@
 # Frequently Asked Build Questions
 
-This page covers questions about building QMK. If you have not yet you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
+This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.
 
 ## Can't Program on Linux
-You will need proper permission to operate a device. For Linux users see udev rules below. Easy way is to use `sudo` command, if you are not familiar with this command check its manual with `man sudo` or this page on line.
+You will need proper permissions to operate a device. For Linux users, see the instructions regarding `udev` rules, below. If you have issues with `udev`, a work-around is to use the `sudo` command. If you are not familiar with this command, check its manual with `man sudo` or [see this webpage](https://linux.die.net/man/8/sudo).
 
-In short when your controller is ATMega32u4,
+An example of using `sudo`, when your controller is ATMega32u4:
 
     $ sudo dfu-programmer atmega32u4 erase --force
     $ sudo dfu-programmer atmega32u4 flash your.hex
     $ sudo dfu-programmer atmega32u4 reset
 
-or just
+or just:
 
     $ sudo make <keyboard>:<keymap>:dfu
 
-But to run `make` with root privilege is not good idea. Use former method if possible.
-
-## WINAVR is Obsolete
-It is no longer recommended and may cause some problem.
-See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
-
-## USB VID and PID
-You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
-
-Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
-
-Also see this.
-https://github.com/tmk/tmk_keyboard/issues/150
-
-You can buy a really unique VID:PID here. I don't think you need this for personal use.
-- http://www.obdev.at/products/vusb/license.html
-- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
+Note that running `make` with `sudo` is generally *not* a good idea, and you should use one of the former methods, if possible.
 
 ## Linux `udev` Rules
-On Linux you need proper privilege to access device file of MCU, you'll have to use `sudo` when flashing firmware. You can circumvent this with placing these files in `/etc/udev/rules.d/`.
+On Linux, you'll need proper privileges to access the MCU. You can either use
+`sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`.
 
 **/etc/udev/rules.d/50-atmel-dfu.rules:**
 ```
@@ -52,6 +37,21 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
 
+## WINAVR is Obsolete
+It is no longer recommended and may cause some problem.
+See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99).
+
+## USB VID and PID
+You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product.
+
+Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.
+
+Also see this.
+https://github.com/tmk/tmk_keyboard/issues/150
+
+You can buy a really unique VID:PID here. I don't think you need this for personal use.
+- http://www.obdev.at/products/vusb/license.html
+- http://www.mcselec.com/index.php?page=shop.product_details&flypage=shop.flypage&product_id=92&option=com_phpshop&Itemid=1
 
 ## Cortex: `cstddef: No such file or directory`
 GCC 4.8 of Ubuntu 14.04 had this problem and had to update to 4.9 with this PPA.
@@ -60,7 +60,6 @@ https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-arm-embedded
 https://github.com/tmk/tmk_keyboard/issues/212
 https://github.com/tmk/tmk_keyboard/wiki/mbed-cortex-porting#compile-error-cstddef
 https://developer.mbed.org/forum/mbed/topic/5205/
-
 
 ## `clock_prescale_set` and `clock_div_1` Not Available
 Your toolchain is too old to support the MCU. For example WinAVR 20100110 doesn't support ATMega32u2.
@@ -88,4 +87,20 @@ Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
+```
+
+## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
+This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled. 
+
+The solution is to remove and reinstall all affected modules. 
+
+```
+brew rm avr-gcc
+brew rm dfu-programmer
+brew rm gcc-arm-none-eabi
+brew rm avrdude
+brew install avr-gcc
+brew install dfu-programmer
+brew install gcc-arm-none-eabi
+brew install avrdude
 ```

@@ -6,7 +6,7 @@ A luxurious 24 key keypad with various layouts. Includes RGB underglow, backligh
 
 Keyboard Maintainer: [Yiancar](https://github.com/yiancar)  
 Hardware Supported: PCB v1.0 (uses a 32u4) 
-Hardware Availability: http://caps-unlocked.com/
+Hardware Availability: [caps-unlocked.com](http://caps-unlocked.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

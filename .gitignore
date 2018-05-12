@@ -23,6 +23,7 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+doxygen/
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
@@ -42,6 +43,7 @@ cmake-build-debug
 .project
 .settings/
 .idea
+*.iml
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt

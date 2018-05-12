@@ -6,7 +6,7 @@
 # Stack size to be allocated to the Cortex-M process stack. This stack is
 # the stack used by the main() thread.
 ifeq ($(USE_PROCESS_STACKSIZE),)
-  USE_PROCESS_STACKSIZE = 0x200
+  USE_PROCESS_STACKSIZE = 0x800
 endif
 
 # Stack size to the allocated to the Cortex-M main/exceptions stack. This
@@ -63,6 +63,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(TOP_DIR)/drivers
+    BOARD_MK += $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")
@@ -149,6 +152,7 @@ COMPILEFLAGS += -falign-functions=16
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fno-common
+COMPILEFLAGS += -fshort-wchar
 COMPILEFLAGS += $(THUMBFLAGS)
 
 CFLAGS += $(COMPILEFLAGS)
@@ -159,6 +163,7 @@ CPPFLAGS += $(COMPILEFLAGS)
 CPPFLAGS += -fno-rtti
 
 LDFLAGS +=-Wl,--gc-sections
+LDFLAGS +=-Wl,--no-wchar-size-warning
 LDFLAGS += -mno-thumb-interwork -mthumb
 LDSYMBOLS =,--defsym=__process_stack_size__=$(USE_PROCESS_STACKSIZE)
 LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE)
