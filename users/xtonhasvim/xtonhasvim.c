@@ -145,6 +145,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
                   CMD(KC_RIGHT);
                 RELEASE(KC_LSHIFT);
                 CMD(KC_X);
+                yank_was_lines = false;
                 EDIT;
               } else {
                 vstate = VIM_C;
@@ -225,10 +226,12 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
                   CMD(KC_RIGHT);
                 RELEASE(KC_LSHIFT);
                 CMD(KC_X);
+                yank_was_lines = false;
                 EDIT;
               } else {
                 SHIFT(KC_RIGHT);
                 CMD(KC_X);
+                yank_was_lines = false;
                 EDIT;
               }
               break;
@@ -264,13 +267,11 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
               break;
             case VIM_Y:
               if(SHIFTED) {
-
                 CMD(KC_LEFT);
-                PRESS(KC_LSHIFT);
-                  CMD(KC_RIGHT);
-                RELEASE(KC_LSHIFT);
+                SHIFT(KC_DOWN);
                 CMD(KC_C);
-                TAP(KC_LEFT);
+                TAP(KC_RIGHT);
+                yank_was_lines = true;
               } else {
                 vstate = VIM_Y;
               }
@@ -306,6 +307,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
           case VIM_W:
             simple_movement(keycode);
             CMD(KC_X);
+            yank_was_lines = false;
             EDIT;
             break;
 
@@ -315,6 +317,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
               CMD(KC_RIGHT);
             RELEASE(KC_LSHIFT);
             CMD(KC_X);
+            yank_was_lines = false;
             EDIT;
             break;
           case VIM_I:
@@ -336,6 +339,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
                 ALT(KC_RIGHT);
               RELEASE(KC_LSHIFT);
               CMD(KC_X);
+              yank_was_lines = false;
               EDIT;
             default:
               vstate = VIM_START;
@@ -356,14 +360,13 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
           case VIM_W:
             simple_movement(keycode);
             CMD(KC_X);
+            yank_was_lines = false;
             break;
           case VIM_D:
             CMD(KC_LEFT);
-            PRESS(KC_LSHIFT);
-              CMD(KC_RIGHT);
-              TAP(KC_RIGHT);
-            RELEASE(KC_LSHIFT);
+            SHIFT(KC_DOWN);
             CMD(KC_X);
+            yank_was_lines = true;
             vstate = VIM_START;
             break;
           case VIM_I:
@@ -385,6 +388,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
                 ALT(KC_RIGHT);
               RELEASE(KC_LSHIFT);
               CMD(KC_X);
+              yank_was_lines = false;
               vstate = VIM_START;
             default:
               vstate = VIM_START;
@@ -550,13 +554,14 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record) {
             simple_movement(keycode);
             CMD(KC_C);
             TAP(KC_RIGHT);
+            yank_was_lines = false;
             break;
           case VIM_Y:
             CMD(KC_LEFT);
             SHIFT(KC_DOWN);
             CMD(KC_C);
             TAP(KC_RIGHT);
-            TAP(KC_LEFT);
+            yank_was_lines = true;
             break;
           default:
             // NOTHING
