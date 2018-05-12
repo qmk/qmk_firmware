@@ -58,9 +58,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
-    } else {
-        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
-    }
+    // if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    //     DDRB |= (1 << 2); PORTB &= ~(1 << 2);
+    // } else {
+    //     DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
+    // }
 }
+
+
+#define LED_BIT 1 << 2
+#define LED_MASK ~(1 << 2)
+
+void user_led_on(void) {
+  DDRB |= LED_BIT;
+  PORTB &= LED_MASK;
+}
+
+void user_led_off(void) {
+  DDRB &= ~LED_BIT;
+  PORTB &= LED_MASK;
+}
+
+void matrix_init_user(void) {
+  user_led_off();
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  static uint32_t last_state = 0;
+
+  if(last_state != state) {
+    switch (biton32(state)) {
+    case _CMD:
+      user_led_on();
+      break;
+    default:
+      user_led_off();
+      break;
+    }
+    last_state = state;
+  }
+  return state;
+}
+
+
