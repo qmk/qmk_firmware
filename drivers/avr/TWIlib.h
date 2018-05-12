@@ -1,24 +1,24 @@
 /*
  * TWIlib.h
  *
- * Created: 6/01/2014 10:38:42 PM
+ *  Created: 6/01/2014 10:41:33 PM
  *  Author: Chris Herring
- *  http://www.chrisherring.net/all/tutorial-interrupt-driven-twi-interface-for-avr-part1/
- */ 
+ *  Modified by LFkeyboard to be non blocking
+ */
 
 
 #ifndef TWILIB_H_
 #define TWILIB_H_
-// TWI bit rate (was 100000)
+// TWI bit rate
 #define TWI_FREQ 400000
 // Get TWI status
-#define TWI_STATUS	(TWSR & 0xF8) 
+#define TWI_STATUS	(TWSR & 0xF8)
 // Transmit buffer length
 #define TXMAXBUFLEN 20
 // Receive buffer length
 #define RXMAXBUFLEN 20
 // Global transmit buffer
-uint8_t TWITransmitBuffer[TXMAXBUFLEN];
+volatile uint8_t *TWITransmitBuffer;
 // Global receive buffer
 volatile uint8_t TWIReceiveBuffer[RXMAXBUFLEN];
 // Buffer indexes
@@ -41,7 +41,7 @@ typedef enum {
  typedef struct TWIInfoStruct{
 	TWIMode mode;
 	uint8_t errorCode;
-	uint8_t repStart;	
+	uint8_t repStart;
 	}TWIInfoStruct;
 TWIInfoStruct TWIInfo;
 
@@ -74,9 +74,9 @@ TWIInfoStruct TWIInfo;
 #define TWISendNACK()		(TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWIE)) // FOR MR mode. Resume a transfer, ensure that TWI and interrupts are enabled but DO NOT respond with an ACK if the device is addressed as a slave or after it receives a byte.
 
 // Function declarations
-uint8_t TWITransmitData(void *const TXdata, uint8_t dataLen, uint8_t repStart);
+void TWITransmitData(void *const TXdata, uint8_t dataLen, uint8_t repStart, uint8_t blocking);
 void TWIInit(void);
 uint8_t TWIReadData(uint8_t TWIaddr, uint8_t bytesToRead, uint8_t repStart);
 uint8_t isTWIReady(void);
 
-#endif // TWICOMMS_H_ 
+#endif // TWICOMMS_H_

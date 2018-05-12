@@ -89,7 +89,7 @@ void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
 	// Continuously attempt to transmit data until a successful transmission occurs
 	//while ( TWIInfo.errorCode != 0xFF )
 	//{
-		TWITransmitData( g_twi_transfer_buffer, 3, 0 );
+		TWITransmitData( g_twi_transfer_buffer, 3, 0, 1 );
 	//}
 }
 
@@ -121,7 +121,7 @@ void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer )
 		// Continuously attempt to transmit data until a successful transmission occurs
 		while ( TWIInfo.errorCode != 0xFF )
 		{
-			TWITransmitData( g_twi_transfer_buffer, 16 + 2, 0 );
+			TWITransmitData( g_twi_transfer_buffer, 16 + 2, 0, 1 );
 		}
 	}
 }

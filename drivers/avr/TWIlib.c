@@ -3,13 +3,14 @@
  *
  *  Created: 6/01/2014 10:41:33 PM
  *  Author: Chris Herring
- *  http://www.chrisherring.net/all/tutorial-interrupt-driven-twi-interface-for-avr-part1/
- */ 
+ *  Modified by LFkeyboard to be non blocking
+ */
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "TWIlib.h"
 #include "util/delay.h"
+#include "print.h"
 
 void TWIInit()
 {
@@ -32,48 +33,57 @@ uint8_t isTWIReady()
 	}
 	else
 	{
+		if(TWIInfo.mode == Initializing){
+			switch(TWIInfo.errorCode){
+		        case TWI_SUCCESS:
+		        case TWI_NO_RELEVANT_INFO:
+		        	break;
+				case TWI_LOST_ARBIT:
+				case TWI_MT_DATA_NACK:
+					// Some kind of I2C error, reset and re-init
+		        	xprintf("I2C init error: %d\n", TWIInfo.errorCode);
+			        TWCR = (1 << TWINT)|(1 << TWSTO);
+		        	TWIInit();
+		        	break;
+		        default:
+		        	xprintf("Other i2c init error: %d\n", TWIInfo.errorCode);
+			}
+		}
 		return 0;
 	}
 }
 
-uint8_t TWITransmitData(void *const TXdata, uint8_t dataLen, uint8_t repStart)
+void TWITransmitData(void *const TXdata, uint8_t dataLen, uint8_t repStart, uint8_t blocking)
 {
-	if (dataLen <= TXMAXBUFLEN)
+	// Wait until ready
+	while (!isTWIReady()) {_delay_us(1);}
+	// Reset the I2C stuff
+	TWCR = (1 << TWINT)|(1 << TWSTO);
+	TWIInit();
+	// Set repeated start mode
+	TWIInfo.repStart = repStart;
+	// Copy transmit info to global variables
+	TWITransmitBuffer = (uint8_t *)TXdata;
+	TXBuffLen = dataLen;
+	TXBuffIndex = 0;
+
+	// If a repeated start has been sent, then devices are already listening for an address
+	// and another start does not need to be sent.
+	if (TWIInfo.mode == RepeatedStartSent)
 	{
+		TWIInfo.mode = Initializing;
+		TWDR = TWITransmitBuffer[TXBuffIndex++]; // Load data to transmit buffer
+		TWISendTransmit(); // Send the data
+	}
+	else // Otherwise, just send the normal start signal to begin transmission.
+	{
+		TWIInfo.mode = Initializing;
+		TWISendStart();
+	}
+	if(blocking){
 		// Wait until ready
-		while (!isTWIReady()) {_delay_us(1);}
-		// Set repeated start mode
-		TWIInfo.repStart = repStart;
-		// Copy data into the transmit buffer
-		uint8_t *data = (uint8_t *)TXdata;
-		for (int i = 0; i < dataLen; i++)
-		{
-			TWITransmitBuffer[i] = data[i];
-		}
-		// Copy transmit info to global variables
-		TXBuffLen = dataLen;
-		TXBuffIndex = 0;
-		
-		// If a repeated start has been sent, then devices are already listening for an address
-		// and another start does not need to be sent. 
-		if (TWIInfo.mode == RepeatedStartSent)
-		{
-			TWIInfo.mode = Initializing;
-			TWDR = TWITransmitBuffer[TXBuffIndex++]; // Load data to transmit buffer
-			TWISendTransmit(); // Send the data
-		}
-		else // Otherwise, just send the normal start signal to begin transmission.
-		{
-			TWIInfo.mode = Initializing;
-			TWISendStart();
-		}
-		
+		while (!isTWIReady()){_delay_us(1);}
 	}
-	else
-	{
-		return 1; // return an error if data length is longer than buffer
-	}
-	return 0;
 }
 
 uint8_t TWIReadData(uint8_t TWIaddr, uint8_t bytesToRead, uint8_t repStart)
@@ -89,7 +99,7 @@ uint8_t TWIReadData(uint8_t TWIaddr, uint8_t bytesToRead, uint8_t repStart)
 		// Shift the address and AND a 1 into the read write bit (set to write mode)
 		TXdata[0] = (TWIaddr << 1) | 0x01;
 		// Use the TWITransmitData function to initialize the transfer and address the slave
-		TWITransmitData(TXdata, 1, repStart);
+		TWITransmitData(TXdata, 1, repStart, 0);
 	}
 	else
 	{
@@ -128,9 +138,9 @@ ISR (TWI_vect)
 				TWISendStop();
 			}
 			break;
-		
+
 		// ----\/ ---- MASTER RECEIVER ----\/ ----  //
-		
+
 		case TWI_MR_SLAR_ACK: // SLA+R has been transmitted, ACK has been received
 			// Switch to Master Receiver mode
 			TWIInfo.mode = MasterReceiver;
@@ -147,9 +157,9 @@ ISR (TWI_vect)
 				TWISendNACK();
 			}
 			break;
-		
+
 		case TWI_MR_DATA_ACK: // Data has been received, ACK has been transmitted.
-		
+
 			/// -- HANDLE DATA BYTE --- ///
 			TWIReceiveBuffer[RXBuffIndex++] = TWDR;
 			// If there is more than one byte to be read, receive data byte and return an ACK
@@ -165,11 +175,11 @@ ISR (TWI_vect)
 				TWISendNACK();
 			}
 			break;
-		
+
 		case TWI_MR_DATA_NACK: // Data byte has been received, NACK has been transmitted. End of transmission.
-		
+
 			/// -- HANDLE DATA BYTE --- ///
-			TWIReceiveBuffer[RXBuffIndex++] = TWDR;	
+			TWIReceiveBuffer[RXBuffIndex++] = TWDR;
 			// This transmission is complete however do not release bus yet
 			if (TWIInfo.repStart)
 			{
@@ -184,16 +194,16 @@ ISR (TWI_vect)
 				TWISendStop();
 			}
 			break;
-		
+
 		// ----\/ ---- MT and MR common ----\/ ---- //
-		
+
 		case TWI_MR_SLAR_NACK: // SLA+R transmitted, NACK received
 		case TWI_MT_SLAW_NACK: // SLA+W transmitted, NACK received
 		case TWI_MT_DATA_NACK: // Data byte has been transmitted, NACK received
 		case TWI_LOST_ARBIT: // Arbitration has been lost
 			// Return error and send stop and set mode to ready
 			if (TWIInfo.repStart)
-			{				
+			{
 				TWIInfo.errorCode = TWI_STATUS;
 				TWISendStart();
 			}
@@ -209,15 +219,15 @@ ISR (TWI_vect)
 			// Set the mode but DO NOT clear TWINT as the next data is not yet ready
 			TWIInfo.mode = RepeatedStartSent;
 			break;
-		
+
 		// ----\/ ---- SLAVE RECEIVER ----\/ ----  //
-		
+
 		// TODO  IMPLEMENT SLAVE RECEIVER FUNCTIONALITY
-		
+
 		// ----\/ ---- SLAVE TRANSMITTER ----\/ ----  //
-		
+
 		// TODO  IMPLEMENT SLAVE TRANSMITTER FUNCTIONALITY
-		
+
 		// ----\/ ---- MISCELLANEOUS STATES ----\/ ----  //
 		case TWI_NO_RELEVANT_INFO: // It is not really possible to get into this ISR on this condition
 								   // Rather, it is there to be manually set between operations
@@ -228,5 +238,5 @@ ISR (TWI_vect)
 			TWISendStop();
 			break;
 	}
-	
+
 }
