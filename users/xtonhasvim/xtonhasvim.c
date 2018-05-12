@@ -384,6 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             simple_movement(keycode);
             CMD(KC_X);
             yank_was_lines = false;
+            vstate = VIM_START;
             break;
           case VIM_D:
             CMD(KC_LEFT);

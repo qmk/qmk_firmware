@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		X_____X, X_____X, VIM_W, VIM_E, X_____X, X_____X, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, X_____X, X_____X, X_____X,
 		VIM_ESC,   VIM_A, VIM_S, VIM_D, X_____X, VIM_G, VIM_H, VIM_J, VIM_K, VIM_L, X_____X, X_____X, X_____X,
 		VIM_SHIFT,     X_____X, X_____X, VIM_X, VIM_C, VIM_V, VIM_B, X_____X, X_____X, VIM_COMMA, VIM_PERIOD, X_____X, VIM_SHIFT,X_____X,
-		TO(_QWERTY), _______, _______, X_____X, X_____X, X_____X, _______, _______, _______, _______, _______),
+		TO(_QWERTY), _______, _______, TO(_QWERTY), X_____X, X_____X, _______, _______, _______, _______, _______),
 
 };
 
