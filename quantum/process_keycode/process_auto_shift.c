@@ -69,6 +69,7 @@ void autoshift_flush(void) {
   }
 }
 
+
 bool autoshift_enabled = true;
 
 void autoshift_enable(void) {

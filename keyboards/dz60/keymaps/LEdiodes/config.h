@@ -57,7 +57,8 @@
 #define RGBLIGHT_VAL_STEP 8
 
 /* sets 'Auto Shift' timeouts */
-#define AUTO_SHIFT_TIMEOUT 250
+#define AUTO_SHIFT_TIMEOUT 275
+#define AUTO_SHIFT_LED
 #define NO_AUTO_SHIFT_SPECIAL
 
 /* Mouse Control */

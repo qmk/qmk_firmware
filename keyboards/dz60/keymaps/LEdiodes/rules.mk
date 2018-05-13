@@ -47,6 +47,7 @@ NKRO_ENABLE = yes	    	# USB Nkey Rollover - if this doesn't work, see here: htt
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes   # enabled RGB underglow
 AUTO_SHIFT_ENABLE = yes # If the time depressed is greater than or equal to the AUTO_SHIFT_TIMEOUT, then a shifted version of the key is emitted. If the time is less than the AUTO_SHIFT_TIMEOUT time, then the normal state is emitted
+AUTO_SHIFT_LED = yes
 TAP_DANCE_ENABLE = yes  # enabled tap dancing
 AUDIO_ENABLE = no       # not applicable for dz60
 SLEEP_LED_ENABLE = no   # Breathing sleep LED during USB suspend

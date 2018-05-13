@@ -18,7 +18,6 @@
 #define PROCESS_AUTO_SHIFT_H
 
 #include "quantum.h"
-#include "action_layer.h"
 
 #ifndef AUTO_SHIFT_TIMEOUT
   #define AUTO_SHIFT_TIMEOUT 175
