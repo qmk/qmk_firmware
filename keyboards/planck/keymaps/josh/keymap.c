@@ -39,9 +39,9 @@ enum planck_keycodes {
 bool clicky_enable = false;
 const float clicky_freq_default = 440.0f; // standard A tuning
 const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
-const float clicky_freq_max = 1500.0f; // arbitrary
+const float clicky_freq_max = 2500.0f; // arbitrary
 const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
-const float clicky_freq_randomness = 0.05f; // arbitrary
+const float clicky_freq_randomness = 0.15f; // arbitrary
 float clicky_freq = 440.0f;
 float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
 
