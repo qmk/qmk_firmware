@@ -284,9 +284,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	return MACRO_NONE;
 }
 
-
-
-
 /* LED Layer control */
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
@@ -308,9 +305,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
   return state;
 }
-
-
-
 
 void matrix_scan_user(void) {
 }

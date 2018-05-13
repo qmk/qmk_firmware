@@ -53,6 +53,7 @@ void autoshift_flush(void) {
 
     if (elapsed > autoshift_timeout) {
       register_code(KC_LSFT);
+        rgblight_setrgb (0xFF, 0x00, 0x00); // red
     }
 
     register_code(autoshift_lastkey);
@@ -60,6 +61,7 @@ void autoshift_flush(void) {
 
     if (elapsed > autoshift_timeout) {
       unregister_code(KC_LSFT);
+        rgblight_sethsv (0, 0, 100); // Soft White
     }
 
     autoshift_time = 0;
