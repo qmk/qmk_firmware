@@ -24,6 +24,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern userspace_config_t userspace_config;
 
+uint8_t last_mod;
+uint8_t last_led;
+uint8_t last_osm;
+bool has_mods_changed = false;
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -32,6 +37,7 @@ extern userspace_config_t userspace_config;
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,8 +91,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void matrix_init_keymap(void) {
+  last_mod = get_mods();
+  last_led = host_keyboard_leds();
+  last_osm =get_oneshot_mods();
+}
 
-#ifdef INDICATOR_LIGHTS
 uint32_t layer_state_set_keymap (uint32_t state) {
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
@@ -111,44 +121,46 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 
 
 void matrix_scan_keymap (void) {
-  static uint8_t current_mods;
-  static uint8_t current_host_leds;
-  static uint8_t current_oneshot_mods;
-  static bool has_status_changed = true;
+  uint8_t current_mod = get_mods();
+  uint8_t current_led = host_keyboard_leds();
+  uint8_t current_osm =get_oneshot_mods();
 
-  if (userspace_config.rgb_layer_change) {
-    if ( current_mods != get_mods() || current_host_leds != host_keyboard_leds() || current_oneshot_mods != get_oneshot_mods()) {
-      has_status_changed = true;
-      current_mods = get_mods();
-      current_host_leds = host_keyboard_leds();
-      current_oneshot_mods = get_oneshot_mods();
+  if (last_mod == current_mod) {
+    last_mod = current_mod;
+    has_mods_changed = true;
+  }
+  if (last_led == current_led) {
+    last_led = current_led;
+    has_mods_changed = true;
+  }
+  if (last_osm == current_osm) {
+    last_osm = current_osm;
+    has_mods_changed = true;
+  }
+
+
+  if (userspace_config.rgb_layer_change && has_mods_changed && biton32(layer_state) == 0) {
+    if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
+      rgblight_sethsv_at(0, 255, 255, 5);
+      rgblight_sethsv_at(0, 255, 255, 10);
+    } else {
+      rgblight_sethsv_default_helper(5);
+      rgblight_sethsv_default_helper(10);
     }
-    if (has_status_changed) {
-      has_status_changed = false;
+    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, 6);
+      rgblight_sethsv_at(51, 255, 255, 9);
+    } else {
+      rgblight_sethsv_default_helper(6);
+      rgblight_sethsv_default_helper(9);
+    }
+    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, 7);
+      rgblight_sethsv_at(120, 255, 255, 8);
+    } else {
+      rgblight_sethsv_default_helper(7);
+      rgblight_sethsv_default_helper(8);
 
-      if (current_mods & MODS_SHIFT_MASK || current_host_leds & (1<<USB_LED_CAPS_LOCK) || current_oneshot_mods & MODS_SHIFT_MASK) {
-        rgblight_sethsv_at(0, 255, 255, 5);
-        rgblight_sethsv_at(0, 255, 255, 10);
-      } else {
-        rgblight_sethsv_default_helper(5);
-        rgblight_sethsv_default_helper(10);
-      }
-      if (current_mods & MODS_CTRL_MASK || current_oneshot_mods & MODS_CTRL_MASK) {
-        rgblight_sethsv_at(51, 255, 255, 6);
-        rgblight_sethsv_at(51, 255, 255, 9);
-      } else {
-        rgblight_sethsv_default_helper(6);
-        rgblight_sethsv_default_helper(9);
-      }
-      if (current_mods & MODS_GUI_MASK || current_oneshot_mods & MODS_GUI_MASK) {
-        rgblight_sethsv_at(120, 255, 255, 7);
-        rgblight_sethsv_at(120, 255, 255, 8);
-      } else {
-        rgblight_sethsv_default_helper(7);
-        rgblight_sethsv_default_helper(8);
-
-      }
     }
   }
 }
-#endif
