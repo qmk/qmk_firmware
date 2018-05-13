@@ -6,6 +6,9 @@
 			Live recording(dynamic Macros)
 			Common Ticket Notes added
 			more double and triple taps to complete thing
+      AutoShift to turn the backlight right right when AUTO_SGIFT_TIMEOUT is reached.
+      holy crap, ' and " are a streach to get to with FN1 + N and FN1 + RSHIFT + N = "
+      Add "Git status" macro
 */
 
 #include "LEdiodes.h"
