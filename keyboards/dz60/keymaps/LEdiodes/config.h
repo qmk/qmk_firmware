@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
+#include "config.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -37,7 +37,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Toggle Tapping */
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 #define TAPPING_TOGGLE 2
 
 /* key combination for command */
@@ -57,7 +57,7 @@
 #define RGBLIGHT_VAL_STEP 8
 
 /* sets 'Auto Shift' timeouts */
-#define AUTO_SHIFT_TIMEOUT 175
+#define AUTO_SHIFT_TIMEOUT 250
 #define NO_AUTO_SHIFT_SPECIAL
 
 /* Mouse Control */
