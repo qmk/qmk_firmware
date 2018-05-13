@@ -722,10 +722,7 @@ void rgb_matrix_indicators_user(void) {}
 // }
 
 void rgb_matrix_init_drivers(void) {
-    //sei();
-
     // Initialize TWI
-    //TWIInit();
     i2c_init();
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
