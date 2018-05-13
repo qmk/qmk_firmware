@@ -2,12 +2,14 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
+#ifdef INDICATOR_LIGHTS
 extern userspace_config_t userspace_config;
 
 uint8_t last_mod;
 uint8_t last_led;
 uint8_t last_osm;
 bool has_mods_changed = false;
+#endif
 
 #define KC_ALAP ALT_T(KC_APP)
 #define KC_OSLG OSM(MOD_LGUI)
@@ -78,14 +80,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
 void matrix_init_keymap(void) {
+#ifdef INDICATOR_LIGHTS
   last_mod = get_mods();
   last_led = host_keyboard_leds();
   last_osm =get_oneshot_mods();
+#endif
 }
 
 uint32_t layer_state_set_keymap (uint32_t state) {
+#ifdef INDICATOR_LIGHTS
   uint8_t modifiders = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
   uint8_t one_shot = get_oneshot_mods();
@@ -103,12 +107,15 @@ uint32_t layer_state_set_keymap (uint32_t state) {
     rgblight_sethsv_at(120, 255, 255, 7);
     rgblight_sethsv_at(120, 255, 255, 8);
   }
+#endif
 
   return state;
 }
 
 
 void matrix_scan_keymap (void) {
+
+#ifdef INDICATOR_LIGHTS
   uint8_t current_mod = get_mods();
   uint8_t current_led = host_keyboard_leds();
   uint8_t current_osm =get_oneshot_mods();
@@ -151,4 +158,6 @@ void matrix_scan_keymap (void) {
 
     }
   }
+#endif
+
 }
