@@ -167,17 +167,17 @@ static void render_logo(struct CharacterMatrix *matrix) {
 
 void update_status(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    keylog_set(keycode, record);
-    timelog_set();
+    set_keylog(keycode, record);
+    set_timelog();
   }
 }
 
 void render_status(struct CharacterMatrix *matrix) {
-
-  // Render to mode icon
-  matrix_write_ln(matrix, mode_icon_read(keymap_config.swap_lalt_lgui));
-
+  matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
   matrix_write_ln(matrix, read_layer_state());
+  matrix_write_ln(matrix, read_keylog());
+  matrix_write_ln(matrix, read_keylogs());
+  matrix_write(matrix, read_timelog());
 
   // Host Keyboard LED Status
   // char led[40];
@@ -187,17 +187,6 @@ void render_status(struct CharacterMatrix *matrix) {
   //           (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   // matrix_write(matrix, led);
 
-  // key log
-  //matrix_write_P(matrix, PSTR("\n"));
-  //matrix_write(matrix, keylog_read());
-
-  // key logs
-  //matrix_write_P(matrix, PSTR("\n"));
-  //matrix_write(matrix, keylogs_read());
-
-  // time log
-  //matrix_write_P(matrix, PSTR("\n"));
-  //matrix_write(matrix, timelog_read());
 }
 
 void iota_gfx_task_user(void) {

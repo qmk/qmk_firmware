@@ -12,7 +12,7 @@ char code_to_name[60] = {
     'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ',
     ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
-void keylog_set(uint16_t keycode, keyrecord_t *record)
+void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
   if (keycode < 60)
@@ -40,10 +40,10 @@ void keylog_set(uint16_t keycode, keyrecord_t *record)
   keylogs_idx++;
 }
 
-char *keylog_read(void) {
+char *read_keylog(void) {
   return keylog;
 }
 
-char *keylogs_read(void) {
+char *read_keylogs(void) {
   return keylogs;
 }
