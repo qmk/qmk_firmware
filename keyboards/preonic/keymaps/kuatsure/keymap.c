@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSLS, \
   KC_LCTL, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, \
   KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,  \
-  KC_LEAD, QWERTY,  KC_LALT, KC_SPC,  GAME_MOD, KC_SPC, KC_SPC,  GAME_MOD, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LEAD, QWERTY,  KC_LALT, KC_SPC,  GAME_MOD, KC_SPC, KC_SPC,  GAME_MOD, KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT  \
 ),
 
 /* Game Modifiers
@@ -166,50 +166,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-
-        case GAME:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_GAME);
-          }
-          return false;
-          break;
-
-        case GAME_MOD:
-          if (record->event.pressed) {
-            layer_on(_GAME_MOD);
-          } else {
-            layer_off(_GAME_MOD);
-          }
-          return false;
-          break;
-
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
       }
-    return true;
+      return false;
+      break;
+
+    case GAME:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_GAME);
+      }
+      return false;
+      break;
+
+    case GAME_MOD:
+      if (record->event.pressed) {
+        layer_on(_GAME_MOD);
+      } else {
+        layer_off(_GAME_MOD);
+      }
+      return false;
+      break;
+
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+
+  }
+  return true;
 };
