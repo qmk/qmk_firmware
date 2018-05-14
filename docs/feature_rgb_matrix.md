@@ -81,7 +81,6 @@ These are the effects that are currently available:
 
 	enum rgb_matrix_effects {
 		RGB_MATRIX_SOLID_COLOR = 1,
-	    RGB_MATRIX_SOLID_REACTIVE,
 	    RGB_MATRIX_ALPHAS_MODS,
 	    RGB_MATRIX_DUAL_BEACON,
 	    RGB_MATRIX_GRADIENT_UP_DOWN,
@@ -94,6 +93,7 @@ These are the effects that are currently available:
 	    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
 	    RGB_MATRIX_JELLYBEAN_RAINDROPS,
 	#ifdef RGB_MATRIX_KEYPRESSES
+		RGB_MATRIX_SOLID_REACTIVE,
 	    RGB_MATRIX_SPLASH,
 	    RGB_MATRIX_MULTISPLASH,
 	    RGB_MATRIX_SOLID_SPLASH,
@@ -118,7 +118,7 @@ A similar function works in the keymap as `rgb_matrix_indicators_user`.
 	#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
 	#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 	#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-    #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect)
+    #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
 
 ## EEPROM storage
 
