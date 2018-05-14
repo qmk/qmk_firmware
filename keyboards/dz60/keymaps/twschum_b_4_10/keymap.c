@@ -22,13 +22,13 @@
         K100,       K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, \
         K200,       K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213,       \
         K300,       K302, K303, K304, K305, K306, K307, K308, K309, K310,       K312, K313, K314, \
-        K400, K401,       K403,       K405,       K407, K408,       K410, K411, K412, K413, K414  \
+        K400, K401,       K403,       K404, K406,       K408,       K410, K411, K412, K413, K414  \
         ) { \
     { K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  KC_NO, K014 }, \
     { K100,  KC_NO, K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113,  K114 }, \
     { K200,  KC_NO, K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213,  KC_NO }, \
     { K300,  KC_NO, K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  KC_NO, K312,  K313,  K314 }, \
-    { K400,  K401,  KC_NO, K403,  KC_NO, K405,  KC_NO, K407,  K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
+    { K400,  K401,  KC_NO, K403,  K404,  KC_NO, K406,  KC_NO, K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
 }
 
 #define _______ KC_TRNS
@@ -39,6 +39,15 @@ enum DZ60_B_4_10_Layers {
     L_Nav,
     L_Num,
     L_RGB
+};
+
+enum function_id {
+    SHIFT_ESC,
+};
+
+enum extra_keycodes {
+    CTRL_A = SAFE_RANGE,
+    CTRL_B,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------|
        //
        // |----1.75------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------2.25--------||
-             KC_LCTL,       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
+             KC_LCTL,       CTRL_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
@@ -62,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TG(2),       MO(1),          TG(3),   MO(4),  KC_LEFT, KC_DOWN, KC_RGHT
+             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
@@ -103,9 +112,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-enum function_id {
-    SHIFT_ESC,
-};
+static bool A_down = false;
+static bool other_key = false;
+
+/* Return True to continue processing keycode, false to stop further processing */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTRL_A:
+            if (record->event.pressed) {
+                A_down = true;
+            }
+            else {
+                if (! other_key) {
+                    register_code(KC_A);
+                    unregister_code(KC_A);
+                }
+                A_down = false;
+                other_key = false;
+            }
+            return false;
+        default:
+            if (A_down) {
+                if (record->event.pressed) {
+                    register_code(KC_LCTL);
+                    register_code(KC_A);
+                    unregister_code(KC_A);
+                    unregister_code(KC_LCTL);
+                    register_code(keycode);
+                    other_key = true;
+                    return false;
+                }
+            }
+    }
+    return true;
+}
 
 const uint16_t PROGMEM fn_actions[] = {
     [0]  = ACTION_FUNCTION(SHIFT_ESC),
