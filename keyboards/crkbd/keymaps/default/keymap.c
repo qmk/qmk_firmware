@@ -11,6 +11,7 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#include "keylogger.c"
 
 extern keymap_config_t keymap_config;
 
@@ -109,10 +110,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 int RGB_current_mode;
-char KEYLOG[40] = {};
-char KEYLOGS[21] = {};
-int KEYLOGS_IDX = 0;
-char TIMELOG[40] = {};
 int LAST_TIME = 0;
 int ELAPSED_TIME = 0;
 
@@ -181,38 +178,8 @@ static void render_logo(struct CharacterMatrix *matrix) {
 
 void update_status(uint16_t keycode, keyrecord_t *record) {
 
-  char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ',
-    ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '
-  };
-
   if (record->event.pressed) {
-    char name = ' ';
-    if (keycode < 60) {
-      name = code_to_name[keycode];
-    }
-
-    // update keylog
-    snprintf(KEYLOG, sizeof(KEYLOG), "%dx%d, k%2d : %c",
-      record->event.key.row,
-      record->event.key.col,
-      keycode,
-      name
-    );
-
-    // update keylogs
-    if (KEYLOGS_IDX == sizeof(KEYLOGS)-1) {
-      KEYLOGS_IDX = 0;
-      for (int i = 0; i < sizeof(KEYLOGS)-1; i++) {
-       KEYLOGS[i] = ' ';
-      }
-    }
-    KEYLOGS[KEYLOGS_IDX] = name;
-    KEYLOGS_IDX++;
+    keylog_set(keycode, record);
 
     // update timelog
     ELAPSED_TIME = timer_elapsed(LAST_TIME);
@@ -286,11 +253,11 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // key log
   matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, KEYLOG);
+  matrix_write(matrix, keylog_read());
 
   // key logs
   matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, KEYLOGS);
+  matrix_write(matrix, keylogs_read());
 
   // time log
   matrix_write_P(matrix, PSTR("\n"));
