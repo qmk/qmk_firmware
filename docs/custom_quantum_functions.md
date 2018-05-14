@@ -474,6 +474,14 @@ By default, the tapping term is defined globally, and is not configurable by key
 ## Example `get_tapping_term` Implementation
 ```c
 uint16_t get_tapping_term(keyevent_t* event) {
+    if (e->key.row == 1 && e->key.col==3)    {
+        return 100;
+    }
+    return TAPPING_TERM;
+
+}
+```
+<!-- If this can be properly mapped, use something like this, inst
     switch (keymap_key_to_keycode(layer_switch_get_layer(event->key), event->key)) {
         case SFT_T(KC_SPC):
             return TAPPING_TERM + 1250;
@@ -482,9 +490,7 @@ uint16_t get_tapping_term(keyevent_t* event) {
         default:
             return TAPPING_TERM;
     }
-}
-```
-
+-->
 ### `get_tapping_term` Function Documentation
 
 Unlike many of the other functions here, there isn't a need (or even reason) to have a quantum or keyboard level function. Only a user level function is useful here, so no need to mark it as such.
