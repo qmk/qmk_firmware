@@ -231,6 +231,12 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   }
 }
 
+void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
+  char data_ln[strlen(data)+2];
+  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
+  matrix_write(matrix, data_ln);
+}
+
 void iota_gfx_write(const char *data) {
   matrix_write(&display, data);
 }
