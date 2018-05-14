@@ -1,6 +1,3 @@
-// this is the style you want to emulate.
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-
 #include "chimera_ortho.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -9,7 +6,7 @@
 // entirely and just use numbers.
 enum chimera_ortho_layers
 {
-	_QWERTY,
+	_BASE,
 	_CAPS,
 	_NUMPAD,
 	_SYMBOLS,
@@ -34,6 +31,8 @@ enum chimera_ortho_layers
 #define KC_SCOF M(4)
 #define KC_CAD LALT(LCTL(KC_DEL))
 
+#define KC_DELSHFT SFT_T(KC_DEL)
+
 #define LONGPRESS_DELAY 150
 //#define LAYER_TOGGLE_DELAY 300
 
@@ -44,16 +43,16 @@ enum chimera_ortho_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(  
-  //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
-     MESC, Q  , W  , E  , R  , T  ,SCTL,      SCTR, Y  , U  , I  , O  , P  ,QUOT,
-  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     TAB , A  , S  , D  , F  , G  ,SPLT,      SPRT, H  , J  , K  , L  ,SCLN,ENT ,
-  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     LSPO, Z  , X  , C  , V  , B  ,SPFN,      GBRC, N  , M  ,COMM,DOT ,SLSH,RSPC,
-  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                         NMPD,BSPC,                SPC ,SYMB
-  // \------------------+----+----+---/       \---+----+----+-------------------/
+  [_BASE] = KC_KEYMAP(
+      //,-------+-------+-------+-------+-------+-------+-------.    ,-------+-------+-------+-------+-------+-------+-------.
+         LALT   ,TAB    ,QUOT   ,COMM   ,DOT    ,P      ,Y           ,F      ,G      ,C      ,R      ,L      ,SLSH   ,       
+      //|-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------|
+        ,LGUI   ,ESC    ,A      ,O      ,E      ,U      ,I           ,D      ,H      ,T      ,N      ,S      ,MINS   ,       
+      //|-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------|
+        ,LCTL   ,DELSHFT,SCLN   ,Q      ,J      ,K      ,X           ,B      ,M      ,W      ,V      ,Z      ,BSPC   ,ENTER
+      //|-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------|
+                                        ,       ,LSHIFT                      ,SPC    ,    
+      //\-------------------------------+-------+-------+-------/    \-------+-------+---------------------------------------/
   ),
 
   [_CAPS] = KC_KEYMAP(  
@@ -168,7 +167,7 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
     
     switch (layer) {
-    	case _QWERTY:
+    	case _BASE:
     	    set_led_green;
     	    break;
         case _CAPS:
