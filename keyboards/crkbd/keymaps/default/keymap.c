@@ -11,9 +11,10 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
-#include "mode_icon_reader.c"
-#include "keylogger.c"
-#include "timelogger.c"
+#include "lib/mode_icon_reader.c"
+#include "lib/layer_state_reader.c"
+#include "lib/keylogger.c"
+#include "lib/timelogger.c"
 
 extern keymap_config_t keymap_config;
 
@@ -153,18 +154,6 @@ void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_FNLAYER 64
-#define L_NUMLAY 128
-#define L_NLOWER 136
-#define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
-#define L_ADJUST 65536
-#define L_ADJUST_TRI 65560
-
 static void render_logo(struct CharacterMatrix *matrix) {
 
   static char logo[]={
@@ -186,30 +175,9 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
 void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
-  matrix_write(matrix, mode_icon_read(keymap_config.swap_lalt_lgui));
-  matrix_write_P(matrix, PSTR("\n"));
+  matrix_write_ln(matrix, mode_icon_read(keymap_config.swap_lalt_lgui));
 
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(matrix, PSTR("Layer: "));
-    switch (layer_state) {
-        case L_BASE:
-           matrix_write_P(matrix, PSTR("Default"));
-           break;
-        case L_RAISE:
-           matrix_write_P(matrix, PSTR("Raise"));
-           break;
-        case L_LOWER:
-           matrix_write_P(matrix, PSTR("Lower"));
-           break;
-        case L_ADJUST:
-        case L_ADJUST_TRI:
-           matrix_write_P(matrix, PSTR("Adjust"));
-           break;
-        default:
-           matrix_write(matrix, buf);
-    }
+  matrix_write_ln(matrix, read_layer_state());
 
   // Host Keyboard LED Status
   // char led[40];
