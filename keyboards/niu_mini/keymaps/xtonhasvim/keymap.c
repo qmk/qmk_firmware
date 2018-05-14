@@ -65,16 +65,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  Del |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | Home | End  |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      | Next | Vol- | Vol+ | Play |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      | Bail |      |      |      |             |      |      |      | Bail |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {KC_TILD,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_BSPC},
   {KC_DEL, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_HOME, KC_END,  _______},
-  {_______, TO(_QWERTY), _______, _______, _______, _______, _______, OSL(_ADJUST),    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  X_____X, KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY},
+  {X_____X, TO(_QWERTY), _______, _______, _______, KC_BSPC, KC_BSPC, OSL(_ADJUST),    _______,    _______, TO(_QWERTY), X_____X}
 },
 
 /* Raise
@@ -83,16 +83,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |  Del |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |Pg Up |Pg Dn |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      | Next | Vol- | Vol+ | Play |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      | Bail |      |      |      |             |      |      |      | Bail |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSPC},
   {KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PGUP, KC_PGDN, _______},
-  {_______, TO(_QWERTY), _______, _______, OSL(_ADJUST), _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY},
+  {X_____X, TO(_QWERTY), _______, _______, OSL(_ADJUST), X_____X, X_____X, _______, _______, _______, TO(_QWERTY), X_____X}
 },
 
 
@@ -104,14 +104,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|------+------+------+------+------+------|
  * |RGBMode+|Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |Lite- |
  * |--------+------+------+------+------+------+------+------+------+------+------+------|
- * |  RGB   |      |      |      |      |             |      |      |      |      |      |
+ * |  RGB   | Bail |      |      |      |             |      |      |      | Bail |      |
  * `-------------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {RGB_MODE_PLAIN, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL },
   {RGB_MODE_REVERSE, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, RGB_VAI},
   {RGB_MODE_FORWARD, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, RGB_VAD},
-  {RGB_TOG, TO(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {RGB_TOG, TO(_QWERTY), _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY), X_____X}
 },
 
 
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {TO(_QWERTY), X_____X, X_____X, X_____X, X_____X, X_____X, KC_HOME, KC_PGDN, KC_PGUP, KC_END, X_____X, X_____X},
   {_______,     X_____X, LGUI(KC_LBRC), LGUI(LSFT(KC_LBRC)), LGUI(LSFT(KC_RBRC)), LGUI(KC_RBRC), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, X_____X, X_____X},
   {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
-  {X_____X,     TO(_QWERTY), _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), _______}
+  {X_____X,     TO(_QWERTY), _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), X_____X}
 },
 
 /* mouse layer
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {TO(_QWERTY), X_____X, X_____X, KC_MS_UP, X_____X, X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X, X_____X  },
   {_______,     X_____X, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, X_____X, X_____X, KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, X_____X, X_____X},
   {_______,     X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, _______},
-  {_______,     TO(_QWERTY), _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), _______}
+  {_______,     TO(_QWERTY), _______, _______, _______, X_____X, X_____X, _______, _______, _______, TO(_QWERTY), X_____X}
 },
 
 /* vim edit mode. just has an escape -> _CMD key */
