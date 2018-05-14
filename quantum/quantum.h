@@ -28,7 +28,7 @@
     #include "backlight.h"
 #endif
 #if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-    #include "rgb.h"
+	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
@@ -105,9 +105,6 @@ extern uint32_t default_layer_state;
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-#ifndef TAPPING_TERM
-#error TAPPING_TERM not defined
-#endif
   #include "process_tap_dance.h"
 #endif
 
