@@ -12,6 +12,8 @@
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
  * Unicode leader commands??? (symbolic unicode)
  * Multiple keystrokes to generate single keycode?
+ * Mac mode vs not:
+ *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -32,6 +34,16 @@
 }
 
 #define _______ KC_TRNS
+
+#define IS_MAC 1
+#ifdef IS_MAC
+#define MEDIA_FWD KC_MFFD
+#define MEDIA_RWD KC_MRWD
+#elif
+#define MEDIA_FWD KC_MNXT
+#define MEDIA_RWD KC_MPRV
+#define
+#endif
 
 enum DZ60_B_4_10_Layers {
     L_Base,
@@ -77,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 1: primary fn layer */
     KEYMAP(
-            KC_GRV,   KC_F1,    KC_F2,          KC_F3,                KC_F4,            KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-            KC_TAB,   KC_NO,    KC_HOME,        KC_UP,                KC_END,           KC_NO,    KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
-            KC_CAPS,  KC_NO,    KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
-            KC_LSFT,  KC_NO,    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_LOCK,  KC_HOME,  KC_PGUP,
-            KC_MEH,   KC_LALT,  KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_DEL,   KC_END,    KC_PGDN
+            KC_GRV,   KC_F1,      KC_F2,          KC_F3,                KC_F4,            KC_F5,      KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_DEL,
+            KC_TAB,   KC_NO,      KC_HOME,        KC_UP,                KC_END,           KC_NO,      KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
+            KC_CAPS,  KC_NO,      KC_LEFT,        KC_DOWN,              KC_RIGHT,         KC_NO,      KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,    KC_NO,    KC_ENT,
+            KC_LSFT,  MEDIA_RWD,  KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,    KC_AUDIO_VOL_UP,  MEDIA_FWD,  KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_LOCK,  KC_HOME,  KC_PGUP,
+            KC_MEH,   KC_LALT,    KC_LGUI,        KC_MEDIA_PLAY_PAUSE,  KC_TRNS,          KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_DEL,   KC_END,    KC_PGDN
           ),
 
     /* Layer 2: mouse navigation */
