@@ -384,6 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             simple_movement(keycode);
             CMD(KC_X);
             yank_was_lines = false;
+            vstate = VIM_START;
             break;
           case VIM_D:
             CMD(KC_LEFT);
@@ -467,6 +468,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               SHIFT(KC_LEFT);  // select to start of next word
               RELEASE(KC_LALT);
               break;
+            case VIM_P:
+              CMD(KC_V);
+              vstate = VIM_START;
+              break;
             case VIM_Y:
               CMD(KC_C);
               TAP(KC_RIGHT);
@@ -523,6 +528,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               CMD(KC_C);
               yank_was_lines = true;
               TAP(KC_RIGHT);
+              vstate = VIM_START;
+              break;
+            case VIM_P:
+              CMD(KC_V);
               vstate = VIM_START;
               break;
             case VIM_V:
