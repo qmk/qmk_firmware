@@ -124,8 +124,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#define _TIMEOUT_DELAY 300 // ms
+static uint16_t idle_timer;
+static bool timeout_is_active = false;
+
+// state for the great state machine of custom actions!
 static bool A_down = false;
-static bool other_key = false;
+static bool A_other_key = false;
+static bool B_down = 0; // TODO just use top bit from count
+static int8_t B_count = 0;
+
+static inline void start_idle_timer() {
+    idle_timer = timer_read();
+    timeout_is_active = true;
+}
+static inline void clear_state_after_idle_timeout() {
+    idle_timer = 0;
+    timeout_is_active = 0;
+    // clear state here
+    A_down = false;
+    B_down = false; // TODO wait no??
+    // send B
+    for (uint8_t i = 0; i < B_count; ++i) {
+        register_code(KC_B);
+        unregister_code(KC_B);
+    }
+    B_count = 0;
+}
+
+inline void matrix_scan_user(void) {
+    if (timeout_is_active && timer_elapsed(idle_timer) > _TIMEOUT_DELAY) {
+        clear_state_after_idle_timeout();
+    }
+}
 
 /* Return True to continue processing keycode, false to stop further processing */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -135,24 +166,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 A_down = true;
             }
             else {
-                if (! other_key) {
+                if (! A_other_key) {
                     register_code(KC_A);
                     unregister_code(KC_A);
                 }
                 A_down = false;
-                other_key = false;
+                A_other_key = false;
+            }
+            return false;
+        case CTRL_B:
+            B_down = record->event.pressed;
+            if (B_down) {
+                ++B_count;
+            }
+            else {
+                if (B_count) {
+                    start_idle_timer();
+                }
             }
             return false;
         default:
-            if (A_down) {
-                if (record->event.pressed) {
+            if (record->event.pressed) {
+                if (A_down) {
                     register_code(KC_LCTL);
                     register_code(KC_A);
                     unregister_code(KC_A);
                     unregister_code(KC_LCTL);
                     register_code(keycode);
-                    other_key = true;
+                    A_other_key = true;
                     return false;
+                }
+                if (B_count) {
+                    if (B_down) {
+                        // send C-b
+                    }
+                    else {
+                        // send B
+                    }
                 }
             }
     }
