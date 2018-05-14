@@ -62,6 +62,13 @@ void tmux_pane_switch(uint16_t keycode) {
   unregister_code(keycode);
 }
 
+void tmux_window_switch(uint16_t keycode) {
+  tmux_prefix();
+
+  register_code(keycode);
+  unregister_code(keycode);
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -301,6 +308,21 @@ void matrix_scan_user(void) {
           unregister_code(KC_SCOLON);
 
           tmux_pane_zoom();
+        }
+
+        // TMUX - shift to first window
+        SEQ_ONE_KEY(KC_U) {
+          tmux_window_switch(KC_1);
+        }
+
+        // TMUX - shift to second window
+        SEQ_ONE_KEY(KC_I) {
+          tmux_window_switch(KC_2);
+        }
+
+        // TMUX - shift to third window
+        SEQ_ONE_KEY(KC_O) {
+          tmux_window_switch(KC_3);
         }
     }
 }
