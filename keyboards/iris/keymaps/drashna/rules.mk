@@ -8,4 +8,4 @@ RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 BACKLIGHT_ENABLE = no
-
+SWAP_HANDS_ENABLE = yes

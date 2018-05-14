@@ -1,7 +1,15 @@
+<<<<<<< HEAD:keyboards/lets_split/piemod/keymap.c
 #include "lets_split.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include keymap_steno.h
+=======
+#include QMK_KEYBOARD_H
+#include "LUFA/Drivers/Peripheral/TWI.h"
+#ifdef SSD1306OLED
+  #include "ssd1306.h"
+#endif
+>>>>>>> 2b06623fa0c8652e62abe96b1e89853974950c53:keyboards/lets_split/keymaps/OLED_sample/keymap.c
 
 extern keymap_config_t keymap_config;
 
