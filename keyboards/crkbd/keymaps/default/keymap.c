@@ -11,6 +11,7 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#include "mode_icon_reader.c"
 #include "keylogger.c"
 #include "timelogger.c"
 
@@ -185,16 +186,8 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
 void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
-  // static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  // if(keymap_config.swap_lalt_lgui==false){
-  //   matrix_write(matrix, logo[0][0]);
-  //   matrix_write_P(matrix, PSTR("\n"));
-  //   matrix_write(matrix, logo[0][1]);
-  // }else{
-  //   matrix_write(matrix, logo[1][0]);
-  //   matrix_write_P(matrix, PSTR("\n"));
-  //   matrix_write(matrix, logo[1][1]);
-  // }
+  matrix_write(matrix, mode_icon_read(keymap_config.swap_lalt_lgui));
+  matrix_write_P(matrix, PSTR("\n"));
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   char buf[40];
@@ -227,16 +220,16 @@ void render_status(struct CharacterMatrix *matrix) {
   // matrix_write(matrix, led);
 
   // key log
-  matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, keylog_read());
+  //matrix_write_P(matrix, PSTR("\n"));
+  //matrix_write(matrix, keylog_read());
 
   // key logs
-  matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, keylogs_read());
+  //matrix_write_P(matrix, PSTR("\n"));
+  //matrix_write(matrix, keylogs_read());
 
   // time log
-  matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, timelog_read());
+  //matrix_write_P(matrix, PSTR("\n"));
+  //matrix_write(matrix, timelog_read());
 }
 
 void iota_gfx_task_user(void) {
