@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
 #define PRODUCT         DZ60
-#define DESCRIPTION     DZ60 Keyboard
+#define DESCRIPTION     LEdiodes /* DZ60 Keyboard */
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -26,6 +26,7 @@
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_BREATHING
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -36,6 +37,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Toggle Tapping */
+#define TAPPING_TERM 175
+#define TAPPING_TOGGLE 2
+
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
@@ -44,6 +49,7 @@
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
 
+/* RGB underglow lights */
 #define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
@@ -52,7 +58,14 @@
 #define RGBLIGHT_VAL_STEP 8
 
 /* sets 'Auto Shift' timeouts */
-#define AUTO_SHIFT_TIMEOUT 150
+#define AUTO_SHIFT_TIMEOUT 275
+#define AUTO_SHIFT_LED
 #define NO_AUTO_SHIFT_SPECIAL
 
+/* Mouse Control */
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 8
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_WHEEL_DELAY 0
 #endif
