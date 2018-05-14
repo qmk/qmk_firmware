@@ -12,6 +12,7 @@
   #include "ssd1306.h"
 #endif
 #include "keylogger.c"
+#include "timelogger.c"
 
 extern keymap_config_t keymap_config;
 
@@ -110,8 +111,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 int RGB_current_mode;
-int LAST_TIME = 0;
-int ELAPSED_TIME = 0;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -180,11 +179,7 @@ void update_status(uint16_t keycode, keyrecord_t *record) {
 
   if (record->event.pressed) {
     keylog_set(keycode, record);
-
-    // update timelog
-    ELAPSED_TIME = timer_elapsed(LAST_TIME);
-    LAST_TIME = timer_read();
-    snprintf(TIMELOG, sizeof(TIMELOG), "lt:%5d, et:%5d", LAST_TIME, ELAPSED_TIME);
+    timelog_set();
   }
 
   // For led
@@ -261,7 +256,7 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // time log
   matrix_write_P(matrix, PSTR("\n"));
-  matrix_write(matrix, TIMELOG);
+  matrix_write(matrix, timelog_read());
 }
 
 void iota_gfx_task_user(void) {
