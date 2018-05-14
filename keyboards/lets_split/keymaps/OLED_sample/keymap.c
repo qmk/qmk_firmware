@@ -1,11 +1,5 @@
-#include "lets_split.h"
-#include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
