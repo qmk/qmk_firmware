@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  | SNIP|  L | D |  R |
 		//`-----------------------------------------------------------------------------------------'
 		M(8), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(3), M(4),
-		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(6), KC_TRNS, KC_UP, KC_TRNS, M(13), M(17), KC_TRNS, KC_TRNS,
+		KC_CAPS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M(6), KC_TRNS, KC_UP, KC_TRNS, M(13), M(17), M(18), KC_TRNS,
 		KC_CAPS, M(5), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, M(16), KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, M(15), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS,  KC_TRNS, M(8), M(2), M(1), KC_TRNS, M(7), M(12), KC_TRNS, KC_TRNS),
@@ -281,6 +281,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 		case 17: // git push
 			if (record->event.pressed) {
                 return MACRO( T(G), T(I), T(T), T(SPACE), T(P), T(U), T(S), T(H), T(ENT), END );
+			}
+      break;
+    case 18: // git status
+			if (record->event.pressed) {
+                return MACRO( T(G), T(I), T(T), T(SPACE), T(S), T(T), T(A), T(T), T(U), T(S), T(ENT), END );
 			}
       break;
   }
