@@ -57,25 +57,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _________________WORKMAN_L2________________,          KC_UP,   KC_DOWN,         KC_LEFT, KC_RIGHT,         _________________WORKMAN_R2________________, KC_MINS,
   KC_MLSF, _________________WORKMAN_L3________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________WORKMAN_R3________________, KC_LGUI
 ),
-[_MODS] = LAYOUT(\
+[_MODS] = LAYOUT_wrapper(\
   _______, _______, _______, _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,          _______, _______,         _______, _______,          _______, _______, _______, _______, _______, _______,
   KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-[_LOWER] = LAYOUT(\
+[_LOWER] = LAYOUT_wrapper(\
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                               KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,            KC_PGUP, KC_PGDN,         KC_HOME, KC_END,           _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, _______
 ),
 
-[_RAISE] = LAYOUT(\
+[_RAISE] = LAYOUT_wrapper(\
   KC_GRV,  ________________NUMBER_LEFT________________,                                                               ________________NUMBER_RIGHT_______________, KC_BSPC,
   _______, _______, _______, _______, _______, _______,          KC_PGUP, KC_PGDN,         KC_HOME, KC_END,           _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
   _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, KC_COMM, KC_DOT,  _______, _______
 ),
 
-[_ADJUST] = LAYOUT(\
+[_ADJUST] = LAYOUT_wrapper(\
   KC_MAKE,KC_RESET, EPRM,    _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,
   RGB_SMOD,RGB_HUI, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
   KC_RGB_T,RGB_HUD, MU_ON,   MU_OFF,  MU_TOG,  MU_MOD,  _______, _______, _______,         _______, _______, _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY
