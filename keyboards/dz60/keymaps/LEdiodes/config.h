@@ -26,6 +26,7 @@
 /* number of backlight levels */
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_BREATHING
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5

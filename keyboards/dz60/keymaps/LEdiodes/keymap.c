@@ -140,9 +140,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		//|-----------------------------------------------------------------------------------------+
 		//| Ctrl |  Win  |  Alt  |   2[Space]   |  3[Space]  |  2[Space]  |  2  |  /  |  L | D |  R |
 		//`-----------------------------------------------------------------------------------------'
-		RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS,
+		RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_BRTG, BL_BRTG,
+    BL_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, BL_INC,
+		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, BL_DEC,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI, RGB_SAI,
 		RGB_HUI, RGB_HUD, KC_TRNS, RGB_RMOD, KC_TRNS, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD, RGB_SAD),
 
@@ -311,9 +311,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 void matrix_scan_user(void) {
 }
-/*
-
-I'm still waiting on LEDs after getting shipped the wrong color.
 
 // LED CAPS control
 void led_set_user(uint8_t usb_led) {
@@ -323,4 +320,3 @@ void led_set_user(uint8_t usb_led) {
         DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
     }
 }
-*/
