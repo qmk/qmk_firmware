@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#include keymap_steno.h
-=======
 #include QMK_KEYBOARD_H
->>>>>>> 2b06623fa0c8652e62abe96b1e89853974950c53
 
 extern keymap_config_t keymap_config;
 
