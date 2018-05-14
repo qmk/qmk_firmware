@@ -1,12 +1,12 @@
-# kira75
+# Kira 75
 
 ![kira75](imgur.com image replace me!)
 
-A short description of the keyboard/project
+75% keyboard designed by thesiscamper
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)     
+Hardware Supported: Kira 75     
+Hardware Availability: Group Buy      
 
 Make example for this keyboard (after setting up your build environment):
 
