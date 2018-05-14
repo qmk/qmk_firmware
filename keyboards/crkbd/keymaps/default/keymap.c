@@ -176,30 +176,10 @@ static void render_logo(struct CharacterMatrix *matrix) {
 }
 
 void update_status(uint16_t keycode, keyrecord_t *record) {
-
   if (record->event.pressed) {
     keylog_set(keycode, record);
     timelog_set();
   }
-
-  // For led
-  // char key[40];
-  // int led_matrix[10][7] = {
-  //   {  5,  4,  3,  2,  1,  0,  0},
-  //   {  6,  7,  8,  9, 10, 11,  0},
-  //   { 17, 16, 15, 14, 13, 12,  0},
-  //   { 18, 19, 20, 21, 22, 23, 24},
-  //   { 31, 30, 29, 28, 27, 26, 25},
-  //   { 37, 36, 35, 34, 33, 32,  0},
-  //   { 38, 39, 40, 41, 42, 43,  0},
-  //   { 49, 48, 47, 46, 45, 44,  0},
-  //   { 50, 51, 52, 53, 54, 55, 56},
-  //   { 63, 62, 61, 60, 59, 58, 57}
-  // };
-  //
-  // rgblight_disable();
-  // rgblight_enable();
-  // rgblight_setrgb_at(record->event.key.row*50,255-record->event.key.col*50,255, led_num);
 }
 
 void render_status(struct CharacterMatrix *matrix) {
