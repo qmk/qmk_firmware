@@ -1,9 +1,8 @@
 #include "crkbd.h"
 
-char KEYLOG[40] = {};
-char KEYLOGS[21] = {};
-int KEYLOGS_IDX = 0;
-char TIMELOG[40] = {};
+char keylog[40] = {};
+char keylogs[21] = {};
+int keylogs_idx = 0;
 
 char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -22,29 +21,29 @@ void keylog_set(uint16_t keycode, keyrecord_t *record)
   }
 
   // update keylog
-  snprintf(KEYLOG, sizeof(KEYLOG), "%dx%d, k%2d : %c",
+  snprintf(keylog, sizeof(keylog), "%dx%d, k%2d : %c",
            record->event.key.row,
            record->event.key.col,
            keycode,
            name);
 
   // update keylogs
-  if (KEYLOGS_IDX == sizeof(KEYLOGS) - 1)
+  if (keylogs_idx == sizeof(keylogs) - 1)
   {
-    KEYLOGS_IDX = 0;
-    for (int i = 0; i < sizeof(KEYLOGS) - 1; i++)
+    keylogs_idx = 0;
+    for (int i = 0; i < sizeof(keylogs) - 1; i++)
     {
-      KEYLOGS[i] = ' ';
+      keylogs[i] = ' ';
     }
   }
-  KEYLOGS[KEYLOGS_IDX] = name;
-  KEYLOGS_IDX++;
+  keylogs[keylogs_idx] = name;
+  keylogs_idx++;
 }
 
 char *keylog_read(void) {
-  return KEYLOG;
+  return keylog;
 }
 
 char *keylogs_read(void) {
-  return KEYLOGS;
+  return keylogs;
 }
