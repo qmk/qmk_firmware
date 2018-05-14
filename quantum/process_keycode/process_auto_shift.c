@@ -54,7 +54,7 @@ void autoshift_flush(void) {
     if (elapsed > autoshift_timeout) {
       register_code(KC_LSFT);
         rgblight_setrgb (0xFF, 0x00, 0x00); // red
-        BL_ON // turns the Key backlights to the max to signify that AutoShift is working.
+        register_code(BL_ON); // turns the Key backlights to the max to signify that AutoShift is working.
     }
 
     register_code(autoshift_lastkey);
@@ -63,6 +63,7 @@ void autoshift_flush(void) {
     if (elapsed > autoshift_timeout) {
       unregister_code(KC_LSFT);
         rgblight_sethsv (0, 0, 100); // Soft White
+        unregister_code(BL_ON); // turns the Key backlights to the max to signify that AutoShift is working.
         // BL_OFF - would turn backlight off but i think it should just revert to the users default setting
     }
 
