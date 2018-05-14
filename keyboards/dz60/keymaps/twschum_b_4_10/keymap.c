@@ -1,4 +1,5 @@
 #include "dz60.h"
+#include <stdarg.h>
 /* DZ60 layout using following options (from layouts diagram on KBDfans):
  *  - plate B (2.25u lshift)
  *  - opt 4 (1.75, 1, 1 on rshift)
@@ -124,6 +125,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+/* PP_NARG macro returns the number of arguments passed to it.
+ * https://groups.google.com/forum/#!topic/comp.std.c/d-6Mj5Lko_s
+ */
+#define PP_NARG(...) PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
+#define PP_NARG_(...) PP_ARG_N(__VA_ARGS__)
+#define PP_MAX_ARGS 64
+#define PP_ARG_N( \
+          _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, \
+         _11,_12,_13,_14,_15,_16,_17,_18,_19,_20, \
+         _21,_22,_23,_24,_25,_26,_27,_28,_29,_30, \
+         _31,_32,_33,_34,_35,_36,_37,_38,_39,_40, \
+         _41,_42,_43,_44,_45,_46,_47,_48,_49,_50, \
+         _51,_52,_53,_54,_55,_56,_57,_58,_59,_60, \
+         _61,_62,_63,N,...) N
+#define PP_RSEQ_N() 63,62,61,60,        \
+         59,58,57,56,55,54,53,52,51,50, \
+         49,48,47,46,45,44,43,42,41,40, \
+         39,38,37,36,35,34,33,32,31,30, \
+         29,28,27,26,25,24,23,22,21,20, \
+         19,18,17,16,15,14,13,12,11,10, \
+         9,8,7,6,5,4,3,2,1,0
+
+#define send_keys(...) send_n_keys(PP_NARG(__VA_ARGS__), __VA_ARGS__)
+static void send_n_keys(int n, ...) {
+    uint8_t i = 0;
+    uint16_t keycodes[PP_MAX_ARGS];
+    va_list keys;
+    va_start(keys, n);
+    for (; i < n; ++i) {
+        keycodes[i] = (uint16_t)va_arg(keys, int); // cast suppresses warning
+        register_code(keycodes[i]);
+    }
+    for (; n > 0; --n) {
+        unregister_code(keycodes[n-1]);
+    }
+    va_end(keys);
+}
+
 #define _TIMEOUT_DELAY 300 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
@@ -134,11 +173,14 @@ static bool A_other_key = false;
 static bool B_down = 0; // TODO just use top bit from count
 static int8_t B_count = 0;
 
-static inline void start_idle_timer() {
+static inline void start_idle_timer(void);
+static inline void clear_state_after_idle_timeout(void);
+
+static inline void start_idle_timer(void) {
     idle_timer = timer_read();
     timeout_is_active = true;
 }
-static inline void clear_state_after_idle_timeout() {
+static inline void clear_state_after_idle_timeout(void) {
     idle_timer = 0;
     timeout_is_active = 0;
     // clear state here
@@ -199,9 +241,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (B_count) {
                     if (B_down) {
                         // send C-b
+                        send_keys(KC_LCTL, KC_B);
                     }
                     else {
                         // send B
+                        send_keys(KC_B);
                     }
                 }
             }
