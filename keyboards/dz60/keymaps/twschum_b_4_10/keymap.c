@@ -11,6 +11,7 @@
  * Dynamic macros
  * Leader functions
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
+ *  - need to make inter-operable
  * Unicode leader commands??? (symbolic unicode)
  * Multiple keystrokes to generate single keycode?
  * Mac mode vs not:
@@ -76,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------|
        //
        // |----1.75------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------2.25--------||
-             KC_LCTL,       CTRL_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
+             KC_LCTL,      CTRL_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
-               KC_LSHIFT,      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPR,
+               KC_LSHIFT,      KC_Z,    KC_X,    KC_C,    KC_V,    CTRL_B,  KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPR,
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
@@ -162,6 +163,7 @@ static void send_n_keys(int n, ...) {
     }
     va_end(keys);
 }
+#define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
 
 #define _TIMEOUT_DELAY 300 // ms
 static uint16_t idle_timer;
@@ -187,10 +189,7 @@ static inline void clear_state_after_idle_timeout(void) {
     A_down = false;
     B_down = false; // TODO wait no??
     // send B
-    for (uint8_t i = 0; i < B_count; ++i) {
-        register_code(KC_B);
-        unregister_code(KC_B);
-    }
+    repeat_send_keys(B_count, KC_B);
     B_count = 0;
 }
 
@@ -209,8 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {
                 if (! A_other_key) {
-                    register_code(KC_A);
-                    unregister_code(KC_A);
+                    send_keys(KC_A);
                 }
                 A_down = false;
                 A_other_key = false;
@@ -230,22 +228,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             if (record->event.pressed) {
                 if (A_down) {
-                    register_code(KC_LCTL);
-                    register_code(KC_A);
-                    unregister_code(KC_A);
-                    unregister_code(KC_LCTL);
+                    send_keys(KC_LCTL, KC_A);
                     register_code(keycode);
                     A_other_key = true;
                     return false;
                 }
                 if (B_count) {
                     if (B_down) {
-                        // send C-b
-                        send_keys(KC_LCTL, KC_B);
+                        repeat_send_keys(B_count, KC_LCTL, KC_B);
+                        B_count = 0;
                     }
                     else {
-                        // send B
-                        send_keys(KC_B);
+                        repeat_send_keys(B_count, KC_B);
+                        B_count = 0;
                     }
                 }
             }
