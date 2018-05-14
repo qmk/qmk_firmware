@@ -1,6 +1,4 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "keymap_german.h"
 
 extern keymap_config_t keymap_config;
