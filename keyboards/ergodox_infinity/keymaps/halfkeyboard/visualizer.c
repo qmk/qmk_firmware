@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "default_animations.h"
 #include "led_backlight_keyframes.h"
 
+#define NUM_ROWS LED_HEIGHT
+#define NUM_COLS LED_WIDTH
+
 #define ONESIDESCAN 9
 #define BOTHSIDESCAN 16
 #define FULL_ON LUMA2COLOR(255)
@@ -25,8 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HALF_ON LUMA2COLOR(150)
 #define ONE_QUARTER LUMA2COLOR(50)
 #define CROSSFADE_TIME 8000
+#define GRADIENT_TIME 3000
 bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualizer_state_t* state);
 bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_bottom_to_top_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
 keyframe_animation_t Fade_in_all_leds = {
     .num_frames = 1,
     .loop = false,
@@ -37,6 +42,55 @@ keyframe_animation_t Fade_in_all_leds = {
         led_backlight_keyframe_fade_in_all,
     },
 };
+keyframe_animation_t top_to_bottom_then_bottom_to_top = {
+    .num_frames = 2,
+    .loop = true,
+    .frame_lengths = {
+        gfxMillisecondsToTicks(GRADIENT_TIME),
+        gfxMillisecondsToTicks(GRADIENT_TIME),
+    },
+    .frame_functions = {
+        led_backlight_keyframe_top_to_bottom_gradient,
+        led_backlight_keyframe_bottom_to_top_gradient,
+    },
+};
+
+keyframe_animation_t left_to_right_then_right_to_left = {
+    .num_frames = 4,
+    .loop = true,
+    .frame_lengths = {
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+    },
+    .frame_functions = {
+        led_backlight_keyframe_left_to_right_gradient,
+        led_backlight_keyframe_mirror_orientation,
+        led_backlight_keyframe_left_to_right_gradient,
+        led_backlight_keyframe_normal_orientation,
+
+    },
+};
+static uint8_t compute_gradient_color(float t, float index, float num) {
+    const float two_pi = M_PI * 2.0f;
+    float normalized_index = (1.0f - index / (num - 1.0f)) * two_pi;
+    float x = t * two_pi + normalized_index;
+    float v = 0.5 * (cosf(x) + 1.0f);
+    return (uint8_t)(255.0f * v);
+}
+bool led_backlight_keyframe_bottom_to_top_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+    (void)state;
+    float frame_length = animation->frame_lengths[animation->current_frame];
+    float current_pos = animation->time_left_in_frame;
+    float t = current_pos / frame_length;
+    for (int i=NUM_ROWS-1; i>=0; i--) {
+        uint8_t color = compute_gradient_color(t, i, NUM_ROWS);
+        gdispGDrawLine(LED_DISPLAY, 0, i, NUM_COLS - 1, i, LUMA2COLOR(color));
+    }
+    return true;
+}
+
 /*
  *  one set left to right.  then reverse to go back.
  *  |    left side              |       right side          |       |
@@ -182,6 +236,9 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     else if (state->status.layer & 0x100) {
         state->target_lcd_color = LCD_COLOR(MAGENTA, saturation, 0xFF);
         state->layer_text = "Shortcuts Layer";
+        stop_keyframe_animation(&left_to_right_then_right_to_left);
+        stop_keyframe_animation(&KITT_Scanner_animation);
+        start_keyframe_animation(&led_test_animation);
     }
     else    if (state->status.layer & 0x80) {
         state->target_lcd_color = LCD_COLOR(VIOLET, saturation, 0xFF);
@@ -203,6 +260,8 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     else if (state->status.layer & 0x4) {
         state->target_lcd_color = LCD_COLOR(BLUE, saturation, 0xFF);
         state->layer_text = "Dvorak";
+        stop_keyframe_animation(&led_test_animation);
+        start_keyframe_animation(&left_to_right_then_right_to_left);
     }
     else if (state->status.layer & 0x2) {
         state->target_lcd_color = LCD_COLOR(ORANGE, saturation, 0xFF);
@@ -212,6 +271,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(YELLOW, saturation, 0xFF);
         state->layer_text = "Qwerty";
         stop_keyframe_animation(&KITT_Scanner_animation);
+        stop_keyframe_animation(&led_test_animation);
         start_keyframe_animation(&Fade_in_all_leds);
     }
 }
