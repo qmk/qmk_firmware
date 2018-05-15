@@ -41,14 +41,8 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# Boot Section
+BOOTLOADER = qmk-dfu
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating

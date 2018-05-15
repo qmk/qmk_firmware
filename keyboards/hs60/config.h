@@ -46,6 +46,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F1, F4, F5, E6, F0, B7, D2, D3, D5, D4, D6, D7, B4, B5 }
 #define UNUSED_PINS     { B6, C6, C7, F6 }
 
+/* bootloader configuration */
+
+#define QMK_ESC_OUTPUT B5 // usually COL
+#define QMK_ESC_INPUT B2 // usually ROW
+
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
