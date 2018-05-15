@@ -1,7 +1,5 @@
 #include "chimera_ortho.h"
 
-#define TAPPING_TOGGLE 2
-
 enum chimera_ortho_layers
 {
 	_BASE,
