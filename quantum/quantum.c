@@ -60,6 +60,10 @@ extern backlight_config_t backlight_config;
   #endif
 #endif
 
+#ifdef DYNAMIC_MACRO_ENABLE
+#include "dynamic_macro.h"
+#endif
+
 static void do_code16 (uint16_t code, void (*f) (uint8_t)) {
   switch (code) {
   case QK_MODS ... QK_MODS_MAX:
@@ -225,6 +229,10 @@ bool process_record_quantum(keyrecord_t *record) {
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.
     process_key_lock(&keycode, record) &&
+  #endif
+  #if defined(DYNAMIC_MACRO_ENABLE) && !defined(DYNAMIC_MACRO_USER_CALL)
+    // Must run asap to ensure all keypresses are recorded.
+    process_record_dynamic_macro(keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
       process_clicky(keycode, record) &&

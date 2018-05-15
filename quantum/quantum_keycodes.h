@@ -453,6 +453,14 @@ enum quantum_keycodes {
     TERM_OFF,
 #endif
 
+#ifdef DYNAMIC_MACRO_ENABLE
+    DYN_REC_START1,
+    DYN_REC_START2,
+    DYN_REC_STOP,
+    DYN_MACRO_PLAY1,
+    DYN_MACRO_PLAY2,
+#endif // DYNAMIC_MACRO_ENABLE
+
     // always leave at the end
     SAFE_RANGE
 };

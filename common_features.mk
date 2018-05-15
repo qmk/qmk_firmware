@@ -197,6 +197,17 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
+ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/dynamic_macro.c
+    OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
+    ifdef DYNAMIC_MACRO_SIZE
+        OPT_DEFS += -DDYNAMIC_MACRO_SIZE=$(DYNAMIC_MACRO_SIZE)
+    endif
+    ifeq ($(strip $(DYNAMIC_MACRO_USER_CALL)), yes)
+        OPT_DEFS += -DDYNAMIC_MACRO_USER_CALL
+    endif
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
