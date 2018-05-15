@@ -1,6 +1,5 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern rgblight_config_t rgblight_config;
 extern keymap_config_t keymap_config;
