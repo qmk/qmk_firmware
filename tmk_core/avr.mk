@@ -253,7 +253,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
 	printf "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	pritnf | $(GREP) "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1 >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	printf "%s\n" "`$(GREP) "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	printf "%s Bootloader\n" "`$(GREP) "PRODUCT" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	printf "%s\n" "`$(GREP) "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
 	printf "%s\n" "`$(GREP) "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
