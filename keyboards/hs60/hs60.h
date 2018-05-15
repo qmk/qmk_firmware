@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SIXTYSOCKETS_H
-#define SIXTYSOCKETS_H
+#ifndef HS60_H
+#define HS60_H
 
 #define XXX KC_NO
 

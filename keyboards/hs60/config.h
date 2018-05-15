@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6666
+#define PRODUCT_ID      0x0257
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         Sixty Sockets
@@ -114,35 +114,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable print */
 //#define NO_PRINT
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
 /* Backlight options */
 
-/*// disable backlight when USB suspended (PC sleep/hibernate/shutdown)
-#define BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
-
-// disable backlight after timeout in minutes, 0 = no timeout
-#define BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
-
-// These define which keys in the matrix are alphas/mods
-// Used for backlight effects so colors are different for
-// alphas vs. mods
-// Each value is for a row, bit 0 is column 0
-// Alpha=0 Mod=1
-#define BACKLIGHT_ALPHAS_MODS_ROW_0 0b0010000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_1 0b0000000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_2 0b0010000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_3 0b0010000000000001
-#define BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
-*/
+//This is experimental do not enable yet
+//#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
 
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
+#define RGB_MATRIX_SKIP_FRAMES 0
 
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110101
@@ -152,5 +131,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_2_LED_TOTAL 32
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 
-#define RGB_MATRIX_SKIP_FRAMES 0
 #endif

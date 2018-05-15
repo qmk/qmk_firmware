@@ -3,12 +3,7 @@
 MCU = atmega32u4
 
 # project specific files
-#SRC =	zeal_backlight.c \
-#		zeal_color.c \
-#		zeal_eeprom.c \
-#		zeal_keymap.c \
-#		IS31FL3731_driver.c \
-#		TWIlib.c
+#SRC =
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -60,7 +55,6 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 # backlight effects.
 OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
 
-
 # Build Options
 #   change yes to no to disable
 #
@@ -75,12 +69,12 @@ SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
-UNICODE_ENABLE = no        # Unicode
+UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 
-# I have not tested this yet but in theory it should work with zealcmd
+# Experimental features for zealcmd please do no enable
 #RAW_ENABLE = yes             
 #USE_KEYMAPS_IN_EEPROM = yes
-RGB_MATRIX_ENABLE = yes

@@ -13,8 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "sixtysockets.h"
+#include "hs60.h"
 #include "config.h"
+
+// Please ignore this is for upcoming features
 /*#ifdef RAW_ENABLE
 
 void raw_hid_receive( uint8_t *data, uint8_t length )
@@ -273,6 +275,7 @@ void matrix_init_kb(void) {
 
 	bootmagic_lite();
 
+    // Please ignore this is for upcoming features
 	// If the EEPROM has the magic, the data is good.
 	// OK to load from EEPROM.
 	/*if (eeprom_is_valid())
@@ -306,13 +309,6 @@ void matrix_init_kb(void) {
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}*/
-
-	// Initialize LED drivers for backlight.
-
-	//backlight_init_drivers();
-
-	//backlight_timer_init();
-	//backlight_timer_enable();
 
 	matrix_init_user();
 }
