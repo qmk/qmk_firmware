@@ -24,4 +24,8 @@ void tmux_window_switch(uint16_t keycode);
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
 #define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
 
+#define ____________FUNCTION_1____________                 KC_F1,   KC_F2,   KC_F3,   KC_F4
+#define ____________FUNCTION_2____________                 KC_F5,   KC_F6,   KC_F7,   KC_F8
+#define ____________FUNCTION_3____________                 KC_F9,   KC_F10,  KC_F11,  KC_F12
+
 #endif
