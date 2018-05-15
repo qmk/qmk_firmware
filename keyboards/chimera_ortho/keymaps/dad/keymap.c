@@ -96,19 +96,18 @@ void matrix_scan_user(void) {
     
     switch (layer) {
         case _BASE:
-            set_led_green;
+            set_led_cyan;
             break;
         case _NAV:
-            set_led_white;
-            break;
-        case _SYM:
             set_led_blue;
             break;
-        default:
-            set_led_red;
+        case _SYM:
             set_led_magenta;
-            set_led_cyan;
-            set_led_green;
+            break;
+        case _FUNC:
+            set_led_yellow;
+        default:
+            set_led_white;
             break;
     }
 };
