@@ -35,10 +35,7 @@ enum minivan_keycodes {
   BRACES,
   BACKLIT,
   MACSLEEP,
-  DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 // Fillers to make keymaps cleaner looking
 #define _______ KC_TRNS
@@ -101,10 +98,6 @@ bool fn_tap_used = false; // sets to false when space is pressed,
 uint16_t fn_keycode = 0; // stores which spacebar was used, either raise or lower...
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
-
   switch (keycode) {
       case NAVIGATION: // This key is enter if tapped, navigation if held
         if (record->event.pressed) {

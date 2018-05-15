@@ -56,3 +56,4 @@ BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
 AUDIO_ENABLE ?= no
 RGBLIGHT_ENABLE ?= no
 TAP_DANCE_ENABLE = yes
+DYNAMIC_MACRO_ENABLE ?= yes # Dynamic macro support

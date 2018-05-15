@@ -5,6 +5,7 @@
 #endif
 #include "timer.h"
 #include <bootloader.h>
+#include "dynamic_macro.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -30,10 +31,7 @@ enum planck_keycodes {
     KM_NUM,                     /* Numeric layer */
     KM_SLP,                     /* Sleep 250 ms */
     KM_PPLR,                    /* Pure Pro layer */
-    DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO

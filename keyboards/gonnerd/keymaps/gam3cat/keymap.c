@@ -11,11 +11,6 @@ enum layers {
     _AL,        // Adjust Layer
 };
 
-enum gonnerd_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-#include "dynamic_macro.h"
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define FN_CAPS LT(_FL, KC_CAPS)
@@ -280,9 +275,5 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Enable Dynamic Macros.
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     return true;
 }

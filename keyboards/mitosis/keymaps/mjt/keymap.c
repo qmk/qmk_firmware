@@ -6,6 +6,7 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
+#include "dynamic_macro.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -29,7 +30,6 @@ enum mitosis_keycodes
   FNMAC,
   FNPC,
   AUDIOTEST,
-  DYNAMIC_MACRO_RANGE,
 };
 
 
@@ -40,9 +40,6 @@ enum mitosis_macros
   VOLD,
   ESCM
 };
-
-
-#include "dynamic_macro.h"
 
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 900

@@ -37,10 +37,7 @@ enum roadkit_keycodes {
   FN_0,
   BACKLIT,
   MACSLEEP,
-  DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 // Fillers to make keymaps cleaner looking
 #define _______ KC_TRNS
@@ -148,9 +145,6 @@ uint16_t get_render_keycode(uint16_t keycode, uint16_t tap_qty){ // maybe replac
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-      return false;
-    }
     uint8_t layer;
     layer = biton32(layer_state);
 

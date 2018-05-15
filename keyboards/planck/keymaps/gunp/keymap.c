@@ -33,10 +33,7 @@ enum planck_keycodes {
   FN_B,
   FN_C,
   FN_D,
-  DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 #define MFN_R1 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define MFN_R2 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -176,8 +173,6 @@ void shutdown_user() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   uint16_t mask = 1 << (3 - (keycode - FN_A));
-  if (!process_record_dynamic_macro(keycode, record))
-    return false;
   if(FN_A <= keycode && keycode <= FN_D) {
     if(!(cur_layer_code & mask) == record->event.pressed) {
       layer_off(cur_layer_code + LY_0000);

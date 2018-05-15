@@ -11,6 +11,8 @@ UNICODE_ENABLE = no          # Unicode
 BLUETOOTH_ENABLE = no        # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no         # Enable WS2812 RGB underlight.
 API_SYSEX_ENABLE = no
+DYNAMIC_MACRO_ENABLE = yes   # Dynamic macro support
+DYNAMIC_MACRO_USER_CALL = yes # Call dynamic macro function from process_record_user
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile

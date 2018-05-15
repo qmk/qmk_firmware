@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "dynamic_macro.h"
 
 enum jd45_layers
 {
@@ -17,10 +18,7 @@ enum jd45_keycodes
     MACSLEEP,
     USEFNMODS,
     USENUMMODS,
-    DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 900

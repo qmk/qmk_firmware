@@ -21,12 +21,8 @@ enum custom_keycodes {
   MCR1,                // マクロ1
   MCR2,                // マクロ2
   MCR3,                // マクロ3
-  DYNAMIC_MACRO_RANGE, // ダイナミックマクロ
   WN_SCLN,             // タップでJISの「:」  シフトでJISの「;」 (Windows)
 };
-
-// Use Dynamic macro
-#include "dynamic_macro.h"
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -174,9 +170,6 @@ return state;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool     lshift = false;
-  if (!process_record_dynamic_macro(keycode, record)) {
-      return false;
-  }
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {

@@ -5,9 +5,6 @@
 extern keymap_config_t keymap_config;
 
 enum planck_layers { DEF, LWR, RSE, FUN };
-enum planck_keycodes { DYNAMIC_MACRO_RANGE = SAFE_RANGE };
-
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Default
@@ -81,9 +78,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     return true;
 }
 

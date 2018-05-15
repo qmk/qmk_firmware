@@ -6,6 +6,7 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
+#include "dynamic_macro.h"
 
 extern keymap_config_t keymap_config;
 
@@ -31,10 +32,7 @@ enum planck_keycodes {
   BACKLIT,
   EXT_PLV,
   MACSLEEP,
-  DYNAMIC_MACRO_RANGE,
 };
-
-#include "dynamic_macro.h"
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS

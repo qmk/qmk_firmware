@@ -22,9 +22,6 @@
 /** Holding right/left or left/right shift for single or double quote pair */
 /* #define CFQ_USE_SHIFT_QUOTES */
 
-#define CFQ_USE_DYNAMIC_MACRO
-
-
 #if !defined(CFQ_USER_KEY0)
 #  define CFQ_USER_KEY0 KC_BSPC
 #endif
@@ -269,22 +266,7 @@ enum custom_keycodes {
   M_WORD_M, M_WORD_N, M_WORD_O, M_WORD_P, M_WORD_Q, M_WORD_R,
   M_WORD_S, M_WORD_T, M_WORD_U, M_WORD_V, M_WORD_W, M_WORD_X,
   M_WORD_Y, M_WORD_Z,
-
-#ifdef CFQ_USE_DYNAMIC_MACRO
-  DYNAMIC_MACRO_RANGE,
-#endif
 };
-
-#ifdef CFQ_USE_DYNAMIC_MACRO
-#  include "dynamic_macro.h"
-#else
-   /* avoid ifdef's in keymap */
-#  define DYN_REC_START1 KC_TRNS
-#  define DYN_REC_START2 KC_TRNS
-#  define DYN_REC_PLAY1 KC_TRNS
-#  define DYN_REC_PLAY2 KC_TRNS
-#  define DYN_REC_STOP KC_TRNS
-#endif
 
 #ifdef CFQ_USE_MOMENTARY_LAYER_KEYS
 #define CFQ_KC_FN1 MO(1)
@@ -505,11 +487,6 @@ const uint16_t PROGMEM fn_actions[] = {
   } while (0)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CFQ_USE_DYNAMIC_MACRO
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
-#endif
   switch (keycode) {
     /* dynamically generate these. */
     case RGB_SLD:

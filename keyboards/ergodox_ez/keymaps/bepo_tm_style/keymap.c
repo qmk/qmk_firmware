@@ -7,6 +7,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_bepo.h"
+#include "dynamic_macro.h"
 
 // The layers that we are defining for this keyboards.
 #define BASE 0
@@ -37,18 +38,6 @@
 #define MK_CUT    LSFT(KC_DEL)  // shift + delete
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
-
-// Custom keycodes
-enum {
-  // SAFE_RANGE must be used to tag the first element of the enum.
-  // DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
-  // values are added (as its value is used to create a couple of other keycodes
-  // after it).
-  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-// This file must be included after DYNAMIC_MACRO_RANGE is defined...
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.

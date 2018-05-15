@@ -14,13 +14,6 @@
 // Easier-to-read Layer Arrays.
 #define ____ KC_TRNS
 
-enum hhkb_keycodes
-{
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-#include "dynamic_macro.h"
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* QWER Layer: Qwerty Default
@@ -170,13 +163,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     return MACRO_NONE;
 };
-
-// For Dynamic Macros.
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-    if (!process_record_dynamic_macro(keycode, record))
-    {
-        return false;
-    }
-    return true;
-}

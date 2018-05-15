@@ -6,6 +6,7 @@
 #include "audio.h"
 #endif
 #include "eeconfig.h"
+#include "dynamic_macro.h"
 
 extern keymap_config_t keymap_config;
 
@@ -29,10 +30,7 @@ enum planck_keycodes {
 	LOWER,
 	MEDIA,
 	ONESHOT,
-	DYNAMIC_MACRO_RANGE
 };
-
-#include "dynamic_macro.h"
 
 // Key code names
 #define SFT_ENT  FUNC(0)	// Tap for enter, hold for right shift

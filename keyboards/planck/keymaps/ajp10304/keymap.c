@@ -32,10 +32,7 @@ enum planck_keycodes {
   RAISE,
   MRSE,
   MOUSE,
-  DYNAMIC_MACRO_RANGE
 };
-
-#include "dynamic_macro.h"
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -212,10 +209,6 @@ void persistant_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (!process_record_dynamic_macro(keycode, record)) {
-      return false;
-  }
 
    switch (keycode) {
     case QWERTY:

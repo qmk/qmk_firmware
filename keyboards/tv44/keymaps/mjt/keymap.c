@@ -6,6 +6,7 @@
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
+#include "dynamic_macro.h"
 
 enum minivan_layers {
   _QWERTY,
@@ -19,7 +20,6 @@ enum minivan_layers {
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   DYNKEY,
-  DYNAMIC_MACRO_RANGE,
 };
 
 // Fillers to make layering more clear
@@ -33,8 +33,6 @@ enum planck_keycodes {
 #define BACKLIT M(8)
 #define ADJUST M(9)
 #define XXXXXXX KC_NO
-
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = {

@@ -8,7 +8,6 @@
 #define _VIM_CONTROL 12
 
 enum custom_keycodes {
-  DYNAMIC_MACRO_RANGE = SAFE_RANGE,
   a_MACRO,
   A_MACRO,
   I_MACRO,
@@ -21,8 +20,6 @@ enum custom_keycodes {
 #define KC_CUT LCTL(KC_X)
 #define KC_COPY LCTL(KC_C)
 #define KC_PASTE LCTL(KC_V)
-
-#include "dynamic_macro.h"
 
 static uint8_t old_layer = 0;
 
@@ -143,9 +140,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     if (record->event.pressed) {
         switch(keycode) {
             case a_MACRO:

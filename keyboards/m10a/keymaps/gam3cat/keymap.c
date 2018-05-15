@@ -18,11 +18,6 @@ enum layers {
     _L9
 };
 
-enum m10a_keycodes {
-    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
-};
-
-#include "dynamic_macro.h"
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define FN_ZERO LT(_L9, KC_0)
@@ -153,9 +148,5 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Enable Dynamic Macros.
-    if (!process_record_dynamic_macro(keycode, record)) {
-        return false;
-    }
     return true;
 }

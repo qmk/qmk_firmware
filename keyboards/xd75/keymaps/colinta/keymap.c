@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "xd75.h"
+#include "dynamic_macro.h"
 
 #ifdef IS_COLINTA
 #include "secrets.h"
@@ -70,10 +71,8 @@ enum my_keycods {
     TH_LAST,
     MM_2,
     DM_CLEAR,
-    DYNAMIC_MACRO_RANGE,
 };
 
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

@@ -2,6 +2,7 @@
  * default HHKB Layout
  */
 #include QMK_KEYBOARD_H
+#include "dynamic_macro.h"
 
 #define BASE 0
 #define HHKB 1
@@ -9,15 +10,6 @@
 #define DYN 3
 #define CTL_ESC CTL_T(KC_ESC)
 #define MACSLEEP LCTL(LSFT(KC_POWER))
-
-enum hhkb_keycodes
-{
-    QWERTY = SAFE_RANGE,
-    DYNKEY,
-    DYNAMIC_MACRO_RANGE,
-};
-
-#include "dynamic_macro.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

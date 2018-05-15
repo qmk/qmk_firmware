@@ -17,22 +17,12 @@
 
 #include "space_oddity.h"
 
-// Planck keycodes needed for dynamic macros.
-enum planck_keycodes {
-
-  QWERTY = SAFE_RANGE,
-  DYNAMIC_MACRO_RANGE,
-
-};
-
 // Tap Dance initializer.
 enum {
 
   SFT_CAPS = 0,
 
 };
-
-#include "dynamic_macro.h"
 
 #define MOUSE_LAYER 2
 
@@ -195,10 +185,6 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
   return true;
 }
 
