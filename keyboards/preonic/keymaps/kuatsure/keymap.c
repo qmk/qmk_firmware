@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSLS, \
   KC_LCTL, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, \
   KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,  \
-  KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,   KC_SPC,     KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_LEAD, GAME, KC_LALT, KC_LGUI, LOWER,       KC_SPC, KC_SPC,      RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Game
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSLS, \
   KC_LCTL, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT, \
   KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,  \
-  KC_LEAD, QWERTY,  KC_LALT, KC_SPC,  GAME_MOD, KC_SPC, KC_SPC,  GAME_MOD, KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT  \
+  KC_LEAD, QWERTY, KC_LALT, KC_SPC, GAME_MOD,   KC_SPC, KC_SPC,   GAME_MOD, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Game Modifiers
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid_wrapper( \
-  KC_GESC, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+  KC_GESC, KC_EXLM, KC_AT, KC_HASH,    KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
   _______, ____________FUNCTION_3____________, _______, _______, _______, _______, _______, _______, KC_BSPC, \
   _______, ____________FUNCTION_2____________, _______, _______, _______, _______, _______, _______, _______, \
   _______, ____________FUNCTION_1____________, _______, _______, _______, _______, _______, _______, _______, \
