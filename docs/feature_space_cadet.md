@@ -1,8 +1,8 @@
-## Space Cadet Shift: The future, built in
+## Space Cadet Shift: The Future, Built In
 
 Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) the Space Cadet Shift quite well. Essentially, you hit the left Shift on its own, and you get an opening parenthesis; hit the right Shift on its own, and you get the closing one. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds.
 
-To use it, use `KC_LSPO` (Left Shift, Parens Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parens Close) for your right Shift.
+To use it, use `KC_LSPO` (Left Shift, Parenthesis Open) for your left Shift on your keymap, and `KC_RSPC` (Right Shift, Parenthesis Close) for your right Shift.
 
 It's defaulted to work on US keyboards, but if your layout uses different keys for parenthesis, you can define those in your `config.h` like this:
 

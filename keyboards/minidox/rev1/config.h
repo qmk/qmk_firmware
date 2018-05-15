@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B2, B6, B4, B5 }
 #define MATRIX_COL_PINS { F4, D3, D2, D1, D4 }
 
-#define CATERINA_BOOTLOADER
-
 #define USE_SERIAL
 
 //#define EE_HANDS

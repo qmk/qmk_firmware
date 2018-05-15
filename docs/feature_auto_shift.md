@@ -1,7 +1,7 @@
-# Auto Shift: Why do we need a shift key?
+# Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer
-and you get its shifted state. Viola! No shift key needed!
+and you get its shifted state. Voilà! No shift key needed!
 
 ## Why Auto Shift?
 
@@ -10,7 +10,7 @@ fingers repetitively long distances. For us on the keyboard, the pinky does that
 all too often when reaching for the shift key. Auto Shift looks to alleviate that
 problem.
 
-## How does it work?
+## How Does It Work?
 
 When you tap a key, it stays depressed for a short period of time before it is
 then released. This depressed time is a different length for everyone. Auto Shift
@@ -20,7 +20,7 @@ when you release the key. If the time depressed is greater than or equal to the
 `AUTO_SHIFT_TIMEOUT`, then a shifted version of the key is emitted. If the time
 is less than the `AUTO_SHIFT_TIMEOUT` time, then the normal state is emitted.
 
-## Are there limitations to Auto Shift?
+## Are There Limitations to Auto Shift?
 
 Yes, unfortunately.
 
@@ -28,25 +28,34 @@ Yes, unfortunately.
    characters, you could press and hold the 'a' key for a second or two. This no
    longer works with Auto Shift because it is timing your depressed time instead
    of emitting a depressed key state to your operating system.
-2. Auto Shift is disabled for any key press that is accompanied by one or more
-   modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
-   as Ctrl+Shift+A.
-3. You will have characters that are shifted when you did not intend on shifting, and
+2. You will have characters that are shifted when you did not intend on shifting, and
    other characters you wanted shifted, but were not. This simply comes down to
    practice. As we get in a hurry, we think we have hit the key long enough
    for a shifted version, but we did not. On the other hand, we may think we are
    tapping the keys, but really we have held it for a little longer than
    anticipated.
 
-## How do I enable Auto Shift?
+## How Do I Enable Auto Shift?
 
 Add to your `rules.mk` in the keymap folder:
 
-    AUTO_SHIFT_ENABLE = YES
+    AUTO_SHIFT_ENABLE = yes
 
 If no `rules.mk` exists, you can create one.
 
 Then compile and install your new firmware with Auto Key enabled! That's it!
+
+## Modifiers
+
+By default, Auto Shift is disabled for any key press that is accompanied by one or more
+modifiers. Thus, Ctrl+A that you hold for a really long time is not the same
+as Ctrl+Shift+A.
+
+You can re-enable Auto Shift for modifiers by adding another rule to your `rules.mk`
+
+    AUTO_SHIFT_MODIFIERS = yes
+
+In which case, Ctrl+A held past the `AUTO_SHIFT_TIMEOUT` will be sent as Ctrl+Shift+A
 
 ## Configuring Auto Shift
 
@@ -66,7 +75,7 @@ A sample is
 
     #endif
 
-### AUTO_SHIFT_TIMEOUT (value in ms)
+### AUTO_SHIFT_TIMEOUT (Value in ms)
 
 This controls how long you have to hold a key before you get the shifted state.
 Obviously, this is different for everyone. For the common person, a setting of
@@ -75,18 +84,15 @@ is the default value. Then work down from there. The idea is to have the shortes
 
 Play with this value until things are perfect. Many find that all will work well
 at a given value, but one or two keys will still emit the shifted state on
-occassion. This is simply due to habit and holding some keys a little longer
+occasion. This is simply due to habit and holding some keys a little longer
 than others. Once you find this value, work on tapping your problem keys a little
 quicker than normal and you will be set.
 
-{% hint style='info' %}
-Auto Shift has three special keys that can help you get this value right very
-quick. See "Auto Shift Setup" for more details!
-{% endhint %}
+?> Auto Shift has three special keys that can help you get this value right very quick. See "Auto Shift Setup" for more details!
 
 ### NO_AUTO_SHIFT_SPECIAL (simple define)
 
-Do not Auto Shift special keys, which include -_, =+, [{, ]}, ;:, '", ,<, .>,
+Do not Auto Shift special keys, which include -\_, =+, [{, ]}, ;:, '", ,<, .>,
 and /?
 
 ### NO_AUTO_SHIFT_NUMERIC (simple define)
@@ -99,7 +105,7 @@ Do not Auto Shift alpha characters, which include A through Z.
 
 ## Using Auto Shift Setup
 
-This will enable you to define three keys temporailiy to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
+This will enable you to define three keys temporarily to increase, decrease and report your `AUTO_SHIFT_TIMEOUT`.
 
 ### Setup
 
@@ -110,6 +116,9 @@ Map three keys temporarily in your keymap:
 | KC_ASDN  | Lower the Auto Shift timeout variable (down)        |
 | KC_ASUP  | Raise the Auto Shift timeout variable (up)          |
 | KC_ASRP  | Report your current Auto Shift timeout value        |
+| KC_ASON  | Turns on the Auto Shift Function                    |
+| KC_ASOFF | Turns off the Auto Shift Function                   |
+| KC_ASTG  | Toggles the state of the Auto Shift feature         |
 
 Compile and upload your new firmware.
 
@@ -134,7 +143,7 @@ completely normal and with no intention of shifted keys.
 9. Remove the key bindings `KC_ASDN`, `KC_ASUP` and `KC_ASRP`.
 10. Compile and upload your new firmware.
 
-#### An example run
+#### An Example Run
 
     hello world. my name is john doe. i am a computer programmer playing with
     keyboards right now.

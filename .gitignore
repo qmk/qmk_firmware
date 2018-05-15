@@ -23,6 +23,7 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+doxygen/
 .DS_STORE
 /util/wsl_downloaded
 /util/win_downloaded
@@ -42,15 +43,18 @@ cmake-build-debug
 .project
 .settings/
 .idea
+*.iml
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt
 # Let these ones be user specific, since we have so many different configurations
+.vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/last.sql
 .vscode/temp.sql
 .stfolder
+.tags
 
 # ignore image files
 *.png
