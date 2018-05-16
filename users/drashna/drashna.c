@@ -38,10 +38,6 @@ float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
 
 static uint16_t copy_paste_timer;
-#ifdef RGBLIGHT_ENABLE
-bool rgb_layer_change = true;
-#endif
-
 userspace_config_t userspace_config;
 
 //  Helper Functions
@@ -164,31 +160,42 @@ void led_set_keymap(uint8_t usb_led) {}
 // call the keymap's init function
 void matrix_init_user(void) {
   uint8_t default_layer = eeconfig_read_default_layer();
+  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
 
-#ifdef RGBLIGHT_ENABLE
-  rgblight_enable();
-#endif // RGBLIGHT_ENABLE
+#ifdef BOOTLOADER_CATERINA
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
 
-  if (default_layer & (1UL << _COLEMAK)) {
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+#endif
+
+  if (userspace_config.rgb_layer_change) {
 #ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv_magenta();
+    rgblight_enable();
 #endif // RGBLIGHT_ENABLE
-  } else if (default_layer & (1UL << _DVORAK)) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv_green();
-#endif // RGBLIGHT_ENABLE
-  } else if (default_layer & (1UL << _WORKMAN)) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv_goldenrod();
-#endif // RGBLIGHT_ENABLE
-  } else {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_sethsv_teal();
-#endif // RGBLIGHT_ENABLE
+    if (default_layer & (1UL << _COLEMAK)) {
+  #ifdef RGBLIGHT_ENABLE
+      rgblight_sethsv_magenta();
+  #endif // RGBLIGHT_ENABLE
+    } else if (default_layer & (1UL << _DVORAK)) {
+  #ifdef RGBLIGHT_ENABLE
+      rgblight_sethsv_green();
+  #endif // RGBLIGHT_ENABLE
+    } else if (default_layer & (1UL << _WORKMAN)) {
+  #ifdef RGBLIGHT_ENABLE
+      rgblight_sethsv_goldenrod();
+  #endif // RGBLIGHT_ENABLE
+    } else {
+  #ifdef RGBLIGHT_ENABLE
+      rgblight_sethsv_teal();
+  #endif // RGBLIGHT_ENABLE
+    }
   }
 
-  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+#ifdef AUDIO_CLICKY
   clicky_enable = userspace_config.clicky_enable;
+#endif
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -364,8 +371,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
     if (record->event.pressed) {
-      rgb_layer_change = !rgb_layer_change;
-      if (rgb_layer_change) {
+      userspace_config.rgb_layer_change ^= 1;
+      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      if (userspace_config.rgb_layer_change) {
         layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
     }
@@ -374,7 +382,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
   case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
     if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-      rgb_layer_change = false;
+      userspace_config.rgb_layer_change = false;
+      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
     }
     return true; break;
 #endif // RGBLIGHT_ENABLE
@@ -403,8 +412,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
   case CLICKY_TOGGLE:
+#ifdef AUDIO_CLICKY
     userspace_config.clicky_enable = clicky_enable;
     eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+#endif
     break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
@@ -445,123 +456,104 @@ uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 
   switch (biton32(state)) {
-  case _NAV:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_blue();
-      rgblight_mode(1);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
-  case _SYMB:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_blue();
-      rgblight_mode(2);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
-  case _MOUS:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_yellow();
-      rgblight_mode(1);
-    }
-#endif // RGBLIGHT_ENABLE
-    break;
   case _MACROS:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_orange();
       userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _MEDIA:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_chartreuse();
       rgblight_mode(22);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _GAMEPAD:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(17);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _DIABLO:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _RAISE:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_yellow();
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _LOWER:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_orange();
       rgblight_mode(5);
     }
 #endif // RGBLIGHT_ENABLE
+
     break;
   case _ADJUST:
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
+    if (userspace_config.rgb_layer_change) {
       rgblight_sethsv_red();
       rgblight_mode(23);
     }
 #endif // RGBLIGHT_ENABLE
-    break;
-  case _COVECUBE:
-#ifdef RGBLIGHT_ENABLE
-    if (rgb_layer_change) {
-      rgblight_sethsv_green();
-      rgblight_mode(2);
-    }
-#endif // RGBLIGHT_ENABLE
+
     break;
   default: //  for any other layers, or the default layer
     if (default_layer & (1UL << _COLEMAK)) {
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_sethsv_magenta(); }
+      if (userspace_config.rgb_layer_change) { rgblight_sethsv_magenta(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else if (default_layer & (1UL << _DVORAK)) {
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_sethsv_green(); }
+      if (userspace_config.rgb_layer_change) { rgblight_sethsv_green(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else if (default_layer & (1UL << _WORKMAN)) {
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_sethsv_goldenrod(); }
+      if (userspace_config.rgb_layer_change) { rgblight_sethsv_goldenrod(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     else {
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_sethsv_teal(); }
+      if (userspace_config.rgb_layer_change) { rgblight_sethsv_teal(); }
 #endif // RGBLIGHT_ENABLE
+
     }
     if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_mode(2); }
+      if (userspace_config.rgb_layer_change) { rgblight_mode(2); }
 #endif // RGBLIGHT_ENABLE
+
     } else {                       // otherwise, stay solid
 #ifdef RGBLIGHT_ENABLE
-      if (rgb_layer_change) { rgblight_mode(1); }
+      if (userspace_config.rgb_layer_change) { rgblight_mode(1); }
 #endif // RGBLIGHT_ENABLE
+
     }
     break;
   }
