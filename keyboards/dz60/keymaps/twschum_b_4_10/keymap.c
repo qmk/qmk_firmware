@@ -8,6 +8,7 @@
  */
 
 /* Features TODO:
+ * Reset from buttons!
  * Dynamic macros
  * Leader functions
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
@@ -77,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------|
        //
        // |----1.75------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------2.25--------||
-             KC_LCTL,      CTRL_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
+             KC_LCTL,        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,     KC_ENT,
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
+             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TG(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
@@ -100,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: mouse navigation */
     KEYMAP(
-            KC_NO,  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
+            TO(0),  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,    KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
@@ -109,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 3: numpad */
     KEYMAP(
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+            KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
@@ -117,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           ),
     /* Layer 4: RGB lighting controls */
     KEYMAP(
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      KC_NO,
+            KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      KC_NO,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
@@ -165,7 +166,7 @@ static void send_n_keys(int n, ...) {
 }
 #define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
 
-#define _TIMEOUT_DELAY 300 // ms
+#define _TIMEOUT_DELAY 200 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
@@ -208,7 +209,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {
                 if (! A_other_key) {
-                    send_keys(KC_A);
+                    if (get_mods() & MODS_CTRL_MASK) {
+                        send_keys(KC_RSHIFT, KC_A);
+                    }
+                    else {
+                        send_keys(KC_A);
+                    }
                 }
                 A_down = false;
                 A_other_key = false;
@@ -239,7 +245,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         B_count = 0;
                     }
                     else {
-                        repeat_send_keys(B_count, KC_B);
+                        if (get_mods() & MODS_CTRL_MASK) {
+                            repeat_send_keys(B_count, KC_RSHIFT, KC_B);
+                        }
+                        else {
+                            repeat_send_keys(B_count, KC_B);
+                        }
                         B_count = 0;
                     }
                 }
