@@ -1,5 +1,5 @@
 # Ergodox EZ Layout by bpruitt-goddard
-![Layout Image](https://i.imgur.com/7vRFdZm.png)
+![Layout Image](https://i.imgur.com/kVPmpFG.png)
 
 [KLE link](http://www.keyboard-layout-editor.com/#/gists/5896c5a729a64633d3f63de71e7e0e79)
 

@@ -37,6 +37,9 @@ enum custom_keycodes {
 #define MK_CUT    LSFT(KC_DEL)  // shift + delete
 #define MK_COPY   LCTL(KC_INS)  // ctrl + insert
 #define MK_PASTE  LSFT(KC_INS)  // shift + insert
+//Move mac desktop spaces
+#define MAC_L     LGUI(LSFT(KC_UP)) // cmd + shift + up
+#define MAC_R     LGUI(LSFT(KC_DOWN)) // cmd + shift + down
 
 // This file must be included after DYNAMIC_MACRO_RANGE is defined...
 #include "dynamic_macro.h"
@@ -115,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ___,     ___,     ___,    ___,    ___,    ___,    ___,
       ___,     ___,     ___,    ___,    ___,    ___,
       ___,     ___,     ___,    ___,    ___,    ___,    ___,
-      ___,     ___,     ___,    ___,    ___,
+      ___,     ___,     ___,    MAC_L,  MAC_R,
                                                             ___,      ___,
                                                                       ___,
                                                   KC_LGUI,  KC_LALT,  KC_LGUI,
