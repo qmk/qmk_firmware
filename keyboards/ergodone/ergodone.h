@@ -160,7 +160,7 @@ inline void ergodox_led_all_set(uint8_t n)              {}
     L30,L31,L32,L33,L34,L35,L36,               R30,R31,R32,R33,R34,R35,R36,                            \
     L40,L41,L42,L43,L44,                               R42,R43,R44,R45,R46,                            \
                             L55,L56,       R50,R51,                                                    \
-                        L45,L46,L54,       R52,R40,R41                                                 \
+                        L45,L46,L54,       R52,R40,R41,                                                \
                         L53,L52,L51,       R55,R54,R53 )                                               \
                                           \
    /* matrix positions */                 \
