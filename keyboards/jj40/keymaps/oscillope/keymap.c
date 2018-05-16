@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "jj40.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #ifdef KEYMAP
 #undef KEYMAP
