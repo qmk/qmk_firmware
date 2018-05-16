@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "i2cmaster.h"
-
 
 extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
@@ -329,7 +327,7 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     {{3|(9<<4)},   {24.9*0, 16*2}, 0}, // LED 20
 
     {{4|(6<<4)},   {24.9*3, 16*2}, 0}, // LED 21
-    {{4|(7<<4)},   {24.9*3, 16*2}, 0}, // LED 22
+    {{4|(7<<4)},   {24.9*2, 16*2}, 0}, // LED 22
     {{4|(8<<4)},   {24.9*1, 16*2}, 0}, // LED 23
     {{4|(9<<4)},   {24.9*0, 16*2}, 0}, // LED 24
 };
