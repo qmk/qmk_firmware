@@ -13,7 +13,8 @@ On its own modifier layer, accessed from left (between left GUI and ALT) or righ
 Toggled on/off, accessed via the Nordic layer.
 
 Toggle on: <KBD>L4</KBD>+<KBD>RCtrl</KBD>
-Toggle off: <KBD>L4</KBD> above <KBD>&rarr;</KBD>
+
+Toggle off: <KBD>L4</KBD> (above <KBD>&rarr;</KBD>)
 
 ### LED Controls
 
