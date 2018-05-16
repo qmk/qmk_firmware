@@ -7,8 +7,8 @@ TAP_DANCE_ENABLE  = no
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
+NO_SECRETS        = yes
 
-CUSTOM_LAYOUT     = no
 LAYOUTS = ortho_5x7
 
 # SRC := $(filter-out serial.c matrix.c i2c.c split_util.c,$(SRC))

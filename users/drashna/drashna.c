@@ -17,13 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "drashna.h"
 #include "version.h"
+#include "eeprom.h"
+
 
 #if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
 // And I'm not familiar enough to know which is better or why...
-PROGMEM const char secret[][64] = {
+static const char * const secret[] = {
   "test1",
   "test2",
   "test3",
@@ -314,7 +316,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
     if (!record->event.pressed) {
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      send_string_P(secret[keycode - KC_SECRET_1]);
+      send_string(secret[keycode - KC_SECRET_1]);
     }
     return false;
     break;
