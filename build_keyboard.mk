@@ -210,8 +210,8 @@ endif
 USER_PATH := users/$(USER_NAME)
 
 -include $(USER_PATH)/rules.mk
-ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
-    CONFIG_H += users/$(KEYMAP)/config.h
+ifneq ("$(wildcard users/$(USER_NAME)/config.h)","")
+    CONFIG_H += users/$(USER_NAME)/config.h
 endif
 
 
