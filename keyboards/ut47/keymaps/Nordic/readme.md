@@ -12,9 +12,8 @@ On its own modifier layer, accessed from left (between left GUI and ALT) or righ
 ### Gaming layer
 Toggled on/off, accessed via the Nordic layer.
 
-*Toggle on: Nordic layer modifier + Right ctrl*
-
-*Toggle off: Nordic layer modifier*
+Toggle on: <KBD>L4</KBD>+<KBD>RCtrl</KBD>
+Toggle off: <KBD>L4</KBD> above <KBD>&rarr;</KBD>
 
 ### LED Controls
 
