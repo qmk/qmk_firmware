@@ -28,11 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HALF_ON LUMA2COLOR(150)
 #define ONE_QUARTER LUMA2COLOR(50)
 
-#define CROSSFADE_TIME 8000
-#define GRADIENT_TIME 5000
+#define CROSSFADE_TIME 500
+#define GRADIENT_TIME 3000
 bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualizer_state_t* state);
 bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualizer_state_t* state);
-bool led_backlight_keyframe_bottom_to_top_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
+bool led_backlight_keyframe_decreasing_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
 bool led_backlight_keyframe_full_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state);
 keyframe_animation_t Fade_in_all_leds = {
     .num_frames = 1,
@@ -44,16 +44,29 @@ keyframe_animation_t Fade_in_all_leds = {
         led_backlight_keyframe_fade_in_all,
     },
 };
-keyframe_animation_t top_to_bottom_then_bottom_to_top = {
-    .num_frames = 2,
+keyframe_animation_t decreasing_gradient = {
+    .num_frames = 8,
     .loop = true,
     .frame_lengths = {
-        gfxMillisecondsToTicks(GRADIENT_TIME),
-        gfxMillisecondsToTicks(GRADIENT_TIME),
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
     },
     .frame_functions = {
-        led_backlight_keyframe_top_to_bottom_gradient,
-        led_backlight_keyframe_bottom_to_top_gradient,
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_mirror_orientation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_normal_orientation,
+
     },
 };
 
@@ -75,42 +88,75 @@ keyframe_animation_t left_to_right_then_right_to_left = {
     },
 };
 keyframe_animation_t left_to_right_both_boards = {
-    .num_frames = 4,
+    .num_frames = 14,
     .loop = true,
     .frame_lengths = {
-        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
-        0,           // mirror leds
-        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
-        0,           // normal leds
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //0
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //1
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //2
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //3
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //4
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //5
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //6
+        0,
+        gfxMillisecondsToTicks(CROSSFADE_TIME), //7
+
     },
     .frame_functions = {
         led_backlight_keyframe_full_left_to_right_gradient,
-        led_backlight_keyframe_mirror_orientation,
+        led_backlight_keyframe_crossfade,//0
         led_backlight_keyframe_full_left_to_right_gradient,
-        led_backlight_keyframe_normal_orientation,
-
+        led_backlight_keyframe_crossfade,//1
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//2
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//3
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//4
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//5
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//6
+        led_backlight_keyframe_full_left_to_right_gradient,
+        led_backlight_keyframe_crossfade,//7
     },
 };
-static uint8_t compute_gradient_color(float t, float index, float num) {
+static uint8_t compute_fading_color(float t, float index, float num) {
     const float two_pi = M_PI * 2.0f;
     float normalized_index = (1.0f - index / (num - 1.0f)) * two_pi;
-    float x = t * two_pi + normalized_index + M_PI;
-    float v = 0.5 * (cosf(x) + 1.0f);
-    return (uint8_t)(255.0f * v);
+    float x = t * two_pi + normalized_index-M_PI;
+    if((1*M_PI) < x && x < (3*M_PI))
+    {
+      float v = 0.5 * (cosf(x) + 1.0f);
+      return (uint8_t)(255.0f * v);
+    }
+    else
+    {
+      return 0;
+    }
 }
-bool led_backlight_keyframe_bottom_to_top_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
+bool led_backlight_keyframe_decreasing_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
     float frame_length = animation->frame_lengths[animation->current_frame];
-    float current_pos = animation->time_left_in_frame;
+    float current_pos = frame_length - animation->time_left_in_frame;
     float t = current_pos / frame_length;
-    for (int i=NUM_ROWS-1; i>=0; i--) {
-        uint8_t color = compute_gradient_color(t, i, NUM_ROWS);
-        gdispGDrawLine(LED_DISPLAY, 0, i, NUM_COLS - 1, i, LUMA2COLOR(color));
+    for (int i=0; i< NUM_COLS; i++) {
+        uint8_t color = compute_fading_color(t*2, i, NUM_COLS);
+        gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
     }
     return true;
 }
+
+
 #define TOTAL_COLS LED_WIDTH*2
-const uint8_t phases[20] = {50,100,150,200,255,200,150,100,50};
+const uint8_t phases[20] = {0,0,0,0,0,255,200,150,100,50};
 
 
 
@@ -118,10 +164,7 @@ const uint8_t phases[20] = {50,100,150,200,255,200,150,100,50};
 
 bool led_backlight_keyframe_full_left_to_right_gradient(keyframe_animation_t* animation, visualizer_state_t* state) {
     (void)state;
-        (void)state;
-    float frame_length = animation->frame_lengths[animation->current_frame];
-    float current_pos = frame_length-animation->time_left_in_frame;
-    int phase = current_pos/(frame_length);
+    int phase = (animation->current_frame)/ 2;
     for (int i=0; i< NUM_COLS; i++) {
         uint8_t color = phases[(phase+i)%PHASES];
         gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
@@ -158,7 +201,34 @@ bool led_backlight_keyframe_full_left_to_right_gradient(keyframe_animation_t* an
 */
 
 #ifdef MASTER_IS_ON_RIGHT /*right side*/
-
+keyframe_animation_t both_sides_fade_across = {
+    .num_frames = 10,
+    .loop = true,
+    .frame_lengths = {
+        0,
+        1,
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+    },
+    .frame_functions = {
+        led_backlight_keyframe_mirror_orientation,
+        led_backlight_keyframe_fade_out_all,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_normal_orientation,
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_mirror_orientation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+    },
+};
 keyframe_animation_t KITT_Scanner_animation = {
     .num_frames = 2,
     .loop = true,
@@ -200,6 +270,31 @@ bool KITT_scan_one_side_right_to_left(keyframe_animation_t* animation, visualize
     return true;
 }
 #else /*left side*/
+keyframe_animation_t both_sides_fade_across = {
+    .num_frames = 8,
+    .loop = true,
+    .frame_lengths = {
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left to rigt (outside in)
+        0,           // mirror leds
+        gfxMillisecondsToTicks(GRADIENT_TIME), // left_to_right (mirrored, so inside out)
+        0,           // normal leds
+    },
+    .frame_functions = {
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_mirror_orientation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        keyframe_no_operation,
+        led_backlight_keyframe_decreasing_gradient,
+        led_backlight_keyframe_normal_orientation,
+
+    },
+};
 keyframe_animation_t KITT_Scanner_animation = {
     .num_frames = 2,
     .loop = true,
@@ -219,7 +314,7 @@ bool KITT_scan_one_side_left_to_right(keyframe_animation_t* animation, visualize
     float current_pos = frame_length - animation->time_left_in_frame;
     int phase = current_pos/(frame_length/BOTHSIDESCAN);
     for (int i=0; i< TOTAL_COLS; i++) {
-        uint8_t color = compute_gradient_color(phases[phase], i, NUM_COLS);
+        uint8_t color = compute_fading_color(phases[phase], i, NUM_COLS);
         gdispGDrawLine(LED_DISPLAY, i, 0, i, NUM_ROWS - 1, LUMA2COLOR(color));
     }
 
@@ -267,7 +362,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     if (state->status.layer & 0x400) {
         state->target_lcd_color = LCD_COLOR(OCEAN, saturation, 0xFF);
         state->layer_text = "STENOGRAPHY";
-        start_keyframe_animation(&KITT_Scanner_animation);
+        //start_keyframe_animation(&KITT_Scanner_animation);
     }
     else if (state->status.layer & 0x200) {
         state->target_lcd_color = LCD_COLOR(GREEN, saturation, 0xFF);
@@ -276,9 +371,9 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     else if (state->status.layer & 0x100) {
         state->target_lcd_color = LCD_COLOR(MAGENTA, saturation, 0xFF);
         state->layer_text = "Shortcuts Layer";
-        //stop_keyframe_animation(&left_to_right_then_right_to_left);
-        stop_keyframe_animation(&left_to_right_both_boards);
-        stop_keyframe_animation(&KITT_Scanner_animation);
+        stop_keyframe_animation(&both_sides_fade_across);
+        //stop_keyframe_animation(&left_to_right_both_boards);
+        //stop_keyframe_animation(&KITT_Scanner_animation);
         start_keyframe_animation(&led_test_animation);
     }
     else    if (state->status.layer & 0x80) {
@@ -302,8 +397,8 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(BLUE, saturation, 0xFF);
         state->layer_text = "Dvorak";
         stop_keyframe_animation(&led_test_animation);
-        //start_keyframe_animation(&left_to_right_then_right_to_left);
-        start_keyframe_animation(&left_to_right_both_boards);
+        start_keyframe_animation(&both_sides_fade_across);
+        //start_keyframe_animation(&left_to_right_both_boards);
     }
     else if (state->status.layer & 0x2) {
         state->target_lcd_color = LCD_COLOR(ORANGE, saturation, 0xFF);
@@ -312,7 +407,7 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     else {
         state->target_lcd_color = LCD_COLOR(YELLOW, saturation, 0xFF);
         state->layer_text = "Qwerty";
-        stop_keyframe_animation(&KITT_Scanner_animation);
+        //stop_keyframe_animation(&KITT_Scanner_animation);
         stop_keyframe_animation(&led_test_animation);
         start_keyframe_animation(&Fade_in_all_leds);
     }
