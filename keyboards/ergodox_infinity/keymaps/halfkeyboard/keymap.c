@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
                                               TG(SYMB),  KC_BTN1,
                                                               MU_ON,
-                                         LT(HALFQWERTY, KC_SPACE),KC_DEL,KC_END,
+                                         KC_SPACE,KC_DEL,KC_END,
         // right hand
              KC_BTN2,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
@@ -358,11 +358,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                               KC_NO,
                                          KC_NO,KC_NO,KC_NO,
-        // right hand
+// right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
-             TG(SYMB),    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_BSLS,
-                          KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
-             KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
+             TG(SYMB),LCTL(KC_Y),LCTL(KC_U),LCTL(KC_I),LCTL(KC_O),LCTL(KC_P),KC_BSLS,
+                          LCTL(KC_H),LCTL(KC_J),LCTL(KC_K),LCTL(KC_L),LCTL(KC_SCLN),KC_ENT,
+             KC_EQL,LCTL(KC_N),LCTL(KC_M),LCTL(KC_COMM),LCTL(KC_DOT),LCTL(KC_SLASH),KC_RSFT,
                                   KC_TRNS, KC_UP,KC_DOWN,KC_RALT,           RESET,
              TG(PROPERSTENO),TG(PLVR),
              KC_NO,
