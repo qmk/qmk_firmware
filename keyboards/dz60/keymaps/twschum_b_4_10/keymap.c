@@ -8,14 +8,13 @@
  */
 
 /* Features TODO:
- * Reset from buttons!
  * Dynamic macros
  * Leader functions
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
  *  - need to make inter-operable
  * Unicode leader commands??? (symbolic unicode)
  * Multiple keystrokes to generate single keycode?
- * Mac mode vs not:
+ * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here
  *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
 
@@ -63,6 +62,7 @@ enum function_id {
 enum extra_keycodes {
     CTRL_A = SAFE_RANGE,
     CTRL_B,
+    EN_CTRL_SHORTCUTS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TG(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
+             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
@@ -101,28 +101,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 2: mouse navigation */
     KEYMAP(
-            TO(0),  KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,    KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRNS,      KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_NO,        KC_NO,           KC_NO
+            TO(0),      KC_MS_ACCEL0,  KC_MS_ACCEL1,  KC_MS_ACCEL2,  KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,  KC_NO,
+            KC_NO,      KC_NO,         KC_MS_BTN2,    KC_MS_UP,      KC_MS_BTN1,   KC_NO,    KC_NO,          KC_NO,          KC_PGDN,      KC_PGUP,         KC_NO,  KC_NO,  KC_NO,  KC_NO,
+            KC_LCTL,    KC_MS_BTN3,    KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,  KC_NO,    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,  KC_MS_WH_RIGHT,  KC_NO,  KC_NO,  KC_NO,
+            KC_LSHIFT,  KC_NO,         KC_NO,         KC_NO,         KC_NO,        KC_NO,    KC_NO,          KC_NO,          KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+            KC_NO,      KC_NO,         KC_NO,         KC_MS_BTN1,    KC_TRNS,      KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_NO,        KC_NO,           KC_NO
           ),
 
     /* Layer 3: numpad */
     KEYMAP(
-            KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRNS,  KC_TRNS,  KC_NO,    KC_NO,        KC_NO
+            KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,        KC_NO,           KC_NO,  KC_NO,  KC_NO,
+            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS,  KC_KP_PLUS,      KC_NO,  KC_NO,  KC_NO,
+            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_SLASH,  KC_KP_ASTERISK,  KC_NO,  KC_NO,
+            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_KP_1,  KC_KP_2,  KC_KP_3,  KC_KP_DOT,    KC_KP_ENTER,     KC_NO,  KC_NO,
+            KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_KP_0,  KC_TRNS,  KC_TRNS,  KC_NO,    KC_NO,        KC_NO
           ),
-    /* Layer 4: RGB lighting controls */
+    /* Layer 4: RGB lighting controls and keyboard config, reset */
     KEYMAP(
-            KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      KC_NO,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
-            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,   RGB_SAD,  RGB_VAD,  RGB_SAI
+            KC_TRNS,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      KC_NO,
+            KC_NO,              KC_NO,  KC_NO,  KC_NO,  RESET,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
+            EN_CTRL_SHORTCUTS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
+            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
+            KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  RGB_SAD,  RGB_VAD,  RGB_SAI
           ),
 
 };
@@ -171,6 +171,7 @@ static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
 // state for the great state machine of custom actions!
+static bool shortcuts_enabled = false;
 static bool A_down = false;
 static bool A_other_key = false;
 static bool B_down = 0; // TODO just use top bit from count
@@ -203,7 +204,22 @@ inline void matrix_scan_user(void) {
 /* Return True to continue processing keycode, false to stop further processing */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case EN_CTRL_SHORTCUTS:
+            if (record->event.pressed) {
+                shortcuts_enabled = !shortcuts_enabled;
+                start_idle_timer();
+            }
+            return false;
         case CTRL_A:
+            if (!shortcuts_enabled) {
+                if (record->event.pressed) {
+                    register_code(KC_A);
+                }
+                else {
+                    unregister_code(KC_A);
+                }
+                return false;
+            }
             if (record->event.pressed) {
                 A_down = true;
             }
@@ -221,6 +237,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case CTRL_B:
+            if (!shortcuts_enabled) {
+                if (record->event.pressed) {
+                    register_code(KC_B);
+                }
+                else {
+                    unregister_code(KC_B);
+                }
+                return false;
+            }
             B_down = record->event.pressed;
             if (B_down) {
                 ++B_count;
