@@ -1,4 +1,4 @@
-#include "6ball.h"
+#include QMK_KEYBOARD_H
 
 #define _MAIN 0
 #define _FN 1
@@ -16,12 +16,12 @@
 #define KC_RHUD RGB_HUD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_MAIN] = KC_KEYMAP(
+  [_MAIN] = LAYOUT_kc(
       F  , X0 ,LCTL,
       R  , D  , M  
   ),
 
-  [_FN] = KC_KEYMAP(
+  [_FN] = LAYOUT_kc(
       F  ,    ,RHUI,
      RTOG,RMOD,RHUD
   )
