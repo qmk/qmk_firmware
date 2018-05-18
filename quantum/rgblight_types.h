@@ -23,7 +23,9 @@
 #ifndef RGBLIGHT_TYPES
 #define RGBLIGHT_TYPES
 
-#include <avr/io.h>
+#ifdef __AVR__
+  #include <avr/io.h>
+#endif
 
 #ifdef RGBW
   #define LED_TYPE struct cRGBW

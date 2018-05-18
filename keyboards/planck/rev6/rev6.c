@@ -14,8 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rev6.h"
+#include "rgblight.h"
 
 void matrix_init_kb(void) {
+  rgblight_enable();
+  rgblight_mode(1);
+  rgblight_setrgb(0xFF, 0xFF, 0xFF);
 	matrix_init_user();
 }
 

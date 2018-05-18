@@ -1,94 +1,102 @@
-/*
+/**
+ * @file    ws2812.h
+ * @author  Austin Glaser <austin.glaser@gmail.com>
+ * @brief   Interface to WS2812 LED driver
+ *
+ * Copyright (C) 2016 Austin Glaser
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ *
+ * @todo    Put in names and descriptions of variables which need to be defined to use this file
+ */
 
-  WS2812B CPU and memory efficient library
+#ifndef WS2812_H_
+#define WS2812_H_
 
-  Date: 28.9.2016
+/**
+ * @defgroup WS2812 WS2812 Driver
+ * @{
+ *
+ * @brief   DMA-based WS2812 LED driver
+ *
+ * A driver for WS2812 LEDs
+ */
 
-  Author: Martin Hubacek
-  	  	  http://www.martinhubacek.cz
-  	  	  @hubmartin
+/* --- PUBLIC DEPENDENCIES -------------------------------------------------- */
 
-  Licence: MIT License
+// Standard
+#include <stdint.h>
+#include "rgblight_types.h"
 
-*/
+/* --- PUBLIC CONSTANTS ----------------------------------------------------- */
 
-#ifndef WS2812B_H_
-#define WS2812B_H_
-#include "ws2812.h"
+/**
+ * @brief   Return codes from ws2812 interface functions
+ */
+typedef enum {
+    WS2812_SUCCESS      = 0x00,     /**< Operation completeed successfully */
+    WS2812_LED_INVALID,             /**< Attempted to index an invalid LED (@ref WS2812_N_LEDS) */
+    MAX_WS2812_ERR,                 /**< Total number of possible error codes */
+    WS2812_ERR_INVALID              /**< Invalid error value */
+} ws2812_err_t;
 
-// GPIO enable command
-#define WS2812B_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
-// LED output port
-#define WS2812B_PORT GPIOC
-// LED output pins
-#define WS2812B_PINS (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3)
-// How many LEDs are in the series
-#define WS2812B_NUMBER_OF_LEDS 60
+/* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
 
-// Number of output LED strips. Each has its own buffer.
-#define WS2812_BUFFER_COUNT 2
+/**
+ * @brief   Initialize the driver
+ *
+ * After this function is called, all necessary background tasks will be started.
+ * The frame is initially dark.
+ */
+void ws2812_init(void);
 
-// Choose one of the bit-juggling setpixel implementation
-// *******************************************************
-//#define SETPIX_1	// For loop, works everywhere, slow
-//#define SETPIX_2	// Bit band in a loop
-//#define SETPIX_3	// Like SETPIX_1 but with unrolled loop
-#define SETPIX_4	// Fastest copying using bit-banding
+/**
+ * @brief   Write the value of a single LED in the chain
+ *
+ * The color value is written to a frame buffer, and will not
+ * be updated until the next frame is written. Frames are written
+ * at the maximum possible speed -- the longest latency between a
+ * call to this function and the value being displayed is
+ * 1.25uS*(24*@ref WS2812_LED_N + 50)
+ *
+ * @param[in] led_number:           The index of the LED to be written. Must be strictly less than
+ *                                  @ref WS2812_N_LEDS
+ * @param[in] r:                    The red level of the LED
+ * @param[in] g:                    The green level of the LED
+ * @param[in] b:                    The blue level of the LED
+ *
+ * @retval WS2812_SUCCESS:          The write was successful
+ * @retval WS2812_LED_INVALID:      The write was to an invalid LED index
+ */
+ws2812_err_t ws2812_write_led(uint32_t led_number, uint8_t r, uint8_t g, uint8_t b);
 
+/** @} defgroup WS2812 */
 
-// DEBUG OUTPUT
-// ********************
-#define LED4_PORT GPIOC
-#define LED4_PIN GPIO_PIN_10
+void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);
+void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
 
-#define LED5_PORT GPIOC
-#define LED5_PIN GPIO_PIN_10
+/**
+ * @brief   Concatenates two symbols s1 and s2 exactly, without expanding either
+ *
+ * @param[in] s1:       The first symbol to concatenate
+ * @param[in] s2:       The second symbol to concatenate
+ *
+ * @return              A single symbol containing s1 and s2 concatenated without expansion
+ */
+#define CONCAT_SYMBOLS(s1, s2)     s1##s2
 
+/**
+ * @brief  Concatenate the symbols s1 and s2, expanding both of them
+ *
+ * This is important because simply applying s1##s2 doesn't expand them if they're
+ * preprocessor tokens themselves
+ *
+ * @param[in] s1:       The first symbol to concatenate
+ * @param[in] s2:       The second symbol to concatenate
+ *
+ * @return              A single symbol containing s1 expanded followed by s2 expanded
+ */
+#define CONCAT_EXPANDED_SYMBOLS(s1, s2)  CONCAT_SYMBOLS(s1, s2)
 
-// Public functions
-// ****************
-void ws2812b_init();
-void ws2812b_handle();
-
-// Library structures
-// ******************
-// This value sets number of periods to generate 50uS Treset signal
-#define WS2812_RESET_PERIOD 12
-
-typedef struct WS2812_BufferItem {
-	uint8_t* frameBufferPointer;
-	uint32_t frameBufferSize;
-	uint32_t frameBufferCounter;
-	uint8_t channel;	// digital output pin/channel
-} WS2812_BufferItem;
-
-
-
-typedef struct WS2812_Struct
-{
-	WS2812_BufferItem item[WS2812_BUFFER_COUNT];
-	uint8_t transferComplete;
-	uint8_t startTransfer;
-	uint32_t timerPeriodCounter;
-	uint32_t repeatCounter;
-} WS2812_Struct;
-
-WS2812_Struct ws2812b;
-
-// Bit band stuff
-#define RAM_BASE 0x20000000
-#define RAM_BB_BASE 0x22000000
-#define Var_ResetBit_BB(VarAddr, BitNumber) (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)) = 0)
-#define Var_SetBit_BB(VarAddr, BitNumber) (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)) = 1)
-#define Var_GetBit_BB(VarAddr, BitNumber) (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)))
-#define BITBAND_SRAM(address, bit) ( (__IO uint32_t *) (RAM_BB_BASE + (((uint32_t)address) - RAM_BASE) * 32 + (bit) * 4))
-
-#define varSetBit(var,bit) (Var_SetBit_BB((uint32_t)&var,bit))
-#define varResetBit(var,bit) (Var_ResetBit_BB((uint32_t)&var,bit))
-#define varGetBit(var,bit) (Var_GetBit_BB((uint32_t)&var,bit))
-
-static void ws2812b_set_pixel(uint8_t row, uint16_t column, uint8_t red, uint8_t green, uint8_t blue);
-void DMA_TransferCompleteHandler(DMA_HandleTypeDef *DmaHandle);
-void DMA_TransferHalfHandler(DMA_HandleTypeDef *DmaHandle);
-
-#endif /* WS2812B_H_ */
+#endif /* WS2812_H_ */

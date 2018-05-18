@@ -145,6 +145,8 @@ HEX = $(OBJCOPY) -O $(FORMAT)
 EEP =
 BIN = $(OBJCOPY) -O binary
 
+COMMON_VPATH += $(DRIVER_PATH)/arm
+
 THUMBFLAGS = -DTHUMB_PRESENT -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -mthumb -DTHUMB
 
 COMPILEFLAGS += -fomit-frame-pointer
