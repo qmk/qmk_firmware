@@ -1,6 +1,6 @@
-# Setting Up Eclipse for QMK Development
+# Setting up Eclipse for QMK Development
 
-[Eclipse](https://en.wikipedia.org/wiki/Eclipse_(software)) is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) widely used for Java development, but with an extensible plugin system that allows to customize it for other languages and usages.
+[Eclipse][1] is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) widely used for Java development, but with an extensible plugin system that allows to customize it for other languages and usages.
 
 Using an IDE such as Eclipse provides many advantages over a plain text editor, such as:
 * intelligent code completion
@@ -16,16 +16,16 @@ The purpose of the is page is to document how to set-up Eclipse for developing A
 Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 
 # Prerequisites
-## Build environment
-Before starting, you must have followed the [Getting Started](home.md#getting-started) section corresponding to your system. In particular, you must have been able to build the firmware with [the `make` command](../#the-make-command).
+## Build Environment
+Before starting, you must have followed the [Getting Started](README.md#getting-started) section corresponding to your system. In particular, you must have been able to build the firmware with [the `make` command](../#the-make-command).
 
 ## Java
 Eclipse is a Java application, so you will need to install Java 8 or more recent to be able to run it. You may choose between the JRE or the JDK, the latter being useful if you intend to do Java development.
 
-# Install Eclipse and its plugins
+# Install Eclipse and Its Plugins
 Eclipse comes in [several flavours](http://www.eclipse.org/downloads/eclipse-packages/) depending on the target usage that you will have. There is no package comprising the AVR stack, so we will need to start from Eclipse CDT (C/C++ Development Tooling) and install the necessary plugins.
 
-## Download and install Eclipse CDT
+## Download and Install Eclipse CDT
 If you already have Eclipse CDT on your system, you can skip this step. However it is advised to keep it up-to-date for better support.
 
 If you have another Eclipse package installed, it is normally possible to [install the CDT plugin over it](https://eclipse.org/cdt/downloads.php). However it is probably better to reinstall it from scratch to keep it light and avoid the clutter of tools that you don't need for the projects you will be working on.
@@ -41,10 +41,10 @@ When you are prompted with the Workspace Selector, select a directory that will 
 
 Once started, click the <kbd>Workbench</kbd> button at the top right to switch to the workbench view (there is a also checkbox at the bottom to skip the welcome screen at startup).
 
-## Install the necessary plugins
+## Install the Necessary Plugins
 Note: you do not need to restart Eclipse after installing each plugin. Simply restart once all plugins are installed.
 
-### [The AVR plugin](http://avr-eclipse.sourceforge.net/)
+### [The AVR Plugin](http://avr-eclipse.sourceforge.net/)
 This is the most important plugin as it will allow Eclipse to _understand_ AVR C code. Follow [the instructions for using the update site](http://avr-eclipse.sourceforge.net/wiki/index.php/Plugin_Download#Update_Site), and agree with the security warning for unsigned content.
 
 ### [ANSI Escape in Console](https://marketplace.eclipse.org/content/ansi-escape-console)
@@ -58,7 +58,7 @@ This plugin is necessary to properly display the colored build output generated 
 Once both plugins are installed, restart Eclipse as prompted.
 
 # Configure Eclipse for QMK
-## Importing the project
+## Importing the Project
 1. Click <kbd><kbd>File</kbd> > <kbd>New</kbd> > <kbd>Makefile Project with Existing Code</kbd></kbd>
 2. On the next screen:
   * Select the directory where you cloned the repository as _Existing Code Location_;
@@ -72,7 +72,7 @@ Once both plugins are installed, restart Eclipse as prompted.
 
 ¹ There might be issues for importing the project with a custom name. If it does not work properly, try leaving the default project name (i.e. the name of the directory, probably `qmk_firmware`).
 
-## Build your keyboard
+## Build Your Keyboard
 We will now configure a make target that cleans the project and builds the keymap of your choice.
 
 1. On the right side of the screen, select the <kbd>Make Target</kbd> tab
@@ -84,3 +84,5 @@ We will now configure a make target that cleans the project and builds the keyma
 7. (Optional) Toggle the <kbd>Hide Empty Folders</kbd> icon button above the targets tree to only show your build target.
 8. Double-click the build target you created to trigger a build.
 9. Select the <kbd>Console</kbd> view at the bottom to view the running build.
+
+  [1]: https://en.wikipedia.org/wiki/Eclipse_(software)

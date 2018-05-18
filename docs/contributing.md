@@ -1,4 +1,4 @@
-# How To Contribute
+# How to Contribute
 
 👍🎉 First off, thanks for taking the time to read this and contribute! 🎉👍
 
@@ -9,7 +9,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 * [General Guidelines](#general-guidelines)
 * [What does the Code of Conduct mean for me?](#what-does-the-code-of-conduct-mean-for-me)
 
-## I Don't Want To Read This Whole Thing I Just Have a Question!
+## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
 If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Gitter](https://gitter.im/qmk/qmk_firmware).
 
@@ -27,7 +27,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
-# Where can I go for help?
+# Where Can I Go for Help?
 
 If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on gitter](http://gitter.im/QMK/qmk_firmware).
 
@@ -52,7 +52,7 @@ Never made an open source contribution before? Wondering how contributions work 
 14. Make changes to the pull request if the reviewing maintainer recommends them.
 15. Celebrate your success after your pull request is merged!
 
-# Coding conventions
+# Coding Conventions
 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
@@ -64,7 +64,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Optional Braces: Always include optional braces.
     * Good: if (condition) { return false; }
     * Bad: if (condition) return false;
-* We use C style comments: /* */
+* We use C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
@@ -75,7 +75,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
 
-* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature. 
+* Separate PR's into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
   * Keymaps: Make sure that `make keyboard:your_new_keymap` does not return an error
@@ -111,7 +111,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 
 Keyboards are the raison d'être for QMK. Some keyboards are community maintained, while others are maintained by the people responsible for making a particular keyboard. The `readme.md` should tell you who maintains a particular keyboard. If you have questions relating to a particular keyboard you can [Open An Issue](https://github.com/qmk/qmk_firmware/issues) and tag the maintainer in your question.
 
-We also ask that you follow these guidelines: 
+We also ask that you follow these guidelines:
 
 * Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
 * Keep the number of commits reasonable or we will squash your PR
@@ -122,7 +122,7 @@ We also ask that you follow these guidelines:
 
 ## Quantum/TMK Core
 
-Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understaning QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
+Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
 * [Chat on Gitter](https://gitter.im/qmk/qmk_firmware)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
@@ -136,7 +136,7 @@ Here are some things to keep in mind when working on your feature or bug fix.
 * **Consider revisions and different chip-bases** - there are several keyboards that have revisions that allow for slightly different configurations, and even different chip-bases. Try to make a feature supported in ARM and AVR, or automatically disabled on platforms it doesn't work on.
 * **Explain your feature** - Document it in `docs/`, either as a new file or as part of an existing file. If you don't document it other people won't be able to benefit from your hard work.
 
-We also ask that you follow these guidelines: 
+We also ask that you follow these guidelines:
 
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
@@ -147,6 +147,6 @@ We also ask that you follow these guidelines:
 
 To maintain a clear vision of how things are laid out in QMK we try to plan out refactors in-depth and have a collaborator make the changes. If you have an idea for refactoring, or suggestions, [open an issue](https://github.com/qmk/qmk_firmware/issues), we'd love to talk about how QMK can be improved.
 
-# What does the Code of Conduct mean for me?
+# What Does the Code of Conduct Mean for Me?
 
 Our [Code of Conduct](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md) means that you are responsible for treating everyone on the project with respect and courtesy regardless of their identity. If you are the victim of any inappropriate behavior or comments as described in our Code of Conduct, we are here for you and will do the best to ensure that the abuser is reprimanded appropriately, per our code.

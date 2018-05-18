@@ -1,4 +1,4 @@
-## Key Lock: Holding down keys for you
+## Key Lock: Holding Down Keys for You
 
 Sometimes, you need to hold down a specific key for a long period of time. Whether this is while typing in ALL CAPS, or playing a video game that hasn't implemented auto-run, Key Lock is here to help. Key Lock adds a new keycode, `KC_LOCK`, that will hold down the next key you hit for you. The key is released when you hit it again. Here's an example: let's say you need to type in all caps for a few sentences. You hit KC_LOCK, and then shift. Now, shift will be considered held until you hit it again. You can think of key lock as caps lock, but supercharged.
 

@@ -123,22 +123,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case MACRO_BREATH_TOGGLE:
       if (record->event.pressed) {
-        breathing_toggle();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_toggle();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_INC:
       if (record->event.pressed) {
-        breathing_speed_inc(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_inc();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_DEC:
       if (record->event.pressed) {
-        breathing_speed_dec(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_dec();
+        #endif
       }
       break;
     case MACRO_BREATH_DEFAULT:
       if (record->event.pressed) {
-        breathing_defaults();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_default();
+        #endif
       }
       break;
   }

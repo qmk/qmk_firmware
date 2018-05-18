@@ -9,7 +9,7 @@
  *   0 F7 not connected
  *   1 F6 not connected
  *   2 F5 RGB PWM Underglow
- *   3 F4 Backlight LED
+ *   3 B4 Backlight LED
  *   B2 Capslock LED
  *   B0 not connected
  */
