@@ -15,7 +15,7 @@
 #ifdef KEYBOARD_levinson
   #define RGBLED_NUM
 #endif
-#ifdef KEYBOARD_lets_split
+#ifdef KEYBOARD_lets_split_rev2
   #define RGBLED_NUM
 #endif
 
