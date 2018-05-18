@@ -1,8 +1,8 @@
-# Xyverz's Levinson Keymap
+# Xyverz's 4x12 Ortho Keymap
 
 ## About this keymap:
 
-This keymap is almost identical to my [Planck keymap](https://github.com/Xyverz/qmk_firmware/tree/master/keyboards/planck/keymaps/xyverz), but with the addition of backlighting and RGB Underglow.
+I'm moving all my 4x12s to the same keymap since I pretty much use it across all of them anyway, regardless of whether they're split or not. Gotta get the `LAYOUT` lovin', yo.
 
 This revision includes this documentation and introduction of the individual RGB mode keys in the `ADJUST` layer.
 
