@@ -21,6 +21,7 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 10
 
-#include "../../config.h"
+#undef  PRODUCT
+#define PRODUCT Sheeeeeeeeeeeeeeiiiiiit
 
 #endif
