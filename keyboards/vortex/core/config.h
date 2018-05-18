@@ -22,8 +22,8 @@
 #define VENDOR_ID       0x04d9
 #define PRODUCT_ID      0x0175
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Vortex
-#define PRODUCT         Core
+#define MANUFACTURER    Holtek
+#define PRODUCT         Vortex Core
 #define DESCRIPTION     Vortex Core with qmk_pok3r
 
 #define UPDATE_PROTO_CYKB

@@ -19,7 +19,9 @@
 
 // New QMK commands
 enum qmk_cmd {
-    CMD_INFO        = 0x81, //!< Firmware info.
+    CMD_CTRL        = 0x81, //!< Firmware info.
+    SUB_CT_INFO     = 0,    //!< Firmware info.
+    SUB_CT_LAYOUT   = 1,    //!< Set layout.
 
     CMD_EEPROM      = 0x82, //!< EEPROM commands.
     SUB_EE_INFO     = 0,    //!< EEPROM info (RDID SPI command).
@@ -30,6 +32,9 @@ enum qmk_cmd {
     CMD_KEYMAP      = 0x83, //!< Keymap commands.
     SUB_KM_INFO     = 0,    //!< Keymap info (layers, rows, cols, type size).
     SUB_KM_READ     = 1,    //!< Read keymap.
+    KM_PAGE_MATRIX  = 0,    //!< Matrix page.
+    KM_PAGE_LAYOUT  = 1,    //!< Layout page.
+    KM_PAGE_STRS    = 2,    //!< Layout string page.
     SUB_KM_WRITE    = 2,    //!< Write to keymap.
     SUB_KM_COMMIT   = 3,    //!< Commit keymap to EEPROM.
 

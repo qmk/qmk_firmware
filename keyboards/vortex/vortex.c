@@ -41,7 +41,8 @@
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
-extern const uint16_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
+uint8_t current_layout = 0;
+extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
 extern const char *layout_names;
 
 const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
@@ -108,7 +109,7 @@ static void firmware_reset(uint32_t key) {
 }
 
 void OVERRIDE bootloader_jump(void) {
-    printf("Reset to Bootloader\n");
+    printf("Bootloader Jump\n");
     firmware_reset(RESET_BL_MAGIC);
 }
 
@@ -192,10 +193,12 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
             case CMD_RESET:
                 switch (subcmd) {
                     case SUB_RESET_BL:
+                        printf("Reset Bootloader\n");
                         reset_keyboard();
                         return;
                     case SUB_RESET_FW:
-                        //firmware_reset();
+                        printf("Reset Firmware\n");
+                        //firmware_reset(RESET_FW_MAGIC);
                         return;
                 }
 
@@ -258,12 +261,23 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
             // new qmk commands
             // /////////////////////////////////
 
-            case CMD_INFO: {
-                to_leu16(data_out, PRODUCT_ID);
-                to_leu16(data_out + 2, DEVICE_VER);
-                const char *str = "qmk_pok3r";
-                memcpy(data_out + 4, str, strlen(str));
-                printf("Info: %s\n", str);
+            case CMD_CTRL: {
+                switch (subcmd) {
+                    case SUB_CT_INFO: {
+                        to_leu16(data_out, PRODUCT_ID);
+                        to_leu16(data_out + 2, DEVICE_VER);
+                        const char *str = "qmk_pok3r";
+                        memcpy(data_out + 4, str, strlen(str));
+                        printf("Info %s\n", str);
+                        break;
+                    }
+                    case SUB_CT_LAYOUT: {
+                        const uint8_t ln = data_in[4];
+                        printf("Set Layout %d\n", ln);
+                        current_layout = ln;
+                        break;
+                    }
+                }
                 break;
             }
 
@@ -305,7 +319,7 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
                         data_out[2] = MATRIX_COLS;        // matrix cols
                         data_out[3] = sizeof(uint16_t);   // keycode size
                         data_out[4] = NUM_LAYOUTS;        // num layouts
-                        data_out[5] = 0;                  // current layout
+                        data_out[5] = current_layout;     // current layout
                         break;
                     }
                     case SUB_KM_READ: {
@@ -314,19 +328,19 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
                         const uint32_t offset = arg & 0xFFFF;
                         printf("Read Keymap %x %04x\n", page, offset);
                         switch (page) {
-                            case 0:
+                            case KM_PAGE_MATRIX:
                                 // read matrix layers
                                 if (offset < total_size) {
                                     memcpy(data_out, ((const uint8_t *)keymaps) + offset, MIN(total_size - offset, 60));
                                 }
                                 break;
-                            case 1:
+                            case KM_PAGE_LAYOUT:
                                 // read layouts
                                 if (offset < keymap_size) {
                                     memcpy(data_out, ((const uint8_t *)keymap_layouts) + offset, MIN(keymap_size - offset, 60));
                                 }
                                 break;
-                            case 2: {
+                            case KM_PAGE_STRS: {
                                 // read layout strings
                                 const uint16_t strsize = strlen(layout_names);
                                 if (offset < strsize) {

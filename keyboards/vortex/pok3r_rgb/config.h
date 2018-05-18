@@ -22,8 +22,8 @@
 #define VENDOR_ID       0x04d9
 #define PRODUCT_ID      0x0167
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Vortex
-#define PRODUCT         POK3R RGB
+#define MANUFACTURER    Holtek
+#define PRODUCT         Vortex POK3R RGB
 #define DESCRIPTION     Vortex POK3R RGB with qmk_pok3r
 
 #define UPDATE_PROTO_CYKB
