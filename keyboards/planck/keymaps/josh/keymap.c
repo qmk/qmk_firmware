@@ -17,7 +17,7 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 
 enum planck_layers {
-  _QWERTY = SAFE_RANGE,
+  _QWERTY,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -25,13 +25,7 @@ enum planck_layers {
 
 // keycodes custom to this keymap:
 enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  CLICKY_TOGGLE,
-  CLICKY_UP,
-  CLICKY_DOWN,
-  CLICKY_RESET
+  QWERTY = SAFE_RANGE
 };
 
 // clicky state:
@@ -47,6 +41,9 @@ float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
