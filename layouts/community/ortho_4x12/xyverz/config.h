@@ -8,11 +8,9 @@
 #define EE_HANDS
 
 #undef RGBLED_NUM
-#ifdef KEYBOARD_planck
-  #ifdef KEYBOARD_planck_rev5
-    #define RGBLED_NUM 10
-    #define RGB_DI_PIN D1
-  #endif
+#ifdef KEYBOARD_planck_rev5
+  #define RGBLED_NUM 10
+  #define RGB_DI_PIN D1
 #endif
 #ifdef KEYBOARD_levinson
   #define RGBLED_NUM
