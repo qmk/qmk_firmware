@@ -17,11 +17,10 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 
 enum planck_layers {
-  _QWERTY,
+  _QWERTY = SAFE_RANGE,
   _LOWER,
   _RAISE,
-  _ADJUST,
-  _NUMPAD
+  _ADJUST
 };
 
 // keycodes custom to this keymap:
