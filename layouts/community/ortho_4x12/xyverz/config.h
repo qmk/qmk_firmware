@@ -12,7 +12,7 @@
   #define RGBLED_NUM 10
   #define RGB_DI_PIN D1
 #endif
-#ifdef KEYBOARD_levinson
+#ifdef KEYBOARD_levinson_rev2
   #define RGBLED_NUM
 #endif
 #ifdef KEYBOARD_lets_split_rev2
