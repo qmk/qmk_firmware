@@ -31,10 +31,14 @@ git
 
 Install the dependencies with your favorite package manager.
 
-Debian/Ubuntu example:
+Debian / Ubuntu example:
 
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+
+Fedora / Red Hat example:
+
+    sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
 
 ## Nix
 
@@ -53,6 +57,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew install avr-gcc
     brew install dfu-programmer
     brew install gcc-arm-none-eabi
+    brew install avrdude
 
 This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
 
@@ -78,26 +83,26 @@ In addition to the Creators Update, you need Windows 10 Subystem for Linux, so i
 ### Git
 If you already have cloned the repository on your Windows file system you can ignore this section.
 
-You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute. 
+You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute.
 
 Once Git is installed, open the Git Bash command and change the directory to where you want to clone QMK; note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
 
-### Toolchain setup
+### Toolchain Setup
 The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.
 
-1. Open "Bash On Ubuntu On Windows" from the start menu. 
-2. Go to the directory where you cloned `qmk_firmware`. Note that the paths start with `/mnt/` in the WSL, so you have to write for example `cd /mnt/c/path/to/qmk_firmware`. 
+1. Open "Bash On Ubuntu On Windows" from the start menu.
+2. Go to the directory where you cloned `qmk_firmware`. Note that the paths start with `/mnt/` in the WSL, so you have to write for example `cd /mnt/c/path/to/qmk_firmware`.
 3. Run `util/wsl_install.sh` and follow the on-screen instructions.
 4. Close the Bash command window, and re-open it.
 5. You are ready to compile and flash the firmware!
 
-### Some important things to keep in mind
+### Some Important Things to Keep in Mind
 * You can run `util/wsl_install.sh` again to get all the newest updates.
 * Your QMK repository need to be on a Windows file system path, since WSL can't run executables outside it.
 * The WSL Git is **not** compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations
 * You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
 
-## Windows (Vista and later) (Deprecated)
+## Windows (Vista and Later) (Deprecated)
 
 These are the old instructions for Windows Vista and later. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
 
@@ -118,7 +123,7 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 
 ```bash
 # You'll run this every time you want to build a keymap
-# modify the keymap and keyboard assigment to compile what you want
+# modify the keymap and keyboard assignment to compile what you want
 # defaults are ergodox/default
 
 docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
@@ -127,7 +132,7 @@ docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasqu
 On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
 
 ```bash
-docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
+docker run -e keymap=default -e keyboard=ergodox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
 
 ```
 

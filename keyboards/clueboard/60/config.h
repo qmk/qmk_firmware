@@ -22,11 +22,9 @@
 #define VENDOR_ID       0xC1ED
 #define PRODUCT_ID      0x2350
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    "Clueboard"
-#define USBSTR_MANUFACTURER 'C', '\x00', 'l', '\x00', 'u', '\x00', 'e', '\x00', 'b', '\x00', 'o', '\x00', 'a', '\x00', 'r', '\x00', 'd', '\x00'
-#define PRODUCT         "Clueboard60"
-#define USBSTR_PRODUCT 'C', '\x00', 'l', '\x00', 'u', '\x00', 'e', '\x00', 'b', '\x00', 'o', '\x00', 'a', '\x00', 'r', '\x00', 'd', '\x00', ' ', '\x00', '6', '\x00', '0', '\x00', '%', '\x00'
-#define DESCRIPTION     "Clueboard 60%"
+#define MANUFACTURER    Clueboard
+#define PRODUCT         Clueboard 60%
+#define DESCRIPTION     Clueboard 60%
 
 /* key matrix size */
 #define MATRIX_ROWS 5

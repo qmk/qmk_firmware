@@ -42,7 +42,7 @@ The values at the top likely won't need to be changed, since most boards use the
 OPT_DEFS += -DBOOTLOADER_SIZE=512
 ```
 
-At the bottom of the file, you'll find lots of features to turn on and off - all of these options should be set with `?=` to allow for the keymap overrides. `?=` only assigns if the variable was previously undefined. For the full documenation of these features, see the [Makefile options](#makefile-options).
+At the bottom of the file, you'll find lots of features to turn on and off - all of these options should be set with `?=` to allow for the keymap overrides. `?=` only assigns if the variable was previously undefined. For the full documentation of these features, see the [Makefile options](#makefile-options).
 
 ## `/keyboards/<keyboard>/readme.md`
 
@@ -54,7 +54,7 @@ This is where all of the custom logic for your keyboard goes - you may not need 
 
 ## `/keyboards/<keyboard>/<keyboard>.h`
 
-Here is where you can (optionally) define your `KEYMAP` function to remap your matrix into a more readable format. With ortholinear boards, this isn't always necessary, but it can help to accomodate the dead spots on your matrix, where there are keys that take up more than one space (2u, staggering, 6.25u, etc). The example shows the difference between the physical keys, and the matrix design:
+Here is where you can (optionally) define your `KEYMAP` function to remap your matrix into a more readable format. With ortholinear boards, this isn't always necessary, but it can help to accommodate the dead spots on your matrix, where there are keys that take up more than one space (2u, staggering, 6.25u, etc). The example shows the difference between the physical keys, and the matrix design:
 
 ```
 #define KEYMAP( \

@@ -1,4 +1,4 @@
-# Keyboards With AVR Processors
+# Keyboards with AVR Processors
 
 This page describes the support for for AVR processors in QMK. AVR processors include the atmega32u4, atmega32u2, at90usb1286, and other processors from Atmel Corporation. AVR processors are 8-bit MCU's that are designed to be easy to work with. The most common AVR processors in keyboards have on-board USB and plenty of GPIO for supporting large keyboard matrices. They are the most popular MCU for use in keyboards today.
 
@@ -28,7 +28,7 @@ This is where all the custom logic for your keyboard goes. Many keyboards do not
 
 ## `<keyboard>.h`
 
-This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minumum you should have a `#define LAYOUT` for your keyboard that looks something like this:
+This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minimum you should have a `#define LAYOUT` for your keyboard that looks something like this:
 
 ```
 #define LAYOUT(          \
@@ -44,7 +44,7 @@ The first half of the `LAYOUT` pre-processor macro defines the physical arrangem
 
 Each of the `k__` variables needs to be unique, and typically they follow the format `k<row><col>`.
 
-The physical matrix (the second half) must have a number of rows equalling `MATRIX_ROWS`, and each row must have exactly `MATRIX_COLS` elements in it. If you do not have this many physical keys you can use `KC_NO` to fill in the blank spots.
+The physical matrix (the second half) must have a number of rows equaling `MATRIX_ROWS`, and each row must have exactly `MATRIX_COLS` elements in it. If you do not have this many physical keys you can use `KC_NO` to fill in the blank spots.
 
 ## `config.h`
 
@@ -66,9 +66,7 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DESCRIPTION     A custom keyboard
 ```
 
-{% hint style='info' %}
-Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. On Linux these values will not be visible in `lsusb`, since Linux takes that information from the list published by the USB-IF.
-{% endhint %}
+?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. On Linux these values will not be visible in `lsusb`, since Linux takes that information from the list published by the USB-IF.
 
 ### Keyboard Matrix Configuration
 
@@ -101,8 +99,9 @@ By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are us
 
 ```
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 ```
 
 {% hint style='info' %}
@@ -154,4 +153,3 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 ### Build Options
 
 There are a number of features that can be turned on or off in `rules.mk`. See the [Config Options](config_options.md#feature-options) page for a detailed list and description.
-

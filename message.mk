@@ -58,7 +58,7 @@ MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
 	Some git sub-modules are out of date or modified, please consider runnning:$(BOLD)\n\
         make git-submodule\n\
 	You can ignore this warning if you are not compiling any ChibiOS keyboards,\n\
-	or if you have modified the ChibiOS libraries yourself. \n\n
+	or if you have modified the ChibiOS libraries yourself. \n\n$(NO_COLOR)
 MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
 
 define GENERATE_MSG_MAKE_KB

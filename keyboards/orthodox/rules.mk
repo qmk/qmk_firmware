@@ -4,7 +4,6 @@ SRC += matrix.c \
 	   serial.c
 
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -43,7 +42,6 @@ F_USB = $(F_CPU)
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -71,4 +69,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-DEFAULT_FOLDER = orthodox/rev1
+DEFAULT_FOLDER = orthodox/rev3
