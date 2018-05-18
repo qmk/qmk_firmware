@@ -19,10 +19,12 @@ First, you will need `TAP_DANCE_ENABLE=yes` in your `rules.mk`, because the feat
 This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
 
 * `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
+* `ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function on when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
+** `ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`: This functions identically to the `ACTION_TAP_DANCE_FN_ADVANCED` function, but uses a custom tapping term for it, instead of the predefined `TAPPING_TERM`.
 
-The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
+The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
 And that's the bulk of it!
 
@@ -179,41 +181,123 @@ Below is a specific example:
 *  Double Tap = Send `Escape`
 *  Double Tap and Hold = Send `Alt`
 
-The following example can be easily expanded to more than 4 quite easily:
+## Setup
+
+You will need a few things that can be used for 'Quad Function Tap-Dance'. The suggested setup is to create a user directory for yourself. This directory will contain rules.mk `<your_name>.c` and `<your_name>.h`. This directory should be called `<your_name>`, and located in the top level `users` directory. There should already be a few examples to look at there.
+
+### In `/qmk_firmware/users/<your_name>/rules.mk`
+
+Put the following:
 ```c
-//**************** Definitions needed for quad function to work *********************//
-//Enums used to clearly convey the state of the tap dance
+TAP_DANCE_ENABLE = yes
+SRC += your_name.c
+```
+
+Pretty simple. It is a nice way to keep some rules common on all your keymaps.
+
+
+### In `/qmk_firmware/users/<your_name>/<you_name>.h`
+
+You will need a few things in this file:
+
+```c
+#ifndef YOUR_NAME
+#define YOUR_NAME
+
+#include "quantum.h"
+#include "process_keycode/process_tap_dance.h"
+
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} xtap;
+
 enum {
   SINGLE_TAP = 1,
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
   DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
-  // Add more enums here if you want for triple, quadruple, etc.
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
 };
 
-typedef struct {
-  bool is_press_action;
-  int state;
-} tap;
+//Tap dance enums
+enum {
+    CTL_X = 0,
+    SOME_OTHER_DANCE
+}
 
+int cur_dance (qk_tap_dance_state_t *state);
+
+//for the x tap dance. Put it here so it can be used in any keymap
+void x_finished (qk_tap_dance_state_t *state, void *user_data);
+void x_reset (qk_tap_dance_state_t *state, void *user_data);
+```
+
+### In `/qmk_firmware/users/<your_name>/<your_name>.c`
+
+And then in your user's `.c` file you implement the functions above:
+
+```c
+#include "gordon.h"
+#include "quantum.h"
+#include "action.h"
+#include "process_keycode/process_tap_dance.h"
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for "good placement" of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *
+ * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
-    //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
-    if (state->interrupted || state->pressed==0) return SINGLE_TAP;
+    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
+    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
     else return SINGLE_HOLD;
   }
-  //If count = 2, and it has been interrupted - assume that user is trying to type the letter associated
-  //with single tap. In example below, that means to send `xx` instead of `Escape`.
   else if (state->count == 2) {
+    /*
+     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+     * keystrokes of the key, and not the 'double tap' action/macro.
+    */
     if (state->interrupted) return DOUBLE_SINGLE_TAP;
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
   }
-  else return 6; //magic number. At some point this method will expand to work for more presses
+  //Assumes no one is trying to type the same letter three times (at least not quickly).
+  //If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
+  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
+  if (state->count == 3) {
+    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8; //magic number. At some point this method will expand to work for more presses
 }
-
-//**************** Definitions needed for quad function to work *********************//
 
 //instanalize an instance of 'tap' for the 'x' tap dance.
 static tap xtap_state = {
@@ -245,6 +329,10 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   xtap_state.state = 0;
 }
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset)
+};
 ```
-And then simply add this to your list of tap dance functions:
-`[X_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)`
+
+And then simply use TD(X_CTL) anywhere in your keymap.

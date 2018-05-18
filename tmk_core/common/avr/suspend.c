@@ -19,6 +19,9 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
+#ifdef RGBLIGHT_SLEEP
+  #include "rgblight.h"
+#endif
 
 
 #define wdt_intr_enable(value)   \
@@ -38,6 +41,10 @@ __asm__ __volatile__ (  \
 )
 
 
+/** \brief Suspend idle
+ *
+ * FIXME: needs doc
+ */
 void suspend_idle(uint8_t time)
 {
     cli();
@@ -49,7 +56,8 @@ void suspend_idle(uint8_t time)
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
-/* Power down MCU with watchdog timer
+/** \brief Power down MCU with watchdog timer
+ *
  * wdto: watchdog timer timeout defined in <avr/wdt.h>
  *          WDTO_15MS
  *          WDTO_30MS
@@ -64,6 +72,10 @@ void suspend_idle(uint8_t time)
  */
 static uint8_t wdt_timeout = 0;
 
+/** \brief Power down
+ *
+ * FIXME: needs doc
+ */
 static void power_down(uint8_t wdto)
 {
 #ifdef PROTOCOL_LUFA
@@ -85,7 +97,12 @@ static void power_down(uint8_t wdto)
         // This sometimes disables the start-up noise, so it's been disabled
 		// stop_all_notes();
 	#endif /* AUDIO_ENABLE */
-
+#ifdef RGBLIGHT_SLEEP
+#ifdef RGBLIGHT_ANIMATIONS
+  rgblight_timer_disable();
+#endif
+  rgblight_disable();
+#endif
     // TODO: more power saving
     // See PicoPower application note
     // - I/O port input with pullup
@@ -103,6 +120,10 @@ static void power_down(uint8_t wdto)
 }
 #endif
 
+/** \brief Suspend power down
+ *
+ * FIXME: needs doc
+ */
 void suspend_power_down(void)
 {
 #ifndef NO_SUSPEND_POWER_DOWN
@@ -123,7 +144,10 @@ bool suspend_wakeup_condition(void)
      return false;
 }
 
-// run immediately after wakeup
+/** \brief run immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
 void suspend_wakeup_init(void)
 {
     // clear keyboard state
@@ -132,6 +156,12 @@ void suspend_wakeup_init(void)
     backlight_init();
 #endif
 	led_set(host_keyboard_leds());
+#ifdef RGBLIGHT_SLEEP
+  rgblight_enable();
+#ifdef RGBLIGHT_ANIMATIONS
+  rgblight_timer_enable();
+#endif
+#endif
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

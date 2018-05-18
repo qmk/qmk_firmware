@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef COMMAND_H
 #define COMMAND
 
+/* FIXME: Add doxygen comments for the behavioral defines in here. */
+
 /* TODO: Refactoring */
 typedef enum { ONESHOT, CONSOLE, MOUSEKEY } command_state_t;
 extern command_state_t command_state;
