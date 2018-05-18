@@ -7,7 +7,9 @@ TAP_DANCE_ENABLE  = no
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
+
 NO_SECRETS        = yes
+MACROS_ENABLED    = yes
 
 LAYOUTS = ortho_5x7
 

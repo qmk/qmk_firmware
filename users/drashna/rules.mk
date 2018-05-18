@@ -9,3 +9,7 @@ endif
 ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
     OPT_DEFS += -DINDICATOR_LIGHTS
 endif
+
+ifeq ($(strip $(MACROS_ENABLED)), yes)
+    OPT_DEFS += -DMACROS_ENABLED
+endif

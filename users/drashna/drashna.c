@@ -325,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
-#if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2))
+#ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
@@ -355,7 +355,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return send_game_macro("OMG!!!  C9!!!", record, false);
   case KC_GGEZ:
     return send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!", record, false);
-#endif // !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
+#endif // MACROS_ENABLED
 
 
 #ifdef TAP_DANCE_ENABLE
