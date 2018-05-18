@@ -1,4 +1,4 @@
-#include "preonic.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 #ifdef AUDIO_ENABLE

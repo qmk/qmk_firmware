@@ -1,4 +1,4 @@
-#include "iris.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -32,7 +32,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc (
      EQL , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSLS,
      ESC , A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCTL,BSPC,LGUI,         ENT ,SPC ,LALT
   ),
 
-  [_COLEMAK] = KC_KEYMAP(
+  [_COLEMAK] = LAYOUT_kc (
      EQL , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
      TAB , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,SCLN,BSPC,
      ESC , A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,QUOT,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCTL,BSPC,LGUI,         ENT ,SPC ,LALT
   ),
 
-  [_DVORAK] = KC_KEYMAP(
+  [_DVORAK] = LAYOUT_kc (
      LBRC, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,RBRC,
      TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
      ESC , A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,MINS,
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCTL,BSLT,LGUI,         ENT ,SPC ,LALT
   ),
 
-  [_LOWER] = KC_KEYMAP(
+  [_LOWER] = LAYOUT_kc (
      F11 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F12 ,
      TILD,____,____, UP ,____,____,               ____,____,____,____,____,____,
      CAPS,____,LEFT,DOWN,RGHT,HOME,               PGUP,UNDS,PLUS,LCBR,RCBR,PIPE,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ____,DEL ,____,         ____,INS ,____
   ),
 
-  [_RAISE] = KC_KEYMAP(
+  [_RAISE] = LAYOUT_kc (
      F11 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F12 ,
      GRV ,____,____, UP ,____,____,               ____,____,____,____,____,____,
      CAPS,____,LEFT,DOWN,RGHT,HOME,               PGUP,MINS,EQL ,LBRC,RBRC,BSLS,
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ____,DEL ,____,         ____,INS ,____
   ),
 
-  [_ADJUST] = KC_KEYMAP(
+  [_ADJUST] = LAYOUT_kc (
      F11 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F12 ,
      ____,RST ,____,____,____,____,               ____,____,____,____,____,____,
      ____,____,____,____,____,____,               ____,QWRT,CLMK,DVRK,____,____,

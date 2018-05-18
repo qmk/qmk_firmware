@@ -1,4 +1,4 @@
-#include "fourier.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -37,7 +37,7 @@ enum custom_keycodes {
 #define KC_RVAD RGB_VAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = KC_KEYMAP(
+  [_BASE] = LAYOUT_kc(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     TAB ,QUOT,COMM,DOT , P  , Y  , F  , G  , C  , R  , L  ,SLSH,MINS,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
-  [_FN1] = KC_KEYMAP(
+  [_FN1] = LAYOUT_kc(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     GRV , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
-  [_FN2] = KC_KEYMAP(
+  [_FN2] = LAYOUT_kc(
  //,----+----+----+----+----+----|----+----+----+----+----+----+----.
     TILD,EXLM, AT ,HASH,DLR ,PERC,CIRC,AMPR,ASTR,LPRN,RPRN,UNDS,PLUS,
  //|----`----`----`----`----`----|----`----`----`----`----`----`----|

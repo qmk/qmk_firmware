@@ -7,18 +7,18 @@
 
 #define EE_HANDS
 
+#undef RGBLED_NUM
 #ifdef KEYBOARD_planck
-  #undef RGBLED_NUM
-  #define RGBLED_NUM 10
-  #define RGB_DI_PIN D1
+  #ifdef KEYBOARD_planck_rev5
+    #define RGBLED_NUM 10
+    #define RGB_DI_PIN D1
+  #endif
 #endif
 #ifdef KEYBOARD_levinson
-  #undef RGBLED_NUM
-  #define RGBLED_NUM_12
+  #define RGBLED_NUM
 #endif
 #ifdef KEYBOARD_lets_split
-  #undef RGBLED_NUB
-  #define RGBLED_NUM_8
+  #define RGBLED_NUM
 #endif
 
 #define RGBLIGHT_ANIMATIONS

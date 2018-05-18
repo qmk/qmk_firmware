@@ -1,4 +1,4 @@
-#include "kinesis.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -132,7 +132,7 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_DV] = KEYMAP(
+[_DV] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
            KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_QW] = KEYMAP(
+[_QW] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
            KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_CM] = KEYMAP(
+[_CM] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
            KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_MD] = KEYMAP(
+[_MD] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______
     ),
 
-[_KP] = KEYMAP(
+[_KP] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_PWR,  _______, _______, _______, _______, _______,
