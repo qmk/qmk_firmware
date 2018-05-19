@@ -20,7 +20,7 @@
   if using keys from both sides is inconvenient - the symbol layer has macros
   at the same key locations to type matching pairs.
 
-- The extra space-bar on the lower-left looks like it's in an obscure location,
+- The space-bar on the lower-left looks like it's in an obscure location,
   however using the larger thumb cluster
   ended up being more of a reach while typing.
 
@@ -122,7 +122,7 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 2: Keymap 2: Media and mouse keys
+## Keymap 2: Keymap 2: Media and Mouse Keys
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
@@ -145,7 +145,7 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 3: K-Keys & User defined words
+## Keymap 3: F-Keys & User Defined Words
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`

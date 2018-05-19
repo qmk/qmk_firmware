@@ -241,7 +241,7 @@ static char cfq_word_lut_title_caps[
 ];
 
 #define LAYER_BASE 0 /* default layer */
-#define LAYER_SYMB 1 /* symbols */
+#define LAYER_KPAD 1 /* keypad */
 #define LAYER_MDIA 2 /* media keys */
 #define LAYER_FKEY 3 /* F-Keys & Words */
 
@@ -382,8 +382,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      |      |  |      |      |      |
  *                               '--------------------'  '--------------------'
  */
-/* SYMBOLS */
-[LAYER_SYMB] = LAYOUT_ergodox_76_or_80(
+/* KEYPAD & MACRO */
+[LAYER_KPAD] = LAYOUT_ergodox_76_or_80(
   /* left hand */
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          M_BRACKET_IN_CBR,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_ARROW_REQL,     M_BRACKET_IN_PRN,
@@ -424,7 +424,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      |      |  |VolDn |      |      |
  *                               '--------------------'  '--------------------'
  */
-/* MEDIA AND MOUSE */
+/* MEDIA & MOUSE */
 [LAYER_MDIA] = LAYOUT_ergodox_76_or_80(
   /* left hand */
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -442,7 +442,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_MPRV, KC_MNXT,
-  KC_VOLU, K80(L2K2), K80(L1K3),
+  KC_VOLU, K80(L2K2), K80(L2K3),
   KC_VOLD, KC_TRNS, KC_MPLY
 ),
 /* Keymap 3: Entire Words (one for each key)
@@ -491,7 +491,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_SYMB),               /* FN1 - Momentary Layer 1 (Symbols) */
+  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_KPAD),               /* FN1 - Momentary Layer 1 (KeyPad) */
   [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media) */
   [3] = ACTION_LAYER_TAP_TOGGLE(LAYER_FKEY),               /* FN3 - Momentary Layer 3 (FKey's & Words) */
 };
