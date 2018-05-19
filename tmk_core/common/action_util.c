@@ -67,12 +67,12 @@ bool has_oneshot_mods_timed_out(void) {
 
 /* oneshot layer */
 #ifndef NO_ACTION_ONESHOT
-/* oneshot_layer_data bits
-* LLLL LSSS
-* where:
-*   L => are layer bits
-*   S => oneshot state bits
-*/
+/** \brief oneshot_layer_data bits
+ * LLLL LSSS
+ * where:
+ *   L => are layer bits
+ *   S => oneshot state bits
+ */
 static int8_t oneshot_layer_data = 0;
 
 inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
@@ -86,7 +86,10 @@ inline bool has_oneshot_layer_timed_out() {
 }
 #endif
 
-/* Oneshot layer */
+/** \brief Set oneshot layer 
+ *
+ * FIXME: needs doc
+ */
 void set_oneshot_layer(uint8_t layer, uint8_t state)
 {
     oneshot_layer_data = layer << 3 | state;
@@ -95,12 +98,20 @@ void set_oneshot_layer(uint8_t layer, uint8_t state)
     oneshot_layer_time = timer_read();
 #endif
 }
+/** \brief Reset oneshot layer 
+ *
+ * FIXME: needs doc
+ */
 void reset_oneshot_layer(void) {
     oneshot_layer_data = 0;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_layer_time = 0;
 #endif
 }
+/** \brief Clear oneshot layer 
+ *
+ * FIXME: needs doc
+ */
 void clear_oneshot_layer_state(oneshot_fullfillment_t state)
 {
     uint8_t start_state = oneshot_layer_data;
@@ -112,12 +123,20 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state)
 #endif
     }
 }
+/** \brief Is oneshot layer active
+ *
+ * FIXME: needs doc
+ */
 bool is_oneshot_layer_active(void)
 {
     return get_oneshot_layer_state();
 }
 #endif
 
+/** \brief Send keyboard report
+ *
+ * FIXME: needs doc
+ */
 void send_keyboard_report(void) {
     keyboard_report->mods  = real_mods;
     keyboard_report->mods |= weak_mods;
@@ -140,29 +159,90 @@ void send_keyboard_report(void) {
     host_keyboard_send(keyboard_report);
 }
 
-/* modifier */
+/** \brief Get mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_mods(void) { return real_mods; }
+/** \brief add mods
+ *
+ * FIXME: needs doc
+ */
 void add_mods(uint8_t mods) { real_mods |= mods; }
+/** \brief del mods
+ *
+ * FIXME: needs doc
+ */
 void del_mods(uint8_t mods) { real_mods &= ~mods; }
+/** \brief set mods
+ *
+ * FIXME: needs doc
+ */
 void set_mods(uint8_t mods) { real_mods = mods; }
+/** \brief clear mods
+ *
+ * FIXME: needs doc
+ */
 void clear_mods(void) { real_mods = 0; }
 
-/* weak modifier */
+/** \brief get weak mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_weak_mods(void) { return weak_mods; }
+/** \brief add weak mods
+ *
+ * FIXME: needs doc
+ */
 void add_weak_mods(uint8_t mods) { weak_mods |= mods; }
+/** \brief del weak mods
+ *
+ * FIXME: needs doc
+ */
 void del_weak_mods(uint8_t mods) { weak_mods &= ~mods; }
+/** \brief set weak mods
+ *
+ * FIXME: needs doc
+ */
 void set_weak_mods(uint8_t mods) { weak_mods = mods; }
+/** \brief clear weak mods
+ *
+ * FIXME: needs doc
+ */
 void clear_weak_mods(void) { weak_mods = 0; }
 
 /* macro modifier */
+/** \brief get macro mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_macro_mods(void) { return macro_mods; }
+/** \brief add macro mods
+ *
+ * FIXME: needs doc
+ */
 void add_macro_mods(uint8_t mods) { macro_mods |= mods; }
+/** \brief del macro mods
+ *
+ * FIXME: needs doc
+ */
 void del_macro_mods(uint8_t mods) { macro_mods &= ~mods; }
+/** \brief set macro mods
+ *
+ * FIXME: needs doc
+ */
 void set_macro_mods(uint8_t mods) { macro_mods = mods; }
+/** \brief clear macro mods
+ *
+ * FIXME: needs doc
+ */
 void clear_macro_mods(void) { macro_mods = 0; }
 
-/* Oneshot modifier */
 #ifndef NO_ACTION_ONESHOT
+/** \brief set oneshot mods
+ *
+ * FIXME: needs doc
+ */
 void set_oneshot_mods(uint8_t mods)
 {
     oneshot_mods = mods;
@@ -170,6 +250,10 @@ void set_oneshot_mods(uint8_t mods)
     oneshot_time = timer_read();
 #endif
 }
+/** \brief clear oneshot mods
+ *
+ * FIXME: needs doc
+ */
 void clear_oneshot_mods(void)
 {
     oneshot_mods = 0;
@@ -177,14 +261,19 @@ void clear_oneshot_mods(void)
     oneshot_time = 0;
 #endif
 }
+/** \brief get oneshot mods
+ *
+ * FIXME: needs doc
+ */
 uint8_t get_oneshot_mods(void)
 {
     return oneshot_mods;
 }
 #endif
 
-/*
- * inspect keyboard state
+/** \brief inspect keyboard state
+ *
+ * FIXME: needs doc
  */
 uint8_t has_anymod(void)
 {

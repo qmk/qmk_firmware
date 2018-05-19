@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, D4 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, F4 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-#define BACKLIGHT_PIN B6
+#define BACKLIGHT_PIN D2
 #define BACKLIGHT_LEVELS 5
 
 /* ws2812 RGB LED */
