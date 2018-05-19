@@ -3,7 +3,7 @@
 ![Atom47](https://i.imgur.com/Wwflqvt.png)
 
 ## Support
-Keyboard Maintainer: [Maarten Dekkers(https://github.com/maartenwut)  
+Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
 Hardware Supported: Atom47 rev3
 Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?topic=93447.msg2545221)  
 

@@ -44,6 +44,7 @@ secrets.h
 .project
 .settings/
 .idea
+*.iml
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt

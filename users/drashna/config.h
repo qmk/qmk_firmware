@@ -3,6 +3,7 @@
 
 
 #ifdef AUDIO_ENABLE
+#define AUDIO_CLICKY
 #define STARTUP_SONG SONG(E1M1_DOOM)
 #define GOODBYE_SONG  SONG(SONIC_RING)
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
@@ -15,7 +16,7 @@
 #ifdef RGBLIGHT_ENABLE
   #ifndef KEYBOARD_ergodox_ez
     #define RGBLIGHT_SLEEP
-  #endif
+  #endif // !KEYBOARD_ergodox_ez
 #endif // RGBLIGHT_ENABLE
 
 
@@ -41,6 +42,8 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
+#define TAPPING_FORCE_HOLD
+//#define RETRO_TAPPING
 
 #define FORCE_NKRO
 
@@ -50,16 +53,22 @@
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 160
+#endif // TAPPING_TERM
+#define TAPPING_TERM 200
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-
+#define DISABLE_LEADER
 
 #endif // !USERSPACE_CONFIG_H
 
