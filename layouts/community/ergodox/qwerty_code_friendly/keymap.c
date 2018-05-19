@@ -406,22 +406,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: F-Keys, media and mouse keys
  *
  * .--------------------------------------------------.  .--------------------------------------------------.
- * |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |  |Mute  |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |MWhlUp|  |      |      |      |      |      |      |        |
+ * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
- * |--------+------+------+------+------+------|MWhlDn|  |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
  * |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
  * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                              |      |      |      |      |      |
  *   '----------------------------------'                              '----------------------------------'
  *                                      .-------------.  .-------------.
- *                                      | MRwd | MFwd |  | MPrv | MNxt |
+ *                                      |      |      |  | MRwd | MFwd |
  *                               .------+------+------|  |------+------+------.
- *                               |      |      |      |  |VolUp |      |      |
- *                               | Mute |      |------|  |------|      | Play |
- *                               |      |      |      |  |VolDn |      |      |
+ *                               |      |      |      |  | MPrv |      |      |
+ *                               |      |      |------|  |------|      | Play |
+ *                               |      |      |      |  | MNxt |      |      |
  *                               '--------------------'  '--------------------'
  */
 /* MEDIA & MOUSE */
@@ -432,18 +432,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                      KC_MRWD,   KC_MFFD,
+                                      KC_TRNS,   KC_TRNS,
                            K80(L2K0), K80(L2K1), KC_TRNS,
-                           KC_MUTE,   KC_TRNS,   KC_TRNS,
+                           KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
-  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_MUTE, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+  KC_VOLU,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_VOLD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_MPRV, KC_MNXT,
-  KC_VOLU, K80(L2K2), K80(L2K3),
-  KC_VOLD, KC_TRNS, KC_MPLY
+  KC_MRWD, KC_MFFD,
+  KC_MPRV, K80(L2K2), K80(L2K3),
+  KC_MNXT, KC_TRNS, KC_MPLY
 ),
 /* Keymap 3: Entire Words (one for each key)
  *
