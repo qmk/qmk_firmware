@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lets_split.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 

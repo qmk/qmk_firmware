@@ -4,7 +4,7 @@
 // Also, I like me some numpad
 
 
-#include "lets_split.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"

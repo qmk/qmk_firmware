@@ -1,7 +1,7 @@
 // Waples layout for Let's Split (rev2)
 // Made changes from the default
 
-#include "lets_split.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
