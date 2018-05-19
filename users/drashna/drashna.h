@@ -37,10 +37,11 @@ enum userspace_layers {
 };
 
 //define modifiers
-#define MODS_SHIFT_MASK  (MOD_LSFT|MOD_RSFT)
-#define MODS_CTRL_MASK  (MOD_LCTL|MOD_RCTL)
-#define MODS_ALT_MASK  (MOD_LALT|MOD_RALT)
-#define MODS_GUI_MASK  (MOD_LGUI|MOD_RGUI)
+#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
 
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
