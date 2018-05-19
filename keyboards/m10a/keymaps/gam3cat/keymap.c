@@ -1,4 +1,4 @@
-#include "m10a.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "version.h"
@@ -54,16 +54,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |L5 |  _L9  |  |L6 |  _L9  |  |L7 |  _L9  |  |L8 |  _L9  |  |L9 |       |
     *  *-----------*  *-----------*  *-----------*  *-----------*  *-----------*
     */
-    [_L0] = {{KC_7,    KC_8,    KC_9   }, {KC_4,    KC_5,    KC_6   }, {KC_1,    KC_2,    KC_3   }, {XXXXXXX, XXXXXXX, FN_ZERO}},
-    [_L1] = {{KC_PPLS, KC_PMNS, KC_PAST}, {KC_PSLS, KC_PERC, KC_COMM}, {KC_PDOT, KC_EQL,  KC_PENT}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L2] = {{KC_CIRC, KC_AMPR, KC_EXLM}, {S(KC_D), S(KC_E), S(KC_F)}, {S(KC_A), S(KC_B), S(KC_C)}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L3] = {{KC_VOLU, F(0),    KC_WFWD}, {KC_MUTE, M(1),    M(0)   }, {KC_VOLD, KC_MYCM, KC_WBAK}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L4] = {{KC_VOLU, KC_MNXT, KC_MFFD}, {KC_MUTE, KC_MSTP, KC_MPLY}, {KC_VOLD, KC_MPRV, KC_MRWD}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L5] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L6] = {{_______, _______, _______}, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L7] = {{KC_DMP1, _______, KC_DMP2}, {_______, KC_DMRS, _______}, {KC_DMR1, _______, KC_DMR2}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L8] = {{_______, _______, RESET  }, {_______, _______, _______}, {_______, _______, _______}, {XXXXXXX, XXXXXXX, MO(_L9)}},
-    [_L9] = {{DF(_L6), DF(_L7), DF(_L8)}, {DF(_L3), DF(_L4), DF(_L5)}, {DF(_L0), DF(_L1), DF(_L2)}, {XXXXXXX, XXXXXXX, _______}},
+    [_L0] = LAYOUT(
+        KC_7,    KC_8,    KC_9, \
+        KC_4,    KC_5,    KC_6, \
+        KC_1,    KC_2,    KC_3, \
+                          FN_ZERO
+    ),
+    [_L1] = LAYOUT(
+        KC_PPLS, KC_PMNS, KC_PAST, \
+        KC_PSLS, KC_PERC, KC_COMM, \
+        KC_PDOT, KC_EQL,  KC_PENT, \
+                          MO(_L9)
+    ),
+    [_L2] = LAYOUT(
+        KC_CIRC, KC_AMPR, KC_EXLM \
+        S(KC_D), S(KC_E), S(KC_F) \
+        S(KC_A), S(KC_B), S(KC_C) \
+                          MO(_L9)
+    ),
+    [_L3] = LAYOUT(
+        KC_VOLU, F(0),    KC_WFWD \
+        KC_MUTE, M(1),    M(0)    \
+        KC_VOLD, KC_MYCM, KC_WBAK \
+                          MO(_L9)
+    ),
+    [_L4] = LAYOUT(
+        KC_VOLU, KC_MNXT, KC_MFFD \
+        KC_MUTE, KC_MSTP, KC_MPLY \
+        KC_VOLD, KC_MPRV, KC_MRWD \
+                          MO(_L9)
+    ),
+    [_L5] = LAYOUT(
+        _______, _______, _______ \
+        _______, _______, _______ \
+        _______, _______, _______ \
+                          MO(_L9)
+    ),
+    [_L6] = LAYOUT(
+        _______, _______, _______ \
+        _______, _______, _______ \
+        _______, _______, _______ \
+                          MO(_L9)
+    ),
+    [_L7] = LAYOUT(
+        KC_DMP1, _______, KC_DMP2 \
+        _______, KC_DMRS, _______ \
+        KC_DMR1, _______, KC_DMR2 \
+                          MO(_L9)
+    ),
+    [_L8] = LAYOUT(
+        _______, _______, RESET   \
+        _______, _______, _______ \
+        _______, _______, _______ \
+                          MO(_L9)
+    ),
+    [_L9] = LAYOUT(
+        DF(_L6), DF(_L7), DF(_L8) \
+        DF(_L3), DF(_L4), DF(_L5) \
+        DF(_L0), DF(_L1), DF(_L2) \
+                          _______
+    )
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
