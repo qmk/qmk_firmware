@@ -18,6 +18,14 @@
 
 #include "quantum.h"
 
+
+// Functions for setting LEDs on toggle keys
+inline void caps_led_on(void)     { DDRD |=  (1<<7); PORTD &= ~(1<<7); }
+inline void caps_led_off(void)    { DDRD &= ~(1<<7); PORTD &= ~(1<<7); }
+
+inline void num_led_on(void)      { DDRD |=  (1<<6); PORTD &= ~(1<<6); }
+inline void num_led_off(void)     { DDRD &= ~(1<<6); PORTD &= ~(1<<6); }
+
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
