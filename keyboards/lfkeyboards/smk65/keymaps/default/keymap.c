@@ -1,4 +1,4 @@
-#include "smk65.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 //Define a shorter 'transparent' key code to make the keymaps more compact
