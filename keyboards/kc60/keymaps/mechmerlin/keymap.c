@@ -2,7 +2,7 @@
 // The layout is highly influenced by the WKL B.Face and KBP V60 standard layouts.
 // Layout designed for use on KC60 with no inswitch or underglow lighting.
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT( /* Basic QWERTY */
