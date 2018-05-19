@@ -1,5 +1,5 @@
 // Below layout is based upon /u/That-Canadian's planck layout
-#include "launchpad.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
