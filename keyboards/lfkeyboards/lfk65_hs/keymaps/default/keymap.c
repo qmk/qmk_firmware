@@ -1,18 +1,18 @@
-#include "lfk65_hs.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 //Define a shorter 'transparent' key code to make the keymaps more compact
 #define KC_TR KC_TRNS
 
 enum keymap_layout {
-    VANILLA = 0,
+    BASE = 0,
     FUNC,
-    SETTINGS,
 };
 
+// #define uint16_t int
+// #define uint8_t int
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[VANILLA] = KEYMAP(
+[BASE] = LAYOUT(
   /* Keymap VANILLA: (Base Layer) Default Layer
    * ,------------------------------------------------------------.----.
    * |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa| Ins|
@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,   KC_UP,  KC_PGDN,
     KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,       KC_RALT, KC_RCTL, MO(FUNC), KC_LEFT, KC_DOWN,  KC_RGHT),
 
-[FUNC] = KEYMAP(
-  /* Keymap VANILLA: Function Layer
+[FUNC] = LAYOUT(
+   /*Keymap VANILLA: Function Layer
    * ,------------------------------------------------------------.----.
    * |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa| Ins|
    * |------------------------------------------------------------|----|
@@ -52,16 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_FN5,    KC_FN2,KC_FN4, KC_TR, KC_TR, KC_TR, KC_TR, MU_TOG, RGB_VAD, RGB_VAI, KC_TR, KC_TR,        RGB_HUI,  KC_TR,
     KC_TR, KC_TR, KC_TR,         KC_TR,       KC_TR, KC_TR, KC_TR, RGB_SAD, RGB_HUD,  RGB_SAI),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    ACTION_FUNCTION(LFK_CLEAR),                               // FN0 - reset layers
-    ACTION_FUNCTION(LFK_CLICK_FREQ_HIGHER),                   // FN1 - Increase Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_FREQ_LOWER),                    // FN2 - Decrease Freq of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_LONGER),                   // FN3 - Increase length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TIME_SHORTER),                  // FN4 - Decrease length of audio click
-    ACTION_FUNCTION(LFK_CLICK_TOGGLE),                        // FN5 - Toggle audio click
-  };
-
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
