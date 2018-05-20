@@ -1,5 +1,5 @@
-The default keymap for ISO HS60
-===============================
+The default keymap for ANSI HS60
+================================
 
 ![Layout image](https://imgur.com/CSyPw0J.png)
 
