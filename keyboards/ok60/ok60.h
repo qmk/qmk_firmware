@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-#define KEYMAP_ANSI( \
+#define LAYOUT_ansi( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, \
 	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113,       \
 	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211,       K213,       \
@@ -17,7 +17,7 @@
 	{ K400,  K401,  K402,  KC_NO, KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  K412,  K413,  KC_NO }  \
 }
 
-#define KEYMAP_ISO( \
+#define LAYOUT_iso( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012,       K014, \
 	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,             \
 	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213,       \
@@ -31,7 +31,7 @@
 	{ K400,  K401,  K402,  KC_NO, KC_NO, KC_NO, K406,  KC_NO, KC_NO, KC_NO, K410,  K411,  K412,  K413,  KC_NO }  \
 }
 
-#define LAYOUT_60_ansi KEYMAP_ANSI
-#define LAYOUT_60_iso KEYMAP_ISO
+#define LAYOUT_60_ansi LAYOUT_ansi
+#define LAYOUT_60_iso LAYOUT_iso
 
 #endif
