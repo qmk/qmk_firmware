@@ -35,6 +35,8 @@
 #define DELETEMARK M(12)
 #define SELECTOMARK M(13)
 #define MAIL M(14)
+#define CHOME M(15)
+#define MOVEWINDOW M(16)
 
 // Tap Dance declarations
 enum {
@@ -48,20 +50,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * | MEH §  |   1  |   2  |   3  |   4  |   5  | Esc  |           | Numb |   6  |   7  |   8  |   9  |   0  |PrintScr|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |WIN 1 |   F  |   G  |   C  |   T  |   Z  |code/Back|
+ * |Tab/CODE|  ü   |   ;  |   .  |   P  |   Y  | Del  |           |MEHTab|   F  |   G  |   C  |   T  |   Z  |code/Back|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Tab/SYMB|A     |   O  |   E  |   I  |   U  |------|           |------|   H  |   D  |   R  |   N  |S     | L/SYMB |
  * |--------+------+------+------+------+------| C & P|           | RUN  |------+------+------+------+------+--------|
  * | ä/Shift |  ö   |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |-/AltG|  Shift|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  Ctrl| Alt  | LGui |~SYMB|AltShf\|                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
+ *   |  Ctrl| Alt  | LGui|CtrlShf|AltShf|                                       |  Up  | Down | Left | Right|CAPS/Ctrl|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Enter| LGui |       | GAME |  App |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |  Back|      | PgUp |       | PgDn |        |      |
  *                                 |Space/| Del /|------|       |------|  Enter/|Space/|
- *                                 | NUMB | WORK |Home/MD|      | End |  WORK  | NUMB  |
+ *                                 | NUMB | WORK |Home/MD|      | Alt |  WORK  | NUMB  |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -70,21 +72,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         LCTL(CH_PARA),         CH_1,           CH_2,     CH_3,     CH_4,     CH_5,   KC_ESC,
         LT(SUBL,KC_TAB),        CH_UE,        CH_COMM,   KC_DOT, CH_P,   CH_Y,   KC_DELT,
-        LT(SYMB, KC_TAB),        CH_A,         CH_O,   CH_E,   CH_I,   CH_U,
+        LT(SYMB, KC_TAB),        CH_A,         CH_O,   CH_E,   CH_I,   CH_U,  
         SFT_T(CH_AE),CH_OE,      CH_Q,   CH_J,   CH_K,   CH_X,   COPYPASTE,
-        KC_LCTL,                KC_LALT,        KC_LGUI, KC_FN4, OSM(MOD_RALT | MOD_LSFT),
+        KC_LCTL,                KC_LALT,        KC_LGUI, OSM(MOD_LCTL | MOD_LSFT), OSM(MOD_RALT | MOD_LSFT),
                                               KC_ENT,  KC_LGUI,
                                                               KC_PGUP,
                                                LT(NUMB,KC_BSPC),LT(WORK,KC_DELT),MEH_T(KC_HOME),
         // right hand
              TG(NUMB),     CH_6,   CH_7,    CH_8,    CH_9,   CH_0,             KC_PSCR,
-             LGUI(CH_1),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
+             HYPR(KC_TAB),    CH_F,   CH_G,   CH_C,   CH_T,   CH_Z,             LT(SUBL,KC_BSPC),
                           CH_H,   CH_D,   CH_R,   CH_N,   CH_S,             LT(SYMB,CH_L),
              LGUI(CH_R),     CH_B,   CH_M,   CH_W,   CH_V,   KC_FN3,   KC_LSFT,
                                   KC_UP,  KC_DOWN,KC_LEFT,KC_RGHT,          KC_FN5,
              TG(GAME),        ALT_T(KC_APP),
              KC_PGDN,
-             KC_END,LT(NUMB,KC_ENT), LT(WORK,KC_SPC)
+             KC_LALT,LT(NUMB,KC_ENT), LT(WORK,KC_SPC)
  ),
 /* Keymap 1: GAME layer
  *
@@ -135,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   !  |   @  |   {  |   }  |   |  |      |           |      |   ç |   "  |   '  |   §   |  *   |   F12  |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           |  C:\ |------+------+------+------+------+--------|
  * |        |   #  |   $  |   (  |   )  |   `  |------|           |------|  ´   |   \  |   /  |   ?  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |  &   |   <  |   >  |  =   |   -  |        |
@@ -162,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______,_______,_______,
        // right hand
        _______, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       _______, CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
+       CHOME,   CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
                 CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS, _______,
        _______, CH_PARA, CH_LESS,   CH_MORE,    CH_EQL,    CH_MINS, _______,
                          _______,_______,  _______,    _______,  _______,
@@ -177,11 +179,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   F4 |  F3  |   F2  |  F1 |   0  |      |           |      |  "   |   7  |   8  |   9  |  *   |  F12   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   F8 |   F7 |   F6 |   F5 |   5  |------|           |------|   /  |   4  |   5  |   6  |   +  |        |
+ * | CrlShf |   F8 |   F7 |   F6 |   F5 |   5  |------|           |------|   /  |   4  |   5  |   6  |   +  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Shift  |  F12 | F11  |  F10 |  F9  |   1  |      |           |      |   &  |   1  |   2  |   3  |   -  |NumLock |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |   0  |  00  |   .  |   =  |      |
+ *   |      |      |      |      |      |                                       | Space|  00  |   .  |   =  |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -195,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
         _______,     KC_F1,     KC_F2,      KC_F3,      KC_F4,      KC_F5,      _______,     
         _______,     KC_F4,      KC_F3,    KC_F2,    KC_F1,    CH_0,    _______,     
-        _______,     KC_F8,   KC_F7,     KC_F6,    KC_F5,    CH_5,     
+        OSM(MOD_LCTL | MOD_LSFT),     KC_F8,   KC_F7,     KC_F6,    KC_F5,    CH_5,     
         KC_LSFT,     KC_F12,   KC_F11,    KC_F10,    KC_F9,    CH_1,    _______,     
         _______,     _______,   _______,    _______,    _______,     
                                                                     _______,    _______,    
@@ -206,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    LSFT(CH_2), CH_7,       CH_8,       CH_9,       KC_PAST,    KC_F12,    
                     KC_PSLS,    CH_4,       CH_5,       CH_6,       KC_PPLS,    _______,    
         _______,    CH_AMPR,    CH_1,       CH_2,       CH_3,       CH_MINS,    KC_NLCK,   
-                    CH_0,       DOUBLE0,    KC_DOT,     CH_EQL,     _______,  
+                    KC_SPC,     DOUBLE0,    KC_DOT,     CH_EQL,     _______,  
         _______,    _______,   
         _______,   
         _______,    _______,    CH_0
@@ -216,11 +218,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |       |      |      |     |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Lock | MAIL |      |WinCls|      |      |           |      |      |  END |  Up  |  HOME|      |        |
+ * |        | Lock | MAIL |      |WinCls|      |      |           |      |MovWin|  END |  Up  |  HOME|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |WinExp|AdrBar| LGui |------|           |------|TaskVw| Left | Down | Right|      |        |
+ * | CrlShf |      |      |WinExp|AdrBar| LGui |------|           |------|TaskVw| Left | Down | Right|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CrlShf |      |      |PrvTab|NexTab|      |      |           |      |NexWin| Undo | Redo |      |      |        |
+ * |    Shf |      |      |PrvTab|NexTab|      |      |           |      |NexWin| Undo | Redo |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |     |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -243,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______, _______, _______,
     // right hand
        _______,  _______,  _______, _______, _______, _______, _______,
-       _______,  MEH(CH_R), KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX,
+       _______,  MOVEWINDOW, KC_HOME, KC_UP, KC_END, XXXXXXX, XXXXXXX,
                  LGUI(KC_TAB), KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, _______,
        _______,  LALT(KC_TAB), LCTL(CH_Z), LCTL(CH_Y), XXXXXXX, XXXXXXX, _______,
                           _______, _______, _______, _______, _______,
@@ -449,6 +451,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             return MACRO(T(J),T(O),T(A),T(N),T(DOT),T(L),T(U),T(S),T(T),T(E),T(N),T(B),T(E),T(R),T(G),T(E),T(R),D(RALT),T(2),U(RALT),T(S),T(U),T(V),T(A),T(DOT),T(C),T(H),T(TAB),END);
           }
           break;
+        }
+        case 15: {
+          if (record->event.pressed)
+            /* Send c:\ */
+            return MACRO(T(C),D(LSFT),T(DOT),U(LSFT),D(RALT),T(NUBS),U(RALT),END);
+        }
+        case 16: {
+          if (record->event.pressed)
+            // send move Window
+            return MACRO(D(LALT),T(SPACE),U(LALT),T(M),END);
         }
       }
     return MACRO_NONE;
