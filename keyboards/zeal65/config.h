@@ -40,6 +40,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
 #define UNUSED_PINS
 
+// IS31FL3731 driver
+#define DRIVER_COUNT 2
+#define DRIVER_LED_TOTAL 72
+
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW
 
@@ -80,6 +84,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_USE_SPLIT_RIGHT_SHIFT 0
 #define BACKLIGHT_USE_7U_SPACEBAR 0
 #define BACKLIGHT_USE_ISO_ENTER 0
+#define BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0

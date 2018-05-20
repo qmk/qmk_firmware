@@ -192,12 +192,12 @@ void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, b
 {
 	is31_led led = g_is31_leds[index];
 
-  uint8_t control_register_r = (led.r - 0x24) / 8;
-  uint8_t control_register_g = (led.g - 0x24) / 8;
-  uint8_t control_register_b = (led.b - 0x24) / 8;
-  uint8_t bit_r = (led.r - 0x24) % 8;
-  uint8_t bit_g = (led.g - 0x24) % 8;
-  uint8_t bit_b = (led.b - 0x24) % 8;
+	uint8_t control_register_r = (led.r - 0x24) / 8;
+	uint8_t control_register_g = (led.g - 0x24) / 8;
+	uint8_t control_register_b = (led.b - 0x24) / 8;
+	uint8_t bit_r = (led.r - 0x24) % 8;
+	uint8_t bit_g = (led.g - 0x24) % 8;
+	uint8_t bit_b = (led.b - 0x24) % 8;
 
 	if ( red ) {
 		g_led_control_registers[led.driver][control_register_r] |= (1 << bit_r);

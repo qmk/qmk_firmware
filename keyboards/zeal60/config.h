@@ -37,6 +37,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
 #define UNUSED_PINS
 
+// IS31FL3731 driver
+#define DRIVER_COUNT 2
+#define DRIVER_LED_TOTAL 72
+
 // COL2ROW or ROW2COL
 #define DIODE_DIRECTION COL2ROW
 
