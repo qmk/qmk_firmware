@@ -7,5 +7,6 @@ void led_set_user(uint8_t usb_led) {
     } else {
         PORTF &= ~(1<<4);
     }
+    led_set_user(usb_led);
     
 }

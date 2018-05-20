@@ -37,6 +37,7 @@ void led_set_user(uint8_t usb_led) {
 	} else {
 		DDRF &= ~(1 << 4); PORTF &= ~(1 << 4);
 	}
+	led_set_user(usb_led);
 
 	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
 		
