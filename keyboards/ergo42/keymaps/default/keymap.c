@@ -8,7 +8,6 @@ extern keymap_config_t keymap_config;
 #define RAISE 1
 #define MOUSE 2
 #define WHEEL 3
-#define SWAP  4
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -20,21 +19,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,------------------------------------------------.   ,------------------------------------------------.
  * |   `  |   Q  |   W  |   E  |   R  |   T  |  Y   |   |  =   |   Y  |   U  |   I  |   O  |   P  |  -   |
  * |------+------+------+------+------+------+------|   |-------------+------+------+------+------+------|
- * | Tab/ |   A  |   S  |   D  |   F  |   G  |  (   |   |  )   |   H  |   J  |   K  |   L  |   ;  |  '   |
- * | Ctrl |      |      |      |      |      |      |   |      |      |      |      |      |      |      |
+ * | Ctrl |   A  |   S  |   D  |   F  |   G  |  (   |   |  )   |   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------+------|   |------|------+------+------+------+------+------|
  * | Sft  |   Z  |   X  |   C  |   V  |   B  |  N   |   |  B   |   N  |   M  |   ,  |   .  |   /  |  \   |
  * |------+------+------+------+------+------+------|   |------+------+------+------+------+------+------|
- * |Lock  |PrtSc | App  | GUI  |Lang2/|Space |ESC/  |   |BS/   |Enter |Lang1/| Left | Down |  Up  |Right |
+ * |  BS  |PrtSc | App  | GUI  |Lang2/|Space | ESC  |   | Tab  |Enter |Lang1/| Left | Down |  Up  |Right |
  * |      |      |      |      |Alt   |      |      |   |      |      |Raise |      |      |      |      |
  * `------------------------------------------------'   `------------------------------------------------'
  */
 
 [BASE] = KEYMAP( \
-  KC_JYEN,        KC_Q,    KC_W,   KC_E,            KC_R,             KC_T,   KC_Y,    /**/ KC_EQL,            KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS,   \
-  LCTL_T(KC_TAB), KC_A,    KC_S,   LT(MOUSE, KC_D), KC_F,             KC_G,   S(KC_9), /**/ S(KC_0),           KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, KC_QUOT,   \
-  KC_LSFT,        KC_Z,    KC_X,   KC_C,            KC_V,             KC_B,   KC_N,    /**/ KC_B,              KC_N,   KC_M,                KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
-  KC_LOCK,        KC_PSCR, KC_APP, KC_LGUI,         LALT_T(KC_LANG2), KC_SPC, KC_ESC,  /**/ LT(SWAP, KC_BSPC), KC_ENT, LT(RAISE, KC_LANG1), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT   \
+  KC_JYEN,  KC_Q,    KC_W,   KC_E,            KC_R,             KC_T,   KC_Y,    /**/ KC_EQL,  KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS,   \
+  KC_LCTRL, KC_A,    KC_S,   LT(MOUSE, KC_D), KC_F,             KC_G,   S(KC_9), /**/ S(KC_0), KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,    KC_X,   KC_C,            KC_V,             KC_B,   KC_N,    /**/ KC_B,    KC_N,   KC_M,                KC_COMM, KC_DOT,  KC_SLSH, KC_BSLASH, \
+  KC_BSPC,  KC_PSCR, KC_APP, KC_LGUI,         LALT_T(KC_LANG2), KC_SPC, KC_ESC,  /**/ KC_TAB,  KC_ENT, LT(RAISE, KC_LANG1), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT   \
 ),
 
 /* Raise
@@ -92,26 +90,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, MO(WHEEL), _______, _______, _______, _______, /**/ _______, KC_WH_R, KC_WH_U, KC_WH_D, KC_WH_L, _______, _______, \
   _______, _______, _______,   _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______,   _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______, _______, _______  \
-),
-
-/* SWAP
- * ,------------------------------------------------.   ,------------------------------------------------.
- * |  -   |   P  |   O  |   I  |   U  |   Y  |  T   |   |  Y   |   T  |   R  |   E  |   W  |   Q  |   `  |
- * |-------------+------+------+------+------+------|   |------+------+------+------+------+------+------|
- * |  '   |   ;  |   L  |   K  |   J  |   H  |  )   |   |  (   |   G  |   F  |   D  |   S  |   A  | Tab/ |
- * |      |      |      |      |      |      |      |   |      |      |      |      |      |      | Ctrl |
- * |------|------+------+------+------+------+------|   |------+------+------+------+------+------+------|
- * |  \   |   /  |   .  |   ,  |   M  |   N  |  B   |   |  N   |   B  |   V  |   C  |   X  |   Z  | Sft  |
- * |------+------+------+------+------+------+------|   |------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   |      |      |      |      |      |      |      |
- * `------------------------------------------------'   `------------------------------------------------'
- */
-
-[SWAP] = KEYMAP( \
-  KC_MINS,   KC_P,    KC_O,    KC_I,    KC_U,    KC_Y,    KC_T,    /**/ KC_Y,    KC_T,    KC_R,    KC_E,            KC_W,    KC_Q,    KC_JYEN,        \
-  KC_QUOT,   KC_SCLN, KC_L,    KC_K,    KC_J,    KC_H,    S(KC_0), /**/ S(KC_9), KC_G,    KC_F,    LT(MOUSE, KC_D), KC_S,    KC_A,    LCTL_T(KC_TAB), \
-  KC_BSLASH, KC_SLSH, KC_DOT,  KC_COMM, KC_M,    KC_N,    KC_B,    /**/ KC_N,    KC_B,    KC_V,    KC_C,            KC_X,    KC_Z,    KC_LSFT,        \
-  _______,   _______, _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______,         _______, _______, _______         \
 ),
 
 };
