@@ -1,4 +1,4 @@
-#include "nano.h"
+#include QMK_KEYBOARD_H
 
 #define _MAIN 0
 #define _FN 1
