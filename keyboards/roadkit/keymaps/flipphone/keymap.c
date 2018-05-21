@@ -1,4 +1,4 @@
-#include "roadkit.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -48,27 +48,27 @@ enum roadkit_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = /* Numpad */
-    KEYMAP(KC_KP_7, KC_KP_8,   KC_KP_9, KC_KP_PLUS,  \
+    LAYOUT(KC_KP_7, KC_KP_8,   KC_KP_9, KC_KP_PLUS,  \
            KC_KP_4, KC_KP_5,   KC_KP_6,              \
            KC_KP_1, KC_KP_2,   KC_KP_3, KC_KP_ENTER, \
            LT(_ADJUST, KC_KP_0),  KC_KP_DOT),
   [_FPH] = /* Quiet T9 */
-    KEYMAP(FPH_7, FPH_8,   FPH_9, KC_KP_PLUS,  \
+    LAYOUT(FPH_7, FPH_8,   FPH_9, KC_KP_PLUS,  \
            FPH_4, FPH_5,   FPH_6,              \
            FPH_1, FPH_2,   FPH_3, SFT_T(KC_KP_ENTER), \
            LT(_ADJUST, KC_SPACE),   KC_KP_DOT),
   [_FPHNOISY] = /* Noisy T9 */
-    KEYMAP(FPH_7, FPH_8,   FPH_9, KC_KP_PLUS,  \
+    LAYOUT(FPH_7, FPH_8,   FPH_9, KC_KP_PLUS,  \
            FPH_4, FPH_5,   FPH_6,              \
            FPH_1, FPH_2,   FPH_3, SFT_T(KC_KP_ENTER), \
            LT(_ADJUST, KC_SPACE),   KC_KP_DOT),
  [_ADJUST] = /* Adjustments */
-   KEYMAP(KC_NUMLOCK, TG(_FPHNOISY),  TG(_FPH), TG(_NUMPAD),  \
+   LAYOUT(KC_NUMLOCK, TG(_FPHNOISY),  TG(_FPH), TG(_NUMPAD),  \
          KC_BSPC, BACKLIT,   KC_DEL,              \
          MACSLEEP, _______,   _______, _______, \
          _______,           MO(_DYN)),
  [_DYN] = /* DYNAMIC MACRO */
-    KEYMAP(DYN_REC_START1, DYN_REC_START2, _______, DYN_REC_STOP,  \
+    LAYOUT(DYN_REC_START1, DYN_REC_START2, _______, DYN_REC_STOP,  \
          _______, _______,  _______,              \
          DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______, \
          _______,            _______),

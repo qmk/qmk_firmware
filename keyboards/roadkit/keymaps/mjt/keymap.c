@@ -1,4 +1,4 @@
-#include "roadkit.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -47,27 +47,27 @@ enum minivan_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUMPAD] = /* Numpad */
-    KEYMAP(KC_KP_7, KC_KP_8,   KC_KP_9, KC_KP_PLUS,  \
+    LAYOUT(KC_KP_7, KC_KP_8,   KC_KP_9, KC_KP_PLUS,  \
            KC_KP_4, KC_KP_5,   KC_KP_6,              \
            KC_KP_1, KC_KP_2,   KC_KP_3, NAVIGATION, \
            EXCEL,            KC_KP_DOT),
   [_EXCEL] = /* Excel related */
-    KEYMAP(KC_KP_SLASH, KC_KP_ASTERISK,   KC_MINS, KC_TAB,  \
+    LAYOUT(KC_KP_SLASH, KC_KP_ASTERISK,   KC_MINS, KC_TAB,  \
           KC_QUOT, KC_KP_EQUAL,  PARENS ,              \
           KC_DQT, BRACKETS,  BRACES, _______, \
           _______,            MO(_DYN)),
   [_NAVIGATION] = /* Navigation */
-    KEYMAP(KC_HOME, _______,  KC_PGUP, KC_TAB,  \
+    LAYOUT(KC_HOME, _______,  KC_PGUP, KC_TAB,  \
           KC_END,  KC_UP,     KC_PGDN,              \
           KC_LEFT, KC_DOWN,   KC_RIGHT, _______, \
           _______,            MO(_DYN)),
  [_ADJUST] = /* Adjustments */
-   KEYMAP(KC_NUMLOCK, MACSLEEP,   BACKLIT, _______,  \
+   LAYOUT(KC_NUMLOCK, MACSLEEP,   BACKLIT, _______,  \
          KC_BSPC, _______,   KC_DEL,              \
          EXCEL_LOCK, NUMPAD_LOCK,   NAVIGATION_LOCK, _______, \
          _______,          _______),
  [_DYN] = /* DYNAMIC MACRO */
-    KEYMAP(DYN_REC_START1, DYN_REC_START2, _______, _______,  \
+    LAYOUT(DYN_REC_START1, DYN_REC_START2, _______, _______,  \
          _______, _______,  _______,              \
          DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, _______, _______, \
          _______,            _______),
