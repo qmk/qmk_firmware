@@ -75,6 +75,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+#define BACKLIGHT_ENABLED 1
 // enable/disable LEDs based on layout
 #define BACKLIGHT_USE_SPLIT_BACKSPACE 0
 #define BACKLIGHT_USE_SPLIT_LEFT_SHIFT 0

@@ -1,5 +1,8 @@
 #include "zeal60.h"
+// Check that no backlight functions are called
+#if BACKLIGHT_ENABLED
 #include "zeal_backlight.h"
+#endif // BACKLIGHT_ENABLED
 #include "zeal_keymap.h"
 #include "zeal_eeprom.h"
 #include "zeal_rpc.h"
@@ -39,6 +42,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 #endif // USE_KEYMAPS_IN_EEPROM
+#if BACKLIGHT_ENABLED
 		case id_backlight_config_set_values:
 		{
 			msg_backlight_config_set_values *msg = (msg_backlight_config_set_values*)&data[1];
@@ -59,10 +63,15 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			backlight_set_key_color(msg->row, msg->column, msg->hsv);
 			break;
 		}
+#endif // BACKLIGHT_ENABLED
 		case id_system_get_state:
 		{
 			msg_system_state *msg = (msg_system_state*)&data[1];
+#if BACKLIGHT_ENABLED
 			msg->value = backlight_get_tick();
+#else
+			msg->value = 1; // TODO: need to decouple "uptime" from backlight
+#endif // BACKLIGHT_ENABLED
 			break;
 		}
 		default:
@@ -88,6 +97,7 @@ void bootmagic_lite(void)
 
 	// We need multiple scans because debouncing can't be turned off.
 	matrix_scan();
+	wait_ms(DEBOUNCING_DELAY);
 	wait_ms(DEBOUNCING_DELAY);
 	matrix_scan();
 
@@ -116,12 +126,14 @@ void matrix_init_kb(void)
 	// OK to load from EEPROM.
 	if (eeprom_is_valid())
 	{
+#if BACKLIGHT_ENABLED
 		backlight_config_load();
-
+#endif // BACKLIGHT_ENABLED
 		// TODO: do something to "turn on" keymaps in EEPROM?
 	}
 	else
 	{
+#if BACKLIGHT_ENABLED
 		// If the EEPROM has not been saved before, or is out of date,
 		// save the default values to the EEPROM. Default values
 		// come from construction of the zeal_backlight_config instance.
@@ -139,6 +151,7 @@ void matrix_init_kb(void)
 				backlight_set_key_color( row, column, hsv );
 			}
 		}
+#endif // BACKLIGHT_ENABLED
 
 		// This saves "empty" keymaps so it falls back to the keymaps
 		// in the firmware (aka. progmem/flash)
@@ -148,19 +161,23 @@ void matrix_init_kb(void)
 		eeprom_set_valid(true);
 	}
 
+#if BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 	
 	backlight_timer_init();
 	backlight_timer_enable();
+#endif // BACKLIGHT_ENABLED
 
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void)
 {
+#if BACKLIGHT_ENABLED
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
+#endif // BACKLIGHT_ENABLED
 	matrix_scan_user();
 }
 
@@ -169,11 +186,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 	// Record keypresses for backlight effects
 	if ( record->event.pressed )
 	{
+#if BACKLIGHT_ENABLED
 		backlight_set_key_hit( record->event.key.row, record->event.key.col );
+#endif // BACKLIGHT_ENABLED
 	}
 
 	switch(keycode)
 	{
+#if BACKLIGHT_ENABLED
 		case BR_INC:
 			if (record->event.pressed)
 			{
@@ -274,6 +294,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 			}
 			return false;
 			break;
+#endif // BACKLIGHT_ENABLED
 		case FN_MO13:
 			if (record->event.pressed)
 			{
@@ -386,17 +407,22 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void led_set_kb(uint8_t usb_led)
 {
+#if BACKLIGHT_ENABLED
 	backlight_set_indicator_state(usb_led);
-	//backlight_debug_led(usb_led & (1<<USB_LED_CAPS_LOCK));
+#endif // BACKLIGHT_ENABLED
 }
 
 void suspend_power_down_kb(void)
 {
+#if BACKLIGHT_ENABLED
 	backlight_set_suspend_state(true);
+#endif // BACKLIGHT_ENABLED
 }
 
 void suspend_wakeup_init_kb(void)
 {
+#if BACKLIGHT_ENABLED
 	backlight_set_suspend_state(false);
+#endif // BACKLIGHT_ENABLED
 }
 

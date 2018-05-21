@@ -1,6 +1,7 @@
+#if BACKLIGHT_ENABLED
+
 #include "zeal60.h"
 #include "zeal_backlight.h"
-
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
@@ -902,7 +903,6 @@ ISR(TIMER3_COMPA_vect)
 	{
 		backlight_effect_indicators();
 	}
-
 }
 
 void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column )
@@ -980,7 +980,7 @@ void backlight_config_save(void)
 
 void backlight_init_drivers(void)
 {
-	// Initialize TWI
+	// Initialize I2C
 	i2c_init();
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
@@ -1202,3 +1202,5 @@ void backlight_debug_led( bool state )
 		PORTE &= ~(1<<6);
 	}
 }
+
+#endif // BACKLIGHT_ENABLED

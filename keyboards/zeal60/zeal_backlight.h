@@ -1,6 +1,11 @@
 #ifndef ZEAL_BACKLIGHT_H
 #define ZEAL_BACKLIGHT_H
 
+#if BACKLIGHT_ENABLED
+#else
+#error zeal_backlight.h included when BACKLIGHT_ENABLED == 0
+#endif // BACKLIGHT_ENABLED
+
 #include <stdint.h>
 #include <stdbool.h>
 
