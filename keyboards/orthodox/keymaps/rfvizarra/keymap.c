@@ -19,9 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "orthodox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
