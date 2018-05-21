@@ -18,7 +18,7 @@
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT_tkl_ansi_split_lshift( \
   KG6,      KH4, KI4, KI2, KI6, KP5, KL6, KM2, KM4, KO4, KO5, KO6, KO0,   KN5, KN7, KP7, \
   KG4, KG5, KH5, KI5, KJ5, KJ4, KK4, KK5, KL5, KM5, KF5, KF4, KL4, KO2,   KR4, KC4, KE4, \
   KG2, KG7, KH7, KI7, KJ7, KJ2, KK2, KK7, KL7, KM7, KF7, KF2, KL2, KO3,   KQ4, KC5, KE5, \
@@ -38,5 +38,7 @@
 /* 6 */ {   KC_NO,  KC_NO,  KC6,    KC_NO,  KC_NO,  KF6,    KG6,    KH6,    KI6,    KJ6,    KK6,  KL6,   KC_NO,KN6,    KO6,    KC_NO,  KQ6,    KC_NO   }, \
 /* 7 */ {   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KF7,    KG7,    KH7,    KI7,    KJ7,    KK7,  KL7,   KM7,  KN7,    KC_NO,  KP7,    KC_NO,  KC_NO   }  \
 }
+
+#define LAYOUT LAYOUT_tkl_ansi_split_lshift
 
 #endif
