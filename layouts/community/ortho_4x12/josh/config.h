@@ -21,4 +21,8 @@
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 10
 
+// let's split configuration:
+#define USE_I2C
+#define MASTER_LEFT
+
 #endif
