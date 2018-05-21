@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "tkc1800.h"
+#include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
 #include "i2c.h"
 #include "ssd1306.h"
