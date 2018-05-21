@@ -63,4 +63,6 @@
 	}
 #endif
 
+#define LAYOUT_ortho_5x14_split LAYOUT
+
 #endif
