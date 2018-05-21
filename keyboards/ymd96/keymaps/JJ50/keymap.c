@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public LicensezZZ
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "ymd96.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "rgblight.h"
 
