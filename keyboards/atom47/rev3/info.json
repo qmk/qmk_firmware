@@ -2,7 +2,6 @@
   "keyboard_name": "Atom47", 
   "url": "https://atomkb.eu/atom47", 
   "maintainer": "Maarten Dekkers", 
-  "bootloader": "qmk-dfu", 
   "width": 13, 
   "height": 4, 
   "layouts": {
