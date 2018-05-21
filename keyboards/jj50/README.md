@@ -13,6 +13,8 @@ USB report options are supported.
 Hardware Supported: JJ50 with the ATmega32a chip.
 Hardware Availability: The JJ50 PCB is available from kprepublic on AliExpress and suchlike.
 
+This version by Wayne K Jones (github.com/WarmCatUK)
+
 
 ## Installing and Building
 
@@ -70,8 +72,10 @@ And flash the compiled hex file with `HIDBootFlash`. Simply put the board in fla
 1. Try plugging the board in while pressing `Backspace` (`Key below the top right key`). This will force it to boot only the bootloader without loading the firmware. Once this is done, just reflash the board with the original firmware.
 2. Sometimes USB hubs can act weird, so try connecting the board directly to your computer or plugging/unplugging the USB hub.
 3. If you get an error such as "Resource Unavailable" when attemting to flash on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md` for more info.
-4. I was occasionally finding that I wasn't flashing changes that I was making to my keymap. If that happens, simply force rebuild by making with:
+4. I was occasionally finding that I wasn't flashing changes that I was making to my keymap. If that happens, remove the previous build and simply force rebuild by making with:
 ```
+$ rm jj50_default.hex
+$ make -B jj50:default
 $ make -B jj50:default:program
 ```
 

@@ -27,12 +27,8 @@ enum userspace_layers {
   _DVORAK,
   _WORKMAN,
   _MODS,
-  _NAV,
-  _COVECUBE,
-  _SYMB,
   _GAMEPAD,
   _DIABLO,
-  _MOUS,
   _MACROS,
   _MEDIA,
   _LOWER,
@@ -49,7 +45,6 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool rgb_layer_change;
 extern bool clicky_enable;
 
 #ifdef RGBLIGHT_ENABLE
@@ -59,10 +54,11 @@ void rgblight_sethsv_default_helper(uint8_t index);
 #define EECONFIG_USERSPACE (uint8_t *)20
 
 typedef union {
-  uint32_t raw;
+  uint8_t raw;
   struct {
-    bool     clicky_enable  :1;
-    bool     is_overwatch   :1;
+    bool     clicky_enable    :1;
+    bool     rgb_layer_change :1;
+    bool     is_overwatch     :1;
   };
 } userspace_config_t;
 
@@ -166,10 +162,10 @@ enum {
 #define LAYOUT KEYMAP
 #endif
 
-#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
-#define LAYOUT_wrapper(...)           LAYOUT(__VA_ARGS__)
+#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 
 
 // Blocks for each of the four major keyboard layouts
@@ -236,6 +232,8 @@ enum {
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -245,9 +243,9 @@ enum {
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
-#define __________________ERGODOX_THUMB_CLUSTER_____________________       ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
                                                                                               KC_HOME,                 KC_PGUP, \
-                                                                            KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                                LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
 #endif // !USERSPACE
