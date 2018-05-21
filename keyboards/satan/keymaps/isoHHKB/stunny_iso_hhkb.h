@@ -16,6 +16,6 @@
    * `------------------------------------------------------------'
  */
 
-#define KEYMAP_ISO_HHKB KEYMAP_ISO_SPLITRSHIFT
+#define LAYOUT_iso_hhkb LAYOUT_iso_splitrshift
 
 #endif

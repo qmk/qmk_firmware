@@ -21,7 +21,7 @@
  */
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k49,\
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
@@ -48,7 +48,7 @@
    * | 40 | 41 | 42 |        45             | 4a | 4b | 4c | 4d  |
    * `-----------------------------------------------------------'
  */
-#define KEYMAP_ANSI( \
+#define LAYOUT_ansi( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,      k2d, \
@@ -64,7 +64,7 @@
 }
 /* Satan GH60 ISO layout
  */
-#define KEYMAP_ISO( \
+#define LAYOUT_iso( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
     k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  \
     k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
@@ -93,7 +93,7 @@
    * `------------------------------------------------------------'
  */
 
-#define KEYMAP_HHKB( \
+#define LAYOUT_hhkb( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k49, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,      k2d, \
@@ -123,7 +123,7 @@
 
    swap 3c and 3d. 3c is right of 3d in reality
  */
-#define KEYMAP_ISO_SPLITRSHIFT( \
+#define LAYOUT_iso_splitrshift( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
@@ -153,7 +153,7 @@
 
    swap 3c and 3d. 3c is right of 3d in reality
  */
-#define KEYMAP_ISO_SPLITRSHIFT_SPLITBACKSPACE( \
+#define LAYOUT_iso_splitrshift_splitbackspace( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k49,\
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, \
@@ -171,9 +171,9 @@
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
-#define LAYOUT_60_ansi KEYMAP_ANSI
-#define LAYOUT_60_iso KEYMAP_ISO
-#define LAYOUT_60_ansi_split_bs_rshift KEYMAP_HHKB
-#define LAYOUT_60_iso_split_bs_rshift KEYMAP_ISO_SPLITRSHIFT_SPLITBACKSPACE
+#define LAYOUT_60_ansi LAYOUT_ansi
+#define LAYOUT_60_iso LAYOUT_iso
+#define LAYOUT_60_ansi_split_bs_rshift LAYOUT_hhkb
+#define LAYOUT_60_iso_split_bs_rshift LAYOUT_iso_splitrshift_splitbackspace
 
 #endif
