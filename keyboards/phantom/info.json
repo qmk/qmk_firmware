@@ -5,7 +5,7 @@
   "width": 18.25,
   "height": 6.5,
   "layouts": {
-    "KEYMAP": {
+    "LAYOUT": {
       "key_count": 87,
       "layout": [
         {
@@ -459,7 +459,7 @@
         }
       ]
     },
-    "KEYMAP_WINKEYLESS": {
+    "LAYOUT_winkeyless": {
       "key_count": 86,
       "layout": [
         {
@@ -905,7 +905,7 @@
         }
       ]
     },
-    "KEYMAP_7BIT": {
+    "LAYOUT_7bit": {
       "key_count": 101,
       "layout": [
         {
@@ -1412,7 +1412,7 @@
         }
       ]
     },
-    "KEYMAP_ISO_WINKEYLESS": {
+    "LAYOUT_iso_winkeyless": {
       "key_count": 87,
       "layout": [
         {
@@ -1861,7 +1861,7 @@
         }
       ]
     },
-    "KEYMAP_ISO": {
+    "LAYOUT_iso": {
       "key_count": 88,
       "layout": [
         {
