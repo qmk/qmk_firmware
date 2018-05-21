@@ -40,12 +40,7 @@ extern keymap_config_t keymap_config;
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-  NAV,
-  MEDIA,
-  ADJUST
+  DVORAK
 };
 
 // Fillers to make layering more clear
@@ -55,21 +50,21 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT( \
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_LGUI, KC_LALT,                 MEDIA  , KC_DEL,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-    NAV,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LOWER,   KC_LSFT, CTL_T(KC_ENT),           KC_RALT, KC_SPC,   RAISE,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LGUI \
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                                                KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                  KC_LGUI,      KC_LALT,            MO(_MEDIA)  , KC_DEL,               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+    MO(_NAV),KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    MO(_LOWER),   KC_LSFT, CTL_T(KC_ENT),           KC_RALT,      KC_SPC, MO(_RAISE),   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LGUI \
   ),
 
   [_COLEMAK] = LAYOUT(\
-    KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
-    KC_ESC,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,             KC_UP,    KC_DOWN,        KC_LEFT, KC_RIGHT,          KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT, \
-    KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_LGUI \
+    KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                                                                             KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
+    KC_ESC,   KC_A,    KC_R,    KC_S,    KC_T,    KC_D,      KC_UP,    KC_DOWN,                    KC_LEFT, KC_RIGHT,               KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT, \
+    KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,      MO(_LOWER), KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  MO(_RAISE),    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH, KC_LGUI \
   ),
 
   [_DVORAK] = LAYOUT(\
-    KC_TAB,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                   KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-    KC_ESC,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,             KC_UP,    KC_DOWN,        KC_LEFT, KC_RIGHT,          KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-    KC_LCTL,  KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X,      LOWER, KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  RAISE,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_LGUI \
+    KC_TAB,   KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y,                                                                             KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
+    KC_ESC,   KC_A,    KC_O,    KC_E,   KC_U,     KC_I,                  KC_UP,    KC_DOWN,        KC_LEFT, KC_RIGHT,               KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+    KC_LCTL,  KC_SCLN, KC_Q,    KC_J,   KC_K,     KC_X,      MO(_LOWER), KC_SPACE, KC_BSPC,        KC_DEL,  KC_ENT,  MO(_RAISE),    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_LGUI \
   ),
 
   [_LOWER] = LAYOUT( \
@@ -118,6 +113,14 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+uint32_t layer_state_set_user(uint32_t state) {
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  state = update_tri_layer_state(state, _LOWER, _NAV, _NAV2);
+  return state;
+}
+
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case QWERTY:
@@ -147,54 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case LOWER:
-    if (record->event.pressed) {
-      layer_on(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      update_tri_layer(_LOWER, _NAV, _NAV2);
-    } else {
-      layer_off(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      update_tri_layer(_LOWER, _NAV, _NAV2);
-    }
-    return false;
-    break;
-  case RAISE:
-    if (record->event.pressed) {
-      layer_on(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    } else {
-      layer_off(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case NAV:
-    if (record->event.pressed) {
-      layer_on(_NAV);
-      update_tri_layer(_LOWER, _NAV, _NAV2);
-    } else {
-      layer_off(_NAV);
-      update_tri_layer(_LOWER, _NAV, _NAV2);
-    }
-    return false;
-    break;
-  case MEDIA:
-    if (record->event.pressed) {
-      layer_on(_MEDIA);
-    } else {
-      layer_off(_MEDIA);
-    }
-    return false;
-    break;
-  case ADJUST:
-    if (record->event.pressed) {
-      layer_on(_ADJUST);
-    } else {
-      layer_off(_ADJUST);
-    }
-    return false;
-    break;
   }
   return true;
 }
+
