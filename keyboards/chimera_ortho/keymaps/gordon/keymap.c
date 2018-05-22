@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "chimera_ortho.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "version.h"
 #include "process_keycode/process_tap_dance.h"
@@ -206,7 +206,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+----.      ,----+----+----+----+----+----+----.
      MESC, Q  ,CSHW,ENAV, R  , T  ,SPC ,       CLPS, Y  , U  ,INAV, O  , P  ,TTT,
   //|----+----+----+----+----+----+----|      |----+----+----+----+----+----+----|
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-  [_NUMPAD] = KC_KEYMAP(  
+  [_NUMPAD] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
          ,    ,    ,    ,ASTR,    ,    ,          ,    , 7  , 8  , 9  ,ASTR,/**/,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -230,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-  [_SYMBOLS] = KC_KEYMAP(  
+  [_SYMBOLS] = LAYOUT_kc(  
   //,----+----+-----+----+----+----+----.     ,----+----+----+----+----+----+----.
          ,EXLM, AT  ,LCBR,RCBR,HASH,    ,          ,CIRC,AMPR,ASTR,LPRN,RPRN,/**/,
   //|----+----+-----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -242,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \-------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-  [_FUNCTION] = KC_KEYMAP(  
+  [_FUNCTION] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
     F6F7 ,F1  ,F2  ,F3  ,ALF4,F5  ,F6  ,      F7  ,F8  ,F9  ,F10 ,F11 ,F12 ,/**/,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -254,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-  [_NAV] = KC_KEYMAP(  
+  [_NAV] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
       ,   ,SNAPLEFT,/**/,SNAPRIGHT,,  ,           ,    ,    , UP ,    ,    ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -266,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-  [_TEXTNAV] = KC_KEYMAP(  
+  [_TEXTNAV] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
          ,   ,    ,    ,    ,    ,  ,             ,    ,    ,/**/,    ,    ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----+---/       \---+----+----+-------------------/
   ),
 
-   [_MOUSE] = KC_KEYMAP(  
+   [_MOUSE] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
          ,    ,    ,MS_UP,   ,   ,    ,      ,    ,    , UP ,    ,    ,    ,/**/
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -291,7 +291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ), 
 
 
-  [_MACROS] = KC_KEYMAP(  
+  [_MACROS] = LAYOUT_kc(  
   //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
     /**/,RESET,SECRET_2,SECRET_3,   ,   ,   ,SYSTEM_SLEEP,    ,    ,INCL,    ,    ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|

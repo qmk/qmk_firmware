@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "chimera_ergo.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -44,7 +44,7 @@ enum chimera_ergo_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
      LBRC, 1  ,SCTL,SPLT,SPFN, 5  ,       6  ,GBRC,SPRT,SCTR, 0  ,RBRC,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----/      \---+----+----+--------------/
   ),
 
-  [_CAPS] = KC_KEYMAP(
+  [_CAPS] = LAYOUT_kc(
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
          ,UNDS,    ,    ,    ,    ,          ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----/      \---+----+----+--------------/
   ),
 
-  [_NUMPAD] = KC_KEYMAP(
+  [_NUMPAD] = LAYOUT_kc(
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
          ,    ,    ,    ,    ,    ,          ,    ,    ,    ,MINS,    ,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----/      \---+----+----+--------------/
   ),
 
-  [_SYMBOLS] = KC_KEYMAP(
+  [_SYMBOLS] = LAYOUT_kc(
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
          ,    ,    ,    ,    ,    ,          ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----/      \---+----+----+--------------/
   ),
 
-  [_MACROS] = KC_KEYMAP(  
+  [_MACROS] = LAYOUT_kc(  
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
          ,    ,    ,    ,    ,    ,          ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // \------------------+----+----/      \---+----+----+--------------/
   ),
 
-  [_NAV] = KC_KEYMAP(  
+  [_NAV] = LAYOUT_kc(  
   //,----+----+----+----+----+----.     ,----+----+----+----+----+----.
          ,    ,    ,    ,    ,    ,          ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|     |----+----+----+----+----+----|

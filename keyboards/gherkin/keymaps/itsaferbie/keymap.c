@@ -1,4 +1,4 @@
-#include "gherkin.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 extern rgblight_config_t rgblight_config;
@@ -63,25 +63,25 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	// Photoshop layer
-	[_PS] = KEYMAP(
+	[_PS] = LAYOUT(
 		SAVE,    KC_W, KC_E, KC_T,  KC_U,   KC_I,   KC_P,   INVERT,  CUNDO,   NLAYER,
 		UNDO,    KC_H, KC_L, TRANS, ALIGNL, ALIGNC, ALIGNR, BRINGB,  BRINGF,  OPEN,
 		KC_LSFT, COPY, PAST, KC_Z,  KC_C,   KC_V,   KC_B,   KC_LBRC, KC_RBRC, AI),
 
 	// Illustrator layer
-	[_AI] = KEYMAP(
+	[_AI] = LAYOUT(
 		KC_TRNS, M(0),    RULER,   KC_TRNS, KC_G,    KC_TRNS, KC_TRNS, KC_Q,  KC_MINS, KC_PLUS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_E,    KC_TRNS, KC_TRNS, KC_TRNS, SHAPE, KC_O,    OPEN,  
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_M,  KC_SLSH, PR),
 
 	// Premiere layer
-	[_PR] = KEYMAP(
+	[_PR] = LAYOUT(
 		KC_TRNS, KC_Q,  KC_W,   KC_I,   KC_O, KC_P, IMPORT, EXPORT,  KC_MINS,  KC_EQL,
 		KC_TRNS, REDO,  KC_D,   KC_F,   KC_H, KC_M, KC_ENT, KC_LBRC, KC_RBRC,  OPEN,  
 		KC_TRNS, PCOPY, PPASTE, KC_SPC, KC_Z, KC_C, KC_V,   KC_LEFT, KC_RIGHT, XD),
 
 	// Experience Design layer
-	[_XD] = KEYMAP(
+	[_XD] = LAYOUT(
 		KC_TRNS, KC_E,    KC_R,  KC_T,  KC_P, KC_A, KC_L, KC_V, KC_DEL, NEW,
 		KC_TRNS, REDO,    GROUP, UNGRP, VIEW, HORZ, VERT, KC_Z, KC_ENT, OPEN,  
 		KC_TRNS, KC_LCTL, COPY,  PAST,  SYMB, LOCK, MASK, HIDE, REPEAT, PS),

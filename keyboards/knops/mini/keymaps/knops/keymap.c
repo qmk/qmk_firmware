@@ -1,4 +1,4 @@
-#include "mini.h"
+#include QMK_KEYBOARD_H
 
 /*KNOPS_MISC*/
 

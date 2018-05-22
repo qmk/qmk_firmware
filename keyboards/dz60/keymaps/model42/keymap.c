@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 // Hard Reload Chrome

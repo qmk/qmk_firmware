@@ -5,10 +5,8 @@ ACR60
 
 A customizable 60% keyboard made and sold by mechkeys.ca [More info on MECHKEYS](https://mechkeys.ca)
 
-Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)
-
+Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)  
 Hardware Supported: ACR60  
-    
 Hardware Availability: [MECHKEYS](https://mechkeys.ca/products/acr60)
 
 Make example for this keyboard (after setting up your build environment):

@@ -1,4 +1,4 @@
-#include "satan.h"
+#include QMK_KEYBOARD_H
 #include "keymap_extras/keymap_german.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.

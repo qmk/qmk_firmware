@@ -25,9 +25,9 @@
  * `qmk_firmware/layouts/community`.
  */
 
-/* The fully-featured KEYMAP() that has every single key available in the matrix.
+/* The fully-featured LAYOUT() that has every single key available in the matrix.
  */
-#define KEYMAP(\
+#define LAYOUT(\
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
      k10,   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,   k1e, \
      k20,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c,  k2e, \
@@ -44,7 +44,7 @@
 /* A layout that matches the Apple Extended Keyboard's main area. No split keys,
  * 3 mods on either side of the spacebar.
  */
-#define KEYMAP_AEK(\
+#define LAYOUT_aek(\
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c,   k0e, \
      k10,   k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,   k1e, \
      k20,    k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,    k2e, \

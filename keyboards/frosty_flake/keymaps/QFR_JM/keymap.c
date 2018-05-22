@@ -1,4 +1,4 @@
-#include "frosty_flake.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
@@ -42,7 +42,7 @@ enum custom_macros {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_COLEMAK] = KEYMAP_TKL(\
+[_COLEMAK] = LAYOUT_tkl(\
       KC_ESC,    KC_F1,     KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS, \
       KC_GRV,    KC_1,      KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,    KC_MINS, KC_EQL, KC_BSPC,  KC_INS, KC_HOME,KC_PGUP, \
       KC_TAB,    KC_Q,      KC_W,   KC_F,   KC_P,   KC_G,   KC_J,   KC_L,   KC_U,   KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC,KC_BSLS,  KC_DEL, KC_END, KC_PGDN, \
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL,KC_LGUI,      KC_LALT,                SPC_LW,                                  MSE,     KC_RGUI, KC_APP, KC_RCTL,  KC_LEFT,KC_DOWN,KC_RGHT
       ),
 
-[_QWERTY] = KEYMAP_TKL(\
+[_QWERTY] = LAYOUT_tkl(\
        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS, \
        KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP, \
        KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN, \
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTL,KC_LGUI,KC_LALT,                SPC_LW,                                 MSE,    KC_RGUI , KC_APP,  KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT  
        ),
 
-[_DVORAK] = KEYMAP_TKL(\
+[_DVORAK] = LAYOUT_tkl(\
        KC_ESC, KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,  KC_F12,             KC_PSCR, KC_SLCK, KC_PAUS, \
        KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS, KC_EQL,  KC_BSPC,   KC_INS,  KC_HOME, KC_PGUP, \
        KC_TAB, KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN, \
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LCTL,KC_LGUI,KC_LALT,                SPC_LW,                                 MSE,    KC_RGUI, KC_APP,  KC_RCTL,   KC_LEFT, KC_DOWN, KC_RGHT  
        ),
 
-[_LOWER] = KEYMAP_TKL(\
+[_LOWER] = LAYOUT_tkl(\
       RESET,    _______,    _______,   _______, _______,  KC_MPLY,   KC_MSTP,   KC_MPRV,   KC_MNXT,  _______, KC_MUTE, KC_VOLD, KC_VOLU,           QWERTY, COLEMAK,DVORAK, \
       KC_TILD,  KC_EXLM,    KC_AT,     KC_HASH,  KC_DLR,  KC_PERC,   KC_CIRC,   KC_AMPR,   KC_ASTR,  KC_LBRC, KC_RBRC, KC_UNDS, KC_PLUS, KC_BSPC,  _______,_______,_______, \
       KC_TAB,   KC_PGUP,    KC_HOME,   KC_UP,    KC_END,  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_PIPE,  _______,_______,_______, \
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______,    _______,             _______,                       KC_RALT,   _______,  _______, _______,                            _______,_______,_______  \
       ),
 
-[_MOUSE] = KEYMAP_TKL(\
+[_MOUSE] = LAYOUT_tkl(\
       _______,  _______,   _______,   _______,  _______, _______,   _______,   _______,   _______,  _______, _______, _______, _______,            _______,_______,_______, \
       KC_GRV,   KC_1,      KC_2,      KC_3,     KC_4,    KC_5,      KC_6,      KC_7,      KC_8,     KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,    _______,_______,_______, \
       KC_TAB,   KC_WH_U,   KC_WH_L,   KC_MS_U,  KC_WH_R, XXXXXXX,   XXXXXXX,   KC_BTN3,   KC_BTN4,  KC_BTN5, XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS,   _______,_______,_______, \

@@ -14,7 +14,7 @@
 CHANGELOG:
 
  0.1 - Initial commit. Based off of Profet's default keymap.
- 0.2 - Converted to a more Planck/Preonic keymap style file with 
+ 0.2 - Converted to a more Planck/Preonic keymap style file with
        persistent layers enabled. Renamed layers to reflect OLKB maps.
        Added a TODO list.
  0.3 - Moved location of media & volume keys. Added Print Screen, 

@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      | Space| End  |       | PgDn | Space  |      |
  *                                 `--------------------'       `----------------------'
  */
-[_QWERTY] = KEYMAP(
+[_QWERTY] = LAYOUT(
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   LT(_SYMB, KC_NO),
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      | Space| End  |       | PgDn | Space  |      |
  *                                 `--------------------'       `----------------------'
  */
-[_COLEMAK] = KEYMAP(
+[_COLEMAK] = LAYOUT(
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   LT(_SYMB, KC_NO),
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_PGDN,KC_BSPC, KC_ENT
     ),
 /* Qwerty on software Colemak : Useful for gaming with qwerty keymaps! */
-[_QWOC] = KEYMAP(
+[_QWOC] = LAYOUT(
         // left hand
         KC_GRV,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   LT(_MDIA, KC_NO),
         KC_TAB,         CM_Q,         CM_W,   CM_E,   CM_R,   CM_T,   LT(_SYMB, KC_NO),
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[_LOWER] = KEYMAP(
+[_LOWER] = LAYOUT(
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,
        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
@@ -258,7 +258,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[_RAISE] = KEYMAP(
+[_RAISE] = LAYOUT(
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,
        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
@@ -299,7 +299,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      | Space| End  |       | PgDn | Space  |      |
  *                                 `--------------------'       `----------------------'
  */
-[_PLOVER] = KEYMAP(
+[_PLOVER] = LAYOUT(
         // left hand
         KC_1,           KC_1,         KC_1,   KC_1,   KC_1,   KC_1,   XXXXXXX,
         XXXXXXX,        KC_1,         KC_1,   KC_1,   KC_1,   KC_1,   XXXXXXX,
@@ -341,7 +341,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[_SUPERDUPER] = KEYMAP(
+[_SUPERDUPER] = LAYOUT(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
@@ -362,7 +362,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,_______, KC_LSFT
     ),
 // Intermediate keymaps for SuperDuper (Combo keys does not work on Infinity yet)
-[_SUPER] = KEYMAP(
+[_SUPER] = LAYOUT(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
@@ -382,7 +382,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______,
              _______,_______, _______
     ),
-[_DUPER] = KEYMAP(
+[_DUPER] = LAYOUT(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
@@ -424,7 +424,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | Click|      |      |       |      |        | Click|
  *                                 `--------------------'       `----------------------'
  */
-[_MOUSE] = KEYMAP(
+[_MOUSE] = LAYOUT(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  KC_WH_U,   KC_MS_U,   KC_WH_D,   _______,   _______,
@@ -466,7 +466,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |        |      |
  *                                 `--------------------'       `----------------------'
  */
-[_ADJUST] = KEYMAP(
+[_ADJUST] = LAYOUT(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, RESET,    _______,   _______,   _______,   _______,   _______,
@@ -510,7 +510,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[_SYMB] = KEYMAP(
+[_SYMB] = LAYOUT(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        _______,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,_______,
@@ -552,7 +552,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[_MDIA] = KEYMAP(
+[_MDIA] = LAYOUT(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, KC_MS_U, _______, _______, _______,
        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,

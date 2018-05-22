@@ -4,7 +4,7 @@
 #include "quantum.h"
 
 // default keymap: all 117 keys with ANSI Enter 
-#define KEYMAP( \
+#define LAYOUT_ansi_max( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,    K007, K008, K009, K010, \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K409, K410,   K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509, K510,         K204, K205, K206,    K207, K208, K209, K210, \
@@ -26,7 +26,7 @@
 }
 
 // default ISO keymap: all 117 keys with ISO Enter 
-#define KEYMAP_ISO( \
+#define LAYOUT_iso_max( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,    K007, K008, K009, K010, \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K409, K410,   K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509,               K204, K205, K206,    K207, K208, K209, K210, \
@@ -48,7 +48,7 @@
 }
 
 // Standard ANSI Keyboard
-#define ANSI_STD( \
+#define LAYOUT_ansi_standard( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,                            \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K410,         K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509, K510,         K204, K205, K206,    K207, K208, K209,       \
@@ -70,7 +70,7 @@
 }
 
 // Standard ISO Keyboard
-#define ISO_STD( \
+#define LAYOUT_iso_standard( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,                            \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K410,         K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509,               K204, K205, K206,    K207, K208, K209,       \
@@ -92,7 +92,7 @@
 }
 
 // Winkeyless ANSI Keyboard
-#define ANSI_WKL( \
+#define LAYOUT_ansi_winkeyless( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,                            \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K410,         K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509, K510,         K204, K205, K206,    K207, K208, K209,       \
@@ -114,7 +114,7 @@
 }
 
 // Winkeyless ISO Keyboard
-#define ISO_WKL( \
+#define LAYOUT_iso_winkeyless( \
 	K000,       K001, K002, K003, K300, K301, K302, K303, K306, K307, K308, K309, K310,         K004, K005, K006,                            \
 	K100, K101, K102, K103, K400, K401, K402, K403, K404, K405, K406, K407, K408, K410,         K104, K105, K106,    K107, K108, K109, K110, \
 	K200, K201, K202, K203, K500, K501, K502, K503, K505, K506, K507, K508, K509,               K204, K205, K206,    K207, K208, K209,       \

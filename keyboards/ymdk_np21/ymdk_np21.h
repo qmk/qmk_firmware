@@ -25,7 +25,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
-#define KEYMAP_GRID( \
+/* Orientation Guide
+ * ┌───┬───┬───┬───┬───┬───┐
+ * │K01│K02│K03│K04│K05│K06│
+ * ├───┼───┼───┼───┼───┼───┤
+ * │K11│K12│K13│K14│K15│K16├───┐
+ * ├───┼───┼───┼───┼───┼───┤USB│
+ * │K21│K22│K23│K24│K25│K26├───┘
+ * ├───┼───┼───┼───┼───┼───┤
+ * │K31│K32│K33│K34│K35│K36│
+ * └───┴───┴───┴───┴───┴───┘
+ */
+
+#define LAYOUT_grid( \
     K01, K02, K03, K04, K05, K06, \
     K11, K12, K13, K14, K15, K16, \
     K21, K22, K23, K24, K25, K26, \
@@ -38,6 +50,6 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
   { K36, K35, K34, K33, K32, K31 }  \
 }
 
-#define KEYMAP KEYMAP_GRID
+#define LAYOUT LAYOUT_grid
 
 #endif
