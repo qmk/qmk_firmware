@@ -4,7 +4,7 @@
 #include "quantum.h"
 #include "action_layer.h"
 
-#define EECONFIG_EDVORAK (uint8_t *)15
+#define EECONFIG_EDVORAK (uint8_t *)20
 
 extern keymap_config_t keymap_config;
 
