@@ -7,7 +7,7 @@
 // The first section contains all of the arguments as on the physical keyboard
 // The second converts the arguments into the 2-D scanned array
 
-#define KEYMAP(                           \
+#define LAYOUT(                           \
     kC0,kD0,kE0,kC1,kD1,kE1,kC2,kD2,kE2,  \
     k00,k10,k20,k30,k40,k50,              \
     k01,k11,k21,k31,k41,k51,              \
