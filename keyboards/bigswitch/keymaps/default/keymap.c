@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../../bigswitch.h"
+#include QMK_KEYBOARD_H
 #define LOCK_OSX LSFT(LCTL(KC_OSX_EJECT))
 #define SLEEP_OSX LALT(LGUI(KC_OSX_EJECT))
 
