@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_COLEMAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
              KC_C1R3, _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_DVORAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand        // right hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_BSLS,
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
              KC_C1R3, _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_WORKMAN] = LAYOUT_ergodox_pretty_wrapper(
         // left hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
              KC_C1R3, _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
@@ -240,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_ergodox_pretty_wrapper(
              _______, _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
+             KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,                 _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
              _______, _______, _______, _______, _______, _______,                                   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
              _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
@@ -251,7 +251,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_ergodox_pretty_wrapper(
              _______, _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
+             KC_GRV,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, _______,
              _______, _______, _______, _______, _______, _______,                                   _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
              _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RSFT,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
