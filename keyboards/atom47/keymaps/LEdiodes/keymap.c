@@ -1,4 +1,4 @@
-﻿#include QMK_KEYBOARD_H
+#include QMK_KEYBOARD_H
 
 // These are all aliases for the  function layers.
 #define _L0 0
