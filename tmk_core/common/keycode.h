@@ -412,7 +412,6 @@ enum hid_keyboard_keypad_usage {
 /* Special keycodes */
 /* NOTE: 0xA5-DF and 0xE8-FF are used for internal special purpose */
 enum internal_special_keycodes {
-    KC_OSX_EJECT        = 0x66,
     /* System Control */
     KC_SYSTEM_POWER     = 0xA5,
     KC_SYSTEM_SLEEP,
