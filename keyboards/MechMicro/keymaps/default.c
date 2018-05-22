@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-
+#include mechmicro.h
 #define _BL 0
 #define _FN1 1
 #define _FN2 2
