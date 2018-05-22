@@ -1,8 +1,7 @@
 {
   "keyboard_name": "Atom47", 
-  "url": "", 
-  "maintainer": "qmk", 
-  "bootloader": "", 
+  "url": "https://atomkb.eu/atom47", 
+  "maintainer": "Maarten Dekkers", 
   "width": 13, 
   "height": 4, 
   "layouts": {
