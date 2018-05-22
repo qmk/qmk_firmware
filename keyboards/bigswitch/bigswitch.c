@@ -16,3 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bigswitch.h"
 
+void matrix_init_user(void) {
+  rgblight_enable();
+  rgblight_mode(9);
+}
