@@ -301,6 +301,7 @@ void matrix_init_user(void) {
 
 };
 
+/*
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1<<USB_LED_NUM_LOCK)) {
         PORTF |= (1<<2);
@@ -318,3 +319,4 @@ void led_set_user(uint8_t usb_led) {
         PORTF &= ~(1<<1);
     }
 }
+*/
