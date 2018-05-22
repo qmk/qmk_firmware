@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "mini1800.h"
 #include "issi.h"
 #include "lighting.h"
 #include "action_layer.h"

@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "lfk87.h"
 #include "issi.h"
 #include "lighting.h"
 #include "action_layer.h"
