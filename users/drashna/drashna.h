@@ -109,11 +109,6 @@ enum userspace_custom_keycodes {
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
-#define KC_QWTY KC_QWERTY
-#define KC_DVOR KC_DVORAK
-#define KC_COLE KC_COLEMAK
-#define KC_WORK KC_WORKMAN
-
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK

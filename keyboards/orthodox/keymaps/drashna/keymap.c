@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_wrapper(\
   KC_MAKE, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,                                                               KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_RESET,
-  VRSN,    _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, KC_QWTY, KC_COLE, KC_DVOR, KC_WORK, EPRM,
+  VRSN,    _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,         _______, _______,          AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, EPRM,
   TG(_MODS),RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T,_______, _______, _______,         _______, _______, _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY
 )
 
