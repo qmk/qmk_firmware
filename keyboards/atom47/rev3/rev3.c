@@ -1,4 +1,4 @@
-#include "rev1.h"
+#include "rev3.h"
 #include "led.h"
 
 void matrix_init_kb(void) {
