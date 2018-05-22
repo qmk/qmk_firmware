@@ -17,9 +17,5 @@
 #define MECHMICRO_H
 
 #include "quantum.h"
-
-#ifdef KEYBOARD_mechmicro_v1
-    #include "v1.h"
-#endif
-
+#include "v1.h"
 #endif
